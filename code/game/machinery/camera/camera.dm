@@ -141,34 +141,34 @@
 		toggle_cam(null, 0)
 	..()
 
-/obj/machinery/camera/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
+/obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/msg = "<span class='notice'>You attach [used] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.canUnEquip(I, FALSE))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
+		if(!user.canUnEquip(used, FALSE))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
-			var/obj/item/stack/sheet/mineral/plasma/P = I
+			var/obj/item/stack/sheet/mineral/plasma/P = used
 			upgradeEmpProof()
 			to_chat(user, "[msg]")
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.canUnEquip(I, FALSE))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
+		if(!user.canUnEquip(used, FALSE))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
 			to_chat(user, "[msg]")
-			qdel(I)
+			qdel(used)
 		else
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(used, /obj/item/paper) || istype(used, /obj/item/pda)) && isliving(user))
 		if(!can_use())
 			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
 			return
@@ -179,12 +179,12 @@
 
 		var/itemname = ""
 		var/info = ""
-		if(istype(I, /obj/item/paper))
-			X = I
+		if(istype(used, /obj/item/paper))
+			X = used
 			itemname = X.name
 			info = X.info
 		else
-			PDA = I
+			PDA = used
 			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
 			if(N)
 				itemname = PDA.name
@@ -195,7 +195,7 @@
 			if(isAI(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(U.name == "Unknown")
 					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
@@ -204,12 +204,11 @@
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse("<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>", "window=[itemname]")
-
-	else if(istype(I, /obj/item/laser_pointer))
-		var/obj/item/laser_pointer/L = I
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/laser_pointer))
+		var/obj/item/laser_pointer/L = used
 		L.laser_act(src, user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)

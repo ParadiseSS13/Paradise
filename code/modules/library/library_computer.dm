@@ -65,22 +65,22 @@
 /obj/machinery/computer/library/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/library/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/book))
-		select_book(O)
-		return
-	if(istype(O, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/B = O
+/obj/machinery/computer/library/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/book))
+		select_book(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = used
 		if(!B.connect(src))
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
-		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/ID = O //at some point, this should be moved over to its own proc (select_patron()???)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/ID = used //at some point, this should be moved over to its own proc (select_patron()???)
 		if(ID.registered_name)
 			user_data.patron_name = ID.registered_name
 		else
@@ -88,17 +88,17 @@
 			user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: No name detected!</span>")
-			return //no point in continuing if the ID card has no associated name!
+			return ITEM_INTERACT_COMPLETE //no point in continuing if the ID card has no associated name!
 		playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 		if(ID.associated_account_number)
 			user_data.patron_account = ID.associated_account_number
 		else
 			user_data.patron_account = null
 			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, O, time = 60))
-		return
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

@@ -114,21 +114,24 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+/obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
-	else if(istype(I, /obj/item/bombcore))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/bombcore))
 		if(!payload)
 			if(!user.drop_item())
-				return
-			payload = I
+				return ITEM_INTERACT_COMPLETE
+			payload = used
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)

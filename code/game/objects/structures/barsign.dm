@@ -178,12 +178,12 @@
 		return
 	attack_hand(user)
 
-/obj/machinery/barsign/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/barsign/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	switch(build_stage)
 		// Inserting the electronics/circuit
 		if(BARSIGN_FRAME)
-			if(istype(I, /obj/item/barsign_electronics))
-				var/obj/item/barsign_electronics/electronic = I
+			if(istype(used, /obj/item/barsign_electronics))
+				var/obj/item/barsign_electronics/electronic = used
 				if(electronic.destroyed)
 					emagged = TRUE
 				else
@@ -196,37 +196,37 @@
 				qdel(electronic)
 				build_stage = BARSIGN_CIRCUIT
 				update_icon()
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 		// Wiring the bar sign
 		if(BARSIGN_CIRCUIT)
-			if(istype(I, /obj/item/stack/cable_coil))
-				if(!I.use(5))
+			if(istype(used, /obj/item/stack/cable_coil))
+				if(!used.use(5))
 					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				stat &= ~EMPED
 				build_stage = BARSIGN_WIRED
 				update_icon()
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				power_state = IDLE_POWER_USE
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 		// Placing in the glass
 		if(BARSIGN_WIRED)
-			if(istype(I, /obj/item/stack/sheet/glass))
-				if(!I.use(2))
+			if(istype(used, /obj/item/stack/sheet/glass))
+				if(!used.use(2))
 					to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				build_stage = BARSIGN_COMPLETE
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				obj_integrity = max_integrity
 				if(stat & BROKEN)
 					stat &= ~BROKEN
 				set_sign(new /datum/barsign/hiddensigns/signoff)
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/barsign/proc/pick_sign(mob/user)

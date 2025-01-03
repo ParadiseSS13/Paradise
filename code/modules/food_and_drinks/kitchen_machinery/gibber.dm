@@ -93,24 +93,24 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby__legacy__attackchain(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
+/obj/machinery/gibber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(G.state < 2)
 			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		move_into_gibber(user,G.affecting)
 		qdel(G)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		return
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, P))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

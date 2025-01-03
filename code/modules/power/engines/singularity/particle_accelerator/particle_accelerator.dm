@@ -241,17 +241,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	dir = turn(dir, 270)
 
-/obj/machinery/particle_accelerator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+/obj/machinery/particle_accelerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!iscoil(used))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
+		var/obj/item/stack/cable_coil/C = used
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user] adds wires to [src].", \
-				"You add some wires.")
+			user.visible_message("[user] adds wires to [src].", "You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)

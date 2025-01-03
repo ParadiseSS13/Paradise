@@ -256,11 +256,12 @@ Pipelines + Other Objects -> Pipe network
 	return FALSE
 
 //(De)construction
-/obj/machinery/atmospherics/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/machinery/atmospherics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference

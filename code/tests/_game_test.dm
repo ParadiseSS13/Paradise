@@ -53,6 +53,7 @@
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
+	var/testing_area_name = "test_generic.dmm"
 
 /datum/game_test/New()
 	if(!length(available_turfs))
@@ -64,7 +65,7 @@
 	if(!length(testing_levels))
 		Fail("Could not find appropriate z-level for spawning test areas")
 	var/testing_z_level = pick(testing_levels)
-	var/datum/map_template/generic_test_area = GLOB.map_templates["test_generic.dmm"]
+	var/datum/map_template/generic_test_area = GLOB.map_templates[testing_area_name]
 	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
 		Fail("Could not place generic testing area on z-level [testing_z_level]")
 

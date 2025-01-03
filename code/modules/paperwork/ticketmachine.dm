@@ -118,16 +118,16 @@
 			maptext_x = 8
 	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
-/obj/machinery/ticket_machine/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/hand_labeler_refill))
+/obj/machinery/ticket_machine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/hand_labeler_refill))
 		if(!(ticket_number >= max_number))
-			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
-			return
+			to_chat(user, "<span class='notice'>[src] refuses [used]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
 		if(do_after(user, 30, target = src))
-			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
+			to_chat(user, "<span class='notice'>You insert [used] into [src] as it whirs nondescriptly.</span>")
 			user.drop_item()
-			qdel(I)
+			qdel(used)
 			ticket_number = 0
 			current_number = 0
 			for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -136,16 +136,18 @@
 			tickets.Cut()
 			max_number = initial(max_number)
 			update_icon()
-			return
-	else if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/heldID = I
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/heldID = used
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
 			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
 			handle_maptext()
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/ticket_machine/proc/reset_cooldown()

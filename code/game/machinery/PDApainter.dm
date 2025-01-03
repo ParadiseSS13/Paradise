@@ -71,14 +71,15 @@
 		storedpda = null
 		update_icon()
 
-/obj/machinery/pdapainter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
+/obj/machinery/pdapainter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_unfasten_wrench(user, used))
 		power_change()
-		return
-	if(istype(I, /obj/item/pda))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/pda))
 		insertpda(user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
 	. = TRUE

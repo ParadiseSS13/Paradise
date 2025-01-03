@@ -201,9 +201,9 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
-/obj/machinery/atmospherics/trinary/mixer/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else
-		return ..()
+/obj/machinery/atmospherics/trinary/mixer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()

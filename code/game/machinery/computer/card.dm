@@ -152,7 +152,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		to_chat(user, "There is nothing to remove from the console.")
 
-/obj/machinery/computer/card/attackby__legacy__attackchain(obj/item/card/id/id_card, mob/user, params)
+/obj/machinery/computer/card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/card/id/id_card = used
 	if(!istype(id_card))
 		return ..()
 	if(istype(id_card, /obj/item/card/id/nct_data_chip))
@@ -171,6 +172,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
+
+	return ITEM_INTERACT_COMPLETE
 
 //Check if you can't touch a job in any way whatsoever
 /obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)

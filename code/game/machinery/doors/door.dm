@@ -256,16 +256,17 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
-		return
+/obj/machinery/door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
-	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
-		try_to_crowbar(user, I)
-		return TRUE
-	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM && HAS_TRAIT(used, TRAIT_FORCES_OPEN_DOORS_ITEM))
+		try_to_crowbar(user, used)
+		return ITEM_INTERACT_COMPLETE
+	else if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)

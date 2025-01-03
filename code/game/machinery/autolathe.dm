@@ -263,18 +263,18 @@
 		data["queue"] = null
 	return data
 
-/obj/machinery/autolathe/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/autolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(stat)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	// Disks in general
-	if(istype(O, /obj/item/disk))
-		if(istype(O, /obj/item/disk/design_disk))
-			var/obj/item/disk/design_disk/D = O
+	if(istype(used, /obj/item/disk))
+		if(istype(used, /obj/item/disk/design_disk))
+			var/obj/item/disk/design_disk/D = used
 			if(D.blueprint)
 				var/datum/design/design = D.blueprint // READ ONLY!!
 
@@ -287,8 +287,8 @@
 					return TRUE
 
 				user.visible_message(
-					"[user] begins to load \the [O] in \the [src]...",
-					"You begin to load a design from \the [O]...",
+					"[user] begins to load \the [used] in \the [src]...",
+					"You begin to load a design from \the [used]...",
 					"You hear the chatter of a floppy drive."
 				)
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
@@ -301,12 +301,12 @@
 				busy = FALSE
 			else
 				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			// So that people who are bad at computers don't shred their disks
 			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

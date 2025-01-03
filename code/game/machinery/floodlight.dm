@@ -90,19 +90,21 @@
 		set_light(brightness_on)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/floodlight/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stock_parts/cell))
+/obj/machinery/floodlight/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
 			else
-				playsound(loc, W.usesound, 50, TRUE)
+				playsound(loc, used.usesound, 50, TRUE)
 				user.drop_item()
-				W.loc = src
-				cell = W
+				used.loc = src
+				cell = used
 				to_chat(user, "<span class='notice'>You insert the power cell.</span>")
+
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)

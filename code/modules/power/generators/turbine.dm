@@ -126,8 +126,8 @@
 		E += M.rating
 	efficiency = E / 6
 
-/obj/machinery/power/compressor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_change_direction_wrench(user, I))
+/obj/machinery/power/compressor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_change_direction_wrench(user, used))
 		turbine = null
 		inturf = get_step(src, dir)
 		locate_machinery()
@@ -137,7 +137,8 @@
 		else
 			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
 			stat |= BROKEN
-		return
+
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -328,11 +329,11 @@
 		return
 	. += image(icon, "turb-o", FLY_LAYER)
 
-/obj/machinery/power/turbine/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
-		return
+/obj/machinery/power/turbine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_change_direction_wrench(user, I))
+	if(default_change_direction_wrench(user, used))
 		compressor = null
 		outturf = get_step(src, dir)
 		locate_machinery()
@@ -342,10 +343,10 @@
 		else
 			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
 			stat |= BROKEN
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, I))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

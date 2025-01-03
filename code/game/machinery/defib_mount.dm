@@ -85,35 +85,36 @@
 	defib.paddles_on_defib = FALSE
 	user.put_in_hands(defib.paddles)
 
-/obj/machinery/defibrillator_mount/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/defibrillator))
+/obj/machinery/defibrillator_mount/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/defibrillator))
 		if(defib)
 			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
-			return
-		if(I.flags & NODROP || !user.drop_item() || !I.forceMove(src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		user.visible_message("<span class='notice'>[user] hooks up [I] to [src]!</span>", \
-		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		user.visible_message("<span class='notice'>[user] hooks up [used] to [src]!</span>", \
+		"<span class='notice'>You press [used] into the mount, and it clicks into place.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-		defib = I
+		defib = used
 		update_icon(UPDATE_OVERLAYS)
-		return
-	else if(defib && I == defib.paddles)
+		return ITEM_INTERACT_COMPLETE
+	else if(defib && used == defib.paddles)
 		user.drop_item()
-		return
-	var/obj/item/card/id = I.GetID()
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/card/id = used.GetID()
 	if(id)
 		if(check_access(id) || SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			clamps_locked = !clamps_locked
 			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
 			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)

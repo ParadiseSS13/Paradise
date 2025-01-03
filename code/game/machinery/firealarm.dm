@@ -125,26 +125,28 @@ FIRE ALARM
 		alarm(rand(30/severity, 60/severity))
 	..()
 
-/obj/machinery/firealarm/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/firealarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 	if(wiresexposed)
 		if(buildstage == FIRE_ALARM_UNWIRED)
-			if(istype(I, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/coil = I
+			if(istype(used, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/coil = used
 				if(!coil.use(5))
 					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				buildstage = FIRE_ALARM_READY
-				playsound(get_turf(src), I.usesound, 50, 1)
+				playsound(get_turf(src), used.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				update_icon()
+				return ITEM_INTERACT_COMPLETE
 		if(buildstage == FIRE_ALARM_FRAME)
-			if(istype(I, /obj/item/firealarm_electronics))
+			if(istype(used, /obj/item/firealarm_electronics))
 				to_chat(user, "<span class='notice'>You insert the circuit!</span>")
-				qdel(I)
+				qdel(used)
 				buildstage = FIRE_ALARM_UNWIRED
 				update_icon()
-		return
+				return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)

@@ -49,8 +49,8 @@
 	..()
 	ActivationReaction(user,"touch")
 
-/obj/machinery/anomalous_crystal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	ActivationReaction(user,"weapon")
+/obj/machinery/anomalous_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	ActivationReaction(user, "weapon")
 	return ..()
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)

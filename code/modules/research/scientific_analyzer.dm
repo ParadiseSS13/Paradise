@@ -48,50 +48,53 @@ Note: Must be placed within 3 tiles of the R&D Console
 	return temp_list
 
 
-/obj/machinery/r_n_d/scientific_analyzer/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/storage/part_replacer))
+/obj/machinery/r_n_d/scientific_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "s_analyzer", O))
+	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "s_analyzer", used))
 		if(linked_console)
 			linked_console.linked_analyzer = null
 			linked_console = null
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(exchange_parts(user, O))
-		return
+	// TODO: Almost positive this doesn't need to do the same exchange parts shit as /obj/machinery
+	if(exchange_parts(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, O))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isitem(O) && !loaded_item)
-		if(!O.origin_tech)
+	if(isitem(used) && !loaded_item)
+		if(!used.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
+		var/list/temp_tech = ConvertReqString2List(used.origin_tech)
 		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
-			return
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand, you cannot put it in [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 		busy = TRUE
-		loaded_item = O
-		O.loc = src
-		to_chat(user, "<span class='notice'>You add [O] to [src]!</span>")
+		loaded_item = used
+		used.loc = src
+		to_chat(user, "<span class='notice'>You add [used] to [src]!</span>")
 		SStgui.update_uis(linked_console)
 		flick("s_analyzer_la", src)
 		spawn(10)
 			icon_state = "s_analyzer_l"
 			busy = FALSE
+
+		return ITEM_INTERACT_COMPLETE

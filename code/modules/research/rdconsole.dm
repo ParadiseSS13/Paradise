@@ -179,27 +179,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = 0
 	return ..()
 
-/obj/machinery/computer/rdconsole/attackby__legacy__attackchain(obj/item/D as obj, mob/user as mob, params)
-
+/obj/machinery/computer/rdconsole/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//Loading a disk into it.
-	if(istype(D, /obj/item/disk))
+	if(istype(used, /obj/item/disk))
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
+		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
+		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
-		D.loc = src
+			return ITEM_INTERACT_COMPLETE
+		used.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
-		..()
+		return ..()
+
 	SStgui.update_uis(src)
-	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)

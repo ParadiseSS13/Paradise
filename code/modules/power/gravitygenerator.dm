@@ -152,18 +152,22 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	update_icon()
 
 // Step 2
-/obj/machinery/gravity_generator/main/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/main/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(construction_state != GRAV_NEEDS_PLASTEEL)
 		return ..()
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
+
+	if(istype(used, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/PS = used
 		if(PS.amount < 10)
 			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
 		construction_state = GRAV_NEEDS_WRENCH
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 // Step 3
 /obj/machinery/gravity_generator/main/wrench_act(mob/living/user, obj/item/I)
