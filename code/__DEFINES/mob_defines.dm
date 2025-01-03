@@ -10,6 +10,8 @@
 #define ORGAN_DISFIGURED   (1 << 6)
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1 << 9)
 
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"

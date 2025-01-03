@@ -18,13 +18,13 @@ function UINewGame() {
 
 	EnsureAnalysisStopped();
 	ResetGame();
-	if (InitializeBackgroundEngine()) {
+	if(InitializeBackgroundEngine()) {
 		g_backgroundEngine.postMessage('go');
 	}
 	g_allMoves = [];
 	RedrawBoard();
 
-	if (!g_playerWhite) {
+	if(!g_playerWhite) {
 		SearchAndRedraw();
 	}
 }
@@ -34,15 +34,15 @@ function UIClose() {
 }
 
 function EnsureAnalysisStopped() {
-	if (g_analyzing && g_backgroundEngine != null) {
+	if(g_analyzing && g_backgroundEngine != null) {
 		g_backgroundEngine.terminate();
 		g_backgroundEngine = null;
 	}
 }
 
 function UIAnalyzeToggle() {
-	if (InitializeBackgroundEngine()) {
-		if (!g_analyzing) {
+	if(InitializeBackgroundEngine()) {
+		if(!g_analyzing) {
 			g_backgroundEngine.postMessage('analyze');
 		} else {
 			EnsureAnalysisStopped();
@@ -55,10 +55,10 @@ function UIAnalyzeToggle() {
 }
 
 function UIChangeFEN() {
-	if (!g_changingFen) {
+	if(!g_changingFen) {
 		var fenTextBox = document.getElementById('FenTextBox');
 		var result = InitializeFromFen(fenTextBox.value);
-		if (result.length != 0) {
+		if(result.length != 0) {
 			UpdatePVDisplay(result);
 			return;
 		} else {
@@ -83,7 +83,7 @@ function UIChangeStartPlayer() {
 
 function UpdatePgnTextBox(move) {
 	var pgnTextBox = document.getElementById('PgnTextBox');
-	if (g_toMove != 0) {
+	if(g_toMove != 0) {
 		pgnTextBox.value += moveNumber + '. ';
 		moveNumber++;
 	}
@@ -96,7 +96,7 @@ function UIChangeTimePerMove() {
 }
 
 function FinishMove(bestMove, value, timeTaken, ply) {
-	if (bestMove != null) {
+	if(bestMove != null) {
 		UIPlayMove(bestMove, BuildPVMessage(bestMove, value, timeTaken, ply));
 	} else {
 		window.location = 'byond://?src=' + hSrc + ';checkmate=1';
@@ -115,11 +115,11 @@ function UIPlayMove(move, pv) {
 }
 
 function UIUndoMove() {
-	if (g_allMoves.length == 0) {
+	if(g_allMoves.length == 0) {
 		return;
 	}
 
-	if (g_backgroundEngine != null) {
+	if(g_backgroundEngine != null) {
 		g_backgroundEngine.terminate();
 		g_backgroundEngine = null;
 	}
@@ -127,7 +127,7 @@ function UIUndoMove() {
 	UnmakeMove(g_allMoves[g_allMoves.length - 1]);
 	g_allMoves.pop();
 
-	if (g_playerWhite != !!g_toMove && g_allMoves.length != 0) {
+	if(g_playerWhite != !!g_toMove && g_allMoves.length != 0) {
 		UnmakeMove(g_allMoves[g_allMoves.length - 1]);
 		g_allMoves.pop();
 	}
@@ -136,9 +136,9 @@ function UIUndoMove() {
 }
 
 function UpdatePVDisplay(pv) {
-	if (pv != null) {
+	if(pv != null) {
 		var outputDiv = document.getElementById('output');
-		if (outputDiv.firstChild != null) {
+		if(outputDiv.firstChild != null) {
 			outputDiv.removeChild(outputDiv.firstChild);
 		}
 		outputDiv.appendChild(document.createTextNode(pv));
@@ -146,7 +146,7 @@ function UpdatePVDisplay(pv) {
 }
 
 function SearchAndRedraw() {
-	if (g_analyzing) {
+	if(g_analyzing) {
 		EnsureAnalysisStopped();
 		InitializeBackgroundEngine();
 		g_backgroundEngine.postMessage('position ' + GetFen());
@@ -154,7 +154,7 @@ function SearchAndRedraw() {
 		return;
 	}
 
-	if (InitializeBackgroundEngine()) {
+	if(InitializeBackgroundEngine()) {
 		g_backgroundEngine.postMessage('search ' + g_timeout);
 	} else {
 		Search(FinishMove, 99, null);
@@ -165,18 +165,18 @@ var g_backgroundEngineValid = true;
 var g_backgroundEngine;
 
 function InitializeBackgroundEngine() {
-	if (!g_backgroundEngineValid) {
+	if(!g_backgroundEngineValid) {
 		return false;
 	}
 
-	if (g_backgroundEngine == null) {
+	if(g_backgroundEngine == null) {
 		g_backgroundEngineValid = true;
 		try {
 			g_backgroundEngine = new Worker('garbochess.js');
 			g_backgroundEngine.onmessage = function (e) {
-				if (e.data.match('^pv') == 'pv') {
+				if(e.data.match('^pv') == 'pv') {
 					UpdatePVDisplay(e.data.substr(3, e.data.length - 3));
-				} else if (e.data.match('^message') == 'message') {
+				} else if(e.data.match('^message') == 'message') {
 					EnsureAnalysisStopped();
 					UpdatePVDisplay(e.data.substr(8, e.data.length - 8));
 				} else {
@@ -201,14 +201,14 @@ function UpdateFromMove(move) {
 	var toX = ((move >> 8) & 0xf) - 4;
 	var toY = ((move >> 12) & 0xf) - 2;
 
-	if (!g_playerWhite) {
+	if(!g_playerWhite) {
 		fromY = 7 - fromY;
 		toY = 7 - toY;
 		fromX = 7 - fromX;
 		toX = 7 - toX;
 	}
 
-	if (move & moveflagCastleKing || move & moveflagCastleQueen || move & moveflagEPC || move & moveflagPromotion) {
+	if(move & moveflagCastleKing || move & moveflagCastleQueen || move & moveflagEPC || move & moveflagPromotion) {
 		RedrawPieces();
 	} else {
 		var fromSquare = g_uiBoard[fromY * 8 + fromX];
@@ -245,12 +245,12 @@ function RedrawPieces() {
 					pieceName = 'king';
 					break;
 			}
-			if (pieceName != null) {
+			if(pieceName != null) {
 				pieceName += '_';
 				pieceName += piece & 0x8 ? 'white' : 'black';
 			}
 
-			if (pieceName != null) {
+			if(pieceName != null) {
 				var img = document.createElement('div');
 				$(img).addClass('sprite-' + pieceName);
 				img.style.backgroundImage = "url('sprites.png')";
@@ -261,7 +261,7 @@ function RedrawPieces() {
 
 				$(divimg).draggable({
 					start: function (e, ui) {
-						if (g_selectedPiece === null) {
+						if(g_selectedPiece === null) {
 							g_selectedPiece = this;
 							var offset = $(this).closest('table').offset();
 							g_startOffset = {
@@ -275,7 +275,7 @@ function RedrawPieces() {
 				});
 
 				$(divimg).mousedown(function (e) {
-					if (g_selectedPiece === null) {
+					if(g_selectedPiece === null) {
 						var offset = $(this).closest('table').offset();
 						g_startOffset = {
 							left: e.pageX - offset.left,
@@ -284,7 +284,7 @@ function RedrawPieces() {
 						e.stopPropagation();
 						g_selectedPiece = this;
 						g_selectedPiece.style.backgroundImage = "url('img/transpBlue50.png')";
-					} else if (g_selectedPiece === this) {
+					} else if(g_selectedPiece === this) {
 						g_selectedPiece.style.backgroundImage = null;
 						g_selectedPiece = null;
 					}
@@ -320,7 +320,7 @@ function RedrawBoard() {
 		var startX = Math.floor(g_startOffset.left / g_cellSize);
 		var startY = Math.floor(g_startOffset.top / g_cellSize);
 
-		if (!g_playerWhite) {
+		if(!g_playerWhite) {
 			startY = 7 - startY;
 			endY = 7 - endY;
 			startX = 7 - startX;
@@ -330,12 +330,12 @@ function RedrawBoard() {
 		var moves = GenerateValidMoves();
 		var move = null;
 		for (var i = 0; i < moves.length; i++) {
-			if ((moves[i] & 0xff) == MakeSquare(startY, startX) && ((moves[i] >> 8) & 0xff) == MakeSquare(endY, endX)) {
+			if((moves[i] & 0xff) == MakeSquare(startY, startX) && ((moves[i] >> 8) & 0xff) == MakeSquare(endY, endX)) {
 				move = moves[i];
 			}
 		}
 
-		if (!g_playerWhite) {
+		if(!g_playerWhite) {
 			startY = 7 - startY;
 			endY = 7 - endY;
 			startX = 7 - startX;
@@ -345,10 +345,10 @@ function RedrawBoard() {
 		g_selectedPiece.style.left = 0;
 		g_selectedPiece.style.top = 0;
 
-		if (!(startX == endX && startY == endY) && move != null) {
+		if(!(startX == endX && startY == endY) && move != null) {
 			UpdatePgnTextBox(move);
 
-			if (InitializeBackgroundEngine()) {
+			if(InitializeBackgroundEngine()) {
 				g_backgroundEngine.postMessage(FormatMove(move));
 			}
 
@@ -389,7 +389,7 @@ function RedrawBoard() {
 
 	$('body').droppable({ drop: dropPiece });
 	$(table).mousedown(function (e) {
-		if (g_selectedPiece !== null) {
+		if(g_selectedPiece !== null) {
 			dropPiece(e);
 		}
 	});

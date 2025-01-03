@@ -4,7 +4,7 @@ var submitButton;
 var optionsMap = {};
 
 function updateTopic() {
-	if (!input || !submitButton) {
+	if(!input || !submitButton) {
 		return;
 	}
 
@@ -20,7 +20,7 @@ function setElements() {
 	submitButton = $('#submit-button');
 	var choices = $('#choices');
 
-	if (!input || !submitButton || !choices) {
+	if(!input || !submitButton || !choices) {
 		return;
 	}
 
@@ -32,11 +32,11 @@ function setElements() {
 	}
 
 	input.addEventListener('keyup', function (event) {
-		if (event.key !== 'Enter') {
+		if(event.key !== 'Enter') {
 			return;
 		}
 
-		if (Object.keys(optionsMap).indexOf(input.value) === -1) {
+		if(Object.keys(optionsMap).indexOf(input.value) === -1) {
 			// Byond doesn't let you to use enter to select
 			// so we need to prevent unintended submissions
 			return;

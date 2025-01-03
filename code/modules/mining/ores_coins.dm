@@ -533,6 +533,55 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								blind_sound)
 
+/obj/item/coin/eldritch
+	name = "eldritch coin"
+	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
+	icon_state = "coin_heretic"
+	custom_materials = list(/datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT)
+	sideslist = list("heretic", "blade")
+	heads_name = "heretic"
+	has_action = TRUE
+	material_flags = NONE
+	/// The range at which airlocks are effected.
+	var/airlock_range = 5
+
+/obj/item/coin/eldritch/heads_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustBruteLoss(5)
+		return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.density)
+			target_airlock.open()
+			continue
+		target_airlock.close(force_crush = TRUE)
+
+/obj/item/coin/eldritch/tails_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustFireLoss(5)
+		return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.locked)
+			target_airlock.unlock()
+			continue
+		target_airlock.lock()
+
+/obj/item/coin/eldritch/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!istype(interacting_with, /obj/machinery/door/airlock))
+		return NONE
+	if(!IS_HERETIC(user))
+		user.adjustBruteLoss(5)
+		user.adjustFireLoss(5)
+		return ITEM_INTERACT_BLOCKING
+	var/obj/machinery/door/airlock/target_airlock = interacting_with
+	to_chat(user, span_warning("You insert [src] into the airlock."))
+	target_airlock.emag_act(user, src)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+//QWERTODO: CONVERT COINS TO NEW ATTACK CHAIN
+
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM
 #undef GIBTONITE_QUALITY_HIGH

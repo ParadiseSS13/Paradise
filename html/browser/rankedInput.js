@@ -6,7 +6,7 @@ function allowDrop(ev) {
 
 function drag(ev) {
 	var index = ev.target.getAttribute('index');
-	if (index) {
+	if(index) {
 		ev.dataTransfer.setData('text', index);
 	}
 }
@@ -14,7 +14,7 @@ function drag(ev) {
 function drop(ev) {
 	ev.preventDefault();
 	var data = ev.dataTransfer.getData('text');
-	if (data && ev.target.getAttribute('index')) {
+	if(data && ev.target.getAttribute('index')) {
 		window.location = '?src=' + uid + ';' + 'cut=' + data + ';' + 'insert=' + ev.target.getAttribute('index');
 	}
 }
