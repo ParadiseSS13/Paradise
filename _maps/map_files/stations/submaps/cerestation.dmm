@@ -104,7 +104,7 @@
 "mL" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/beaker/drugs,
-/obj/machinery/light{
+/obj/machinery/light/built{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -262,6 +262,7 @@
 "Ev" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/light/tube,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "ET" = (
@@ -394,7 +395,7 @@
 "Tg" = (
 /obj/effect/spawner/random/maintenance,
 /obj/structure/table/reinforced,
-/obj/machinery/light{
+/obj/machinery/light/built{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -454,8 +455,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "VM" = (
-/obj/structure/falsewall/rock_ancient,
+/obj/machinery/door/airlock/research,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "WL" = (
