@@ -29914,9 +29914,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"eyc" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/hallway/secondary/entry/north)
 "eye" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -78129,8 +78126,7 @@
 	},
 /obj/item/healthanalyzer,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/accessory/stethoscope,
-/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -153356,7 +153352,7 @@ bio
 upz
 pQa
 pQa
-eyc
+pQa
 pHf
 pQa
 pQa
