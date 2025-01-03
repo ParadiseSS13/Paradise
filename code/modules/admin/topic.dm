@@ -1046,7 +1046,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
 			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
 		var/dat = {"<!DOCTYPE html><b>Possible Rulesets:</b><hr>"}
 		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied)
@@ -1086,7 +1086,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
 			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
 		if(href_list["f_dynamic2"] == "budget")
 			var/budget = input(usr, "Pick a budget for the dynamic gamemode (-1 to randomize)", "Gamemode Budget") as num|null
