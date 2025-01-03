@@ -130,7 +130,7 @@
 
 	. = __attack_core(target, user)
 
-	if(!target.new_attack_chain)
+	if(!target.new_attack_chain && .)
 		return target.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
 
 /obj/item/proc/__after_attack_core(mob/user, atom/target, params, proximity_flag = 1)

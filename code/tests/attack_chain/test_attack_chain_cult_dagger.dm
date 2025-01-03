@@ -15,3 +15,10 @@
 
 	cultist.click_on(target)
 	TEST_ASSERT_EQUAL(target.puppet.health, target.puppet.getMaxHealth(), "cultist attacking cultist with dagger caused damage")
+
+	// Test some new -> old attack chain shenanigans
+	target.puppet.mind.remove_antag_datum(/datum/antagonist/cultist)
+
+	ADD_TRAIT(cultist.puppet, TRAIT_PACIFISM, "test")
+	cultist.click_on(target)
+	TEST_ASSERT_EQUAL(target.puppet.health, target.puppet.getMaxHealth(), "non-cultist attacked by pacifist")
