@@ -140,9 +140,12 @@
 
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
 
+#define STATUS_EFFECT_RUST_CORRUPTION /datum/status_effect/rust_corruption
+
 #define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
 
 #define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
+
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
