@@ -9,14 +9,17 @@
 	var/in_camera_mode = 0
 	var/photos_taken = 0
 	var/list/aipictures = list()
+	actions_types = list()
 
 /// camera AI can take pictures with
 /obj/item/camera/siliconcam/ai_camera
 	name = "AI photo camera"
+	flashing_light = FALSE
 
 /// camera cyborgs can take pictures with
 /obj/item/camera/siliconcam/robot_camera
 	name = "Cyborg photo camera"
+	flashing_light = FALSE
 
 /// currently doesn't offer the verbs, thus cannot be used
 /obj/item/camera/siliconcam/drone_camera
