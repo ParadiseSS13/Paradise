@@ -42,6 +42,10 @@
 	var/harvester_icon_state = "harvester"
 	var/harvester_dead_state = "shade_dead"
 
+	//Proteon Construct
+	var/proteon_name = "Proteon"
+	var/proteon_icon_state = "proteon"
+	var/proteon_dead_state = "shade_dead"
 	//Shade Spirit
 	var/shade_name = "Shade"
 	var/shade_icon_state = "shade2"
@@ -211,6 +215,8 @@
 			return harvester_name
 		if("wraith")
 			return wraith_name
+		if("proteon")
+			return proteon_name
 		if("shade")
 			return shade_name
 
@@ -230,6 +236,8 @@
 			return harvester_icon_state
 		if("wraith")
 			return wraith_icon_state
+		if("proteon")
+			return proteon_icon_state
 		if("shade")
 			return shade_icon_state
 		if("forge")
