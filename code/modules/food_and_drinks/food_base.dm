@@ -278,12 +278,15 @@
 //MARK: SLICE
 /obj/item/food/sliced
 
-/obj/item/food/sliced/Initialize(mapload, parent_reagents)
-	if(!parent_reagents && !length(list_reagents))
-		//log_debug("Slice was created with no parent! Name: [src], UID:[src.UID()], loc:[src.loc]")
-		reagents.add_reagent("nutriment", 5)
-		CRASH("Slice was created with no reagents! [src]") // 68, 181, 2
-	list_reagents = parent_reagents
+/obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
+	if(made_by_sliceable)
+		return ..()
+	if(length(list_reagents))
+		return ..()
+
+	// We don't have any reagents, let's add someting
+	list_reagents = list("nutriment" = 5)
+
 	return ..()
 
 //MARK: SLICEABLE
@@ -291,7 +294,7 @@
 	slices_num = 2
 
 /obj/item/food/sliceable/Initialize(mapload)
-	if(!istype(slice_path, /obj/item/food/sliced))
+	if(!ispath(slice_path, /obj/item/food/sliced))
 		CRASH("Invalid type assigned to slice_path: [slice_path]")
 	return ..()
 
@@ -352,9 +355,8 @@
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
-		if(!ispath(slice_path, /obj/item/food/sliced))
-			CRASH("Invalid type assigned to slice_path: [slice_path]")
-		var/obj/item/food/sliced/slice = new slice_path (loc,reagents_per_slice)
+		var/obj/slice = new slice_path (loc, TRUE)
+		reagents.trans_to(slice,reagents_per_slice)
 		slice.pixel_x = rand(-7, 7)
 		slice.pixel_y = rand(-7, 7)
 	qdel(src)
