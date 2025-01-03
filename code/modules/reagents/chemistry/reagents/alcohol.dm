@@ -822,14 +822,14 @@
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
 	id = "singulo"
-	description = "A bluespace beverage!"
+	description = "The edge of eternity, contained in a glass."
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
-	drink_desc = "A bluespace beverage."
+	drink_desc = "The edge of eternity, contained in a glass."
 	taste_description = "infinity"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 

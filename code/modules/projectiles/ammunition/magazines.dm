@@ -580,7 +580,8 @@
 /// Used by red ERT. Keeps the size for them
 /obj/item/ammo_box/magazine/laser/ert
 	name = "compact laser carbine projector magazine"
-	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	desc = "An ultra-compact magazine incorporating experimental bluespace technology to hold 20 rounds in a mag the size of a cigarette lighter, while keeping them safe from EMPs. Each magazine costs as much as 5 of the carbines that use it, \
+		but nobody's accused NT budget allocation of being practical before."
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ammo_box/magazine/laser/ert/emp_act(severity)

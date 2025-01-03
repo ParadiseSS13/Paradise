@@ -23,7 +23,7 @@
 
 /datum/design/bluespace_belt
 	name = "Belt of Holding"
-	desc = "An astonishingly complex belt popularized by a rich bluespace technology magnate."
+	desc = "A bleeding-edge storage medium that brings the principles first used in the Bag of Holding to belt form."
 	id = "bluespace_belt"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
 	build_type = PROTOLATHE
@@ -53,7 +53,7 @@
 
 /datum/design/bluespace_belt_holder
 	name = "Bluespace Conveyor Belt Placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. This one is powered by bluespace."
+	desc = "This device facilitates the rapid deployment of conveyor belts via the incorporation of experimental Bluespace technology."
 	id = "bluespace_belt_holder"
 	req_tech = list("materials" = 1, "engineering" = 3, "bluespace" = 3)
 	build_type = PROTOLATHE

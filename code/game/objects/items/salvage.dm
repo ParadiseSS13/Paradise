@@ -79,7 +79,7 @@
 
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
-	desc = "A collection of stolen jewellery, fashioned from pilfered bluespace crystals and gems. Rumour has it, local pirates have been known to use these accessories to avoid capture."
+	desc = "A collection of stolen jewellery and gemstones. Gold, silver, sapphire, amethyst, and more, this bounty will surely fetch a good price on the market."
 	icon_state = "pirate_treasure"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'

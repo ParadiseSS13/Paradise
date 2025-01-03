@@ -4,7 +4,8 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /**********************Jaunter**********************/
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
-	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
+	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. \
+		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0

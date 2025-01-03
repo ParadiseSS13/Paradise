@@ -727,7 +727,7 @@
 	name = "reality sunderer"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
-	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+	desc = "An elaborately carved amulet resembling a human eye. Looking directly at it sends shivers down your spine. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	w_class = WEIGHT_CLASS_SMALL
 
 

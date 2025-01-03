@@ -101,7 +101,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "greater hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
+	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and should be engaged with extreme caution."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_resting = "hellhoundgreater_sit"

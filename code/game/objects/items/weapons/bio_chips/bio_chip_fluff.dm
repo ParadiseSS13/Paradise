@@ -142,7 +142,7 @@
 	name = "Syndicate S3 \"Stealth\" Bio-chip"
 	life = "Unknown. No collected sample has been active long enough to determine lifespan."
 	notes = "Manually activated by the user."
-	function = "Allows the user to summon a box from a bluespace pocket located inside the implant. The exterior of this box is lined with experimental cloaking panels which render the box invisible to the naked eye."
+	function = "A biochip housing a highly specialized cloaking nanoswarm. When activated, the nanoswarm will assemble into a box-like shape around the user and render them invisible. Solid impacts will temporarily disrupt the cloaking mechanism."
 
 /datum/implant_fluff/shock
 	name = "Syndicate ARC-7 \"Power\" Bio-chip"

@@ -388,7 +388,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/remote_ai_upload // A 1 use AI upload. Potential D.V.O.R.A.K reward.
 	name = "remote AI upload"
-	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
+	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
 	w_class = WEIGHT_CLASS_TINY

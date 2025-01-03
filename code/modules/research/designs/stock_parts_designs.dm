@@ -242,7 +242,7 @@
 
 /datum/design/bs_rped
 	name = "Bluespace RPED"
-	desc = "Powered by bluespace technology, this RPED variant can upgrade buildings from a distance, without needing to remove the panel first."
+	desc = "Incorporating experimental bluespace technology, this RPED variant can upgrade buildings from a distance, without needing to remove the panel first."
 	id = "bs_rped"
 	req_tech = list("engineering" = 4, "bluespace" = 3)
 	build_type = PROTOLATHE
