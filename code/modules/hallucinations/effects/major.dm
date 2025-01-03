@@ -408,3 +408,140 @@
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alien.dmi'
 		images[1].icon_state = "alienh_pounce"
+
+/obj/effect/hallucination/blob
+	duration = 30 SECONDS
+	/// The blob zombie hallucination.
+	var/obj/effect/hallucination/chaser/attacker/blob_zombie/zombie = null
+	/// The self delusion blob zombie hallucination, triggers on knockdown.
+	var/obj/effect/hallucination/blob_zombify/player_zombie = null
+	/// List of turfs that need expanding from.
+	var/list/turf/expand_queue = list()
+	/// Associative list of turfs that have already been processed.
+	var/list/turf/processed = list()
+	/// The image for the chaser zombie's blob head
+	var/image/chaser_blob_head = null
+	/// The image for the player zombie's blob head
+	var/image/target_blob_head = null
+	/// The delay at which the blob expands in deciseconds. Shouldn't be too low to prevent lag.
+	var/expand_delay = 7.5 SECONDS // Expand 6 times
+	/// Expand timer handle.
+	var/expand_timer = null
+
+/obj/effect/hallucination/blob/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		var/light_amount = min(1, T.get_lumcount()) - 0.5
+		if(!is_blocked_turf(T) && light_amount <= 0)
+			locs += T
+	if(!length(locs))
+		qdel(src)
+		return
+	var/turf/T = get_turf(pick(locs))
+	color = pick(	COLOR_BLACK, COLOR_RIPPING_TENDRILS, COLOR_BOILING_OIL, COLOR_ENVENOMED_FILAMENTS, COLOR_LEXORIN_JELLY,
+								COLOR_KINETIC_GELATIN, COLOR_CRYOGENIC_LIQUID, COLOR_SORIUM, COLOR_TESLIUM_PASTE )
+	create_blob(T, core = TRUE)
+	target.playsound_local(T, 'sound/effects/splat.ogg', 50, 1)
+	create_zombie(T)
+	expand_queue += T
+	processed[T] = TRUE
+	expand_timer = addtimer(CALLBACK(src, PROC_REF(expand)), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
+
+/obj/effect/hallucination/blob/Destroy()
+	deltimer(expand_timer)
+	QDEL_NULL(expand_queue)
+	QDEL_NULL(processed)
+	QDEL_NULL(zombie)
+	QDEL_NULL(player_zombie)
+	target.client.images -= chaser_blob_head
+	target.client.images -= target_blob_head
+	chaser_blob_head = null
+	target_blob_head = null
+	return ..()
+
+/**
+  * Called regularly in a timer to process the blob expanding.
+  */
+/obj/effect/hallucination/blob/proc/expand()
+	// Brace for potentially expensive proc
+	for(var/t in expand_queue)
+		var/turf/source_turf = t
+		expand_queue -= source_turf
+		//Expand to each dir
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
+				continue
+			create_blob(target_turf)
+			expand_queue += target_turf
+			processed[target_turf] = TRUE
+
+/**
+  * Creates a fake blob overlay on the given turf.
+  *
+  * Arguments:
+  * * T - The turf to create a fake plasma overlay on.
+  */
+/obj/effect/hallucination/blob/proc/create_blob(turf/T, core = FALSE)
+	var/blob_icon_state = "blob"
+	if(core)
+		blob_icon_state = "blob_core"
+	var/image/I = image('icons/mob/blob.dmi', T, blob_icon_state, layer = FLY_LAYER)
+	I.plane = GAME_PLANE
+	I.color = color
+	add_icon(I)
+
+/obj/effect/hallucination/blob/proc/create_zombie(turf/T)
+	zombie = new(T, target, src)
+
+/obj/effect/hallucination/blob/proc/zombify(turf/T)
+	player_zombie = new(T, target, src)
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie
+	hallucination_icon = 'icons/mob/human.dmi'
+	hallucination_icon_state = "zombie2_s"
+	duration = 45 SECONDS
+	damage = 25
+	/// The hallucination that spawned us.
+	var/obj/effect/hallucination/blob/owning_hallucination = null
+	/// Whether or not the target has been zombified already.
+	var/has_zombified = FALSE
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
+	. = ..()
+	name = "blob zombie"
+	var/image/I = image('icons/mob/blob.dmi', src, "blob_head")
+	I.color = blob.color
+	target.client.images += I
+	owning_hallucination = blob
+	blob.chaser_blob_head = I
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/attack_effects()
+	do_attack_animation(target)
+	target.playsound_local(get_turf(src), 'sound/weapons/genhit1.ogg', 50, TRUE)
+	to_chat(target, "<span class='userdanger'>[name] has hit [target]!</span>")
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/on_knockdown()
+	if(!QDELETED(owning_hallucination))
+		target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
+							"<span class='warning'>The corpse of [target.name] suddenly rises!</span>")
+		owning_hallucination.zombify(target)
+		has_zombified = TRUE
+	else
+		qdel(src)
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/think()
+	if(has_zombified)
+		return
+	. = ..()
+
+/obj/effect/hallucination/blob_zombify
+	duration = 20 SECONDS
+
+/obj/effect/hallucination/blob_zombify/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
+	. = ..()
+	var/image/I = image('icons/mob/blob.dmi', target, icon_state = "blob_head")
+	I.color = blob.color
+	target.client.images += I
+	blob.target_blob_head = I
