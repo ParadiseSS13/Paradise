@@ -177,7 +177,7 @@
 	if(isitem(target))
 		if(target in user.tkgrabbed_objects)
 			// Release the old grab first
-			user.unEquip(user.tkgrabbed_objects[target])
+			user.drop_item_to_ground(user.tkgrabbed_objects[target])
 		user.tkgrabbed_objects[target] = src
 
 /obj/item/tk_grab/proc/release_object()

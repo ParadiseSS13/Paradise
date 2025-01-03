@@ -100,7 +100,7 @@
 		new/obj/item/trash/candle(src.loc)
 		if(ismob(src.loc))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.drop_item_to_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc

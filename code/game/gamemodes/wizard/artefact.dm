@@ -752,7 +752,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.revive()
 
 	for(var/obj/item/item in victim)
-		victim.unEquip(item)
+		victim.drop_item_to_ground(item)
 
 	var/skeleton_type = pick("roman", "pirate", "yand", "clown")
 

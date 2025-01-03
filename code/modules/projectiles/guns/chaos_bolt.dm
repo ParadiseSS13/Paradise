@@ -122,7 +122,7 @@
 			H.makeCluwne()
 		if("spaced")
 			for(var/obj/item/I in H)
-				H.unEquip(I, TRUE)
+				H.drop_item_to_ground(I, force = TRUE)
 			var/turf/T = safepick(get_area_turfs(/area/space/nearstation)) //Send in space next to the station
 			if(!T) //Shouldn't happen but just in case
 				T = safepick(get_area_turfs(/area/space))

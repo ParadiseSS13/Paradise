@@ -411,7 +411,7 @@
 	)
 	selected_disguise = disguise_spraypaint_items[selected_disguise][is_cardborg_head]
 	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
-	user.unEquip(target)
+	user.unequip(target)
 	user.put_in_hands(new selected_disguise())	// Spawn the desired cardborg item.
 	qdel(target)								// Get rid of the old one.
 

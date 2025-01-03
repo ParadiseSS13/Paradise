@@ -40,7 +40,7 @@
 
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							"<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
@@ -70,7 +70,7 @@
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		user.unEquip(src, TRUE)
+		user.drop_item_to_ground(src, force = TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -175,7 +175,7 @@
 	if(!IS_CULTIST(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
@@ -212,7 +212,7 @@
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 	else if(slot == ITEM_SLOT_OUTER_SUIT)
@@ -278,7 +278,7 @@
 	..()
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(60 SECONDS)
 		user.Weaken(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
@@ -292,7 +292,7 @@
 
 /obj/item/shuttle_curse/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
@@ -345,7 +345,7 @@
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!IS_CULTIST(user))
-		user.unEquip(src, TRUE)
+		user.drop_item_to_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
@@ -664,7 +664,7 @@
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
-			L.unEquip(spear)
+			L.drop_item_to_ground(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
 		spear.throw_at(owner, 10, 2, null, dodgeable = FALSE)
 

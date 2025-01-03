@@ -33,7 +33,7 @@
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-		user.unEquip(src)
+		user.unequip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)

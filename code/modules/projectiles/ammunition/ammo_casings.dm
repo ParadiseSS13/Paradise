@@ -424,7 +424,7 @@
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(A)) && modified && !FD.pen)
-		if(!user.unEquip(A))
+		if(!user.unequip(A)) // forceMove happens in add_pen
 			return
 		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")

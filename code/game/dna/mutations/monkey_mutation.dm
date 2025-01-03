@@ -17,7 +17,7 @@
 	for(var/obj/item/W in H)
 		if(istype(W, /obj/item/bio_chip))
 			continue
-		H.unEquip(W)
+		H.drop_item_to_ground(W)
 
 	H.regenerate_icons()
 	ADD_TRAIT(H, TRAIT_IMMOBILIZED, TRANSFORMING_TRAIT)
@@ -51,7 +51,7 @@
 			continue
 		if(istype(W, /obj/item/bio_chip))
 			continue
-		H.unEquip(W)
+		H.drop_item_to_ground(W)
 	H.regenerate_icons()
 	ADD_TRAIT(H, TRAIT_IMMOBILIZED, TRANSFORMING_TRAIT)
 	ADD_TRAIT(H, TRAIT_HANDS_BLOCKED, TRANSFORMING_TRAIT)

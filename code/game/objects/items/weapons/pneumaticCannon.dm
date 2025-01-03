@@ -56,7 +56,7 @@
 	if(I.w_class > w_class)
 		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
 		return FALSE
-	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
+	if(!user.unequip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
 	loaded_items.Add(I)
@@ -144,7 +144,7 @@
 	if(tank)
 		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 		return
-	if(!user.unEquip(new_tank))
+	if(!user.unequip(new_tank))
 		return
 	to_chat(user, "<span class='notice'>You hook [new_tank] up to [src].</span>")
 	new_tank.forceMove(src)

@@ -1036,7 +1036,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return

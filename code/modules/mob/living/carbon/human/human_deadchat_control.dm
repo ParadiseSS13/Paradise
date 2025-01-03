@@ -59,7 +59,7 @@
 			visible_message("<span class='notice'>[src] seems to have [p_their()] hands full!</span>")
 			return
 		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
-		unEquip(in_hand)
+		unequip(in_hand)
 		in_hand.forceMove(old_loc)
 	else
 		visible_message("<span class='notice'>[src] picks up [thing]!</span>")

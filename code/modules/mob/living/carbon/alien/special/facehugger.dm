@@ -46,7 +46,7 @@
 
 /obj/item/clothing/mask/facehugger/attack__legacy__attackchain(mob/living/M, mob/user)
 	..()
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
@@ -129,7 +129,7 @@
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return FALSE
-			target.unEquip(W)
+			target.drop_item_to_ground(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")

@@ -80,13 +80,10 @@
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
 
-	if(!user.unEquip(I))
-		return
-
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	canisters += I
-	I.forceMove(src)
-	update_canister_stats()
+	if(user.transfer_item_to(I, src))
+		canisters += I
+		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+		update_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
 	if(!length(canisters))

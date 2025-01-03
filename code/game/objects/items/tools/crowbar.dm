@@ -90,7 +90,7 @@
 	animate_fading_leap_up(user)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION

@@ -263,7 +263,7 @@
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
 /proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
-	if(!source.unEquip(item))
+	if(!source.drop_item_to_ground(item))
 		return
 
 	add_attack_logs(user, source, "Stripping of [item]")
@@ -427,7 +427,7 @@
 						return
 
 					// make sure to drop the item
-					if(!user.unEquip(held_item))
+					if(!user.drop_item_to_ground(held_item))
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)

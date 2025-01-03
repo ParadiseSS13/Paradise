@@ -300,7 +300,7 @@
 			var/atom/movable/M = A
 			if(isliving(M.loc))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_to_ground(M)
 			M.forceMove(src)
 
 ///Return the air if we can analyze it

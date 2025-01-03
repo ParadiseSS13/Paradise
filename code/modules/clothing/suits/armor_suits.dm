@@ -54,7 +54,7 @@
 
 /obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.unEquip(I))
+		if(user.drop_item_to_ground(I))
 			add_fingerprint(user)
 			I.forceMove(src)
 			attached_badge = I

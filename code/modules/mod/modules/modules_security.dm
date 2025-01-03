@@ -31,7 +31,7 @@
 			return
 		holstered = holding
 		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
-		mod.wearer.unEquip(mod.wearer.get_active_hand())
+		mod.wearer.unequip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
 		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \

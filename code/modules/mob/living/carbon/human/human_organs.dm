@@ -92,12 +92,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_to_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_to_ground(r_hand))
 					continue
 
 			if(!E.properly_attached)
@@ -116,12 +116,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_to_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_to_ground(r_hand))
 					continue
 
 			custom_emote(EMOTE_VISIBLE, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")

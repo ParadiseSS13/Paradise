@@ -148,8 +148,7 @@
 			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 
 		if(device)
-			mod.wearer.unEquip(device, 1)
-			device.forceMove(src)
+			mod.wearer.transfer_item_to(device, src, force = TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else

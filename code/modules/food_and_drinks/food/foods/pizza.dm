@@ -607,7 +607,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from [src].</span>")
 		if(I.use_tool(src, user, 4 SECONDS, volume = 50))
-			user.unEquip(src)
+			user.unequip(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
 			C.amount = 3

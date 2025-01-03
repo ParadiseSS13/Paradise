@@ -146,7 +146,7 @@
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			user.unEquip(src)
+			user.drop_item_to_ground(src)
 			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
@@ -385,7 +385,7 @@
 //Putting heads on spears
 /obj/item/spear/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
-		if(user.unEquip(src) && user.drop_item())
+		if(user.unequip(src) && user.drop_item())
 			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
 			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
 			var/matrix/M = matrix()

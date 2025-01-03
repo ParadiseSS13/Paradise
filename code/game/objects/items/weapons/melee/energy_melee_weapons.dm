@@ -279,8 +279,6 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)

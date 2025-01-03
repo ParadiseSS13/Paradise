@@ -34,7 +34,7 @@
 			attacking_mop.wet_mop(src, user)
 			return
 
-		if(!user.unEquip(attacking_mop))
+		if(!user.drop_item_to_ground(attacking_mop))
 			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
 			return
 

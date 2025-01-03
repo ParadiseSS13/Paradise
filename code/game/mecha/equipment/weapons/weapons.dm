@@ -232,7 +232,7 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
+				H.drop_item_to_ground(thingy)
 				walk_away(thingy,chassis,15,2)
 				spawn(20)
 					if(thingy)

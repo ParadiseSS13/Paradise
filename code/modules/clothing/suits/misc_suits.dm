@@ -1422,7 +1422,7 @@
 		return
 	var/abaya_type = options[choice]
 	var/obj/item/clothing/suit/hooded/abaya/abaya = new abaya_type(get_turf(src))
-	L.unEquip(src, silent = TRUE)
+	L.unequip(src)
 	L.put_in_active_hand(abaya)
 	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
 	qdel(src)

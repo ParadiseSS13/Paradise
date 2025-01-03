@@ -99,7 +99,7 @@
 		adult.real_name = adult.dna.species.get_random_name()
 		adult.name = adult.real_name
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	qdel(src)
 	return TRUE

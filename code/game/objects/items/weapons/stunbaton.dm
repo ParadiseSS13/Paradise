@@ -130,7 +130,7 @@
 		if(C.maxcharge < hitcost)
 			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		I.forceMove(src)
 		cell = I

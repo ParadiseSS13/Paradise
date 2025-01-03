@@ -174,7 +174,7 @@
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
 	var/mob/living/carbon/human/M = user
 	if(paddles in get_both_hands(M))
-		M.unEquip(paddles)
+		M.drop_item_to_ground(paddles)
 		paddles_on_defib = TRUE
 	update_icon(UPDATE_OVERLAYS)
 	return
@@ -387,7 +387,7 @@
 
 /obj/item/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/human/M, obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		M?.unEquip(O)
+		M?.unequip(O)
 		qdel(O)
 		return FALSE
 	else

@@ -1613,7 +1613,7 @@
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
+			H.unequip(P, force = TRUE)
 			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)

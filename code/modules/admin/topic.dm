@@ -1160,7 +1160,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			if(M.unEquip(I))
+			if(M.drop_item_to_ground(I))
 				I.loc = locker
 				I.layer = initial(I.layer)
 				I.plane = initial(I.plane)
@@ -1302,7 +1302,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1334,7 +1334,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1390,7 +1390,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -2212,7 +2212,7 @@
 				logmsg = "floor cluwne"
 			if("Shamebrero")
 				if(H.head)
-					H.unEquip(H.head, TRUE)
+					H.drop_item_to_ground(H.head, force = TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 				logmsg = "shamebrero"
@@ -2963,7 +2963,7 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							H.unEquip(W)
+							H.drop_item_to_ground(W)
 							if(H.client)
 								H.client.screen -= W
 							if(W)

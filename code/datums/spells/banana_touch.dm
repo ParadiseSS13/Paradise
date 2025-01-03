@@ -50,10 +50,10 @@
 	do_jitter_animation(30 SECONDS)
 
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed clown robes and magical mask.
-		unEquip(shoes, TRUE)
-		unEquip(wear_mask, TRUE)
-		unEquip(head, TRUE)
-		unEquip(wear_suit, TRUE)
+		drop_item_to_ground(shoes, force = TRUE)
+		drop_item_to_ground(wear_mask, force = TRUE)
+		drop_item_to_ground(head, force = TRUE)
+		drop_item_to_ground(wear_suit, force = TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/head/wizard/clown, ITEM_SLOT_HEAD, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/wizrobe/clown, ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/magical, ITEM_SLOT_SHOES, TRUE, TRUE)

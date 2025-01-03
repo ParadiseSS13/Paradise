@@ -77,7 +77,7 @@
 		return
 
 	if(istype(I, /obj/item/shard))
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 
@@ -88,7 +88,7 @@
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(!user.unEquip(L))
+		if(!user.drop_item_to_ground(L))
 			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
 			return
 

@@ -587,7 +587,7 @@
 /obj/item/chair/stool/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
+		user.unequip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)

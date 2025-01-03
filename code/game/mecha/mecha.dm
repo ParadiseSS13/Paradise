@@ -771,7 +771,7 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.unEquip(W))
+		if(!user.drop_item_to_ground(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
 
@@ -1232,7 +1232,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.unEquip(mmi_as_oc))
+		if(!user.drop_item_to_ground(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
 		var/mob/living/brain/brainmob = mmi_as_oc.brainmob

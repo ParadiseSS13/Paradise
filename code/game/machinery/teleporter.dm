@@ -51,10 +51,9 @@
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
+			if(!user.transfer_item_to(L, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
-			L.forceMove(src)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else

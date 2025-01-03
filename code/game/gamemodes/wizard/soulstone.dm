@@ -459,7 +459,7 @@
 		to_chat(user, "<span class='notice'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(!isrobot(M))
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 
 	var/target_body = M
 	if(isbrain(M))

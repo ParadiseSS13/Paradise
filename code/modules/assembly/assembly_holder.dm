@@ -34,12 +34,14 @@
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A1)
-		A1.forceMove(src)
+			user.transfer_item_to(A1, src)
+		else
+			A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A2)
-		A2.forceMove(src)
+			user.transfer_item_to(A2, src)
+		else
+			A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1
@@ -171,7 +173,7 @@
 		var/turf/T = get_turf(src)
 		if(!T)
 			return FALSE
-		user.unEquip(src, TRUE, TRUE)
+		user.unequip(src, force = TRUE)
 		if(a_left)
 			a_left.holder = null
 			a_left.forceMove(T)

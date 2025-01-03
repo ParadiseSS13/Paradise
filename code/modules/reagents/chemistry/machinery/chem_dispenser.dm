@@ -579,9 +579,8 @@
 			if(C.maxcharge < 100)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			if(!user.unEquip(W))
+			if(!user.transfer_item_to(W, src))
 				return
-			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon(UPDATE_OVERLAYS)

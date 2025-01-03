@@ -276,7 +276,7 @@
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src, force = TRUE))
 					return
 				M.put_in_active_hand(src)
 			else

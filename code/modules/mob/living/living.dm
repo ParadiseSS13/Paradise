@@ -481,12 +481,12 @@
 		var/mob/living/carbon/C = src
 
 		if(C.handcuffed && !initial(C.handcuffed))
-			C.unEquip(C.handcuffed)
+			C.drop_item_to_ground(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 		C.update_handcuffed()
 
 		if(C.legcuffed && !initial(C.legcuffed))
-			C.unEquip(C.legcuffed)
+			C.drop_item_to_ground(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
 

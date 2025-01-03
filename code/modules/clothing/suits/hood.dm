@@ -44,9 +44,10 @@
 	suit_adjusted = 0
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
-		H.unEquip(hood, 1)
+		H.transfer_item_to(hood, src, force = TRUE)
 		H.update_inv_wear_suit()
-	hood.forceMove(src)
+	else
+		hood.forceMove(src)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()

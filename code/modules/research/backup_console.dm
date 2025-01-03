@@ -41,7 +41,7 @@
 /obj/machinery/computer/rnd_backup/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!H.unEquip(O))
+		if(!H.drop_item_to_ground(O))
 			return TRUE
 
 		O.forceMove(src)

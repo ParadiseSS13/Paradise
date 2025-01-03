@@ -582,7 +582,7 @@
 		if(C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL)
 			stolen_item = C.r_hand
 
-		if(stolen_item && C.unEquip(stolen_item))
+		if(stolen_item && C.drop_item_to_ground(stolen_item))
 			try_grab_item(stolen_item)
 			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item

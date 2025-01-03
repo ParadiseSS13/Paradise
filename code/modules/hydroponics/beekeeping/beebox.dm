@@ -150,7 +150,7 @@
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(length(honey_frames) < BEEBOX_MAX_FRAMES)
-			if(!user.unEquip(HF))
+			if(!user.unequip(HF))
 				return
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			HF.forceMove(src)
@@ -165,7 +165,7 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!user.unEquip(qb))
+		if(!user.drop_item_to_ground(qb))
 			return
 		qb.queen.forceMove(src)
 		bees += qb.queen

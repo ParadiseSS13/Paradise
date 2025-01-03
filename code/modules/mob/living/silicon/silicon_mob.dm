@@ -539,7 +539,7 @@
 		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
 		return FALSE
 
-	if(!user.unEquip(item_to_add))
+	if(!user.transfer_item_to(item_to_add, src))
 		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
 		return FALSE
 
@@ -547,7 +547,6 @@
 		"<span class='notice'>[user] puts [item_to_add] on [real_name].</span>",
 		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
 	)
-	item_to_add.forceMove(src)
 	silicon_hat = item_to_add
 	update_icons()
 
@@ -578,7 +577,7 @@
 
 /mob/living/silicon/proc/drop_hat()
 	if(silicon_hat)
-		unEquip(silicon_hat)
+		drop_item_to_ground(silicon_hat)
 		null_hat()
 		update_icons()
 		return TRUE

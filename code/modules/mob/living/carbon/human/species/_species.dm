@@ -370,7 +370,7 @@
 			continue
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
-			H.unEquip(thing)
+			H.drop_item_to_ground(thing)
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler

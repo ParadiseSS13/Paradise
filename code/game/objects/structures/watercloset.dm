@@ -733,7 +733,7 @@
 		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon()
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)

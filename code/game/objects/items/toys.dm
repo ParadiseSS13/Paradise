@@ -146,7 +146,7 @@
 	animate(holder_obj, pixel_z = 1000, time = 50)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.notransform = TRUE
 	icon = null
@@ -226,8 +226,6 @@
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			new /obj/item/dualsaber/toy(user.loc)
-			user.unEquip(attacking)
-			user.unEquip(src)
 			qdel(attacking)
 			qdel(src)
 
@@ -287,7 +285,7 @@
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
 	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
-	target.unEquip(cig, TRUE)
+	target.drop_item_to_ground(cig, TRUE)
 	return TRUE
 
 /obj/item/toy/sword/chaosprank/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -1457,8 +1455,7 @@
 				to_chat(user, "<span class='alert'>\The [attacking] is too far away to feed into \the [src]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed \the [attacking] [bicon(attacking)] into \the [src]!</span>")
-				user.unEquip(attacking)
-				attacking.forceMove(src)
+				user.transfer_item_to(attacking, src)
 				stored_minature = attacking
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [attacking] into \the [src]'s mini-input.</span>")

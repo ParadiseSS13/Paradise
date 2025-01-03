@@ -13,8 +13,7 @@
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
 			helmet.attack_self__legacy__attackchain(H)
-		H.unEquip(helmet, TRUE)
-		helmet.forceMove(src)
+		H.transfer_item_to(helmet, src, force = TRUE)
 		H.update_inv_wear_suit()
 		to_chat(H, "<span class='notice'>The helmet on the hardsuit disengages.</span>")
 		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)

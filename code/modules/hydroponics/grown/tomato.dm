@@ -152,7 +152,7 @@
 			K.health = K.maxHealth
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
-				user.unEquip(src)
+				user.unequip(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
 			log_game("[key_name(user)] released a killer tomato at [COORD(T)]")
 			qdel(src)

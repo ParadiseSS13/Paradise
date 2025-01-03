@@ -82,7 +82,7 @@
 /obj/machinery/prize_counter/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+		if(user.drop_item_to_ground(T))
 			tickets += T.amount
 			SStgui.update_uis(src)
 			qdel(T)

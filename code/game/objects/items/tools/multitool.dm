@@ -153,7 +153,7 @@
 
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION

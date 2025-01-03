@@ -20,7 +20,7 @@
 		return
 
 	if(!user.get_inactive_hand()) // We ballin
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_inactive_hand(src)
 	else
 		to_chat(user, "<span class='warning'>You can't dribble to an occupied hand!</span>")
