@@ -577,3 +577,10 @@
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/eftpos_hacking_kit
+	name = "\improper EFTPOS Hacking Kit"
+
+/obj/item/storage/box/syndie_kit/eftpos_hacking_kit/populate_contents()
+	new /obj/item/eftpos_hack_key(src)
+	new /obj/item/paper/eftpos_hack_key(src)
