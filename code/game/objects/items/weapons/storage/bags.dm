@@ -98,7 +98,7 @@
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
-	desc = "An advanced trash bag that uses experimental Bluespace technology to send stored trash to a specialized pocket dimension."
+	desc = "An advanced trash bag that uses experimental bluespace technology to send stored trash to a specialized pocket dimension."
 	icon_state = "bluetrashbag"
 	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
