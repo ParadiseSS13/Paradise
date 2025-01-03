@@ -14,11 +14,11 @@
 	name = "margherita pizza"
 	desc = "The golden standard of pizzas."
 	icon_state = "margheritapizza"
-	slice_path = /obj/item/food/slice/margherita_pizza
+	slice_path = /obj/item/food/sliced/margherita_pizza
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/margherita_pizza
+/obj/item/food/sliced/margherita_pizza
 	name = "margherita slice"
 	desc = "A slice of the classic pizza."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -32,12 +32,12 @@
 	name = "meat pizza"
 	desc = "A pizza with meat topping."
 	icon_state = "meatpizza"
-	slice_path = /obj/item/food/slice/meat_pizza
+	slice_path = /obj/item/food/sliced/meat_pizza
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/meat_pizza
+/obj/item/food/sliced/meat_pizza
 	name = "meat pizza slice"
 	desc = "A slice of a meaty pizza."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -51,12 +51,12 @@
 	name = "mushroom pizza"
 	desc = "Very special pizza."
 	icon_state = "mushroompizza"
-	slice_path = /obj/item/food/slice/mushroom_pizza
+	slice_path = /obj/item/food/sliced/mushroom_pizza
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
 	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/mushroom_pizza
+/obj/item/food/sliced/mushroom_pizza
 	name = "mushroom pizza slice"
 	desc = "Maybe it is the last slice of pizza in your life."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -70,12 +70,12 @@
 	name = "vegetable pizza"
 	desc = "No Tomato Sapiens were harmed during the making of this pizza."
 	icon_state = "vegetablepizza"
-	slice_path = /obj/item/food/slice/vegetable_pizza
+	slice_path = /obj/item/food/sliced/vegetable_pizza
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/vegetable_pizza
+/obj/item/food/sliced/vegetable_pizza
 	name = "vegetable pizza slice"
 	desc = "A slice of the most green pizza of all pizzas not containing green ingredients."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -89,12 +89,12 @@
 	name = "hawaiian pizza"
 	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
 	icon_state = "hawaiianpizza"
-	slice_path = /obj/item/food/slice/hawaiian_pizza
+	slice_path = /obj/item/food/sliced/hawaiian_pizza
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/hawaiian_pizza
+/obj/item/food/sliced/hawaiian_pizza
 	name = "hawaiian pizza slice"
 	desc = "A slice of polarising pizza."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -108,13 +108,13 @@
 	name = "mac 'n' cheese pizza"
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
 	icon_state = "macpizza"
-	slice_path = /obj/item/food/slice/mac_pizza
+	slice_path = /obj/item/food/sliced/mac_pizza
 	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "cheese" = 2, "pasta" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/mac_pizza
+/obj/item/food/sliced/mac_pizza
 	name = "mac 'n' cheese pizza slice"
 	desc = "A delicious slice of pizza topped with macaroni & cheese... wait, what the hell? Who would do this?!"
 	icon = 'icons/obj/food/pizza.dmi'
@@ -128,13 +128,13 @@
 	name = "pepperoni pizza"
 	desc = "What did the pepperoni say to the pizza?"
 	icon_state = "pepperonipizza"
-	slice_path = /obj/item/food/slice/pepperoni_pizza
+	slice_path = /obj/item/food/sliced/pepperoni_pizza
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/pepperoni_pizza
+/obj/item/food/sliced/pepperoni_pizza
 	name = "pepperoni pizza slice"
 	desc = "Nice to meat you!"
 	icon = 'icons/obj/food/pizza.dmi'
@@ -148,11 +148,11 @@
 	name = "cheese pizza"
 	desc = "Cheese, bread, cheese, tomato, and cheese."
 	icon_state = "cheesepizza"
-	slice_path = /obj/item/food/slice/cheese_pizza
+	slice_path = /obj/item/food/sliced/cheese_pizza
 	list_reagents = list("nutriment" = 40, "tomatojuice" = 6, "vitamin" = 5)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/cheese_pizza
+/obj/item/food/sliced/cheese_pizza
 	name = "cheese pizza slice"
 	desc = "Dangerously cheesy?"
 	icon = 'icons/obj/food/pizza.dmi'
@@ -166,12 +166,12 @@
 	name = "donk-pocket pizza"
 	desc = "Who thought this would be a good idea?"
 	icon_state = "donkpocketpizza"
-	slice_path = /obj/item/food/slice/donk_pocket_pizza
+	slice_path = /obj/item/food/sliced/donk_pocket_pizza
 	list_reagents = list("nutriment" = 35, "tomatojuice" = 6, "vitamin" = 2, "weak_omnizine" = 6)
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/donk_pocket_pizza
+/obj/item/food/sliced/donk_pocket_pizza
 	name = "donk-pocket pizza slice"
 	desc = "Smells like lukewarm donk-pocket."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -185,12 +185,12 @@
 	name = "dank pizza"
 	desc = "The hippie's pizza of choice."
 	icon_state = "dankpizza"
-	slice_path = /obj/item/food/slice/dank_pizza
+	slice_path = /obj/item/food/sliced/dank_pizza
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5, "cbd" = 6, "thc" = 6)
 	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/dank_pizza
+/obj/item/food/sliced/dank_pizza
 	name = "dank pizza slice"
 	desc = "So good, man..."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -204,12 +204,12 @@
 	name = "firecracker pizza"
 	desc = "Tastes HOT HOT HOT!"
 	icon_state = "firecrackerpizza"
-	slice_path = /obj/item/food/slice/fire_cracker_pizza
+	slice_path = /obj/item/food/sliced/fire_cracker_pizza
 	list_reagents = list("nutriment" = 30, "vitamin" = 5, "capsaicin" = 12)
 	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/fire_cracker_pizza
+/obj/item/food/sliced/fire_cracker_pizza
 	name = "firecracker pizza slice"
 	desc = "A spicy slice of something quite nice."
 	icon = 'icons/obj/food/pizza.dmi'
@@ -223,12 +223,12 @@
 	name = "\"pesto\" pizza"
 	desc = "Wait a second...this doesn't taste like pesto!"
 	icon_state = "pestopizza"
-	slice_path = /obj/item/food/slice/pesto_pizza
+	slice_path = /obj/item/food/sliced/pesto_pizza
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 12, "vitamin" = 5, "wasabi" = 12)
 	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/pesto_pizza
+/obj/item/food/sliced/pesto_pizza
 	name = "\"pesto\" pizza slice"
 	desc = "Delicious and suspicious(ly green)."
 	icon = 'icons/obj/food/pizza.dmi'

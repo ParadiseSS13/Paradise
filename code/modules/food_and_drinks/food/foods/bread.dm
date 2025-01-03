@@ -8,14 +8,14 @@
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "meatbread"
-	slice_path = /obj/item/food/slice/meat_bread
+	slice_path = /obj/item/food/sliced/meat_bread
 	slices_num = 5
 	filling_color = "#FF7575"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "meat" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/meat_bread
+/obj/item/food/sliced/meat_bread
 	name = "meatbread slice"
 	desc = "A slice of delicious meatbread."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -28,14 +28,14 @@
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "xenomeatbread"
-	slice_path = /obj/item/food/slice/xeno_meat_bread
+	slice_path = /obj/item/food/sliced/xeno_meat_bread
 	slices_num = 5
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "acid" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/xeno_meat_bread
+/obj/item/food/sliced/xeno_meat_bread
 	name = "xenomeatbread slice"
 	desc = "A slice of delicious meatbread. Extra Heretical."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -48,13 +48,13 @@
 	desc = "Reassuringly green meatloaf made from spider meat."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "spidermeatbread"
-	slice_path = /obj/item/food/slice/spider_meat_bread
+	slice_path = /obj/item/food/sliced/spider_meat_bread
 	slices_num = 5
 	list_reagents = list("protein" = 20, "nutriment" = 10, "toxin" = 15, "vitamin" = 5)
 	tastes = list("bread" = 10, "cobwebs" = 5)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/spider_meat_bread
+/obj/item/food/sliced/spider_meat_bread
 	name = "spider meat bread slice"
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -68,14 +68,14 @@
 	desc = "A heavenly and filling treat."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bananabread"
-	slice_path = /obj/item/food/slice/banana_bread
+	slice_path = /obj/item/food/sliced/banana_bread
 	slices_num = 5
 	filling_color = "#EDE5AD"
 	list_reagents = list("banana" = 20, "nutriment" = 20)
 	tastes = list("bread" = 10, "banana" = 5)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/banana_bread
+/obj/item/food/sliced/banana_bread
 	name = "banana-nut bread slice"
 	desc = "A slice of delicious banana bread."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -89,14 +89,14 @@
 	desc = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "tofubread"
-	slice_path = /obj/item/food/slice/tofu_bread
+	slice_path = /obj/item/food/sliced/tofu_bread
 	slices_num = 5
 	filling_color = "#F7FFE0"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("bread" = 10, "tofu" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/tofu_bread
+/obj/item/food/sliced/tofu_bread
 	name = "tofubread slice"
 	desc = "A slice of delicious tofubread."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -109,14 +109,14 @@
 	desc = "Some plain old Earthen bread."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bread"
-	slice_path = /obj/item/food/slice/bread
+	slice_path = /obj/item/food/sliced/bread
 	slices_num = 6
 	filling_color = "#FFE396"
 	list_reagents = list("nutriment" = 10)
 	tastes = list("bread" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/bread
+/obj/item/food/sliced/bread
 	name = "bread slice"
 	desc = "A slice of home."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -131,14 +131,14 @@
 	desc = "Yum yum yum!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "creamcheesebread"
-	slice_path = /obj/item/food/slice/cream_cheese_bread
+	slice_path = /obj/item/food/sliced/cream_cheese_bread
 	slices_num = 5
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("bread" = 10, "cheese" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/cream_cheese_bread
+/obj/item/food/sliced/cream_cheese_bread
 	name = "cream cheese bread slice"
 	desc = "A slice of yum!"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -153,14 +153,14 @@
 	desc = "A loaf of delicious mah'weyh pleggh at e'ntrath!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "banarnarbread"
-	slice_path = /obj/item/food/slice/banarnarbread
+	slice_path = /obj/item/food/sliced/banarnarbread
 	slices_num = 5
 	filling_color = "#6F0000"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("heresy" = 10, "banana" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slice/banarnarbread
+/obj/item/food/sliced/banarnarbread
 	name = "banarnarbread slice"
 	desc = "A slice of delicious mah'weyh pleggh at e'ntrath!"
 	icon = 'icons/obj/food/burgerbread.dmi'

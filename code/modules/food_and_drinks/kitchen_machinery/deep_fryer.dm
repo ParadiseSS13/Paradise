@@ -189,7 +189,7 @@
 	output = /obj/item/food/carrotfries
 
 /datum/deepfryer_special/onionrings
-	input = /obj/item/food/slice/onion_slice
+	input = /obj/item/food/sliced/onion_slice
 	output = /obj/item/food/onionrings
 
 /datum/deepfryer_special/fried_vox

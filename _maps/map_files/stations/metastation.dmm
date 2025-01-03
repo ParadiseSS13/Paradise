@@ -58857,7 +58857,7 @@
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/food/slice/carrot_cake{
+/obj/item/food/sliced/carrot_cake{
 	pixel_x = 8;
 	pixel_y = -2
 	},
@@ -70328,9 +70328,9 @@
 "qvp" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/slice/bread,
-/obj/item/food/slice/bread,
-/obj/item/food/slice/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,

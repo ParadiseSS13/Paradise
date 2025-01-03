@@ -622,36 +622,36 @@
 		"replace": "/obj/item/food/sushi_ikura"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_inari",
-		"replace": "/obj/item/food/slice/sushi_inari"
+		"original": "/obj/item/food/sliced/sushi_inari",
+		"replace": "/obj/item/food/sliced/sushi_inari"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_masago",
-		"replace": "/obj/item/food/slice/sushi_masago"
+		"original": "/obj/item/food/sliced/sushi_masago",
+		"replace": "/obj/item/food/sliced/sushi_masago"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_sake",
-		"replace": "/obj/item/food/slice/sushi_sake"
+		"original": "/obj/item/food/sliced/sushi_sake",
+		"replace": "/obj/item/food/sliced/sushi_sake"
 	},
 	{
 		"original": "/obj/item/food/sushi_SmokedSalmon",
-		"replace": "/obj/item/food/slice/sushi_smoked_salmon"
+		"replace": "/obj/item/food/sliced/sushi_smoked_salmon"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_tai",
-		"replace": "/obj/item/food/slice/sushi_tai"
+		"original": "/obj/item/food/sliced/sushi_tai",
+		"replace": "/obj/item/food/sliced/sushi_tai"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_tamago",
-		"replace": "/obj/item/food/slice/sushi_tamago"
+		"original": "/obj/item/food/sliced/sushi_tamago",
+		"replace": "/obj/item/food/sliced/sushi_tamago"
 	},
 	{
-		"original": "/obj/item/food/slice/sushi_tobiko",
-		"replace": "/obj/item/food/slice/sushi_tobiko"
+		"original": "/obj/item/food/sliced/sushi_tobiko",
+		"replace": "/obj/item/food/sliced/sushi_tobiko"
 	},
 	{
 		"original": "/obj/item/food/sushi_TobikoEgg",
-		"replace": "/obj/item/food/slice/sushi_tobiko_egg"
+		"replace": "/obj/item/food/sliced/sushi_tobiko_egg"
 	},
 	{
 		"original": "/obj/item/food/sushi_Unagi",
