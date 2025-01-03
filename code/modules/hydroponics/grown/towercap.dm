@@ -19,7 +19,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
-	reagents_add = list("carbon" = 0.2)
+	reagents_add = list("plantmatter" = 0.225)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
