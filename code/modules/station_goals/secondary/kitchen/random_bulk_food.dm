@@ -18,7 +18,7 @@
 		valid_food += candidate
 
 	if(!valid_food)
-		food_type = /obj/item/food/cheesewedge
+		food_type = /obj/item/food/sliced/cheesewedge
 		amount = 50
 		return
 

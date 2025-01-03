@@ -235,7 +235,7 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/sliced/birthday_cake = 3,
 		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"

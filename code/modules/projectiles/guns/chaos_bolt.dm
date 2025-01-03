@@ -148,7 +148,7 @@
 			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos lethal explosion effect")
 		if("cheese morphed")
 			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
-			new /obj/item/food/cheesewedge(get_turf(H))
+			new /obj/item/food/sliced/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
 			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
@@ -323,7 +323,7 @@
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("cheese")
-			item_to_summon = /obj/item/food/cheesewedge
+			item_to_summon = /obj/item/food/sliced/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")

@@ -564,19 +564,20 @@
 	desc = "A traditional turkey served with stuffing."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "turkey"
-	slice_path = /obj/item/food/turkeyslice
+	slice_path = /obj/item/food/sliced/turkey
 	slices_num = 6
-	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
+	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 6)
 	tastes = list("turkey" = 2, "stuffing" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/turkeyslice
+/obj/item/food/sliced/turkey
 	name = "turkey serving"
 	desc = "A serving of some tender and delicious turkey."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "turkeyslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
+	list_reagents = list("protein" = 4, "nutriment" = 3, "vitamin" = 1)
 	tastes = list("turkey" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
