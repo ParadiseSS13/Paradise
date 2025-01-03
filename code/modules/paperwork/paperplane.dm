@@ -13,11 +13,11 @@
 	no_spin = TRUE
 
 	var/obj/item/paper/internal_paper
+	scatter_distance = 8
 
 /obj/item/paperplane/New(loc, obj/item/paper/new_paper)
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	scatter_atom()
 	if(new_paper)
 		internal_paper = new_paper
 		flags = new_paper.flags

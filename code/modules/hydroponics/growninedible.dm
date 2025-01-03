@@ -26,9 +26,7 @@
 	else if(seed)
 		seed = new seed
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
+	scatter_atom()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_new(src)

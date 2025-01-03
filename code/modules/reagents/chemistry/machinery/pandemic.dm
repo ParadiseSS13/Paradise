@@ -82,8 +82,7 @@
 /obj/machinery/computer/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
 	B.icon_state = "bottle"
-	B.pixel_x = rand(-3, 3)
-	B.pixel_y = rand(-3, 3)
+	B.scatter_atom()
 	replicator_cooldown(cooldown)
 	B.name = "[name] [bottle_type] bottle"
 	return B

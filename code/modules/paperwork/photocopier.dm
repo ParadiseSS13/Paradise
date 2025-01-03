@@ -128,8 +128,7 @@
 	p.tiny = photocopy.tiny
 	p.img = photocopy.img
 	p.desc = photocopy.desc
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	if(photocopy.scribble)
 		p.scribble = photocopy.scribble
 	return p
@@ -170,8 +169,7 @@
 	else if(folder)
 		p.forceMove(folder)
 	p.desc = "You see [copymob]'s ass on the photo."
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	p.img = temp_img
 	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
@@ -220,8 +218,7 @@
 
 	P.icon_state = "paper_words"
 	P.name = bundle.name
-	P.pixel_y = rand(-8, 8)
-	P.pixel_x = rand(-9, 9)
+	P.scatter_atom()
 	return P
 
 /obj/machinery/photocopier/proc/remove_document()

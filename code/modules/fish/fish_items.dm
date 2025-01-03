@@ -159,8 +159,7 @@
 
 /obj/item/shard/shark_teeth/set_initial_icon_state()
 	icon_state = "teeth"
-	pixel_x = rand(-5,5)
-	pixel_y = rand(-5,5)
+	scatter_atom()
 
 /obj/item/fish/catfish
 	name = "catfish"

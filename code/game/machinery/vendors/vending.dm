@@ -825,8 +825,7 @@
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
 			vended.forceMove(T)
-			vended.pixel_x = rand(-5, 5)
-			vended.pixel_y = rand(-5, 5)
+			vended.scatter_atom()
 		return TRUE
 	return FALSE
 

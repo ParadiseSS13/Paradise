@@ -230,8 +230,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/structure/closet/C = pick_n_take(seeded_salvage_closets)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(C)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	max_salvage_attempts = rand(10, 15)
@@ -239,8 +238,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/T = pick_n_take(seeded_salvage_surfaces)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(T.loc)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
