@@ -44,7 +44,7 @@
 	slice_path = /obj/item/food/sliced/cheesewedge
 	slices_num = 5
 	filling_color = "#FFF700"
-	list_reagents = list("nutriment" = 15, "vitamin" = 5, "cheese" = 20)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1)
 
 /obj/item/food/sliced/cheesewedge
@@ -52,6 +52,7 @@
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1)
 
 /obj/item/food/sliceable/cheesewheel/smoked
@@ -60,13 +61,14 @@
 	icon_state = "cheesewheel-smoked"
 	slice_path = /obj/item/food/sliced/cheesewedge/smoked
 	slices_num = 4
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 15)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1, "smoke" = 2)
 
 /obj/item/food/sliced/cheesewedge/smoked
 	name = "smoked cheese wedge"
 	desc = "A wedge of fancy smoked cheese."
 	icon_state = "cheesewedge-smoked"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1, "smoke" = 2)
 
 /obj/item/food/sliceable/cheesewheel/edam
@@ -75,13 +77,14 @@
 	icon_state = "cheesewheel-edam"
 	slice_path = /obj/item/food/sliced/cheesewedge/edam
 	slices_num = 4
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 15)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1, "salt" = 2, "almonds" = 2)
 
 /obj/item/food/sliced/cheesewedge/edam
 	name = "edam cheese wedge"
 	desc = "A wedge of mild edam cheese. It's said to have a nutty flavor."
 	icon_state = "cheesewedge-edam"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1, "salt" = 2, "almonds" = 2)
 
 /obj/item/food/sliceable/cheesewheel/blue
@@ -89,8 +92,8 @@
 	desc = "A wheel of pungent blue cheese. It's an acquired taste..."
 	icon_state = "cheesewheel-blue"
 	slice_path = /obj/item/food/sliced/cheesewedge/blue
-	slices_num = 5
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 10)
+	slices_num = 4
+	list_reagents = list("nutriment" = 4, "vitamin" = 4, "cheese" = 12)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
 /obj/item/food/sliced/cheesewedge/blue
@@ -98,6 +101,7 @@
 	desc = "A wedge of pungent blue cheese. The flavor is... intense."
 	icon_state = "cheesewedge-blue"
 	bitesize = 2
+	list_reagents = list("nutriment" = 1, "vitamin" = 1, "cheese" = 3)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
 /obj/item/food/sliceable/cheesewheel/camembert
@@ -106,7 +110,7 @@
 	icon_state = "cheesewheel-camembert"
 	slice_path = /obj/item/food/sliced/cheesewedge/camembert
 	slices_num = 2
-	list_reagents = list("nutriment" = 1, "vitamin" = 2, "cheese" = 6)
+	list_reagents = list("nutriment" = 4, "vitamin" = 4, "cheese" = 8)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
 /obj/item/food/sliced/cheesewedge/camembert
@@ -114,6 +118,7 @@
 	desc = "A piece of camembert. It's soft and gooey."
 	icon_state = "cheesewedge-camembert"
 	bitesize = 2
+	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 4)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
 /obj/item/food/sliced/cheesewedge/checkpass(passflag)
@@ -156,6 +161,7 @@
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FF3867"
+	list_reagents = list("plantmatter" = 1)
 	tastes = list("watermelon" = 1)
 
 /obj/item/food/sliced/tomato
@@ -171,6 +177,7 @@
 	desc = "Rings of pineapple."
 	icon_state = "pineappleslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#e5b437"
+	list_reagents = list("plantmatter" = 1, "vitamin" = 1)
 	tastes = list("pineapple" = 1)
 
 
@@ -215,7 +222,7 @@
 	desc = "The building block of an impressive dish."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list("nutriment" = 2)
 	tastes = list("dough" = 1)
 
 

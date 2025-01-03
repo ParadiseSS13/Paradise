@@ -21,6 +21,8 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "meatbreadslice"
 	filling_color = "#FF7575"
+	list_reagents = list("protein" = 4, "nutriment" = 2, "vitamin" = 1)
+	tastes = list("bread" = 10, "meat" = 10)
 	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/sliceable/xenomeatbread
@@ -41,6 +43,8 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "xenobreadslice"
 	filling_color = "#8AFF75"
+	list_reagents = list("protein" = 4, "nutriment" = 2, "vitamin" = 1)
+	tastes = list("bread" = 10, "acid" = 10)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/sliceable/spidermeatbread
@@ -59,6 +63,7 @@
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "spidermeatslice"
+	list_reagents = list("protein" = 4, "nutriment" = 2, "toxin" = 3, "vitamin" = 1)
 	tastes = list("bread" = 10, "cobwebs" = 5)
 	list_reagents = list("toxin" = 2)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
@@ -81,6 +86,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bananabreadslice"
 	filling_color = "#EDE5AD"
+	list_reagents = list("banana" = 4, "nutriment" = 4)
 	tastes = list("bread" = 10, "banana" = 5)
 	goal_difficulty = FOOD_GOAL_EASY
 
@@ -102,6 +108,8 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "tofubreadslice"
 	filling_color = "#F7FFE0"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	tastes = list("bread" = 10, "tofu" = 10)
 	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/sliceable/bread
@@ -122,7 +130,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "breadslice"
 	filling_color = "#D27332"
-	list_reagents = list("nutriment" = 2, "bread" = 5)
+	list_reagents = list("nutriment" = 2, "bread" = 5) // TODO Why bread?
 	tastes = list("bread" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
