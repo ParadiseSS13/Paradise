@@ -552,7 +552,8 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(nightshift_enabled ? IDLE_POWER_USE : ACTIVE_POWER_USE)
+
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
