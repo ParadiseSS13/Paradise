@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/pick_icon,
 	/mob/living/silicon/ai/proc/sensor_mode,
 	/mob/living/silicon/ai/proc/show_laws_verb,
+	/mob/living/silicon/ai/proc/toggle_fast_holograms,
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
@@ -104,10 +105,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/ai_eye/eyeobj
-	var/sprint = 10
-	var/cooldown = 0
-	var/acceleration = 1
+	var/mob/camera/eye/ai/eyeobj
+	var/fast_holograms = TRUE
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	/// If true, this AI core can use the teleporter.
@@ -121,7 +120,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/list/all_eyes = list()
 	var/next_text_announcement
 
 	//Used with the hotkeys on 2-5 to store locations.
@@ -228,8 +226,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-
-	create_eye()
+	
+	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name
@@ -1433,8 +1431,45 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 
-/mob/living/silicon/ai/proc/camera_visibility(mob/camera/ai_eye/moved_eye)
-	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
+// Return to the Core.
+/mob/living/silicon/ai/proc/core()
+	set category = "AI Commands"
+	set name = "AI Core"
+
+	view_core()
+
+/mob/living/silicon/ai/proc/view_core()
+
+	current = null
+	cameraFollow = null
+	unset_machine()
+
+	if(eyeobj && loc)
+		eyeobj.loc = loc
+	else
+		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
+		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
+
+	eyeobj.setLoc(loc)
+
+/mob/living/silicon/ai/proc/toggle_fast_holograms()
+	set category = "AI Commands"
+	set name = "Toggle Fast Holograms"
+	
+	if(usr.stat == DEAD || !isAIEye(eyeobj))
+		return
+	fast_holograms = !fast_holograms
+	to_chat(usr, "Fast holograms have been toggled [fast_holograms ? "on" : "off"].")
+
+/mob/living/silicon/ai/proc/toggle_acceleration()
+	set category = "AI Commands"
+	set name = "Toggle Camera Acceleration"
+
+	if(usr.stat == DEAD)
+		return //won't work if dead
+	if(isAIEye(eyeobj))
+		eyeobj.acceleration = !eyeobj.acceleration
+		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/handle_fire()
 	return

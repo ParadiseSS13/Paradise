@@ -92,6 +92,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	/// Whether or not the user is currently selecting where to send their call.
 	var/dialling_input = FALSE
+	var/mob/camera/eye/hologram/eye
 
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
@@ -380,8 +381,8 @@ GLOBAL_LIST_EMPTY(holopads)
 
 //Can we display holos there
 //Area check instead of line of sight check because this is a called a lot if AI wants to move around.
-/obj/machinery/hologram/holopad/proc/validate_location(turf/T,check_los = FALSE)
-	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
+/obj/machinery/hologram/holopad/proc/validate_location(turf/T)
+	if(T.z == z && (get_dist(T, src) <= holo_range) && T.loc == get_area(src))
 		return TRUE
 	return FALSE
 
@@ -435,6 +436,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()
 
+		eye = new /mob/camera/eye/hologram(src, user.name, src, user)
 		set_holo(user, hologram)
 
 		if(!masters[user])//If there is not already a hologram.
@@ -487,6 +489,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
+	eye = user.remote_control
+	eye.holopad = src
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
@@ -498,10 +502,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram
+	if(!QDELETED(eye))
+		QDEL_NULL(eye)
 	unset_holo(user)
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/unset_holo(mob/living/user)
+	eye = null
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI) && AI.current == src)
 		AI.current = null

@@ -56,22 +56,22 @@
 	SScamera.queue(src)
 
 // Add an AI eye to the chunk, then update if changed.
-/datum/camerachunk/proc/add(mob/camera/ai_eye/eye, add_images = TRUE)
+/datum/camerachunk/proc/add(mob/camera/eye/eye, add_images = TRUE)
 	if(add_images)
 		var/client/client = eye.GetViewerClient()
 		if(client)
 			client.images += obscured
 	eye.visibleCameraChunks += src
 	seenby += eye
-	RegisterSignal(eye, COMSIG_PARENT_QDELETING, PROC_REF(aiEye_destroyed))
+	RegisterSignal(eye, COMSIG_PARENT_QDELETING, PROC_REF(eye_destroyed))
 	if(changed)
 		SScamera.queue(src)
 
-/datum/camerachunk/proc/aiEye_destroyed(mob/camera/ai_eye/eye)
+/datum/camerachunk/proc/eye_destroyed(mob/camera/eye/eye)
 	remove(eye, FALSE)
 
 // Remove an AI eye from the chunk, then update if changed.
-/datum/camerachunk/proc/remove(mob/camera/ai_eye/eye, remove_images = TRUE)
+/datum/camerachunk/proc/remove(mob/camera/eye/eye, remove_images = TRUE)
 	if(remove_images)
 		var/client/client = eye.GetViewerClient()
 		if(client)
@@ -134,7 +134,7 @@
 		obscured += t.obscured
 		images_to_add += t.obscured
 
-	for(var/mob/camera/ai_eye/eye as anything in seenby)
+	for(var/mob/camera/eye/eye as anything in seenby)
 		var/client/client = eye.GetViewerClient()
 		if(client)
 			client.images -= images_to_remove
