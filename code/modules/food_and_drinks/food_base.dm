@@ -280,6 +280,15 @@
 	var/test = 3
 
 /obj/item/food/sliced/Initialize(mapload, parent_reagents)
+	if(!parent_reagents && !length(list_reagents))
+		//log_debug("Slice was created with no parent! Name: [src], UID:[src.UID()], loc:[src.loc]")
+		CRASH("Slice was created with no reagents! [src]") // 68, 181, 2
+	list_reagents = parent_reagents
+	return ..()
+
+/obj/item/food/sliced/New(parent_reagents)
+	. = ..()
+
 	if(!parent_reagents && !list_reagents)
 		//log_debug("Slice was created with no parent! Name: [src], UID:[src.UID()], loc:[src.loc]")
 		CRASH("Slice was created with no reagents! [src]")
