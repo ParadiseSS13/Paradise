@@ -10,7 +10,7 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to separate rooms."
 	anchored = TRUE
-	icon = 'icons/turf/walls/wall.dmi'
+	icon = 'icons/turf/walls/32x40wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -69,6 +69,8 @@
 	if(opening)
 		return
 	opening = TRUE
+	var/direction = get_current_direction()
+	dir = direction ? direction : NORTH
 	if(density)
 		flick("fwall_opening", src)
 		density = FALSE
@@ -171,6 +173,11 @@
 	if(opening || !density)
 		return
 	return ..()
+
+/obj/structure/falsewall/proc/get_current_direction()
+	for(var/direction in GLOB.cardinal)
+		if(iswallturf(get_step(src, direction)))
+			return direction
 
 /*
  * False R-Walls
