@@ -504,11 +504,20 @@
 /obj/effect/hallucination/chaser/you
 	duration = 10 SECONDS
 	min_distance = 2
+	var/image/I = new
 
 /obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
-	var/image/I = new
+	name = "???"
 	I.appearance = target.appearance
 	I.loc = src
 	I.override = TRUE
 	add_icon(I)
+
+/obj/effect/hallucination/chaser/you/chase()
+	..()
+	I.dir = get_dir(src, target)
+
+/obj/effect/hallucination/chaser/you/Destroy()
+	QDEL_NULL(I)
+	return ..()
