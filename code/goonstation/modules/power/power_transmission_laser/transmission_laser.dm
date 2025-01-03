@@ -63,7 +63,7 @@
 	/// Gives our power input when multiplied with power_format_multi. The multiplier signifies the units of power, and this is how many of them we are inputting.
 	var/input_number = 0
 	/// Gives our power output when multiplied with power_format_multi_output. The multiplier signifies the units of power, and this is how many of them we are outputting.
-	var/output_number = 0
+	var/output_number = 1
 	/// Our set input pulling
 	var/input_pulling = 0
 	/// Targetable areas in lavaland
@@ -312,7 +312,7 @@
 		if("set_input")
 			input_number = clamp(params["set_input"], 0, 999) //multiplies our input by if input
 		if("set_output")
-			output_number = clamp(params["set_output"], 0, 999)
+			output_number = clamp(params["set_output"], 1, 999)
 
 		if("inputW")
 			power_format_multi = 1
@@ -366,13 +366,6 @@
 	if(stat & BROKEN)
 		return
 
-	var/last_disp = return_charge()
-	var/last_chrg = inputting
-	var/last_fire = firing
-
-	if(last_disp != return_charge() || last_chrg != inputting || last_fire != firing)
-		update_icon()
-
 	if(powernet && input_attempt && turned_on)
 		input_pulling = min(input_available, input_number * power_format_multi, capacity - charge )
 
@@ -392,6 +385,7 @@
 		firing = FALSE
 		output_level = 0
 		destroy_lasers()
+		update_icon()
 		return
 
 	if(!firing)
