@@ -54,7 +54,7 @@
 //Disk stuff.
 /obj/item/disk/data/New()
 	. = ..()
-	var/diskcolor = pick(0, 1, 2)
+	var/diskcolor = pick(0, 1, 2, 3, 4, 5)
 	icon_state = "datadisk[diskcolor]"
 
 /obj/item/disk/data/attack_self__legacy__attackchain(mob/user)

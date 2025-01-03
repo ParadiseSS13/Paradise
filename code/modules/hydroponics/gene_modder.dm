@@ -583,7 +583,7 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/disk/plantgene/Destroy()
 	QDEL_NULL(gene)
@@ -649,13 +649,6 @@
 		return
 
 	icon_state = "datadisk_hydro"
-
-/obj/item/disk/plantgene/update_overlays()
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
-
-	. += "datadisk_gene"
 
 /obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
