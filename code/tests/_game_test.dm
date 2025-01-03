@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(game_test_chats)
+
 /// For advanced cases, fail unconditionally but don't return (so a test can return multiple results)
 #define TEST_FAIL(reason) (Fail(reason || "No reason", __FILE__, __LINE__))
 
