@@ -359,7 +359,7 @@
 */
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
+/mob/living/silicon/robot/drone/Bump(atom/movable/AM)
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 

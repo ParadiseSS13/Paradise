@@ -59,7 +59,7 @@
 		if(isliving(user) && user?.mind?.special_role)
 			to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
 			access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -296,4 +296,4 @@
 			if(user.mind.special_role)
 				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
 				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
-				return ITEM_INTERACT_SUCCESS
+				return ITEM_INTERACT_COMPLETE

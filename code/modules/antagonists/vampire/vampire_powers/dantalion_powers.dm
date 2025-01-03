@@ -161,6 +161,10 @@
 
 /datum/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
+		to_chat(target, "<span class='warning'>You feel space bending, but it rapidly dissipates.</span>")
+		return FALSE
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	if(!(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, user_turf) & COMPONENT_BLOCK_TELEPORT))

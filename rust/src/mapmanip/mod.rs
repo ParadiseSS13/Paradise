@@ -170,7 +170,7 @@ fn mapmanip_submap_extract_insert(
 
 ///
 #[byondapi::bind]
-fn mapmanip_read_dmm_file(path: ByondValue) {
+fn mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
     internal_mapmanip_read_dmm_file(path)
 }
 
@@ -235,7 +235,7 @@ pub unsafe extern "C" fn read_dmm_file_ffi(
     ) {
         Ok(val) => val,
         Err(info) => {
-            dm_call_stack_trace(format!("Rustlibs ERROR read_dmm_file_ffi() \n {info:#?}"));
+            let _ = dm_call_stack_trace(format!("Rustlibs ERROR read_dmm_file_ffi() \n {info:#?}"));
             ByondValue::null()
         }
     }
