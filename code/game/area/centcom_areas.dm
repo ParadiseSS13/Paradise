@@ -135,3 +135,9 @@
 	requires_power = FALSE
 	has_gravity = TRUE
 	hide_attacklogs = TRUE
+
+/area/backrooms
+	name = "Backrooms"
+	icon_state = "yellow"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
