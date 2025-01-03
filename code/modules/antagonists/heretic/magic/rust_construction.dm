@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/rust_construction
+/datum/spell/pointed/rust_construction
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
 	background_icon_state = "bg_heretic"
@@ -23,10 +23,10 @@
 /**
  * Overrides 'aim assist' because we always want to hit just the turf we clicked on.
  */
-/datum/action/cooldown/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
+/datum/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-/datum/action/cooldown/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
+/datum/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
 	if(!isturf(cast_on))
 		cast_on.balloon_alert(owner, "not a wall or floor!")
 		return FALSE
@@ -38,7 +38,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/rust_construction/before_cast(turf/open/cast_on)
+/datum/spell/pointed/rust_construction/before_cast(turf/open/cast_on)
 	. = ..()
 	if(!isliving(owner))
 		return
@@ -47,7 +47,7 @@
 	invocation = "<span class='danger'><b>[owner]</b> drags [owner.p_their()] hand[living_owner.usable_hands == 1 ? "":"s"] upwards as a wall of rust rises out of [cast_on]!</span>"
 	invocation_self_message = "<span class='notice'>You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].</span>"
 
-/datum/action/cooldown/spell/pointed/rust_construction/cast(turf/cast_on)
+/datum/spell/pointed/rust_construction/cast(turf/cast_on)
 	. = ..()
 	var/rises_message = "rises out of [cast_on]"
 
@@ -118,7 +118,7 @@
 	if(!message_shown)
 		new_wall.visible_message("<span class='warning'>\A [new_wall] [rises_message]!</span>")
 
-/datum/action/cooldown/spell/pointed/rust_construction/proc/fade_wall_filter(turf/closed/wall)
+/datum/spell/pointed/rust_construction/proc/fade_wall_filter(turf/closed/wall)
 	if(QDELETED(wall))
 		return
 
@@ -128,7 +128,7 @@
 
 	animate(rust_filter, alpha = 0, time = filter_duration * (9/20))
 
-/datum/action/cooldown/spell/pointed/rust_construction/proc/remove_wall_filter(turf/closed/wall)
+/datum/spell/pointed/rust_construction/proc/remove_wall_filter(turf/closed/wall)
 	if(QDELETED(wall))
 		return
 

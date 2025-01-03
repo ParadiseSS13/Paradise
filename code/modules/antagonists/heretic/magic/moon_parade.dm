@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/projectile/moon_parade
+/datum/spell/pointed/projectile/moon_parade
 	name = "Lunar parade"
 	desc = "This unleashes the parade, making everyone in its way join it and suffer hallucinations."
 	background_icon_state = "bg_heretic"
@@ -78,7 +78,7 @@
 
 	if(!(victim in mobs_hit))
 		RegisterSignal(victim, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(moon_block_move))
-		RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(clear_mob))
+		RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(clear_mob))
 		victim.AddComponent(/datum/component/leash, src, distance = 1)
 		victim.balloon_alert(victim, "you feel unable to move away from the parade!")
 		mobs_hit += victim
@@ -102,5 +102,5 @@
 
 /obj/projectile/moon_parade/proc/clear_mob(datum/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_QDELETING))
+	UnregisterSignal(source, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_PARENT_QDELETING))
 	mobs_hit -= source

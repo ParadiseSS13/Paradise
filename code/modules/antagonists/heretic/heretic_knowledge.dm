@@ -204,7 +204,7 @@
 	created_action_ref = WEAKREF(created_action)
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	var/datum/action/cooldown/spell/created_action = created_action_ref?.resolve()
+	var/datum/spell/created_action = created_action_ref?.resolve()
 	if(created_action?.owner == user)
 		created_action.Remove(user)
 

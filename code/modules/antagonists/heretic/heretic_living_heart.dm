@@ -32,7 +32,7 @@
 	UnregisterSignal(parent, COMSIG_ORGAN_REMOVED)
 
 /datum/component/living_heart/PostTransfer(datum/new_parent)
-	if(!isorgan(new_parent))
+	if(!is_internal_organ(new_parent))
 		return COMPONENT_INCOMPATIBLE
 
 /**

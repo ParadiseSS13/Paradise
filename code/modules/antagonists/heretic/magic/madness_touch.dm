@@ -1,5 +1,5 @@
 // Currently unused
-/datum/action/cooldown/spell/touch/mad_touch
+/datum/spell/touch/mad_touch
 	name = "Touch of Madness"
 	desc = "A touch spell that drains your enemy's sanity and knocks them down."
 	background_icon_state = "bg_heretic"
@@ -13,7 +13,7 @@
 	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
-/datum/action/cooldown/spell/touch/mad_touch/is_valid_target(atom/cast_on)
+/datum/spell/touch/mad_touch/is_valid_target(atom/cast_on)
 	if(!ishuman(cast_on))
 		return FALSE
 	var/mob/living/carbon/human/human_cast_on = cast_on
@@ -21,13 +21,13 @@
 		return FALSE
 	return TRUE
 
-/datum/action/cooldown/spell/touch/mad_touch/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+/datum/spell/touch/mad_touch/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	victim.visible_message(
 		"<span class='danger'>The spell bounces off of [victim]!</span>",
 		"<span class='danger'>The spell bounces off of you!</span>",
 	)
 
-/datum/action/cooldown/spell/touch/mad_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/carbon/human/victim, mob/living/carbon/caster)
+/datum/spell/touch/mad_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/carbon/human/victim, mob/living/carbon/caster)
 	to_chat(caster, "<span class='warning'>[victim.name] has been cursed!</span>")
 	victim.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	return TRUE

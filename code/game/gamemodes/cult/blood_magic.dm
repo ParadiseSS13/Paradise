@@ -6,6 +6,8 @@
 	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
+	/// If the magic has been enhanced somehow, likely due to a crimson medallion.
+	var/magic_enhanced = FALSE
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
@@ -17,7 +19,7 @@
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	for(var/obj/effect/rune/empower/R in range(1, owner))
 		rune = TRUE
-		limit = MAX_BLOODCHARGE
+		limit = magic_enhanced ? ENHANCED_BLOODCHARGE : MAX_BLOODCHARGE
 		break
 	if(length(spells) >= limit)
 		if(rune)

@@ -33,3 +33,6 @@
 /// from /datum/component/shelver/shelf_items()
 #define COMSIG_SHELF_ATTEMPT_PICKUP "shelf_attempt_pickup"
 	#define SHELF_PICKUP_FAILURE (1 << 0)
+
+/// When the lionhunter rifle hits something
+#define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"

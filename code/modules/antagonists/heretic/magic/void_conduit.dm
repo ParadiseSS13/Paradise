@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/void_conduit
+/datum/spell/conjure/void_conduit
 	name = "Void Conduit"
 	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
 		while afflicting Heathens with void chill. \

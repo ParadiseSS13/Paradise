@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/cosmic_rune
+/datum/spell/cosmic_rune
 	name = "Cosmic Rune"
 	desc = "Creates a cosmic rune at your position, only two can exist at a time. Invoking one rune transports you to the other. \
 		Anyone with a star mark gets transported along with you."
@@ -22,7 +22,7 @@
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
-/datum/action/cooldown/spell/cosmic_rune/cast(atom/cast_on)
+/datum/spell/cosmic_rune/cast(atom/cast_on)
 	. = ..()
 	var/obj/effect/cosmic_rune/first_rune_resolved = first_rune?.resolve()
 	var/obj/effect/cosmic_rune/second_rune_resolved = second_rune?.resolve()
@@ -42,7 +42,7 @@
 		second_rune = make_new_rune(get_turf(cast_on), first_rune_resolved)
 
 /// Returns a weak reference to a new rune, linked to an existing rune if provided
-/datum/action/cooldown/spell/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
+/datum/spell/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
 	var/obj/effect/cosmic_rune/new_rune = new /obj/effect/cosmic_rune(target_turf)
 	if(other_rune)
 		other_rune.link_rune(new_rune)

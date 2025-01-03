@@ -413,7 +413,7 @@
 
 /datum/reagent/eldritch/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(IS_HERETIC_OR_MONSTER(drinker))
+	if(IS_HERETIC_OR_MONSTER(M))
 		M.AdjustDrowsy(-10 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)

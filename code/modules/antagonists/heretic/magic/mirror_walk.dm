@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/jaunt/mirror_walk
+/datum/spell/jaunt/mirror_walk
 	name = "Mirror Walk"
 	desc = "Allows you to traverse invisibly and freely across the station within the realm of the mirror. \
 		You can only enter and exit the realm of mirrors when nearby reflective surfaces and items, \
@@ -22,15 +22,15 @@
 		/obj/structure/mirror,
 	))
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/Grant(mob/grant_to)
+/datum/spell/jaunt/mirror_walk/Grant(mob/grant_to)
 	. = ..()
 	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/Remove(mob/remove_from)
+/datum/spell/jaunt/mirror_walk/Remove(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/can_cast_spell(feedback = TRUE)
+/datum/spell/jaunt/mirror_walk/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -49,14 +49,14 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/cast(mob/living/cast_on)
+/datum/spell/jaunt/mirror_walk/cast(mob/living/cast_on)
 	. = ..()
 	if(is_jaunting(cast_on))
 		return exit_jaunt(cast_on)
 	else
 		return enter_jaunt(cast_on)
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/enter_jaunt(mob/living/jaunter, turf/loc_override)
+/datum/spell/jaunt/mirror_walk/enter_jaunt(mob/living/jaunter, turf/loc_override)
 	var/atom/nearby_reflection = is_reflection_nearby(jaunter)
 	if(!nearby_reflection)
 		to_chat(jaunter, "<span class='warning'>There are no reflective surfaces nearby to enter the mirror's realm!</span>")
@@ -81,7 +81,7 @@
 	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	return jaunt
 
-/datum/action/cooldown/spell/jaunt/mirror_walk/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+/datum/spell/jaunt/mirror_walk/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	var/turf/phase_turf = get_turf(unjaunter)
 	var/atom/nearby_reflection = is_reflection_nearby(phase_turf)
 	if(!nearby_reflection)
@@ -104,7 +104,7 @@
 	return ..(unjaunter, phase_turf)
 
 // Play a spooky noise, provide textual feedback, and make the turf colder.
-/datum/action/cooldown/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/datum/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
 	. = ..()
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	playsound(unjaunter, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
@@ -130,7 +130,7 @@
  * Returns an object reference to a "reflective" object in view if one was found,
  * or null if no object was found that was determined to be "reflective".
  */
-/datum/action/cooldown/spell/jaunt/mirror_walk/proc/is_reflection_nearby(atom/caster)
+/datum/spell/jaunt/mirror_walk/proc/is_reflection_nearby(atom/caster)
 	for(var/atom/thing as anything in view(2, caster))
 		if(isitem(thing))
 			var/obj/item/item_thing = thing

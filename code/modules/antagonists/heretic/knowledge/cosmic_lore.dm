@@ -62,7 +62,7 @@
 		However, people with a star mark will get transported along with another person using the rune."
 	gain_text = "The distant stars crept into my dreams, roaring and screaming without reason. \
 		I spoke, and heard my own words echoed back."
-	action_to_add = /datum/action/cooldown/spell/cosmic_rune
+	action_to_add = /datum/spell/cosmic_rune
 	cost = 1
 
 
@@ -86,7 +86,7 @@
 		The beam lasts a minute, until the beam is obstructed or until a new target has been found."
 	gain_text = "After waking in a cold sweat I felt a palm on my scalp, a sigil burned onto me. \
 		My veins now emitted a strange purple glow, the Beast knows I will surpass its expectations."
-	action_to_add = /datum/action/cooldown/spell/touch/star_touch
+	action_to_add = /datum/spell/touch/star_touch
 	cost = 1
 
 /datum/heretic_knowledge/spell/star_blast
@@ -94,7 +94,7 @@
 	desc = "Fires a projectile that moves very slowly, raising a short-lived wall of cosmic fields where it goes. \
 		Anyone hit by the projectile will receive burn damage, a knockdown, and give people in a three tile range a star mark."
 	gain_text = "The Beast was behind me now at all times, with each sacrifice words of affirmation coursed through me."
-	action_to_add = /datum/action/cooldown/spell/pointed/projectile/star_blast
+	action_to_add = /datum/spell/pointed/projectile/star_blast
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/cosmic
@@ -199,7 +199,7 @@
 	desc = "Grants you Cosmic Expansion, a spell that creates a 3x3 area of cosmic fields around you. \
 		Nearby beings will also receive a star mark."
 	gain_text = "The ground now shook beneath me. The Beast inhabited me, and their voice was intoxicating."
-	action_to_add = /datum/action/cooldown/spell/conjure/cosmic_expansion
+	action_to_add = /datum/spell/conjure/cosmic_expansion
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -247,7 +247,7 @@
 	star_gazer_mob.befriend(user)
 	var/datum/action/cooldown/open_mob_commands/commands_action = new /datum/action/cooldown/open_mob_commands()
 	commands_action.Grant(user, star_gazer_mob)
-	var/datum/action/cooldown/spell/touch/star_touch/star_touch_spell = locate() in user.actions
+	var/datum/spell/touch/star_touch/star_touch_spell = locate() in user.actions
 	if(star_touch_spell)
 		star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
@@ -259,5 +259,5 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/datum/action/cooldown/spell/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/datum/spell/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
 	cosmic_expansion_spell?.ascended = TRUE

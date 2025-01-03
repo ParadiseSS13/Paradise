@@ -62,7 +62,7 @@
 		/obj/item/stack/sheet/animalhide = 1,
 		/obj/item/camera = 1,
 	)
-	result_atoms = list(/obj/item/gun/ballistic/rifle/lionhunter)
+	result_atoms = list(/obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	cost = 1
 
 

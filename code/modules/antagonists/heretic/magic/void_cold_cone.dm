@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/cone/staggered/cone_of_cold/void
+/datum/spell/cone/staggered/cone_of_cold/void
 	name = "Void Blast"
 	desc = "Fires a cone of chilling void in front of you, freezing everything in its path. \
 		Enemies in the cone of the blast will be damaged slightly, slowed, and chilled overtime. \
@@ -29,7 +29,7 @@
 	// Also freezes stuff (Which will likely be unfrozen similarly to turfs)
 	unfreeze_object_duration = 30 SECONDS
 
-/datum/action/cooldown/spell/cone/staggered/cone_of_cold/void/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
+/datum/spell/cone/staggered/cone_of_cold/void/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
 	if(IS_HERETIC_OR_MONSTER(target_mob))
 		return
 

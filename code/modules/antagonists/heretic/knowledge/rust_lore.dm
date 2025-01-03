@@ -104,7 +104,7 @@
 		Anyone overtop the wall will be throw aside (or upwards) and sustain damage."
 	gain_text = "Images of foreign and ominous structures began to dance in my mind. Covered head to toe in thick rust, \
 		they no longer looked man made. Or perhaps they never were in the first place."
-	action_to_add = /datum/action/cooldown/spell/pointed/rust_construction
+	action_to_add = /datum/spell/pointed/rust_construction
 	cost = 1
 
 /datum/heretic_knowledge/spell/area_conversion
@@ -112,7 +112,7 @@
 	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
 		Already rusted surfaces are destroyed \ Also improves the rusting abilities of non rust-heretics."
 	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
-	action_to_add = /datum/action/cooldown/spell/aoe/rust_conversion
+	action_to_add = /datum/spell/aoe/rust_conversion
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -147,7 +147,7 @@
 	gain_text = "The corrosion was unstoppable. The rust was unpleasable. \
 		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
 
-	action_to_add = /datum/action/cooldown/spell/cone/staggered/entropic_plume
+	action_to_add = /datum/spell/cone/staggered/entropic_plume
 	cost = 1
 
 
@@ -214,7 +214,7 @@
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
-	var/datum/action/cooldown/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
+	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
 	rust_spread_spell?.cooldown_time /= 2
 
 // I sure hope this doesn't have performance implications

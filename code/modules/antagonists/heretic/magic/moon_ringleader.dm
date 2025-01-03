@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/moon_ringleader
+/datum/spell/aoe/moon_ringleader
 	name = "Ringleaders Rise"
 	desc = "Big AoE spell that deals brain damage and causes hallucinations to everyone in the AoE. \
 			The worse their sanity, the stronger this spell becomes. \
@@ -20,11 +20,11 @@
 	/// Effect for when the spell triggers
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/cast(mob/living/caster)
+/datum/spell/aoe/moon_ringleader/cast(mob/living/caster)
 	new moon_effect(get_turf(caster))
 	return ..()
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
+/datum/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
 	var/list/stuff = list()
 	var/list/o_range = orange(center, radius_override || aoe_radius) - list(owner, center)
 	for(var/mob/living/carbon/nearby_mob in o_range)
@@ -41,7 +41,7 @@
 
 	return stuff
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/caster)
+/datum/spell/aoe/moon_ringleader/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/caster)
 	var/victim_sanity = victim.mob_mood.sanity
 
 	victim.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100 - victim_sanity, 160)

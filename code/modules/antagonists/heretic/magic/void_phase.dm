@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/void_phase
+/datum/spell/pointed/void_phase
 	name = "Void Phase"
 	desc = "Lets you blink to your pointed destination, causes 3x3 aoe damage bubble \
 		around your pointed destination and your current location. \
@@ -22,7 +22,7 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/cooldown/spell/pointed/void_phase/before_cast(atom/cast_on)
+/datum/spell/pointed/void_phase/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -31,7 +31,7 @@
 		cast_on.balloon_alert(owner, "too close!")
 		return . | SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/pointed/void_phase/cast(atom/cast_on)
+/datum/spell/pointed/void_phase/cast(atom/cast_on)
 	. = ..()
 	var/turf/source_turf = get_turf(owner)
 	var/turf/targeted_turf = get_turf(cast_on)
@@ -48,7 +48,7 @@
 	)
 
 /// Does the AOE effect of the blinka t the passed turf
-/datum/action/cooldown/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
+/datum/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
 	new effect_type(target_turf)
 	playsound(target_turf, 'sound/effects/magic/voidblink.ogg', 60, FALSE)
 	for(var/mob/living/living_mob in range(damage_radius, target_turf))

@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Starts your journey into the Mansus. \
 		Grants you the Mansus Grasp, a powerful and upgradable \
 		disabling spell that can be cast regardless of having a focus."
-	action_to_add = /datum/action/cooldown/spell/touch/mansus_grasp
+	action_to_add = /datum/spell/touch/mansus_grasp
 	cost = 0
 	is_starting_knowledge = TRUE
 
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return NONE
 
 	INVOKE_ASYNC(cast_on, TYPE_PROC_REF(/atom/movable, say), message = "R'CH T'H F'SH!", forced = "fishing rod infusion invocation")
-	playsound(cast_on, /datum/action/cooldown/spell/touch/mansus_grasp::sound, 15)
+	playsound(cast_on, /datum/spell/touch/mansus_grasp::sound, 15)
 	cast_on.visible_message("<span class='notice'>[cast_on] snaps [cast_on.p_their()] fingers next to [held_rod], covering it in a burst of purple flames!</span>")
 
 	ADD_TRAIT(held_rod, TRAIT_ROD_MANSUS_INFUSED, REF(held_rod))
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	name = "Cloak of Shadow"
 	desc = "Grants you the spell Cloak of Shadow. This spell will completely conceal your identity in a purple smoke \
 		for three minutes, assisting you in keeping secrecy. Requires a focus to cast."
-	action_to_add = /datum/action/cooldown/spell/shadow_cloak
+	action_to_add = /datum/spell/shadow_cloak
 	cost = 0
 	is_starting_knowledge = TRUE
 

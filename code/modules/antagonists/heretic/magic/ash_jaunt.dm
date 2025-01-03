@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash
+/datum/spell/jaunt/ethereal_jaunt/ash
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
 	background_icon_state = "bg_heretic"
@@ -21,10 +21,10 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash/do_steam_effects()
+/datum/spell/jaunt/ethereal_jaunt/ash/do_steam_effects()
 	return
 
-/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash/long
+/datum/spell/jaunt/ethereal_jaunt/ash/long
 	name = "Ashen Walk"
 	desc = "A long range spell that allows you pass unimpeded through multiple walls."
 	jaunt_duration = 5 SECONDS

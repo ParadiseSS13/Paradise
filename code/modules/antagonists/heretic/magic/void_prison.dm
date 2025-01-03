@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/void_prison
+/datum/spell/pointed/void_prison
 	name = "Void Prison"
 	desc = "Sends a heathen into the void for 10 seconds. \
 		They will be unable to perform any actions for the duration. \
@@ -19,14 +19,14 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/pointed/void_prison/before_cast(atom/cast_on)
+/datum/spell/pointed/void_prison/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
@@ -46,7 +46,7 @@
 /datum/status_effect/void_prison/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	stasis_overlay = new /obj/effect/abstract/voidball(new_owner)
-	RegisterSignal(stasis_overlay, COMSIG_QDELETING, PROC_REF(clear_overlay))
+	RegisterSignal(stasis_overlay, COMSIG_PARENT_QDELETING, PROC_REF(clear_overlay))
 	new_owner.vis_contents += stasis_overlay
 	stasis_overlay.animate_opening()
 	addtimer(CALLBACK(src, PROC_REF(enter_prison), new_owner), 1 SECONDS)

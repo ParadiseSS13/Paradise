@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/mind_gate
+/datum/spell/pointed/mind_gate
 	name = "Mind Gate"
 	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
 			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
@@ -7,7 +7,7 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "mind_gate"
 
-	sound = 'sound/effects/magic/curse.ogg'
+	sound = 'sound/effects/curse.ogg'
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 20 SECONDS
 
@@ -18,13 +18,13 @@
 
 	active_msg = "You prepare to open your mind..."
 
-/datum/action/cooldown/spell/pointed/mind_gate/can_cast_spell(feedback = TRUE)
+/datum/spell/pointed/mind_gate/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/action/cooldown/spell/pointed/mind_gate/is_valid_target(atom/cast_on)
+/datum/spell/pointed/mind_gate/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
 
-/datum/action/cooldown/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, "<span class='notice'>Your mind feels closed.</span>")

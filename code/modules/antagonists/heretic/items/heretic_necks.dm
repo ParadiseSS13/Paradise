@@ -23,33 +23,17 @@
 	if(!(slot & ITEM_SLOT_NECK))
 		return
 
-	var/team_color = COLOR_PINK
 	if(IS_CULTIST(user))
 		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
-		team_color = LIGHT_COLOR_RED
 		magic_holder.magic_enhanced = TRUE
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
-		for(var/datum/action/cooldown/spell/spell_action in user.actions)
-			spell_action.cooldown_time *= 0.5
+		for(var/datum/spell/spell_action in user.actions)
+			spell_action.cooldown_handler.recharge_duration *= 0.5
 			active = TRUE
-		team_color = COLOR_GREEN
-	else
-		team_color = pick(LIGHT_COLOR_RED, COLOR_GREEN)
 
-	user.add_traits(list(TRAIT_MANSUS_TOUCHED, TRAIT_BLOODY_MESS), REF(src))
+	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
 	to_chat(user, "<span class='alert'>Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing.</span>")
-	component = user.AddComponent( \
-		/datum/component/aura_healing, \
-		range = 3, \
-		brute_heal = 1, \
-		burn_heal = 1, \
-		blood_heal = 2, \
-		suffocation_heal = 5, \
-		simple_heal = 0.6, \
-		requires_visibility = FALSE, \
-		limit_to_trait = TRAIT_MANSUS_TOUCHED, \
-		healing_color = team_color, \
-	)
+	// AOE healing here
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/dropped(mob/living/user)
 	. = ..()
@@ -57,15 +41,15 @@
 	if(!istype(user))
 		return
 
-	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, REF(src)))
+	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, UID(src)))
 		to_chat(user, "<span class='notice'>Your heart and blood return to their regular old rhythm and flow.</span>")
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
-		for(var/datum/action/cooldown/spell/spell_action in user.actions)
-			spell_action.cooldown_time *= 2
+		for(var/datum/spell/spell_action in user.actions)
+			spell_action.cooldown_handler.recharge_duration  *= 2
 			active = FALSE
 	QDEL_NULL(component)
-	user.remove_traits(list(TRAIT_MANSUS_TOUCHED, TRAIT_BLOODY_MESS), REF(src))
+	REMOVE_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
 
 	// If boosted enable is set, to prevent false dropped() calls from repeatedly nuking the max spells.
 	var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
@@ -75,19 +59,21 @@
 	magic_holder?.magic_enhanced = FALSE
 
 
-/obj/item/clothing/neck/heretic_focus/crimson_medallion/attack_self(mob/living/user, modifiers)
-	. = ..()
-	to_chat(user, "<span class='danger'>You start tightly squeezing [src]...</span>")
+/obj/item/clothing/neck/heretic_focus/crimson_medallion/activate_self(mob/user)
+	if(..() || !isliving(user))
+		return
+	var/mob/living/our_user = user
+	to_chat(our_user, "<span class='danger'>You start tightly squeezing [src]...</span>")
 	if(!do_after(user, 1.25 SECONDS, src))
 		return
-	to_chat(user, "<span class='danger'>[src] explodes into a shower of gore and blood, drenching your arm. You can feel the blood seeping into your skin. You inmediately feel better, but soon, the feeling turns hollow as your veins itch.</span>")
+	to_chat(our_user, "<span class='danger'>[src] explodes into a shower of gore and blood, drenching your arm. You can feel the blood seeping into your skin. You inmediately feel better, but soon, the feeling turns hollow as your veins itch.</span>")
 	new /obj/effect/gibspawner/generic(get_turf(src))
-	var/heal_amt = user.adjustBruteLoss(-50)
-	user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
+	var/heal_amt = our_user.adjustBruteLoss(-50)
+	our_user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
 
 	// I want it to poison the user but I also think it'd be neat if they got their juice as well. But that cancels most of the damage out. So I dunno.
-	user.reagents?.add_reagent(/datum/reagent/fuel/unholywater, rand(6, 10))
-	user.reagents?.add_reagent(/datum/reagent/eldritch, rand(6, 10))
+	our_user.reagents?.add_reagent(/datum/reagent/fuel/unholywater, rand(6, 10))
+	our_user.reagents?.add_reagent(/datum/reagent/eldritch, rand(6, 10))
 	qdel(src)
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/examine(mob/user)
@@ -125,12 +111,12 @@
 	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
-	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
+	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID(src)]")
 	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
+	REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[UID(src)]")
 	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/piercing

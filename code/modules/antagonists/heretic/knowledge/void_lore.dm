@@ -116,7 +116,7 @@
 	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
 		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
 		The doors won't close. I can't keep the cold out now."
-	action_to_add = /datum/action/cooldown/spell/conjure/void_conduit
+	action_to_add = /datum/spell/conjure/void_conduit
 	cost = 1
 
 /datum/heretic_knowledge/spell/void_phase
@@ -125,7 +125,7 @@
 		Additionally causes damage to heathens around your original and target destination."
 	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like \
 		nothing - leaving a harsh, cold breeze in their wake. They disappear, and I am left in the blizzard."
-	action_to_add = /datum/action/cooldown/spell/pointed/void_phase
+	action_to_add = /datum/spell/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -162,7 +162,7 @@
 	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
 		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
 
-	action_to_add = /datum/action/cooldown/spell/aoe/void_pull
+	action_to_add = /datum/spell/aoe/void_pull
 	cost = 1
 
 
@@ -209,7 +209,7 @@
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
-	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
+	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
 	heavy_storm = new(user, 10)
 	if(ishuman(user))
 		var/mob/living/carbon/human/ascended_human = user
@@ -276,7 +276,7 @@
 		QDEL_NULL(storm)
 	if(heavy_storm)
 		QDEL_NULL(heavy_storm)
-	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_PRE_BULLET_ACT, COMSIG_LIVING_DEATH, COMSIG_QDELETING))
+	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_PRE_BULLET_ACT, COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING))
 
 ///Few checks to determine if we can deflect bullets
 /datum/heretic_knowledge/ultimate/void_final/proc/can_deflect(mob/living/ascended_heretic)

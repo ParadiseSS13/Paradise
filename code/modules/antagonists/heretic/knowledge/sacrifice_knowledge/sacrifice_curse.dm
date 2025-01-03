@@ -22,7 +22,7 @@
 
 	the_curser.AddElement(/datum/element/relay_attackers)
 	RegisterSignal(the_curser, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_curser_attacked))
-	RegisterSignal(the_curser, COMSIG_QDELETING, PROC_REF(on_curser_destroyed))
+	RegisterSignal(the_curser, COMSIG_PARENT_QDELETING, PROC_REF(on_curser_destroyed))
 
 	owner.AddElement(/datum/element/relay_attackers)
 	RegisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_owner_attacked))

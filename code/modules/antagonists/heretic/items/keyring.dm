@@ -53,14 +53,15 @@
 		qdel(src)
 		return
 
-	if(SSmapping.level_trait(z, ZTRAIT_NOPHASE) || SSmapping.level_trait(destination.z, ZTRAIT_NOPHASE))
+	if(!is_teleport_allowed(destination.z) || !is_teleport_allowed(z))
 		qdel(src)
 		return
 
 	//get it?
 	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
-	if(!do_teleport(teleportee, get_turf(doorstination), channel = TELEPORT_CHANNEL_MAGIC))
-		return //qwertodo: forcemove
+	if(SEND_SIGNAL(teleportee, COMSIG_MOVABLE_TELEPORTING, get_turf(teleportee)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+	teleportee.forceMove(destination)
 
 	teleportee.client?.move_delay = 0 //make moving through smoother
 
@@ -73,13 +74,13 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	for(var/obj/airlock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/airlock))
+	for(var/obj/machinery/door/airlock in GLOB.airlocks)
 		if(airlock.z != z)
 			continue
 		if(airlock.loc == loc)
 			continue
 		var/area/airlock_area = get_area(airlock)
-		if(airlock_area.area_flags & NOTELEPORT)
+		if(airlock_area.tele_proof)
 			continue
 		possible_destinations += airlock
 	return pick(possible_destinations)
@@ -88,11 +89,11 @@
 /obj/effect/lock_portal/proc/async_opendoor(obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock)) //they can create portals on ANY door, but we should unlock airlocks so they can actually open
 		var/obj/machinery/door/airlock/as_airlock = door
-		as_airlock.unbolt()
+		as_airlock.unlock(TRUE)
 	door.open()
 
 ///An ID card capable of shapeshifting to other IDs given by the Key Keepers Burden knowledge
-/obj/item/card/id/advanced/heretic
+/obj/item/card/id/heretic
 	///List of IDs this card consumed
 	var/list/obj/item/card/id/fused_ids = list()
 	///The first portal in the portal pair, so we can clear it later
@@ -100,11 +101,12 @@
 	///The second portal in the portal pair, so we can clear it later
 	var/obj/effect/lock_portal/portal_two
 	///The first door we are linking in the pair, so we can create a portal pair
-	var/datum/weakref/link
+	var/link
 	/// are our created portals inverted? (heretics get sent to a random airlock, crew get sent to the target)
 	var/inverted = FALSE
+	can_id_flash = FALSE
 
-/obj/item/card/id/advanced/heretic/examine(mob/user)
+/obj/item/card/id/heretic/examine(mob/user)
 	. = ..()
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
@@ -114,50 +116,52 @@
 	. += "<span class='hierophant_warning'><b>Using this on a pair of doors</b>, allows you to link them together. Entering one door will transport you to the other, while heathens are instead teleported to a random airlock.</span>"
 	. += "<span class='hierophant_warning'><b>Ctrl-clicking the ID</b>, makes the ID make inverted portals instead, which teleport you onto a random airlock onstation, while heathens are teleported to the destination.</span>"
 
-/obj/item/card/id/advanced/heretic/attack_self(mob/user)
-	. = ..()
-	if(!IS_HERETIC(user))
+/obj/item/card/id/heretic/activate_self(mob/user)
+	if(..())
 		return
+	if(!IS_HERETIC(user))
+		return flash_card()
 	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
 	if(!cardname)
-		balloon_alert(user, "no options!")
+		to_chat(user, "<span class='hierophant'>There is no ID to shapeshift into!</span>")
 		return ..()
 	var/obj/item/card/id/card = fused_ids[cardname]
 	shapeshift(card)
 
-/obj/item/card/id/advanced/heretic/item_ctrl_click(mob/user)
+/obj/item/card/id/heretic/CtrlClick(mob/user)
+	. = ..()
+	if(loc != user) // Not being held
+		return
 	if(!IS_HERETIC(user))
-		return CLICK_ACTION_BLOCKING
+		return
 	inverted = !inverted
-	balloon_alert(user, "[inverted ? "now" : "no longer"] creating inverted rifts")
-	return CLICK_ACTION_SUCCESS
+	to_chat(user, "<span class='hierophant'>[inverted ? "now" : "no longer"] creating inverted rifts.</span>")
 
 ///Changes our appearance to the passed ID card
-/obj/item/card/id/advanced/heretic/proc/shapeshift(obj/item/card/id/advanced/card)
-	trim = card.trim
-	assignment = card.assignment
-	registered_age = card.registered_age
-	registered_name = card.registered_name
+/obj/item/card/id/heretic/proc/shapeshift(obj/item/card/id/card)
 	icon_state = card.icon_state
-	item_state = card.inhand_icon_state
-	assigned_icon_state = card.assigned_icon_state
-	name = card.name //not update_label because of the captains spare moment
+	assignment = card.assignment
+	age = card.age
+	sex = card.sex
+	registered_name = card.registered_name
+	name = card.name
 	update_icon()
+	//Qwertodo: not done here
 
 ///Deletes and nulls our portal pair
-/obj/item/card/id/advanced/heretic/proc/clear_portals()
+/obj/item/card/id/heretic/proc/clear_portals()
 	QDEL_NULL(portal_one)
 	QDEL_NULL(portal_two)
 
 ///Clears portal references
-/obj/item/card/id/advanced/heretic/proc/clear_portal_refs()
+/obj/item/card/id/heretic/proc/clear_portal_refs()
 	SIGNAL_HANDLER
 	portal_one = null
 	portal_two = null
 
 ///Creates a portal pair at door1 and door2, displays a balloon alert to user
-/obj/item/card/id/advanced/heretic/proc/make_portal(mob/user, obj/machinery/door/door1, obj/machinery/door/door2)
-	var/message = "linked"
+/obj/item/card/id/heretic/proc/make_portal(mob/user, obj/machinery/door/door1, obj/machinery/door/door2)
+	var/message = "Door linked"
 	if(portal_one || portal_two)
 		clear_portals()
 		message += ", previous cleared"
@@ -165,54 +169,52 @@
 	portal_one = new(get_turf(door2), door2, inverted)
 	portal_two = new(get_turf(door1), door1, inverted)
 	portal_one.destination = portal_two
-	RegisterSignal(portal_one, COMSIG_QDELETING, PROC_REF(clear_portal_refs))  //we only really need to register one because they already qdel both portals if one is destroyed
+	RegisterSignal(portal_one, COMSIG_PARENT_QDELETING, PROC_REF(clear_portal_refs))  //we only really need to register one because they already qdel both portals if one is destroyed
 	portal_two.destination = portal_one
-	balloon_alert(user, "[message]")
+	to_chat(user, "<span class='hierophant'>[message].</span>")
 
-/obj/item/card/id/advanced/heretic/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(!istype(tool, /obj/item/card/id/advanced) || !IS_HERETIC(user))
+/obj/item/card/id/heretic/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/card/id) || !IS_HERETIC(user))
 		return ..()
 	eat_card(tool, user)
-	return  ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/card/id/advanced/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
+/obj/item/card/id/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
 	if(card == src)
 		return //no self vore
 	fused_ids[card.name] = card
 	card.moveToNullspace()
 	playsound(drop_location(), 'sound/items/eatfood.ogg', rand(10,30), TRUE)
 	access += card.access
-	if(!isnull(user))
-		balloon_alert(user, "consumed card")
 
-/obj/item/card/id/advanced/heretic/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/card/id/heretic/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!IS_HERETIC(user))
 		return NONE
 	if(istype(target, /obj/item/card/id))
 		eat_card(target, user)
-		return  ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(target, /obj/effect/lock_portal))
 		clear_portals()
-		return  ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	if(!istype(target, /obj/machinery/door))
 		return NONE
-	if(SSmapping.level_trait(target.z, ZTRAIT_NOPHASE))
+	if(!is_teleport_allowed(z))
 		return NONE
-	var/reference_resolved = link?.resolve()
+	var/reference_resolved = locateUID(link)
 	if(reference_resolved == target)
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(reference_resolved)
 		make_portal(user, reference_resolved, target)
 		to_chat(user, "<span class='notice'>You use [src], to link [reference_resolved] and [target] together.</span>")
 		link = null
-		balloon_alert(user, "link 2/2")
+		to_chat(user, "<span class='hierophant'>Link 2/2.</span>")
 	else
-		link = WEAKREF(target)
-		balloon_alert(user, "link 1/2")
-	return  ITEM_INTERACT_COMPLETE
+		link = UID(target)
+		to_chat(user, "<span class='hierophant'>Link 1/2.</span>")
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/card/id/advanced/heretic/Destroy()
+/obj/item/card/id/heretic/Destroy()
 	QDEL_LIST_ASSOC(fused_ids)
 	link = null
 	clear_portals()

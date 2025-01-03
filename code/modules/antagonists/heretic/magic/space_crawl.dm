@@ -5,7 +5,7 @@
  *
  * Lets the caster enter and exit tiles of space or misc turfs.
  */
-/datum/action/cooldown/spell/jaunt/space_crawl
+/datum/spell/jaunt/space_crawl
 	name = "Space Phase"
 	desc = "Allows you to phase in and out of existence while in space or misc tiles."
 	background_icon_state = "bg_heretic"
@@ -21,15 +21,15 @@
 	///List of traits that are added to the heretic while in space phase jaunt
 	var/static/list/jaunting_traits = list(TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NOBREATH)
 
-/datum/action/cooldown/spell/jaunt/space_crawl/Grant(mob/grant_to)
+/datum/spell/jaunt/space_crawl/Grant(mob/grant_to)
 	. = ..()
 	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 
-/datum/action/cooldown/spell/jaunt/space_crawl/Remove(mob/remove_from)
+/datum/spell/jaunt/space_crawl/Remove(mob/remove_from)
 	. = ..()
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
-/datum/action/cooldown/spell/jaunt/space_crawl/can_cast_spell(feedback = TRUE)
+/datum/spell/jaunt/space_crawl/can_cast_spell(feedback = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -39,7 +39,7 @@
 		to_chat(owner, "<span class='warning'>You must stand on a space or misc turf!</span>")
 	return FALSE
 
-/datum/action/cooldown/spell/jaunt/space_crawl/cast(mob/living/cast_on)
+/datum/spell/jaunt/space_crawl/cast(mob/living/cast_on)
 	. = ..()
 	// Should always return something because we checked that in can_cast_spell before arriving here
 	var/turf/our_turf = get_turf(cast_on)
@@ -49,7 +49,7 @@
  * Attempts to enter or exit the passed space or misc turf.
  * Returns TRUE if we successfully entered or exited said turf, FALSE otherwise
  */
-/datum/action/cooldown/spell/jaunt/space_crawl/proc/do_spacecrawl(turf/our_turf, mob/living/jaunter)
+/datum/spell/jaunt/space_crawl/proc/do_spacecrawl(turf/our_turf, mob/living/jaunter)
 	if(is_jaunting(jaunter))
 		. = try_exit_jaunt(our_turf, jaunter)
 	else
@@ -62,7 +62,7 @@
 /**
  * Attempts to enter the passed space or misc turfs.
  */
-/datum/action/cooldown/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
+/datum/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
 	// Begin the jaunt
 	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(jaunter, our_turf)
@@ -99,7 +99,7 @@
 /**
  * Attempts to Exit the passed space or misc turf.
  */
-/datum/action/cooldown/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
+/datum/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
 	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, REF(src)))
 		to_chat(jaunter, "<span class='warning'>You cannot exit yet!!</span>")
 		return FALSE
@@ -110,7 +110,7 @@
 	our_turf.visible_message("<span class='boldwarning'>[jaunter] rises out of [our_turf]!</span>")
 	return TRUE
 
-/datum/action/cooldown/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
+/datum/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
 	playsound(get_turf(unjaunter), 'sound/effects/magic/cosmic_energy.ogg', 50, TRUE, -1)
@@ -122,7 +122,7 @@
 	return ..()
 
 /// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
-/datum/action/cooldown/spell/jaunt/space_crawl/proc/on_focus_lost(mob/living/source)
+/datum/spell/jaunt/space_crawl/proc/on_focus_lost(mob/living/source)
 	SIGNAL_HANDLER
 	var/turf/our_turf = get_turf(source)
 	try_exit_jaunt(our_turf, source, TRUE)

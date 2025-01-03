@@ -12,26 +12,19 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	actions_types = list(/datum/action/item_action/rune_shatter)
+	throw_speed = 4
+	embedded_pain_multiplier = 5
+	w_class = WEIGHT_CLASS_SMALL
+	embed_chance = 75
+	embedded_fall_chance = 2
 
 	/// Whether we're currently drawing a rune
 	var/drawing = FALSE
 	/// Max amount of runes that can be drawn
 	var/max_rune_amt = 3
-	/// A list of weakrefs to all of ourc urrent runes
-	var/list/datum/weakref/current_runes = list()
-	/// Turfs that you cannot draw carvings on
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava))
-	var/list/alt_continuous = list("stabs", "pierces", "impales")
-	var/list/alt_simple = list("stab", "pierce", "impale")
+	/// A list of uid's to all of ourc urrent runes
+	var/list/current_runes = list()
 
-/datum/embed_data/rune_carver
-	ignore_throwspeed_threshold = TRUE
-	embed_chance = 75
-	jostle_chance = 2
-	jostle_pain_mult = 5
-	pain_stam_pct = 0.4
-	pain_mult = 3
-	rip_time = 15
 
 /obj/item/melee/rune_carver/examine(mob/user)
 	. = ..()
@@ -41,13 +34,13 @@
 	. += "<span class='notice'><b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.</span>"
 	. += "<span class='info'>The following runes can be carved:</span>"
 	for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
-		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip))
+		var/potion_string = "<span class='notice'>\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "</span>"
 		. += potion_string
 
 /obj/item/melee/rune_carver/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return NONE
-	if(!isfloorturf(interacting_with) || is_type_in_typecache(interacting_with, blacklisted_turfs))
+	if(!isfloorturf(interacting_with))
 		return NONE
 
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), interacting_with, user)
@@ -56,21 +49,21 @@
 /*
  * Begin trying to carve a rune. Go through a few checks, then call do_carve_rune if successful.
  */
-/obj/item/melee/rune_carver/proc/try_carve_rune(turf/open/target_turf, mob/user)
+/obj/item/melee/rune_carver/proc/try_carve_rune(turf/target_turf, mob/user)
 	if(drawing)
-		target_turf.balloon_alert(user, "already carving!")
+		to_chat(user, "<span class='hierophant_warning'>You are already carving.</span>")
 		return
 
 	if(locate(/obj/structure/trap/eldritch) in range(1, target_turf))
-		target_turf.balloon_alert(user, "to close to another carving!")
+		to_chat(user, "<span class='hierophant_warning'>You are too close to another carving!</span>")
 		return
 
-	for(var/datum/weakref/rune_ref as anything in current_runes)
-		if(!rune_ref?.resolve())
+	for(var/rune_ref as anything in current_runes)
+		if(!locateUID(rune_ref))
 			current_runes -= rune_ref
 
 	if(length(current_runes) >= max_rune_amt)
-		target_turf.balloon_alert(user, "too many carvings!")
+		to_chat(user, "<span class='hierophant_warning'>This knife has too many active carvings!</span>")
 		return
 
 	drawing = TRUE
@@ -80,7 +73,7 @@
 /*
  * The actual proc that handles selecting the rune to draw and creating it.
  */
-/obj/item/melee/rune_carver/proc/do_carve_rune(turf/open/target_turf, mob/user)
+/obj/item/melee/rune_carver/proc/do_carve_rune(turf/target_turf, mob/user)
 	// Assoc list of [name] to [image] for the radial (to show tooltips)
 	var/static/list/choices = list()
 	// Assoc list of [name] to [path] for after the radial
@@ -95,7 +88,6 @@
 		target_turf,
 		choices,
 		require_near = TRUE,
-		tooltips = TRUE,
 		)
 
 	if(isnull(picked_choice))
@@ -104,24 +96,20 @@
 	var/to_make = names_to_path[picked_choice]
 	if(!ispath(to_make, /obj/structure/trap/eldritch))
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
-
-	target_turf.balloon_alert(user, "carving [picked_choice]...")
-	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
+	to_chat(user, "<span class='hierophant'>Carving [picked_choice]...</span>")
+	user.playsound_local(target_turf, 'sound/weapons/blade_sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))
-		target_turf.balloon_alert(user, "interrupted!")
 		return
-
-	target_turf.balloon_alert(user, "[picked_choice] carved")
 	var/obj/structure/trap/eldritch/new_rune = new to_make(target_turf, user)
-	current_runes += WEAKREF(new_rune)
+	current_runes += UID(new_rune)
 
 /datum/action/item_action/rune_shatter
 	name = "Rune Break"
 	desc = "Destroys all runes carved by this blade."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon_state = "rune_break"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_background_icon_state = "bg_heretic"
+	button_overlay_icon_state = "rune_break"
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -150,33 +138,128 @@
 	if(!.)
 		return
 
-	owner.playsound_local(get_turf(owner), 'sound/effects/magic/blind.ogg', 50, TRUE)
+	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
-	QDEL_LIST(target_sword.current_runes)
+	for(var/rune_ref as anything in target_sword.current_runes)
+		if(locateUID(rune_ref))
+			var/rune_to_kill = locateUID(rune_ref)
+			qdel(rune_to_kill)
+	target_sword.current_runes = list()
 	target_sword.SpinAnimation(5, 1)
 	return TRUE
+//General trap
+/obj/structure/trap
+	name = "IT'S A TRAP"
+	desc = "Stepping on me is a guaranteed bad day."
+	icon = 'icons/obj/antags/eldritch.dmi'
+	icon_state = "trap"
+	density = FALSE
+	anchored = TRUE
+	alpha = 30 //initially quite hidden when not "recharging"
+	var/flare_message = "The trap flares brightly!"
+	var/last_trigger = 0
+	var/time_between_triggers = 1 MINUTES
+	var/charges = INFINITY
+	var/antimagic_flags = MAGIC_RESISTANCE
+
+	var/static/list/ignore_typecache
+	var/list/mob/immune_minds = list()
+
+	var/sparks = TRUE
+	var/datum/effect_system/spark_spread/spark_system
+
+/obj/structure/trap/Initialize(mapload)
+	. = ..()
+	flare_message = "[src] flares brightly!"
+	spark_system = new
+	spark_system.set_up(4,1,src)
+	spark_system.attach(src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+	if(isnull(ignore_typecache))
+		ignore_typecache = typecacheof(list(
+			/obj/effect,
+			/mob/dead,
+		))
+
+/obj/structure/trap/Destroy()
+	qdel(spark_system)
+	spark_system = null
+	. = ..()
+
+/obj/structure/trap/examine(mob/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	if(user.mind && (user.mind in immune_minds))
+		return
+	if(get_dist(user, src) <= 1)
+		. += "<span class='warning'>You reveal [src]!</span>"
+		flare()
+
+/obj/structure/trap/proc/flare()
+	// Makes the trap visible, and starts the cooldown until it's
+	// able to be triggered again.
+	visible_message("<span class='warning'>[flare_message]</span>")
+	if(sparks)
+		spark_system.start()
+	alpha = 200
+	last_trigger = world.time
+	charges--
+	if(charges <= 0)
+		animate(src, alpha = 0, time = 1 SECONDS)
+		QDEL_IN(src, 1 SECONDS)
+	else
+		animate(src, alpha = initial(alpha), time = time_between_triggers)
+
+/obj/structure/trap/proc/on_entered(datum/source, atom/movable/victim)
+	SIGNAL_HANDLER
+	if(last_trigger + time_between_triggers > world.time)
+		return
+	// Don't want the traps triggered by sparks, ghosts or projectiles.
+	if(is_type_in_typecache(victim, ignore_typecache))
+		return
+	if(ismob(victim))
+		var/mob/mob_victim = victim
+		if(mob_victim.mind in immune_minds)
+			return
+		if(mob_victim.can_block_magic(antimagic_flags))
+			flare()
+			return
+	if(charges <= 0)
+		return
+	flare()
+	if(isliving(victim))
+		trap_effect(victim)
+
+/obj/structure/trap/proc/trap_effect(mob/living/victim)
+	return
+
 
 // The actual rune traps the knife draws.
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "Collection of unknown symbols, they remind you of days long gone..."
-	icon = 'icons/obj/service/hand_of_god_structures.dmi'
 	max_integrity = 60
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
 	/// Reference to trap owner mob
-	var/datum/weakref/owner
+	var/owner
 
 /obj/structure/trap/eldritch/Initialize(mapload, new_owner)
 	. = ..()
 	if(new_owner)
-		owner = WEAKREF(new_owner)
+		owner = UID(new_owner)
 
 /obj/structure/trap/eldritch/on_entered(datum/source, atom/movable/entering_atom)
 	if(!isliving(entering_atom))
 		return
 	var/mob/living/living_mob = entering_atom
-	if(WEAKREF(living_mob) == owner)
+	if(UID(living_mob) == owner)
 		return
 	if(IS_HERETIC_OR_MONSTER(living_mob))
 		return
@@ -184,8 +267,7 @@
 
 /obj/structure/trap/eldritch/attacked_by(obj/item/weapon, mob/living/user)
 	if(istype(weapon, /obj/item/melee/rune_carver) || istype(weapon, /obj/item/nullrod))
-		loc.balloon_alert(user, "carving dispelled")
-		playsound(src, 'sound/items/sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)
+		playsound(src, 'sound/weapons/blade_sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)
 		qdel(src)
 
 	return ..()
@@ -199,10 +281,10 @@
 	carver_tip = "A nearly invisible rune that, when stepped on, alerts the carver who triggered it and where."
 
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
-	var/mob/living/real_owner = owner?.resolve()
+	var/mob/living/real_owner = locateUID(owner)
 	if(real_owner)
-		to_chat(real_owner, "<span class='userdanger'>[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!</span>")
-		real_owner.playsound_local(get_turf(real_owner), 'sound/effects/magic/curse.ogg', 50, TRUE)
+		to_chat(real_owner, "<span class='warning'>[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!</span>")
+		real_owner.playsound_local(get_turf(real_owner), 'sound/effects/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle
 	name = "grasping carving"
@@ -215,10 +297,10 @@
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.Paralyze(5 SECONDS)
+	carbon_victim.Paralyse(5 SECONDS)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
-	playsound(src, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 
 /obj/structure/trap/eldritch/mad
 	name = "mad carving"
@@ -232,11 +314,10 @@
 		return
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.adjustStaminaLoss(80)
-	carbon_victim.adjust_silence(20 SECONDS)
-	carbon_victim.adjust_stutter(1 MINUTES)
-	carbon_victim.adjust_confusion(5 SECONDS)
-	carbon_victim.set_jitter_if_lower(20 SECONDS)
-	carbon_victim.set_dizzy_if_lower(40 SECONDS)
-	carbon_victim.adjust_temp_blindness(4 SECONDS)
-	carbon_victim.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
-	playsound(src, 'sound/effects/magic/blind.ogg', 75, TRUE)
+	carbon_victim.Silence(20 SECONDS)
+	carbon_victim.Stuttering(1 MINUTES)
+	carbon_victim.Confused(5 SECONDS)
+	carbon_victim.Jitter(20 SECONDS)
+	carbon_victim.Dizzy(40 SECONDS)
+	carbon_victim.EyeBlind(4 SECONDS)
+	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

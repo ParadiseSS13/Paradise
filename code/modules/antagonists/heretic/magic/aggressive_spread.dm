@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/rust_conversion
+/datum/spell/aoe/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
 	background_icon_state = "bg_heretic"
@@ -16,7 +16,7 @@
 
 	aoe_radius = 2
 
-/datum/action/cooldown/spell/aoe/rust_conversion/get_things_to_cast_on(atom/center)
+/datum/spell/aoe/rust_conversion/get_things_to_cast_on(atom/center)
 
 	var/list/things_to_convert = RANGE_TURFS(aoe_radius, center)
 
@@ -28,7 +28,7 @@
 
 	return things_to_convert
 
-/datum/action/cooldown/spell/aoe/rust_conversion/cast_on_thing_in_aoe(turf/victim, mob/living/caster)
+/datum/spell/aoe/rust_conversion/cast_on_thing_in_aoe(turf/victim, mob/living/caster)
 	// We have less chance of rusting stuff that's further
 	var/distance_to_caster = get_dist(victim, caster)
 	var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_radius + 1)
@@ -41,6 +41,6 @@
 	else
 		victim.rust_heretic_act()
 
-/datum/action/cooldown/spell/aoe/rust_conversion/construct
+/datum/spell/aoe/rust_conversion/construct
 	name = "Construct Spread"
 	cooldown_time = 15 SECONDS

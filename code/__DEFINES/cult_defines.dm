@@ -17,6 +17,8 @@
 #define MAX_BLOODCHARGE 4
 /// Maximum number of spells without an empowering rune
 #define RUNELESS_MAX_BLOODCHARGE 1
+/// Maximum number of spells with enhanced magic
+#define ENHANCED_BLOODCHARGE 5
 #define BLOOD_SPEAR_COST 150
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_ORB_COST 50

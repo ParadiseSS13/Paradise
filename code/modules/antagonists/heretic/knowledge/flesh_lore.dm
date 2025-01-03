@@ -215,7 +215,7 @@
 		This spell also allows you to heal your minions and summons, or restore failing organs to acceptable status."
 	gain_text = "But they were not out of my reach for long. With every step, the screams grew, until at last \
 		I learned that they could be silenced."
-	action_to_add = /datum/action/cooldown/spell/touch/flesh_surgery
+	action_to_add = /datum/spell/touch/flesh_surgery
 	cost = 1
 
 /datum/heretic_knowledge/summon/raw_prophet
@@ -298,7 +298,7 @@
 
 /datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/datum/action/cooldown/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
+	var/datum/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
 	worm_spell.Grant(user)
 
 	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)

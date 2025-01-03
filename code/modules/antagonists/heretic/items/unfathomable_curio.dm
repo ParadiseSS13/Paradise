@@ -9,7 +9,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	can_hold = list(
-		/obj/item/ammo_box/strilka310/lionhunter,
+		/obj/item/ammo_box/lionhunter,
 		/obj/item/heretic_labyrinth_handbook,
 		/obj/item/clothing/neck/eldritch_amulet,
 		/obj/item/clothing/neck/heretic_focus,

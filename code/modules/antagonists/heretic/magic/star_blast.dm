@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/projectile/star_blast
+/datum/spell/pointed/projectile/star_blast
 	name = "Star Blast"
 	desc = "This spell fires a disk with cosmic energies at a target, spreading the star mark."
 	background_icon_state = "bg_heretic"

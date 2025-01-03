@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/shadow_cloak
+/datum/spell/shadow_cloak
 	name = "Cloak of Shadow"
 	desc = "Completely conceals your identity, but does not make you invisible.  Can be activated early to disable it. \
 		While cloaked, you move faster, but undergo actions much slower. \
@@ -22,18 +22,18 @@
 	/// The cloak currently active
 	var/datum/status_effect/shadow_cloak/active_cloak
 
-/datum/action/cooldown/spell/shadow_cloak/Remove(mob/living/remove_from)
+/datum/spell/shadow_cloak/Remove(mob/living/remove_from)
 	if(active_cloak)
 		uncloak_mob(remove_from, show_message = FALSE)
 	return ..()
 
-/datum/action/cooldown/spell/shadow_cloak/is_valid_target(atom/cast_on)
+/datum/spell/shadow_cloak/is_valid_target(atom/cast_on)
 	if(HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
 		cast_on.balloon_alert(cast_on, "cannot cast while hulk!")
 		return FALSE
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/shadow_cloak/before_cast(mob/living/cast_on)
+/datum/spell/shadow_cloak/before_cast(mob/living/cast_on)
 	. = ..()
 	sound = pick(
 		'sound/effects/curse/curse1.ogg',
@@ -46,7 +46,7 @@
 	// We handle the CD on our own
 	return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
-/datum/action/cooldown/spell/shadow_cloak/cast(mob/living/cast_on)
+/datum/spell/shadow_cloak/cast(mob/living/cast_on)
 	. = ..()
 	if(active_cloak)
 		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, cooldown_time)
@@ -58,14 +58,14 @@
 		cloak_mob(cast_on)
 		StartCooldown()
 
-/datum/action/cooldown/spell/shadow_cloak/proc/timed_uncloak(mob/living/cast_on)
+/datum/spell/shadow_cloak/proc/timed_uncloak(mob/living/cast_on)
 	if(QDELETED(src) || QDELETED(cast_on))
 		return
 
 	uncloak_mob(cast_on)
 	StartCooldown(uncloak_timer / 3)
 
-/datum/action/cooldown/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
+/datum/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
 	playsound(cast_on, 'sound/effects/chemistry/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 	cast_on.visible_message(
 		"<span class='warning'>[cast_on] disappears into the shadows!</span>",
@@ -73,12 +73,12 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
-	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
+	RegisterSignal(active_cloak, COMSIG_PARENT_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
-/datum/action/cooldown/spell/shadow_cloak/proc/uncloak_mob(mob/living/cast_on, show_message = TRUE)
+/datum/spell/shadow_cloak/proc/uncloak_mob(mob/living/cast_on, show_message = TRUE)
 	if(!QDELETED(active_cloak))
-		UnregisterSignal(active_cloak, COMSIG_QDELETING)
+		UnregisterSignal(active_cloak, COMSIG_PARENT_QDELETING)
 		qdel(active_cloak)
 	active_cloak = null
 
@@ -94,8 +94,8 @@
 	deltimer(uncloak_timer)
 	uncloak_timer = null
 
-/// Signal proc for [COMSIG_QDELETING], if our cloak is deleted early, impart negative effects
-/datum/action/cooldown/spell/shadow_cloak/proc/on_early_cloak_loss(datum/status_effect/source)
+/// Signal proc for [COMSIG_PARENT_QDELETING], if our cloak is deleted early, impart negative effects
+/datum/spell/shadow_cloak/proc/on_early_cloak_loss(datum/status_effect/source)
 	SIGNAL_HANDLER
 
 	var/mob/living/removed = source.owner
@@ -111,7 +111,7 @@
 	StartCooldown(uncloak_time * 2/3)
 
 /// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
-/datum/action/cooldown/spell/shadow_cloak/proc/on_focus_lost(mob/living/source)
+/datum/spell/shadow_cloak/proc/on_focus_lost(mob/living/source)
 	SIGNAL_HANDLER
 
 	uncloak_mob(source, show_message = FALSE)

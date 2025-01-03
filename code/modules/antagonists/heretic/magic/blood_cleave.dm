@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/cleave
+/datum/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
 	background_icon_state = "bg_heretic"
@@ -21,10 +21,10 @@
 	/// What type of wound we apply
 	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/datum/action/cooldown/spell/pointed/cleave/is_valid_target(atom/cast_on)
+/datum/spell/pointed/cleave/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
 
-/datum/action/cooldown/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
 		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
@@ -53,7 +53,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/cleave/long
+/datum/spell/pointed/cleave/long
 	name = "Lesser Cleave"
 	cooldown_time = 60 SECONDS
 	wound_type = /datum/wound/slash/flesh/severe

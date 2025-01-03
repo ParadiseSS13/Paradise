@@ -137,17 +137,18 @@
 	mark_to_apply.create_mark(user, living_target)
 
 	//Remove the infusion from any blades we own (and update their sprite)
-	for(var/obj/item/sickly_blade/dark/to_infuse in user.get_all_contents_type(/obj/item/sickly_blade/dark))
+	for(var/obj/item/sickly_blade/dark/to_infuse in user.get_contents())
 		to_infuse.infused = FALSE
 		to_infuse.update_appearance(UPDATE_ICON)
-	user.update_held_items()
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
 
 	if(!check_behind(user, living_target))
 		return
 	// We're officially behind them, apply effects
 	living_target.Paralyse(1.5 SECONDS)
 	living_target.apply_damage(10, BRUTE)
-	playsound(living_target, 'sound/items/weapons/guillotine.ogg', 100, TRUE)
+	playsound(living_target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 /obj/item/sickly_blade/dark/dropped(mob/user, silent)
 	. = ..()
@@ -206,13 +207,13 @@
 	item_state = "cursed_blade"
 	//qwertodo: parry
 
-/obj/item/sickly_blade/cursed/Initialize(mapload)
-	. = ..()
+///obj/item/sickly_blade/cursed/Initialize(mapload)
+//	. = ..()
 
-	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
-	The combination of eldritch power and Nar'Sie's might allows for vastly increased rune drawing speed,
-	alongside the vicious strength of the blade being more powerful than usual.\n
-	<b>It can also be shattered in-hand by anyone, teleporting them to relative safety.<b>"}
+//	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
+//	The combination of eldritch power and Nar'Sie's might allows for vastly increased rune drawing speed,
+//	alongside the vicious strength of the blade being more powerful than usual.\n
+//	<b>It can also be shattered in-hand by anyone, teleporting them to relative safety.<b>"}
 // qwertodo: fuck my ass how will they write cult runes we might have to remove that auugh
 	//AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text), turfs_that_boost_us = /turf) // Always fast to draw!
 

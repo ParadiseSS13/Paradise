@@ -193,7 +193,7 @@
 	var/obj/effect/floating_blade/blade = new blade_type(get_turf(owner))
 	blades += blade
 	blade.orbit(owner, blade_orbit_radius)
-	RegisterSignal(blade, COMSIG_QDELETING, PROC_REF(remove_blade))
+	RegisterSignal(blade, COMSIG_PARENT_QDELETING, PROC_REF(remove_blade))
 	playsound(get_turf(owner), 'sound/items/unsheath.ogg', 33, TRUE)
 
 /// Signal proc for [COMSIG_LIVING_CHECK_BLOCK].
@@ -321,7 +321,7 @@
 
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
-	if(!istype(spell, /datum/action/cooldown/spell/caretaker))
+	if(!istype(spell, /datum/spell/caretaker))
 		owner.balloon_alert(owner, "may not cast spells in refuge!")
 		return SPELL_CANCEL_CAST
 

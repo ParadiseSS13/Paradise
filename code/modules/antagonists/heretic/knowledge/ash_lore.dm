@@ -63,7 +63,7 @@
 	desc = "Grants you Ashen Passage, a spell that lets you phase out of reality and traverse a short distance, passing though any walls."
 	gain_text = "He knew how to walk between the planes."
 
-	action_to_add = /datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash
+	action_to_add = /datum/spell/jaunt/ethereal_jaunt/ash
 	cost = 1
 
 
@@ -84,7 +84,7 @@
 		return
 
 	// Also refunds 75% of charge!
-	var/datum/action/cooldown/spell/touch/mansus_grasp/grasp = locate() in source.actions
+	var/datum/spell/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp)
 		grasp.next_use_time -= round(grasp.cooldown_time*0.75)
 		grasp.build_all_button_icons()
@@ -99,7 +99,7 @@
 		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
 		the beam will continue to another target."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
-	action_to_add = /datum/action/cooldown/spell/charged/beam/fire_blast
+	action_to_add = /datum/spell/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -145,7 +145,7 @@
 		If any victims afflicted are in critical condition, they will also instantly die."
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
 		The Nightwatcher was a particular man, always watching."
-	action_to_add = /datum/action/cooldown/spell/aoe/fiery_rebirth
+	action_to_add = /datum/spell/aoe/fiery_rebirth
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -189,19 +189,19 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/datum/action/cooldown/spell/fire_sworn/circle_spell = new(user.mind)
+	var/datum/spell/fire_sworn/circle_spell = new(user.mind)
 	circle_spell.Grant(user)
 
-	var/datum/action/cooldown/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
+	var/datum/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
 	screen_wide_fire_spell.Grant(user)
 
-	var/datum/action/cooldown/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
+	var/datum/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.cooldown_time *= 0.66 // Lower cooldown
 
-	var/datum/action/cooldown/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
+	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
 	fiery_rebirth?.cooldown_time *= 0.16
 
 	user.add_traits(traits_to_apply, type)
