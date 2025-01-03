@@ -4052,12 +4052,6 @@
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
-"azB" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "azC" = (
 /obj/item/radio/intercom/department/security{
 	pixel_y = 28
@@ -30162,7 +30156,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "cmK" = (
@@ -30725,7 +30721,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "cpq" = (
@@ -49805,6 +49800,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"hqt" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "hqx" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random/maintenance,
@@ -56023,6 +56023,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"kgf" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_port)
 "kgx" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58676,6 +58681,13 @@
 	icon_state = "purple"
 	},
 /area/station/science/research)
+"loX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_port)
 "lpp" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
@@ -65172,11 +65184,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/command/office/rd)
-"ohH" = (
-/obj/effect/spawner/airlock/e_to_w/long,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/aft_port)
 "ohK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -69452,6 +69459,13 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"qfB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "qfE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -70037,11 +70051,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
-"quR" = (
-/obj/effect/spawner/airlock/long,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "quY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -70698,6 +70707,13 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory)
+"qKL" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "qKY" = (
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
@@ -82433,6 +82449,12 @@
 "wjf" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
+"wji" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/solar/aft_port)
 "wjn" = (
 /obj/machinery/light{
 	dir = 4
@@ -104053,9 +104075,9 @@ aaa
 aaa
 aaa
 aaa
-pBu
-sFP
-ohH
+aaa
+wji
+aaa
 aaa
 aaa
 aaa
@@ -104312,7 +104334,7 @@ aaa
 aaa
 pBu
 cpd
-pBu
+kgf
 aaa
 aaa
 aaa
@@ -104568,7 +104590,7 @@ aaa
 aaa
 aaa
 pBu
-sFP
+loX
 pBu
 aaa
 aaa
@@ -124614,8 +124636,8 @@ fFW
 cuq
 xwJ
 xwJ
-xwJ
-quR
+hqt
+aaa
 aaa
 aaa
 aaa
@@ -124870,9 +124892,9 @@ cZA
 ddD
 bWl
 pqP
-pqP
+qfB
 cmJ
-azB
+cjX
 cGt
 mBn
 mBn
@@ -125128,8 +125150,8 @@ cSx
 cFJ
 xwJ
 xwJ
-xwJ
-xwJ
+qKL
+aaa
 aaa
 aaa
 aaa
