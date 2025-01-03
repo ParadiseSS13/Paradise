@@ -210,7 +210,7 @@
 
 	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
 
-/obj/item/seeds/proc/harvest(mob/user = usr)
+/obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
 	var/output_loc = tray.Adjacent(user) ? user.loc : tray.loc // Needed for TK
 
@@ -222,6 +222,8 @@
 		var/obj/item/produce = new product(output_loc, mutated_seed)
 		if(!produce)
 			return
+		if(bag && bag.can_be_inserted(produce))
+			bag.handle_item_insertion(produce, user, TRUE)
 
 		product_name = produce.name
 
