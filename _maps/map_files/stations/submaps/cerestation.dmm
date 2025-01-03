@@ -31,6 +31,9 @@
 /area/station/hallway/spacebridge/scidock)
 "dz" = (
 /obj/item/clothing/glasses/science,
+/obj/item/light/tube{
+	status = 2
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "dA" = (
@@ -262,7 +265,9 @@
 "Ev" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/light/tube,
+/obj/item/light/tube{
+	status = 2
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "ET" = (
