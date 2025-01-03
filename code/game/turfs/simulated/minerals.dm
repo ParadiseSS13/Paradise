@@ -133,8 +133,8 @@
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
-		if(istype(R.module_active, /obj/item/pickaxe))
-			attackby__legacy__attackchain(R.module_active, R)
+		if(istype(R.selected_item, /obj/item/pickaxe))
+			attackby__legacy__attackchain(R.selected_item, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM
