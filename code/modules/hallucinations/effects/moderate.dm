@@ -491,8 +491,7 @@
 		if(!is_blocked_turf(T))
 			locs += T
 	if(!length(locs))
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 
 	var/turf/T = pick(locs)
 	fake_you = new(T, target)
