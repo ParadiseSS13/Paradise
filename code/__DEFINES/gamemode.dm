@@ -71,3 +71,10 @@
 #define NUKE_SITE_OFF_STATION_ZLEVEL 2
 /// The bomb's location cannot be found.
 #define NUKE_SITE_INVALID 3
+
+/**
+ * Dynamic Gamemode Defines
+ */
+#define DYNAMIC_RULESET_NORMAL "Normal"
+#define DYNAMIC_RULESET_FORCED "<b>Forced</b>"
+#define DYNAMIC_RULESET_BANNED "<b>Banned</b>"

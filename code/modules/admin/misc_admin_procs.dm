@@ -327,6 +327,8 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
 		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
+	if(GLOB.master_mode == "dynamic" || (GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+		dat += "<p><a href='byond://?src=[cached_UID];f_dynamic=1'>(Force Dynamic Rulesets)</a><br></p>"
 	dat += "<hr><br>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"

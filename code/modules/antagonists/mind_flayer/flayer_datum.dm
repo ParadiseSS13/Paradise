@@ -1,8 +1,9 @@
 /datum/antagonist/mindflayer
 	name = "Mindflayer"
+	job_rank = ROLE_MIND_FLAYER
+	special_role = SPECIAL_ROLE_MIND_FLAYER
 	antag_hud_type = ANTAG_HUD_MIND_FLAYER
 	antag_hud_name = "hudflayer"
-	special_role = SPECIAL_ROLE_MIND_FLAYER
 	wiki_page_name = "Mindflayer"
 	/// The current amount of swarms the mind flayer has access to purchase with
 	var/usable_swarms = 0
