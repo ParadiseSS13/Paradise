@@ -89,7 +89,7 @@
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
 		/obj/item/storage/belt/utility/full,
-		/obj/item/clothing/accessory/horrible,
+		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
 		/obj/item/deck/unum,
