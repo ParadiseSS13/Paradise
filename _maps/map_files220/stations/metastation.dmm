@@ -14321,15 +14321,9 @@
 /area/station/hallway/primary/central)
 "biY" = (
 /obj/machinery/economy/vending/traindrobe,
-/obj/effect/turf_decal/woodsiding{
-	dir = 9
-	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "biZ" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment/corner{
@@ -14338,20 +14332,17 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "bja" = (
 /obj/item/kirbyplants,
-/obj/effect/turf_decal/woodsiding{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "bjb" = (
 /obj/structure/table/wood,
@@ -14918,7 +14909,6 @@
 /area/station/hallway/primary/central)
 "bkL" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/turf_decal/woodsiding,
 /obj/effect/landmark/start/nanotrasen_career_trainer,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -14927,20 +14917,16 @@
 	dir = 9
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "bkM" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "bkN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -15560,6 +15546,13 @@
 /area/station/public/storage/emergency)
 "bmC" = (
 /obj/structure/table/wood,
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15583,6 +15576,10 @@
 	id = "NCT";
 	dir = 8;
 	pixel_x = 6
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15649,6 +15646,10 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -16164,7 +16165,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "bou" = (
-/obj/item/flag/nt,
+/obj/machinery/requests_console/directional/south,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Nanotrasen Career Trainer's Office"
+	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreen"
@@ -16301,15 +16306,12 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "boN" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 10
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
 /obj/structure/closet,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "boO" = (
 /obj/structure/cable/yellow{
@@ -16682,9 +16684,12 @@
 	},
 /area/station/supply/office)
 "bpQ" = (
-/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer{
+	dir = 1
+	},
 /obj/machinery/door/window/reinforced/normal{
-	name = "NCT"
+	name = "NCT";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -44548,6 +44553,17 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
+"eVv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central)
 "eVz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
@@ -105594,7 +105610,7 @@ mXE
 lSa
 aFE
 bek
-bfK
+eVv
 vRi
 vRi
 vRi

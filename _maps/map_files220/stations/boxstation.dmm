@@ -18216,6 +18216,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer{
 	dir = 4
 	},
+/obj/item/paicard,
 /turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "btH" = (
@@ -18414,6 +18415,7 @@
 /area/station/public/dorms)
 "buX" = (
 /obj/machinery/economy/vending/traindrobe,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
 "bva" = (
@@ -20083,6 +20085,7 @@
 /obj/machinery/light/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/sign/poster/official/random/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bDv" = (
@@ -49069,6 +49072,19 @@
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
+"fEW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "fFz" = (
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/light_switch/south,
@@ -74659,16 +74675,14 @@
 /area/station/maintenance/assembly_line)
 "pjR" = (
 /obj/structure/table/wood,
-/obj/item/poster/random_contraband{
-	pixel_y = 2
-	},
-/obj/item/poster/random_contraband{
-	pixel_y = 10
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/alarm/directional/south,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -80257,9 +80271,11 @@
 /area/station/science/xenobiology)
 "rjY" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Nanotrasen Career Trainer's Office"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/procedure/trainer_office)
@@ -89121,10 +89137,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm/directional/south,
 /obj/machinery/light/directional/south,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
@@ -114116,7 +114134,7 @@ blh
 blh
 blh
 brp
-boT
+fEW
 bqr
 bqr
 bqr
