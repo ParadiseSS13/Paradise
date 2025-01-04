@@ -536,9 +536,7 @@
 ///Additional effects that occur after the grenade hallucination disappears to mimic the grenade detonating
 /obj/effect/hallucination/fake_grenade/proc/ending_effect(distance)
 	distance = get_dist(src, target)
-	if(distance > 4)
-		return FALSE
-	return TRUE
+	return distance <= 4
 
 /**
   * # Hallucination - Fake Grenade Flashbang
