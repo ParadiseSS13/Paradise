@@ -6,7 +6,6 @@
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "crucible"
 	base_icon_state = "crucible"
-	break_sound = 'sound/hallucinations/wail.ogg'
 	light_power = 1
 	anchored = TRUE
 	density = TRUE
@@ -21,7 +20,6 @@
 
 /obj/structure/destructible/eldritch_crucible/Initialize(mapload)
 	. = ..()
-	break_message = "<span class='warning'>[src] falls apart with a thud!</span>"
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/eldritch_crucible/process(seconds_per_tick)
@@ -45,6 +43,7 @@
 		playsound(our_turf, 'sound/effects/bubbles.ogg', 50, TRUE)
 	else
 		visible_message("<span class='warning'>[src] falls apart with a thud!</span>")
+	playsound(src, 'sound/hallucinations/wail.ogg', 100, TRUE)
 
 	return ..()
 
@@ -255,7 +254,7 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		to_chat(user, "<span class='danger'>You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes.</span>")
 		user.reagents?.add_reagent("eldritch", 10)
-		user.adjust_disgust(50) //qwertodo: disgust moment
+		user.adjust_disgust(50 SECONDS)
 		qdel(src)
 		return TRUE
 

@@ -95,8 +95,8 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	owner.adjust_disgust(100)
-	owner.adjust_confusion(10 SECONDS)
+	owner.adjust_disgust(100 SECONDS)
+	owner.AdjustConfused(10 SECONDS)
 	return ..()
 
 // MARK OF VOID
@@ -280,7 +280,7 @@
 	owner.balloon_alert(owner, "you feel able to once again strike!")
 
 /datum/status_effect/eldritch/moon/on_effect()
-	owner.adjust_confusion(30 SECONDS)
+	owner.AdjustConfused(30 SECONDS)
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
 	owner.add_mood_event("Moon Insanity", /datum/mood_event/moon_insanity)

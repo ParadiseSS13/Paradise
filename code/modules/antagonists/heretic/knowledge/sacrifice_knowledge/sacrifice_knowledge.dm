@@ -451,7 +451,7 @@
 	sac_target.add_mood_event("shadow_realm", /datum/mood_event/shadow_realm)
 
 	sac_target.flash_act()
-	sac_target.set_eye_blur_if_lower(30 SECONDS)
+	sac_target.EyeBlurry(30 SECONDS)
 	sac_target.set_jitter_if_lower(20 SECONDS)
 	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
@@ -509,7 +509,7 @@
 
 	// Wherever we end up, we sure as hell won't be able to explain
 	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
-	sac_target.adjust_stutter(40 SECONDS)
+	sac_target.AdjustStuttering(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	var/turf/below_target = get_turf(sac_target)
@@ -582,9 +582,9 @@
 
 	// Oh god where are we?
 	sac_target.flash_act()
-	sac_target.adjust_confusion(60 SECONDS)
+	sac_target.AdjustConfused(60 SECONDS)
 	sac_target.set_jitter_if_lower(120 SECONDS)
-	sac_target.set_eye_blur_if_lower(100 SECONDS)
+	sac_target.EyeBlurry(100 SECONDS)
 	sac_target.set_dizzy_if_lower(1 MINUTES)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)

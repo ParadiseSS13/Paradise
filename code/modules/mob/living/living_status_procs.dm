@@ -910,6 +910,11 @@ STATUS EFFECTS
 /mob/living/proc/reset_shocked()
 	flags_2 &= ~ SHOCKED_2
 
+///Adjust the disgust level of a mob
+/mob/proc/adjust_disgust(amount)
+	return
+
+
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH
 
