@@ -392,12 +392,12 @@
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
-			brightness_color = "#a0a080"
+			// brightness_color = "#a0a080" // SS220 EDIT: comment out
 			if(prob(5))
 				break_light_tube(TRUE)
 		if("floor")
 			brightness_range = 6
-			brightness_color = "#a0a080"
+			// brightness_color = "#a0a080" // SS220 EDIT: comment out
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
