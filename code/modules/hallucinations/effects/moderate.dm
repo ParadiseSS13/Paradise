@@ -491,7 +491,7 @@
 
 /obj/effect/hallucination/fake_grenade/Destroy()
 	grenade_turf = null
-	. = ..()
+	return ..()
 
 
 /obj/effect/hallucination/fake_grenade/Initialize(mapload, mob/living/carbon/hallucination_target, override_direction, distance = 9)
