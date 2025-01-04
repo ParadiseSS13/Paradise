@@ -49,7 +49,7 @@
 /obj/item/clothing/accessory/legal_badge/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
-/obj/item/clothing/accessory/necklace/Initialize(mapload)
+/obj/item/clothing/neck/necklace/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/medal/Initialize(mapload)

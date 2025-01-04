@@ -3092,7 +3092,7 @@
 	pixel_x = -4
 	},
 /obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 4;
 	pixel_x = 4
 	},

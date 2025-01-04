@@ -5413,8 +5413,8 @@
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/item/storage/backpack/satchel,
 /obj/item/clothing/under/color/black,
-/obj/item/clothing/accessory/blue,
-/obj/item/clothing/accessory/black,
+/obj/item/clothing/neck/tie/blue,
+/obj/item/clothing/neck/tie/black,
 /obj/item/clothing/accessory/holster,
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
@@ -7014,8 +7014,8 @@
 	name = "Supreme Judge ID card";
 	registered_name = "Supreme Judge"
 	},
-/obj/item/clothing/accessory/blue,
-/obj/item/clothing/accessory/black,
+/obj/item/clothing/neck/tie/blue,
+/obj/item/clothing/neck/tie/black,
 /obj/item/clothing/accessory/holster,
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
@@ -9044,19 +9044,19 @@
 /area/shuttle/administration)
 "frP" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/accessory/black{
+/obj/item/clothing/neck/tie/black{
 	desc = null;
 	name = "Black tie"
 	},
-/obj/item/clothing/accessory/blue{
+/obj/item/clothing/neck/tie/blue{
 	desc = null;
 	name = "Blue tie"
 	},
-/obj/item/clothing/accessory/blue{
+/obj/item/clothing/neck/tie/blue{
 	desc = null;
 	name = "Blue tie"
 	},
-/obj/item/clothing/accessory/black{
+/obj/item/clothing/neck/tie/black{
 	desc = null;
 	name = "Black tie"
 	},
@@ -18785,8 +18785,8 @@
 /obj/structure/rack,
 /obj/item/reagent_containers/applicator/dual,
 /obj/item/reagent_containers/applicator/dual,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/storage/firstaid/tactical,
 /obj/item/storage/firstaid/tactical,
 /turf/simulated/floor/plasteel{
@@ -39631,7 +39631,7 @@
 /obj/item/folder/blue{
 	pixel_y = 2
 	},
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{

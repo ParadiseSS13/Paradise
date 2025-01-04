@@ -152,7 +152,7 @@
 	gloves =/obj/item/clothing/gloves/ring/silver
 	mask = /obj/item/clothing/mask/holo_cigar
 	backpack_contents = list(
-		/obj/item/clothing/accessory/scarf/purple,
+		/obj/item/clothing/neck/scarf/purple,
 		/obj/item/clothing/gloves/combat,
 		/obj/item/gun/projectile/revolver/mateba,
 		/obj/item/ammo_box/a357,

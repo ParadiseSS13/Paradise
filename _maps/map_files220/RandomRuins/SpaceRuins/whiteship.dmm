@@ -1484,7 +1484,7 @@
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
 	},
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/flashlight/pen,
 /obj/item/food/grown/apple{
 	desc = "An apple a day - keeps doctor away...";

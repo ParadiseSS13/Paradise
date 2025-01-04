@@ -9,10 +9,6 @@
 
 
 // loadout
-/datum/gear/accessory/stethoscope/New()
-	. = ..()
-	allowed_roles |= GLOB.medical_positions_ss220
-
 /datum/gear/accessory/armband_job/medical/New()
 	. = ..()
 	allowed_roles |= GLOB.medical_positions_ss220

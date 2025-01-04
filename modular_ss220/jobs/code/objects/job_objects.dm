@@ -63,7 +63,6 @@
 		/obj/item/toy/balloon,
 		/obj/item/toy/blink,
 		/obj/item/toy/katana,
-		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
 		/obj/item/dualsaber/toy,
@@ -71,10 +70,7 @@
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
 		/obj/item/storage/belt/utility/full,
-		/obj/item/clothing/accessory/horrible,
-		/obj/random/carp_plushie,
-		/obj/random/plushie,
-		/obj/random/figure,
+		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
 		/obj/item/deck/unum,
@@ -100,7 +96,7 @@
 		/obj/item/stack/tile/fakespace/loaded,
 		/obj/item/stack/tile/brass/fifty,
 		/obj/item/sord,
-		/obj/item/toy/prizeball/figure,
+		/obj/item/toy/prizeball/action_figure,
 		/obj/item/toy/prizeball/therapy,
 
 		// pew pew

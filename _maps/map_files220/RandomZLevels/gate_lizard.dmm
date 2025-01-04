@@ -243,7 +243,7 @@
 	pixel_x = 16;
 	pixel_y = -9
 	},
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/machinery/door_control/shutter/west{
 	id = "CMDgate";
 	req_access = list(301)
@@ -535,10 +535,10 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "aOn" = (
-/obj/item/clothing/accessory/necklace/skullcodpiece,
-/obj/item/clothing/accessory/necklace/talisman,
-/obj/item/clothing/accessory/necklace/skullcodpiece,
-/obj/item/clothing/accessory/necklace/talisman,
+/obj/item/clothing/accessory/skullcodpiece,
+/obj/item/clothing/accessory/talisman,
+/obj/item/clothing/accessory/skullcodpiece,
+/obj/item/clothing/accessory/talisman,
 /obj/structure/closet/crate/wooden,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -886,7 +886,7 @@
 /obj/item/clothing/gloves/color/fyellow/old,
 /obj/item/multitool,
 /obj/item/clothing/head/welding,
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1008,7 +1008,7 @@
 /obj/item/stack/sheet/leather,
 /obj/item/stack/sheet/leather,
 /obj/item/stack/sheet/leather,
-/obj/item/clothing/accessory/necklace/dope,
+/obj/item/clothing/neck/necklace/dope,
 /obj/structure/closet/crate/wooden,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
@@ -2676,7 +2676,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "dxA" = (
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
@@ -3468,8 +3468,8 @@
 	pixel_x = -9;
 	pixel_y = 11
 	},
-/obj/item/clothing/accessory/necklace,
-/obj/item/clothing/accessory/necklace/locket,
+/obj/item/clothing/neck/necklace,
+/obj/item/clothing/neck/necklace/locket,
 /obj/structure/stone_tile/slab,
 /obj/item/stack/ore/plasma,
 /turf/simulated/floor/engine/cult,
@@ -5377,7 +5377,7 @@
 	pixel_x = 12
 	},
 /obj/item/pen/multi/gold,
-/obj/item/clothing/accessory/necklace,
+/obj/item/clothing/neck/necklace,
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/item/stack/ore/plasma,
 /obj/item/stack/sheet/mineral/gold{
@@ -7212,7 +7212,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "jvT" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -7733,7 +7733,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "kcJ" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -10263,7 +10263,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "ncb" = (
 /obj/item/clothing/gloves/ring/gold,
-/obj/item/clothing/accessory/necklace/locket,
+/obj/item/clothing/neck/necklace/locket,
 /obj/item/coin/gold,
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/closet/crate/wooden,
@@ -10550,7 +10550,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nAu" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "nAK" = (
@@ -12491,7 +12491,7 @@
 /obj/item/coin/gold{
 	pixel_x = -9
 	},
-/obj/item/clothing/accessory/necklace/locket{
+/obj/item/clothing/neck/necklace/locket{
 	pixel_x = 9
 	},
 /obj/item/stack/ore/plasma,
@@ -13668,7 +13668,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rDj" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "rEW" = (
@@ -14006,7 +14006,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "rVt" = (
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "rVw" = (
@@ -15438,7 +15438,7 @@
 "tMG" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tNq" = (
@@ -16467,7 +16467,7 @@
 "val" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/sign/poster/contraband/random/west,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
@@ -16819,8 +16819,8 @@
 "vvz" = (
 /obj/item/clothing/shoes/sandal,
 /obj/item/clothing/shoes/sandal,
-/obj/item/clothing/suit/unathi/mantle,
-/obj/item/clothing/suit/unathi/mantle,
+/obj/item/clothing/neck/cloak/unathi,
+/obj/item/clothing/neck/cloak/unathi,
 /obj/item/clothing/suit/unathi/robe,
 /obj/item/clothing/suit/unathi/robe,
 /obj/structure/closet/crate/wooden,
@@ -17755,10 +17755,10 @@
 	pixel_y = 11
 	},
 /obj/structure/stone_tile/slab,
-/obj/item/clothing/accessory/necklace/locket{
+/obj/item/clothing/neck/necklace/locket{
 	pixel_x = 9
 	},
-/obj/item/clothing/accessory/necklace/locket,
+/obj/item/clothing/neck/necklace/locket,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "wEF" = (
