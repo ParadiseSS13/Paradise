@@ -510,7 +510,7 @@
 
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"
-	desc = "A massive disco ball anchored to the floor via heat-sealed bolts. Merely being in the presence of such a majestic contraption fills you with the urge to dance."
+	desc = "A massive disco ball permanently anchored to the floor with heat-sealed bolts. Merely being in the presence of such a majestic contraption fills you with the urge to dance."
 	anchored = TRUE
 
 /obj/machinery/disco/immobile/wrench_act()
