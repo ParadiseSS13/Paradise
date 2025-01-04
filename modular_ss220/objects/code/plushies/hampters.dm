@@ -38,14 +38,11 @@
 		play_squeak()
 
 // Спавнер рандомного хамптера для карты
-/obj/random/hampter
-	name = "Random Hampter"
-	desc = "This is a random hampter spawner."
+/obj/effect/spawner/random/toy/hampter
+	name = "random hampter toy"
 	icon = 'modular_ss220/objects/icons/plushies.dmi'
 	icon_state = "hampter"
-
-/obj/random/hampter/item_to_spawn()
-	return pick(typesof(/obj/item/toy/hampter))
+	loot_type_path = /obj/item/toy/hampter
 
 // Хамптер
 /obj/item/toy/hampter

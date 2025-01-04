@@ -313,6 +313,10 @@
 		return
 
 	var/mob/living/target = targets[1]
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(target, "<span class='notice'>Your eye itches, but it passes momentarily.</span>")
+		to_chat(user, "<span class='notice'>The spell had no effect!</span>")
+		return FALSE
 	target.EyeBlurry(40 SECONDS)
 	target.EyeBlind(30 SECONDS)
 
@@ -414,6 +418,10 @@
 	playMagSound()
 	for(var/turf/T in targets) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
+			if(ismob(AM))
+				var/mob/victim_mob = AM
+				if(victim_mob.can_block_magic(antimagic_flags))
+					continue
 			thrownatoms += AM
 
 	for(var/am in thrownatoms)
@@ -457,6 +465,8 @@
 
 /datum/spell/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
+		if(L.can_block_magic(antimagic_flags))
+			continue
 		L.adjust_fire_stacks(20)
 	if(isliving(user))
 		var/mob/living/U = user

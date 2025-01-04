@@ -294,7 +294,6 @@
 "eD" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
-/obj/random/bomb_supply,
 /obj/item/clothing/head/sombrero/shamebrero,
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -1053,7 +1052,7 @@
 /area/admin)
 "pJ" = (
 /obj/structure/table/wood,
-/obj/item/toy/russian_revolver/trick_revolver,
+/obj/item/toy/russian_revolver/soul,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "pN" = (
@@ -1074,8 +1073,7 @@
 /area/admin)
 "qh" = (
 /obj/structure/table,
-/obj/random/toolbox,
-/obj/random/bomb_supply,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/machinery/syndicatebomb/badmin/clown,
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -1997,7 +1995,7 @@
 /area/admin)
 "ES" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/russian/soul,
+/obj/item/toy/russian_revolver/soul,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "ET" = (
@@ -2478,7 +2476,7 @@
 /area/shuttle/escape)
 "KG" = (
 /obj/structure/table,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
 /turf/simulated/floor/wood/oak,
@@ -3489,7 +3487,7 @@
 /area/admin)
 "Yd" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Yl" = (

@@ -3432,7 +3432,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "uy" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -7943,7 +7943,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/crowbar,
 /obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"

@@ -326,7 +326,7 @@
 	jobtype = /datum/job/donor/uncertain
 
 	uniform = /obj/item/clothing/under/costume/kilt
-	suit = /obj/item/clothing/suit/unathi/mantle
+	suit = /obj/item/clothing/neck/cloak/unathi
 	shoes = /obj/item/clothing/shoes/footwraps
 	head = /obj/item/clothing/head/beanie/yellow
 	glasses = /obj/item/clothing/glasses/eyepatch
@@ -339,10 +339,10 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 2,
 		/obj/item/food/fancy/doshik = 3,
 		/obj/item/food/fancy/doshik_spicy = 3,
-		/obj/item/clothing/suit/mantle/old = 1,
+		/obj/item/clothing/neck/cloak/old = 1,
 		/obj/item/clothing/head/flatcap = 1,
 		/obj/item/clothing/suit/browntrenchcoat = 1,
-		/obj/item/clothing/accessory/horrible = 1,
+		/obj/item/clothing/neck/tie/horrible = 1,
 		/obj/item/clothing/under/costume/pirate_rags = 1,
 		/obj/item/clothing/head/cowboyhat = 1,
 		/obj/item/clothing/shoes/sandal = 1,

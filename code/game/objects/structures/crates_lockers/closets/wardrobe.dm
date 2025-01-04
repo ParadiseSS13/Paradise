@@ -129,7 +129,7 @@
 	closed_door_sprite = "green"
 
 /obj/structure/closet/wardrobe/xenos/populate_contents()
-	new /obj/item/clothing/suit/unathi/mantle(src)
+	new /obj/item/clothing/neck/cloak/unathi(src)
 	new /obj/item/clothing/suit/unathi/robe(src)
 	new /obj/item/clothing/gloves/handwraps(src)
 	new /obj/item/clothing/gloves/handwraps(src)

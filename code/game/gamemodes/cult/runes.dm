@@ -249,9 +249,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
-	var/obj/item/nullrod/N = locate() in src
-	if(N)
-		return N
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY))
+		return TRUE
 	return FALSE
 
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.

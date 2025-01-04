@@ -50,7 +50,7 @@
 	jobtype = /datum/job/donor/bath
 
 	uniform = /obj/item/clothing/under/costume/pirate_rags
-	suit = /obj/item/clothing/suit/mantle
+	suit = /obj/item/clothing/neck/cloak/mantle
 	shoes = /obj/item/clothing/shoes/sandal
 	glasses = /obj/item/clothing/glasses/goggles
 	l_ear = /obj/item/radio/headset/headset_service

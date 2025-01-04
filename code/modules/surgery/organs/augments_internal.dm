@@ -506,6 +506,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"
@@ -678,6 +679,10 @@
 	COOLDOWN_DECLARE(reviver_cooldown)
 	/// How long till we can try to defib again
 	COOLDOWN_DECLARE(defib_cooldown)
+	/// This check is an aditional minute delay applied to nuggeted IPCS, so they are not endlessly instantly reviving.
+	COOLDOWN_DECLARE(nugget_contingency)
+	/// The trigger when nuggeted is detected. Resets when revived. Prevents the cooldown from being applied again.
+	var/applied_nugget_cooldown = FALSE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	name = "Hardened reviver implant"
@@ -699,12 +704,18 @@
 			COOLDOWN_START(src, reviver_cooldown, revive_cost)
 			reviving = FALSE
 			to_chat(owner, "<span class='notice'>Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)].</span>")
+			applied_nugget_cooldown = FALSE
 		else
 			addtimer(CALLBACK(src, PROC_REF(heal)), 3 SECONDS)
 		return
-	if(!COOLDOWN_FINISHED(src, reviver_cooldown) || owner.suiciding) // don't heal while you're in cooldown!
+	if(!COOLDOWN_FINISHED(src, reviver_cooldown) || owner.suiciding || !COOLDOWN_FINISHED(src, nugget_contingency)) // don't heal while you're in cooldown!
 		return
 	if(owner.health <= 0 || owner.stat == DEAD)
+		if(ismachineperson(owner))
+			if(!applied_nugget_cooldown && length(owner.bodyparts) <= 2)
+				COOLDOWN_START(src, nugget_contingency, 1 MINUTES)
+				applied_nugget_cooldown = TRUE
+				return
 		revive_cost = 0
 		reviving = TRUE
 		has_defibed = FALSE

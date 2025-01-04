@@ -379,7 +379,7 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "de" = (
 /obj/structure/rack,
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
@@ -2409,7 +2409,7 @@
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -2911,7 +2911,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "wK" = (
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -3783,8 +3783,8 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "Dx" = (
 /obj/structure/rack,
-/obj/random/toolbox,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Dy" = (
@@ -4362,7 +4362,7 @@
 /obj/structure/sign/vacuum{
 	pixel_x = 32
 	},
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -4470,7 +4470,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "IB" = (
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -5441,8 +5441,8 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "PO" = (
 /obj/structure/rack,
-/obj/random/toolbox,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/toolbox,
+/obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)

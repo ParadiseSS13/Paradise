@@ -169,3 +169,15 @@
 #define ENVIRONMENT_TEMPERATE "temperate"
 /// Cold environment: Normal atmosphere, -93 C.
 #define ENVIRONMENT_COLD "cold"
+
+/// How far away should we load the pressure HUD data from MILLA?
+#define PRESSURE_HUD_LOAD_RADIUS 15
+
+/// How far away should we send the pressure HUD to the player?
+#define PRESSURE_HUD_RADIUS 12
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2

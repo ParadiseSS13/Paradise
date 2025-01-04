@@ -82,6 +82,8 @@
 	desc = "A distortion in spacetime. You can hear faint music..."
 	icon_state = "nothing"
 	/// A flags which save people from being thrown about
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// A flags which save people from being thrown about
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
 	/// Used to prevent an infinite loop in the space tiime continuum
 	var/cant_teleport = FALSE
@@ -101,6 +103,10 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
+	if(ismob(AM))
+		var/mob/M = AM
+		if(M.can_block_magic(antimagic_flags, charge_cost = 0))
+			return
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
 		linked_dist.get_walker(AM)
