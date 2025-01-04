@@ -424,16 +424,19 @@
 	/// The image for the player zombie's blob head
 	var/image/target_blob_head
 	/// The delay at which the blob expands in deciseconds. Shouldn't be too low to prevent lag.
-	var/expand_delay = 7.5 SECONDS // Expand 4 times
+	var/expand_delay
+	/// The amount of time in deciseconds the hallucination should continue after final expansion.
+	var/conclude_delay = 2 SECONDS
 	/// Expand timer handle.
 	var/expand_timer
 
-/obj/effect/hallucination/blob/Initialize(mapload, mob/living/carbon/target)
+/obj/effect/hallucination/blob/Initialize(mapload, mob/living/carbon/target, expansions = 4)
 	. = ..()
+	expand_delay = (duration - conclude_delay) / max(1, expansions)
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		var/light_amount = min(1, T.get_lumcount()) - 0.5
-		if(!is_blocked_turf(T) && light_amount <= 0)
+		var/light_amount = T.get_lumcount()
+		if(!is_blocked_turf(T) && light_amount <= 0.5)
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL
@@ -487,7 +490,7 @@
   * Creates a fake blob overlay on the given turf.
   *
   * Arguments:
-  * * T - The turf to create a fake plasma overlay on.
+  * * T - The turf to create a fake blob overlay on.
   */
 /obj/effect/hallucination/blob/proc/create_blob(turf/T, core = FALSE)
 	var/blob_icon_state = "blob"
