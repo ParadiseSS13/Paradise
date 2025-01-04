@@ -137,3 +137,10 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 // /datum/game_mode/dynamic/traitors_to_add()
 // should probably implement this in some form
+
+/datum/game_mode/dynamic/get_webhook_name()
+	var/list/implied_and_used = list()
+	for(var/datum/ruleset/implied/implied as anything in implied_rulesets)
+		if(implied.was_triggered)
+			implied_and_used += implied
+	return "[name] ([english_list(rulesets + implied_and_used, nothing_text = "Extended")])"

@@ -166,9 +166,10 @@
 	antag_weight = 0
 	// antag_cost is allowed to be edited to help with refunding antagonists
 	antag_cost = 0
-	// This signal is registered on whatever (multiple) rulesets implied us. This will call on_implied.
+	/// This signal is registered on whatever (multiple) rulesets implied us. This will call on_implied.
 	var/target_signal
-
+	/// Set this to true if this implied ruleset was activated
+	var/was_triggered = FALSE
 
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
@@ -187,3 +188,4 @@
 	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
 	implier.antag_amount -= 1
 	antag_amount += 1
+	was_triggered = TRUE
