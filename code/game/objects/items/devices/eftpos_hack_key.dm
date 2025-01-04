@@ -37,14 +37,14 @@
 	var/victim_text
 
 	switch(victim_number)
-		if(0)       	victim_text = "GO WORK AGENT!"
+		if(0)       	victim_text = "GET TO WORK, AGENT!"
 		if(1 to 3)      victim_text = "Ok, it's working, now you can start doing your job!"
 		if(4 to 9)    	victim_text = "Good start, agent"
 		if(10 to 20) 	victim_text = "Keep up the good work"
 		if(21 to 50) victim_text = "Maybe... maybe you are useful after all."
 		if(50 to 100) victim_text = "You didn’t forget that you have an actual job to do, right?"
 		if(101 to 150) victim_text = "At this point, I just don’t believe you."
-		else       		victim_text = "AGENT, STOP BRAKING MY STUF!!!"
+		else       		victim_text = "AGENT, STOP BREAKING MY STUFF!!!"
 
 	var/text_to_print = {"
 		<b>N@m3 Er0r r3f3r3nc3</b><br>
@@ -63,7 +63,7 @@
 	for(var/i = 1, length(stolen_data) >= i, i++)
 		text_to_print += "[stolen_data[i]]<BR>"
 
-	text_to_print += "Do not forget to tell your agent friends how useful my gadget is!"
+	text_to_print += "Don't forget to tell your agent friends how useful my gadget is!"
 
 	return text_to_print
 
@@ -93,22 +93,22 @@
 			return  "Looks like he's here to watch over their slaves."
 
 		if(ACCESS_QM)
-			return  "Old good, working class."
+			return  "Good old working class."
 
 		if(ACCESS_CE)
-			return  "Does he even take breaks from working?"
+			return  "Do they even take breaks from working?"
 
 		if(ACCESS_HOP)
-			return  "We both know – he was easy prey."
+			return  "We both know – they were easy prey."
 
 		if(ACCESS_CMO)
 			return  "Sorry, doc, today we’re going to cause some serious harm."
 
 		if(ACCESS_RD)
-			return  "Judging by the database... His doctoral is boring as hell."
+			return  "Judging by the database... Their doctoral is boring as hell."
 
 		if(ACCESS_HOS)
-			return  "If only he knew what you just did to him."
+			return  "If only they knew what you just did to them."
 
 		if(ACCESS_CLOWN)
 			return  "Mission has been failed successfully."
@@ -147,7 +147,7 @@
 			return  "Looks like you have a lot in common! For example, it’s time for both of you to get to work!"
 
 		else
-			return  "Not sure how this will help you"
+			return  "Not sure how this will help you."
 
 
 // Logic of access theft
@@ -181,7 +181,7 @@
 /obj/item/paper/eftpos_hack_key
 	name = "EFTPOS Hack Key Guide"
 	icon_state = "paper"
-	info = {"<b>Hello, agent! You made a great purchase, I already like you!</b><br>
+	info = {"<b>Hello, agent! You've made a great purchase, I already like you!</b><br>
 	<br>
 	First, find a working EFTPOS terminal, then insert the hacking key into it.<br>
 	<br>
@@ -189,6 +189,6 @@
 	<br>
 	<b>To copy all the accesses, just use your agent card and swipe it. Yep, those are sold separately!</b><br>
 	<br>
-	You can also use a screwdriver to remove the key if that wasn't obvious.<br>
+	You can also use a screwdriver to remove the key, if that wasn't obvious.<br>
 	<br><hr>
 "}

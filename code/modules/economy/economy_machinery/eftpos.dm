@@ -61,7 +61,7 @@
 			eftpos_sindy_key = O
 			user.show_message("<span class='notice'>You insert the hacking key into the terminal.</span>")
 		else
-			user.show_message("<span class='notice'>One hacking key is already in the terminal.</span>")
+			user.show_message("<span class='notice'>There's already a hacking key in the terminal.</span>")
 
 	else
 		return ..()
@@ -260,7 +260,7 @@
 		return
 
 	if(isnull(eftpos_sindy_key))
-		user.show_message("<span class='notice'>You remove the cover but find nothing of interest.</span>")
+		user.show_message("<span class='notice'>You remove the cover, but find nothing of interest.</span>")
 	else
 		user.show_message("<span class='notice'>You discover a strange device. You carefully remove it and disconnect it from the terminal.</span>")
 		if(!user.put_in_any_hand_if_possible(eftpos_sindy_key))
