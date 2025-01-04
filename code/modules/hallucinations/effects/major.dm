@@ -438,8 +438,7 @@
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL
 	var/turf/T = get_turf(pick(locs))
-	color = pick(
-		COLOR_BLACK, 
+	color = pick(COLOR_BLACK, 
 		COLOR_RIPPING_TENDRILS, 
 		COLOR_BOILING_OIL, 
 		COLOR_ENVENOMED_FILAMENTS, 
@@ -447,8 +446,7 @@
 		COLOR_KINETIC_GELATIN, 
 		COLOR_CRYOGENIC_LIQUID, 
 		COLOR_SORIUM, 
-		COLOR_TESLIUM_PASTE
-	)
+		COLOR_TESLIUM_PASTE)
 	create_blob(T, core = TRUE)
 	target.playsound_local(T, 'sound/effects/splat.ogg', 50, 1)
 	create_zombie(T)
