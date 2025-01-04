@@ -492,7 +492,6 @@
   * * T - The turf to create a fake plasma overlay on.
   */
 /obj/effect/hallucination/blob/proc/create_blob(turf/T, core = FALSE)
-	name = "blob zombie"
 	var/blob_icon_state = "blob"
 	if(core)
 		blob_icon_state = "blob_core"
@@ -508,6 +507,7 @@
 	player_zombie = new(T, target, src)
 
 /obj/effect/hallucination/chaser/attacker/blob_zombie
+	name = "blob zombie"
 	hallucination_icon = 'icons/mob/human.dmi'
 	hallucination_icon_state = "zombie2_s"
 	duration = 45 SECONDS
@@ -519,6 +519,7 @@
 
 /obj/effect/hallucination/chaser/attacker/blob_zombie/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
 	. = ..()
+	name = "blob zombie"
 	var/image/I = image('icons/mob/blob.dmi', src, "blob_head")
 	I.color = blob.color
 	target.client.images += I
