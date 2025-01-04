@@ -7,12 +7,20 @@
 		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
 		though using it to help people is up to you."
 	icon_state = "gps"
-	module_type = MODULE_ACTIVE
+	module_type = MODULE_USABLE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
-	device = /obj/item/gps/mod
+	allow_flags = MODULE_ALLOW_INACTIVE
+	var/obj/item/gps/mod/gps
+
+/obj/item/mod/module/gps/Initialize(mapload)
+	. = ..()
+	gps = new(src)
+
+/obj/item/mod/module/gps/on_use()
+	gps.attack_self__legacy__attackchain(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
