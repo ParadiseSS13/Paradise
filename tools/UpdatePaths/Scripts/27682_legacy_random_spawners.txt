@@ -1,0 +1,9 @@
+/obj/random/toolbox : /obj/effect/spawner/random/engineering/toolbox
+/obj/random/tool : /obj/effect/spawner/random/engineering/tools
+/obj/random/technology_scanner : @DELETE
+/obj/random/tech_supply : @DELETE
+/obj/random/bomb_supply : @DELETE
+/obj/random/powercell : /obj/item/stock_parts/cell, /obj/item/stock_parts/cell/high, /obj/item/stock_parts/cell/super, /obj/item/stock_parts/cell/hyper
+/obj/random/plushie : /obj/effect/spawner/random/plushies
+/obj/random/mech : /obj/effect/spawner/random/toy/mech_figure
+/obj/random/carp_plushie : /obj/effect/spawner/random/toy/carp_plushie

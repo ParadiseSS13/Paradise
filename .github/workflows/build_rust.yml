@@ -72,7 +72,7 @@ jobs:
           rustup target add i686-pc-windows-gnu
           sudo dpkg --add-architecture i386
           sudo apt-get update
-          sudo apt-get install zlib1g-dev:i386 lib32gcc-11-dev mingw-w64 mingw-w64-i686-dev
+          sudo apt-get install zlib1g-dev:i386 lib32gcc-13-dev mingw-w64 mingw-w64-i686-dev
 
           # Build it.
           cargo build --release --target i686-unknown-linux-gnu

@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE
@@ -142,7 +142,7 @@
 	return !density
 
 /obj/machinery/door/CanAtmosPass(direction)
-	return !density
+	return operating || !density
 
 /obj/machinery/door/get_superconductivity(direction)
 	if(!density)
@@ -306,7 +306,7 @@
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
-		return
+		return FALSE
 	flick("door_spark", src)
 	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -373,6 +373,7 @@
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(0)
 	if(width > 1)
@@ -388,7 +389,6 @@
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE
-	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
