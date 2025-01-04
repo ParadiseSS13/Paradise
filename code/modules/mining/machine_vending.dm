@@ -40,7 +40,7 @@
 	prize_list["Modsuits and Exosuits"] = list(
 		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
 		EQUIPMENT("Advanced Jetpack Module", /obj/item/mod/module/jetpack/advanced, 2000),
-		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 3500),
 		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
 		EQUIPMENT("Exosuit Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 2500),
 	)
@@ -407,7 +407,7 @@
 		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
 		EQUIPMENT("Advanced Jetpack Module", /obj/item/mod/module/jetpack/advanced, 2000),
 		EQUIPMENT("Exosuit Jetpack Module", /obj/item/mecha_parts/mecha_equipment/thrusters, 1500), // they stack up, so put 3-4 for FTL speed.
-		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 3500),
 		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
 		EQUIPMENT("Exosuit Grenade Launcher", /obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade, 2500)
 	)

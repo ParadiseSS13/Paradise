@@ -118,7 +118,7 @@
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
-		/obj/item/mod/module/storage,
+		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/gps,
 		/obj/item/mod/module/orebag,
 		/obj/item/mod/module/clamp,
@@ -129,18 +129,6 @@
 		/obj/item/mod/module/drill,
 		/obj/item/mod/module/sphere_transform,
 	)
-
-/// visit robotics.
-/obj/item/mod/control/pre_equipped/mining/vendor
-	theme = /datum/mod_theme/mining
-	applied_core = /obj/item/mod/core/plasma
-	applied_modules = list(
-		/obj/item/mod/module/storage,
-	)
-	default_pins = list(
-		/obj/item/mod/module/sphere_transform,
-	)
-
 
 /// The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
 /obj/item/mod/control/pre_equipped/mining/asteroid
