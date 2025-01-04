@@ -412,21 +412,21 @@
 /obj/effect/hallucination/blob
 	duration = 30 SECONDS
 	/// The blob zombie hallucination.
-	var/obj/effect/hallucination/chaser/attacker/blob_zombie/zombie = null
+	var/obj/effect/hallucination/chaser/attacker/blob_zombie/zombie
 	/// The self delusion blob zombie hallucination, triggers on knockdown.
-	var/obj/effect/hallucination/blob_zombify/player_zombie = null
+	var/obj/effect/hallucination/blob_zombify/player_zombie
 	/// List of turfs that need expanding from.
 	var/list/turf/expand_queue = list()
 	/// Associative list of turfs that have already been processed.
 	var/list/turf/processed = list()
 	/// The image for the chaser zombie's blob head
-	var/image/chaser_blob_head = null
+	var/image/chaser_blob_head
 	/// The image for the player zombie's blob head
-	var/image/target_blob_head = null
+	var/image/target_blob_head
 	/// The delay at which the blob expands in deciseconds. Shouldn't be too low to prevent lag.
-	var/expand_delay = 7.5 SECONDS // Expand 6 times
+	var/expand_delay = 7.5 SECONDS // Expand 4 times
 	/// Expand timer handle.
-	var/expand_timer = null
+	var/expand_timer
 
 /obj/effect/hallucination/blob/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -436,11 +436,19 @@
 		if(!is_blocked_turf(T) && light_amount <= 0)
 			locs += T
 	if(!length(locs))
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	var/turf/T = get_turf(pick(locs))
-	color = pick(	COLOR_BLACK, COLOR_RIPPING_TENDRILS, COLOR_BOILING_OIL, COLOR_ENVENOMED_FILAMENTS, COLOR_LEXORIN_JELLY,
-								COLOR_KINETIC_GELATIN, COLOR_CRYOGENIC_LIQUID, COLOR_SORIUM, COLOR_TESLIUM_PASTE )
+	color = pick(
+		COLOR_BLACK, 
+		COLOR_RIPPING_TENDRILS, 
+		COLOR_BOILING_OIL, 
+		COLOR_ENVENOMED_FILAMENTS, 
+		COLOR_LEXORIN_JELLY,
+		COLOR_KINETIC_GELATIN, 
+		COLOR_CRYOGENIC_LIQUID, 
+		COLOR_SORIUM, 
+		COLOR_TESLIUM_PASTE
+	)
 	create_blob(T, core = TRUE)
 	target.playsound_local(T, 'sound/effects/splat.ogg', 50, 1)
 	create_zombie(T)
@@ -450,12 +458,13 @@
 
 /obj/effect/hallucination/blob/Destroy()
 	deltimer(expand_timer)
-	QDEL_NULL(expand_queue)
-	QDEL_NULL(processed)
+	expand_queue.Cut()
+	processed.Cut()
 	QDEL_NULL(zombie)
 	QDEL_NULL(player_zombie)
-	target.client.images -= chaser_blob_head
-	target.client.images -= target_blob_head
+	if(!QDELETED(target))
+		target.client?.images -= chaser_blob_head
+		target.client?.images -= target_blob_head
 	chaser_blob_head = null
 	target_blob_head = null
 	return ..()
@@ -465,8 +474,7 @@
   */
 /obj/effect/hallucination/blob/proc/expand()
 	// Brace for potentially expensive proc
-	for(var/t in expand_queue)
-		var/turf/source_turf = t
+	for(var/turf/source_turf as anything in expand_queue)
 		expand_queue -= source_turf
 		//Expand to each dir
 		for(var/direction in GLOB.cardinal)
@@ -484,6 +492,7 @@
   * * T - The turf to create a fake plasma overlay on.
   */
 /obj/effect/hallucination/blob/proc/create_blob(turf/T, core = FALSE)
+	name = "blob zombie"
 	var/blob_icon_state = "blob"
 	if(core)
 		blob_icon_state = "blob_core"
@@ -510,7 +519,6 @@
 
 /obj/effect/hallucination/chaser/attacker/blob_zombie/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
 	. = ..()
-	name = "blob zombie"
 	var/image/I = image('icons/mob/blob.dmi', src, "blob_head")
 	I.color = blob.color
 	target.client.images += I
@@ -534,7 +542,7 @@
 /obj/effect/hallucination/chaser/attacker/blob_zombie/think()
 	if(has_zombified)
 		return
-	. = ..()
+	return ..()
 
 /obj/effect/hallucination/blob_zombify
 	duration = 20 SECONDS
