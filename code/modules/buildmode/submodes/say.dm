@@ -7,7 +7,13 @@
 	to_chat(user, "<span class='notice'>Right Mouse Button       = Emote</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
-/datum/buildmode_mode/say/handle_click(user, params, obj/object)
+/datum/buildmode_mode/say/handle_click(mob/user, params, atom/object)
+	if(istype(object, /mob))
+		var/mob/target = object
+		if(!isnull(target.ckey))
+			alert("This cannot be used on mobs with a ckey. Use Forcesay in player panel instead.")
+			return
+
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/right_click = pa.Find("right")
@@ -17,10 +23,14 @@
 		if(isnull(say))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] say [say].")
+		message_admins("<span class='notice'>Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] say [say].</span>")
+		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] say [say].")
 		object.atom_say(say)
 	else if(right_click)
 		var/emote = tgui_input_text(user, "What should [object] do?", "Emote what?")
 		if(isnull(emote))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] emote *[emote].")
+		message_admins("<span class='notice'>Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] emote *[emote].</span>")
+		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] emote *[emote].")
 		object.atom_emote(emote)
