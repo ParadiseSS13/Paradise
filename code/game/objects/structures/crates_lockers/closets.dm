@@ -510,7 +510,7 @@
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
-	desc = "An experimental storage unit which defies several conventional laws of physics."
+	desc = "An experimental storage unit which defies several conventional laws of physics. It appears to only tenuously exist on this plane of reality, allowing it to phase through anything less solid than a wall."
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
