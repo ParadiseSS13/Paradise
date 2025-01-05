@@ -97,9 +97,11 @@
 
 	if(traitor_count < max_traitors)
 		if(prob(traitor_prob))
-			log_and_message_admins_no_usr("Making a new Traitor.")
+			message_admins("Making a new Traitor.")
+			log_game("Making a new Traitor.")
 			if(!length(possible_traitors))
-				log_and_message_admins_no_usr("No potential traitors. Cancelling new traitor.")
+				message_admins("No potential traitors. Cancelling new traitor.")
+				log_game("No potential traitors. Cancelling new traitor.")
 				addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 				return
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
@@ -139,5 +141,6 @@
 					return
 
 			if(prob(traitor_prob))
-				log_and_message_admins_no_usr("New traitor roll passed. Making a new Traitor.")
+				message_admins("New traitor roll passed. Making a new Traitor.")
+				log_game("New traitor roll passed. Making a new Traitor.")
 				character.mind.make_Traitor()
