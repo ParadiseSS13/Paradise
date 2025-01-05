@@ -52,7 +52,7 @@ GLOBAL_PROTECT(log_end)
 		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
 /proc/log_if_mismatch(mob/who, message)
-	if(!isnull(usr) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
+	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
 		rustg_log_write(GLOB.world_game_log, "LOG USER MISMATCH: [usr.simple_info_line()] was usr for [message][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
@@ -105,7 +105,10 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_attack(mob/attacker, defender_str, attack_message)
 	if(GLOB.configuration.logging.attack_logging)
-		var/message = "ATTACK: [attacker.simple_info_line()] against [defender_str]: [attack_message]"
+		var/attacker_str = "INVALID"
+		if(istype(attacker))
+			attacker_str = attacker.simple_info_line()
+		var/message = "ATTACK: [attacker_str] against [defender_str]: [attack_message]"
 		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
 		log_if_mismatch(attacker, message)
 
