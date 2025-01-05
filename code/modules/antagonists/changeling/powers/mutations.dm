@@ -27,7 +27,7 @@
 
 /datum/action/changeling/weapon/sting_action(mob/user)
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.drop_item())
+	if((user.get_active_hand() && !user.drop_item()))
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
