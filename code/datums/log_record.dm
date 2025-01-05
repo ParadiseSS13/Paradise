@@ -3,6 +3,7 @@
 	var/raw_time		// When did this happen?
 	var/what			// What happened
 	var/who				// Who did it
+	var/who_usr			// The current usr, if not who.
 	var/target			// Who/what was targeted
 	var/where			// Where did it happen
 
@@ -10,6 +11,10 @@
 	log_type = _log_type
 
 	who = get_subject_text(_who, _log_type)
+	if(!isnull(usr) && usr != _who)
+		who_usr = "FORCED by [get_subject_text(usr, _log_type)]"
+	else
+		who_usr = ""
 	what = _what
 	target = get_subject_text(_target, _log_type)
 	if(!istext(_where) && !isturf(_where))
@@ -55,3 +60,15 @@
 	if(!time_diff) // Same time
 		return cmp_text_asc(A.log_type, B.log_type)
 	return time_diff
+
+/datum/log_record/vv_edit_var(var_name, var_value)
+	message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>.</span>")
+	log_admin("[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
+	return FALSE
+
+/datum/log_record/can_vv_delete()
+	message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>.</span>")
+	log_admin("[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
+	return FALSE
