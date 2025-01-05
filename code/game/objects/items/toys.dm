@@ -1106,7 +1106,7 @@
 		return
 
 	borg_plushie_overlay = plushie_module_overlays[user_selection]
-	to_chat(user, "<span class = 'notice'>The fabric on [src] changes color, turning it into a [borg_plushie_overlay] plush!</span>")
+	to_chat(user, "<span class = 'notice'>The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!</span>")
 	update_icon()
 	plushie_module_selected = TRUE
 
