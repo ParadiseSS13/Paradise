@@ -713,10 +713,10 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/neck/chameleon
-	name = "red tie"
+	name = "black tie"
 	desc = "A neosilk clip-on tie."
 	icon = 'icons/obj/clothing/neck.dmi'
-	icon_state = "redtie"
+	icon_state = "blacktie"
 	resistance_flags = NONE
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
