@@ -7,14 +7,17 @@
 	var/target			// Who/what was targeted
 	var/where			// Where did it happen
 
-/datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time)
+/datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time, force_no_usr_check)
 	log_type = _log_type
 
 	who = get_subject_text(_who, _log_type)
-	if(!isnull(usr) && usr != _who)
-		who_usr = "<br><font color='red'>FORCED</font> by [get_subject_text(usr, _log_type)]"
-	else
-		who_usr = ""
+	who_usr = ""
+	if(!isnull(usr) && !force_no_usr_check)
+		if(log_type == DEFENSE_LOG)
+			if(usr != _target)
+				who_usr = "<br><font color='red'>FORCED</font> by [get_subject_text(usr, _log_type)]"
+		else if(usr != _who)
+			who_usr = "<br><font color='red'>FORCED</font> by [get_subject_text(usr, _log_type)]"
 	what = _what
 	target = get_subject_text(_target, _log_type)
 	if(!istext(_where) && !isturf(_where))
