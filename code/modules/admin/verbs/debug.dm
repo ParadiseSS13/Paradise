@@ -165,6 +165,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
+	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		return
+
 	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
