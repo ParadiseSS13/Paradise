@@ -95,7 +95,7 @@
 	//if the knowledge is a spell, use the spell's button
 	else if(ispath(knowledge,/datum/heretic_knowledge/spell))
 		var/datum/heretic_knowledge/spell/spell_knowledge = knowledge
-		var/datum/action/result_action = spell_knowledge.action_to_add
+		var/datum/spell/result_action = spell_knowledge.action_to_add
 		icon_path = result_action.button_icon
 		icon_state = result_action.button_icon_state
 

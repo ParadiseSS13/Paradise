@@ -27,7 +27,7 @@
 	var/datum/mind/heretic_mind
 	/// Lazylist of minds that we won't pick as targets.
 	var/list/datum/mind/target_blacklist
-	/// An assoc list of [ref] to [timers] - a list of all the timers of people in the shadow realm currently
+	/// An assoc list of [uif] to [timers] - a list of all the timers of people in the shadow realm currently
 	var/list/return_timers
 	/// Evil organs we can put in people
 	var/static/list/grantable_organs = list(
@@ -36,8 +36,6 @@
 		/obj/item/organ/internal/heart/corrupt,
 		/obj/item/organ/internal/liver/corrupt,
 		/obj/item/organ/internal/lungs/corrupt,
-		/obj/item/organ/stomach/corrupt,
-		/obj/item/organ/tongue/corrupt,
 	)
 
 /datum/heretic_knowledge/hunt_and_sacrifice/Destroy(force)
@@ -452,8 +450,8 @@
 
 	sac_target.flash_act()
 	sac_target.EyeBlurry(30 SECONDS)
-	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.set_dizzy_if_lower(20 SECONDS)
+	sac_target.AdjustJitter(20 SECONDS)
+	sac_target.AdjustDizzy(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -583,9 +581,9 @@
 	// Oh god where are we?
 	sac_target.flash_act()
 	sac_target.AdjustConfused(60 SECONDS)
-	sac_target.set_jitter_if_lower(120 SECONDS)
+	sac_target.AdjustJitter(120 SECONDS)
 	sac_target.EyeBlurry(100 SECONDS)
-	sac_target.set_dizzy_if_lower(1 MINUTES)
+	sac_target.AdjustDizzy(1 MINUTES)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

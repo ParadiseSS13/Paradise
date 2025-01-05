@@ -66,11 +66,11 @@
 			human_in_range.adjust_hallucinations_up_to(10 SECONDS, 240 SECONDS)
 
 		if(prob(40))
-			human_in_range.set_jitter_if_lower(10 SECONDS)
+			human_in_range.AdjustJitter(10 SECONDS)
 
 		if(human_in_range.getStaminaLoss() <= 85 && prob(30))
 			human_in_range.emote(pick("giggle", "laugh"))
 			human_in_range.adjustStaminaLoss(10)
 
 		if(prob(25))
-			human_in_range.set_dizzy_if_lower(10 SECONDS)
+			human_in_range.AdjustDizzy(10 SECONDS)

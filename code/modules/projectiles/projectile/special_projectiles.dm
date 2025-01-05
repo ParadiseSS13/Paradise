@@ -366,3 +366,97 @@
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
 		R.target = target
+
+/obj/effect/ebeam/curse_arm
+	name = "curse arm"
+
+/obj/item/projectile/curse_hand
+	name = "curse hand"
+	icon_state = "cursehand0"
+	base_icon_state = "cursehand"
+	hitsound = 'sound/effects/curse/curse4.ogg'
+	layer = LARGE_MOB_LAYER
+	damage_type = BURN
+	damage = 10
+	paralyze = 20
+	speed = 0.5
+	range = 16
+	var/datum/beam/arm
+	var/handedness = 0
+
+/obj/item/projectile/curse_hand/Initialize(mapload)
+	. = ..()
+	handedness = prob(50)
+	icon_state = "[base_icon_state][handedness]"
+
+/obj/item/projectile/curse_hand/Destroy()
+	QDEL_NULL(arm)
+	return ..()
+
+/obj/item/projectile/curse_hand/update_icon_state()
+	icon_state = "[base_icon_state]0[handedness]"
+	return ..()
+
+/obj/item/projectile/curse_hand/fire(setAngle)
+	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
+		return
+	if(starting)
+		arm = starting.Beam(src, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm)
+	..()
+
+/// The visual effect for the hand disappearing
+/obj/item/projectile/curse_hand/proc/finale()
+	if(arm)
+		QDEL_NULL(arm)
+	playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
+	var/turf/T = get_step(src, dir)
+	var/obj/effect/temp_visual/dir_setting/curse/hand/leftover = new(T, dir)
+	leftover.icon_state = icon_state
+	for(var/obj/effect/temp_visual/dir_setting/curse/grasp_portal/G in starting)
+		qdel(G)
+	if(!T) //T can be in nullspace when src is set to QDEL
+		return
+	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading(starting, dir)
+	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 32, beam_type=/obj/effect/ebeam/curse_arm)
+	animate(D, alpha = 0, time = 32)
+
+/obj/item/projectile/curse_hand/on_range()
+	finale()
+	return ..()
+
+/obj/item/projectile/curse_hand/Bump(atom/A) //Qwertodo: anything but this god I hate projectiles
+	if(!A == original)
+		forceMove(get_turf(A))
+	else
+		return ..()
+
+/obj/item/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(.)
+		finale()
+
+/obj/item/projectile/curse_hand/hel //Used in helbital's impure reagent
+	name = "Hel's grasp"
+	damage = 5
+	paralyze = 0 //Lets not stun people!
+	speed = 1
+	range = 20
+	color = "#ff7e7e"//Tint it slightly
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal
+	icon = 'icons/effects/64x64.dmi'
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = -3
+	pixel_y = -16
+	pixel_x = -16
+	duration = 32
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
+	duration = 32
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading/Initialize(mapload, set_dir)
+	. = ..()
+	animate(alpha = 0, time = 32)
+
+/obj/effect/temp_visual/dir_setting/curse/hand
+	icon_state = "cursehand1"

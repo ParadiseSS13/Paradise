@@ -58,7 +58,7 @@
 		I could not purchase it at the time, but they showed me how they made it ages ago."
 
 	required_atoms = list(
-		/obj/item/stack/sheet/mineral/wood = 1,
+		/obj/item/stack/sheet/wood = 1,
 		/obj/item/stack/sheet/animalhide = 1,
 		/obj/item/camera = 1,
 	)

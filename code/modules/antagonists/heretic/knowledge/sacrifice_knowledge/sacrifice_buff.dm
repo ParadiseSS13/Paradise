@@ -20,19 +20,13 @@
 		duration = set_duration
 	return ..()
 
-/datum/status_effect/unholy_determination/on_apply()
-	owner.add_traits(list(TRAIT_COAGULATING, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT), type)
-	return TRUE
-
-/datum/status_effect/unholy_determination/on_remove()
-	owner.remove_traits(list(TRAIT_COAGULATING, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT), type)
 
 /datum/status_effect/unholy_determination/tick()
-	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
-	var/healing_amount = (heal_per_second) + (heal_per_second * (2 - owner.usable_legs))
+	// The amount we heal of each damage type per tick.
+	var/healing_amount = heal_per_second
 
 	// In softcrit you're, strong enough to stay up.
-	if(owner.health <= owner.crit_threshold && owner.health >= 0)
+	if(owner.health <= 0 && owner.health >= -100)
 		if(prob(5))
 			to_chat(owner, "<span class='hierophant_warning'>Your body feels like giving up, but you fight on!</span>")
 		healing_amount *= 2
@@ -42,13 +36,13 @@
 			to_chat(owner, "<span class='hierophant_warning'>You can't hold on for much longer...</span>")
 		healing_amount *= -0.5
 
-	if(owner.health > owner.crit_threshold && prob(4))
-		owner.set_jitter_if_lower(20 SECONDS)
-		owner.set_dizzy_if_lower(10 SECONDS)
-		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)
+	if(owner.health > 0 && prob(4))
+		owner.AdjustJitter(20 SECONDS)
+		owner.AdjustDizzy(10 SECONDS)
+		owner.AdjustHallucinate(10 SECONDS)
 
 	if(prob(2))
-		playsound(owner, pick(GLOB.creepy_ambience), 50, TRUE)
+		playsound(owner, pick(CREEPY_SOUNDS), 50, TRUE)
 
 	adjust_all_damages(healing_amount)
 
@@ -77,8 +71,8 @@
 		return
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, victim.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
-	var/obj/projectile/curse_hand/hel/hand = new (spawn_turf)
-	hand.aim_projectile(victim, spawn_turf)
+	var/obj/item/projectile/curse_hand/hel/hand = new (spawn_turf)
+	hand.preparePixelProjectile(victim, spawn_turf)
 	if(QDELETED(hand)) // safety check if above fails - above has a stack trace if it does fail
 		return
 	hand.fire()
