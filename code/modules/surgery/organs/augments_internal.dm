@@ -506,6 +506,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"

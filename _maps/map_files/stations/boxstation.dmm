@@ -27844,11 +27844,11 @@
 /area/station/medical/reception)
 "bSy" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 3
 	},
 /obj/item/flashlight/pen{
@@ -71556,7 +71556,7 @@
 "pAM" = (
 /obj/structure/table,
 /obj/item/soap/deluxe,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -77940,7 +77940,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "sPu" = (
-/obj/item/clothing/suit/mantle/old,
+/obj/item/clothing/neck/cloak/old,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "sPw" = (
@@ -79983,7 +79983,7 @@
 /area/station/hallway/primary/aft/south)
 "tUd" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/crowbar,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/spawner/random/cobweb/left/frequent,
