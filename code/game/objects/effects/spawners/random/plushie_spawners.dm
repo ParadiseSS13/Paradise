@@ -83,3 +83,20 @@
 			/obj/item/toy/plushie/nianplushie/rainbow = 1
 		),
 	)
+
+/obj/effect/spawner/random/plushies/explosive
+	/// Chance to spawn a minibomb in the plushie.
+	var/explosive_chance = 1
+
+/obj/effect/spawner/random/plushies/explosive/make_item(spawn_loc, type_path_to_make)
+	var/obj/item/toy/plushie/plushie = ..()
+
+	if(!istype(plushie))
+		return plushie
+
+	if(prob(explosive_chance))
+		plushie.has_stuffing = FALSE
+		var/obj/item/grenade/syndieminibomb/grenade = new(plushie)
+		plushie.grenade = grenade
+
+	return plushie

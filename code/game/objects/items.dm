@@ -50,6 +50,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
+	/// If set, this determines which slots are considered when using quick equip
+	var/prefered_slot_flags = 0
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
@@ -338,25 +340,26 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
+	if(isstorage(src.loc))
+		/// If the item is in a storage item, take it out
+		var/obj/item/storage/S = src.loc
+		S.remove_from_storage(src)
+
 	if(..())
 		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
-			return FALSE
-		if(!user.canUnEquip(src, force = FALSE))
+		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
 			return FALSE
 
 	if(flags & ABSTRACT)
 		return FALSE
 
-	if(user.is_in_inactive_hand(src))
-		return user.swap_item_between_hands()
-
-	if(isliving(loc))
-		return FALSE
+	else
+		if(isliving(loc))
+			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
@@ -980,7 +983,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	SHOULD_BE_PURE(TRUE)
-	return !(flags & NODROP) && !(flags & ABSTRACT)
+	return !(flags & NODROP) && !(flags & ABSTRACT) && !HAS_TRAIT(src, TRAIT_NO_STRIP)
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name

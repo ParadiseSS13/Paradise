@@ -66,34 +66,6 @@
 		if(ITEM_SLOT_RIGHT_HAND)
 			return put_in_r_hand(I)
 
-/**
- * Swaps items between hands.
- *
- * A separate implementation is required for this because all of the
- * pre-existing equip/unEquip procs perform forceMoves we don't want.
- */
-/mob/proc/swap_item_between_hands()
-	var/obj/item/I = get_inactive_hand()
-	if(!put_in_hand_check(I))
-		return FALSE
-
-	if(I == r_hand && has_left_hand())
-		r_hand = null
-		l_hand = I
-		update_inv_r_hand()
-		update_inv_l_hand()
-		I.equipped(src, ITEM_SLOT_LEFT_HAND)
-		return TRUE
-	else if(I == l_hand && has_right_hand())
-		l_hand = null
-		r_hand = I
-		update_inv_l_hand()
-		update_inv_r_hand()
-		I.equipped(src, ITEM_SLOT_RIGHT_HAND)
-		return TRUE
-
-	return FALSE
-
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
 	if(!put_in_hand_check(W, skip_blocked_hands_check))
@@ -194,25 +166,12 @@
 
 	return TRUE
 
-/**
- *  Unequip an item from the hand that the item is found in.
- *
- * `force` overrides NODROP for things like wizarditis and admin undress.
- *
- * `destination` allows for items to be unequipped directly into storage and
- * should only be used for that.
- *
- * Horrid stop-gap until we get atom storage or something.
- */
-/mob/proc/unEquip(obj/item/I, force = FALSE, silent = FALSE, atom/destination)
+/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
 	if(!canUnEquip(I, force))
 		return 0
-
-	if(isnull(destination))
-		destination = drop_location()
 
 	if(I == r_hand)
 		r_hand = null
@@ -222,13 +181,14 @@
 		update_inv_l_hand()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
-		unEquip(tkgrab, force, silent, destination)
+		unEquip(tkgrab, force)
 
 	if(I)
 		if(client)
 			client.screen -= I
-		if(destination)
-			I.forceMove(destination)
+		var/turf/drop_loc = drop_location()
+		if(drop_loc)
+			I.forceMove(drop_loc)
 		else
 			I.moveToNullspace()
 		I.dropped(src, silent)
@@ -305,6 +265,10 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
+		return FALSE
+
+	if(flags & NODROP)
+		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))

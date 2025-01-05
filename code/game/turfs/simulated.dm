@@ -30,6 +30,14 @@
 	/// If a fire is ongoing, how much fuel did we burn last tick?
 	/// Value is not updated while below PLASMA_MINIMUM_BURN_TEMPERATURE.
 	var/fuel_burnt = 0
+	/// When do we last remember having wind?
+	var/wind_tick = null
+	/// Wind's X component
+	var/wind_x = null
+	/// Wind's Y component
+	var/wind_y = null
+	/// Wind effect
+	var/obj/effect/wind/wind_effect = null
 
 /turf/simulated/proc/break_tile()
 	return

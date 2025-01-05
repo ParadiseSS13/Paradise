@@ -19,7 +19,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
-	reagents_add = list("carbon" = 0.2)
+	reagents_add = list("plantmatter" = 0.225)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -217,7 +217,7 @@
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000,500,1)
+	current_location.hotspot_expose(1000, 10)
 	for(var/A in current_location)
 		if(A == src)
 			continue

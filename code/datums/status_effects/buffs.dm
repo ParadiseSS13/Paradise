@@ -92,9 +92,12 @@
 	var/found_someone = FALSE
 
 	for(var/mob/living/L in oview(9, owner))
-		found_someone = TRUE
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		if(L.can_block_magic(MAGIC_RESISTANCE))
+			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
+			continue
+		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
