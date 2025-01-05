@@ -14,6 +14,8 @@
 	var/nanites = 50
 	/// What is the maximum number of nanites?
 	var/max_nanites = 100
+	// Handles extra information displayed
+	var/temp
 
 /datum/program_picker/New()
 	possible_programs = list()
@@ -49,15 +51,13 @@
 		to_chat(A, "<span class='warning'>You are dead!</span>")
 		return
 
-	for(var/datum/ai_program/program in possible_modules)
+	for(var/datum/ai_program/program in possible_programs)
 		if(href_list[program.program_id])
 
 			// Cost check
 			if(program.cost > bandwidth)
 				temp = "You cannot afford this module."
 				break
-
-			var/datum/spell/ai_spell/action = locate(program.power_type) in A.mob_spell_list
 
 			// Purchase a program
 			if(!program.installed)
@@ -81,7 +81,7 @@
 					A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 				bandwidth -= 1
 				program.bandwidth_used += 1
-				program.purchased_upgrades += program
+				purchased_upgrades += program
 
 		if(href_list["showdesc"])
 			if(program.program_id == href_list["showdesc"])
@@ -119,7 +119,8 @@
 /datum/spell/ai_spell/choose_program
 	name = "Choose Programs"
 	desc = "Spend your memory and bandwidth to gain a variety of different abilities."
-	action_icon_state = "choose_program"
+	action_icon = "icons/mob/ai.dmi"
+	action_icon_state = "ai"
 	auto_use_uses = FALSE // This is an infinite ability.
 	create_attack_logs = FALSE
 
