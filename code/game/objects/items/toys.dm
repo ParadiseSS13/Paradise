@@ -1120,7 +1120,7 @@
 	
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
-	to_chat(user, "<span class = 'notice'>The fabirc on [src] changes color, reverting it back to standard mode.</span>")
+	to_chat(user, "<span class = 'notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
 	plushie_module_selected = FALSE
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
