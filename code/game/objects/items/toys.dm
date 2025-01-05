@@ -1115,12 +1115,12 @@
 		return 	. = ..()
 	
 	if(!plushie_module_selected)
-		to_chat(user,"<span class = 'warning'>[src] is already in standard mode!</span>")
+		to_chat(user, "<span class = 'warning'>[src] is already in standard mode!</span>")
 		return ITEM_INTERACT_COMPLETE
 	
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
-	to_chat(user,"<span class = 'notice'>The fabirc on [src] changes color, reverting it back to standard mode.</span>")
+	to_chat(user, "<span class = 'notice'>The fabirc on [src] changes color, reverting it back to standard mode.</span>")
 	plushie_module_selected = FALSE
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
@@ -1167,7 +1167,7 @@
 
 /obj/item/toy/plushie/borgplushie/random/Initialize(mapload)
 	. = ..()
-	borg_plushie_overlay = (pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi"))
+	borg_plushie_overlay = pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi")
 	if(borg_plushie_overlay != "plushie_borgassist")
 		plushie_module_selected = TRUE
 	update_icon()
