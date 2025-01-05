@@ -999,7 +999,6 @@
 #include "code\game\objects\structures.dm"
 #include "code\game\objects\effects\alien_acid.dm"
 #include "code\game\objects\effects\anomalies.dm"
-#include "code\game\objects\effects\bump_teleporter.dm"
 #include "code\game\objects\effects\effects.dm"
 #include "code\game\objects\effects\forcefields.dm"
 #include "code\game\objects\effects\gibs.dm"
