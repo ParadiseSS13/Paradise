@@ -365,7 +365,9 @@ SUBSYSTEM_DEF(ticker)
 
 	#ifdef GAME_TESTS
 	// Run map tests first in case unit tests futz with map state
+	log_world("GLOB.test_runner.RunMap()")
 	GLOB.test_runner.RunMap()
+	log_world("GLOB.test_runner.Run()")
 	GLOB.test_runner.Run()
 	#endif
 

@@ -7,6 +7,7 @@
 /datum/milla_safe/ventcrawl_test_setup
 
 /datum/milla_safe/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
+	log_world("[__PROC__] entering")
 	// I'm sure get_area_turfs is totally deterministic and this will never go wrong
 	var/turf/run_loc_bottom_left = test.available_turfs[1]
 	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
@@ -19,6 +20,8 @@
 	test.table = test.find_spawned_test_object(get_step(run_loc_bottom_left, EAST), /obj/structure/table)
 	test.setup_complete = TRUE
 
+	log_world("[__PROC__] exiting")
+
 /datum/game_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
 	for(var/content in location.contents)
 		if(istype(content, test_object_type))
@@ -26,10 +29,12 @@
 	TEST_FAIL("Couldn't find spawned test object of type: [test_object_type].")
 
 /datum/game_test/ventcrawl/Run()
+	log_world("[__PROC__] about to invoke MILLA")
 	var/datum/milla_safe/ventcrawl_test_setup/milla = new()
 	milla.invoke_async(src)
 	while(!setup_complete)
 		sleep(world.tick_lag)
+	log_world("[__PROC__] setup ended")
 
 	// Enter vent
 	vent.AltClick(slime)

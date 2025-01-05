@@ -87,7 +87,10 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("text", "procgen_settings", 1, "[caves_theme_type]")
 
 	// Load all Z level templates
-	preloadTemplates()
+	preloadTemplates("_maps/map_files/templates/")
+	preloadShelterTemplates()
+	preloadShuttleTemplates()
+	preloadEventTemplates()
 
 	// Load the station
 	loadStation()
@@ -98,12 +101,13 @@ SUBSYSTEM_DEF(mapping)
 	// Seed space ruins
 	if(GLOB.configuration.ruins.enable_space_ruins)
 		handleRuins()
+		preloadRuinTemplates()
 	else
 		log_startup_progress("Skipping space ruins...")
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
 #ifdef GAME_TESTS
-	preloadTemplates(path = "_maps/map_files/tests/")
+	preloadTemplates("_maps/map_files/tests/")
 	empty_z_traits |= GAME_TEST_LEVEL
 #endif
 

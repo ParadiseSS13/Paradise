@@ -63,6 +63,7 @@
 		current_test = test
 		var/duration = REALTIMEOFDAY
 
+		log_world("[__PROC__] Running test [I]")
 		test.Run()
 
 		durations[I] = REALTIMEOFDAY - duration

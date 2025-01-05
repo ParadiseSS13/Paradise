@@ -60,6 +60,7 @@
 		available_turfs = get_test_turfs()
 
 /datum/game_test/proc/load_testing_area()
+	log_world("[__PROC__]")
 	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
 	if(!length(testing_levels))
 		Fail("Could not find appropriate z-level for spawning test areas")

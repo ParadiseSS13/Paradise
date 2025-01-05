@@ -18,6 +18,9 @@
 	if(rename)
 		name = rename
 
+/datum/map_template/proc/to_string()
+	return "</datum/map_template mappath=`[mappath]` mapfile=`[mapfile]`>"
+
 /datum/map_template/proc/preload_size(path)
 	var/bounds = GLOB.maploader.load_map(file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
@@ -26,6 +29,7 @@
 	return bounds
 
 /datum/map_template/proc/load(turf/T, centered = 0)
+	log_world("[__PROC__]: src=[to_string()], T=`[COORD(T)]`")
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -71,7 +75,7 @@
 	var/datum/milla_safe/late_setup_level/milla = new()
 	milla.invoke_async(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
 
-	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
+	log_world("[__PROC__]: [name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
 /datum/map_template/proc/get_file()
@@ -119,18 +123,12 @@
 	else
 		return TRUE
 
-
-/proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup
+/proc/preloadTemplates(path)
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
+			log_world("[__PROC__]: preloading template [T.to_string()]")
 			GLOB.map_templates[T.name] = T
-
-	if(GLOB.configuration.ruins.enable_space_ruins) // so we don't unnecessarily clutter start-up
-		preloadRuinTemplates()
-	preloadShelterTemplates()
-	preloadShuttleTemplates()
-	preloadEventTemplates()
 
 /proc/preloadRuinTemplates()
 	// Merge the active lists together
@@ -149,6 +147,7 @@
 		if(!(R.mappath in all_ruins))
 			continue
 
+		log_world("[__PROC__]: preloading template [R.to_string()]")
 		GLOB.map_templates[R.name] = R
 
 		if(istype(R, /datum/map_template/ruin/lavaland))
@@ -164,6 +163,7 @@
 		var/datum/map_template/shelter/S = new shelter_type()
 
 		GLOB.shelter_templates[S.shelter_id] = S
+		log_world("[__PROC__]: preloading template [S.to_string()]")
 		GLOB.map_templates[S.shelter_id] = S
 
 /proc/preloadShuttleTemplates()
@@ -175,6 +175,7 @@
 		var/datum/map_template/shuttle/S = new shuttle_type()
 
 		GLOB.shuttle_templates[S.shuttle_id] = S
+		log_world("[__PROC__]: preloading template [S.to_string()]")
 		GLOB.map_templates[S.shuttle_id] = S
 
 /proc/preloadEventTemplates()
@@ -185,4 +186,5 @@
 
 		var/datum/map_template/event/E = new event_type()
 
+		log_world("[__PROC__]: preloading template [E.to_string()]")
 		GLOB.map_templates[E.event_id] = E
