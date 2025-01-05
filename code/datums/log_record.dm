@@ -12,7 +12,7 @@
 
 	who = get_subject_text(_who, _log_type)
 	if(!isnull(usr) && usr != _who)
-		who_usr = "FORCED by [get_subject_text(usr, _log_type)]"
+		who_usr = "<br><font color='red'>FORCED</font> by [get_subject_text(usr, _log_type)]"
 	else
 		who_usr = ""
 	what = _what
