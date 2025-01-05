@@ -5,7 +5,7 @@
 	icon_state = "cypherkey"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "engineering=2;bluespace=1" // TODO
+	origin_tech = "programming=5;engineering=3;syndicate=2"
 
 	// Tracks who was the highest target for print output
 	var/highest_stolen_rank
@@ -41,7 +41,7 @@
 		if(1 to 3)      victim_text = "Ok, it's working, now you can start doing your job!"
 		if(4 to 9)    	victim_text = "Good start, agent"
 		if(10 to 20) 	victim_text = "Keep up the good work"
-		if(21 to 50) victim_text = "Maybe... maybe you are useful after all."
+		if(21 to 50) victim_text = "Maybe... Maybe you are useful after all."
 		if(50 to 100) victim_text = "You didn’t forget that you have an actual job to do, right?"
 		if(101 to 150) victim_text = "At this point, I just don’t believe you."
 		else       		victim_text = "AGENT, STOP BREAKING MY STUFF!!!"
@@ -50,14 +50,14 @@
 		<b>N@m3 Er0r r3f3r3nc3</b><br>
 		<b>4cc3ss c0d3: @#_#@ </b><br>
 		<b>Do n0t l0s3 or m1spl@ce this c0d3.</b><br>
-		<center>Glory to syndicate! Here is your report agent</center>
-		<center>Agent, you have stolen data [victim_number] times </center>
+		<center>Glory to the Syndicate! Here is your report, agent.</center>
+		<center>You have stolen data [victim_number] times.</center>
 		<center>[victim_text]</center>
 		<br>
-		<center>Your most important target was: [highest_stolen_rank]</center>
-		<center>[get_rank_text(highest_stolen_rank)]</center>
+		<center>Your most important target was: [highest_stolen_rank].</center>
+		<center>[get_rank_text(highest_stolen_rank)].</center>
 		<br>
-		<center>Here is your victims accounts details:</center><br>
+		<center>Here are your victim's account details:</center><br>
 		"}
 
 	for(var/i = 1, length(stolen_data) >= i, i++)
@@ -78,7 +78,7 @@
 			return  "Ehh, do they even have bank accounts?"
 
 		if(ACCESS_CENT_SPECOPS)
-			return  "Where do they find the free time for you."
+			return  "It's emergency shopping time!"
 
 		if(ACCESS_CAPTAIN)
 			return  "A big catch, not bad."
@@ -87,7 +87,7 @@
 			return  "Another fearless mountain of muscle."
 
 		if(ACCESS_MAGISTRATE)
-			return  "Treyzon's watch dog"
+			return  "Trasen's watch dog"
 
 		if(ACCESS_NTREP)
 			return  "Looks like he's here to watch over their slaves."

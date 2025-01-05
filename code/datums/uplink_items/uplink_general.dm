@@ -619,7 +619,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "EFTPOS Hacking Key"
 	desc = "The EFTPOS Hacking Key is a tiny gadget that can be inserted into EFTPOS terminals, \
 	allowing agents to steal account numbers and access data after transactions. \
-	Note: An Agent Card is required to retrieve the stolen data and access permissions; these are sold separately."
+	Note: An Agent ID Card is required to retrieve the stolen data and access permissions; these are sold separately."
 	reference = "EFTHK"
 	item = /obj/item/storage/box/syndie_kit/eftpos_hacking_kit
 	cost = 15 // Ask Balance Team
