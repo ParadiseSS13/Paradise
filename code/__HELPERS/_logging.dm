@@ -53,8 +53,8 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_if_mismatch(mob/who, message)
 	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
-		if(is_ai_auto)
-			rustg_log_write(GLOB.world_game_log, "AI AUTO ([usr.last_known_ckey]): [message][GLOB.log_end]")
+		if(automatic)
+			rustg_log_write(GLOB.world_game_log, "AUTOMATIC ([usr.last_known_ckey]): [message][GLOB.log_end]")
 		else
 			rustg_log_write(GLOB.world_game_log, "LOG USER MISMATCH: [usr.simple_info_line()] was usr for [message][GLOB.log_end]")
 
@@ -70,11 +70,11 @@ GLOBAL_PROTECT(log_end)
 		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
 		log_if_mismatch(last_mob, message)
 
-/proc/log_say(text, mob/speaker, is_ai_auto = FALSE)
+/proc/log_say(text, mob/speaker, automatic = FALSE)
 	if(GLOB.configuration.logging.say_logging)
 		var/message = "SAY: [speaker.simple_info_line()]: [html_decode(text)]"
 		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
-		log_if_mismatch(speaker, message, is_ai_auto)
+		log_if_mismatch(speaker, message, automatic)
 
 /proc/log_whisper(text, mob/speaker)
 	if(GLOB.configuration.logging.whisper_logging)

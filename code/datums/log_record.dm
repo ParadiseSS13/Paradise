@@ -7,14 +7,14 @@
 	var/target			// Who/what was targeted
 	var/where			// Where did it happen
 
-/datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time, force_no_usr_check, is_ai_auto)
+/datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time, force_no_usr_check, automatic)
 	log_type = _log_type
 
 	who = get_subject_text(_who, _log_type)
 	who_usr = ""
 	if(!isnull(usr) && !force_no_usr_check)
-		if(is_ai_auto)
-			who_usr = "<br><font color='green'>AI auto</font> for [get_subject_text(usr, _log_type)]"
+		if(automatic)
+			who_usr = "<br><font color='green'>Automatic</font> for [get_subject_text(usr, _log_type)]"
 		else if(log_type == DEFENSE_LOG)
 			if(usr != _target)
 				who_usr = "<br><font color='red'>FORCED</font> by [get_subject_text(usr, _log_type)]"
