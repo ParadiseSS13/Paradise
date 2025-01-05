@@ -572,7 +572,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/video_cooldown = 0
+	/// The default amount of time the camera will wait before updating consoles with its new position.
+	var/update_viewer_cooldown_rate = 2 SECONDS
+	/// The next time that the camera should update consoles with its new position.
 	var/update_viewer_cooldown = 0
+	/// The amount of time after each move the camera will wait before updating consoles
+	/// with its position a final time. It should be higher than `update_viewer_cooldown_rate` to ensure
+	/// that it isn't debounced. (This ensures the feed tries to remain centered on the camera.)
+	var/update_viewer_stabilize_rate = 3 SECONDS
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -632,12 +639,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				T.atom_say(msg)
 
 /obj/item/videocam/proc/update_viewers()
-	if(!camera || !on || world.timeofday < update_viewer_cooldown)
-		return TRUE
-	update_viewer_cooldown = world.timeofday + 3 SECONDS
+	if(!camera || world.timeofday < update_viewer_cooldown)
+		return
+	update_viewer_cooldown = world.timeofday + update_viewer_cooldown_rate
 	for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 		if(T.active_camera == camera && length(T.watchers))
 			T.update_viewer()
+	addtimer(CALLBACK(src, PROC_REF(update_viewers)), update_viewer_stabilize_rate)
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"
