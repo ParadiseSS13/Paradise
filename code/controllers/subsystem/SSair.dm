@@ -87,6 +87,7 @@ SUBSYSTEM_DEF(air)
 
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
+	var/list/sleepable_waiting_for_sync = list()
 
 	/// The coordinates of the pressure image we're currently loading.
 	var/pressure_x = 0
@@ -714,6 +715,9 @@ SUBSYSTEM_DEF(air)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
+	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
+	set waitfor = FALSE
+
 	if(is_synchronous)
 		var/was_safe = SSair.in_milla_safe_code
 		SSair.in_milla_safe_code = TRUE
@@ -724,16 +728,35 @@ SUBSYSTEM_DEF(air)
 
 	waiting_for_sync += CB
 
+/// Similar to addtimer, but triggers once MILLA enters synchronous mode. This version allows for sleeping if it's absolutely necessary.
+/datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe/CB)
+	sleepable_waiting_for_sync += CB
+
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
 	return in_milla_safe_code
 
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
+	run_sleepless_callbacks()
+	run_sleeping_callbacks()
 	is_synchronous = TRUE
+
+/datum/controller/subsystem/air/proc/run_sleepless_callbacks()
+	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
+	set waitfor = FALSE
+
 	in_milla_safe_code = TRUE
 	for(var/datum/milla_safe/CB as anything in waiting_for_sync)
 		// This is one of two intended places to call this otherwise-unsafe proc.
 		CB.private_unsafe_invoke()
 	waiting_for_sync.Cut()
+	in_milla_safe_code = FALSE
+
+/datum/controller/subsystem/air/proc/run_sleeping_callbacks()
+	in_milla_safe_code = TRUE
+	for(var/datum/milla_safe_must_sleep/CB as anything in sleepable_waiting_for_sync)
+		// This is one of two intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
+	sleepable_waiting_for_sync.Cut()
 	in_milla_safe_code = FALSE
 
 /proc/milla_tick_finished()
@@ -807,6 +830,56 @@ SUBSYSTEM_DEF(air)
 
 /// Completely replace the air for a turf. Only use from `on_run`.
 /datum/milla_safe/proc/set_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.copy_from(air)
+
+/// Create a subclass of this and implement `on_run` to manipulate tile air safely. ONLY USE THIS VERSION IF YOU CAN'T AVOID SLEEPING; it will delay atmos ticks!
+/datum/milla_safe_must_sleep
+	var/run_args = list()
+
+/// All subclasses should implement this.
+/datum/milla_safe_must_sleep/proc/on_run(...)
+	CRASH("[src.type] does not implement on_run")
+
+/// Call this to make the subclass run when it's safe to do so. Args will be passed to on_run.
+/datum/milla_safe_must_sleep/proc/invoke_async(...)
+	run_args = args.Copy()
+	SSair.sleepable_synchronize(src)
+
+/// Do not call this yourself. This is what is called to run your code from a safe context.
+/datum/milla_safe_must_sleep/proc/private_unsafe_invoke()
+	soft_assert_safe()
+	on_run(arglist(run_args))
+
+/// Used internally to check that we're running safely, but without breaking things worse if we aren't.
+/datum/milla_safe_must_sleep/proc/soft_assert_safe()
+	ASSERT(SSair.is_in_milla_safe_code())
+
+/// Fetch the air for a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/get_turf_air(turf/T)
+	RETURN_TYPE(/datum/gas_mixture)
+	soft_assert_safe()
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+	if(!air.synchronized)
+		air.synchronized = TRUE
+		SSair.bound_mixtures += air
+	return air
+
+/// Add air to a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/add_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.merge(air)
+
+/// Completely replace the air for a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/set_turf_air(turf/T, datum/gas_mixture/air)
 	var/datum/gas_mixture/turf_air = get_turf_air(T)
 	turf_air.copy_from(air)
 
