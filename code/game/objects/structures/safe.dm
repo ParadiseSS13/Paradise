@@ -271,7 +271,7 @@ GLOBAL_LIST_EMPTY(safes)
 		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
 			if(H.is_in_hands(/obj/item/clothing/neck/stethoscope))
 				canhear = TRUE
-			if(istype(S,/obj/item/clothing/neck/stethoscope))
+			if(istype(H.neck, /obj/item/clothing/neck/stethoscope))
 				canhear = TRUE
 
 	. = TRUE
