@@ -463,6 +463,8 @@
 					spawn_location = pick(open_turfs)
 			spawn_item(product, spawn_location)
 
+			if(!random_spawns)
+				continue
 			spawn_location = pick(random_spawns)
 			spawn_location = pick(spawn_location.AdjacentTurfs(open_only = TRUE))
 			if(spawn_location.density)
