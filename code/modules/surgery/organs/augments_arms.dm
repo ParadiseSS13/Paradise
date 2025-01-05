@@ -870,20 +870,15 @@
 
 	if(second_attack) // if attack from second blade to prevent switching your attacking hand
 		double_attack = FALSE
-		addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
+		addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
 		return ..()
 
 	double_attack = FALSE
 	src.attack(target, user, params, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(second_attack), target, user, params, secondblade), 0.2 SECONDS) // not instant second attack
 	user.changeNext_move(CLICK_CD_MELEE)
-	addtimer(CALLBACK(src, PROC_REF(reset_double_attack)), double_attack_cd SECONDS)
+	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
 	return FINISH_ATTACK
-
-/obj/item/melee/mantis_blade/proc/reset_double_attack()
-	if(QDELETED(src))
-		return
-	double_attack = TRUE
 
 /obj/item/melee/mantis_blade/proc/second_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
 	if(QDELETED(src) || QDELETED(secondblade))
@@ -901,13 +896,13 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, non projectile
 
-/obj/item/melee/mantis_blade/NT
+/obj/item/melee/mantis_blade/nt
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
 	item_state = "mantis"
 	force = 18
 
-/obj/item/melee/mantis_blade/NT/Initialize(mapload)
+/obj/item/melee/mantis_blade/nt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime, non projectile
 
@@ -924,13 +919,13 @@
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
 	parent_organ = "l_arm"
 
-/obj/item/organ/internal/cyberimp/arm/NT_mantis
+/obj/item/organ/internal/cyberimp/arm/nt_mantis
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade design produced by Nanotrasen. While still quite deadly, the loss of the monomolecular blade has drastically reduced its armor penetration capability."
 	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
-	contents = newlist(/obj/item/melee/mantis_blade/NT)
+	contents = newlist(/obj/item/melee/mantis_blade/nt)
 	icon_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
 
-/obj/item/organ/internal/cyberimp/arm/NT_mantis/l
+/obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
