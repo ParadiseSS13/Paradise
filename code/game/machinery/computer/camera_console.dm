@@ -11,6 +11,7 @@
 	var/list/network = list("SS13","Mining Outpost")
 	var/obj/machinery/camera/active_camera
 	var/list/watchers = list()
+	var/list/living_watchers = list()
 
 	// Stuff needed to render the map
 	var/map_name
@@ -64,10 +65,11 @@
 		var/is_living = isliving(user)
 		// Ghosts shouldn't count towards concurrent users, which produces
 		// an audible terminal_on click.
+		watchers += user_uid
 		if(is_living)
-			watchers += user_uid
+			living_watchers += user_uid
 		// Turn on the console
-		if(length(watchers) == 1 && is_living)
+		if(length(living_watchers) == 1 && is_living)
 			if(!silent_console)
 				playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
 			use_power(active_power_consumption)
@@ -89,6 +91,7 @@
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
 	watchers -= user.UID()
+	living_watchers -= user.UID()
 	user.client.clear_map(map_name)
 
 /obj/machinery/computer/security/ui_data()
@@ -126,25 +129,27 @@
 		active_camera = C
 		if(!silent_console)
 			playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		return update_viewer()
 
-		// Show static if can't use the camera
-		if(!active_camera?.can_use())
-			show_camera_static()
-			return TRUE
-
-		var/list/visible_turfs = list()
-		for(var/turf/T in view(C.view_range, get_turf(C)))
-			visible_turfs += T
-
-		var/list/bbox = get_bbox_of_atoms(visible_turfs)
-		var/size_x = bbox[3] - bbox[1] + 1
-		var/size_y = bbox[4] - bbox[2] + 1
-
-		cam_screen.vis_contents = visible_turfs
-		cam_background.icon_state = "clear"
-		cam_background.fill_rect(1, 1, size_x, size_y)
-
+/obj/machinery/computer/security/proc/update_viewer()
+	// Show static if can't use the camera
+	if(!active_camera?.can_use())
+		show_camera_static()
 		return TRUE
+
+	var/list/visible_turfs = list()
+	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
+		visible_turfs += T
+
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
+
+	cam_screen.vis_contents = visible_turfs
+	cam_background.icon_state = "clear"
+	cam_background.fill_rect(1, 1, size_x, size_y)
+
+	return TRUE
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()

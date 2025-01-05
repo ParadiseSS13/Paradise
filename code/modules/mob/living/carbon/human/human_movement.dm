@@ -55,3 +55,11 @@
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
 			update_inv_shoes()
+
+	var/obj/item/videocam/cam = belt
+	if(!istype(cam))
+		cam = r_hand
+		if(!istype(cam))
+			cam = l_hand
+	if(istype(cam))
+		cam.update_viewers()

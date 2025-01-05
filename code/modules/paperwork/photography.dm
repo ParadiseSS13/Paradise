@@ -572,6 +572,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/video_cooldown = 0
+	var/update_viewer_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -629,6 +630,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
+
+/obj/item/videocam/proc/update_viewers()
+	if(!camera || !on || world.timeofday < update_viewer_cooldown)
+		return TRUE
+	update_viewer_cooldown = world.timeofday + 3 SECONDS
+	for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
+		if(T.active_camera == camera && length(T.watchers))
+			T.update_viewer()
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"
