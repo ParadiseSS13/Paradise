@@ -66,6 +66,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
+	// AI Powers
+	var/datum/program_picker/program_picker
+	var/datum/spell/ai_spell/choose_program/program_action
+
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
 	var/datum/spell/ai_spell/choose_modules/modules_action
@@ -393,6 +397,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!powered_ai || powered_ai.stat & DEAD)
 		qdel(src)
 		return
+	// Regenerate nanites for abilities only when powered.
+	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5*powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
