@@ -1069,7 +1069,7 @@
 /obj/item/toy/plushie/borgplushie/examine(mob/user)
 	. = ..()
 	if(!plushie_module_selected)
-		. += "<span class = 'notice'>Alt-Click [src] to change its color.</span>"
+		. += "<span class = 'notice'><b>Alt-Click</b> [src] to change its color.</span>"
 	else
 		. += "<span class = 'notice'>You can use a cyborg module reset board to change [src] back into standard mode.</span>"
 
@@ -1077,7 +1077,7 @@
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	pick_borg_plush_module()
+	pick_borg_plush_module(user)
 
 /obj/item/toy/plushie/borgplushie/proc/pick_borg_plush_module(mob/user)
 	if(plushie_module_selected)
