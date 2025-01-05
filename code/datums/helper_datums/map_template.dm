@@ -147,7 +147,7 @@
 		if(!(R.mappath in all_ruins))
 			continue
 
-		log_world("[__PROC__]: preloading template [R.to_string()]")
+		log_world("[__PROC__]: preloading ruin template [R.to_string()]")
 		GLOB.map_templates[R.name] = R
 
 		if(istype(R, /datum/map_template/ruin/lavaland))
@@ -163,7 +163,7 @@
 		var/datum/map_template/shelter/S = new shelter_type()
 
 		GLOB.shelter_templates[S.shelter_id] = S
-		log_world("[__PROC__]: preloading template [S.to_string()]")
+		log_world("[__PROC__]: preloading shelter template [S.to_string()]")
 		GLOB.map_templates[S.shelter_id] = S
 
 /proc/preloadShuttleTemplates()
