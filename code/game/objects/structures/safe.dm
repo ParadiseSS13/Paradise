@@ -268,7 +268,6 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		var/obj/S = H.neck
 		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
 			if(H.is_in_hands(/obj/item/clothing/neck/stethoscope))
 				canhear = TRUE
