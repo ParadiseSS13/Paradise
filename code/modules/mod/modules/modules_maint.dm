@@ -3,8 +3,6 @@
 ///Springlock Mechanism - allows your modsuit to activate faster, but reagents are very dangerous.
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
-
-
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
 		This mechanical exoskeleton retracts to allow user entry and assists with booting up. \
 		It was removed from modern suits due to the springlock's tendency to \"snap\" back \
