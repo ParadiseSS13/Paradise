@@ -24,7 +24,9 @@
 		if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE))
 			playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
 			to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
-		return ITEM_INTERACT_COMPLETE
+			return ITEM_INTERACT_COMPLETE
+		else
+			return ..()
 
 	if(!labels_left)
 		to_chat(user, "<span class='warning'>No labels left!</span>")
@@ -43,7 +45,7 @@
 		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
 		target.AddComponent(/datum/component/label/goal, label)
-		return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE 
 
 	if(length(target.name) + length(label) > 64)
 		to_chat(user, "<span class='warning'>Label too big!</span>")
