@@ -222,7 +222,7 @@
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/clothing/under/syndicate/combat, //0TC
 		/obj/item/clothing/accessory/holster, // 0TC
-		/obj/item/clothing/accessory/scarf/red, //0TC
+		/obj/item/clothing/neck/scarf/red, //0TC
 		/obj/item/clothing/head/beret, // 0TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/clothing/shoes/combat) // 0TC
@@ -455,7 +455,7 @@
 /obj/item/storage/box/syndie_kit/safecracking/populate_contents()
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/mask/balaclava(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/clothing/neck/stethoscope(src)
 	new /obj/item/book/manual/wiki/hacking(src)
 
 /obj/item/storage/box/syndie_kit/chameleon

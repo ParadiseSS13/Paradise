@@ -8,9 +8,9 @@
 	Another research station has developed a device called a Bluespace Harvester.
 	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
 	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
-	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
+	Acquire the circuit board, construct the device over a wire knot and feed it enough power to strike a motherlode of objects, located [goal] points deep.
 	<br><br>
-	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
+	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered. It may also require maintenance irregularly.
 	<br>
 	Nanotrasen Science Directorate"}
 
@@ -31,14 +31,22 @@
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
+	/// Name of the product
 	var/product_name = "generic"
-	var/product_path = null
+	/// The path to a list containing the common drops
+	var/product_path_common = null
+	/// The path to a list containing the uncommon drops
+	var/product_path_uncommon = null
+	/// The path to a list containing the rare drops
+	var/product_path_rare = null
+	/// How much the product costs to produce
 	var/product_cost = 100	//cost in mining points to generate
 
-
-/datum/data/bluespace_tap_product/New(name, path, cost)
+/datum/data/bluespace_tap_product/New(name, path_common, path_uncommon, path_rare, cost)
 	product_name = name
-	product_path = path
+	product_path_common = path_common
+	product_path_uncommon = path_uncommon
+	product_path_rare = path_rare
 	product_cost = cost
 
 /obj/item/circuitboard/machine/bluespace_tap
@@ -54,6 +62,7 @@
 #define POINTS_PER_W 4e-6
 /// Amount of points generated per cycle per 50KW for the first 500KW
 #define BASE_POINTS 2
+
 
 /**
   * # Bluespace Harvester
@@ -79,10 +88,26 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/random/bluespace_tap/hat, 5000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/random/bluespace_tap/food, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/random/bluespace_tap/cultural, 15000),
-	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/random/bluespace_tap/organic, 20000)
+	new /datum/data/bluespace_tap_product("Unknown Exotic Clothing",
+		/obj/effect/spawner/random/bluespace_tap/clothes_common,
+		/obj/effect/spawner/random/bluespace_tap/clothes_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/clothes_rare,
+		5000),
+	new /datum/data/bluespace_tap_product("Unknown Food",
+		/obj/effect/spawner/random/bluespace_tap/food_common,
+		/obj/effect/spawner/random/bluespace_tap/food_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/food_rare,
+		6000),
+	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact",
+		/obj/effect/spawner/random/bluespace_tap/cultural_common,
+		/obj/effect/spawner/random/bluespace_tap/cultural_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/cultural_rare,
+		15000),
+	new /datum/data/bluespace_tap_product("Unknown Biological Artifact",
+		/obj/effect/spawner/random/bluespace_tap/organic_common,
+		/obj/effect/spawner/random/bluespace_tap/organic_uncommon,
+		/obj/effect/spawner/random/bluespace_tap/organic_rare,
+		20000)
 	)
 
 	/// The amount of power being used for mining at the moment (Watts)
@@ -95,6 +120,18 @@
 	var/points = 0
 	/// The total points earned by this machine so far, for tracking station goal and highscore
 	var/total_points = 0
+	/// The point interval where the machine will automatically spawn a clothing item
+	var/clothing_interval = 7500
+	/// The point interval where the machine will automatically spawn a food item
+	var/food_interval = 10000
+	/// The point interval where the machine will automatically spawn a cultural item
+	var/cultural_interval = 15000
+	/// The point interval where the machine will automatically spawn an organic item
+	var/organic_interval = 20000
+	/// The point interval where the machine will strike a motherlode
+	var/motherlode_interval = 45000
+	/// How much power the machine needs per processing tick at the current level.
+	var/actual_power_usage = 0
 
 	// Tweak these and active_power_consumption to balance power generation
 
@@ -107,9 +144,16 @@
 	/// Whether or not mining power will be prevented from exceedingn stabilizer power
 	var/stabilizer_priority = TRUE
 	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
+	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
+	var/overhead = 0
+	/// When portal event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
 	/// The amount of portals waiting to be spawned. Used mostly for UI and icon stuff.
 	var/spawning = 0
+	/// When a filth event triggers, this will stop the operation until it is cleaned
+	var/dirty = FALSE
+	/// Internal radio to handle announcements over engineering
+	var/obj/item/radio/radio
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -126,6 +170,14 @@
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
+
+/obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	. = ..()
+	dirty = FALSE
 
 /obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
@@ -156,7 +208,10 @@
 		set_light(1, 1, "#353535")
 
 	if(get_available_power())
-		. += "screen"
+		if(dirty)
+			. += "screen_dirty"
+		else
+			. += "screen"
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
 
@@ -252,10 +307,38 @@
 	consume_direct_power(mining_power + stabilizer_power)
 
 	// 2 points per 50 KW up to 20 and 4 points per MW (or 5 when emmaged).
-	mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
-	points += mined_points
-	total_points += mined_points
-	update_icon()
+	// A dirty machine does not produce points
+	if(!dirty)
+		mined_points = min(BASE_POINTS * (mining_power / (50 KW)) , 20) + mining_power * (POINTS_PER_W + emagged / (1 MW))
+		points += mined_points
+		total_points += mined_points
+		update_icon()
+
+	// Handle automatic spawning of loot. Extra loot spawns in maints if stabilizers are off to incentivise risk taking
+	if(total_points > clothing_interval)
+		produce(product_list[1], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced unknown clothes!</b>", name, "Engineering")
+		clothing_interval += 7500
+
+	if(total_points > food_interval)
+		produce(product_list[2], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced unknown food!</b>", name, "Engineering")
+		food_interval += 10000
+
+	if(total_points > cultural_interval)
+		produce(product_list[3], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something unknown with cultural value!</b>", name, "Engineering")
+		cultural_interval += 15000
+
+	if(total_points > organic_interval)
+		produce(product_list[4], FALSE, !stabilizers)
+		radio.autosay("<b>Bluespace harvester progress detected: [src] has produced something organic!</b>", name, "Engineering")
+		organic_interval += 20000
+
+	if(total_points > motherlode_interval)
+		produce_motherlode()
+		motherlode_interval += 45000
+
 	/*
 	* Portal chance is 0.1% per cycle per difference of 1MW between the stabilizer and mining power
 	* This should translate to portals spawning every 33:20 minutes for 1 difference of 1MW
@@ -274,6 +357,7 @@
 			desired_mining_power = 0	//emergency shutdown unless it is disabled
 		// An extra portal for each 30MW above 15
 		start_nether_portaling(rand(1 , 3) + round(max((mining_power - 15 MW) / (30 MW) , 0)), TRUE)
+	try_events()
 
 /obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount, new_incursion = FALSE)
 	if(new_incursion)
@@ -300,6 +384,7 @@
 	data["powerUse"] = mining_power + stabilizer_power
 	data["availablePower"] = get_surplus()
 	data["emagged"] = emagged
+	data["dirty"] = dirty
 	data["autoShutown"] = auto_shutdown
 	data["stabilizers"] = stabilizers
 	data["stabilizerPower"] = stabilizer_power
@@ -331,21 +416,129 @@
 /**
   * Produces the product with the desired key and increases product cost accordingly
   */
-/obj/machinery/power/bluespace_tap/proc/produce(key)
-	if(key <= 0 || key > length(product_list))	//invalid key
+/obj/machinery/power/bluespace_tap/proc/produce(datum/data/bluespace_tap_product/product, purchased = FALSE, double_chance = FALSE)
+	if(!product)
 		return
-	var/datum/data/bluespace_tap_product/A = product_list[key]
-	if(!A)
-		return
-	if(A.product_cost > points)
-		return
-	points -= A.product_cost
-	A.product_cost = round(1.2 * A.product_cost, 1)
+	if(purchased)
+		if(product.product_cost > points)
+			return
+		points -= product.product_cost
+		product.product_cost = round(1.2 * product.product_cost, 1)
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
-	new A.product_path(get_turf(src))
-	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 
+	var/spawn_location = find_spawn_location()
+	if(!spawn_location)
+		// If there is no valid space, spawn the item on the BSH harvester itself
+		spawn_item(get_turf(src))
+	else
+		spawn_item(product, spawn_location)
+
+	if(prob(25) && double_chance)
+		// Spawn second item in random spot on station - places it where NADs can respawn
+		spawn_location = find_spawn_location(TRUE)
+		if(!spawn_location)
+			// If there is no valid space, do not spawn the item
+			return
+		spawn_item(product, spawn_location)
+
+/// Handles a motherlode - each product is spawned 5 times at both the machine and around the station
+/obj/machinery/power/bluespace_tap/proc/produce_motherlode()
+	// Announce lootsplosion
+	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
+	// Build location list cache once
+	var/list/possible_spawns = list()
+	var/list/random_spawns = GLOB.nukedisc_respawn
+	// Build list of spawn positions
+	for(var/turf/current_target_turf in view(3, src))
+		possible_spawns.Add(current_target_turf)
+
+	// Spawn lootsplosion
+	for(var/datum/data/bluespace_tap_product/product in product_list)
+		for(var/i in 1 to 5)
+			var/turf/spawn_location = pick_n_take(possible_spawns)
+			if(spawn_location.density)
+				var/list/open_turfs = spawn_location.AdjacentTurfs(open_only = TRUE)
+				if(length(open_turfs))
+					spawn_location = pick(open_turfs)
+			spawn_item(product, spawn_location)
+
+			if(!random_spawns)
+				continue
+			spawn_location = pick(random_spawns)
+			spawn_location = pick(spawn_location.AdjacentTurfs(open_only = TRUE))
+			if(spawn_location.density)
+				var/list/open_turfs = spawn_location.AdjacentTurfs(open_only = TRUE)
+				if(length(open_turfs))
+					spawn_location = pick(open_turfs)
+			spawn_item(product, spawn_location)
+
+/obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
+	var/list/possible_spawns = list()
+	if(random)
+		possible_spawns = GLOB.nukedisc_respawn
+	else
+		// Build list of spawn positions
+		for(var/turf/current_target_turf in view(3, src))
+			possible_spawns.Add(current_target_turf)
+
+	while(length(possible_spawns))
+		var/turf/current_spawn = pick_n_take(possible_spawns)
+		if(!current_spawn.density)
+			return current_spawn
+		// Someone built a wall over it, check the surroundings
+		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
+		if(length(open_turfs))
+			return pick(open_turfs)
+
+/obj/machinery/power/bluespace_tap/proc/spawn_item(datum/data/bluespace_tap_product/product, turf)
+	if(!product)
+		return
+	var/list/loot_rarities = list(
+		product.product_path_common = 60,
+		product.product_path_uncommon = 30,
+		product.product_path_rare = 10
+	)
+	var/obj/effect/spawner/random/bluespace_tap/product_path = pickweight(loot_rarities)
+	var/obj/effect/portal/tap_portal = new /obj/effect/portal(turf, null, src, 10)
+	tap_portal.name = "Bluespace Harvester Portal"
+	playsound(src, 'sound/magic/blink.ogg', 50)
+	new product_path(turf)
+	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
+	log_game("Bluespace harvester product spawned at [turf]")
+
+// Highest possible probabilty of an event
+#define PROB_CAP 5
+// Higher number means approaching the limit slower
+#define PROB_CURVE 250
+
+/obj/machinery/power/bluespace_tap/proc/try_events()
+	if(!mining_power)
+		return
+	// Calculate prob of event based on mining power. Return if no event.
+	var/megawatts = mining_power / 1000000
+	var/event_prob = (PROB_CAP * megawatts / (megawatts + PROB_CURVE)) + (emagged * 5)
+	if(!prob(event_prob))
+		return
+	var/static/list/event_list = list(
+		/datum/engi_event/bluespace_tap_event/dirty,
+		/datum/engi_event/bluespace_tap_event/electric_arc,
+		/datum/engi_event/bluespace_tap_event/radiation,
+		/datum/engi_event/bluespace_tap_event/gas
+	)
+	var/datum/engi_event/bluespace_tap_event/event = pick(event_list)
+	run_event(event)
+
+/obj/machinery/power/bluespace_tap/proc/run_event(datum/engi_event/bluespace_tap_event/event) // mostly admin testing and stuff
+	if(ispath(event))
+		event = new event(src)
+	if(!istype(event))
+		log_debug("Attempted bluespace tap event aborted due to incorrect path. Incorrect path type: [event.type].")
+		return
+	event.start_event()
+
+#undef PROB_CAP
+#undef PROB_CURVE
 //UI stuff below
 
 /obj/machinery/power/bluespace_tap/ui_act(action, params)
@@ -357,7 +550,9 @@
 			set_power(text2num(params["set_power"]))
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
-			produce(key)
+			if(key <= 0 || key > length(product_list)) // invalid key
+				return
+			produce(product_list[key], TRUE, TRUE)
 		if("auto_shutdown")
 			auto_shutdown = !auto_shutdown
 		if("stabilizers")

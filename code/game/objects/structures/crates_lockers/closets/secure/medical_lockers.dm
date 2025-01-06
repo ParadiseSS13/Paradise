@@ -73,7 +73,7 @@
 	new /obj/item/clothing/mask/surgical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/clothing/neck/stethoscope(src)
 	new /obj/item/flashlight/pen(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/adv(src)

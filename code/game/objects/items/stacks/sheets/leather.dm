@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new /datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
 	new /datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new /datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
-	new /datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
+	new /datum/stack_recipe("hide mantle", /obj/item/clothing/neck/cloak/unathi, 4)))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge)
 	. = ..()
