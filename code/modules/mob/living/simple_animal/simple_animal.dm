@@ -504,7 +504,7 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force, silent, drop_inventory, no_move)
+/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
 	if(!. || !target)
 		return

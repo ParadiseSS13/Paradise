@@ -239,7 +239,7 @@
 	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
 	return
 
-/mob/living/silicon/robot/unequip_to(obj/item/target, atom/destination, force, silent, drop_inventory, no_move)
+/mob/living/silicon/robot/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	if(target == module_active)
 		uneq_active(target)
 	return ..()

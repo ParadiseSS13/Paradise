@@ -731,7 +731,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unequip_to(obj/item/target, atom/destination, force, silent, drop_inventory, no_move)
+/mob/living/carbon/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
 
 	if(!. || !target) //We don't want to set anything to null if the parent returned 0.

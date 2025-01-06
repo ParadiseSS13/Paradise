@@ -67,7 +67,7 @@
 		if(ITEM_SLOT_ACCESSORY)
 			return TRUE
 
-/mob/living/carbon/human/unequip_to(obj/item/target, atom/destination, force, silent, drop_inventory, no_move)
+/mob/living/carbon/human/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !target)
 		return
