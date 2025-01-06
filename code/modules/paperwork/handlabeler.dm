@@ -21,35 +21,43 @@
 	
 /obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(mode == LABEL_MODE_OFF)
-		if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE))
-			playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
-			to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
+		if(remove_label(target, user))
 			return ITEM_INTERACT_COMPLETE
 		else
-			return ..()
+			return ..() // there is no label, resume normal item interactions
+	else
+		apply_label(target, user)
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/hand_labeler/proc/remove_label(atom/target, mob/living/user)
+	if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE)) // sends a signal to label.dm
+		playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
+		to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
+		return TRUE
+
+/obj/item/hand_labeler/proc/apply_label(atom/target, mob/living/user)
 	if(!labels_left)
 		to_chat(user, "<span class='warning'>No labels left!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 	if(!label || !length(label))
 		to_chat(user, "<span class='warning'>No text set!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 	if(ismob(target))
 		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(mode == LABEL_MODE_GOAL)
 		if(istype(target, /obj/item))
 			to_chat(user, "<span class='warning'>Put it in a personal crate instead!</span>")
-			return ITEM_INTERACT_COMPLETE
+			return
 		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
 		target.AddComponent(/datum/component/label/goal, label)
-		return ITEM_INTERACT_COMPLETE 
+		return
 
 	if(length(target.name) + length(label) > 64)
 		to_chat(user, "<span class='warning'>Label too big!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	user.visible_message("<span class='notice'>[user] labels [target] as [label].</span>", \
 						"<span class='notice'>You label [target] as [label].</span>")
@@ -57,7 +65,6 @@
 	target.AddComponent(/datum/component/label, label)
 	playsound(target, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/hand_labeler/activate_self(mob/user)
 	if(..())
