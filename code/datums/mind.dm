@@ -788,6 +788,7 @@
 					return
 				new_objective = new /datum/objective
 				new_objective.explanation_text = expl
+				new_objective.needs_target = FALSE
 
 		if(!new_objective)
 			return
