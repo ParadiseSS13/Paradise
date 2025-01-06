@@ -48,28 +48,13 @@
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
 
-#ifndef UNIT_TESTS // This is a decently hefty thing to generate while unit testing, so we should skip it.
-	if(!heretic_level_generated)
-		heretic_level_generated = TRUE
-		log_game("Loading heretic lazytemplate for heretic sacrifices...")
-		INVOKE_ASYNC(src, PROC_REF(generate_heretic_z_level))
-#endif
-
-/// Generate the sacrifice z-level.
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_heretic_z_level()
-	if(!SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_HERETIC_SACRIFICE))
-		log_game("The heretic sacrifice template failed to load.")
-		message_admins("The heretic sacrifice lazy template failed to load. Heretic sacrifices won't be teleported to the shadow realm. \
-			If you want, you can spawn an /obj/effect/landmark/heretic somewhere to stop that from happening.")
-		CRASH("Failed to lazy load heretic sacrifice template!")
-
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// First we have to check if the heretic has a Living Heart.
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
 	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		loc.balloon_alert(user, "ritual failed, no living heart!")
+		to_chat(user, "<span class='warning'>The ritual failed, you have no living heart!</span>")
 		return FALSE
 
 	// We've got no targets set, let's try to set some.
@@ -82,7 +67,7 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.stat < SOFT_CRIT)
+		if(sacrifice.health < 0)
 			atoms -= sacrifice
 		// Otherwise if it's neither a target nor a cultist, remove it
 		else if(!(sacrifice in heretic_datum.sac_targets) && !IS_CULTIST(sacrifice))
@@ -93,18 +78,18 @@
 		return TRUE
 
 	// or FALSE if we don't
-	loc.balloon_alert(user, "ritual failed, no sacrifice found!")
+	to_chat(user, "<span class='warning'>The ritual failed, no valid sacrifice was found!</span>")
 	return FALSE
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// Force it to work if the sacrifice is a cultist, even if there's no targets.
 	var/mob/living/carbon/human/sac = selected_atoms[1]
 	if(!LAZYLEN(heretic_datum.sac_targets) && !IS_CULTIST(sac))
 		if(obtain_targets(user, heretic_datum = heretic_datum))
 			return TRUE
 		else
-			loc.balloon_alert(user, "ritual failed, no targets found!")
+			to_chat(user, "<span class='warning'>The ritual failed, no valid sacrifice was found!</span>")
 			return FALSE
 
 	sacrifice_process(user, selected_atoms, loc)
@@ -120,8 +105,10 @@
 
 	// First construct a list of minds that are valid objective targets.
 	var/list/datum/mind/valid_targets = list()
-	for(var/datum/mind/possible_target as anything in get_crewmember_minds())
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
 		if(possible_target == user.mind)
+			continue
+		if(is_invalid_target(possible_target))
 			continue
 		if(possible_target in target_blacklist)
 			continue
@@ -137,12 +124,12 @@
 			to_chat(user, "<span class='hierophant_warning'>No sacrifice targets could be found!</span>")
 		return FALSE
 
-	// Now, let's try to get four targets.
-	// - One completely random
+	// Now, let's try to get five targets.
+	// - Two are completely random
 	// - One from your department
 	// - One from security
 	// - One from heads of staff ("high value")
-	var/list/datum/mind/final_targets = list()
+	var/list/datum/mind/final_targets = list() //Qwertodo: Figure out how the fuck to make this work after roundstart. Look at  traitor objectives?
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
@@ -191,7 +178,7 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms, turf/loc)
 
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/mob/living/carbon/human/sacrifice = locate() in selected_atoms
 	if(!sacrifice)
 		CRASH("[type] sacrifice_process didn't have a human in the atoms list. How'd it make it so far?")
@@ -205,7 +192,7 @@
 
 	var/feedback = "Your patrons accept your offer"
 	var/sac_job_flag = sacrifice.mind?.assigned_role?.job_flags | sacrifice.last_mind?.assigned_role?.job_flags
-	var/datum/antagonist/cult/cultist_datum = GET_CULTIST(sacrifice)
+	var/datum/antagonist/cult/cultist_datum = IS_CULTIST(sacrifice)
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
 	if((sac_job_flag & JOB_HEAD_OF_STAFF))
@@ -247,7 +234,7 @@
 	// Visible and audible encouragement!
 	to_chat(user, "<span class='hierophant_warning'>A servant of the Sanguine Apostate!</span>")
 	to_chat(user, "<span class='hierophant'>Your patrons are rapturous!</span>")
-	playsound(sacrifice, 'sound/effects/magic/disintegrate.ogg', 75, TRUE)
+	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
 	// Drop all items and splatter them around messily.
 	var/list/dustee_items = sacrifice.unequip_everything()
@@ -258,14 +245,14 @@
 	sacrifice.dust(TRUE, TRUE)
 
 	// Increase reward counter
-	var/datum/antagonist/heretic/antag = GET_HERETIC(user)
+	var/datum/antagonist/heretic/antag = IS_HERETIC(user)
 	antag.rewards_given++
 
 	// Cool effect for the rune as well as the item
 	var/obj/effect/heretic_rune/rune = locate() in range(2, user)
 	if(rune)
 		rune.gender_reveal(
-			outline_color = COLOR_CULT_RED,
+			outline_color = COLOR_RED_LIGHT,
 			ray_color = null,
 			do_float = FALSE,
 			do_layer = FALSE,
@@ -280,7 +267,7 @@
 	// Remove the outline, we don't need it anymore.
 	rune?.remove_filter("reward_outline")
 	playsound(loc, 'sound/effects/magic/repulse.ogg', 75, TRUE)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	ASSERT(heretic_datum)
 	// This list will be almost identical to unlocked_heretic_items, with the same keys, the difference being the values will be 1 to 5.
 	var/list/rewards = heretic_datum.unlocked_heretic_items.Copy()
@@ -289,7 +276,7 @@
 		var/amount_already_awarded = heretic_datum.unlocked_heretic_items[possible_reward]
 		rewards[possible_reward] = min(5 - (amount_already_awarded * 2), 1)
 
-	var/atom/reward = pick_weight(rewards)
+	var/atom/reward = pickweight(rewards)
 	reward = new reward(loc)
 
 	if(isliving(reward))
@@ -300,7 +287,7 @@
 
 	else if(isitem(reward))
 		var/obj/item/item_reward = reward
-		item_reward.gender_reveal(outline_color = null, ray_color = COLOR_CULT_RED)
+		item_reward.gender_reveal(outline_color = null, ray_color = COLOR_RED_LIGHT)
 
 	ASSERT(reward)
 
@@ -340,7 +327,7 @@
 		sac_target.legcuffed = null
 		sac_target.update_worn_legcuffs()
 
-	sac_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 85, 150)
+	sac_target.setBrainLoss(85) //Let's not just instantly brain death them
 	sac_target.do_jitter_animation()
 	log_combat(heretic_mind.current, sac_target, "sacrificed")
 

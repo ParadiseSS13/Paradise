@@ -90,6 +90,8 @@
 #define COLOR_FLOOR_HARD_ROCK    "#bdbdbd"
 #define COLOR_HEALING_GREEN    "#375637"
 #define COLOR_VOID_PURPLE "#53277E"
+#define COLOR_VERY_PALE_LIME_GREEN "#DDFFD3"
+#define COLOR_HERETIC_GREEN COLOR_VERY_PALE_LIME_GREEN
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

@@ -37,6 +37,7 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
+		update_shown_duration()
 	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
 		START_PROCESSING(SSfastprocess, src)
 	return TRUE
@@ -57,12 +58,21 @@
 	if(!owner)
 		qdel(src)
 		return
+	update_shown_duration()
 	if(tick_interval <= world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 	if(duration != -1 && duration < world.time)
 		on_timeout()
 		qdel(src)
+
+/// Updates the status effect alert's maptext (if possible)
+/datum/status_effect/proc/update_shown_duration()
+	PRIVATE_PROC(TRUE)
+	if(!linked_alert || !show_duration)
+		return
+
+	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:center'>[round((duration - world.time)/10, 1)]s</span>")
 
 /datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
 	return TRUE

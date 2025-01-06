@@ -13,7 +13,7 @@
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
 	owner.alpha = 180
-	owner.pass_flags |= PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB | PASSDOORS | PASSVEHICLE
+	owner.incorporeal_move = 1
 	location = get_turf(owner)
 	var/datum/action/cancel_crucible_soul/cancel_button = new(src)
 	cancel_button.Grant(owner)
@@ -22,7 +22,7 @@
 /datum/status_effect/crucible_soul/on_remove()
 	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
 	owner.alpha = initial(owner.alpha)
-	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB | PASSDOORS | PASSVEHICLE)
+	owner.incorporeal_move = 0
 	owner.forceMove(location)
 	location = null
 

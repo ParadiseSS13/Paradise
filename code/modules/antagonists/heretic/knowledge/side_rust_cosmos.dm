@@ -50,7 +50,7 @@
 		if(get_dist(nearby_turf, loc) <= 1) //tiles on rune should always be rusted
 			nearby_turf.rust_heretic_act()
 		//we exclude closed turf to avoid exposing cultist bases
-		if(prob(10) || isclosedturf(nearby_turf))
+		if(prob(10) || iswallturf(nearby_turf))
 			continue
 		nearby_turf.rust_heretic_act()
 	return TRUE

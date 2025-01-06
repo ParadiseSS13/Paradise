@@ -38,14 +38,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "lock heretic sacrifice landmark"
 	for_heretic_path = PATH_LOCK
 
-// A fluff signpost object that doesn't teleport you somewhere when you touch it.
-/obj/structure/no_effect_signpost
-	name = "signpost"
-	desc = "Won't somebody give me a sign?"
-	icon = 'icons/obj/fluff/general.dmi'
-	icon_state = "signpost"
-	anchored = TRUE
-	density = TRUE
 
 /obj/structure/signpost/void
 	name = "signpost at the edge of the universe"
@@ -56,7 +48,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	/// Light power of the signpost.
 	var/power = 0.8
 
-/obj/structure/no_effect_signpost/void/Initialize(mapload)
+/obj/structure/signpost/void/Initialize(mapload)
 	. = ..()
 	set_light(range, power)
 
@@ -84,7 +76,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "Mansus"
 	icon_state = "heretic"
 	sound_environment = SOUND_ENVIRONMENT_CAVE
-	area_flags = UNIQUE_AREA | NOTELEPORT | HIDDEN_AREA | BLOCK_SUICIDE | NO_BOH
 
 /area/centcom/heretic_sacrifice/Initialize(mapload)
 	ambientsounds = list('sound/ambience/ambireebe1.ogg',

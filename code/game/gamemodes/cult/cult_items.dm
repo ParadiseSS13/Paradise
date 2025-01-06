@@ -82,8 +82,7 @@
 	name = "haunted longsword"
 	desc = "An eerie sword with a blade that is less 'black' than it is 'absolute nothingness'. It glows with furious, restrained green energy."
 	icon_state = "hauntedblade"
-	inhand_icon_state = "hauntedblade"
-	worn_icon_state = "hauntedblade"
+	item_state = "hauntedblade"
 	force = 30
 	throwforce = 25
 	//qwertodo: parry or random block
@@ -92,9 +91,9 @@
 	light_range = 3
 	sprite_sheets_inhand = null
 	/// holder for the actual action when created.
-	var/list/datum/action/cooldown/spell/path_sword_actions
+	var/list/datum/spell/path_sword_actions
 	/// holder for the actual action when created.
-	var/list/datum/action/cooldown/spell/path_wielder_actions
+	var/list/datum/spell/path_wielder_actions
 	var/mob/living/trapped_entity
 	/// The heretic path that the variable below uses to index abilities. Assigned when the heretic is ensouled.
 	var/heretic_path
@@ -104,50 +103,50 @@
 	var/static/list/heretic_paths_to_haunted_sword_abilities = list(
 		// Ash
 		PATH_ASH = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/ash_beams),
+			WIELDER_SPELLS = list(/datum/spell/jaunt/ethereal_jaunt/ash),
+			SWORD_SPELLS = list(/datum/spell/pointed/ash_beams),
 			SWORD_PREFIX = "ashen",
 		),
 		// Flesh
 		PATH_FLESH = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/pointed/blood_siphon),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/cleave),
+			WIELDER_SPELLS = list(/datum/spell/pointed/blood_siphon),
+			SWORD_SPELLS = list(/datum/spell/pointed/cleave),
 			SWORD_PREFIX = "sanguine",
 		),
 		// Void
 		PATH_VOID = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/pointed/void_phase),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/void_prison),
+			WIELDER_SPELLS = list(/datum/spell/pointed/void_phase),
+			SWORD_SPELLS = list(/datum/spell/pointed/void_prison),
 			SWORD_PREFIX = "tenebrous",
 		),
 		// Blade
 		PATH_BLADE = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/pointed/projectile/furious_steel/haunted),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/projectile/furious_steel/solo),
+			WIELDER_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/haunted),
+			SWORD_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/solo),
 			SWORD_PREFIX = "keen",
 		),
 		// Rust
 		PATH_RUST = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/cone/staggered/entropic_plume),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/aoe/rust_conversion, /datum/action/cooldown/spell/pointed/rust_construction),
+			WIELDER_SPELLS = list(/datum/spell/cone/staggered/entropic_plume),
+			SWORD_SPELLS = list(/datum/spell/aoe/rust_conversion, /datum/spell/pointed/rust_construction),
 			SWORD_PREFIX = "rusted",
 		),
 		// Cosmic
 		PATH_COSMIC = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/conjure/cosmic_expansion),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/projectile/star_blast),
+			WIELDER_SPELLS = list(/datum/spell/conjure/cosmic_expansion),
+			SWORD_SPELLS = list(/datum/spell/pointed/projectile/star_blast),
 			SWORD_PREFIX = "astral",
 		),
 		// Lock
 		PATH_LOCK = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/pointed/burglar_finesse),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/apetra_vulnera),
+			WIELDER_SPELLS = list(/datum/spell/pointed/burglar_finesse),
+			SWORD_SPELLS = list(/datum/spell/pointed/apetra_vulnera),
 			SWORD_PREFIX = "incisive",
 		),
 		// Moon
 		PATH_MOON = list(
-			WIELDER_SPELLS = list(/datum/action/cooldown/spell/pointed/projectile/moon_parade),
-			SWORD_SPELLS = list(/datum/action/cooldown/spell/pointed/moon_smile),
+			WIELDER_SPELLS = list(/datum/spell/pointed/projectile/moon_parade),
+			SWORD_SPELLS = list(/datum/spell/pointed/moon_smile),
 			SWORD_PREFIX = "shimmering",
 		),
 		// Starter
@@ -327,13 +326,13 @@
 	// Get the heretic's new body and antag datum.
 	trapped_entity = trapped_mind?.current
 	trapped_entity.key = trapped_mind?.key
-	var/datum/antagonist/heretic/heretic_holder = GET_HERETIC(trapped_entity)
+	var/datum/antagonist/heretic/heretic_holder = IS_HERETIC(trapped_entity)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
 	// Give the spirit a spell that lets them try to fly around.
-	var/datum/action/cooldown/spell/pointed/sword_fling/fling_act = \
-	new /datum/action/cooldown/spell/pointed/sword_fling(trapped_mind, to_fling = src)
+	var/datum/spell/pointed/sword_fling/fling_act = \
+	new /datum/spell/pointed/sword_fling(trapped_mind, to_fling = src)
 	fling_act.Grant(trapped_entity)
 
 	// Set the sword's path for spell selection.
@@ -364,14 +363,14 @@
 	// The sword is created bound - so we do not grant it the spells just yet, but we still create and store them.
 
 	if(sword_spells)
-		for(var/datum/action/cooldown/spell/sword_spell as anything in sword_spells)
-			var/datum/action/cooldown/spell/instanced_spell = new sword_spell(trapped_entity)
+		for(var/datum/spell/sword_spell as anything in sword_spells)
+			var/datum/spell/instanced_spell = new sword_spell(trapped_entity)
 			LAZYADD(path_sword_actions, instanced_spell)
 			instanced_spell.overlay_icon_state = "bg_cult_border" // for flavor, and also helps distinguish
 
 	if(wielder_spells)
-		for(var/datum/action/cooldown/spell/wielder_spell as anything in wielder_spells)
-			var/datum/action/cooldown/spell/instanced_spell = new wielder_spell(trapped_entity)
+		for(var/datum/spell/wielder_spell as anything in wielder_spells)
+			var/datum/spell/instanced_spell = new wielder_spell(trapped_entity)
 			LAZYADD(path_wielder_actions, instanced_spell)
 			instanced_spell.overlay_icon_state = "bg_cult_border"
 
@@ -381,13 +380,13 @@
 	. = ..()
 	if((!(slot & ITEM_SLOT_HANDS)) || bound)
 		return
-	for(var/datum/action/cooldown/spell/wielder_spell in path_wielder_actions)
+	for(var/datum/spell/wielder_spell in path_wielder_actions)
 		wielder_spell.Grant(user)
 	binding_filters_update()
 
 /obj/item/melee/cultblade/haunted/dropped(mob/user, silent)
 	. = ..()
-	for(var/datum/action/cooldown/spell/wielder_spell in path_wielder_actions)
+	for(var/datum/spell/wielder_spell in path_wielder_actions)
 		wielder_spell.Remove(user)
 	binding_filters_update()
 

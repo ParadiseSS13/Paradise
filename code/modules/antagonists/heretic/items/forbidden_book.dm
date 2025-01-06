@@ -39,7 +39,7 @@
 		w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/codex_cicatrix/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!heretic_datum)
 		return NONE
 	if(isfloorturf(interacting_with))
