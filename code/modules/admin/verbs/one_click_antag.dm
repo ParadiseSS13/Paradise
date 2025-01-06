@@ -21,6 +21,7 @@
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
+		<a href='byond://?src=[UID()];makeAntag=9'>Make Event Characters</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -310,6 +311,68 @@
 		flayer.make_mind_flayer()
 	qdel(temp)
 	return TRUE
+
+/datum/admins/proc/makeEventCharacters()
+	var/datum/game_mode/traitor/temp = new()
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many event characters you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		qdel(temp)
+		return FALSE
+
+	var/no_mindshields = input(owner, "Avoid mindshielded characters?") in list("Yes", "No", "Cancel")
+	if(no_mindshields == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(no_mindshields == "Yes")
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/respect_traitor = input(owner, "Reqire traitor willingness?") in list("Yes", "No", "Cancel")
+	var/role = null
+	if(respect_traitor == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(respect_traitor == "Yes")
+		role = ROLE_TRAITOR
+
+	var/give_objective = input(owner, "Give them a shared custom objective?") in list("Yes", "No", "Cancel")
+	var/objective = null
+	if(give_objective == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(give_objective == "Yes")
+		objective = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null, 1, MAX_MESSAGE_LEN))
+		if(isnull(objective) || objective == "")
+			qdel(temp)
+			return FALSE
+
+	log_admin("[key_name(owner)] tried making [antnum] event characters with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] event characters with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(role, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numEventChars = min(length(candidates), antnum)
+
+		for(var/i = 0, i<numEventChars, i++)
+			H = pick(candidates)
+			if(!isnull(objective))
+				var/datum/objective/O = new()
+				O.explanation_text = objective
+				O.needs_target = FALSE
+				H.mind.add_mind_objective(O)
+			H.mind.add_antag_datum(/datum/antagonist/eventmisc)
+			candidates.Remove(H)
+
+		qdel(temp)
+		return TRUE
+	qdel(temp)
+	return FALSE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 	var/max_thunderdome_players = 10
