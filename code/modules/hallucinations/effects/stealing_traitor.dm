@@ -46,7 +46,7 @@
 /datum/hallucination_manager/stealing_traitor/on_spawn()
 	var/turf/spawn_turf = get_turf(initial_hallucination)
 	initial_hallucination.dir = get_dir(initial_hallucination, owner)
-	new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(spawn_turf)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(spawn_turf)
 	playsound(spawn_turf, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /datum/hallucination_manager/stealing_traitor/on_trigger()
