@@ -218,7 +218,7 @@
 	name = "Power Bio-Chip"
 	desc = "A Bio-Chip that can utilize the power of the station to deliver a short arc of electricity at a target. \
 			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
+			Activated by alt-clicking, or pressing the middle mouse button. Help/disarm intent will deal stamina damage and cause jittering, while harm/grab intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
 	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
