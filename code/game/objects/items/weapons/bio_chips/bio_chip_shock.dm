@@ -6,10 +6,10 @@
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	implant_data = /datum/implant_fluff/shock
 	implant_state = "implant-syndicate"
-	var/enabled = TRUE
+	var/enabled = FALSE
 	var/old_mclick_override
 	var/datum/middle_click_override/shock_implant/mclick_override = new /datum/middle_click_override/shock_implant
-	var/last_shocked = 0
+	COOLDOWN_DECLARE(last_shocked)
 	var/shock_delay = 3 SECONDS
 	var/unlimited_power = FALSE // Does this really need explanation?
 	var/shock_range = 7
