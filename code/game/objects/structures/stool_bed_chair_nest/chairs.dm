@@ -242,7 +242,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
-	var/image/armrest = null
+	var/image/armrest
 	uses_armrest = TRUE
 
 /obj/structure/chair/comfy/shuttle
