@@ -408,8 +408,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 // MARK: CIGARS
 //////////////////////////////
 /obj/item/clothing/mask/cigarette/cigar
-	name = "\improper Premium Cigar"
-	desc = "A brown roll of tobacco and... well, you're not quite sure. This thing's huge!"
+	name = "\improper Nano Cigar"
+	desc = "A huge, brown roll of dried and fermented tobacco, manufactured by Nanotrasen's Robust Tobacco subsidiary. \
+	Don't let the advertising fool you, this thing is a bargain basement, bottom-of-the-barrel product and the smoking experience it offers is little better than an oversized Robust cigarette. \
+	It still makes you look like a mafia boss, however."
 	icon_state = "cigaroff"
 	item_state = "cigaroff"
 	icon_on = "cigaron"
@@ -423,14 +425,19 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "\improper Cohiba Robusto Cigar"
-	desc = "There's little more you could want from a cigar."
+	desc = "A premium brand of cigar widely exported and enjoyed across the Orion Sector. \
+	Lovingly machine rolled using carefully selected strains of tobacco grown in massive hydroponics warehouses in orbit around the death world of Venus, Sol. \
+	It goes through a range of carefully selected flavours as it is smoked, providing a novel and enjoyable experience throughout. There's little more that you could want from a cigar"
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "\improper Premium Havanian Cigar"
-	desc = "A cigar fit for only the best for the best."
+	desc = "One of a handful of brands made using tobacco grown in Cuba on Earth, the core of the Trans-Solar Federation. \
+	Each of these hand-rolled cigars is carefully put together by master cigar rollers using various strains of tobacco that has been cultivated for hundreds of years to ensure \
+	the best consistency and flavour possible. Due to a mixture of limited manufacturing capacity, high quality, brand prestige, and export taxes, \
+	these cigars are too expensive for all but the most wealthy to smoke with any degree of regularity. Only fit for the best of the best."
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
