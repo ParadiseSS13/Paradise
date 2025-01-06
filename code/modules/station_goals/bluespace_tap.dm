@@ -507,11 +507,17 @@
 	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 	log_game("Bluespace harvester product spawned at [turf]")
 
+// Highest possible probabilty of an event
+#define PROB_CAP 5
+// Higher number means approaching the limit slower
+#define PROB_CURVE 250
+
 /obj/machinery/power/bluespace_tap/proc/try_events()
 	if(!mining_power)
 		return
 	// Calculate prob of event based on mining power. Return if no event.
-	var/event_prob = min(5, (mining_power / 150 MW)) + (emagged * 5)
+	var/megawatts = mining_power / 1000000
+	var/event_prob = (PROB_CAP * megawatts / (megawatts + PROB_CURVE)) + (emagged * 5)
 	if(!prob(event_prob))
 		return
 	var/static/list/event_list = list(
@@ -531,6 +537,8 @@
 		return
 	event.start_event()
 
+#undef PROB_CAP
+#undef PROB_CURVE
 //UI stuff below
 
 /obj/machinery/power/bluespace_tap/ui_act(action, params)
