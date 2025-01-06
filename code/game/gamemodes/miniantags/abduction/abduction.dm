@@ -19,7 +19,7 @@
 	if(!length(possible_abductors))
 		return FALSE
 
-	abductor_teams = max(1, min(min(max_teams, round(num_players() / 15)), round(length(possible_abductors) / 2)))
+	abductor_teams = clamp(min(round(num_players() / 15), round(length(possible_abductors) / 2)), 1, max_teams)
 
 	for(var/i in 1 to abductor_teams)
 		var/datum/mind/mind_1 = pick_n_take(possible_abductors)
