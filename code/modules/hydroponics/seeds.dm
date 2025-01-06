@@ -621,8 +621,7 @@
 /obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
 	..()
 	template = template.Copy()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(-6, 6)
+	scatter_atom()
 	if(seed_data_in)
 		seed_data = seed_data_in
 	else

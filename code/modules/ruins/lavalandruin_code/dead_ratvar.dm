@@ -144,15 +144,14 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/randomsinglesprite = FALSE
 	var/randomspritemax = 2
-	var/sprite_shift = 9
+	scatter_distance = 9
 
 /obj/item/clockwork/alloy_shards/Initialize(mapload)
 	. = ..()
 	if(randomsinglesprite)
 		replace_name_desc()
 		icon_state = "[base_icon_state][rand(1, randomspritemax)]"
-		pixel_x = rand(-sprite_shift, sprite_shift)
-		pixel_y = rand(-sprite_shift, sprite_shift)
+		scatter_atom()
 
 /obj/item/clockwork/alloy_shards/proc/replace_name_desc()
 	name = "replicant alloy shard"
@@ -162,27 +161,27 @@
 	name = "clockwork golem scrap"
 	desc = "A pile of scrap metal. It seems damaged beyond repair."
 	icon_state = "clockgolem_dead"
-	sprite_shift = 0
+	scatter_distance = 0
 
 /obj/item/clockwork/alloy_shards/large
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
 	icon_state = "shard_large"
 	base_icon_state = "shard_large"
-	sprite_shift = 9
+	scatter_distance = 9
 
 /obj/item/clockwork/alloy_shards/medium
 	w_class = WEIGHT_CLASS_TINY
 	randomsinglesprite = TRUE
 	icon_state = "shard_medium"
 	base_icon_state = "shard_medium"
-	sprite_shift = 10
+	scatter_distance = 10
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit
 	randomspritemax = 4
 	icon_state = "gear_bit1"
 	base_icon_state = "gear_bit"
-	sprite_shift = 12
+	scatter_distance = 12
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/replace_name_desc()
 	name = "gear bit"
@@ -201,7 +200,7 @@
 	randomspritemax = 3
 	icon_state = "shard_small"
 	base_icon_state = "shard_small"
-	sprite_shift = 12
+	scatter_distance = 12
 
 /obj/item/clockwork/alloy_shards/pinion_lock
 	name = "pinion lock"
