@@ -175,7 +175,7 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
-/obj/machinery/power/bluespace_tap/post_clean()
+/obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
 	dirty = FALSE
 
@@ -510,7 +510,9 @@
 /obj/machinery/power/bluespace_tap/proc/try_events()
 	if(!mining_power)
 		return
-	if(!prob((mining_power / (10 MW)) + (emagged * 5))) // Calculate prob of event based on mining power. Return if no event.
+	// Calculate prob of event based on mining power. Return if no event.
+	var/event_prob = min(5, (mining_power / 150 MW)) + (emagged * 5)
+	if(!prob(event_prob))
 		return
 	var/static/list/event_list = list(
 		/datum/engi_event/bluespace_tap_event/dirty,
