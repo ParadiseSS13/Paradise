@@ -1067,6 +1067,6 @@
 	return
 
 /// Used to scatter atoms so that multiple copies aren't all at the exact same spot.
-/atom/movable/proc/scatter_atom(x_offset=0, y_offset=0)
+/atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
 	pixel_x = x_offset + rand(-scatter_distance, scatter_distance)
 	pixel_y = y_offset + rand(-scatter_distance, scatter_distance)
