@@ -10,7 +10,7 @@
 		It was removed from modern suits due to the springlock's tendency to \"snap\" back \
 		into place when exposed to specific chemical reactions, such as smoke from grenades. \
 		Despite the mention of humidity in older designs, this module only reacts to smoke. \
-		You know what it's like to have an entire exoskeleton snap into place around you?
+		You know what it's like to have an entire exoskeleton snap into place around you?"
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
