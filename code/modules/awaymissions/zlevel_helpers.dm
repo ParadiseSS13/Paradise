@@ -12,7 +12,7 @@
 	 * air subsystem will call subsequently call setup_allturfs with _every_
 	 * turf in the world */
 	if(SSair && SSair.initialized)
-		SSair.setup_allturfs_sleepless(turfs)
+		SSair.setup_turfs(turfs)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
