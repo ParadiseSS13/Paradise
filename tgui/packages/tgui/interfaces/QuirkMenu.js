@@ -6,9 +6,9 @@ import { ButtonCheckbox } from '../components/Button';
 
 export const QuirkMenu = (props, context) => {
   return(
-    <Window>
+    <Window fill>
       <Window.Content>
-        <Stack fill vertical>
+        <Stack fill horizontal>
           <Quirks context={context}/>
         </Stack>
       </Window.Content>
@@ -21,34 +21,34 @@ const Quirks = ({context}) => {
   const {quirk_balance, selected_quirks, all_quirks} = data;
 
   const HasChosenQuirk = (quirk) => {
-    return (selected_quirks && selected_quirks.includes(quirk.name))
-  };
-
-  const RenderBalance = () => {
-    return  (
-      <Stack.Item>
-        {parseInt(quirk_balance, 10)}
-      </Stack.Item>
-    );
+    return Boolean(selected_quirks && selected_quirks.includes(quirk.name))
   };
 
   const RenderQuirk = (quirk) => {
-    let alreadyChosen = HasChosenQuirk(quirk);
+    const alreadyChosen = HasChosenQuirk(quirk);
     return (
-    <Stack.Item textAlign='center' key = {quirk.quirk_type}>
-      <ButtonCheckbox checked = {alreadyChosen}
-      onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {path: quirk.type})}/>
-      <Box>
-        {quirk.desc}
-      </Box>
-    </Stack.Item>
+    <Stack>
+        <ButtonCheckbox checked = {alreadyChosen}
+          onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {path: quirk.path})}/>
+      <Stack vertical>
+        <Stack.Item bold>
+          {quirk.name}: {quirk.cost}
+        </Stack.Item>
+        <Stack.Item>
+          {quirk.desc}
+        </Stack.Item>
+      </Stack>
+    </Stack>
     );
   };
 
   return (
-    <Stack>
-      {RenderBalance()}
-    </Stack>
+  <Section textAlign = 'center'>
+    <b>Current quirk balance: {quirk_balance}</b>
+      <Stack fill vertical>
+        {all_quirks.map(RenderQuirk)}
+      </Stack>
+  </Section>
   );
 };
 

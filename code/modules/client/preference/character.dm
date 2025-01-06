@@ -401,7 +401,8 @@
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
-		"pda_ringtone" = pda_ringtone
+		"pda_ringtone" = pda_ringtone,
+		"quirks" = quirks
 	))
 
 	if(!query.warn_execute())
@@ -497,6 +498,7 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
+	quirks = query.item[62]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -585,6 +587,7 @@
 	runechat_color = sanitize_hexcolor(runechat_color)
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
+	quirks = sanitize_json(quirks)
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
