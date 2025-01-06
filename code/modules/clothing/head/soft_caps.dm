@@ -10,6 +10,7 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/softcap
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/softcap.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 		)
 	dyeable = TRUE

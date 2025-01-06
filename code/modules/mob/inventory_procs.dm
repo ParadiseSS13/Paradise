@@ -186,7 +186,11 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(drop_location())
+		var/turf/drop_loc = drop_location()
+		if(drop_loc)
+			I.forceMove(drop_loc)
+		else
+			I.moveToNullspace()
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)
@@ -261,6 +265,10 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
+		return FALSE
+
+	if(flags & NODROP)
+		to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
 
 	if(M.equip_to_appropriate_slot(src))
