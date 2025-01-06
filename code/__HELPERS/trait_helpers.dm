@@ -407,6 +407,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_MESSY "station_trait_messy"
 #define STATION_TRAIT_TRIAI "station_trait_triai"
 
+/*********************
+*    QUIRK TRAITS    *
+**********************/
+#define TRAIT_FOREIGNER "foreigner"
+#define TRAIT_ALLERGIC "allergic"
+#define TRAIT_FRAIL "frail"
+#define TRAIT_ASTHMATIC "asthma"
+#define TRAIT_SKITTISH "skittish"
+#define TRAIT_FREERUNNER "freerunner"
+#define TRAIT_CRAFTY "crafty"
+#define TRAIT_HEAVY_DRINKER "heavy_drinker"
+#define TRAIT_LIGHT_STEP "light_step"
+
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
 #define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
