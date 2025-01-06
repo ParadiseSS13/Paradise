@@ -584,15 +584,19 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+	var/mob/holder
 
 /obj/item/videocam/proc/camera_state(mob/living/carbon/user)
 	if(!on)
+		holder = loc
+		RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_viewers))
 		on = TRUE
 		camera = new /obj/machinery/camera(src)
 		icon_state = icon_on
 		camera.network = list("news")
 		camera.c_tag = user.name
 	else
+		UnregisterSignal(holder, COMSIG_MOVABLE_MOVED)
 		on = FALSE
 		icon_state = icon_off
 		camera.c_tag = null
@@ -639,6 +643,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				T.atom_say(msg)
 
 /obj/item/videocam/proc/update_viewers()
+	var/mob/holder = loc
 	if(!camera || world.timeofday < update_viewer_cooldown)
 		return
 	update_viewer_cooldown = world.timeofday + update_viewer_cooldown_rate
