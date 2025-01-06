@@ -51,7 +51,7 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.vote_logging)
 		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
-/proc/log_if_mismatch(mob/who, message)
+/proc/log_if_mismatch(mob/who, message, automatic = FALSE)
 	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
 		if(automatic)
 			rustg_log_write(GLOB.world_game_log, "AUTOMATIC ([usr.last_known_ckey]): [message][GLOB.log_end]")
