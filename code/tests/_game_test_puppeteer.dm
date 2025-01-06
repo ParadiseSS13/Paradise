@@ -34,9 +34,9 @@
 
 	origin_test.Fail("could not spawn obj [obj_type] in hand of [puppet]")
 
-/datum/test_puppeteer/proc/spawn_obj_nearby(obj_type, direction)
+/datum/test_puppeteer/proc/spawn_obj_nearby(obj_type, direction = -1)
 	var/turf/T
-	if(direction)
+	if(direction >= 0)
 		T = get_step(puppet, direction)
 	else
 		for(var/turf/nearby in RANGE_TURFS(1, puppet.loc))
@@ -63,9 +63,9 @@
 			var/mob/new_mob = origin_test.allocate(mob_type, T)
 			return new_mob
 
-/datum/test_puppeteer/proc/change_turf_nearby(turf_type, direction)
+/datum/test_puppeteer/proc/change_turf_nearby(turf_type, direction = -1)
 	var/turf/T
-	if(direction)
+	if(direction >= 0)
 		T = get_step(puppet, direction)
 	else
 		// just check for any contents, not blocked_turf which includes turf density
