@@ -87,17 +87,11 @@
 	SIGNAL_HANDLER // COMSIG_ATOM_ATTACK_GHOST
 	if(our_mob.key)
 		qdel(src)
-		return
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(!hopeful_ghost.client)
-		return
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(awaiting_ghosts)
-		if(jobban_isbanned(hopeful_ghost, ban_type) || jobban_isbanned(hopeful_ghost, ROLE_SYNDICATE))
-			to_chat(hopeful_ghost, "<span class='warning'>You are banned from playing as this role!</span>")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-		for(var/datum/candidate_poll/poll in SSghost_spawns.currently_polling)
-				if(poll.role == our_mob)
-						poll.sign_up(hopeful_ghost)
-						break
+		to_chat(hopeful_ghost, "<span class='warning'>Ghost candidate selection currently in progress!</span>")
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(!SSticker.HasRoundStarted())
 		to_chat(hopeful_ghost, "<span class='warning'>You cannot assume control of this until after the round has started!</span>")
