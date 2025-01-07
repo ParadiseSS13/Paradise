@@ -158,8 +158,7 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = TRUE
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
-	setup_allturfs()
-	setup_write_to_milla()
+	setup_turfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -615,14 +614,10 @@ SUBSYSTEM_DEF(air)
 			last_bound_mixtures = length(bound_mixtures)
 			return
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
+/datum/controller/subsystem/air/proc/setup_turfs(turf/low_corner = locate(1, 1, 1), turf/high_corner = locate(world.maxx, world.maxy, world.maxz))
+	for(var/turf/T as anything in block(low_corner, high_corner))
 		T.Initialize_Atmos(times_fired)
-		CHECK_TICK
-
-/datum/controller/subsystem/air/proc/setup_allturfs_sleepless(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
-		T.Initialize_Atmos(times_fired)
+	milla_load_turfs(low_corner, high_corner)
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
