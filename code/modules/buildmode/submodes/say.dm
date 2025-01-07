@@ -8,7 +8,7 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/say/handle_click(mob/user, params, atom/object)
-	if(istype(object, /mob))
+	if(ismob(object))
 		var/mob/target = object
 		if(!isnull(target.ckey))
 			alert("This cannot be used on mobs with a ckey. Use Forcesay in player panel instead.")

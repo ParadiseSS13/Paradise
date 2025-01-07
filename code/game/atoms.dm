@@ -1178,8 +1178,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_emote(emote)
 	if(!emote)
 		return
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
-		M.show_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", EMOTE_VISIBLE, null, MESSAGE_TYPE_LOCALCHAT)
+	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
 
 	runechat_emote(src, emote)
 
