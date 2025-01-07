@@ -91,7 +91,13 @@
 	if(!hopeful_ghost.client)
 		return
 	if(awaiting_ghosts)
-		to_chat(hopeful_ghost, "<span class='warning'>Ghost candidate selection currently in progress!</span>")
+		if(jobban_isbanned(hopeful_ghost, ban_type) || jobban_isbanned(hopeful_ghost, ROLE_SYNDICATE))
+			to_chat(hopeful_ghost, "<span class='warning'>You are banned from playing as this role!</span>")
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+		for(var/datum/candidate_poll/poll in SSghost_spawns.currently_polling)
+				if(poll.role == our_mob)
+						poll.sign_up(hopeful_ghost)
+						break
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(!SSticker.HasRoundStarted())
 		to_chat(hopeful_ghost, "<span class='warning'>You cannot assume control of this until after the round has started!</span>")
@@ -129,7 +135,8 @@
 	new_body.key = harbinger.key
 
 	// Already qdels due to below proc but just in case
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /// When someone assumes control, get rid of our component
 /datum/component/ghost_direct_control/proc/on_login(mob/harbinger)
