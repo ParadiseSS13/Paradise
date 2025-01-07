@@ -53,7 +53,6 @@
 	owner_human.adjustToxLoss(-grace_heal)
 	owner_human.adjustOxyLoss(-(grace_heal * 2))
 	owner_human.adjustCloneLoss(-grace_heal)
-	owner_human.updatehealth()
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
