@@ -32,6 +32,7 @@
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
+	belt_icon = "crowbar_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
