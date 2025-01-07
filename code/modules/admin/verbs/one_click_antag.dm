@@ -313,16 +313,14 @@
 	return TRUE
 
 /datum/admins/proc/makeEventCharacters()
-	var/datum/game_mode/traitor/temp = new()
-
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
 	var/antnum = input(owner, "How many event characters you want to create? Enter 0 to cancel","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
-		qdel(temp)
 		return FALSE
 
+	var/datum/game_mode/traitor/temp = new()
 	var/no_mindshields = input(owner, "Avoid mindshielded characters?") in list("Yes", "No", "Cancel")
 	if(no_mindshields == "Cancel")
 		qdel(temp)
@@ -330,7 +328,7 @@
 	else if(no_mindshields == "Yes")
 		temp.restricted_jobs += temp.protected_jobs
 
-	var/respect_traitor = input(owner, "Reqire traitor willingness?") in list("Yes", "No", "Cancel")
+	var/respect_traitor = input(owner, "Require traitor willingness?") in list("Yes", "No", "Cancel")
 	var/role = null
 	if(respect_traitor == "Cancel")
 		qdel(temp)
@@ -359,7 +357,7 @@
 	if(length(candidates))
 		var/numEventChars = min(length(candidates), antnum)
 
-		for(var/i = 0, i<numEventChars, i++)
+		for(var/i in 1 to numEventChars)
 			H = pick(candidates)
 			if(!isnull(objective))
 				var/datum/objective/O = new()
