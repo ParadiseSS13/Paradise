@@ -93,7 +93,7 @@
 	if(!selected_recipe)
 		return
 
-	var/list/all_liquids = intake?.fluid_datum.fluid_container.fluids
+	var/list/all_liquids = intake?.fluid_datum.fluids
 	if(!length(all_liquids))
 		return
 	if(length(selected_recipe.input) > length(all_liquids))
@@ -115,7 +115,7 @@
 
 	// 516 TODO
 	for(var/id in selected_recipe.output)
-		fluid_datum.fluid_container.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
+		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
 
 
 // MARK: refinery recipes

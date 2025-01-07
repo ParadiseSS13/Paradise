@@ -50,4 +50,4 @@
 	if(QDELETED(extracting_geyser))
 		return
 
-	fluid_datum.fluid_container.add_fluid(extracting_geyser.liquid_to_output, 50)
+	fluid_datum.add_fluid(extracting_geyser.liquid_to_output, 50)

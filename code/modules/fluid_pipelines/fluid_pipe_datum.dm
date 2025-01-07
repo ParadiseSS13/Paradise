@@ -20,9 +20,6 @@
 	. = ..()
 	START_PROCESSING(SSfluid, src)
 
-	if(!fluid_container)
-		fluid_container = new()
-
 	if(pipe.just_a_pipe)
 		connected_pipes += pipe
 	else
@@ -106,13 +103,13 @@
 		return
 	if(pipelines_to_spread_to == 1)
 		var/datum/fluid_pipe/pipe_datum = new_pipelines[1]
-		pipe_datum.fluid_container = fluid_container
-		fluid_container = null
+		pipe_datum.fluids = fluids
+		fluids = null
 		return
 
-	for(var/datum/fluid/liquid in fluid_container.fluids)
+	for(var/datum/fluid/liquid in fluids)
 		for(var/datum/fluid_pipe/piping as anything in new_pipelines)
-			piping.fluid_container.add_fluid(liquid.type, (liquid.fluid_amount / pipelines_to_spread_to))
+			piping.add_fluid(liquid.type, (liquid.fluid_amount / pipelines_to_spread_to))
 
 /datum/fluid_pipe/proc/return_percentile_full()
 	var/fullness = get_fluid_volumes()
