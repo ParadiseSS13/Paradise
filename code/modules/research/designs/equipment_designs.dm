@@ -92,14 +92,14 @@
 	build_path = /obj/item/clothing/glasses/meson/engine
 	category = list("Equipment")
 
-/datum/design/tray_goggles
-	name = "Optical T-Ray Scanners"
-	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
-	id = "tray_goggles"
+/datum/design/atmos_goggles
+	name = "Atmospherics Scanner Goggles"
+	desc = "Used by atmospherics techs to see pressure and underfloor objects such as cables and pipes."
+	id = "atmos_goggles"
 	req_tech = list("materials" = 3, "magnets" = 2, "engineering" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/clothing/glasses/meson/engine/tray
+	build_path = /obj/item/clothing/glasses/meson/engine/atmos
 	category = list("Equipment")
 
 /datum/design/nvgmesons

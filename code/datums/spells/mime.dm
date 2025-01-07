@@ -9,6 +9,7 @@
 	clothes_req = FALSE
 	cast_sound = null
 	human_req = TRUE
+	antimagic_flags = NONE
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
@@ -87,6 +88,7 @@
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 	human_req = TRUE
+	antimagic_flags = NONE
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"

@@ -3,14 +3,16 @@
 #define SSAIR_ATMOSMACHINERY 3
 #define SSAIR_INTERESTING_TILES 4
 #define SSAIR_HOTSPOTS 5
-#define SSAIR_BOUND_MIXTURES 6
-#define SSAIR_MILLA_TICK 7
+#define SSAIR_WINDY_TILES 6
+#define SSAIR_BOUND_MIXTURES 7
+#define SSAIR_PRESSURE_OVERLAY 8
+#define SSAIR_MILLA_TICK 9
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
 	init_order = INIT_ORDER_AIR
 	priority = FIRE_PRIORITY_AIR
-	wait = 5
+	wait = 2
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
@@ -28,12 +30,16 @@ SUBSYSTEM_DEF(air)
 	var/datum/resumable_cost_counter/cost_interesting_tiles = new()
 	/// The cost of a pass through hotspots, shown in SS Info's C block as HS.
 	var/datum/resumable_cost_counter/cost_hotspots = new()
+	/// The cost of a pass through windy tiles, shown in SS Info's C block as WT.
+	var/datum/resumable_cost_counter/cost_windy_tiles = new()
 	/// The cost of a pass through pipenets, shown in SS Info's C block as PN.
 	var/datum/resumable_cost_counter/cost_pipenets = new()
 	/// The cost of a pass through building pipenets, shown in SS Info's C block as DPN.
 	var/datum/resumable_cost_counter/cost_pipenets_to_build = new()
 	/// The cost of a pass through atmos machinery, shown in SS Info's C block as AM.
 	var/datum/resumable_cost_counter/cost_atmos_machinery = new()
+	/// The cost of a pass through loading pressure tiles, shown in SS Info's C block as PT.
+	var/datum/resumable_cost_counter/cost_pressure_tiles = new()
 
 	/// The set of current bound mixtures. Shown in SS Info as BM:x+y, where x is the length at the start of the most recent processing, and y is the number of mixtures that have been added during processing.
 	var/list/bound_mixtures = list()
@@ -45,14 +51,24 @@ SUBSYSTEM_DEF(air)
 	var/added_bound_mixtures = 0
 	/// The length of the most recent interesting tiles list, shown in SS Info as IT.
 	var/interesting_tile_count = 0
-	/// The set of current active hotspots. Length shown in SS Info as HS.
-	var/list/hotspots = list()
+	/// The length of the most recent hotspot list, shown in SS Info as HS.
+	var/hotspot_count = 0
+	/// The length of the most recent windy tiles list, shown in SS Info as WT.
+	var/windy_tile_count = 0
 	/// The set of pipenets that need to be built. Length shown in SS Info as PTB.
 	var/list/pipenets_to_build = list()
 	/// The set of active pipenets. Length shown in SS Info as PN.
 	var/list/pipenets = list()
 	/// The set of active atmos machinery. Length shown in SS Info as AM.
 	var/list/atmos_machinery = list()
+	/// The set of tiles that are currently on fire.
+	var/list/hotspots
+	/// The set of tiles that are still on fire after this tick.
+	var/list/new_hotspots
+	/// The set of tiles that are currently experiencing wind.
+	var/list/windy_tiles
+	/// The set of tiles that are still experiencing wind after this tick.
+	var/list/new_windy_tiles
 
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
@@ -69,17 +85,19 @@ SUBSYSTEM_DEF(air)
 	/// Are we currently running in a MILLA-safe context, i.e. is is_synchronous *guaranteed* to be TRUE. Nothing outside of this file should change this.
 	VAR_PRIVATE/in_milla_safe_code = FALSE
 
-	/// When did we start the last MILLA tick?
-	var/milla_tick_start = null
-
-	/// Is MILLA (and hence SSair) reliably healthy?
-	var/healthy = TRUE
-
-	/// When was MILLA last seen unhealthy?
-	var/last_unhealthy = 0
-
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
+
+	/// The coordinates of the pressure image we're currently loading.
+	var/pressure_x = 0
+	var/pressure_y = 0
+	var/pressure_z = 0
+
+	/// The people who were using the pressure HUD last tick.
+	var/list/pressure_hud_users = list()
+
+	/// What alpha to use for the pressure overlay. Applies to everyone using the overlay.
+	var/pressure_overlay_alpha = 50
 
 /// A cost counter for resumable, repeating processes.
 /datum/resumable_cost_counter
@@ -112,13 +130,16 @@ SUBSYSTEM_DEF(air)
 	msg += "MT:[round(cost_milla_tick,1)]|"
 	msg += "IT:[cost_interesting_tiles.to_string()]|"
 	msg += "HS:[cost_hotspots.to_string()]|"
+	msg += "WT:[cost_windy_tiles.to_string()]|"
 	msg += "PN:[cost_pipenets.to_string()]|"
 	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
-	msg += "AM:[cost_atmos_machinery.to_string()]"
+	msg += "AM:[cost_atmos_machinery.to_string()]|"
+	msg += "PT:[cost_pressure_tiles.to_string()]"
 	msg += "} "
 	msg += "BM:[original_bound_mixtures]+[added_bound_mixtures]|"
 	msg += "IT:[interesting_tile_count]|"
-	msg += "HS:[length(hotspots)]|"
+	msg += "HS:[hotspot_count]|"
+	msg += "WT:[windy_tile_count]|"
 	msg += "PN:[length(pipenets)]|"
 	msg += "AM:[length(atmos_machinery)]|"
 	return msg.Join("")
@@ -126,8 +147,9 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/get_metrics()
 	. = ..()
 	var/list/cust = list()
-	cust["hotspots"] = length(hotspots)
 	cust["interesting turfs"] = interesting_tile_count
+	cust["hotspots"] = hotspot_count
+	cust["windy turfs"] = windy_tile_count
 	.["cost"] = cost_full.last_complete_ms
 	.["custom"] = cust
 
@@ -135,8 +157,7 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = TRUE
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
-	setup_allturfs()
-	setup_write_to_milla()
+	setup_turfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -145,7 +166,6 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/Recover()
-	hotspots = SSair.hotspots
 	pipenets_to_build = SSair.pipenets_to_build
 	pipenets = SSair.pipenets
 	atmos_machinery = SSair.atmos_machinery
@@ -154,23 +174,23 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSair.currentpart
 	is_synchronous = SSair.is_synchronous
 
+#define SLEEPABLE_TIMER (world.time + world.tick_usage * world.tick_lag / 100)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	if(!is_synchronous)
-		var/timer = TICK_USAGE_REAL
+		var/timer = SLEEPABLE_TIMER
 
 		while(!is_synchronous)
 			// Sleep for 1ms.
 			sleep(0.01)
 			if(MC_TICK_CHECK)
-				time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-				cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+				time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, FALSE)
 				return
 
-		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-		time_slept.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), TRUE)
+		time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, TRUE)
 
 	fire_sleepless(resumed)
+#undef SLEEPABLE_TIMER
 
 /datum/controller/subsystem/air/proc/fire_sleepless(resumed)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -242,6 +262,19 @@ SUBSYSTEM_DEF(air)
 			in_milla_safe_code = FALSE
 			return
 		resumed = 0
+		currentpart = SSAIR_WINDY_TILES
+
+	if(currentpart == SSAIR_WINDY_TILES)
+		timer = TICK_USAGE_REAL
+
+		process_windy_tiles(resumed)
+
+		cost_windy_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
+			return
+		resumed = 0
 		currentpart = SSAIR_BOUND_MIXTURES
 
 	if(currentpart == SSAIR_BOUND_MIXTURES)
@@ -250,6 +283,19 @@ SUBSYSTEM_DEF(air)
 		process_bound_mixtures(resumed)
 
 		cost_bound_mixtures.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
+		if(state == SS_PAUSED || state == SS_PAUSING)
+			in_milla_safe_code = FALSE
+			return
+		resumed = 0
+		currentpart = SSAIR_PRESSURE_OVERLAY
+
+	if(currentpart == SSAIR_PRESSURE_OVERLAY)
+		timer = TICK_USAGE_REAL
+
+		process_pressure_overlay(resumed)
+
+		cost_pressure_tiles.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			in_milla_safe_code = FALSE
@@ -309,27 +355,26 @@ SUBSYSTEM_DEF(air)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/list/supermatters = list()
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
-		if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
+		if(istype(M, /obj/machinery/atmospherics/supermatter_crystal))
+			supermatters += M
+		else if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery -= M
 		if(MC_TICK_CHECK)
+			for(var/SM in supermatters)
+				currentrun += SM
 			return
-
-/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
-	if(!resumed)
-		src.currentrun = hotspots.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(length(currentrun))
-		var/obj/effect/hotspot/H = currentrun[length(currentrun)]
-		currentrun.len--
-		if(H)
-			H.process()
-		else
-			hotspots -= H
+	while(length(supermatters))
+		var/obj/machinery/atmospherics/supermatter_crystal/SM = supermatters[length(supermatters)]
+		supermatters.len--
+		if(isnull(SM) || (SM.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= SM
 		if(MC_TICK_CHECK)
+			for(var/other_sm in supermatters)
+				currentrun += other_sm
 			return
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
@@ -371,17 +416,182 @@ SUBSYSTEM_DEF(air)
 				S.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
-			var/datum/gas_mixture/air = T.get_readonly_air()
-			T.hotspot_expose(air.temperature(), CELL_VOLUME)
-			for(var/atom/movable/item in T)
-				item.temperature_expose(air, air.temperature(), CELL_VOLUME)
-			T.temperature_expose(air, air.temperature(), CELL_VOLUME)
+			var/turf/simulated/S = T
+			if(istype(S))
+				if(isnull(S.active_hotspot))
+					// Wasn't an active hotspot before, add it.
+					hotspots += S
+
+				var/datum/gas_mixture/air = T.get_readonly_air()
+				T.temperature_expose(air.temperature())
+				for(var/atom/movable/item in T)
+					item.temperature_expose(air, air.temperature(), CELL_VOLUME)
+				T.temperature_expose(air, air.temperature(), CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
+			var/turf/simulated/S = T
+			if(istype(S))
+				if(isnull(S.wind_tick))
+					// Didn't have wind before, add it.
+					windy_tiles += S
+				S.wind_tick = times_fired
+				S.wind_x = x_flow
+				S.wind_y = y_flow
 			T.high_pressure_movements(x_flow, y_flow)
 
 		if(MC_TICK_CHECK)
 			return
+
+/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
+	if(!resumed)
+		src.currentrun = hotspots
+		new_hotspots = list()
+		hotspot_count = length(src.currentrun)
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+	while(length(currentrun))
+		var/turf/simulated/S = currentrun[length(currentrun)]
+		currentrun.len--
+
+		if(!istype(S))
+			continue
+
+		if(S.update_hotspot())
+			// Is still a hotspot, keep it.
+			new_hotspots += S
+
+		if(MC_TICK_CHECK)
+			return
+
+	hotspots = new_hotspots
+
+/datum/controller/subsystem/air/proc/process_windy_tiles(resumed = 0)
+	if(!resumed)
+		src.currentrun = windy_tiles
+		new_windy_tiles = list()
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
+	while(length(currentrun))
+		var/turf/simulated/S = currentrun[length(currentrun)]
+		currentrun.len--
+
+		if(!istype(S))
+			continue
+
+		if(S.update_wind())
+			// Still has wind, keep it.
+			new_windy_tiles += S
+
+		if(MC_TICK_CHECK)
+			return
+
+	windy_tiles = new_windy_tiles
+
+/datum/controller/subsystem/air/proc/process_pressure_overlay(resumed = 0)
+	if(!resumed)
+		currentrun = list(get_tracked_pressure_tiles(), pressure_hud_users)
+		pressure_hud_users = list()
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/tracked_tiles = currentrun[1]
+	while(length(tracked_tiles))
+		var/x = tracked_tiles[length(tracked_tiles) - 3]
+		var/y = tracked_tiles[length(tracked_tiles) - 2]
+		var/z = tracked_tiles[length(tracked_tiles) - 1]
+		var/pressure = tracked_tiles[length(tracked_tiles) - 0]
+		tracked_tiles.len -= 4
+
+		var/turf/tile = locate(x, y, z)
+		if(istype(tile))
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/ratio = pressure / ONE_ATMOSPHERE
+			pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
+			pressure_overlay.overlay.alpha = pressure_overlay_alpha
+
+		if(MC_TICK_CHECK)
+			return
+
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/users = currentrun[2]
+	while(length(users))
+		var/mob/user = users[length(users)]
+		var/turf/oldloc = users[user]
+		users.len--
+
+		if(!istype(user) || QDELETED(user) || isnull(user.client) || !istype(oldloc))
+			continue
+
+		if(user in hud.hudusers)
+			var/turf/newloc = get_turf(user)
+			if(oldloc == newloc)
+				// Ya ain't moved, son. Ya get the same tiles ya already had.
+				continue
+			clear_pressure_hud(user, oldloc, FALSE)
+			add_pressure_hud(user, oldloc, FALSE)
+			pressure_hud_users[user] = newloc
+		else
+			clear_pressure_hud(user, oldloc, TRUE)
+
+		if(MC_TICK_CHECK)
+			return
+
+	for(var/mob/user in hud.hudusers)
+		if(isnull(user.client))
+			continue
+		track_pressure_tiles(user, PRESSURE_HUD_LOAD_RADIUS)
+		if(!(user in pressure_hud_users))
+			pressure_hud_users[user] = get_turf(user)
+
+	// Clean up currentrun so we don't confuse the next step.
+	currentrun = list()
+
+/datum/controller/subsystem/air/proc/clear_pressure_hud(mob/user, turf/oldloc, full_clear)
+	if(!istype(oldloc) || isnull(user.client))
+		return
+	var/turf/newloc = get_turf(user)
+	if(!istype(newloc))
+		full_clear = TRUE
+	else if(oldloc.z != newloc.z)
+		full_clear = TRUE
+
+	for(var/x in oldloc.x - PRESSURE_HUD_RADIUS to oldloc.x + PRESSURE_HUD_RADIUS)
+		if(x < 1 || x > world.maxx)
+			continue
+
+		for(var/y in oldloc.y - PRESSURE_HUD_RADIUS to oldloc.y + PRESSURE_HUD_RADIUS)
+			if(y < 1 || y > world.maxy)
+				continue
+			if(!full_clear && abs(newloc.x - x) <= PRESSURE_HUD_RADIUS && abs(newloc.y - y) <= PRESSURE_HUD_RADIUS)
+				continue
+
+			var/turf/tile = locate(x, y, oldloc.z)
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			user.client.images -= pressure_overlay.overlay
+
+/datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
+	var/turf/newloc = get_turf(user)
+	if(!istype(newloc) || isnull(user.client))
+		return
+	if(!istype(oldloc))
+		full_send = TRUE
+	else if(oldloc.z != newloc.z)
+		full_send = TRUE
+
+	for(var/x in newloc.x - PRESSURE_HUD_RADIUS to newloc.x + PRESSURE_HUD_RADIUS)
+		if(x < 1 || x > world.maxx)
+			continue
+
+		for(var/y in newloc.y - PRESSURE_HUD_RADIUS to newloc.y + PRESSURE_HUD_RADIUS)
+			if(y < 1 || y > world.maxy)
+				continue
+			if(!full_send && abs(oldloc.x - x) <= PRESSURE_HUD_RADIUS && abs(oldloc.y - y) <= PRESSURE_HUD_RADIUS)
+				continue
+
+			var/turf/tile = locate(x, y, newloc.z)
+			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			user.client.images += pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
 	if(!resumed)
@@ -403,14 +613,10 @@ SUBSYSTEM_DEF(air)
 			last_bound_mixtures = length(bound_mixtures)
 			return
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
+/datum/controller/subsystem/air/proc/setup_turfs(turf/low_corner = locate(1, 1, 1), turf/high_corner = locate(world.maxx, world.maxy, world.maxz))
+	for(var/turf/T as anything in block(low_corner, high_corner))
 		T.Initialize_Atmos(times_fired)
-		CHECK_TICK
-
-/datum/controller/subsystem/air/proc/setup_allturfs_sleepless(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
-		T.Initialize_Atmos(times_fired)
+	milla_load_turfs(low_corner, high_corner)
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
@@ -531,6 +737,21 @@ SUBSYSTEM_DEF(air)
 
 	SSair.on_milla_tick_finished()
 
+/proc/milla_tick_error(err)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	log_debug(err)
+	var/msg = "MILLA has crashed. SSair will stop running, and all atmospherics will stop functioning. Every turf will report as full of breathable air, and all fires will be extinguished. Shuttle call highly recommended."
+	to_chat(GLOB.admins, "<span class='boldannounceooc'>[msg]</span>")
+	log_world(msg)
+
+	// Disable firing.
+	SSair.flags |= SS_NO_FIRE
+	// Disable fire, too.
+	for(var/turf/simulated/S in SSair.hotspots)
+		QDEL_NULL(S.active_hotspot)
+
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
 	var/run_args = list()
@@ -589,5 +810,7 @@ SUBSYSTEM_DEF(air)
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_INTERESTING_TILES
 #undef SSAIR_HOTSPOTS
+#undef SSAIR_WINDY_TILES
 #undef SSAIR_BOUND_MIXTURES
+#undef SSAIR_PRESSURE_OVERLAY
 #undef SSAIR_MILLA_TICK

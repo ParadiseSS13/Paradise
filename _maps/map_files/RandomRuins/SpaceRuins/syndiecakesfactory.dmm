@@ -551,7 +551,7 @@
 /area/ruin/space/syndicakefactory)
 "uU" = (
 /obj/structure/rack,
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "vo" = (

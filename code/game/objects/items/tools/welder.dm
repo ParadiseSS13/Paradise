@@ -71,7 +71,7 @@
 	if(tool_enabled)
 		var/turf/T = get_turf(src)
 		if(T) // Implants for instance won't find a turf
-			T.hotspot_expose(2500, 5)
+			T.hotspot_expose(2500, 1)
 		if(prob(5))
 			remove_fuel(1)
 	if(refills_over_time)
@@ -327,6 +327,7 @@
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
+	belt_icon = "welder_brass"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 #undef GET_FUEL

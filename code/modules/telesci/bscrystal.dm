@@ -29,10 +29,9 @@
 	. += ""
 	. += "Nanotrasen and many of its rivals are scrambling to be the first to develop practical mass-producible bluespace technologies so they they can become the hegemon of a new market monopoly."
 
-/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/stack/ore/bluespace_crystal/Initialize(mapload, new_amount, merge)
+	. = ..()
+	scatter_atom()
 
 /obj/item/stack/ore/bluespace_crystal/attack_self__legacy__attackchain(mob/user)
 	if(use(1))
