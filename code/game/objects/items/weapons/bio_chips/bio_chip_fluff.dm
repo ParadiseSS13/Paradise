@@ -155,4 +155,4 @@
 	name = "Bishop Cybernetics Death Rattle Bio-chip"
 	life = "Destroyed upon activation."
 	notes = "Alerts implanted crew to crewmember death. Produced by Bishop Cybernetics in collaboration with Zeng-Hu Pharmaceuticals."
-	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease. Does not announce location of death, and only announces to other crew with implanted Death Rattles."
+	function = "Contains a compact radio signaller that triggers when the host's lifesigns cease. Does not announce location of death, and only announces to other crew with implanted Death Rattles."
