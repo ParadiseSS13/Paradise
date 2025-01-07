@@ -27,6 +27,10 @@
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
 
+	/// The maximum amount of tiles the MULE can search via SSpathfinder before giving up.
+	/// Stored as a variable to allow VVing if there's any weirdness.
+	var/maximum_pathfind_range = 350
+
 
 	suffix = ""
 
@@ -70,7 +74,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(human_squish_check))
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -79,7 +83,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+/mob/living/simple_animal/bot/mulebot/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/can_buckle()
@@ -96,7 +100,7 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
@@ -606,7 +610,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, 250, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, target, max_distance = maximum_pathfind_range, access = access_card.access, exclude = avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -875,10 +879,13 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
-	if(!ishuman(AM))
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(datum/source, old_location, direction, forced)
+	if(!isturf(loc))
 		return
-	RunOver(AM)
+	for(var/atom/AM in loc)
+		if(!ishuman(AM))
+			continue
+		RunOver(AM)
 
 #undef SIGH
 #undef ANNOYED

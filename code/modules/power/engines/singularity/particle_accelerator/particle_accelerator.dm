@@ -63,7 +63,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	icon_state = "none"
+	icon_state = null
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
@@ -164,7 +164,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			return 1
 	return 0
 
-/obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
+/obj/structure/particle_accelerator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!iscoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
@@ -222,7 +222,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	icon_state = "none"
 	anchored = FALSE
 	density = TRUE
 	power_state = NO_POWER_USE
@@ -234,10 +233,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = 0
 	var/desc_holder = null
 
-/obj/structure/particle_accelerator/examine(mob/user)
-	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-
 /obj/machinery/particle_accelerator/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
@@ -246,7 +241,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	dir = turn(dir, 270)
 
-/obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
+/obj/machinery/particle_accelerator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!iscoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)

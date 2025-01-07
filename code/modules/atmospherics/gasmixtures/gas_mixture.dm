@@ -33,6 +33,9 @@ What are the archived variables for?
 	var/private_sleeping_agent = 0
 	var/private_agent_b = 0
 	var/private_temperature = 0 //in Kelvin
+	var/private_hotspot_temperature = 0
+	var/private_hotspot_volume = 0
+	var/private_fuel_burnt = 0
 
 	// Archived versions of the private fields.
 	// Only gas_mixture should use these.
@@ -99,6 +102,15 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/set_temperature(value)
 	private_temperature = value
+
+/datum/gas_mixture/proc/hotspot_temperature()
+	return private_hotspot_temperature
+
+/datum/gas_mixture/proc/hotspot_volume()
+	return private_hotspot_volume
+
+/datum/gas_mixture/proc/fuel_burnt()
+	return private_fuel_burnt
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
@@ -574,21 +586,19 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/burned_fuel = 0
+		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent, private_sleeping_agent)
+		private_sleeping_agent -= burned_fuel
 
-		burned_fuel = max(0, 0.00002 * (private_temperature - (0.00001 * (private_temperature ** 2)))) * private_sleeping_agent
-		if(private_sleeping_agent - burned_fuel > 0)
-			private_sleeping_agent -= burned_fuel
+		if(burned_fuel)
+			energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-			if(burned_fuel)
-				energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
+			private_oxygen += burned_fuel * 0.5
+			private_nitrogen += burned_fuel
 
-				private_oxygen += burned_fuel * 0.5
-				private_nitrogen += burned_fuel
-
-				var/new_heat_capacity = heat_capacity()
-				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-					private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
-				reacting = TRUE
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			reacting = TRUE
 
 	fuel_burnt = 0
 	//Handle plasma burning
@@ -653,6 +663,9 @@ What are the archived variables for?
 	private_agent_b = milla[MILLA_INDEX_AGENT_B]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
+	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
+	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
+	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
 
 /proc/share_many_airs(list/mixtures)
 	var/total_volume = 0
@@ -666,6 +679,9 @@ What are the archived variables for?
 	var/total_agent_b = 0
 
 	for(var/datum/gas_mixture/G as anything in mixtures)
+		if(!istype(G))
+			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
+			continue
 		total_volume += G.volume
 		var/heat_capacity = G.heat_capacity()
 		total_heat_capacity += heat_capacity
@@ -687,6 +703,8 @@ What are the archived variables for?
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G as anything in mixtures)
+			if(!istype(G))
+				continue
 			G.private_oxygen = total_oxygen * G.volume / total_volume
 			G.private_nitrogen = total_nitrogen * G.volume / total_volume
 			G.private_toxins = total_toxins * G.volume / total_volume
@@ -697,16 +715,8 @@ What are the archived variables for?
 			G.private_temperature = temperature
 			G.set_dirty()
 
-
-
-///Mathematical proofs:
-/**
-get_breath_partial_pressure(gas_pp) --> gas_pp/total_moles()*breath_pp = pp
-get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
-
-10/20*5 = 2.5
-10 = 2.5/5*20
-**/
+/datum/gas_mixture/proc/hotspot_expose(temperature, volume)
+	return
 
 #undef SPECIFIC_HEAT_TOXIN
 #undef SPECIFIC_HEAT_AIR
@@ -739,6 +749,9 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 		readonly.private_sleeping_agent = private_sleeping_agent
 		readonly.private_agent_b = private_agent_b
 		readonly.private_temperature = private_temperature
+		readonly.private_hotspot_temperature = private_hotspot_temperature
+		readonly.private_hotspot_volume = private_hotspot_volume
+		readonly.private_fuel_burnt = private_fuel_burnt
 
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
@@ -773,6 +786,12 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	private_temperature = value
 	set_dirty()
 
+/datum/gas_mixture/bound_to_turf/hotspot_expose(temperature, volume)
+	if(temperature > private_temperature)
+		set_dirty()
+		private_hotspot_temperature = max(private_hotspot_temperature, temperature)
+		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
+
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
 	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
 
@@ -793,6 +812,9 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 	private_agent_b = parent.private_agent_b
 
 	private_temperature = parent.private_temperature
+	private_hotspot_temperature = parent.private_hotspot_temperature
+	private_hotspot_volume = parent.private_hotspot_volume
+	private_fuel_burnt = parent.private_fuel_burnt
 
 /datum/gas_mixture/readonly/set_dirty()
 	CRASH("Attempted to modify a readonly gas_mixture.")

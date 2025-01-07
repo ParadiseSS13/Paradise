@@ -226,7 +226,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
@@ -339,7 +339,7 @@
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user)
+/obj/item/dice/attack_self__legacy__attackchain(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)

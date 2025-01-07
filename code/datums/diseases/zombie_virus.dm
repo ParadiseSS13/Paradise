@@ -148,7 +148,7 @@
 /datum/disease/zombie/cure()
 	affected_mob.mind?.remove_antag_datum(/datum/antagonist/zombie)
 	REMOVE_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
-	qdel(affected_mob.GetComponent(/datum/component/zombie_regen))
+	affected_mob.DeleteComponent(/datum/component/zombie_regen)
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
 	return ..()

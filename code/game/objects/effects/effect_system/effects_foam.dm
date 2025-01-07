@@ -30,6 +30,10 @@
 	create_reagents(25)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(initial_process)), spread_time)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/particle_effect/foam/proc/disperse_reagents()
 	if(!reagents)
@@ -45,12 +49,13 @@
 		var/fraction = 5 / reagents.total_volume
 		reagents.reaction(A, REAGENT_TOUCH, fraction)
 
-	if(ismob(A) && !QDELETED(A))
-		var/mob/M = A
-		for(var/reagent_id in reagents.reagent_list)
-			var/amount = M.reagents.get_reagent_amount(reagent_id)
+	if(iscarbon(A) && !QDELETED(A))
+		var/mob/living/carbon/foamed = A
+		for(var/datum/reagent/R as anything in reagents.reagent_list)
+			var/amount = foamed.reagents?.get_reagent_amount(R.id)
+			var/foam_content_amount = reagents.get_reagent_amount(R.id)
 			if(amount < max_reagent_filling)
-				M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+				foamed.reagents?.add_reagent(R.id, min(round(foam_content_amount / 2), 15))
 
 /obj/effect/particle_effect/foam/proc/initial_process()
 	process()
@@ -121,10 +126,10 @@
 		flick("[icon_state]-disolve", src)
 		QDEL_IN(src, 0.5 SECONDS)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
-	if(!iscarbon(AM))
+/obj/effect/particle_effect/foam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered))
 		return
-	var/mob/living/carbon/M = AM
+	var/mob/living/carbon/M = entered
 	if((M.slip("foam", 10 SECONDS) || IS_HORIZONTAL(M)) && reagents)
 		fill_with_reagents(M)
 
@@ -153,7 +158,7 @@
 /obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
-/obj/effect/particle_effect/foam/metal/Crossed(atom/movable/AM, oldloc)
+/obj/effect/particle_effect/foam/metal/on_atom_entered(datum/source, atom/movable/entered)
 	return
 
 /datum/effect_system/foam_spread
@@ -251,7 +256,7 @@
 	max_integrity = 20
 	var/metal = METAL_FOAM_ALUMINUM
 
-/obj/structure/foamedmetal/Initialize()
+/obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
 	recalculate_atmos_connectivity()
 
@@ -293,7 +298,7 @@
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
+/obj/structure/foamedmetal/CanPass(atom/movable/mover, border_dir)
 	return !density
 
 /obj/structure/foamedmetal/CanAtmosPass(direction)

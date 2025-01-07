@@ -79,6 +79,12 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	recalculate_atmos_connectivity()
 
 /obj/structure/window/proc/toggle_polarization()
@@ -109,12 +115,12 @@
 	else
 		..(FULLTILE_WINDOW_DIR)
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/window/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(dir == FULLTILE_WINDOW_DIR)
 		return 0	//full tile window, you can't move into it!
-	if(get_dir(loc, target) & dir)
+	if(border_dir & dir)
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -128,22 +134,28 @@
 		return FALSE
 	return 1
 
-/obj/structure/window/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return TRUE
+/obj/structure/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+	if(leaving == src)
+		return
 	if(dir == FULLTILE_WINDOW_DIR)
-		return TRUE
-	if(get_dir(O.loc, target) & dir)
-		return FALSE
-	return TRUE
+		return
+	if(direction & dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return
+
+/obj/structure/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if((dir == FULLTILE_WINDOW_DIR) || (dir & to_dir) || fulltile)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -186,7 +198,7 @@
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
-/obj/structure/window/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
 
@@ -339,7 +351,7 @@
 	if(!fulltile)
 		if(get_dir(user, src) & dir)
 			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
+				if(!O.CanPass(user, get_dir(src, user)))
 					return 0
 	return 1
 
@@ -776,6 +788,7 @@
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS //used in shuttles, same reason as above
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/reinforced/clockwork

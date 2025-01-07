@@ -245,7 +245,7 @@
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<font color='lightblue'>cold</span>"
+	taste_description = "<span><font color='lightblue'>cold</font></span>"
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -360,7 +360,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
 
-/datum/reagent/consumbale/olivepaste
+/datum/reagent/consumable/olivepaste
 	name = "Olive Paste"
 	id = "olivepaste"
 	description = "A mushy pile of freshly ground olives."
@@ -558,7 +558,7 @@
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
 	drink_name = "Glass of chocolate"
-	drink_desc = "Tasty"
+	drink_desc = "Tasty!"
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
@@ -567,7 +567,7 @@
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/snacks/choc_pile(T)
+		new /obj/item/food/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
 	name = "Mugwort"
@@ -635,7 +635,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/snacks/cheesewedge(T)
+		new /obj/item/food/cheesewedge/presliced(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -677,7 +677,23 @@
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/snacks/weirdcheesewedge(T)
+		new /obj/item/food/weirdcheesewedge(T)
+
+/datum/reagent/consumable/cheese_curds
+	name = "Cheese Curds"
+	id = "cheese_curds"
+	description = "Some mushed up cheese curds. You're not quite sure why you did this."
+	reagent_state = SOLID
+	color = "#FFFF00"
+	taste_description = "salty cheese"
+
+/datum/reagent/consumable/yogurt
+	name = "yogurt"
+	id = "yogurt"
+	description = "Some yogurt, produced by bacterial fermentation of milk. Yum."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+	taste_description = "yogurt"
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -763,7 +779,7 @@
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
 	if(prob(10) && volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/consumable/mashedpotatoes
 	name = "Mashed potatoes"
@@ -905,11 +921,11 @@
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))
-		new /obj/item/food/snacks/ectoplasm(T)
+		new /obj/item/food/ectoplasm(T)
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/snacks/breadslice(T)
+		new /obj/item/food/breadslice(T)
 
 /datum/reagent/soap
 	name = "Soap"

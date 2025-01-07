@@ -1,0 +1,5 @@
+help: 'Please use access helpers for airlock spawners, placed one tile north and east of the spawner itself.'
+/obj/effect/spawner/airlock:
+  banned_variables:
+    - req_access
+    - req_one_access

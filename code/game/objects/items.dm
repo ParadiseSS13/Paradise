@@ -44,12 +44,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked `"[x] has been [z.attack_verb] by [y] with [z]"`
 	var/list/attack_verb
 	/// Determines how big/small items are to fit in storage containers
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
+	/// If set, this determines which slots are considered when using quick equip
+	var/prefered_slot_flags = 0
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
@@ -73,10 +75,15 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// List of icon states for a given action to override the icon_state.
 	var/list/action_icon_state = list()
 
+	/// What materials the item yields when broken down. Some methods will not recover everything (autolathes only recover metal and glass, for example).
 	var/list/materials = list()
 	/// Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
+	/// The associated key to the dye registry GLOB list, used to transform/color this piece of clothing through dyeing
+	var/dyeing_key
+	/// If this item is put into a washing machine to be dyed, can objects of this type be dyed into a different color/icon?
+	var/dyeable = FALSE
 	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
@@ -86,7 +93,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/permeability_coefficient = 1
 	/// for electrical admittance/conductance (electrocution checks and shit)
 	var/siemens_coefficient = 1
-	/// How much clothing is slowing you down. Negative values speeds you up
+	/// How much clothing is slowing you down. Negative values speeds you up.
 	var/slowdown = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
@@ -103,8 +110,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	/// How long it takes to put an item onto somebody. IE. clothing
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
-	/// How long it takes to resist out of restraints, like cuffs, and whatnot.
-	var/breakouttime = 0
 	/// For flags that define what areas an item cover
 	var/flags_cover = 0
 
@@ -143,7 +148,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/tool_enabled = TRUE
 	/// How loud are we when we use our tool?
 	var/tool_volume = 50
-	/// If this item is a tool, the speed multiplier
+	/// If this item is a tool, the speed multiplier. Smaller numbers are faster.
 	var/toolspeed = 1
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
@@ -181,6 +186,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 
@@ -200,7 +207,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
-// this proc is used to add text for items with ABSTRACT flag after default examine text
+/// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
 	return
 
@@ -229,17 +236,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	master = null
 	return ..()
-
-/obj/item/proc/alert_admins_on_destroy()
-	SIGNAL_HANDLER
-	var/turf/turf_loc = get_turf(src)
-	if(turf_loc)
-		// guess it's actually just in nullspace. lol. lmao
-		message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
-		log_game("[src] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [loc].")
-	else
-		message_admins("[src] has been destroyed in nullspace.")
-		log_game("[src] has been destroyed in nullspace.")
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -276,10 +272,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			msg += "<span class='notice'>Testing potentials:</span><BR>"
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
+				msg += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [techlvls[T]] <br>"
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
-
 
 		if(length(materials))
 			msg += "<span class='notice'>Extractable materials:<BR>"
@@ -309,7 +304,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	if(!user) return 0
+	if(!user)
+		return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
@@ -317,10 +313,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
-			return 0
+			return FALSE
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
-			return 0
+			return FALSE
 
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
@@ -358,14 +354,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		throwing.finalize(FALSE)
 	if(loc == user)
 		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
-			return 0
+			return FALSE
 
 	if(flags & ABSTRACT)
-		return 0
+		return FALSE
 
 	else
 		if(isliving(loc))
-			return 0
+			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
@@ -386,7 +382,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if(istype(src.loc, /obj/item/robot_module))
+	if(istype(loc, /obj/item/robot_module))
 		// If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
@@ -397,7 +393,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, params)
+/obj/item/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
@@ -429,7 +425,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(isstorage(src)) // Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
-				return ..()
+				return
 		var/obj/item/stack/tape_roll/TR = I
 		var/list/clickparams = params2list(params)
 		var/x_offset = text2num(clickparams["icon-x"])
@@ -444,8 +440,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			user.transfer_fingerprints_to(src)
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
-	else
-		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
@@ -477,6 +471,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if((flags & NODROP) && !(initial(flags) & NODROP)) // Remove NODROP if dropped. Probably from delimbing.
 		flags &= ~NODROP
 	in_inventory = FALSE
+	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
@@ -523,6 +518,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // for items that can be placed in multiple slots
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -530,31 +526,31 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			A.Grant(user)
 	in_inventory = TRUE
 	if(!initial)
-		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
+		if(equip_sound && (slot & slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
+		else if(slot & ITEM_SLOT_BOTH_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
-	return 1
+	return TRUE
 
-/// returns 1 if the item is equipped by a mob, 0 otherwise.
+/// returns TRUE if the item is equipped by a mob, 0 otherwise.
 /obj/item/proc/is_equipped() // This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
 	if(!ismob(loc))
-		return 0
+		return FALSE
 
 	var/mob/M = loc
 	if(src in M.get_equipped_items())
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
-// the mob(M) is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+// the mob(M) is attempting to equip this item into the slot passed through as 'slot'. Return TRUE if it can do this and FALSE if it can't.
 // If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
-// Set disable_warning to 1 if you wish it to not give you outputs.
+// Set disable_warning to FALSE if you wish it to not give you outputs.
 /obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(!M)
-		return 0
+		return FALSE
 
 	return M.can_equip(src, slot, disable_warning)
 
@@ -590,10 +586,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // The default action is attack_self().
 // Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
-	return 0
+	return FALSE
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
@@ -627,7 +623,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	src.add_fingerprint(user)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
+	playsound(loc, src.hitsound, 30, TRUE, -1)
 
 	user.do_attack_animation(M)
 
@@ -654,7 +650,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 			if(head)
-				head.receive_damage(rand(10, 14), 1)
+				head.receive_damage(force, TRUE)
 			return
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
@@ -672,10 +668,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(istype(affecting) && affecting.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(force))
 			H.UpdateDamageIcon()
 	else
-		M.take_organ_damage(7)
+		M.take_organ_damage(force)
 	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
@@ -723,16 +719,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	in_inventory = FALSE
 
 /obj/item/proc/pwr_drain()
-	return 0 // Process Kill
+	return FALSE // Process Kill
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) // please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
-		return 0
+		return FALSE
 	if(isstorage(loc))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/proc/wash(mob/user, atom/source)
@@ -745,10 +741,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	acid_level = 0
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
-	return 1
+	return TRUE
 
 /obj/item/proc/get_crutch_efficiency() // Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
-	return 0
+	return FALSE
 
 /// Return true if you don't want regular throw handling
 /obj/item/proc/override_throw(mob/user, atom/target)
@@ -769,7 +765,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return FALSE
 
 /obj/item/mech_melee_attack(obj/mecha/M)
-	return 0
+	return FALSE
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
@@ -850,29 +846,31 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & SLOT_FLAG_OCLOTHING)
+	if(flags & ITEM_SLOT_OUTER_SUIT)
 		owner.update_inv_wear_suit()
-	if(flags & SLOT_FLAG_ICLOTHING)
+	if(flags & ITEM_SLOT_JUMPSUIT)
 		owner.update_inv_w_uniform()
-	if(flags & SLOT_FLAG_GLOVES)
+	if(flags & ITEM_SLOT_GLOVES)
 		owner.update_inv_gloves()
-	if(flags & SLOT_FLAG_EYES)
+	if(flags & ITEM_SLOT_EYES)
 		owner.update_inv_glasses()
-	if(flags & SLOT_FLAG_EARS)
+	if(flags & ITEM_SLOT_BOTH_EARS)
 		owner.update_inv_ears()
-	if(flags & SLOT_FLAG_MASK)
+	if(flags & ITEM_SLOT_MASK)
 		owner.update_inv_wear_mask()
-	if(flags & SLOT_FLAG_HEAD)
+	if(flags & ITEM_SLOT_NECK)
+		owner.update_inv_neck()
+	if(flags & ITEM_SLOT_HEAD)
 		owner.update_inv_head()
-	if(flags & SLOT_FLAG_FEET)
+	if(flags & ITEM_SLOT_SHOES)
 		owner.update_inv_shoes()
-	if(flags & SLOT_FLAG_ID)
+	if(flags & ITEM_SLOT_ID)
 		owner.update_inv_wear_id()
-	if(flags & SLOT_FLAG_BELT)
+	if(flags & ITEM_SLOT_BELT)
 		owner.update_inv_belt()
-	if(flags & SLOT_FLAG_BACK)
+	if(flags & ITEM_SLOT_BACK)
 		owner.update_inv_back()
-	if(flags & SLOT_FLAG_PDA)
+	if(flags & ITEM_SLOT_PDA)
 		owner.update_inv_wear_pda()
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
@@ -987,7 +985,40 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	SHOULD_BE_PURE(TRUE)
-	return !(flags & NODROP) && !(flags & ABSTRACT)
+	return !(flags & NODROP) && !(flags & ABSTRACT) && !HAS_TRAIT(src, TRAIT_NO_STRIP)
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
+
+/**
+  * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
+  *
+  * Returns: the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed.
+  * If the cigarette is already lit, or is a fancy smokable being lit by anything other than a zippo or match, will return `FALSE`.
+  * Otherwise it will return `null`.
+  * Arguments:
+  * * user - The mob trying to light the cigarette.
+  * * target - The mob with the cigarette.
+  * * direct_attackby_item - Used if the cigarette item is clicked on directly with a lighter instead of a mob wearing a cigarette.
+  */
+/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(!user || !target)
+		return null
+
+	var/obj/item/clothing/mask/cigarette/cig = direct_attackby_item ? direct_attackby_item : target.wear_mask
+	if(!istype(cig))
+		return null
+
+	if(!direct_attackby_item && (user.zone_selected != "mouth" || user.a_intent != INTENT_HELP))
+		return null
+
+	if(cig.lit)
+		to_chat(user, "<span class='warning'>[cig] is already lit!</span>")
+		return FALSE
+
+	// Only matches and cigars can light fancy smokables.
+	if(length(cig.fancy_lighters) && !is_type_in_list(src, cig.fancy_lighters))
+		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
+		return FALSE
+
+	return cig

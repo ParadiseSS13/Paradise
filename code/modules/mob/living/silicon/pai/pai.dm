@@ -242,6 +242,7 @@
 	name = "Unfold/Fold Chassis"
 	desc = "Allows you to fold in/out of your mobile form."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 20 SECONDS
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
@@ -288,7 +289,7 @@
 	update_icons()
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
+/mob/living/silicon/pai/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
@@ -320,7 +321,7 @@
 		return
 	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>")
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
 		spawn(1)
@@ -366,7 +367,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 
 	switch(stat)
 		if(CONSCIOUS)

@@ -111,6 +111,8 @@
 	damage = 50
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
+	/// If this shot can immediately destroy rwalls or not
+	var/weakened_against_rwalls = FALSE
 
 /obj/item/projectile/beam/pulse/hitscan
 	impact_effect_type = null
@@ -130,13 +132,16 @@
 	impact_light_color_override = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(isturf(target) || isstructure(target) || ismachinery(target))
-		target.ex_act(2)
+	if(isreinforcedwallturf(target) && weakened_against_rwalls)
+		target.ex_act(EXPLODE_LIGHT)
+	else if(isturf(target) || isstructure(target) || ismachinery(target))
+		target.ex_act(EXPLODE_HEAVY)
 	..()
 
 /obj/item/projectile/beam/pulse/shot
 	name = "proto pulse"
 	damage = 40
+	weakened_against_rwalls = TRUE
 
 /obj/item/projectile/beam/emitter
 	name = "emitter beam"

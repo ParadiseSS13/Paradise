@@ -20,7 +20,7 @@
 
 #define STATUS_EFFECT_SHADOW_MEND_DEVIL /datum/status_effect/shadow_mend/devil //Tarot version, hurts others over self
 
-#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocraticOath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
+#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocratic_oath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
@@ -58,6 +58,8 @@
 
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
 
+#define STATUS_EFFECT_BREACH_AND_CLEAVE /datum/status_effect/breaching_and_cleaving // Stamina damage resist, Additional ranged armor
+
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
@@ -71,6 +73,14 @@
 #define STATUS_EFFECT_BADASS /datum/status_effect/badass // Badass trait for 2 minutes.
 
 #define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
+
+#define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
+
+#define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
+
+#define STATUS_EFFECT_TERMINATOR_FORM /datum/status_effect/terminator_form
+
+#define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
 
 /////////////
 // DEBUFFS //
@@ -126,6 +136,14 @@
 
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced // Prevents you from automatically grabbing walls to stop moving in space.
+
+#define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
+
+#define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
+
+#define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
@@ -149,6 +167,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
@@ -210,7 +229,6 @@
 
 /// Status effects for different actions
 #define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
-#define STATUS_EFFECT_BREAK_CUFFS /datum/status_effect/action_status_effect/break_handcuffs
 #define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle
 #define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
 

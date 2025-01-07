@@ -5,7 +5,7 @@
 	dir = SOUTH
 
 //Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
+/turf/space/transit/attackby__legacy__attackchain(obj/O as obj, mob/user as mob, params)
 	return
 
 /// moving to the north
@@ -144,10 +144,6 @@
 
 
 /turf/space/transit/rpd_act()
-	return
-
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
 	return
 
 /turf/space/transit/Initialize(mapload)

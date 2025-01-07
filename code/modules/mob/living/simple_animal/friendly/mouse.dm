@@ -16,7 +16,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -43,6 +43,9 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
+#ifdef GAME_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
+	return
+#endif
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
@@ -72,15 +75,20 @@
 	else if(prob(0.5))
 		lay_down()
 
-/mob/living/simple_animal/mouse/New()
-	..()
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+
 	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
+		mouse_color = pick("brown", "gray", "white")
 	icon_state = "mouse_[mouse_color]"
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -92,18 +100,17 @@
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	if(istype(AM, /obj/item/food/snacks/cheesewedge))
+	if(istype(AM, /obj/item/food/cheesewedge))
 		return ..() // Get dem
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
+/mob/living/simple_animal/mouse/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ishuman(entered))
+		if(stat == CONSCIOUS)
+			var/mob/M = entered
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
 
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
@@ -140,7 +147,7 @@
 	icon_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
-/mob/living/simple_animal/mouse/brown/Tom
+/mob/living/simple_animal/mouse/brown/tom
 	name = "Tom"
 	real_name = "Tom"
 	response_help  = "pets"
@@ -149,23 +156,23 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/brown/Tom/update_desc()
+/mob/living/simple_animal/mouse/brown/tom/update_desc()
 	. = ..()
 	desc = "Jerry the cat is not amused."
 
-/mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
+/mob/living/simple_animal/mouse/brown/tom/Initialize(mapload)
 	. = ..()
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
-/mob/living/simple_animal/mouse/white/Brain
+/mob/living/simple_animal/mouse/white/brain
 	name = "Brain"
 	real_name = "Brain"
 	response_harm = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/white/Brain/update_desc()
+/mob/living/simple_animal/mouse/white/brain/update_desc()
 	. = ..()
 	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
 
@@ -202,17 +209,23 @@
 		return FALSE
 	var/datum/mind/blobmind = mind
 	var/client/C = client
+	var/obj/structure/blob/core/core
 	if(istype(blobmind) && istype(C))
-		var/obj/structure/blob/core/core = new(T, C, 3)
+		core = new(T, C, 3)
 		core.lateblobtimer()
 		qdel(blobmind) // Delete the old mind. THe blob will make a new one
 	else
-		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
+		core = new(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
 		var/mob/M = loc
 		M.gib()
 	if(!gibbed)
 		gib()
+
+	if(core)
+		core.admin_spawned = admin_spawned
+
+	SSticker.record_biohazard_start(BIOHAZARD_BLOB)
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")

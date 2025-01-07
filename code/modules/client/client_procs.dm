@@ -49,6 +49,14 @@
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
 				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
+		if(hsrc == src && href_list["m5src"])
+			// We found an MD5'd UID, get the REAL thing
+			var/datum/D = locateUID(m5_uid_cache[href_list["m5src"]])
+			if(!istype(D))
+				CRASH("Tried to find an item by MD5'd UID when it wasnt in the client cache!")
+
+			hsrc = D
+
 
 	// asset_cache
 	var/asset_cache_job
@@ -80,7 +88,7 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if(!holder && href_list["window_id"] != "statbrowser") // Admins are allowed to spam click, deal with it.
+	if(!holder && href_list["window_id"] != "statbrowser" && href_list["window_id"] != "chat_panel") // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -161,13 +169,15 @@
 
 	if(href_list["reload_statbrowser"])
 		stat_panel.reinitialize()
+		return
 
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
+		return
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
-		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
 		src << browse("...", "window=asset_cache_browser")
 		return
 
@@ -259,7 +269,7 @@
 /client/New(TopicData)
 	// TODO: Remove with 516
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage")
+		winset(src, "", "browser-options=byondstorage,find")
 
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel

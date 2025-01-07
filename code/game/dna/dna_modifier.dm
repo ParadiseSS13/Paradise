@@ -8,7 +8,7 @@
 #define PAGE_REJUVENATORS "rejuvenators"
 
 //list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0),
-/datum/dna2/record
+/datum/dna2_record
 	var/datum/dna/dna = null
 	var/types = 0
 	var/name = "Empty"
@@ -20,7 +20,7 @@
 	var/mind = null
 	var/languages = null
 
-/datum/dna2/record/proc/GetData()
+/datum/dna2_record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
 	if(dna)
 		ser["ue"] = (types & DNA2_BUF_UE) == DNA2_BUF_UE
@@ -36,8 +36,8 @@
 			ser["type"] = "se"
 	return ser
 
-/datum/dna2/record/proc/copy()
-	var/datum/dna2/record/newrecord = new /datum/dna2/record
+/datum/dna2_record/proc/copy()
+	var/datum/dna2_record/newrecord = new /datum/dna2_record
 	newrecord.dna = dna.Clone()
 	newrecord.types = types
 	newrecord.name = name
@@ -69,8 +69,8 @@
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
-	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='notice'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
@@ -111,8 +111,8 @@
 	return FALSE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
+	if(user.incapacitated())
+		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 /obj/machinery/dna_scannernew/AltClick(mob/user)
@@ -138,10 +138,16 @@
 			M.forceMove(get_turf(src))
 
 /obj/machinery/dna_scannernew/update_icon_state()
-	if(occupant)
-		icon_state = "scanner_occupied"
-	else
+	if(panel_open)
+		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
+		return
+	if(stat & NOPOWER)
+		icon_state = "scanner"
+		return
+	if(!occupant)
 		icon_state = "scanner_open"
+		return
+	icon_state = "scanner_occupied"
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
@@ -184,10 +190,8 @@
 	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
-/obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	else if(istype(I, /obj/item/reagent_containers/glass))
+/obj/machinery/dna_scannernew/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
@@ -201,26 +205,33 @@
 		I.forceMove(src)
 		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
 		return
+
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!ismob(G.affecting))
 			return
+
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
 			return
+
 		if(G.affecting.abiotic())
 			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 			return
+
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
+
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
+
 		put_in(G.affecting)
 		add_fingerprint(user)
 		qdel(G)
 		return
+
 	return ..()
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
@@ -241,11 +252,6 @@
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
-
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
 
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)
@@ -279,7 +285,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
@@ -312,7 +317,7 @@
 	var/selected_ui_target_hex = 1
 	var/radiation_duration = 2.0
 	var/radiation_intensity = 1.0
-	var/list/datum/dna2/record/buffers[3]
+	var/list/datum/dna2_record/buffers[3]
 	var/irradiating = 0
 	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
 	var/obj/machinery/dna_scannernew/connected = null
@@ -322,7 +327,7 @@
 	idle_power_consumption = 10
 	active_power_consumption = 400
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/scan_consolenew/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		if(!disk)
 			user.drop_item()
@@ -337,7 +342,7 @@
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()
 	for(var/i=0;i<3;i++)
-		buffers[i+1]=new /datum/dna2/record
+		buffers[i+1]=new /datum/dna2_record
 	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
 
@@ -355,7 +360,7 @@
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 
-/obj/machinery/computer/scan_consolenew/proc/setInjectorBlock(obj/item/dnainjector/I, blk, datum/dna2/record/buffer)
+/obj/machinery/computer/scan_consolenew/proc/setInjectorBlock(obj/item/dnainjector/I, blk, datum/dna2_record/buffer)
 	var/pos = findtext(blk,":")
 	if(!pos)
 		return FALSE
@@ -420,7 +425,7 @@
 	data["disk"] = diskData
 
 	var/list/new_buffers = list()
-	for(var/datum/dna2/record/buf in buffers)
+	for(var/datum/dna2_record/buf in buffers)
 		new_buffers += list(buf.GetData())
 	data["buffers"]=new_buffers
 
@@ -668,11 +673,11 @@
 			if(bufferId < 1 || bufferId > 3) // Not a valid buffer id
 				return
 
-			var/datum/dna2/record/buffer = buffers[bufferId]
+			var/datum/dna2_record/buffer = buffers[bufferId]
 			switch(bufferOption)
 				if("saveUI")
 					if(connected.occupant && connected.occupant.dna)
-						var/datum/dna2/record/databuf = new
+						var/datum/dna2_record/databuf = new
 						databuf.types = DNA2_BUF_UI // DNA2_BUF_UE
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
@@ -681,7 +686,7 @@
 						buffers[bufferId] = databuf
 				if("saveUIAndUE")
 					if(connected.occupant && connected.occupant.dna)
-						var/datum/dna2/record/databuf = new
+						var/datum/dna2_record/databuf = new
 						databuf.types = DNA2_BUF_UI|DNA2_BUF_UE
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
@@ -690,7 +695,7 @@
 						buffers[bufferId] = databuf
 				if("saveSE")
 					if(connected.occupant && connected.occupant.dna)
-						var/datum/dna2/record/databuf = new
+						var/datum/dna2_record/databuf = new
 						databuf.types = DNA2_BUF_SE
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
@@ -698,7 +703,7 @@
 						databuf.name = "Structural Enzymes"
 						buffers[bufferId] = databuf
 				if("clear")
-					buffers[bufferId] = new /datum/dna2/record()
+					buffers[bufferId] = new /datum/dna2_record()
 				if("changeLabel")
 					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
@@ -721,7 +726,7 @@
 					if(connected.radiation_check())
 						return
 
-					var/datum/dna2/record/buf = buffers[bufferId]
+					var/datum/dna2_record/buf = buffers[bufferId]
 
 					if(buf.types & DNA2_BUF_UI)
 						if(buf.types & DNA2_BUF_UE)
@@ -747,7 +752,7 @@
 				if("saveDisk")
 					if(isnull(disk) || disk.read_only)
 						return
-					var/datum/dna2/record/buf = buffers[bufferId]
+					var/datum/dna2_record/buf = buffers[bufferId]
 					disk.buf = buf.copy()
 					disk.name = "data disk - '[buf.name]'"
 		if("wipeDisk")
@@ -776,7 +781,7 @@
 	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 10 SECONDS)
 
 	// Create it
-	var/datum/dna2/record/buf = buffers[buffer_id]
+	var/datum/dna2_record/buf = buffers[buffer_id]
 	var/obj/item/dnainjector/I = new()
 	I.forceMove(loc)
 	I.name += " ([buf.name])"
@@ -811,14 +816,14 @@
 					var/buffer_id = text2num(arguments["id"])
 					if(buffer_id < 1 || buffer_id > length(buffers))
 						return
-					var/datum/dna2/record/buf = buffers[buffer_id]
+					var/datum/dna2_record/buf = buffers[buffer_id]
 					var/obj/item/dnainjector/I = create_injector(buffer_id)
 					setInjectorBlock(I, answer, buf.copy())
 				if("changeBufferLabel")
 					var/buffer_id = text2num(arguments["id"])
 					if(buffer_id < 1 || buffer_id > length(buffers))
 						return
-					var/datum/dna2/record/buf = buffers[buffer_id]
+					var/datum/dna2_record/buf = buffers[buffer_id]
 					buf.name = answer
 					buffers[buffer_id] = buf
 				else

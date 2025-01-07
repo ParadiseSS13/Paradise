@@ -10,7 +10,7 @@
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	minbodytemp = 0
 
 	blood_color = "#b9ae9c"
@@ -48,13 +48,13 @@
 	/// The amount of nutrition the nian caterpillar needs to evolve, default is 500.
 	var/nutrition_need = 500
 
-/mob/living/simple_animal/nian_caterpillar/Initialize()
+/mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	real_name = name
 	add_language("Tkachi")
 	evolve_action.Grant(src)
 
-/mob/living/simple_animal/nian_caterpillar/proc/evolve(obj/structure/moth/cocoon/C, datum/mind/M)
+/mob/living/simple_animal/nian_caterpillar/proc/evolve(obj/structure/moth_cocoon/C, datum/mind/M)
 	if(stat != CONSCIOUS)
 		return FALSE
 
@@ -63,6 +63,9 @@
 	if((nutrition < nutrition_need) && !IS_CHANGELING(M))
 		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
 		return
+
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
 
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
@@ -80,6 +83,8 @@
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
+	// [Caterpillar -> worme -> nian] is from xenobio (or cargo) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	// Worme is placed into cacoon.
 	adult.forceMove(C)
@@ -99,7 +104,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/snacks/G)
+/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
 		return to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	visible_message("<span class='warning'>[src] ravenously consumes [G].</span>", "<span class='notice'>You ravenously devour [G].</span>")
@@ -119,7 +124,7 @@
 	else
 		get_scooped(M)
 
-/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/simple_animal/nian_caterpillar/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
 	else
@@ -128,10 +133,10 @@
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
-/datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth/cocoon/C)
+/datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
@@ -143,7 +148,7 @@
 
 	user.visible_message("<span class='notice'>[user] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
 	if(do_after(user, COCOON_WEAVE_DELAY, FALSE, user))
-		var/obj/structure/moth/cocoon/C = new(get_turf(user))
+		var/obj/structure/moth_cocoon/C = new(get_turf(user))
 		var/datum/mind/H = user.mind
 		user.evolve(C, H)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)

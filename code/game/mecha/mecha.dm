@@ -2,8 +2,9 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
+
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -15,7 +16,6 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	/// Time it takes to enter the mech
@@ -37,8 +37,11 @@
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
-	var/lights = 0
+	var/lights = FALSE
 	var/lights_power = 6
+	var/lights_range = 6
+	var/lights_power_ambient = LIGHTING_MINIMUM_POWER
+	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
@@ -81,6 +84,9 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
+	/// DMI containing greyscale emissive overlays, responsible for what parts of the mech glow in the dark
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
+
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
@@ -102,6 +108,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	/// How much speed the mech loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -120,7 +130,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()
@@ -146,6 +156,14 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	set_light(lights_range_ambient, lights_power_ambient)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/mecha/update_overlays()
+	. = ..()
+	underlays.Cut()
+	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 
 ////////////////////////
 ////// Helpers /////////
@@ -282,7 +300,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -386,7 +404,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = FALSE
 		if(istype(obstacle, /obj/structure/window))
@@ -409,7 +427,7 @@
 			breakthrough = TRUE
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+			obstacle.ex_act(EXPLODE_DEVASTATE)
 
 		else if(isliving(obstacle))
 			var/mob/living/L = obstacle
@@ -421,7 +439,7 @@
 				L.buckled = 0
 			L.Weaken(10 SECONDS)
 			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
+			playsound(src, pick(hit_sound), 50, FALSE, 0)
 			breakthrough = TRUE
 
 		else
@@ -441,15 +459,14 @@
 					throw_at(crashing, 50, throw_speed)
 
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
+		if(..())
+			return
+		if(isobj(obstacle))
+			var/obj/O = obstacle
+			if(!O.anchored)
 				step(obstacle, dir)
+		else if(ismob(obstacle))
+			step(obstacle, dir)
 
 
 ///////////////////////////////////
@@ -555,7 +572,7 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
 	log_message("Attack by hand/paw. Attacker - [user].")
 
@@ -693,7 +710,7 @@
 ////// MARK: AttackBy
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
@@ -820,7 +837,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && pilot_is_mmi()))
+	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -831,11 +848,17 @@
 	else if(state == MECHA_OPEN_HATCH)
 		state = MECHA_BOLTS_UP
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
+		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
@@ -982,7 +1005,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
@@ -1012,6 +1035,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	icon_state = reset_icon(icon_state)
+	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1080,9 +1104,9 @@
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
-		set_light(light_range + lights_power)
+		set_light(lights_range, lights_power)
 	else
-		set_light(light_range - lights_power)
+		set_light(lights_range_ambient, lights_power_ambient)
 	if(show_message)
 		occupant_message("Toggled lights [lights ? "on" : "off"].")
 		log_message("Toggled lights [lights ? "on" : "off"].")
@@ -1169,6 +1193,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	else
 		return FALSE
@@ -1224,6 +1249,7 @@
 		Move(loc)
 		icon_state = reset_icon()
 		dir = dir_in
+		update_icon(UPDATE_OVERLAYS)
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1244,10 +1270,11 @@
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
+/obj/mecha/Exited(atom/movable/M, direction)
+	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
-			go_out(1, newloc)
+			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
@@ -1313,9 +1340,22 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
+
+// Called when a shuttle lands on top of the mech. Prevents the mech from just dropping the pilot unharmed inside the shuttle when destroyed.
+/obj/mecha/proc/get_out_and_die()
+	var/mob/living/pilot = occupant
+	pilot.visible_message(
+		"<span class='warning'>[src] is hit by a hyperspace ripple!</span>",
+		"<span class='userdanger'>You feel an immense crushing pressure as the space around you ripples.</span>"
+	)
+	go_out(TRUE)
+	if(iscarbon(pilot))
+		pilot.gib()
+	qdel(src)
 
 /////////////////////////
 ////// MARK: Access stuff

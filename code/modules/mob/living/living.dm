@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -8,6 +8,9 @@
 	GLOB.mob_living_list += src
 	if(advanced_bullet_dodge_chance)
 		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+
+	for(var/initial_trait in initial_traits)
+		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -68,10 +71,10 @@
 	return
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
-/mob/living/Bump(atom/A, yes)
+/mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if(buckled || !yes || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(ismob(A))
 		if(MobBump(A))
@@ -116,6 +119,10 @@
 					return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
+		return TRUE
+
+	if(has_status_effect(STATUS_EFFECT_UNBALANCED))
+		// Don't swap while being shoved by air.
 		return TRUE
 
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
@@ -212,7 +219,7 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 /mob/living/proc/can_track(mob/living/user)
@@ -293,26 +300,30 @@
 	if(stat == DEAD)
 		to_chat(src, "<span class='notice'>It's too late, you're already dead!</span>")
 		return
-	if(health >= HEALTH_THRESHOLD_CRIT)
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+	last_words = null // In case we kept some from last time
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
-	if(isnull(last_words) && cancel_on_no_words)
+	if(isnull(final_words) && cancel_on_no_words)
 		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
 		return
 
 	if(stat == DEAD)
-		// cancel em out if they died while they had the message box up
-		last_words = null
+		return
 
-	if(!isnull(last_words))
+	if(health >= HEALTH_THRESHOLD_SUCCUMB)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
+	if(!isnull(final_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
-		src.last_words = last_words  // sorry
-		whisper(last_words)
+		last_words = final_words
+		whisper(final_words)
 
-	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+	add_attack_logs(src, src, "[src] has [!isnull(final_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
@@ -322,7 +333,8 @@
 		if(health < HEALTH_THRESHOLD_DEAD)
 			break
 		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
-	if(!isnull(last_words))
+
+	if(!isnull(final_words))
 		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
 	else
 		death()
@@ -331,7 +343,6 @@
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-
 
 /mob/living/ex_act(severity)
 	..()
@@ -355,6 +366,7 @@
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 	med_hud_set_status()
@@ -383,8 +395,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
-//		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
+
 	return temperature
 
 
@@ -408,7 +419,7 @@
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
-		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
+		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
@@ -434,7 +445,7 @@
 			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
-		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
+		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
@@ -533,7 +544,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.unbuckle_mob(src, force = TRUE)
+		unbuckle(force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -581,6 +592,11 @@
 
 /mob/living/proc/UpdateDamageIcon()
 	return
+
+/mob/living/get_spacemove_backup(movement_dir)
+	if(movement_dir == 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		return
+	return ..()
 
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
@@ -656,6 +672,8 @@
 				var/mob/living/carbon/human/H = src
 				if(H.dna.species.blood_color)
 					existing_trail.color = H.dna.species.blood_color
+			else if(isalien(src))
+				existing_trail.color = "#05EE05"
 			else
 				existing_trail.color = "#A10808"
 
@@ -674,41 +692,7 @@
 /mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/direction = 0
-		if(flow_x > 100)
-			direction |= EAST
-		if(flow_x < -100)
-			direction |= WEST
-		if(flow_y > 100)
-			direction |= NORTH
-		if(flow_y < -100)
-			direction |= SOUTH
-
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(flow_x, flow_y, pressure_resistance_prob_delta)
+	..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -798,6 +782,10 @@
 	END RESIST PROCS
 *///////////////////////
 
+/// Unbuckle the mob from whatever it is buckled to.
+/mob/living/proc/unbuckle(force)
+	buckled.unbuckle_mob(src, force)
+
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(10 SECONDS)
@@ -815,7 +803,7 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /atom/movable/screen/alert/weightless)
-	if(!flying)
+	if(!HAS_TRAIT(src, TRAIT_FLYING))
 		float(!has_gravity)
 
 /mob/living/proc/float(on)
@@ -826,8 +814,7 @@
 		fixed = TRUE
 	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		sleep(10)
-		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		animate(pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
 	else if(((!on || fixed) && floating))
 		animate(src, pixel_y = get_standard_pixel_y_offset(), time = 10)
@@ -970,6 +957,29 @@
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
 		. += S.slowdown_value
+	else
+		// Only apply directional slow if we don't have a full slow.
+		var/datum/status_effect/incapacitating/directional_slow/DS = has_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW)
+		if(DS)
+			if(DS.direction == last_move)
+				// Moving directly in the direction we're slowed, full penalty
+				. += DS.slowdown_value
+			else if(REVERSE_DIR(DS.direction) == last_move)
+				// Moving directly opposite to the slow, no penalty.
+				// Lint doesn't like this block being empty so, uh, add zero, I guess.
+				. += 0
+			else if(IS_DIR_CARDINAL(DS.direction) || IS_DIR_CARDINAL(last_move))
+				if(DS.direction & last_move)
+					// Moving roughly in the direction we're slowed, full penalty.
+					. += DS.slowdown_value
+				else if(!(REVERSE_DIR(DS.direction) & last_move))
+					// Moving perpendicular to the slow, partial penalty.
+					. += DS.slowdown_value / 2
+				// Moving roughly opposite to the slow, no penalty.
+			else
+				// Diagonal move perpendicular to the slow, partial penalty.
+				. += DS.slowdown_value / 2
+
 	if(forced_look)
 		. += DIRECTION_LOCK_SLOWDOWN
 	if(ignorewalk)
@@ -1002,6 +1012,7 @@
 		return
 	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
 		return FALSE
+
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
@@ -1043,9 +1054,9 @@
 		else
 			registered_z = null
 
-/mob/living/onTransitZ(old_z,new_z)
+/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 
 /mob/living/rad_act(amount)
 	. = ..()
@@ -1056,11 +1067,13 @@
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
 	var/blocked = getarmor(null, RAD)
-
+	if(blocked == INFINITY) // Full protection, go no further.
+		return
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
+
+	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1084,8 +1097,6 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("maxHealth")
-			updatehealth()
 		if("resize")
 			update_transform()
 		if("lighting_alpha")
@@ -1093,13 +1104,17 @@
 		if("advanced_bullet_dodge_chance")
 			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+		if("maxHealth")
+			updatehealth("var edit")
+		if("resize")
+			update_transform()
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
 /mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || flying || !density)
+	if(C == src || HAS_TRAIT(src, TRAIT_FLYING) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	if(mob_hurt)
@@ -1110,8 +1125,15 @@
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)
 	else
-		C.take_organ_damage(damage)
+		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.take_organ_damage(damage)
+
 		C.KnockDown(3 SECONDS)
+
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
 
 /**
@@ -1156,7 +1178,30 @@
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
 
-/mob/living/Crossed(atom/movable/mover)
-	if(istype(mover, /obj/singularity/energy_ball))
-		dust()
-	return ..()
+/// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
+/mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	return FALSE
+
+/mob/living/proc/plushify(plushie_override, curse_time = 10 MINUTES)
+	var/mob/living/simple_animal/shade/sword/generic_item/plushvictim = new(get_turf(src))
+	var/obj/item/toy/plushie/plush_type = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
+	if(plushie_override)
+		plush_type = plushie_override
+	var/obj/item/toy/plushie/plush_outcome = new plush_type(get_turf(src))
+	plushvictim.forceMove(plush_outcome)
+	plushvictim.key = key
+	plushvictim.RegisterSignal(plush_outcome, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/generic_item, handle_item_deletion))
+	plushvictim.name = name
+	plush_outcome.name = "[name] plushie"
+	if(curse_time == -1)
+		qdel(src)
+	else
+		plush_outcome.cursed_plushie_victim = src
+		forceMove(plush_outcome)
+		notransform = TRUE
+		status_flags |= GODMODE
+		addtimer(CALLBACK(plush_outcome, TYPE_PROC_REF(/obj/item/toy/plushie, un_plushify)), curse_time)
+	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
+
+/mob/living/proc/sec_hud_set_ID()
+	return

@@ -127,10 +127,7 @@ export const map = (iterateeFn) => (collection) => {
  * Given a collection, will run each element through an iteratee function.
  * Will then filter out undefined values.
  */
-export const filterMap = <T, U>(
-  collection: T[],
-  iterateeFn: (value: T) => U | undefined
-): U[] => {
+export const filterMap = <T, U>(collection: T[], iterateeFn: (value: T) => U | undefined): U[] => {
   const finalCollection: U[] = [];
 
   for (const value of collection) {
@@ -233,7 +230,7 @@ export const reduce = (reducerFn, initialValue) => (array) => {
  * is determined by the order they occur in the array. The iteratee is
  * invoked with one argument: value.
  */
-/* eslint-disable indent */
+
 export const uniqBy =
   <T extends unknown>(iterateeFn?: (value: T) => unknown) =>
   (array: T[]) => {
@@ -265,7 +262,6 @@ export const uniqBy =
     }
     return result;
   };
-/* eslint-enable indent */
 
 export const uniq = uniqBy();
 

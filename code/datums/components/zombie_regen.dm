@@ -82,7 +82,7 @@
 	zomboid.suiciding = 0
 	zomboid.set_nutrition(max(zomboid.nutrition, NUTRITION_LEVEL_HUNGRY))
 	if(zomboid.buckled) //Unbuckle the mob and clear the alerts.
-		zomboid.buckled.unbuckle_mob(src, force = TRUE)
+		zomboid.unbuckle(force = TRUE)
 
 	var/datum/organ/heart/heart = zomboid.get_int_organ_datum(ORGAN_DATUM_HEART)
 	var/heart_type = zomboid.dna?.species?.has_organ["heart"]

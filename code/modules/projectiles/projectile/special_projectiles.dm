@@ -33,7 +33,7 @@
 
 /obj/item/projectile/bullet/a40mm
 	name ="40mm grenade"
-	desc = "USE A WEEL GUN"
+	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
 	damage = 60
@@ -111,9 +111,7 @@
 	nodamage = 1
 	flag = "bullet"
 
-/obj/item/projectile/meteor/Bump(atom/A, yes)
-	if(yes)
-		return
+/obj/item/projectile/meteor/Bump(atom/A)
 	if(A == firer)
 		loc = A.loc
 		return

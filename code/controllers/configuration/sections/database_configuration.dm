@@ -22,7 +22,7 @@
 
 /datum/configuration_section/database_configuration/load_data(list/data)
 	// UNIT TESTS ARE DEFINED - USE CUSTOM CI VALUES
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 
 	enabled = TRUE
 	// This needs to happen in the CI environment to ensure the example SQL version gets updated.

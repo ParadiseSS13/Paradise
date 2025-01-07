@@ -68,6 +68,8 @@
 /mob/living/silicon/robot/set_zeroth_law(law, law_borg)
 	if(mmi && mmi.syndiemmi)
 		return FALSE
+	if(tracking_entities)
+		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
 	..()
 
 /mob/living/silicon/robot/clear_zeroth_law()

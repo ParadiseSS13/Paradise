@@ -15,12 +15,7 @@ export const BioChipPad = (props, context) => {
           title="Bio-chip Mini-Computer"
           buttons={
             <Box>
-              <Button
-                content="Eject Case"
-                icon="eject"
-                disabled={!contains_case}
-                onClick={() => act('eject_case')}
-              />
+              <Button content="Eject Case" icon="eject" disabled={!contains_case} onClick={() => act('eject_case')} />
             </Box>
           }
         >
@@ -40,12 +35,8 @@ export const BioChipPad = (props, context) => {
               </Box>
               <LabeledList>
                 <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
-                <LabeledList.Item label="Notes">
-                  {implant.notes}
-                </LabeledList.Item>
-                <LabeledList.Item label="Function">
-                  {implant.function}
-                </LabeledList.Item>
+                <LabeledList.Item label="Notes">{implant.notes}</LabeledList.Item>
+                <LabeledList.Item label="Function">{implant.function}</LabeledList.Item>
                 {!!gps && (
                   <LabeledList.Item label="Tag">
                     <Input

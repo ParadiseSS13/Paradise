@@ -61,7 +61,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/grenade/clusterbuster/inferno(src)
+			new /obj/item/reagent_containers/drinks/everfull(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
@@ -183,6 +183,10 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
+
+/obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
@@ -321,7 +325,7 @@
 	var/usedHand
 	var/mob/living/carbon/owner
 
-/obj/item/rod_of_asclepius/attack_self(mob/user)
+/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
 	if(activated)
 		return
 	if(!iscarbon(user))
@@ -435,7 +439,7 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
@@ -463,7 +467,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
+			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
 			return FALSE
 	return ..()
 
@@ -546,11 +550,11 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self(mob/user)
+/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reset_inputs(user, TRUE)
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))

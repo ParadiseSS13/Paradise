@@ -1,6 +1,6 @@
 /mob/living/simple_animal/demon/shadow
 	name = "shadow demon"
-	desc = "A creature that's barely tangible, you can feel its gaze piercing you"
+	desc = "A creature that's barely tangible, you can feel its gaze piercing you."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
@@ -151,8 +151,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_icon_state = "shadow_whisper"
-	whisper_action.background_icon_state = "shadow_demon_bg"
+	whisper_action.button_overlay_icon_state = "shadow_whisper"
+	whisper_action.button_background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -212,6 +212,8 @@
 		return
 	hit = TRUE // to prevent double hits from the pull
 	. = ..()
+	if(!.)
+		return
 	for(var/atom/extinguish_target in range(2, src))
 		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
@@ -230,7 +232,7 @@
 	desc = "It still beats furiously, emitting an aura of fear."
 	color = COLOR_BLACK
 
-/obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/shadow/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

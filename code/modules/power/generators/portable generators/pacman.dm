@@ -191,22 +191,20 @@
 		emagged = TRUE
 		return TRUE
 
-/obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>[src] is full!</span>")
 			return
+
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
 		return
-	if(!active)
-		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
-			exchange_parts(user, O)
-		return
+
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)

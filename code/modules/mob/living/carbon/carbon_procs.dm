@@ -1,6 +1,8 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	if(!loc)
+		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
@@ -78,7 +80,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
+						M.show_message(text("<span class='warning'><b>[user] attacks [src]'s stomach wall with [I]!</b></span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -223,7 +225,7 @@
 		adjustStaminaLoss(-10)
 		resting = FALSE
 		stand_up() // help them up if possible
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(!player_logged)
 			M.visible_message( \
 				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
@@ -236,7 +238,7 @@
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
-	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	if(M.zone_selected == "head")
 		M.visible_message(\
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
@@ -337,9 +339,9 @@
 		status_list += "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
-			status_list += "<span class='info'>You're completely exhausted.</span>"
+			status_list += "<span class='notice'>You're completely exhausted.</span>"
 		else
-			status_list += "<span class='info'>You feel fatigued.</span>"
+			status_list += "<span class='notice'>You feel fatigued.</span>"
 
 	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
@@ -350,7 +352,7 @@
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
 
-	if((E && (E.status & ORGAN_DEAD)) || !.)
+	if((E?.status & ORGAN_DEAD) || E?.is_broken() || !.)
 		return FALSE
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
@@ -493,7 +495,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	var/ventcrawl_delay = 0 SECONDS
 #else
 	var/ventcrawl_delay = 4.5 SECONDS
@@ -534,10 +536,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	var/datum/pipeline/pipenet = starting_machine.returnPipenet(target_move)
+	pipenet.add_ventcrawler(src)
+	add_ventcrawl_images(pipenet)
+
+
+/mob/living/proc/add_ventcrawl_images(datum/pipeline/pipenet)
 	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
+	totalMembers |= pipenet.members
+	totalMembers |= pipenet.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.update_pipe_image()
@@ -546,6 +553,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	SEND_SIGNAL(src, COMSIG_LIVING_EXIT_VENTCRAWL)
+	remove_ventcrawl_images()
+
+/mob/living/proc/remove_ventcrawl_images()
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -566,9 +577,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
+			var/obj/machinery/atmospherics/atmos_machine = loc
+			if(!atmos_machine.can_see_pipes())
+				return
 			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
+				remove_ventcrawl_images()
+			var/obj/machinery/atmospherics/current_pipe = loc
+			var/datum/pipeline/pipenet = current_pipe.returnPipenet(target_move)
+			add_ventcrawl_images(pipenet)
 
 
 //Throwing stuff
@@ -694,11 +710,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
 			return
 
-	if(thrown_thing)
-		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
-			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
-		newtonian_move(get_dir(target, src))
-		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	if(QDELETED(thrown_thing))
+		return
+
+	if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+	newtonian_move(get_dir(target, src))
+	thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
@@ -731,7 +749,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
+			unbuckle()
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
@@ -750,21 +768,36 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return wear_suit
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return r_hand
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
 	return null
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	// if(back && (looking_for in back))
+	// 	return ITEM_SLOT_BACKPACK
+
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	return ..()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse()
@@ -802,15 +835,22 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	var/obj/item/I = get_restraining_item()
-	var/time = 0
-	if(istype(I))
-		time = I.breakouttime
+	var/breakout_time = 0
+	var/obj/item/restraints = get_restraining_item()
+
+	if(istype(restraints, /obj/item/clothing/suit/straight_jacket))
+		var/obj/item/clothing/suit/straight_jacket/jacket = restraints
+		jacket.breakouttime = breakout_time
+
+	else if(istype(restraints, /obj/item/restraints))
+		var/obj/item/restraints/cuffs = restraints
+		breakout_time = cuffs.breakouttime
+
 	else if(isstructure(buckled))
 		var/obj/structure/struct = buckled
-		time = struct.unbuckle_time
+		breakout_time = struct.unbuckle_time
 
-	if(time == 0)
+	if(!breakout_time)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -820,8 +860,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
-				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
+	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -857,15 +897,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 
-/mob/living/carbon/resist_restraints()
+/mob/living/carbon/resist_restraints(attempt_breaking)
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	var/obj/item/I = null
+	if(wear_suit && wear_suit.breakouttime)
+		wear_suit.resist_restraints(src, attempt_breaking)
+		return
+
+	var/obj/item/restraints/cuffs
 	if(handcuffed)
-		I = handcuffed
+		cuffs = handcuffed
 	else if(legcuffed)
-		I = legcuffed
-	if(I)
-		cuff_resist(I)
+		cuffs = legcuffed
+
+	if(!cuffs)
+		return
+	cuff_resist(cuffs, attempt_breaking)
 
 /mob/living/carbon/resist_muzzle()
 	if(!istype(wear_mask, /obj/item/clothing/mask/muzzle))
@@ -889,89 +935,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
+/mob/living/carbon/proc/cuff_resist(obj/item/restraints/restraints, break_cuffs)
+	var/effective_breakout_time = restraints.breakouttime
+	if(break_cuffs)
+		effective_breakout_time = 5 SECONDS
 
-/mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
-	breakouttime = I.breakouttime
-	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
-		breakouttime /= 2
+	if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
+		to_chat(src, "<span class='notice'>You are already trying to [break_cuffs ? "break" : "remove"] [restraints].</span>")
+		return
 
-	if(!cuff_break)
-		if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
-			to_chat(src, "<span class='notice'>You are already trying to remove [I].</span>")
-			return
-		apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		var/is_zombie = HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [breakouttime / 10] seconds[is_zombie ? "" : " and you need to stand still"].)</span>")
-		if(do_after(src, breakouttime, 0, target = src, allow_moving = is_zombie, allow_moving_target = is_zombie))
-			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-			if(I.loc != src || buckled)
-				return
-			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
-				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
-			else
-				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
+	apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 
-			if(I == handcuffed)
-				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
-					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-					if(I.reagents && length(I.reagents.reagent_list))
-						taste(I.reagents)
-						I.reagents.reaction(src, REAGENT_INGEST)
-						I.reagents.trans_to(src, I.reagents.total_volume)
-					qdel(handcuffed)
-				else
-					handcuffed.forceMove(drop_location())
-					handcuffed.dropped(src)
-					handcuffed = null
-				if(buckled && buckled.buckle_requires_restraints)
-					buckled.unbuckle_mob(src)
-				update_handcuffed()
-				return
-			if(I == legcuffed)
-				legcuffed.forceMove(drop_location())
-				legcuffed.dropped()
-				legcuffed = null
-				toggle_move_intent()
-				update_inv_legcuffed()
-				return
-			else
-				unEquip(I)
-				I.dropped(src)
-				return
-		else
-			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
-
-	else
-		breakouttime = 50
-		if(has_status_effect(STATUS_EFFECT_BREAK_CUFFS))
-			to_chat(src, "<span class='notice'>You are already trying to break [I].</span>")
-			return
-		apply_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-			if(!I.loc || buckled)
-				return
-			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully break [I].</span>")
-			qdel(I)
-
-			if(I == handcuffed)
-				handcuffed = null
-				update_handcuffed()
-				return
-			else if(I == legcuffed)
-				legcuffed = null
-				toggle_move_intent()
-				update_inv_legcuffed()
-				return
-			return 1
-		else
-			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
+	restraints.attempt_resist_restraints(src, break_cuffs, effective_breakout_time)
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
@@ -1000,6 +975,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/emp_act(severity)
 	..()
+	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
+		return
+	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
+		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
 	for(var/X in internal_organs)
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
@@ -1050,7 +1029,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	handcuffed = null
 	if(buckled && buckled.buckle_requires_restraints)
-		buckled.unbuckle_mob(src)
+		unbuckle()
 	update_handcuffed()
 
 	if(client)
@@ -1104,7 +1083,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/slip(description, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
-	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+	if(HAS_TRAIT(src, TRAIT_FLYING) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if(IS_HORIZONTAL(src) && !tilesSlipped)
@@ -1123,7 +1102,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
@@ -1145,7 +1124,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	var/fullness = nutrition + 10
-	if(istype(to_eat, /obj/item/food/snacks))
+	if(istype(to_eat, /obj/item/food))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) // We add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
@@ -1257,11 +1236,13 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
+		become_blind("tint")
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
+		cure_blind("tint")
 	else
 		clear_fullscreen("tint", 0)
+		cure_blind("tint")
 
 /mob/living/carbon/proc/get_total_tint()
 	. = 0

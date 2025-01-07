@@ -22,6 +22,8 @@ SUBSYSTEM_DEF(input)
 	return "P: [length(processing)]"
 
 /datum/controller/subsystem/input/fire(resumed = FALSE)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. key_loop has SHOULD_NOT_SLEEP(TRUE), which helps, but it doesn't catch everything, so we also waitfor=FALSE here, as using INVOKE_ASYNC here is very unperformant.
+	set waitfor = FALSE
 	var/list/to_cull
 	for(var/client/C in processing)
 		if(processing[C] + AUTO_CULL_TIME < world.time)

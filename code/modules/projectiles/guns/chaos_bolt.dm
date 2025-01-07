@@ -18,7 +18,8 @@
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
 	. = ..()
-
+	if(!.)
+		return
 	if(iswallturf(target) || isobj(target))
 		target.color = pick(GLOB.random_color_list)
 		return
@@ -147,7 +148,7 @@
 			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos lethal explosion effect")
 		if("cheese morphed")
 			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
-			new /obj/item/food/snacks/cheesewedge(get_turf(H))
+			new /obj/item/food/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
 			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
@@ -247,6 +248,7 @@
 			H.electrocute_act(CHAOS_STAFF_DAMAGE, src)
 
 /datum/status_effect/teleport_roulette
+	id = "teleport_roulette"
 	duration = 16 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	tick_interval = 2 SECONDS
@@ -321,13 +323,13 @@
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("cheese")
-			item_to_summon = /obj/item/food/snacks/cheesewedge
+			item_to_summon = /obj/item/food/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")
 			var/limit = rand(5, 10)
 			for(var/i in 1 to limit)
-				var/type = pick(typesof(/obj/item/food/snacks))
+				var/type = pick(typesof(/obj/item/food))
 				var/obj/item/I = new type(get_turf(target))
 				INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
@@ -347,7 +349,7 @@
 			item_to_summon = /obj/item/banhammer
 			explosion_amount = rand(2, 5)
 		if("banana")
-			item_to_summon = /obj/item/food/snacks/grown/banana
+			item_to_summon = /obj/item/food/grown/banana
 
 /**
   * Picks a random gift to be given to mob/living/target. Should be valuable and/or threatening to the wizard.
@@ -369,7 +371,7 @@
 		if("tarot deck")
 			item_to_summon = /obj/item/tarot_generator
 		if("bluespace banana")
-			item_to_summon = /obj/item/food/snacks/grown/banana/bluespace
+			item_to_summon = /obj/item/food/grown/banana/bluespace
 		if("banana grenade")
 			item_to_summon = /obj/item/grenade/clown_grenade
 		if("disco ball")

@@ -32,7 +32,7 @@
 	if(prob(80))
 		gibs(where)
 		if(prob(45))
-			new /obj/item/food/snacks/meat(where)
+			new /obj/item/food/meat(where)
 		else if(prob(10))
 			explosion(where, 0, pick(0,1), pick(2,3), 0)
 	else

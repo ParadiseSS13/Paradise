@@ -88,22 +88,22 @@
 		new_wiz.internal = new_wiz.r_hand
 		new_wiz.update_action_buttons_icon()
 	else
-		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), SLOT_HUD_JUMPSUIT)
-		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(new_wiz), SLOT_HUD_HEAD)
+		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(new_wiz), ITEM_SLOT_JUMPSUIT)
+		new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(new_wiz), ITEM_SLOT_HEAD)
 		new_wiz.dna.species.after_equip_job(null, new_wiz)
 	new_wiz.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	new_wiz.equip_to_slot_or_del(new /obj/item/radio/headset(new_wiz), SLOT_HUD_LEFT_EAR)
-	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), SLOT_HUD_SHOES)
-	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), SLOT_HUD_OUTER_SUIT)
-	new_wiz.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(new_wiz), SLOT_HUD_BACK)
+	new_wiz.equip_to_slot_or_del(new /obj/item/radio/headset(new_wiz), ITEM_SLOT_LEFT_EAR)
+	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
+	new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OUTER_SUIT)
+	new_wiz.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(new_wiz), ITEM_SLOT_BACK)
 	if(new_wiz.dna.species.speciesbox)
-		new_wiz.equip_to_slot_or_del(new new_wiz.dna.species.speciesbox(new_wiz), SLOT_HUD_IN_BACKPACK)
+		new_wiz.equip_to_slot_or_del(new new_wiz.dna.species.speciesbox(new_wiz), ITEM_SLOT_IN_BACKPACK)
 	else
-		new_wiz.equip_to_slot_or_del(new /obj/item/storage/box/survival(new_wiz), SLOT_HUD_IN_BACKPACK)
-	new_wiz.equip_to_slot_or_del(new /obj/item/teleportation_scroll(new_wiz), SLOT_HUD_RIGHT_STORE)
+		new_wiz.equip_to_slot_or_del(new /obj/item/storage/box/survival(new_wiz), ITEM_SLOT_IN_BACKPACK)
+	new_wiz.equip_to_slot_or_del(new /obj/item/teleportation_scroll(new_wiz), ITEM_SLOT_RIGHT_POCKET)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(new_wiz)
 	spellbook.owner = new_wiz
-	new_wiz.equip_to_slot_or_del(spellbook, SLOT_HUD_LEFT_HAND)
+	new_wiz.equip_to_slot_or_del(spellbook, ITEM_SLOT_LEFT_HAND)
 
 	var/list/reading = list()
 	reading += "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."

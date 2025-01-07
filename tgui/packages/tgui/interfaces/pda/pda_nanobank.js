@@ -94,14 +94,8 @@ const Transfer = (props, context) => {
   const { act, data } = useBackend(context);
 
   const { requests, available_accounts, money } = data;
-  const [selectedAccount, setSelectedAccount] = useLocalState(
-    context,
-    'selectedAccount'
-  );
-  const [transferAmount, setTransferAmount] = useLocalState(
-    context,
-    'transferAmount'
-  );
+  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+  const [transferAmount, setTransferAmount] = useLocalState(context, 'transferAmount');
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   let accountMap = [];
@@ -111,10 +105,7 @@ const Transfer = (props, context) => {
     <>
       <LabeledList>
         <LabeledList.Item label="Account">
-          <Input
-            placeholder="Search by account name"
-            onInput={(e, value) => setSearchText(value)}
-          />
+          <Input placeholder="Search by account name" onInput={(e, value) => setSearchText(value)} />
           <Dropdown
             mt={0.6}
             width="190px"
@@ -125,19 +116,12 @@ const Transfer = (props, context) => {
                 })
               )
               .map((account) => account.name)}
-            selected={
-              available_accounts.filter(
-                (account) => account.UID === selectedAccount
-              )[0]?.name
-            }
+            selected={available_accounts.filter((account) => account.UID === selectedAccount)[0]?.name}
             onSelected={(val) => setSelectedAccount(accountMap[val])}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Amount">
-          <Input
-            placeholder="Up to 5000"
-            onInput={(e, value) => setTransferAmount(value)}
-          />
+          <Input placeholder="Up to 5000" onInput={(e, value) => setTransferAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Actions">
           <Button.Confirm
@@ -173,12 +157,8 @@ const Transfer = (props, context) => {
           <Box key={request.UID} mt={1} ml={1}>
             <b>Request from {request.requester}</b>
             <LabeledList>
-              <LabeledList.Item label="Amount">
-                {request.amount}
-              </LabeledList.Item>
-              <LabeledList.Item label="Time">
-                {request.time} Minutes ago
-              </LabeledList.Item>
+              <LabeledList.Item label="Amount">{request.amount}</LabeledList.Item>
+              <LabeledList.Item label="Time">{request.time} Minutes ago</LabeledList.Item>
               <LabeledList.Item label="Actions">
                 <Button.Confirm
                   icon="thumbs-up"
@@ -213,14 +193,8 @@ const Transfer = (props, context) => {
 
 const AccountActions = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    security_level,
-    department_members,
-    auto_approve,
-    auto_approve_amount,
-    is_department_account,
-    is_premium,
-  } = data;
+  const { security_level, department_members, auto_approve, auto_approve_amount, is_department_account, is_premium } =
+    data;
 
   return (
     <>
@@ -250,12 +224,7 @@ const AccountActions = (props, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Logout">
-          <Button
-            icon="sign-out-alt"
-            width="auto"
-            content="Logout"
-            onClick={() => act('logout')}
-          />
+          <Button icon="sign-out-alt" width="auto" content="Logout" onClick={() => act('logout')} />
         </LabeledList.Item>
         <LabeledList.Item label="NanoBank Premium">
           <Button
@@ -339,9 +308,7 @@ const Transactions = (props, context) => {
         <Table.Row key={t}>
           <Table.Cell>{t.time}</Table.Cell>
           <Table.Cell>{t.purpose}</Table.Cell>
-          <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
-            ${t.amount}
-          </Table.Cell>
+          <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
           <Table.Cell>{t.target_name}</Table.Cell>
         </Table.Row>
       ))}
@@ -352,26 +319,16 @@ const Transactions = (props, context) => {
 const LoginScreen = (props, context) => {
   const { act, data } = useBackend(context);
   const [accountID, setAccountID] = useLocalState(context, 'accountID', null);
-  const [accountPin, setAccountPin] = useLocalState(
-    context,
-    'accountPin',
-    null
-  );
+  const [accountPin, setAccountPin] = useLocalState(context, 'accountPin', null);
   const { card_account_num } = data;
   let account_num = accountID ? accountID : card_account_num;
   return (
     <LabeledList>
       <LabeledList.Item label="Account ID">
-        <Input
-          placeholder="Account ID"
-          onInput={(e, value) => setAccountID(value)}
-        />
+        <Input placeholder="Account ID" onInput={(e, value) => setAccountID(value)} />
       </LabeledList.Item>
       <LabeledList.Item label="Pin">
-        <Input
-          placeholder="Account Pin"
-          onInput={(e, value) => setAccountPin(value)}
-        />
+        <Input placeholder="Account Pin" onInput={(e, value) => setAccountPin(value)} />
       </LabeledList.Item>
       <LabeledList.Item>
         <Button
@@ -440,12 +397,7 @@ const GetRequestNotice = (_properties, context) => {
       <Stack.Item mt={0.5}>Approval Required:</Stack.Item>
       {Boolean(request.req_cargo_approval) && (
         <Stack.Item>
-          <Button
-            color="brown"
-            content="QM"
-            icon="user-tie"
-            tooltip="This Order requires approval from the QM still"
-          />
+          <Button color="brown" content="QM" icon="user-tie" tooltip="This Order requires approval from the QM still" />
         </Stack.Item>
       )}
       {Boolean(request.req_head_approval) && (
@@ -478,12 +430,8 @@ const SupplyOrders = (_properties, context) => {
           <Table.Row key={r.ordernum} className="Cargo_RequestList">
             <Table.Cell mb={1}>
               <Box>
-                Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for{' '}
-                <b>{r.orderedby}</b> with{' '}
-                {r.department
-                  ? `The ${r.department} Department`
-                  : 'Their Personal'}{' '}
-                Account
+                Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for <b>{r.orderedby}</b> with{' '}
+                {r.department ? `The ${r.department} Department` : 'Their Personal'} Account
               </Box>
               <Box italic>Reason: {r.comment}</Box>
               <GetRequestNotice request={r} />

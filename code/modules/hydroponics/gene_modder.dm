@@ -58,12 +58,14 @@
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+	seed = null
+	disk = null
 	core_genes.Cut()
 	reagent_genes.Cut()
 	trait_genes.Cut()
 	target = null
-	QDEL_NULL(seed)
-	QDEL_NULL(disk)
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
@@ -128,26 +130,27 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/plantgenes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
 		update_icon(UPDATE_OVERLAYS)
 		return
-	if(exchange_parts(user, I))
-		return
+
 	if(default_deconstruction_crowbar(user, I))
 		return
-	if(isrobot(user))
+
+	if(istype(I, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
 		return
 
 	if(istype(I, /obj/item/seeds))
 		add_seed(I, user)
-	else if(istype(I, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
-		return ..()
-	else if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
+		return
+
+	if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
 		add_disk(I, user)
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
 	if(seed)
@@ -420,7 +423,7 @@
 					user.put_in_hands(D)
 					update_genes()
 					return
-			to_chat(user, "<span class='warning'> No Empty Disks to Eject!</span>")
+			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
 		if("set_read_only")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			D.read_only = !D.read_only
@@ -448,7 +451,7 @@
 		else
 			core_gene.value = min(core_gene.value, genemod_var)
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
@@ -490,7 +493,7 @@
 			var/datum/plant_gene/core/C = gene.Copy()
 			disk.core_genes += C
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
@@ -558,9 +561,8 @@
 	seed.name = "experimental " + seed.name
 	seed.icon_state = "seed-x"
 
-/*
- *  Plant DNA disk
- */
+// MARK: Plant Disk
+
 
 /obj/item/disk/plantgene
 	name = "plant data disk"
@@ -587,7 +589,7 @@
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/plantgene/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(is_pen(W))
 		rename_interactive(user, W)
@@ -635,7 +637,7 @@
 /obj/item/disk/plantgene/update_desc()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		desc = "Better keep this safe."
+		desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 		return
 
 	desc = "A disk for storing plant genetic data."
@@ -655,7 +657,7 @@
 
 	. += "datadisk_gene"
 
-/obj/item/disk/plantgene/attack_self(mob/user)
+/obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	read_only = !read_only
@@ -667,6 +669,8 @@
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
+	return FALSE
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
@@ -678,3 +682,21 @@
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
 		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+	else
+		. += "<span class='warning'>You should keep this safe...</span>"
+
+/obj/item/disk/plantgene/examine_more(mob/user)
+	. = ..()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+
+	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
+		. += "<span class='danger'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
+		. += "<span class='userdanger'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
+		return
+
+	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."
+	. += ""
+	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or mallicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."

@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Fragment,
-  Section,
-  NoticeBox,
-} from '../components';
+import { Button, LabeledList, Box, Fragment, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleConsole = (props, context) => {
@@ -17,11 +10,7 @@ export const ShuttleConsole = (props, context) => {
         <Section>
           <LabeledList>
             <LabeledList.Item label="Location">
-              {data.status ? (
-                data.status
-              ) : (
-                <NoticeBox color="red">Shuttle Missing</NoticeBox>
-              )}
+              {data.status ? data.status : <NoticeBox color="red">Shuttle Missing</NoticeBox>}
             </LabeledList.Item>
             {!!data.shuttle && // only show this stuff if there's a shuttle
               ((!!data.docking_ports_len && (

@@ -10,17 +10,18 @@
 	opacity = FALSE
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/wrench) && deconstructible)
-		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 5 SECONDS * I.toolspeed, target = src))
-			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
-			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/metal(drop_location())
-			qdel(src)
-		return
-	return ..()
+/obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
+	if(!deconstructible)
+		return FALSE
+
+	user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
+	playsound(loc, I.usesound, 50, TRUE)
+	if(I.use_tool(src, user, 5 SECONDS, 0, 50))
+		user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
+		playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
+		new /obj/item/stack/sheet/metal(drop_location())
+		qdel(src)
+	return TRUE
 
 /// Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 /obj/structure/fluff/empty_terrarium
@@ -72,6 +73,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = null
 	anchored = TRUE
 	density = TRUE
 
@@ -82,5 +84,5 @@
 
 /obj/structure/fluff/divine/conduit
 	name = "conduit"
-	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
+	desc = "It allows a deity to extend their reach. Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"

@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","damaged3","damaged4",
 				"damaged5","panelscorched","floorscorched1","floorscorched2","platingdmg1","platingdmg2",
 				"platingdmg3","plating","light_on","warnplate", "warnplatecorner","metalfoam", "ironfoam",
-				"light_off","wall_thermite","grass1","grass2","grass3","grass4",
+				"light_off","grass1","grass2","grass3","grass4",
 				"asteroid","asteroid_dug","asteroid0","asteroid1","asteroid2","asteroid3","asteroid4",
 				"asteroid5","asteroid6","asteroid7","asteroid8","asteroid9","asteroid10","asteroid11","asteroid12",
 				"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "wood-broken", "carpet",
@@ -37,12 +37,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	else
 		icon_regular_floor = icon_state
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
-//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if(!( locate(/obj/machinery/mass_driver, src)))
-//			return 0
-//	return ..()
-
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
 		return
@@ -62,16 +56,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						break_tile_to_plating()
 					else
 						break_tile()
-					hotspot_expose(1000,CELL_VOLUME)
+					hotspot_expose(1000, 100)
 					if(prob(33)) new /obj/item/stack/sheet/metal(src)
 		if(3.0)
 			if(prob(50))
 				break_tile()
-				hotspot_expose(1000,CELL_VOLUME)
+				hotspot_expose(1000, 100)
 	return
 
 /turf/simulated/floor/burn_down()
-	ex_act(2)
+	ex_act(EXPLODE_HEAVY)
 
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
@@ -89,7 +83,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 // Checks if there is foothold over the turf
 /turf/simulated/floor/proc/find_safeties()
-	var/static/list/safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/static/list/safeties_typecache = typecacheof(list(
+		/obj/structure/lattice/catwalk,
+		/obj/structure/stone_tile,
+		/obj/structure/bridge_walkway
+	))
 	var/list/found_safeties = typecache_filter_list(contents, safeties_typecache)
 	return LAZYLEN(found_safeties)
 
@@ -119,6 +117,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	current_overlay = pick(get_burnt_states())
 	burnt = TRUE
 	update_icon()
+
+/turf/simulated/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST && prob(1))
+		burn_tile()
 
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
@@ -154,7 +156,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/attackby__legacy__attackchain(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return TRUE
 
@@ -209,7 +211,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
 		return
-	P.attackby(T, user, params)
+	P.attackby__legacy__attackchain(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	if(!silent)

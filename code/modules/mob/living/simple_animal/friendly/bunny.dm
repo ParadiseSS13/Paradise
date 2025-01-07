@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bunny
 	name = "bunny"
 	real_name = "bunny"
-	desc = "Awww a cute bunny"
+	desc = "Awww a cute bunny."
 	icon_state = "m_bunny"
 	icon_living = "m_bunny"
 	icon_dead = "bunny_dead"
@@ -12,7 +12,7 @@
 	see_in_dark = 6
 	maxHealth = 10
 	health = 10
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -33,3 +33,7 @@
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M, TRUE)
 	..()
+
+/mob/living/simple_animal/bunny/syndi // for the syndicake factory bunny so its not being shot
+	faction = list("syndicate")
+	gold_core_spawnable = NO_SPAWN

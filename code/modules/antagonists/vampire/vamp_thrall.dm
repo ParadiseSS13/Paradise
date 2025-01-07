@@ -4,6 +4,7 @@ RESTRICT_TYPE(/datum/antagonist/mindslave/thrall)
 	name = "Vampire Thrall"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
+	master_hud_name = "vampire"
 
 /datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
 	SSticker.mode.vampire_enthralled += owner

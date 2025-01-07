@@ -5,9 +5,9 @@
 	icon_deny = "engivend_deny"
 	icon_panel = "generic"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
+	req_one_access = list(ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
-					/obj/item/clothing/glasses/meson/engine/tray = 4,
+					/obj/item/clothing/glasses/meson/engine/atmos = 4,
 					/obj/item/multitool = 4,
 					/obj/item/geiger_counter = 5,
 					/obj/item/airlock_electronics = 10,
@@ -28,7 +28,7 @@
 	icon_state = "engi"
 	icon_deny = "engi_deny"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_access_txt = "11"
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
 					/obj/item/clothing/under/rank/engineering/engineer = 40,
 					/obj/item/clothing/shoes/workboots = 4,
@@ -62,7 +62,7 @@
 	icon_deny = "robotics_deny"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	icon_lightmask = "robotics"
-	req_access_txt = "29"
+	req_access = list(ACCESS_ROBOTICS)
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,
 					/obj/item/clothing/under/rank/rnd/roboticist = 4,
 					/obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
@@ -208,6 +208,7 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
 					/obj/item/seeds/pineapple = 3,
+					/obj/item/seeds/plum = 3,
 					/obj/item/seeds/poppy = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
@@ -252,7 +253,7 @@
 					"Don't you want some?",
 					"Ping!")
 
-	req_access_txt = "5"
+	req_access = list(ACCESS_MEDICAL)
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 2,
@@ -288,7 +289,7 @@
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
 					/obj/item/reagent_containers/glass/bottle/pancuronium = 1,
-					/obj/item/food/snacks/candy/sucker = 2)
+					/obj/item/food/candy/sucker = 2)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -330,13 +331,13 @@
 	icon_deny = "sec_deny"
 	icon_panel = "wide_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_access_txt = "1"
+	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,
 					/obj/item/restraints/handcuffs/cable/zipties = 8,
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/flash = 5,
 					/obj/item/reagent_containers/spray/pepper = 5,
-					/obj/item/food/snacks/donut = 12,
+					/obj/item/food/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
@@ -348,5 +349,5 @@
 					/obj/item/hailer = 5)
 
 	refill_canister = /obj/item/vending_refill/security
-	prices = list(/obj/item/food/snacks/donut = 40,
+	prices = list(/obj/item/food/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount

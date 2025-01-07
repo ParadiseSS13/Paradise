@@ -1,13 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Stack,
-  Icon,
-  LabeledList,
-  Section,
-} from '../components';
+import { Box, Button, Dropdown, Stack, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { FlexItem } from '../components/Flex';
@@ -18,9 +10,7 @@ export const BookBinder = (props, context) => {
 
   let categoryMap = [];
   {
-    book_categories.map(
-      (category) => (categoryMap[category.description] = category.category_id)
-    );
+    book_categories.map((category) => (categoryMap[category.description] = category.category_id));
   }
 
   return (
@@ -31,22 +21,10 @@ export const BookBinder = (props, context) => {
           <Section
             fill
             title="Book Binder"
-            buttons={
-              <Button
-                icon="print"
-                width="auto"
-                content="Print Book"
-                onClick={() => act('print_book')}
-              />
-            }
+            buttons={<Button icon="print" width="auto" content="Print Book" onClick={() => act('print_book')} />}
           >
             <Box ml={10} fontSize="1.2rem" bold>
-              <Icon
-                name="search-plus"
-                verticalAlign="middle"
-                size={3}
-                mr="1rem"
-              />
+              <Icon name="search-plus" verticalAlign="middle" size={3} mr="1rem" />
               Book Binder
             </Box>
             <Stack>
@@ -88,18 +66,14 @@ export const BookBinder = (props, context) => {
                       icon="pen"
                       width="auto"
                       content="Edit Summary"
-                      onClick={() =>
-                        modalOpen(context, 'edit_selected_summary')
-                      }
+                      onClick={() => modalOpen(context, 'edit_selected_summary')}
                     />
                   </LabeledList.Item>
                   <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
                 </LabeledList>
                 <br />
                 {book_categories
-                  .filter((category) =>
-                    selectedbook.categories.includes(category.category_id)
-                  )
+                  .filter((category) => selectedbook.categories.includes(category.category_id))
                   .map((book_categories) => (
                     <Button
                       key={book_categories.category_id}

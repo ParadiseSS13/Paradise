@@ -45,18 +45,8 @@ export const PAI = (props, context) => {
                   {app_title}
                   {app_template !== 'pai_main_menu' && (
                     <>
-                      <Button
-                        ml={2}
-                        mb={0}
-                        content="Back"
-                        icon="arrow-left"
-                        onClick={() => act('Back')}
-                      />
-                      <Button
-                        content="Home"
-                        icon="arrow-up"
-                        onClick={() => act('MASTER_back')}
-                      />
+                      <Button ml={2} mb={0} content="Back" icon="arrow-left" onClick={() => act('Back')} />
+                      <Button content="Home" icon="arrow-up" onClick={() => act('MASTER_back')} />
                     </>
                   )}
                 </Box>

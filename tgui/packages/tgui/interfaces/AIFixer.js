@@ -1,13 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  ProgressBar,
-  Box,
-  LabeledList,
-  Section,
-  Stack,
-  Icon,
-} from '../components';
+import { Button, ProgressBar, Box, LabeledList, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const AIFixer = (props, context) => {
@@ -18,13 +10,7 @@ export const AIFixer = (props, context) => {
         <Window.Content>
           <Section fill title="Stored AI">
             <Stack fill>
-              <Stack.Item
-                bold
-                grow
-                textAlign="center"
-                align="center"
-                color="average"
-              >
+              <Stack.Item bold grow textAlign="center" align="center" color="average">
                 <Icon.Stack>
                   <Icon name="robot" size={5} color="silver" />
                   <Icon name="slash" size={5} color="red" />
@@ -65,15 +51,9 @@ export const AIFixer = (props, context) => {
               <Section title={data.occupant}>
                 <LabeledList>
                   <LabeledList.Item label="Integrity">
-                    <ProgressBar
-                      color={integrityColor}
-                      value={data.integrity / 100}
-                    />
+                    <ProgressBar color={integrityColor} value={data.integrity / 100} />
                   </LabeledList.Item>
-                  <LabeledList.Item
-                    label="Status"
-                    color={workingAI ? 'green' : 'red'}
-                  >
+                  <LabeledList.Item label="Status" color={workingAI ? 'green' : 'red'}>
                     {workingAI ? 'Functional' : 'Non-Functional'}
                   </LabeledList.Item>
                 </LabeledList>
@@ -119,11 +99,7 @@ export const AIFixer = (props, context) => {
                     <Button
                       icon="wrench"
                       disabled={!repairable || data.active}
-                      content={
-                        !repairable || data.active
-                          ? 'Already Repaired'
-                          : 'Repair'
-                      }
+                      content={!repairable || data.active ? 'Already Repaired' : 'Repair'}
                       onClick={() => act('fix')}
                     />
                   </LabeledList.Item>

@@ -50,6 +50,9 @@ Pipelines + Other Objects -> Pipe network
 	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
 	var/autolink_id = null
 
+	/// Whether or not this can be unwrenched while on.
+	var/can_unwrench_while_on = TRUE
+
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
@@ -98,12 +101,12 @@ Pipelines + Other Objects -> Pipe network
 			plane = GAME_PLANE
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
-/obj/machinery/atmospherics/proc/update_pipe_image()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
+/obj/machinery/atmospherics/proc/update_pipe_image(overlay = src)
+	pipe_image = image(overlay, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
-	if(!istype(SSair.icon_manager))
+	if(!istype(GLOB.pipe_icon_manager))
 		return FALSE
 
 	return TRUE
@@ -118,17 +121,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	return check_icon_cache()
@@ -189,63 +189,79 @@ Pipelines + Other Objects -> Pipe network
 	if(P)
 		P.other_atmosmch -= src
 
-//(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+/obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
 	var/turf/T = get_turf(src)
-	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-			return
-		if(level == 1 && isturf(T) && T.intact)
-			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-			return
-		var/datum/gas_mixture/int_air = return_obj_air()
-		var/datum/gas_mixture/env_air = T.get_readonly_air()
-		add_fingerprint(user)
+	if(!can_unwrench_while_on && !(stat & NOPOWER) && on)
+		to_chat(user, "<span class='alert'>You cannot unwrench this [name], turn it off first.</span>")
+		return TRUE
+	if(!can_unwrench)
+		return FALSE
+	. = TRUE
+	if(wrench_floor_check())
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return
+	if(level == 1 && isturf(T) && T.intact)
+		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+		return
+	var/datum/gas_mixture/int_air = return_obj_air()
+	var/datum/gas_mixture/env_air = T.get_readonly_air()
+	add_fingerprint(user)
 
-		var/unsafe_wrenching = FALSE
-		var/safefromgusts = FALSE
-		var/I = int_air ? int_air.return_pressure() : 0
-		var/E = env_air ? env_air.return_pressure() : 0
-		var/internal_pressure = I - E
 
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	var/unsafe_wrenching = FALSE
+	var/safefromgusts = FALSE
+	var/I = int_air ? int_air.return_pressure() : 0
+	var/E = env_air ? env_air.return_pressure() : 0
+	var/internal_pressure = I - E
 
-		if(HAS_TRAIT(user, TRAIT_MAGPULSE))
-			safefromgusts = TRUE
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
 
-		if(internal_pressure > 2 * ONE_ATMOSPHERE)
-			unsafe_wrenching = TRUE //Oh dear oh dear
-			if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
-				to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
-			else
-				to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+		safefromgusts = TRUE
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
-			safefromgusts = FALSE
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		unsafe_wrenching = TRUE //Oh dear oh dear
+		if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
+			to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
+		else
+			to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
-			if(HAS_TRAIT(user, TRAIT_MAGPULSE))
-				safefromgusts = TRUE
+	if(!W.use_tool(src, user, 4 SECONDS, volume = 50) || QDELETED(src))
+		return
 
-			user.visible_message( \
-				"<span class='notice'>[user] unfastens [src].</span>", \
-				"<span class='notice'>You have unfastened [src].</span>", \
-				"<span class='italics'>You hear ratcheting.</span>")
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	safefromgusts = FALSE
 
-			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
-			if(unsafe_wrenching)
-				if(safefromgusts)
-					to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
-				else
-					unsafe_pressure_release(user,internal_pressure)
-			deconstruct(TRUE)
-	else
-		if(T.transparent_floor)
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-			return TRUE
-		return ..()
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+		safefromgusts = TRUE
+
+	user.visible_message(
+		"<span class='notice'>[user] unfastens [src].</span>",
+		"<span class='notice'>You have unfastened [src].</span>",
+		"<span class='italics'>You hear ratcheting.</span>"
+	)
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+
+	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+	if(unsafe_wrenching)
+		if(safefromgusts)
+			to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+		else
+			unsafe_pressure_release(user,internal_pressure)
+	deconstruct(TRUE)
+
+/**
+ * This proc is to tell if an atmospheric device is in a state that should be unwrenchable because its under the floor.
+ **/
+/obj/machinery/atmospherics/proc/wrench_floor_check()
+	return FALSE
+
+//(De)construction
+/obj/machinery/atmospherics/attackby__legacy__attackchain(obj/item/W, mob/user)
+	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return TRUE
+	return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.
@@ -287,7 +303,7 @@ Pipelines + Other Objects -> Pipe network
 		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -312,6 +328,7 @@ Pipelines + Other Objects -> Pipe network
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	var/datum/pipeline/current_pipenet = returnPipenet(src)
 	direction &= initialize_directions
 	if(!direction || !(direction in GLOB.cardinal)) //cant go this way.
 		return
@@ -322,6 +339,7 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
@@ -331,9 +349,10 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
-				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
@@ -388,14 +407,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)

@@ -86,7 +86,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "dk" = (
@@ -188,11 +188,10 @@
 /area/ruin/space/abandoned_engi_sat)
 "fe" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "fA" = (
@@ -228,7 +227,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "gL" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hy" = (
@@ -238,7 +237,7 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
@@ -257,7 +256,7 @@
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iO" = (
@@ -271,7 +270,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "iV" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "jk" = (
@@ -288,7 +287,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "jG" = (
@@ -307,7 +306,7 @@
 	mode = 0;
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "jS" = (
@@ -321,21 +320,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kd" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "kg" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/abandoned_engi_sat)
 "kt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kw" = (
@@ -370,13 +368,11 @@
 /area/ruin/space/abandoned_engi_sat)
 "kT" = (
 /obj/structure/mirror,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -385,8 +381,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "lf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -397,19 +391,13 @@
 "lu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -434,8 +422,6 @@
 /area/space/nearstation)
 "mB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -479,14 +465,10 @@
 "ne" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -500,7 +482,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "nn" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "nH" = (
@@ -508,8 +490,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "nR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -517,10 +497,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "oG" = (
-/obj/structure/closet{
-	icon_state = "atmos_wardrobe";
-	name = "atmospherics wardrobe"
-	},
+/obj/structure/closet/wardrobe/atmospherics_yellow/empty,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
@@ -529,7 +506,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "oL" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "oW" = (
@@ -545,8 +522,6 @@
 "pb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -564,21 +539,17 @@
 /area/ruin/space/abandoned_engi_sat)
 "pM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/abandoned_engi_sat)
 "pX" = (
-/obj/structure/closet{
-	icon_state = "eng_secure";
-	open_door_sprite = "eng_secure_door";
-	name = "engineer's locker"
-	},
+/obj/structure/closet/secure_closet/engineering_personal/empty,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "qu" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "rn" = (
@@ -596,8 +567,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "rE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/sign/securearea{
@@ -641,14 +610,10 @@
 "st" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	d1 = 1;
-	d2 = 8
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -662,7 +627,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "to" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -715,8 +680,6 @@
 /area/ruin/space/abandoned_engi_sat)
 "wl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -731,13 +694,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "wV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -760,8 +719,7 @@
 "xW" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -811,7 +769,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "yJ" = (
@@ -838,9 +796,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -865,14 +821,10 @@
 "AD" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -903,11 +855,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/structure/closet{
-	icon_state = "fire";
-	name = "fire-safety closet";
-	desc = "It's a storage unit for fire-fighting supplies."
-	},
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -936,14 +884,13 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Dj" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -954,7 +901,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "DO" = (
@@ -990,14 +937,13 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "EU" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "Fm" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-8";
-	d2 = 8
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel";
@@ -1015,13 +961,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "Gg" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1035,8 +977,6 @@
 "Gt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1044,9 +984,7 @@
 "Gy" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1094,7 +1032,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "Iz" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "IC" = (
@@ -1108,8 +1046,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -1118,7 +1055,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "IM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall,
 /area/ruin/space/abandoned_engi_sat)
 "Jo" = (
@@ -1152,14 +1089,10 @@
 "Mv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1182,7 +1115,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "NM" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -1190,19 +1123,13 @@
 "NY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1223,9 +1150,7 @@
 "OZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1239,13 +1164,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "Pb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1263,18 +1184,12 @@
 /area/space/nearstation)
 "PH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -1282,8 +1197,6 @@
 "Qa" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -1293,14 +1206,10 @@
 "QI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1320,7 +1229,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "Ro" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
@@ -1402,14 +1311,10 @@
 "VJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	d1 = 1;
-	d2 = 2
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	d1 = 2;
-	d2 = 8
+	icon_state = "2-8"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1436,13 +1341,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Yz" = (
-/obj/structure/closet{
-	icon_state = "emergency";
-	open_door_sprite = "emergency_door";
-	name = "emergency closet";
-	desc = "It's a storage unit for emergency breathmasks and o2 tanks.";
-	opened = 1
-	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -1458,19 +1357,13 @@
 "YG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	d1 = 2;
-	d2 = 4
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "1-4"
 	},
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
@@ -1508,18 +1401,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "ZA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -2556,40 +2445,6 @@ LP
 LP
 "}
 (31,1,1) = {"
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-LP
-"}
-(32,1,1) = {"
 LP
 LP
 LP

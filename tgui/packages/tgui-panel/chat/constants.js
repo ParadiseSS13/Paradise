@@ -33,6 +33,7 @@ export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MENTORCHAT = 'mentorchat';
+export const MESSAGE_TYPE_DEVCHAT = 'devchat';
 export const MESSAGE_TYPE_EVENTCHAT = 'eventchat';
 export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
@@ -60,7 +61,7 @@ export const MESSAGE_TYPES = [
     name: 'Radio',
     description: 'All departments of radio messages',
     selector:
-      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster',
+      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster, .proradio',
   },
   {
     type: MESSAGE_TYPE_INFO,
@@ -72,8 +73,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_WARNING,
     name: 'Warnings',
     description: 'Urgent messages from the game and items',
-    selector:
-      '.warning:not(.pm), .critical, .userdanger, .italics, .boldannounceic, .boldwarning',
+    selector: '.warning:not(.pm), .critical, .userdanger, .italics, .boldannounceic, .boldwarning',
   },
   {
     type: MESSAGE_TYPE_DEADCHAT,
@@ -85,7 +85,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'The bluewall of global OOC messages',
-    selector: '.ooc, .adminooc',
+    selector: '.ooc, .adminooc, .interface',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
@@ -123,6 +123,13 @@ export const MESSAGE_TYPES = [
     name: 'Mentor Chat',
     description: 'MSAY messages',
     selector: '.mentor_channel',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_DEVCHAT,
+    name: 'Developer Chat',
+    description: 'DEVSAY messages',
+    selector: '.dev_channel',
     admin: true,
   },
   {

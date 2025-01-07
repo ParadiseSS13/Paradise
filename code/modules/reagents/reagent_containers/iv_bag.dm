@@ -32,7 +32,7 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self(mob/user)
+/obj/item/reagent_containers/iv_bag/attack_self__legacy__attackchain(mob/user)
 	..()
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
@@ -47,19 +47,17 @@
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
-	ADD_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
 	if(injection_target)
-		REMOVE_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
-		injection_target = null
+	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
-	if(!injection_target)
+	if(QDELETED(injection_target))
 		end_processing()
 		return
 
@@ -89,10 +87,10 @@
 				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/iv_bag/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity)
+/obj/item/reagent_containers/iv_bag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!target.reagents)
@@ -114,9 +112,6 @@
 			end_processing()
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
-				return
-			if(HAS_TRAIT(target, TRAIT_HAS_IV_BAG))
-				to_chat(user, "<span class='warning'>[target] already [target.p_have()] another IV bag inserted into [target.p_them()]!</span>")
 				return
 			if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
 				to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
@@ -162,7 +157,7 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/iv_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
 
@@ -191,26 +186,26 @@
 		update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
 	return ..()
 
-/obj/item/reagent_containers/iv_bag/blood/APlus
+/obj/item/reagent_containers/iv_bag/blood/a_plus
 	blood_type = "A+"
 
-/obj/item/reagent_containers/iv_bag/blood/AMinus
+/obj/item/reagent_containers/iv_bag/blood/a_minus
 	blood_type = "A-"
 
-/obj/item/reagent_containers/iv_bag/blood/BPlus
+/obj/item/reagent_containers/iv_bag/blood/b_plus
 	blood_type = "B+"
 
-/obj/item/reagent_containers/iv_bag/blood/BMinus
+/obj/item/reagent_containers/iv_bag/blood/b_minus
 	blood_type = "B-"
 
-/obj/item/reagent_containers/iv_bag/blood/OPlus
+/obj/item/reagent_containers/iv_bag/blood/o_plus
 	blood_type = "O+"
 
-/obj/item/reagent_containers/iv_bag/blood/OMinus
+/obj/item/reagent_containers/iv_bag/blood/o_minus
 	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/blood/vox

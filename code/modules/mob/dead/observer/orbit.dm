@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
 /datum/orbit_menu/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+		get_asset_datum(/datum/asset/spritesheet/job_icons)
 	)
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
@@ -48,6 +48,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/list/tourist = list()
 	var/length_of_ghosts = length(get_observers())
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
@@ -91,6 +92,8 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 				var/datum/mind/mind = M.mind
 				if(mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD))
 					response_teams += list(serialized)
+				if(mind.special_role == SPECIAL_ROLE_TOURIST)
+					tourist += list(serialized)
 
 				if(user.antagHUD)
 					/*
@@ -104,6 +107,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					- vampire
 					- changelings
 					- revolutionaries/headrevs
+					- event
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -166,6 +170,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
 	data["response_teams"] = response_teams
+	data["tourist"] = tourist
 	data["alive"] = alive
 	data["ssd"] = ssd
 	data["dead"] = dead

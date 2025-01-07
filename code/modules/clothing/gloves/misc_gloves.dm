@@ -19,7 +19,7 @@
 
 /obj/item/clothing/gloves/cyborg
 	name = "cyborg gloves"
-	desc = "beep boop borp"
+	desc = "beep boop borp."
 	icon_state = "black"
 	item_state = "r_hands"
 
@@ -107,13 +107,6 @@
 	transfer_prints = TRUE
 	clipped = TRUE
 
-/obj/item/clothing/gloves/batmangloves
-	name = "batgloves"
-	desc = "Used for handling all things bat related."
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color="bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."
@@ -152,7 +145,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -169,7 +162,7 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
+/obj/item/clothing/gloves/color/yellow/stun/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())

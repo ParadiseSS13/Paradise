@@ -48,7 +48,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
-/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+/obj/item/clothing/mask/gas/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/explorer
@@ -73,14 +73,14 @@
 /obj/item/clothing/mask/gas/explorer/marines
 	name = "military gas mask"
 
-/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+/obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
 	..()
 	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+/obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
 
@@ -115,7 +115,6 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
@@ -137,7 +136,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
+/obj/item/clothing/mask/gas/clown_hat/attack_self__legacy__attackchain(mob/living/user)
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -221,7 +220,7 @@
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
-	desc = "Beep boop"
+	desc = "Beep boop."
 	icon_state = "death"
 	resistance_flags = FLAMMABLE
 
@@ -235,7 +234,7 @@
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
-/obj/item/clothing/mask/gas/owl_mask/attack_self()
+/obj/item/clothing/mask/gas/owl_mask/attack_self__legacy__attackchain()
 	hoot()
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
@@ -365,7 +364,7 @@
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
@@ -395,7 +394,7 @@
 			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
 	return TRUE
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
+/obj/item/clothing/mask/gas/sechailer/attack_self__legacy__attackchain()
 	halt()
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
@@ -415,12 +414,12 @@
 		if(!safety)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
+			playsound(src.loc, 'sound/voice/binsult.ogg', 100, FALSE, 4)
 			cooldown = world.time
 			return
 
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, 0, 4)
+		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
 

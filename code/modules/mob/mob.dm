@@ -75,6 +75,7 @@
 		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+		PRESSURE_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -241,9 +242,9 @@
 		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
-	if(equip_to_slot_if_possible(W, SLOT_HUD_LEFT_HAND, del_on_fail, disable_warning))
+	if(equip_to_slot_if_possible(W, ITEM_SLOT_LEFT_HAND, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, SLOT_HUD_RIGHT_HAND, del_on_fail, disable_warning))
+	else if(equip_to_slot_if_possible(W, ITEM_SLOT_RIGHT_HAND, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -303,23 +304,24 @@
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
-		SLOT_HUD_BACK,\
-		SLOT_HUD_WEAR_PDA,\
-		SLOT_HUD_WEAR_ID,\
-		SLOT_HUD_JUMPSUIT,\
-		SLOT_HUD_OUTER_SUIT,\
-		SLOT_HUD_WEAR_MASK,\
-		SLOT_HUD_HEAD,\
-		SLOT_HUD_SHOES,\
-		SLOT_HUD_GLOVES,\
-		SLOT_HUD_LEFT_EAR,\
-		SLOT_HUD_RIGHT_EAR,\
-		SLOT_HUD_GLASSES,\
-		SLOT_HUD_BELT,\
-		SLOT_HUD_SUIT_STORE,\
-		SLOT_HUD_TIE,\
-		SLOT_HUD_LEFT_STORE,\
-		SLOT_HUD_RIGHT_STORE\
+		ITEM_SLOT_BACK,\
+		ITEM_SLOT_PDA,\
+		ITEM_SLOT_ID,\
+		ITEM_SLOT_JUMPSUIT,\
+		ITEM_SLOT_OUTER_SUIT,\
+		ITEM_SLOT_MASK,\
+		ITEM_SLOT_NECK,\
+		ITEM_SLOT_HEAD,\
+		ITEM_SLOT_SHOES,\
+		ITEM_SLOT_GLOVES,\
+		ITEM_SLOT_LEFT_EAR,\
+		ITEM_SLOT_RIGHT_EAR,\
+		ITEM_SLOT_EYES,\
+		ITEM_SLOT_BELT,\
+		ITEM_SLOT_SUIT_STORE,\
+		ITEM_SLOT_ACCESSORY,\
+		ITEM_SLOT_LEFT_POCKET,\
+		ITEM_SLOT_RIGHT_POCKET\
 	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
@@ -328,7 +330,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
-		if(isstorage(W) && slot == SLOT_HUD_HEAD) // Storage items should be put on the belt before the head
+		if(isstorage(W) && slot == ITEM_SLOT_HEAD) // Storage items should be put on the belt before the head
+			continue
+		if(W.prefered_slot_flags && !(W.prefered_slot_flags & slot)) //If there's a prefered slot flags list, make sure this slot is in it
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -352,22 +356,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/mob/living/carbon/human/H = M
 
 		switch(slot)
-			if(SLOT_HUD_LEFT_HAND)
+			if(ITEM_SLOT_LEFT_HAND)
 				if(H.l_hand)
 					return 0
 				return 1
-			if(SLOT_HUD_RIGHT_HAND)
+			if(ITEM_SLOT_RIGHT_HAND)
 				if(H.r_hand)
 					return 0
 				return 1
-			if(SLOT_HUD_WEAR_MASK)
-				if(!(slot_flags & SLOT_FLAG_MASK))
+			if(ITEM_SLOT_MASK)
+				if(!(slot_flags & ITEM_SLOT_MASK))
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
-			if(SLOT_HUD_BACK)
-				if(!(slot_flags & SLOT_FLAG_BACK))
+			if(ITEM_SLOT_BACK)
+				if(!(slot_flags & ITEM_SLOT_BACK))
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -375,8 +379,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_OUTER_SUIT)
-				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
+			if(ITEM_SLOT_OUTER_SUIT)
+				if(!(slot_flags & ITEM_SLOT_OUTER_SUIT))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -384,8 +388,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_GLOVES)
-				if(!(slot_flags & SLOT_FLAG_GLOVES))
+			if(ITEM_SLOT_GLOVES)
+				if(!(slot_flags & ITEM_SLOT_GLOVES))
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -393,8 +397,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_SHOES)
-				if(!(slot_flags & SLOT_FLAG_FEET))
+			if(ITEM_SLOT_NECK)
+				if(!(slot_flags & ITEM_SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(ITEM_SLOT_SHOES)
+				if(!(slot_flags & ITEM_SLOT_SHOES))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -402,12 +415,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_BELT)
+			if(ITEM_SLOT_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(!(slot_flags & SLOT_FLAG_BELT))
+				if(!(slot_flags & ITEM_SLOT_BELT))
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -415,8 +428,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_GLASSES)
-				if(!(slot_flags & SLOT_FLAG_EYES))
+			if(ITEM_SLOT_EYES)
+				if(!(slot_flags & ITEM_SLOT_EYES))
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -424,8 +437,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_HEAD)
-				if(!(slot_flags & SLOT_FLAG_HEAD))
+			if(ITEM_SLOT_HEAD)
+				if(!(slot_flags & ITEM_SLOT_HEAD))
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -433,8 +446,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_LEFT_EAR)
-				if(!(slot_flags & SLOT_HUD_LEFT_EAR))
+			if(ITEM_SLOT_LEFT_EAR)
+				if(!(slot_flags & ITEM_SLOT_LEFT_EAR))
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -442,8 +455,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_RIGHT_EAR)
-				if(!(slot_flags & SLOT_HUD_RIGHT_EAR))
+			if(ITEM_SLOT_RIGHT_EAR)
+				if(!(slot_flags & ITEM_SLOT_RIGHT_EAR))
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -451,8 +464,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_JUMPSUIT)
-				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
+			if(ITEM_SLOT_JUMPSUIT)
+				if(!(slot_flags & ITEM_SLOT_JUMPSUIT))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -460,12 +473,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_WEAR_ID)
+			if(ITEM_SLOT_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(!(slot_flags & SLOT_FLAG_ID))
+				if(!(slot_flags & ITEM_SLOT_ID))
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -473,26 +486,26 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_LEFT_STORE)
+			if(ITEM_SLOT_LEFT_POCKET)
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
-			if(SLOT_HUD_RIGHT_STORE)
+			if(ITEM_SLOT_RIGHT_POCKET)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
 				return 0
-			if(SLOT_HUD_SUIT_STORE)
+			if(ITEM_SLOT_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
@@ -505,7 +518,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
+				if(is_pda(src) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -514,19 +527,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 1
 				return 0
-			if(SLOT_HUD_HANDCUFFED)
+			if(ITEM_SLOT_HANDCUFFED)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/handcuffs))
-					return 0
-				return 1
-			if(SLOT_HUD_LEGCUFFED)
+				return istype(src, /obj/item/restraints/handcuffs)
+			if(ITEM_SLOT_LEGCUFFED)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/legcuffs))
-					return 0
-				return 1
-			if(SLOT_HUD_IN_BACKPACK)
+				return istype(src, /obj/item/restraints/legcuffs)
+			if(ITEM_SLOT_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
 					if(length(B.contents) < B.storage_slots && w_class <= B.max_w_class)
@@ -617,6 +626,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
+	if(QDELETED(A))
+		return
 	if(A.invisibility > see_invisible)
 		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
@@ -670,7 +681,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					G.affecting.ret_grab(L, 1)
 		if(!flag)
 			if(L.master == src)
-				var/list/temp = list(  )
+				var/list/temp = list()
 				temp += L.container
 				//L = null
 				qdel(L)
@@ -693,12 +704,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(hand)
 		var/obj/item/W = l_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_r_hand()
 	return
 
@@ -767,11 +784,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	if(dna)
+		dna.flavor_text = msg // Only carbon mobs have DNA.
 	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
-		var/msg = replacetext(flavor_text, "\n", " ")
+		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
@@ -790,17 +809,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
-	..()
-	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
-		unset_machine()
-		src << browse(null, t1)
-
 	if(href_list["flavor_more"])
 		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
+
+	if(usr != src)
+		return TRUE
+	if(..())
+		return TRUE
+	if(href_list["mach_close"])
+		var/t1 = "window=[href_list["mach_close"]]"
+		unset_machine()
+		src << browse(null, t1)
+
 
 	if(href_list["scoreboard"])
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
@@ -979,7 +1002,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/obj/vent_found = pick(found_vents)
 	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='info'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
+	to_chat(host, "<span class='notice'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
@@ -1028,10 +1051,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(istype(S, spell))
 			qdel(S)
 			mob_spell_list -= S
-
-//override to avoid rotating pixel_xy on mobs
-/mob/shuttleRotate(rotation)
-	dir = angle2dir(rotation+dir2angle(dir))
 
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl
@@ -1115,13 +1134,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
-/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src), force_no_usr_check = FALSE)
 	if(!ckey)
 		return
 	var/real_ckey = ckey
 	if(ckey[1] == "@") // Admin aghosting will do this
 		real_ckey = copytext(ckey, 2)
-	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time, force_no_usr_check)
 	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
@@ -1362,6 +1381,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	alpha = initial(alpha)
 	add_to_all_human_data_huds()
 
+/mob/living/carbon/human/reset_visibility()
+	..()
+	alpha = get_alpha()
+
 /mob/proc/make_invisible()
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
@@ -1407,3 +1430,90 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(user.incapacitated())
 		return
 	return relaydrive(user, direction)
+
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
+
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	// A list of all things which are providing anti-magic to us
+	var/list/antimagic_sources = list()
+	var/is_magic_blocked = FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
+		is_magic_blocked = TRUE
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_recent_magic_block)), 6 SECONDS)
+
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
+			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/magic/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			"<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>",
+			"<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			"<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>",
+			"<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light(_color = antimagic_color, _range = 2, _power = 2, _duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
+
+/mob/living/proc/remove_recent_magic_block()
+	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)

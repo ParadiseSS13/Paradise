@@ -32,13 +32,7 @@ const EvolutionPoints = (props, context) => {
             {evo_points}
           </Stack.Item>
           <Stack.Item>
-            <Button
-              ml={2.5}
-              disabled={!can_respec}
-              content="Readapt"
-              icon="sync"
-              onClick={() => act('readapt')}
-            />
+            <Button ml={2.5} disabled={!can_respec} content="Readapt" icon="sync" onClick={() => act('readapt')} />
             <Button
               tooltip="By transforming a humanoid into a husk, \
               we gain the ability to readapt our chosen evolutions."
@@ -55,17 +49,9 @@ const EvolutionPoints = (props, context) => {
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
   const { evo_points, ability_tabs, purchased_abilities, view_mode } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(
-    context,
-    'selectedTab',
-    ability_tabs[0]
-  );
+  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [abilities, setAbilities] = useLocalState(
-    context,
-    'ability_tabs',
-    ability_tabs[0].abilities
-  );
+  const [abilities, setAbilities] = useLocalState(context, 'ability_tabs', ability_tabs[0].abilities);
 
   const selectAbilities = (abilities, searchText = '') => {
     if (!abilities || abilities.length === 0) {
@@ -76,11 +62,9 @@ const Abilities = (props, context) => {
       return ability.name + '|' + ability.description;
     });
 
-    return flow([
-      filter((ability) => ability?.name),
-      filter(AbilitySearch),
-      sortBy((ability) => ability?.name),
-    ])(abilities);
+    return flow([filter((ability) => ability?.name), filter(AbilitySearch), sortBy((ability) => ability?.name)])(
+      abilities
+    );
   };
 
   const handleSearch = (value) => {
@@ -89,12 +73,7 @@ const Abilities = (props, context) => {
       return setAbilities(selectedTab.abilities);
     }
 
-    setAbilities(
-      selectAbilities(
-        ability_tabs.map((ability_entry) => ability_entry.abilities).flat(),
-        value
-      )
-    );
+    setAbilities(selectAbilities(ability_tabs.map((ability_entry) => ability_entry.abilities).flat(), value));
   };
 
   const handleTabChange = (selectedTab) => {
@@ -177,10 +156,7 @@ const Abilities = (props, context) => {
               <Stack.Item textAlign="right">
                 <Button
                   mr={0.5}
-                  disabled={
-                    ability.cost > evo_points ||
-                    purchased_abilities.includes(ability.power_path)
-                  }
+                  disabled={ability.cost > evo_points || purchased_abilities.includes(ability.power_path)}
                   content="Evolve"
                   onClick={() =>
                     act('purchase', {

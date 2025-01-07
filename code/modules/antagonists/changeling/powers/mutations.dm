@@ -9,7 +9,7 @@
 
 /datum/action/changeling/weapon
 	name = "Organic Weapon"
-	desc = "Go tell a coder if you see this"
+	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
@@ -62,7 +62,7 @@
 //Parent to space suits and armor.
 /datum/action/changeling/suit
 	name = "Organic Suit"
-	desc = "Go tell a coder if you see this"
+	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
 	power_type = CHANGELING_UNOBTAINABLE_POWER
@@ -107,8 +107,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HUD_HEAD, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -122,7 +122,7 @@
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
-	button_icon_state = "armblade"
+	button_overlay_icon_state = "armblade"
 	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
@@ -159,7 +159,7 @@
 		parent_action = null
 	return ..()
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/table))
@@ -187,7 +187,7 @@
 	Grab will immobilize the target and wrap a tentacle around them. \
 	Harm will drag the target closer and hit them with the object in our other hand. \
 	Cannot be used while in our lesser form."
-	button_icon_state = "tentacle"
+	button_overlay_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 4
 	req_human = TRUE
@@ -248,6 +248,7 @@
 	desc = "a tentacle."
 	projectile_type = /obj/item/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	muzzle_flash_color = null
@@ -293,68 +294,74 @@
 
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
-	qdel(source.gun) //one tentacle only unless you miss
-	if(blocked >= 100)
-		return 0
 	var/mob/living/carbon/human/H = firer
+	qdel(source.gun)
+	if(blocked >= 100)
+		return FALSE
 	if(isitem(target))
 		var/obj/item/I = target
-		if(!I.anchored)
-			to_chat(firer, "<span class='notice'>You grab [I] with your tentacle.</span>")
-			add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
-			I.forceMove(H.loc)
-			I.attack_hand(H)//The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
-			. = 1
+		if(I.anchored)
+			return FALSE
 
-	else if(isliving(target))
-		var/mob/living/L = target
-		if(!L.anchored && !L.throwing)//avoid double hits
-			if(iscarbon(L))
-				var/mob/living/carbon/C = L
-				switch(firer.a_intent)
-					if(INTENT_HELP)
-						C.visible_message("<span class='danger'>[L] is pulled to their feet towards [H]!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
-						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
-						C.throw_at(get_step_towards(H,C), 8, 2)
-						C.AdjustParalysis(-2 SECONDS)
-						C.AdjustStunned(-4 SECONDS)
-						C.AdjustWeakened(-4 SECONDS)
-						C.AdjustKnockDown(-4 SECONDS)
-						C.adjustStaminaLoss(-25)
-						return TRUE
+		to_chat(H, "<span class='notice'>You grab [I] with your tentacle.</span>")
+		add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
+		I.forceMove(H.loc)
+		I.attack_hand(H) // The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
+		return TRUE
 
-					if(INTENT_DISARM)
-						var/obj/item/I = C.get_active_hand()
-						if(I)
-							if(C.drop_item())
-								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
-								add_attack_logs(H, C, "[H] has grabbed [I] out of [C]'s hand with a tentacle")
-								on_hit(I) //grab the item as if you had hit it directly with the tentacle
-								return TRUE
-							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-							add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
-						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
-						add_attack_logs(H, C, "[H] knocked over with a tentacle")
-						C.KnockDown(2 SECONDS) //Not useless with antidrop.
-						return TRUE
+	if(!isliving(target))
+		return FALSE
 
-					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>", "<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
-						add_attack_logs(H, C, "imobilised with a changeling tentacle")
-						if(!iscarbon(H))
-							return TRUE
-						var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
-						B.Crossed(C)
-						return TRUE
+	var/mob/living/L = target
+	if(L.anchored || L.throwing) // avoid double hits
+		return FALSE
 
-					if(INTENT_HARM)
-						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
-						return TRUE
-			else
-				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-				L.throw_at(get_step_towards(H,L), 8, 2)
-				. = TRUE
+	if(!iscarbon(L))
+		L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+		L.throw_at(get_step_towards(H,L), 8, 2)
+		return TRUE
+
+	var/mob/living/carbon/C = L
+	switch(H.a_intent)
+		if(INTENT_HELP)
+			C.visible_message("<span class='danger'>[L] is pulled to their feet towards [H]!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
+			add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
+			C.throw_at(get_step_towards(H,C), 8, 2)
+			C.AdjustParalysis(-2 SECONDS)
+			C.AdjustStunned(-4 SECONDS)
+			C.AdjustWeakened(-4 SECONDS)
+			C.AdjustKnockDown(-4 SECONDS)
+			C.adjustStaminaLoss(-25)
+			return TRUE
+
+		if(INTENT_DISARM)
+			var/obj/item/I = C.get_active_hand()
+			if(I)
+				if(C.drop_item())
+					C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
+					add_attack_logs(H, C, "[H] has grabbed [I] out of [C]'s hand with a tentacle")
+					on_hit(I) // grab the item as if you had hit it directly with the tentacle
+					return TRUE
+				to_chat(H, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
+				add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
+			C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
+			add_attack_logs(H, C, "[H] knocked over with a tentacle")
+			C.KnockDown(2 SECONDS) // Not useless with antidrop.
+			return TRUE
+
+		if(INTENT_GRAB)
+			C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>", "<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
+			add_attack_logs(H, C, "imobilised with a changeling tentacle")
+			if(!iscarbon(H))
+				return TRUE
+			var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
+			B.Crossed(C)
+			return TRUE
+
+		if(INTENT_HARM)
+			C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
+			C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
+			return TRUE
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
@@ -373,10 +380,10 @@
 	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/changeling/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
 
 	..()
@@ -391,7 +398,7 @@
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
 	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
-	button_icon_state = "organic_shield"
+	button_overlay_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -429,7 +436,7 @@
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
+			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 			H.unEquip(src, 1)
 		qdel(src)
@@ -444,7 +451,7 @@
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
-	button_icon_state = "organic_suit"
+	button_overlay_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 4
 	req_human = TRUE
@@ -491,7 +498,7 @@
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
-	button_icon_state = "chitinous_armor"
+	button_overlay_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 4
 	req_human = TRUE
@@ -510,7 +517,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT | HIDESHOES
 	cold_protection = 0
 	heat_protection = 0
 	sprite_sheets = null
@@ -589,7 +596,7 @@
 	name = "Bone Shard"
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
-	button_icon_state = "boneshard"
+	button_overlay_icon_state = "boneshard"
 	chemical_cost = 15
 	dna_cost = 3
 	req_human = TRUE

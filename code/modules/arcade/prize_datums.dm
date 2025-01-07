@@ -111,6 +111,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/ammo_box/caps
 	cost = 30
 
+/datum/prize_item/firecracker
+	name = "Firecracker Grenade"
+	desc = "A loud and obnoxious firecracker. Hold away from ears and small children."
+	typepath = /obj/item/grenade/firecracker
+	cost = 50
+
 /datum/prize_item/wallet
 	name = "Cheap Wallet"
 	desc = "A cheap and big enough for standard issue ID cards."
@@ -230,13 +236,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/action_figure
 	name = "Random Action Figure"
 	desc = "A random action figure, collect them all!"
-	typepath = /obj/item/toy/prizeball/figure
+	typepath = /obj/item/toy/prizeball/action_figure
 	cost = 75
 
-/datum/prize_item/AI
+/datum/prize_item/ai
 	name = "Toy AI Unit"
 	desc = "Law 1: Maximize fun for crew."
-	typepath = /obj/item/toy/AI
+	typepath = /obj/item/toy/ai
 	cost = 75
 
 /datum/prize_item/capgun

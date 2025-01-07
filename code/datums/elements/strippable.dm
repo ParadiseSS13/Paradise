@@ -1,7 +1,9 @@
+#define SHOW_MINIATURE_MENU 0
+#define SHOW_FULLSIZE_MENU 1
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
@@ -179,7 +181,7 @@
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
-	/// The SLOT_FLAG_* to equip to.
+	/// The ITEM_SLOT_* to equip to.
 	var/item_slot
 
 /datum/strippable_item/mob_item_slot/get_item(atom/source)
@@ -228,7 +230,7 @@
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/human_source = source
-		if(item_slot in human_source.check_obscured_slots())
+		if(item_slot & human_source.check_obscured_slots())
 			return STRIPPABLE_OBSCURING_COMPLETELY
 		return STRIPPABLE_OBSCURING_NONE
 
@@ -316,7 +318,7 @@
 		var/list/result
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(item && (item.flags & ABSTRACT))
+		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP) || HAS_TRAIT(item, TRAIT_SKIP_EXAMINE)))
 			items[strippable_key] = result
 			continue
 
@@ -370,6 +372,7 @@
 	// as opposed to "Stripping The alien drone".
 	// Human names will still show without "the", as they are proper nouns.
 	data["name"] = "\the [owner]"
+	data["show_mode"] = user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? SHOW_FULLSIZE_MENU : SHOW_MINIATURE_MENU
 
 	return data
 
@@ -494,3 +497,6 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+#undef SHOW_MINIATURE_MENU
+#undef SHOW_FULLSIZE_MENU

@@ -7,8 +7,8 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
-	background_icon_state = "bg_alien"
+	button_overlay_icon = 'icons/mob/actions/actions_slime.dmi'
+	button_background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
 /datum/action/innate/slime/IsAvailable()
@@ -38,7 +38,7 @@
 
 /datum/action/innate/slime/feed
 	name = "Feed"
-	button_icon_state = "slimeeat"
+	button_overlay_icon_state = "slimeeat"
 
 
 /datum/action/innate/slime/feed/Activate()
@@ -118,7 +118,7 @@
 			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
-		buckled.unbuckle_mob(src,force=TRUE)
+		unbuckle(force=TRUE)
 
 /mob/living/simple_animal/slime/proc/Evolve()
 	if(stat)
@@ -132,7 +132,7 @@
 			for(var/datum/action/innate/slime/evolve/E in actions)
 				E.Remove(src)
 			regenerate_icons()
-			update_name()
+			update_appearance(UPDATE_NAME)
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 	else
@@ -140,7 +140,7 @@
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
-	button_icon_state = "slimegrow"
+	button_overlay_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/evolve/Activate()
@@ -200,7 +200,7 @@
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"
-	button_icon_state = "slimesplit"
+	button_overlay_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/reproduce/Activate()

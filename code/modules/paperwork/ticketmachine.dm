@@ -118,7 +118,7 @@
 			maptext_x = 8
 	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
-/obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/ticket_machine/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		if(!(ticket_number >= max_number))
 			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
@@ -192,7 +192,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+	. += "<span class='notice'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
@@ -213,7 +213,7 @@
 	. = ..()
 	maptext = saved_maptext //For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
 
-/obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
+/obj/item/ticket_machine_ticket/attackby__legacy__attackchain(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
 	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))

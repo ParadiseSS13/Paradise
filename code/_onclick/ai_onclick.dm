@@ -109,7 +109,7 @@
 	if(pixel_turf)
 		turf_visible = GLOB.cameranet.checkTurfVis(pixel_turf)
 		if(!turf_visible)
-			if(istype(loc, /obj/item/aicard) && (pixel_turf in view(client.view, loc)))
+			if((istype(loc, /obj/item/aicard) || ismecha(loc)) && (pixel_turf in range(client.view, loc)))
 				turf_visible = TRUE
 			else
 				if(pixel_turf.obscured)
@@ -192,7 +192,7 @@
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
 	if(stat & BROKEN)
 		return
-	if(aidisabled)
+	if(!user.can_remote_apc_interface(src))
 		to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
 		return
 	toggle_breaker(user)

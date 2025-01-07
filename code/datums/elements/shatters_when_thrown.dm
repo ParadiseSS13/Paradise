@@ -3,7 +3,7 @@
  */
 /datum/element/shatters_when_thrown
 	element_flags = ELEMENT_BESPOKE
-
+	argument_hash_start_idx = 2
 	/// What type of item is spawned as a 'shard' once the shattering happens
 	var/obj/item/shard_type
 	/// How many shards total are made when the thing we're attached to shatters
@@ -46,8 +46,7 @@
 
 	for(var/iteration in 1 to number_of_shards)
 		var/obj/item/shard = new shard_type(scatter_turf)
-		shard.pixel_x = rand(-6, 6)
-		shard.pixel_y = rand(-6, 6)
+		shard.scatter_atom()
 	playsound(scatter_turf, shattering_sound, 60, TRUE)
 	if(isobj(source))
 		var/obj/obj_source = source

@@ -32,6 +32,11 @@
 	LAZYINITLIST(buckled_mobs)
 	return ..()
 
+/obj/structure/guillotine/Destroy()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs()
+	return ..()
+
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
 
@@ -150,7 +155,7 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	icon_state = "guillotine"
 
-/obj/structure/guillotine/attackby(obj/item/W, mob/user, params)
+/obj/structure/guillotine/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/whetstone))
 		add_fingerprint(user)
 		if(blade_status == GUILLOTINE_BLADE_SHARPENING)

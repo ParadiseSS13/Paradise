@@ -88,7 +88,7 @@
 	else if(A.density && !A.CanPass(src))
 		visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
 		Weaken(2 SECONDS, TRUE)
-		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, 0, 0) // owwie
+		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, FALSE, 0) // owwie
 		..()
 	if(leaping)
 		leaping = FALSE

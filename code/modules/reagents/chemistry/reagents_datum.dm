@@ -45,6 +45,13 @@
 	// Affects the quantity of the reagent that is requested by CC.
 	var/goal_difficulty = REAGENT_GOAL_SKIP
 
+	/// At what temperature does this reagent burn? Currently only used for chemical flamethrowers
+	var/burn_temperature = T0C
+	/// How long would a fire burn using this reagent? Currently only used for chemical flamethrowers
+	var/burn_duration = 30 SECONDS
+	/// How many firestacks will the reagent apply when it is burning? Currently only used for chemical flamethrowers
+	var/fire_stack_applications = 1
+
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null

@@ -1,14 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import {
-  Button,
-  Section,
-  Box,
-  Stack,
-  Icon,
-  Collapsible,
-  NumberInput,
-  ProgressBar,
-} from '../components';
+import { Button, Section, Box, Stack, Icon, Collapsible, NumberInput, ProgressBar } from '../components';
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
@@ -46,12 +37,7 @@ const MissingContainer = (props, context) => {
 
 const Storage = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    biomass,
-    container,
-    container_curr_reagents,
-    container_max_reagents,
-  } = data;
+  const { biomass, container, container_curr_reagents, container_max_reagents } = data;
 
   return (
     <Section title="Storage">
@@ -67,16 +53,8 @@ const Storage = (props, context) => {
           Container:
         </Stack.Item>
         {container ? (
-          <ProgressBar
-            value={container_curr_reagents}
-            maxValue={container_max_reagents}
-          >
-            <Box textAlign="center">
-              {container_curr_reagents +
-                ' / ' +
-                container_max_reagents +
-                ' units'}
-            </Box>
+          <ProgressBar value={container_curr_reagents} maxValue={container_max_reagents}>
+            <Box textAlign="center">{container_curr_reagents + ' / ' + container_max_reagents + ' units'}</Box>
           </ProgressBar>
         ) : (
           <Stack.Item>None</Stack.Item>
@@ -99,9 +77,7 @@ const Controls = (props, context) => {
             textAlign="center"
             icon="power-off"
             disabled={!has_plants}
-            tooltip={
-              has_plants ? '' : 'There are no plants in the biogenerator.'
-            }
+            tooltip={has_plants ? '' : 'There are no plants in the biogenerator.'}
             tooltipPosition="top-start"
             content="Activate"
             onClick={() => act('activate')}
@@ -113,9 +89,7 @@ const Controls = (props, context) => {
             textAlign="center"
             icon="flask"
             disabled={!container}
-            tooltip={
-              container ? '' : 'The biogenerator does not have a container.'
-            }
+            tooltip={container ? '' : 'The biogenerator does not have a container.'}
             tooltipPosition="top"
             content="Detach Container"
             onClick={() => act('detach_container')}

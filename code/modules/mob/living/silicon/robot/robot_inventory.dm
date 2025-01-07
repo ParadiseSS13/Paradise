@@ -119,9 +119,8 @@
 
 /mob/living/silicon/robot/drop_item()
 	var/obj/item/gripper/G = get_active_hand()
-	if(istype(G))
-		G.drop_gripped_item(silent = TRUE)
-		return TRUE // The gripper is special because it has a normal item inside that we can drop.
+	if(istype(G)) // The gripper is special because it has a normal item inside that we can drop.
+		return G.drop_gripped_item(silent = TRUE) // This only returns true if there's actually an item to drop so we don't drop the gripper accidentaly.
 	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
 
 //Helper procs for cyborg modules on the UI.

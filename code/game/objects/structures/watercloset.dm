@@ -62,7 +62,7 @@
 			pixel_y = -8
 			layer = FLY_LAYER
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/toilet/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		if(!open)
 			return
@@ -230,7 +230,7 @@
 	anchored = TRUE
 
 
-/obj/structure/urinal/attackby(obj/item/I, mob/user, params)
+/obj/structure/urinal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!G.confirm())
@@ -307,6 +307,13 @@
 				pixel_y = -5
 				layer = FLY_LAYER
 
+/obj/machinery/shower/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -339,7 +346,7 @@
 		if(istype(T) && !T.density)
 			T.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.type == /obj/item/analyzer)
 		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
 	return ..()
@@ -401,10 +408,10 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(on)
-		wash(AM)
+		wash(entered)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
@@ -540,7 +547,7 @@
 		user.clean_blood()
 
 
-/obj/structure/sink/attackby(obj/item/O, mob/user, params)
+/obj/structure/sink/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(busy)
 		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
 		return
@@ -650,11 +657,14 @@
 	..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/sink/puddle/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
 
+/obj/structure/sink/kitchen/old
+	name = "old sink"
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made."
 
 //////////////////////////////////
 //		Bathroom Fixture Items	//
@@ -708,7 +718,7 @@
 	..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
-/obj/item/bathroom_parts/attack_self(mob/user)
+/obj/item/bathroom_parts/attack_self__legacy__attackchain(mob/user)
 	var/turf/T = get_turf(user)
 	if(!T)
 		to_chat(user, "<span class='warning'>You can't build that here!</span>")

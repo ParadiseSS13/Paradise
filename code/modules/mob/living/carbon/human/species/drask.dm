@@ -29,6 +29,8 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
+	plushie_type = /obj/item/toy/plushie/draskplushie
+
 	species_traits = list(LIPS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
@@ -66,6 +68,3 @@
 		)
 	autohiss_exempt = list("Orluum")
 
-/datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E ? E.eye_color : flesh_color

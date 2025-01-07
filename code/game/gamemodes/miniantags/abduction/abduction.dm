@@ -123,6 +123,7 @@
 	H.real_name = team_name + " Agent"
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.dna.flavor_text = null
 	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/agent)
 	greet_agent(agent,team_number)
@@ -140,6 +141,7 @@
 	H.real_name = team_name + " Scientist"
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
+	H.dna.flavor_text = null
 	H.flavor_text = null
 	H.equipOutfit(/datum/outfit/abductor/scientist)
 	greet_scientist(scientist,team_number)

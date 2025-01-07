@@ -36,10 +36,10 @@
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
 
-/obj/item/eftpos/attack_self(mob/user)
+/obj/item/eftpos/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/eftpos/attackby(obj/O, mob/user, params)
+/obj/item/eftpos/attackby__legacy__attackchain(obj/O, mob/user, params)
 	if(istype(O, /obj/item/card/id))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!account_database)
@@ -144,14 +144,14 @@
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 					access_code = 0
-					to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
 			else if(istype(I, /obj/item/card/emag))
 				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
 
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
-	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
+	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
 
 	if(!transaction_locked || transaction_paid || !secured)
 		return
@@ -204,7 +204,7 @@
 	R.stamped += /obj/item/stamp
 	R.overlays += stampoverlay
 	R.stamps += "<hr><i>This paper has been stamped by the EFTPOS device.</i>"
-	var/obj/item/smallDelivery/D = new(get_turf(loc))
+	var/obj/item/small_delivery/D = new(get_turf(loc))
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
 		if(H.back)
@@ -264,7 +264,7 @@
 /obj/item/eftpos/register/ui_state(mob/user)
 	return GLOB.human_adjacent_state
 
-/obj/item/eftpos/register/attack_self(mob/user)
+/obj/item/eftpos/register/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")
 
 /obj/item/eftpos/register/check_user_position(mob/user)

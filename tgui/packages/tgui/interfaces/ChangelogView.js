@@ -15,14 +15,10 @@ export const ChangelogView = (props, context) => {
     'SOUNDDEL': <Icon name="volume-mute" title="Sound Removed" color="red" />,
     'CODEADD': <Icon name="plus" title="Code Addition" color="green" />,
     'CODEDEL': <Icon name="minus" title="Code Removal" color="red" />,
-    'IMAGEADD': (
-      <Icon name="folder-plus" title="Sprite Addition" color="green" />
-    ),
+    'IMAGEADD': <Icon name="folder-plus" title="Sprite Addition" color="green" />,
     'IMAGEDEL': <Icon name="folder-minus" title="Sprite Removal" color="red" />,
     'SPELLCHECK': <Icon name="font" title="Spelling/Grammar Fix" />,
-    'EXPERIMENT': (
-      <Icon name="exclamation-triangle" title="Experimental" color="orange" />
-    ),
+    'EXPERIMENT': <Icon name="exclamation-triangle" title="Experimental" color="orange" />,
   };
 
   const cl2icon = (cl) => {
@@ -42,11 +38,7 @@ export const ChangelogView = (props, context) => {
           mt={2}
           buttons={
             <Button
-              content={
-                onlyRecent
-                  ? 'Showing all changes'
-                  : 'Showing changes since last connection'
-              }
+              content={onlyRecent ? 'Showing all changes' : 'Showing changes since last connection'}
               onClick={() => showOnlyRecent(!onlyRecent)}
             />
           }
@@ -58,12 +50,7 @@ export const ChangelogView = (props, context) => {
                   mb={2}
                   key={e}
                   title={e.author + ' - Merged on ' + e.merge_date}
-                  buttons={
-                    <Button
-                      content={'#' + e.num}
-                      onClick={() => act('open_pr', { pr_number: e.num })}
-                    />
-                  }
+                  buttons={<Button content={'#' + e.num} onClick={() => act('open_pr', { pr_number: e.num })} />}
                 >
                   {e.entries.map((ent) => (
                     <Box key={ent} m={1}>

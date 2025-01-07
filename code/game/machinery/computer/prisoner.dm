@@ -21,7 +21,7 @@
 	GLOB.prisoncomputer_list -= src
 	return ..()
 
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/prisoner/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)
 		var/obj/item/card/id/prisoner/I = O
@@ -41,11 +41,6 @@
 		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
-
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
-	if(ui_login_attackby(O, user))
-		return
-	return ..()
 
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/bio_chip/I)
 	var/turf/implant_location = get_turf(I)

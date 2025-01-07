@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -25,10 +25,10 @@
 /obj/item/chameleon/equipped()
 	disrupt()
 
-/obj/item/chameleon/attack_self()
+/obj/item/chameleon/attack_self__legacy__attackchain()
 	toggle()
 
-/obj/item/chameleon/afterattack(atom/target, mob/user, proximity)
+/obj/item/chameleon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!check_sprite(target))
@@ -39,7 +39,7 @@
 		return
 	if(!active_dummy)
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
 			saved_icon = target.icon
@@ -55,7 +55,7 @@
 		return
 	if(active_dummy)
 		eject_all()
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		QDEL_NULL(active_dummy)
 		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
@@ -64,7 +64,7 @@
 		spawn(8)
 			qdel(T)
 	else
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		var/obj/O = new saved_item(src)
 		if(!O)
 			return
@@ -101,7 +101,7 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/Initialize()
+/obj/effect/dummy/chameleon/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
@@ -117,7 +117,7 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby()
+/obj/effect/dummy/chameleon/attackby__legacy__attackchain()
 	for(var/mob/M in src)
 		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
@@ -204,7 +204,7 @@
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
+/obj/item/borg_chameleon/attack_self__legacy__attackchain(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(user && user.cell && user.cell.charge > activationCost)
 		if(isturf(user.loc))
 			toggle(user)

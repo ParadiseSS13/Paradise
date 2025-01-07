@@ -73,29 +73,29 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "at_shield2"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "at_shield2"
 	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "shotgun"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "shotgun"
 	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "pistol"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "pistol"
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 
@@ -329,7 +329,7 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
-	if(!stat)
+	if(stat == CONSCIOUS)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
 		AT.pixel_x += random_x
@@ -356,7 +356,7 @@ Difficulty: Very Hard
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		for(var/obj/machinery/light/L in range(2, src))
 			L.break_light_tube(0, 1) //No leaving lights floating their as colossus breaks the station
 	if(isliving(target))

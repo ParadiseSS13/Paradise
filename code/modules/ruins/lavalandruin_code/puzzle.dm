@@ -7,7 +7,7 @@
 	var/list/elements
 	var/floor_type = /turf/simulated/floor/vault/lavaland_air
 	var/finished = FALSE
-	var/reward_type = /obj/item/food/snacks/cookie
+	var/reward_type = /obj/item/food/cookie
 	var/element_type = /obj/structure/puzzle_element
 	var/auto_setup = TRUE
 	var/empty_tile_id
@@ -303,7 +303,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "prison_cube"
 
-/obj/item/prisoncube/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/prisoncube/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag || !isliving(target))
 		return

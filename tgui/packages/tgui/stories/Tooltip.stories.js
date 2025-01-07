@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-import { Placement } from '@popperjs/core';
 import { Box, Button, Section, Tooltip } from '../components';
 
 export const meta = {
@@ -13,14 +12,8 @@ export const meta = {
 };
 
 const Story = () => {
-  const positions = [
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'bottom-start',
-    'bottom-end',
-  ];
+  /** @type{import('@popperjs/core').Placement[]} */
+  const positions = ['top', 'left', 'right', 'bottom', 'bottom-start', 'bottom-end'];
 
   return (
     <Section>

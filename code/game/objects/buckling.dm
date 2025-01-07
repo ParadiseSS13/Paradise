@@ -52,7 +52,8 @@
 	// 1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
 	// 2. There's a ridable element but we failed to mount it for whatever reason (maybe it has no seats left, for example), so we cancel the buckling
 	// 3. There's a ridable element and we were successfully able to mount, so keep it going and continue on with buckling
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PREBUCKLE, M, force) & COMPONENT_BLOCK_BUCKLE)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_MOVABLE_PREBUCKLE, M, force)
+	if(signal_result & COMPONENT_BLOCK_BUCKLE)
 		return FALSE
 
 	M.buckling = src
@@ -147,15 +148,19 @@
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",\
-				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",
+				"<span class='notice'>You buckle yourself to [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
 			M.create_log(ATTACK_LOG, "Buckles [M.p_themselves()] to [src]", M)
 			log_attack(M, M, "Buckles themselves to [src]")
 		else
-			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
-				"<span class='warning'>[user] buckles you to [src]!</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='warning'>[user] buckles [M] to [src]!</span>",
+				"<span class='warning'>[user] buckles you to [src]!</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
 			user.create_log(ATTACK_LOG, "[user] has buckled [M] to [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been buckled by [user] to [src]", user)
 			log_attack(user, M, "Buckled to [src]")
@@ -165,16 +170,20 @@
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] unbuckles [M] from [src].</span>",\
-				"<span class='notice'>[user] unbuckles you from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[user] unbuckles [M] from [src].</span>",
+				"<span class='notice'>[user] unbuckles you from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
 			user.create_log(ATTACK_LOG, "[user] has unbuckled [M] from [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been unbuckled by [user] from [src]", user)
 			log_attack(user, M, "Unbuckled from [src]")
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",\
-				"<span class='notice'>You unbuckle yourself from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",
+				"<span class='notice'>You unbuckle yourself from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
 			M.create_log(ATTACK_LOG, "Unbuckles [M.p_themselves()] from [src]", M)
 			log_attack(M, M, "Unbuckles themselves from [src]")
 		add_fingerprint(user)
@@ -182,4 +191,4 @@
 
 /mob/living/proc/check_buckled()
 	if(buckled && !(buckled in loc))
-		buckled.unbuckle_mob(src, force = TRUE)
+		unbuckle(force = TRUE)

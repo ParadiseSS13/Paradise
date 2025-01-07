@@ -4,18 +4,15 @@ import { Window } from '../layouts';
 
 export const GhostHudPanel = (props, context) => {
   const { data } = useBackend(context);
-  const { security, medical, diagnostic, radioactivity, ahud } = data;
+  const { security, medical, diagnostic, pressure, radioactivity, ahud } = data;
   return (
-    <Window width={250} height={207} theme="nologo">
+    <Window width={250} height={217} theme="nologo">
       <Window.Content>
         <Section>
           <HudEntry label="Medical" type="medical" is_active={medical} />
           <HudEntry label="Security" type="security" is_active={security} />
-          <HudEntry
-            label="Diagnostic"
-            type="diagnostic"
-            is_active={diagnostic}
-          />
+          <HudEntry label="Diagnostic" type="diagnostic" is_active={diagnostic} />
+          <HudEntry label="Pressure" type="pressure" is_active={pressure} />
           <Divider />
           <HudEntry
             label="Radioactivity"
@@ -25,12 +22,7 @@ export const GhostHudPanel = (props, context) => {
             act_off={'rads_off'}
           />
           <Divider />
-          <HudEntry
-            label="Antag HUD"
-            is_active={ahud}
-            act_on={'ahud_on'}
-            act_off={'ahud_off'}
-          />
+          <HudEntry label="Antag HUD" is_active={ahud} act_on={'ahud_on'} act_off={'ahud_off'} />
         </Section>
       </Window.Content>
     </Window>
@@ -39,13 +31,7 @@ export const GhostHudPanel = (props, context) => {
 
 const HudEntry = (props, context) => {
   const { act } = useBackend(context);
-  const {
-    label,
-    type = null,
-    is_active,
-    act_on = 'hud_on',
-    act_off = 'hud_off',
-  } = props;
+  const { label, type = null, is_active, act_on = 'hud_on', act_off = 'hud_off' } = props;
   return (
     <Flex pt={0.3} color="label">
       <Flex.Item pl={0.5} align="center" width="80%">

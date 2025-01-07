@@ -39,4 +39,7 @@
 		else if(light_amount < 2) //heal in the dark
 			H.heal_overall_damage(1, 1)
 			H.clear_alert("lightexposure")
+	else	//we're inside an object, so darkness
+		H.clear_alert("lightexposure")
+		H.heal_overall_damage(1, 1)
 	..()

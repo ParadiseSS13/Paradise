@@ -64,10 +64,12 @@
 	var/list/possible_traitors = list()
 	for(var/mob/living/player in GLOB.mob_list)
 		if(player.client && player.stat != DEAD)
-			player_count += 1
 			if(!player.mind)
 				continue
-			if(player.mind.special_role)
+			if(player.mind.offstation_role) //Don't count as crew.
+				continue
+			player_count += 1
+			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
 				traitor_count += 1
 				continue
 			if(ishuman(player) || isAI(player))
@@ -96,8 +98,10 @@
 	if(traitor_count < max_traitors)
 		if(prob(traitor_prob))
 			message_admins("Making a new Traitor.")
+			log_game("Making a new Traitor.")
 			if(!length(possible_traitors))
 				message_admins("No potential traitors. Cancelling new traitor.")
+				log_game("No potential traitors. Cancelling new traitor.")
 				addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 				return
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
@@ -105,6 +109,8 @@
 
 			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
+			message_admins("[key_name(new_traitor)] was added in as a traitor!")
+			log_game("[key_name(new_traitor)] was added in as a traitor.")
 
 	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
@@ -136,4 +142,5 @@
 
 			if(prob(traitor_prob))
 				message_admins("New traitor roll passed. Making a new Traitor.")
+				log_game("New traitor roll passed. Making a new Traitor.")
 				character.mind.make_Traitor()

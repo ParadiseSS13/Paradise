@@ -1,5 +1,5 @@
 //Xenobio control console
-/mob/camera/aiEye/remote/xenobio
+/mob/camera/ai_eye/remote/xenobio
 	visible_icon = 1
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
@@ -8,12 +8,12 @@
 	/// Area that the xenobio camera eye is allowed to travel
 	var/allowed_area = null
 
-/mob/camera/aiEye/remote/xenobio/Initialize(mapload)
+/mob/camera/ai_eye/remote/xenobio/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(loc)
 	allowed_area = A.name
 
-/mob/camera/aiEye/remote/xenobio/setLoc(t)
+/mob/camera/ai_eye/remote/xenobio/setLoc(t)
 	var/area/new_area = get_area(t)
 	if(!new_area)
 		return
@@ -80,7 +80,7 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
+	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
 	eyeobj.visible_icon = TRUE
 	eyeobj.acceleration = FALSE
@@ -176,8 +176,8 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/food/snacks/monkeycube))
+/obj/machinery/computer/camera_advanced/xenobio/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/food/monkeycube))
 		if(user.drop_item())
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
@@ -192,7 +192,7 @@
 	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/food/snacks/monkeycube/MC in P.contents)
+		for(var/obj/item/food/monkeycube/MC in P.contents)
 			loaded = 1
 			monkeys++
 			P.remove_from_storage(MC)
@@ -217,13 +217,13 @@
 // === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place
 	name = "Place Slimes"
-	button_icon_state = "slime_down"
+	button_overlay_icon_state = "slime_down"
 
 /datum/action/innate/slime_place/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(iswallturf(remote_eye.loc))
@@ -237,13 +237,13 @@
 
 /datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
-	button_icon_state = "slime_up"
+	button_overlay_icon_state = "slime_up"
 
 /datum/action/innate/slime_pick_up/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -259,13 +259,13 @@
 
 /datum/action/innate/feed_slime
 	name = "Feed Slimes"
-	button_icon_state = "monkey_down"
+	button_overlay_icon_state = "monkey_down"
 
 /datum/action/innate/feed_slime/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
@@ -282,17 +282,17 @@
 		else if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food
 			switch(recycler.cube_type)
-				if(/obj/item/food/snacks/monkeycube) 										// Regular monkey
+				if(/obj/item/food/monkeycube) 										// Regular monkey
 					food = new /mob/living/carbon/human/monkey(remote_eye.loc)
-				if(/obj/item/food/snacks/monkeycube/nian_wormecube) 						// Worme
+				if(/obj/item/food/monkeycube/nian_wormecube) 						// Worme
 					food = new /mob/living/carbon/human/nian_worme(remote_eye.loc)
-				if(/obj/item/food/snacks/monkeycube/farwacube) 								// Farwa
+				if(/obj/item/food/monkeycube/farwacube) 								// Farwa
 					food = new /mob/living/carbon/human/farwa(remote_eye.loc)
-				if(/obj/item/food/snacks/monkeycube/stokcube) 								// Stok
+				if(/obj/item/food/monkeycube/stokcube) 								// Stok
 					food = new /mob/living/carbon/human/stok(remote_eye.loc)
-				if(/obj/item/food/snacks/monkeycube/neaeracube) 							// Neara
+				if(/obj/item/food/monkeycube/neaeracube) 							// Neara
 					food = new /mob/living/carbon/human/neara(remote_eye.loc)
-				if(/obj/item/food/snacks/monkeycube/wolpincube) 							// Wolpin
+				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
 					food = new /mob/living/carbon/human/wolpin(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
@@ -303,13 +303,13 @@
 
 /datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
-	button_icon_state = "monkey_up"
+	button_overlay_icon_state = "monkey_up"
 
 /datum/action/innate/monkey_recycle/Activate()
 	if(!target || !ishuman(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
@@ -328,13 +328,13 @@
 
 /datum/action/innate/slime_scan
 	name = "Scan Slime"
-	button_icon_state = "slime_scan"
+	button_overlay_icon_state = "slime_scan"
 
 /datum/action/innate/slime_scan/Activate()
 	if(!target || !isliving(owner))
 		return
 	var/mob/living/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
@@ -344,14 +344,14 @@
 
 /datum/action/innate/feed_potion
 	name = "Apply Potion"
-	button_icon_state = "slime_potion"
+	button_overlay_icon_state = "slime_potion"
 
 /datum/action/innate/feed_potion/Activate()
 	if(!target || !ishuman(owner))
 		return
 
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
 	if(QDELETED(X.current_potion))
@@ -360,14 +360,14 @@
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
-			X.current_potion.attack(S, C)
+			X.current_potion.attack__legacy__attackchain(S, C)
 			break
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
 /datum/action/innate/hotkey_help
 	name = "Hotkey Help"
-	button_icon_state = "hotkey_help"
+	button_overlay_icon_state = "hotkey_help"
 
 /datum/action/innate/hotkey_help/Activate()
 	if(!target || !isliving(owner))
@@ -420,7 +420,7 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		slime_scan(S, C)
@@ -431,14 +431,14 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
 	if(!X.current_potion)
 		to_chat(C, "<span class='warning'>No potion loaded.</span>")
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		X.current_potion.attack(S, C)
+		X.current_potion.attack__legacy__attackchain(S, C)
 
 //Picks up slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)
@@ -446,7 +446,7 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
@@ -467,7 +467,7 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
 	if(iswallturf(T))
@@ -483,7 +483,7 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	var/area/turfarea = get_area(T)
@@ -494,17 +494,17 @@
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food
 			switch(recycler.cube_type)
-				if(/obj/item/food/snacks/monkeycube) 										// Regular monkey
+				if(/obj/item/food/monkeycube) 										// Regular monkey
 					food = new /mob/living/carbon/human/monkey(T)
-				if(/obj/item/food/snacks/monkeycube/nian_wormecube) 						// Worme
+				if(/obj/item/food/monkeycube/nian_wormecube) 						// Worme
 					food = new /mob/living/carbon/human/nian_worme(T)
-				if(/obj/item/food/snacks/monkeycube/farwacube) 								// Farwa
+				if(/obj/item/food/monkeycube/farwacube) 								// Farwa
 					food = new /mob/living/carbon/human/farwa(T)
-				if(/obj/item/food/snacks/monkeycube/stokcube) 								// Stok
+				if(/obj/item/food/monkeycube/stokcube) 								// Stok
 					food = new /mob/living/carbon/human/stok(T)
-				if(/obj/item/food/snacks/monkeycube/neaeracube) 							// Neara
+				if(/obj/item/food/monkeycube/neaeracube) 							// Neara
 					food = new /mob/living/carbon/human/neara(T)
-				if(/obj/item/food/snacks/monkeycube/wolpincube) 							// Wolpin
+				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
 					food = new /mob/living/carbon/human/wolpin(T)
 			food.LAssailant = C
 			X.monkeys--
@@ -517,7 +517,7 @@
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
 	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/ai_eye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(M.loc)
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler

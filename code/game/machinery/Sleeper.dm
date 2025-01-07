@@ -36,7 +36,7 @@
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
-	. += "<span class='info'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN
@@ -300,7 +300,7 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
+/obj/machinery/sleeper/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
@@ -317,19 +317,19 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(exchange_parts(user, I))
-		return
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
+
 		if(!ismob(G.affecting))
 			return
+
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
+
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
@@ -340,8 +340,10 @@
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
+
 			if(!G || !G.affecting)
 				return
+
 			var/mob/M = G.affecting
 			M.forceMove(src)
 			occupant = M
@@ -390,12 +392,10 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/emp_act(severity)
@@ -562,5 +562,17 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+
+/obj/machinery/sleeper/clockwork
+	name = "soothing sleeper"
+	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
+	icon_state = "sleeper_c-open"
+	base_icon = "sleeper_c"
+	possible_chems = list("epinephrine", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "mannitol")
+	light_color = LIGHT_COLOR_DARKRED
+
+/obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/I)
+	to_chat(user, "<span class='warning'>You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!</span>")
+	return FALSE
 
 #undef ADDICTION_SPEEDUP_TIME

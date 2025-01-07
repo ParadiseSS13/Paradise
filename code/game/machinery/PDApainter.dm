@@ -71,7 +71,7 @@
 		storedpda = null
 		update_icon()
 
-/obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/pdapainter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		power_change()
 		return
@@ -174,7 +174,7 @@
 	if(storedpda)
 		storedpda.icon_state = preview_icon_state
 		storedpda.desc = colorlist[preview_icon_state][2]
-		playsound(loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		playsound(loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		update_pda_cache()
 
 /obj/machinery/pdapainter/proc/update_pda_cache()

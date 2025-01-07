@@ -5,5 +5,6 @@
 	name = "ninja hood"
 	icon_state = "s-ninja"
 	item_state = "s-ninja_hood"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 	blockTracking = 1

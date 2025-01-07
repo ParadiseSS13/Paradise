@@ -2,12 +2,10 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Nanotrasen Career Trainer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
-	var/list/datum/mind/pre_traitors = list()
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 	/// How much the amount of players get divided by to determine the number of traitors.
@@ -17,7 +15,6 @@
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
-
 /datum/game_mode/traitor/pre_setup()
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
@@ -26,7 +23,7 @@
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	for(var/datum/mind/candidate in possible_traitors)
-		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING || candidate.special_role == SPECIAL_ROLE_MIND_FLAYER) // no traitor vampires, changelings, or mindflayers
 			possible_traitors.Remove(candidate)
 
 	// stop setup if no possible traitors
@@ -35,10 +32,7 @@
 
 	var/num_traitors = 1
 
-	if(GLOB.configuration.gamemode.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
-	else
-		num_traitors = max(1, min(num_players(), traitors_possible))
+	num_traitors = traitors_to_add()
 
 	for(var/i in 1 to num_traitors)
 		if(!length(possible_traitors))
@@ -52,13 +46,35 @@
 		return FALSE
 	return TRUE
 
-
 /datum/game_mode/traitor/post_setup()
-	for(var/t in pre_traitors)
-		var/datum/mind/traitor = t
-		traitor.add_antag_datum(/datum/antagonist/traitor)
-	..()
+	. = ..()
 
+	var/random_time = rand(5 MINUTES, 15 MINUTES)
+	if(length(pre_traitors))
+		addtimer(CALLBACK(src, PROC_REF(fill_antag_slots)), random_time)
+
+	for(var/datum/mind/traitor in pre_traitors)
+		var/datum/antagonist/traitor/traitor_datum = new(src)
+		if(ishuman(traitor.current))
+			traitor_datum.delayed_objectives = TRUE
+			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
+
+		traitor.add_antag_datum(traitor_datum)
+
+/datum/game_mode/traitor/traitors_to_add()
+	if(GLOB.configuration.gamemode.traitor_scaling)
+		. = max(1, round(num_players() / traitor_scaling_coeff))
+	else
+		. = max(1, min(num_players(), traitors_possible))
+
+	if(!length(traitors))
+		return
+
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(!QDELETED(traitor_mind) && traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			continue
+		.++
+		traitors -= traitor_mind
 
 /datum/game_mode/traitor/declare_completion()
 	..()

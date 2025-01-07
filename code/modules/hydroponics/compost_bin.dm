@@ -54,7 +54,7 @@
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
 // Accepts inserted plants and converts them to biomass and potassium
-/obj/machinery/compost_bin/proc/make_biomass(obj/item/food/snacks/grown/O)
+/obj/machinery/compost_bin/proc/make_biomass(obj/item/food/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 	var/plant_potassium = O.reagents.get_reagent_amount("potassium")
@@ -66,7 +66,7 @@
 	qdel(O)
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
-/obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
+/obj/machinery/compost_bin/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -76,7 +76,7 @@
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
-		for(var/obj/item/food/snacks/grown/G in PB.contents)
+		for(var/obj/item/food/grown/G in PB.contents)
 			// if the plant contains either potassium, plantmatter and nutriment and the compost bin has space for any of those.
 			if((G.reagents.get_reagent_amount("potassium") && potassium <= potassium_capacity) || ((G.reagents.get_reagent_amount("plantmatter") || G.reagents.get_reagent_amount("nutriment")) && biomass <= biomass_capacity))
 				PB.remove_from_storage(G, src)
@@ -86,20 +86,20 @@
 				break
 
 		if(biomass >= biomass_capacity)
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
 		else
-			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
+			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
 
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
-	if(istype(O, /obj/item/food/snacks/grown))
+	if(istype(O, /obj/item/food/grown))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
 			return
@@ -108,9 +108,9 @@
 
 		O.forceMove(src)
 		make_biomass(O)
-		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
+		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	if(istype(O, /obj/item/reagent_containers))
 		var/proportion = 0
@@ -140,21 +140,21 @@
 			B.reagents.remove_reagent(R.id, R.volume * proportion)
 
 		if(proportion == 1)
-			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
+			to_chat(user, "<span class='notice'>You empty [B] into [src].</span>")
 		else
-			to_chat(user, "<span class='info'>You pour some of [B] into [src].</span>")
+			to_chat(user, "<span class='notice'>You pour some of [B] into [src].</span>")
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		if(potash == potash_capacity)
-			to_chat(user, "<span class='info'>[src] has been filled with potash.</span>")
+			to_chat(user, "<span class='notice'>[src] has been filled with potash.</span>")
 		else if(potash >= potash_capacity * 0.95)
-			to_chat(user, "<span class='info'>[src] has been nearly filled with potash.</span>")
+			to_chat(user, "<span class='notice'>[src] has been nearly filled with potash.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 
 		return TRUE
 
@@ -199,7 +199,7 @@
 
 	biomass -= conversion_amount + potash_saltpetre_conversion + potassium_saltpetre_conversion
 	compost += conversion_amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 // Makes soil from compost
@@ -209,7 +209,7 @@
 		return
 	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/compost_bin/attack_hand(mob/user)

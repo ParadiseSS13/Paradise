@@ -1,11 +1,9 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/CanPass(atom/movable/mover, border_dir)
 	var/horizontal = FALSE
 	if(isliving(src))
 		var/mob/living/L = src
 		horizontal = IS_HORIZONTAL(L)
 
-	if(height==0)
-		return 1
 	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
@@ -23,7 +21,7 @@
 	return (!mover.density || !density || horizontal)
 
 /mob/proc/projectile_hit_check(obj/item/projectile/P)
-	return !density
+	return !(P.always_hit_living_nondense && (stat != DEAD)) && !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1

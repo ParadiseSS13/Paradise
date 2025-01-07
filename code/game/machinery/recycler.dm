@@ -57,12 +57,6 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE

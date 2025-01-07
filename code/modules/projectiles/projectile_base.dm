@@ -88,6 +88,9 @@
 	///Has the projectile been fired?
 	var/has_been_fired = FALSE
 
+	/// Does this projectile hit living non dense mobs?
+	var/always_hit_living_nondense = FALSE
+
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.
@@ -134,6 +137,13 @@
 
 /obj/item/projectile/New()
 	return ..()
+
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -210,12 +220,12 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
@@ -259,10 +269,7 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return
-
+/obj/item/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
@@ -288,7 +295,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
@@ -429,10 +436,10 @@
 	xo = new_x - curloc.x
 	set_angle(get_angle(curloc, original))
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+/// A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

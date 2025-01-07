@@ -5,6 +5,7 @@
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
+/// Conversion ratio from Watt ticks to joules.
 
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
@@ -13,7 +14,7 @@
 	gender = NEUTER
 	speak_chance = 20
 
-	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing
+	damage_coeff = list(BRUTE = 0, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing except some from lasers
 
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
@@ -33,7 +34,6 @@
 	maxHealth = 50
 	health = 50
 	speed = -0.5
-	flying = TRUE
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
@@ -50,26 +50,27 @@
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE
 	loot = list(/obj/item/organ/internal/heart/demon/pulse)
+	initial_traits = list(TRAIT_FLYING)
 
 	/// List of sounds that is picked from when the demon speaks.
 	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
 	/// List of sounds that is picked from when the demon dies or is EMP'd.
 	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
 
-	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
+	/// Current quantity of energy the demon currently holds (Joules), spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000
-	/// Maximum quantity of power the demon can hold at once.
+	/// Maximum quantity of energy the demon can hold at once (Joules).
 	var/maxcharge = 1000
-	/// Book keeping for objective win conditions.
+	/// Book keeping for objective win conditions (Joules).
 	var/charge_drained = 0
 	/// Controls whether the demon will drain power from sources. Toggled by a spell.
 	var/do_drain = TRUE
-	/// Amount of power (in watts) to drain from power sources every Life tick.
+	/// Amount of power (Watts) to drain from power sources every Life tick.
 	var/power_drain_rate = 1000
-	/// Maximum value for power_drain_rate based on upgrades.
+	/// Maximum value for power_drain_rate based on upgrades. (Watts)
 	var/max_drain_rate = 1000
 
-	/// Amount of power (in watts) required to regenerate health.
+	/// Amount of power (Watts) required to regenerate health.
 	var/power_per_regen = 1000
 	/// Amount of health lost per Life tick when the power requirement was not met.
 	var/health_loss_rate = 5
@@ -90,7 +91,7 @@
 	/// The time it takes to hijack APCs and cyborgs.
 	var/hijack_time = 30 SECONDS
 
-	/// The color of light the demon emits. The range of the light is proportional to charge.
+	/// The color of light the demon emits. The range of the light is proportional to energy stored.
 	var/glow_color = "#bbbb00"
 
 	/// Area being controlled, should be maintained as long as the demon does not move outside a container (APC, object, robot, bot).
@@ -130,9 +131,13 @@
 	ADD_TRAIT(src, TRAIT_AI_UNTRACKABLE, PULSEDEMON_TRAIT)
 	flags_2 |= RAD_NO_CONTAMINATE_2
 
-	// don't step on me
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+	// For when someone steps on us
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	// For when we move somewhere else
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
 	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
@@ -151,8 +156,8 @@
 	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
-	whisper_action.button_icon_state = "pulse_whisper"
-	whisper_action.background_icon_state = "bg_pulsedemon"
+	whisper_action.button_overlay_icon_state = "pulse_whisper"
+	whisper_action.button_background_icon_state = "bg_pulsedemon"
 
 /mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(our_demon, force)
 	SIGNAL_HANDLER
@@ -268,9 +273,9 @@
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
-	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
-	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Energy:", "[format_si_suffix(charge)]J")
+	status_tab_data[++status_tab_data.len] = list("Maximum Energy:", "[format_si_suffix(maxcharge)]J")
+	status_tab_data[++status_tab_data.len] = list("Drained Energy:", "[format_si_suffix(charge_drained)]J")
 	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
 	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
 	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
@@ -452,14 +457,16 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
 		return PULSEDEMON_SOURCE_DRAIN_INVALID
-	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
-	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
+	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units
+	var/amount_to_drain = clamp(A.cell.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier)
+	A.cell.use(min(amount_to_drain * GLOB.CELLRATE, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
 	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
-	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
+	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units.
+	var/amount_to_drain = clamp(S.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
 	var/drained = adjust_charge(amount_to_drain)
-	S.charge -= drained
+	S.charge -= drained * GLOB.CELLRATE
 	return drained
 
 /mob/living/simple_animal/demon/pulse_demon/Life(seconds, times_fired)
@@ -636,8 +643,18 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
-/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
-	SIGNAL_HANDLER
+/mob/living/simple_animal/demon/pulse_demon/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	try_cross_shock(entered)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_movable_moved(datum/source, old_location, direction, forced)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	if(is_under_tile())
+		return
+	for(var/mob/living/mob in loc)
+		try_shock_mob(mob)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(atom/movable/A)
 	if(!isliving(A) || is_under_tile())
 		return
 	var/mob/living/L = A
@@ -742,7 +759,7 @@
 			visible_message("<span class='warning'>[M] [response_harm] [src].</span>")
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/demon/pulse_demon/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(is_under_tile())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
@@ -758,15 +775,17 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
-	if(istype(proj, /obj/item/projectile/ion))
+	if(proj.damage_type == BURN)
+		regen_lock = max(regen_lock, 1)
 		return ..()
-	visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
+	else
+		visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
 
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return
@@ -804,6 +823,23 @@
 /mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
 	return TRUE
 
+/mob/living/simple_animal/demon/pulse_demon/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.malfai || ourapc.malfhack)
+		return FALSE
+	return TRUE
+
+/mob/living/simple_animal/demon/pulse_demon/adjustHealth(amount, updating_health)
+	if(amount > 0) // This damages the pulse demon
+		return ..()
+
+	if(!ismachinery(loc))
+		if(health >= (maxHealth / 2))
+			amount = 0
+		else
+			amount = clamp(amount, -((maxHealth / 2) - health), 0)
+	amount = round(amount, 1)
+	return ..()
+
 /obj/item/organ/internal/heart/demon/pulse
 	name = "perpetual pacemaker"
 	desc = "It still beats furiously, thousands of bright lights shine within it."
@@ -813,7 +849,7 @@
 	. = ..()
 	set_light(13, 2, "#bbbb00")
 
-/obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/pulse/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

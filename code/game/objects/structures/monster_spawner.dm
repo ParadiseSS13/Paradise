@@ -1,7 +1,7 @@
 /obj/structure/spawner
 	name = "monster nest"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "hole"
+	icon_state = null
 	max_integrity = 100
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
@@ -43,18 +43,6 @@
 	mob_types = list(/mob/living/simple_animal/hostile/skeleton)
 	spawn_text = "climbs out of"
 	faction = list("skeleton")
-
-/obj/structure/spawner/clown
-	name = "Laughing Larry"
-	desc = "A laughing, jovial figure. Something seems stuck in his throat."
-	icon_state = "clownbeacon"
-	icon = 'icons/obj/device.dmi'
-	max_integrity = 200
-	max_mobs = 15
-	spawn_time = 150
-	mob_types = list(/mob/living/simple_animal/hostile/retaliate/clown)
-	spawn_text = "climbs out of"
-	faction = list("clown")
 
 /obj/structure/spawner/mining
 	name = "monster den"

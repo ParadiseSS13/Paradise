@@ -34,10 +34,11 @@
 	var/emagged = FALSE
 
 	// Access-related fields
+
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. All accesses are required when checking.
 	var/list/req_access = null
-	var/req_access_txt = "0"
+	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. At least one access is required when checking.
 	var/list/req_one_access = null
-	var/req_one_access_txt = "0"
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -67,18 +68,11 @@
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
 	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
-		CouldUseTopic(usr)
+		var/atom/host = ui_host()
+		host.add_fingerprint(usr)
 		return FALSE
 
-	CouldNotUseTopic(usr)
 	return TRUE
-
-/obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = ui_host()
-	host.add_fingerprint(user)
-
-/obj/proc/CouldNotUseTopic(mob/user)
-	return
 
 /obj/Destroy()
 	if(!ismachinery(src))
@@ -88,15 +82,6 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	return ..()
-
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//SHAME = 16
-//OBLITERATION = 32
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
@@ -164,12 +149,8 @@
 /mob/proc/unset_machine()
 	if(machine)
 		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
-		machine.on_unset_machine(src)
 		machine = null
 
-//called when the user unsets the machine.
-/atom/movable/proc/on_unset_machine(mob/user)
-	return
 
 /mob/proc/set_machine(obj/O)
 	if(src.machine)
@@ -182,7 +163,7 @@
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
-		src.attack_self(M)
+		src.attack_self__legacy__attackchain(M)
 
 /obj/proc/hide(h)
 	return
@@ -294,12 +275,19 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
-	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
+
 	if(issilicon(C))
 		C.Weaken(3 SECONDS)
+		C.adjustBruteLoss(damage)
 	else
+		var/obj/item/organ/external/affecting = C.get_organ(ran_zone(throwingdatum.target_zone))
+		if(affecting)
+			var/armor_block = C.run_armor_check(affecting, MELEE)
+			C.apply_damage(damage, BRUTE, affecting, armor_block)
+		else
+			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
 /obj/handle_ricochet(obj/item/projectile/P)

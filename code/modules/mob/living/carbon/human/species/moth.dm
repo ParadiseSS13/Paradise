@@ -59,6 +59,9 @@
 		"is ripping their wings off!",
 		"is holding their breath!"
 	)
+
+	plushie_type = /obj/item/toy/plushie/nianplushie
+
 /datum/species/moth/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the nian race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/nian/r_moth.dmi' //Default nian.
@@ -100,10 +103,6 @@
 		return TRUE
 
 	return ..()
-
-/datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E ? E.eye_color : flesh_color
 
 /datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
@@ -158,8 +157,8 @@
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
@@ -172,7 +171,7 @@
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
-		var/obj/structure/moth/cocoon/C = new(get_turf(H))
+		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
@@ -185,14 +184,14 @@
 /**
  * Removes moth from cocoon, restores burnt wings
  */
-/datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
+/datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
-/obj/structure/moth/cocoon
+/obj/structure/moth_cocoon
 	name = "\improper Nian cocoon"
 	desc = "Someone wrapped in a Nian cocoon."
 	icon = 'icons/effects/effects.dmi'
@@ -201,11 +200,11 @@
 	max_integrity = 60
 	var/preparing_to_emerge
 
-/obj/structure/moth/cocoon/Initialize(mapload)
+/obj/structure/moth_cocoon/Initialize(mapload)
 	. = ..()
 	icon_state = pick("cocoon1", "cocoon2", "cocoon3")
 
-/obj/structure/moth/cocoon/Destroy()
+/obj/structure/moth_cocoon/Destroy()
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
 	else

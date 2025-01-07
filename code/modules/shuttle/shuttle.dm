@@ -534,6 +534,8 @@
 					continue
 				AM.onShuttleMove(T0, T1, rotation, mobile_port.last_caller)
 
+			SEND_SIGNAL(T0, COMSIG_TURF_ON_SHUTTLE_MOVE, T1)
+
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
@@ -640,20 +642,23 @@
 					var/obj/machinery/atmospherics/supermatter_crystal/bakoom = AM
 					addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
 				continue
-			if(ismob(AM))
-				var/mob/M = AM
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					if(L.incorporeal_move || L.status_flags & GODMODE)
-						continue
-					L.stop_pulling()
-					L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-					L.gib()
+			// Your mech will not save you.
+			if(ismecha(AM))
+				var/obj/mecha/mech = AM
+				if(mech.occupant)
+					INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, get_out_and_die))
+			if(isliving(AM))
+				var/mob/living/L = AM
+				if(L.buckled)
+					L.unbuckle(force = TRUE)
+				if(L.incorporeal_move || L.status_flags & GODMODE)
+					continue
+				L.stop_pulling()
+				L.visible_message("<span class='warning'>[L] is hit by \
+								a hyperspace ripple!</span>",
+								"<span class='userdanger'>You feel an immense \
+								crushing pressure as the space around you ripples.</span>")
+				L.gib()
 			else if(lance_docking) //corrupt the child, destroy them all
 				if(!AM.simulated)
 					continue
@@ -683,7 +688,7 @@
 			SEND_SOUND(M, loud_crash_sound)
 	for(var/turf/T in L2)
 		for(var/atom/movable/A in T.contents)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 			if(istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 				var/obj/machinery/atmospherics/supermatter_crystal/bakoom = A
 				addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
@@ -922,8 +927,11 @@
 			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 			if(3)
-				atom_say("Shuttle has already received a pending movement request. Please wait until the movement request is processed.")
-
+				atom_say("Shuttle is refuelling at dock. Please wait...")
+			if(4)
+				atom_say("Shuttle is currently en-route. The shuttle cannot be rerouted at this time.")
+			if(5)
+				atom_say("Shuttle is currently departing. Please wait...")
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)

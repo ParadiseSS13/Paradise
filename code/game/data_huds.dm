@@ -60,6 +60,14 @@
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
 
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/add_hud_to(mob/user)
+	..()
+	SSair.add_pressure_hud(user)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -200,14 +208,8 @@
 			revivable_state = "flatline"
 		else if(!mind)
 			revivable_state = "dead"
-		else
-			var/foundghost = FALSE
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				if(G.mind.current == src)
-					foundghost = (G.can_reenter_corpse && G.client)
-					break
-			if(foundghost || key)
-				revivable_state = "hassoul"
+		else if(get_ghost() || key)
+			revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
 
@@ -228,10 +230,10 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 

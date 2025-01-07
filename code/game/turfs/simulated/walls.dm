@@ -304,7 +304,7 @@
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			dismantle_wall(1)
-			to_chat(M, "<span class='info'>You smash through the wall.</span>")
+			to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 		else
 			to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 			take_damage(rand(25, 75))
@@ -342,7 +342,7 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(!isturf(user.loc))

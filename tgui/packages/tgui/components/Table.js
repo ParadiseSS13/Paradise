@@ -11,12 +11,7 @@ export const Table = (props) => {
   const { className, collapsing, children, ...rest } = props;
   return (
     <table
-      className={classes([
-        'Table',
-        collapsing && 'Table--collapsing',
-        className,
-        computeBoxClassName(rest),
-      ])}
+      className={classes(['Table', collapsing && 'Table--collapsing', className, computeBoxClassName(rest)])}
       {...computeBoxProps(rest)}
     >
       <tbody>{children}</tbody>
@@ -30,12 +25,7 @@ export const TableRow = (props) => {
   const { className, header, ...rest } = props;
   return (
     <tr
-      className={classes([
-        'Table__row',
-        header && 'Table__row--header',
-        className,
-        computeBoxClassName(props),
-      ])}
+      className={classes(['Table__row', header && 'Table__row--header', className, computeBoxClassName(props)])}
       {...computeBoxProps(rest)}
     />
   );

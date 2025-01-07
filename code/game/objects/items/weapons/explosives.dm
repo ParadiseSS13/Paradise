@@ -21,6 +21,10 @@
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
@@ -28,7 +32,7 @@
 	plastic_overlay_target = null
 	return ..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
 		if(!user.unEquip(I))
@@ -50,17 +54,17 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/plastic/attack_self(mob/user)
+/obj/item/grenade/plastic/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
-		nadeassembly.attack_self(user)
+		nadeassembly.attack_self__legacy__attackchain(user)
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
@@ -68,12 +72,14 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/grenade/plastic/afterattack(mob/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack__legacy__attackchain(mob/AM, mob/user, flag)
 	if(!flag)
 		return
 	if(ismob(AM) && AM.stat == CONSCIOUS)
 		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]! Perhaps if [AM] was asleep or dead you could attach it?</span>")
 		return
+	if(isstorage(AM) || ismodcontrol(AM))
+		return ..() //Let us not have people c4 themselfs. Especially with a now 1.5 second do_after
 	if(isobserver(AM))
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
@@ -90,7 +96,7 @@
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
 		plastic_overlay.layer = HIGH_OBJ_LAYER
-		if(isturf(target) || istype(target, /obj/machinery/door))
+		if(isturf(target) || isairlock(target))
 			plastic_overlay_target = new /obj/effect/plastic(get_turf(user))
 		else
 			plastic_overlay_target = target
@@ -164,7 +170,7 @@
 	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
 	var/ex_breach = FALSE
 
-/obj/item/grenade/plastic/c4/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/c4/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user, AM)
 	..()
 

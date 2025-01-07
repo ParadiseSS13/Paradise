@@ -69,29 +69,29 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
-	icon_icon = 'icons/obj/wizard.dmi'
-	button_icon_state = "fireball"
+	button_overlay_icon = 'icons/obj/wizard.dmi'
+	button_overlay_icon_state = "fireball"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
-	icon_icon = 'icons/effects/fire.dmi'
-	button_icon_state = "1"
+	button_overlay_icon = 'icons/effects/fire.dmi'
+	button_overlay_icon_state = "1"
 	chosen_message = "<span class='colossus'>You are now shooting mass fire at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "lavastaff_warn"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "lavastaff_warn"
 	chosen_message = "<span class='colossus'>You are now swooping and raining lava at your target.</span>"
 	chosen_attack_num = 4
 
@@ -282,9 +282,9 @@ Difficulty: Medium
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700, 50)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
@@ -600,10 +600,10 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
+	desc = "A space carp turned dragon by vile magic. Has the same ferocity of a space carp, but also a much more enabling body."
 	maxHealth = 1000
 	health = 1000
 	faction = list("carp")
-	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"

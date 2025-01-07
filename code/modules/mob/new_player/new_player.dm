@@ -112,6 +112,10 @@
 	if(!client)
 		return FALSE
 
+	if(usr != src)
+		message_admins("[key_name_admin(usr)] may have attempted to href exploit with [key_name_admin(src)]'s new_player mob.")
+		return
+
 	if(href_list["consent_signed"])
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
 			"ckey" = ckey
@@ -272,6 +276,8 @@
 	if(job.admin_only && !check_rights(R_EVENT, FALSE))
 		return FALSE
 	if(job.get_exp_restrictions(client))
+		return FALSE
+	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE))
 		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)

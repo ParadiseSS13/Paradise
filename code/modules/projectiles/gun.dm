@@ -5,7 +5,7 @@
 	icon_state = "revolver_bright"
 	item_state = "gun"
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -116,7 +116,7 @@
 	if(bayonet)
 		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
+			. += "<span class='notice'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
@@ -150,9 +150,17 @@
 		playsound(user, fire_sound, 50, 1)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(
+					"<span class='danger'>[user] fires [src] point blank at [target]!</span>",
+					"<span class='danger'>You fire [src] point blank at [target]!</span>",
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				user.visible_message(
+					"<span class='danger'>[user] fires [src]!</span>",
+					"<span class='danger'>You fire [src]!</span>",
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -166,7 +174,7 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(firing_burst)
 		return
 	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
@@ -193,7 +201,11 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
-				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+				user.visible_message(
+					"<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>",
+					"<span class='danger'>You blow smoke off of [src]'s barrel.</span>",
+					"<span class='danger'>You hear someone blowing over a hollow tube.</span>"
+				)
 			else
 				handle_suicide(user, target, params)
 			return
@@ -318,21 +330,21 @@
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
-/obj/item/gun/attack(mob/M, mob/user)
+/obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
-			M.attackby(bayonet, user)
+			M.attackby__legacy__attackchain(bayonet, user)
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user, params)
+/obj/item/gun/attack_obj__legacy__attackchain(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
-			O.attackby(bayonet, user)
+			O.attackby__legacy__attackchain(bayonet, user)
 			return
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
@@ -340,6 +352,7 @@
 				if(!user.unEquip(I))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
+				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
@@ -363,6 +376,7 @@
 			return
 		K.forceMove(src)
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
+		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
@@ -377,21 +391,23 @@
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(gun_light && can_flashlight)
-		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			S.loc = get_turf(user)
-			update_gun_light(user)
-			S.update_brightness(user)
-			update_icon()
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
-	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove(get_turf(user))
-		clear_bayonet()
+	if(gun_light || bayonet)
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		if(gun_light && can_flashlight)
+			for(var/obj/item/flashlight/seclite/S in src)
+				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+				gun_light = null
+				S.loc = get_turf(user)
+				update_gun_light(user)
+				S.update_brightness(user)
+				update_icon()
+				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+					qdel(TGL)
+		else if(bayonet && can_bayonet) // if it has a bayonet, and the bayonet can be removed
+			bayonet.forceMove(get_turf(user))
+			to_chat(user, "<span class='notice'>You remove [bayonet] from [src].</span>")
+			clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
 	if(!gun_light)
@@ -473,11 +489,15 @@
 	if(user == target)
 		if(!ishuman(user))	// Borg suicide needs a refactor for this to work.
 			return
-		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-		"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		target.visible_message(
+			"<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>",
+			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>"
+		)
 	else
-		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+		target.visible_message(
+			"<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>",
+			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>"
+		)
 
 	semicd = 1
 
@@ -486,13 +506,19 @@
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message(
+					"<span class='notice'>[user] has decided to spare [target]'s life.</span>",
+					"<span class='userdanger'>[user] has decided to spare your life!</span>"
+				)
 		semicd = 0
 		return
 
 	semicd = 0
 
-	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+	target.visible_message(
+		"<span class='warning'>[user] pulls the trigger!</span>",
+		"<span class='userdanger'>[user] pulls the trigger!</span>"
+	)
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5

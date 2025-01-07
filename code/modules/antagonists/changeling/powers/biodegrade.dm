@@ -2,7 +2,7 @@
 	name = "Biodegrade"
 	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals."
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
-	button_icon_state = "biodegrade"
+	button_overlay_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 4
 	req_human = TRUE
@@ -17,7 +17,7 @@
 	var/used = FALSE // only one form of shackles removed per use
 
 	if(user.handcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -26,7 +26,7 @@
 		used = TRUE
 
 	if(user.legcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -35,7 +35,7 @@
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
-		var/obj/item/clothing/suit/S = user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)
 		if(!istype(S))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \
@@ -145,7 +145,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/changeling_corrosive_acid/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling_corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
 		parent_action.remove_hand_spell(user)

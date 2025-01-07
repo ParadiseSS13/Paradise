@@ -26,7 +26,8 @@
 			var/atom/movable/thing = I.remove(src)
 			if(thing)
 				thing.forceMove(get_turf(src))
-				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
+				if(!QDELETED(thing)) // This is in case moving to the turf deletes the atom.
+					thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 	flick("gibbed-a", animation)
 	xgibs(loc)
@@ -69,6 +70,8 @@
 
 	if(!gibbed)
 		if(death_sound)
-			playsound(loc, death_sound, 80, 1, 1)
+			playsound(loc, death_sound, 80, TRUE, 1)
 		visible_message("<B>[src]</B> [death_message]")
 		update_icons()
+
+	deathrattle()

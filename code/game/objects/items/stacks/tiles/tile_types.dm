@@ -15,11 +15,11 @@
 	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
+	scatter_distance = 3
 
-/obj/item/stack/tile/New(loc, amount)
-	..()
-	pixel_x = rand(-3, 3)
-	pixel_y = rand(-3, 3) //randomize a little
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge)
+	. = ..()
+	scatter_atom()
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
@@ -230,6 +230,7 @@
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/plasteel
 
 /obj/item/stack/tile/plasteel/cyborg
 	energy_type = /datum/robot_storage/energy/metal_tile
@@ -334,6 +335,7 @@
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/catwalk
 
 /obj/item/stack/tile/catwalk/cyborg
 	energy_type = /datum/robot_storage/energy/catwalk

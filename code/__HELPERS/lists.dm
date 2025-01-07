@@ -50,6 +50,12 @@
 	} while(FALSE)
 
 
+// Generic listoflist safe add and removal macros:
+///If value is a list, wrap it in a list so it can be used with list add/remove operations
+#define LIST_VALUE_WRAP_LISTS(value) (islist(value) ? list(value) : value)
+///Add an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
+
 //Returns a list in plain english as a string
 /proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = length(input)
@@ -870,3 +876,54 @@
 	else
 		used_key_list[input_key] = 1
 	return input_key
+
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
+	for(var/key in input)
+		UNTYPED_LIST_ADD(keys, key)
+	return keys
+
+/**
+ * Given a list, return a copy where values without defined weights are given weight 1.
+ * For example, fill_with_ones(list(A, B=2, C)) = list(A=1, B=2, C=1)
+ * Useful for weighted random choices (loot tables, syllables in languages, etc.)
+ */
+/proc/fill_with_ones(list/list_to_pad)
+	if(!islist(list_to_pad))
+		return list_to_pad
+
+	var/list/final_list = list()
+
+	for(var/key in list_to_pad)
+		if(list_to_pad[key])
+			final_list[key] = list_to_pad[key]
+		else
+			final_list[key] = 1
+
+	return final_list
+
+/**
+ * Like pick_weight, but allowing for nested lists.
+ *
+ * For example, given the following list:
+ * list(A = 1, list(B = 1, C = 1))
+ * A would have a 50% chance of being picked,
+ * and list(B, C) would have a 50% chance of being picked.
+ * If list(B, C) was picked, B and C would then each have a 50% chance of being picked.
+ * So the final probabilities would be 50% for A, 25% for B, and 25% for C.
+ *
+ * Weights should be integers. Entries without weights are assigned weight 1 (so unweighted lists can be used as well)
+ */
+/proc/pick_weight_recursive(list/list_to_pick)
+	var/result = pickweight(fill_with_ones(list_to_pick))
+	while(islist(result))
+		result = pickweight(fill_with_ones(result))
+	return result
+
+/**
+ * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.
+ */
+/proc/lists_equal_unordered(list/list_one, list/list_two)
+	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
+	return !length(list_one ^ list_two)

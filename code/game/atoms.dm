@@ -14,6 +14,8 @@
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
+	/// How this atom should react to having its astar blocking checked
+	var/can_pathfind_pass = CANPATHFINDPASS_DENSITY
 
 	var/list/blood_DNA
 	var/blood_color
@@ -104,6 +106,17 @@
 	var/tmp/datum/light_source/light
 	// Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
 	var/tmp/list/light_sources
+	// Variables for bloom and exposure
+	var/glow_icon = 'icons/obj/lamps.dmi'
+	var/exposure_icon = 'icons/effects/exposures.dmi'
+
+	var/glow_icon_state
+	var/glow_colored = TRUE
+	var/exposure_icon_state
+	var/exposure_colored = TRUE
+
+	var/image/glow_overlay
+	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
 	var/list/alternate_appearances
 	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s. Lazylist
@@ -115,6 +128,9 @@
 	var/receive_ricochet_chance_mod = 1
 	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
 	var/receive_ricochet_damage_coeff = 0.33
+
+	/// Whether this atom is using the new attack chain.
+	var/new_attack_chain = FALSE
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -146,6 +162,7 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -176,6 +193,7 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /atom/proc/onCentcom()
@@ -289,13 +307,17 @@
 /atom/proc/return_analyzable_air()
 	return null
 
-/atom/proc/check_eye(mob/user)
-	return
-
 /atom/proc/on_reagent_change()
 	return
 
 /atom/proc/Bumped(atom/movable/AM)
+	// This may seem scary but one will find that replacing this with
+	// SHOULD_NOT_SLEEP(TRUE) surfaces two dozen instances where /Bumped sleeps,
+	// such as airlocks. We cannot wait for these procs to finish because they
+	// will clobber any movement which occurred in the intervening time. If we
+	// want to get rid of this we need to move bumping in its entirety to signal
+	// handlers, which is scarier.
+	set waitfor = FALSE
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -318,9 +340,6 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
-/atom/proc/CheckExit()
-	return TRUE
-
 /atom/proc/HasProximity(atom/movable/AM)
 	return
 
@@ -328,7 +347,7 @@
  * Proc which will make the atom act accordingly to an EMP.
  * This proc can sleep depending on the implementation. So assume it sleeps!
  *
- * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
  */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
@@ -342,7 +361,7 @@
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
-		if(istype(src.loc, container))
+		if(istype(loc, container))
 			return TRUE
 	else if(src in container)
 		return TRUE
@@ -376,7 +395,7 @@
 /atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+	if(src.blood_DNA)
 		if(gender == PLURAL)
 			f_name = "some "
 		else
@@ -449,8 +468,8 @@
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
-
-	return list()
+	. = list()
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 /**
  * Updates the appearence of the icon
@@ -476,11 +495,13 @@
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
 
 /// Updates the description of the atom
 /atom/proc/update_desc(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
 /// Updates the icon of the atom
@@ -513,10 +534,12 @@
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+	PROTECTED_PROC(TRUE)
 	return
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
+	PROTECTED_PROC(TRUE)
 	return list()
 
 /atom/proc/relaymove()
@@ -532,23 +555,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
-
-/// If it returns TRUE, attack chain stops
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
-	switch(tool_type)
-		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
-		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
-		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
-		if(TOOL_WRENCH)
-			return wrench_act(user, I)
-		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
-		if(TOOL_WELDER)
-			return welder_act(user, I)
-
 
 // Tool-specific behavior procs. To be overridden in subtypes.
 /atom/proc/crowbar_act(mob/living/user, obj/item/I)
@@ -584,7 +590,7 @@
 	return
 
 /atom/proc/cmag_act(mob/user)
-	return
+	return FALSE
 
 /atom/proc/uncmag()
 	return
@@ -857,7 +863,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"
@@ -866,7 +872,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"
@@ -908,9 +914,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
-/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
+/*
+	* This proc makes src gloves bloody, if you touch something with them you will leave a blood trace
+
+	* blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in get_blood_dna_list() on carbons
+	* b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
+	* amount: amount of "blood charges" you want to give to the gloves, that will be used to make items/walls bloody.
+		You can make something bloody this amount - 1 times.
+		If this variable will be null, amount will be set randomly from 2 to max_amount
+	* max_amount: if amount is not set, amount will be random from 2 to this value, default 4
+*/
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color, amount, max_amount = 4)
 	. = ..()
-	transfer_blood = rand(2, 4)
+	if(isnull(amount))
+		transfer_blood = rand(2, max_amount)
+	else
+		transfer_blood = max(1, amount)
 
 /turf/add_blood(list/blood_dna, b_color)
 	if(isnull(b_color))
@@ -977,7 +996,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!QDELETED(healthy_green_glow))
 		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
 		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
-			qdel(healthy_green_glow)
+			healthy_green_glow.RemoveComponent()
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
@@ -1032,6 +1051,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood(radiation_clean))
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -1164,7 +1186,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 
-
 /atom/vv_get_dropdown()
 	. = ..()
 	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
@@ -1188,13 +1209,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/Entered(atom/movable/AM, atom/oldLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, direction)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+/atom/Exited(atom/movable/AM, direction)
+	var/new_loc = get_step(AM, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, new_loc)
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
@@ -1242,14 +1273,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
-
-/*
-	Checks whether this atom can traverse the destination object when used as source for AStar.
-	This should only be used as an override to /obj/proc/CanPathfindPass. Aka don't use this unless you can't change the object's proc.
-	Returning TRUE here will override the above proc's result.
-*/
-/atom/proc/CanPathfindPassTo(ID, dir, obj/destination)
-	return FALSE
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1354,15 +1377,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * For turfs this will only be used if pathing_pass_method is TURF_PATHING_PASS_PROC
  *
  * Arguments:
- * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
- * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
- * * no_id: When true, doors with public access will count as impassible
+ * * to_dir - What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
+ * * pass_info - Datum that stores info about the thing that's trying to pass us
+ *
+ * IMPORTANT NOTE: /turf/proc/LinkBlockedWithAccess assumes that overrides of CanPathfindPass will always return true if density is FALSE
+ * If this is NOT you, ensure you edit your can_pathfind_pass variable. Check __DEFINES/path.dm
  **/
-/atom/proc/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && (caller.pass_flags & pass_flags_self))
+/atom/proc/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
+
 
 /atom/proc/atom_prehit(obj/item/projectile/P)
 	return SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, P)

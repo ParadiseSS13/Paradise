@@ -32,11 +32,7 @@ const FutureStationTraitsPage = (props, context) => {
   const { act, data } = useBackend<StationTraitsData>(context);
   const { future_station_traits } = data;
 
-  const [selectedTrait, setSelectedTrait] = useLocalState<string | null>(
-    context,
-    'selectedFutureTrait',
-    null
-  );
+  const [selectedTrait, setSelectedTrait] = useLocalState<string | null>(context, 'selectedFutureTrait', null);
 
   const traitsByName = Object.fromEntries(
     data.valid_station_traits.map((trait) => {
@@ -72,17 +68,13 @@ const FutureStationTraitsPage = (props, context) => {
 
               let newStationTraits = [selectedPath];
               if (future_station_traits) {
-                const selectedTraitPaths = future_station_traits.map(
-                  (trait) => trait.path
-                );
+                const selectedTraitPaths = future_station_traits.map((trait) => trait.path);
 
                 if (selectedTraitPaths.indexOf(selectedPath) !== -1) {
                   return;
                 }
 
-                newStationTraits = newStationTraits.concat(
-                  ...selectedTraitPaths
-                );
+                newStationTraits = newStationTraits.concat(...selectedTraitPaths);
               }
 
               act('setup_future_traits', {
@@ -108,16 +100,13 @@ const FutureStationTraitsPage = (props, context) => {
                       icon="times"
                       onClick={() => {
                         act('setup_future_traits', {
-                          station_traits: filterMap(
-                            future_station_traits,
-                            (otherTrait) => {
-                              if (otherTrait.path === trait.path) {
-                                return undefined;
-                              } else {
-                                return otherTrait.path;
-                              }
+                          station_traits: filterMap(future_station_traits, (otherTrait) => {
+                            if (otherTrait.path === trait.path) {
+                              return undefined;
+                            } else {
+                              return otherTrait.path;
                             }
-                          ),
+                          }),
                         });
                       }}
                     >
@@ -180,10 +169,8 @@ const ViewStationTraitsPage = (props, context) => {
                 color="red"
                 disabled={data.too_late_to_revert || !stationTrait.can_revert}
                 tooltip={
-                  (!stationTrait.can_revert &&
-                    'This trait is not revertable.') ||
-                  (data.too_late_to_revert &&
-                    "It's too late to revert station traits, the round has already started.")
+                  (!stationTrait.can_revert && 'This trait is not revertable.') ||
+                  (data.too_late_to_revert && "It's too late to revert station traits, the round has already started.")
                 }
                 icon="times"
                 onClick={() =>
@@ -203,11 +190,7 @@ const ViewStationTraitsPage = (props, context) => {
 };
 
 export const StationTraitsPanel = (props, context) => {
-  const [currentTab, setCurrentTab] = useLocalState(
-    context,
-    'station_traits_tab',
-    Tab.ViewStationTraits
-  );
+  const [currentTab, setCurrentTab] = useLocalState(context, 'station_traits_tab', Tab.ViewStationTraits);
 
   let currentPage;
 

@@ -162,7 +162,6 @@
 		// Gather the windows. If a spot has 3 windows on it, its a dead end
 		var/windowcount = 0
 		for(var/obj/structure/window/reinforced/mazeglass/W in T)
-			pass(W) // Stops DM whining about unused vars
 			windowcount++
 			CHECK_TICK
 

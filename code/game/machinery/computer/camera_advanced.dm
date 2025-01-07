@@ -3,7 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	var/mob/camera/aiEye/remote/eyeobj
+	var/mob/camera/ai_eye/remote/eyeobj
 	var/mob/living/carbon/human/current_user = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
@@ -39,21 +39,24 @@
 	user.remote_control = null
 
 	current_user = null
-	user.unset_machine()
+	remove_eye(user)
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
-/obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated())
-		user.unset_machine()
+/obj/machinery/computer/camera_advanced/process()
+	if(!current_user)
+		return
+
+	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(current_user) && !current_user.has_unlimited_silicon_privilege) || !current_user.has_vision() || current_user.incapacitated())
+		remove_eye(current_user)
 
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)
-		current_user.unset_machine()
+		remove_eye(current_user)
 	QDEL_NULL(eyeobj)
 	QDEL_LIST_CONTENTS(actions)
 	return ..()
 
-/obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
+/obj/machinery/computer/camera_advanced/proc/remove_eye(mob/M)
 	if(M == current_user)
 		remove_eye_control(M)
 
@@ -65,7 +68,6 @@
 		return
 	if(..())
 		return
-	user.set_machine(src)
 
 	if(!eyeobj)
 		CreateEye()
@@ -85,7 +87,7 @@
 		else
 			// An abberant case - silent failure is obnoxious
 			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
-			user.unset_machine()
+			remove_eye(user)
 	else
 		give_eye_control(user)
 		eyeobj.setLoc(eyeobj.loc)
@@ -99,7 +101,7 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 
-/mob/camera/aiEye/remote
+/mob/camera/ai_eye/remote
 	name = "Inactive Camera Eye"
 	// Abductors dont trigger the Ai Detector
 	ai_detector_visible = FALSE
@@ -112,24 +114,24 @@
 	var/visible_icon = 0
 	var/image/user_image = null
 
-/mob/camera/aiEye/remote/Destroy()
+/mob/camera/ai_eye/remote/Destroy()
 	eye_user = null
 	origin = null
 	return ..()
 
-/mob/camera/aiEye/remote/RemoveImages()
+/mob/camera/ai_eye/remote/RemoveImages()
 	..()
 	if(visible_icon)
 		var/client/C = GetViewerClient()
 		if(C)
 			C.images -= user_image
 
-/mob/camera/aiEye/remote/GetViewerClient()
+/mob/camera/ai_eye/remote/GetViewerClient()
 	if(eye_user)
 		return eye_user.client
 	return null
 
-/mob/camera/aiEye/remote/setLoc(T)
+/mob/camera/ai_eye/remote/setLoc(T)
 	if(eye_user)
 		if(!isturf(eye_user.loc))
 			return
@@ -145,7 +147,7 @@
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
 				eye_user.client.images += user_image
 
-/mob/camera/aiEye/remote/relaymove(mob/user,direct)
+/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
@@ -165,25 +167,25 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	button_icon_state = "camera_off"
+	button_overlay_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
 	console.remove_eye_control(target)
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	button_icon_state = "camera_jump"
+	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
 	if(!target || !iscarbon(target))
 		return
 	var/mob/living/carbon/C = target
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()

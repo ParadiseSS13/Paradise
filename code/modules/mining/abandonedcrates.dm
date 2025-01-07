@@ -24,7 +24,7 @@
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/drinks/bottle/rum(src)
-			new /obj/item/food/snacks/grown/ambrosia/deus(src)
+			new /obj/item/food/grown/ambrosia/deus(src)
 			new /obj/item/reagent_containers/drinks/bottle/whiskey(src)
 			new /obj/item/lighter(src)
 		if(6 to 10)
@@ -49,7 +49,7 @@
 		if(46 to 50)
 			new /obj/item/clothing/under/chameleon(src)
 			for(var/i in 1 to 7)
-				new /obj/item/clothing/accessory/horrible(src)
+				new /obj/item/clothing/neck/tie/horrible(src)
 		if(51 to 52) // 2% chance
 			new /obj/item/melee/classic_baton(src)
 		if(53 to 54)
@@ -165,7 +165,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
+/obj/structure/closet/crate/secure/loot/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(locked)
 		if(istype(W, /obj/item/card/emag))
 			boom(user)

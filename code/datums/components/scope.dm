@@ -101,7 +101,7 @@
 	SIGNAL_HANDLER // COMSIG_GUN_TRY_FIRE
 	if(!tracker?.given_turf || target == get_target(tracker.given_turf))
 		return NONE
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack), get_target(tracker.given_turf), user)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack__legacy__attackchain), get_target(tracker.given_turf), user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /datum/component/scope/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -273,4 +273,4 @@
 /datum/action/zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon_state = "sniper_zoom"

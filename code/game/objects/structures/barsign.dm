@@ -116,7 +116,7 @@
 		if(BARSIGN_WIRED)
 			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
 		if(BARSIGN_COMPLETE)
-			. += "<span class='info'><b>Alt-Click</b> to toggle its power.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle its power.</span>"
 			if(panel_open)
 				. += "<span class='notice'>It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
 
@@ -178,7 +178,7 @@
 		return
 	attack_hand(user)
 
-/obj/machinery/barsign/attackby(obj/item/I, mob/user, params)
+/obj/machinery/barsign/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	switch(build_stage)
 		// Inserting the electronics/circuit
 		if(BARSIGN_FRAME)
@@ -483,7 +483,7 @@
 	. = ..()
 	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
 
-/obj/item/barsign_electronics/attack_self(mob/user)
+/obj/item/barsign_electronics/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(destroyed)
 		return

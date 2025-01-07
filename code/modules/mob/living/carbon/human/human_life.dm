@@ -42,6 +42,12 @@
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
+	var/datum/antagonist/mindflayer/F = mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(F)
+		F.handle_mindflayer()
+		if(life_tick == 1)
+			regenerate_icons()
+
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		handle_ghosted()
 	if(player_logged > 0 && stat != DEAD && job)
@@ -304,10 +310,10 @@
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
+			thermal_protection += (wear_suit.max_heat_protection_temperature * 0.7)
 	if(head)
 		if(head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
-			thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+			thermal_protection += (head.max_heat_protection_temperature * THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
 	return thermal_protection
 
@@ -347,6 +353,9 @@
 	if(gloves)
 		if(gloves.max_heat_protection_temperature && gloves.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= gloves.heat_protection
+	if(neck)
+		if(neck.max_heat_protection_temperature && neck.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= neck.heat_protection
 	if(wear_mask)
 		if(wear_mask.max_heat_protection_temperature && wear_mask.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= wear_mask.heat_protection
@@ -408,6 +417,9 @@
 	if(gloves)
 		if(gloves.min_cold_protection_temperature && gloves.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= gloves.cold_protection
+	if(neck)
+		if(neck.min_cold_protection_temperature && neck.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= neck.cold_protection
 	if(wear_mask)
 		if(wear_mask.min_cold_protection_temperature && wear_mask.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= wear_mask.cold_protection
@@ -449,6 +461,65 @@
 
 	return min(1,thermal_protection)
 
+//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
+/mob/living/carbon/human/proc/get_rad_protection_flags()
+	var/rad_protection_flags = 0
+	//Handle normal clothing
+	if(head)
+		if(head.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= head.body_parts_covered
+	if(wear_suit)
+		if(wear_suit.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_suit.body_parts_covered
+	if(w_uniform)
+		if(w_uniform.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= w_uniform.body_parts_covered
+	if(shoes)
+		if(shoes.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= shoes.body_parts_covered
+	if(gloves)
+		if(gloves.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= gloves.body_parts_covered
+	if(wear_mask)
+		if(wear_mask.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_mask.body_parts_covered
+
+	return rad_protection_flags
+
+/mob/living/carbon/human/proc/get_rad_protection()
+
+	if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		return 1
+
+	var/rad_protection_flags = get_rad_protection_flags()
+
+	var/rad_protection = 0
+	if(rad_protection_flags)
+		if(rad_protection_flags & HEAD)
+			rad_protection += THERMAL_PROTECTION_HEAD //This is correct. This uses the same percent defines as thermal protection.
+		if(rad_protection_flags & UPPER_TORSO)
+			rad_protection += THERMAL_PROTECTION_UPPER_TORSO
+		if(rad_protection_flags & LOWER_TORSO)
+			rad_protection += THERMAL_PROTECTION_LOWER_TORSO
+		if(rad_protection_flags & LEG_LEFT)
+			rad_protection += THERMAL_PROTECTION_LEG_LEFT
+		if(rad_protection_flags & LEG_RIGHT)
+			rad_protection += THERMAL_PROTECTION_LEG_RIGHT
+		if(rad_protection_flags & FOOT_LEFT)
+			rad_protection += THERMAL_PROTECTION_FOOT_LEFT
+		if(rad_protection_flags & FOOT_RIGHT)
+			rad_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(rad_protection_flags & ARM_LEFT)
+			rad_protection += THERMAL_PROTECTION_ARM_LEFT
+		if(rad_protection_flags & ARM_RIGHT)
+			rad_protection += THERMAL_PROTECTION_ARM_RIGHT
+		if(rad_protection_flags & HAND_LEFT)
+			rad_protection += THERMAL_PROTECTION_HAND_LEFT
+		if(rad_protection_flags & HAND_RIGHT)
+			rad_protection += THERMAL_PROTECTION_HAND_RIGHT
+
+
+	return min(1,rad_protection)
 
 /mob/living/carbon/human/proc/get_covered_bodyparts()
 	var/covered = 0
@@ -463,6 +534,8 @@
 		covered |= shoes.body_parts_covered
 	if(gloves)
 		covered |= gloves.body_parts_covered
+	if(neck)
+		covered |= neck.body_parts_covered
 	if(wear_mask)
 		covered |= wear_mask.body_parts_covered
 
@@ -546,17 +619,22 @@
 	if(status_flags & GODMODE)
 		return 0
 
+	if(status_flags & TERMINATOR_FORM)
+		return FALSE
+
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
+	if(brain?.damage >= brain.max_damage || (guaranteed_death_threshold) <= -500)
 		death()
 		return
 
-	if(getBrainLoss() >= 100) // braindeath
+	if(check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL)) // braindeath
 		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
+			// No need to get the fraction of the max brain damage here, because for it to matter, they'd probably be dead already
 			var/deathchance = min(99, ((getBrainLoss() / 5) + (health + (getOxyLoss() / -2))) * -0.1)
 			if(prob(deathchance))
 				death()
@@ -661,7 +739,7 @@
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
-		if(health <= HEALTH_THRESHOLD_CRIT)
+		if(health <= HEALTH_THRESHOLD_SUCCUMB)
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")
@@ -691,7 +769,7 @@
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
-	if(!stat)
+	if(stat == CONSCIOUS)
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
@@ -764,7 +842,7 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 8 MINUTES) 
+	if(decaytime <= 8 MINUTES)
 		return
 
 	if(decaytime > 8 MINUTES)

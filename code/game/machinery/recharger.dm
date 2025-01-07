@@ -12,11 +12,12 @@
 	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
+	var/anchor_toggleable = TRUE
 
 /obj/machinery/recharger/Initialize(mapload)
 	. = ..()
@@ -29,7 +30,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
+/obj/machinery/recharger/attackby__legacy__attackchain(obj/item/G, mob/user, params)
 	var/allowed = is_type_in_list(G, allowed_devices)
 
 	if(!allowed)
@@ -91,6 +92,8 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!anchor_toggleable)	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
+		return
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
@@ -201,6 +204,10 @@
 		var/obj/item/clothing/suit/armor/reactive/A = I
 		return A.cell
 
+	if(istype(I, /obj/item/wormhole_jaunter/wormhole_weaver))
+		var/obj/item/wormhole_jaunter/wormhole_weaver/W = I
+		return W.wcell
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
@@ -252,6 +259,7 @@
 	name = "wall recharger"
 	icon_state = "wrecharger0"
 	base_icon_state = "wrecharger"
+	anchor_toggleable = FALSE
 
 /obj/machinery/recharger/wallcharger/upgraded/Initialize(mapload)
 	. = ..()

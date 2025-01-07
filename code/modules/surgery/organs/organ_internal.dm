@@ -133,11 +133,24 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+
+	var/we_done = FALSE
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/borgan = organ_datums[organ_tag]
+		if(borgan.on_successful_emp())
+			we_done = TRUE
+
+	if(we_done)
+		return
+
+	// No EMP handling was done, lets just give em damage
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			receive_damage(20, 1)
-		if(2)
+		if(EMP_LIGHT)
 			receive_damage(7, 1)
+		if(EMP_WEAKENED)
+			receive_damage(3, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
@@ -157,6 +170,9 @@
 /obj/item/organ/internal/proc/on_life()
 	return
 
+/obj/item/organ/internal/proc/dead_process()
+	return
+
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
 	return
@@ -164,7 +180,7 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
 		return //no eating cybernetic implants!
-	var/obj/item/food/snacks/organ/S = new
+	var/obj/item/food/organ/S = new
 	S.name = name
 	S.desc = desc
 	S.icon = icon
@@ -188,14 +204,14 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/food/snacks/S = prepare_eat()
+		var/obj/item/food/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack(H, H)
+			S.attack__legacy__attackchain(H, H)
 			qdel(src)
 	else
 		..()
@@ -367,26 +383,6 @@
 			head_organ.f_style = "Very Long Beard"
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
-
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-
-	var/we_done = FALSE
-	for(var/organ_tag in organ_datums)
-		var/datum/organ/borgan = organ_datums[organ_tag]
-		if(borgan.on_successful_emp())
-			we_done = TRUE
-
-	if(we_done)
-		return
-
-	// No EMP handling was done, lets just give em damage
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
 
 /obj/item/organ/internal/handle_germs()
 	..()

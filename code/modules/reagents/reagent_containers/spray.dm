@@ -7,7 +7,7 @@
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -23,9 +23,12 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
-	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+/obj/item/reagent_containers/spray/afterattack__legacy__attackchain(atom/A, mob/user)
+	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
+		return
+
+	if(loc != user)
 		return
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
@@ -52,7 +55,7 @@
 	var/contents_log = reagents.reagent_list.Join(", ")
 	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(A, user))
 
@@ -92,7 +95,7 @@
 	qdel(D)
 
 
-/obj/item/reagent_containers/spray/attack_self(mob/user)
+/obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -102,7 +105,7 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='info'><b>Alt-Shift-Click</b> to empty it.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to empty it.</span>"
 
 /obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -132,7 +135,7 @@
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
 
-/obj/item/reagent_containers/spray/cleaner/attack_self(mob/user)
+/obj/item/reagent_containers/spray/cleaner/attack_self__legacy__attackchain(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -212,7 +215,7 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
+/obj/item/reagent_containers/spray/waterflower/attack_self__legacy__attackchain(mob/user) //Don't allow changing how much the flower sprays
 	return
 
 //chemsprayer
@@ -268,7 +271,7 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self__legacy__attackchain(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

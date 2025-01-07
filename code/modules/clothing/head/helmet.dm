@@ -14,13 +14,14 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
+	dyeable = FALSE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/attack_self(mob/user)
+/obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)
 			cooldown = world.time
@@ -33,10 +34,10 @@
 
 			if(active_sound)
 				while(up)
-					playsound(src.loc, "[active_sound]", 100, 0, 4)
+					playsound(src.loc, "[active_sound]", 100, FALSE, 4)
 					sleep(15)
 			if(toggle_sound)
-				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -57,7 +58,7 @@
 
 /obj/item/clothing/head/helmet/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
 
 /obj/item/clothing/head/helmet/meson/dropped(mob/user)
@@ -155,6 +156,7 @@
 	flags = null
 	item_state = "thunderdome"
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -282,38 +284,47 @@
 	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
 	icon_state = "streetjudge_hat"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)
+
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
-	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped blue Command stripes."
 	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
 	name = "emergency response team security helmet"
-	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped red Security stripes."
 	icon_state = "erthelmet_sec"
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
 	name = "paranormal emergency response team helmet"
-	desc = "An in-atmosphere helmet worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
+	desc = "An antique steel helmet that looks straight out of a poorly-funded documentary about the Crusades. Where the hell did they even find this?"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped orange Engineering stripes."
 	icon_state = "erthelmet_eng"
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped white Medical stripes."
 	icon_state = "erthelmet_med"
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
+	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple Janitorial stripes."
 	icon_state = "erthelmet_jan"

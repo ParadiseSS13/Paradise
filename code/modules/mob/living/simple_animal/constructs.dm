@@ -18,11 +18,10 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
-	flying = TRUE
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
@@ -110,7 +109,7 @@
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
 	real_name = "Juggernaut"
-	desc = "A possessed suit of armour driven by the will of the restless dead"
+	desc = "A possessed suit of armour driven by the will of the restless dead."
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	hud_type = /datum/hud/construct/armoured
@@ -154,7 +153,7 @@
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
-	desc = "A wicked bladed shell contraption piloted by a bound spirit"
+	desc = "A wicked bladed shell contraption piloted by a bound spirit."
 	icon_state = "floating"
 	icon_living = "floating"
 	hud_type = /datum/hud/construct/wraith
@@ -306,9 +305,9 @@
 	health = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	attacktext = "prods"
+	attacktext = "rends"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	attack_sound = 'sound/weapons/tap.ogg'
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/datum/spell/night_vision,
 							/datum/spell/aoe/conjure/build/wall,

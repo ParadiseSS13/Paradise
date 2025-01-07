@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
 	var/datum/spell/ai_spell/choose_modules/modules_action
-	var/list/datum/AI_Module/current_modules = list()
+	var/list/datum/ai_module/current_modules = list()
 	var/can_dominate_mechs = FALSE
 	var/shunted = FALSE // TRUE if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/aiEye/eyeobj
+	var/mob/camera/ai_eye/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/machinery/camera/portable/builtInCamera
 
-	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 1)
+	add_language("Zvezhan", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
-			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			new/obj/structure/ai_core/deactivated(loc)//New empty terminal.
 			qdel(src)//Delete AI.
 			return
 		else
@@ -641,6 +641,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
 
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>You are dead!</span>")
+		return
+
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
 
@@ -662,7 +666,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	ai_announcement()
 
-/mob/living/silicon/ai/check_eye(mob/user)
+/mob/living/silicon/ai/proc/check_holopad_eye(mob/user)
 	if(!current)
 		return null
 	user.reset_perspective(current)
@@ -680,12 +684,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
-	if(prob(30))
-		switch(pick(1,2))
-			if(1)
-				view_core()
-			if(2)
-				ai_call_shuttle()
+	Stun((12 SECONDS) / severity)
+	view_core()
 
 /mob/living/silicon/ai/ex_act(severity)
 	..()
@@ -778,6 +778,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!isturf(loc))
 			to_chat(src, "<span class='warning'>You aren't in your core!</span>")
 			return
+		if(M.occupant && !can_dominate_mechs)
+			to_chat(src, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
+			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
@@ -807,7 +810,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
-	if(stat == 2)
+	if(stat == DEAD)
 		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
 		return
 
@@ -905,7 +908,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
@@ -945,7 +948,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "AI Status"
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
 		return
 
@@ -964,11 +967,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 // I would love to scope this locally to the AI class, however its used by holopads as well
 // I wish we had nice OOP -aa07
-/proc/getHologramIcon(icon/A, safety = TRUE) // If safety is on, a new icon is not created.
+// hi squidward I'm stealing this for a space ruin -qwerty
+/proc/getHologramIcon(icon/A, safety = TRUE, colour = rgb(125, 180, 225), opacity = 0.5, colour_blocking = FALSE) // If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A) // Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
-	flat_icon.ColorTone(rgb(125,180,225)) // Let's make it bluish.
-	flat_icon.ChangeOpacity(0.5) // Make it half transparent.
+	if(colour && !colour_blocking)
+		flat_icon.ColorTone(colour) // Let's make it bluish.
+	flat_icon.ChangeOpacity(opacity) // Make it half transparent.
 
 	if(A.Height() == 64)
 		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2") //Scaline for tall icons.
@@ -1249,27 +1254,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		C.Togglelight(1)
 		lit_cameras |= C
 
-
-/mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(anchored)
-			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = FALSE
+/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		user.visible_message("<span class='notice'>[user] starts to unbolt [src] from the plating...</span>")
+		if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
+			user.visible_message("<span class='notice'>[user] decides not to unbolt [src].</span>")
 			return
-		else
-			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = TRUE
-			return
-	else
-		return ..()
+		user.visible_message("<span class='notice'>[user] finishes unfastening [src]!</span>")
+		anchored = FALSE
+		return
+	user.visible_message("<span class='notice'>[user] starts to bolt [src] to the plating...</span>")
+	if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
+		user.visible_message("<span class='notice'>[user] decides not to bolt [src].</span>")
+		return FALSE
+	user.visible_message("<span class='notice'>[user] finishes fastening down [src]!</span>")
+	anchored = TRUE
 
 /mob/living/silicon/ai/welder_act()
 	return
@@ -1322,7 +1322,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
 				return
 
-		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
@@ -1334,15 +1334,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
-
-/mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || !is_in_chassis())
-		return FALSE
-
-	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
-	return TRUE
-
 
 /mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
@@ -1398,7 +1389,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 ///Removes all malfunction-related /datum/action's from the target AI.
 /mob/living/silicon/ai/proc/remove_malf_abilities()
 	QDEL_NULL(modules_action)
-	for(var/datum/AI_Module/AM in current_modules)
+	for(var/datum/ai_module/AM in current_modules)
 		for(var/datum/action/A in actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
@@ -1442,7 +1433,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 
-/mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
+/mob/living/silicon/ai/proc/camera_visibility(mob/camera/ai_eye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
 
 /mob/living/silicon/ai/handle_fire()
@@ -1520,6 +1511,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!..())
 		return FALSE
 	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
+		return FALSE
+	return TRUE
+
+/mob/living/silicon/ai/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)
+		return FALSE
+	if(ourapc.malfhack && istype(ourapc.malfai) && (ourapc.malfai != src && ourapc.malfai != parent))
 		return FALSE
 	return TRUE
 

@@ -250,13 +250,13 @@
 		return
 	if(href_list["close"])
 		return
-	if(usr.stat > 0)
+	if(usr.stat != CONSCIOUS)
 		return
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])
 		if(usr != occupant)	return
 		var/obj/item/mecha_parts/mecha_equipment/equip = afilter.getObj("select_equip")
-		if(equip)
+		if(equip && (equip in equipment))
 			selected = equip
 			occupant_message("You switch to [equip]")
 			visible_message("[src] raises [equip]")

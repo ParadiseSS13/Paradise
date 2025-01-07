@@ -13,6 +13,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		)
 	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_BEANIE
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"

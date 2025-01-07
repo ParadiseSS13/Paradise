@@ -52,12 +52,12 @@
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/CanPass(atom/movable/mover, border_dir)
 	if(!density)
 		return TRUE
 	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))

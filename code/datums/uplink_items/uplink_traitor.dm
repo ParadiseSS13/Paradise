@@ -4,7 +4,6 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -159,7 +158,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
-	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
+			When wielded hitting people will have different effects based on your intent. "
 	reference = "TPBR"
 	item = /obj/item/push_broom/traitor
 	cost = 60
@@ -219,7 +218,7 @@
 	name = "Power Bio-Chip"
 	desc = "A Bio-Chip that can utilize the power of the station to deliver a short arc of electricity at a target. \
 			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
+			Activated by alt-clicking, or pressing the middle mouse button. Help/disarm intent will deal stamina damage and cause jittering, while harm/grab intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
 	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
@@ -238,7 +237,7 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you but otherwise function normally."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's inside. Cyborgs made with this MMI will be permanently slaved to you, but will appear to have a normal set of laws and be synchronised to the station AI, if present. Provides immunity to remote detonation and allows overriding lockdowns if the cyborg is not also emagged. It can also be inserted into a mech, but will not fit inside an AI core."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 10
@@ -333,13 +332,12 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
 	name = "Aggression Suppression Pen"
-	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	desc = "A hypospray disguised as a functional pen which is filled with a potent aggression suppressing chemical. The pen holds four doses of the mixture which slowly regenerates over time, but cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
 	cost = 20
@@ -396,6 +394,26 @@
 	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
 	species = list("Grey")
 
+// Drask
+/datum/uplink_item/species_restricted/cryoregenerative_enhancer
+	name = "Cryoregenerative Enhancer"
+	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
+	reference = "CRE"
+	item = /obj/item/cryoregenerative_enhancer
+	cost = 25
+	species = list("Drask")
+	surplus = 0
+
+// Unathi
+/datum/uplink_item/species_restricted/breach_cleaver
+	name = "Breach Cleaver"
+	desc = "This massive blade harkens back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. \
+	Requires two hands to be wielded. Comes in a scabbard. Has different effects based on intent."
+	reference = "CLV"
+	item = /obj/item/storage/belt/sheath/breach_cleaver
+	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
+	species = list("Unathi")
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
@@ -414,13 +432,19 @@
 	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/storage/box/syndie_kit/guardian/uplink
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	can_discount = FALSE
+	uses_special_spawn = TRUE
+
+/datum/uplink_item/dangerous/guardian/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	new /obj/item/storage/box/syndie_kit/guardian/uplink(loc, cost)
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -515,6 +539,14 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/hyper_medipen
+	name = "Hyper-regenerative Medipen"
+	desc = "An autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if multiple are used in quick succession."
+	reference = "HMP"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
+	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /// Nukies get Diamond Tipped Thermal Safe Drill instead
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Amplifying Thermal Safe Drill"
@@ -589,7 +621,7 @@
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/contractor
+/datum/uplink_item/bundles_tc/contractor
 	name = "Syndicate Contractor Kit"
 	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."
 	reference = "SCOK"
@@ -597,7 +629,7 @@
 	item = /obj/item/storage/box/syndie_kit/contractor
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+/datum/uplink_item/bundles_tc/contractor/spawn_item(turf/loc, obj/item/uplink/U)
 	var/datum/mind/mind = usr.mind
 	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(LAZYACCESS(GLOB.contractors, mind))
@@ -621,7 +653,7 @@
 	log_game("[key_name(usr)] became a Contractor")
 	return I
 
-/datum/uplink_item/bundles_TC/badass
+/datum/uplink_item/bundles_tc/badass
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
@@ -629,7 +661,7 @@
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/surplus_crate
+/datum/uplink_item/bundles_tc/surplus_crate
 	name = "Syndicate Surplus Crate"
 	desc = "A crate containing 250 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
@@ -639,11 +671,11 @@
 	var/crate_value = 250
 	uses_special_spawn = TRUE
 
-/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
+/datum/uplink_item/bundles_tc/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U, mob/user)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
-	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost)
+	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost, user)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
@@ -655,7 +687,7 @@
 			Changes your unarmed damage to deal non-lethal stamina damage. \
 			Does not restrict weapon usage, and can be used alongside Gloves of the North Star."
 	reference = "CQC"
-	item = /obj/item/CQC_manual
+	item = /obj/item/cqc_manual
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -668,7 +700,6 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -692,11 +723,10 @@
 	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
-	hijack_only = TRUE
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	hijack_only = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
@@ -718,7 +748,7 @@
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient down for a short period, and deafen them for longer."
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 30

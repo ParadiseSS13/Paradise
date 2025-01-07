@@ -3,7 +3,7 @@
 	name = "Arcade Game"
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/arcade.dmi'
-	icon_state = "clawmachine_on"
+	icon_state = "clawmachine_1_on"
 	idle_power_consumption = 40
 
 	var/tokens = 0
@@ -56,19 +56,19 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/economy/arcade/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/economy/arcade/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!freeplay)
 		if(isspacecash(O))
 			insert_cash(O, user, token_price)
 			if(pay_with_cash(token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return
+
 		if(istype(O, /obj/item/card/id))
 			if(pay_with_card(O, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return
+
 	return ..()
 
 /obj/machinery/economy/arcade/screwdriver_act(mob/living/user, obj/item/I)

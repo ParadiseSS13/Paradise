@@ -15,7 +15,7 @@
 
 /obj/item/gavelhammer/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] has sentenced [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/gavel.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/gavelblock
@@ -29,7 +29,7 @@
 	resistance_flags = FLAMMABLE
 	var/next_gavel_hit
 
-/obj/item/gavelblock/attackby(obj/item/I, mob/user, params)
+/obj/item/gavelblock/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/gavelhammer))
 		return
 	if(world.time > next_gavel_hit)

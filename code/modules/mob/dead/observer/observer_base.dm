@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	MA.plane = GAME_PLANE
 	. = MA
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/dead/CanPass(atom/movable/mover, border_dir)
 	return 1
 
 
@@ -483,6 +483,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(landmark))
 		forceMove(get_turf(landmark))
 		update_parallax_contents()
+
+		var/list/messages = list(
+			"<span class='notice'>Jumped to <b>[landmark.ruin_template.name]</b>:</span>",
+			"<span class='notice'>[landmark.ruin_template.description]</span>"
+		)
+		to_chat(usr, chat_box_examine(messages.Join("<br />")))
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))

@@ -81,6 +81,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -101,15 +102,15 @@
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
-		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
+		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color(), 0)
 
 	return SURGERY_STEP_CONTINUE
 
@@ -133,6 +134,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -190,6 +192,9 @@
 		/obj/item/shard = 60
 	)
 
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
@@ -208,8 +213,8 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -292,8 +297,8 @@
 			target.update_body()
 
 		user.visible_message(
-			"<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
+			"<span class='notice'>[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
+			"<span class='notice'>You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 

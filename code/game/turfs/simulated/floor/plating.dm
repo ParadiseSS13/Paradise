@@ -48,7 +48,7 @@
 	if(unfastened)
 		. += "<span class='warning'>It has been unfastened.</span>"
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 
@@ -208,17 +208,16 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
-	if(!C || !user)
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
+	if(!user)
 		return
-	if(istype(C, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(!istype(src, /turf/simulated/floor/engine))
-				return
-			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+	if(W.use_tool(src, user, 3 SECONDS, 0, 50))
+		if(!istype(src, /turf/simulated/floor/engine))
+			return
+		new /obj/item/stack/rods(src, 2)
+		ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
@@ -308,13 +307,23 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/airless/nodecay
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+/turf/simulated/floor/engine/asteroid
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
 				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
@@ -384,7 +393,7 @@
 		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 
@@ -405,7 +414,7 @@
 		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
 	else
 		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
+			playsound(loc, M.attack_sound, 50, TRUE, 1)
 		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
 		smash(src)
 

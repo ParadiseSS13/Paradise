@@ -31,7 +31,7 @@
 	dir = 8
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants,
@@ -224,8 +224,8 @@
 /area/ruin/space/wreck_cargoship)
 "jm" = (
 /obj/item/toy/plushie/ipcplushie,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
 /obj/item/paper/crumpled{
 	name = "unintelligible scribbles";
 	info = "toast... i must... the plushie..."
@@ -365,7 +365,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -432,7 +432,7 @@
 /obj/machinery/door/firedoor/border_only/closed{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "py" = (
@@ -493,7 +493,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker/collision,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "qr" = (
 /obj/structure/largecrate,
 /obj/effect/decal/cleanable/dirt,
@@ -549,13 +549,13 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "tm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/wreck_cargoship)
 "tn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "cargoshipblastdoor4"
@@ -603,7 +603,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "wf" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -680,7 +680,7 @@
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_x = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -709,14 +709,14 @@
 /obj/structure/sign/cargo{
 	pixel_x = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
 	},
 /area/ruin/space/wreck_cargoship)
 "BA" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/railing/corner{
 	dir = 8
 	},
@@ -731,7 +731,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "CB" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -757,7 +757,7 @@
 "DY" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "Ei" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/railing,
@@ -802,7 +802,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -938,7 +938,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "Mc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "Mt" = (
@@ -1079,7 +1079,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/button/windowtint{
 	pixel_y = -32
 	},
@@ -1098,7 +1098,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -1248,11 +1248,11 @@
 	dir = 8
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "VZ" = (
 /obj/structure/girder/displaced,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "Wj" = (
 /obj/structure/railing/corner{
 	dir = 8

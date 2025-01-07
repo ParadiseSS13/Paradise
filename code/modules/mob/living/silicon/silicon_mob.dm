@@ -230,10 +230,8 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(16 SECONDS)
 		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -282,7 +280,7 @@
 
 	return 2
 
-/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return TRUE
@@ -591,13 +589,11 @@
 	hat_alpha = null
 	hat_color = null
 
-/mob/living/silicon/death(gibbed)
-	if(gibbed)
-		drop_hat()
-	. = ..()
-
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
+
+/mob/living/silicon/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)

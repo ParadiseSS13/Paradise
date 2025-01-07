@@ -1,7 +1,6 @@
 /datum/spell/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
-	school = "transmutation"
 	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "GAR YOK"
@@ -68,7 +67,7 @@
 						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
 					visible_item = FALSE
 					break
-				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden/implant)) //The implant should be left alone
+				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden_implant)) //The implant should be left alone
 					var/obj/item/storage/S = item_to_retrieve.loc
 					for(var/mob/M in S.mobs_viewing)
 						to_chat(M, "<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
@@ -130,12 +129,12 @@
 				N.visible_message("<span class='warning'>As [item_to_retrieve] vanishes, [N] remains behind!</span>")
 				break //If you have 2 nads, well, congrats? Keeps message from doubling up
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_LEFT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_RIGHT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_RIGHT_HAND, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, ITEM_SLOT_LEFT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

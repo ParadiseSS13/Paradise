@@ -33,41 +33,22 @@
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
-    $with: (
-      'color-default': darken(colors.$primary, 20%),
-      'color-disabled': #363636,
-      'color-selected': #1e5881
-    )
+    $with: ('color-default': darken(colors.$primary, 20%), 'color-disabled': #363636, 'color-selected': #1e5881)
   );
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': #910101)
-  );
-  @include meta.load-css(
-    '../components/NoticeBox.scss',
-    $with: ('background-color': #1a3f57)
-  );
-  @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': #910101)
-  );
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': #910101));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #1a3f57));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #910101));
   @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: ('background-color': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
   );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css(
-    '../components/Tooltip.scss',
-    $with: ('background-color': #235577)
-  );
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #235577));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #1a3f57)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #1a3f57));
 
   .Layout__content {
     background-image: none;

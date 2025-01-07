@@ -61,10 +61,10 @@
 	is_ragin_restricted = TRUE
 
 /datum/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), ITEM_SLOT_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), ITEM_SLOT_JUMPSUIT)
 
 /datum/spellbook_entry/loadout/greytide
 	name = "Tyde the Grey"
@@ -87,9 +87,9 @@
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.unEquip(user.wear_id)
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, SLOT_HUD_JUMPSUIT) //Just in case they're naked
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, ITEM_SLOT_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-	user.equip_to_slot_or_del(wizid, SLOT_HUD_WEAR_ID)
+	user.equip_to_slot_or_del(wizid, ITEM_SLOT_ID)
 	wizid.registered_name = user.real_name
 	wizid.access = list(ACCESS_MAINT_TUNNELS)
 	wizid.assignment = "Assistant"
@@ -144,10 +144,10 @@
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), SLOT_HUD_OUTER_SUIT)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), ITEM_SLOT_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), ITEM_SLOT_HEAD)
 
-	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), SLOT_HUD_BELT)
+	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), ITEM_SLOT_BELT)
 
 /obj/item/clothing/suit/wizrobe/red/fireball
 	name = "infernal robe"

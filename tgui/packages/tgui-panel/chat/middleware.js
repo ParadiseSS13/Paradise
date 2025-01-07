@@ -38,22 +38,14 @@ const blacklisted_tags = ['a', 'iframe', 'link', 'video'];
 
 const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
-  const fromIndex = Math.max(
-    0,
-    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
-  );
-  const messages = chatRenderer.messages
-    .slice(fromIndex)
-    .map((message) => serializeMessage(message));
+  const fromIndex = Math.max(0, chatRenderer.messages.length - MAX_PERSISTED_MESSAGES);
+  const messages = chatRenderer.messages.slice(fromIndex).map((message) => serializeMessage(message));
   storage.set('chat-state', state);
   storage.set('chat-messages', messages);
 };
 
 const loadChatFromStorage = async (store) => {
-  const [state, messages] = await Promise.all([
-    storage.get('chat-state'),
-    storage.get('chat-messages'),
-  ]);
+  const [state, messages] = await Promise.all([storage.get('chat-state'), storage.get('chat-messages')]);
   // Discard incompatible versions
   if (state && state.version <= 4) {
     store.dispatch(loadChat());
@@ -127,11 +119,7 @@ export const chatMiddleware = (store) => {
         // cannot do reliability if we don't have any messages
         const expected_sequence = sequences[sequence_count - 1] + 1;
         if (sequence !== expected_sequence) {
-          for (
-            let requesting = expected_sequence;
-            requesting < sequence;
-            requesting++
-          ) {
+          for (let requesting = expected_sequence; requesting < sequence; requesting++) {
             // requested_sequences.push(requesting); in origin, but that calls error
             sequences_requested.push(requesting);
             Byond.sendMessage('chat/resend', requesting);
@@ -176,10 +164,7 @@ export const chatMiddleware = (store) => {
     ) {
       next(action);
       const settings = selectSettings(store.getState());
-      chatRenderer.setHighlight(
-        settings.highlightSettings,
-        settings.highlightSettingById
-      );
+      chatRenderer.setHighlight(settings.highlightSettings, settings.highlightSettingById);
       return;
     }
     if (type === 'roundrestart') {

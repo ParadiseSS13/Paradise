@@ -31,3 +31,7 @@
 
 /// Inverse direction, taking into account UP|DOWN if necessary.
 #define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
+/// returns TRUE if the direction is EAST or WEST
+#define DIR_JUST_HORIZONTAL(dir) ((dir == EAST) || (dir == WEST))
+/// returns TRUE if the direction is NORTH or SOUTH
+#define DIR_JUST_VERTICAL(dir) ((dir == NORTH) || (dir == SOUTH))

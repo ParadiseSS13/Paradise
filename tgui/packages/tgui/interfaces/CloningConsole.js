@@ -1,15 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Box,
-  Tabs,
-  Stack,
-  Collapsible,
-  Icon,
-} from '../components';
+import { Button, LabeledList, ProgressBar, Section, Box, Tabs, Stack, Collapsible, Icon } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 
@@ -25,27 +15,15 @@ export const CloningConsole = (props, context) => {
       <Window.Content scrollable>
         <Section title="Cloning Console">
           <LabeledList>
-            <LabeledList.Item label="Connected scanner">
-              {has_scanner ? 'Online' : 'Missing'}
-            </LabeledList.Item>
-            <LabeledList.Item label="Connected pods">
-              {pod_amount}
-            </LabeledList.Item>
+            <LabeledList.Item label="Connected scanner">{has_scanner ? 'Online' : 'Missing'}</LabeledList.Item>
+            <LabeledList.Item label="Connected pods">{pod_amount}</LabeledList.Item>
           </LabeledList>
         </Section>
         <Tabs>
-          <Tabs.Tab
-            selected={tab === 1}
-            icon="home"
-            onClick={() => act('menu', { tab: 1 })}
-          >
+          <Tabs.Tab selected={tab === 1} icon="home" onClick={() => act('menu', { tab: 1 })}>
             Main Menu
           </Tabs.Tab>
-          <Tabs.Tab
-            selected={tab === 2}
-            icon="user"
-            onClick={() => act('menu', { tab: 2 })}
-          >
+          <Tabs.Tab selected={tab === 2} icon="user" onClick={() => act('menu', { tab: 2 })}>
             Damage Configuration
           </Tabs.Tab>
         </Tabs>
@@ -81,9 +59,7 @@ const CloningConsoleMain = (props, context) => {
             <Stack textAlign="center">
               <Stack.Item basis="96px" shrink={0}>
                 <img
-                  src={resolveAsset(
-                    'pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif'
-                  )}
+                  src={resolveAsset('pod_' + (pod['cloning'] ? 'cloning' : 'idle') + '.gif')}
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -100,30 +76,16 @@ const CloningConsoleMain = (props, context) => {
               <Stack.Item>
                 <LabeledList>
                   <LabeledList.Item label="Progress">
-                    {!pod['cloning'] && (
-                      <Box color="average">Pod is inactive.</Box>
-                    )}
-                    {!!pod['cloning'] && (
-                      <ProgressBar
-                        value={pod['clone_progress']}
-                        maxValue={100}
-                        color="good"
-                      />
-                    )}
+                    {!pod['cloning'] && <Box color="average">Pod is inactive.</Box>}
+                    {!!pod['cloning'] && <ProgressBar value={pod['clone_progress']} maxValue={100} color="good" />}
                   </LabeledList.Item>
                   <LabeledList.Divider />
                   <LabeledList.Item label="Biomass">
                     <ProgressBar
                       value={pod['biomass']}
                       ranges={{
-                        good: [
-                          (2 * pod['biomass_storage_capacity']) / 3,
-                          pod['biomass_storage_capacity'],
-                        ],
-                        average: [
-                          pod['biomass_storage_capacity'] / 3,
-                          (2 * pod['biomass_storage_capacity']) / 3,
-                        ],
+                        good: [(2 * pod['biomass_storage_capacity']) / 3, pod['biomass_storage_capacity']],
+                        average: [pod['biomass_storage_capacity'] / 3, (2 * pod['biomass_storage_capacity']) / 3],
                         bad: [0, pod['biomass_storage_capacity'] / 3], // This is just thirds again
                       }}
                       minValue={0}
@@ -132,17 +94,12 @@ const CloningConsoleMain = (props, context) => {
                       {pod['biomass']}/
                       {pod['biomass_storage_capacity'] +
                         ' (' +
-                        (100 * pod['biomass']) /
-                          pod['biomass_storage_capacity'] +
+                        (100 * pod['biomass']) / pod['biomass_storage_capacity'] +
                         '%)'}
                     </ProgressBar>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Sanguine Reagent">
-                    {pod['sanguine_reagent']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Osseous Reagent">
-                    {pod['osseous_reagent']}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Sanguine Reagent">{pod['sanguine_reagent']}</LabeledList.Item>
+                  <LabeledList.Item label="Osseous Reagent">{pod['osseous_reagent']}</LabeledList.Item>
                 </LabeledList>
               </Stack.Item>
             </Stack>
@@ -162,6 +119,7 @@ const CloningConsoleDamage = (props, context) => {
     scan_successful,
     cloning_cost,
     has_scanner,
+    currently_scanning,
   } = data;
   return (
     <Box>
@@ -173,41 +131,35 @@ const CloningConsoleDamage = (props, context) => {
             title="Scanner Info"
             buttons={
               <Box>
-                <Button icon="hourglass-half" onClick={() => act('scan')}>
+                <Button
+                  icon="hourglass-half"
+                  onClick={() => act('scan')}
+                  disabled={!scanner_has_patient || currently_scanning}
+                >
                   Scan
                 </Button>
-                <Button icon="eject" onClick={() => act('eject')}>
+                <Button icon="eject" onClick={() => act('eject')} disabled={!scanner_has_patient || currently_scanning}>
                   Eject Patient
                 </Button>
               </Box>
             }
           >
-            {!has_scanned && (
+            {!has_scanned && !currently_scanning && (
               <Box color="average">
-                {scanner_has_patient
-                  ? 'No scan detected for current patient.'
-                  : 'No patient is in the scanner.'}
+                {scanner_has_patient ? 'No scan detected for current patient.' : 'No patient is in the scanner.'}
               </Box>
             )}
-            {!!has_scanned && (
-              <Box color={feedback['color']}>{feedback['text']}</Box>
-            )}
+            {(!!has_scanned || !!currently_scanning) && <Box color={feedback['color']}>{feedback['text']}</Box>}
           </Section>
           <Section layer={2} title="Damages Breakdown">
             <Box>
-              {(!scan_successful || !has_scanned) && (
-                <Box color="average">No valid scan detected.</Box>
-              )}
+              {(!scan_successful || !has_scanned) && <Box color="average">No valid scan detected.</Box>}
               {!!scan_successful && !!has_scanned && (
                 <Box>
                   <Stack>
                     <Stack.Item>
-                      <Button onClick={() => act('fix_all')}>
-                        Repair All Damages
-                      </Button>
-                      <Button onClick={() => act('fix_none')}>
-                        Repair No Damages
-                      </Button>
+                      <Button onClick={() => act('fix_all')}>Repair All Damages</Button>
+                      <Button onClick={() => act('fix_none')}>Repair No Damages</Button>
                     </Stack.Item>
                     <Stack.Item grow={1} />
                     <Stack.Item>
@@ -221,30 +173,18 @@ const CloningConsoleDamage = (props, context) => {
                         maxValue={selected_pod_data['biomass_storage_capacity']}
                         ranges={{
                           bad: [
-                            (2 *
-                              selected_pod_data['biomass_storage_capacity']) /
-                              3,
+                            (2 * selected_pod_data['biomass_storage_capacity']) / 3,
                             selected_pod_data['biomass_storage_capacity'],
                           ],
                           average: [
                             selected_pod_data['biomass_storage_capacity'] / 3,
-                            (2 *
-                              selected_pod_data['biomass_storage_capacity']) /
-                              3,
+                            (2 * selected_pod_data['biomass_storage_capacity']) / 3,
                           ],
-                          good: [
-                            0,
-                            selected_pod_data['biomass_storage_capacity'] / 3,
-                          ],
+                          good: [0, selected_pod_data['biomass_storage_capacity'] / 3],
                         }}
-                        color={
-                          cloning_cost[0] > selected_pod_data['biomass']
-                            ? 'bad'
-                            : null
-                        }
+                        color={cloning_cost[0] > selected_pod_data['biomass'] ? 'bad' : null}
                       >
-                        Biomass: {cloning_cost[0]}/
-                        {selected_pod_data['biomass']}/
+                        Biomass: {cloning_cost[0]}/{selected_pod_data['biomass']}/
                         {selected_pod_data['biomass_storage_capacity']}
                       </ProgressBar>
                     </Stack.Item>
@@ -261,20 +201,11 @@ const CloningConsoleDamage = (props, context) => {
                             selected_pod_data['max_reagent_capacity'] / 3,
                             (2 * selected_pod_data['max_reagent_capacity']) / 3,
                           ],
-                          good: [
-                            0,
-                            selected_pod_data['max_reagent_capacity'] / 3,
-                          ],
+                          good: [0, selected_pod_data['max_reagent_capacity'] / 3],
                         }}
-                        color={
-                          cloning_cost[1] >
-                          selected_pod_data['sanguine_reagent']
-                            ? 'bad'
-                            : 'good'
-                        }
+                        color={cloning_cost[1] > selected_pod_data['sanguine_reagent'] ? 'bad' : 'good'}
                       >
-                        Sanguine: {cloning_cost[1]}/
-                        {selected_pod_data['sanguine_reagent']}/
+                        Sanguine: {cloning_cost[1]}/{selected_pod_data['sanguine_reagent']}/
                         {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
@@ -291,19 +222,11 @@ const CloningConsoleDamage = (props, context) => {
                             selected_pod_data['max_reagent_capacity'] / 3,
                             (2 * selected_pod_data['max_reagent_capacity']) / 3,
                           ],
-                          good: [
-                            0,
-                            selected_pod_data['max_reagent_capacity'] / 3,
-                          ],
+                          good: [0, selected_pod_data['max_reagent_capacity'] / 3],
                         }}
-                        color={
-                          cloning_cost[2] > selected_pod_data['osseous_reagent']
-                            ? 'bad'
-                            : 'good'
-                        }
+                        color={cloning_cost[2] > selected_pod_data['osseous_reagent'] ? 'bad' : 'good'}
                       >
-                        Osseous: {cloning_cost[2]}/
-                        {selected_pod_data['osseous_reagent']}/
+                        Osseous: {cloning_cost[2]}/{selected_pod_data['osseous_reagent']}/
                         {selected_pod_data['max_reagent_capacity']}
                       </ProgressBar>
                     </Stack.Item>
@@ -335,20 +258,12 @@ const LimbsMenu = (props, context) => {
             {patient_limb_data[limb][3] === 0 && (
               <Stack.Item width="60%">
                 <ProgressBar
-                  value={
-                    desired_limb_data[limb][0] + desired_limb_data[limb][1]
-                  }
+                  value={desired_limb_data[limb][0] + desired_limb_data[limb][1]}
                   maxValue={patient_limb_data[limb][5]}
                   ranges={{
                     good: [0, patient_limb_data[limb][5] / 3],
-                    average: [
-                      patient_limb_data[limb][5] / 3,
-                      (2 * patient_limb_data[limb][5]) / 3,
-                    ],
-                    bad: [
-                      (2 * patient_limb_data[limb][5]) / 3,
-                      patient_limb_data[limb][5],
-                    ],
+                    average: [patient_limb_data[limb][5] / 3, (2 * patient_limb_data[limb][5]) / 3],
+                    bad: [(2 * patient_limb_data[limb][5]) / 3, patient_limb_data[limb][5]],
                   }}
                 >
                   {'Post-Cloning Damage: '}
@@ -372,9 +287,7 @@ const LimbsMenu = (props, context) => {
               <Stack.Item>
                 <Button.Checkbox
                   checked={!desired_limb_data[limb][3]}
-                  onClick={() =>
-                    act('toggle_limb_repair', { limb: limb, type: 'replace' })
-                  }
+                  onClick={() => act('toggle_limb_repair', { limb: limb, type: 'replace' })}
                 >
                   Replace Limb
                 </Button.Checkbox>
@@ -383,44 +296,30 @@ const LimbsMenu = (props, context) => {
             {!patient_limb_data[limb][3] && (
               <Stack.Item>
                 <Button.Checkbox
-                  disabled={
-                    !(patient_limb_data[limb][0] || patient_limb_data[limb][1])
-                  }
-                  checked={
-                    !(desired_limb_data[limb][0] || desired_limb_data[limb][1])
-                  }
-                  onClick={() =>
-                    act('toggle_limb_repair', { limb: limb, type: 'damage' })
-                  }
+                  disabled={!(patient_limb_data[limb][0] || patient_limb_data[limb][1])}
+                  checked={!(desired_limb_data[limb][0] || desired_limb_data[limb][1])}
+                  onClick={() => act('toggle_limb_repair', { limb: limb, type: 'damage' })}
                 >
                   Repair Damages
                 </Button.Checkbox>
                 <Button.Checkbox
                   disabled={!(patient_limb_data[limb][2] & brokenFlag)}
                   checked={!(desired_limb_data[limb][2] & brokenFlag)}
-                  onClick={() =>
-                    act('toggle_limb_repair', { limb: limb, type: 'bone' })
-                  }
+                  onClick={() => act('toggle_limb_repair', { limb: limb, type: 'bone' })}
                 >
                   Mend Bone
                 </Button.Checkbox>
                 <Button.Checkbox
-                  disabled={
-                    !(patient_limb_data[limb][2] & internalBleedingFlag)
-                  }
+                  disabled={!(patient_limb_data[limb][2] & internalBleedingFlag)}
                   checked={!(desired_limb_data[limb][2] & internalBleedingFlag)}
-                  onClick={() =>
-                    act('toggle_limb_repair', { limb: limb, type: 'ib' })
-                  }
+                  onClick={() => act('toggle_limb_repair', { limb: limb, type: 'ib' })}
                 >
                   Mend IB
                 </Button.Checkbox>
                 <Button.Checkbox
                   disabled={!(patient_limb_data[limb][2] & burnWoundFlag)}
                   checked={!(desired_limb_data[limb][2] & burnWoundFlag)}
-                  onClick={() =>
-                    act('toggle_limb_repair', { limb: limb, type: 'critburn' })
-                  }
+                  onClick={() => act('toggle_limb_repair', { limb: limb, type: 'critburn' })}
                 >
                   Mend Critical Burn
                 </Button.Checkbox>
@@ -449,10 +348,7 @@ const OrgansMenu = (props, context) => {
                 <Stack.Item>
                   {!!patient_organ_data[organ][2] && (
                     <Button.Checkbox
-                      checked={
-                        !desired_organ_data[organ][2] &&
-                        !desired_organ_data[organ][1]
-                      }
+                      checked={!desired_organ_data[organ][2] && !desired_organ_data[organ][1]}
                       onClick={() =>
                         act('toggle_organ_repair', {
                           organ: organ,
@@ -483,9 +379,7 @@ const OrgansMenu = (props, context) => {
               </Box>
             )}
             {!!(patient_organ_data[organ][5] === 'heart') && (
-              <Box color="average">
-                Heart replacement is required for cloning.
-              </Box>
+              <Box color="average">Heart replacement is required for cloning.</Box>
             )}
             <Stack.Item grow={1} />
             <Stack.Item width="35%">
@@ -500,14 +394,8 @@ const OrgansMenu = (props, context) => {
                   maxValue={patient_organ_data[organ][4]}
                   ranges={{
                     good: [0, patient_organ_data[organ][4] / 3],
-                    average: [
-                      patient_organ_data[organ][4] / 3,
-                      (2 * patient_organ_data[organ][4]) / 3,
-                    ],
-                    bad: [
-                      (2 * patient_organ_data[organ][4]) / 3,
-                      patient_organ_data[organ][4],
-                    ],
+                    average: [patient_organ_data[organ][4] / 3, (2 * patient_organ_data[organ][4]) / 3],
+                    bad: [(2 * patient_organ_data[organ][4]) / 3, patient_organ_data[organ][4]],
                   }}
                 >
                   {'Post-Cloning Damage: ' + desired_organ_data[organ][0]}

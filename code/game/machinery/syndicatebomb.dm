@@ -114,7 +114,7 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/syndicatebomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
@@ -400,7 +400,7 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon
-	var/summon_path = /obj/item/food/snacks/cookie
+	var/summon_path = /obj/item/food/cookie
 	var/amt_summon = 1
 
 /obj/item/bombcore/badmin/summon/detonate()
@@ -522,13 +522,13 @@
 		message_admins(adminlog)
 		log_game(adminlog)
 
-	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
+	playsound(loc, 'sound/effects/bamf.ogg', 75, TRUE, 5)
 
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/chemical/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
 		if(length(beakers) < max_beakers)
 			if(!user.drop_item())
@@ -599,7 +599,7 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user)
+/obj/item/bombcore/toxins/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/transfer_valve))
 		if(!ttv && !check_attached(I))
 			if(!user.drop_item())
@@ -655,7 +655,7 @@
 	var/detonated =	0
 	var/existant =	0
 
-/obj/item/syndicatedetonator/attack_self(mob/user)
+/obj/item/syndicatedetonator/attack_self__legacy__attackchain(mob/user)
 	if(timer >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
