@@ -322,8 +322,8 @@
 	name ="\improper Embellished Enigma packet"
 	desc = "True to the name, Enigmas are impossible to pin down. \
 	No two cigarettes are alike as each one is infused with unique flavours and substances, so every time is just like your first time."
-	icon_state = "shadyjimpacket"
-	item_state = "shadyjimpacket"
+	icon_state = "enigmapacket"
+	item_state = "enigmapacket"
 	cigarette_slogan = "For the true connoisseur of exotic flavors."
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
@@ -340,6 +340,16 @@
 	cigarette_slogan = ""
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
+/obj/item/storage/fancy/cigarettes/cigpack_midori
+	name = "\improper Our Brand packet"
+	desc = "The one, official brand of cigarette available USSP. \
+	Exported across the Orion Sector by vendors affiliated with the Nian Merchant Guild. \
+	The flavour is bland, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the very cheap price."
+	icon_state = "midoripacket"
+	item_state = "midoripacket"
+	cigarette_slogan = "Smoke, for the Union!"
+	cigarette_type = /obj/item/clothing/mask/cigarette/papirosa
+
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
 	desc = "Nanotrasen's in-house brand of cigarettes. Cheap quality, wispy smoke, has a somewhat harsh flavour.
@@ -354,6 +364,18 @@
 	item_state = "robustgpacket"
 	cigarette_slogan = "Smoked by the <b>truly</b> robust."
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy
+    name = "\improper Robust Junior packet"
+    desc = "A packet of nicotine-free* candy cigarettes, manufactured by Robust Tobacco."
+	icon_state = "robustpacket"
+	item_state = "robustpacket"
+	cigarette_slogan = "Unsure about smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100% nicotine-free* candy cigarettes."
+	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
+	. = ..()
+	. += "<span class = 'warning'>*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"

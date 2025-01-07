@@ -305,16 +305,48 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/New()
-	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
+	list_reagents = list("nicotine" = 40, pick("fuel", "saltpetre", "synaptizine", "green_vomit", "potass_iodide", "msg", "lexorin", "mannitol", \
+	"spaceacillin" ,"cryoxadone" ,"holywater", "tea" ,"egg" ,"haloperidol" ,"mutagen" ,"omnizine", "carpet", "aranesp", "cryostylane", "chocolate", \
+	"bilk", "cheese", "rum", "blood", "charcoal", "coffee", "ectoplasm", "space_drugs", "milk", "mutadone", "antihol", "teporone", "insulin", "salbutamol", "toxin") = 20)
 	..()
 
+/obj/item/clothing/mask/cigarette/candy
+	name = "candy cigarette"
+	desc = "A stick of candy imitating a real cigarette. The words 'do not expose to heat' are written in very small letters around the base."
+
+/obj/item/clothing/mask/cigarette/candy/pre_attack(atom/A, mob/living/user, params)
+	if(!ishuman(target))
+		return . = ..()
+
+	if(target != user)
+		user.visible_message("<span_class = 'notice'>You begin to feed [target] [src].</span>"
+			"<span_class = 'warning'>[user] begins to feed [target] [src]!</span>"
+		)
+		if(!do_after(user, 5 SECONDS, target = target))
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+	
+	else
+		to_chat(user, "<span_class = 'notice'>You eat [src].</span>")
+		
+	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+	target.adjust_nutrition(5)
+	target.reagents.add_reagent("sugar", 5)
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
 /obj/item/clothing/mask/cigarette/syndicate
+	name = "suspicious cigarette"
+	desc = "An evil-looking cigarette. It smells of donk pockets."
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
+	name = "medical marijuana cigarette"
+	desc = "A cigarette containing cannabis that has been cultivated to maximise CBD content and minimise THC. For use as a medical product."
 	list_reagents = list("thc" = 20, "cbd" = 40)
 
 /obj/item/clothing/mask/cigarette/robustgold
+	name = "\improper Robust Gold cigarette"
+	desc = "A premium cigarette smoked by the truly robust, contains real gold."
 	list_reagents = list("nicotine" = 40, "gold" = 1)
 
 /obj/item/clothing/mask/cigarette/shadyjims
