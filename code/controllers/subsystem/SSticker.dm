@@ -141,6 +141,9 @@ SUBSYSTEM_DEF(ticker)
 			// Start a map vote IF
 			// - Map rotate doesnt have a mode for today and map voting is enabled
 			// - Map rotate has a mode for the day and it ISNT full random
+			if(SSmaprotate.setup_done && (SSmaprotate.rotation_mode == MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES))
+				SSmaprotate.decide_next_map()
+				return
 			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else
@@ -296,11 +299,11 @@ SUBSYSTEM_DEF(ticker)
 			if(tripai.name == "tripai")
 				if(locate(/mob/living) in get_turf(tripai))
 					continue
-				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
+				GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
+		GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -360,7 +363,7 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef UNIT_TESTS
+	#ifdef GAME_TESTS
 	// Run map tests first in case unit tests futz with map state
 	GLOB.test_runner.RunMap()
 	GLOB.test_runner.Run()

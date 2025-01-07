@@ -18,7 +18,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
@@ -37,7 +37,7 @@ SLIME SCANNER
 	else
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/t_scanner/attack_self(mob/user)
+/obj/item/t_scanner/attack_self__legacy__attackchain(mob/user)
 	toggle_on()
 
 /obj/item/t_scanner/process()
@@ -109,7 +109,7 @@ SLIME SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 3
@@ -125,7 +125,7 @@ SLIME SCANNER
 	. = ..()
 	. += "<span class='notice'>Use [src] in hand to toggle showing localised damage.</span>"
 
-/obj/item/healthanalyzer/attack_self(mob/user)
+/obj/item/healthanalyzer/attack_self__legacy__attackchain(mob/user)
 	mode = !mode
 	switch(mode)
 		if(DETAILED_HEALTH_SCAN)
@@ -133,7 +133,7 @@ SLIME SCANNER
 		if(SIMPLE_HEALTH_SCAN)
 			to_chat(user, "<span class='notice'>The scanner is no longer showing localised limb damage.</span>")
 
-/obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
+/obj/item/healthanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		var/list/msgs = list()
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
@@ -324,7 +324,7 @@ SLIME SCANNER
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
+/obj/item/healthanalyzer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/healthupgrade))
 		return ..()
 
@@ -373,7 +373,7 @@ SLIME SCANNER
 	icon_state = "robotanalyzer"
 	item_state = "analyzer"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
@@ -384,12 +384,12 @@ SLIME SCANNER
 	var/list/msgs = list()
 	user.visible_message("<span class='warning'>[user] has analyzed the floor's components!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 	msgs += "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Unknown</span>"
-	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red>[0]</font></span>"
+	msgs += "<span class='notice'>\t Damage Specifics: <font color='#FFA500'>[0]</font>/<font color='red'>[0]</font></span>"
 	msgs += "<span class='notice'>Key: <font color='#FFA500'>Burns</font><font color ='red'>/Brute</font></span>"
 	msgs += "<span class='notice'>Chassis Temperature: ???</span>"
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/robotanalyzer/attack_obj(obj/machinery/M, mob/living/user) // Scanning a machine object
+/obj/item/robotanalyzer/attack_obj__legacy__attackchain(obj/machinery/M, mob/living/user) // Scanning a machine object
 	if(!ismachinery(M))
 		return
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
@@ -407,7 +407,7 @@ SLIME SCANNER
 	if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
 		to_chat(user, "<span class='warning'>Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair.</span>")
 
-/obj/item/robotanalyzer/attack(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
+/obj/item/robotanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
 		return
@@ -520,7 +520,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_state = "analyzer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -536,7 +536,7 @@ SLIME SCANNER
 	. = ..()
 	. += "<span class='notice'>Alt-click [src] to activate the barometer function.</span>"
 
-/obj/item/analyzer/attack_self(mob/user as mob)
+/obj/item/analyzer/attack_self__legacy__attackchain(mob/user as mob)
 
 	if(user.stat)
 		return
@@ -611,7 +611,7 @@ SLIME SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
-/obj/item/analyzer/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/analyzer/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!can_see(user, target, 1))
 		return
@@ -625,18 +625,17 @@ SLIME SCANNER
  * Used in chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
-	var/mixture
+	var/datum/gas_mixture/air
 	var/list/milla = null
-	if(milla_turf_details)
+	if(milla_turf_details && istype(target, /turf))
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		var/datum/gas_mixture/GM = new()
-		GM.copy_from_milla(milla)
-		mixture = GM
+		air = new()
+		air.copy_from_milla(milla)
 	else
-		mixture = target.return_analyzable_air()
-	if(!mixture)
-		return FALSE
+		air = target.return_analyzable_air()
+		if(!air)
+			return FALSE
 
 	var/list/message = list()
 	if(!silent && isliving(user))
@@ -646,64 +645,53 @@ SLIME SCANNER
 	if(!print)
 		return TRUE
 
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(length(air) > 1) //not a unary gas mixture
-			var/mix_number = airs.Find(air)
-			message += "<span class='boldnotice'>Node [mix_number]</span>"
-			mix_name += " - Node [mix_number]"
+	var/total_moles = air.total_moles()
+	var/pressure = air.return_pressure()
+	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+	var/heat_capacity = air.heat_capacity()
+	var/thermal_energy = air.thermal_energy()
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
+	if(total_moles)
+		message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
+			message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
+		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
+			message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
+		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
+			message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
+		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
+			message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
+		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
+			message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
+		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
+			message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
+		message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
+		message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+		message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+		message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+		message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+	else
+		message += "<span class='notice'>[target] is empty!</span>"
+		message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
-		if(total_moles)
-			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-			if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-				message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
-			if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-				message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
-			if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
-			if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-				message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-			message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
-		else
-			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
-
-		if(milla)
-			// Values from milla/src/lib.rs, +1 due to array indexing difference.
-			message += "<span class='notice'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
-			switch(milla[MILLA_INDEX_ATMOS_MODE])
-				// These are enum values, so they don't get increased.
-				if(0)
-					message += "<span class='notice'>Atmos Mode: Space</span>"
-				if(1)
-					message += "<span class='notice'>Atmos Mode: Sealed</span>"
-				if(2)
-					message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
-				else
-					message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
-			message += "<span class='notice'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
-			message += "<span class='notice'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
-			message += "<span class='notice'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
-			message += "<span class='notice'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
-			message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+	if(milla)
+		// Values from milla/src/lib.rs, +1 due to array indexing difference.
+		message += "<span class='notice'>Airtight N/E/S/W: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
+		switch(milla[MILLA_INDEX_ATMOS_MODE])
+			// These are enum values, so they don't get increased.
+			if(0)
+				message += "<span class='notice'>Atmos Mode: Space</span>"
+			if(1)
+				message += "<span class='notice'>Atmos Mode: Sealed</span>"
+			if(2)
+				message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
+			else
+				message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
+		message += "<span class='notice'>Superconductivity N/E/S/W: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
+		message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+		message += "<span class='notice'>Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)</span>"
+		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
+		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE
@@ -719,7 +707,7 @@ SLIME SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -730,7 +718,7 @@ SLIME SCANNER
 	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
 
-/obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
+/obj/item/reagent_scanner/afterattack__legacy__attackchain(obj/O, mob/user as mob)
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
@@ -797,7 +785,7 @@ SLIME SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -805,7 +793,7 @@ SLIME SCANNER
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
-/obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
+/obj/item/slime_scanner/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	if(user.incapacitated() || user.AmountBlinded())
 		return
 	if(!isslime(M))
@@ -854,7 +842,7 @@ SLIME SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 5
@@ -911,7 +899,7 @@ SLIME SCANNER
 	if(printing)
 		. += "bodyanalyzer_printing"
 
-/obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/bodyanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/carbon/human/user)
 	if(user.incapacitated() || !user.Adjacent(M))
 		return
 
@@ -926,7 +914,7 @@ SLIME SCANNER
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 
-/obj/item/bodyanalyzer/borg/attack(mob/living/M, mob/living/silicon/robot/user)
+/obj/item/bodyanalyzer/borg/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user)
 	if(user.incapacitated() || !user.Adjacent(M))
 		return
 

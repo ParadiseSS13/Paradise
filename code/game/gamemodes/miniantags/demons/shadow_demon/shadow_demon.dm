@@ -212,6 +212,8 @@
 		return
 	hit = TRUE // to prevent double hits from the pull
 	. = ..()
+	if(!.)
+		return
 	for(var/atom/extinguish_target in range(2, src))
 		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
@@ -230,7 +232,7 @@
 	desc = "It still beats furiously, emitting an aura of fear."
 	color = COLOR_BLACK
 
-/obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/shadow/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

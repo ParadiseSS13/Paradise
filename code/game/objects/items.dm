@@ -44,12 +44,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked `"[x] has been [z.attack_verb] by [y] with [z]"`
 	var/list/attack_verb
 	/// Determines how big/small items are to fit in storage containers
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
+	/// If set, this determines which slots are considered when using quick equip
+	var/prefered_slot_flags = 0
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
@@ -184,6 +186,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 
@@ -232,17 +236,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	master = null
 	return ..()
-
-/obj/item/proc/alert_admins_on_destroy()
-	SIGNAL_HANDLER
-	var/turf/turf_loc = get_turf(src)
-	if(turf_loc)
-		// guess it's actually just in nullspace. lol. lmao
-		message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
-		log_game("[src] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [loc].")
-	else
-		message_admins("[src] has been destroyed in nullspace.")
-		log_game("[src] has been destroyed in nullspace.")
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -400,7 +393,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, params)
+/obj/item/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
@@ -533,9 +526,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			A.Grant(user)
 	in_inventory = TRUE
 	if(!initial)
-		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
+		if(equip_sound && (slot & slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
+		else if(slot & ITEM_SLOT_BOTH_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -593,7 +586,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // The default action is attack_self().
 // Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 /obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
@@ -853,29 +846,31 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & SLOT_FLAG_OCLOTHING)
+	if(flags & ITEM_SLOT_OUTER_SUIT)
 		owner.update_inv_wear_suit()
-	if(flags & SLOT_FLAG_ICLOTHING)
+	if(flags & ITEM_SLOT_JUMPSUIT)
 		owner.update_inv_w_uniform()
-	if(flags & SLOT_FLAG_GLOVES)
+	if(flags & ITEM_SLOT_GLOVES)
 		owner.update_inv_gloves()
-	if(flags & SLOT_FLAG_EYES)
+	if(flags & ITEM_SLOT_EYES)
 		owner.update_inv_glasses()
-	if(flags & SLOT_FLAG_EARS)
+	if(flags & ITEM_SLOT_BOTH_EARS)
 		owner.update_inv_ears()
-	if(flags & SLOT_FLAG_MASK)
+	if(flags & ITEM_SLOT_MASK)
 		owner.update_inv_wear_mask()
-	if(flags & SLOT_FLAG_HEAD)
+	if(flags & ITEM_SLOT_NECK)
+		owner.update_inv_neck()
+	if(flags & ITEM_SLOT_HEAD)
 		owner.update_inv_head()
-	if(flags & SLOT_FLAG_FEET)
+	if(flags & ITEM_SLOT_SHOES)
 		owner.update_inv_shoes()
-	if(flags & SLOT_FLAG_ID)
+	if(flags & ITEM_SLOT_ID)
 		owner.update_inv_wear_id()
-	if(flags & SLOT_FLAG_BELT)
+	if(flags & ITEM_SLOT_BELT)
 		owner.update_inv_belt()
-	if(flags & SLOT_FLAG_BACK)
+	if(flags & ITEM_SLOT_BACK)
 		owner.update_inv_back()
-	if(flags & SLOT_FLAG_PDA)
+	if(flags & ITEM_SLOT_PDA)
 		owner.update_inv_wear_pda()
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
@@ -990,7 +985,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	SHOULD_BE_PURE(TRUE)
-	return !(flags & NODROP) && !(flags & ABSTRACT)
+	return !(flags & NODROP) && !(flags & ABSTRACT) && !HAS_TRAIT(src, TRAIT_NO_STRIP)
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name

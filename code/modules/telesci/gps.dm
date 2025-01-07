@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
 	var/tracking = TRUE
@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	return data
 
-/obj/item/gps/attack_self(mob/user)
+/obj/item/gps/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/gps/ui_state(mob/user)

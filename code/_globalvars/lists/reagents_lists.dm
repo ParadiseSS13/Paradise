@@ -41,8 +41,8 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
-							"reagent", "dragonsbreath", "nanocalcium",
-							"xenomicrobes", "nanomachines", "gibbis", "prions",
+							"reagent", "drink", "medicine", "plantnutrient", "consumable", "dragonsbreath",
+							"nanocalcium", "xenomicrobes", "nanomachines", "gibbis", "prions",
 							"spidereggs", "heartworms", "bacon_grease",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
@@ -50,4 +50,5 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"teslium_paste", "omnizine_no_addiction", "zombiecure1",
 							"zombiecure2", "zombiecure3", "zombiecure4",
 							"admincleaner_all", "admincleaner_item", "admincleaner_mob",
+							"synthetic_omnizine_no_addiction", "surge_plus"
 							))

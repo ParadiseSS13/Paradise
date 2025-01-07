@@ -34,7 +34,7 @@
 		attached_signaler = null
 	return ..()
 
-/obj/item/desk_bell/attackby(obj/item/I, mob/user, params)
+/obj/item/desk_bell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	// can only attach its on your person
 	if(istype(I, /obj/item/assembly/signaler))
 		if(!in_inventory)

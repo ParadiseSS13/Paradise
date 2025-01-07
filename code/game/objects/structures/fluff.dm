@@ -73,6 +73,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = null
 	anchored = TRUE
 	density = TRUE
 

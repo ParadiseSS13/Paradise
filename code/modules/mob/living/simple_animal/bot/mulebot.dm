@@ -74,7 +74,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(human_squish_check))
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -100,7 +100,7 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
@@ -879,10 +879,13 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
-	if(!ishuman(AM))
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(datum/source, old_location, direction, forced)
+	if(!isturf(loc))
 		return
-	RunOver(AM)
+	for(var/atom/AM in loc)
+		if(!ishuman(AM))
+			continue
+		RunOver(AM)
 
 #undef SIGH
 #undef ANNOYED

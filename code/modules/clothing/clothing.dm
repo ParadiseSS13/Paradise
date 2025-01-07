@@ -28,7 +28,6 @@
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
 	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
-
 	var/can_toggle = FALSE
 	var/toggle_message = null
 	var/alt_toggle_message = null
@@ -93,7 +92,7 @@
 		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
+	if(slot & (ITEM_SLOT_RIGHT_HAND | ITEM_SLOT_LEFT_HAND | ITEM_SLOT_IN_BACKPACK | ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET))
 		return TRUE
 
 	if(species_restricted && ishuman(M))
@@ -145,7 +144,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
@@ -179,7 +178,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = SLOT_FLAG_EARS | SLOT_FLAG_TWOEARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -197,7 +196,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_FLAG_EYES
+	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
@@ -249,7 +248,7 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_FLAG_GLOVES
+	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
 	strip_delay = 2 SECONDS
 	put_on_delay = 4 SECONDS
@@ -275,7 +274,7 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
@@ -379,7 +378,7 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -429,7 +428,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		for(var/obj/item/clothing/head/hat as anything in attached_hats)
 			hat.attached_unequip()
 
@@ -437,6 +436,7 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
+		. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
@@ -526,7 +526,7 @@
 
 	return FALSE
 
-/obj/item/clothing/head/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head) && can_have_hats)
 		attach_hat(I, user, TRUE)
 
@@ -539,7 +539,7 @@
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_FLAG_MASK
+	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 4 SECONDS
 	put_on_delay = 4 SECONDS
 	dyeable = FALSE
@@ -570,9 +570,9 @@
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
 		if(H.head == src)
-			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
+			if(isnull(user.get_item_by_slot(slot_flags)))
 				user.unEquip(src)
-				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+				user.equip_to_slot(src, slot_flags)
 			else if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 					user.unEquip(src)
@@ -597,9 +597,9 @@
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
 		if(user.wear_mask == src)
-			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
+			if(isnull(user.get_item_by_slot(slot_flags)))
 				user.unEquip(src)
-				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+				user.equip_to_slot(src, slot_flags)
 			else if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 					user.unEquip(src)
@@ -627,7 +627,7 @@
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 
 	body_parts_covered = FEET
-	slot_flags = SLOT_FLAG_FEET
+	slot_flags = ITEM_SLOT_SHOES
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
@@ -650,11 +650,9 @@
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 
-
-
 /obj/item/clothing/shoes/equipped(mob/user, slot)
 	. = ..()
-	if(!no_slip || slot != SLOT_HUD_SHOES)
+	if(!no_slip || slot != ITEM_SLOT_SHOES)
 		return
 	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 
@@ -665,10 +663,10 @@
 	var/mob/living/carbon/human/H = user
 	if(!user)
 		return
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -761,7 +759,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_FLAG_OCLOTHING
+	slot_flags = ITEM_SLOT_OUTER_SUIT
 	dyeable = FALSE
 
 	var/fire_resist = T0C + 100
@@ -861,7 +859,7 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
+	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_OUTER_SUIT)
 		if("modsuit" in hide_tail_by_species)
 			return
 		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
@@ -965,12 +963,14 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_FLAG_ICLOTHING
+	slot_flags = ITEM_SLOT_JUMPSUIT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	dyeing_key = DYE_REGISTRY_UNDER
+	strip_delay = 6 SECONDS
+	put_on_delay = 6 SECONDS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
@@ -1007,7 +1007,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -1015,7 +1015,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_JUMPSUIT)
+	if(slot == ITEM_SLOT_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -1029,19 +1029,19 @@
 	if(length(accessories) >= MAX_EQUIPABLE_ACCESSORIES) //this is neccesary to prevent chat spam when examining clothing
 		return FALSE
 	for(var/obj/item/clothing/accessory/AC in accessories)
-		if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
+		if((A.slot & (ACCESSORY_SLOT_UTILITY | ACCESSORY_SLOT_ARMBAND)) && (AC.slot & A.slot))
 			return FALSE
 		if(!A.allow_duplicates && AC.type == A.type)
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user, params)
+			A.attackby__legacy__attackchain(I, user, params)
 		return TRUE
 
 	. = ..()
@@ -1105,15 +1105,15 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='notice'>Alt-click to toggle the sensors mode.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='notice'>Alt-Shift-Click to remove an accessory.</span>"
-	. += "<span class='notice'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to roll down this jumpsuit.</span>"
 
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
@@ -1124,7 +1124,7 @@
 	if(copytext(item_color,-2) != "_d")
 		basecolor = item_color
 
-	if(user.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
+	if(user.get_item_by_slot(ITEM_SLOT_JUMPSUIT) != src)
 		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 	else
@@ -1188,3 +1188,9 @@
 		deconstruct(FALSE)
 	else
 		..()
+
+/obj/item/clothing/neck
+	name = "necklace"
+	icon = 'icons/obj/clothing/neck.dmi'
+	body_parts_covered = UPPER_TORSO
+	slot_flags = ITEM_SLOT_NECK

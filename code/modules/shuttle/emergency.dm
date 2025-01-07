@@ -36,7 +36,7 @@
 		if(hijack_announce)
 			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/id/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby__legacy__attackchain(obj/item/card/id/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!istype(W, /obj/item/card/id))
@@ -140,7 +140,7 @@
 		return FALSE //If you put an AI that isn't malf in it I'm shooting you
 	if(interaction == AI_TRANS_TO_CARD) //No patrick you can't card the AI out of the computer.
 		return
-	AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+	AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 	ai_enter_emergency_computer(AI)
 
 /obj/machinery/computer/emergency_shuttle/proc/ai_enter_emergency_computer(mob/living/silicon/ai/AI)
@@ -254,7 +254,7 @@
 
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_here(a_header = "Emergency Shuttle", a_text = "")
-	var/msg_text = "<b><font size=4 color=red>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font size></font></b></span>"
+	var/msg_text = "<b><font size=4 color='red'>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font></font></b></span>"
 	for(var/mob/R in range(35, src)) //Normal escape shutttle is 30 tiles from console to bottom. Extra range for if we ever get a bigger shuttle. Would do in shuttle area, doesn't account for mechs and such,
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))

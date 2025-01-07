@@ -65,7 +65,7 @@
 /obj/machinery/computer/library/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/library/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/book))
 		select_book(O)
 		return

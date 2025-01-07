@@ -45,6 +45,11 @@
 	if(!. && !QDELETED(src))
 		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
@@ -71,7 +76,7 @@
 		else
 			animate_levitate(src, -1, rand(30,120))
 
-		if(weightless_image.icon_state)
+		if(weightless_image && weightless_image.icon_state)
 			icon_state = weightless_image.icon_state
 
 		overlays -= weightless_image
@@ -138,12 +143,7 @@
 	return FALSE
 
 
-/obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
-	// this is to prevent double or triple bumps from calling splat after src is qdel'd.
-	// only god knows why this fixes the issue
-	if(yes)
-		return
-
+/obj/effect/decal/cleanable/blood/Bump(atom/A)
 	if(gravity_check)
 		return ..()
 
@@ -264,7 +264,7 @@
 	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
-	icon_state = "gibbl5"
+	icon_state = "mgibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE

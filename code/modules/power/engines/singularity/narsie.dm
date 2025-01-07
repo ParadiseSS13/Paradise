@@ -3,6 +3,7 @@
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
+	icon_state = null
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
@@ -18,6 +19,7 @@
 /obj/singularity/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
+	icon_state = "narsie"
 	// Pixel stuff centers Narsie.
 	pixel_x = -236
 	pixel_y = -256

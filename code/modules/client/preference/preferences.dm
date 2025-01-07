@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
@@ -132,6 +133,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/list/admin_sound_ckey_ignore = list()
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	/// Map preferences for the first past the post system
+	var/list/map_vote_pref_json = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -170,7 +173,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<center>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' 	[current_tab == TAB_CHAR 	? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' 	[current_tab == TAB_GAME 	? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists and Maps</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
@@ -235,6 +238,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
+			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -482,7 +486,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
 			dat += "</td></tr></table>"
 
-		if(TAB_ANTAG) // Antagonist's Preferences
+		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
 			if(jobban_isbanned(user, ROLE_SYNDICATE))
@@ -504,12 +508,14 @@ GLOBAL_LIST_INIT(special_role_times, list(
 					else
 						var/is_special = (i in src.be_special)
 						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
-
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
 				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
 			else
 				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
+			dat += "</td><td width='405px' height='300px' valign='top'>"
+			dat += "<h2>Map Settings</h2>"
+			dat += " - <b>Choose your map preferences:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_KEYS)
@@ -622,7 +628,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 

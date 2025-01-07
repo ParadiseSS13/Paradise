@@ -172,3 +172,5 @@
 	icon_state = "danger"
 
 /area/lavaland/surface/outdoors/explored
+
+/area/lavaland/surface/outdoors/targetable

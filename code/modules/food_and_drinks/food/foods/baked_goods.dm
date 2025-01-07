@@ -76,7 +76,7 @@
 	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/sliceable/plaincake
-	name = "vanilla cake"
+	name = "plain cake"
 	desc = "A plain cake, not a lie."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake"
@@ -89,7 +89,7 @@
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/plaincakeslice
-	name = "vanilla cake slice"
+	name = "plain cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake_slice"
@@ -453,7 +453,7 @@
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#610977"
-	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice", 5)
+	list_reagents = list("nutriment" = 20, "vitamin" = 10, "cream" = 5, "berryjuice" = 5)
 	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
@@ -1242,7 +1242,7 @@
 	name = "grape tart"
 	desc = "A tasty dessert that reminds you of the wine you didn't make."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "grape_tart"
+	icon_state = "grapetart"
 	trash = /obj/item/trash/plate
 	filling_color = "#8c00ff"
 	bitesize = 3

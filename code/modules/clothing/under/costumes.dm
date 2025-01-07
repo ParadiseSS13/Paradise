@@ -135,6 +135,7 @@
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
+	icon = 'icons/obj/clothing/under/costumes.dmi'
 	icon_state = "psysuit"
 	item_state = "psysuit"
 	item_color = "psysuit"

@@ -56,7 +56,7 @@
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	if(!owner.get_num_legs())
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</spawn>")
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
@@ -153,7 +153,7 @@
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		var/mob/living/carbon/human/H = user
 		style.teach(H, TRUE)
 
@@ -162,7 +162,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(H)
 
 // Warden gloves
@@ -176,7 +176,7 @@
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/examine_more(mob/user)
 	..()

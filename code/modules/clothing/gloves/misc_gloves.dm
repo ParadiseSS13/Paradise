@@ -107,13 +107,6 @@
 	transfer_prints = TRUE
 	clipped = TRUE
 
-/obj/item/clothing/gloves/batmangloves
-	name = "batgloves"
-	desc = "Used for handling all things bat related."
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color="bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."
@@ -169,7 +162,7 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
+/obj/item/clothing/gloves/color/yellow/stun/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())

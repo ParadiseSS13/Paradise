@@ -21,7 +21,7 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -33,7 +33,7 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_type_in_list(W, allowed_bashers))
 		if(cooldown < world.time - 2.5 SECONDS)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
@@ -96,7 +96,7 @@
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
-/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
+/obj/item/shield/energy/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	toggle(user, FALSE)
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
@@ -148,7 +148,7 @@
 		return ..()
 	return FALSE // by not calling the parent the hit_reaction signal is never sent
 
-/obj/item/shield/riot/tele/attack_self(mob/living/user)
+/obj/item/shield/riot/tele/attack_self__legacy__attackchain(mob/living/user)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 3
@@ -163,7 +163,7 @@
 		throwforce = 5
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
+		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)

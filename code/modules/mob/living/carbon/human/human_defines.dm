@@ -45,6 +45,7 @@
 	var/obj/item/clothing/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/clothing/gloves = null
+	var/obj/item/clothing/neck = null
 	var/obj/item/clothing/glasses = null
 	var/obj/item/l_ear = null
 	var/obj/item/r_ear = null

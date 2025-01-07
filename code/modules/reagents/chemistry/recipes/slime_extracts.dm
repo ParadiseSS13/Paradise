@@ -716,7 +716,7 @@
 		P.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)
-/datum/chemical_reaction/slimeRNG
+/datum/chemical_reaction/slime_rng
 	name = "Random Core"
 	id = "slimerng"
 	result = null
@@ -725,7 +725,7 @@
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/rainbow
 
-/datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slime_rng/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")

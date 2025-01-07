@@ -13,7 +13,7 @@
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/alive/golem/servant
 
-/obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/golem_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/metal						= /datum/species/golem,
@@ -166,7 +166,7 @@
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 
-/obj/effect/mob_spawn/human/alive/golem/attackby(obj/item/I, mob/living/carbon/user, params)
+/obj/effect/mob_spawn/human/alive/golem/attackby__legacy__attackchain(obj/item/I, mob/living/carbon/user, params)
 	if(!istype(I, /obj/item/slimepotion/transference))
 		return ..()
 	if(iscarbon(user) && can_transfer)

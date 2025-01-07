@@ -234,7 +234,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_dispenser/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
@@ -446,7 +446,7 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
+/obj/item/handheld_chem_dispenser/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(!proximity || !current_reagent || !amount)
 		return
 
@@ -470,7 +470,7 @@
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
 
-/obj/item/handheld_chem_dispenser/attack_self(mob/user)
+/obj/item/handheld_chem_dispenser/attack_self__legacy__attackchain(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
@@ -570,7 +570,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
+/obj/item/handheld_chem_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)

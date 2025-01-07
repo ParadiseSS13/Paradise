@@ -7,7 +7,6 @@
 	sound = 'sound/magic/strings.ogg'
 	action_icon_state = "spacetime"
 
-	school = "transmutation"
 	base_cooldown = 30 SECONDS
 	clothes_req = TRUE
 	invocation = "none"
@@ -83,6 +82,8 @@
 	desc = "A distortion in spacetime. You can hear faint music..."
 	icon_state = "nothing"
 	/// A flags which save people from being thrown about
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// A flags which save people from being thrown about
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
 	/// Used to prevent an infinite loop in the space tiime continuum
 	var/cant_teleport = FALSE
@@ -94,7 +95,18 @@
 /obj/effect/cross_action/singularity_pull()
 	return
 
+/obj/effect/cross_action/spacetime_dist/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
+	if(ismob(AM))
+		var/mob/M = AM
+		if(M.can_block_magic(antimagic_flags, charge_cost = 0))
+			return
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
 		linked_dist.get_walker(AM)
@@ -106,11 +118,11 @@
 	AM.forceMove(get_turf(src))
 	cant_teleport = FALSE
 
-/obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
+/obj/effect/cross_action/spacetime_dist/proc/on_atom_entered(atom/source, atom/movable/entered, turf/old_loc)
 	if(!cant_teleport)
-		walk_link(AM)
+		walk_link(entered)
 
-/obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)
+/obj/effect/cross_action/spacetime_dist/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(user.drop_item(W))
 		walk_link(W)
 	else
@@ -123,4 +135,5 @@
 /obj/effect/cross_action/spacetime_dist/Destroy()
 	cant_teleport = TRUE
 	linked_dist = null
+	RemoveElement(/datum/element/connect_loc)
 	return ..()

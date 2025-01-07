@@ -23,10 +23,11 @@
 	///Time it takes for a facehugger to become active again after going idle.
 	var/min_active_time = 20 SECONDS
 	var/max_active_time = 40 SECONDS
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src)
 	ADD_TRAIT(src, TRAIT_XENO_INTERACTABLE, UID())
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -34,8 +35,8 @@
 	if(obj_integrity < 90)
 		Die()
 
-/obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user, params)
+/obj/item/clothing/mask/facehugger/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+	return O.attack_obj__legacy__attackchain(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat != DEAD && !sterile) && !isalien(user))
@@ -43,7 +44,7 @@
 			return
 	..()
 
-/obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
+/obj/item/clothing/mask/facehugger/attack__legacy__attackchain(mob/living/M, mob/user)
 	..()
 	user.unEquip(src)
 	Attach(M)
@@ -66,10 +67,6 @@
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
-
-/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
-	HasProximity(target)
-	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
 	if(stat != DEAD)
@@ -138,7 +135,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
@@ -186,6 +183,7 @@
 		return
 
 	stat = CONSCIOUS
+	proximity_monitor = new(src)
 	icon_state = "[initial(icon_state)]"
 
 /obj/item/clothing/mask/facehugger/proc/GoIdle()
@@ -194,6 +192,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
+	qdel(proximity_monitor)
 	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(min_active_time, max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
@@ -203,7 +202,7 @@
 	icon_state = "[initial(icon_state)]_dead"
 	item_state = "facehugger_inactive"
 	stat = DEAD
-	DeleteComponent(/datum/component/proximity_monitor)
+	QDEL_NULL(proximity_monitor)
 
 	visible_message("<span class='danger'>[src] curls up into a ball!</span>")
 

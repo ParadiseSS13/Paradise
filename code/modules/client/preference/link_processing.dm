@@ -853,6 +853,13 @@
 					if(!(brain_type in GLOB.borg_brain_choices))
 						return
 					active_character.cyborg_brain_type = brain_type
+				if("pda_ringtone")
+					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", list("Reset Default Ringtone") + GLOB.pda_ringtone_choices, active_character.pda_ringtone)
+					if(!(ringtone in GLOB.pda_ringtone_choices))
+						if(ringtone == "Reset Default Ringtone")
+							active_character.pda_ringtone = null
+						return
+					active_character.pda_ringtone = ringtone
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -924,7 +931,20 @@
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
+				if("map_pick")
+					var/list/potential_maps = list()
+					for(var/x in subtypesof(/datum/map))
+						var/datum/map/M = x
+						if(!initial(M.voteable))
+							continue
+						potential_maps += M
 
+					var/list/output = tgui_input_ranked_list(usr, "Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps", potential_maps)
+					if(!length(output))
+						return
+					map_vote_pref_json = list() //Clear it out
+					for(var/index in 1 to length(output)) //This is an associated list to make blackbox tracking easier
+						map_vote_pref_json[output[index]] = index
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
@@ -987,6 +1007,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
+					parent.fit_viewport()
 					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")

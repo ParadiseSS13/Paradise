@@ -13,11 +13,13 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
-	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
-	var/can_pierce_hardsuits = FALSE
+	slot_flags = ITEM_SLOT_BELT
+	/// If TRUE, the hypospray can inject any clothing without TRAIT_HYPOSPRAY_IMMUNE.
+	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
 	var/ignore_hypospray_immunity = FALSE
+	/// if TRUE, the hypospray will always succeed at injecting an organic limb regardless of protective clothing or traits such as the thick skin gene (except for TRAIT_HYPOSPRAY_IMMUNE).
+	var/penetrate_everything = FALSE
 	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
 	// List of SOSHA-approved medicines.
@@ -32,16 +34,18 @@
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+
 	if(!iscarbon(M))
 		return
 
 	var/mob/living/carbon/human/H = M
 	if(H.wear_suit)
-		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
+		// This check is here entirely to stop goobers injecting Nukies, the SST, and the Deathsquad with meme chems.
+		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)
 			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
 			return
 
-	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
+	if(reagents.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick, penetrate_everything))
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -65,13 +69,13 @@
 			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/attack__legacy__attackchain(mob/living/M, mob/user)
 	return apply(M, user)
 
-/obj/item/reagent_containers/hypospray/attack_self(mob/user)
+/obj/item/reagent_containers/hypospray/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
-/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/hypospray/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I, use_prefix = TRUE, prompt = "Give [src] a title.")
 		return TRUE
@@ -99,7 +103,8 @@
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
-		can_pierce_hardsuits = TRUE
+		penetrate_thick = TRUE
+		penetrate_everything = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
@@ -124,8 +129,9 @@
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
 	icon_state = "combat_hypo"
 	volume = 90
-	can_pierce_hardsuits = TRUE // So they can heal their comrades.
+	penetrate_thick = TRUE // So they can heal their comrades.
 	ignore_hypospray_immunity = TRUE
+	penetrate_everything = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
@@ -143,19 +149,19 @@
 //////////////////////////////
 // MARK: CMO HYPO
 //////////////////////////////
-/obj/item/reagent_containers/hypospray/CMO
+/obj/item/reagent_containers/hypospray/cmo
 	name = "advanced hypospray"
 	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
 	volume = 100
-	can_pierce_hardsuits = TRUE
+	penetrate_thick = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+/obj/item/reagent_containers/hypospray/cmo/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
-/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
+/obj/item/reagent_containers/hypospray/cmo/examine_more(mob/user)
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
@@ -177,12 +183,13 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
-	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
+	penetrate_thick = TRUE
 	ignore_hypospray_immunity = TRUE
+	penetrate_everything = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
 	flags = null
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/attack__legacy__attackchain(mob/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -190,7 +197,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/attack_self__legacy__attackchain(mob/user)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
@@ -261,7 +268,7 @@
 	volume = 40
 	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
 
@@ -274,7 +281,7 @@
 	container_type = null //No sucking out the reagent
 	list_reagents = list("zombiecure1" = 15)
 
-/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 

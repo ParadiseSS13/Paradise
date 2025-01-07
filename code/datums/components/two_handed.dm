@@ -104,8 +104,8 @@
 /datum/component/two_handed/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(on_attack_self))
+	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
@@ -116,8 +116,8 @@
 /datum/component/two_handed/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED,
 								COMSIG_ITEM_DROPPED,
-								COMSIG_ITEM_ATTACK_SELF,
-								COMSIG_ITEM_ATTACK,
+								COMSIG_ACTIVATE_SELF,
+								COMSIG_ATTACK,
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT))
@@ -126,7 +126,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER  // COMSIG_ITEM_EQUIPPED
 
-	if(require_twohands && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)) // force equip the item
+	if(require_twohands && (slot & ITEM_SLOT_BOTH_HANDS)) // force equip the item
 		INVOKE_ASYNC(src, PROC_REF(wield), user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		INVOKE_ASYNC(src, PROC_REF(unwield), user)
@@ -151,7 +151,7 @@
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK_SELF
+	SIGNAL_HANDLER  // COMSIG_ACTIVATE_SELF
 
 	if(require_twohands)
 		return
@@ -277,7 +277,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		if(user.get_item_by_slot(SLOT_HUD_BACK) == parent)
+		if(user.get_item_by_slot(ITEM_SLOT_BACK) == parent)
 			user.update_inv_back()
 		else
 			user.update_inv_l_hand()
@@ -311,7 +311,7 @@
  * on_attack triggers on attack with the parent item
  */
 /datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	SIGNAL_HANDLER  // COMSIG_ATTACK
 	if(wielded && attacksound)
 		var/obj/item/parent_item = parent
 		playsound(parent_item.loc, attacksound, 50, TRUE)

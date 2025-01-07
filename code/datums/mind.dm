@@ -238,7 +238,7 @@
 	return FALSE
 
 /**
- * Gets every objective this mind owns, including all of those from any antag datums they have, and returns them as a list.
+ * Gets every objective this mind owns, including all of those from any antag datums and teams they have, and returns them as a list.
  */
 /datum/mind/proc/get_all_objectives(include_team = TRUE)
 	var/list/all_objectives = list()
@@ -246,11 +246,7 @@
 	all_objectives += objective_holder.get_objectives() // Get their personal objectives
 
 	for(var/datum/antagonist/A as anything in antag_datums)
-		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
-		if(include_team)
-			var/datum/team/team = A.get_team()
-			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
-				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
+		all_objectives += A.get_antag_objectives(include_team) // Add all antag datum objectives, and possibly antag team objectives
 
 	// For custom non-antag role teams
 	if(include_team && LAZYLEN(teams))
@@ -279,9 +275,9 @@
 	if(!remove_from_everything)
 		return
 	for(var/datum/antagonist/A as anything in antag_datums)
-		A.objective_holder.remove_objective(O) // Add all antag datum objectives.
+		A.remove_antag_objective(O)
 		var/datum/team/team = A.get_team()
-		team?.objective_holder.remove_objective(O) // Get all of their teams' objectives
+		team?.objective_holder.remove_objective(O)
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -444,7 +440,7 @@
 
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
-	if(src in SSticker.mode.eventmiscs)
+	if(has_antag_datum(/datum/antagonist/eventmisc))
 		. += "<b>YES</b>|<a href='byond://?src=[UID()];eventmisc=clear'>no</a>"
 	else
 		. += "<a href='byond://?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
@@ -1210,16 +1206,16 @@
 	else if(href_list["eventmisc"])
 		switch(href_list["eventmisc"])
 			if("clear")
-				if(src in SSticker.mode.eventmiscs)
-					SSticker.mode.eventmiscs -= src
-					SSticker.mode.update_eventmisc_icons_removed(src)
-					special_role = null
-					message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
-					log_admin("[key_name(usr)] has de-eventantag'ed [current].")
+				if(!has_antag_datum(/datum/antagonist/eventmisc))
+					return
+				remove_antag_datum(/datum/antagonist/eventmisc)
+				message_admins("[key_name_admin(usr)] has de-eventantag'ed [current].")
+				log_admin("[key_name(usr)] has de-eventantag'ed [current].")
 			if("eventmisc")
-				SSticker.mode.eventmiscs += src
-				special_role = SPECIAL_ROLE_EVENTMISC
-				SSticker.mode.update_eventmisc_icons_added(src)
+				if(has_antag_datum(/datum/antagonist/eventmisc))
+					to_chat(usr, "[current] is already an event antag!")
+					return
+				add_antag_datum(/datum/antagonist/eventmisc)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
 				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")

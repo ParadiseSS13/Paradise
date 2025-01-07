@@ -14,7 +14,7 @@
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -39,6 +39,7 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+
 	/// Width of the window that opens
 	var/paper_width = 600
 	/// Height of the window that opens
@@ -48,6 +49,8 @@
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
 	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
+
+	scatter_distance = 8
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -126,7 +129,7 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-/obj/item/paper/attack_self(mob/living/user as mob)
+/obj/item/paper/attack_self__legacy__attackchain(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(!spam_flag)
@@ -148,7 +151,7 @@
 	else
 		show_content(user, forcestars = 1)
 
-/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+/obj/item/paper/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
@@ -390,7 +393,7 @@
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
+/obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
 
 	if(resistance_flags & ON_FIRE)
@@ -534,22 +537,17 @@
 /*
  * Premade paper
  */
-/obj/item/paper/Court
+/obj/item/paper/court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 
-/obj/item/paper/Toxin
+/obj/item/paper/toxin
 	name = "Chemical Information"
 	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
 /obj/item/paper/courtroom
 	name = "A Crash Course in Legal SOP on SS13"
 	info = "<B>Roles:</B><BR>\nThe Detective is basically the investigator and prosecutor.<BR>\nThe Staff Assistant can perform these functions with written authority from the Detective.<BR>\nThe Captain/HoP/Warden is ct as the judicial authority.<BR>\nThe Security Officers are responsible for executing warrants, security during trial, and prisoner transport.<BR>\n<BR>\n<B>Investigative Phase:</B><BR>\nAfter the crime has been committed the Detective's job is to gather evidence and try to ascertain not only who did it but what happened. He must take special care to catalogue everything and don't leave anything out. Write out all the evidence on paper. Make sure you take an appropriate number of fingerprints. IF he must ask someone questions he has permission to confront them. If the person refuses he can ask a judicial authority to write a subpoena for questioning. If again he fails to respond then that person is to be jailed as insubordinate and obstructing justice. Said person will be released after he cooperates.<BR>\n<BR>\nONCE the FT has a clear idea as to who the criminal is he is to write an arrest warrant on the piece of paper. IT MUST LIST THE CHARGES. The FT is to then go to the judicial authority and explain a small version of his case. If the case is moderately acceptable the authority should sign it. Security must then execute said warrant.<BR>\n<BR>\n<B>Pre-Pre-Trial Phase:</B><BR>\nNow a legal representative must be presented to the defendant if said defendant requests one. That person and the defendant are then to be given time to meet (in the jail IS ACCEPTABLE). The defendant and his lawyer are then to be given a copy of all the evidence that will be presented at trial (rewriting it all on paper is fine). THIS IS CALLED THE DISCOVERY PACK. With a few exceptions, THIS IS THE ONLY EVIDENCE BOTH SIDES MAY USE AT TRIAL. IF the prosecution will be seeking the death penalty it MUST be stated at this time. ALSO if the defense will be seeking not guilty by mental defect it must state this at this time to allow ample time for examination.<BR>\nNow at this time each side is to compile a list of witnesses. By default, the defendant is on both lists regardless of anything else. Also the defense and prosecution can compile more evidence beforehand BUT in order for it to be used the evidence MUST also be given to the other side.\nThe defense has time to compile motions against some evidence here.<BR>\n<B>Possible Motions:</B><BR>\n1. <U>Invalidate Evidence-</U> Something with the evidence is wrong and the evidence is to be thrown out. This includes irrelevance or corrupt security.<BR>\n2. <U>Free Movement-</U> Basically the defendant is to be kept uncuffed before and during the trial.<BR>\n3. <U>Subpoena Witness-</U> If the defense presents god reasons for needing a witness but said person fails to cooperate then a subpoena is issued.<BR>\n4. <U>Drop the Charges-</U> Not enough evidence is there for a trial so the charges are to be dropped. The FT CAN RETRY but the judicial authority must carefully reexamine the new evidence.<BR>\n5. <U>Declare Incompetent-</U> Basically the defendant is insane. Once this is granted a medical official is to examine the patient. If he is indeed insane he is to be placed under care of the medical staff until he is deemed competent to stand trial.<BR>\n<BR>\nALL SIDES MOVE TO A COURTROOM<BR>\n<B>Pre-Trial Hearings:</B><BR>\nA judicial authority and the 2 sides are to meet in the trial room. NO ONE ELSE BESIDES A SECURITY DETAIL IS TO BE PRESENT. The defense submits a plea. If the plea is guilty then proceed directly to sentencing phase. Now the sides each present their motions to the judicial authority. He rules on them. Each side can debate each motion. Then the judicial authority gets a list of crew members. He first gets a chance to look at them all and pick out acceptable and available jurors. Those jurors are then called over. Each side can ask a few questions and dismiss jurors they find too biased. HOWEVER before dismissal the judicial authority MUST agree to the reasoning.<BR>\n<BR>\n<B>The Trial:</B><BR>\nThe trial has three phases.<BR>\n1. <B>Opening Arguments</B>- Each side can give a short speech. They may not present ANY evidence.<BR>\n2. <B>Witness Calling/Evidence Presentation</B>- The prosecution goes first and is able to call the witnesses on his approved list in any order. He can recall them if necessary. During the questioning the lawyer may use the evidence in the questions to help prove a point. After every witness the other side has a chance to cross-examine. After both sides are done questioning a witness the prosecution can present another or recall one (even the EXACT same one again!). After prosecution is done the defense can call witnesses. After the initial cases are presented both sides are free to call witnesses on either list.<BR>\nFINALLY once both sides are done calling witnesses we move onto the next phase.<BR>\n3. <B>Closing Arguments</B>- Same as opening.<BR>\nThe jury then deliberates IN PRIVATE. THEY MUST ALL AGREE on a verdict. REMEMBER: They mix between some charges being guilty and others not guilty (IE if you supposedly killed someone with a gun and you unfortunately picked up a gun without authorization then you CAN be found not guilty of murder BUT guilty of possession of illegal weaponry.). Once they have agreed they present their verdict. If unable to reach a verdict and feel they will never they call a deadlocked jury and we restart at Pre-Trial phase with an entirely new set of jurors.<BR>\n<BR>\n<B>Sentencing Phase:</B><BR>\nIf the death penalty was sought (you MUST have gone through a trial for death penalty) then skip to the second part. <BR>\nI. Each side can present more evidence/witnesses in any order. There is NO ban on emotional aspects or anything. The prosecution is to submit a suggested penalty. After all the sides are done then the judicial authority is to give a sentence.<BR>\nII. The jury stays and does the same thing as I. Their sole job is to determine if the death penalty is applicable. If NOT then the judge selects a sentence.<BR>\n<BR>\nTADA you're done. Security then executes the sentence and adds the applicable convictions to the person's record.<BR>\n"
-
-/obj/item/paper/flag
-	icon_state = "flag_neutral"
-	item_state = "paper"
-	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -703,6 +701,82 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
 
+/obj/item/paper/syndicate/listening_post
+	name = "mission briefing"
+	info = {"<center><h1>Mission Details:</h1></center>
+	<br><br>
+	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space.
+	You are to monitor transmissions from the Nanotrasen space stations in the system, as well as those from potentially significant ships passing through the system.
+	<br><br>
+	Urgent reports are to be relayed immeditely to your handler, otherwise, condense significant happenings into packets to be sent out at scheduled intervals, to minimise the chances your transmissions being detected.
+	<br><br>
+	Accurate intelligence is crucial to the success of our operatives onboard. Do not fail us.
+	<br><br>
+	<b>Glory to the Syndicate!</b>"}
+
+/obj/item/paper/listening_post_report_1
+	name = "Report 01 - URGENT"
+	info = {"<b>URGENT:</b> Intercepted communications from the NAS Trurl have revealed that a shipment of nuclear fission warheads are being shipped into the system to replace aging inventory.
+	<br><br>
+	The convoy is lightly defended and disguised as a regular freight carrying operation. They are not expecting, nor prepared to stop a determined attacker."}
+
+/obj/item/paper/listening_post_report_2
+	name = "Report 02"
+	info = {"* Security across all shipping operations has been substantailly boosted, and the NAS Trurl has declared a heightened state of alert across all stations in the system.
+	<br><br>
+	* The NSS Farragus is reporting heightened mineral output - extra shipping traffic likely.
+	<br><br>
+	* The NSS Cyberiad's communications channels are flooded with garbled reports about a dangerous "floor cluwne" - exact details unclear."}
+
+/obj/item/paper/listening_post_report_3
+	name = "Report 03"
+	info = {"* Now that several months have passed, the security situation is slowly cooling down - the NAS Trurl's heightened state of alert is no longer in effect. Routine shipping traffic escorts are beginning to thin.
+	<br><br>
+	* The NSS Kerberos is reporting that mining output has dropped to zero. Morale has plummeted, engineers and roboticists are tearing apart old metal furnature and windows to secure materials.
+	<br><br>
+	* The NSS Diagoras is reporting a major plasma fire, but it appears to be contained to an asteroid attached to the station.
+	<br><br>
+	* Some form of pirate radio station appeared in the system and is broadcasting what appears to be Soviet state-made entertainment media - It is of highly doubious entertainment value, however.
+	These broadcasts are not on NT frequencies and therefore are not causing interferance."}
+
+/obj/item/paper/listening_post_report_4
+	name = "Report 04"
+	info = {"* The NAS Trurl has ordered all stations to prepare for a potentiel visit from multiple VIPs. Details scarce, security levels elevted.
+	<br><br>
+	* A USSP-operated station has been detected in the system.
+	It is intermittently communicating with the Soviet pirate radio station (which appears to be operated by the USSP as well). Both operations appear to be independent of each other. Will continue to monitor for developments.
+	<br><br>
+	* A TSF destroyer "TSFN Oberon" jumped into the system and opened encrypted communications with the NAS Trurl, contents of transmission unknown.
+	Broadcast exchanges continued as the destroyer adopted a search pattern. After six hours, the destroyer jumped out of system. At no point did it approach near either of the USSP installations.
+	<br><br>
+	* Nanotrasen plasma shipments have been disrupted by a massive migration of space carp, causing backlogs at shipping terminals."}
+
+/obj/item/paper/listening_post_report_5
+	name = "Report 05"
+	info = {"* Intermittent hyperwave broadcasts have been detected from the USSP pirate radio station. Broadcasts are highly directional (which hindered detection), pointing towards USSP space.
+	These messages are highly encrypted. It appears likely that the USSP is conducting eavesdropping operations against Nanotrasen as well.
+	<br><br>
+	* A terror spider outbreak was reported on the NSS Cerebron. Early discovery and an unusual lack of coordiation on the part of the spiders allowed the outbreak to be rapidly contained.
+	<br><br>
+	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" -
+	piecing together fragments of communications suggests that this "Ei Nath" is a highly dangerous individual whose mere pressence causes great fear among Nanotrasen personnel. Attempt recruitment?"}
+
+/obj/item/paper/listening_post_report_6
+	name = "Report 06 - URGENT"
+	info = {"<b>URGENT:</b> An Aussec Armoury freighter has suffered an engine failure near the edge of the system, dropping out of hyperspace.
+	<br><br>
+	Escorts will be absent until they can retrace path. Limited window to execute raiding operations."}
+
+/obj/item/paper/listening_post_report_7
+	name = "Report 07"
+	info = {"* The USSP space station has gone silent on all frequencies for an extended period of time. USSP listening post continues to operate (the contents of the cover singal is not getting any better).
+	<br><br>
+	* New signals are being detected from an old Nanotrasen communications satellite. Multiple Nanotrasen explorers attempting to investigate are MIA.
+	<br><br>
+	* Vox skipjack detected in area, communications completely unintelligible. Likely preparing to launch shuttles to trade with or raid the stations in the area.
+	<br><br>
+	* <b>CAUTION:</b> Nanotrasen exploration teams growing in size and are scouring much larger areas than before. They are now operating dangerously close to this installation, requesting additional security."}
+
 /obj/item/paper/nanotrasen
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
@@ -792,6 +866,13 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	name = "Lava Field Observations"
 	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
+
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
@@ -968,17 +1049,18 @@
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/paper/researchnotes/New()
-	..()
+/obj/item/paper/researchnotes/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
+// I want this type dead
 /obj/item/paper/instruction
 	name = "Instruction Notes"
 

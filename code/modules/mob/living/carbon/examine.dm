@@ -88,6 +88,8 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list("<span class='notice'>You're struggling to make out any details...</span>")
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -143,6 +145,8 @@
 				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
+			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
+				continue
 			else
 				var/item_words = item.name
 				if(item.blood_DNA)
@@ -208,7 +212,7 @@
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/obj/item/clothing/glasses/E = get_item_by_slot(SLOT_HUD_GLASSES)
+		var/obj/item/clothing/glasses/E = get_item_by_slot(ITEM_SLOT_EYES)
 		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair) //Are we in a chair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)

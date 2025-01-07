@@ -165,6 +165,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
+	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		return
+
 	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
@@ -477,7 +483,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
+			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -726,7 +732,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!F.active)
 			F.active = TRUE
 			F.state = 2
-			F.power = 250
+			F.energy = 125
 			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()

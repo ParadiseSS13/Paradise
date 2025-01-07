@@ -96,8 +96,7 @@
 		P.loc = user.loc
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
-		P.pixel_x = rand(-9, 9) // Random position
-		P.pixel_y = rand(-8, 8)
+		P.scatter_atom()
 		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
@@ -106,7 +105,7 @@
 	return
 
 
-/obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
+/obj/item/paper_bin/attackby__legacy__attackchain(obj/item/paper/i as obj, mob/user as mob, params)
 	if(istype(i))
 		user.drop_item()
 		i.loc = src

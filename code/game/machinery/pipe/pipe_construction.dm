@@ -157,8 +157,7 @@
 			connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 
 	update(make_from)
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //update the name and icon of the pipe item depending on the type
 
@@ -336,7 +335,7 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
