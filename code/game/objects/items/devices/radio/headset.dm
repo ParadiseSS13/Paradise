@@ -308,6 +308,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
+/obj/item/radio/headset/headset_nct
+	name = "\improper Nanotrasen career trainer radio headset"
+	desc = "This is used by your well-taught corporate training team."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_nct
+
 /obj/item/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate."

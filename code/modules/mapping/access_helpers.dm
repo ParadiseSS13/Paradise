@@ -492,3 +492,10 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders
 	access = ACCESS_TRADE_SOL
+
+// -------------------- Procedure access helpers
+/obj/effect/mapping_helpers/airlock/access/all/procedure
+	icon_state = "access_helper_pro"
+
+/obj/effect/mapping_helpers/airlock/access/all/procedure/trainer
+	access = ACCESS_TRAINER

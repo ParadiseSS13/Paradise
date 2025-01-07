@@ -73,8 +73,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
-	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
-	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
@@ -96,9 +94,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/overlay_icon = 'icons/obj/wizard.dmi'
 	var/overlay_icon_state = "spell"
 	var/overlay_lifespan = 0
-
-	var/sparks_spread = FALSE
-	var/sparks_amt = 0
 
 	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
 	var/smoke_type = SMOKE_NONE
@@ -139,6 +134,13 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	var/static/list/spell_handlers = list()
 	/// handles a given spells cooldowns. tracks the time until its off cooldown,
 	var/datum/spell_cooldown/cooldown_handler
+	/// Flag for certain states that the spell requires the user be in to cast.
+	var/spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	/// This determines what type of antimagic is needed to block the spell.
+	/// (MAGIC_RESISTANCE, MAGIC_RESISTANCE_MIND, MAGIC_RESISTANCE_HOLY)
+	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
+	/// The spell cannot be cast if the caster has any of the antimagic flags set.
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
@@ -389,8 +391,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 			location = target
 		if(isliving(target) && message)
 			to_chat(target, "[message]")
-		if(sparks_spread)
-			do_sparks(sparks_amt, 0, location)
+
 		if(smoke_type)
 			var/datum/effect_system/smoke_spread/smoke
 			switch(smoke_type)
@@ -472,6 +473,12 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		var/turf/T = get_turf(user)
 		if(T && is_admin_level(T.z))
 			return FALSE
+
+	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
+	// that corresponds with the spell's antimagic, then they can't actually cast the spell
+	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>")
+		return FALSE
 
 	if(!holy_area_cancast && user.holy_check())
 		return FALSE
