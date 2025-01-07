@@ -39,7 +39,7 @@
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	id = /obj/item/card/id/ert/commander
-	l_pocket = /obj/item/pinpointer
+	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 /datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -96,6 +96,7 @@
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
+	l_pocket = /obj/item/pinpointer
 
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
