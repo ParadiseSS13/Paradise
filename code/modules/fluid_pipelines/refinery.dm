@@ -29,6 +29,7 @@
 	icon_state = "refinery"
 	just_a_pipe = FALSE
 	pixel_x = -32
+	density = TRUE
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
@@ -59,12 +60,12 @@
 		if(NORTH)
 			AddComponent(/datum/component/multitile, list(
 				list(MACH_CENTER),
-				list(    1)
+				list(1)
 			))
 
 		if(SOUTH)
 			AddComponent(/datum/component/multitile, list(
-				list(    1),
+				list(1),
 				list(MACH_CENTER)
 			))
 
