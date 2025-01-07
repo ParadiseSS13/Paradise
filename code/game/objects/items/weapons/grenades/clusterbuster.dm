@@ -173,20 +173,15 @@
 	desc = "No matter what, do not EVER use this."
 	payload = /obj/singularity
 
-/obj/item/grenade/clusterbuster/tools
-	name = "\improper Engineering Deployment Platfom"
-	desc = "For the that time when gearing up was just too hard."
-	payload = /obj/random/tech_supply
-
-/obj/item/grenade/clusterbuster/tide
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
 /obj/item/grenade/clusterbuster/toys
 	name = "\improper Toy Delivery System"
 	desc = "Who needs skill at arcades anyway?"
 	payload = /obj/item/toy/random
+
+/obj/item/grenade/clusterbuster/random_toys
+	name = "\improper Toy Delivery System"
+	desc = "Who needs skill at arcades anyway?"
+	payload = /obj/effect/spawner/random/toy/clusterbuster
 
 /obj/item/grenade/clusterbuster/banquet
 	name = "\improper Bork Bork Bonanza"

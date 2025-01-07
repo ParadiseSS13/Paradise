@@ -88,7 +88,6 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load all Z level templates
 	preloadTemplates()
-	preloadTemplates(path = "code/tests/atmos/")
 
 	// Load the station
 	loadStation()
@@ -102,9 +101,14 @@ SUBSYSTEM_DEF(mapping)
 	else
 		log_startup_progress("Skipping space ruins...")
 
-	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY))
+	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
+#ifdef GAME_TESTS
+	preloadTemplates(path = "_maps/map_files/tests/")
+	empty_z_traits |= GAME_TEST_LEVEL
+#endif
 
+	// Makes a blank space level for the sake of randomness
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
@@ -226,8 +230,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/structure/closet/C = pick_n_take(seeded_salvage_closets)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(C)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	max_salvage_attempts = rand(10, 15)
@@ -235,8 +238,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/T = pick_n_take(seeded_salvage_surfaces)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(T.loc)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")

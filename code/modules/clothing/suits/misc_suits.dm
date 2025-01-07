@@ -1369,28 +1369,6 @@
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
 
-//Mantles!
-/obj/item/clothing/suit/mantle
-	name = "mantle"
-	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
-	icon_state = "mantle"
-	item_state = "mantle"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-
-/obj/item/clothing/suit/mantle/regal
-	name = "regal shawl"
-	desc = "A fancy shawl for nobility, made from high quality materials."
-	icon_state = "regal_mantle"
-	item_state = "regal_mantle"
-
-/obj/item/clothing/suit/mantle/old
-	name = "old wrap"
-	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
-	icon_state = "old_mantle"
-	item_state = "old_mantle"
-
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"
 	desc = "The hands float by themselves, so it's extra spooky."
@@ -1403,15 +1381,11 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
 
-/obj/item/clothing/suit/furcape
+/obj/item/clothing/neck/cloak/furcape
 	name = "fur cape"
 	desc = "A cape made from fur. You'll really be stylin' now."
 	icon_state = "furcape"
 	item_state = "furcape"
-	blood_overlay_type = "armor"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/hooded/abaya
 	name = "abaya"

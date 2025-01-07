@@ -62,7 +62,10 @@
 	if(!gripped_item)
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 		return
-	gripped_item.attack_self__legacy__attackchain(user)
+	if(gripped_item.new_attack_chain)
+		gripped_item.activate_self(user)
+	else
+		gripped_item.attack_self__legacy__attackchain(user)
 
 // This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 /obj/item/gripper/forceMove(atom/destination)
