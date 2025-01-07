@@ -21,6 +21,8 @@
 	/// Is this electronic installed in a door?
 	var/is_installed = FALSE
 
+	new_attack_chain = TRUE
+
 /obj/item/airlock_electronics/Initialize(mapload)
 	. = ..()
 	if(!length(door_accesses_list))
@@ -108,8 +110,9 @@
 	name = "burned-out airlock electronics"
 	icon_state = "door_electronics_smoked"
 
-/obj/item/airlock_electronics/destroyed/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/airlock_electronics/destroyed/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 /obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["metal"] += 1

@@ -20,6 +20,7 @@ LINEN BINS
 	resistance_flags = FLAMMABLE
 	slot_flags = ITEM_SLOT_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
+	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BEDSHEET
 
 	var/list/dream_messages = list("white")
@@ -249,6 +250,15 @@ LINEN BINS
 	item_color = "cult"
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
+
+/obj/item/bedsheet/clockwork
+	name = "Ratvarian bedsheet"
+	desc = "You might dream of Ratvar if you sleep with this. The fabric has threads of brass sewn into it which eminate a pleasent warmth."
+	icon_state = "sheetclockwork"
+	item_state = "bedsheetclockwork"
+	item_color = "brass"
+	dream_messages = list("tick, tock, tick, tock, tick, tock, tick, tock", "a great shining city of brass", "men in radiant suits of brass", "a perfect blueprint of the world", "a glowing cogwheel", "a massive humanoid figure")
+	nightmare_messages = list("<span_class = userdanger>\"the Nar'Sian dogs shall be CRUSHED!\"</span>", "the unenlightened, ready to hear His word", "a half-buried brass titan", "two massive humanoid figures attacking each other")
 
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
