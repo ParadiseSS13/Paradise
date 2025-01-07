@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	flashing_light = !flashing_light
 
-	to_chat(user, "<span class='notice'>You turned [src] flash [flashing_light ? "on" : "off"].</span>")
+	to_chat(user, "<span class='notice'>You turn [src]'s flash [flashing_light ? "on" : "off"].</span>")
 
 /obj/item/camera/proc/change_size(mob/user)
 	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))

@@ -581,7 +581,7 @@
 
 /datum/action/item_action/toogle_camera_flash
 	name = "Toggle camera flash"
-	desc = "Toggles camera flash, which lights up area on photo making."
+	desc = "Toggles the camera's flash, which will fully light up the photo. Turn this off if you want the ambient light."
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
