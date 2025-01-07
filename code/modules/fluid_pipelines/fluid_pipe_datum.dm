@@ -7,6 +7,8 @@
 	var/list/machinery = list()
 	/// How much space do we have in this pipe network?
 	var/total_capacity = 0
+	/// List with all fluids currently in the pipe
+	var/list/fluids = list()
 
 /*
  * pipe: a pipe that has this fluid_pipe datum attached to it
@@ -97,7 +99,7 @@
 			new_pipelines -= thing
 
 	var/pipelines_to_spread_to = length(new_pipelines)
-	message_admins("Length of new pipelines list: [pipelines_to_spread_to]") // DEBUG
+	message_admins("Length of new pipelines list: [pipelines_to_spread_to]") // DGTODO
 
 	if(pipelines_to_spread_to == 0)
 		stack_trace("spread_fluids was called with no pipelines to spread over!")
@@ -113,7 +115,7 @@
 			piping.fluid_container.add_fluid(liquid.type, (liquid.fluid_amount / pipelines_to_spread_to))
 
 /datum/fluid_pipe/proc/return_percentile_full()
-	var/fullness = fluid_container.get_fluid_volumes()
+	var/fullness = get_fluid_volumes()
 	fullness = (fullness / total_capacity) * 100
 	return "[clamp(round(fullness, 10), 0, 100)]"
 
@@ -142,5 +144,45 @@
 	machinery += pipenet.machinery
 
 	total_capacity += pipenet.total_capacity
-	fluid_container = fluid_container.merge_containers(pipenet.fluid_container)
+	merge_containers(pipenet)
 	qdel(pipenet)
+
+/datum/fluid_pipe/proc/get_fluid_volumes()
+	. = 0
+	for(var/datum/fluid/liquid as anything in fluids)
+		if(QDELETED(liquid) || liquid.fluid_amount <= 0)
+			continue
+		. += liquid.fluid_amount
+
+/datum/fluid_pipe/proc/merge_containers(datum/fluid_pipe/pipenet)
+	if(!pipenet)
+		return
+	if(length(pipenet.fluids) <= 0)
+		return
+
+	for(var/datum/fluid/liquid as anything in fluids)
+		for(var/datum/fluid/second_liquid as anything in pipenet.fluids)
+			if(istype(liquid, second_liquid))
+				liquid.fluid_amount += second_liquid.fluid_amount
+				pipenet.fluids -= second_liquid
+				qdel(second_liquid)
+				break
+
+	// Merge the remaining unique fluids with this container
+	fluids += pipenet.fluids
+	return
+
+/datum/fluid_pipe/proc/add_fluid(type, amount)
+	if(!ispath(type))
+		stack_trace("add_fluid was called with a non-typepath fluid")
+		return
+
+	var/datum/fluid/potential = is_path_in_list(type, fluids, TRUE)
+	var/total_fluids = get_fluid_volumes()
+	if(total_fluids + amount > total_capacity)
+		amount = clamp(amount, 0, total_capacity - total_fluids)
+
+	if(!potential)
+		fluids += new type(amount)
+	else
+		potential.fluid_amount += amount
