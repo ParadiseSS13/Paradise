@@ -30,6 +30,7 @@
 	just_a_pipe = FALSE
 	pixel_x = -32
 	density = TRUE
+	new_attack_chain = TRUE
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
