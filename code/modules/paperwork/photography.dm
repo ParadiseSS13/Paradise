@@ -35,6 +35,7 @@
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
+	scatter_distance = 8
 
 /obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
 	user.examinate(src)
@@ -170,7 +171,7 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "electropack"
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)

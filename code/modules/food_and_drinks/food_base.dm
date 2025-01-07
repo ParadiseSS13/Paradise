@@ -335,8 +335,7 @@
 	for(var/i in 1 to (slices_num - slices_lost))
 		var/obj/slice = new slice_path (loc)
 		reagents.trans_to(slice,reagents_per_slice)
-		slice.pixel_x = rand(-7, 7)
-		slice.pixel_y = rand(-7, 7)
+		slice.scatter_atom()
 	qdel(src)
 	return ..()
 

@@ -15,13 +15,15 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 
-/obj/item/seeds/starthistle/harvest(mob/user)
+/obj/item/seeds/starthistle/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/parent = loc
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc
 	var/seed_count = getYield()
 	for(var/i in 1 to seed_count)
 		var/obj/item/seeds/starthistle/harvestseeds = Copy()
 		harvestseeds.forceMove(output_loc)
+		if(bag && bag.can_be_inserted(harvestseeds))
+			bag.handle_item_insertion(harvestseeds, user, TRUE)
 
 	parent.update_tray(user, seed_count)
 

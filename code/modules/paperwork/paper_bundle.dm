@@ -15,6 +15,7 @@
 	var/screen = 0
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	scatter_distance = 8
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()

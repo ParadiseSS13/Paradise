@@ -333,9 +333,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
+	scatter_atom()
 /obj/item/clothing/mask/cigarette/rollie/custom
 	list_reagents = list()
 
@@ -346,11 +344,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
+	scatter_distance = 10
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 	transform = turn(transform, rand(0, 360))
 
 /obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -364,11 +362,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "roach"
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
+	scatter_distance = 5
 
 /obj/item/cigbutt/roach/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //////////////////////////////
 // MARK: ROLLING
