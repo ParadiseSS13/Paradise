@@ -1,6 +1,9 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 
+	if(flags & ABSTRACT)
+		return
+
 	if(notransform)
 		return
 

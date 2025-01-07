@@ -1,7 +1,7 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
-	if(!loc)
+	if(!loc && !(flags & ABSTRACT))
 		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
