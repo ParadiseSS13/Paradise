@@ -14,7 +14,7 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 	cust["fluids"] = length(processing)
 	.["custom"] = cust
 
-/datum/controller/subsystem/processing/fluid/fire(resumed = 0)
+/datum/controller/subsystem/processing/fluid/fire(resumed = FALSE)
 	if(!resumed)
 		currentrun = processing.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -39,4 +39,4 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 
 		pipe.rebuild_pipenet(neighbours)
 
-	datums_to_rebuild.Cut()
+	datums_to_rebuild = list()

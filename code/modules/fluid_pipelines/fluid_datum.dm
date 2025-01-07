@@ -57,35 +57,3 @@
 		fluids += new type(amount)
 	else
 		potential.fluid_amount += amount
-
-
-// MARK: Fluid datums
-/datum/fluid
-	/// What is our fluid called
-	var/fluid_name = "ant fluid idk" // ants are bugs ... right?
-	/// How much of our fluid do we have
-	var/fluid_amount = 0
-	/// How good is our fluid at being burned as shuttle fuel? Higher is better
-	var/fuel_value = 0
-
-/datum/fluid/New(amount)
-	. = ..()
-	fluid_amount = max(0, amount)
-
-/datum/fluid/raw_plasma
-	fluid_name = "unrefined plasma"
-
-/datum/fluid/refined_plasma
-	fluid_name = "refined plasma"
-	fuel_value = 1 // Doesn't actually make the shuttle faster than default
-
-/datum/fluid/fuel
-	// This is intended as a basetype
-	fuel_value = 3
-
-/datum/fluid/fuel/basic
-	fluid_name = "Basic fuel"
-	fuel_value = 2
-
-/datum/fluid/fuel/turbo
-	fluid_name = "Turbofuel"
