@@ -134,7 +134,7 @@
 	if(!IS_CULTIST(user) && isliving(user))
 		var/mob/living/living_user = user
 		living_user.adjustBrainLoss(5)
-		. += "<span class='danger'>The voices of the damned echo relentlessly in your mind, continously rebounding on the walls of your self the more you focus on [src]. Your head pounds, better keep away...</span>"
+		. += "<span class='userdanger'>The voices of the damned echo relentlessly in your mind, continously rebounding on the walls of your self the more you focus on [src]. Your head pounds, better keep away...</span>"
 	else
 		. += "<span class='cult'>The gateway will create one weak proteon construct every [spawn_time * 0.1] seconds, up to a total of [max_mobs], that may be controlled by the spirits of the dead.</span>"
 
