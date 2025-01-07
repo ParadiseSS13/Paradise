@@ -6,6 +6,7 @@ export const AtmosAlertConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];
+  const areaModes = data.mode || {};
   return (
     <Window width={350} height={300}>
       <Window.Content scrollable>
@@ -21,6 +22,12 @@ export const AtmosAlertConsole = (props, context) => {
             {minorAlerts.map((alert) => (
               <li key={alert} className="color-average">
                 {alert}
+              </li>
+            ))}
+            {Object.keys(areaModes).length === 0 && <li className="color-good">All Areas Filtering</li>}
+            {Object.keys(areaModes).map((label) => (
+              <li key={alert} className="color-good">
+                {label} mode is {areaModes[label]}
               </li>
             ))}
           </ul>

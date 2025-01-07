@@ -305,9 +305,9 @@
 	health = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	attacktext = "prods"
+	attacktext = "rends"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	attack_sound = 'sound/weapons/tap.ogg'
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/datum/spell/night_vision,
 							/datum/spell/aoe/conjure/build/wall,
