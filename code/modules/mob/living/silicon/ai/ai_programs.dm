@@ -76,12 +76,17 @@
 				program.installed = TRUE
 			// Upgrade a program
 			else
+				if(program.power_type.spell_level >= program.power_type.level_max)
+					to_chat(user, "<span class='warning'>This program cannot be updated further.</span>")
+					return FALSE
 				to_chat(A, "[program] has been updated!")
 				if(program.unlock_sound)
 					A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 				bandwidth -= 1
-				program.bandwidth_used += 1
+				program.bandwidth_used++
+				program.power_type.spell_level++
 				purchased_upgrades += program
+				program.upgrade()
 
 		if(href_list["showdesc"])
 			if(program.program_id == href_list["showdesc"])
@@ -127,3 +132,42 @@
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
 	user.program_picker.use(user)
+
+// RGB Lighting - Recolors Lights
+/datum/ai_program/rgb_lighting
+	program_name = "RGB Lighting"
+	program_id = "rgb_lighting"
+	description = "Recolor a light to a desired color"
+	nanite_cost = 5
+	power_type = /datum/spell/ai_spell/ranged/rgb_lighting
+	unlock_text = "RGB Lighting installation complete!"
+
+/datum/ai_program/rgb_lighting/upgrade()
+	power_type.cooldown_handler.recharge_duration = power_type.base_cooldown - (power_type.spell_level * 5)
+
+/datum/spell/ai_spell/ranged/rgb_lighting
+	name = "RGB Lighting"
+	desc = "Changes the color of a selected light"
+	action_icon_state = "light"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 30 SECONDS
+	cooldown_min = 5 SECONDS
+	level_max = 5
+
+/datum/spell/ai_spell/ranged/rgb_lighting/cast(list/targets, mob/user)
+	var/obj/machinery/target = targets[1]
+	if(!istype(target, obj/machinery/light) && !istype(target, obj/machinery/power/apc))
+		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
+		return
+	if(istype(target, obj/machinery/power/apc))
+		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
+			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
+			return
+		for(var/obj/machinery/light/L in target.apc_area)
+			L.brightness_color = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+	else
+		target.brightness_color = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+	user.playsound_local(user, "sound/effects/spray.ogg", 50, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
+	// TODO: Add graphics of beaming the target from the nearest APC
