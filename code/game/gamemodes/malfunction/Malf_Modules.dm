@@ -32,6 +32,20 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
+/datum/spell/ai_spell/find_nearest_camera(atom/target)
+	var/area/A = get_area(target)
+	if(A == null)
+		return
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(closest_camera == null)
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	return closest_camera
+
 /datum/spell/ai_spell/proc/adjust_uses(amt, mob/living/silicon/ai/owner, silent)
 	uses += amt
 	if(!silent && uses)

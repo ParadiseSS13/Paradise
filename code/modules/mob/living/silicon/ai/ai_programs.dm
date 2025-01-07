@@ -170,4 +170,8 @@
 		target.brightness_color = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
 	user.playsound_local(user, "sound/effects/spray.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
-	// TODO: Add graphics of beaming the target from the nearest APC
+	var/obj/machine/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+
