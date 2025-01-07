@@ -355,9 +355,9 @@
 			candidates += applicant
 
 	if(length(candidates))
-		var/numEventChars = min(length(candidates), antnum)
+		var/num_event_chars = min(length(candidates), antnum)
 
-		for(var/i in 1 to numEventChars)
+		for(var/i in 1 to num_event_chars)
 			H = pick(candidates)
 			if(!isnull(objective))
 				var/datum/objective/O = new()
