@@ -12,12 +12,13 @@
 	if(purity >= 34)
 		. += "<span class='warning'>It looks volatile.</span>"
 
+/*
 /obj/structure/shuttle_plasma_tank/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/analyzer) && full_percent > 0)
 		to_chat(user, "<span class='notice'>[bicon(src)] [src]'s purity reads at [purity]%.</span>")
 		return
 	return ..()
-
+*/
 /obj/structure/shuttle_plasma_tank/proc/refill(obj/machinery/atmospherics/unary/plasma_refinery, incoming_purity, incoming_amount)
 	if(full_percent >= 100)
 		return

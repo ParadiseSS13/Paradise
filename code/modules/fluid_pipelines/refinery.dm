@@ -1,3 +1,19 @@
+/obj/item/refinery_spawner
+	name = "packaged refinery"
+	desc = "A fully functional refinery, tightly packed with bluespace technology to automatically deploy where needed."
+
+/obj/item/refinery_spawner/activate_self(mob/user)
+	if(..())
+		return
+	var/direction = tgui_input_list(user, "What direction should the refinery be?", "Refinery package", GLOB.cardinal)
+	if(!direction)
+		return
+
+	new /obj/machinery/fluid_pipe/plasma_refinery(get_turf(src), direction)
+
+
+
+/*
 /obj/machinery/atmospherics/unary/plasma_condenser
 	name = "Plasma Condenser"
 	desc = "Turns refined plasma into plasma gas."
@@ -5,73 +21,78 @@
 /obj/machinery/atmospherics/unary/plasma_refinery
 	name = "Plasma Refinery"
 	desc = "Turns plasma gas into plasma fuel. Can accept a combination of gases and chemicals to improve purity."
-
+*/
 /obj/machinery/fluid_pipe/plasma_refinery
 	name = "Plasma Refinery"
 	desc = "Turns crude plasma into refined plasma. Can accept a combination of chemicals to improve purity."
+	icon = 'icons/obj/pipes/fluid_machinery.dmi'
+	icon_state = "refinery"
 	just_a_pipe = FALSE
-	/// First intake of fluids
-	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake_1
-	/// Second intake of fluids
-	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake_2
+	pixel_x = -32
+	/// Intake of fluids
+	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
 	var/datum/refinery_recipe/selected_recipe
 
 /obj/machinery/fluid_pipe/abstract/refinery_intake
+	icon = null
+	icon_state = null
 
-/obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload)
+/obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
 	. = ..()
+	//dir = direction
 	make_intakes()
 
+/obj/machinery/fluid_pipe/plasma_refinery/examine(mob/user)
+	. = ..()
+	if(selected_recipe)
+		. += "[src] currently has [selected_recipe.type] selected."
+	else
+		. += "No recipe is currently selected."
+
+/obj/machinery/fluid_pipe/plasma_refinery/update_icon_state()
+	return
+
 /obj/machinery/fluid_pipe/plasma_refinery/proc/make_intakes()
-	// I should really standardize this somehow
-	var/x_offset = 0
-	var/y_offset = 1
-	var/is_side_x = TRUE
+	dir = EAST
 	switch(dir)
 		if(NORTH)
 			AddComponent(/datum/component/multitile, list(
-				list(1,      1,		 1),
-				list(1, MACH_CENTER, 1)
+				list(MACH_CENTER),
+				list(    1)
 			))
 
 		if(SOUTH)
-			y_offset = -1
 			AddComponent(/datum/component/multitile, list(
-				list(1, MACH_CENTER, 1),
-				list(1,      1,		 1)
+				list(    1),
+				list(MACH_CENTER)
 			))
 
 		if(EAST)
-			x_offset = 1
-			is_side_x = FALSE
 			AddComponent(/datum/component/multitile, list(
-				list(1,			  1),
-				list(MACH_CENTER, 1),
-				list(1,			  1)
+				list(1, MACH_CENTER)
 			))
 
 		if(WEST)
-			x_offset = -1
-			is_side_x = FALSE
 			AddComponent(/datum/component/multitile, list(
-				list(1,		1),
-				list(1, MACH_CENTER),
-				list(1,		1)
+				list(MACH_CENTER, 1)
 			))
 
-	if(is_side_x)
-		new intake_1(locate(x_offset + 1, y_offset, z))
-		new intake_2(locate(x_offset - 1, y_offset, z))
-	else
-		new intake_1(locate(x_offset, y_offset + 1, z))
-		new intake_2(locate(x_offset, y_offset - 1, z))
+	intake = new(get_step(src, REVERSE_DIR(dir)))
+
+/obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
+	if(..())
+		return TRUE
+	var/recipe = tgui_input_list(user, "What recipe do you want to select?", "Refinery", subtypesof(/datum/refinery_recipe))
+	if(!recipe)
+		return TRUE
+	selected_recipe = new recipe
 
 /obj/machinery/fluid_pipe/plasma_refinery/process()
 	if(!selected_recipe)
 		return
 
-	var/list/all_liquids = intake_1.fluid_datum.fluid_container.fluids + intake_2.fluid_datum.fluid_container.fluids
+	var/list/all_liquids = intake?.fluid_datum.fluid_container.fluids
 	if(!length(all_liquids))
 		return
 	if(length(selected_recipe.input) > length(all_liquids))
@@ -79,8 +100,23 @@
 		message_admins("List of inputs is: [json_encode(all_liquids)]")
 		return
 
-	for(var/datum/fluid/liquid as anything in select_recipe.input)
-		var/datum/fluid/input = all_liquids[]
+	var/inputs_satisfied = list()
+	// 516 TODO
+	for(var/datum/fluid/liquid as anything in all_liquids)
+		if(liquid.fluid_amount >= selected_recipe.input[liquid.fluid_id])
+			inputs_satisfied += liquid
+
+	if(length(inputs_satisfied) != length(selected_recipe.input))
+		return
+
+	for(var/datum/fluid/liquid as anything in inputs_satisfied)
+		liquid.fluid_amount -= selected_recipe.input[liquid.fluid_id]
+
+	// 516 TODO
+	for(var/id in selected_recipe.output)
+		fluid_datum.fluid_container.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
+
+
 // MARK: refinery recipes
 
 /datum/refinery_recipe

@@ -8,6 +8,13 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 	/// A list with all fluid datums that have to be rebuilt next tick. Associated
 	var/list/datums_to_rebuild = list()
 
+GLOBAL_LIST_EMPTY(fluid_id_to_path)
+
+/datum/controller/subsystem/processing/fluid/Initialize()
+	. = ..()
+	for(var/datum/fluid/liquid as anything in subtypesof(/datum/fluid))
+		GLOB.fluid_id_to_path[liquid.fluid_id] = liquid.type
+
 /datum/controller/subsystem/processing/fluid/get_metrics()
 	. = ..()
 	var/list/cust = list()
