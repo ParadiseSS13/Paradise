@@ -509,6 +509,7 @@
 
 /obj/structure/window/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/reinforced
 	name = "reinforced window"
