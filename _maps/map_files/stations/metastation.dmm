@@ -58901,10 +58901,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"lrl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/ai_transit_tube)
 "lrA" = (
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/peppermill{
@@ -130155,7 +130151,7 @@ aiE
 jKj
 jKj
 jKj
-lrl
+jKj
 jKj
 jKj
 iRu
