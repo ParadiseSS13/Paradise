@@ -70,7 +70,15 @@
 
 		if(!test.succeeded)
 			failed_any_test = TRUE
-			test_logs[I] += test.fail_reasons
+			for(var/fail_reason in test.fail_reasons)
+				if(islist(fail_reason))
+					var/text = fail_reason[1]
+					var/file = fail_reason[2]
+					var/line = fail_reason[3]
+
+					test_logs[I] += "[file]:[line]: [text]"
+				else
+					test_logs[I] += fail_reason
 
 		qdel(test)
 
