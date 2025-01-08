@@ -19,7 +19,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
-	reagents_add = list("carbon" = 0.2)
+	reagents_add = list("plantmatter" = 0.225)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -174,8 +174,7 @@
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
-			L.pixel_x += rand(1,4)
-			L.pixel_y += rand(1,4)
+			L.scatter_atom()
 		qdel(src)
 		return
 	..()
