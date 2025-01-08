@@ -201,6 +201,8 @@
 	var/type = "slaughter"
 	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
 		type = "laughter"
+	if(demon_type == /mob/living/simple_animal/demon/slaughter/shadow)
+		type = "shadow"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(length(candidates) > 0)
