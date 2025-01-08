@@ -11864,13 +11864,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction/reversed{
-	dir = 1
-	},
+/obj/structure/disposalpipe/wrapsortjunction,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/brig)
+/area)
 "bGM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
