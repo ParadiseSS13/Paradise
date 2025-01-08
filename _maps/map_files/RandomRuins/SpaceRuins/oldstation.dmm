@@ -5760,11 +5760,6 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/ancientstation/kitchen)
-"FF" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "FG" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -8264,7 +8259,7 @@ ae
 ae
 ae
 uQ
-FF
+uQ
 aa
 aa
 Yc
@@ -8312,7 +8307,7 @@ hJ
 Im
 Bk
 ho
-FF
+uQ
 aa
 aa
 aa
@@ -8359,8 +8354,8 @@ uQ
 ae
 ae
 ae
-FF
-FF
+uQ
+uQ
 aa
 aa
 eO
