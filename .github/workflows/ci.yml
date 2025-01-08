@@ -61,17 +61,17 @@ jobs:
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
-#  odlint:
-#    name: Lint with OpenDream
-#    runs-on: ubuntu-22.04
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Setup OD
-#        run: |
-#          bash tools/ci/setup_od.sh
-#      - name: Run OD
-#        run: |
-#          bash tools/ci/run_od.sh
+  odlint:
+    name: Lint with OpenDream
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup OD
+        run: |
+          bash tools/ci/setup_od.sh
+      - name: Run OD
+        run: |
+          bash tools/ci/run_od.sh
 
   compile_all_maps:
     name: Compile All Maps
