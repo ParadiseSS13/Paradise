@@ -198,12 +198,8 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
-	var/type = "slaughter"
-	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
-		type = "laughter"
-	if(demon_type == /mob/living/simple_animal/demon/shadow)
-		type = "shadow"
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
+	var/type = demon_type::name
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
