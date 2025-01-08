@@ -8,21 +8,47 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/datum/mind/owner
 	/// If only organic characters can have it
 	var/organic_only = FALSE
+	/// If only IPC characters can have it
+	var/machine_only = FALSE
 	/// If having this bars you from rolling sec/command
 	var/blacklisted = FALSE
 	/// If this quirk needs to do something every life cycle
 	var/processes = FALSE
+	/// If this quirk applies a trait, what trait should be applied.
+	var/trait_to_apply
+	/// If this quirk lets the mob start with extra item/items.
+	var/list/items_to_give
+	/// If there's text that the user needs to be shown when they're given the quirk.
+	var/spawn_text
+
+/datum/quirk/Destroy(force, ...)
+	remove_quirk_effects()
+	owner = null
+	..()
 
 /*
-* What happens during character spawning, to actually apply the effects of the owner's selected quirks.
+* The proc for actually applying a quirk to a mob, most often during spawning.
 */
 /datum/quirk/proc/apply_quirk_effects(mob/living/quirky)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!quirky)
 		log_debug("[src] did not find a mob to apply its effects to.")
 		return FALSE
 	owner = quirky.mind
 	if(processes)
 		START_PROCESSING(SSprocessing, src)
+	if(trait_to_apply)
+		ADD_TRAIT(quirky, trait_to_apply, "quirk")
+	if(spawn_text)
+		to_chat(quirky, "<span class='notice'>[spawn_text]</span>")
+
+/// For any behavior that needs to happen before a quirk is destroyed
+/datum/quirk/proc/remove_quirk_effects()
+	if(trait_to_apply)
+		REMOVE_TRAIT(owner, trait_to_apply, "quirk")
+	if(processes)
+		STOP_PROCESSING(SSprocessing, src)
+	return
 
 /********************
     * Mob Procs *
@@ -47,3 +73,14 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 			active_character.quirks.Remove(quirk)
 			return TRUE
 	return FALSE
+
+/// Finds all items given to the user by their chosen quirks and returns them in a list.
+/mob/proc/get_all_quirk_items()
+	var/list/all_items = list()
+	var/datum/character_save/active_character = src.client?.prefs?.active_character
+	if(!active_character)
+		return FALSE
+	for(var/datum/quirk/quirk in active_character.quirks)
+		all_items += quirk.items_to_give
+	return all_items
+

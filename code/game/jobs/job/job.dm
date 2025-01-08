@@ -124,6 +124,13 @@
 			return TRUE
 	return FALSE
 
+/datum/job/proc/barred_by_quirk(client/C)
+	if(!C || !length(blacklisted_disabilities)) // If there's no disability locks, there won't be a quirk lock either.
+		return FALSE
+	for(var/datum/quirk/quirk in C.prefs.active_character.quirks)
+		if(quirk.blacklisted)
+			return TRUE
+	return FALSE
 /// Returns true if the character has amputated limbs when their selected job doesn't allow it
 /datum/job/proc/barred_by_missing_limbs(client/C)
 	if(!C || missing_limbs_allowed)
@@ -214,6 +221,12 @@
 						gear_leftovers += G
 				else
 					gear_leftovers += G
+
+	if(H.client && length(H.client.prefs.active_character.quirks))
+		for(var/datum/quirk/quirk in H.client.prefs.active_character.quirks)
+			quirk.apply_quirk_effects(H)
+		var/list/quirk_gear = H.get_all_quirk_items()
+		gear_leftovers += quirk_gear
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

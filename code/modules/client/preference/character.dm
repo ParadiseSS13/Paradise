@@ -110,7 +110,7 @@
 	var/runechat_color = "#FFFFFF"
 	/// The ringtone their PDA should start with
 	var/pda_ringtone
-	/// A list of strings with the names of the user's selected quirks. Used for TGUI purposes.
+	/// A list of the users selected quirks.
 	var/list/quirks = list()
 
 // Fuckery to prevent null characters
@@ -133,6 +133,8 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(length(loadout_gear))
 		gearlist = json_encode(loadout_gear)
+	if(length(quirks))
+		quirks = json_encode(quirks)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
@@ -2071,6 +2073,9 @@
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				continue
+			if(job.barred_by_quirk(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[QUIRK\]</b></td></tr>"
 				continue
 			if(job.barred_by_missing_limbs(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MISSING LIMBS\]</b></td></tr>"
