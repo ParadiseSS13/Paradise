@@ -499,7 +499,7 @@
 
 	var/list/tools = list()
 	for(var/tool in allowed_tools)
-		// only list main surgery tools. you can figure out the ghetto version by trying (or reading the wiki lul)
+		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
 		if(tool in GLOB.surgery_tool_behaviors)
 			tools |= tool
 	if(!length(tools))
