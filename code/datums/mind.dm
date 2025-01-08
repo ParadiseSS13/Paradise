@@ -43,7 +43,6 @@
 
 	var/role_alt_title
 
-	var/datum/job/assigned_job
 	var/datum/objective_holder/objective_holder
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
