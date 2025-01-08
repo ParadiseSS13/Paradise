@@ -112,7 +112,7 @@
 	faction = list("cult")
 	role_name = "A proteon cult construct"
 	assumed_control_message = null
-	var/gps
+	var/obj/item/gps/internal/proteon/gps
 
 /obj/structure/spawner/sentient/proteon_spawner/Initialize(mapload)
 	. = ..()
