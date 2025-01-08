@@ -43,7 +43,7 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
-#ifdef UNIT_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
+#ifdef GAME_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
 	return
 #endif
 	if(prob(chew_probability) && isturf(loc))

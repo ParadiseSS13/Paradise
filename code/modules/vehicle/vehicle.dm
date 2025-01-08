@@ -24,6 +24,9 @@
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
 	var/spaceworthy = FALSE
 
+	/// Did we install a vtec?
+	var/installed_vtec = FALSE
+
 	new_attack_chain = TRUE
 
 
@@ -61,12 +64,14 @@
 			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-	if(vehicle_move_delay > 1)
-		vehicle_move_delay = 1
-		qdel(vtec)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	if(installed_vtec)
+		return FALSE
 
-		return TRUE
+	installed_vtec = TRUE
+	vehicle_move_delay -= 1
+	qdel(vtec)
+	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	return TRUE
 
 /obj/vehicle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(key_type && !is_key(inserted_key) && is_key(used))

@@ -107,6 +107,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					- vampire
 					- changelings
 					- revolutionaries/headrevs
+					- event
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -121,8 +122,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Event Roles" = (mind.special_role == SPECIAL_ROLE_EVENTMISC)
+							"Abductor" = (mind in SSticker.mode.abductors)
 						)
 
 					for(var/antag_name in other_antags)
