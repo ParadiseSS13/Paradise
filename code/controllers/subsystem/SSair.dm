@@ -769,6 +769,9 @@ SUBSYSTEM_DEF(air)
 	sleepable_waiting_for_sync.Cut()
 	in_milla_safe_code = FALSE
 
+/datum/controller/subsystem/air/proc/has_sleeper(datum/milla_safe_must_sleep/sleeper)
+	return sleeper in sleepers
+
 /proc/milla_tick_finished()
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
@@ -863,7 +866,7 @@ SUBSYSTEM_DEF(air)
 
 /// Used internally to check that we're running safely, but without breaking things worse if we aren't.
 /datum/milla_safe_must_sleep/proc/soft_assert_safe()
-	ASSERT(src in SSair.sleepers)
+	ASSERT(SSair.has_sleeper(src))
 
 /// Fetch the air for a turf. Only use from `on_run`.
 /datum/milla_safe_must_sleep/proc/get_turf_air(turf/T)
