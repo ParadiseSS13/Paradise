@@ -11868,7 +11868,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area)
+/area/station/security/brig)
 "bGM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
