@@ -337,6 +337,9 @@
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
+	var/first_letter = pick("@","&","%","$","/") // interjects a letter and allows the say message to go through without being stopped by * (emote character) and others.
+	
+	returntext += first_letter
 	for(var/i = 1, i <= length_char(t), i++)
 
 		var/letter = copytext_char(t, i, i + 1)
