@@ -20103,18 +20103,11 @@
 /obj/structure/table/glass/reinforced,
 /obj/item/stamp/cmo{
 	pixel_x = -6;
-	pixel_y = 14
+	pixel_y = 5
 	},
-/obj/item/paper_bin/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_x = -7
-	},
-/obj/item/pen/multi{
-	pixel_y = 3;
-	pixel_x = 5
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 6;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -81731,6 +81724,13 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore2)
+"rfm" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrownfull"
+	},
+/area/station/maintenance/starboard)
 "rfq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -91880,6 +91880,18 @@
 /obj/item/reagent_containers/drinks/mug/cmo{
 	pixel_y = 19;
 	pixel_x = -5
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 7;
+	pixel_y = -12
+	},
+/obj/item/pen/multi{
+	pixel_y = -11;
+	pixel_x = 7
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = -7;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -172776,7 +172788,7 @@ sIX
 qFk
 bUi
 omW
-hFx
+rfm
 itf
 lCC
 lCC
