@@ -112,6 +112,7 @@
 	faction = list("cult")
 	role_name = "A proteon cult construct"
 	assumed_control_message = null
+	/// The GPS inside the spawner, lets security find them, especially if someone is space basing them.
 	var/obj/item/gps/internal/proteon/gps
 
 /obj/structure/spawner/sentient/proteon_spawner/Initialize(mapload)
