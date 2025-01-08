@@ -32084,6 +32084,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "cel" = (
@@ -33756,6 +33757,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "ckQ" = (
@@ -58245,6 +58247,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "eVz" = (
