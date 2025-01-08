@@ -82,7 +82,7 @@
 
 /obj/structure/spawner/sentient/Initialize(mapload)
 	. = ..()
-	notify_ghosts("A [name] has been created in \the [get_area(src)]!", source = src, title = "Sentient Spawner Created", flashwindow = FALSE
+	notify_ghosts("\A [name] has been created in \the [get_area(src)]!", source = src, title = "Sentient Spawner Created", flashwindow = FALSE
 	)
 
 /obj/structure/spawner/sentient/on_mob_spawn(atom/created_atom)
