@@ -353,6 +353,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(role, applicant, temp))
 			candidates += applicant
+	qdel(temp)
 
 	if(length(candidates))
 		var/num_event_chars = min(length(candidates), antnum)
@@ -367,9 +368,7 @@
 			H.mind.add_antag_datum(/datum/antagonist/eventmisc)
 			candidates.Remove(H)
 
-		qdel(temp)
 		return TRUE
-	qdel(temp)
 	return FALSE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
