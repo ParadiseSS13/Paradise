@@ -12,6 +12,8 @@
 	var/datum/callback/after_assumed_control
 	/// If we're currently awaiting the results of a ghost poll
 	var/awaiting_ghosts = FALSE
+	/// Is this an antagonist spawner, so we check ROLE_SYNDICATE
+	var/is_antag_spawner
 
 /datum/component/ghost_direct_control/Initialize(
 			ban_type = ROLE_SENTIENT,
@@ -22,6 +24,7 @@
 			assumed_control_message = null,
 			datum/callback/extra_control_checks,
 			datum/callback/after_assumed_control,
+			is_antag_spawner = TRUE,
 		)
 	. = ..()
 	if(!isliving(parent))
@@ -31,6 +34,7 @@
 	src.assumed_control_message = assumed_control_message || "You are [parent]!"
 	src.extra_control_checks = extra_control_checks
 	src.after_assumed_control = after_assumed_control
+	src.is_antag_spawner = is_antag_spawner
 
 
 	if(poll_candidates)
@@ -111,7 +115,7 @@
 	if(QDELETED(src))
 		to_chat(harbinger, "<span class='warning'>Offer to possess creature has expired!</span>")
 		return
-	if(jobban_isbanned(harbinger, ban_type) || jobban_isbanned(harbinger, ROLE_SYNDICATE))
+	if(jobban_isbanned(harbinger, ban_type) || jobban_isbanned(harbinger, ROLE_SENTIENT) || (is_antag_spawner && jobban_isbanned(harbinger, ROLE_SYNDICATE)))
 		to_chat(harbinger, "<span class='warning'>You are banned from playing as this role!</span>")
 		return
 	var/mob/living/new_body = parent

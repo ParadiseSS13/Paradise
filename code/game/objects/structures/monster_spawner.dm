@@ -85,8 +85,8 @@
 	notify_ghosts("\A [name] has been created in \the [get_area(src)]!", source = src, title = "Sentient Spawner Created", flashwindow = FALSE
 	)
 
-/obj/structure/spawner/sentient/on_mob_spawn(atom/created_atom)
-	created_atom.AddComponent(\
+/obj/structure/spawner/sentient/on_mob_spawn(mob/created_mob)
+	created_mob.AddComponent(\
 		/datum/component/ghost_direct_control,\
 		role_name = src.role_name,\
 		assumed_control_message = src.assumed_control_message,\

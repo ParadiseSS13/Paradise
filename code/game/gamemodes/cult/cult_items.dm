@@ -904,6 +904,7 @@ GLOBAL_LIST_EMPTY(proteon_portals)
 	if(get_turf(user) != src) // they get away. for now
 		user.notransform = FALSE
 	user.visible_message("<span class='cult'><b>[user] is pulled into the portal through an infinitesmally minuscule hole, shredding [user.p_their()] body!</b></span>")
+	add_attack_logs(user, user, "Killed themselfs via use of a proteon orb as a non cultist", ATKLOG_ALL)
 	user.gib() // total destruction
 	sleep(5 SECONDS)
 	user.visible_message("<span class='cultitalic'>An unusually large construct appears through the portal!</span>")

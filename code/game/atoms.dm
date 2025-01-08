@@ -1433,5 +1433,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
 
 /// Used with the spawner component to do something when a mob is spawned.
-/atom/proc/on_mob_spawn(atom/created_atom)
+/atom/proc/on_mob_spawn(mob/created_mob)
 	return
