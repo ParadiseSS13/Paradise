@@ -143,7 +143,6 @@
 	// Primarily utility items with occasional low damage weaponry.
 	loot = list(
 		/obj/item/borg/upgrade/syndicate,
-		/obj/item/card/id/syndicate,
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/clothing/glasses/thermal,
 		/obj/item/clothing/shoes/magboots/elite,
@@ -172,7 +171,6 @@
 		/obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer,
 		/obj/item/bio_chip_implanter/proto_adrenalin,
 		/obj/item/chameleon,
-		/obj/item/clothing/gloves/fingerless/rapid,
 		/obj/item/cqc_manual,
 		/obj/item/gun/medbeam,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy,
