@@ -2,9 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/turf/simulated/mineral/random,
-/area/ruin/unpowered)
 "ac" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/ancientstation/hivebot)
@@ -50,9 +47,6 @@
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
-/obj/item/stack/sheet/mineral/diamond,
-/obj/item/stack/sheet/mineral/diamond,
-/obj/item/stack/sheet/mineral/diamond,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "al" = (
@@ -7721,9 +7715,9 @@ aa
 bf
 bf
 cc
-ab
-ab
-ab
+kH
+kH
+kH
 mM
 zR
 Qi
@@ -7768,10 +7762,10 @@ aa
 aa
 aa
 aa
-ab
 kH
 kH
-ab
+kH
+kH
 bf
 vQ
 bU
@@ -7817,9 +7811,9 @@ aa
 aa
 aa
 aa
-ab
 kH
-ab
+kH
+kH
 Hw
 Qi
 Qi
@@ -7866,7 +7860,7 @@ aa
 aa
 aa
 uQ
-ab
+kH
 aa
 bf
 Qi
@@ -8374,9 +8368,9 @@ aa
 aa
 Yc
 aa
-ab
-ab
-ab
+kH
+kH
+kH
 aa
 aa
 aa
@@ -8421,11 +8415,11 @@ uQ
 aa
 aa
 aa
-ab
 kH
 kH
 kH
-ab
+kH
+kH
 aa
 aa
 aa
@@ -8469,12 +8463,12 @@ uQ
 aa
 aa
 eO
-ab
 kH
 kH
 kH
-ab
-aa
+kH
+kH
+kH
 aa
 aa
 "}
@@ -8518,11 +8512,11 @@ aa
 eO
 aa
 aa
-ab
 kH
 kH
 kH
-ab
+kH
+kH
 aa
 aa
 "}
@@ -8567,10 +8561,10 @@ aa
 aa
 aa
 aa
-ab
-ab
 kH
-ab
+kH
+kH
+kH
 aa
 aa
 "}
@@ -8617,7 +8611,7 @@ aa
 uQ
 aa
 aa
-ab
+kH
 aa
 aa
 aa
@@ -10022,8 +10016,8 @@ aa
 aa
 aa
 aa
-ab
-ab
+kH
+kH
 aa
 aa
 aa
@@ -10069,10 +10063,10 @@ aa
 aa
 aa
 aa
-ab
 kH
 kH
-ab
+kH
+kH
 aa
 aa
 aa
@@ -10106,8 +10100,8 @@ aa
 aa
 aa
 aa
-aa
-ab
+kH
+kH
 aa
 "}
 (57,1,1) = {"
@@ -10116,11 +10110,11 @@ aa
 aa
 aa
 aa
-aa
-ab
 kH
 kH
-ab
+kH
+kH
+kH
 cX
 aa
 aa
@@ -10152,11 +10146,11 @@ uQ
 aa
 aa
 aa
-ab
-aa
-ab
 kH
-ab
+kH
+kH
+kH
+kH
 "}
 (58,1,1) = {"
 aa
@@ -10164,10 +10158,10 @@ aa
 aa
 aa
 aa
-aa
-ab
-ab
-ab
+kH
+kH
+kH
+kH
 aa
 aa
 aa
@@ -10199,12 +10193,12 @@ aa
 uQ
 aa
 aa
-ab
-kH
-ab
 kH
 kH
-ab
+kH
+kH
+kH
+kH
 "}
 (59,1,1) = {"
 aa
@@ -10225,8 +10219,8 @@ aa
 aa
 aa
 aa
-ab
-ab
+kH
+kH
 aa
 aa
 uQ
@@ -10247,12 +10241,12 @@ aa
 uQ
 aa
 aa
-ab
 kH
 kH
 kH
-ab
-ab
+kH
+kH
+kH
 "}
 (60,1,1) = {"
 aa
@@ -10273,9 +10267,9 @@ aa
 VT
 aa
 aa
-ab
-ab
-ab
+kH
+kH
+kH
 aa
 uQ
 Ut
@@ -10296,11 +10290,11 @@ uQ
 aa
 aa
 aa
-ab
 kH
-ab
-aa
-ab
+kH
+kH
+kH
+kH
 "}
 (61,1,1) = {"
 aa
@@ -10322,8 +10316,8 @@ cj
 bM
 dC
 aa
-ab
-ab
+kH
+kH
 dC
 dC
 nc
@@ -10344,9 +10338,9 @@ uQ
 aa
 aa
 aa
-ab
 kH
-ab
+kH
+kH
 aa
 aa
 "}
@@ -10393,7 +10387,7 @@ aa
 aa
 aa
 aa
-ab
+kH
 aa
 aa
 aa
