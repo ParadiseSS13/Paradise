@@ -214,6 +214,14 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
 
+/turf/simulated/floor/carpet/grimey
+	icon = 'icons/turf/floors/carpet_grimey.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/grimey
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET,SMOOTH_GROUP_CARPET_GRIMEY)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_GRIMEY)
+
+/obj/item/stack/tile/carpet/grimey/twenty
+	amount = 20
 /turf/simulated/floor/carpet/airless
 	oxygen = 0
 	nitrogen = 0

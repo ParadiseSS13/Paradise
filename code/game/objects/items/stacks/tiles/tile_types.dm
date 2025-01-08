@@ -213,6 +213,10 @@
 /obj/item/stack/tile/carpet/royalblue/twenty
 	amount = 20
 
+/obj/item/stack/tile/carpet/grimey
+	name = "cheap carpet"
+	icon_state = "tile-carpet-royalblack"
+	turf_type = /turf/simulated/floor/carpet/grimey
 //Plasteel
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
