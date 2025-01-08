@@ -76,7 +76,7 @@
 
 	stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	update_icon(UPDATE_ICON_STATE)
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -331,6 +331,7 @@
 	glow_icon_state = "clockwork_tube"
 	base_state = "clockwork_tube"
 	deconstruct_type = /obj/machinery/light_construct/clockwork
+	brightness_color = "#ffbb8d"
 
 /obj/machinery/light/clockwork/small
 	icon_state = "clockwork_bulb1"

@@ -17,9 +17,9 @@ GLOBAL_LIST_INIT(human_recipes, list(
 	new /datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
+/obj/item/stack/sheet/animalhide/human/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.human_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/generic
 	name = "generic skin"
@@ -152,11 +152,11 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new /datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
 	new /datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new /datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
-	new /datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
+	new /datum/stack_recipe("hide mantle", /obj/item/clothing/neck/cloak/unathi, 4)))
 
-/obj/item/stack/sheet/leather/New(loc, new_amount, merge = TRUE)
+/obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.leather_recipes
-	return ..()
 
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
@@ -172,9 +172,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	new /datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1),
 	))
 
-/obj/item/stack/sheet/sinew/New(loc, amount=null)
+/obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sinew_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
