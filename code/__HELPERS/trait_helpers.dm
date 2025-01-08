@@ -359,8 +359,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
 
-//quirk traits
-#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
@@ -410,14 +408,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /*********************
 *    QUIRK TRAITS    *
 **********************/
-#define TRAIT_FOREIGNER "foreigner"
 #define TRAIT_ALLERGIC "allergic"
 #define TRAIT_FRAIL "frail"
 #define TRAIT_ASTHMATIC "asthma"
 #define TRAIT_SKITTISH "skittish"
 #define TRAIT_FREERUNNER "freerunner"
 #define TRAIT_CRAFTY "crafty"
-#define TRAIT_HEAVY_DRINKER "heavy_drinker"
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_LIGHT_STEP "light_step"
 
 //***** TURF TRAITS *****//
