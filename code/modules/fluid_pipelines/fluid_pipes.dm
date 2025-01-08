@@ -2,7 +2,7 @@
 	name = "fluid pipe"
 	desc = "Moves around fluids"
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
-	icon_state = "pipe-j1" // If you see this iconstate something went wrong
+	icon_state = "pipe_2_4"
 	power_state = NO_POWER_USE
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
@@ -148,3 +148,8 @@
 	name = "You should not see this"
 	desc = "Please report where you saw this on the github"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	icon = null
+	icon_state = null
+
+/obj/machinery/fluid_pipe/abstract/update_icon_state()
+	return

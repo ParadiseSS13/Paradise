@@ -1,6 +1,7 @@
 /obj/item/refinery_spawner
 	name = "packaged refinery"
 	desc = "A fully functional refinery, tightly packed with bluespace technology to automatically deploy where needed."
+	new_attack_chain = TRUE
 
 /obj/item/refinery_spawner/activate_self(mob/user)
 	if(..())
@@ -11,17 +12,6 @@
 
 	new /obj/machinery/fluid_pipe/plasma_refinery(get_turf(src), direction)
 
-
-
-/*
-/obj/machinery/atmospherics/unary/plasma_condenser
-	name = "Plasma Condenser"
-	desc = "Turns refined plasma into plasma gas."
-
-/obj/machinery/atmospherics/unary/plasma_refinery
-	name = "Plasma Refinery"
-	desc = "Turns plasma gas into plasma fuel. Can accept a combination of gases and chemicals to improve purity."
-*/
 /obj/machinery/fluid_pipe/plasma_refinery
 	name = "Plasma Refinery"
 	desc = "Turns crude plasma into refined plasma. Can accept a combination of chemicals to improve purity."
@@ -35,10 +25,6 @@
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
 	var/datum/refinery_recipe/selected_recipe
-
-/obj/machinery/fluid_pipe/abstract/refinery_intake
-	icon = null
-	icon_state = null
 
 /obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
 	. = ..()
