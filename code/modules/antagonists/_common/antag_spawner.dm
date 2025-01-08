@@ -198,8 +198,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
-	var/type = demon_type::name
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [demon_type::name] summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(length(candidates) > 0)
 		var/mob/C = pick(candidates)
