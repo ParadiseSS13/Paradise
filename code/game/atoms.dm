@@ -1175,6 +1175,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_hearers, 30)
 
+/atom/proc/atom_emote(emote)
+	if(!emote)
+		return
+	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
+
+	runechat_emote(src, emote)
+
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
 
