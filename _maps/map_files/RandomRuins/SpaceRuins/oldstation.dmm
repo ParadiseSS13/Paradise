@@ -50,6 +50,9 @@
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
+/obj/item/stack/sheet/mineral/diamond,
+/obj/item/stack/sheet/mineral/diamond,
+/obj/item/stack/sheet/mineral/diamond,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "al" = (
