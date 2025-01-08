@@ -281,6 +281,7 @@
 "aS" = (
 /obj/structure/sign/poster/contraband/random,
 /obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/ruin/ancientstation)
 "aT" = (
@@ -2759,6 +2760,11 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"hF" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/probably,
+/turf/simulated/wall,
+/area/ruin/ancientstation/comm)
 "hG" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4275,6 +4281,11 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"mM" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/probably,
+/turf/simulated/wall,
+/area/ruin/ancientstation/betanorth)
 "mQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4606,6 +4617,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"qu" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation)
 "qv" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -4628,6 +4644,11 @@
 "qz" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/ancientstation/proto)
+"qJ" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/kitchen)
 "qN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4986,6 +5007,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"vw" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/ancientstation/proto)
 "vx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -5136,6 +5162,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/sec)
+"wI" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall,
+/area/ruin/ancientstation/comm)
 "xj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -5235,6 +5266,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
+"yT" = (
+/obj/effect/mapping_helpers/turfs/rust/probably,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/ancientstation/proto)
 "zg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5763,6 +5799,11 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/ancientstation/kitchen)
+"Fv" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/engi)
 "FG" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -5839,6 +5880,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"Gw" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall,
+/area/ruin/ancientstation/kitchen)
 "GB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5884,6 +5930,16 @@
 /obj/item/storage/bag/trash,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"Hn" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/probably,
+/turf/simulated/wall,
+/area/ruin/ancientstation)
+"Hw" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/betanorth)
 "HO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6133,6 +6189,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"KQ" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/hivebot)
 "Ld" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/white,
@@ -6266,6 +6327,11 @@
 	icon_state = "brownfull"
 	},
 /area/ruin/ancientstation/comm)
+"My" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/hydroponics)
 "MI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -6306,6 +6372,11 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"MS" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/sec)
 "Nh" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/white,
@@ -6370,6 +6441,11 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"Oi" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/r_wall,
+/area/ruin/ancientstation/proto)
 "Om" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -6403,6 +6479,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
+"OF" = (
+/obj/effect/spawner/random/fungus/probably,
+/turf/simulated/wall,
+/area/ruin/ancientstation/hivebot)
 "ON" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/janitorialcart{
@@ -6518,6 +6598,11 @@
 /obj/machinery/door/airlock/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/rnd)
+"PO" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
 /area/ruin/ancientstation/rnd)
 "PX" = (
 /obj/structure/cable{
@@ -6696,6 +6781,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
+"Sj" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/probably,
+/turf/simulated/wall/r_wall,
+/area/ruin/ancientstation/proto)
 "Sm" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -6714,6 +6804,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"Sx" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/comm)
 "SC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6798,6 +6893,11 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
+"To" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/ruin/ancientstation/thetacorridor)
 "Tq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7167,6 +7267,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/seeds/fungus,
 /obj/item/seeds/poppy,
 /obj/item/seeds/carrot,
 /obj/item/seeds/potato,
@@ -7176,6 +7277,11 @@
 /obj/item/seeds/grape,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
+"XY" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall,
+/area/ruin/ancientstation/thetacorridor)
 "Yc" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/yellow,
@@ -7271,6 +7377,7 @@
 "Zi" = (
 /obj/structure/sign/poster/contraband/donut_corp,
 /obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
 "Zn" = (
@@ -7520,11 +7627,11 @@ bf
 bf
 bf
 bf
-bf
+Hw
 CK
 Qi
 LC
-bf
+Hw
 dS
 bz
 dI
@@ -7617,7 +7724,7 @@ cc
 ab
 ab
 ab
-bf
+mM
 zR
 Qi
 Uk
@@ -7713,7 +7820,7 @@ aa
 ab
 kH
 ab
-bf
+Hw
 Qi
 Qi
 cw
@@ -8726,7 +8833,7 @@ aa
 VT
 aa
 cU
-cU
+Fv
 OO
 dO
 fb
@@ -8736,7 +8843,7 @@ fH
 gP
 wD
 gk
-cU
+Fv
 cU
 cU
 cU
@@ -8985,7 +9092,7 @@ az
 kh
 jM
 kb
-az
+qu
 az
 az
 aa
@@ -9053,11 +9160,11 @@ aT
 aT
 aT
 aT
+wI
 aT
 aT
 aT
-aT
-az
+qu
 bC
 jO
 fd
@@ -9065,11 +9172,11 @@ fd
 cB
 dV
 cB
-fd
+My
 fd
 tL
-gs
-gs
+qJ
+qJ
 ha
 hV
 ha
@@ -9083,7 +9190,7 @@ az
 az
 az
 az
-az
+qu
 az
 aa
 aa
@@ -9094,7 +9201,7 @@ aa
 (38,1,1) = {"
 aa
 aT
-aT
+Sx
 Es
 po
 fz
@@ -9125,14 +9232,14 @@ vJ
 gs
 Co
 eM
-az
+qu
 az
 Zg
 kd
 kn
 kd
 bC
-az
+qu
 az
 aa
 aa
@@ -9163,7 +9270,7 @@ dw
 cZ
 fd
 TK
-gs
+Gw
 gs
 gF
 gG
@@ -9451,7 +9558,7 @@ dw
 cZ
 fd
 fS
-gs
+Gw
 gs
 IP
 gG
@@ -9478,7 +9585,7 @@ aa
 (46,1,1) = {"
 aa
 aT
-aT
+Sx
 Re
 Mk
 fV
@@ -9516,7 +9623,7 @@ kk
 ko
 kk
 bC
-az
+qu
 az
 aa
 aa
@@ -9533,37 +9640,37 @@ aT
 aT
 aT
 aT
-aT
+hF
 aT
 aT
 aT
 az
 iU
 bC
-fd
+My
 fd
 cB
 dV
 cB
-fd
+My
 fd
 eq
 gs
-gs
+qJ
 ha
 gN
 ha
-gs
+qJ
 gs
 Ac
 bC
+qu
 az
 az
 az
 az
 az
-az
-az
+qu
 az
 aa
 aa
@@ -9630,7 +9737,7 @@ aa
 az
 aJ
 aQ
-az
+Hn
 bb
 bm
 kD
@@ -9657,7 +9764,7 @@ az
 df
 Tb
 ON
-az
+Hn
 az
 az
 aa
@@ -9688,7 +9795,7 @@ bL
 dg
 dg
 dg
-dg
+MS
 Rj
 UV
 nF
@@ -9878,7 +9985,7 @@ aa
 VT
 aa
 dg
-dg
+MS
 eR
 Bh
 eQ
@@ -10401,7 +10508,7 @@ Eh
 Eh
 iN
 eJ
-dC
+XY
 dK
 ew
 rX
@@ -10514,13 +10621,13 @@ iX
 iX
 iX
 iX
-iX
+PO
 ie
 iw
 jF
-Et
-Et
-Et
+Oi
+Sj
+vw
 Et
 Et
 Et
@@ -10641,7 +10748,7 @@ ac
 ac
 ac
 lc
-cM
+KQ
 ew
 Va
 iX
@@ -10710,7 +10817,7 @@ iX
 dJ
 kS
 jF
-He
+yT
 qz
 qz
 jV
@@ -10823,7 +10930,7 @@ aa
 Eh
 Eh
 ac
-ai
+OF
 ap
 ap
 ap
@@ -10850,7 +10957,7 @@ iX
 eD
 iX
 iX
-iX
+PO
 yw
 fq
 jF
@@ -10929,7 +11036,7 @@ ap
 ao
 ac
 Eh
-dC
+To
 bO
 fP
 iX
@@ -10968,7 +11075,7 @@ Eh
 Eh
 ac
 ah
-ai
+OF
 ap
 ap
 ap
@@ -11028,7 +11135,7 @@ Eh
 dC
 hW
 lD
-iX
+PO
 iX
 iX
 iX
@@ -11046,8 +11153,8 @@ iX
 oJ
 iw
 jF
-Et
-Et
+Sj
+vw
 Et
 Et
 Et
@@ -11063,7 +11170,7 @@ aa
 Eh
 Eh
 ac
-ai
+OF
 ao
 cL
 ah
@@ -11121,7 +11228,7 @@ ac
 ac
 ac
 Eh
-dC
+XY
 ct
 hn
 Lj
@@ -11188,7 +11295,7 @@ dC
 dC
 dC
 cu
-dC
+XY
 dC
 dC
 dC
@@ -11217,7 +11324,7 @@ ao
 ac
 Eh
 Eh
-dC
+To
 bT
 dH
 dH
@@ -11320,7 +11427,7 @@ dC
 dC
 aa
 dC
-dC
+To
 eX
 eX
 eX
