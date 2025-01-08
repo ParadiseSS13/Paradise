@@ -508,12 +508,11 @@
 	return reinf && fulltile ? real_explosion_block : 0
 
 /obj/structure/window/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
-	rad_insulation = RAD_NO_INSULATION
+	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Lacks protection from radiation."
 
 /obj/structure/window/reinforced
 	name = "reinforced window"
-	desc = "It looks rather strong. Might take a few good hits to shatter it."
+	desc = "It looks rather strong. Might take a few good hits to shatter it. Lacks protection from radiation."
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1300
@@ -631,7 +630,7 @@
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
-	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
+	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through. Lacks protection from radiation."
 	icon_state = "plasmawindow"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
@@ -645,7 +644,7 @@
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. Lacks protection from radiation."
 	icon_state = "plasmarwindow"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
@@ -674,7 +673,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
 	icon = 'icons/obj/smooth_structures/windows/window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
@@ -683,7 +682,7 @@
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
-	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
+	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through. Has very light protection from radiation."
 	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
@@ -700,7 +699,7 @@
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. Offers superior protection from radiation."
 	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
@@ -722,7 +721,7 @@
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
-	desc = "It looks rather strong. Might take a few good hits to shatter it."
+	desc = "It looks rather strong. Might take a few good hits to shatter it. Offers superior protection from radiation"
 	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
