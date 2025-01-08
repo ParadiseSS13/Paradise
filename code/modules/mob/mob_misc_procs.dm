@@ -351,7 +351,6 @@
 
 	return returntext
 
-
 /proc/brain_gibberish(message, emp_damage)
 	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
 		return message
