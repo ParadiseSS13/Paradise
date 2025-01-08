@@ -6015,7 +6015,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -7049,11 +7049,9 @@
 	},
 /area/station/hallway/primary/fore/north)
 "buS" = (
-/obj/structure/closet/secure_closet/brig/temp{
-	opened = 1
-	},
-/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "buY" = (
@@ -31031,11 +31029,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "gfL" = (
-/obj/machinery/ai_status_display{
-	pixel_x = -32;
-	step_size = 0;
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -32902,11 +32895,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "gAl" = (
-/obj/structure/closet/secure_closet/brig/temp{
-	opened = 1
-	},
 /obj/item/card/id/prisoner,
 /obj/item/clothing/under/color/orange/prison,
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -50290,10 +50282,9 @@
 /area/station/maintenance/apmaint2)
 "jTd" = (
 /obj/item/airlock_electronics/destroyed,
-/obj/structure/closet/secure_closet/brig/temp{
-	opened = 1
-	},
 /obj/item/clothing/shoes/orange,
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jTf" = (
@@ -99078,6 +99069,7 @@
 /obj/structure/sink{
 	pixel_y = 22
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -116874,6 +116866,9 @@
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 8
 	},
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -120660,12 +120655,11 @@
 	},
 /area/station/science/server)
 "xQP" = (
-/obj/structure/closet/secure_closet/brig/temp{
-	opened = 1
-	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xQS" = (
