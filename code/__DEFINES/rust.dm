@@ -60,6 +60,11 @@
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
+/proc/milla_load_turfs(turf/low_corner, turf/high_corner)
+	ASSERT(istype(low_corner))
+	ASSERT(istype(high_corner))
+	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
+
 /proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 

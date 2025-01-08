@@ -22142,7 +22142,7 @@
 /turf/simulated/floor/greengrid,
 /area/station/command/vault)
 "bzj" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -32084,6 +32084,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "cel" = (
@@ -33756,6 +33757,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "ckQ" = (
@@ -58245,6 +58247,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "eVz" = (
@@ -76960,11 +76963,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pBA" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /obj/machinery/camera{
 	c_tag = "Brig Cell 2";
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -80725,6 +80728,12 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
+"rBj" = (
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/a)
 "rBP" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -82479,11 +82488,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "ssh" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /obj/machinery/flasher{
 	id = "Cell 2";
 	pixel_y = -26
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -147151,7 +147160,7 @@ aPx
 kbZ
 vOc
 viy
-bzj
+rBj
 mAS
 spL
 hWP

@@ -15,11 +15,11 @@
 	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
+	scatter_distance = 3
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge)
 	. = ..()
-	pixel_x = rand(-3, 3)
-	pixel_y = rand(-3, 3) //randomize a little
+	scatter_atom()
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)

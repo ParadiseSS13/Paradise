@@ -62,14 +62,14 @@
 			stack_trace("One of the smoothing corners is bust")
 	catch(var/exception/e)
 		GLOB.space_manager.remove_dirt(placement.z)
-		var/datum/milla_safe/late_setup_level/milla = new()
-		milla.invoke_async(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
+		var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+		milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 	GLOB.space_manager.remove_dirt(placement.z)
-	var/datum/milla_safe/late_setup_level/milla = new()
-	milla.invoke_async(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
+	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 
 	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
