@@ -517,7 +517,7 @@
 	reinf = TRUE
 	heat_resistance = 1300
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation = RAD_NO_INSULATION
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -693,7 +693,6 @@
 	max_integrity = 300
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
@@ -712,7 +711,7 @@
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation = RAD_HEAVY_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
@@ -783,7 +782,7 @@
 	reinf = TRUE
 	heat_resistance = 32000
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
