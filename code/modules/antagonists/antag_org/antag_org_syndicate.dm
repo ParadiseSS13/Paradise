@@ -36,7 +36,6 @@
 	targeted_departments = list(DEPARTMENT_COMMAND, DEPARTMENT_SECURITY)
 	theft_targets = list(
 		/datum/theft_objective/antique_laser_gun,
-		/datum/theft_objective/nukedisc,
 		/datum/theft_objective/hoslaser,
 		/datum/theft_objective/captains_saber,
 		/datum/theft_objective/capmedal
