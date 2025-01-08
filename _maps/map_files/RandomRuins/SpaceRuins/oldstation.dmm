@@ -1354,12 +1354,8 @@
 /area/ruin/ancientstation/rnd)
 "ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge/directional/west{
-	dir = 4;
-	pixel_x = 24;
-	name = "east"
-	},
 /obj/structure/cable,
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -2078,11 +2074,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
-"fX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/rust,
-/turf/simulated/wall,
-/area/ruin/ancientstation/sec)
 "fY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -5630,12 +5621,8 @@
 	},
 /area/ruin/ancientstation/sec)
 "Dg" = (
-/obj/machinery/alarm/all_access/directional/north{
-	report_danger_level = 0;
-	dir = 4;
-	name = "east";
-	pixel_x = 24;
-	pixel_y = 0
+/obj/machinery/alarm/all_access/directional/east{
+	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -6988,6 +6975,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/thetacorridor)
+"Vr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/ruin/ancientstation)
 "VA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7262,7 +7254,6 @@
 	},
 /area/ruin/ancientstation/hydroponics)
 "YX" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/structure/sign/poster/official/pda_ad,
 /turf/simulated/wall,
@@ -8272,7 +8263,7 @@ uQ
 ae
 ae
 ae
-FF
+uQ
 FF
 aa
 aa
@@ -9620,8 +9611,8 @@ hO
 bg
 bg
 bg
-bg
 Zx
+Vr
 az
 aa
 aa
@@ -9747,7 +9738,7 @@ cG
 dg
 Nj
 eu
-fX
+dg
 sa
 gQ
 lm
