@@ -203,6 +203,7 @@
 	name = "bluespace portable air pump"
 	icon_state = "ppump_bs:0"
 	base_icon_state = "ppump_bs"
+	base_attachment_icon_state = "ppump_big"
 	volume = 25000
 
 /obj/machinery/atmospherics/portable/pump/bluespace/examine(mob/user)
