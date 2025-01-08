@@ -46,11 +46,13 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
-	owner.adjustFireLoss(-grace_heal)
-	owner.adjustToxLoss(-grace_heal)
-	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+
+	var/mob/living/carbon/human/owner_human = owner
+	owner_human.adjustBruteLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustFireLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustToxLoss(-grace_heal)
+	owner_human.adjustOxyLoss(-(grace_heal * 2))
+	owner_human.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
