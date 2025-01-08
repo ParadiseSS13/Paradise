@@ -343,7 +343,7 @@
 		return FALSE
 	else if(give_objective == "Yes")
 		objective = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null, 1, MAX_MESSAGE_LEN))
-		if(isnull(objective) || objective == "")
+		if(!length(objective))
 			qdel(temp)
 			return FALSE
 
