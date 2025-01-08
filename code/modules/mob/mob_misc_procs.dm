@@ -337,9 +337,6 @@
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
-	var/first_letter = pick("@","&","%","$","/") // interjects a letter and allows the say message to go through without being stopped by * (emote character) and others.
-	
-	returntext += first_letter
 	for(var/i = 1, i <= length_char(t), i++)
 
 		var/letter = copytext_char(t, i, i + 1)
@@ -353,6 +350,18 @@
 		returntext += letter
 
 	return returntext
+
+
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
 
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
