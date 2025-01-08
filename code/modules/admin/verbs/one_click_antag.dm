@@ -367,7 +367,6 @@
 				H.mind.add_mind_objective(O)
 			H.mind.add_antag_datum(/datum/antagonist/eventmisc)
 			candidates.Remove(H)
-
 		return TRUE
 	return FALSE
 
