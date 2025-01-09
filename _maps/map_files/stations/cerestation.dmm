@@ -11012,9 +11012,6 @@
 	},
 /area/station/command/office/cmo)
 "bEr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/chem_heater,
 /obj/structure/disaster_counter/chemistry{
 	pixel_y = 32
@@ -11475,9 +11472,6 @@
 /area/station/medical/chemistry)
 "bFF" = (
 /obj/machinery/chem_dispenser,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = 32
 	},
@@ -70073,6 +70067,10 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/morgue,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -96854,9 +96852,6 @@
 /area/station/hallway/secondary/entry/east)
 "uKR" = (
 /obj/machinery/chem_master,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -110303,10 +110298,8 @@
 /turf/simulated/wall,
 /area/station/medical/virology)
 "xVy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/structure/closet/secure_closet/reagents,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "xVF" = (
