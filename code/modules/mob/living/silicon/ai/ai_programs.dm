@@ -50,34 +50,44 @@
 	for(var/datum/ai_program/program in possible_programs)
 		if(href_list[program.program_id])
 
-			var/datum/spell/ai_spell/new_spell = new program.power_type
+			if(!program.upgrade)
+				var/datum/spell/ai_spell/new_spell = new program.power_type
 
-			for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
-				if(new_spell.type == aspell.type)
-					if(aspell.spell_level >= aspell.level_max)
-						to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
-						return FALSE
-					else
-						if(bandwidth < 1)
-							temp = "You cannot afford this upgrade!"
-							return FALSE
-						aspell.name = initial(aspell.name)
-						aspell.spell_level++
+				for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+					if(new_spell.type == aspell.type)
 						if(aspell.spell_level >= aspell.level_max)
-							to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-						aspell.on_purchase_upgrade()
-						bandwidth--
-						return TRUE
-			// No same program found, install
-			if(program.cost > memory)
-				to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
+							to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
+							return FALSE
+						else
+							if(bandwidth < 1)
+								temp = "You cannot afford this upgrade!"
+								return FALSE
+							aspell.name = initial(aspell.name)
+							aspell.spell_level++
+							if(aspell.spell_level >= aspell.level_max)
+								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+							aspell.on_purchase_upgrade()
+							bandwidth--
+							return TRUE
+				// No same program found, install
+				if(program.cost > memory)
+					to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
+					return FALSE
+				memory -= program.cost
+				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
+				A.AddSpell(new_spell)
+				to_chat(A, program.unlock_text)
+				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
+				program.installed = TRUE
+				return TRUE
+
+			// Upgrades below
+			if(program.upgrade_level > program.max_level)
+				to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 				return FALSE
-			memory -= program.cost
-			SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-			A.AddSpell(new_spell)
-			to_chat(A, "<span class='notice'>You have installed [new_spell.name].</span>")
+			program.upgrade(A)
 			to_chat(A, program.unlock_text)
-			program.installed = TRUE
+			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
 
 		if(href_list["showdesc"])
@@ -101,6 +111,10 @@
 	var/power_type = /datum/spell/ai_spell
 	/// If the module gives a passive upgrade, use this. Mutually exclusive with power_type.
 	var/upgrade = FALSE
+	/// The level of the upgrade for passives
+	var/upgrade_level = 0
+	/// Max level for passive upgrades
+	var/max_level = 5
 	/// Text shown when an ability is unlocked
 	var/unlock_text = "<span class='notice'>Hello World!</span>"
 	/// Sound played when an ability is unlocked
@@ -117,6 +131,9 @@
 	action_icon_state = "ai"
 	auto_use_uses = FALSE // This is an infinite ability.
 	create_attack_logs = FALSE
+
+/datum/ai_program/proc/upgrade(mob/user)
+	return
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
@@ -199,15 +216,14 @@
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet...</span>"
 	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
 	var/power_sent = 2500
-	var/universal_adapter = FALSE
-	var/adapter_efficiency = 0.5
 
 /datum/spell/ai_spell/ranged/power_shunt/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
 		return
-	if(istype(target, /mob/living/carbon/human/machine)  && !universal_adapter)
+	var/mob/living/silicon/ai/AI = user
+	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
 		return
 	var/area/A = get_area(user)
@@ -225,7 +241,7 @@
 		T.cell.give(power_sent)
 	if(istype(target, /mob/living/carbon/human/machine))
 		var/mob/living/carbon/human/machine/T = target
-		T.adjust_nutrition(adapter_efficiency * (power_sent / 10))
+		T.adjust_nutrition(AI.adapter_efficiency * (power_sent / 10))
 
 	// Handles draining the SMES
 	for(var/obj/machinery/power/smes/power_source in A)
@@ -233,7 +249,6 @@
 			continue
 		power_source.charge -= power_sent
 		break
-	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 20
 	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
@@ -251,6 +266,7 @@
 	program_name = "Repair Nanites"
 	program_id = "repair_nanites"
 	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
+	cost = 2
 	nanite_cost = 75
 	power_type = /datum/spell/ai_spell/ranged/repair_nanites
 	unlock_text = "Repair nanomachine firmware installation complete!"
@@ -266,15 +282,14 @@
 	level_max = 10
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to repair...</span>"
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
-	var/universal_adapter = FALSE
-	var/adapter_efficiency = 0.5
 
 /datum/spell/ai_spell/ranged/repair_nanites/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
 		return
-	if(istype(target, /mob/living/carbon/human/machine)  && !universal_adapter)
+	var/mob/living/silicon/ai/AI = user
+	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
 		return
 	var/area/A = get_area(user)
@@ -283,17 +298,15 @@
 		return
 	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
 		var/obj/T = target
-		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 +  max(0.3, (0.1 * spell_level))))
+		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 +  min(0.3, (0.1 * spell_level))))
 	if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/T = target
-		var/damage_healed = adapter_efficiency * (20 + (max(30, (10 * spell_level))))
+		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		T.heal_overall_damage(damage_healed, damage_healed)
 	if(istype(target, /mob/living/carbon/human/machine))
 		var/mob/living/carbon/human/machine/T = target
-		var/damage_healed = adapter_efficiency * (20 + (max(30, (10 * spell_level))))
+		var/damage_healed = AI.adapter_efficiency * (20 + (min(30, (10 * spell_level))))
 		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
-
-	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 75
 	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
@@ -304,3 +317,21 @@
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
+
+// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
+/datum/ai_program/universal_adapter
+	program_name = "Universal Adapter"
+	program_id = "universal_adapter"
+	description = "Upgraded firmware allows IPCs to be valid targets for Power Shunt and Repair Nanites, at half efficiency."
+	nanite_cost = 0
+	unlock_text = "Universal adapter installation complete!"
+	upgrade = TRUE
+
+/datum/ai_program/universal_adapter/upgrade(mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(user))
+		return
+	AI.universal_adapter = TRUE
+	AI.adapter_efficiency = 0.5 + (0.1 * upgrade_level)
+	upgrade_level++
+	installed = TRUE

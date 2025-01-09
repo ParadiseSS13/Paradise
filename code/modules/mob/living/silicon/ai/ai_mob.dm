@@ -69,6 +69,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// AI Powers
 	var/datum/program_picker/program_picker
 	var/datum/spell/ai_spell/choose_program/program_action
+	/// Whether or not the AI has unlocked universal adapter
+	var/universal_adapter = FALSE
+	/// How effective is the adapter?
+	var/adapter_efficiency = 0.5
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
