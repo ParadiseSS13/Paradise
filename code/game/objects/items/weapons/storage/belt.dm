@@ -71,10 +71,16 @@
 		switch(over_object.name)
 			if("r_hand")
 				if(M.unequip(src))
-					M.put_in_r_hand(src)
+					if(M.r_hand)
+						M.drop_item_to_ground(src)
+					else
+						M.put_in_r_hand(src)
 			if("l_hand")
 				if(M.unequip(src))
-					M.put_in_l_hand(src)
+					if(M.l_hand)
+						M.drop_item_to_ground(src)
+					else
+						M.put_in_l_hand(src)
 		add_fingerprint(usr)
 		return
 
