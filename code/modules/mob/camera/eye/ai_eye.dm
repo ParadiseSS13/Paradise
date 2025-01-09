@@ -9,8 +9,7 @@
 	ai = user
 	if(is_ai_eye(ai.eyeobj))
 		stack_trace("Tried to create an AI Eye for [user], but there is one already assigned")
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	name = "[owner_name] (AI Eye)"
 
 /// Ensures that the user's perspective is on this eye (instead of, for example, a mech or hologram eye) and
