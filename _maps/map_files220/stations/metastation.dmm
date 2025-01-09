@@ -69127,9 +69127,6 @@
 	},
 /area/station/security/brig)
 "rhw" = (
-/obj/structure/mirror{
-	pixel_y = -34
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink/directional/north,
 /turf/simulated/floor/wood,
@@ -79262,6 +79259,9 @@
 /obj/machinery/camera{
 	c_tag = "Bar - Backroom";
 	dir = 1
+	},
+/obj/structure/mirror{
+	pixel_y = -34
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
