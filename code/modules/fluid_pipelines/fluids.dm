@@ -27,6 +27,7 @@
 	fluid_id = "fuel"
 	// This is intended as a basetype
 	fuel_value = 3
+	barrel_state = "fuel"
 
 /datum/fluid/fuel/basic
 	fluid_name = "basic fuel"
@@ -58,6 +59,7 @@
 /datum/fluid/oil
 	fluid_name = "unr_oil"
 	fluid_id = "oil"
+	barrel_state = "oil"
 
 /datum/fluid/ref_oil
 	fluid_name = "refined oil"
