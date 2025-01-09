@@ -97,7 +97,7 @@
 		if(DY == 0)
 			Pixel_y = 0
 		else
-			Pixel_y = round(cos(Angle)+32*cos(Angle)*(N+16)/32)
+			Pixel_y = round(cos(Angle) + 32 * cos(Angle) * (N + 16) / 32)
 
 		//Position the effect so the beam is one continous line
 		var/final_x = X.x
