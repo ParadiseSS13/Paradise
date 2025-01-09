@@ -358,7 +358,7 @@
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!afterattack__legacy__attackchain(suicide_tile, user, TRUE))
+	if(!interact_with_atom(suicide_tile, user, TRUE))
 		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
@@ -602,10 +602,8 @@
 		else
 			return FALSE
 
-/obj/item/rcd/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/rcd/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!proximity_flag)
-		return FALSE
 	if(istype(target, /turf/space/transit))
 		return FALSE
 	if(!is_type_in_list(target, allowed_targets))
@@ -616,7 +614,7 @@
 			. = act.try_act(target, src, user)
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(mode == MODE_DECON)
 		to_chat(user, "<span class='warning'>You can't deconstruct that!</span>")
