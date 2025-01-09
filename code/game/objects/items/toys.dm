@@ -1069,7 +1069,7 @@
 /obj/item/toy/plushie/borgplushie/examine(mob/user)
 	. = ..()
 	if(!plushie_module_selected)
-		. += "<span class='notice'><b>Alt-Click</b> [src] to change its color.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> [src] to select a module.</span>"
 	else
 		. += "<span class='notice'>You can use a cyborg module reset board to change [src] back into standard mode.</span>"
 
