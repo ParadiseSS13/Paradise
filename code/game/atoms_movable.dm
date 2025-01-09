@@ -69,6 +69,9 @@
 	/// Used for icon smoothing. Won't smooth if it ain't anchored and can be unanchored. Only set to true on windows
 	var/can_be_unanchored = FALSE
 
+	/// How far (in pixels) should this atom scatter when created/dropped/etc. Does not apply to mapped-in items.
+	var/scatter_distance = 0
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -1062,3 +1065,8 @@
 /// useful callback for things that want special behavior on crush
 /atom/movable/proc/on_crush_thing(atom/thing)
 	return
+
+/// Used to scatter atoms so that multiple copies aren't all at the exact same spot.
+/atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
+	pixel_x = x_offset + rand(-scatter_distance, scatter_distance)
+	pixel_y = y_offset + rand(-scatter_distance, scatter_distance)

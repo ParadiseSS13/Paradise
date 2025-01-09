@@ -288,7 +288,7 @@
  * * user - The user of the emote.
  * * text - The text of the emote.
  */
-/datum/emote/proc/runechat_emote(mob/user, text)
+/proc/runechat_emote(atom/user, text)
 	var/runechat_text = text
 	if(length(text) > 100)
 		runechat_text = "[copytext(text, 1, 101)]..."
