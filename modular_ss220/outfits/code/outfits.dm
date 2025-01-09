@@ -312,10 +312,116 @@
 /datum/outfit/job/centcom/response_team/commander/amber
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
+/datum/outfit/job/response_team/commander/red
+	name = "RT Commander (Red)"
+	shoes = /obj/item/clothing/shoes/combat
+	back = /obj/item/mod/control/pre_equipped/responsory/red/commander
+	suit = null
+	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	belt = /obj/item/gun/energy/gun/blueshield/pdw9
+
+	backpack_contents = list(
+		/obj/item/camera_bug/ert = 1,
+		/obj/item/door_remote/omni = 1,
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/storage/box/mindshield = 1
+	)
+
+/* Security */
+/datum/outfit/job/response_team/security/red
+	name = "RT Security (Red)"
+	shoes = /obj/item/clothing/shoes/combat
+	back = /obj/item/mod/control/pre_equipped/responsory/red/security
+	suit = null
+	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/gas/sechailer
+	l_hand = /obj/item/gun/projectile/automatic/lasercarbine
+
+	backpack_contents = list(
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/grenade/flashbang = 2,
+		/obj/item/ammo_box/magazine/laser/ert = 2
+	)
+
 /* Engineer */
 /datum/outfit/job/centcom/response_team/engineer/amber
 	suit = /obj/item/clothing/suit/space/ert_engineer
 	head = /obj/item/clothing/head/helmet/space/ert_engineer
+
+/datum/outfit/job/response_team/engineer/red
+	name = "RT Engineer (Red)"
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	back = /obj/item/mod/control/pre_equipped/responsory/red/engineer
+	suit = null
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+	glasses = /obj/item/clothing/glasses/meson/engine
+	mask = /obj/item/clothing/mask/gas
+	l_pocket = /obj/item/t_scanner
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+
+	backpack_contents = list(
+		/obj/item/rcd/preloaded = 1,
+		/obj/item/rcd_ammo = 3,
+		/obj/item/gun/energy/gun = 1,
+		/obj/item/rpd/bluespace = 1,
+		/obj/item/storage/bag/construction = 1
+	)
+
+/* Medic */
+/datum/outfit/job/response_team/medic/red
+	name = "RT Medic (Red)"
+	rt_mob_job = "ERT Medical"
+	shoes = /obj/item/clothing/shoes/magboots
+	back = /obj/item/mod/control/pre_equipped/responsory/red/medic
+	suit = null
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	suit_store = /obj/item/gun/energy/gun
+	belt = /obj/item/defibrillator/compact/advanced/loaded
+	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+
+	backpack_contents = list(
+		/obj/item/clothing/mask/surgical = 1,
+		/obj/item/storage/firstaid/ert = 1,
+		/obj/item/storage/box/autoinjectors = 1,
+		/obj/item/roller/holo = 1,
+		/obj/item/bodyanalyzer = 1,
+		/obj/item/handheld_defibrillator = 1,
+		/obj/item/storage/pill_bottle/ert_red = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
+		/obj/item/soap/nanotrasen = 1
+	)
+
+/* Paranormal */
+/datum/outfit/job/response_team/paranormal/red
+	name = "RT Paranormal (Red)"
+	back = /obj/item/mod/control/pre_equipped/responsory/red/chaplain
+	suit = null
+	suit_store = /obj/item/gun/energy/gun
+	r_pocket = /obj/item/nullrod/ert
+	glasses = /obj/item/clothing/glasses/sunglasses
+
+	backpack_contents = list(
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/storage/box/zipties = 1,
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/storage/bible = 1
+	)
+
+/* Janitor */
+/datum/outfit/job/response_team/janitorial/red
+	name = "RT Janitor (Red)"
+	back = /obj/item/mod/control/pre_equipped/responsory/red/janitor
+	suit = null
+	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
+	r_pocket = /obj/item/scythe/tele
+	suit_store = /obj/item/gun/energy/gun
+
 
 // MARK: Skrell
 /datum/outfit/admin/sdtf

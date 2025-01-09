@@ -68,6 +68,7 @@
 #include "logs/_logs.dme"
 #include "mecha_skins/mecha_skins.dme"
 #include "mobs/_mobs.dme"
+#include "mod/_mods.dme"
 #include "outfits/_outfits.dme"
 #include "phrases/_phrases.dme"
 #include "pixel_shift/_pixel_shift.dme"
