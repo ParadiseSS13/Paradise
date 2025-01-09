@@ -1,7 +1,7 @@
-/datum/milla_safe/late_setup_level
+/datum/milla_safe_must_sleep/late_setup_level
 
 // Ensures that atmos and environment are set up.
-/datum/milla_safe/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
+/datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
 	var/total_timer = start_watch()
 	var/subtimer = start_watch()
 	if(!smoothTurfs)
