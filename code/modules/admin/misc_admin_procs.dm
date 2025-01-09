@@ -708,7 +708,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	return ""
 
-/datum/admins/proc/spawn_atom(object as text)
+/datum/admins/proc/spawn_atom()
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom. Append a period to the text in order to exclude subtypes of paths matching the input."
 	set name = "Spawn"
@@ -716,6 +716,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SPAWN))
 		return
 
+	var/object = tgui_input_text(usr, "Spawn an atom", "Spawn")
 	if(!object)
 		return
 
