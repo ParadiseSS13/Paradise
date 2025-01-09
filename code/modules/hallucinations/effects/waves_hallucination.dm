@@ -4,6 +4,7 @@
 	* Makes the owner's screen all funky and wavy.
 */
 #define WAVES_HALLUCINATION_FILTER "ripple_hallucination"
+#define WAVE_VERTICAL 0
 
 /obj/effect/hallucination/no_delete/waves
 
@@ -45,7 +46,7 @@
 	phase_offset = rand()
 	var/x_sign = pick(-1, 1)
 	var/y_sign = pick(-1, 1)
-	orientation = pick(WAVE_SIDEWAYS, null)
+	orientation = pick(WAVE_SIDEWAYS, WAVE_VERTICAL)
 	x_offset = roll(5) * x_sign
 	y_offset = roll(5) * y_sign
 
@@ -54,3 +55,4 @@
 	qdel(src)
 
 #undef WAVES_HALLUCINATION_FILTER
+#undef WAVE_VERTICAL
