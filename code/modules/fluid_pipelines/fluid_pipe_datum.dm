@@ -183,3 +183,33 @@
 		fluids += new type(amount)
 	else
 		potential.fluid_amount += amount
+
+/// Moves liquids from `src` to `to_move_to`. Accepts both IDs and a typepath, though a path is slightly faster
+/datum/fluid_pipe/proc/move_fluid(type_or_id, datum/fluid_pipe/to_move_to, amount)
+	if(QDELETED(to_move_to) || !type_or_id)
+		return
+
+	var/datum/fluid/liquid = type_or_id
+	if(!ispath(type_or_id, /datum/fluid))
+		liquid = GLOB.fluid_id_to_path[type_or_id]
+		if(!ispath(liquid))
+			return
+
+	var/datum/fluid/temp_type = liquid
+
+	liquid = is_path_in_list(liquid, fluids, TRUE)
+	if(!liquid)
+		return
+
+	amount = clamp(amount, 0, liquid.fluid_amount)
+	liquid.fluid_amount -= amount
+
+	var/datum/fluid/liquid_2 = is_path_in_list(temp_type, to_move_to.fluids, TRUE)
+	if(liquid_2)
+		liquid_2.fluid_amount += amount
+	else
+		to_move_to.add_fluid(temp_type, amount)
+
+	if(!liquid.fluid_amount)
+		fluids -= liquid
+		qdel(liquid)

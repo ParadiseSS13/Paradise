@@ -1,8 +1,12 @@
+/obj/item/fluid_pipe
+	icon = 'icons/obj/pipes/fluid_pipes.dmi'
+	icon_state = "pipe_item"
+
 /obj/machinery/fluid_pipe
 	name = "fluid pipe"
 	desc = "Moves around fluids"
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
-	icon_state = "pipe_2_4"
+	icon_state = "pipe_1_2_4_8"
 	power_state = NO_POWER_USE
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
@@ -14,6 +18,8 @@
 	var/neighbours = 0
 	/// How much fluid units can we fit in this pipe?
 	var/capacity = 100
+	/// What directions do we look for connecting? Cardinals by default
+	var/list/connect_dirs = list(NORTH, SOUTH, EAST, WEST)
 
 /obj/machinery/fluid_pipe/Initialize(mapload)
 	. = ..()
@@ -30,9 +36,8 @@
 /// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
 /obj/machinery/fluid_pipe/update_icon_state()
 	var/temp_state = "pipe"
-	for(var/direction in GLOB.cardinal)
-		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			temp_state += "_[direction]"
+	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
+		temp_state += "_[get_dir(src, pipe)]"
 
 	icon_state = temp_state
 
@@ -66,7 +71,7 @@
 
 	var/list/nearby_pipes = all_pipes & orange(1, src)
 	for(var/obj/machinery/fluid_pipe/pipe as anything in nearby_pipes)
-		if(!(get_dir(src, pipe) in GLOB.cardinal))
+		if(!(get_dir(src, pipe) in connect_dirs) || !(REVERSE_DIR(get_dir(src, pipe)) in pipe.connect_dirs))
 			continue
 		if(pipe.fluid_datum) // Already connected, don't connect again
 			if(fluid_datum != pipe.fluid_datum)
@@ -93,6 +98,7 @@
 		fluid_datum = null
 		return
 
+	// DGTODO
 	message_admins("WE ARE HERE AAAAA")
 	SSfluid.datums_to_rebuild += list(list(fluid_datum, get_adjacent_pipes()))
 	fluid_datum.remove_pipe(src)
@@ -118,13 +124,13 @@
 /obj/machinery/fluid_pipe/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS, TRUE, src))
-		to_chat(user, "You stop.") // TODO: add span classes + message
+		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
 	if(!anchored)
 		blind_connect()
 	else
-		// TODO: add item pipe here and make a new one
+		// DGTODO: add item pipe here and make a new one
 		qdel(src)
 
 /obj/machinery/fluid_pipe/update_overlays()
@@ -138,9 +144,9 @@
 
 /obj/machinery/fluid_pipe/proc/get_adjacent_pipes()
 	. = list()
-	for(var/direction in GLOB.cardinal)
+	for(var/direction in connect_dirs)
 		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			if(pipe.anchored && !QDELING(pipe))
+			if(pipe.anchored && (get_dir(pipe, src) in pipe.connect_dirs))
 				. += pipe
 
 // Abstract fluid pipes, useful for machinery that can have multiple intake slots
@@ -150,6 +156,18 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = null
 	icon_state = null
+	connect_dirs = list()
 
 /obj/machinery/fluid_pipe/abstract/update_icon_state()
 	return
+
+// Can be used as an invisible internal storage
+/obj/machinery/fluid_pipe/abstract/internal_tank
+	capacity = 5000
+
+// Just in case
+/obj/machinery/fluid_pipe/abstract/internal_tank/blind_connect()
+	return
+
+/obj/machinery/fluid_pipe/abstract/internal_tank/process()
+	return PROCESS_KILL

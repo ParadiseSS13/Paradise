@@ -435,6 +435,12 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"bQ" = (
+/obj/machinery/fluid_pipe/tank,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "bR" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/plasteel/freezer,
@@ -5399,6 +5405,14 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
+"sd" = (
+/obj/machinery/fluid_pipe/shuttle_fuel_tank{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -8169,6 +8183,12 @@
 /obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
+"CX" = (
+/obj/machinery/fluid_pipe/plasma_refinery/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "CY" = (
 /obj/machinery/economy/vending/artvend{
 	name = "\improper WizArtVend"
@@ -59625,7 +59645,7 @@ De
 De
 De
 De
-De
+bQ
 De
 De
 De
@@ -61425,7 +61445,7 @@ De
 De
 De
 De
-De
+CX
 De
 De
 De
@@ -61682,7 +61702,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
@@ -61939,7 +61959,7 @@ De
 De
 De
 De
-De
+ff
 De
 De
 De
@@ -62196,7 +62216,7 @@ De
 De
 De
 De
-De
+sd
 De
 De
 De

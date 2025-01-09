@@ -18,18 +18,26 @@
 	icon = 'icons/obj/pipes/fluid_machinery.dmi'
 	icon_state = "refinery"
 	just_a_pipe = FALSE
-	pixel_x = -32
 	density = TRUE
 	new_attack_chain = TRUE
+	just_a_pipe = FALSE
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
 	var/datum/refinery_recipe/selected_recipe
 
+/obj/machinery/fluid_pipe/abstract/refinery_intake
+	connect_dirs = list()
+
+/obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, direction)
+	connect_dirs = list(direction)
+	return ..()
+
 /obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
-	. = ..()
 	//dir = direction
+	connect_dirs = list(dir)
 	make_intakes()
+	return ..()
 
 /obj/machinery/fluid_pipe/plasma_refinery/examine(mob/user)
 	. = ..()
@@ -55,18 +63,20 @@
 				list(1),
 				list(MACH_CENTER)
 			))
+			pixel_y = -32
 
 		if(EAST)
 			AddComponent(/datum/component/multitile, list(
 				list(1, MACH_CENTER)
 			))
+			pixel_x = -32
 
 		if(WEST)
 			AddComponent(/datum/component/multitile, list(
 				list(MACH_CENTER, 1)
 			))
 
-	intake = new(get_step(src, REVERSE_DIR(dir)))
+	intake = new(get_step(src, REVERSE_DIR(dir)), REVERSE_DIR(dir))
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
 	if(..())
@@ -104,6 +114,19 @@
 	for(var/id in selected_recipe.output)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
 
+/obj/machinery/fluid_pipe/plasma_refinery/north
+	dir = NORTH
+	pixel_y = 32
+
+/obj/machinery/fluid_pipe/plasma_refinery/south
+	dir = SOUTH
+
+/obj/machinery/fluid_pipe/plasma_refinery/east
+	dir = EAST
+	pixel_x = -32
+
+/obj/machinery/fluid_pipe/plasma_refinery/west
+	dir = WEST
 
 // MARK: refinery recipes
 

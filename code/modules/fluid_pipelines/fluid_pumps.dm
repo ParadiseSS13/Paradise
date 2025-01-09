@@ -8,8 +8,8 @@
 /obj/machinery/fluid_pipe/pump
 	name = "fluid pump"
 	desc = "Pumps fluids from one pipe to another."
-	icon = 'icons/obj/pipes/disposal.dmi'
-	icon_state = "intake"
+	icon = 'icons/obj/pipes/fluid_pipes.dmi'
+	icon_state = "pump_4"
 	anchored = FALSE
 	just_a_pipe = FALSE
 	capacity = 0 // Safety
@@ -20,8 +20,12 @@
 	/// The outgoing pipeline datum
 	var/datum/fluid_pipe/outgoing
 
+/obj/machinery/fluid_pipe/pump/Initialize(mapload)
+	connect_dirs = list(dir, REVERSE_DIR(dir))
+	return ..()
+
 /obj/machinery/fluid_pipe/pump/update_icon_state()
-	return
+	icon_state = "[initial(icon_state)]_[dir]"
 
 /obj/machinery/fluid_pipe/pump/blind_connect()
 	clear_pipenet_refs() // You have to clear these every time you attempt connecting, otherwise it might keep pumping even though it's not connected
@@ -43,7 +47,7 @@
 /obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS, TRUE, src))
-		to_chat(user, "You stop.") // TODO: add span classes + message
+		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
 	if(!anchored)
