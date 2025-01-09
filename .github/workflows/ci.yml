@@ -74,6 +74,10 @@ jobs:
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh
