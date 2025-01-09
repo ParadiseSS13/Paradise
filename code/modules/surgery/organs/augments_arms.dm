@@ -840,7 +840,8 @@
 
 /obj/item/melee/mantis_blade
 	name = "mantis blade"
-	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action. \
+	When both blades are equipped, they enable the user to perform double attacks."
 	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
@@ -863,27 +864,30 @@
 		transform = null
 
 // make double attack if blades in both hands and not on CD
-/obj/item/melee/mantis_blade/attack(mob/living/target, mob/living/user, params, second_attack = FALSE)
+/obj/item/melee/mantis_blade/attack(mob/living/target, mob/living/user, params)
 	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
-	if(!istype(src, secondblade) || !double_attack)
+	if(!istype(secondblade, /obj/item/melee/mantis_blade) || !double_attack)
 		return ..()
 
-	if(second_attack) // if attack from second blade to prevent switching your attacking hand
-		double_attack = FALSE
-		addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
-		return ..()
-
-	double_attack = FALSE
-	src.attack(target, user, params, FALSE)
-	addtimer(CALLBACK(src, PROC_REF(second_attack), target, user, params, secondblade), 0.2 SECONDS) // not instant second attack
-	user.changeNext_move(CLICK_CD_MELEE)
-	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
+	double_attack(target, user, params, secondblade)
 	return FINISH_ATTACK
+
+/obj/item/melee/mantis_blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
+	// first attack
+	double_attack = FALSE
+	src.attack(target, user, params)
+	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
+	user.changeNext_move(CLICK_CD_MELEE)
+
+	// second attack
+	addtimer(CALLBACK(src, PROC_REF(second_attack), target, user, params, secondblade), 0.2 SECONDS) // not instant second attack
 
 /obj/item/melee/mantis_blade/proc/second_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
 	if(QDELETED(src) || QDELETED(secondblade))
 		return
-	secondblade.attack(target, user, params, TRUE)
+	secondblade.double_attack = FALSE
+	secondblade.attack(target, user, params)
+	addtimer(VARSET_CALLBACK(secondblade, double_attack, TRUE), double_attack_cd SECONDS)
 
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
