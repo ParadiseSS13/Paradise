@@ -24763,9 +24763,16 @@
 /area/station/maintenance/disposal/west)
 "bXo" = (
 /obj/structure/table/glass,
-/obj/machinery/light_switch/north,
+/obj/machinery/light_switch/north{
+	pixel_x = -6
+	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/item/soap,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/machinery/button/windowtint/west{
+	id = "paramedic";
+	pixel_x = 6;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -38988,7 +38995,9 @@
 	},
 /area/station/hallway/primary/aft)
 "dgD" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "paramedic"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/paramedic)
 "dgE" = (
@@ -40492,12 +40501,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "dnJ" = (
-/obj/machinery/disposal,
 /obj/machinery/camera{
 	c_tag = "Medbay Paramedic";
 	network = list("Medbay","SS13");
 	dir = 1
 	},
+/obj/structure/closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -40781,7 +40790,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dpf" = (
-/obj/structure/closet/paramedic,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -48405,6 +48413,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "paramedic"
+	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/paramedic,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

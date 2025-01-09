@@ -30972,6 +30972,12 @@
 /area/station/medical/reception)
 "cop" = (
 /obj/structure/closet/secure_closet/paramedic,
+/obj/machinery/light_switch/west,
+/obj/machinery/button/windowtint/west{
+	id = "paramedic";
+	pixel_y = 8;
+	range = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -68187,6 +68193,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "paramedic"
+	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/paramedic,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -69077,6 +69086,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "paramedic"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/paramedic,
 /turf/simulated/floor/plasteel{
@@ -80845,7 +80857,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "xvh" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "paramedic"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/paramedic)
 "xvi" = (
