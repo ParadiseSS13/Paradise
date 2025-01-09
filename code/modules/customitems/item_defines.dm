@@ -1842,8 +1842,11 @@
 	item_color = "colin_earle"
 
 // Paratoberfest/contributor rewards
-/obj/item/clothing/accessory/pin/reward
+/obj/item/clothing/accessory/pin/reward // Default pin, DO NOT USE - Use the subtypes below
 	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "pin_coding"
+	item_state = "pin_coding"
+	item_color = "pin_coding"
 
 /obj/item/clothing/accessory/pin/reward/coding
 	name = "Coding Contribution Pin"
