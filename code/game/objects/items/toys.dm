@@ -1069,9 +1069,9 @@
 /obj/item/toy/plushie/borgplushie/examine(mob/user)
 	. = ..()
 	if(!plushie_module_selected)
-		. += "<span class = 'notice'><b>Alt-Click</b> [src] to change its color.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> [src] to change its color.</span>"
 	else
-		. += "<span class = 'notice'>You can use a cyborg module reset board to change [src] back into standard mode.</span>"
+		. += "<span class='notice'>You can use a cyborg module reset board to change [src] back into standard mode.</span>"
 
 /obj/item/toy/plushie/borgplushie/AltClick(mob/user)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -1090,7 +1090,7 @@
 		"Service"		= image('icons/mob/robots.dmi', "serv-radial"),
 		"Medical"		= image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor"		= image('icons/mob/robots.dmi', "jan-radial")
-		)
+	)
 	var/static/list/plushie_module_overlays = list(
 		"Security"		= "plushie_borgsec",
 		"Engineering"	= "plushie_borgengi",
@@ -1106,21 +1106,21 @@
 		return
 
 	borg_plushie_overlay = plushie_module_overlays[user_selection]
-	to_chat(user, "<span class = 'notice'>The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!</span>")
+	to_chat(user, "<span class='notice'>The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!</span>")
 	update_icon()
 	plushie_module_selected = TRUE
 
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
-		return 	. = ..()
+		return ..()
 	
 	if(!plushie_module_selected)
-		to_chat(user, "<span class = 'warning'>[src] is already in standard mode!</span>")
+		to_chat(user, "<span class='warning'>[src] is already in standard mode!</span>")
 		return ITEM_INTERACT_COMPLETE
 	
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
-	to_chat(user, "<span class = 'notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
+	to_chat(user, "<span class='notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
 	plushie_module_selected = FALSE
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
