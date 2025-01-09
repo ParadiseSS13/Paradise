@@ -18,7 +18,7 @@
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 	toolspeed = 0.75
 
-/obj/item/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return

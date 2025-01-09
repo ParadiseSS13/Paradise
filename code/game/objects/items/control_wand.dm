@@ -28,7 +28,7 @@
 	QDEL_NULL(ID)
 	return ..()
 
-/obj/item/door_remote/attack_self(mob/user)
+/obj/item/door_remote/attack_self__legacy__attackchain(mob/user)
 	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
 									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
 									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
@@ -49,7 +49,7 @@
 	. = ..()
 	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
-/obj/item/door_remote/afterattack(obj/target, mob/user)
+/obj/item/door_remote/afterattack__legacy__attackchain(obj/target, mob/user)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
 	if(istype(target, /obj/machinery/door/window))
@@ -184,7 +184,7 @@
 	/// How far can we use this. Leave `null` for infinite range
 	var/range
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
+/obj/item/door_remote/omni/access_tuner/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user)
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
 	if(!isnull(range) && get_dist(src, D) > range)
@@ -228,14 +228,14 @@
 	. = ..()
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
-/obj/item/door_remote/janikeyring/attack_self(mob/user)
+/obj/item/door_remote/janikeyring/attack_self__legacy__attackchain(mob/user)
 	if(cooldown > world.time)
 		return
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
-/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/D, mob/user, proximity)
+/obj/item/door_remote/janikeyring/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))

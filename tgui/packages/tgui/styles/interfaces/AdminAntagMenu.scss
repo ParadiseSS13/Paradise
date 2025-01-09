@@ -1,0 +1,25 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.AdminAntagMenu__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    transition: background-color 50ms;
+    &:hover,
+    &:focus {
+      background-color: rgba(base.$color-bg, 1);
+    }
+  }
+
+  tr:nth-child(even) {
+    background: rgba(40, 40, 40, 0.5);
+  }
+}

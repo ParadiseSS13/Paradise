@@ -27,7 +27,7 @@
 
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 
-/obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/glass/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(!is_open_container())
 		return ..()
 
@@ -69,7 +69,7 @@
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
-/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if((!proximity) || !check_allowed_items(target, target_self = TRUE))
 		return
 
@@ -110,7 +110,7 @@
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
@@ -128,6 +128,13 @@
 	materials = list(MAT_GLASS = 1000)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
+
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
@@ -171,7 +178,7 @@
 	if(reagents)
 		reagents.temperature_reagents(4000)
 
-/obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/glass/beaker/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
@@ -187,9 +194,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+/obj/item/reagent_containers/glass/beaker/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.on_atom_entered(source, entered)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -299,6 +306,7 @@
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
+	prefered_slot_flags = ITEM_SLOT_IN_BACKPACK
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -324,7 +332,7 @@
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+/obj/item/reagent_containers/glass/bucket/attackby__legacy__attackchain(obj/D, mob/user, params)
 	if(istype(D, /obj/item/mop))
 		var/obj/item/mop/m = D
 		m.wet_mop(src, user)

@@ -196,6 +196,9 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
+	/// What plushie the species will turn into if turned into a plushie.
+	var/plushie_type = /obj/item/toy/plushie/humanplushie
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 	if(!sprite_sheet_name)
@@ -266,7 +269,9 @@
 		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
+	var/datum/organ/lungs/lung = H.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		lung?.clear_alerts(H)
 		return TRUE
 
 ////////////////
@@ -424,6 +429,8 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	if(H.status_flags & GODMODE)
+		return FALSE	//godmode
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	if(!damage)
 		return FALSE
@@ -573,7 +580,7 @@
 		target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 						"<span class='userdanger'>[user] has knocked down [target]!</span>")
 		target.KnockDown(4 SECONDS)
-	SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+	SEND_SIGNAL(target, COMSIG_ATTACK_BY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
@@ -773,6 +780,8 @@
 			return !H.gloves && (I.slot_flags & ITEM_SLOT_GLOVES)
 		if(ITEM_SLOT_SHOES)
 			return !H.shoes && (I.slot_flags & ITEM_SLOT_SHOES)
+		if(ITEM_SLOT_NECK)
+			return !H.neck && (I.slot_flags & ITEM_SLOT_NECK)
 		if(ITEM_SLOT_BELT)
 			if(H.belt)
 				return FALSE

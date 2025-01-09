@@ -280,7 +280,7 @@
 
 	return 2
 
-/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return TRUE
@@ -594,3 +594,6 @@
 	if(silicon_hat)
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
+
+/mob/living/silicon/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)

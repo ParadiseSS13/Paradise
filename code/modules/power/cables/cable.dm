@@ -35,9 +35,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 	/// The direction of endpoint one of this cable
-	var/d1 = 0
+	var/tmp/d1 = 0
 	/// The direction of enpoint two of this cable
-	var/d2 = 1
+	var/tmp/d2 = 1
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
 
@@ -83,7 +83,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //   - Cable coil : merge cables
 //   - Multitool : get the power currently passing through the cable
 //
-/obj/structure/cable/attackby(obj/item/W, mob/user)
+/obj/structure/cable/attackby__legacy__attackchain(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
@@ -157,9 +157,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, color)
 	qdel(src)
 
 /* ===POWERNET PROCS=== */

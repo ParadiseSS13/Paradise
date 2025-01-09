@@ -16,7 +16,7 @@
 	QDEL_NULL(crew_monitor)
 	return ..()
 
-/obj/item/sensor_device/attack_self(mob/user as mob)
+/obj/item/sensor_device/attack_self__legacy__attackchain(mob/user as mob)
 	ui_interact(user)
 
 /obj/item/sensor_device/ui_state(mob/user)

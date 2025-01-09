@@ -422,9 +422,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Warden"
 	icon_state = "Warden"
 
+/obj/effect/landmark/start/nanotrasen_career_trainer
+	name ="Nanotrasen Career Trainer"
+	icon_state = "NCT"
+
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
 
+/obj/effect/landmark/game_test/bottom_left_corner
+
+/obj/effect/landmark/game_test/top_right_corner
 
 //Costume spawner landmarks
 
@@ -450,7 +457,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -458,7 +465,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)

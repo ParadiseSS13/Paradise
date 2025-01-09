@@ -108,11 +108,12 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(isliving(A))
-		var/mob/living/L = A
-		if(L.mind?.special_role)
-			return TRUE
-	return FALSE
+	if(!isliving(A))
+		return FALSE
+	var/mob/living/L = A
+	if(!L.mind || !L.mind.special_role)
+		return FALSE
+	return L.mind.special_role != SPECIAL_ROLE_ERT
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
@@ -185,6 +186,7 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
 		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
 		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
 		M.key = theghost.key
@@ -513,7 +515,7 @@
 //Direct dead say used both by emote and say
 //It is somewhat messy. I don't know what to do.
 //I know you can't see the change, but I rewrote the name code. It is significantly less messy now
-/proc/say_dead_direct(message, mob/subject = null)
+/proc/say_dead_direct(message, mob/subject, raw_message)
 	var/name
 	var/keyname
 	if(subject && subject.client)
@@ -533,6 +535,8 @@
 
 	for(var/obj/item/radio/deadsay_radio_system as anything in GLOB.deadsay_radio_systems)
 		deadsay_radio_system.attempt_send_deadsay_message(subject, message)
+
+	var/should_show_runechat = (subject && raw_message && !subject.orbiting_uid)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/simple_animal/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
@@ -558,11 +562,13 @@
 						lname = name
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
+			if(should_show_runechat && (M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.see_invisible >= subject.invisibility)
+				M.create_chat_message(subject, raw_message, symbol = RUNECHAT_SYMBOL_DEAD)
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && HAS_TRAIT(O, TRAIT_RESPAWNABLE) && (!role || (role in O.client.prefs.be_special)))
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>", MESSAGE_TYPE_DEADCHAT)
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)

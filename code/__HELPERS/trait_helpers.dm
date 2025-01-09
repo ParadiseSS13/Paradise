@@ -180,6 +180,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DWARF				"dwarf"
 #define TRAIT_SILENT_FOOTSTEPS	"silent_footsteps" //makes your footsteps completely silent
 #define TRAIT_MESON_VISION		"meson_vision"
+#define TRAIT_PRESSURE_VISION	"pressure_vision"
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
@@ -237,10 +238,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
+#define TRAIT_BSG_IMMUNE "bsg_immune" // Granted by BSG when held, prevents BSG AOE from hitting you
+#define TRAIT_PLAYING_CARDS "playing_cards"
 #define TRAIT_EMP_IMMUNE "emp_immune" //The mob will take no damage from EMPs
 #define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
 #define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
 #define TRAIT_FLYING "flying"
+/// This mob is antimagic, and immune to spells / cannot cast spells
+#define TRAIT_ANTIMAGIC "anti_magic"
+/// This allows a person who has antimagic to cast spells without getting blocked
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+#define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
+#define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -296,6 +307,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
+
+/// Prevents stripping this equipment or seeing it in the strip menu
+#define TRAIT_NO_STRIP "no_strip"
+
+/// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
+#define TRAIT_SKIP_EXAMINE "skip_examine"
 
 //****** OBJ TRAITS *****//
 

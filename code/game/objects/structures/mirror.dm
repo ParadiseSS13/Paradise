@@ -166,7 +166,7 @@
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
-/obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/mirror/magic/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	return
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)

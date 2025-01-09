@@ -90,7 +90,7 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
-	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
+	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
 
@@ -352,7 +352,7 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
 			to_chat(user, "<span class='warning'>Open the cover first!</span>")
@@ -399,7 +399,7 @@
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
 	else if(bag && istype(attacking_item))
-		bag.attackby(attacking_item, user, params)
+		bag.attackby__legacy__attackchain(attacking_item, user, params)
 
 	return ..()
 

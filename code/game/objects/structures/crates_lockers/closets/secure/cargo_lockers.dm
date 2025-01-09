@@ -47,7 +47,7 @@
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/clothing/suit/pimpcoat/tan(src)
 	new /obj/item/rcs(src)
-	new /obj/item/destTagger(src)
+	new /obj/item/dest_tagger(src)
 	new /obj/item/reagent_containers/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)

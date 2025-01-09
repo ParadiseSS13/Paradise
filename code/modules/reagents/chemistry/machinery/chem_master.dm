@@ -114,7 +114,7 @@
 		return
 	update_icon()
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_master/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
 		return ..()
 
@@ -571,8 +571,7 @@
 		var/obj/item/reagent_containers/P = new item_type(location)
 		if(!isnull(medicine_name))
 			P.name = "[medicine_name][name_suffix]"
-		P.pixel_x = rand(-7, 7) // Random position
-		P.pixel_y = rand(-7, 7)
+		P.scatter_atom()
 		configure_item(data, reagents, P)
 		reagents.trans_to(P, amount_per_item)
 

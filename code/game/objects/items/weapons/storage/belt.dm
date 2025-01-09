@@ -35,7 +35,7 @@
 	update_weight()
 
 /obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !istype(loc, /obj/item/storage/hidden/implant) && !storable)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !istype(loc, /obj/item/storage/hidden_implant) && !storable)
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
 	. = ..()
@@ -135,6 +135,14 @@
 	new /obj/item/extinguisher/mini(src)
 	update_icon()
 
+/obj/item/storage/belt/utility/brass/populate_contents()
+	new /obj/item/wrench/brass(src)
+	new /obj/item/crowbar/brass(src)
+	new /obj/item/screwdriver/brass(src)
+	new /obj/item/weldingtool/experimental/brass(src)
+	new /obj/item/wirecutters/brass(src)
+	update_icon()
+
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
 	desc = "Holds tools, looks snazzy, and fits nicely into a bag."
@@ -213,7 +221,7 @@
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/hypospray/autoinjector/epinephrine,
-		/obj/item/reagent_containers/hypospray/CMO,
+		/obj/item/reagent_containers/hypospray/cmo,
 		/obj/item/reagent_containers/hypospray/safety,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
@@ -238,7 +246,7 @@
 		/obj/item/circular_saw,
 		/obj/item/bonegel,
 		/obj/item/bonesetter,
-		/obj/item/FixOVein,
+		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
 	)
@@ -250,7 +258,7 @@
 	new /obj/item/circular_saw(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	update_icon()
@@ -484,7 +492,7 @@
 		/obj/item/detective_scanner
 	)
 
-/obj/item/storage/belt/military/assault/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/military/assault/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
 		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
 		return
@@ -585,7 +593,7 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[base_icon_state]_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/lazarus/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
@@ -618,7 +626,7 @@
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "bandolier_[min(length(contents), 8)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
+/obj/item/storage/belt/bandolier/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/amount = length(contents)
 	..()
 	if(amount != length(contents))
@@ -904,7 +912,7 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M, mob/user, def_zone)
+/obj/item/storage/belt/bluespace/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	return
 
 /obj/item/storage/belt/bluespace/admin

@@ -50,7 +50,7 @@
 	dye_color = temp
 	set_light(2, l_color = temp)
 
-/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dye_generator/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	if(default_unfasten_wrench(user, I, time = 60))
 		return
@@ -92,7 +92,7 @@
 	I.color = dye_color
 	. += I
 
-/obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
+/obj/item/hair_dye_bottle/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return

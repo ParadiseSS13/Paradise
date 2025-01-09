@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BOTH_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
 /obj/item/holder/New()
 	..()
@@ -25,9 +25,9 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/holder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
+		M.attackby__legacy__attackchain(W,user, params)
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)

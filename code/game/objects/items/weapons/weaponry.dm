@@ -20,7 +20,7 @@
 	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/attack(mob/M, mob/user)
+/obj/item/banhammer/attack__legacy__attackchain(mob/M, mob/user)
 	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
 	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
@@ -134,7 +134,7 @@
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/spear/S = new /obj/item/spear
@@ -242,7 +242,7 @@
 					lastdeflect = world.time + 3000
 				return TRUE
 
-/obj/item/melee/baseball_bat/attack_self(mob/user)
+/obj/item/melee/baseball_bat/attack_self__legacy__attackchain(mob/user)
 	if(!homerun_able)
 		if(!deflectmode && world.time >= lastdeflect)
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
@@ -263,7 +263,7 @@
 		homerun_ready = 1
 	..()
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+/obj/item/melee/baseball_bat/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(deflectmode)
 		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
 		return

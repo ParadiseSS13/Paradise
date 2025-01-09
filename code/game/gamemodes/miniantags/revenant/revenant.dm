@@ -187,7 +187,7 @@
 
 	SSticker.mode.traitors |= mind //Necessary for announcing
 	mind.add_mind_objective(/datum/objective/revenant)
-	mind.add_mind_objective(/datum/objective/revenantFluff)
+	mind.add_mind_objective(/datum/objective/revenant_fluff)
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
@@ -224,11 +224,11 @@
 	icon_state = "revenant_draining"
 	animate(src, alpha = 0, time = 3 SECONDS)
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	new /obj/item/ectoplasm/revenant(get_turf(src))
+	new /obj/item/ectoplasm(get_turf(src))
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/revenant/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
 						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
@@ -308,6 +308,7 @@
 	// No other state is happening, therefore we are stunned
 	icon_state = icon_stun
 
+
 /datum/objective/revenant
 	needs_target = FALSE
 	var/targetAmount = 100
@@ -328,10 +329,10 @@
 		return FALSE
 	return TRUE
 
-/datum/objective/revenantFluff
+/datum/objective/revenant_fluff
 	needs_target = FALSE
 
-/datum/objective/revenantFluff/New()
+/datum/objective/revenant_fluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
 									"Cause as much chaos and anger as you can without being killed.", \
 									"Damage and render as much of the station rusted and unusable as possible.", \
@@ -349,17 +350,17 @@
 	explanation_text = pick(explanationTexts)
 	..()
 
-/datum/objective/revenantFluff/check_completion()
+/datum/objective/revenant_fluff/check_completion()
 	return TRUE
 
-/obj/item/ectoplasm/revenant
+/obj/item/ectoplasm
 	name = "glimmering residue"
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/ectoplasm/revenant/examine(mob/user)
+/obj/item/ectoplasm/examine(mob/user)
 	. = ..()
 	. += "<span class='revennotice'>Lifeless ectoplasm, still faintly glimmering in the light. From what was once a spirit seeking revenge on the station.</span>"
 

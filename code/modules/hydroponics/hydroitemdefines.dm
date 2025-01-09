@@ -204,7 +204,7 @@
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
 
-/obj/item/scythe/tele/attack_self(mob/user)
+/obj/item/scythe/tele/attack_self__legacy__attackchain(mob/user)
 	extend = !extend
 	if(extend)
 		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
@@ -342,8 +342,7 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"

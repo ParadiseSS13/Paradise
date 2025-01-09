@@ -51,7 +51,7 @@
 	name = "\improper Prison Cell Block"
 	icon_state = "brig"
 
-/area/station/security/prison/cell_block/A
+/area/station/security/prison/cell_block/a
 	name = "\improper Prison Cell Block A"
 	icon_state = "brigcella"
 

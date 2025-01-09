@@ -36,10 +36,10 @@
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
 
-/obj/item/eftpos/attack_self(mob/user)
+/obj/item/eftpos/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/eftpos/attackby(obj/O, mob/user, params)
+/obj/item/eftpos/attackby__legacy__attackchain(obj/O, mob/user, params)
 	if(istype(O, /obj/item/card/id))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!account_database)
@@ -204,7 +204,7 @@
 	R.stamped += /obj/item/stamp
 	R.overlays += stampoverlay
 	R.stamps += "<hr><i>This paper has been stamped by the EFTPOS device.</i>"
-	var/obj/item/smallDelivery/D = new(get_turf(loc))
+	var/obj/item/small_delivery/D = new(get_turf(loc))
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc
 		if(H.back)
@@ -264,7 +264,7 @@
 /obj/item/eftpos/register/ui_state(mob/user)
 	return GLOB.human_adjacent_state
 
-/obj/item/eftpos/register/attack_self(mob/user)
+/obj/item/eftpos/register/attack_self__legacy__attackchain(mob/user)
 	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")
 
 /obj/item/eftpos/register/check_user_position(mob/user)

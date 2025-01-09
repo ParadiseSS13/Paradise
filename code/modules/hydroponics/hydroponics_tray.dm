@@ -123,7 +123,7 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
+/obj/machinery/hydroponics/constructable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
 		return
 	return ..()
@@ -770,7 +770,7 @@
 	to_chat(user, message.Join(""))
 	doping_chem = new_chem
 
-/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
 	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
 		var/obj/item/reagent_containers/reagent_source = O
@@ -857,12 +857,11 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
-		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			if(!S.can_be_inserted(G))
-				return
-			S.handle_item_insertion(G, user, TRUE)
+		if(!harvest)
+			attack_hand(user)
+			return
+
+		myseed.harvest(user, O)
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
@@ -990,7 +989,7 @@
 	update_state()
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target) //So nymphs can climb over top of trays.
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, border_dir) //So nymphs can climb over top of trays.
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
@@ -1029,7 +1028,7 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/soil/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)

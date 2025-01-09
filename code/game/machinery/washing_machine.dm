@@ -84,7 +84,7 @@
 	toggle_door()
 
 
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
+/obj/machinery/washing_machine/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(default_unfasten_wrench(user, W))

@@ -73,7 +73,7 @@
 	if(stat == CONSCIOUS)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/retaliate/goat/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 	else
@@ -146,7 +146,7 @@
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/cow/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return TRUE
@@ -223,9 +223,11 @@
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
+	scatter_atom()
 
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-6, 6) + x_offset
+	pixel_y = rand(0, 10) + y_offset
 
 /mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
@@ -302,10 +304,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+	scatter_atom()
 	update_appearance(UPDATE_ICON_STATE)
 	GLOB.chicken_count += 1
+
+/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-6, 6) + x_offset
+	pixel_y = rand(0, 10) + y_offset
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
@@ -314,7 +319,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/chicken/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
 		if(stat == CONSCIOUS && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
@@ -339,8 +344,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
-		E.pixel_x = rand(-6,6)
-		E.pixel_y = rand(-6,6)
+		E.scatter_atom()
 		if(eggsFertile)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)

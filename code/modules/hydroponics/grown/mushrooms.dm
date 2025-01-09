@@ -174,7 +174,7 @@
 	tastes = list("walking mushroom" = 1, "motion" = 1)
 	can_distill = FALSE
 
-/obj/item/food/grown/mushroom/walkingmushroom/attack_self(mob/user)
+/obj/item/food/grown/mushroom/walkingmushroom/attack_self__legacy__attackchain(mob/user)
 	if(isspaceturf(user.loc))
 		return
 	var/mob/living/simple_animal/hostile/mushroom/M = new /mob/living/simple_animal/hostile/mushroom(user.loc)
@@ -248,7 +248,7 @@
 	tastes = list("warmth" = 1, "light" = 1, "glowshroom" = 1)
 	wine_power = 0.5
 
-/obj/item/food/grown/mushroom/glowshroom/attack_self(mob/user)
+/obj/item/food/grown/mushroom/glowshroom/attack_self__legacy__attackchain(mob/user)
 	if(isspaceturf(user.loc))
 		return FALSE
 	if(!isturf(user.loc))

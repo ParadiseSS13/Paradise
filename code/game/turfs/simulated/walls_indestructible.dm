@@ -34,7 +34,7 @@
 /turf/simulated/wall/indestructible/burn_down()
 	return
 
-/turf/simulated/wall/indestructible/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/indestructible/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)
@@ -300,3 +300,4 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+

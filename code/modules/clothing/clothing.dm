@@ -274,7 +274,7 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
@@ -436,6 +436,7 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
+		. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
@@ -525,7 +526,7 @@
 
 	return FALSE
 
-/obj/item/clothing/head/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head) && can_have_hats)
 		attach_hat(I, user, TRUE)
 
@@ -665,7 +666,7 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -968,6 +969,8 @@
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	dyeing_key = DYE_REGISTRY_UNDER
+	strip_delay = 6 SECONDS
+	put_on_delay = 6 SECONDS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
@@ -1032,13 +1035,13 @@
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user, params)
+			A.attackby__legacy__attackchain(I, user, params)
 		return TRUE
 
 	. = ..()
@@ -1102,15 +1105,15 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='notice'>Alt-click to toggle the sensors mode.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='notice'>Alt-Shift-Click to remove an accessory.</span>"
-	. += "<span class='notice'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to roll down this jumpsuit.</span>"
 
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
@@ -1185,3 +1188,9 @@
 		deconstruct(FALSE)
 	else
 		..()
+
+/obj/item/clothing/neck
+	name = "necklace"
+	icon = 'icons/obj/clothing/neck.dmi'
+	body_parts_covered = UPPER_TORSO
+	slot_flags = ITEM_SLOT_NECK

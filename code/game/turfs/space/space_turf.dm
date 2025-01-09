@@ -74,7 +74,7 @@
 			return
 		set_light(0)
 
-/turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/space/attackby__legacy__attackchain(obj/item/C as obj, mob/user as mob, params)
 	..()
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C

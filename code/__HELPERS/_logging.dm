@@ -51,70 +51,105 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.vote_logging)
 		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
+/proc/log_if_mismatch(mob/who, message)
+	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
+		rustg_log_write(GLOB.world_game_log, "LOG USER MISMATCH: [usr.simple_info_line()] was usr for [message][GLOB.log_end]")
+
 /proc/log_access_in(client/new_client)
 	if(GLOB.configuration.logging.access_logging)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
-		rustg_log_write(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
+		var/message = "ACCESS IN: [key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(new_client.mob, message)
 
 /proc/log_access_out(mob/last_mob)
 	if(GLOB.configuration.logging.access_logging)
-		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
-		rustg_log_write(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
+		var/message = "ACCESS OUT: [key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(last_mob, message)
 
 /proc/log_say(text, mob/speaker)
 	if(GLOB.configuration.logging.say_logging)
-		rustg_log_write(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "SAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_whisper(text, mob/speaker)
 	if(GLOB.configuration.logging.whisper_logging)
-		rustg_log_write(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "WHISPER: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ooc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "OOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_aooc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "AOOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_looc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "LOOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_emote(text, mob/speaker)
 	if(GLOB.configuration.logging.emote_logging)
-		rustg_log_write(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "EMOTE: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
-/proc/log_attack(attacker, defender, message)
+/proc/log_attack(mob/attacker, defender_str, attack_message)
 	if(GLOB.configuration.logging.attack_logging)
-		rustg_log_write(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][GLOB.log_end]") //Seperate attack logs? Why?
+		var/attacker_str = "INVALID"
+		if(istype(attacker))
+			attacker_str = attacker.simple_info_line()
+		var/message = "ATTACK: [attacker_str] against [defender_str]: [attack_message]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(attacker, message)
 
 /proc/log_adminsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ping_all_admins(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_qdel(text)
 	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_devsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ghostsay(text, mob/speaker)
 	if(GLOB.configuration.logging.say_logging)
-		rustg_log_write(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ghostemote(text, mob/speaker)
 	if(GLOB.configuration.logging.emote_logging)
-		rustg_log_write(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_adminwarn(text)
 	if(GLOB.configuration.logging.admin_warning_logging)
@@ -122,11 +157,15 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_pda(text, mob/speaker)
 	if(GLOB.configuration.logging.pda_logging)
-		rustg_log_write(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "PDA: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_chat(text, mob/speaker)
 	if(GLOB.configuration.logging.pda_logging)
-		rustg_log_write(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
+		var/message = "CHAT: [speaker.simple_info_line()] [html_decode(text)]"
+		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_tgs(text, level)
 	GLOB.tgs_log += "\[[time_stamp()]] \[[level]] [text]"

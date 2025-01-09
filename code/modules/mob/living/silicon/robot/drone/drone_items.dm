@@ -10,10 +10,10 @@
 		"wood" = 0
 		)
 
-/obj/item/matter_decompiler/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/matter_decompiler/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/matter_decompiler/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
 		return // Not adjacent.
 

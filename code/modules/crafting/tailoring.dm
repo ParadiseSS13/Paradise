@@ -593,7 +593,7 @@
 
 /datum/crafting_recipe/lizardboots
 	name = "Lizard Skin Boots"
-	result = list(/obj/effect/spawner/lootdrop/lizardboots)
+	result = list(/obj/effect/spawner/random/lizardboots)
 	time = 6 SECONDS
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1, /obj/item/stack/sheet/leather = 1)
 	category = CAT_CLOTHING

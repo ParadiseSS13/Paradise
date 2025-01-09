@@ -72,7 +72,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 	return ..()
 
-/obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/clothing/mask/cigarette/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
@@ -90,7 +90,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light(user, user)
 		return TRUE
 
-/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity)
 	if(!proximity)
 		return
 
@@ -129,7 +129,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/attack_self(mob/user)
+/obj/item/clothing/mask/cigarette/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		user.visible_message(
 			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
@@ -176,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
+/obj/item/clothing/mask/cigarette/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(I.cigarette_lighter_act(user, user, src))
 		return
 
@@ -269,7 +269,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			// There used to be a species check here, but synthetics can smoke now
 			is_being_smoked = TRUE
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
@@ -333,9 +333,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
+	scatter_atom()
 /obj/item/clothing/mask/cigarette/rollie/custom
 	list_reagents = list()
 
@@ -346,11 +344,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
+	scatter_distance = 10
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 	transform = turn(transform, rand(0, 360))
 
 /obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -364,11 +362,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "roach"
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
+	scatter_distance = 5
 
 /obj/item/cigbutt/roach/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //////////////////////////////
 // MARK: ROLLING
@@ -380,7 +378,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cig_paper"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
+/obj/item/rollingpaper/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -500,7 +498,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 		to_chat(user, "<span class='notice'>You feel less badass.</span>")
 
-/obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
+/obj/item/clothing/mask/holo_cigar/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(enabled)
 		enabled = FALSE
@@ -555,7 +553,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
-/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
+/obj/item/clothing/mask/cigarette/pipe/attack_self__legacy__attackchain(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message(
 			"<span class='notice'>[user] puts out [src].</span>",
@@ -569,7 +567,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 // Refill the pipe
-/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/mask/cigarette/pipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/grown))
 		var/obj/item/food/grown/O = I
 		if(O.dry)

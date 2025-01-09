@@ -273,7 +273,7 @@
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define iscameramob(A)	(istype((A), /mob/camera))
-#define isAIEye(A)		(istype((A), /mob/camera/aiEye))
+#define isAIEye(A)		(istype((A), /mob/camera/ai_eye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))

@@ -139,12 +139,12 @@ FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
 FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
 def check_datum_loops(idx, line):
     if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
-        return Failure(
+        return [(
             idx + 1,
             # yes this will concatenate the strings, don't look too hard
             "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
             "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
-        )
+        )]
 
 HREF_OLD_STYLE = re.compile(r"href[\s='\"\\]*\?")
 def check_href_styles(idx, line):
@@ -186,6 +186,12 @@ def check_atom_overriding_new(idx, line):
     if match := ATOM_OVERRIDING_NEW.search(line):
         return [(idx + 1, f"Type {match.group(1)}/{match.group(2)} overrides /New. Use /Initialize instead.")]
 
+CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
+def check_camel_case_type_names(idx, line):
+    if result := CAMEL_CASE_TYPE_NAMES.search(line):
+        type_result = result.group(0)
+        return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -203,6 +209,7 @@ CODE_CHECKS = [
     check_empty_list_whitespace,
     check_istype_src,
     check_atom_overriding_new,
+    check_camel_case_type_names,
 ]
 
 

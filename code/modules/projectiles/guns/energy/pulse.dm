@@ -115,7 +115,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
-/obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
+/obj/item/gun/energy/pulse/destroyer/attack_self__legacy__attackchain(mob/living/user)
 	to_chat(user, "<span class='notice'>[src] is now set to DESTROY.</span>")
 
 //////////////////////////////
@@ -126,7 +126,7 @@
 	desc = "A pulse rifle fitted with a heavy duty prism, spreading a cone of destruction in front of the user. The fire selector has three settings, and they are all 'ANNIHILATE'."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
-/obj/item/gun/energy/pulse/destroyer/annihilator/attack_self(mob/living/user)
+/obj/item/gun/energy/pulse/destroyer/annihilator/attack_self__legacy__attackchain(mob/living/user)
 	to_chat(user, "<span class='boldannounceic'>[src] is now set to ANNIHILATE.</span>")
 
 //////////////////////////////

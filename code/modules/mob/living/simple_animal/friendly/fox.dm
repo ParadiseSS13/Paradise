@@ -19,14 +19,14 @@
 	response_harm = "kicks"
 
 //Captain fox
-/mob/living/simple_animal/pet/dog/fox/Renault
+/mob/living/simple_animal/pet/dog/fox/renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
 //Syndi fox
-/mob/living/simple_animal/pet/dog/fox/Syndifox
+/mob/living/simple_animal/pet/dog/fox/syndifox
 	name = "Syndifox"
 	desc = "Syndifox, the Syndicate's most respected mascot. I wonder what it says?"
 	icon_state = "Syndifox"
@@ -41,11 +41,11 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
-/mob/living/simple_animal/pet/dog/fox/Syndifox/Initialize(mapload)
+/mob/living/simple_animal/pet/dog/fox/syndifox/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
-/mob/living/simple_animal/pet/dog/fox/Syndifox/npc_safe(mob/user)
+/mob/living/simple_animal/pet/dog/fox/syndifox/npc_safe(mob/user)
 	if(GAMEMODE_IS_NUCLEAR)
 		return TRUE
 	return FALSE
