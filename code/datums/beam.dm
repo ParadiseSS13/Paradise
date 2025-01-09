@@ -106,7 +106,7 @@
 			final_x += Pixel_x > 0 ? round(Pixel_x / 32) : CEILING(Pixel_x / 32, 1)
 			Pixel_x %= 32
 		if(abs(Pixel_y)>32)
-			final_y += Pixel_y > 0 ? round(Pixel_y/32) : CEILING(Pixel_y/32, 1)
+			final_y += Pixel_y > 0 ? round(Pixel_y / 32) : CEILING(Pixel_y / 32, 1)
 			Pixel_y %= 32
 
 		X.forceMove(locate(final_x, final_y, X.z))
