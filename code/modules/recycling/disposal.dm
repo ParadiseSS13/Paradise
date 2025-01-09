@@ -273,7 +273,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || is_ai(user))
 		return
 
 	// Animals cannot put mobs other than themselves into disposals.
@@ -389,7 +389,7 @@
 /obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
 
-	data["isAI"] = isAI(user)
+	data["is_ai"] = is_ai(user)
 	data["flushing"] = flush
 	data["mode"] = mode
 	data["pressure"] = round(clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)

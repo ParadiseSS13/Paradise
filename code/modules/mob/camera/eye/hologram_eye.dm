@@ -8,11 +8,13 @@
 /mob/camera/eye/hologram/Initialize(mapload, owner_name, camera_origin, mob/living/user)
 	..()
 	holopad = camera_origin
-	setLoc(holopad)
+	set_loc(holopad)
 
 /mob/camera/eye/hologram/rename_camera(new_name)
 	name = "Hologram ([new_name])"
 
+/// Hologram movement copies the delays and diagonal delays of regular mob movement
+/// for crew, and for AI unless fast holograms are enabled
 /mob/camera/eye/hologram/relaymove(mob/user, direct)
 	var/mob/living/silicon/ai/ai = user
 	if(istype(ai) && ai.fast_holograms)
@@ -25,7 +27,7 @@
 	var/delay = (direct & (direct - 1)) ? diag_delay : base_delay
 	user.client.move_delay = debounced_move(normalized_delay_speed(delay))
 	user.last_movement = world.time
-	setLoc(new_location)
+	set_loc(new_location)
 
 /mob/camera/eye/hologram/proc/debounced_move(delay_speed)
 	var/old_move_delay = user.client.move_delay
@@ -37,13 +39,15 @@
 /mob/camera/eye/hologram/proc/normalized_delay_speed(delay_speed)
 	return TICKS2DS(-round(-(DS2TICKS(delay_speed))))
 
+/// Requires the cameranet to be validated.
 /mob/camera/eye/hologram/validate_active_cameranet()
 	..(TRUE)
 
-/mob/camera/eye/hologram/setLoc(T)
+/// Moves the associated hologram, and the previously controlled object (probably an AI eye), to the new location.
+/mob/camera/eye/hologram/set_loc(T)
 	. = ..()
 	var/turf/new_location = get_turf(T)
 	holopad.move_hologram(user, new_location)
 	var/mob/camera/eye/previous_eye = user_previous_remote_control
 	if(istype(previous_eye))
-		previous_eye.setLoc(new_location)
+		previous_eye.set_loc(new_location)

@@ -105,7 +105,7 @@
 		return
 
 	var/mob/camera/eye/shuttle_docker/the_eye = eyeobj
-	var/landing_clear = checkLandingSpot()
+	var/landing_clear = check_landing_spot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
@@ -116,7 +116,7 @@
 		if(!wait_completed)
 			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
 			return
-		landing_clear = checkLandingSpot()
+		landing_clear = check_landing_spot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
@@ -176,9 +176,9 @@
 	var/Tmp = x_offset
 	x_offset = y_offset
 	y_offset = -Tmp
-	checkLandingSpot()
+	check_landing_spot()
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/checkLandingSpot()
+/obj/machinery/computer/camera_advanced/shuttle_docker/proc/check_landing_spot()
 	var/mob/camera/eye/shuttle_docker/the_eye = eyeobj
 	var/turf/eyeturf = get_turf(the_eye)
 	if(!eyeturf)
@@ -310,7 +310,7 @@
 		var/turf/T = get_turf(L[selected])
 		if(T)
 			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
-			remote_eye.setLoc(T)
+			remote_eye.set_loc(T)
 			to_chat(target, "<span class='notice'>Jumped to [selected]</span>")
 	else
 		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

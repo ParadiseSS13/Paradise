@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
 		return
-	if(isAI(user))
+	if(is_ai(user))
 		hangup_all_calls()
 		return
 
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
-	if(..() || isAI(usr))
+	if(..() || is_ai(usr))
 		return
 	add_fingerprint(usr)
 	if(stat & NOPOWER)
@@ -317,7 +317,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
 	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
-		ai.eyeobj.setLoc(get_turf(src))
+		ai.eyeobj.set_loc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
 		activate_holo(ai, 1)
 	else//If there is a hologram, remove it.
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
-	if(!isAI(holo_owner))
+	if(!is_ai(holo_owner))
 		return
 	for(var/pad in GLOB.holopads)
 		var/obj/machinery/hologram/holopad/another = pad
@@ -373,7 +373,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.current)
 			return FALSE
@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
-		if(isAI(user))
+		if(is_ai(user))
 			hologram.icon = AI.holo_icon
 		else	//make it like real life
 			if(isrobot(user))

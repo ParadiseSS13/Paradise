@@ -12,7 +12,8 @@
 /mob/camera/eye/xenobio/rename_camera(new_name)
 	name = "Xenobiology Console ([new_name])"
 
-/mob/camera/eye/xenobio/setLoc(T)
+/// Prevents the camera eye from going outside of the xenobiology area
+/mob/camera/eye/xenobio/set_loc(T)
 	var/area/new_area = get_area(T)
 	if(!new_area)
 		return

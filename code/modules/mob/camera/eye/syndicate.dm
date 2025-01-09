@@ -4,7 +4,7 @@
 
 /mob/camera/eye/syndicate/Initialize(mapload, owner_name, camera_origin, user)
 	..()
-	setLoc(first_active_camera())
+	set_loc(first_active_camera())
 
 /mob/camera/eye/syndicate/rename_camera(new_name)
 	name = "Syndicate Researcher Camera Eye ([new_name])"

@@ -91,7 +91,7 @@
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
-	if(isAI(mob)) 
+	if(is_ai(mob)) 
 		var/mob/living/silicon/ai/ai = mob
 		var/mob/camera/eye/ai/eye = ai.eyeobj
 		if(istype(eye) && !istype(ai.remote_control))

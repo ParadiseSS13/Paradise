@@ -247,7 +247,7 @@
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
-		if(isAI(M))
+		if(is_ai(M))
 			continue
 
 		M.forceMove(src)

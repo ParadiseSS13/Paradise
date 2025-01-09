@@ -767,7 +767,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(controlled_mech)
 			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
 			return
-		if(!GLOB.cameranet.checkCameraVis(M))
+		if(!GLOB.cameranet.check_camera_vis(M))
 			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
 			return
 		if(lacks_power())
@@ -824,7 +824,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
 		call_bot(turf_check)
-	else if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(turf_check))
+	else if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(turf_check))
 		call_bot(turf_check)
 	else
 		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
@@ -880,7 +880,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 
 	if(!tracking)
-		cameraFollow = null
+		camera_follow = null
 
 	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
@@ -889,7 +889,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		view_core()
 		return
 	// ok, we're alive, camera is good and in our network...
-	eyeobj.setLoc(get_turf(C))
+	eyeobj.set_loc(get_turf(C))
 	//machine = src
 
 	return TRUE
@@ -937,7 +937,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(!C.can_use())
 				continue
 			if(network in C.network)
-				U.eyeobj.setLoc(get_turf(C))
+				U.eyeobj.set_loc(get_turf(C))
 				break
 	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
@@ -1236,7 +1236,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+	for(var/datum/camerachunk/CC in eyeobj.visible_camera_chunks)
 		for(var/obj/machinery/camera/C in CC.active_cameras)
 			if(!C.can_use() || get_dist(C, eyeobj) > 7)
 				continue
@@ -1338,7 +1338,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
 		var/turf/T = isturf(A) ? A : get_turf_pixel(A)
-		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T)) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.check_turf_vis(T)) || apc_override
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have x-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)
@@ -1441,7 +1441,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/view_core()
 
 	current = null
-	cameraFollow = null
+	camera_follow = null
 	unset_machine()
 
 	if(eyeobj && loc)
@@ -1450,13 +1450,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
-	eyeobj.setLoc(loc)
+	eyeobj.set_loc(loc)
 
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
 	
-	if(usr.stat == DEAD || !isAIEye(eyeobj))
+	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms
 	to_chat(usr, "Fast holograms have been toggled [fast_holograms ? "on" : "off"].")
@@ -1467,7 +1467,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(usr.stat == DEAD)
 		return //won't work if dead
-	if(isAIEye(eyeobj))
+	if(is_ai_eye(eyeobj))
 		eyeobj.acceleration = !eyeobj.acceleration
 		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
 

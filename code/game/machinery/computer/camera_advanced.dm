@@ -72,7 +72,7 @@
 		CreateEye()
 	else
 		give_eye_control(user)
-		eyeobj.setLoc(eyeobj.loc)
+		eyeobj.set_loc(eyeobj.loc)
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
 	eyeobj.give_control(user)
@@ -122,7 +122,7 @@
 	playsound(origin, "terminal_type", 25, 0)
 	if(final)
 		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
-		remote_eye.setLoc(get_turf(final))
+		remote_eye.set_loc(get_turf(final))
 		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/stretch/flash/noise)
 		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else

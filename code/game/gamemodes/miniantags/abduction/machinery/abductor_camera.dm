@@ -78,7 +78,7 @@
 	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
@@ -105,7 +105,7 @@
 	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
 /datum/action/innate/vest_mode_swap

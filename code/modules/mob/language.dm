@@ -624,7 +624,7 @@
 			continue
 		else if(drone_only && !isdrone(S))
 			continue
-		else if(isAI(S))
+		else if(is_ai(S))
 			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>")
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/borg = S
