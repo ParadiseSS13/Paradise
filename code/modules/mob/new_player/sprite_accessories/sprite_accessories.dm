@@ -572,10 +572,10 @@
 //end tanktops
 
 //paratoberfest/contributor reward items
-/datum/sprite_accessory/undershirt/contrib_prize
+/datum/sprite_accessory/undershirt/reward
 	fluff = TRUE
 
-/datum/sprite_accessory/undershirt/contrib_prize/ptbf24
+/datum/sprite_accessory/undershirt/reward/ptbf24
 	name = "Great Synthwave Shirt"
 	icon_state = "shirt_ptbf24"
 //end rewards
