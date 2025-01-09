@@ -166,6 +166,8 @@
 		var/obj/machinery/light/L = target
 		L.color = new_color
 		L.brightness_color = new_color
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 5
 	user.playsound_local(user, "sound/effects/spray.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
@@ -231,6 +233,8 @@
 			continue
 		power_source.charge -= power_sent
 		break
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 20
 	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
@@ -240,4 +244,63 @@
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
 	power_sent = min(10000, 2500 + (spell_level * 2500))
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
+
+// Repair Nanites - Uses large numbers of nanites to repair things
+/datum/ai_program/repair_nanites
+	program_name = "Repair Nanites"
+	program_id = "repair_nanites"
+	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
+	nanite_cost = 75
+	power_type = /datum/spell/ai_spell/ranged/repair_nanites
+	unlock_text = "Repair nanomachine firmware installation complete!"
+
+/datum/spell/ai_spell/ranged/repair_nanites
+	name = "Repair Nanites"
+	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
+	action_icon_state = "light"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 450 SECONDS
+	cooldown_min = 30 SECONDS
+	level_max = 10
+	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to repair...</span>"
+	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
+	var/universal_adapter = FALSE
+	var/adapter_efficiency = 0.5
+
+/datum/spell/ai_spell/ranged/repair_nanites/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
+		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
+		return
+	if(istype(target, /mob/living/carbon/human/machine)  && !universal_adapter)
+		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
+		return
+	var/area/A = get_area(user)
+	if(A == null)
+		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
+		return
+	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
+		var/obj/T = target
+		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 +  max(0.3, (0.1 * spell_level))))
+	if(istype(target, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/T = target
+		var/damage_healed = adapter_efficiency * (20 + (max(30, (10 * spell_level))))
+		T.heal_overall_damage(damage_healed, damage_healed)
+	if(istype(target, /mob/living/carbon/human/machine))
+		var/mob/living/carbon/human/machine/T = target
+		var/damage_healed = adapter_efficiency * (20 + (max(30, (10 * spell_level))))
+		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
+
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 75
+	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "medbeam", icon = 'icons/effects/beam.dmi', time = 10)
+
+/datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
