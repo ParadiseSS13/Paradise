@@ -41,7 +41,7 @@
 */
 /mob/living/silicon/robot/proc/get_open_slot()
 	for(var/i in 1 to CYBORG_MAX_MODULES)
-		if(isnull(all_active_items[i]))
+		if(!all_active_items[i]) // Since CYBORG_EMPTY_MODULE is 0 this has to be a ! check.
 			return i
 	return 0
 
