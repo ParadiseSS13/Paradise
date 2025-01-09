@@ -41,9 +41,9 @@
 */
 /mob/living/silicon/robot/proc/get_open_slot()
 	for(var/i in 1 to CYBORG_MAX_MODULES)
-		if(!all_active_items[i])
+		if(isnull(all_active_items[i]))
 			return i
-	return FALSE
+	return 0
 
 /mob/living/silicon/robot/proc/activate_item(obj/item/O)
 	if(!(locate(O) in module.modules) && !(O in module.emag_modules))
@@ -96,7 +96,7 @@
 		to_deactivate.deactivate()
 
 /mob/living/silicon/robot/proc/uneq_numbered(index)
-	if(module < 1 || module > 3)
+	if(module < 1 || module > CYBORG_MAX_MODULES)
 		return
 	uneq_module(all_active_items[index])
 
@@ -142,7 +142,7 @@
 
 //select_module(module) - Selects the module slot specified by "module"
 /mob/living/silicon/robot/proc/select_module(module) //Module is 1-3
-	if(module < 1 || module > 3)
+	if(module < 1 || module > CYBORG_MAX_MODULES)
 		return
 	selected_item = null
 	for(var/i in 1 to CYBORG_MAX_MODULES)
@@ -157,7 +157,7 @@
 
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
-	if(module < 1 || module > 3)
+	if(module < 1 || module > CYBORG_MAX_MODULES)
 		return
 	selected_item = null
 	for(var/i in 1 to CYBORG_MAX_MODULES)
@@ -168,7 +168,7 @@
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
-	if(module < 1 || module > 3)
+	if(module < 1 || module > CYBORG_MAX_MODULES)
 		return
 	if(module_selected(module))
 		deselect_module(module)
@@ -199,7 +199,7 @@
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		if(istype(all_active_items[i], to_check.type))
 			return i
-	return FALSE
+	return 0
 
 /mob/living/silicon/robot/proc/update_module_icon()
 	if(!hands)
