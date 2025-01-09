@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	while(!pickedName)
 		pickedName = pick(GLOB.ai_names)
 		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-			if(A.real_name == pickedName && length(possibleNames) > 1) //fixing the theoretically possible infinite loop
+			if(A.real_name == pickedName && length(possibleNames) > 1) // fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
