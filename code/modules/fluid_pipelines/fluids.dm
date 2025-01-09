@@ -3,6 +3,8 @@
 	var/fluid_name = "ant fluid idk" // ants are bugs ... right?
 	/// ID of our fluid for easier checking
 	var/fluid_id = "antfluid"
+	/// Barrel iconstate
+	var/barrel_state = "base"
 	/// How much of our fluid do we have
 	var/fluid_amount = 0
 	/// How good is our fluid at being burned as shuttle fuel? Higher is better

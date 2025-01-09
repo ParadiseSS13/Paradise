@@ -16,9 +16,12 @@
  * A /machinery/fluid_pipeline should **never** be in both lists
  */
 // TODO UNFUCK WITH SSFLUID
-/datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe)
+/datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe, new_capacity)
 	. = ..()
 	START_PROCESSING(SSfluid, src)
+
+	if(new_capacity)
+		total_capacity = new_capacity
 
 	if(pipe.just_a_pipe)
 		connected_pipes += pipe
@@ -188,6 +191,9 @@
 /datum/fluid_pipe/proc/move_fluid(type_or_id, datum/fluid_pipe/to_move_to, amount)
 	if(QDELETED(to_move_to) || !type_or_id)
 		return
+	if(amount <= 0)
+		stack_trace("`move_fluid` was called with an amount smaller than or equal to 0")
+		return
 
 	var/datum/fluid/liquid = type_or_id
 	if(!ispath(type_or_id, /datum/fluid))
@@ -203,13 +209,25 @@
 
 	amount = clamp(amount, 0, liquid.fluid_amount)
 	liquid.fluid_amount -= amount
-
-	var/datum/fluid/liquid_2 = is_path_in_list(temp_type, to_move_to.fluids, TRUE)
-	if(liquid_2)
-		liquid_2.fluid_amount += amount
-	else
-		to_move_to.add_fluid(temp_type, amount)
+	to_move_to.add_fluid(temp_type, amount)
 
 	if(!liquid.fluid_amount)
 		fluids -= liquid
 		qdel(liquid)
+
+/datum/fluid_pipe/proc/move_any_fluid(datum/fluid_pipe/to_move_to, amount)
+	if(QDELETED(to_move_to))
+		return
+	if(amount <= 0)
+		stack_trace("`move_any_fluid` was called with an amount smaller than or equal to 0")
+		return
+
+	var/datum/fluid/liquid = pick(fluids)
+	if(!liquid)
+		return
+
+	// DGTODO convert this into a wrapper
+	// DGTODO make this not remove liquids if the fluid datum is too full
+	amount = min(amount, liquid.fluid_amount)
+	liquid.fluid_amount -= amount
+	to_move_to.add_fluid(liquid.type, amount)

@@ -1,22 +1,10 @@
-/obj/item/refinery_spawner
-	name = "packaged refinery"
-	desc = "A fully functional refinery, tightly packed with bluespace technology to automatically deploy where needed."
-	new_attack_chain = TRUE
-
-/obj/item/refinery_spawner/activate_self(mob/user)
-	if(..())
-		return
-	var/direction = tgui_input_list(user, "What direction should the refinery be?", "Refinery package", GLOB.cardinal)
-	if(!direction)
-		return
-
-	new /obj/machinery/fluid_pipe/plasma_refinery(get_turf(src), direction)
-
 /obj/machinery/fluid_pipe/plasma_refinery
 	name = "Plasma Refinery"
 	desc = "Turns crude plasma into refined plasma. Can accept a combination of chemicals to improve purity."
-	icon = 'icons/obj/pipes/fluid_machinery.dmi'
-	icon_state = "refinery"
+	icon = 'icons/obj/pipes/64x64fluid_machinery.dmi'
+	icon_state = "refinery_4"
+	dir = EAST
+	pixel_x = -32
 	just_a_pipe = FALSE
 	density = TRUE
 	new_attack_chain = TRUE
@@ -50,21 +38,7 @@
 	return
 
 /obj/machinery/fluid_pipe/plasma_refinery/proc/make_intakes()
-	dir = EAST
 	switch(dir)
-		if(NORTH)
-			AddComponent(/datum/component/multitile, list(
-				list(MACH_CENTER),
-				list(1)
-			))
-
-		if(SOUTH)
-			AddComponent(/datum/component/multitile, list(
-				list(1),
-				list(MACH_CENTER)
-			))
-			pixel_y = -32
-
 		if(EAST)
 			AddComponent(/datum/component/multitile, list(
 				list(1, MACH_CENTER)
@@ -114,18 +88,13 @@
 	for(var/id in selected_recipe.output)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
 
-/obj/machinery/fluid_pipe/plasma_refinery/north
-	dir = NORTH
-	pixel_y = 32
-
-/obj/machinery/fluid_pipe/plasma_refinery/south
-	dir = SOUTH
-
 /obj/machinery/fluid_pipe/plasma_refinery/east
+	icon_state = "refinery_4"
 	dir = EAST
 	pixel_x = -32
 
 /obj/machinery/fluid_pipe/plasma_refinery/west
+	icon_state = "refinery_8"
 	dir = WEST
 
 // MARK: refinery recipes

@@ -6,7 +6,7 @@
 	name = "fluid pipe"
 	desc = "Moves around fluids"
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
-	icon_state = "pipe_1_2_4_8"
+	icon_state = "pipe"
 	power_state = NO_POWER_USE
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
@@ -160,14 +160,3 @@
 
 /obj/machinery/fluid_pipe/abstract/update_icon_state()
 	return
-
-// Can be used as an invisible internal storage
-/obj/machinery/fluid_pipe/abstract/internal_tank
-	capacity = 5000
-
-// Just in case
-/obj/machinery/fluid_pipe/abstract/internal_tank/blind_connect()
-	return
-
-/obj/machinery/fluid_pipe/abstract/internal_tank/process()
-	return PROCESS_KILL
