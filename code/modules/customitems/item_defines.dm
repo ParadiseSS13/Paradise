@@ -1841,5 +1841,30 @@
 	item_state = "colin_earle"
 	item_color = "colin_earle"
 
+// Paratoberfest/contributor rewards
+/obj/item/clothing/accessory/pin/reward
+	icon = 'icons/obj/custom_items.dmi'
+
+/obj/item/clothing/accessory/pin/reward/coding
+	name = "Coding Contribution Pin"
+	desc = "A commemorative pin to reward contributions of coding."
+	icon_state = "pin_coding"
+	item_state = "pin_coding"
+	item_color = "pin_coding"
+
+/obj/item/clothing/accessory/pin/reward/mapping
+	name = "Mapping Contribution Pin"
+	desc = "A commemorative pin to reward contributions of mapping."
+	icon_state = "pin_mapping"
+	item_state = "pin_mapping"
+	item_color = "pin_mapping"
+
+/obj/item/clothing/accessory/pin/reward/spriting
+	name = "Spriting Contribution Pin"
+	desc = "A commemorative pin to reward contributions of spriting."
+	icon_state = "pin_spriting"
+	item_state = "pin_spriting"
+	item_color = "pin_spriting"
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

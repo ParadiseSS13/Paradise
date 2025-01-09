@@ -571,6 +571,15 @@
 	icon_state = "tank_stripes"
 //end tanktops
 
+//paratoberfest/contributor reward items
+/datum/sprite_accessory/undershirt/contrib_prize
+	fluff = TRUE
+
+/datum/sprite_accessory/undershirt/contrib_prize/ptbf24
+	name = "Great Synthwave Shirt"
+	icon_state = "shirt_ptbf24"
+//end rewards
+
 ///////////////////////
 // Socks Definitions //
 ///////////////////////
