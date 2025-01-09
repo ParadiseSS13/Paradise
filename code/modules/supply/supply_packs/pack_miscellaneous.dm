@@ -351,7 +351,11 @@
 	name = "Collectable Plushies Crate"
 	cost = 1000
 	containername = "collectable plushies crate! Brought to you by Bass.inc!"
-	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
+	contains = list(
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies/explosive,
+	)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
@@ -430,9 +434,9 @@
 					/obj/item/clothing/under/rank/procedure/iaa,
 					/obj/item/clothing/suit/storage/iaa/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,
-					/obj/item/clothing/accessory/blue,
-					/obj/item/clothing/accessory/red,
-					/obj/item/clothing/accessory/black,
+					/obj/item/clothing/neck/tie/blue,
+					/obj/item/clothing/neck/tie/red,
+					/obj/item/clothing/neck/tie/black,
 					/obj/item/clothing/head/bowlerhat,
 					/obj/item/clothing/head/fedora,
 					/obj/item/clothing/head/flatcap,

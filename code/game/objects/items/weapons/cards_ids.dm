@@ -11,6 +11,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_ID
+
 	new_attack_chain = TRUE
 	var/associated_account_number = 0
 
@@ -29,6 +31,7 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag
 	desc = "It's a card with a magnetic strip attached to some circuitry."
@@ -38,6 +41,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -71,6 +75,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/cmag/Initialize(mapload)
 	. = ..()
@@ -95,7 +100,6 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -620,6 +624,13 @@
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_NTREP)
 
+/obj/item/card/id/nct
+	name = "\improper Nanotrasen Career Trainer ID"
+	registered_name = "Nanotrasen Career Trainer"
+	icon_state = "nctrainer"
+	access = list(ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_COURT, ACCESS_EVA, ACCESS_TRAINER, ACCESS_MAINT_TUNNELS,
+						ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SEC_DOORS, ACCESS_THEATRE, ACCESS_INTERNAL_AFFAIRS)
+
 /obj/item/card/id/blueshield
 	name = "Blueshield ID"
 	registered_name = "Blueshield"
@@ -776,6 +787,55 @@
 /obj/item/card/id/data
 	icon_state = "data"
 
+/obj/item/card/id/nct_data_chip
+	name = "\improper NCT Trainee Access Chip"
+	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
+	icon_state = "nct_chip"
+	assignment = "Nanotrasen Career Trainer"
+	var/registered_user = null
+	var/trainee = null
+
+/obj/item/card/id/nct_data_chip/examine(mob/user)
+	. = ..()
+	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
+	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
+	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.</span>"
+
+/obj/item/card/id/nct_data_chip/activate_self(mob/user)
+	if(..())
+		return
+	if(!trainee)
+		return
+
+	var/response = tgui_alert(user, "Would you like to remove [trainee] as your current active Trainee?", "Choose", list("Yes", "No"))
+	if(response == "Yes")
+		trainee = null
+		icon_state = "nct_chip"
+		access = list()
+
+/obj/item/card/id/nct_data_chip/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/card/id))
+		return
+	if(!(isliving(user) && user.mind))
+		return
+
+	if(user.mind.current != registered_user)
+		to_chat(user, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
+		return
+
+	if(istype(target, /obj/item/card/id/ert))
+		to_chat(user, "<span class='warning'>The chip's screen blinks red as you attempt scanning this ID.</span>")
+		return
+
+	var/obj/item/card/id/I = target
+	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
+	access = I.access.Copy()
+	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
+						ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,
+						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
+	trainee = I.registered_name
+	icon_state = "nct_chip_active"
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
@@ -829,10 +889,10 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nct")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom", "blueshield", "magistrate", "ntrep", "ERT_leader", "ERT_empty", "ERT_security", "ERT_engineering", "ERT_medical", "ERT_janitorial", "ERT_paranormal", "deathsquad", "commander", "syndie", "TDred", "TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -853,6 +913,8 @@
 			return "Security Officer"
 		if("internalaffairsagent")
 			return "Internal Affairs Agent"
+		if("nct")
+			return "Nanotrasen Career Trainer"
 		if("atmostech")
 			return "Life Support Specialist"
 		if("HoP")

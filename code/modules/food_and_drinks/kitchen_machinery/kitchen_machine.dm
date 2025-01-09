@@ -119,8 +119,30 @@
 
 		for(var/datum/reagent/R in O.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
-				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
+				to_chat(user, "<span class='alert'>Your [O.name] contains components unsuitable for cookery.</span>")
 				return TRUE
+	else if(istype(O, /obj/item/storage))
+		var/obj/item/storage/S = O
+		if(!S.allow_quick_empty)
+			to_chat(user, "<span class='alert'>[O] is too awkward a shape to dump into [src].</span>")
+			return TRUE
+		if(length(S.contents) + length(contents) >= max_n_of_items)
+			to_chat(user, "<span class='alert'>You can't fit everything from [O] into [src].</span>")
+			return TRUE
+		if(length(S.contents) == 0)
+			to_chat(user, "<span class='alert'>[O] is empty!</span>")
+			return TRUE
+		for(var/obj/item/ingredient in O.contents)
+			if(!is_type_in_list(ingredient, GLOB.cooking_ingredients[recipe_type]) && !istype(ingredient, /obj/item/mixing_bowl))
+				to_chat(user, "<span class='alert'>Your [O.name] contains contents unsuitable for cookery.</span>")
+				return TRUE
+		S.hide_from(user)
+		user.visible_message("<span class='notice'>[user] dumps [O] into [src].</span>", "<span class='notice'>You dump [O] into [src].</span>")
+		for(var/obj/item/ingredient in O.contents)
+			S.remove_from_storage(ingredient, src)
+			CHECK_TICK
+		SStgui.update_uis(src)
+
 
 	else if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
