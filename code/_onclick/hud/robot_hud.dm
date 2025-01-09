@@ -51,7 +51,6 @@
 /atom/movable/screen/robot/active_module/proc/deactivate()
 	icon_state = deactivated_icon_string
 	active = FALSE
-	return
 
 /atom/movable/screen/robot/active_module/Click()
 	if(..() || !module_number)
