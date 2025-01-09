@@ -65,6 +65,7 @@
 #define ACCESS_MINERAL_STOREROOM		76
 #define ACCESS_CARGO_BAY				78
 #define ACCESS_SUPPLY_SHUTTLE			79
+#define ACCESS_TRAINER					80
 
 #define ACCESS_WEAPONS					99	//! Weapon authorization for secbots.
 

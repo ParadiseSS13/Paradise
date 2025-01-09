@@ -70,43 +70,68 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/singularity_pull()
 	return
 
-/obj/effect/immovablerod/Bump(atom/clong)
+/obj/effect/immovablerod/Move(turf/newloc, direction)
+	if(!istype(newloc))
+		return ..()
+
+	if(!direction)
+		direction = get_dir(src, newloc)
+	forceMove(newloc)
+	setDir(direction)
+
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message("CLANG")
 
-	if(clong && prob(25))
-		x = clong.x
-		y = clong.y
+	clong_turf(newloc)
+	for(var/atom/victim as anything in newloc)
+		clong_thing(victim)
 
-	if(isturf(clong) || isobj(clong))
-		if(clong.density)
-			clong.ex_act(EXPLODE_HEAVY)
+/obj/effect/immovablerod/proc/clong_turf(turf/victim)
+	if(!victim.density)
+		return
 
-	else if(ismob(clong))
-		if(ishuman(clong))
-			var/mob/living/carbon/human/H = clong
+	if(iswallturf(victim))
+		var/turf/simulated/wall/W = victim
+		W.take_damage(rand(W.damage_cap / 3, W.damage_cap * 4 / 3))
+	else
+		victim.ex_act(EXPLODE_LIGHT)
+
+/obj/effect/immovablerod/proc/clong_thing(atom/victim)
+	if(isobj(victim) && victim.density)
+		victim.ex_act(EXPLODE_HEAVY)
+	else if(ismob(victim))
+		if(ishuman(victim))
+			var/mob/living/carbon/human/H = victim
 			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>",
 				"<span class='userdanger'>The rod penetrates you!</span>",
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
-		if(clong.density || prob(10))
-			clong.ex_act(EXPLODE_HEAVY)
+		if(victim.density || prob(10))
+			victim.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
 	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
-	// Chance to expose the tile to space is like 60% of this value.
+	// Chance to expose the tile to space is like 15% of this value.
 	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/event/Move()
-	var/atom/oldloc = loc
 	. = ..()
-	if(prob(floor_rip_chance))
-		var/turf/simulated/floor/T = get_turf(oldloc)
-		if(istype(T))
-			T.ex_act(EXPLODE_HEAVY)
 	if(loc == end)
 		qdel(src)
+
+/obj/effect/immovablerod/event/clong_turf(turf/victim)
+	if(!isfloorturf(victim))
+		return ..()
+
+	if(!prob(floor_rip_chance))
+		return
+
+	var/turf/simulated/floor/T = victim
+	if(prob(25))
+		T.ex_act(EXPLODE_HEAVY)
+	else
+		T.ex_act(EXPLODE_LIGHT)
 
 /obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)

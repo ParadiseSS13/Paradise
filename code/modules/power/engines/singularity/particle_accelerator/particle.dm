@@ -24,9 +24,17 @@
 /obj/effect/accelerated_particle/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_irradiate))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_irradiate))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(try_irradiate)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
 	QDEL_IN(src, movement_range)
+
+/obj/effect/accelerated_particle/proc/on_movable_moved(datum/source, old_location, direction, forced)
+	if(isturf(loc))
+		for(var/atom/A in loc)
+			try_irradiate(src, A)
 
 /obj/effect/accelerated_particle/proc/try_irradiate(src, atom/A)
 	if(isliving(A))

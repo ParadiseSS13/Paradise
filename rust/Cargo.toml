@@ -1,6 +1,6 @@
 [package]
 name = "rustlibs"
-version = "1.0.0"
+version = "2.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -33,3 +33,5 @@ serde_json = { version = "1.0" }
 walkdir = "2.5.0"
 # regex
 regex = "1.10.5"
+png = "0.17.16"
+chrono = "0.4.39"

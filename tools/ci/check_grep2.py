@@ -139,12 +139,12 @@ FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
 FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
 def check_datum_loops(idx, line):
     if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
-        return Failure(
+        return [(
             idx + 1,
             # yes this will concatenate the strings, don't look too hard
             "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
             "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
-        )
+        )]
 
 HREF_OLD_STYLE = re.compile(r"href[\s='\"\\]*\?")
 def check_href_styles(idx, line):

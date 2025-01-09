@@ -181,8 +181,8 @@
 /area/ruin/space/unathi_breacher/bar)
 "ny" = (
 /obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "nU" = (
 /obj/structure/shuttle/engine/large{
 	dir = 8
@@ -234,8 +234,8 @@
 /obj/item/toy/plushie/voxplushie{
 	has_stuffing = 0
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "rv" = (
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/drakehound_breacher,
@@ -290,8 +290,8 @@
 "xJ" = (
 /obj/item/stack/rods,
 /obj/item/stack/sheet/mineral/plastitanium,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "yi" = (
 /obj/machinery/door/poddoor,
 /obj/machinery/door/airlock/survival_pod{
@@ -376,8 +376,8 @@
 /area/ruin/space/unathi_breacher/bridge)
 "CC" = (
 /obj/item/stack/rods,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "CM" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/gold,
@@ -408,11 +408,11 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Gb" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "GH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -526,8 +526,8 @@
 /area/ruin/space/unathi_breacher/bridge)
 "Qh" = (
 /obj/item/stack/cable_coil/ten,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "QI" = (
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
@@ -535,8 +535,8 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "QK" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
@@ -562,8 +562,8 @@
 /obj/item/stack/rods,
 /obj/structure/table_frame,
 /mob/living/simple_animal/hostile/drakehound_breacher,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Sg" = (
 /obj/effect/turf_decal/siding{
 	dir = 6

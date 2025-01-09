@@ -1012,6 +1012,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
+					parent.fit_viewport()
 					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
