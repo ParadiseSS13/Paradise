@@ -6,7 +6,7 @@
 						"Ionospheri:%? MCayj^j<.3-BZZZZZZT", \
 						"#4nd%;f4y6,>?%-BZZZZZZZT")
 
-	for(var/mob/living/silicon/ai/A in GLOB.player_list)	//AIs are always aware of communication blackouts.
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)	//AIs are always aware of communication blackouts.
 		to_chat(A, "<br>")
 		to_chat(A, "<span class='warning'><b>[alert]</b></span>")
 		to_chat(A, "<br>")
