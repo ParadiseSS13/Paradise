@@ -24634,7 +24634,6 @@
 	},
 /area/station/medical/virology)
 "bGd" = (
-/obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -24647,6 +24646,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "bGl" = (
@@ -32084,6 +32084,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "cel" = (
@@ -33756,6 +33757,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "ckQ" = (
@@ -58245,6 +58247,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "eVz" = (
@@ -75679,12 +75682,8 @@
 /area/station/hallway/primary/port/west)
 "oRu" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/book/manual/wiki/sop_security,
 /obj/machinery/light,
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80413,7 +80412,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "rtQ" = (
-/obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -80432,6 +80430,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -85543,6 +85542,13 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/book/manual/wiki/sop_security{
+	pixel_x = -9
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
