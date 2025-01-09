@@ -242,6 +242,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 
+	add_program_picker()
+
 	for(var/I in 1 to 4)
 		stored_locations += "unset" //This is checked in ai_keybinds.dm.
 
@@ -1361,6 +1363,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/message_clean = combine_message(message_pieces, null, M)
 		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
+
+/mob/living/silicon/ai/proc/add_program_picker()
+	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
+	program_picker = new /datum/program_picker
+	program_action = new(program_picker)
+	AddSpell(program_action)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null

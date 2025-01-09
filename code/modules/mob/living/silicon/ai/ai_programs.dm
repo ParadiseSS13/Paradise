@@ -27,7 +27,7 @@
 			<B>Install Program:</B><BR>
 			<I>The number afterwards is the amount of a given resource it consumes.</I><BR>"}
 	for(var/datum/ai_program/program in possible_programs)
-		dat += "<A href='byond://?src=[UID()];[program.program_id]=1'>[program.program_name]</A><A href='byond://?src=[UID()];showdesc=[program.program_id]'>\[?\]</A> ([program.installed ? "[program.cost] TB" : "1 TBPS"])<BR>"
+		dat += "<A href='byond://?src=[UID()];[program.program_id]=1'>[program.program_name]</A><A href='byond://?src=[UID()];showdesc=[program.program_id]'>\[?\]</A> ([program.installed ? "1 TBPS": "[program.cost] TB"])<BR>"
 	dat += "<HR>"
 	if(temp)
 		dat += "[temp]"
@@ -50,29 +50,33 @@
 	for(var/datum/ai_program/program in possible_programs)
 		if(href_list[program.program_id])
 
-			// Cost check
-			if(program.cost > bandwidth)
-				temp = "You cannot afford this program."
-				break
+			var/datum/spell/ai_spell/new_spell = new program.power_type
 
-			var/datum/spell/ai_spell/new_spell = program.power_type
-
-			for(var/datum/spell/ai_spell/aspell in A.mind.spell_list)
-				if(initial(new_spell) == initial(aspell))
+			for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+				if(new_spell.type == aspell.type)
 					if(aspell.spell_level >= aspell.level_max)
 						to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
-					return FALSE
-				else
-					aspell.name = initial(aspell.name)
-					aspell.spell_level++
-					if(aspell.spell_level >= aspell.level_max)
-						to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-					aspell.on_purchase_upgrade()
-					return TRUE
-			//No same spell found - just learn it
+						return FALSE
+					else
+						if(bandwidth < 1)
+							temp = "You cannot afford this upgrade!"
+							return FALSE
+						aspell.name = initial(aspell.name)
+						aspell.spell_level++
+						if(aspell.spell_level >= aspell.level_max)
+							to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+						aspell.on_purchase_upgrade()
+						bandwidth--
+						return TRUE
+			// No same program found, install
+			if(program.cost > memory)
+				to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
+				return FALSE
+			memory -= program.cost
 			SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-			A.mind.AddSpell(new_spell)
+			A.AddSpell(new_spell)
 			to_chat(A, "<span class='notice'>You have installed [new_spell.name].</span>")
+			to_chat(A, program.unlock_text)
 			program.installed = TRUE
 			return TRUE
 
@@ -109,7 +113,7 @@
 /datum/spell/ai_spell/choose_program
 	name = "Choose Programs"
 	desc = "Spend your memory and bandwidth to gain a variety of different abilities."
-	action_icon = "icons/mob/ai.dmi"
+	action_icon = 'icons/mob/ai.dmi'
 	action_icon_state = "ai"
 	auto_use_uses = FALSE // This is an infinite ability.
 	create_attack_logs = FALSE
@@ -136,22 +140,32 @@
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
+	selection_activated_message = "<span class='notice'>You hook into the station's lighting controller...</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the request from the lighting controller.</span>"
 
 /datum/spell/ai_spell/ranged/rgb_lighting/cast(list/targets, mob/user)
 	var/obj/machinery/target = targets[1]
 	if(!istype(target, /obj/machinery/light) && !istype(target, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
 		return
+	// Color selection
+	var/color_picked = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+	var/list/hsl = rgb2hsl(hex2num(copytext(color_picked, 2, 4)), hex2num(copytext(color_picked, 4, 6)), hex2num(copytext(color_picked, 6, 8)))
+	hsl[3] = max(hsl[3], 0.4)
+	var/list/rgb = hsl2rgb(arglist(hsl))
+	var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
 			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
 			return
 		var/obj/machinery/power/apc/A = target
 		for(var/obj/machinery/light/L in A.apc_area)
-			L.brightness_color = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+			L.color = new_color
+			L.brightness_color = new_color
 	else
 		var/obj/machinery/light/L = target
-		L.brightness_color = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+		L.color = new_color
+		L.brightness_color = new_color
 	user.playsound_local(user, "sound/effects/spray.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
@@ -180,6 +194,8 @@
 	base_cooldown = 300 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
+	selection_activated_message = "<span class='notice'>You tap into the station's powernet...</span>"
+	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
 	var/power_sent = 2500
 	var/universal_adapter = FALSE
 	var/adapter_efficiency = 0.5
@@ -205,7 +221,7 @@
 	if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/T = target
 		T.cell.give(power_sent)
-	if(istype(/mob/living/carbon/human/machine))
+	if(istype(target, /mob/living/carbon/human/machine))
 		var/mob/living/carbon/human/machine/T = target
 		T.adjust_nutrition(adapter_efficiency * (power_sent / 10))
 

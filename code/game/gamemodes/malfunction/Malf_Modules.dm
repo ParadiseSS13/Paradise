@@ -32,7 +32,7 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
-/datum/spell/ai_spell/find_nearest_camera(atom/target)
+/datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
 	var/area/A = get_area(target)
 	if(A == null)
 		return
