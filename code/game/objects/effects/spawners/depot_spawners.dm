@@ -167,8 +167,6 @@
 	spawn_inside = /obj/structure/closet/secure_closet/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	loot = list(
-		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
-		/obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer,
 		/obj/item/bio_chip_implanter/proto_adrenalin,
 		/obj/item/chameleon,
 		/obj/item/cqc_manual,
@@ -176,6 +174,8 @@
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/mod/control/pre_equipped/traitor_elite,
+		/obj/item/organ/internal/cyberimp/arm/razorwire,
+		/obj/item/organ/internal/cyberimp/brain/sensory_enhancer,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants,
 		/obj/item/shield/energy,
 		/obj/item/storage/box/syndie_kit/teleporter,
