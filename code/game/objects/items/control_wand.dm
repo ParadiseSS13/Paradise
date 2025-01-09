@@ -215,13 +215,12 @@
 	icon_state = "hacktool-g"
 	busy = TRUE
 	to_chat(user, "<span class='notice'>[src] is attempting to interface with [target]...</span>")
-	if(!do_after(user, hack_speed, target = target))
+	if(do_after(user, hack_speed, target = target))
 		busy = FALSE
 		icon_state = "hacktool"
-		return
+		return TRUE
 	busy = FALSE
 	icon_state = "hacktool"
-	return TRUE
 
 /obj/item/door_remote/omni/access_tuner/flayer
 	name = "integrated access tuner"
@@ -265,7 +264,7 @@
 	return ..()
 
 /obj/item/door_remote/janikeyring/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers) // THOSE AINT MAGICAL REMOTE KEYS
-	return
+	return ITEM_INTERACT_COMPLETE
 
 
 /obj/item/door_remote/janikeyring/proc/unlock(obj/machinery/door/target, mob/living/user)
@@ -286,7 +285,7 @@
 		else
 			hack_speed = rand(5, 20) SECONDS
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
-	if(do_after(user, hack_speed, target = target, progress = 1))
+	if(do_after(user, hack_speed, target = target, progress = 0))
 		if(target.check_access(ID))
 			last_airlock_uid = target.UID()
 		busy =  FALSE
