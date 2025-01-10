@@ -351,7 +351,7 @@
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
-			user.unEquip(W)			// Dump everything on the floor instead.
+			user.drop_item_to_ground(W)			// Dump everything on the floor instead.
 		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
 		user.dust()					// (held items fall to the floor when dusting).
 		return OBLITERATION

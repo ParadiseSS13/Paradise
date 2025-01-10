@@ -53,14 +53,20 @@
 // This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
 #undef RUSTLIBS_SUFFIX
 
+/// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
+/proc/byondapi_stack_trace(err)
+	CRASH(err)
+
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
-/proc/is_milla_synchronous(tick)
-	return RUSTLIB_CALL(milla_is_synchronous, tick)
+/proc/milla_load_turfs(turf/low_corner, turf/high_corner)
+	ASSERT(istype(low_corner))
+	ASSERT(istype(high_corner))
+	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
 
-/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 
 /proc/get_tile_atmos(turf/T, list/L)
 	return RUSTLIB_CALL(milla_get_tile, T, L)
@@ -73,6 +79,9 @@
 
 /proc/get_interesting_atmos_tiles()
 	return RUSTLIB_CALL(milla_get_interesting_tiles)
+
+/proc/get_tracked_pressure_tiles()
+	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -92,6 +101,14 @@
 	var/west = airtight[4]
 
 	return RUSTLIB_CALL(milla_set_tile_airtight, T, north, east, south, west)
+
+/proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+
+/proc/track_pressure_tiles(atom/A, radius)
+	var/turf/T = get_turf(A)
+	if(istype(T))
+		return RUSTLIB_CALL(milla_track_pressure_tiles, T, radius)
 
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)
@@ -122,15 +139,20 @@
 #define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	13
 #define MILLA_INDEX_INNATE_HEAT_CAPACITY	14
 #define MILLA_INDEX_TEMPERATURE				15
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE		16
+#define MILLA_INDEX_HOTSPOT_VOLUME			17
+#define MILLA_INDEX_WIND_X					18
+#define MILLA_INDEX_WIND_Y					19
+#define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_TEMPERATURE
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					16
-#define MILLA_INDEX_INTERESTING_REASONS		17
-#define MILLA_INDEX_AIRFLOW_X				18
-#define MILLA_INDEX_AIRFLOW_Y				19
+#define MILLA_INDEX_TURF					21
+#define MILLA_INDEX_INTERESTING_REASONS		22
+#define MILLA_INDEX_AIRFLOW_X				23
+#define MILLA_INDEX_AIRFLOW_Y				24
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y

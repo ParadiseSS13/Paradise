@@ -17,7 +17,7 @@
 /obj/item/bucket_sensor/attackby__legacy__attackchain(obj/item/W, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
-		if(!user.unEquip(W))
+		if(!user.unequip(W))
 			return
 		qdel(W)
 		var/turf/T = get_turf(loc)
@@ -25,7 +25,7 @@
 		A.name = created_name
 		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 
 	else if(is_pen(W))
@@ -64,7 +64,7 @@
 	switch(build_step)
 		if(0,1)
 			if(istype(W, /obj/item/robot_parts/l_leg) || istype(W, /obj/item/robot_parts/r_leg))
-				if(!user.unEquip(W))
+				if(!user.unequip(W))
 					return
 				qdel(W)
 				build_step++
@@ -78,7 +78,7 @@
 			else if(istype(W, /obj/item/clothing/suit/bluetag))
 				newcolor = "b"
 			if(newcolor || istype(W, /obj/item/clothing/suit/armor/vest))
-				if(!user.unEquip(W))
+				if(!user.unequip(W))
 					return
 				lasercolor = newcolor
 				qdel(W)
@@ -105,7 +105,7 @@
 					if(!istype(W, /obj/item/clothing/head/helmet))
 						return
 
-			if(!user.unEquip(W))
+			if(!user.unequip(W))
 				return
 			qdel(W)
 			build_step++
@@ -114,7 +114,7 @@
 
 		if(5)
 			if(isprox(W))
-				if(!user.unEquip(W))
+				if(!user.unequip(W))
 					return
 				qdel(W)
 				build_step++
@@ -153,7 +153,7 @@
 					new_name = "disabler ED-209 assembly"
 				else
 					return
-			if(!user.unEquip(W))
+			if(!user.unequip(W))
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add [W] to [src].</span>")
@@ -166,14 +166,14 @@
 
 		if(9)
 			if(istype(W, /obj/item/stock_parts/cell))
-				if(!user.unEquip(W))
+				if(!user.unequip(W))
 					return
 				build_step++
 				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
 				var/turf/T = get_turf(src)
 				new /mob/living/simple_animal/bot/ed209(T,created_name,lasercolor)
 				qdel(W)
-				user.unEquip(src, 1)
+				user.unequip(src, force = TRUE)
 				qdel(src)
 
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
@@ -280,7 +280,7 @@
 		B.update_icon(UPDATE_ICON_STATE)
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>")
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot.</span>")
@@ -299,7 +299,7 @@
 		B.update_icon(UPDATE_ICON_STATE)
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the sensor to the toolbox and tiles.</span>")
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 
 	else if(is_pen(W))
@@ -321,7 +321,7 @@
 		A.name = created_name
 		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 
 //Medbot Assembly
@@ -349,7 +349,7 @@
 	qdel(I)
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add the robot arm to the first aid kit.</span>")
-	user.unEquip(src, 1)
+	user.unequip(src, force = TRUE)
 	qdel(src)
 
 /obj/item/firstaid_arm_assembly
@@ -423,7 +423,7 @@
 						S.robot_arm = robot_arm
 					else
 						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
-					user.unEquip(src, 1)
+					user.unequip(src, force = TRUE)
 					qdel(src)
 
 /obj/item/firstaid_arm_assembly/update_name()
@@ -455,7 +455,7 @@
 	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
-	user.unEquip(src, 1)
+	user.unequip(src, force = TRUE)
 	qdel(src)
 
 
@@ -470,14 +470,14 @@
 			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
 
 	else if(isprox(I) && (build_step == 1))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add the prox sensor to [src]!</span>")
 		qdel(I)
 
 	else if(((istype(I, /obj/item/robot_parts/l_arm)) || (istype(I, /obj/item/robot_parts/r_arm))) && (build_step == 2))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add the robot arm to [src]!</span>")
@@ -485,7 +485,7 @@
 		qdel(I)
 
 	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
@@ -509,7 +509,7 @@
 		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!</span>")
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
@@ -567,14 +567,14 @@
 /obj/item/griefsky_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You add an energy sword to [src]!.</span>")
 		qdel(I)
 
 	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step == 3))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
 		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
@@ -582,14 +582,14 @@
 		qdel(src)
 
 	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		toy_step++
 		to_chat(user, "<span class='notice'>You add a toy sword to [src]!.</span>")
 		qdel(I)
 
 	else if((istype(I, /obj/item/toy/sword)) && (toy_step == 3))
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
 		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
@@ -626,7 +626,7 @@
 	qdel(W)
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add the robot arm to the honkbot.</span>")
-	user.unEquip(src, 1)
+	user.unequip(src, force = TRUE)
 	qdel(src)
 
 /obj/item/honkbot_arm_assembly
@@ -644,21 +644,21 @@
 	..()
 	if(build_step == 0)
 		if(istype(W, /obj/item/assembly/prox_sensor))
-			if(!user.unEquip(W))
+			if(!user.unequip(W))
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add the proximity sensor to [src].</span>")
 			qdel(W)
 	else if(build_step == 1)
 		if(istype(W, /obj/item/bikehorn))
-			if(!user.unEquip(W))
+			if(!user.unequip(W))
 				return
 			build_step++
 			to_chat(user, "<span class='notice'>You add the bikehorn to [src]! Honk!</span>")
 			qdel(W)
 	else if(build_step == 2)
 		if(istype(W, /obj/item/instrument/trombone))
-			if(!user.unEquip(W))
+			if(!user.unequip(W))
 				return
 			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk!</span>")
 			qdel(W)

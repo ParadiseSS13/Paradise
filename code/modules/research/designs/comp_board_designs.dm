@@ -302,6 +302,16 @@
 	build_path = /obj/item/circuitboard/sm_monitor
 	category = list("Computer Boards")
 
+/datum/design/singulo_monitor
+	name = "Console Board (Singularity Monitoring)"
+	desc = "Allows for the construction of circuit boards used to build a singularity monitoring console."
+	id = "singulo_monitor"
+	req_tech = list("programming" = 2, "powerstorage" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/singulo_monitor
+	category = list("Computer Boards")
+
 /datum/design/ordercomp
 	name = "Console Board (Supply Ordering Console)"
 	desc = "Allows for the construction of circuit boards used to build a supply ordering console."

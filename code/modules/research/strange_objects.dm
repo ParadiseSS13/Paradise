@@ -110,6 +110,7 @@
 						R.desc = desc
 						R.function_id = function_id
 						R.revealed = TRUE
+						R.origin_tech = null
 						QDEL_IN(R, rand(10, 100))
 						INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 

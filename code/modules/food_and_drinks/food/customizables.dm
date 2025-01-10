@@ -356,7 +356,7 @@ do {\
 			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
 			return
 
-	if(!user.unEquip(snack))
+	if(!user.unequip(snack))
 		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
 		return
 

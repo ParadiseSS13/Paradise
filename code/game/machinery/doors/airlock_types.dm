@@ -704,7 +704,7 @@
 	qdel(src)
 
 /// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
-/obj/airlock_filler_object/CanPass(atom/movable/mover, turf/target)
+/obj/airlock_filler_object/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return

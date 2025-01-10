@@ -87,7 +87,6 @@
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.update_state()
-		depotarea.shields_down()
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
@@ -109,6 +108,7 @@
 		for(var/obj/O in L)
 			qdel(O)
 		L.open()
+	depotarea.shields_down()
 	for(var/mob/living/M in range(30, T))
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
