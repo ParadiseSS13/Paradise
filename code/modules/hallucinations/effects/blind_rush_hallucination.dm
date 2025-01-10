@@ -5,7 +5,6 @@
   */
 /datum/hallucination_manager/blind_rush
 	initial_hallucination = /obj/effect/hallucination/no_delete/blind_rusher
-	hallucination_list = list(/obj/effect/hallucination/no_delete/blind_rusher, /obj/effect/hallucination/no_delete/blind_rusher, /obj/effect/hallucination/no_delete/blind_rusher)
 	trigger_time = 3.4 SECONDS //total length of the hallucination is a little more than ten seconds
 
 
