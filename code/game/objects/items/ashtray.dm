@@ -10,7 +10,7 @@
 		if(length(contents) >= max_butts)
 			to_chat(user, "This ashtray is full.")
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		I.forceMove(src)
 

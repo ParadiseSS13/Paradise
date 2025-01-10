@@ -68,7 +68,7 @@
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.unEquip(noz, 1)
+		M.drop_item_to_ground(noz, force = TRUE)
 	return
 
 /obj/item/watertank/attack_hand(mob/user)
@@ -84,13 +84,13 @@
 			if("r_hand")
 				if(H.r_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_r_hand(src)
 			if("l_hand")
 				if(H.l_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_l_hand(src)
 	return
