@@ -134,7 +134,7 @@
 /obj/item/food/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 
 /obj/item/food/grown/firelemon/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion

@@ -91,7 +91,7 @@
 	if(istype(H.shoes, /obj/item/clothing/shoes/slippers))
 		sleep_ratio *= 2
 		// take your shoes off first, you filthy animal
-		H.unEquip(H.shoes)
+		H.drop_item_to_ground(H.shoes)
 
 	var/extinguished_candle = FALSE
 	for(var/obj/item/candle/C in range(2, src))
