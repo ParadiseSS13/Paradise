@@ -829,3 +829,88 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	color = "red"
+
+#define GATEWAY_TURF_SCAN_RANGE 40
+GLOBAL_LIST_EMPTY(proteon_portals)
+
+/obj/item/proteon_orb
+	name = "summoning orb"
+	desc = "An eerie translucent orb that feels impossibly light. Legends say summoning orbs are created from corrupted scrying orbs. If you hold it close to your ears, you can hear the screams of the damned."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
+	light_range = 3
+	light_color = LIGHT_COLOR_RED
+	new_attack_chain = TRUE
+	/// A nice blood colour matrix
+	var/list/blood_color_matrix = list(1.25,-0.1,-0.1,0, 0,0.15,0,0, 0,0,0.15,0, 0,0,0,1, 0,0,0,0)
+
+
+/obj/item/proteon_orb/Initialize(mapload)
+	. = ..()
+	color = blood_color_matrix
+
+
+/obj/item/proteon_orb/examine(mob/user)
+	. = ..()
+	if(!IS_CULTIST(user) && isliving(user))
+		var/mob/living/living_user = user
+		living_user.adjustBrainLoss(5)
+		. += "<span class='danger'>It hurts just to look at it. Better keep away.</span>"
+	else
+		. += "<span class='cult'>It can be used to create a gateway to Nar'Sie's domain, which will summon weak, sentient constructs over time.</span>"
+
+/obj/item/proteon_orb/activate_self(mob/user)
+	if(..())
+		return
+
+	var/list/portals_to_scan = GLOB.proteon_portals
+
+	if(!IS_CULTIST(user))
+		to_chat(user, "<span class='cultlarge'>\"You want to enter my domain? Go ahead.\"</span>")
+		portals_to_scan = null // narsie wants to have some fun and the veil wont stop her
+
+	for(var/obj/structure/spawner/sentient/proteon_spawner/P as anything in portals_to_scan)
+		if(get_dist(P, src) <= 40)
+			to_chat(user, "<span class='cult'><b>There's a gateway too close nearby. The veil is not yet weak enough to allow such close rips in its fabric.</b></span>")
+			return
+	to_chat(user, "<span class='cultitalic'><b>You focus on [src] and direct it into the ground. It rumbles...</b></span>")
+
+	var/turf/hole_spot = get_turf(user)
+	if(!isfloorturf(hole_spot))
+		to_chat(user, "<span class='notice'>This is not a suitable spot.</span>")
+		return
+
+	INVOKE_ASYNC(hole_spot, TYPE_PROC_REF(/turf/simulated/floor, quake_gateway), user)
+	qdel(src)
+
+/**
+ * Bespoke proc that happens when a proteon orb is activated, creating a gateway.
+ * If activated by a non-cultist, they get an unusual game over.
+*/
+/turf/simulated/floor/proc/quake_gateway(mob/living/user)
+	ChangeTurf(/turf/simulated/floor/engine/cult)
+	Shake(4, 4, 5 SECONDS)
+	var/fucked = FALSE
+	if(!IS_CULTIST(user))
+		fucked = TRUE
+		user.notransform = TRUE
+		user.add_atom_colour(LIGHT_COLOR_RED, TEMPORARY_COLOUR_PRIORITY)
+		user.visible_message("<span class='cult'><b>Dark tendrils appear from the ground and root [user] in place!</b></span>")
+	sleep(5 SECONDS) // can we still use these or. i mean its async
+	new /obj/structure/spawner/sentient/proteon_spawner(src)
+	visible_message("<span class='cult'><b>A mysterious hole appears out of nowhere!</b></span>")
+	if(!fucked || QDELETED(user))
+		return
+	if(get_turf(user) != src) // they get away. for now
+		user.notransform = FALSE
+	user.visible_message("<span class='cult'><b>[user] is pulled into the portal through an infinitesmally minuscule hole, shredding [user.p_their()] body!</b></span>")
+	add_attack_logs(user, user, "Killed themselfs via use of a proteon orb as a non cultist", ATKLOG_ALL)
+	user.gib() // total destruction
+	sleep(5 SECONDS)
+	user.visible_message("<span class='cultitalic'>An unusually large construct appears through the portal!</span>")
+	var/mob/living/simple_animal/hostile/construct/proteon/hostile/remnant = new(get_step_rand(src))
+	remnant.name = "[user]" // no, they do not become it
+	remnant.appearance_flags += PIXEL_SCALE
+	remnant.transform *= 1.5
+
+#undef GATEWAY_TURF_SCAN_RANGE

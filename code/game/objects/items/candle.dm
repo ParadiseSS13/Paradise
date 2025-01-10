@@ -118,9 +118,15 @@
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		unlight()
 
+/obj/item/candle/lit
+	start_lit = TRUE
+
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
+
+/obj/item/candle/eternal/lit
+	start_lit = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)
