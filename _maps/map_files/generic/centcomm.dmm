@@ -424,7 +424,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "bO" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/bar{
+	req_access = list(25)
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "bP" = (
