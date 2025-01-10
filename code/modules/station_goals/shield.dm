@@ -39,6 +39,8 @@
 		defended += list(list("x" = where.x, "y" = where.y))
 	else
 		collisions += list(list("x" = where.x, "y" = where.y))
+	if(length(defended) > last_coverage)
+		last_coverage = length(defended)
 	if(length(defended) + length(collisions) >= 100)
 		last_coverage = length(defended)
 		is_testing = FALSE
