@@ -50,7 +50,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	if(remove_gear_on_removal)
 		for(var/I in H.contents)
 			if(is_type_in_list(I, CULT_CLOTHING))
-				H.unEquip(I)
+				H.drop_item_to_ground(I)
 	return ..()
 
 

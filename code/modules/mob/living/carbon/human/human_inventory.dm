@@ -67,42 +67,45 @@
 		if(ITEM_SLOT_ACCESSORY)
 			return TRUE
 
-/mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/carbon/human/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
-	if(!. || !I)
+	if(!. || !target)
 		return
 
-	if(I == wear_suit)
-		if(s_store)
-			unEquip(s_store, 1) //It makes no sense for your suit storage to stay on you if you drop your suit.
+	if(target == wear_suit)
+		if(s_store && drop_inventory)
+			// It makes no sense for your suit storage to stay on you if you drop your suit.
+			drop_item_to_ground(s_store, force = TRUE)
 		wear_suit = null
-		if(I.flags_inv & HIDEJUMPSUIT)
+		if(target.flags_inv & HIDEJUMPSUIT)
 			update_inv_w_uniform()
-		if(I.flags_inv & HIDESHOES)
+		if(target.flags_inv & HIDESHOES)
 			update_inv_shoes()
-		if(I.flags_inv & HIDEGLOVES)
+		if(target.flags_inv & HIDEGLOVES)
 			update_inv_gloves()
 		update_inv_wear_suit()
-	else if(I == w_uniform)
-		if(r_store)
-			unEquip(r_store, 1) //Again, makes sense for pockets to drop.
-		if(l_store)
-			unEquip(l_store, 1)
-		if(wear_id)
-			unEquip(wear_id)
-		if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
-			unEquip(belt)
+	else if(target == w_uniform)
+		//Again, makes sense for pockets to drop.
+		if(drop_inventory)
+			if(r_store)
+				drop_item_to_ground(r_store, force = TRUE)
+			if(l_store)
+				drop_item_to_ground(l_store, force = TRUE)
+			if(wear_id)
+				drop_item_to_ground(wear_id, force = TRUE)
+			if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
+				drop_item_to_ground(belt, force = TRUE)
 		w_uniform = null
 		update_inv_w_uniform()
-	else if(I == gloves)
+	else if(target == gloves)
 		gloves = null
 		update_inv_gloves()
-	else if(I == neck)
+	else if(target == neck)
 		neck = null
 		update_inv_neck()
-	else if(I == glasses)
+	else if(target == glasses)
 		glasses = null
-		var/obj/item/clothing/glasses/G = I
+		var/obj/item/clothing/glasses/G = target
 		if(G.tint)
 			update_tint()
 		if(G.prescription)
@@ -111,71 +114,71 @@
 			update_sight()
 		update_inv_glasses()
 		update_client_colour()
-	else if(I == head)
+	else if(target == head)
 		head = null
-		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
+		if(target.flags & BLOCKHAIR || target.flags & BLOCKHEADHAIR)
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
 		// Bandanas and paper hats go on the head but are not head clothing
-		if(istype(I,/obj/item/clothing/head))
-			var/obj/item/clothing/head/hat = I
+		if(istype(target, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = target
 			if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 				update_sight()
-		if(I.flags_inv & HIDEEARS)
+		if(target.flags_inv & HIDEEARS)
 			update_inv_ears()
-		head_update(I)
+		head_update(target)
 		update_inv_head()
 		update_misc_effects()
-	else if(I == r_ear)
+	else if(target == r_ear)
 		r_ear = null
 		update_inv_ears()
-	else if(I == l_ear)
+	else if(target == l_ear)
 		l_ear = null
 		update_inv_ears()
-	else if(I == shoes)
+	else if(target == shoes)
 		shoes = null
 		update_inv_shoes()
-	else if(I == belt)
+	else if(target == belt)
 		belt = null
 		update_inv_belt()
-	else if(I == wear_mask)
+	else if(target == wear_mask)
 		wear_mask = null
-		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
+		if(target.flags & BLOCKHAIR || target.flags & BLOCKHEADHAIR)
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
 		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
-		if(I.flags_inv & HIDEEARS)
+		if(target.flags_inv & HIDEEARS)
 			update_inv_ears()
-		wear_mask_update(I, toggle_off = FALSE)
+		wear_mask_update(target, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_misc_effects()
 		update_inv_wear_mask()
-	else if(I == wear_id)
+	else if(target == wear_id)
 		wear_id = null
 		sec_hud_set_ID()
 		update_inv_wear_id()
-	else if(I == wear_pda)
+	else if(target == wear_pda)
 		wear_pda = null
 		update_inv_wear_pda()
-	else if(I == r_store)
+	else if(target == r_store)
 		r_store = null
 		update_inv_pockets()
-	else if(I == l_store)
+	else if(target == l_store)
 		l_store = null
 		update_inv_pockets()
-	else if(I == s_store)
+	else if(target == s_store)
 		s_store = null
 		update_inv_s_store()
-	else if(I == back)
+	else if(target == back)
 		back = null
 		update_inv_back()
-	else if(I == r_hand)
+	else if(target == r_hand)
 		r_hand = null
 		update_inv_r_hand()
-	else if(I == l_hand)
+	else if(target == l_hand)
 		l_hand = null
 		update_inv_l_hand()
 	update_action_buttons_icon()
@@ -326,7 +329,7 @@
 			update_inv_s_store()
 		if(ITEM_SLOT_IN_BACKPACK)
 			if(get_active_hand() == I)
-				unEquip(I)
+				drop_item_to_ground(I)
 			if(ismodcontrol(back))
 				var/obj/item/mod/control/C = back
 				if(C.bag)
