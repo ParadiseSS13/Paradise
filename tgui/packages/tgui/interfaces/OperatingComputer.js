@@ -126,9 +126,11 @@ const OperatingComputerPatient = (props, context) => {
         <Section title="Active surgeries" level="2">
           {occupant.inSurgery && !!activeSurgeries ? (
             activeSurgeries.map((s, i) => (
-              <Section style={{textTransform: 'capitalize'}} title={s.name + " (" + s.location + ")"} key={i}>
+              <Section style={{ textTransform: 'capitalize' }} title={s.name + ' (' + s.location + ')'} key={i}>
                 <LabeledList key={i}>
-                  <LabeledList.Item key={i} label="Next Step">{s.step}</LabeledList.Item>
+                  <LabeledList.Item key={i} label="Next Step">
+                    {s.step}
+                  </LabeledList.Item>
                 </LabeledList>
               </Section>
             ))
