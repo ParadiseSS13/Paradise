@@ -232,8 +232,8 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
-				GLOB.move_manager.move_away(thingy,chassis,15,2)
+				H.drop_item_to_ground(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
 						GLOB.move_manager.stop_looping(thingy)

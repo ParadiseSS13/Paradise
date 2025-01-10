@@ -83,7 +83,7 @@
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(!modifiable_timer)

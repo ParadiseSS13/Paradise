@@ -319,8 +319,8 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
-					GLOB.move_manager.move_away(thingy,H,15,2)
+				if(H.drop_item_to_ground(H.shoes))
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
 							GLOB.move_manager.stop_looping(thingy)

@@ -5169,16 +5169,12 @@
 /area/ruin/space/derelict/hallway/primary)
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nR" = (
 /obj/machinery/light/small{
@@ -5189,9 +5185,7 @@
 	pixel_y = 8
 	},
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
@@ -5283,17 +5277,13 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "of" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "og" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oh" = (
 /obj/structure/cable{
@@ -5387,17 +5377,13 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ov" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ow" = (
 /obj/structure/cable{
@@ -5524,9 +5510,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oO" = (
 /obj/machinery/door/airlock/public/glass{
