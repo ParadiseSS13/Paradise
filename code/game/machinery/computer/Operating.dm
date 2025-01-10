@@ -130,13 +130,10 @@
 			occupantData["inSurgery"] = 1
 
 			for(var/datum/surgery/procedure in occupant.surgeries)
-
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
 				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure, TRUE))]"
-
 				if(surgery_step.repeatable)
 					var/datum/surgery_step/next = procedure.get_surgery_next_step()
-					// tools_in_use.Cut()
 					if(next)
 						surgery_desc += " or [capitalize(next.get_step_information(procedure, TRUE))]"
 
