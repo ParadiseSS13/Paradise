@@ -7501,7 +7501,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/cmo,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -12520,10 +12519,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
-"bMv" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/medical/chemistry)
 "bMw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -33892,9 +33887,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/barricade/wooden/crude,
 /obj/structure/disposalpipe/segment{
@@ -50676,10 +50668,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
-"jFX" = (
-/turf/space,
-/area/space,
-/area/space)
 "jFY" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -156715,7 +156703,7 @@ rNK
 rNK
 rNK
 rNK
-jFX
+rNK
 rNK
 yhQ
 uqC
@@ -158041,7 +158029,7 @@ sjT
 pDB
 edj
 dlC
-bMv
+bCg
 cfa
 kGe
 ndj
