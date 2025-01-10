@@ -79,14 +79,18 @@ SUBSYSTEM_DEF(air)
 	/// Which step we're currently on, used to let us resume if our time budget elapses.
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-	/// Is MILLA currently in synchronous mode? TRUE if data is fresh and changes can be made, FALSE if data is from last tick and changes cannot be made (because this tick is still processing).
-	var/is_synchronous = TRUE
+	/// Is MILLA currently idle? TRUE if the MILLA tick has finished, meaning data is fresh and changes can be made. FALSE if MILLA is currently running a tick, meaning data is from last tick and changes cannot be made.
+	var/milla_idle = TRUE
 
-	/// Are we currently running in a MILLA-safe context, i.e. is is_synchronous *guaranteed* to be TRUE. Nothing outside of this file should change this.
+	/// Are we currently running in a MILLA-safe context, i.e. is milla_idle *guaranteed* to be TRUE. Nothing outside of this file should change this.
 	VAR_PRIVATE/in_milla_safe_code = FALSE
+
+	/// What sleeping callbacks are currently running?
+	VAR_PRIVATE/list/sleepers = list()
 
 	/// A list of callbacks waiting for MILLA to finish its tick and enter synchronous mode.
 	var/list/waiting_for_sync = list()
+	var/list/sleepable_waiting_for_sync = list()
 
 	/// The coordinates of the pressure image we're currently loading.
 	var/pressure_x = 0
@@ -157,8 +161,7 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = TRUE
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
-	setup_allturfs()
-	setup_write_to_milla()
+	setup_turfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -173,22 +176,25 @@ SUBSYSTEM_DEF(air)
 	machinery_to_construct = SSair.machinery_to_construct
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
-	is_synchronous = SSair.is_synchronous
+	milla_idle = SSair.milla_idle
 
 #define SLEEPABLE_TIMER (world.time + world.tick_usage * world.tick_lag / 100)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
-	if(!is_synchronous)
+	if(!milla_idle || length(sleepers) > 0)
 		var/timer = SLEEPABLE_TIMER
 
-		while(!is_synchronous)
+		while(!milla_idle || length(sleepers) > 0)
 			// Sleep for 1ms.
 			sleep(0.01)
-			if(MC_TICK_CHECK)
-				time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, FALSE)
-				return
+			var/new_timer = SLEEPABLE_TIMER
+			time_slept.record_progress((new_timer - timer) * 100, FALSE)
+			timer = new_timer
 
 		time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, TRUE)
+
+		// Run the sleepless callbacks again in case more showed up since on_milla_tick_finished()
+		run_sleepless_callbacks()
 
 	fire_sleepless(resumed)
 #undef SLEEPABLE_TIMER
@@ -308,7 +314,7 @@ SUBSYSTEM_DEF(air)
 		timer = TICK_USAGE_REAL
 
 		spawn_milla_tick_thread()
-		is_synchronous = FALSE
+		milla_idle = FALSE
 
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
@@ -614,14 +620,10 @@ SUBSYSTEM_DEF(air)
 			last_bound_mixtures = length(bound_mixtures)
 			return
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
+/datum/controller/subsystem/air/proc/setup_turfs(turf/low_corner = locate(1, 1, 1), turf/high_corner = locate(world.maxx, world.maxy, world.maxz))
+	for(var/turf/T as anything in block(low_corner, high_corner))
 		T.Initialize_Atmos(times_fired)
-		CHECK_TICK
-
-/datum/controller/subsystem/air/proc/setup_allturfs_sleepless(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/turf/T as anything in turfs_to_init)
-		T.Initialize_Atmos(times_fired)
+	milla_load_turfs(low_corner, high_corner)
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
@@ -714,27 +716,61 @@ SUBSYSTEM_DEF(air)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if(is_synchronous)
+	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
+	set waitfor = FALSE
+
+	if(milla_idle)
 		var/was_safe = SSair.in_milla_safe_code
 		SSair.in_milla_safe_code = TRUE
-		// This is one of two intended places to call this otherwise-unsafe proc.
+		// This is one of four intended places to call this otherwise-unsafe proc.
 		CB.private_unsafe_invoke()
 		SSair.in_milla_safe_code = was_safe
 		return
 
 	waiting_for_sync += CB
 
+/// Similar to addtimer, but triggers once MILLA enters synchronous mode. This version allows for sleeping if it's absolutely necessary.
+/datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe_must_sleep/CB)
+	if(length(sleepers))
+		sleepers += CB
+		// This is one of four intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
+		sleepers -= CB
+		return
+
+	sleepable_waiting_for_sync += CB
+
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
-	return in_milla_safe_code
+	return in_milla_safe_code || length(sleepers) > 0
 
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
-	is_synchronous = TRUE
+	milla_idle = TRUE
+	run_sleepless_callbacks()
+	run_sleeping_callbacks()
+
+/datum/controller/subsystem/air/proc/run_sleepless_callbacks()
+	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
+	set waitfor = FALSE
+
 	in_milla_safe_code = TRUE
 	for(var/datum/milla_safe/CB as anything in waiting_for_sync)
-		// This is one of two intended places to call this otherwise-unsafe proc.
+		// This is one of four intended places to call this otherwise-unsafe proc.
 		CB.private_unsafe_invoke()
 	waiting_for_sync.Cut()
 	in_milla_safe_code = FALSE
+
+/datum/controller/subsystem/air/proc/run_sleeping_callbacks()
+	in_milla_safe_code = TRUE
+	for(var/datum/milla_safe_must_sleep/CB as anything in sleepable_waiting_for_sync)
+		sleepers += CB
+		// This is one of four intended places to call this otherwise-unsafe proc.
+		CB.private_unsafe_invoke()
+		sleepers -= CB
+	sleepable_waiting_for_sync.Cut()
+	in_milla_safe_code = FALSE
+
+/datum/controller/subsystem/air/proc/has_sleeper(datum/milla_safe_must_sleep/sleeper)
+	return sleeper in sleepers
 
 /proc/milla_tick_finished()
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -807,6 +843,56 @@ SUBSYSTEM_DEF(air)
 
 /// Completely replace the air for a turf. Only use from `on_run`.
 /datum/milla_safe/proc/set_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.copy_from(air)
+
+/// Create a subclass of this and implement `on_run` to manipulate tile air safely. ONLY USE THIS VERSION IF YOU CAN'T AVOID SLEEPING; it will delay atmos ticks!
+/datum/milla_safe_must_sleep
+	var/run_args = list()
+
+/// All subclasses should implement this.
+/datum/milla_safe_must_sleep/proc/on_run(...)
+	CRASH("[src.type] does not implement on_run")
+
+/// Call this to make the subclass run when it's safe to do so. Args will be passed to on_run.
+/datum/milla_safe_must_sleep/proc/invoke_async(...)
+	run_args = args.Copy()
+	SSair.sleepable_synchronize(src)
+
+/// Do not call this yourself. This is what is called to run your code from a safe context.
+/datum/milla_safe_must_sleep/proc/private_unsafe_invoke()
+	soft_assert_safe()
+	on_run(arglist(run_args))
+
+/// Used internally to check that we're running safely, but without breaking things worse if we aren't.
+/datum/milla_safe_must_sleep/proc/soft_assert_safe()
+	ASSERT(SSair.has_sleeper(src))
+
+/// Fetch the air for a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/get_turf_air(turf/T)
+	RETURN_TYPE(/datum/gas_mixture)
+	soft_assert_safe()
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+	if(!air.synchronized)
+		air.synchronized = TRUE
+		SSair.bound_mixtures += air
+	return air
+
+/// Add air to a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/add_turf_air(turf/T, datum/gas_mixture/air)
+	var/datum/gas_mixture/turf_air = get_turf_air(T)
+	turf_air.merge(air)
+
+/// Completely replace the air for a turf. Only use from `on_run`.
+/datum/milla_safe_must_sleep/proc/set_turf_air(turf/T, datum/gas_mixture/air)
 	var/datum/gas_mixture/turf_air = get_turf_air(T)
 	turf_air.copy_from(air)
 

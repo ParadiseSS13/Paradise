@@ -448,12 +448,12 @@
 		if(!canMove())
 			return -1
 
-	var/datum/milla_safe/docking_port_dock/milla = new()
+	var/datum/milla_safe_must_sleep/docking_port_dock/milla = new()
 	milla.invoke_async(src, S1, force, transit)
 
-/datum/milla_safe/docking_port_dock
+/datum/milla_safe_must_sleep/docking_port_dock
 
-/datum/milla_safe/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
+/datum/milla_safe_must_sleep/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
 	// Re-check that it's OK to dock.
 	if(S1.get_docked() == mobile_port)
 		mobile_port.remove_ripples()

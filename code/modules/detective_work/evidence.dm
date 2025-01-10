@@ -41,7 +41,7 @@
 		if(isstorage(I.loc))	//in a container.
 			var/obj/item/storage/U = I.loc
 			U.remove_from_storage(I, src)
-		else if(!user.is_holding(I) || !user.unEquip(I))					//in a hand
+		else if(!user.is_holding(I) || !user.unequip(I))					//in a hand
 			return
 
 	user.visible_message("<span class='notice'>[user] puts [I] into [src].</span>", "<span class='notice'>You put [I] inside [src].</span>",\

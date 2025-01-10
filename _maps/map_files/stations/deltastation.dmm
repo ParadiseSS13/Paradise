@@ -22142,7 +22142,7 @@
 /turf/simulated/floor/greengrid,
 /area/station/command/vault)
 "bzj" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -24634,7 +24634,6 @@
 	},
 /area/station/medical/virology)
 "bGd" = (
-/obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -24647,6 +24646,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "bGl" = (
@@ -28314,9 +28314,7 @@
 /obj/machinery/ai_slipper,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bRC" = (
 /obj/structure/chair/comfy/shuttle{
@@ -28328,9 +28326,7 @@
 /area/shuttle/arrival/station)
 "bRD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bRL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -28941,9 +28937,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bTD" = (
 /obj/structure/cable{
@@ -28955,9 +28949,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /mob/living/simple_animal/bot/secbot/pingsky,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bTE" = (
 /obj/structure/cable{
@@ -28969,9 +28961,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bTF" = (
 /obj/structure/cable{
@@ -28981,9 +28971,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bTG" = (
 /obj/structure/cable{
@@ -29761,14 +29749,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bVS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "bVT" = (
 /obj/structure/showcase{
@@ -32084,6 +32068,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "cel" = (
@@ -33756,6 +33741,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "ckQ" = (
@@ -51799,9 +51785,7 @@
 "dBv" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "dBx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -52018,9 +52002,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/theatre)
 "dCt" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "dCu" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -52044,9 +52026,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "dCx" = (
 /obj/structure/grille,
@@ -52394,9 +52374,7 @@
 /area/station/maintenance/theatre)
 "dDO" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "dDP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -58245,6 +58223,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "eVz" = (
@@ -59534,9 +59513,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_uplift,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
 /obj/item/lighter/zippo,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "fJH" = (
 /obj/machinery/cryopod/right{
@@ -60605,9 +60582,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "gmT" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -61663,9 +61638,7 @@
 /obj/item/folder/white,
 /obj/item/folder/red,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "gTN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -67801,9 +67774,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "kxH" = (
 /obj/structure/cable{
@@ -69519,9 +69490,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "luT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -70942,9 +70911,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "mod" = (
 /turf/simulated/floor/plasteel{
@@ -75319,9 +75286,7 @@
 	},
 /area/station/security/permabrig)
 "oII" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/starboard)
 "oIJ" = (
 /obj/item/beacon,
@@ -75679,12 +75644,8 @@
 /area/station/hallway/primary/port/west)
 "oRu" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/book/manual/wiki/sop_security,
 /obj/machinery/light,
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76960,11 +76921,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pBA" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /obj/machinery/camera{
 	c_tag = "Brig Cell 2";
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -77289,9 +77250,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/turret_protected/aisat)
 "pKg" = (
 /obj/effect/spawner/window/reinforced,
@@ -77507,9 +77466,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "pPG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -80413,7 +80370,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "rtQ" = (
-/obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -80432,6 +80388,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -80725,6 +80682,12 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint)
+"rBj" = (
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/a)
 "rBP" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -81322,9 +81285,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/theatre)
 "rTM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -82479,11 +82440,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "ssh" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_5,
 /obj/machinery/flasher{
 	id = "Cell 2";
 	pixel_y = -26
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -85537,6 +85498,13 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/book/manual/wiki/sop_security{
+	pixel_x = -9
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
@@ -147151,7 +147119,7 @@ aPx
 kbZ
 vOc
 viy
-bzj
+rBj
 mAS
 spL
 hWP
