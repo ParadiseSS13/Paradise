@@ -85,6 +85,14 @@
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/pressure_overlay/pressure_overlay
 
+	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
+	var/list/milla_superconductivity = list(
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT)
+	var/list/milla_data = list()
+
 	new_attack_chain = TRUE
 
 /turf/Initialize(mapload)
