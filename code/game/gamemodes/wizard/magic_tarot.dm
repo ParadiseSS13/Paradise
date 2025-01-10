@@ -682,7 +682,7 @@
 	for(var/obj/item/I in H)
 		if(istype(I, /obj/item/bio_chip))
 			continue
-		H.unEquip(I)
+		H.drop_item_to_ground(I)
 
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
