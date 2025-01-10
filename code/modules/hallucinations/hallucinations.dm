@@ -20,6 +20,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/fake_item = 15,
 		/obj/effect/hallucination/fake_weapon = 15,
 		/obj/effect/hallucination/husks = 15,
+		/obj/effect/hallucination/ventpeek = 15,
 	),
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/abduction = 10,
