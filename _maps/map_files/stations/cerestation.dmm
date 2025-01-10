@@ -11856,9 +11856,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction/reversed{
-	dir = 1
-	},
+/obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
