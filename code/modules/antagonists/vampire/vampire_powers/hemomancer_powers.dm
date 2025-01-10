@@ -250,7 +250,7 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return FALSE
 	var/mob/living/L = mover
@@ -270,7 +270,6 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool

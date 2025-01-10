@@ -44,6 +44,10 @@
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 	set_initial_icon_state()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/shard/afterattack__legacy__attackchain(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
@@ -70,12 +74,12 @@
 	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack.</span>")
 	qdel(src)
 
-/obj/item/shard/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
+/obj/item/shard/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered) && has_gravity(loc))
+		if(living_entered.incorporeal_move || HAS_TRAIT(living_entered, TRAIT_FLYING) || living_entered.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-	return ..()
 
 /obj/item/shard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 3

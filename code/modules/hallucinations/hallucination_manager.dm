@@ -36,7 +36,9 @@
 
 /datum/hallucination_manager/proc/spawn_hallucination()
 	var/turf/spawn_location = get_spawn_location()
-	initial_hallucination = new(spawn_location, owner)
+	if(!spawn_location)
+		return
+	initial_hallucination = new initial_hallucination(spawn_location, owner)
 	hallucination_list |= initial_hallucination
 	on_spawn()
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_trigger)), trigger_time, TIMER_DELETE_ME)

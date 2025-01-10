@@ -108,11 +108,12 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(isliving(A))
-		var/mob/living/L = A
-		if(L.mind?.special_role)
-			return TRUE
-	return FALSE
+	if(!isliving(A))
+		return FALSE
+	var/mob/living/L = A
+	if(!L.mind || !L.mind.special_role)
+		return FALSE
+	return L.mind.special_role != SPECIAL_ROLE_ERT
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
@@ -185,6 +186,7 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
 		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
 		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
 		M.key = theghost.key
@@ -348,6 +350,17 @@
 		returntext += letter
 
 	return returntext
+
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
 
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)

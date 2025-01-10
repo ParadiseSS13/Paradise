@@ -83,7 +83,7 @@
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(!modifiable_timer)
@@ -117,10 +117,11 @@
 
 /obj/item/grenade/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
 	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
 	AddComponent(/datum/component/boomerang, throw_range, TRUE)
+	return TRUE
 
 /obj/item/grenade/uncmag()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))

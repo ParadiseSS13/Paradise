@@ -34,10 +34,6 @@ RESTRICT_TYPE(/datum/team/cult)
 	/// Timer until we do a recount of cultist members
 	var/recount_timer
 
-/datum/team/cult/New(list/starting_members)
-	. = ..()
-	recount_timer = addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 5 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_LOOP)
-
 /datum/team/cult/Destroy(force, ...)
 	deltimer(recount_timer)
 	return ..()
@@ -51,6 +47,7 @@ RESTRICT_TYPE(/datum/team/cult)
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 
 	create_next_sacrifice()
+	recount_timer = addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 5 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_LOOP)
 
 	for(var/datum/mind/M as anything in starting_members)
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)

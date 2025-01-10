@@ -13,11 +13,11 @@
 	no_spin = TRUE
 
 	var/obj/item/paper/internal_paper
+	scatter_distance = 8
 
 /obj/item/paperplane/New(loc, obj/item/paper/new_paper)
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	scatter_atom()
 	if(new_paper)
 		internal_paper = new_paper
 		flags = new_paper.flags
@@ -74,14 +74,14 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
 
 		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
 			return
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
 		fire_act()
 
@@ -113,7 +113,7 @@
 		if((!in_range(src, user)) || user.stat || user.restrained())
 			return
 		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
-		user.unEquip(src)
+		user.unequip(src) // forceMove happens in paperplane/Initialize
 		I = new /obj/item/paperplane(user, src)
 		user.put_in_hands(I)
 	else
