@@ -1047,7 +1047,7 @@
 				if("cogbar")
 					toggles3 ^= PREFTOGGLE_3_COGBAR_ANIMATIONS
 					if(length(parent?.screen))
-						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/point) in parent.screen
+						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/cogbar) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("be_special")
