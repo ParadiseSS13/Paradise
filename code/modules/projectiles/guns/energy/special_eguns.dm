@@ -684,6 +684,14 @@
 	else
 		return ..()
 
+/obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+
+/obj/item/gun/energy/bsg/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
 		to_chat(user, "<span class='warning'>[src] has no bluespace crystal to power it!</span>")
@@ -1028,7 +1036,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return

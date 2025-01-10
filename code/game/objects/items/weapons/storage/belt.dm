@@ -70,11 +70,17 @@
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				if(M.unEquip(src, silent = TRUE))
-					M.put_in_r_hand(src)
+				if(M.unequip(src))
+					if(M.r_hand)
+						M.drop_item_to_ground(src)
+					else
+						M.put_in_r_hand(src)
 			if("l_hand")
-				if(M.unEquip(src, silent = TRUE))
-					M.put_in_l_hand(src)
+				if(M.unequip(src))
+					if(M.l_hand)
+						M.drop_item_to_ground(src)
+					else
+						M.put_in_l_hand(src)
 		add_fingerprint(usr)
 		return
 
@@ -133,6 +139,14 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
+	update_icon()
+
+/obj/item/storage/belt/utility/brass/populate_contents()
+	new /obj/item/wrench/brass(src)
+	new /obj/item/crowbar/brass(src)
+	new /obj/item/screwdriver/brass(src)
+	new /obj/item/weldingtool/experimental/brass(src)
+	new /obj/item/wirecutters/brass(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/chief

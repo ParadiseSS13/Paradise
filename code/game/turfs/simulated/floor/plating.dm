@@ -48,73 +48,70 @@
 	if(unfastened)
 		. += "<span class='warning'>It has been unfastened.</span>"
 
-/turf/simulated/floor/plating/attackby__legacy__attackchain(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
-
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/plating/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return TRUE
-		var/obj/item/stack/rods/R = C
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/rods/R = used
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
+			if(do_after(user, 30 * used.toolspeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
-					playsound(src, C.usesound, 80, 1)
+					playsound(src, used.usesound, 80, 1)
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/stack/tile))
+	else if(istype(used, /obj/item/stack/tile))
 		if(!broken && !burnt)
-			var/obj/item/stack/tile/W = C
+			var/obj/item/stack/tile/W = used
 			if(!W.use(1))
-				return
+				return ITEM_INTERACT_COMPLETE
 			ChangeTurf(W.turf_type)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
-		return TRUE
-
-	else if(is_glass_sheet(C))
+			return ITEM_INTERACT_COMPLETE
+	else if(is_glass_sheet(used))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return TRUE
-		var/obj/item/stack/sheet/R = C
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/sheet/R = used
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two sheets to build a [C.name] floor!</span>")
-			return TRUE
-		to_chat(user, "<span class='notice'>You begin swapping the plating for [C]...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed, target = src))
+			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
+		if(do_after(user, 3 SECONDS * used.toolspeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
-				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
+				if(istype(used, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
-				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
+				else if(istype(used, /obj/item/stack/sheet/plasmarglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
-				else if(istype(C, /obj/item/stack/sheet/glass))
+				else if(istype(used, /obj/item/stack/sheet/glass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass)
-				else if(istype(C, /obj/item/stack/sheet/rglass))
+				else if(istype(used, /obj/item/stack/sheet/rglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
-				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
+				else if(istype(used, /obj/item/stack/sheet/titaniumglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
-				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
+				else if(istype(used, /obj/item/stack/sheet/plastitaniumglass))
 					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
-				playsound(src, C.usesound, 80, TRUE)
+				playsound(src, used.usesound, 80, TRUE)
 				R.use(2)
-				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
+				to_chat(user, "<span class='notice'>You swap the plating for [used].</span>")
 				new /obj/item/stack/sheet/metal(src, 2)
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
+	else if(istype(used, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
 		if(user.drop_item())
-			C.forceMove(src)
+			used.forceMove(src)
 
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
@@ -393,20 +390,22 @@
 		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
-		return TRUE
+		return FINISH_ATTACK
 
-	if(istype(C) && C.force)
+	if(istype(attacking) && attacking.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		var/smash_prob = max(0, attacking.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
-			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
+			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [attacking]!</span>")
 			smash()
+			return FINISH_ATTACK
 		else
-			visible_message("<span class='warning'>[user]'s [C.name] bounces against \the [src]!</span>")
+			visible_message("<span class='warning'>[user]'s [attacking.name] bounces against \the [src]!</span>")
+			return FINISH_ATTACK
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)

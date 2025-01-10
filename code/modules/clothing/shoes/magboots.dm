@@ -101,7 +101,7 @@
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
@@ -277,7 +277,7 @@
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			return
 		I.forceMove(src)
 		cell = I

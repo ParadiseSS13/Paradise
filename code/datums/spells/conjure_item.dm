@@ -5,7 +5,6 @@
 	clothes_req = FALSE
 	var/obj/item/item
 	var/item_type = /obj/item/banhammer
-	school = "conjuration"
 	base_cooldown = 15 SECONDS
 	cooldown_min = 10
 

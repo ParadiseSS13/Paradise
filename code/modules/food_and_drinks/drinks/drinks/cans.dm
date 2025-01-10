@@ -165,13 +165,6 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
-/obj/item/reagent_containers/drinks/cans/beer
-	name = "space beer"
-	desc = "Contains only water, malt and hops."
-	icon_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("beer" = 30)
-
 /obj/item/reagent_containers/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
@@ -192,14 +185,6 @@
 	icon_state = "badminbrew"
 	is_glass = TRUE
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
-
-/obj/item/reagent_containers/drinks/cans/ale
-	name = "Magm-Ale"
-	desc = "A true dorf's drink of choice."
-	icon_state = "alebottle"
-	item_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("ale" = 30)
 
 /obj/item/reagent_containers/drinks/cans/space_mountain_wind
 	name = "Space Mountain Wind"

@@ -52,8 +52,8 @@
 			overlays += I
 	else
 		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+		name = initial(name)
+		desc = initial(desc)
 
 // for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/drinks/drinkingglass/soda

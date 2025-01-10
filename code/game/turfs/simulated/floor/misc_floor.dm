@@ -118,7 +118,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/AM, direction)
 	. = ..()
 	if(!linkedcontroller)
 		return

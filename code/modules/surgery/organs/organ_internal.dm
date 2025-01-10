@@ -211,7 +211,7 @@
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack(H, H)
+			S.attack__legacy__attackchain(H, H)
 			qdel(src)
 	else
 		..()
@@ -319,7 +319,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
+				if(H.drop_item_to_ground(H.shoes))
 					walk_away(thingy,H,15,2)
 					spawn(20)
 						if(thingy)

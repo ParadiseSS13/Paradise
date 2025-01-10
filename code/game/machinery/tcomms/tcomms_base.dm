@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   *
   * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
   */
-/obj/machinery/tcomms/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(active)
 		active = FALSE

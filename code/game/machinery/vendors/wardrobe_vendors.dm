@@ -196,7 +196,8 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 3,
 					/obj/item/clothing/under/plasmaman/medical = 3)
 
-	contraband = list(/obj/item/toy/figure/crew/md = 1)
+	contraband = list(/obj/item/toy/figure/crew/md = 1,
+					/obj/item/toy/figure/crew/cmo = 1)
 
 	prices = list(/obj/item/clothing/under/rank/medical/doctor = 50,
 				/obj/item/clothing/under/rank/medical/doctor/skirt = 50,
@@ -921,3 +922,41 @@
 				/obj/item/clothing/under/plasmaman/enviroslacks = 60)
 
 	refill_canister = /obj/item/vending_refill/lawdrobe
+
+/obj/machinery/economy/vending/traindrobe
+	name = "\improper TrainDrobe"
+	desc = "This wardrobe dispenses the attire of Nanotrasen's finest teaching force."
+	icon_state = "traindrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("You're gonna LEARN today!", "What am I supposed to do?")
+	vend_reply = "Thank you for using the TrainDrobe!"
+	products = list(
+		/obj/item/clothing/gloves/color/white = 2,
+		/obj/item/clothing/gloves/color/black = 2,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/black = 2,
+		/obj/item/clothing/shoes/brown = 2,
+		/obj/item/clothing/head/drilltrainer = 2,
+		/obj/item/clothing/under/rank/procedure/nct = 2,
+		/obj/item/clothing/under/rank/procedure/nct/skirt = 2,
+		/obj/item/clothing/suit/storage/nct = 2,
+		/obj/item/clothing/head/helmet/space/plasmaman/trainer = 2,
+		/obj/item/clothing/under/plasmaman/trainer = 2,
+		/obj/item/clothing/accessory/armband/procedure = 2,
+		/obj/item/clothing/head/beret/nct/green = 2,
+		/obj/item/clothing/head/beret/nct/black = 2,
+		/obj/item/clothing/head/beret/sec = 2,
+		/obj/item/clothing/head/beret/med = 2,
+		/obj/item/clothing/head/beret/sci = 2,
+		/obj/item/clothing/head/beret/eng = 2,
+		/obj/item/clothing/head/beret/atmos = 2,
+		/obj/item/clothing/head/beret/cargo = 2,
+		/obj/item/clothing/head/beret/black = 2)
+
+	prices = list()
+
+	refill_canister = /obj/item/vending_refill/traindrobe

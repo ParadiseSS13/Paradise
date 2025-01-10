@@ -210,31 +210,37 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
-	color = rgb(141,70,0)
+	color = rgb(128,83,51)
 
 /obj/structure/chair/comfy/red
-	color = rgb(218,2,10)
+	color = rgb(204, 62, 66)
 
 /obj/structure/chair/comfy/teal
-	color = rgb(0,234,250)
+	color = rgb(64,186,174)
 
 /obj/structure/chair/comfy/black
-	color = rgb(60,60,60)
+	color = rgb(74,74,85)
 
 /obj/structure/chair/comfy/green
-	color = rgb(1,196,8)
+	color = rgb(78,188,81)
 
 /obj/structure/chair/comfy/purp
-	color = rgb(112,2,176)
+	color = rgb(138,80,180)
 
 /obj/structure/chair/comfy/blue
-	color = rgb(2,9,210)
+	color = rgb(70,90,190)
 
 /obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+	color = rgb(174,169,147)
 
 /obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
+	color = rgb(160,251,66)
+
+/obj/structure/chair/comfy/yellow
+	color = rgb(216,187,70)
+
+/obj/structure/chair/comfy/orange
+	color = rgb(229,111,52)
 
 /obj/structure/chair/office
 	anchored = FALSE
@@ -372,6 +378,19 @@
 
 /obj/structure/chair/sofa/pew/right
 	icon_state = "pewend_right"
+
+/obj/structure/chair/sofa/pew/clockwork
+	name = "brass pew"
+	desc = "An ornate pew fashioned from brass. It is even less comfortable than a regular pew, but it does radiate a pleasent warmth."
+	icon_state = "clockwork_pew_middle"
+	buildstacktype = /obj/item/stack/tile/brass
+	buildstackamount = 5
+
+/obj/structure/chair/sofa/pew/clockwork/left
+	icon_state = "clockwork_pew_left"
+
+/obj/structure/chair/sofa/pew/clockwork/right
+	icon_state = "clockwork_pew_right"
 
 /obj/structure/chair/sofa/bench
 	name = "bench"
@@ -574,7 +593,7 @@
 /obj/item/chair/stool/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
+		user.unequip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)

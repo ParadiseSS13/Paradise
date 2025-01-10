@@ -262,7 +262,14 @@
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
 
-	forceMove(get_turf(owner))
+	// In-game, organs will be moved to their parent turf.
+	// During ghost-mob creation, we toss the organs
+	// after we're done generating the sprite with them,
+	// so to nullspace they go.
+	if(get_turf(owner))
+		forceMove(get_turf(owner))
+	else
+		moveToNullspace()
 	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

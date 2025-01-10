@@ -136,6 +136,8 @@
 
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced // Prevents you from automatically grabbing walls to stop moving in space.
+
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
 
 #define STATUS_EFFECT_RUST_CORRUPTION /datum/status_effect/rust_corruption
@@ -168,6 +170,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar

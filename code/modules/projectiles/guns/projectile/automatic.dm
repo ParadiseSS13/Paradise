@@ -50,7 +50,7 @@
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
 			if(alarmed)
 				alarmed = 0
-			user.remove_from_mob(AM)
+			user.unequip(AM)
 			magazine = AM
 			magazine.loc = src
 			chamber_round()

@@ -59,9 +59,9 @@
 /obj/item/melee/saber/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
-/obj/item/melee/saber/attack(mob/living/target, mob/living/user)
+/obj/item/melee/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(user.a_intent != INTENT_HELP || !ishuman(target))
 		return ..()
 	if(!COOLDOWN_FINISHED(src, slap_cooldown))

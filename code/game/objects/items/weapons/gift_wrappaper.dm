@@ -14,11 +14,11 @@
 	icon_state = "gift1"
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
+	scatter_distance = 10
 
 /obj/item/a_gift/New()
 	..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
+	scatter_atom()
 	if(w_class > 0 && w_class < 4)
 		icon_state = "gift[w_class]"
 	else
@@ -54,7 +54,12 @@
 	qdel(src)
 
 /obj/item/a_gift/attack_self__legacy__attackchain(mob/M as mob)
-	var/gift_type = pick(/obj/item/sord,
+	var/gift_type = pick(
+		/obj/effect/spawner/random/toy/carp_plushie,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/toy/action_figure,
+		/obj/effect/spawner/random/toy/mech_figure,
+		/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
 		/obj/item/storage/box/snappops,
@@ -76,7 +81,6 @@
 		/obj/item/gun/projectile/shotgun/toy/crossbow,
 		/obj/item/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
-		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
 		/obj/item/food/grown/ambrosia/deus,
@@ -85,10 +89,7 @@
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,
 		/obj/item/storage/belt/utility/full,
-		/obj/item/clothing/accessory/horrible,
-		/obj/random/carp_plushie,
-		/obj/random/plushie,
-		/obj/random/figure,
+		/obj/item/clothing/neck/tie/horrible,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
 		/obj/item/deck/unum,
@@ -118,7 +119,7 @@
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.unequip(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

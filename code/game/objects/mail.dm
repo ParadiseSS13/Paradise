@@ -33,7 +33,7 @@
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-		user.unEquip(src)
+		user.unequip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
@@ -135,7 +135,7 @@
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
-							/obj/item/reagent_containers/drinks/cans/beer,
+							/obj/item/reagent_containers/drinks/bottle/beer,
 							/obj/item/food/candy/confectionery/nougat,
 							/obj/item/mod/module/storage/large_capacity,
 							/obj/item/weldingtool/hugetank,
@@ -198,7 +198,7 @@
 							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
+	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
