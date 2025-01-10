@@ -35,6 +35,12 @@
 	print_reference()
 	return ..()
 
+/obj/item/eftpos/Destroy()
+	if(eftpos_sindy_key)
+		qdel(eftpos_sindy_key)
+
+	return ..()
+
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
 

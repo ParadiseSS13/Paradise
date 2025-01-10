@@ -23,8 +23,8 @@
 	ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_CARGO )
 
 // interaction called on using agent card with Hacked EFTPOS terminal. Uppdates acsesses
-/obj/item/eftpos_hack_key/proc/read_agent_card(obj/item/card/id/syndicate/card, mob/living/user)
-	if(!istype(card))
+/obj/item/eftpos_hack_key/proc/read_agent_card(obj/item/card/id/syndicate/agent_card, mob/living/user)
+	if(!istype(agent_card))
 		return
 	if(isliving(user) && user?.mind?.special_role)
 		to_chat(usr, "<span class='notice'>The card's microsensors activate as you pass it through the terminal, adding access permissions.</span>")
@@ -158,7 +158,7 @@
 
 
 // Logic of access theft
-/obj/item/eftpos_hack_key/proc/update_access(/obj/item/card/id/card)
+/obj/item/eftpos_hack_key/proc/update_access(obj/item/card/id/card)
 
 	if(!istype(card))
 		return
