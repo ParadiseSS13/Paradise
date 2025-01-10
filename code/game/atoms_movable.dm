@@ -643,7 +643,7 @@
 	return FALSE
 
 /atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
-	if(!loc || Process_Spacemove(direction, continuous_move = TRUE))
+	if(!isturf(loc) || Process_Spacemove(direction, continuous_move = TRUE))
 		return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction, start_delay) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
