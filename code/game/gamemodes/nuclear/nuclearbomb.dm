@@ -228,9 +228,18 @@ GLOBAL_VAR(bomb_set)
 			update_icon(UPDATE_OVERLAYS)
 			return
 
-	else if(istype(O, /obj/item/disk/plantgene))
+	if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
 		return
+
+	else if(istype(O, /obj/item/disk))
+		if(O.icon_state == "datadisk4") //A similar green disk icon
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit! This isn't the NAD! If only you'd read the label...</span>")
+			return
+		else
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit. This isn't the NAD! It's not even the right colour...</span>")
+			return
+
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
