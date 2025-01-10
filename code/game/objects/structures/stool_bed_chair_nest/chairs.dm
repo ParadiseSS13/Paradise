@@ -276,7 +276,7 @@
 /obj/structure/chair/office/dark
 	icon_state = "officechair_dark"
 
-/obj/structure/chair/office/proc/GetArmrest()
+/obj/structure/chair/office/proc/get_armrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
 
 /obj/structure/chair/office/Initialize(mapload)
