@@ -9,7 +9,7 @@
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
-	var/image/broken_icon_state = "mirror_broke"
+	var/broken_icon_state = "mirror_broke"
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
