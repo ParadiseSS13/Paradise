@@ -70,7 +70,7 @@
 		if(leaf.dry)
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
-			usr.unEquip(W)
+			user.unequip(leaf)
 			usr.put_in_active_hand(T)
 			qdel(leaf)
 			qdel(src)
@@ -174,8 +174,7 @@
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
-			L.pixel_x += rand(1,4)
-			L.pixel_y += rand(1,4)
+			L.scatter_atom()
 		qdel(src)
 		return
 	..()

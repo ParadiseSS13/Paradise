@@ -277,7 +277,7 @@
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			return
 		I.forceMove(src)
 		cell = I

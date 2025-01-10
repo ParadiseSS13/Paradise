@@ -66,3 +66,10 @@
 
 /datum/test_puppeteer/proc/rejuvenate()
 	puppet.rejuvenate()
+
+/datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
+	if(!(puppet.mind.key in GLOB.game_test_chats))
+		return FALSE
+	var/list/puppet_chat_list = GLOB.game_test_chats[puppet.mind.key]
+	var/last_chat_html = puppet_chat_list[length(puppet_chat_list)]
+	return findtextEx(last_chat_html, snippet)

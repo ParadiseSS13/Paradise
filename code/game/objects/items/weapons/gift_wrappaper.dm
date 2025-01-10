@@ -14,11 +14,11 @@
 	icon_state = "gift1"
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
+	scatter_distance = 10
 
 /obj/item/a_gift/New()
 	..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
+	scatter_atom()
 	if(w_class > 0 && w_class < 4)
 		icon_state = "gift[w_class]"
 	else
@@ -119,7 +119,7 @@
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.unequip(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

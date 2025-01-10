@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/structure/janitorialcart/proc/put_in_cart(mob/user, obj/item/I)
-	if(!user.unEquip(I)) // We can do this here because everything below wants to
+	if(!user.unequip(I)) // We can do this here because everything below wants to
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 		return
 
