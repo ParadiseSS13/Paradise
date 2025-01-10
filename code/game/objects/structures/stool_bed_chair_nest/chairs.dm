@@ -280,7 +280,7 @@
 	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
 
 /obj/structure/chair/office/Initialize(mapload)
-	armrest = GetArmrest()
+	armrest = get_armrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
