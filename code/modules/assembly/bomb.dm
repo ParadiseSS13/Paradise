@@ -12,6 +12,13 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
+/obj/item/onetankbomb/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
 	. += bombtank.examine(user)
@@ -74,9 +81,9 @@
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
 
-/obj/item/onetankbomb/Crossed(atom/movable/AM, oldloc) //for mousetraps
+/obj/item/onetankbomb/proc/on_atom_entered(datum/source, atom/movable/entered) //for mousetraps
 	if(bombassembly)
-		bombassembly.Crossed(AM, oldloc)
+		bombassembly.on_atom_entered(source, entered)
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
 	if(bombassembly)
@@ -103,7 +110,7 @@
 	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(loc)
 
 	M.drop_item()			//Remove the assembly from your hands
-	M.remove_from_mob(src)	//Remove the tank from your character,in case you were holding it
+	M.unequip(src)	//Remove the tank from your character,in case you were holding it
 	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
 
 	R.bombassembly = S	//Tell the bomb about its assembly part

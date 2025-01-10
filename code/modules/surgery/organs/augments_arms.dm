@@ -94,8 +94,7 @@
 		var/obj/item/flash/F = holder
 		F.set_light(0)
 
-	owner.unEquip(holder, 1)
-	holder.forceMove(src)
+	owner.transfer_item_to(holder, src, force = TRUE)
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
@@ -125,7 +124,7 @@
 			var/obj/item/offhand_arm_item = owner.get_active_hand()
 			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
 			return
-		else if(!owner.unEquip(arm_item))
+		else if(!owner.drop_item_to_ground(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else

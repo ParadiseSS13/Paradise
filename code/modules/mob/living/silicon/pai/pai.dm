@@ -242,6 +242,7 @@
 	name = "Unfold/Fold Chassis"
 	desc = "Allows you to fold in/out of your mobile form."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 20 SECONDS
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
@@ -263,7 +264,7 @@
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		holder.drop_item_to_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -342,7 +343,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.unEquip(H)
+			M.drop_item_to_ground(H)
 		H.loc = get_turf(src)
 		loc = get_turf(H)
 

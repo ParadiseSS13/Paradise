@@ -45,7 +45,7 @@
 	to_chat(user, "<span class='notice'>You start planting [src].</span>")
 	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
 		return
-	if(!user.unEquip(src))
+	if(!user.unequip(src))
 		return
 	target = AM
 	forceMove(AM)

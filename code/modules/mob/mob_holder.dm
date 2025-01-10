@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BOTH_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
 /obj/item/holder/New()
 	..()
@@ -49,7 +49,7 @@
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
 	else if(isitem(loc))

@@ -302,6 +302,7 @@ AI MODULES
 	to_chat(user, "<span class='warning'>Yellow ooze seeps into [src]'s circuits...</span>")
 	new /obj/item/ai_module/pranksimov(user.loc)
 	qdel(src)
+	return TRUE
 
 /******************* Quarantine ********************/
 /obj/item/ai_module/quarantine
