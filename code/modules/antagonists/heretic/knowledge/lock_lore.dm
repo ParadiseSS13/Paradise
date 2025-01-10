@@ -53,7 +53,7 @@
 
 /datum/heretic_knowledge/lock_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
-	var/obj/item/clothing/under/suit = target.get_item_by_slot(ITEM_SLOT_ICLOTHING)
+	var/obj/item/clothing/under/suit = target.get_item_by_slot(ITEM_SLOT_JUMPSUIT)
 	if(istype(suit) && suit.adjusted == NORMAL_STYLE)
 		suit.toggle_jumpsuit_adjust()
 		suit.update_appearance()
@@ -148,7 +148,7 @@
 	research_tree_icon_state = "blade_upgrade_lock"
 	var/chance = 35
 
-/datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(prob(chance))
 		return ..()
 

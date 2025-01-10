@@ -210,7 +210,7 @@
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/user, actiontype)
-	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/melee/sickly_blade/cursed)
+	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/sickly_blade/cursed)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, "<span class='notice'>You need to hold a ritual dagger to bind [src]!</span>")
 		return

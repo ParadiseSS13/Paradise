@@ -254,6 +254,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 /// Trait given to anything linked to, not necessarily allied to, the mansus
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// This trait makes you immune to baton knockdown.
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

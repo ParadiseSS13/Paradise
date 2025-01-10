@@ -66,6 +66,7 @@
 	var/filter = owner.get_filter(id)
 	animate(filter, alpha = 127, time = 1 SECONDS, loop = -1)
 	animate(alpha = 63, time = 2 SECONDS)
+	SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
 	return TRUE
 
 /datum/status_effect/realignment/on_remove()

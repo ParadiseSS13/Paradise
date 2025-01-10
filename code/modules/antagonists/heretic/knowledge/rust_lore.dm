@@ -132,7 +132,7 @@
 	. = ..()
 	our_heretic.increase_rust_strength()
 
-/datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 	target.adjust_disgust(50 SECONDS)

@@ -135,7 +135,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), BLADE_DANCE_COOLDOWN)
 
 /datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/sickly_blade/weapon, attack_text)
-	playsound(get_turf(source), 'sound/items/weapons/parry.ogg', 100, TRUE)
+	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	source.visible_message(
 		"<span class='warning'>[source] leans into [attack_text] and delivers a sudden riposte back at [target]!</span>",
 		"<span class='warning'>You lean into [attack_text] and deliver a sudden riposte back at [target]!</span>",
@@ -145,7 +145,7 @@
 
 /datum/heretic_knowledge/blade_dance/proc/reset_riposte(mob/living/carbon/human/source)
 	riposte_ready = TRUE
-	to_chat(user, "<span class='hierophant'>Your riposte is ready.</span>")
+	to_chat(source, "<span class='hierophant'>Your riposte is ready.</span>")
 
 #undef BLADE_DANCE_COOLDOWN
 
@@ -204,7 +204,7 @@
 	/// Whether we're currently in duelist stance, gaining certain buffs (low health)
 	var/in_duelist_stance = FALSE
 
-/datum/heretic_knowledge/duel_stance/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/duel_stance/on_gain(mob/living/carbon/user, datum/antagonist/heretic/our_heretic)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -212,19 +212,19 @@
 
 	on_health_update(user) // Run this once, so if the knowledge is learned while hurt it activates properly
 
-/datum/heretic_knowledge/duel_stance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/duel_stance/on_lose(mob/living/carbon/user, datum/antagonist/heretic/our_heretic)
 	REMOVE_TRAIT(user, TRAIT_NODISMEMBER, type)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags &= ~CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	if(in_duelist_stance)
-		REMOVE_TRAIT(owner, TRAIT_BATON_RESISTANCE, type)
+		REMOVE_TRAIT(user, TRAIT_BATON_RESISTANCE, type)
 
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_LIVING_HEALTH_UPDATE))
 
-/datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/source, mob/user, list/examine_list)
+/datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/carbon/user, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	var/obj/item/held_item = source.get_active_held_item()
+	var/obj/item/held_item = source.get_active_hand()
 	if(in_duelist_stance)
 		examine_list += "<span class='warning'>[source] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
 
@@ -233,12 +233,13 @@
 
 	if(in_duelist_stance && source.health > source.maxHealth * 0.5)
 		in_duelist_stance = FALSE
-		REMOVE_TRAIT(owner, TRAIT_BATON_RESISTANCE, type)
+		REMOVE_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
 		return
 
 	if(!in_duelist_stance && source.health <= source.maxHealth * 0.5)
 		in_duelist_stance = TRUE
 		ADD_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
+		SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
 		return
 
 #undef BLOOD_FLOW_PER_SEVEIRTY
@@ -290,7 +291,7 @@
 
 	return COMPONENT_CAST_HANDLESS
 
-/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/source, atom/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/source, atom/target, obj/item/sickly_blade/blade)
 	if(target == source)
 		return
 
@@ -305,7 +306,7 @@
 	// Give it a short delay (for style, also lets people dodge it I guess)
 	addtimer(CALLBACK(src, PROC_REF(follow_up_attack), source, target, off_hand), 0.25 SECONDS)
 
-/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/source, atom/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/source, atom/target, obj/item/sickly_blade/blade)
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
@@ -369,7 +370,6 @@
 	gain_text = "The Torn Champion is freed! I will become the blade reunited, and with my greater ambition, \
 		I AM UNMATCHED! A STORM OF STEEL AND SILVER IS UPON US! WITNESS MY ASCENSION!"
 
-	ascension_achievement = /datum/award/achievement/misc/blade_ascension
 	announcement_text = "%SPOOKY% Master of blades, the Torn Champion's disciple, %NAME% has ascended! Their steel is that which will cut reality in a maelstom of silver! %SPOOKY%"
 	announcement_sound = 'sound/music/antag/heretic/ascend_blade.ogg'
 
@@ -405,7 +405,7 @@
 	var/mob/living/carbon/human/heretic = user
 	heretic.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.
 
-/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	if(target == source)

@@ -249,7 +249,7 @@
 	///What type of wound do we apply on hit
 	var/wound_type = /datum/wound/slash/flesh/severe
 
-/datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(!iscarbon(target) || source == target)
 		return
 

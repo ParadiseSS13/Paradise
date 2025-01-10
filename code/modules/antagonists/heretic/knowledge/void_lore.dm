@@ -138,13 +138,13 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_void"
 
-/datum/heretic_knowledge/blade_upgrade/void/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/void/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 
 	target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
-/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/sickly_blade/blade)
 	if(!target.has_status_effect(/datum/status_effect/eldritch))
 		return
 
@@ -153,7 +153,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(follow_up_attack), user, target, blade)
 
-/datum/heretic_knowledge/blade_upgrade/void/proc/follow_up_attack(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/void/proc/follow_up_attack(mob/living/user, mob/living/target, obj/item/sickly_blade/blade)
 	blade.melee_attack_chain(user, target)
 
 /datum/heretic_knowledge/spell/void_pull

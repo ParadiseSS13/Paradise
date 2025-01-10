@@ -48,14 +48,15 @@
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	if(target.is_blind())
+	if(HAS_TRAIT(target, TRAIT_BLIND))
 		return
 
-	if(!target.get_organ_slot(ORGAN_SLOT_EYES))
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	if(!E)
 		return
 
 	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
-	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
+	E.receive_damage(10) //Qwertodo: makesure this doesnt cause instant nearsightedness
 	target.EyeBlurry(20 SECONDS)
 
 /datum/heretic_knowledge/spell/ash_passage
@@ -131,12 +132,12 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_ash"
 
-/datum/heretic_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 
 	target.adjust_fire_stacks(1)
-	target.ignite_mob()
+	target.IgniteMob()
 
 /datum/heretic_knowledge/spell/flame_birth
 	name = "Nightwatcher's Rebirth"
@@ -162,7 +163,6 @@
 		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
 
-	ascension_achievement = /datum/award/achievement/misc/ash_ascension
 	announcement_text = "%SPOOKY% Fear the blaze, for the Ashlord, %NAME% has ascended! The flames shall consume all! %SPOOKY%"
 	announcement_sound = 'sound/music/antag/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.

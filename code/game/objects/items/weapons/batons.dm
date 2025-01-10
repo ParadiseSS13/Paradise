@@ -98,7 +98,8 @@
 	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	target.KnockDown(knockdown_duration)
+	if(!HAS_TRAIT(L, TRAIT_BATON_RESISTANCE))
+		target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)
 	ADD_TRAIT(target, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons

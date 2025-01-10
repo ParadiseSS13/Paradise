@@ -31,9 +31,6 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "moon_blade"
 
-/datum/heretic_knowledge/limited_amount/starting/base_moon/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	ADD_TRAIT(user, TRAIT_EMPATH, REF(src))
-
 /datum/heretic_knowledge/moon_grasp
 	name = "Grasp of Lunacy"
 	desc = "Your Mansus Grasp will cause your victims to hallucinate everyone as lunar mass, \
@@ -121,7 +118,7 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_moon"
 
-/datum/heretic_knowledge/blade_upgrade/moon/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/moon/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 

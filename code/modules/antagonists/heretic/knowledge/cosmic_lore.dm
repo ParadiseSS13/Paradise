@@ -125,7 +125,7 @@
 	/// The hits we have on a mob with a mind.
 	var/combo_counter = 0
 
-/datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	var/static/list/valid_organ_slots = list(
 		ORGAN_SLOT_HEART,
 		ORGAN_SLOT_LUNGS,
