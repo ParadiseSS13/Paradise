@@ -61,19 +61,20 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_CARPET_RED S_TURF(17)
 #define SMOOTH_GROUP_CARPET_ORANGE S_TURF(18)
 #define SMOOTH_GROUP_CARPET_PURPLE S_TURF(19)
+#define SMOOTH_GROUP_CARPET_GRIMEY S_TURF(20)
 
-#define SMOOTH_GROUP_BAMBOO S_TURF(20)					///turf/simulated/floor/bamboo
+#define SMOOTH_GROUP_BAMBOO S_TURF(21)					///turf/simulated/floor/bamboo
 
-#define SMOOTH_GROUP_SIMULATED_TURFS S_TURF(24)			///turf/simulated
-#define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(25)			///turf/simulated/wall/material
-#define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(26)			///turf/simulated/wall/r_wall/syndicate, /turf/simulated/indestructible/syndicate
-#define SMOOTH_GROUP_HOTEL_WALLS S_TURF(27)				///turf/simulated/indestructible/hotelwall
-#define SMOOTH_GROUP_MINERAL_WALLS S_TURF(28)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
-#define SMOOTH_GROUP_BOSS_WALLS S_TURF(29)				///turf/simulated/indestructible/riveted/boss
-#define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(30)	///turf/simulated/wall/mineral/titanium/survival
+#define SMOOTH_GROUP_SIMULATED_TURFS S_TURF(22)			///turf/simulated
+#define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(23)			///turf/simulated/wall/material
+#define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(24)			///turf/simulated/wall/r_wall/syndicate, /turf/simulated/indestructible/syndicate
+#define SMOOTH_GROUP_HOTEL_WALLS S_TURF(25)				///turf/simulated/indestructible/hotelwall
+#define SMOOTH_GROUP_MINERAL_WALLS S_TURF(26)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
+#define SMOOTH_GROUP_BOSS_WALLS S_TURF(27)				///turf/simulated/indestructible/riveted/boss
+#define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(28)	///turf/simulated/wall/mineral/titanium/survival
 
-#define SMOOTH_GROUP_GRASS S_TURF(31)					///turf/simulated/floor/grass
-#define SMOOTH_GROUP_JUNGLE_GRASS S_TURF(32)			///turf/simulated/floor/grass/jungle
+#define SMOOTH_GROUP_GRASS S_TURF(29)					///turf/simulated/floor/grass
+#define SMOOTH_GROUP_JUNGLE_GRASS S_TURF(30)			///turf/simulated/floor/grass/jungle
 
 #define MAX_S_TURF SMOOTH_GROUP_JUNGLE_GRASS //Always match this value with the one above it.
 
