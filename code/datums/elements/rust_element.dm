@@ -16,7 +16,7 @@
 	ADD_TRAIT(target, TRAIT_RUSTY, "rusted_turf")
 	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_rust_overlay))
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(handle_examine))
-	RegisterSignal(target, COMSIG_ATTACK_BY, PROC_REF(on_interaction))
+	RegisterSignal(target, COMSIG_INTERACT_TARGET, PROC_REF(on_interaction))
 	RegisterSignal(target, COMSIG_TOOL_ATTACK, PROC_REF(welder_tool_act))
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
 	target.update_appearance()
@@ -25,8 +25,8 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
-	UnregisterSignal(source, COMSIG_ATTACK_BY)
 	UnregisterSignal(source, COMSIG_TOOL_ATTACK)
+	UnregisterSignal(source, COMSIG_INTERACT_TARGET)
 	REMOVE_TRAIT(source, TRAIT_RUSTY, "rusted_turf")
 	source.cut_overlays()
 	source.update_appearance()
@@ -63,13 +63,12 @@
 			Detach(source)
 			return
 
-
 /// Prevents placing floor tiles on rusted turf
-/datum/element/rust/proc/on_interaction(datum/source, obj/item/attacker, mob/user, params)
-	SIGNAL_HANDLER // COMSIG_ATTACK_BY
-	if(istype(attacker, /obj/item/stack/tile) || istype(attacker, /obj/item/stack/rods) || istype(attacker, /obj/item/rcd))
-		to_chat(user, "<span class='warning'>[src] is too rusted to build on!</span>")
-		return COMPONENT_SKIP_AFTERATTACK
+/datum/element/rust/proc/on_interaction(datum/source, mob/living/user, obj/item/tool, list/modifiers)
+	SIGNAL_HANDLER // COMSIG_INTERACT_TARGET
+	if(istype(tool, /obj/item/stack/tile) || istype(tool, /obj/item/stack/rods) || istype(tool, /obj/item/rcd))
+		to_chat(user, "<span class='warning'>[source] is too rusted to build on!</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /// For rust applied by heretics (if that ever happens) / revenants
 /datum/element/rust/heretic
