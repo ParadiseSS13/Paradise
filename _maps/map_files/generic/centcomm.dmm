@@ -11959,6 +11959,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
+"PK" = (
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "PM" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/stack/sheet/mineral/uranium{
@@ -14095,6 +14101,12 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
+"XF" = (
+/obj/machinery/fluid_pipe/barrel_filler,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "XG" = (
 /turf/simulated/floor/plasteel/goonplaque/violence,
 /area/centcom/evac)
@@ -60416,7 +60428,7 @@ ff
 ff
 ff
 De
-De
+ff
 De
 ff
 De
@@ -61185,11 +61197,11 @@ Vw
 De
 De
 De
+ff
 De
 De
 De
-De
-De
+ff
 De
 De
 De
@@ -61442,7 +61454,7 @@ ff
 De
 De
 De
-De
+ff
 De
 De
 CX
@@ -61699,12 +61711,12 @@ ff
 De
 De
 De
-De
+ff
 De
 De
 ff
 De
-De
+PK
 De
 De
 De
@@ -61956,12 +61968,12 @@ ff
 De
 De
 De
-De
-De
-De
 ff
 De
 De
+ff
+ff
+ff
 De
 De
 De
@@ -62212,9 +62224,9 @@ De
 ff
 De
 De
-De
-De
-De
+XF
+ff
+XF
 De
 sd
 De
@@ -62470,7 +62482,7 @@ De
 De
 De
 De
-De
+XF
 De
 De
 De
@@ -62727,7 +62739,7 @@ De
 De
 De
 De
-De
+XF
 De
 De
 De

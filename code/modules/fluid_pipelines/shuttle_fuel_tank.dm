@@ -13,7 +13,7 @@
 	/// What state are we in
 	var/state
 	/// Ref to the internal storage tank
-	var/datum/fluid_datum/tank
+	var/datum/fluid_pipe/tank
 	/// What fuel do we have in the tank?
 	var/datum/fluid/current_fuel
 	/// Units moved per 0.5 seconds. Base is 50/s
@@ -24,7 +24,6 @@
 	dir = WEST
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/Initialize(mapload)
-	dir = EAST
 	connect_dirs = list(dir)
 	tank = new(src, 5000)
 	return ..()
@@ -36,6 +35,10 @@
 	if(purity >= 34)
 		. += "<span class='warning'>It looks volatile.</span>"
 */
+
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/update_icon_state()
+	return
+
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/update_overlays()
 	. = ..()
 	var/current_amount = tank.get_fluid_volumes()

@@ -39,11 +39,6 @@
 	fluid_id = "tur_fuel"
 	fuel_value = 5
 
-// Salty, used as a catalysator.
-/datum/fluid/brine
-	fluid_name = "brine"
-	fluid_id = "brine"
-
 // General waste fluid
 /datum/fluid/waste
 	fluid_name = "waste"
@@ -53,6 +48,13 @@
 /datum/fluid/water
 	fluid_name = "water"
 	fluid_id = "water"
+	barrel_state = "water_band"
+
+// Salty, used as a catalysator.
+/datum/fluid/brine
+	fluid_name = "brine"
+	fluid_id = "brine"
+	barrel_state = "water_band"
 
 // MURICA DETECTED
 // Basic oil, is unrefined

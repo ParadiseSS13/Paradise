@@ -18,12 +18,15 @@
 	connect_dirs = list()
 
 /obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, direction)
-	connect_dirs = list(direction)
+	connect_dirs = GLOB.cardinal.Copy()
+	connect_dirs -= dir
 	return ..()
 
 /obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
-	//dir = direction
-	connect_dirs = list(dir)
+	if(direction)
+		dir = direction
+	connect_dirs = GLOB.cardinal.Copy()
+	connect_dirs -= REVERSE_DIR(dir)
 	make_intakes()
 	return ..()
 
@@ -36,6 +39,19 @@
 
 /obj/machinery/fluid_pipe/plasma_refinery/update_icon_state()
 	return
+
+/obj/machinery/fluid_pipe/plasma_refinery/update_overlays()
+	. = ..()
+	if(dir == EAST) // DGTODO clean this up
+		for(var/obj/pipe as anything in get_adjacent_pipes())
+			. += "connector_r_[get_dir(src, pipe)]"
+		for(var/obj/pipe as anything in intake.get_adjacent_pipes())
+			. += "connector_l_[get_dir(intake, pipe)]"
+	else
+		for(var/obj/pipe as anything in get_adjacent_pipes())
+			. += "connector_l_[get_dir(src, pipe)]"
+		for(var/obj/pipe as anything in intake.get_adjacent_pipes())
+			. += "connector_r_[get_dir(intake, pipe)]"
 
 /obj/machinery/fluid_pipe/plasma_refinery/proc/make_intakes()
 	switch(dir)
@@ -50,7 +66,7 @@
 				list(MACH_CENTER, 1)
 			))
 
-	intake = new(get_step(src, REVERSE_DIR(dir)), REVERSE_DIR(dir))
+	intake = new(get_step(src, REVERSE_DIR(dir)), dir)
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
 	if(..())

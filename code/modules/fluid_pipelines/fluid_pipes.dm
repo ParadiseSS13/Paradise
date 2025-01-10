@@ -156,6 +156,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = null
 	icon_state = null
+	// DGTODO this gives issues with pipes initializing before machinery, maybe move pipes to lateinitialize?
 	connect_dirs = list()
 
 /obj/machinery/fluid_pipe/abstract/update_icon_state()

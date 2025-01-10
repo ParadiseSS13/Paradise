@@ -9,11 +9,13 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 	var/list/datums_to_rebuild = list()
 
 GLOBAL_LIST_EMPTY(fluid_id_to_path)
+GLOBAL_LIST_EMPTY(fluid_name_to_path)
 
 /datum/controller/subsystem/processing/fluid/Initialize()
 	. = ..()
 	for(var/datum/fluid/liquid as anything in subtypesof(/datum/fluid))
 		GLOB.fluid_id_to_path[liquid.fluid_id] = liquid.type
+		GLOB.fluid_name_to_path[liquid.fluid_name] = liquid.type
 
 /datum/controller/subsystem/processing/fluid/get_metrics()
 	. = ..()
