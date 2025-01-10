@@ -6,8 +6,6 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
  * Temporarily sends the target to the backrooms. Their body's movement matches their movement in the backrooms.
  */
 
-/obj/effect/hallucination/no_delete/backrooms
-
 /datum/hallucination_manager/backrooms
 	var/mob/living/carbon/human/human_owner
 	var/obj/item/clone_base

@@ -744,7 +744,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(length(matches)==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		chosen = tgui_input_list(usr, "Select an Atom Type", "Spawn Atom", matches)
 		if(!chosen)
 			return
 

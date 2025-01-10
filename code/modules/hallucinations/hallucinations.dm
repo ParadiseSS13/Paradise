@@ -26,7 +26,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/assault = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
-		/obj/effect/hallucination/no_delete/backrooms = 1
+		/datum/hallucination_manager/xeno_pounce = 10,
+		/datum/hallucination_manager/backrooms = 1
 	)
 ))
 
