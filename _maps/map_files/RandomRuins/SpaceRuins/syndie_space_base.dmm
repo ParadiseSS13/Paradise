@@ -606,9 +606,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "dM" = (
 /obj/structure/cable/green{
@@ -919,9 +917,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "fA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -1571,9 +1567,7 @@
 	dir = 5
 	},
 /obj/item/kirbyplants/plant22,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "iJ" = (
 /obj/structure/window/reinforced{
@@ -1698,9 +1692,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "jH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1877,9 +1869,7 @@
 "kK" = (
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable/green,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "kO" = (
 /obj/machinery/economy/vending/hatdispenser/free,
@@ -2418,9 +2408,7 @@
 /obj/structure/cable/green{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "nT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2608,9 +2596,7 @@
 /obj/structure/cable/green{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "pe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3403,9 +3389,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "up" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3667,9 +3651,7 @@
 /obj/machinery/chem_dispenser/soda/upgraded{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vz" = (
 /obj/machinery/atmospherics/binary/volume_pump{
@@ -3694,9 +3676,7 @@
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vD" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -3771,9 +3751,7 @@
 /obj/item/reagent_containers/drinks/flask/barflask,
 /obj/structure/table/wood,
 /obj/machinery/alarm/syndicate/directional/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vW" = (
 /obj/structure/table/glass,
@@ -4151,9 +4129,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ym" = (
 /obj/machinery/economy/vending/cigarette/syndicate/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "yq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -4476,9 +4452,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Al" = (
 /obj/structure/grille,
@@ -4768,9 +4742,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "BW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4863,9 +4835,7 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "CI" = (
 /obj/machinery/light{
@@ -5007,9 +4977,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "DV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5555,9 +5523,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "GL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "GM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5692,9 +5658,7 @@
 "HC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "HM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5716,9 +5680,7 @@
 "HO" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/bottle/beer,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "HP" = (
 /mob/living/carbon/human/monkey,
@@ -5907,9 +5869,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "IS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6114,9 +6074,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "JE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7173,9 +7131,7 @@
 /area/ruin/unpowered/syndicate_space_base/outer)
 "Rm" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Rp" = (
 /obj/machinery/light{
@@ -7285,9 +7241,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Sq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7728,9 +7682,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Uw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -7858,9 +7810,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Vh" = (
 /obj/machinery/economy/vending/toyliberationstation/secured,
@@ -7961,9 +7911,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "VS" = (
 /obj/machinery/navbeacon/invisible{
@@ -8170,9 +8118,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Xa" = (
 /obj/structure/disposaloutlet{
@@ -8473,9 +8419,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "YL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
