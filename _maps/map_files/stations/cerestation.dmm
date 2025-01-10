@@ -100,8 +100,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/northwest)
@@ -126,8 +125,7 @@
 /area/station/maintenance/starboard)
 "aaS" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal/delivery_chute{
 	dir = 4
@@ -1698,8 +1696,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/north)
@@ -8519,8 +8516,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
@@ -17027,8 +17023,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/fore)
@@ -18703,8 +18698,7 @@
 "cCJ" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
@@ -20894,8 +20888,7 @@
 /area/station/command/office/ce)
 "cQG" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal,
 /obj/machinery/firealarm/directional/east,
@@ -24060,8 +24053,7 @@
 "dmV" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -28278,8 +28270,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/westalt)
@@ -29755,8 +29746,7 @@
 "eBF" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -37326,8 +37316,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/external/southwest)
@@ -38101,8 +38090,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/sign/fire{
 	pixel_y = -32
@@ -40118,8 +40106,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -42979,8 +42966,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/railing,
 /turf/simulated/floor/plating/airless,
@@ -44695,8 +44681,7 @@
 /area/station/security/lobby)
 "ioh" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -49791,8 +49776,7 @@
 "jwx" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
@@ -53376,8 +53360,7 @@
 "kmW" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/light{
@@ -57121,8 +57104,7 @@
 "lgC" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/disaster_counter/toxins{
 	pixel_y = 32
@@ -63499,8 +63481,7 @@
 "mFW" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -69214,8 +69195,7 @@
 /area/station/service/clown)
 "odl" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
@@ -70935,8 +70915,7 @@
 "oyW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plating,
@@ -72165,8 +72144,7 @@
 "oOH" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -74736,8 +74714,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -77421,8 +77398,7 @@
 "qbl" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/light_switch{
 	pixel_y = 24;
@@ -83724,8 +83700,7 @@
 /area/station/supply/warehouse)
 "rGi" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal/delivery_chute{
 	dir = 4
@@ -95569,8 +95544,7 @@
 "uuU" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -100084,8 +100058,7 @@
 /area/station/hallway/primary/aft/west)
 "vxS" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal/delivery_chute{
 	dir = 8;
@@ -100642,8 +100615,7 @@
 /area/station/security/permabrig)
 "vEB" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
@@ -103142,8 +103114,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/south)
@@ -105062,8 +105033,7 @@
 /area/station/hallway/primary/port/south)
 "wGv" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/disposaloutlet,
 /turf/simulated/floor/plasteel{
@@ -106146,8 +106116,7 @@
 /area/station/hallway/primary/fore/north)
 "wUt" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8;
-	color = "#505050"
+	dir = 8
 	},
 /obj/structure/disposaloutlet{
 	dir = 4
