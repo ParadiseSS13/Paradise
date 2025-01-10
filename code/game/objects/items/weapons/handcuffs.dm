@@ -26,11 +26,13 @@
 /obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	if(!silent)
 		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
-	user.unEquip(src)
+	user.unequip(src)
 
 	if(break_cuffs)
 		qdel(src)
 		return TRUE
+	else
+		forceMove(user.drop_location())
 
 //////////////////////////////
 // MARK: HANDCUFFS
@@ -273,7 +275,7 @@
 		if(!R.use(1))
 			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
-		if(!user.unEquip(src))
+		if(!user.unequip(src))
 			return
 		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
 		if(!remove_item_from_storage(user))
@@ -290,7 +292,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
-			if(!M.use(6) || !user.unEquip(src))
+			if(!M.use(6) || !user.unequip(src))
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")

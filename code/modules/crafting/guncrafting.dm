@@ -134,12 +134,12 @@
 	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
 		var/obj/item/gun_produceda = new gunkit_to_use.outcome
 		var/obj/item/gun_producedb = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produceda)
 		user.put_in_hands(gun_producedb)
 	else
 		var/obj/item/gun_produced = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
@@ -150,7 +150,7 @@
 	if(istype(W,/obj/item/pipe))
 		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
 		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -166,7 +166,7 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
 	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-	user.unEquip(src)
+	user.unequip(src)
 	user.put_in_hands(C)
 	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
 	qdel(src)
@@ -182,7 +182,7 @@
 	if(istype(W,/obj/item/weaponcrafting/stock))
 		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
 		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -200,7 +200,7 @@
 		var/obj/item/stack/package_wrap/C = I
 		if(C.use(5))
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
-			user.unEquip(src)
+			user.unequip(src)
 			user.put_in_hands(W)
 			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
 			qdel(src)
