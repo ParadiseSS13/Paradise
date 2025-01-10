@@ -20,7 +20,7 @@
 
 /datum/hallucination_manager/blind_rush/on_trigger()
 	var/turf/spawn_location = get_spawn_location() //we need a new spawn location incase the player moved
-	new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
+	hallucination_list += new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
 	to_chat(owner, "<span class='danger'>They're here.</span>", MESSAGE_TYPE_INFO)
 	trigger_timer = addtimer(CALLBACK(src, PROC_REF(on_second_trigger)), trigger_time, TIMER_DELETE_ME)
 
