@@ -7,7 +7,6 @@
 	initial_hallucination = /obj/effect/hallucination/no_delete/blind_rusher
 	trigger_time = 3.4 SECONDS //total length of the hallucination is a little more than ten seconds
 
-
 /datum/hallucination_manager/blind_rush/get_spawn_location()
 	var/list/turfs = orange(13, owner.loc)
 	return pick(turfs)
