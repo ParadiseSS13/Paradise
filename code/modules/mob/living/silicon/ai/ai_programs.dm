@@ -192,7 +192,7 @@
 		return
 	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 
-/datum/spell/ai_spell/ranged/on_purchase_upgrade()
+/datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
 
 // Power Shunt - Recharges things from your SMES
@@ -335,3 +335,56 @@
 	AI.adapter_efficiency = 0.5 + (0.1 * upgrade_level)
 	upgrade_level++
 	installed = TRUE
+
+// Door Override - Repairs door wires if the AI wire is not cut
+/datum/ai_program/rgb_lighting
+	program_name = "Door Override"
+	program_id = "door_override"
+	description = "Repair an airlocks's wires, if the AI control wire is not cut."
+	nanite_cost = 25
+	power_type = /datum/spell/ai_spell/ranged/door_override
+	unlock_text = "Door repair and override firmware installation complete!"
+
+/datum/spell/ai_spell/ranged/door_override
+	name = "Door Override"
+	desc = "Repair the wires in an airlock that still has an intact AI control wire."
+	action_icon_state = "light"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 60 SECONDS
+	cooldown_min = 60 SECONDS
+	level_max = 5
+	selection_activated_message = "<span class='notice'>You hook into the station's lighting controller...</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the request from the lighting controller.</span>"
+
+/datum/spell/ai_spell/ranged/door_override/cast(list/targets, mob/user)
+	var/obj/machinery/door/airlock/target = targets[1]
+	if(!istype(target))
+		to_chat(user, "<span class='warning'>You can only repair airlocks!</span>")
+		return
+
+	if(target.wires.is_cut(WIRE_AI_CONTROL))
+		to_chat(user, "<span class='warning'>Error: Null Connection to Airlock!</span>")
+		return
+
+	var/turf/T = get_turf(target)
+	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
+	QDEL_IN(spawning_effect, (6 - spell_level) SECONDS)
+	if(do_after_once(user, (6 - spell_level) SECONDS, target = target, allow_moving = TRUE))
+		target.wires.repair()
+		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
+		if(spell_level >= 5)
+			target.emagged = FALSE
+			target.electronics = initial(target.electronics)
+
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 25
+	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+
+/datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
+	if(spell_level == 5)
+		desc += " Firmware version sufficient enough to repair damage caused by a cryptographic sequencer."
