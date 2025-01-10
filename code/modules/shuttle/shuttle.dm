@@ -448,12 +448,12 @@
 		if(!canMove())
 			return -1
 
-	var/datum/milla_safe/docking_port_dock/milla = new()
+	var/datum/milla_safe_must_sleep/docking_port_dock/milla = new()
 	milla.invoke_async(src, S1, force, transit)
 
-/datum/milla_safe/docking_port_dock
+/datum/milla_safe_must_sleep/docking_port_dock
 
-/datum/milla_safe/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
+/datum/milla_safe_must_sleep/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
 	// Re-check that it's OK to dock.
 	if(S1.get_docked() == mobile_port)
 		mobile_port.remove_ripples()
@@ -927,8 +927,11 @@
 			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 			if(3)
-				atom_say("Shuttle has already received a pending movement request. Please wait until the movement request is processed.")
-
+				atom_say("Shuttle is refuelling at dock. Please wait...")
+			if(4)
+				atom_say("Shuttle is currently en-route. The shuttle cannot be rerouted at this time.")
+			if(5)
+				atom_say("Shuttle is currently departing. Please wait...")
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)

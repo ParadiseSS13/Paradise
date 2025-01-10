@@ -1547,12 +1547,12 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/clothing/accessory/red{
+/obj/item/clothing/neck/tie/red{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/clothing/accessory/horrible,
-/obj/item/clothing/accessory/blue{
+/obj/item/clothing/neck/tie/horrible,
+/obj/item/clothing/neck/tie/blue{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -2512,14 +2512,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/medical/break_room)
-"atj" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/aft_port)
 "atk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4060,12 +4052,6 @@
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
-"azB" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "azC" = (
 /obj/item/radio/intercom/department/security{
 	pixel_y = 28
@@ -4364,6 +4350,9 @@
 "aBr" = (
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -19643,7 +19632,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
@@ -23723,6 +23712,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -26334,24 +26326,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bXI" = (
-/obj/structure/closet/crate/engineering,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass/fifty,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -27473,11 +27447,11 @@
 	},
 /area/station/command/bridge)
 "cca" = (
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 3
 	},
 /obj/item/flashlight/pen{
@@ -30086,11 +30060,10 @@
 	},
 /area/station/medical/virology)
 "cmJ" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "cmK" = (
@@ -30653,7 +30626,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "cpq" = (
@@ -30735,25 +30707,6 @@
 	},
 /area/station/security/detective)
 "cpL" = (
-/obj/structure/closet/crate/engineering,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/cable_coil,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -31874,6 +31827,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -32063,14 +32019,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/surgery/primary)
-"cuX" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/aft_port)
 "cva" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -34490,12 +34438,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology)
-"cFj" = (
-/obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/aft_port)
 "cFm" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/station/science/robotics/chargebay)
@@ -37589,24 +37531,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cSx" = (
-/obj/structure/closet/crate/engineering,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass/fifty,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -38310,18 +38234,6 @@
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
 "cVr" = (
-/obj/structure/closet/crate/engineering,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/cable_coil,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -38983,6 +38895,9 @@
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable,
+/obj/machinery/power/solar{
+	name = "Aft-Starboard Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -45329,14 +45244,6 @@
 	icon_state = "purple"
 	},
 /area/station/engineering/atmos)
-"fts" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/engineering/solar/aft_port)
 "ftz" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -45984,24 +45891,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "fFW" = (
-/obj/structure/closet/crate/engineering,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass/fifty,
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -49528,7 +49417,7 @@
 "hjn" = (
 /obj/structure/table/glass,
 /obj/item/folder/blue,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49885,6 +49774,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"hqt" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "hqx" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random/maintenance,
@@ -56189,6 +56083,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"kgf" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_port)
 "kgx" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58850,6 +58749,13 @@
 	icon_state = "purple"
 	},
 /area/station/science/research)
+"loX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_port)
 "lpp" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
@@ -65361,11 +65267,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/command/office/rd)
-"ohH" = (
-/obj/effect/spawner/airlock/e_to_w/long,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/aft_port)
 "ohK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -69697,6 +69598,13 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"qfB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "qfE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -70282,11 +70190,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
-"quR" = (
-/obj/effect/spawner/airlock/long,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "quY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -73575,7 +73478,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/item/clothing/accessory/stethoscope{
+/obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -79648,8 +79551,9 @@
 "uJG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
-	c_tag = "AI Satellite Antechamber South";
-	dir = 4
+	dir = 4;
+	c_tag = "Power Transmission Laser";
+	network = list("Engineering","SS13")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -81337,6 +81241,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "vug" = (
+/obj/machinery/autolathe,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -82757,6 +82662,12 @@
 "wjf" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
+"wji" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/solar/aft_port)
 "wjn" = (
 /obj/machinery/light{
 	dir = 4
@@ -102338,14 +102249,14 @@ cDm
 aaa
 aaa
 abq
-fts
+nia
 lio
-fts
-fts
-fts
-fts
-fts
-fts
+nia
+nia
+nia
+nia
+nia
+nia
 abq
 abq
 abq
@@ -102594,7 +102505,7 @@ reS
 abq
 abq
 abq
-cuX
+caJ
 bSw
 ckL
 hZX
@@ -102603,7 +102514,7 @@ hZX
 hZX
 hZX
 cwf
-cFj
+ctJ
 aaa
 abq
 aaa
@@ -102852,14 +102763,14 @@ aaa
 aaa
 aaa
 abq
-atj
+oji
 emm
-atj
-atj
-atj
-atj
-atj
-atj
+oji
+oji
+oji
+oji
+oji
+oji
 abq
 abq
 abq
@@ -103366,14 +103277,14 @@ aaa
 aaa
 aaa
 abq
-fts
+nia
 lio
-fts
-fts
-fts
-fts
-fts
-fts
+nia
+nia
+nia
+nia
+nia
+nia
 abq
 abq
 abq
@@ -103622,7 +103533,7 @@ pdN
 abq
 abq
 abq
-cuX
+caJ
 bSw
 ckL
 hZX
@@ -103631,7 +103542,7 @@ hZX
 hZX
 hZX
 cwf
-cFj
+ctJ
 aaa
 cxB
 cxB
@@ -103880,14 +103791,14 @@ aaa
 aaa
 aaa
 aaa
-atj
+oji
 emm
-atj
-atj
-atj
-atj
-atj
-atj
+oji
+oji
+oji
+oji
+oji
+oji
 abq
 abq
 abq
@@ -104394,9 +104305,9 @@ aaa
 aaa
 aaa
 aaa
-pBu
-sFP
-ohH
+aaa
+wji
+aaa
 aaa
 aaa
 aaa
@@ -104653,7 +104564,7 @@ aaa
 aaa
 pBu
 cpd
-pBu
+kgf
 aaa
 aaa
 aaa
@@ -104909,7 +104820,7 @@ aaa
 aaa
 aaa
 pBu
-sFP
+loX
 pBu
 aaa
 aaa
@@ -124955,8 +124866,8 @@ fFW
 cuq
 xwJ
 xwJ
-xwJ
-quR
+hqt
+aaa
 aaa
 aaa
 aaa
@@ -125211,9 +125122,9 @@ cZA
 ddD
 bWl
 pqP
-pqP
+qfB
 cmJ
-azB
+cjX
 cGt
 mBn
 mBn
@@ -125470,7 +125381,7 @@ cFJ
 xwJ
 xwJ
 xwJ
-xwJ
+aaa
 aaa
 aaa
 aaa

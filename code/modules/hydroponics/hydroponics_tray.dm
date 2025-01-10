@@ -860,15 +860,12 @@
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
-		return ITEM_INTERACT_COMPLETE
+	else if(istype(O, /obj/item/storage/bag/plants))
+		if(!harvest)
+			attack_hand(user)
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(used, /obj/item/storage/bag/plants))
-		attack_hand(user)
-		var/obj/item/storage/bag/plants/S = used
-		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			if(!S.can_be_inserted(G))
-				return ITEM_INTERACT_COMPLETE
-			S.handle_item_insertion(G, user, TRUE)
+		myseed.harvest(user, O)
 
 		return ITEM_INTERACT_COMPLETE
 

@@ -269,8 +269,7 @@
 
 /obj/item/disk/rnd_backup_disk/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 	// Level it all out
 	for(var/tech_id in GLOB.rnd_tech_id_to_name)
 		stored_tech_assoc[tech_id] = 0

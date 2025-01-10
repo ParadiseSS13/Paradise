@@ -141,7 +141,10 @@
 		H.mind.add_mind_objective(O)
 		var/list/messages = H.mind.prepare_announce_objectives()
 		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
-		SSticker.mode.update_abductor_icons_added(H.mind)
+
+		var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
+		hud.join_hud(H)
+		set_antag_hud(H, "abductee")
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()
