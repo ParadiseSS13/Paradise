@@ -57,6 +57,8 @@
 	var/last_player_name
 	/// The action that the last player made. Should be in the form of "played a card", "drew a card."
 	var/last_player_action
+	// var/datum/proximity_monitor/advanced/card_deck/proximity_monitor
+	var/datum/card_deck_table_tracker/tracker
 
 /obj/item/deck/Initialize(mapload, parent_deck_id = -1)
 	. = ..()
@@ -72,8 +74,13 @@
 
 /obj/item/deck/LateInitialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor/table)
+
+	tracker = new(src)
 	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+
+/obj/item/deck/Destroy()
+	qdel(tracker)
+	. = ..()
 
 /obj/item/deck/examine(mob/user)
 	. = ..()

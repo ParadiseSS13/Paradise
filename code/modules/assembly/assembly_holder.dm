@@ -46,12 +46,9 @@
 	a_right = A2
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
+	A1.on_attach()
+	A2.on_attach()
 	return TRUE
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
-		return TRUE
-	return FALSE
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()
@@ -83,11 +80,12 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
+// TODO: All these assemblies passing the crossed args around needs to be cleaned up with signals
+/obj/item/assembly_holder/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(a_left)
-		a_left.Crossed(AM, oldloc)
+		a_left.on_atom_entered(source, entered)
 	if(a_right)
-		a_right.Crossed(AM, oldloc)
+		a_right.on_atom_entered(source, entered)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
