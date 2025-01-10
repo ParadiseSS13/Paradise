@@ -18,15 +18,12 @@
 	. += "<span class='notice'>There [labels_left == 1 ? "is" : "are"] [labels_left] label\s remaining.</span>"
 	if(label)
 		. += "<span class='notice'>The label is currently set to \"[label]\".</span>"
-	
+
 /obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(mode == LABEL_MODE_OFF)
-		if(remove_label(target, user))
-			return ITEM_INTERACT_COMPLETE
-		else
-			return ..() // there is no label, resume normal item interactions
-	else
+	if(!mode == LABEL_MODE_OFF)
 		apply_label(target, user)
+		return ITEM_INTERACT_COMPLETE
+	if(remove_label(target, user))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/hand_labeler/proc/remove_label(atom/target, mob/living/user)
@@ -69,7 +66,7 @@
 /obj/item/hand_labeler/activate_self(mob/user)
 	if(..())
 		return
-	
+
 	// off -> normal
 	// normal or goal -> off
 	mode = !mode
