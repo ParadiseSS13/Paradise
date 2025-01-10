@@ -46131,6 +46131,7 @@
 /obj/item/deck/cards{
 	pixel_y = 16
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -170495,7 +170496,7 @@ itf
 itf
 itf
 itf
-aZM
+fMl
 fMl
 rNK
 rNK
@@ -170753,7 +170754,7 @@ aZM
 fMl
 fMl
 fMl
-fMl
+rNK
 rNK
 rNK
 rNK
