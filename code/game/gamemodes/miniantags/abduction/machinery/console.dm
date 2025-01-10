@@ -222,7 +222,7 @@
 	if(istype(used, /obj/item/abductor/gizmo) && AddGizmo(used))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
+	if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
 		return ITEM_INTERACT_COMPLETE
 

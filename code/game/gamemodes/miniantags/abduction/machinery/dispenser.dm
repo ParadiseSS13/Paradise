@@ -92,6 +92,8 @@
 				amounts[i]++
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
 	if(amounts[count]>0)
 		amounts[count]--

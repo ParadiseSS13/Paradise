@@ -51,28 +51,24 @@
 	..(severity)
 
 /obj/machinery/space_heater/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/stock_parts/cell))
-		if(open)
-			if(cell)
-				to_chat(user, "There is already a power cell inside.")
-				return ITEM_INTERACT_COMPLETE
-			else
-				// insert cell
-				var/obj/item/stock_parts/cell/C = user.get_active_hand()
-				if(istype(C))
-					if(user.drop_item())
-						cell = C
-						C.forceMove(src)
-						C.add_fingerprint(user)
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ..()
 
-						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+	if(!open)
+		to_chat(user, "The hatch must be open to insert a power cell.")
+		return ITEM_INTERACT_COMPLETE
 
-				return ITEM_INTERACT_COMPLETE
-		else
-			to_chat(user, "The hatch must be open to insert a power cell.")
-			return ITEM_INTERACT_COMPLETE
+	if(cell)
+		to_chat(user, "There is already a power cell inside.")
+		return ITEM_INTERACT_COMPLETE
+	else
+		// insert cell
+		var/obj/item/stock_parts/cell/C = user.get_active_hand()
+		C.add_fingerprint(user)
+		user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>",\
+			"<span class='notice'>You insert the power cell into [src].</span>")
 
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

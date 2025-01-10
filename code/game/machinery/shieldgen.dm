@@ -238,7 +238,7 @@
 		update_icon(UPDATE_ICON_STATE)
 
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
+	if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = used
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		if(do_after(user, 30 * coil.toolspeed, target = src))
@@ -252,7 +252,7 @@
 			update_icon(UPDATE_ICON_STATE)
 
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")

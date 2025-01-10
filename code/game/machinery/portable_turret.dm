@@ -417,6 +417,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	user.do_item_attack_animation()
 	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 
+	//if the force of impact dealt at least 1 damage, the turret gets pissed off
 	if(used.force * 0.5 > 1)
 		if(!attacked && !emagged)
 			attacked = TRUE

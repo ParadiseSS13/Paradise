@@ -860,12 +860,12 @@
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	else if(istype(used, /obj/item/storage/bag/plants))
 		if(!harvest)
 			attack_hand(user)
 			return ITEM_INTERACT_COMPLETE
 
-		myseed.harvest(user, O)
+		myseed.harvest(user, used)
 
 		return ITEM_INTERACT_COMPLETE
 

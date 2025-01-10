@@ -63,7 +63,7 @@
 /obj/machinery/computer/guestpass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/card/id/nct_data_chip))
 		to_chat(user, "<span class='warning'>[used] does not seem compatible with this terminal!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id))
 		if(!scan)
 			if(user.drop_item())

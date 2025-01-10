@@ -171,7 +171,7 @@
 	else if((istype(used, /obj/item/paper) || istype(used, /obj/item/pda)) && isliving(user))
 		if(!can_use())
 			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/U = user
 		var/obj/item/paper/X = null

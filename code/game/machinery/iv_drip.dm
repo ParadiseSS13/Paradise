@@ -73,7 +73,6 @@
 		to_chat(user, "<span class='notice'>You attach [used] to [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
-
 		return ITEM_INTERACT_COMPLETE
 	else if(bag && istype(used, /obj/item/reagent_containers))
 		bag.attackby__legacy__attackchain(used)

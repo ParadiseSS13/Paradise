@@ -40,7 +40,7 @@
 
 	apply_emag_laws(user)
 
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /// checks to ensure there is a selected AI, and that it is on the same Z level
 /obj/machinery/computer/aiupload/proc/check_valid_selection(mob/user)
