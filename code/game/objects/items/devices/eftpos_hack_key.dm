@@ -58,7 +58,7 @@
 		<b>4cc3ss c0d3: @#_#@ </b><br>
 		<b>Do n0t l0s3 or m1spl@ce this c0d3.</b><br>
 		<center>Glory to the Syndicate! Here is your report, agent.</center>
-		<center>You have stolen data [victim_number] times.</center>
+		<center>You have stolen data [victim_number] time\s.</center>
 		<center>[victim_text]</center>
 		<br>
 		<center>Your most important target was: [highest_stolen_rank].</center>
