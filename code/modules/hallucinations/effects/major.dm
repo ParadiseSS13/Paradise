@@ -422,7 +422,7 @@
 
 	// Find a start spot for the sniper bullet
 	var/list/possible_turfs = list()
-	for(var/turf/T in RANGE_EDGE_TURFS(13, target.loc))
+	for(var/turf/T in RANGE_EDGE_TURFS(13, get_turf(target)))
 		possible_turfs += T
 	if(!length(possible_turfs))
 		return
