@@ -37,5 +37,6 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 	human_owner.reset_perspective(clone_base)
 
 /datum/hallucination_manager/backrooms/proc/follow_movement(source, atom/old_loc, dir, forced)
+	// signal is called above in on_spawn so that whenever our human moves, we also move the clone
 	SIGNAL_HANDLER
 	step_towards(clone_base, get_step(get_turf(clone_base), dir))
