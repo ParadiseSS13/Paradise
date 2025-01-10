@@ -21,7 +21,8 @@
 	var/comfort = 0
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
-	var/uses_armrest = FALSE // Will it set to the layer above the player or not? Use with Armrests.
+	/// Will it set to the layer above the player or not? Use with Armrests.
+	var/uses_armrest = FALSE 
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
