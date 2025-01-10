@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(silver_recipes, list (
 		new /datum/stack_recipe("Corgi Statue", /obj/structure/statue/silver/corgi, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	null,
-	new /datum/stack_recipe("Silver Locket", /obj/item/clothing/accessory/necklace/locket/silver, 1),
+	new /datum/stack_recipe("Silver Locket", /obj/item/clothing/neck/necklace/locket/silver, 1),
 	))
 
 GLOBAL_LIST_INIT(diamond_recipes, list (
@@ -87,9 +87,9 @@ GLOBAL_LIST_INIT(gold_recipes, list (
 	new /datum/stack_recipe_list("gold clothing", list(
 		new /datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5),
 		null,
-		new /datum/stack_recipe("Simple Necklace", /obj/item/clothing/accessory/necklace, 1),
-		new /datum/stack_recipe("Large Necklace", /obj/item/clothing/accessory/necklace/long, 2),
-		new /datum/stack_recipe("Gold Locket", /obj/item/clothing/accessory/necklace/locket, 1),
+		new /datum/stack_recipe("Simple Necklace", /obj/item/clothing/neck/necklace, 1),
+		new /datum/stack_recipe("Large Necklace", /obj/item/clothing/neck/necklace/long, 2),
+		new /datum/stack_recipe("Gold Locket", /obj/item/clothing/neck/necklace/locket, 1),
 		)),
 	))
 
@@ -150,8 +150,11 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
 	. = ..()
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+	scatter_atom()
+
+/obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)
+	pixel_x = rand(-4,0) + offset_x
+	pixel_y = rand(-4,0) + offset_y
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
@@ -393,6 +396,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
 
+/obj/item/stack/sheet/mineral/bananium/thirty
+	amount = 30
+
 /obj/item/stack/sheet/mineral/bananium/fifty
 	amount = 50
 
@@ -423,6 +429,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
+
+/obj/item/stack/sheet/mineral/tranquillite/thirty
+	amount = 30
 
 /obj/item/stack/sheet/mineral/tranquillite/fifty
 	amount = 50

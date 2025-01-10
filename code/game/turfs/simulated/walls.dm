@@ -342,28 +342,30 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(!isturf(user.loc))
-		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
+		return FINISH_ATTACK // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
 
-	if(rotting && try_rot(I, user, params))
-		return
+	if(rotting && try_rot(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_decon(I, user, params))
-		return
+	if(try_decon(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_destroy(I, user, params))
-		return
+	if(try_destroy(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_wallmount(I, user, params))
-		return
+	if(try_wallmount(attacking, user, params))
+		return CONTINUE_ATTACK
+
 	// The cyborg gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	return ..()
+	if(istype(attacking, /obj/item/gripper))
+		return CONTINUE_ATTACK
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE

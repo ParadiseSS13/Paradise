@@ -379,7 +379,7 @@
 	if(ishuman(owner) && !QDELETED(owner))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/thief = loc
-			thief.unEquip(src, TRUE, TRUE) // You're not my owner!
+			thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
 		if(owner.stat == DEAD)
 			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
 			return

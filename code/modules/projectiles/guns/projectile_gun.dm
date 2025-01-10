@@ -79,7 +79,7 @@
 	return !magazine
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
-	user.remove_from_mob(AM)
+	user.unequip(AM)
 	magazine = AM
 	magazine.forceMove(src)
 	if(w_class >= WEIGHT_CLASS_NORMAL && !suppressed)
@@ -123,8 +123,9 @@
 		var/obj/item/suppressor/S = A
 		if(can_suppress)
 			if(!suppressed)
-				if(!user.unEquip(A))
+				if(!user.unequip(A))
 					return
+				A.forceMove(src)
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
