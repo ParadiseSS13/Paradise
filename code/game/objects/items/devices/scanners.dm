@@ -190,13 +190,18 @@ SLIME SCANNER
 
 	var/scanned_name = "[M]"
 
+	var/probably_dead = (M.stat == DEAD)
+
 	// show your own health, evil
 	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		M = user
 
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10) && IS_HORIZONTAL(M))
+		probably_dead = TRUE
+
 	if(issimple_animal(M))
 		// No box here, keep it simple.
-		if(M.stat == DEAD)
+		if(probably_dead)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
 			return
 
@@ -224,24 +229,12 @@ SLIME SCANNER
 
 	// adjust health randomly if hallucinating
 	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
-		var/temp
-		switch(rand(1, 4))
-			if(1)
-				temp = OX
-				OX = BU
-				BU = temp
-			if(2)
-				temp = BU
-				BU = TX
-				TX = temp
-			if(3)
-				temp = TX
-				TX = BR
-				BR = temp
-			if(4)
-				temp = TX
-				TX = OX
-				OX = temp
+		var/list/healths = list(OX, TX, BU, BR)
+		shuffle_inplace(healths)
+		OX = healths[1]
+		TX = healths[2]
+		BU = healths[3]
+		BR = healths[4]
 
 	OX = OX > 50 ? "<b>[OX]</b>" : OX
 	TX = TX > 50 ? "<b>[TX]</b>" : TX
@@ -254,7 +247,7 @@ SLIME SCANNER
 		if(DNR)
 			status = "<font color='red'>Dead <b>(DNR)</b></font>"
 	else // Alive or unconscious
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || probably_dead) // status still shows as "Dead"
 			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
 		else
 			status = "[H.health]% Healthy"
@@ -263,9 +256,10 @@ SLIME SCANNER
 	msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 	msgs += "Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 
-	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
-		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>"
-		var/tdelta = round(world.time - H.timeofdeath)
+	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH)) || probably_dead))
+		var/tod = probably_dead || (HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10)) ? world.time - rand(10, 5000) : H.timeofdeath  // Sure let's blow it out
+		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", tod)]</span>"
+		var/tdelta = round(world.time - tod)
 		if(H.is_revivable() && !DNR)
 			msgs += "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>"
 		else
