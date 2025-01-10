@@ -874,20 +874,17 @@
 
 /obj/item/melee/mantis_blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
 	// first attack
-	double_attack = FALSE
-	src.attack(target, user, params)
-	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
+	single_attack(target, user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-
 	// second attack
-	addtimer(CALLBACK(src, PROC_REF(second_attack), target, user, params, secondblade), 0.2 SECONDS) // not instant second attack
+	addtimer(CALLBACK(secondblade, PROC_REF(single_attack), target, user, params), 0.2 SECONDS) // not instant second attack
 
-/obj/item/melee/mantis_blade/proc/second_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
-	if(QDELETED(src) || QDELETED(secondblade))
+/obj/item/melee/mantis_blade/proc/single_attack(mob/living/target, mob/living/user, params)
+	if(QDELETED(src))
 		return
-	secondblade.double_attack = FALSE
-	secondblade.attack(target, user, params)
-	addtimer(VARSET_CALLBACK(secondblade, double_attack, TRUE), double_attack_cd SECONDS)
+	double_attack = FALSE
+	attack(target, user, params)
+	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
 
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
