@@ -30,8 +30,7 @@
 	if(!istype(I, /obj/item/ammo_casing/rocket))
 		return ..()
 	if(!chambered)
-		user.unEquip(I)
-		I.forceMove(src)
+		user.transfer_item_to(I, src)
 		chambered = I
 		to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
 	else
