@@ -1993,6 +1993,7 @@
 #include "code\modules\hallucinations\hallucination_manager.dm"
 #include "code\modules\hallucinations\hallucinations.dm"
 #include "code\modules\hallucinations\effects\common.dm"
+#include "code\modules\hallucinations\effects\grenades.dm"
 #include "code\modules\hallucinations\effects\major.dm"
 #include "code\modules\hallucinations\effects\minor.dm"
 #include "code\modules\hallucinations\effects\moderate.dm"

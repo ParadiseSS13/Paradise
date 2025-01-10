@@ -10,10 +10,12 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	),
 	HALLUCINATE_MODERATE = list(
 		/obj/effect/hallucination/delusion = 5,
+		/obj/effect/hallucination/fake_grenade/flashbang = 5,
 		/obj/effect/hallucination/self_delusion = 5,
 		/obj/effect/hallucination/bolts/moderate = 10,
 		/obj/effect/hallucination/chasms = 10,
 		/obj/effect/hallucination/fake_alert = 10,
+		/obj/effect/hallucination/fake_grenade = 10,
 		/obj/effect/hallucination/gunfire = 10,
 		/obj/effect/hallucination/plasma_flood = 10,
 		/obj/effect/hallucination/stunprodding = 10,
@@ -26,6 +28,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/abduction = 10,
 		/obj/effect/hallucination/assault = 10,
+		/obj/effect/hallucination/fake_grenade/spawner = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
 		/datum/hallucination_manager/xeno_pounce = 10
