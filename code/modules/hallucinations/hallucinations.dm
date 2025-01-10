@@ -32,8 +32,9 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/fake_grenade/spawner = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
+		/datum/hallucination_manager/xeno_pounce = 10,
+		/datum/hallucination_manager/waves = 2,
 		/obj/effect/hallucination/blob = 10,
-		/datum/hallucination_manager/xeno_pounce = 10
 	)
 ))
 
