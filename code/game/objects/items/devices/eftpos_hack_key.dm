@@ -1,5 +1,5 @@
 /obj/item/eftpos_hack_key
-	name = "EFTPOS Hacking Key"
+	name = "\improper EFTPOS Hacking Key"
 	desc = "A small key inserted into EFTPOS devices for hacking purposes. Allows agents to steal clients' personal information."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
@@ -18,17 +18,17 @@
 	ACCESS_HOP, ACCESS_CMO, ACCESS_RD)
 
 	// Acceses that must not be copied, but have a comment in print output
-	var/static/list/not_important_jobs = list(ACCESS_MIME, ACCESS_MIME,ACCESS_BAR, ACCESS_LIBRARY,
+	var/static/list/not_important_jobs = list(ACCESS_MIME, ACCESS_MIME, ACCESS_BAR, ACCESS_LIBRARY,
 	ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_VIROLOGY, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS,
 	ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_CARGO )
 
 // interaction called on using agent card with Hacked EFTPOS terminal. Uppdates acsesses
-/obj/item/eftpos_hack_key/proc/read_agent_card(card, mob/living/user)
-	if(istype(card, /obj/item/card/id/syndicate))
-		var/obj/item/card/id/syndicate/agent_card = card
-		if(isliving(user) && user?.mind?.special_role)
-			to_chat(usr, "<span class='notice'>The card's microsensors activate as you pass it through the terminal, adding access permissions.</span>")
-			agent_card.access |= access
+/obj/item/eftpos_hack_key/proc/read_agent_card(obj/item/card/id/syndicate/card, mob/living/user)
+	if(!istype(card))
+		return
+	if(isliving(user) && user?.mind?.special_role)
+		to_chat(usr, "<span class='notice'>The card's microsensors activate as you pass it through the terminal, adding access permissions.</span>")
+		agent_card.access |= access
 
 // Called when we are ready to generate a report. Contains all stolen data and fun comments.
 /obj/item/eftpos_hack_key/proc/generate_print_text()
@@ -37,13 +37,20 @@
 	var/victim_text
 
 	switch(victim_number)
-		if(0)       	victim_text = "GET TO WORK, AGENT!"
-		if(1 to 3)      victim_text = "Ok, it's working, now you can start doing your job!"
-		if(4 to 9)    	victim_text = "Good start, agent"
-		if(10 to 20) 	victim_text = "Keep up the good work"
-		if(21 to 50) victim_text = "Maybe... Maybe you are useful after all."
-		if(50 to 100) victim_text = "You didn’t forget that you have an actual job to do, right?"
-		if(101 to 150) victim_text = "At this point, I just don’t believe you."
+		if(0)
+			victim_text = "GET TO WORK, AGENT!"
+		if(1 to 3)
+			victim_text = "Ok, it's working, now you can start doing your job!"
+		if(4 to 9)
+			victim_text = "Good start, agent"
+		if(10 to 20)
+			victim_text = "Keep up the good work"
+		if(21 to 50)
+			victim_text = "Maybe... Maybe you are useful after all."
+		if(50 to 100)
+			victim_text = "You didn’t forget that you have an actual job to do, right?"
+		if(101 to 150)
+			victim_text = "At this point, I just don’t believe you."
 		else       		victim_text = "AGENT, STOP BREAKING MY STUFF!!!"
 
 	var/text_to_print = {"
@@ -61,7 +68,7 @@
 		"}
 
 	for(var/i = 1, length(stolen_data) >= i, i++)
-		text_to_print += "[stolen_data[i]]<BR>"
+		text_to_print += "[stolen_data[i]]<br>"
 
 	text_to_print += "Don't forget to tell your agent friends how useful my gadget is!"
 
@@ -69,7 +76,7 @@
 
 // Not used curently
 /obj/item/eftpos_hack_key/proc/on_key_insert()
-	return null
+	return
 
 // Get a funny comment for print
 /obj/item/eftpos_hack_key/proc/get_rank_text(access)
@@ -151,11 +158,10 @@
 
 
 // Logic of access theft
-/obj/item/eftpos_hack_key/proc/update_access(C)
+/obj/item/eftpos_hack_key/proc/update_access(/obj/item/card/id/card)
 
-	if(!istype(C, /obj/item/card/id))
+	if(!istype(card))
 		return
-	var/obj/item/card/id/card = C
 	var/list/new_access = card.access - (card.access & access)
 
 	if(comand_access & card.access)
