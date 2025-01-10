@@ -351,6 +351,17 @@
 
 	return returntext
 
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
+
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = Gibberish(S.message, p, replace_rate)

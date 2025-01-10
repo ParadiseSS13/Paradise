@@ -341,7 +341,7 @@
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.unEquip(src)
+		user.unequip(src)
 		qdel(src)
 	else
 		..()

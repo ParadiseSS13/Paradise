@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/speech = 15,
 		/obj/effect/hallucination/audio = 25,
 		/obj/effect/hallucination/audio/localized = 25,
+		/obj/effect/hallucination/examine_hallucination = 25,
 	),
 	HALLUCINATE_MODERATE = list(
 		/obj/effect/hallucination/delusion = 5,
@@ -20,6 +21,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/fake_item = 15,
 		/obj/effect/hallucination/fake_weapon = 15,
 		/obj/effect/hallucination/husks = 15,
+		/obj/effect/hallucination/ventpeek = 15,
 	),
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/abduction = 10,

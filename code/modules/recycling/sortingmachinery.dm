@@ -426,8 +426,7 @@
 			to_chat(user, "<span class='notice'>[O] is too large to fit in [src].</span>")
 		else
 			wrapped = O
-			user.unEquip(O)
-			O.forceMove(src)
+			user.transfer_item_to(O, src)
 			O.add_fingerprint(usr)
 			add_fingerprint(usr)
 			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
@@ -436,7 +435,7 @@
 	if(sealed)
 		to_chat(user, "<span class='notice'>You tear open [src], dropping the contents onto the floor.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-		user.unEquip(src)
+		user.unequip(src)
 		wrapped.forceMove(get_turf(user))
 		wrapped = null
 		qdel(src)
@@ -455,7 +454,7 @@
 		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-			user.unEquip(src)
+			user.drop_item_to_ground(src)
 			qdel(src)
 
 /obj/item/shipping_package/update_desc()
