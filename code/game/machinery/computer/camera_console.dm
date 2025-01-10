@@ -1,3 +1,10 @@
+/// The amount of time a camera console actively being watched will wait between feed refreshes.
+#define FOLLOW_COOLDOWN_RATE 2 SECONDS
+
+/// The root type of all camera consoles. When used, these open a UI that has a left-hand sidebar
+/// displaying a list of active cameras in the console's assigned camera `network`. The bulk of the window
+/// on the right hand side displays a camera feed of the selected camera. This feed will attempt to refresh
+/// at periods of `FOLLOW_COOLDOWN_RATE` as long as there are active watchers, living or dead.
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
@@ -10,7 +17,9 @@
 
 	var/list/network = list("SS13","Mining Outpost")
 	var/obj/machinery/camera/active_camera
+	/// The list of total watchers, living and dead, of this console.
 	var/list/watchers = list()
+	/// The list of living watchers of this console. Used for playing a "terminal on" sound on first live viewer.
 	var/list/living_watchers = list()
 
 	// Stuff needed to render the map
@@ -21,11 +30,14 @@
 	var/list/cam_plane_masters
 	var/atom/movable/screen/background/cam_background
 
-	// Parent object this camera is assigned to. Used for camera bugs
+	/// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
 
 	/// is the console silent when switching cameras?
 	var/silent_console = FALSE
+
+	/// Timer for the follow refresh cooldown; fires periodically every `FOLLOW_COOLDOWN_RATE` while there are watchers.
+	var/follow_cooldown
 
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
@@ -47,6 +59,7 @@
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
+	deltimer(follow_cooldown)
 	qdel(cam_screen)
 	qdel(cam_background)
 	return ..()
@@ -87,6 +100,14 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole", name)
 		ui.open()
+		follow_cooldown = addtimer(CALLBACK(src, PROC_REF(refresh_feed)), FOLLOW_COOLDOWN_RATE, TIMER_UNIQUE)
+
+/obj/machinery/computer/security/proc/refresh_feed()
+	update_viewer()
+	if(length(watchers))
+		follow_cooldown = addtimer(CALLBACK(src, PROC_REF(refresh_feed)), FOLLOW_COOLDOWN_RATE, TIMER_UNIQUE)
+	else if(follow_cooldown)
+		deltimer(follow_cooldown)
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
@@ -238,6 +259,11 @@
 /obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
 	. = ..()
 	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
+	GLOB.telescreens += src
+
+/obj/machinery/computer/security/telescreen/entertainment/Destroy()
+	GLOB.telescreens -= src
+	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/update_overlays()
 	if(feeds_on)
@@ -374,3 +400,5 @@
 	desc = "Used for watching the turbine vent.";
 	network = list("Turbine")
 	circuit = /obj/item/circuitboard/camera/turbine
+
+#undef FOLLOW_COOLDOWN_RATE

@@ -561,6 +561,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+/// The amount of time after being turned off that the camera is too hot to turn back on.
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
@@ -571,47 +572,36 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
-	var/video_cooldown = 0
-	/// The default amount of time the camera will wait before updating consoles with its new position.
-	var/update_viewer_cooldown_rate = 2 SECONDS
-	/// The next time that the camera should update consoles with its new position.
-	var/update_viewer_cooldown = 0
-	/// The amount of time after each move the camera will wait before updating consoles
-	/// with its position a final time. It should be higher than `update_viewer_cooldown_rate` to ensure
-	/// that it isn't debounced. (This ensures the feed tries to remain centered on the camera.)
-	var/update_viewer_stabilize_rate = 3 SECONDS
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
-	var/mob/holder
+
+	COOLDOWN_DECLARE(video_cooldown)
 
 /obj/item/videocam/proc/camera_state(mob/living/carbon/user)
 	if(!on)
-		holder = loc
-		RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_viewers))
 		on = TRUE
 		camera = new /obj/machinery/camera(src)
 		icon_state = icon_on
 		camera.network = list("news")
 		camera.c_tag = user.name
 	else
-		UnregisterSignal(holder, COMSIG_MOVABLE_MOVED)
 		on = FALSE
 		icon_state = icon_off
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
 		if(on)
 			TV.feeds_on++
 		else
 			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
-	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
+	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
-	if(world.time < video_cooldown)
+	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return
 	camera_state(user)
@@ -641,16 +631,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
-
-/obj/item/videocam/proc/update_viewers()
-	var/mob/holder = loc
-	if(!camera || world.timeofday < update_viewer_cooldown)
-		return
-	update_viewer_cooldown = world.timeofday + update_viewer_cooldown_rate
-	for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-		if(T.active_camera == camera && length(T.watchers))
-			T.update_viewer()
-	addtimer(CALLBACK(src, PROC_REF(update_viewers)), update_viewer_stabilize_rate)
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"
