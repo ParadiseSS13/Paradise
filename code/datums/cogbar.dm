@@ -14,8 +14,6 @@
 	/// The blank image that overlaps the cog - hides it from the source user
 	var/image/blank
 
-
-
 /datum/cogbar/New(mob/user)
 	src.user = user
 	src.user_client = user.client
@@ -23,7 +21,6 @@
 	add_cog_to_user()
 
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_delete))
-
 
 /datum/cogbar/Destroy()
 	if(user)
@@ -36,7 +33,6 @@
 	QDEL_NULL(blank)
 
 	return ..()
-
 
 /// Adds the cog to the user, visible by other players
 /datum/cogbar/proc/add_cog_to_user()
@@ -62,7 +58,6 @@
 
 	user_client.images += blank
 
-
 /// Removes the cog from the user
 /datum/cogbar/proc/remove()
 	if(isnull(cog))
@@ -73,12 +68,10 @@
 
 	QDEL_IN(src, COGBAR_ANIMATION_TIME)
 
-
 /// When the user is deleted, remove the cog
 /datum/cogbar/proc/on_user_delete(datum/source)
 	SIGNAL_HANDLER
 
 	qdel(src)
-
 
 #undef COGBAR_ANIMATION_TIME

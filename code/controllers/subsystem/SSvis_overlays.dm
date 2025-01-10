@@ -66,7 +66,6 @@ SUBSYSTEM_DEF(vis_overlays)
 	overlay.appearance_flags |= add_appearance_flags
 	return overlay
 
-
 /datum/controller/subsystem/vis_overlays/proc/remove_vis_overlay(atom/movable/thing, list/overlays)
 	thing.vis_contents -= overlays
 	if(!isatom(thing))

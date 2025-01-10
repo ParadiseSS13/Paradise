@@ -387,6 +387,7 @@
  *
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
+ *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
  */
 /proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE)
 	if(!user)
