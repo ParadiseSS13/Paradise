@@ -119,26 +119,26 @@
 
 		for(var/datum/reagent/R in used.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
-				to_chat(user, "<span class='alert'>Your [O.name] contains components unsuitable for cookery.</span>")
+				to_chat(user, "<span class='alert'>Your [used.name] contains components unsuitable for cookery.</span>")
 				return ITEM_INTERACT_COMPLETE
-	else if(istype(O, /obj/item/storage))
-		var/obj/item/storage/S = O
+	else if(istype(used, /obj/item/storage))
+		var/obj/item/storage/S = used
 		if(!S.allow_quick_empty)
-			to_chat(user, "<span class='alert'>[O] is too awkward a shape to dump into [src].</span>")
+			to_chat(user, "<span class='alert'>[used] is too awkward a shape to dump into [src].</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(length(S.contents) + length(contents) >= max_n_of_items)
-			to_chat(user, "<span class='alert'>You can't fit everything from [O] into [src].</span>")
+			to_chat(user, "<span class='alert'>You can't fit everything from [used] into [src].</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(length(S.contents) == 0)
-			to_chat(user, "<span class='alert'>[O] is empty!</span>")
+			to_chat(user, "<span class='alert'>[used] is empty!</span>")
 			return ITEM_INTERACT_COMPLETE
-		for(var/obj/item/ingredient in O.contents)
+		for(var/obj/item/ingredient in used.contents)
 			if(!is_type_in_list(ingredient, GLOB.cooking_ingredients[recipe_type]) && !istype(ingredient, /obj/item/mixing_bowl))
-				to_chat(user, "<span class='alert'>Your [O.name] contains contents unsuitable for cookery.</span>")
+				to_chat(user, "<span class='alert'>Your [used.name] contains contents unsuitable for cookery.</span>")
 				return ITEM_INTERACT_COMPLETE
 		S.hide_from(user)
-		user.visible_message("<span class='notice'>[user] dumps [O] into [src].</span>", "<span class='notice'>You dump [O] into [src].</span>")
-		for(var/obj/item/ingredient in O.contents)
+		user.visible_message("<span class='notice'>[user] dumps [used] into [src].</span>", "<span class='notice'>You dump [used] into [src].</span>")
+		for(var/obj/item/ingredient in used.contents)
 			S.remove_from_storage(ingredient, src)
 			CHECK_TICK
 		SStgui.update_uis(src)
