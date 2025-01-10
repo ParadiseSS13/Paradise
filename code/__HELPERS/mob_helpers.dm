@@ -330,7 +330,7 @@
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE, requires_upright = TRUE)
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE, requires_upright = TRUE, hidden = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -343,8 +343,12 @@
 
 	var/holding = user.get_active_hand()
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
 	if(progress)
 		progbar = new(user, time, target)
+
+		if(!hidden && time >= 10) // 1 second
+			cog = new(user)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
@@ -376,6 +380,7 @@
 			break
 	if(progress)
 		qdel(progbar)
+		cog?.remove()
 
 /*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
  *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
@@ -413,7 +418,7 @@
 	if(progress)
 		progbar = new(user, delay, target)
 
-		if(!hidden && delay >= 1)
+		if(!hidden && delay >= 10) // 1 second
 			cog = new(user)
 
 	var/endtime = world.time + delay
@@ -473,7 +478,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier)
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE)
 	if(!user || !target)
 		return
 
@@ -483,7 +488,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
