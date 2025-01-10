@@ -8667,7 +8667,7 @@
 /obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
@@ -34420,6 +34420,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "fLp" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -36220,10 +36223,10 @@
 "gkN" = (
 /obj/structure/table/glass,
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench/medical,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/wrench/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -38891,12 +38894,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "gXg" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -48813,11 +48810,15 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "jlT" = (
-/obj/structure/table/glass,
-/obj/item/wrench/medical,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("SS13","CMO")
+	},
+/obj/structure/table/glass,
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -49230,6 +49231,12 @@
 	icon_state = "arrivalcorner"
 	},
 /area/station/hallway/primary/port/north)
+"jqT" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/storage)
 "jqW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56945,12 +56952,12 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "leI" = (
-/obj/structure/table/glass,
-/obj/item/soap/nanotrasen,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -73272,12 +73279,14 @@
 /area/station/hallway/primary/port/south)
 "pcM" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
+/obj/structure/table/glass,
+/obj/item/roller{
+	pixel_y = 9
+	},
+/obj/item/roller,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -74961,9 +74970,10 @@
 	},
 /area/station/service/kitchen)
 "pxl" = (
-/obj/structure/closet/crate/freezer/iv_storage,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -84475,16 +84485,12 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "rOO" = (
-/obj/structure/table/glass,
-/obj/item/roller{
-	pixel_y = 9
-	},
-/obj/item/roller,
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("SS13","CMO")
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -85843,8 +85849,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "seP" = (
-/obj/structure/closet/crate/freezer/iv_storage,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -109241,7 +109245,7 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
@@ -160079,7 +160083,7 @@ glq
 pxl
 jCa
 tiG
-buw
+jqT
 ejh
 jVQ
 mdv
@@ -160336,7 +160340,7 @@ kQf
 fLp
 jCa
 bqK
-mDi
+buw
 tul
 hoP
 mDi
