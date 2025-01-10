@@ -47,7 +47,7 @@
 	if(is_type_in_list(O,acceptable_items))
 		if(istype(O, /obj/item/food))
 			var/obj/item/food/S = O
-			user.unEquip(S)
+			user.drop_item_to_ground(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
 				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
 				qdel(S)			//Delete the food object because it is useless even as food due to the lack of reagents
@@ -60,24 +60,24 @@
 				if(C.can_opened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
 					return 0
-				user.unEquip(C)
+				user.drop_item_to_ground(C)
 				if(!C.reagents.total_volume)		//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
 					recycle_container(C)
 				else								//Full cans that are unopened get inserted for processing as ingredients
 					insert_item(C, user)
 			return 1
 		else
-			user.unEquip(O)
+			user.drop_item_to_ground(O)
 			insert_item(O, user)
 			return 1
 	else if(istype(O, /obj/item/trash/can))			//Crushed cans (and bottles) are returnable still
 		var/obj/item/trash/can/C = O
-		user.unEquip(C)
+		user.drop_item_to_ground(C)
 		recycle_container(C)
 		return 1
 	else if(istype(O, /obj/item/stack/sheet))		//Sheets of materials can replenish the machine's supply of drink containers (when people inevitably don't return them)
 		var/obj/item/stack/sheet/S = O
-		user.unEquip(S)
+		user.drop_item_to_ground(S)
 		process_sheets(S)
 		return 1
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.

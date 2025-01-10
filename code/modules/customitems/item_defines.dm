@@ -1432,7 +1432,7 @@
 /obj/item/clothing/suit/armor/vest/fluff/tactical
 	name = "tactical armor vest"
 	desc = "A tactical vest with armored plate inserts."
-	icon = 'icons/obj/clothing/ties.dmi'
+	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
@@ -1549,7 +1549,7 @@
 
 
 /// Fethas: Sefra'neem
-/obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace
+/obj/item/clothing/accessory/locket/fluff/fethasnecklace
 	name = "Orange gemmed locket"
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1613,7 +1613,7 @@
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
+			H.unequip(P, force = TRUE)
 			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)

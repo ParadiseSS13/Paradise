@@ -1,18 +1,18 @@
-/datum/milla_safe/late_setup_level
+/datum/milla_safe_must_sleep/late_setup_level
 
 // Ensures that atmos and environment are set up.
-/datum/milla_safe/late_setup_level/on_run(turfs, smoothTurfs)
+/datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
 	var/total_timer = start_watch()
 	var/subtimer = start_watch()
 	if(!smoothTurfs)
-		smoothTurfs = turfs
+		smoothTurfs = block(bot_left, top_right)
 
 	log_debug("Setting up atmos")
 	/* setup_allturfs is superfluous during server initialization because
 	 * air subsystem will call subsequently call setup_allturfs with _every_
 	 * turf in the world */
 	if(SSair && SSair.initialized)
-		SSair.setup_allturfs_sleepless(turfs)
+		SSair.setup_turfs(bot_left, top_right)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()

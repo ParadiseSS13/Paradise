@@ -499,7 +499,9 @@
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armor"
-	desc = "An ensorceled spaceproof suit of protective yet light armor, protected by a powerful shield. The shield can completely negate 15 attacks before permanently failing."
+	desc = "An ensorceled spaceproof suit of protective yet light armor, protected by a powerful shield. The shield can completely negate 15 attacks before permanently failing. \
+	This armor grants you full protection from magical attacks, and allows you to cast magic despite that. However, this means it will also block wands or staffs of \
+	healing from working on you, and should be removed before application."
 	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
@@ -1110,7 +1112,7 @@
 		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
-		if(!user.unEquip(user.wear_mask))
+		if(!user.drop_item_to_ground(user.wear_mask))
 			qdel(user.wear_mask)
 		user.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, TRUE, TRUE)
 		qdel(src)
