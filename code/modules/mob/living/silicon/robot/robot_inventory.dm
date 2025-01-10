@@ -239,9 +239,9 @@
 	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
 	return
 
-/mob/living/silicon/robot/unEquip(obj/item/I, force, silent = FALSE)
-	if(I == module_active)
-		uneq_active(I)
+/mob/living/silicon/robot/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	if(target == module_active)
+		uneq_active(target)
 	return ..()
 
 /mob/living/silicon/robot/proc/update_module_icon()

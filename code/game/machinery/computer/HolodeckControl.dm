@@ -131,7 +131,8 @@
 
 	var/mob/M = obj.loc
 	if(istype(M))
-		M.unEquip(obj, TRUE) //Holoweapons should always drop.
+		// Holoweapons should always drop.
+		M.drop_item_to_ground(obj, force = TRUE)
 
 	if(!silent)
 		var/obj/old_obj = obj
