@@ -26,7 +26,7 @@
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			(1<<3)
 #define PREFTOGGLE_CHAT_PRAYER				(1<<4) // Defunct
 #define PREFTOGGLE_CHAT_RADIO				(1<<5)
-#define PREFTOGGLE_COGBAR_ANIMATIONS		(1<<6)
+// #define PREFTOGGLE_AZERTY					(1<<6) // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			(1<<7)
 #define PREFTOGGLE_CHAT_LOOC 				(1<<8)
 #define PREFTOGGLE_CHAT_GHOSTRADIO 			(1<<9)
@@ -45,9 +45,9 @@
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
 // #define PREFTOGGLE_NUMPAD_TARGET 			(1<<23) // Made obsolete with key bindings
 
-#define TOGGLES_TOTAL 							6942503 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_TOTAL 							16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_COGBAR_ANIMATIONS|PREFTOGGLE_CHAT_DEBUGLOGS|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA)
+#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_DEBUGLOGS|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA)
 
 // toggles_2 variables. These MUST be prefixed with PREFTOGGLE_2
 #define PREFTOGGLE_2_RANDOMSLOT						(1<<0) // 1
@@ -82,11 +82,10 @@
 
 
 // toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
-#define TOGGLES_3_TOTAL 							1023 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define PREFTOGGLE_3_COGBAR_ANIMATIONS				(1<<0) // 1
+#define TOGGLES_3_TOTAL 							1024 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-// When you add a toggle here, inform AA on merge so the column can be zeroed out. This needs to exist to avoid the compiler freaking out
-// Also update the above value to the actual total
-#define TOGGLES_3_DEFAULT (1)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS)
 
 // Sanity checks
 // I should really convert these to a JSON list at some point hnnnnnng

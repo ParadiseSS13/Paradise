@@ -69,7 +69,7 @@
 
 /atom/movable/screen/plane_master/cogbar/backdrop(mob/mymob)
 	if(istype(mymob) && mymob.client && mymob.client.prefs)
-		alpha = (mymob.client.prefs.toggles & PREFTOGGLE_COGBAR_ANIMATIONS) ? 255 : 0
+		alpha = (mymob.client.prefs.toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? 255 : 0
 
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
