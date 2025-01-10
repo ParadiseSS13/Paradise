@@ -514,7 +514,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
-// slot uses the slot_X defines found in setup.dm
+// slot uses the ITEM_SLOT_X found in clothing_defines.dm
 // for items that can be placed in multiple slots
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
