@@ -1521,7 +1521,7 @@
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/I in current)
-					current.unEquip(I, TRUE)
+					current.drop_item_to_ground(I, force = TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")

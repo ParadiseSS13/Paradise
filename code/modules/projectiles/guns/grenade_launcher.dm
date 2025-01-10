@@ -21,9 +21,9 @@
 /obj/item/gun/grenadelauncher/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
 		if(length(grenades) < max_grenades)
-			if(!user.unEquip(I))
+			if(!user.unequip(I))
 				return
-			I.loc = src
+			I.forceMove(src)
 			grenades += I
 			to_chat(user, "<span class='notice'>You put the grenade in [src].</span>")
 			to_chat(user, "<span class='notice'>[length(grenades)] / [max_grenades] grenades.</span>")

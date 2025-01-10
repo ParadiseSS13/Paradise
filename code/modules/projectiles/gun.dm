@@ -349,14 +349,13 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.transfer_item_to(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
