@@ -266,7 +266,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/slime/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)

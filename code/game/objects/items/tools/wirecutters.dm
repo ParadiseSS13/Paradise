@@ -85,7 +85,7 @@
 	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION

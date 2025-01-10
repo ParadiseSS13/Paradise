@@ -37,9 +37,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "aar" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -2657,9 +2655,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "awM" = (
 /obj/structure/disposalpipe/segment,
@@ -13680,9 +13676,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "bPY" = (
 /obj/structure/bonfire,
@@ -13772,9 +13766,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "bQw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -24082,9 +24074,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "dkc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -25287,9 +25277,7 @@
 "dwb" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/detflask,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "dwd" = (
 /obj/structure/disposalpipe/segment,
@@ -25569,9 +25557,7 @@
 "dyR" = (
 /obj/item/cigbutt,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "dyS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -28951,9 +28937,7 @@
 /obj/structure/shelf/security,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/camera/detective,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "emC" = (
 /obj/item/food/grown/cannabis,
@@ -29443,9 +29427,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "etJ" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -31913,9 +31895,7 @@
 	dir = 4
 	},
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "fbs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -46246,9 +46226,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "iTu" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -47252,9 +47230,7 @@
 	pixel_x = 42;
 	pixel_y = -15
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "jgq" = (
 /obj/structure/girder,
@@ -47486,9 +47462,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "jiW" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "jiZ" = (
 /obj/structure/table,
@@ -52567,9 +52541,7 @@
 "ktR" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "ktS" = (
 /obj/structure/chair/sofa/corp/left,
@@ -55680,9 +55652,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "lkg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -64210,9 +64180,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/cigbutt,
 /obj/item/cigbutt,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "ntP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69411,9 +69379,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "oNy" = (
 /obj/structure/sign/directions/bridge{
@@ -76975,9 +76941,7 @@
 	c_tag = "Detective's Office";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "qHL" = (
 /obj/machinery/door/poddoor/preopen{
@@ -78322,9 +78286,7 @@
 /area/station/service/chapel/office)
 "qZo" = (
 /obj/item/book/manual/detective,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "qZt" = (
 /obj/structure/chair,
@@ -85332,9 +85294,7 @@
 	name = "north bump";
 	pixel_x = -6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "sOA" = (
 /obj/effect/turf_decal/delivery,
@@ -95021,9 +94981,7 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "vjb" = (
 /turf/simulated/floor/plasteel{
@@ -95192,9 +95150,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fore2)
 "vkJ" = (
 /turf/simulated/wall,
@@ -95398,9 +95354,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "vos" = (
 /obj/structure/disposalpipe/segment,
@@ -97649,9 +97603,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "vQk" = (
 /obj/structure/cable/orange{
