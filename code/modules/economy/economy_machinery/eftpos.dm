@@ -59,9 +59,9 @@
 			user.drop_item()
 			O.loc = src
 			eftpos_sindy_key = O
-			user.show_message("<span class='notice'>You insert the hacking key into the terminal.</span>")
+			to_chat(user, "<span class='notice'>You insert the hacking key into the terminal.</span>")
 		else
-			user.show_message("<span class='notice'>There's already a hacking key in the terminal.</span>")
+			to_chat(user, "<span class='notice'>There's already a hacking key in the terminal.</span>")
 
 	else
 		return ..()
