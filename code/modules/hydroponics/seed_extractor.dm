@@ -20,7 +20,7 @@
 	if(!original_seed)
 		return FALSE
 
-	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
+	if(user && !user.drop_item_to_ground(source_item, silent = TRUE)) //couldn't drop the item
 		return FALSE
 
 	if(seed_count == -1)
