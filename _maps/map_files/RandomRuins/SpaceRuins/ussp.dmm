@@ -3173,7 +3173,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iq" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/space/nearstation)
 "ir" = (
@@ -5147,7 +5147,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nM" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nN" = (
@@ -5344,7 +5344,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "on" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "op" = (

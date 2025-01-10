@@ -50,6 +50,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which slots an item can fit.
 	var/slot_flags = 0
+	/// If set, this determines which slots are considered when using quick equip
+	var/prefered_slot_flags = 0
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
@@ -184,6 +186,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 
@@ -232,17 +236,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	master = null
 	return ..()
-
-/obj/item/proc/alert_admins_on_destroy()
-	SIGNAL_HANDLER
-	var/turf/turf_loc = get_turf(src)
-	if(turf_loc)
-		// guess it's actually just in nullspace. lol. lmao
-		message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
-		log_game("[src] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [loc].")
-	else
-		message_admins("[src] has been destroyed in nullspace.")
-		log_game("[src] has been destroyed in nullspace.")
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -992,7 +985,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	SHOULD_BE_PURE(TRUE)
-	return !(flags & NODROP) && !(flags & ABSTRACT)
+	return !(flags & NODROP) && !(flags & ABSTRACT) && !HAS_TRAIT(src, TRAIT_NO_STRIP)
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name

@@ -77,7 +77,6 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/malf

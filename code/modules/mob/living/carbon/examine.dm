@@ -88,6 +88,8 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list("<span class='notice'>You're struggling to make out any details...</span>")
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -143,6 +145,8 @@
 				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
+			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
+				continue
 			else
 				var/item_words = item.name
 				if(item.blood_DNA)
