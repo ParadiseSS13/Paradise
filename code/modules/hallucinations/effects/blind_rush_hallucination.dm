@@ -25,7 +25,7 @@
 
 /datum/hallucination_manager/blind_rush/proc/on_second_trigger()
 	var/turf/spawn_location = get_spawn_location()
-	new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
+	hallucination_list += new /obj/effect/hallucination/no_delete/blind_rusher(spawn_location, owner)
 	owner.Confused(9 SECONDS)
 	owner.Jitter(9 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Run!</span>", MESSAGE_TYPE_INFO)
