@@ -16,7 +16,7 @@
 	player.click_on(plating)
 	var/turf/engine = get_turf(plating)
 	TEST_ASSERT(istype(engine, /turf/simulated/floor/engine), "Did not find plating converted to engine floor")
-	player.puppet.unEquip(rods, force = TRUE)
+	player.puppet.drop_item_to_ground(rods, force = TRUE)
 
 	var/obj/item/storage/bag/ore/ore_bag = player.spawn_obj_in_hand(/obj/item/storage/bag/ore)
 	var/obj/item/stack/ore/gold/gold = player.spawn_obj_nearby(/obj/item/stack/ore/gold, SOUTH)
