@@ -212,6 +212,8 @@
 		return
 	hit = TRUE // to prevent double hits from the pull
 	. = ..()
+	if(!.)
+		return
 	for(var/atom/extinguish_target in range(2, src))
 		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))

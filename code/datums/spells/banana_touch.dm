@@ -17,21 +17,21 @@
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
+	var/is_apprentice_spell = FALSE
 
 /datum/spell/touch/banana/apprentice
 	hand_path = /obj/item/melee/touch_attack/banana/apprentice
 
 /obj/item/melee/touch_attack/banana/apprentice
-
-/obj/item/melee/touch_attack/banana/apprentice/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(iswizard(target) && target != user)
-		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
-		return
+	is_apprentice_spell = TRUE
 
 /obj/item/melee/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+
+	if(is_apprentice_spell && iswizard(target) && target != user)
+		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
+		return
+	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -41,6 +41,7 @@
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/H = target
 	H.bananatouched()
+	handle_delete(user)
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
@@ -49,10 +50,10 @@
 	do_jitter_animation(30 SECONDS)
 
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed clown robes and magical mask.
-		unEquip(shoes, TRUE)
-		unEquip(wear_mask, TRUE)
-		unEquip(head, TRUE)
-		unEquip(wear_suit, TRUE)
+		drop_item_to_ground(shoes, force = TRUE)
+		drop_item_to_ground(wear_mask, force = TRUE)
+		drop_item_to_ground(head, force = TRUE)
+		drop_item_to_ground(wear_suit, force = TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/head/wizard/clown, ITEM_SLOT_HEAD, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/wizrobe/clown, ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/magical, ITEM_SLOT_SHOES, TRUE, TRUE)

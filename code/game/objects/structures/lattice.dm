@@ -38,8 +38,9 @@
 		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
 		deconstruct()
 	else
+		// hand this off to the turf instead (for building plating, catwalks, etc)
 		var/turf/T = get_turf(src)
-		return T.attackby__legacy__attackchain(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+		return T.attack_by(C, user, params)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

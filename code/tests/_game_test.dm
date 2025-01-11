@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(game_test_chats)
+
 /// For advanced cases, fail unconditionally but don't return (so a test can return multiple results)
 #define TEST_FAIL(reason) (Fail(reason || "No reason", __FILE__, __LINE__))
 
@@ -47,8 +49,7 @@
 	var/list/procs_tested
 
 	//usable vars
-	var/turf/run_loc_bottom_left
-	var/turf/run_loc_top_right
+	var/static/list/available_turfs
 
 	//internal shit
 	var/succeeded = TRUE
@@ -56,14 +57,25 @@
 	var/list/fail_reasons
 
 /datum/game_test/New()
-	run_loc_bottom_left = locate(1, 1, 1)
-	run_loc_top_right = locate(5, 5, 1)
+	if(!length(available_turfs))
+		load_testing_area()
+		available_turfs = get_test_turfs()
+
+/datum/game_test/proc/load_testing_area()
+	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
+	if(!length(testing_levels))
+		Fail("Could not find appropriate z-level for spawning test areas")
+	var/testing_z_level = pick(testing_levels)
+	var/datum/map_template/generic_test_area = GLOB.map_templates["test_generic.dmm"]
+	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
+		Fail("Could not place generic testing area on z-level [testing_z_level]")
 
 /datum/game_test/Destroy()
 	QDEL_LIST_CONTENTS(allocated)
-	//clear the test area
-	for(var/atom/movable/AM in block(run_loc_bottom_left, run_loc_top_right))
-		qdel(AM)
+	// clear the whole test area, not just the bounds of the landmarks
+	for(var/turf/T in get_area_turfs(/area/game_test))
+		for(var/atom/movable/AM in T)
+			qdel(AM)
 	return ..()
 
 /datum/game_test/proc/Run()
@@ -77,15 +89,36 @@
 
 	LAZYADD(fail_reasons, list(list(reason, file, line)))
 
+/datum/game_test/proc/get_test_turfs()
+	var/list/result = list()
+	var/obj/effect/landmark/bottom_left
+	var/obj/effect/landmark/top_right
+	for(var/obj/effect/landmark in GLOB.landmarks_list)
+		if(istype(landmark, /obj/effect/landmark/game_test/bottom_left_corner))
+			bottom_left = landmark
+		else if(istype(landmark, /obj/effect/landmark/game_test/top_right_corner))
+			top_right = landmark
+
+	if(!(bottom_left && top_right))
+		Fail("could not find test area landmarks")
+
+	for(var/turf/T in block(bottom_left.loc, top_right.loc))
+		result |= T
+
+	if(!length(result))
+		Fail("could not find any test turfs")
+
+	return result
+
 /// Allocates an instance of the provided type, and places it somewhere in an available loc
 /// Instances allocated through this proc will be destroyed when the test is over
 /datum/game_test/proc/allocate(type, ...)
 	var/list/arguments = args.Copy(2)
 	if(ispath(type, /atom))
 		if(!arguments.len)
-			arguments = list(run_loc_bottom_left)
+			arguments = list(pick(available_turfs))
 		else if(arguments[1] == null)
-			arguments[1] = run_loc_bottom_left
+			arguments[1] = pick(available_turfs)
 	var/instance
 	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
 	if(length(arguments))

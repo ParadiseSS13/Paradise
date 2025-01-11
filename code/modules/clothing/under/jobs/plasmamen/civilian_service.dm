@@ -134,3 +134,10 @@
 	item_state = "tacticool_envirosuit"
 	item_color = "tacticool_envirosuit"
 	has_sensor = FALSE
+
+/obj/item/clothing/under/plasmaman/trainer
+	name = "\improper NT career trainer's envirosuit"
+	desc = "An envirosuit designed for plasmamen employed as the nanotrasen career trainer."
+	icon_state = "trainer_envirosuit"
+	item_state = "trainer_envirosuit"
+	item_color = "trainer_envirosuit"

@@ -68,7 +68,7 @@
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.unEquip(noz, 1)
+		M.drop_item_to_ground(noz, force = TRUE)
 	return
 
 /obj/item/watertank/attack_hand(mob/user)
@@ -84,13 +84,13 @@
 			if("r_hand")
 				if(H.r_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_r_hand(src)
 			if("l_hand")
 				if(H.l_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_l_hand(src)
 	return
@@ -328,7 +328,7 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(amount = 6, only_cardinals = FALSE, source = loc, desired_direction = null, chemicals = null, blasting = TRUE)
+	S.set_up(amount = 6, only_cardinals = FALSE, source = loc)
 	S.start()
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
