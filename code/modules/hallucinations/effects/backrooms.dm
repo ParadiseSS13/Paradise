@@ -40,5 +40,5 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 
 /datum/hallucination_manager/backrooms/proc/follow_movement(source, atom/old_loc, dir, forced)
 	// signal is called above in on_spawn so that whenever our human moves, we also move the clone
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	step_towards(clone_base, get_step(get_turf(clone_base), dir))
