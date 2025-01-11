@@ -91,7 +91,7 @@
 			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
-				if(!M.unEquip(src))
+				if(!M.unequip(src))
 					return
 				M.put_in_active_hand(src)
 			else
@@ -338,6 +338,7 @@
 	max_charges = 1
 	flags = NOBLUDGEON
 	force = 18
+	antimagic_flags = NONE
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -384,7 +385,7 @@
 //Immortality Talisman
 
 /obj/item/immortality_talisman
-	name = "Immortality Talisman"
+	name = "\improper Immortality Talisman"
 	desc = "A dread talisman that can render you completely invulnerable."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
@@ -392,6 +393,21 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	var/cooldown = 0
+
+/obj/item/immortality_talisman/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL)
+
+/obj/item/immortality_talisman/equipped(mob/user, slot)
+	..()
+	if(slot != ITEM_SLOT_IN_BACKPACK)
+		var/user_UID = user.UID()
+		ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, user_UID)
+
+/obj/item/immortality_talisman/dropped(mob/user, silent)
+	. = ..()
+	var/user_UID = user.UID()
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, user_UID)
 
 /datum/action/item_action/immortality
 	name = "Immortality"

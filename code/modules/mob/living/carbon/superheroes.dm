@@ -15,7 +15,7 @@
 /datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
-		H.unEquip(W)
+		H.drop_item_to_ground(W)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_LEFT_EAR)
 
 /datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
@@ -143,6 +143,7 @@
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
 	base_cooldown = 450
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
@@ -221,7 +222,7 @@
 	// No `update_dna=0` here because the character is being over-written
 	target.change_eye_color(1,1,1)
 	for(var/obj/item/W in target.get_all_slots())
-		target.unEquip(W)
+		target.drop_item_to_ground(W)
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), ITEM_SLOT_JUMPSUIT)
 	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), ITEM_SLOT_SHOES)

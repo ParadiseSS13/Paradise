@@ -51,6 +51,7 @@
 	name = "brass wrench"
 	desc = "A brass wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
+	belt_icon = "wrench_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -117,7 +118,7 @@
 		return
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	for(var/mob/living/M in orange(2, src))
 		// you're close enough, it's pretty fuckin bright

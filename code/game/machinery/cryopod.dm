@@ -334,8 +334,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
-		occupant.unEquip(I)
-		I.forceMove(src)
+		occupant.transfer_item_to(I, src)
 		handle_contents(I)
 
 	//Delete all items not on the preservation list.

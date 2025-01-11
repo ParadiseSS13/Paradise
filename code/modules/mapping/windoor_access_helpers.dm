@@ -446,3 +446,10 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mule_bot
 	access = ACCESS_CARGO_BOT
+
+// -------------------- Procedure access helpers
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure
+	icon_state = "access_windoor_pro"
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer
+	access = ACCESS_TRAINER

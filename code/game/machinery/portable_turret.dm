@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				if(isrobot(user))
 					return
 				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
-				if(!user.unEquip(I))
+				if(!user.unequip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				if(!E.can_fit_in_turrets)
@@ -953,7 +953,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(4)
 			if(isprox(I))
-				if(!user.unEquip(I))
+				if(!user.unequip(I, src))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				build_step = 5
@@ -1225,3 +1225,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return ((stat & BROKEN) || !pass_info.is_living)
+
+// Meatpackers' ruin turret
+/obj/machinery/porta_turret/meatpacker_ship
+	name = "ship defense turret"
+	lethal = TRUE
+	check_synth = TRUE

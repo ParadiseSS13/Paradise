@@ -98,4 +98,5 @@ nav:
       - 'Advanced Bitflags': './references/adv_bitflags.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
+      - 'Movement Signals': './references/movement_signals.md'
       - 'Attack Chain': './references/attack_chain.md'
