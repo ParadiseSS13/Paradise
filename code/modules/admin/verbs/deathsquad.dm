@@ -49,7 +49,6 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 				R.show_laws()
 				var/obj/item/radio/headset/heads/ai_integrated/cyberg_radio = R.get_radio()
 				cyberg_radio.make_epsilon()
-				// should we hack them?
 
 	// Locates commandos spawns
 	var/list/commando_spawn_locations = list()
