@@ -62,9 +62,11 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attackby__legacy__attackchain(obj/item/C, mob/user, params, area/area_restriction)
-	..()
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/chasm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			var/obj/item/inactive = user.get_inactive_hand()
@@ -77,19 +79,21 @@
 
 			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
-				return
-			var/obj/item/stack/rods/R = C
+				return ITEM_INTERACT_COMPLETE
+			var/obj/item/stack/rods/R = used
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 				ReplaceWithLattice()
 			else
 				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+
+			return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
@@ -99,6 +103,8 @@
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
