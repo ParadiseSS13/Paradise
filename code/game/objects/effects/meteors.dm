@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 //Fake
 /obj/effect/meteor/fake
 	name = "simulated meteor"
-	desc = "A simulated meteor for testing shield satelites. How did you see this, anyway?"
+	desc = "A simulated meteor for testing shield satellites. How did you see this, anyway?"
 	invisibility = INVISIBILITY_MAXIMUM
 	density = FALSE
 	pass_flags = NONE
