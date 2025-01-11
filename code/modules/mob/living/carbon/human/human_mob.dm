@@ -981,6 +981,29 @@
 
 	..()
 
+
+/mob/living/carbon/human/heal_and_revive(heal_to = 75, revive_message)
+	// We can't heal them if they're missing a heart
+	if(!get_int_organ_datum(ORGAN_DATUM_HEART) && can_heartattack())
+		return FALSE
+
+	// We can't heal them if they're missing their lungs
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_int_organ_datum(ORGAN_DATUM_LUNGS))
+		return FALSE
+
+	. = ..()
+	if(.) // if revived successfully
+		set_heartattack(FALSE)
+		SetLoseBreath(0)
+
+	return .
+
+/mob/living/carbon/can_be_revived()
+	if(!get_int_organ(/obj/item/organ/internal/brain) && (!IS_CHANGELING(src)) || HAS_TRAIT(src, TRAIT_HUSK) && !ismachineperson(src))
+		return FALSE
+	return ..()
+
+
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 

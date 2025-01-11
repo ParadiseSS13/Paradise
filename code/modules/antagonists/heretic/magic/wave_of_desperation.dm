@@ -38,7 +38,7 @@
 
 	for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
 		victim.AdjustKnockdown(3 SECONDS)
-		victim.AdjustParalyzed(0.5 SECONDS)
+		victim.AdjustWeakened(0.5 SECONDS)
 
 /datum/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)
 	. = list()

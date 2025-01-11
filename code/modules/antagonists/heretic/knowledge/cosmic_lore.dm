@@ -127,7 +127,7 @@
 
 /datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	var/static/list/valid_organ_slots = list(
-		ORGAN_SLOT_HEART,
+		"heart",
 		ORGAN_SLOT_LUNGS,
 		ORGAN_SLOT_STOMACH,
 		ORGAN_SLOT_EYES,

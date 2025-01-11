@@ -39,7 +39,7 @@
 	if(!check_usability(user))
 		to_chat(user, "<span class='danger'>You feel a pulse of alien intellect lash out at your mind!</span>")
 		var/mob/living/carbon/human/human_user = user
-		human_user.Paralyse(5 SECONDS)
+		human_user.Weaken(5 SECONDS)
 		return FINISH_ATTACK
 
 
@@ -146,7 +146,7 @@
 	if(!check_behind(user, living_target))
 		return
 	// We're officially behind them, apply effects
-	living_target.Paralyse(1.5 SECONDS)
+	living_target.Weaken(1.5 SECONDS)
 	living_target.apply_damage(10, BRUTE)
 	playsound(living_target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 

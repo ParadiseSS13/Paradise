@@ -192,7 +192,7 @@
 
 	var/feedback = "Your patrons accept your offer"
 	var/sac_job_flag = sacrifice.mind?.assigned_role?.job_flags | sacrifice.last_mind?.assigned_role?.job_flags
-	var/datum/antagonist/cult/cultist_datum = IS_CULTIST(sacrifice)
+	var/datum/antagonist/cultist/cultist_datum = IS_CULTIST(sacrifice)
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
 	if((sac_job_flag & JOB_HEAD_OF_STAFF))
@@ -208,7 +208,7 @@
 		if(prob(min(15 * rewards_given)) && (rewards_given <= 5))
 			for(var/datum/mind/mind as anything in cultist_datum.cult_team.members)
 				if(mind.current)
-					SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
+					SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
 					var/message = "<span class='narsie'>A vile heretic has </span>" + \
 					"<span class='hierophant_warning'>sacrificed</span>" + \
 					"<span class='narsie'> one of our own. Destroy and sacrifice the infidel before it claims more!</span>"
@@ -266,7 +266,7 @@
 		return
 	// Remove the outline, we don't need it anymore.
 	rune?.remove_filter("reward_outline")
-	playsound(loc, 'sound/effects/magic/repulse.ogg', 75, TRUE)
+	playsound(loc, 'sound/magic/repulse.ogg', 75, TRUE)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	ASSERT(heretic_datum)
 	// This list will be almost identical to unlocked_heretic_items, with the same keys, the difference being the values will be 1 to 5.
@@ -318,18 +318,13 @@
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message("<span class='danger'>[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!</span>")
-	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult(sac_target))
+	sac_target.handcuffed = new /obj/item/restraints/handcuffs/cult(sac_target)
 	sac_target.update_handcuffed()
-
 	if(sac_target.legcuffed)
-		sac_target.legcuffed.forceMove(sac_target.drop_location())
-		sac_target.legcuffed.dropped(sac_target)
-		sac_target.legcuffed = null
-		sac_target.update_worn_legcuffs()
+		sac_target.clear_legcuffs(TRUE)
 
-	sac_target.setBrainLoss(85) //Let's not just instantly brain death them
+	sac_target.setBrainLoss(40) //Let's not just instantly brain death them //QWERTODO: Make sure it's reasonable
 	sac_target.do_jitter_animation()
-	log_combat(heretic_mind.current, sac_target, "sacrificed")
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -340,12 +335,12 @@
 	if(!sac_target.heal_and_revive(50, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
 		return
 
-	if(sac_target.AdjustUnconscious(SACRIFICE_SLEEP_DURATION))
+	if(sac_target.AdjustSleeping(SACRIFICE_SLEEP_DURATION))
 		to_chat(sac_target, "<span class='hierophant_warning'>Your mind feels torn apart as you fall into a shallow slumber...</span>")
 	else
 		to_chat(sac_target, "<span class='hierophant_warning'>Your mind begins to tear apart as you watch dark tendrils envelop you.</span>")
 
-	sac_target.AdjustParalyzed(SACRIFICE_SLEEP_DURATION * 1.2)
+	sac_target.AdjustWeakened(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
 
 	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
@@ -374,27 +369,27 @@
 	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/effects/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
 		disembowel_target(sac_target)
 		return
 
 	// If our target died during the (short) wait timer,
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
-	sac_target.adjustOxyLoss(-100, FALSE)
+	sac_target.adjustOxyLoss(-100, FALSE) //Qwertodo: (after tm progress), if people just stab people trying to kill them as they revive, give them damage resistance
 	if(!sac_target.heal_and_revive(60, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
 		disembowel_target(sac_target)
 		return
 
 	to_chat(sac_target, "<span class='hierophant_warning'>Unnatural forces begin to claw at your every being from beyond the veil.</span>")
 
-	playsound(sac_target, 'sound/music/antag/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
+	playsound(sac_target, 'sound/ambience/antag/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
 
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
-	RegisterSignal(sac_target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death)) // Loss condition
+	RegisterSignal(sac_target, COMSIG_MOB_DEATH, PROC_REF(on_target_death)) // Loss condition
 
 /// Apply a sinister curse to some of the target's organs as an incentive to leave us alone
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/curse_organs(mob/living/carbon/human/sac_target)
@@ -408,10 +403,10 @@
 		if(!length(usable_organs))
 			return
 		var/organ_path = pick_n_take(usable_organs)
-		var/obj/item/organ/to_give = new organ_path
+		var/obj/item/organ/internal/to_give = new organ_path
 		to_give.Insert(sac_target)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+	new /obj/effect/gibspawner/bodypartless(get_turf(sac_target))
 	sac_target.visible_message("<span class='boldwarning'>Several organs force themselves out of [sac_target]!</span>")
 
 /**
@@ -430,7 +425,7 @@
 	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
 	var/helgrasp_time = 1 MINUTES
 
-	sac_target.reagents?.add_reagent(/datum/reagent/inverse/helgrasp/heretic, helgrasp_time / 20)
+	sac_target.reagents?.add_reagent(/datum/reagent/helgrasp/heretic, helgrasp_time / 20)
 	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
 
 	sac_target.add_mood_event("shadow_realm", /datum/mood_event/shadow_realm)
@@ -462,7 +457,7 @@
 	to_chat(sac_target, "<span class='hierophant_warning'>The worst is behind you... Not much longer! Hold fast, or expire!</span>")
 
 /**
- * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_LIVING_DEATH] if they don't.
+ * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_MOB_DEATH] if they don't.
  *
  * Teleports [sac_target] back to a random safe turf on the station (or observer spawn if it fails to find a safe turf).
  * Also clears their status effects, unregisters any signals associated with the shadow realm, and sends a message
@@ -482,10 +477,10 @@
 	LAZYREMOVE(return_timers, REF(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
+	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
-	sac_target.reagents?.del_reagent(/datum/reagent/inverse/helgrasp/heretic)
+	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
 	sac_target.uncuff()
 	sac_target.clear_mood_event("shadow_realm")
 	if(IS_HERETIC(sac_target))

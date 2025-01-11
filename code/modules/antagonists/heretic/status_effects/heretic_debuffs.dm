@@ -81,7 +81,7 @@
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 10, 90)
 		if(40 to 50)
 			// Don't fully kill heart that's important
-			human_owner.adjustOrganLoss(ORGAN_SLOT_HEART, 10, 90)
+			human_owner.adjustOrganLoss("heart", 10, 90)
 		if(50 to 60)
 			// You can fully kill the stomach that's not crucial
 			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 10)

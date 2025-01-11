@@ -56,7 +56,7 @@
 	// If the victim's within the stun radius, they're stunned / knocked down
 	if(get_dist(victim, caster) < stun_radius)
 		victim.AdjustKnockdown(3 SECONDS)
-		victim.AdjustParalyzed(0.5 SECONDS)
+		victim.AdjustWeakened(0.5 SECONDS)
 
 	// Otherwise, they take a few steps closer
 	for(var/i in 1 to 3)

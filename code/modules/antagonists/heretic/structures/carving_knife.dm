@@ -297,7 +297,7 @@
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.Paralyse(5 SECONDS)
+	carbon_victim.Weaken(5 SECONDS)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)

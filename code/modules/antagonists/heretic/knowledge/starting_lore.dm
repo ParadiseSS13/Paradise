@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	heretic_datum.feast_of_owls = TRUE
 	user.playsound_local(get_turf(user), 'sound/ambience/antag/heretic/heretic_gain_intense.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	user.EyeBlind(reward * 1 SECONDS)
-	user.Paralyse(reward * 1 SECONDS)
+	user.Weaken(reward * 1 SECONDS)
 	for(var/i in 1 to reward)
 		user.emote("scream")
 		playsound(loc, 'sound/items/eatfood.ogg', 100, TRUE)

@@ -435,6 +435,58 @@
 	return ..() | update_flags
 
 
+/datum/reagent/helgrasp
+	name = "Helgrasp"
+	id = "helgrasp"
+	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
+	metabolization_rate = 0.5
+	/// How much toxin damage do we do each tick?
+	var/toxin_damage = 0.25
+	//Keeps track of the hand timer so we can cleanup on removal
+	var/list/timer_ids
+
+//Warns you about the impenting hands
+/datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	to_chat(affected_mob, "<span class='hierophant'>You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!</span>")
+	playsound(affected_mob.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
+
+//Sends hands after you for your hubris
+/*
+How it works:
+Standard seconds_per_tick for a reagent is 2s - and volume consumption is equal to the volume * seconds_per_tick.
+In this chem, I want to consume 0.5u for 1 hand created so on a single tick I create a hand and set up a callback for another one in 1s from now. But since delta time can vary, I want to be able to create more hands for when the delay is longer.
+
+Initally I round seconds_per_tick to the nearest whole number, and take the part that I am rounding down from (i.e. the decimal numbers) and keep track of them. If the decimilised numbers go over 1, then the number is reduced down and an extra hand is created that tick.
+
+Then I attempt to calculate the how many hands to created based off the current seconds_per_tick, since I can't know the delay to the next one it assumes the next will be in 2s.
+I take the 2s interval period and divide it by the number of hands I want to make (i.e. the current seconds_per_tick) and I keep track of how many hands I'm creating (since I always create one on a tick, then I start at 1 hand). For each hand I then use this time value multiplied by the number of hands. Since we're spawning one now, and it checks to see if hands is less than, but not less than or equal to, seconds_per_tick, no hands will be created on the next expected tick.
+Basically, we fill the time between now and 2s from now with hands based off the current lag.
+*/
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(toxin_damage, FALSE)
+	spawn_hands(affected_mob)
+	return ..() | update_flags
+
+/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder.my_atom))//Catch timer
+		affected_mob = holder.my_atom
+	fire_curse_hand(affected_mob)
+
+//At the end, we clear up any loose hanging timers just in case and spawn any remaining lag_remaining hands all at once.
+/datum/reagent/helgrasp/on_mob_delete(mob/living/affected_mob)
+	. = ..()
+	for(var/id in timer_ids) // So that we can be certain that all timers are deleted at the end.
+		deltimer(id)
+	timer_ids.Cut()
+
+/datum/reagent/helgrasp/heretic
+	name = "Grasp of the Mansus"
+	id = "mansusgrasp"
+	description = "The Hand of the Mansus is at your neck."
+	toxin_damage = 0
+
 /datum/reagent/hellwater
 	name = "Hell Water"
 	id = "hell_water"

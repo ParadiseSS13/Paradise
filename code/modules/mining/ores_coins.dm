@@ -575,7 +575,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		user.adjustFireLoss(5)
 		return ITEM_INTERACT_BLOCKING
 	var/obj/machinery/door/airlock/target_airlock = interacting_with
-	to_chat(user, span_warning("You insert [src] into the airlock."))
+	to_chat(user, "<span class='warning'>You insert [src] into the airlock.</span>")
 	target_airlock.emag_act(user, src)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
