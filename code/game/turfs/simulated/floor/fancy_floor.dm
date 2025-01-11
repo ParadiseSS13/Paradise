@@ -83,13 +83,12 @@
 /turf/simulated/floor/grass/get_broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/grass/attackby__legacy__attackchain(obj/item/C, mob/user, params)
-	if(..())
-		return
-	if(istype(C, /obj/item/shovel))
+/turf/simulated/floor/grass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/shovel))
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
