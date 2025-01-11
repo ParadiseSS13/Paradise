@@ -447,7 +447,7 @@
 #include "code\datums\components\edit_complainer.dm"
 #include "code\datums\components\emissive_blocker.dm"
 #include "code\datums\components\footstep.dm"
-#include "code\datums\components\force_airlock_open.dm"
+#include "code\datums\components\force_door_open.dm"
 #include "code\datums\components\fullauto.dm"
 #include "code\datums\components\label.dm"
 #include "code\datums\components\largeobjecttransparency.dm"
