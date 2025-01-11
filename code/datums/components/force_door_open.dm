@@ -89,7 +89,7 @@
 
 	if(do_after_once(usr, time_to_open, target = airlock))
 		airlock.open(TRUE)
-		if (airlock.density && !airlock.open(TRUE))
+		if(airlock.density && !airlock.open(TRUE))
 			to_chat(usr, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
 
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
