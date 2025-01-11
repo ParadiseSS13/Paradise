@@ -5,8 +5,6 @@ CL_INVALID = ":scroll: CL невалиден"
 CL_VALID = ":scroll: CL валиден"
 CL_NOT_NEEDED = ":scroll: CL не требуется"
 
-DISCORD_EMBED_DESCRIPTION_LIMIT = 4096
-
 CL_BODY = re.compile(r"(:cl:|🆑)[ \t]*(?P<author>.+?)?\s*\n(?P<content>(.|\n)*?)\n/(:cl:|🆑)", re.MULTILINE)
 CL_SPLIT = re.compile(r"\s*(?:(?P<tag>\w+)\s*:)?\s*(?P<message>.*)")
 
@@ -50,9 +48,6 @@ def validate_changelog(changelog: dict):
         raise Exception("The changelog has no author.")
     if len(changelog["changes"]) == 0:
         raise Exception("No changes found in the changelog. Use special label if changelog is not expected.")
-    message = "\n".join(map(lambda change: f"{change['tag']} {change['message']}", changelog["changes"]))
-    if len(message) > DISCORD_EMBED_DESCRIPTION_LIMIT:
-        raise Exception(f"The changelog exceeds the length limit ({DISCORD_EMBED_DESCRIPTION_LIMIT}). Shorten it.")
 
 
 def parse_changelog(pr_body: str, tags_config: dict | None = None) -> dict | None:
