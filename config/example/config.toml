@@ -716,6 +716,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
 	## SS220 Ruins
 	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/destroyed_infiltrator.dmm",

@@ -76,7 +76,7 @@
 		to_chat(user, span_warning("Жучок выключен!"))
 		return TRUE
 
-	user.unEquip(spy_spider)
+	user.unequip(spy_spider)
 	spy_spider.forceMove(src)
 	spy_spider_attached = spy_spider
 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к [src]."))
@@ -131,8 +131,7 @@
 	if(!do_after_once(user, 3 SECONDS, TRUE, src, TRUE, attempt_cancel_message))
 		return TRUE
 
-	user.unEquip(spy_spider)
-	spy_spider.forceMove(clothing_for_attach)
+	user.unequip_to(spy_spider, clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к одежде [src.declent_ru(ACCUSATIVE)]."))
 	return TRUE

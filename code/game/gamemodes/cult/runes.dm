@@ -1002,7 +1002,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
 								"<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
-			new_human.unEquip(I)
+			new_human.drop_item_to_ground(I)
 		new_human.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
 		new_human.dust()
 

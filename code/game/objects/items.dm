@@ -186,6 +186,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 
@@ -229,7 +231,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
-		m.unEquip(src, 1)
+		m.unequip(src, force = TRUE)
 	QDEL_LIST_CONTENTS(actions)
 
 	master = null
@@ -340,26 +342,21 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(isstorage(src.loc))
-		/// If the item is in a storage item, take it out
-		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src)
-
 	if(..())
 		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
-	if(loc == user)
-		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
+
+	if(isliving(loc))
+		if(loc == user)
+			if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unequip(src))
+				return FALSE
+		else
 			return FALSE
 
 	if(flags & ABSTRACT)
 		return FALSE
-
-	else
-		if(isliving(loc))
-			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
@@ -374,7 +371,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(!A.has_fine_manipulation && !HAS_TRAIT(src, TRAIT_XENO_INTERACTABLE))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
-			A.unEquip(src)
+			A.drop_item_to_ground(src)
 		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
 		return
 	attack_hand(A)

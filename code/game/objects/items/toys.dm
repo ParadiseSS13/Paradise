@@ -146,7 +146,7 @@
 	animate(holder_obj, pixel_z = 1000, time = 50)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.notransform = TRUE
 	icon = null
@@ -226,8 +226,6 @@
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			new /obj/item/dualsaber/toy(user.loc)
-			user.unEquip(attacking)
-			user.unEquip(src)
 			qdel(attacking)
 			qdel(src)
 
@@ -287,7 +285,7 @@
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
 	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
-	target.unEquip(cig, TRUE)
+	target.drop_item_to_ground(cig, TRUE)
 	return TRUE
 
 /obj/item/toy/sword/chaosprank/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -1056,15 +1054,74 @@
 
 /obj/item/toy/plushie/borgplushie
 	name = "borg plushie"
-	desc = "The synthetic backbone of the station, rendered in plush form. Inbuilt flashlight included!"
+	desc = "The synthetic backbone of the station, rendered in plush form. Features a built-in flashlight and polychromic fabric."
 	icon_state = "plushie_borg"
-	var/borg_plushie_overlay
+	var/borg_plushie_overlay = "plushie_borgassist"
+	var/plushie_module_selected = FALSE
 	var/on = FALSE
 
 /obj/item/toy/plushie/borgplushie/Initialize(mapload)
 	. = ..()
-	borg_plushie_overlay = (pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi"))
 	update_icon()
+
+/obj/item/toy/plushie/borgplushie/examine(mob/user)
+	. = ..()
+	if(!plushie_module_selected)
+		. += "<span class='notice'><b>Alt-Click</b> [src] to select a module.</span>"
+	else
+		. += "<span class='notice'>You can use a cyborg module reset board to change [src] back into standard mode.</span>"
+
+/obj/item/toy/plushie/borgplushie/AltClick(mob/user)
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	pick_borg_plush_module(user)
+
+/obj/item/toy/plushie/borgplushie/proc/pick_borg_plush_module(mob/user)
+	if(plushie_module_selected)
+		return
+
+	var/static/list/menu_options = list(
+		"Security"		= image('icons/mob/robots.dmi', "security-radial"),
+		"Engineering"	= image('icons/mob/robots.dmi', "engi-radial"),
+		"Mining"		= image('icons/mob/robots.dmi', "mining-radial"),
+		"Service"		= image('icons/mob/robots.dmi', "serv-radial"),
+		"Medical"		= image('icons/mob/robots.dmi', "med-radial"),
+		"Janitor"		= image('icons/mob/robots.dmi', "jan-radial")
+	)
+	var/static/list/plushie_module_overlays = list(
+		"Security"		= "plushie_borgsec",
+		"Engineering"	= "plushie_borgengi",
+		"Mining"		= "plushie_borgmine",
+		"Service"		= "plushie_borgserv",
+		"Medical"		= "plushie_borgmed",
+		"Janitor"		= "plushie_borgjan"
+	)
+	playsound(src, 'sound/effects/pop.ogg', 50, TRUE)
+	var/user_selection = show_radial_menu(user, src, menu_options, require_near = TRUE, radius = 42)
+
+	if(!user_selection)
+		return
+
+	borg_plushie_overlay = plushie_module_overlays[user_selection]
+	to_chat(user, "<span class='notice'>The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!</span>")
+	update_icon()
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/borg/upgrade/reset))
+		return ..()
+	
+	if(!plushie_module_selected)
+		to_chat(user, "<span class='warning'>[src] is already in standard mode!</span>")
+		return ITEM_INTERACT_COMPLETE
+	
+	borg_plushie_overlay = "plushie_borgassist"
+	update_icon()
+	to_chat(user, "<span class='notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
+	plushie_module_selected = FALSE
+	qdel(used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/activate_self(mob/user)
 	if(..())
@@ -1103,6 +1160,15 @@
 			explosive_betrayal(grenade)
 		if(!QDELETED(src))
 			qdel(src)
+
+/obj/item/toy/plushie/borgplushie/random
+
+/obj/item/toy/plushie/borgplushie/random/Initialize(mapload)
+	. = ..()
+	borg_plushie_overlay = pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi")
+	if(borg_plushie_overlay != "plushie_borgassist")
+		plushie_module_selected = TRUE
+	update_icon()
 
 /obj/item/toy/plushie/dionaplushie
 	name = "diona plushie"
@@ -1457,8 +1523,7 @@
 				to_chat(user, "<span class='alert'>\The [attacking] is too far away to feed into \the [src]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed \the [attacking] [bicon(attacking)] into \the [src]!</span>")
-				user.unEquip(attacking)
-				attacking.forceMove(src)
+				user.transfer_item_to(attacking, src)
 				stored_minature = attacking
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [attacking] into \the [src]'s mini-input.</span>")

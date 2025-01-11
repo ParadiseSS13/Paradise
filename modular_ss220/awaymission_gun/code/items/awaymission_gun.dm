@@ -29,11 +29,6 @@
 	selfcharge = FALSE
 	update_icon()
 
-/obj/item/gun/energy/laser/awaymission_aeg/proc/update_mob()
-	if(ismob(loc))
-		var/mob/M = loc
-		M.unEquip(src)
-
 // GUNS
 /obj/item/gun/energy/laser/awaymission_aeg/rnd
 	name = "Exploreverse Mk.I"

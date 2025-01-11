@@ -259,7 +259,7 @@
 
 /obj/item/emerald_stone/proc/equip_undead(mob/living/carbon/human/raised)
 	for(var/obj/item/I in raised)
-		raised.unEquip(I)
+		raised.drop_item_to_ground(I)
 	var/randomUndead = "roman" // defualt
 	randomUndead = pick("roman","pirate","clown")
 

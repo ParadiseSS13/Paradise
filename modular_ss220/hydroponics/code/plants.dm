@@ -141,7 +141,7 @@
 	. = ..()
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
-	user.unEquip(src)
+	user.unequip(src)
 	if(trash)
 		var/obj/item/trash = generate_trash()
 		user.put_in_hands(trash)

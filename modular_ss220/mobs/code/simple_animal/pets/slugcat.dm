@@ -187,7 +187,7 @@
 			to_chat(user, span_warning("Нельзя надеть больше одного головного убора на голову [src.name]!"))
 		return 0
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.unequip(item_to_add))
 		to_chat(user, span_warning("[item_to_add.name] застрял в ваших руках, вы не можете его надеть на голову [src.name]!"))
 		return 0
 

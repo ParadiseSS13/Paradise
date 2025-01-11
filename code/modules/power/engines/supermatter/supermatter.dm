@@ -218,7 +218,7 @@
 
 	//vars used for supermatter events (Anomalous crystal activityw)
 	/// Do we have an active event?
-	var/datum/supermatter_event/event_active
+	var/datum/engi_event/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
 	var/gas_multiplier = 1
 	///flat multiplies the heat released by the SM
@@ -1238,20 +1238,20 @@
 		return
 	if(event_active)
 		return
-	var/static/list/events = list(/datum/supermatter_event/delta_tier = 40,
-								/datum/supermatter_event/charlie_tier = 40,
-								/datum/supermatter_event/bravo_tier = 15,
-								/datum/supermatter_event/alpha_tier = 5,
-								/datum/supermatter_event/sierra_tier = 1)
+	var/static/list/events = list(/datum/engi_event/supermatter_event/delta_tier = 40,
+								/datum/engi_event/supermatter_event/charlie_tier = 40,
+								/datum/engi_event/supermatter_event/bravo_tier = 15,
+								/datum/engi_event/supermatter_event/alpha_tier = 5,
+								/datum/engi_event/supermatter_event/sierra_tier = 1)
 
-	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
-	if(ispath(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
+	var/datum/engi_event/supermatter_event/event = pick(subtypesof(pickweight(events)))
+	if(ispath(event, /datum/engi_event/supermatter_event/sierra_tier) && has_run_sclass)
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
 	make_next_event_time()
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
+/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/engi_event/supermatter_event/event) // mostly admin testing and stuff
 	if(ispath(event))
 		event = new event(src)
 	if(!istype(event))

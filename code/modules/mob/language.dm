@@ -317,13 +317,13 @@
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
-	speech_verb = "bubbles and pops"
-	ask_verb = "bubbles and pops"
-	exclaim_verbs = list("bubbles and pops")
+	speech_verb = "burbles"
+	ask_verb = "pops softly"
+	exclaim_verbs = list("fizzes")
 	colour = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("blob","plop","pop","bop","boop")
+	syllables = list("zlu", "gl", "oo", "shl", "bl", "wob", "lur", "wh", "zz", "spl", "mur", "fl", "dro", "fru", "slu", "gle", "flo")
 
 /datum/language/slime/get_random_name(gender)
 	var/new_name

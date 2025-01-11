@@ -571,7 +571,7 @@ SUBSYSTEM_DEF(jobs)
 					H.update_nearsighted_effects()
 
 	if(joined_late || job.admin_only)
-		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].", force_no_usr_check=TRUE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
 	if(late_arrivals_spawning)
@@ -586,7 +586,7 @@ SUBSYSTEM_DEF(jobs)
 			liver_multiplier = 5
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].", force_no_usr_check=TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 

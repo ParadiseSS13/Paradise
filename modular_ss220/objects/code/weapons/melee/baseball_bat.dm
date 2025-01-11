@@ -36,7 +36,7 @@
 	. = ..()
 	if(!(user.mind.offstation_role))
 		user.Weaken(10 SECONDS)
-		user.unEquip(src, force, silent = FALSE)
+		user.drop_item_to_ground(src, force = TRUE, silent = FALSE)
 		to_chat(user, span_userdanger("Это - оружие истинного правосудия. Тебе не дано обуздать его мощь."))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

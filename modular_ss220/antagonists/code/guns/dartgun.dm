@@ -55,7 +55,7 @@
 		for(var/hold_type in cartridge_loaded.can_hold)
 			if(!istype(A, hold_type))
 				continue
-			if(insert_syringe_to_cartridge(A) && user && user.unEquip(A))
+			if(insert_syringe_to_cartridge(A) && user && user.unequip(A))
 				to_chat(user, span_notice("Вы загрузили [A] в [cartridge_loaded] в [src]!"))
 				return ..()
 		to_chat(user, "Картридж [src] полон!")
@@ -65,7 +65,7 @@
 			if(istype(A, cartridge_type))
 				if("[A.type]" != "[cartridge_type]")	// Исключаем сабтипы
 					continue
-				if(user && !user.unEquip(A))
+				if(user && !user.unequip(A))
 					return TRUE
 				to_chat(user, span_notice("Вы вставили [A] в [src]!"))
 				cartridge_load(A)

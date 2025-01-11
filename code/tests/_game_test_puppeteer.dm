@@ -14,7 +14,7 @@
 		origin_test.Fail("unexpected puppeteer carbon type [carbon_type]", __FILE__, __LINE__)
 
 	if(!initial_location)
-		initial_location = locate(20, 210, 1) // Center of admin testing area // SS220 EDIT - center of admin testing area at test_centcomm.dmm
+		initial_location = locate(20, 210, 2) // Center of admin testing area // SS220 EDIT - center of admin testing area at Admin_Zone.dmm
 	origin_test = origin_test_
 	puppet = origin_test.allocate(carbon_type, initial_location)
 	var/datum/mind/new_mind = new("interaction_test_[puppet.UID()]")
@@ -34,10 +34,17 @@
 
 	origin_test.Fail("could not spawn obj [obj_type] in hand of [puppet]")
 
-/datum/test_puppeteer/proc/spawn_obj_nearby(obj_type)
-	for(var/turf/T in RANGE_TURFS(1, puppet.loc))
-		if(!is_blocked_turf(T, exclude_mobs = FALSE))
-			return origin_test.allocate(obj_type, T)
+/datum/test_puppeteer/proc/spawn_obj_nearby(obj_type, direction = -1)
+	var/turf/T
+	if(direction >= 0)
+		T = get_step(puppet, direction)
+	else
+		for(var/turf/nearby in RANGE_TURFS(1, puppet.loc))
+			if(!is_blocked_turf(nearby, exclude_mobs = FALSE))
+				T = nearby
+
+	if(T)
+		return origin_test.allocate(obj_type, T)
 
 	origin_test.Fail("could not spawn obj [obj_type] near [src]")
 
@@ -56,6 +63,23 @@
 			var/mob/new_mob = origin_test.allocate(mob_type, T)
 			return new_mob
 
+/datum/test_puppeteer/proc/change_turf_nearby(turf_type, direction = -1)
+	var/turf/T
+	if(direction >= 0)
+		T = get_step(puppet, direction)
+	else
+		// just check for any contents, not blocked_turf which includes turf density
+		// (which we don't really care about)
+		for(var/turf/nearby in RANGE_TURFS(1, puppet))
+			if(!length(nearby.contents))
+				T = nearby
+
+	if(T)
+		T.ChangeTurf(turf_type)
+		return T
+
+	origin_test.Fail("could not spawn turf [turf_type] near [src]")
+
 /datum/test_puppeteer/proc/check_attack_log(snippet)
 	for(var/log_text in puppet.attack_log_old)
 		if(findtextEx(log_text, snippet))
@@ -66,3 +90,10 @@
 
 /datum/test_puppeteer/proc/rejuvenate()
 	puppet.rejuvenate()
+
+/datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
+	if(!(puppet.mind.key in GLOB.game_test_chats))
+		return FALSE
+	var/list/puppet_chat_list = GLOB.game_test_chats[puppet.mind.key]
+	var/last_chat_html = puppet_chat_list[length(puppet_chat_list)]
+	return findtextEx(last_chat_html, snippet)

@@ -52,8 +52,8 @@
 
 /obj/item/sample/attackby__legacy__attackchain(obj/O, mob/user)
 	if(O.type == src.type)
-		user.unEquip(O)
 		if(merge_evidence(O, user))
+			user.unequip(O)
 			qdel(O)
 		return TRUE
 	return ..()

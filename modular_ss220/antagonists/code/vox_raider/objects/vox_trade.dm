@@ -402,7 +402,7 @@
 			var/obj/O = I
 			if(ismob(O.loc))	// Cyborg Parts, wearing clothes, but not contents
 				var/mob/M = O
-				M.unEquip(I)
+				M.unequip(I)
 			qdel(I)
 
 	var/addition_text = ""

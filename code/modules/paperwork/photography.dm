@@ -35,6 +35,7 @@
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
+	scatter_distance = 8
 
 /obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
 	user.examinate(src)
@@ -73,7 +74,7 @@
 	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
 	if(user.is_in_inactive_hand(src))
-		user.unEquip(src)
+		user.unequip(src)
 
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -148,10 +149,10 @@
 		if((!M.restrained() && !M.stat && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
-					M.unEquip(src)
+					M.unequip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.unEquip(src)
+					M.unequip(src)
 					M.put_in_l_hand(src)
 			add_fingerprint(usr)
 			return
@@ -170,7 +171,7 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "electropack"
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)

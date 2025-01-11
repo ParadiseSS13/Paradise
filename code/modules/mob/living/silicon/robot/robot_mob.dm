@@ -537,8 +537,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv", "Hydrobot")
-			can_be_hatted = FALSE // Their base sprite already comes with a hat
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
+			can_wear_restricted_hats = TRUE
+		if("Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv")
+			can_be_hatted = FALSE
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
 			can_be_hatted = TRUE

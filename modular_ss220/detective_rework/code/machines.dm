@@ -68,7 +68,7 @@
 
 	if(istype(W, /obj/item/forensics/swab))
 		to_chat(user, span_notice("Вы вставляете [W] в ДНК анализатор."))
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		swab = W
 		update_icon()
@@ -192,7 +192,7 @@
 	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
 		add_fingerprint(user)
 		to_chat(user, span_notice("Вы вставили [W] в микроскоп."))
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		sample = W
 		update_icon()

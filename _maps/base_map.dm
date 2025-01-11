@@ -5,10 +5,6 @@
  */
 //#define ENABLE_TEST_CC
 
-#ifdef GAME_TEST
-#define ENABLE_TEST_CC
-#endif
-
 #ifndef ENABLE_TEST_CC
 #include "map_files220\generic\centcomm.dmm"
 #include "map_files220\generic\Admin_Zone.dmm"

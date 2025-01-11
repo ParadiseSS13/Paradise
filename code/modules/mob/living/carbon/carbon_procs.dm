@@ -1,18 +1,20 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	if(!loc && !(flags & ABSTRACT))
+		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
 	if(back)
 		var/obj/I = back
-		unEquip(I)
+		drop_item_to_ground(I)
 		qdel(I)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		if(QDELETED(item))
 			continue
-		unEquip(item, silent = TRUE)
+		drop_item_to_ground(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
 	QDEL_LIST_CONTENTS(stomach_contents)
@@ -707,7 +709,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I, silent = TRUE)
+		drop_item_to_ground(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -736,25 +738,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
-	. = ..() //Sets the default return value to what the parent returns.
-	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+/mob/living/carbon/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	. = ..()
+
+	if(!. || !target) //We don't want to set anything to null if the parent returned 0.
 		return
 
-	if(I == back)
+	if(target == back)
 		back = null
 		update_inv_back()
-	else if(I == wear_mask)
+	else if(target == wear_mask)
 		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		update_inv_wear_mask()
-	else if(I == handcuffed)
+	else if(target == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
 			unbuckle()
 		update_handcuffed()
-	else if(I == legcuffed)
+	else if(target == legcuffed)
 		legcuffed = null
 		toggle_move_intent()
 		update_inv_legcuffed()
@@ -935,7 +938,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
 		if(I.security_lock)
 			I.do_break()
-		unEquip(I)
+		drop_item_to_ground(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
 /mob/living/carbon/proc/cuff_resist(obj/item/restraints/restraints, break_cuffs)

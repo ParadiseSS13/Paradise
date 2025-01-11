@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	var/something = pick(GLOB.possible_gifts)
 	var/obj/item/gift = new something(M)
-	M.unEquip(src, TRUE)
+	M.unequip(src, TRUE)
 	M.put_in_hands(gift)
 	gift.add_fingerprint(M)
 	playsound(loc, 'sound/items/poster_ripped.ogg', 100, TRUE)

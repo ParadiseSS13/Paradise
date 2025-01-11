@@ -39,7 +39,7 @@
 
 // Перезарядка батареями
 /obj/item/gun/energy/spike/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(can_reload && istype(I, cell_type) && user && user.unEquip(I))
+	if(can_reload && istype(I, cell_type) && user && user.unequip(I))
 		to_chat(user, span_notice("Вы заменили [I] в [src]!"))
 		if(cell)
 			user.put_in_hands(cell)

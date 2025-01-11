@@ -889,6 +889,12 @@
 	head = /obj/item/clothing/head/ushanka
 	box = /obj/item/storage/box/soviet
 
+/datum/outfit/admin/trader/commie/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.add_language("Zvezhan")
+
 /datum/outfit/admin/trader/unathi
 	name = "Glint-Scales Trader"
 	uniform = /obj/item/clothing/under/rank/cargo/qm
