@@ -330,7 +330,7 @@
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
-			..()
+			update_window(user)
 		if("Change Color")
 			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
 			if(isnull(colour))
