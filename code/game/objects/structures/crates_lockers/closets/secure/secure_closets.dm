@@ -77,7 +77,6 @@
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 MINUTES
-	var/breakout_time_msg = (breakout_time / 10) / 60
 	if(opened)
 		if(L.loc == src)
 			L.forceMove(get_turf(src)) // Let's just be safe here
