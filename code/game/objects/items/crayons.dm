@@ -317,6 +317,7 @@
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/activate_self(mob/user)
