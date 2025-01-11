@@ -932,3 +932,4 @@
 
 /obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
+

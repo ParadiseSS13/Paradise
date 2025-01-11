@@ -94,6 +94,3 @@
 
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
-
-
-
