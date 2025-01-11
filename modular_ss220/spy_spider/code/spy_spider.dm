@@ -76,7 +76,8 @@
 		to_chat(user, span_warning("Жучок выключен!"))
 		return TRUE
 
-	user.unequip_to(spy_spider, src)
+	user.unequip(spy_spider)
+	spy_spider.forceMove(src)
 	spy_spider_attached = spy_spider
 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к [src]."))
 	return TRUE
