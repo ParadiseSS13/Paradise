@@ -2,7 +2,7 @@
 #define SEC_AREAS list("Warden", "Security", "Detective", "Head of Security's Desk", "Prisoner Processing", "Internal Affairs Office", "Magistrate", "Courtroom")
 #define SERVICE_AREAS list("Bar", "Kitchen", "Chapel", "Library", "Hydroponics", "Janitorial", "Arrival Shuttle", "Crew Quarters")
 #define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Medbay", "Psychiatrist", "Chemistry", "Paramedic", "Morgue")
-#define COM_AREAS list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
+#define COM_AREAS list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge", "Trainer's Office")
 #define SCI_AREAS list("Robotics", "Science", "Research Director's Desk", "Genetics", "Xenobiology")
 #define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition")
 #define OTHER_AREAS list("Arrival Shuttle", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
