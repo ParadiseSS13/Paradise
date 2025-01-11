@@ -67165,12 +67165,12 @@
 /area/station/public/locker)
 "nDq" = (
 /obj/machinery/alarm/directional/north,
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/closet/l3closet,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -80226,9 +80226,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/l3closet,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
