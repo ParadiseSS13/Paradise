@@ -10060,6 +10060,7 @@
 	color = "#505050";
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -27235,12 +27236,12 @@
 	},
 /area/station/maintenance/fore)
 "dTC" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=CargoWest";
 	location = "MedbayWest";
 	name = "navigation beacon (Medbay-West)"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54498,6 +54499,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -68581,6 +68583,12 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"nUK" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/transparent/glass/reinforced{
+	slowdown = -0.3
+	},
+/area/station/hallway/spacebridge/dockmed)
 "nUQ" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -107296,7 +107304,6 @@
 	color = "#505050";
 	dir = 4
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -154915,7 +154922,7 @@ nUg
 qQo
 vXn
 tiL
-bvt
+ljp
 cWQ
 vXn
 pRV
@@ -156709,7 +156716,7 @@ tcx
 hfV
 egr
 hqG
-bvt
+ljp
 bKM
 bvt
 was
@@ -156720,18 +156727,18 @@ bvt
 bvt
 bvt
 bvt
-bvt
+ljp
 bvt
 wKK
 kwZ
 fQh
 bvt
 bvt
-bvt
+ljp
 xag
 ddk
 hpx
-ljp
+bvt
 bvt
 bvt
 was
@@ -156739,7 +156746,7 @@ bvt
 kzz
 bvt
 bvt
-ljp
+bvt
 qkV
 uPR
 xix
@@ -156747,7 +156754,7 @@ bio
 bio
 rez
 bio
-bio
+nUK
 bio
 pmA
 bio
