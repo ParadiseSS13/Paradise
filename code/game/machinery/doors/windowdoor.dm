@@ -386,6 +386,7 @@
 					ae = electronics
 					electronics = null
 					ae.forceMove(loc)
+				ae.is_installed = FALSE
 
 				qdel(src)
 	else
