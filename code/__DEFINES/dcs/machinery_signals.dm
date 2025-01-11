@@ -21,7 +21,8 @@
 #define COMSIG_DOOR_OPEN "door_open"
 /// called on doors when closed: ()
 #define COMSIG_DOOR_CLOSE "door_close"
-
+/// called on item attaking door: (/obj/machinery/door/, mob/user)
+#define COMSIG_TRY_TO_PRY_DOOR "try_to_pry_door"
 
 // /obj/machinery/door/airlock
 

@@ -838,6 +838,8 @@
 		return
 	muscle_implant.emp_act(severity, owner)
 
+// Mantis blades
+
 /obj/item/melee/mantis_blade
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action. \
@@ -846,9 +848,6 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	tool_behaviour = TOOL_CROWBAR // to pry open doors
-	toolspeed = 0.5
-	usesound = 'sound/items/crowbar.ogg'
 	new_attack_chain = TRUE
 	var/double_attack = TRUE
 	var/double_attack_cd = 1.5 // seconds, so every second attack
@@ -886,6 +885,10 @@
 	attack(target, user, params)
 	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
 
+/obj/item/melee/mantis_blade/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/force_door_open, mantis = TRUE)
+
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
@@ -908,7 +911,6 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime, non projectile
 
 //  Mantis blades implants
-
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis
 	name = "'Naginata' mantis blade implants"
 	desc = "A powerful and concealable mantis blade with a monomolecular edge, produced by Cybersun Industries. Cuts through flesh and armor alike with ease."
