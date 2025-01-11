@@ -135,6 +135,9 @@
 /datum/ai_program/proc/upgrade(mob/user)
 	return
 
+/datum/ai_program/proc/downgrade(mob/user)
+	return
+
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
 	user.program_picker.use(user)
@@ -151,7 +154,8 @@
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
 	desc = "Changes the color of a selected light"
-	action_icon_state = "light"
+	action_icon = 'icons/obj/lighting.dmi'
+	action_icon_state = "random_glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
@@ -207,7 +211,8 @@
 /datum/spell/ai_spell/ranged/power_shunt
 	name = "Power Shunt"
 	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES"
-	action_icon_state = "light"
+	action_icon = 'icons/obj/power.dmi'
+	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 300 SECONDS
@@ -274,7 +279,8 @@
 /datum/spell/ai_spell/ranged/repair_nanites
 	name = "Repair Nanites"
 	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
-	action_icon_state = "light"
+	action_icon = 'icons/obj/surgery.dmi'
+	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 450 SECONDS
@@ -337,10 +343,11 @@
 	installed = TRUE
 
 // Door Override - Repairs door wires if the AI wire is not cut
-/datum/ai_program/rgb_lighting
+/datum/ai_program/door_override
 	program_name = "Door Override"
 	program_id = "door_override"
 	description = "Repair an airlocks's wires, if the AI control wire is not cut."
+	cost = 2
 	nanite_cost = 25
 	power_type = /datum/spell/ai_spell/ranged/door_override
 	unlock_text = "Door repair and override firmware installation complete!"
@@ -348,7 +355,8 @@
 /datum/spell/ai_spell/ranged/door_override
 	name = "Door Override"
 	desc = "Repair the wires in an airlock that still has an intact AI control wire."
-	action_icon_state = "light"
+	action_icon = 'icons/obj/doors/doorint.dmi'
+	action_icon_state = "door_closed"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 60 SECONDS
@@ -368,23 +376,71 @@
 		return
 
 	var/turf/T = get_turf(target)
+	var/mob/living/silicon/ai/AI = user
+	var/duration = (6 - spell_level) SECONDS
+	AI.program_picker.nanites -= 25
+	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = duration)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
-	QDEL_IN(spawning_effect, (6 - spell_level) SECONDS)
-	if(do_after_once(user, (6 - spell_level) SECONDS, target = target, allow_moving = TRUE))
+	spawning_effect.duration = duration
+	QDEL_IN(spawning_effect, duration)
+	if(do_after_once(user, duration, target = target, allow_moving = TRUE))
 		target.wires.repair()
 		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
 		if(spell_level >= 5)
 			target.emagged = FALSE
 			target.electronics = initial(target.electronics)
 
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 25
-	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-
 /datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
 	if(spell_level == 5)
 		desc += " Firmware version sufficient enough to repair damage caused by a cryptographic sequencer."
+
+// Automated Extinguishing System: Deploys nanofrost to a target tile
+/datum/ai_program/extinguishing_system
+	program_name = "Automated Extinguishing System"
+	program_id = "extinguishing_system"
+	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
+	cost = 3
+	nanite_cost = 50
+	power_type = /datum/spell/ai_spell/ranged/extinguishing_system
+	unlock_text = "Nanofrost synthesizer online."
+
+/datum/spell/ai_spell/ranged/extinguishing_system
+	name = "Automated Extinguishing System"
+	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
+	action_icon = 'icons/effects/effects.dmi'
+	action_icon_state = "frozen_smoke_capsule"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 300 SECONDS
+	cooldown_min = 30 SECONDS
+	level_max = 7
+	selection_activated_message = "<span class='notice'>You prepare to synthesize a nanofrost globule...</span>"
+	selection_deactivated_message = "<span class='notice'>You let the nanofrost dissipate.</span>"
+
+/datum/spell/ai_spell/ranged/extinguishing_system/cast(list/targets, mob/user)
+	var/turf/target = get_turf(targets[1])
+	if(!isturf(target))
+		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
+		return
+
+	var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(target)
+	log_game("[key_name(user)] used Nanofrost at [get_area(target)] ([target.x], [target.y], [target.z]).")
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 50
+	user.playsound_local(user, 'sound/items/syringeproj.ogg', 40, FALSE, use_reverb = FALSE)
+	playsound(src, 'sound/items/syringeproj.ogg', 40, TRUE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		sleep(5)
+		nanofrost.Smoke()
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	sleep(5)
+	nanofrost.Smoke()
+
+/datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
