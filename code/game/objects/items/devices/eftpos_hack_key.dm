@@ -124,16 +124,16 @@
 			return  "..."
 
 		if(ACCESS_BAR)
-			return  "You were my brother, Anakin! I loved you!"
+			return  "When life gives you lemons, squish and juice them"
 
 		if(ACCESS_LIBRARY)
-			return  "You were my brother, Anakin! I loved you!"
+			return  "Knowledge is power, thanks for yours."
 
 		if(ACCESS_KITCHEN)
-			return  "You were my brother, Anakin! I loved you!"
+			return  "Careful, I heard some of them are masters of CQC"
 
 		if(ACCESS_HYDROPONICS)
-			return  "You were my brother, Anakin! I loved you!"
+			return  "Birds are singing, flowers are blooming. On days like this...agents like you..."
 
 		if(ACCESS_VIROLOGY)
 			return  "Oh yes! Oh yes! I think I know what you're up to!"
