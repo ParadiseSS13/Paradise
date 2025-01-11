@@ -21,7 +21,7 @@
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
-	inertia_move_delay = 1 // so they dont collide with who emitted them
+	inertia_move_delay = 5 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C == src)
