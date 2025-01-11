@@ -25763,10 +25763,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/maintenance/starboard)
-"dCE" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "dCF" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -78322,7 +78318,9 @@
 /area/station/maintenance/starboard)
 "qmr" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/station/maintenance/starboard)
 "qmw" = (
 /obj/structure/table/reinforced{
@@ -167781,7 +167779,7 @@ iVi
 fGz
 fqw
 jPW
-gFg
+xXN
 gFg
 nKW
 mon
@@ -168038,7 +168036,7 @@ fqw
 fqw
 fqw
 itf
-vHH
+gFg
 itf
 nKW
 mon
@@ -168292,10 +168290,10 @@ eCV
 nAt
 iIx
 fqw
-qgX
-mpF
+xXS
+xaU
 qmr
-wyL
+gFg
 itf
 nKW
 mon
@@ -168552,7 +168550,7 @@ piR
 owU
 xXH
 gFg
-vHH
+gFg
 itf
 nKW
 mon
@@ -170869,7 +170867,7 @@ itf
 jXm
 nKW
 xis
-dCE
+vHH
 mpF
 itf
 aZM
