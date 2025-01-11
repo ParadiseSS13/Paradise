@@ -125,6 +125,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
 
+/obj/effect/meteor/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
+
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
 		ram_turf(get_turf(A))
