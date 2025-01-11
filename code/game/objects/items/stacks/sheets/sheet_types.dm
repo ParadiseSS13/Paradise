@@ -54,15 +54,17 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 	new /datum/stack_recipe_list("comfy chairs", list(
 		new /datum/stack_recipe("corporate comfy chair", /obj/structure/chair/comfy/corp, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("orange comfy chair", /obj/structure/chair/comfy/orange, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("yellow comfy chair", /obj/structure/chair/comfy/yellow, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("blue comfy chair", /obj/structure/chair/comfy/blue, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 
 	null,
@@ -343,7 +345,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
-		new /datum/stack_recipe("white scarf", /obj/item/clothing/accessory/scarf/white, 1),
+		new /datum/stack_recipe("white scarf", /obj/item/clothing/neck/scarf/white, 1),
 		new /datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
 		new /datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2),
 		null,

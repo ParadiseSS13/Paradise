@@ -40,7 +40,7 @@
 	magichead.voicechange = TRUE	//NEEEEIIGHH
 	target.visible_message(	"<span class='danger'>[target]'s face  lights up in fire, and after the event a horse's head takes its place!</span>", \
 							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
-	if(!target.unEquip(target.wear_mask))
+	if(!target.drop_item_to_ground(target.wear_mask))
 		qdel(target.wear_mask)
 	target.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, TRUE, TRUE)
 

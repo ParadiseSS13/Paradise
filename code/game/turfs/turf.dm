@@ -85,6 +85,16 @@
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/pressure_overlay/pressure_overlay
 
+	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
+	var/list/milla_superconductivity = list(
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT)
+	var/list/milla_data = list()
+
+	new_attack_chain = TRUE
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -474,27 +484,28 @@
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
-/turf/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/turf/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return TRUE
+
 	if(can_lay_cable())
-		if(istype(I, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = I
+		if(istype(attacking, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = attacking
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
 					LC.attackby__legacy__attackchain(C, user)
-					return
+					return TRUE
 			C.place_turf(src, user)
 			return TRUE
-		else if(istype(I, /obj/item/rcl))
-			var/obj/item/rcl/R = I
+		else if(istype(attacking, /obj/item/rcl))
+			var/obj/item/rcl/R = attacking
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby__legacy__attackchain(R, user)
-						return
+						return TRUE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
-
-	return FALSE
 
 /turf/proc/can_have_cabling()
 	return TRUE

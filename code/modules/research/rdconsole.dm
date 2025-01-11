@@ -453,9 +453,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				SSblackbox.record_feedback("tally", "station_protolathe_production", amount, "[being_built.type]")
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				if(istype(new_item)) // Only want a random pixel offset if it IS actually an item, and not a structure like a bluespace closet
-					new_item.pixel_x = rand(-5, 5)
-					new_item.pixel_y = rand(-5, 5)
+				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches

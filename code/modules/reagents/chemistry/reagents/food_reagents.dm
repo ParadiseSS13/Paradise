@@ -635,7 +635,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/sliced/cheesewedge(T)
+		new /obj/item/food/cheesewedge/presliced(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
