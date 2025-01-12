@@ -81,6 +81,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// Current tick limit, assigned before running a subsystem. Used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
+	var/runqueues_running = 0
+
 /datum/controller/master/New()
 	if(!random_seed)
 		#ifdef GAME_TESTS
@@ -431,12 +433,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 
 		if(queue_head)
-			var/status = RunQueue()
-			if(!islist(status) || length(status) > 0) //error running queue
-				if(!islist(status))
-					stack_trace("MC: RunQueue failed with no return value. Current error_level is [round(error_level, 0.25)]")
-				else
-					stack_trace("MC: RunQueue failed with [length(status)] errors.  Current error_level is [round(error_level, 0.25)]. First error is: [status[1]]")
+			if(!RunQueue())
+				stack_trace("MC: RunQueue returned early, [runqueues_running] orphaned RunQueue calls. Current error_level is [round(error_level, 0.25)].")
 				if(error_level > 1) //skip the first error,
 					if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 						error_level++
@@ -505,7 +503,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /// RunQueue - Run thru the queue of subsystems to run, running them while balancing out their allocated tick precentage
 /// Returns 0 if runtimed, a negitive number for logic errors, and a positive number if the operation completed without errors
 /datum/controller/master/proc/RunQueue()
-	var/errors = list()
+	runqueues_running++
 	var/datum/controller/subsystem/queue_node
 	var/queue_node_flags
 	var/queue_node_priority
@@ -544,7 +542,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				var/message = "MC: Queue logic failure, non-background subsystem queued to run after a background subsystem: [queue_node] queue_prev:[queue_node.queue_prev]"
 				log_world(message)
 				stack_trace(message)
-				errors += message
 				current_tick_budget = queue_priority_count //this won't even be right, but is the best we have.
 				bg_calc = FALSE
 
@@ -559,7 +556,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				var/message = "MC: tick_budget sync error. [json_encode(list(current_tick_budget, queue_priority_count, queue_priority_count_bg, bg_calc, queue_node, queue_node_priority))]"
 				log_world(message)
 				stack_trace(message)
-				errors += message
 				tick_precentage = tick_remaining //just because we lost track of priority calculations doesn't mean we can't try to finish off the run, if the error state persists, we don't want to stop ticks from happening
 
 			tick_precentage = max(tick_precentage*0.5, tick_precentage-queue_node.tick_overrun)
@@ -619,7 +615,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			queue_node = queue_node.queue_next
 
-	return errors
+	runqueues_running--
+	return TRUE
 
 //resets the queue, and all subsystems, while filtering out the subsystem lists
 // called if any mc's queue procs runtime or exit improperly.
