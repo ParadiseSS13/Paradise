@@ -174,83 +174,9 @@
 
 /datum/heretic_knowledge/ultimate/moon_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, type)
-	user.mind.add_antag_datum(/datum/antagonist/lunatic/master)
-	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-
-	var/amount_of_lunatics = 0
-	var/list/lunatic_candidates = list()
-	for(var/mob/living/carbon/human/crewmate as anything in shuffle(GLOB.human_list))
-		if(QDELETED(crewmate) || isnull(crewmate.client) || isnull(crewmate.mind) || crewmate.stat != CONSCIOUS || crewmate.can_block_magic(MAGIC_RESISTANCE_MIND))
-			continue
-		var/turf/crewmate_turf = get_turf(crewmate)
-		var/crewmate_z = crewmate_turf?.z
-		if(!is_station_level(crewmate_z))
-			continue
-		lunatic_candidates += crewmate
-
-	// Roughly 1/5th of the station will rise up as lunatics to the heretic.
-	// We use either the (locked) manifest for the maximum, or the amount of candidates, whichever is larger.
-	// If there's more eligible humans than crew, more power to them I guess.
-	var/max_lunatics = ceil(max(length(GLOB.manifest.locked), length(lunatic_candidates)) * 0.2)
-
-	for(var/mob/living/carbon/human/crewmate as anything in lunatic_candidates)
-		// Heretics, lunatics and monsters shouldn't become lunatics because they either have a master or have a mansus grasp
-		if(IS_HERETIC_OR_MONSTER(crewmate))
-			to_chat(crewmate, span_boldwarning("[user]'s rise is influencing those who are weak willed. Their minds shall rend." ))
-			continue
-		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
-		if(HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE) || crewmate.can_block_magic(MAGIC_RESISTANCE))
-			to_chat(crewmate, span_boldwarning("You feel shielded from something." ))
-			continue
-		if(amount_of_lunatics > max_lunatics)
-			to_chat(crewmate, "<span class='boldwarning'>You feel uneasy, as if for a brief moment something was gazing at you.</span>")
-			continue
-		var/datum/antagonist/lunatic/lunatic = crewmate.mind.add_antag_datum(/datum/antagonist/lunatic)
-		lunatic.set_master(user.mind, user)
-		var/obj/item/clothing/neck/heretic_focus/moon_amulet/amulet = new(crewmate.drop_location())
-		var/static/list/slots = list(
-			"neck" = ITEM_SLOT_NECK,
-			"hands" = ITEM_SLOT_HANDS,
-			"backpack" = ITEM_SLOT_BACKPACK,
-			"right pocket" = ITEM_SLOT_RPOCKET,
-			"left pocket" = ITEM_SLOT_RPOCKET,
-		)
-		crewmate.equip_in_one_of_slots(amulet, slots, qdel_on_fail = FALSE)
-		crewmate.emote("laugh")
-		amount_of_lunatics++
+	message_admins("QWERTODO: THIS")
 
 /datum/heretic_knowledge/ultimate/moon_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 	SIGNAL_HANDLER
-
-	visible_hallucination_pulse(
-		center = get_turf(source),
-		radius = 7,
-		hallucination_duration = 60 SECONDS
-	)
-
-	for(var/mob/living/carbon/carbon_view in view(5, source))
-		var/carbon_sanity = carbon_view.mob_mood.sanity
-		if(carbon_view.stat != CONSCIOUS)
-			continue
-		if(IS_HERETIC_OR_MONSTER(carbon_view))
-			continue
-		if(carbon_view.can_block_magic(MAGIC_RESISTANCE_MIND)) //Somehow a shitty piece of tinfoil is STILL able to hold out against the power of an ascended heretic.
-			continue
-		new moon_effect(get_turf(carbon_view))
-		carbon_view.AdjustConfused(2 SECONDS)
-		carbon_view.mob_mood.set_sanity(carbon_sanity - 5)
-		if(carbon_sanity < 30)
-			if(SPT_PROB(20, seconds_per_tick))
-				to_chat(carbon_view, "<span class='warning'>you feel your mind beginning to rend!</span>")
-			carbon_view.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-		if(carbon_sanity < 10)
-			if(SPT_PROB(20, seconds_per_tick))
-				to_chat(carbon_view, "<span class='warning'>it echoes through you!</span>")
-			visible_hallucination_pulse(
-				center = get_turf(carbon_view),
-				radius = 7,
-				hallucination_duration = 50 SECONDS
-			)
-			carbon_view.adjust_temp_blindness(5 SECONDS)
+	message_admins("QWERTODO: THIS")
