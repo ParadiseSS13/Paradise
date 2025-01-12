@@ -252,10 +252,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
+
 /// Trait given to anything linked to, not necessarily allied to, the mansus
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
 /// This trait makes you immune to baton knockdown.
 #define TRAIT_BATON_RESISTANCE "baton_resistance"
+
+#define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -334,6 +338,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //****** ATOM/MOVABLE TRAITS *****//
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
 #define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
+
+//****** TURF TRAITS *****//
+#define TRAIT_RUSTY "rust_trait"
 
 //
 // common trait sources

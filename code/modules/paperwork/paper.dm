@@ -50,6 +50,8 @@
 	var/const/crayonfont = "Comic Sans MS"
 	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
 
+	scatter_distance = 8
+
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
 /obj/item/paper/New()
@@ -413,38 +415,38 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_to_ground(P)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_r_hand(B)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_l_hand(B)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_hands(B)
 			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
+		forceMove(B)
 		P.loc = B
 		B.amount++
 		B.update_icon()
@@ -479,7 +481,7 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -487,7 +489,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
@@ -864,6 +866,13 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	name = "Lava Field Observations"
 	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
+
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
