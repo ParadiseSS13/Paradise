@@ -147,6 +147,7 @@
 				continue
 			if(istype(item, /obj/item/grab))
 				grab_items |= item
+
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
 			else
