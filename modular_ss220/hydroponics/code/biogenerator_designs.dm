@@ -10,7 +10,7 @@
 	name = "Странные семена"
 	id = "strange_seeds"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 10000)
+	materials = list(MAT_BIOMASS = 20000)
 	build_path = /obj/item/seeds/random
 	category = list("initial","Organic Materials")
 
