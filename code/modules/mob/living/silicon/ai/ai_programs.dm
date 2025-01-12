@@ -189,7 +189,7 @@
 		L.brightness_color = new_color
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
-	user.playsound_local(user, "sound/effects/spray.ogg", 50, FALSE, use_reverb = FALSE)
+	user.playsound_local(user, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
 	if(!istype(C))
@@ -255,7 +255,7 @@
 		power_source.charge -= power_sent
 		break
 	AI.program_picker.nanites -= 20
-	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
+	user.playsound_local(user, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
 	if(!istype(C))
@@ -444,3 +444,88 @@
 
 /datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
+
+// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
+/datum/ai_program/bluespace_miner
+	program_name = "Bluespace Miner Subsystem"
+	program_id = "bluespace_miner"
+	description = "You link yourself to a miniature bluespace harvester, generating income for the science account at the cost of increasing your core's power needs."
+	nanite_cost = 0
+	max_level = 5
+	unlock_text = "Bluespace miner installation complete!"
+	upgrade = TRUE
+
+/datum/ai_program/bluespace_miner/upgrade(mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(user))
+		return
+	AI.bluespace_miner_rate = 100 + (100 * upgrade_level)
+	AI.next_payout = 10 MINUTES + world.time
+	AI.bluespace_miner = TRUE
+	upgrade_level++
+	installed = TRUE
+
+
+// Multimarket Analysis Subsystem: Reduce prices of things at cargo
+/datum/ai_program/multimarket_analyser
+	program_name = "Multimarket Analysis Subsystem"
+	program_id = "multimarket_analyser"
+	description = "You connect to a digital marketplace to price-check all orders from the station, ensuring you get the best prices! This reduces the cost of crates in cargo!"
+	nanite_cost = 0
+	unlock_text = "Online marketplace detected... connected!"
+	max_level = 6
+	upgrade = TRUE
+	/// Track the original modifier
+	var/original_price_mod = SSeconomy.pack_price_modifier
+
+/datum/ai_program/multimarket_analyser/upgrade(mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(user))
+		return
+	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
+	upgrade_level++
+	installed = TRUE
+
+// RGB Lighting - Recolors Lights
+/datum/ai_program/light_repair
+	program_name = "Light Synthesizer"
+	program_id = "light_repair"
+	description = "Replace damaged or missing lightbulbs."
+	nanite_cost = 5
+	power_type = /datum/spell/ai_spell/ranged/light_repair
+	unlock_text = "Light replacer configuration installed."
+
+/datum/spell/ai_spell/ranged/light_repair
+	name = "Light Synthesizer"
+	desc = "Replace damaged or missing lightbulbs."
+	action_icon = 'icons/obj/janitor.dmi'
+	action_icon_state = "lightreplacer0"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 30 SECONDS
+	cooldown_min = 5 SECONDS
+	level_max = 5
+	selection_activated_message = "<span class='notice'>You prepare to synthesize a lightbulb...</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
+
+/datum/spell/ai_spell/ranged/light_repair/cast(list/targets, mob/user)
+	var/obj/machinery/light/target = targets[1]
+	if(!istype(target))
+		to_chat(user, "<span class='warning'>You can only repair lights!</span>")
+		return
+	var/mob/living/silicon/ai/AI = user
+	// Handle repairs here since we're using a spell and not a tool
+	target.status = LIGHT_OK
+	target.switchcount = 0
+	target.emagged = FALSE
+	target.on = target.has_power()
+	AI.program_picker.nanites -= 5
+	user.playsound_local(user, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+
+/datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)

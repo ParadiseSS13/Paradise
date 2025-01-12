@@ -73,6 +73,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/universal_adapter = FALSE
 	/// How effective is the adapter?
 	var/adapter_efficiency = 0.5
+	/// Has the AI unlocked a bluespace miner?
+	var/bluespace_miner = FALSE
+	/// Credit payout rate
+	var/bluespace_miner_rate = 100
+	/// Time until next payout
+	var/next_payout = 10 MINUTES
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -387,6 +393,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	power_state = ACTIVE_POWER_USE
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
+	var/bluespace_miner_power = 0
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
@@ -410,6 +417,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+	if(powered_ai.bluespace_miner)
+		// Money money money
+		if(powered_ai.next_payout <= world.time)
+			powered_ai.next_payout = 10 MINUTES + world.time
+			var/datum/economy/line_item/science_item = new
+			science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
+			science_item.credits = powered_ai.bluespace_miner_rate
+			science_item.reason = "AI Bluespace Miner Earnings"
+			manifest.line_items += science_item
+		// Update power consumption if powering a bluespace miner
+		if(bluespace_miner_power == powered_ai.bluespace_miner_rate * 2.5)
+			return
+		bluespace_miner_power = powered_ai.bluespace_miner_rate * 2.5
+		update_active_power_consumption(power_channel, active_power_consumption + bluespace_miner_power)
 
 /mob/living/silicon/ai/update_icons()
 	. = ..()
