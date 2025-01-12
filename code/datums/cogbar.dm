@@ -17,6 +17,8 @@
 	var/obj/effect/overlay/vis/cog
 	/// The blank image that overlaps the cog - hides it from the source user
 	var/image/blank
+	/// The offset of the icon
+	var/offset_y
 
 // Class constructor
 /**
@@ -30,6 +32,9 @@
 /datum/cogbar/New(mob/user)
 	src.user = user
 	src.user_client = user.client
+
+	var/list/icon_offsets = user.get_oversized_icon_offsets()
+	offset_y = icon_offsets["y"]
 
 	add_cog_to_user()
 
@@ -70,8 +75,8 @@
 		unique = TRUE,
 		alpha = 0,
 	)
-	cog.pixel_y = world.icon_size
-	cog.pixel_y = world.icon_size
+
+	cog.pixel_y = world.icon_size + offset_y
 	animate(cog, alpha = 255, time = COGBAR_ANIMATION_TIME)
 
 	if(isnull(user_client))

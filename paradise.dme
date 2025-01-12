@@ -220,6 +220,7 @@
 #include "code\_globalvars\lists\dye_registry.dm"
 #include "code\_globalvars\lists\flavor_misc.dm"
 #include "code\_globalvars\lists\fortunes.dm"
+#include "code\_globalvars\lists\icons.dm"
 #include "code\_globalvars\lists\keybindings_lists.dm"
 #include "code\_globalvars\lists\maint_loot_tables.dm"
 #include "code\_globalvars\lists\misc_lists.dm"
