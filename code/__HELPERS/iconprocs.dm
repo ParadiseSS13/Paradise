@@ -531,14 +531,14 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
-	if (isnull(GLOB.icon_dimensions[icon_path]))
+	if(isnull(GLOB.icon_dimensions[icon_path]))
 		var/icon/my_icon = icon(icon_path)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
 
 /// Returns an x and y value require to reverse the transformations made to center an oversized icon
 /atom/proc/get_oversized_icon_offsets()
-	if (pixel_x == 0 && pixel_y == 0)
+	if(pixel_x == 0 && pixel_y == 0)
 		return list("x" = 0, "y" = 0)
 	var/list/icon_dimensions = get_icon_dimensions(icon)
 	var/icon_width = icon_dimensions["width"]
