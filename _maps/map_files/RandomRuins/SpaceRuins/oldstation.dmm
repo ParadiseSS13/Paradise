@@ -211,6 +211,7 @@
 	name = "Prototype Laboratory"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -1009,6 +1010,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "dd" = (
@@ -1988,6 +1990,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/command,
 /obj/structure/barricade/wooden,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "fO" = (
@@ -3176,6 +3179,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor/closed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "iJ" = (
@@ -4111,7 +4115,6 @@
 	name = "Theta Station Access"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/powered)
 "lA" = (
@@ -4609,6 +4612,7 @@
 	id_tag = "prototype_vault_antechamber";
 	name = "Theta prototype lab blast door"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "qu" = (
@@ -4736,6 +4740,7 @@
 	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis.";
 	id_tag = "prototype_vault"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/powered)
 "rX" = (
@@ -5412,6 +5417,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -5959,6 +5965,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Beta Station Engineering Module"
 	},
+/obj/machinery/door/firedoor/closed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "Ii" = (
@@ -6035,6 +6042,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "IL" = (
@@ -7135,6 +7143,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"Wc" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ancientstation/betanorth)
 "We" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -7314,6 +7327,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "Yu" = (
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/powered)
 "YH" = (
@@ -7777,7 +7791,7 @@ bf
 YX
 HQ
 YP
-fr
+Wc
 uQ
 aa
 aa
