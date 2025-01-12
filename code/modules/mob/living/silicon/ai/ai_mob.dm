@@ -421,11 +421,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Money money money
 		if(powered_ai.next_payout <= world.time)
 			powered_ai.next_payout = 10 MINUTES + world.time
-			var/datum/economy/line_item/science_item = new
-			science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
-			science_item.credits = powered_ai.bluespace_miner_rate
-			science_item.reason = "AI Bluespace Miner Earnings"
-			manifest.line_items += science_item
+			var/account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
+			var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
+			station_db.credit_account(account, powered_ai.bluespace_miner_rate, "Bluespace Miner Production", "AI Bluespace Miner Subsystem", FALSE)
+
 		// Update power consumption if powering a bluespace miner
 		if(bluespace_miner_power == powered_ai.bluespace_miner_rate * 2.5)
 			return

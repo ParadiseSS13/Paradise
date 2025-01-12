@@ -476,12 +476,13 @@
 	max_level = 6
 	upgrade = TRUE
 	/// Track the original modifier
-	var/original_price_mod = SSeconomy.pack_price_modifier
+	var/original_price_mod
+
+/datum/ai_program/multimarket_analyser/New()
+	. = ..()
+	original_price_mod = SSeconomy.pack_price_modifier
 
 /datum/ai_program/multimarket_analyser/upgrade(mob/user)
-	var/mob/living/silicon/ai/AI = user
-	if(!istype(user))
-		return
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
 	upgrade_level++
 	installed = TRUE
