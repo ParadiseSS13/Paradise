@@ -11,6 +11,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()

@@ -267,6 +267,7 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()

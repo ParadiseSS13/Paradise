@@ -13,3 +13,10 @@
 
 #define MINERAL_PREVENT_DIG	0	//! A mineral turf should not be changed when mined.
 #define MINERAL_ALLOW_DIG	1	//! A mineral turf should be dug out when mined.
+
+// Defines for turfs rust resistance
+#define RUST_RESISTANCE_BASIC 1
+#define RUST_RESISTANCE_REINFORCED 2
+#define RUST_RESISTANCE_TITANIUM 3
+#define RUST_RESISTANCE_ORGANIC 4
+#define RUST_RESISTANCE_ABSOLUTE 5

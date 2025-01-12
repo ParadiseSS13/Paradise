@@ -93,6 +93,9 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 	var/list/milla_data = list()
 
+	///This turf's resistance to getting rusted QWERTODO: check fucking every floortile
+	var/rust_resistance = RUST_RESISTANCE_ORGANIC
+
 	new_attack_chain = TRUE
 
 /turf/Initialize(mapload)
@@ -617,6 +620,12 @@
 
 	AddElement(/datum/element/rust/heretic)
 	new /obj/effect/glowing_rune(src)
+
+/// Check if the heretic is strong enough to rust this turf, and if so, rusts the turf with an added visual effect.
+/turf/rust_heretic_act(rust_strength = 1)
+	if((flags & NO_RUST) || (rust_strength < rust_resistance))
+		return
+	magic_rust_turf()
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

@@ -2,6 +2,7 @@
 	name = "wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 
 /turf/simulated/wall/indestructible/Initialize(mapload)
 	. = ..()

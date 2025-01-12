@@ -92,6 +92,7 @@
 #define COLOR_VOID_PURPLE "#53277E"
 #define COLOR_VERY_PALE_LIME_GREEN "#DDFFD3"
 #define COLOR_HERETIC_GREEN COLOR_VERY_PALE_LIME_GREEN
+#define COLOR_RUSTED_GLASS "#917c65"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

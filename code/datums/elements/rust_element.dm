@@ -95,6 +95,10 @@
 	if(!isliving(entered))
 		return
 	var/mob/living/victim = entered
+	if(IS_HERETIC(victim))
+		return
+	if(victim.can_block_magic(MAGIC_RESISTANCE))
+		return
 	if(istype(victim, /mob/living/simple_animal/revenant))
 		return
 	victim.apply_status_effect(STATUS_EFFECT_RUST_CORRUPTION)

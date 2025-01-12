@@ -1512,9 +1512,8 @@
 	if(issilicon(owner))
 		owner.adjustBruteLoss(10)
 		return
-	//We don't have disgust, so...
 	if(ishuman(owner))
-		owner.adjustBrainLoss(2.5)
+		owner.adjust_disgust(5)
 		owner.reagents?.remove_all(0.75)
 	else
 		owner.adjustBruteLoss(3) //Weaker than borgs but still constant.

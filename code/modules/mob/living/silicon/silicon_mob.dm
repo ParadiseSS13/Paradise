@@ -596,3 +596,6 @@
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
 	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(500)

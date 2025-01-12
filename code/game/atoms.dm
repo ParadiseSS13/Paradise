@@ -1446,7 +1446,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * /turf/rust_turf should be used instead for overriding rust on turfs
  */
 /atom/proc/rust_heretic_act()
-	return //QWERTYTODO: HEY FUCKFACE THIS ENTIRE THING ONCE RUST IS IN
+	return
+
+///wrapper proc that passes our mob's rust_strength to the target we are rusting
+/mob/living/proc/do_rust_heretic_act(atom/target)
+	var/datum/antagonist/heretic/heretic_data = GET_HERETIC(src)
+	target.rust_heretic_act(heretic_data?.rust_strength)
+
+/mob/living/basic/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
+	target.rust_heretic_act(4)
 
 /// Used with the spawner component to do something when a mob is spawned.
 /atom/proc/on_mob_spawn(mob/created_mob)

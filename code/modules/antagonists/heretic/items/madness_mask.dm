@@ -53,17 +53,16 @@
 	if(IS_HERETIC_OR_MONSTER(local_user) && (flags & NODROP))
 		flags &= ~NODROP
 
-	for(var/mob/living/carbon/human/human_in_range in view(local_user))
+	for(var/mob/living/carbon/human/human_in_range in view(local_user)) //QWERTYTODO:WHAT THE FUCK THIS IS STUPID
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || HAS_TRAIT(human_in_range, TRAIT_BLIND))
 			continue
 
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
 
-		human_in_range.mob_mood.direct_sanity_drain(rand(-2, -20) * seconds_per_tick)
 
 		if(prob(60))
-			human_in_range.adjust_hallucinations_up_to(10 SECONDS, 240 SECONDS)
+			human_in_range.SetHallucinate(30 SECONDS)
 
 		if(prob(40))
 			human_in_range.AdjustJitter(10 SECONDS)
