@@ -143,12 +143,12 @@
 			accessories = parts[5]
 
 		if(item)
+			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
+				continue
 			if(istype(item, /obj/item/grab))
 				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
-			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
-				continue
 			else
 				var/item_words = item.name
 				if(item.blood_DNA)
