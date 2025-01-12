@@ -40,3 +40,12 @@
 #define DIR_JUST_HORIZONTAL(dir) ((dir == EAST) || (dir == WEST))
 /// returns TRUE if the direction is NORTH or SOUTH
 #define DIR_JUST_VERTICAL(dir) ((dir == NORTH) || (dir == SOUTH))
+
+/// North direction as a string "[1]"
+#define TEXT_NORTH "[NORTH]"
+/// South direction as a string "[2]"
+#define TEXT_SOUTH "[SOUTH]"
+/// East direction as a string "[4]"
+#define TEXT_EAST "[EAST]"
+/// West direction as a string "[8]"
+#define TEXT_WEST "[WEST]"
