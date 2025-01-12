@@ -864,7 +864,7 @@
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
 		return
-	if(!user.drop_l_hand() || !user.drop_r_hand())
+	if((user.l_hand && !user.drop_l_hand()) || (user.r_hand && !user.drop_r_hand()))
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
 	var/obj/item/W = new /obj/item/pyro_claws
