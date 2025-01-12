@@ -71,7 +71,7 @@
 		else if(target_direction & SOUTH)
 			x_offset = rand(-12, 12)
 			y_offset = -16
-	if(!user.unEquip(I))
+	if(!user.drop_item_to_ground(I))
 		return
 	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
 	I.pixel_x = x_offset

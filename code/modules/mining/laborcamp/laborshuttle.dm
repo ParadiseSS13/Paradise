@@ -52,7 +52,7 @@
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
 			return
 
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			return
 
 		I.forceMove(src)
@@ -108,7 +108,7 @@
 
 			var/obj/item/I = ui.user.get_active_hand()
 			if(istype(I, /obj/item/card/id/prisoner))
-				if(!ui.user.unEquip(I))
+				if(!ui.user.drop_item_to_ground(I))
 					return
 				I.forceMove(src)
 				inserted_id_uid = I.UID()
