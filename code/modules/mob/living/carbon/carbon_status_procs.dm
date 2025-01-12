@@ -19,11 +19,9 @@
 		adjustStaminaLoss(30, FALSE)
 
 /mob/living/carbon/adjust_disgust(amount, max = DISGUST_LEVEL_MAXEDOUT)
-	disgust = clamp(disgust + amount, 0, max)
-	/datum/status_effect/transient/disgust/D = IsKnockedDown()
-	var/datum/status_effect/transient/disgust/D = target.has_status_effect(/datum/status_effect/transient/disgust)
+	var/datum/status_effect/transient/disgust/D = has_status_effect(/datum/status_effect/transient/disgust)
 	if(!D)
-		D = target.apply_status_effect(/datum/status_effect/transient/disgust, amount)
+		D = apply_status_effect(/datum/status_effect/transient/disgust, amount)
 	if(D)
 		D.strength += amount
-	return F
+	return D

@@ -465,7 +465,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 */
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(toxin_damage, FALSE)
+	update_flags |= affected_mob.adjustToxLoss(toxin_damage, FALSE)
 	spawn_hands(affected_mob)
 	return ..() | update_flags
 

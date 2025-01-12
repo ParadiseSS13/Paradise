@@ -256,3 +256,58 @@
 	name = "Moon Converted"
 	desc = "They LIE, SLAY ALL OF THE THEM!!! THE LIARS OF THE SUN MUST FALL!!!"
 	icon_state = "moon_insanity"
+
+/mob/living/proc/apply_necropolis_curse(set_curse)
+	var/datum/status_effect/necropolis_curse/C = has_status_effect(/datum/status_effect/necropolis_curse)
+	if(!set_curse)
+		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
+	if(QDELETED(C))
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
+	else
+		C.apply_curse(set_curse)
+		C.duration += 3000 //time added by additional curses
+	return C
+
+/datum/status_effect/necropolis_curse
+	id = "necrocurse"
+	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	tick_interval = 5 SECONDS
+	alert_type = null
+	var/curse_flags = NONE
+	var/effect_last_activation = 0
+	var/effect_cooldown = 100
+	var/obj/effect/temp_visual/curse/wasting_effect = new
+
+/datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
+	. = ..()
+	owner.overlay_fullscreen("curse", /atom/movable/screen/fullscreen/stretch/curse, 1)
+	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 1)
+
+
+/datum/status_effect/necropolis_curse/on_remove()
+	owner.clear_fullscreen("curse", 50)
+
+/datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
+	if(owner.stat == DEAD)
+		return
+	if(effect_last_activation <= world.time)
+		effect_last_activation = world.time + effect_cooldown
+		var/grab_dir = turn(owner.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
+		var/turf/spawn_turf = get_ranged_target_turf(owner, grab_dir, 5)
+		if(spawn_turf)
+			grasp(spawn_turf)
+
+/datum/status_effect/necropolis_curse/proc/grasp(turf/spawn_turf)
+	set waitfor = FALSE
+	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
+	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
+	var/obj/projectile/curse_hand/C = new (spawn_turf)
+	C.aim_projectile(owner, spawn_turf)
+	C.fire()
+
+/obj/effect/temp_visual/curse
+	icon_state = "curse"
+
+/obj/effect/temp_visual/curse/Initialize(mapload)
+	. = ..()
+	deltimer(timerid)

@@ -406,7 +406,7 @@
 		var/obj/item/organ/internal/to_give = new organ_path
 		to_give.Insert(sac_target)
 
-	new /obj/effect/gibspawner/bodypartless(get_turf(sac_target))
+	new /obj/effect/gibspawner/generic(get_turf(sac_target))
 	sac_target.visible_message("<span class='boldwarning'>Several organs force themselves out of [sac_target]!</span>")
 
 /**
@@ -425,16 +425,12 @@
 	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
 	var/helgrasp_time = 1 MINUTES
 
-	sac_target.reagents?.add_reagent(/datum/reagent/helgrasp/heretic, helgrasp_time / 20)
-	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
+	sac_target.reagents?.add_reagent("mansusgrasp", helgrasp_time / 20)
+	sac_target.apply_status_effect/datum/status_effect/necropolis_curse
 
-	sac_target.add_mood_event("shadow_realm", /datum/mood_event/shadow_realm)
-
-	sac_target.flash_act()
 	sac_target.EyeBlurry(30 SECONDS)
 	sac_target.AdjustJitter(20 SECONDS)
 	sac_target.AdjustDizzy(20 SECONDS)
-	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
 	to_chat(sac_target, "<span class='hierophant_warning'>The grasp of the Mansus reveal themselves to you!</span>")
@@ -443,7 +439,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
 	var/win_timer = addtimer(CALLBACK(src, PROC_REF(return_target), sac_target), SACRIFICE_REALM_DURATION, TIMER_STOPPABLE)
-	LAZYSET(return_timers, REF(sac_target), win_timer)
+	LAZYSET(return_timers, UID(sac_target), win_timer)
 
 /**
  * This proc is called from [proc/after_target_wakes] after the helgrasp runs out in the [sac_target].)
@@ -471,18 +467,17 @@
 	if(QDELETED(sac_target))
 		return
 
-	var/current_timer = LAZYACCESS(return_timers, REF(sac_target))
+	var/current_timer = LAZYACCESS(return_timers, UID(sac_target))
 	if(current_timer)
 		deltimer(current_timer)
-	LAZYREMOVE(return_timers, REF(sac_target))
+	LAZYREMOVE(return_timers, UID(sac_target))
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
 	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
-	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
-	sac_target.uncuff()
-	sac_target.clear_mood_event("shadow_realm")
+	sac_target.reagents?.del_reagent("mansusgrasp")
+	sac_target.clear_restraints()
 	if(IS_HERETIC(sac_target))
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
 		victim_heretic.knowledge_points -= 3
@@ -504,11 +499,7 @@
 	if(!safe_turf)
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
-
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
-		safe_turf = get_turf(backup_loc)
-		sac_target.forceMove(safe_turf)
-		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
+	sac_target.forceMove(safe_turf)
 
 	if(sac_target.stat == DEAD)
 		after_return_dead_target(sac_target)
@@ -524,7 +515,7 @@
 			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
 
 		composed_return_message += "<span class='notice'>You hear a whisper... </span>"
-		composed_return_message += span_hypnophrase(get_area_name(safe_turf, TRUE))
+		composed_return_message += "<span class='hierophant'>You hear a whisper...[get_area_name(safe_turf, TRUE)]</span>"
 		to_chat(heretic_mind.current, composed_return_message)
 
 /**
@@ -561,24 +552,17 @@
 		to_chat(sac_target, "<span class='hierophant_warning'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span>")
 
 	// Oh god where are we?
-	sac_target.flash_act()
 	sac_target.AdjustConfused(60 SECONDS)
 	sac_target.AdjustJitter(120 SECONDS)
 	sac_target.EyeBlurry(100 SECONDS)
 	sac_target.AdjustDizzy(1 MINUTES)
-	sac_target.AdjustKnockdown(80)
+	sac_target.AdjustKnockDown(8 SECONDS)
 	sac_target.adjustStaminaLoss(120)
 
-	// Glad i'm outta there, though!
-	sac_target.add_mood_event("shadow_realm_survived", /datum/mood_event/shadow_realm_live)
-	if(IS_HERETIC(sac_target))
-		sac_target.add_mood_event("shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad_heretic)
-	else
-		sac_target.add_mood_event("shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
+	sac_target.reagents?.add_reagent("atropine", 8)
+	sac_target.reagents?.add_reagent("epinephrine", 8)
 
 /**
  * This proc is called from [proc/return_target] if the target dies in the shadow realm.)
@@ -593,7 +577,7 @@
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
 	illusion.name = "\improper weakened rift in reality"
 	illusion.desc = "A rift wide enough for something... or someone... to come through."
-	illusion.color = COLOR_DARK_RED
+	illusion.color = COLOR_RED
 
 /**
  * "Fuck you" proc that gets called if the chain is interrupted at some points.
@@ -612,7 +596,7 @@
 		"<span class='userdanger'>Your organs are violently pulled out of your chest by shadowy hands!</span>"
 	)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+	new /obj/effect/gibspawner/human(get_turf(sac_target))
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
