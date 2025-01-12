@@ -109,7 +109,7 @@
 		return TRUE
 
 	var/mob/living/carbon/human/human_user = user
-	var/obj/item/bodypart/their_poor_arm = human_user.get_active_hand()
+	var/obj/item/organ/external/their_poor_arm = human_user.get_active_hand()
 	if(prob(25))
 		to_chat(human_user, "<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
 		their_poor_arm.dismember()
@@ -133,7 +133,7 @@
 	// A very elaborate way to suicide
 	to_chat(human_user, "<span class='userdanger'>Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!</span>")
 	human_user.ghostize()
-	var/obj/item/bodypart/head/head = locate() in human_user.bodyparts
+	var/obj/item/organ/external/head/head = locate() in human_user.bodyparts
 	if(head)
 		head.dismember()
 		qdel(head)
@@ -151,8 +151,7 @@
 
 	var/mob/living/carbon/human/human_user = user
 	to_chat(human_user, "<span class='userdanger'>Your mind burns as you stare at the tear!</span>")
-	human_user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 190)
-	human_user.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
+	human_user.adjustBrainLoss(10)
 
 /obj/effect/heretic_influence
 	name = "reality smash"

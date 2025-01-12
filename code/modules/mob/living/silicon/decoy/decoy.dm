@@ -45,12 +45,12 @@
 		raise_alert()
 	. = ..(pass)
 
-/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(dmg)
-	. = ..(dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(ammount, updating_health)
+	. = ..(ammount)
 	updatehealth()
 
-/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(dmg)
-	. = ..(dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(ammount, updating_health)
+	. = ..(ammount)
 	updatehealth()
 
 /mob/living/silicon/decoy/syndicate/depot/ex_act(severity)

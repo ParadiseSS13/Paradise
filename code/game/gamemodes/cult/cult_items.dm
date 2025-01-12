@@ -331,9 +331,7 @@
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
 	// Give the spirit a spell that lets them try to fly around.
-	var/datum/spell/pointed/sword_fling/fling_act = \
-	new /datum/spell/pointed/sword_fling(trapped_mind, to_fling = src)
-	fling_act.Grant(trapped_entity)
+	trapped_entity.AddSpell(new /datum/spell/sentient_sword_lunge)
 
 	// Set the sword's path for spell selection.
 	heretic_path = heretic_holder.heretic_path

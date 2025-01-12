@@ -199,10 +199,6 @@
 		else if(is_mining_level(their_z))
 			balloon_message = "on lavaland!"
 
-		// In the gateway
-		else if(is_away_level(their_z) || is_secret_level(their_z))
-			balloon_message = "beyond the gateway!"
-
 		// They're somewhere we probably can't get too - sacrifice z-level, centcom, etc
 		else
 			balloon_message = "on another plane!"
