@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
 	human_owner.reset_perspective(human_owner)
 	QDEL_NULL(clone_base)
 	human_owner = null
-	. = ..()
+	return ..()
 
 /datum/hallucination_manager/backrooms/on_spawn()
 	if(!ishuman(owner))
