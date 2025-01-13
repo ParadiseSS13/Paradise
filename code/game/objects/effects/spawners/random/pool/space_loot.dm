@@ -207,6 +207,7 @@
 // Only two of these
 /obj/effect/spawner/random/pool/spaceloot/zoo
 	unique_picks = TRUE
+	guaranteed = TRUE
 	point_value = 20
 	loot = list(
 		/obj/item/gun/energy/floragun,
