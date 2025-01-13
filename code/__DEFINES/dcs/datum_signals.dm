@@ -109,6 +109,11 @@
 #define COMSIG_DEFIB_READY "defib_ready"
 
 
+/// /datum/component/chameleon
+#define COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST "chameleon_change_one"
+#define COMSIG_CHAMELEON_FULL_CHANGE_REQUEST "chameleon_change_all"
+
+
 /// /datum/alarm_manager
 
 #define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"

@@ -3,12 +3,11 @@
 
 
 /datum/chameleon_system
-
-	// var/mob/???/owner
+	// Human who have this system
 	var/mob/living/carbon/human/system_owner
-
+	// Scan action form chameleon glasses
 	var/datum/action/chameleon_system/scan/scan
-
+	// Change all peises of cloth
 	var/datum/action/chameleon_system/change_all_action/change_all
 
 	var/datum/action/chameleon_system/change_one/change_one
@@ -19,12 +18,17 @@
 
 	var/static/list/items_disguises = list()
 
+	var/static/list/outfit_options
+
 
 /datum/chameleon_system/New(owner)
 	..()
 
 	if(!owner)
 		CRASH("Can't create hameleon system without a user")
+
+	if(!outfit_options)
+		initialize_outfits()
 
 	system_owner = owner
 
@@ -53,7 +57,7 @@
 	if(!items_disguises[chameleon_name])
 		initialize_item_disguises(item, chameleon_name, chameleon_type, chameleon_blacklist)
 
-	system_items.Add(item)
+	system_items.Add(list("name" = chameleon_name, "type" = chameleon_type))
 
 
 /datum/chameleon_system/proc/unlink_item(var/item)
@@ -83,6 +87,45 @@
 			if(isnull(items_disguises[chameleon_name][chameleon_item_name]))
 				items_disguises[chameleon_name][chameleon_item_name] = I
 
+// Change One
+
+/datum/chameleon_system/proc/change_one_trigger()
+
+	var/list/chameleon_items_on_user = list()
+	for(var/name in system_items)
+		chameleon_items_on_user += name["name"]
+
+	var/obj/item/tranform_from = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
+	if (isnull(tranform_from))
+		return
+
+	var/obj/item/tranform_to = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", items_disguises[tranform_from]) // Redo TGUI to work with this
+
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, /obj/item/clothing/glasses, tranform_to)
+
+
+// Change ALL
+
+/datum/chameleon_system/proc/initialize_outfits()
+	outfit_options = list()
+	for(var/path in subtypesof(/datum/outfit/job))
+		var/datum/outfit/O = path
+		if(initial(O.can_be_admin_equipped))
+			outfit_options[initial(O.name)] = path
+	sortTim(outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
+
+
+
+/datum/chameleon_system/proc/select_outfit()
+
+	var/list/save_slot_names = get_memory_names()
+	var/outfits= save_slot_names + outfit_options
+	var/selected = tgui_input_list(system_owner, "Select outfit to change into", "Chameleon Outfit", outfits)
+	if(selected)
+		return TRUE
+
+
+	return TRUE
 
 // scan related stuff
 
@@ -177,16 +220,6 @@
 
 
 
-@SpaceDaddy
-MAIN
-    var/t = list(1,2,3)
-    var/t2 = t
-    t2[1] = 999
-    VAR_OUT(t)
-
-
-
-
 
 /datum/action/chameleon_system/scan/proc/get_target_outfit(mob/user, mob/living/carbon/human/target)
 	// TODO ACTIAL CODE
@@ -244,109 +277,8 @@ MAIN
 	. = ..()
 
 /datum/action/chameleon_system/change_one/Trigger(left_click)
-	var/list/chameleon_items_on_user = system_owner.mind.chameleon_system.system_items
-	var/obj/item/tranform_from = tgui_input_list(owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
-	if (isnull(tranform_from))
-		return
-	ui_interact(system_owner)
-
-
-// /datum/action/chameleon_system/change_one/proc/random_look(mob/user) // todo
-// 	var/picked_name = pick(chameleon_list[chameleon_name])
-// 	// If a user is provided, then this item is in use, and we
-// 	// need to update our icons and stuff
-
-// 	if(user)
-// 		update_look(user, chameleon_list[chameleon_name][picked_name])
-
-// 	// Otherwise, it's likely a random initialisation, so we
-// 	// don't have to worry
-
-// 	else
-// 		update_item(chameleon_list[chameleon_name][picked_name])
-
-/datum/action/chameleon_system/change_one/proc/update_look(mob/user, obj/item/picked_item) // todo
-	if(isliving(user))
-		var/mob/living/C = user
-		if(C.stat != CONSCIOUS)
-			return
-
-		update_item(picked_item)
-		var/obj/item/thing = target
-		thing.update_slot_icon()
-		SStgui.update_uis(src)
-	UpdateButtons()
-
-/datum/action/chameleon_system/change_one/proc/update_item(obj/item/picked_item) // todo
-	target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
-
-	if(isitem(target))
-		var/obj/item/I = target
-
-		I.item_state = initial(picked_item.item_state)
-		I.item_color = initial(picked_item.item_color)
-		I.color = initial(picked_item.color)
-
-		I.icon_override = initial(picked_item.icon_override)
-		if(initial(picked_item.sprite_sheets))
-			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-			var/obj/item/P = new picked_item(null)
-			I.sprite_sheets = P.sprite_sheets
-			qdel(P)
-
-		if(isclothing(I) && isclothing(picked_item))
-			var/obj/item/clothing/CL = I
-			var/obj/item/clothing/PCL = picked_item
-			CL.flags_cover = initial(PCL.flags_cover)
-		I.update_appearance()
-
-	target.icon = initial(picked_item.icon)
-
-
-/datum/action/chameleon_system/change_one/ui_host()
-	return system_owner
-
-/datum/action/chameleon_system/change_one/ui_state(mob/user)
-	return GLOB.physical_state
-
-/datum/action/chameleon_system/change_one/ui_data(mob/user)
-	var/list/data = list()
-	data["selected_appearance"] = "[system_owner.name]_[system_owner.icon_state]"
-	return data
-
-/datum/action/chameleon_system/change_one/ui_static_data(mob/user, datum/tgui/ui = null)
-	var/list/data = list()
-	var/list/chameleon_skins = list()
-	var/items_disguises = system_owner.mind.chameleon_system.items_disguises
-	for(var/chameleon_type in items_disguises[chameleon_name])
-		var/obj/item/chameleon_item = items_disguises[chameleon_name][chameleon_type]
-		chameleon_skins.Add(list(list(
-			"icon" = initial(chameleon_item.icon),
-			"icon_state" = initial(chameleon_item.icon_state),
-			"name" = initial(chameleon_item.name),
-		)))
-
-	data["chameleon_skins"] = chameleon_skins
-	return data
-
-/datum/action/chameleon_system/change_one/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Chameleon", "Change [chameleon_name] Appearance")
-		ui.open()
-		ui.set_autoupdate(FALSE)
-
-/datum/action/chameleon_system/change_one/ui_act(action, list/params)
-	if(..())
-		return
-
-	var/items_disguises = system_owner.mind.chameleon_system.items_disguises
-	switch(action)
-		if("change_appearance")
-			update_look(usr, items_disguises[chameleon_name][params["new_appearance"]])
-
+	if(IsAvailable())
+		system_owner.mind.chameleon_system.change_one_trigger()
 
 
 //////////////////////////////
@@ -355,7 +287,7 @@ MAIN
 
 /datum/action/chameleon_system/change_all_action/
 	name = "Select Chameleon Outfit"
-	button_overlay_icon_state = "chameleon_outfit"
+	button_overlay_icon_state = "no_clothes"
 	//By default, this list is shared between all instances.
 	//It is not static because if it were, subtypes would not be able to have their own. If you ever want to edit it, copy it first.
 	var/list/outfit_options
@@ -363,40 +295,13 @@ MAIN
 
 /datum/action/chameleon_system/change_all_action/New(mob/owner)
 	system_owner = owner
-	initialize_outfits()
 	..()
 
 /datum/action/chameleon_system/change_all_action/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/datum/action/chameleon_system/change_all_action/proc/initialize_outfits()
-	var/static/list/standard_outfit_options
-	if(!standard_outfit_options)
-		standard_outfit_options = list()
-		for(var/path in subtypesof(/datum/outfit/job))
-			var/datum/outfit/O = path
-			if(initial(O.can_be_admin_equipped))
-				standard_outfit_options[initial(O.name)] = path
-		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
-
-	// TODO ADD 3 CUSTOM SLOTS HERE
-	outfit_options = standard_outfit_options
-
-
 /datum/action/chameleon_system/change_all_action/Trigger(left_click)
-	return select_outfit(owner)
+	if(IsAvailable())
+		system_owner.mind.chameleon_system.select_outfit()
 
-/datum/action/chameleon_system/change_all_action/proc/select_outfit(mob/user)
-
-	if(!user || !IsAvailable())
-		return FALSE
-
-	var/list/save_slot_names = system_owner.mind.chameleon_system.get_memory_names()
-	var/outfits= save_slot_names + outfit_options
-	var/selected = tgui_input_list(user, "Select outfit to change into", "Chameleon Outfit", outfits)
-
-	if(!IsAvailable() || QDELETED(src) || QDELETED(user))
-		return FALSE
-
-	return TRUE
