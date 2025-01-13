@@ -26,8 +26,6 @@
 	owner.forceMove(location)
 	location = null
 
-/datum/status_effect/crucible_soul/get_examine_text()
-	return "<span class='notice'>[owner.p_They()] [owner.p_do()]n't seem to be all here.</span>"
 
 /datum/action/cancel_crucible_soul
 	name = "Recall"

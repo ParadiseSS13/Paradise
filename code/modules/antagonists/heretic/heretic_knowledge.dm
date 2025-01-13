@@ -136,10 +136,6 @@
 	if(!length(result_atoms))
 		return FALSE
 
-	for(var/result in result_atoms)
-		var/atom/result_item = new result(loc)
-		if(isitem(result_item))
-			ADD_TRAIT(result_item, TRAIT_CONTRABAND, INNATE_TRAIT)
 	return TRUE
 
 /**
@@ -709,7 +705,7 @@
  * Checks if the passed human is a valid sacrifice for our ritual.
  */
 /datum/heretic_knowledge/ultimate/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
-	return (sacrifice.stat == DEAD) && !ismonkey(sacrifice)
+	return (sacrifice.stat == DEAD) && !ismonkeybasic(sacrifice)
 
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
@@ -745,6 +741,6 @@
 /datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)
 	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
 		selected_atoms -= sacrifice
-		sacrifice.gib(DROP_ALL_REMAINS)
+		sacrifice.gib()
 
 	return ..()

@@ -13,6 +13,8 @@
 	var/examine_text //If defined, this text will appear when the mob is examined - to use he, she etc. use "SUBJECTPRONOUN" and replace it in the examines themselves
 	var/alert_type = /atom/movable/screen/alert/status_effect //the alert thrown by the status effect, contains name and description
 	var/atom/movable/screen/alert/status_effect/linked_alert = null //the alert itself, if it exists
+	/// Do we show the duration of the status effect on the alert
+	var/show_duration = FALSE
 
 /datum/status_effect/New(list/arguments)
 	if(!id)

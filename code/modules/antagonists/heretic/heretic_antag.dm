@@ -30,6 +30,7 @@
 	default_custom_objective = "Turn a department into a testament for your dark knowledge."
 	hardcore_random_bonus = TRUE
 	stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
+	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 
 	/// Whether we give this antagonist objectives on gain.
 	var/give_objectives = TRUE
@@ -235,27 +236,6 @@
 		return UI_CLOSE
 	return ..()
 
-/datum/antagonist/heretic/get_preview_icon()
-	var/icon/icon = render_preview_outfit(preview_outfit)
-
-	// MOTHBLOCKS TOOD: Copied and pasted from cult, make this its own proc
-
-	// The sickly blade is 64x64, but getFlatIcon crunches to 32x32.
-	// So I'm just going to add it in post, screw it.
-
-	// Center the dude, because item icon states start from the center.
-	// This makes the image 64x64.
-	icon.Crop(-15, -15, 48, 48)
-
-	var/obj/item/sickly_blade/blade = new
-	icon.Blend(icon(blade.lefthand_file, blade.inhand_icon_state), ICON_OVERLAY)
-	qdel(blade)
-
-	// Move the guy back to the bottom left, 32x32.
-	icon.Crop(17, 17, 48, 48)
-
-	return finish_preview_icon(icon)
-
 /datum/antagonist/heretic/farewell()
 	if(!silent)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
@@ -284,8 +264,8 @@
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
-	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= "heretic"
 
 	if(!issilicon(our_mob))
@@ -298,8 +278,8 @@
 	RegisterSignal(our_mob, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(after_fully_healed))
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
-	handle_clown_mutation(our_mob, removing = FALSE)
 	our_mob.faction -= "heretic"
 
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
@@ -853,7 +833,7 @@
 	return sortTim(rituals, GLOBAL_PROC_REF(cmp_heretic_knowledge), associative = TRUE)
 
 /**
- * Checks to see if our heretic can ccurrently ascend.
+ * Checks to see if our heretic can currently ascend.
  *
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
