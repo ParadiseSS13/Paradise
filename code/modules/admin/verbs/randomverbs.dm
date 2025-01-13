@@ -78,7 +78,7 @@
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
 		return
 
-	var/age = input(src, "Show accounts younger then _____ days", "Age check") as num|null
+	var/age = input(src, "Show accounts younger then ____ days", "Age check") as num|null
 	var/playtime_hours = input(src, "Show accounts with less than ____ hours", "Playtime check") as num|null
 	if(isnull(age))
 		age = -1
