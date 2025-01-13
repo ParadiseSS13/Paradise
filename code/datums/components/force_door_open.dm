@@ -51,18 +51,17 @@
 		return
 
 	if(can_open_firedoors && istype(target, /obj/machinery/door/firedoor))
-		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), target) // open firedoor
+		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), target) // open firedoor and dont open blastdoors and windowdoors
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	if(!istype(target, /obj/machinery/door/airlock)) // dont open blastdoors and windowdoors
+	if(!istype(target, /obj/machinery/door/airlock)) // only airlocks have arePowerSystemsOn()
 		return
 
 	var/obj/machinery/door/airlock/airlock = target
 
-	if(parent.GetComponent(/datum/component/two_handed))
-		if(!HAS_TRAIT(parent, TRAIT_WIELDED) && airlock.arePowerSystemsOn())
-			to_chat(usr, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(parent.GetComponent(/datum/component/two_handed) && !HAS_TRAIT(parent, TRAIT_WIELDED) && airlock.arePowerSystemsOn())
+		to_chat(usr, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	// send help
 	if(mantis)
@@ -85,13 +84,16 @@
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/force_door_open/proc/open_powered_airlock(obj/machinery/door/airlock/airlock)
-	if(!no_sound)
-		playsound(parent, open_sound, 100, 1)
+    if(!no_sound)
+        playsound(parent, open_sound, 100, 1)
 
-	if(do_after_once(usr, time_to_open, target = airlock))
-		airlock.open(TRUE)
-		if(airlock.density && !airlock.open(TRUE))
-			to_chat(usr, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
+    if(do_after_once(usr, time_to_open, target = airlock))
+        if(airlock.open(TRUE))
+            return // successfully opened
+
+        // opening failed
+        if(airlock.density)
+            to_chat(usr, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
 
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
