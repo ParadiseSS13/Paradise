@@ -23,6 +23,14 @@
 
 /obj/machinery/fluid_pipe/Initialize(mapload)
 	. = ..()
+	if(just_a_pipe)
+		return INITIALIZE_HINT_LATELOAD
+	else
+		blind_connect()
+		START_PROCESSING(SSfluid, src)
+
+/obj/machinery/fluid_pipe/LateInitialize()
+	. = ..()
 	blind_connect()
 	START_PROCESSING(SSfluid, src)
 
@@ -156,7 +164,9 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = null
 	icon_state = null
+	just_a_pipe = FALSE
 	// DGTODO this gives issues with pipes initializing before machinery, maybe move pipes to lateinitialize?
+	// DGTODO Yeah that didn't fix shit really
 	connect_dirs = list()
 
 /obj/machinery/fluid_pipe/abstract/update_icon_state()

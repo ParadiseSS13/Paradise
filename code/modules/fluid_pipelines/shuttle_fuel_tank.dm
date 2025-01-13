@@ -10,6 +10,7 @@
 	dir = EAST
 	just_a_pipe = FALSE
 	capacity = 500
+	connect_dirs = list(WEST)
 	/// What state are we in
 	var/state
 	/// Ref to the internal storage tank
@@ -22,9 +23,9 @@
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/west
 	icon = 'icons/obj/pipes/shuttleintake_west.dmi'
 	dir = WEST
+	connect_dirs = list(EAST)
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/Initialize(mapload)
-	connect_dirs = list(dir)
 	tank = new(src, 5000)
 	return ..()
 

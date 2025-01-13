@@ -115,6 +115,8 @@
 			piping.add_fluid(liquid.type, (liquid.fluid_amount / pipelines_to_spread_to))
 
 /datum/fluid_pipe/proc/return_percentile_full()
+	if(!total_capacity)
+		return
 	var/fullness = get_fluid_volumes()
 	fullness = (fullness / total_capacity) * 100
 	return "[clamp(round(fullness, 10), 0, 100)]"

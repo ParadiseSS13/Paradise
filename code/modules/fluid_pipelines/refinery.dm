@@ -77,7 +77,7 @@
 	selected_recipe = new recipe
 
 /obj/machinery/fluid_pipe/plasma_refinery/process()
-	if(!selected_recipe)
+	if(!selected_recipe || (fluid_datum == intake.fluid_datum))
 		return
 
 	var/list/all_liquids = intake?.fluid_datum.fluids
