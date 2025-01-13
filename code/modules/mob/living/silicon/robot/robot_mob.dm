@@ -1458,6 +1458,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "IC"
 
 	var/obj/item/W = get_active_hand()
+	if(!W)
+		return
 	if(W.new_attack_chain)
 		W.activate_self(src)
 	else
