@@ -78,3 +78,7 @@
 #define DYNAMIC_RULESET_NORMAL "Normal"
 #define DYNAMIC_RULESET_FORCED "<b>Forced</b>"
 #define DYNAMIC_RULESET_BANNED "<b>Banned</b>"
+
+#define RULESET_FAILURE_BUDGET "Not enough budget"
+#define RULESET_FAILURE_NO_PLAYERS "No drafted players"
+#define RULESET_FAILURE_CHANGELING_SECONDARY_RULESET "Needs a secondary ruleset in rotation"

@@ -56,9 +56,9 @@
 
 /datum/ruleset/proc/ruleset_possible(ruleset_budget, rulesets)
 	if(ruleset_budget < ruleset_cost)
-		return "Not enough budget"
+		return RULESET_FAILURE_BUDGET
 	if(!length(SSticker.mode.get_players_for_role(antagonist_type::job_rank))) // this specifically needs to be job_rank not special_rank
-		return "No drafted players"
+		return RULESET_FAILURE_NO_PLAYERS
 
 /datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= antag_cost
@@ -102,16 +102,16 @@
 		return FALSE
 	return TRUE
 
-/datum/ruleset/proc/post_setup()
+/datum/ruleset/proc/post_setup(datum/game_mode/dynamic)
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist_type)
 
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
-	log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
-	log_dynamic("REFUNDING NOT IMPLEMENTED!!")
-	// ctodo real refunding?
+	// log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
+	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
+	return
 
 /datum/ruleset/traitor
 	name = "Traitor"
@@ -120,7 +120,7 @@
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
 
-/datum/ruleset/traitor/post_setup()
+/datum/ruleset/traitor/post_setup(datum/game_mode/dynamic)
 	var/random_time = rand(5 MINUTES, 15 MINUTES)
 	for(var/datum/mind/antag as anything in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new antagonist_type()
@@ -128,6 +128,7 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
+	addtimer(CALLBACK(dynamic, TYPE_PROC_REF(/datum/game_mode, fill_antag_slots)), random_time)
 
 /datum/ruleset/vampire
 	name = "Vampire"
@@ -156,7 +157,7 @@
 	// We're the first ruleset, but we can afford another ruleset
 	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost))
 		return ..()
-	return "Needs a secondary ruleset in rotation"
+	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
 // This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
 /datum/ruleset/implied
@@ -185,7 +186,7 @@
 	banned_species_only = TRUE
 
 /datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
-	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
+	// log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE

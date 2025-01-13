@@ -662,7 +662,7 @@
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
 
-	if(!traitors_to_add)
+	if(traitors_to_add <= 0)
 		return
 
 	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
@@ -683,3 +683,6 @@
 
 /datum/game_mode/proc/get_webhook_name()
 	return name
+
+/datum/game_mode/proc/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	return
