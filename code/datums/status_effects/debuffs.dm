@@ -522,6 +522,9 @@
 /datum/status_effect/transient/cult_slurring
 	id = "cult_slurring"
 
+/datum/status_effect/transient/heretic_slurring
+	id = "heretic_slurring"
+
 /datum/status_effect/incapacitating
 	id = "incapacitating"
 	tick_interval = 0

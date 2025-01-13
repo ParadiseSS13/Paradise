@@ -571,6 +571,20 @@ STATUS EFFECTS
 /mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = 5 MINUTES)
 	SetCultSlur(directional_bounded_sum(AmountCultSlurring(), amount, bound_lower, bound_upper))
 
+// Hereticslurring
+/mob/living/proc/AmountHereticSlurring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HERETIC_SLUR)
+
+/mob/living/proc/HereticSlur(amount)
+	SetHereticSlur(max(AmountHereticSlurring(), amount))
+
+/mob/living/proc/SetHereticSlur(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_Heretic_SLUR, amount)
+
+/mob/living/proc/AdjustHereticSlur(amount, bound_lower = 0, bound_upper = 5 MINUTES)
+	SetHereticSlur(directional_bounded_sum(AmountHereticSlurring(), amount, bound_lower, bound_upper))
+
+
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)

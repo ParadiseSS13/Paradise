@@ -63,7 +63,7 @@
 		carbon_hit.balloon_alert_to_viewers("absorbed!")
 		return TRUE
 
-	carbon_hit.adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	carbon_hit.HereticSlur(15 SECONDS)
 	carbon_hit.AdjustKnockdown(5 SECONDS)
 	carbon_hit.adjustStaminaLoss(80)
 	carbon_hit.apply_status_effect(/datum/status_effect/next_shove_stuns)

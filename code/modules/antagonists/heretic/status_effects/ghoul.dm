@@ -100,4 +100,4 @@
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
 	desc = "You are a Ghoul!"
-	icon_state = ALERT_MIND_CONTROL
+	icon_state = "mind_control"

@@ -58,7 +58,7 @@
 	icon_state = "cosmic_rune"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = SIGIL_LAYER
 	/// The other rune this rune is linked with
 	var/datum/weakref/linked_rune
 	/// Effect for when someone teleports
@@ -136,7 +136,7 @@
 	icon = 'icons/obj/service/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = SIGIL_LAYER
 	anchored = TRUE
 	duration = 5
 
@@ -151,7 +151,7 @@
 	icon = 'icons/obj/service/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = SIGIL_LAYER
 	anchored = TRUE
 	duration = 5
 

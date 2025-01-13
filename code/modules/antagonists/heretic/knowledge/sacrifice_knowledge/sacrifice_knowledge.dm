@@ -369,7 +369,7 @@
 	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, target) & COMPONENT_BLOCK_TELEPORT)
+	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
 		disembowel_target(sac_target)
 		return
 
@@ -404,7 +404,7 @@
 			return
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/internal/to_give = new organ_path
-		to_give.Insert(sac_target)
+		to_give.insert(sac_target)
 
 	new /obj/effect/gibspawner/generic(get_turf(sac_target))
 	sac_target.visible_message("<span class='boldwarning'>Several organs force themselves out of [sac_target]!</span>")
@@ -426,7 +426,7 @@
 	var/helgrasp_time = 1 MINUTES
 
 	sac_target.reagents?.add_reagent("mansusgrasp", helgrasp_time / 20)
-	sac_target.apply_status_effect/datum/status_effect/necropolis_curse
+	sac_target.apply_status_effect(/datum/status_effect/necropolis_curse)
 
 	sac_target.EyeBlurry(30 SECONDS)
 	sac_target.AdjustJitter(20 SECONDS)
@@ -483,7 +483,7 @@
 		victim_heretic.knowledge_points -= 3
 
 	// Wherever we end up, we sure as hell won't be able to explain
-	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
+	sac_target.HereticSlur(40 SECONDS)
 	sac_target.AdjustStuttering(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
@@ -494,11 +494,10 @@
 		return
 
 	// Teleport them to a random safe coordinate on the station z level.
-	var/turf/simulated/floor/safe_turf = get_safe_random_station_turf()
-	var/obj/effect/landmark/observer_start/backup_loc = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
+	var/turf/simulated/floor/safe_turf = find_safe_turf()
 	if(!safe_turf)
-		safe_turf = get_turf(backup_loc)
-		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
+		safe_turf = sac_target.forceMove(pick(GLOB.latejoin))
+		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to arrivals.")
 	sac_target.forceMove(safe_turf)
 
 	if(sac_target.stat == DEAD)
@@ -585,11 +584,12 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
 	if(heretic_mind)
-		log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
-	sac_target.spill_organs(DROP_ALL_REMAINS)
+		add_attack_logs(src, sac_target, "disemboweled via sacrifice")
+	var/obj/item/organ/external/chest = sac_target.get_organ(BODY_ZONE_CHEST)
+	chest.fracture()
+	chest.droplimb()
 	sac_target.apply_damage(250, BRUTE)
 	if(sac_target.stat != DEAD)
-		sac_target.investigate_log("has been killed by heretic sacrifice.", INVESTIGATE_DEATHS)
 		sac_target.death()
 	sac_target.visible_message(
 		"<span class='danger'>[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!</span>",

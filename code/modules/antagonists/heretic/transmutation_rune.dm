@@ -1,14 +1,14 @@
 /// The heretic's rune, which they use to complete transmutation rituals.
 /obj/effect/heretic_rune
 	name = "transmutation rune"
-	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid. This one looks pretty small."
-	icon = 'icons/obj/antags/cult/rune.dmi'
-	icon_state = "main1"
+	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid."
+	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = "shield-cult"
 	anchored = TRUE
-	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = SIGIL_LAYER
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
@@ -17,7 +17,6 @@
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
-	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
@@ -27,7 +26,9 @@
 	. += "<span class='notice'>Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.</span>"
 	. += "<span class='notice'>You can use your <i>Mansus Grasp</i> on the rune to remove it.</span>"
 
-/obj/effect/heretic_rune/attack_paw(mob/living/user, list/modifiers)
+/obj/effect/heretic_rune/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	(mob/living/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
 /obj/effect/heretic_rune/can_interact(mob/living/user)
@@ -169,7 +170,7 @@
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
 	flick("[icon_state]_active", src)
-	playsound(user, 'sound/effects/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
+	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,
 	// and we don't want people to be able to run off with ritual items.
@@ -225,7 +226,7 @@
 	pixel_y = 18
 	pixel_z = -48
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = SIGIL_LAYER
 	greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
 	var/animation_state = "transmutation_rune_draw"
