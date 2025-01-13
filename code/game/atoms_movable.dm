@@ -542,10 +542,8 @@
 /mob/living/forceMove(atom/destination)
 	if(buckled)
 		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
+	for(var/mob/living/buckled_mob in buckled_mobs)
+		addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
 		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
