@@ -46,18 +46,18 @@
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()
-	var/datum/milla_safe/portable_scrubber_process/milla = new()
+	if(!on)
+		return
+	if(holding_tank)
+		scrub(holding_tank.air_contents)
+		return
+
+	var/datum/milla_safe/portable_scrubber_scrub/milla = new()
 	milla.invoke_async(src)
 
-/datum/milla_safe/portable_scrubber_process
+/datum/milla_safe/portable_scrubber_scrub
 
-/datum/milla_safe/portable_scrubber_process/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
-	if(!scrubber.on)
-		return
-	if(scrubber.holding_tank)
-		scrubber.scrub(scrubber.holding_tank.air_contents)
-		return
-
+/datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
 	var/turf/T = get_turf(scrubber)
 	scrubber.scrub(get_turf_air(T))
 	if(scrubber.widenet)
