@@ -257,6 +257,7 @@
 	point_value = 20
 	spawn_all_loot = TRUE
 	spawn_random_offset = TRUE
+	spawn_random_offset_max_pixels = 8
 
 
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage1
