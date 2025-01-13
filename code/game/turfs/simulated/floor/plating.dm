@@ -129,7 +129,7 @@
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt && !unfastened)
 		return
-	. = TRUE
+	. = ..()
 	if(!I.tool_use_check(user, 0))
 		return
 	if(user.a_intent == INTENT_HARM) // no repairing on harm intent, so you can use the welder in a fight near damaged paneling without welding your eyes out
