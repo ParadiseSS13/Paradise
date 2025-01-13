@@ -878,9 +878,9 @@
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
 	else
-		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 
 
 //Update the screentip to reflect what we're hovering over
