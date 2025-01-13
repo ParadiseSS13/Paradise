@@ -244,17 +244,11 @@
 	name = "warehouse main reward spawner"
 	guaranteed = TRUE
 	point_value = 100
-	spawn_all_loot = TRUE
 	loot = list(
-		list(
-			/obj/item/storage/belt/champion/wrestling,
-			/obj/item/storage/box/weaver_kit,
-			/obj/item/gun/medbeam,
-			/obj/item/storage/lockbox/experimental_weapon,
-		),
-
-		/obj/item/paper/researchnotes,
-		/obj/item/paper/researchnotes, // two
+		/obj/item/storage/belt/champion/wrestling,
+		/obj/item/storage/box/weaver_kit,
+		/obj/item/gun/medbeam,
+		/obj/item/storage/lockbox/experimental_weapon,
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/mechtransport
