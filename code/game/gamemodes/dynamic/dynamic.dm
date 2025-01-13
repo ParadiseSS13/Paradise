@@ -105,6 +105,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		var/datum/ruleset/ruleset = pickweight(temp_rulesets)
 		if(!ruleset)
 			// log_dynamic("No rulesets remaining. Remaining budget: [budget].")
+			budget_overflow = budget
 			return
 		if(!ruleset.antagonist_possible(budget))
 			// log_dynamic("Rolled [ruleset.name]: failed, removing [ruleset.name] ruleset.")
