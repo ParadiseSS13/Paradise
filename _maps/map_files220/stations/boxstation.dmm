@@ -9643,7 +9643,8 @@
 /obj/machinery/button/windowtint{
 	id = "Courtroom";
 	pixel_y = -12;
-	req_one_access = list(74,3)
+	req_one_access = list(74,3);
+	range = 6
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)

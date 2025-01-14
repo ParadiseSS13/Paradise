@@ -4024,6 +4024,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm,
 /obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "ayI" = (
@@ -32977,7 +32980,8 @@
 	},
 /obj/machinery/button/windowtint/south{
 	pixel_x = -24;
-	id = "clon"
+	id = "clon";
+	range = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -42727,7 +42731,7 @@
 "eak" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -43937,7 +43941,7 @@
 /area/station/security/storage)
 "eEy" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -53613,7 +53617,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -55725,7 +55729,7 @@
 /area/station/engineering/control)
 "kBn" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -64528,6 +64532,12 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
+"oQm" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel)
 "oQz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -74735,7 +74745,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "qm"
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
@@ -75761,7 +75771,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
-/area/station/security/range)
+/area/station/command/office/hos)
 "uKm" = (
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
@@ -80240,7 +80250,7 @@
 /area/station/hallway/primary/aft)
 "xdC" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "CHAP2"
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -105707,7 +105717,7 @@ gDK
 cFD
 bdq
 oiv
-xdC
+oQm
 aaa
 aaa
 aaa
@@ -105964,7 +105974,7 @@ cDc
 cFD
 cUX
 oiv
-xdC
+oQm
 aaa
 aaa
 aaa
@@ -106221,7 +106231,7 @@ cJM
 cyN
 cUK
 cqj
-xdC
+oQm
 aaa
 aaa
 aaa
@@ -106478,7 +106488,7 @@ csw
 cFD
 cUX
 oiv
-xdC
+oQm
 aaa
 aaa
 aaa
@@ -106735,7 +106745,7 @@ xJB
 cFD
 bdq
 oiv
-xdC
+oQm
 aaa
 aaa
 aaa
@@ -113043,7 +113053,7 @@ hFF
 ugM
 tio
 cKm
-esA
+avc
 czl
 sdX
 pWM
@@ -113300,7 +113310,7 @@ usg
 dHE
 aXp
 tvd
-esA
+avc
 aUG
 sYR
 liS
@@ -113557,7 +113567,7 @@ adX
 vKy
 oyY
 tSX
-esA
+avc
 uos
 wRh
 stW
