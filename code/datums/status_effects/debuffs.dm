@@ -666,7 +666,6 @@
 				for(var/datum/disease/critical/heart_failure/HF in V.viruses)
 					HF.cure()
 	dreamer.handle_dreams()
-	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
