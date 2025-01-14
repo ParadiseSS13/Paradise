@@ -68,6 +68,8 @@
 	#define COMPONENT_TWOHANDED_BLOCK_WIELD (1<<0)
 ///from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"
+///from base of /datum/component/force_door_open/proc/force_open_door(obj/item): (datum/source, mob/user, atom/target)
+#define COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT "twohanded_wielded_try_wield_interact"
 
 
 // /datum/action

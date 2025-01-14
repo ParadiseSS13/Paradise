@@ -53,7 +53,7 @@
 
 	var/obj/machinery/door/airlock/airlock = target
 
-	if(parent.GetComponent(/datum/component/two_handed) && !HAS_TRAIT(parent, TRAIT_WIELDED) && airlock.arePowerSystemsOn())
+	if(SEND_SIGNAL(parent, COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT) && airlock.arePowerSystemsOn())
 		to_chat(user, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
 		return ITEM_INTERACT_COMPLETE
 
@@ -85,7 +85,6 @@
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
 
-
 /// subtype for mantis blades
 /datum/component/force_door_open/mantis/force_open_door(datum/source, mob/user, atom/target)
 	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
@@ -93,3 +92,4 @@
 		to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
 		return ITEM_INTERACT_COMPLETE
 	. = ..()
+
