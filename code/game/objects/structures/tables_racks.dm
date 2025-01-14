@@ -818,7 +818,7 @@
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/table/tray
-	name = "surgical tray"
+	name = "surgical instrument table"
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
 	smoothing_flags = NONE

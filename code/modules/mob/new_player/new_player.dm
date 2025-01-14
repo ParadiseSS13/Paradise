@@ -400,7 +400,7 @@
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			if(A.announce_arrivals)
 				ailist += A
 		if(length(ailist))
@@ -422,7 +422,7 @@
 						if(FEMALE)
 							target_gender = "female"
 					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -433,14 +433,14 @@
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

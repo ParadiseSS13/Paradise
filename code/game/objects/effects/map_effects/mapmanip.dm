@@ -33,6 +33,14 @@
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mapmanip_submap_edge"
 
+// Farragus mapmanips
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/engineering_science
+	name = "Cerestation, Engineering-Science Maintenance"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/cerestation/engineering_science
+	name = "Cerestation, Engineering-Science Maintenance"
+
+// DVORAK mapmanips
 /obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/dvorak/vendor_room
 	name = "DVORAK vending machine room"
 

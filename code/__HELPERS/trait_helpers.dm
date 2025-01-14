@@ -329,6 +329,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
 #define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
 
+//****** TURF TRAITS *****//
+#define TRAIT_RUSTY "rust_trait"
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
