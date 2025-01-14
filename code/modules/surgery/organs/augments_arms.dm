@@ -887,7 +887,7 @@
 
 /obj/item/melee/mantis_blade/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/force_door_open, mantis = TRUE)
+	AddComponent(/datum/component/force_door_open/mantis)
 
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"

@@ -18,8 +18,6 @@
 	var/open_sound
 	/// Indicates whether no sound should be played when opening.
 	var/no_sound
-	/// Is it mantis blade, so as not to make an additional istype check
-	var/mantis
 
 /datum/component/force_door_open/Initialize(
 	time_to_open = 5 SECONDS,
@@ -27,8 +25,7 @@
 	can_force_open_while_unpowered = TRUE,
 	can_open_firedoors = TRUE,
 	open_sound = 'sound/machines/airlock_alien_prying.ogg',
-	no_sound = FALSE,
-	mantis = FALSE)
+	no_sound = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -38,7 +35,6 @@
 	src.can_open_firedoors = can_open_firedoors
 	src.open_sound = open_sound
 	src.no_sound = no_sound
-	src.mantis = mantis
 
 	RegisterSignal(parent, COMSIG_INTERACTING, PROC_REF(force_open_door))
 
@@ -61,12 +57,6 @@
 		to_chat(user, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	if(mantis)
-		var/obj/item/melee/mantis_blade/secondblade = usr.get_inactive_hand()
-		if(!istype(secondblade, /obj/item/melee/mantis_blade))
-			to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
-			return ITEM_INTERACT_COMPLETE
-
 	if(!airlock.density)
 		return ITEM_INTERACT_COMPLETE
 
@@ -84,7 +74,7 @@
 	if(!no_sound)
 		playsound(parent, open_sound, 100, 1)
 
-	if(do_after_once(usr, time_to_open, target = airlock))
+	if(do_after_once(user, time_to_open, target = airlock))
 		if(airlock.open(TRUE))
 			return // successfully opened
 
@@ -94,3 +84,12 @@
 
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
+
+
+/// subtype for mantis blades
+/datum/component/force_door_open/mantis/force_open_door(datum/source, mob/user, atom/target)
+	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
+	if(!istype(secondblade, /obj/item/melee/mantis_blade))
+		to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
+		return ITEM_INTERACT_COMPLETE
+	. = ..()
