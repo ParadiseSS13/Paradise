@@ -543,6 +543,7 @@
 #include "code\datums\elements\high_value_item.dm"
 #include "code\datums\elements\rad_insulation.dm"
 #include "code\datums\elements\ridable.dm"
+#include "code\datums\elements\rust_element.dm"
 #include "code\datums\elements\shatters_when_thrown.dm"
 #include "code\datums\elements\strippable.dm"
 #include "code\datums\elements\waddling.dm"

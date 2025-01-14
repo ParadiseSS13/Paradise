@@ -144,7 +144,8 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 
 	/turf = list(
-		"bluespace_speed_trait" = TRAIT_BLUESPACE_SPEED
+		"bluespace_speed_trait" = TRAIT_BLUESPACE_SPEED,
+		"TRAIT_RUSTY" = TRAIT_RUSTY
 	),
 
 	/obj/effect = list(

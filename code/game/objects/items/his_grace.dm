@@ -251,6 +251,11 @@
 	update_stats()
 
 /obj/item/his_grace/proc/update_stats()
+	if(ascended) // Ascended is set to a specific bloodthirst anyways
+		force = initial(force) + force_bonus
+		flags |= NODROP
+		return
+
 	flags &= ~NODROP
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
 	switch(bloodthirst)

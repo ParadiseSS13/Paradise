@@ -487,7 +487,6 @@
 /turf/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return TRUE
-
 	if(can_lay_cable())
 		if(istype(attacking, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = attacking
@@ -605,6 +604,19 @@
 	else
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
+
+/turf/proc/rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust)
+
+/turf/proc/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust/heretic)
+	new /obj/effect/glowing_rune(src)
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

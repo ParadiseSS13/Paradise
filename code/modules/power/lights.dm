@@ -235,7 +235,7 @@
 	layer = FLY_LAYER
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2  //when in low power mode
+	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
 	var/base_state = "tube" // Base description and icon_state
@@ -553,7 +553,8 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(nightshift_enabled ? IDLE_POWER_USE : ACTIVE_POWER_USE)
+
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
