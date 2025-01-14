@@ -257,8 +257,6 @@
 	return
 
 /obj/machinery/door/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(SEND_SIGNAL(I, COMSIG_TRY_TO_PRY_DOOR, src, user))
-		return
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 

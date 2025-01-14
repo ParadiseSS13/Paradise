@@ -1,9 +1,7 @@
 /**
  * /datum/component/force_door_open
  *
- * This component allows item to pry open airlock doors in the game.
- * It provides functionality for both powered and unpowered airlocks,
- * with specific conditions for opening based on the state of the airlock
+ * This component allows item to pry open doors.
  *
  */
 
@@ -20,7 +18,7 @@
 	var/open_sound
 	/// Indicates whether no sound should be played when opening.
 	var/no_sound
-	/// send help
+	/// Is it mantis blade, so as not to make an additional istype check
 	var/mantis
 
 /datum/component/force_door_open/Initialize(
@@ -42,17 +40,17 @@
 	src.no_sound = no_sound
 	src.mantis = mantis
 
-	RegisterSignal(parent, COMSIG_TRY_TO_PRY_DOOR, PROC_REF(force_open_door))
+	RegisterSignal(parent, COMSIG_INTERACTING, PROC_REF(force_open_door))
 
-/datum/component/force_door_open/proc/force_open_door(obj/item/attaked, obj/target)
-	SIGNAL_HANDLER // COMSIG_TRY_TO_PRY_DOOR
+/datum/component/force_door_open/proc/force_open_door(datum/source, mob/user, atom/target)
+	SIGNAL_HANDLER // COMSIG_INTERACTING
 
-	if(usr.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		return
 
 	if(can_open_firedoors && istype(target, /obj/machinery/door/firedoor))
 		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), target) // open firedoor and dont open blastdoors and windowdoors
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(target, /obj/machinery/door/airlock)) // only airlocks have arePowerSystemsOn()
 		return
@@ -60,30 +58,29 @@
 	var/obj/machinery/door/airlock/airlock = target
 
 	if(parent.GetComponent(/datum/component/two_handed) && !HAS_TRAIT(parent, TRAIT_WIELDED) && airlock.arePowerSystemsOn())
-		to_chat(usr, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		to_chat(user, "<span class='warning'>You need to be wielding [parent] to do that!</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	// send help
 	if(mantis)
 		var/obj/item/melee/mantis_blade/secondblade = usr.get_inactive_hand()
 		if(!istype(secondblade, /obj/item/melee/mantis_blade))
-			to_chat(usr, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
+			to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 	if(!airlock.density)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return ITEM_INTERACT_COMPLETE
 
 	// open unpowered
 	if(can_force_open_while_unpowered && !airlock.arePowerSystemsOn())
 		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), airlock)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return ITEM_INTERACT_COMPLETE
 
 	// open powered
 	if(can_force_open_while_powered)
-		INVOKE_ASYNC(src, PROC_REF(open_powered_airlock), airlock)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		INVOKE_ASYNC(src, PROC_REF(open_powered_airlock), airlock, user)
+		return ITEM_INTERACT_COMPLETE
 
-/datum/component/force_door_open/proc/open_powered_airlock(obj/machinery/door/airlock/airlock)
+/datum/component/force_door_open/proc/open_powered_airlock(obj/machinery/door/airlock/airlock, mob/user)
 	if(!no_sound)
 		playsound(parent, open_sound, 100, 1)
 
@@ -93,7 +90,7 @@
 
 		// opening failed
 		if(airlock.density)
-			to_chat(usr, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
+			to_chat(user, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
 
 /datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
