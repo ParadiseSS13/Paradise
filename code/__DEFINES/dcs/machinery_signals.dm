@@ -22,6 +22,7 @@
 /// called on doors when closed: ()
 #define COMSIG_DOOR_CLOSE "door_close"
 
+
 // /obj/machinery/door/airlock
 
 /// called on airlocks when opened: ()
