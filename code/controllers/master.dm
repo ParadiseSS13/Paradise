@@ -82,6 +82,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 	var/runqueues_running = 0
+	var/runqueue_line = 0
 
 /datum/controller/master/New()
 	if(!random_seed)
@@ -434,7 +435,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		if(queue_head)
 			if(!RunQueue())
-				stack_trace("MC: RunQueue returned early, [runqueues_running] orphaned RunQueue calls. Current error_level is [round(error_level, 0.25)].")
+				stack_trace("MC: RunQueue returned early, [runqueues_running] orphaned RunQueue calls, last known RunQueue line is [runqueue_line]. Current error_level is [round(error_level, 0.25)].")
 				if(error_level > 1) //skip the first error,
 					if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 						error_level++
@@ -515,15 +516,18 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/ran = TRUE //this is right
 	var/bg_calc //have we swtiched current_tick_budget to background mode yet?
 	var/tick_usage
+	runqueue_line = __LINE__
 
 	//keep running while we have stuff to run and we haven't gone over a tick
 	// this is so subsystems paused eariler can use tick time that later subsystems never used
 	while(ran && queue_head && TICK_USAGE < TICK_LIMIT_MC)
+		runqueue_line = __LINE__
 		ran = FALSE
 		bg_calc = FALSE
 		current_tick_budget = queue_priority_count
 		queue_node = queue_head
 		while(queue_node)
+			runqueue_line = __LINE__
 			if(ran && TICK_USAGE > TICK_LIMIT_RUNNING)
 				break
 			queue_node_flags = queue_node.flags
@@ -533,6 +537,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				queue_node = queue_node.queue_next
 				continue
 
+			runqueue_line = __LINE__
 			if(queue_node_flags & SS_BACKGROUND)
 				if(!bg_calc)
 					current_tick_budget = queue_priority_count_bg
@@ -548,6 +553,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			tick_remaining = TICK_LIMIT_RUNNING - TICK_USAGE
 
+			runqueue_line = __LINE__
 			if(queue_node_priority >= 0 && current_tick_budget > 0 && current_tick_budget >= queue_node_priority)
 				//Give the subsystem a precentage of the remaining tick based on the remaining priority
 				tick_precentage = tick_remaining * (queue_node_priority / current_tick_budget)
@@ -569,9 +575,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			queue_node.state = SS_RUNNING
 
+			runqueue_line = __LINE__
 			tick_usage = TICK_USAGE
 			var/state = queue_node.ignite(queue_node_paused)
 			tick_usage = TICK_USAGE - tick_usage
+			runqueue_line = __LINE__
 
 			if(state == SS_RUNNING)
 				state = SS_IDLE
@@ -606,14 +614,17 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			queue_node.last_fire = world.time
 			queue_node.times_fired++
 
+			runqueue_line = __LINE__
 			queue_node.update_nextfire()
 
 			queue_node.queued_time = 0
 
+			runqueue_line = __LINE__
 			//remove from queue
 			queue_node.dequeue()
 
 			queue_node = queue_node.queue_next
+			runqueue_line = __LINE__
 
 	runqueues_running--
 	return TRUE
