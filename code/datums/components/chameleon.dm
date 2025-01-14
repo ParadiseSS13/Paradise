@@ -60,8 +60,9 @@
 /datum/component/chameleon/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 	if(isturf(chameleon_item.loc)) // need a better cheek
-		chameleon_system.unlink_item(chameleon_item)
+		chameleon_system.unlink_item(chameleon_item, chameleon_type_name, disguise_type,)
 		unregister_chameleon_system_signals()
+		chameleon_system = null
 
 	return
 
@@ -76,7 +77,7 @@
 	UnregisterSignal(chameleon_system, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST)
 	UnregisterSignal(chameleon_system, COMSIG_ATOM_EMP_ACT)
 
-/datum/component/chameleon/proc/on_emp(obj/item/unit)
+/datum/component/chameleon/proc/on_emp(source, obj/item/unit)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMP_ACT
 	// TODO CODE
 	return
@@ -85,10 +86,10 @@
 /**
  * Changes singular chameleon item as per system REQUEST
  */
-/datum/component/chameleon/proc/change_item_disguise(type, requested_item)
+/datum/component/chameleon/proc/change_item_disguise(source, type, requested_item)
 	SIGNAL_HANDLER  // COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST
 
-	if(src.type != type)
+	if(src.disguise_type != type)
 		return
 
 	update_item_appearance(requested_item)
@@ -100,43 +101,42 @@
  * Implementation
  */
 /datum/component/chameleon/proc/update_item_appearance(obj/item/requested_item)
-	return
 
-	// if(!istype(target,/obj/item))
-	// 	return
+	if(!istype(chameleon_item,/obj/item))
+		return
 
-	// target.name = initial(requested_item.name)
-	// target.desc = initial(requested_item.desc)
-	// target.icon_state = initial(requested_item.icon_state)
+	chameleon_item.name = initial(requested_item.name)
+	chameleon_item.desc = initial(requested_item.desc)
+	chameleon_item.icon_state = initial(requested_item.icon_state)
 
-	// if(isitem(target))
-	// 	var/obj/item/I = target
+	if(isitem(chameleon_item))
+		var/obj/item/I = chameleon_item
 
-	// 	I.item_state = initial(requested_item.item_state)
-	// 	I.item_color = initial(requested_item.item_color)
-	// 	I.color = initial(requested_item.color)
+		I.item_state = initial(requested_item.item_state)
+		I.item_color = initial(requested_item.item_color)
+		I.color = initial(requested_item.color)
 
-	// 	I.icon_override = initial(requested_item.icon_override)
-	// 	if(initial(requested_item.sprite_sheets))
-	// 		// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-	// 		var/obj/item/P = new requested_item(null)
-	// 		I.sprite_sheets = P.sprite_sheets
-	// 		qdel(P)
+		I.icon_override = initial(requested_item.icon_override)
+		if(initial(requested_item.sprite_sheets))
+			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
+			var/obj/item/P = new requested_item(null)
+			I.sprite_sheets = P.sprite_sheets
+			qdel(P)
 
-	// 	if(isclothing(I) && isclothing(requested_item))
-	// 		var/obj/item/clothing/CL = I
-	// 		var/obj/item/clothing/PCL = requested_item
-	// 		CL.flags_cover = initial(PCL.flags_cover)
-	// 	I.update_appearance()
+		if(isclothing(I) && isclothing(requested_item))
+			var/obj/item/clothing/CL = I
+			var/obj/item/clothing/PCL = requested_item
+			CL.flags_cover = initial(PCL.flags_cover)
+		I.update_appearance()
 
-	// target.icon = initial(requested_item.icon)
+	chameleon_item.icon = initial(requested_item.icon)
 
 
 // Maybe insted just make
 /**
  * Changes all chameleon item as per system REQUEST
  */
-/datum/component/chameleon/proc/apply_disguise(datum/outfit/requested_outfit)
+/datum/component/chameleon/proc/apply_disguise(source, datum/outfit/requested_outfit)
 	SIGNAL_HANDLER  // COMSIG_CHAMELEON_FULL_CHANGE_REQUEST
 
 	// requested_outfit

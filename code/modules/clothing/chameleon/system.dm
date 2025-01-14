@@ -1,23 +1,31 @@
 
 #define CHAMELEON_MEMORY_SLOTS 3
-
+/**
+  * # Chameleon System
+  *
+  * This system exists inside a mob mind.
+  * It tracks all chameleon components in use by this mob.
+  * Provides an interface for the user to interact with chameleon items (I am using actions; maybe I should use something else).
+  * Responsible for sending signals to items, so they can change appearance when needed.
+  */
 
 /datum/chameleon_system
-	// Human who have this system
+	// Human who has this system
 	var/mob/living/carbon/human/system_owner
 	// Scan action form chameleon glasses
 	var/datum/action/chameleon_system/scan/scan
-	// Change all peises of cloth
+	// Change your outfit to a new one, even a saved one
 	var/datum/action/chameleon_system/change_all_action/change_all
-
+	// Change single chameleon item's appearance
 	var/datum/action/chameleon_system/change_one/change_one
-
+	// This is where saved outfits exist
 	var/chameleon_memory[CHAMELEON_MEMORY_SLOTS]
-
-	var/list/system_items = list()
-
+	// This list keeps track of all chameleon items in use by the user
+	var/list/system_items_names = list()
+	var/list/system_items_types = list()
+	// This is a global list shared between all systems (I hope it is); it stores paths to all appearances per type of chameleon item
 	var/static/list/items_disguises = list()
-
+	// This is a global list shared between all systems (I hope it is); it stores all outfits that the user can swap to
 	var/static/list/outfit_options
 
 
@@ -28,7 +36,7 @@
 		CRASH("Can't create hameleon system without a user")
 
 	if(!outfit_options)
-		initialize_outfits()
+		initialize_outfits() // init outfit_options should be run only once
 
 	system_owner = owner
 
@@ -41,12 +49,13 @@
 
 // core stuff
 
+// Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
 /datum/chameleon_system/proc/link_item(var/item, chameleon_name, chameleon_type, chameleon_blacklist)
 
 	if(!item)
 		CRASH("No item to link has been provided")
 
-	if(!length(system_items))
+	if(!length(system_items_names))
 		change_all = new(system_owner)
 		change_all.Grant(system_owner)
 
@@ -55,24 +64,33 @@
 
 	//if(!is_type_in_list(item, system_items))
 	if(!items_disguises[chameleon_name])
+		// caled onece for every unique chameleon type item.
 		initialize_item_disguises(item, chameleon_name, chameleon_type, chameleon_blacklist)
 
-	system_items.Add(list("name" = chameleon_name, "type" = chameleon_type))
+
+	// TODO TEST 2 IDENTICAL ITEMS
+	system_items_names.Add(chameleon_name)
+	system_items_types.Add(chameleon_type)
 
 
-/datum/chameleon_system/proc/unlink_item(var/item)
+
+// Called when item leaves mob inventory and hands, now we no longer control this item
+/datum/chameleon_system/proc/unlink_item(var/item, chameleon_name, chameleon_type,)
 	if(!item)
 		CRASH("No item to unlink has been provided")
 
-	system_items.Remove(item) // TODO TEST 2 IDENTICAL ITEMS
+	// TODO TEST 2 IDENTICAL ITEMS
+	system_items_names.Remove(chameleon_name)
+	system_items_types.Remove(chameleon_type)
 
-	if(!length(system_items))
+	if(!length(system_items_names))
 		change_all.Remove(system_owner)
 		qdel(change_all)
 		change_one.Remove(system_owner)
 		qdel(change_one)
 
 
+// Adds new "type" of item and it's disguises options in global list
 /datum/chameleon_system/proc/initialize_item_disguises(obj/item, chameleon_name, chameleon_type, chameleon_blacklist)
 
 	chameleon_blacklist |= typecacheof(item.type)
@@ -91,21 +109,27 @@
 
 /datum/chameleon_system/proc/change_one_trigger()
 
-	var/list/chameleon_items_on_user = list()
-	for(var/name in system_items)
-		chameleon_items_on_user += name["name"]
-
+	var/list/chameleon_items_on_user = system_items_names
 	var/obj/item/tranform_from = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
-	if (isnull(tranform_from))
+	if(!tranform_from)
 		return
+
+	var/index
+	for(var/i in 1 to length(system_items_names))
+		if(system_items_names[i] == tranform_from)
+			index = i
+			break
 
 	var/obj/item/tranform_to = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", items_disguises[tranform_from]) // Redo TGUI to work with this
 
-	SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, /obj/item/clothing/glasses, tranform_to)
+	if(!tranform_to)
+		return
+	// What the poin of first argument here?
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[index], items_disguises[tranform_from][tranform_to])
 
 
 // Change ALL
-
+// Adds all otfits disguises in global list
 /datum/chameleon_system/proc/initialize_outfits()
 	outfit_options = list()
 	for(var/path in subtypesof(/datum/outfit/job))
@@ -115,11 +139,10 @@
 	sortTim(outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 
 
-
 /datum/chameleon_system/proc/select_outfit()
 
 	var/list/save_slot_names = get_memory_names()
-	var/outfits= save_slot_names + outfit_options
+	var/outfits = save_slot_names + outfit_options
 	var/selected = tgui_input_list(system_owner, "Select outfit to change into", "Chameleon Outfit", outfits)
 	if(selected)
 		return TRUE
