@@ -1,4 +1,3 @@
-
 /datum/spell_targeting/cone
 	max_targets = INFINITY
 	use_intercept_click = TRUE
