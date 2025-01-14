@@ -234,7 +234,10 @@
 		return
 	// If it has any of the highfive statuses, dap, handshake, etc
 	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
+	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
+		to_chat(M, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		return
+	else if(effect)
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
