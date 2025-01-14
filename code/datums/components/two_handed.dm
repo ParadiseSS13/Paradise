@@ -309,7 +309,7 @@
 	offhand_item = null
 
 /**
- * Check if item if wielded
+ * Check if item is wielded
  *
  * returns TRUE if unwielded
  */
