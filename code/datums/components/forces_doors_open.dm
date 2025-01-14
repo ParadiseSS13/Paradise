@@ -1,11 +1,11 @@
 /**
- * /datum/component/force_door_open
+ * /datum/component/forces_doors_open
  *
  * This component allows item to pry open doors.
  *
  */
 
-/datum/component/force_door_open
+/datum/component/forces_doors_open
 	/// The time it takes to open the airlock when forced
 	var/time_to_open
 	/// Whether the airlock can be forced open while powered.
@@ -19,7 +19,7 @@
 	/// Indicates whether no sound should be played when opening.
 	var/no_sound
 
-/datum/component/force_door_open/Initialize(
+/datum/component/forces_doors_open/Initialize(
 	time_to_open = 5 SECONDS,
 	can_force_open_while_powered = TRUE,
 	can_force_open_while_unpowered = TRUE,
@@ -38,7 +38,7 @@
 
 	RegisterSignal(parent, COMSIG_INTERACTING, PROC_REF(force_open_door))
 
-/datum/component/force_door_open/proc/force_open_door(datum/source, mob/user, atom/target)
+/datum/component/forces_doors_open/proc/force_open_door(datum/source, mob/user, atom/target)
 	SIGNAL_HANDLER // COMSIG_INTERACTING
 
 	if(user.a_intent == INTENT_HARM)
@@ -70,7 +70,7 @@
 		INVOKE_ASYNC(src, PROC_REF(open_powered_airlock), airlock, user)
 		return ITEM_INTERACT_COMPLETE
 
-/datum/component/force_door_open/proc/open_powered_airlock(obj/machinery/door/airlock/airlock, mob/user)
+/datum/component/forces_doors_open/proc/open_powered_airlock(obj/machinery/door/airlock/airlock, mob/user)
 	if(!no_sound)
 		playsound(parent, open_sound, 100, 1)
 
@@ -82,11 +82,11 @@
 		if(airlock.density)
 			to_chat(user, "<span class='warning'>Despite your attempts, [airlock] refuses to open.</span>")
 
-/datum/component/force_door_open/proc/open_unpowered_door(obj/machinery/door/door)
+/datum/component/forces_doors_open/proc/open_unpowered_door(obj/machinery/door/door)
 	door.open(TRUE)
 
 /// subtype for mantis blades
-/datum/component/force_door_open/mantis/force_open_door(datum/source, mob/user, atom/target)
+/datum/component/forces_doors_open/mantis/force_open_door(datum/source, mob/user, atom/target)
 	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
 	if(!istype(secondblade, /obj/item/melee/mantis_blade))
 		to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
