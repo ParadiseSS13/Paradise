@@ -652,6 +652,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can take a closer look by examining [A] again...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
