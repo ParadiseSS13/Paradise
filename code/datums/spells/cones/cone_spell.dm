@@ -24,13 +24,13 @@
 				do_mob_cone_effect(movable_content, user, spell_level)
 
 /datum/spell/cone/proc/do_turf_cone_effect(turf/target_turf, mob/caster, level)
-	target_turf.color = COLOR_RED
+	return
 
 /datum/spell/cone/proc/do_obj_cone_effect(obj/target_obj, mob/caster, level)
 	return
 
 /datum/spell/cone/proc/do_mob_cone_effect(mob/target_mob, mob/caster, level)
-	target_mob.color = COLOR_GREEN
+	return
 
 /datum/spell/cone/staggered
 	/// The delay between each cone level triggering.

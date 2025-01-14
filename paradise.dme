@@ -655,7 +655,6 @@
 #include "code\datums\spells\alien_spells\transfer_plasma.dm"
 #include "code\datums\spells\alien_spells\whisper.dm"
 #include "code\datums\spells\cones\cone_spell.dm"
-#include "code\datums\spells\cones\TESTING_cone.dm"
 #include "code\datums\station_traits\_station_trait.dm"
 #include "code\datums\station_traits\admin_panel.dm"
 #include "code\datums\station_traits\negative_traits.dm"

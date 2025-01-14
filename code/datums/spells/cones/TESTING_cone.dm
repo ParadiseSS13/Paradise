@@ -1,1 +1,0 @@
-/datum/spell/cone/cold
