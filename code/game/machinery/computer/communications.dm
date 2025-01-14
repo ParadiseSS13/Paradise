@@ -152,7 +152,7 @@
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
 				// You must have captain access and it must be red alert or lower (no getting off delta/epsilon)
-				if((ACCESS_CAPTAIN in I.access) && SSsecurity_level.get_current_level_as_number() <= SEC_LEVEL_RED)
+				if((ACCESS_HEADS in I.access) && SSsecurity_level.get_current_level_as_number() <= SEC_LEVEL_RED)
 					change_security_level(text2num(params["level"]))
 				else
 					to_chat(ui.user, "<span class='warning'>You are not authorized to do this.</span>")
