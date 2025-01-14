@@ -298,10 +298,6 @@
 	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
 		return
-	var/area/A = get_area(user)
-	if(A == null)
-		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
-		return
 	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
 		var/obj/T = target
 		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 +  min(0.3, (0.1 * spell_level))))
@@ -465,7 +461,6 @@
 	upgrade_level++
 	installed = TRUE
 
-
 // Multimarket Analysis Subsystem: Reduce prices of things at cargo
 /datum/ai_program/multimarket_analyser
 	program_name = "Multimarket Analysis Subsystem"
@@ -530,3 +525,69 @@
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
+
+// Nanosurgeon Deployment - Uses large numbers of nanites to heal things
+/datum/ai_program/nanosurgeon_deployment
+	program_name = "Nanosurgeon Deployment"
+	program_id = "nanosurgeon_deployment"
+	description = "Heal a crew member with large numbers of robotic nanomachines!"
+	cost = 3
+	nanite_cost = 75
+	power_type = /datum/spell/ai_spell/ranged/nanosurgeon_deployment
+	unlock_text = "Surgical nanomachine firmware installation complete!"
+
+/datum/spell/ai_spell/ranged/nanosurgeon_deployment
+	name = "Nanosurgeon Deployment"
+	desc = "Heal a crew member with large numbers of robotic nanomachines!"
+	action_icon = 'icons/obj/surgery.dmi'
+	action_icon_state = "scalpel_laser1_on"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 450 SECONDS
+	cooldown_min = 30 SECONDS
+	level_max = 8
+	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform surgery...</span>"
+	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
+
+/datum/spell/ai_spell/ranged/nanosurgeon_deployment/cast(list/targets, mob/user)
+	var/mob/living/carbon/human/target = targets[1]
+	if(!istype(target) || istype(target, /mob/living/carbon/human/machine))
+		to_chat(user, "<span class='warning'>You can only heal organic crew!</span>")
+		return
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 75
+	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "medbeam", icon = 'icons/effects/beam.dmi', time = 10)
+	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+		var/damage_healed = 20 + (min(30, (10 * spell_level)))
+		target.heal_overall_damage(damage_healed, damage_healed)
+		if(spell_level >= 5)
+			for(var/obj/item/organ/external/E in target.bodyparts)
+				if(prob(5*spell_level))
+					E.mend_fracture()
+					E.fix_internal_bleeding()
+					E.fix_burn_wound()
+
+// Enhanced Door Controls: Reduces delay in bolting and shocking doors
+/datum/ai_program/enhanced_doors
+	program_name = "Enhanced Door Controls"
+	program_id = "enhanced_doors"
+	description = "You enhance the subroutines that let you control doors, speeding up response times!"
+	nanite_cost = 0
+	unlock_text = "Doors connected and optimized. You feel right at home."
+	max_level = 5
+	upgrade = TRUE
+	/// Track the original delay
+	var/original_door_delay = 3 SECONDS
+
+/datum/ai_program/enhanced_doors/upgrade(mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(user))
+		return
+	upgrade_level++
+	AI.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
+	installed = TRUE

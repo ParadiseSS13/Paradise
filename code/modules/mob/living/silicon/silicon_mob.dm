@@ -80,6 +80,9 @@
 	var/datum/ai_laws/laws = null
 	var/list/additional_law_channels = list("State" = "")
 
+	/// The delay used when toggling door bolts or electrification
+	var/door_bolt_delay = 3 SECONDS
+
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
