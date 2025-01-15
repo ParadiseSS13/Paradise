@@ -6,25 +6,25 @@ GLOBAL_VAR_INIT(backrooms_occupied, FALSE)
  * Temporarily sends the target to the backrooms. Their body's movement matches their movement in the backrooms.
  */
 
-/obj/effect/hallucination/no_delete/backrooms
-
 /datum/hallucination_manager/backrooms
-	var/mob/living/carbon/human/human_owner
+	// Item that will copy the owner's visible contents
 	var/obj/item/clone_base
-	initial_hallucination = /obj/effect/hallucination/no_delete/backrooms
 
-/datum/hallucination_manager/backrooms/Destroy(force, ...)
+/datum/hallucination_manager/backrooms/Destroy(force)
+	if(!ishuman(owner)) // not sure how we got here but alright
+		return
+	var/mob/living/carbon/human/human_owner = owner
+
 	GLOB.backrooms_occupied = FALSE
 	UnregisterSignal(human_owner, COMSIG_MOVABLE_MOVED)
 	human_owner.reset_perspective(human_owner)
 	QDEL_NULL(clone_base)
-	human_owner = null
 	return ..()
 
 /datum/hallucination_manager/backrooms/on_spawn()
 	if(!ishuman(owner))
 		return
-	human_owner = owner
+	var/mob/living/carbon/human/human_owner = owner
 
 	// One person at a time in the backrooms, no backroom brawls allowed.
 	if(GLOB.backrooms_occupied)
