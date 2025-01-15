@@ -214,7 +214,7 @@
 	},
 /area/ruin/space/tcommsat)
 "lq" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "my" = (

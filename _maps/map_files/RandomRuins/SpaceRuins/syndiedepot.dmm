@@ -350,7 +350,7 @@
 "bd" = (
 /obj/item/lighter/zippo/black,
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -394,7 +394,7 @@
 /area/syndicate_depot/outer)
 "bl" = (
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -643,7 +643,7 @@
 /area/syndicate_depot/outer)
 "bU" = (
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
