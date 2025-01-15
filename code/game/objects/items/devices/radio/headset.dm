@@ -519,3 +519,8 @@
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
 	recalculateChannels()
+
+/obj/item/radio/headset/proc/make_epsilon() // Turns AI's and cyborgs radio to Epsilon radio!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/encryptionkey/centcom
+	recalculateChannels()

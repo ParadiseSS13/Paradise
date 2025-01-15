@@ -2994,7 +2994,7 @@
 	name = "Cyborg Recharger"
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "azS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -14537,7 +14537,7 @@
 /area/station/public/quantum/security)
 "bUc" = (
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "bUg" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -42167,7 +42167,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "hRF" = (
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
@@ -47017,7 +47017,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "jbn" = (
 /obj/structure/sign/atmosplaque{
 	pixel_y = 32
@@ -53802,7 +53802,7 @@
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "kHU" = (
 /obj/item/ashtray/glass,
 /obj/structure/table/wood,
@@ -57699,7 +57699,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "lFB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -59706,7 +59706,7 @@
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "mfu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -67115,7 +67115,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "oeQ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -69503,7 +69503,7 @@
 	name = "Bathroom"
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "oLl" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/orange{
@@ -73848,7 +73848,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "pPN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -74949,7 +74949,7 @@
 "qdP" = (
 /obj/structure/sign/restroom,
 /turf/simulated/wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "qdQ" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -76911,7 +76911,7 @@
 /obj/item/soap/nanotrasen,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "qDd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81346,7 +81346,7 @@
 /area/station/hallway/secondary/entry/north)
 "rNT" = (
 /turf/simulated/wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "rNW" = (
 /obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -85288,7 +85288,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "sLQ" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -88444,7 +88444,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "tzy" = (
 /obj/structure/sink{
 	dir = 8;
@@ -91714,7 +91714,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "upd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -93769,7 +93769,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "uNw" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -96907,7 +96907,7 @@
 /area/station/turret_protected/ai_upload)
 "vCl" = (
 /turf/simulated/wall/r_wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "vCs" = (
 /obj/structure/sink{
 	dir = 4;
@@ -98194,7 +98194,7 @@
 	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "vSy" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
