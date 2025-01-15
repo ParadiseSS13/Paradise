@@ -91,8 +91,17 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(isnull(newloc))
 		// The turf is dead, long live the turf!
 		newloc = loc
-	for(var/atom/victim as anything in newloc)
-		clong_thing(victim)
+
+	while(TRUE)
+		var/hit_something_dense = FALSE
+		for(var/atom/victim as anything in newloc)
+			clong_thing(victim)
+			if(victim.density)
+				hit_something_dense = TRUE
+
+		// Keep hitting stuff until there's nothing dense or we randomly go through it.
+		if(!hit_something_dense || prob(25))
+			break
 
 /obj/effect/immovablerod/proc/clong_turf(turf/victim)
 	if(!victim.density)
