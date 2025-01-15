@@ -487,7 +487,7 @@
 
 /obj/effect/hallucination/ventpeek/Initialize(mapload, mob/living/carbon/hallucination_target)
 	. = ..()
-	
+
 	var/list/venttargets = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
 		venttargets += vent
@@ -500,3 +500,47 @@
 
 /obj/effect/hallucination/ventpeek/proc/play_honk()
 	target.playsound_local(target, 'sound/items/bikehorn.ogg', 10, TRUE)
+
+// Doppelganger hallucination
+// Spawns a copy of the player that briefly follows them around
+/obj/effect/hallucination/doppelganger
+	duration = 10 SECONDS
+	var/obj/effect/hallucination/chaser/you/fake_you
+
+/obj/effect/hallucination/doppelganger/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		if(!is_blocked_turf(T))
+			locs += T
+	if(!length(locs))
+		return INITIALIZE_HINT_QDEL
+
+	var/turf/T = pick(locs)
+	fake_you = new(T, target)
+
+/obj/effect/hallucination/doppelganger/Destroy()
+	QDEL_NULL(fake_you)
+	return ..()
+
+/obj/effect/hallucination/chaser/you
+	duration = 10 SECONDS
+	min_distance = 2
+	var/image/I = new
+
+/obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	name = "???"
+	I.appearance = target.appearance
+	I.loc = src
+	I.override = TRUE
+	add_icon(I)
+
+/obj/effect/hallucination/chaser/you/chase()
+	..()
+	I.dir = get_dir(src, target)
+
+/obj/effect/hallucination/chaser/you/Destroy()
+	QDEL_NULL(I)
+	return ..()
