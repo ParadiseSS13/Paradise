@@ -67,7 +67,7 @@
 	spawn_loot_chance = 40
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/stetchkin
-	name = "syndicate depot loot, 20pct stetchkin"
+	name = "syndicate depot loot, 20% stetchkin"
 	icon_state = "stetchkin"
 	spawn_loot_chance = 80
 	point_value = 25
