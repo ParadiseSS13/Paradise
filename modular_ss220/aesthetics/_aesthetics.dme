@@ -36,7 +36,6 @@
 #include "racks\code\racks.dm"
 #include "railings\code\railings.dm"
 #include "rollerbed\code\rollerbed.dm"
-#include "rust\code\walls.dm"
 #include "safe\code\safe.dm"
 #include "satellite\code\satellite.dm"
 #include "sheets\code\sheets.dm"
