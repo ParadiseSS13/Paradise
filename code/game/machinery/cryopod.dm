@@ -428,9 +428,9 @@
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(announce_rank)
-				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 			else
-				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(announce_rank)
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")

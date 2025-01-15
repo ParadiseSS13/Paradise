@@ -244,6 +244,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
 #define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
 #define TRAIT_FLYING "flying"
+#define TRAIT_MED_MACHINE_HALLUCINATING "med_machine_hallucinating"  // medical machines (currently just scanners) will look strange.
 /// This mob is antimagic, and immune to spells / cannot cast spells
 #define TRAIT_ANTIMAGIC "anti_magic"
 /// This allows a person who has antimagic to cast spells without getting blocked
@@ -327,6 +328,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //****** ATOM/MOVABLE TRAITS *****//
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
 #define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
+
+//****** TURF TRAITS *****//
+#define TRAIT_RUSTY "rust_trait"
 
 //
 // common trait sources
