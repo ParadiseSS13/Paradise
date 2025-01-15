@@ -822,8 +822,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Heavily Modified Springlock MODsuit Module"
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
 		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
-		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
-		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		up. While springlocks in older models were prone to \"snapping\" due to environmental humidity, \
+		this version reacts solely to specific chemical triggers, such as smoke from grenades. \
+		You know what it's like to have an entire exoskeleton enter you? \
 		This version of the module has been modified to allow for near instant activation of the MODsuit. \
 		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
 		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \

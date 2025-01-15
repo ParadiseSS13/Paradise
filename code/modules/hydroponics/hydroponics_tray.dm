@@ -831,7 +831,7 @@
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
-			user.unEquip(O)
+			user.unequip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = FALSE
 			myseed = O
@@ -857,12 +857,11 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
-		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			if(!S.can_be_inserted(G))
-				return
-			S.handle_item_insertion(G, user, TRUE)
+		if(!harvest)
+			attack_hand(user)
+			return
+
+		myseed.harvest(user, O)
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)

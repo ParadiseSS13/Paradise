@@ -409,7 +409,7 @@
 			to_chat(user, "The headset can't hold another key!")
 			return
 
-		if(!user.unEquip(key))
+		if(!user.drop_item_to_ground(key))
 			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 
@@ -518,4 +518,9 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
+	recalculateChannels()
+
+/obj/item/radio/headset/proc/make_epsilon() // Turns AI's and cyborgs radio to Epsilon radio!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/encryptionkey/centcom
 	recalculateChannels()

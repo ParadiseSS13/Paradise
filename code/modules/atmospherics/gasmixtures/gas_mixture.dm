@@ -50,13 +50,6 @@ What are the archived variables for?
 	/// Is this mixture currently synchronized with MILLA? Always true for non-bound mixtures.
 	var/synchronized = TRUE
 
-	/// Tracks the callbacks from synchronize() that haven't run yet.
-	var/list/waiting_for_sync = list()
-
-/datum/gas_mixture/Destroy()
-	waiting_for_sync.Cut()
-	return ..()
-
 /// Marks this gas mixture as changed from MILLA. Does nothing on non-bound mixtures.
 /datum/gas_mixture/proc/set_dirty()
 	return
