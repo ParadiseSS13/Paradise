@@ -3,14 +3,14 @@
 	desc = "Completely conceals your identity, but does not make you invisible.  Can be activated early to disable it. \
 		While cloaked, you move faster, but undergo actions much slower. \
 		Taking damage while cloaked may cause it to lift suddenly, causing negative effects. "
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
-	button_icon_state = "ninja_cloak"
+	action_icon_state = "ninja_cloak"
 	sound = 'sound/effects/curse/curse2.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 6 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 6 SECONDS
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
@@ -27,7 +27,7 @@
 		uncloak_mob(remove_from, show_message = FALSE)
 	return ..()
 
-/datum/spell/shadow_cloak/is_valid_target(atom/cast_on)
+/datum/spell/shadow_cloak/valid_target(target, user)
 	if(HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
 		cast_on.balloon_alert(cast_on, "cannot cast while hulk!")
 		return FALSE
@@ -49,7 +49,7 @@
 /datum/spell/shadow_cloak/cast(mob/living/cast_on)
 	. = ..()
 	if(active_cloak)
-		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, cooldown_time)
+		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, base_cooldown)
 		uncloak_mob(cast_on)
 		StartCooldown(new_cd)
 

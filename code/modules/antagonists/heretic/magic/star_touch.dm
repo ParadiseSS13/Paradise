@@ -5,14 +5,14 @@
 		They will then be linked to you with a cosmic ray, burning them for up to a minute, or \
 		until they can escape your sight. Star Touch can also remove Cosmic Runes, or teleport you \
 		to your Star Gazer when used on yourself."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "star_touch"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "star_touch"
 
 	sound = 'sound/items/tools/welder.ogg'
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 15 SECONDS
 	invocation = "ST'R 'N'RG'!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
@@ -24,7 +24,7 @@
 	/// If the heretic is ascended or not
 	var/ascended = FALSE
 
-/datum/spell/touch/star_touch/is_valid_target(atom/cast_on)
+/datum/spell/touch/star_touch/valid_target(target, user)
 	if(!isliving(cast_on))
 		return FALSE
 	return TRUE

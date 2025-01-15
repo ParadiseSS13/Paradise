@@ -2,13 +2,13 @@
 	name = "Apetra Vulnera"
 	desc = "Causes severe bleeding on every limb of a target which has more than 15 brute damage. \
 		Wounds a random limb if no limb is sufficiently damaged."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "apetra_vulnera"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "apetra_vulnera"
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 45 SECONDS
 
 	invocation = "AP'TRA VULN'RA!"
 	invocation_type = INVOCATION_WHISPER
@@ -18,8 +18,8 @@
 	/// What type of wound we apply
 	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/datum/spell/pointed/apetra_vulnera/is_valid_target(atom/cast_on)
-	return ..() && ishuman(cast_on)
+/datum/spell/pointed/apetra_vulnera/valid_target(target, user)
+	return ..() && ishuman(target)
 
 /datum/spell/pointed/apetra_vulnera/cast(mob/living/carbon/human/cast_on)
 	. = ..()

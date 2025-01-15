@@ -2,15 +2,15 @@
 	name = "Smile of the moon"
 	desc = "Lets you turn the gaze of the moon on someone \
 			temporarily blinding, muting, deafening and knocking down a single target if their sanity is low enough."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "moon_smile"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_smile"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
 	sound = 'sound/magic/blind.ogg'
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 20 SECONDS
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "Mo'N S'M'LE"
 	invocation_type = INVOCATION_SHOUT
@@ -22,7 +22,7 @@
 /datum/spell/pointed/moon_smile/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/spell/pointed/moon_smile/is_valid_target(atom/cast_on)
+/datum/spell/pointed/moon_smile/valid_target(target, user)
 	return ..() && ishuman(cast_on)
 
 /datum/spell/pointed/moon_smile/cast(mob/living/carbon/human/cast_on)

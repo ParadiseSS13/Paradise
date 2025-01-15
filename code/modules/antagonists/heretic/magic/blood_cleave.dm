@@ -1,14 +1,14 @@
 /datum/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "cleave"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "cleave"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 45 SECONDS
 
 	invocation = "CL'VE!"
 	invocation_type = INVOCATION_WHISPER
@@ -21,8 +21,8 @@
 	/// What type of wound we apply
 	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/datum/spell/pointed/cleave/is_valid_target(atom/cast_on)
-	return ..() && ishuman(cast_on)
+/datum/spell/pointed/cleave/valid_target(target, user)
+	return ..() && ishuman(user)
 
 /datum/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
 	. = ..()
@@ -55,7 +55,7 @@
 
 /datum/spell/pointed/cleave/long
 	name = "Lesser Cleave"
-	cooldown_time = 60 SECONDS
+	base_cooldown = 60 SECONDS
 	wound_type = /datum/wound/slash/flesh/severe
 
 /obj/effect/temp_visual/cleave

@@ -2,18 +2,18 @@
 /datum/spell/touch/mad_touch
 	name = "Touch of Madness"
 	desc = "A touch spell that drains your enemy's sanity and knocks them down."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mad_touch"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mad_touch"
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 15 SECONDS
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
-/datum/spell/touch/mad_touch/is_valid_target(atom/cast_on)
+/datum/spell/touch/mad_touch/valid_target(target, user)
 	if(!ishuman(cast_on))
 		return FALSE
 	var/mob/living/carbon/human/human_cast_on = cast_on

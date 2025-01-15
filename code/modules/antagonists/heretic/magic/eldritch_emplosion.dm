@@ -2,11 +2,11 @@
 /datum/spell/emp/eldritch
 	name = "Energetic Pulse"
 	desc = "A spell that causes a large EMP around you, disabling electronics."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 30 SECONDS
 
 	invocation = "E'P"
 	invocation_type = INVOCATION_WHISPER

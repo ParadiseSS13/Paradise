@@ -8,13 +8,13 @@
 /datum/spell/jaunt/space_crawl
 	name = "Space Phase"
 	desc = "Allows you to phase in and out of existence while in space or misc tiles."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "space_crawl"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "space_crawl"
 
-	school = SCHOOL_FORBIDDEN
+	is_a_heretic_spell = TRUE
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE

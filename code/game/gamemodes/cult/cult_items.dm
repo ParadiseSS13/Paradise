@@ -103,7 +103,7 @@
 	var/static/list/heretic_paths_to_haunted_sword_abilities = list(
 		// Ash
 		PATH_ASH = list(
-			WIELDER_SPELLS = list(/datum/spell/jaunt/ethereal_jaunt/ash),
+			WIELDER_SPELLS = list(/datum/spell/ethereal_jaunt/ash),
 			SWORD_SPELLS = list(/datum/spell/pointed/ash_beams),
 			SWORD_PREFIX = "ashen",
 		),
@@ -133,7 +133,7 @@
 		),
 		// Cosmic
 		PATH_COSMIC = list(
-			WIELDER_SPELLS = list(/datum/spell/conjure/cosmic_expansion),
+			WIELDER_SPELLS = list(/datum/spell/aoe/conjure/cosmic_expansion),
 			SWORD_SPELLS = list(/datum/spell/pointed/projectile/star_blast),
 			SWORD_PREFIX = "astral",
 		),
@@ -172,12 +172,12 @@
 /datum/action/item_action/haunted_blade
 	name = "Unseal Spirit" // img is of a chained shade
 	button_icon = 'icons/mob/actions/actions_cult.dmi'
-	button_icon_state = "spirit_sealed"
+	action_icon_state = "spirit_sealed"
 
 /datum/action/item_action/haunted_blade/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
 	var/obj/item/melee/cultblade/haunted/blade = target
 	if(istype(blade))
-		button_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
+		action_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
 		name = "[blade.bound ? "Unseal" : "Seal"] Spirit"
 
 	return ..()

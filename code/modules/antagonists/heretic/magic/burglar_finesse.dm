@@ -1,13 +1,13 @@
 /datum/spell/pointed/burglar_finesse
 	name = "Burglar's Finesse"
 	desc = "Steal a random item from the victim's backpack."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "burglarsfinesse"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 40 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "burglarsfinesse"
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 40 SECONDS
 
 	invocation = "Y'O'K!"
 	invocation_type = INVOCATION_WHISPER

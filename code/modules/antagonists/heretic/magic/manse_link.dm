@@ -2,14 +2,14 @@
 	name = "Manse Link"
 	desc = "This spell allows you to pierce through reality and connect minds to one another \
 		via your Mansus Link. All minds connected to your Mansus Link will be able to communicate discreetly across great distances."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mansus_link"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_link"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 20 SECONDS
 
 	invocation = "PI'RC' TH' M'ND."
 	invocation_type = INVOCATION_SHOUT
@@ -27,7 +27,7 @@
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
 
-/datum/spell/pointed/manse_link/is_valid_target(atom/cast_on)
+/datum/spell/pointed/manse_link/valid_target(target, user)
 	. = ..()
 	if(!.)
 		return FALSE

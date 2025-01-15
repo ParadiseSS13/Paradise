@@ -215,7 +215,7 @@
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
-	rust_spread_spell?.cooldown_time /= 2
+	rust_spread_spell?.base_cooldown /= 2
 
 // I sure hope this doesn't have performance implications
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)

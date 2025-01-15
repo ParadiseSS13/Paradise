@@ -99,7 +99,7 @@
 		var/datum/heretic_knowledge/spell/spell_knowledge = knowledge
 		var/datum/spell/result_action = spell_knowledge.action_to_add
 		icon_path = result_action.button_icon
-		icon_state = result_action.button_icon_state
+		icon_state = result_action.action_icon_state
 
 	//if the knowledge is a summon, use the mob sprite
 	else if(ispath(knowledge,/datum/heretic_knowledge/summon))
@@ -604,7 +604,7 @@
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
 	if(owner.current.stat <= SOFT_CRIT)
-		to_chat(owner.current, "["<span class='hear'>You hear a whisper..."] [span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
+		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/antagonist/heretic/roundend_report()

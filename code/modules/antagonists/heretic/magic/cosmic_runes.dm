@@ -2,14 +2,14 @@
 	name = "Cosmic Rune"
 	desc = "Creates a cosmic rune at your position, only two can exist at a time. Invoking one rune transports you to the other. \
 		Anyone with a star mark gets transported along with you."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "cosmic_rune"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "cosmic_rune"
 
 	sound = 'sound/effects/magic/forcewall.ogg'
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 15 SECONDS
 
 	invocation = "ST'R R'N'"
 	invocation_type = INVOCATION_WHISPER

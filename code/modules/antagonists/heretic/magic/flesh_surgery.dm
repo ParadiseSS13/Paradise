@@ -3,14 +3,14 @@
 	desc = "A touch spell that allows you to either harvest or restore flesh of target. \
 		Left-clicking will extract the organs of a victim without needing to complete surgery or disembowel. \
 		Right-clicking, if done on summons or minions, will restore health. Can also be used to heal damaged organs."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mad_touch"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mad_touch"
 	sound = null
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 20 SECONDS
 	invocation = "CL'M M'N!" // "CLAIM MINE", but also almost "KALI MA"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
@@ -25,7 +25,7 @@
 	/// If used on a heretic mob, how much burn do we heal
 	var/monster_burn_healing = 5
 
-/datum/spell/touch/flesh_surgery/is_valid_target(atom/cast_on)
+/datum/spell/touch/flesh_surgery/valid_target(target, user)
 	return isliving(cast_on) || is_organ(cast_on)
 
 /datum/spell/touch/flesh_surgery/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)

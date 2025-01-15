@@ -1,14 +1,14 @@
 /datum/spell/touch/mansus_grasp
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mansus_grasp"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_grasp"
 	sound = 'sound/items/tools/welder.ogg'
 
 	school = SCHOOL_EVOCATION
-	cooldown_time = 10 SECONDS
+	base_cooldown = 10 SECONDS
 
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
@@ -17,7 +17,7 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
-/datum/spell/touch/mansus_grasp/is_valid_target(atom/cast_on)
+/datum/spell/touch/mansus_grasp/valid_target(target, user)
 	return TRUE // This baby can hit anything
 
 /datum/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)

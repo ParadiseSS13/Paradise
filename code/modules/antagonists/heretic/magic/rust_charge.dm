@@ -6,7 +6,7 @@
 		As it is the rust that empowers you with this ability, no focus is needed."
 	charge_distance = 10
 	charge_damage = 50
-	cooldown_time = 45 SECONDS
+	base_cooldown = 45 SECONDS
 
 /datum/action/cooldown/mob_cooldown/charge/rust/Activate(atom/target_atom)
 	var/turf/simulated/start_turf = get_turf(owner)

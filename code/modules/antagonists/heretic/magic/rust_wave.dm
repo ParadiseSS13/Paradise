@@ -4,14 +4,14 @@
 	desc = "Spews forth a disorienting plume that causes enemies to strike each other, \
 		briefly blinds them (increasing with range) and poisons them (decreasing with range). \
 		Also spreads rust in the path of the plume."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "entropic_plume"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "entropic_plume"
 	sound = 'sound/effects/magic/forcewall.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 30 SECONDS
 
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
@@ -70,13 +70,13 @@
 /datum/spell/basic_projectile/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "rust_wave"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 35 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "rust_wave"
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 35 SECONDS
 
 	invocation = "SPR'D TH' WO'D"
 	invocation_type = INVOCATION_WHISPER

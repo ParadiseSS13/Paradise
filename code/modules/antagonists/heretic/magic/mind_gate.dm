@@ -2,14 +2,14 @@
 	name = "Mind Gate"
 	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
 			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "mind_gate"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mind_gate"
 
 	sound = 'sound/effects/curse.ogg'
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 20 SECONDS
 
 	invocation = "Op' 'oY 'Mi'd"
 	invocation_type = INVOCATION_WHISPER
@@ -21,7 +21,7 @@
 /datum/spell/pointed/mind_gate/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/spell/pointed/mind_gate/is_valid_target(atom/cast_on)
+/datum/spell/pointed/mind_gate/valid_target(target, user)
 	return ..() && ishuman(cast_on)
 
 /datum/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)

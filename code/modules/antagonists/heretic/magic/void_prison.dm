@@ -3,18 +3,18 @@
 	desc = "Sends a heathen into the void for 10 seconds. \
 		They will be unable to perform any actions for the duration. \
 		Afterwards, they will be chilled and returned to the mortal plane."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "voidball"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidball"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	sound = 'sound/effects/magic/voidblink.ogg'
 
-	cooldown_time = 1 MINUTES
+	base_cooldown = 1 MINUTES
 	cast_range = 3
 
 	sound = null
-	school = SCHOOL_FORBIDDEN
+	is_a_heretic_spell = TRUE
 	invocation = "V''D PR'S'N!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE

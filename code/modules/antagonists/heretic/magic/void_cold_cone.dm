@@ -4,12 +4,12 @@
 		Enemies in the cone of the blast will be damaged slightly, slowed, and chilled overtime. \
 		Additionally, objects hit will be frozen and can shatter, and ground hit will be iced over and slippery - \
 		though they may thaw shortly if used in room temperature."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon_state = "icebeam"
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_icon_state = "icebeam"
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 30 SECONDS
 
 	invocation = "FR'ZE!"
 	invocation_type = INVOCATION_SHOUT

@@ -1,14 +1,14 @@
 /datum/spell/pointed/rust_construction
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon_state = "shield"
+	action_icon_state = "shield"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 8 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 8 SECONDS
 
 	invocation = "Someone raises a wall of rust."
 	invocation_self_message = "You raise a wall of rust."
@@ -26,7 +26,7 @@
 /datum/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-/datum/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
+/datum/spell/pointed/rust_construction/valid_target(target, user)
 	if(!isturf(cast_on))
 		cast_on.balloon_alert(owner, "not a wall or floor!")
 		return FALSE

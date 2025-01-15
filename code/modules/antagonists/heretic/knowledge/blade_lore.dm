@@ -400,7 +400,7 @@
 		recharge_time = 2 MINUTES,
 	)
 	var/datum/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
-	steel_spell?.cooldown_time /= 2
+	steel_spell?.base_cooldown /= 2
 
 	var/mob/living/carbon/human/heretic = user
 	heretic.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.

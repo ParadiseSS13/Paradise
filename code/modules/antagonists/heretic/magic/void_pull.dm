@@ -2,14 +2,14 @@
 	name = "Void Pull"
 	desc = "Calls the void, damaging, knocking down, and stunning people nearby. \
 		Distant foes are also pulled closer to you (but not damaged)."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "voidpull"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidpull"
 	sound = 'sound/effects/magic/voidblink.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 30 SECONDS
 
 	invocation = "BR'NG F'RTH TH'M T' M'."
 	invocation_type = INVOCATION_WHISPER

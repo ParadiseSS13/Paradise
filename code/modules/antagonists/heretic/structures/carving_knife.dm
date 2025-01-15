@@ -108,7 +108,7 @@
 	desc = "Destroys all runes carved by this blade."
 	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_background_icon_state = "bg_heretic"
+	button_
 	button_overlay_icon_state = "rune_break"
 
 /datum/action/item_action/rune_shatter/New(Target)

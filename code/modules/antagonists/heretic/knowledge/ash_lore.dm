@@ -64,7 +64,7 @@
 	desc = "Grants you Ashen Passage, a spell that lets you phase out of reality and traverse a short distance, passing though any walls."
 	gain_text = "He knew how to walk between the planes."
 
-	action_to_add = /datum/spell/jaunt/ethereal_jaunt/ash
+	action_to_add = /datum/spell/ethereal_jaunt/ash
 	cost = 1
 
 
@@ -87,7 +87,7 @@
 	// Also refunds 75% of charge!
 	var/datum/spell/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp)
-		grasp.next_use_time -= round(grasp.cooldown_time*0.75)
+		grasp.next_use_time -= round(grasp.base_cooldown*0.75)
 		grasp.build_all_button_icons()
 
 /datum/heretic_knowledge/knowledge_ritual/ash
@@ -199,9 +199,9 @@
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
-		existing_beam_spell.cooldown_time *= 0.66 // Lower cooldown
+		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
 
 	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
-	fiery_rebirth?.cooldown_time *= 0.16
+	fiery_rebirth?.base_cooldown *= 0.16
 
 	user.add_traits(traits_to_apply, type)

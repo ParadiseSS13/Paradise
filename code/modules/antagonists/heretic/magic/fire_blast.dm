@@ -3,14 +3,14 @@
 	desc = "Charge up a blast of fire that chains between nearby targets, setting them ablaze. \
 		Targets already on fire will take priority. If the target fails to catch ablaze, or \
 		extinguishes themselves before it bounces, the chain will stop."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "flames"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "flames"
 	sound = 'sound/effects/magic/fireball.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 45 SECONDS
 
 	invocation = "V'LC'N!"
 	invocation_type = INVOCATION_SHOUT

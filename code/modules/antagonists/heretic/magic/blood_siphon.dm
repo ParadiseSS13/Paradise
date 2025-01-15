@@ -2,26 +2,26 @@
 	name = "Blood Siphon"
 	desc = "A targeted spell that heals your wounds while damaging the enemy. \
 		It has a chance to transfer wounds between you and your enemy."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "blood_siphon"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "blood_siphon"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 15 SECONDS
 
 	invocation = "FL'MS O'ET'RN'ITY."
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = NONEe
 
 	cast_range = 6
 
 /datum/spell/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
 	return ..() && isliving(owner)
 
-/datum/spell/pointed/blood_siphon/is_valid_target(atom/cast_on)
-	return ..() && isliving(cast_on)
+/datum/spell/pointed/blood_siphon/valid_target(target, user)
+	return ..() && isliving(target)
 
 /datum/spell/pointed/blood_siphon/cast(mob/living/cast_on)
 	. = ..()

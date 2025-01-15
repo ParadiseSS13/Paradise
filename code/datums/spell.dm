@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
 	/// The spell cannot be cast if the caster has any of the antimagic flags set.
 	var/antimagic_flags = MAGIC_RESISTANCE
+	/// Is it a heretic spell? Used by heretics.
+	var/is_a_heretic_spell = FALSE
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check

@@ -3,14 +3,14 @@
 	desc = "Big AoE spell that deals brain damage and causes hallucinations to everyone in the AoE. \
 			The worse their sanity, the stronger this spell becomes. \
 			If their sanity is low enough, they even snap and go insane, and the spell then further halves their sanity."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "moon_ringleader"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "moon_ringleader"
 	sound = 'sound/effects/moon_parade.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 1 MINUTES
+	is_a_heretic_spell = TRUE
+	base_cooldown = 1 MINUTES
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "R''S 'E"
 	invocation_type = INVOCATION_SHOUT

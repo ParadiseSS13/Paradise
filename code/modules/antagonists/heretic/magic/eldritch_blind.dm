@@ -1,10 +1,10 @@
 // Given to heretic monsters.
 /datum/spell/pointed/blind/eldritch
 	name = "Eldritch Blind"
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 
-	school = SCHOOL_FORBIDDEN
+	is_a_heretic_spell = TRUE
 	invocation = "E'E'S"
 	spell_requirements = NONE
 

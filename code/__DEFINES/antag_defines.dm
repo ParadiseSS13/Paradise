@@ -23,6 +23,8 @@
 
 /// The name of the strings file containing data to use for contract fluff texts.
 #define CONTRACT_STRINGS_WANTED "syndicate_wanted_messages.json"
+/// JSON string file for all of our heretic influence flavors
+#define HERETIC_INFLUENCE_FILE "heretic_influences.json"
 
 // UI page numbers.
 #define HUB_PAGE_CONTRACTS 1

@@ -3,14 +3,14 @@
 	name = "Realignment"
 	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/implants.dmi'
-	button_icon_state = "adrenal"
+	action_icon_state = "adrenal"
 	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 6 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 6 SECONDS
 	cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
 	spell_max_level = 10 // we can get up to / over a minute duration cd time
 
@@ -18,7 +18,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/spell/realignment/is_valid_target(atom/cast_on)
+/datum/spell/realignment/valid_target(target, user)
 	return isliving(cast_on)
 
 /datum/spell/realignment/cast(mob/living/cast_on)
@@ -31,7 +31,7 @@
 	// With every cast, our spell level increases for a short time, which goes back down after a period
 	// and with every spell level, the cooldown duration of the spell goes up
 	if(level_spell())
-		var/reduction_timer = max(cooldown_time * spell_max_level * 0.5, 1.5 MINUTES)
+		var/reduction_timer = max(base_cooldown * spell_max_level * 0.5, 1.5 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(delevel_spell)), reduction_timer)
 
 /datum/spell/realignment/get_spell_title()

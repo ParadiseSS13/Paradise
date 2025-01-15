@@ -3,14 +3,14 @@
 	desc = "Lets you blink to your pointed destination, causes 3x3 aoe damage bubble \
 		around your pointed destination and your current location. \
 		It has a minimum range of 3 tiles and a maximum range of 9 tiles."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "voidblink"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "voidblink"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 25 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 25 SECONDS
 
 	invocation = "RE'L'TY PH'S'E."
 	invocation_type = INVOCATION_WHISPER

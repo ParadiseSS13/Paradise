@@ -1,14 +1,14 @@
 /datum/spell/pointed/projectile/star_blast
 	name = "Star Blast"
 	desc = "This spell fires a disk with cosmic energies at a target, spreading the star mark."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "star_blast"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "star_blast"
 
 	sound = 'sound/effects/magic/cosmic_energy.ogg'
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 20 SECONDS
 
 	invocation = "R'T'T' ST'R!"
 	invocation_type = INVOCATION_SHOUT

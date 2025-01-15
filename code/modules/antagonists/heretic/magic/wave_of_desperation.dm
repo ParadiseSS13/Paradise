@@ -2,14 +2,14 @@
 	name = "Wave Of Desperation"
 	desc = "Removes your restraints, repels and knocks down adjacent people, and applies certain effects of the Mansus Grasp upon everything nearby. \
 		Cannot be cast unless you are restrained, and the stress renders you unconscious 12 seconds later!"
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "uncuff"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "uncuff"
 	sound = 'sound/effects/magic/swap.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 5 MINUTES
+	is_a_heretic_spell = TRUE
+	base_cooldown = 5 MINUTES
 
 	invocation = "F'K 'FF."
 	invocation_type = INVOCATION_WHISPER

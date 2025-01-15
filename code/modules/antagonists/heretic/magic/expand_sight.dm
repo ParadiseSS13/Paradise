@@ -2,9 +2,9 @@
 /datum/action/innate/expand_sight
 	name = "Expand Sight"
 	desc = "Boosts your sight range considerably, allowing you to see enemies from much further away."
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "eye"
-	background_icon_state = "bg_heretic"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "eye"
+
 	overlay_icon_state = "bg_heretic_border"
 	/// How far we expand the range to.
 	var/boost_to = 5

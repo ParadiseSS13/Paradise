@@ -632,6 +632,7 @@
 #include "code\datums\spells\mimic.dm"
 #include "code\datums\spells\mind_transfer.dm"
 #include "code\datums\spells\night_vision.dm"
+#include "code\datums\spells\pointed.dm"
 #include "code\datums\spells\projectile_spell.dm"
 #include "code\datums\spells\rathens.dm"
 #include "code\datums\spells\rod_form.dm"

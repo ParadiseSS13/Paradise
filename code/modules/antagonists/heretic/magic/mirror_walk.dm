@@ -3,12 +3,12 @@
 	desc = "Allows you to traverse invisibly and freely across the station within the realm of the mirror. \
 		You can only enter and exit the realm of mirrors when nearby reflective surfaces and items, \
 		such as windows, mirrors, and reflective walls or equipment."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
-	button_icon_state = "ninja_cloak"
+	action_icon_state = "ninja_cloak"
 
-	cooldown_time = 6 SECONDS
+	base_cooldown = 6 SECONDS
 	jaunt_type = /obj/effect/dummy/phased_mob/mirror_walk
 	spell_requirements = NONE
 

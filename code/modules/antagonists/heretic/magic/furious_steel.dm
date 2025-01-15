@@ -3,14 +3,14 @@
 	desc = "Summon three silver blades which orbit you. \
 		While orbiting you, these blades will protect you from from attacks, but will be consumed on use. \
 		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
-	background_icon_state = "bg_heretic"
+
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "furious_steel"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "furious_steel"
 	sound = 'sound/weapons/guillotine.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 60 SECONDS
+	is_a_heretic_spell = TRUE
+	base_cooldown = 60 SECONDS
 	invocation = "F'LSH'NG S'LV'R!"
 	invocation_type = INVOCATION_SHOUT
 
@@ -143,7 +143,7 @@
 
 /datum/spell/pointed/projectile/furious_steel/solo
 	name = "Lesser Furious Steel"
-	cooldown_time = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	projectile_amount = 1
 	active_msg = "You summon forth a blade of furious silver."
 	deactive_msg = "You conceal the blade of furious silver."
@@ -153,13 +153,13 @@
 	desc = "Summon two cursed blades which orbit you. \
 		While orbiting you, these blades will protect you from from attacks, but will be consumed on use. \
 		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
-	background_icon_state = "bg_heretic" // kept intentionally
+	 // kept intentionally
 	overlay_icon_state = "bg_cult_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "cursed_steel"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "cursed_steel"
 	sound = 'sound/weapons/guillotine.ogg'
 
-	cooldown_time = 40 SECONDS
+	base_cooldown = 40 SECONDS
 	invocation = "IA!"
 	invocation_type = INVOCATION_SHOUT
 

@@ -1,46 +1,40 @@
 /datum/spell/aoe/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "corrode"
-	sound = 'sound/items/tools/welder.ogg'
 
-	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	overlay_icon_state = "bg_heretic_border"
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "corrode"
+	sound = 'sound/items/welder.ogg'
+
+	is_a_heretic_spell = TRUE
+	base_cooldown = 30 SECONDS
 
 	invocation = "A'GRSV SPR'D"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
+	aoe_range = 2
 
-	aoe_radius = 2
 
-/datum/spell/aoe/rust_conversion/get_things_to_cast_on(atom/center)
+/datum/spell/aoe/rust_conversion/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
 
-	var/list/things_to_convert = RANGE_TURFS(aoe_radius, center)
+/datum/spell/aoe/rust_conversion/cast(list/targets, mob/living/user = usr)
+	for(var/atom/victim in targets)
+		// We have less chance of rusting stuff that's further
+		var/distance_to_caster = get_dist(victim, user)
+		var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_range + 1)
 
-	// Also converts things right next to you.
-	for(var/atom/movable/nearby_movable in view(1, center))
-		if(nearby_movable == owner || !isstructure(nearby_movable) )
-			continue
-		things_to_convert += nearby_movable
+		if(prob(chance_of_not_rusting))
+			return
 
-	return things_to_convert
-
-/datum/spell/aoe/rust_conversion/cast_on_thing_in_aoe(turf/victim, mob/living/caster)
-	// We have less chance of rusting stuff that's further
-	var/distance_to_caster = get_dist(victim, caster)
-	var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_radius + 1)
-
-	if(prob(chance_of_not_rusting))
-		return
-
-	if(ismob(caster))
-		caster.do_rust_heretic_act(victim)
-	else
-		victim.rust_heretic_act()
+		if(isliving(user))
+			user.do_rust_heretic_act(victim)
+		else
+			victim.rust_heretic_act()
 
 /datum/spell/aoe/rust_conversion/construct
 	name = "Construct Spread"
-	cooldown_time = 15 SECONDS
+	base_cooldown = 15 SECONDS

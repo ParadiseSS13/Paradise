@@ -199,7 +199,7 @@
 	desc = "Grants you Cosmic Expansion, a spell that creates a 3x3 area of cosmic fields around you. \
 		Nearby beings will also receive a star mark."
 	gain_text = "The ground now shook beneath me. The Beast inhabited me, and their voice was intoxicating."
-	action_to_add = /datum/spell/conjure/cosmic_expansion
+	action_to_add = /datum/spell/aoe/conjure/cosmic_expansion
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -259,5 +259,5 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/datum/spell/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/datum/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
 	cosmic_expansion_spell?.ascended = TRUE

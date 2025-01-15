@@ -207,7 +207,7 @@
 	if(!istype(codex) || being_drained)
 		return FALSE
 	if(!codex.book_open)
-		codex.attack_self(user) // open booke
+		codex.activate_self(user) // open booke
 	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2)
 	return TRUE
 
@@ -220,15 +220,12 @@
 /obj/effect/heretic_influence/proc/drain_influence(mob/living/user, knowledge_to_gain)
 
 	being_drained = TRUE
-	loc.balloon_alert(user, "draining influence...")
+	to_chat(user, "<span class='notice'>You begin to drain the influcence</span>")
 
-	if(!do_after(user, 10 SECONDS, src, hidden = TRUE))
+	if(!do_after(user, 10 SECONDS, src))
 		being_drained = FALSE
-		loc.balloon_alert(user, "interrupted!")
 		return
 
-	// We don't need to set being_drained back since we delete after anyways
-	loc.balloon_alert(user, "influence drained")
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.knowledge_points += knowledge_to_gain
@@ -241,7 +238,7 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
+		to_chat(user, "<span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 		to_chat(user, "<span class='warning'>[src] begins to fade into reality!</span>")
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())
