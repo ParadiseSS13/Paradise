@@ -6,7 +6,6 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_growl
 	H.verbs |= /mob/living/carbon/human/proc/emote_bark
 	H.verbs |= /mob/living/carbon/human/proc/emote_wbark
-	H.verbs |= /mob/living/carbon/human/proc/emote_ururu
 
 /datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -16,7 +15,6 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_growl
 	H.verbs -= /mob/living/carbon/human/proc/emote_bark
 	H.verbs -= /mob/living/carbon/human/proc/emote_wbark
-	H.verbs -= /mob/living/carbon/human/proc/emote_ururu
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
