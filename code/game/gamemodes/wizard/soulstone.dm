@@ -74,44 +74,48 @@
 			animate(offset = 0, time = 10 SECONDS)
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
-	if(M == user)
-		return
+/obj/item/soulstone/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(target == user)
+		return FINISH_ATTACK
 
 	if(!can_use(user))
 		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-		return
+		return FINISH_ATTACK
 
-	if(!ishuman(M)) //If target is not a human
+	if(!ishuman(target)) //If target is not a human
 		return ..()
 
-	if(!M.mind)
+/obj/item/soulstone/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!target.mind)
 		to_chat(user, "<span class='warning'>This being has no soul!</span>")
 		return ..()
 
-	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
+	if(jobban_isbanned(target, ROLE_CULTIST) || jobban_isbanned(target, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
 
-	if(IS_CULTIST(user) && IS_CULTIST(M))
+	if(IS_CULTIST(user) && IS_CULTIST(target))
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
+	if((target.mind.offstation_role && target.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(target, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
 	if(optional)
-		if(!M.ckey)
+		if(!target.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
 			return
 
-		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
+		to_chat(user, "<span class='warning'>You attempt to channel [target]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
 
-		var/mob/player_mob = M
-		var/ghost = M.get_ghost()
+		var/mob/living/player_mob = target
+		var/ghost = target.get_ghost()
 		if(ghost) // In case our player ghosted and we need to throw the alert at their ghost instead
 			player_mob = ghost
 		var/client/player_client = player_mob.client
@@ -119,20 +123,20 @@
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
-		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/alert = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
-			A.icon = ui_style2icon(player_client.prefs.UI_style)
+			alert.icon = ui_style2icon(player_client.prefs.UI_style)
 
 		// Pass the stuff to the alert itself
-		A.stone = src
-		A.stoner = user.real_name
+		alert.stone = src
+		alert.stoner = user.real_name
 
 		// Layer shenanigans to make the alert display the soulstone
 		var/old_layer = layer
 		var/old_plane = plane
 		layer = FLOAT_LAYER
 		plane = FLOAT_PLANE
-		A.overlays += src
+		alert.overlays += src
 		layer = old_layer
 		plane = old_plane
 
@@ -145,14 +149,14 @@
 
 		opt_in = FALSE
 
-	add_attack_logs(user, M, "Stolestone'd with [name]")
-	transfer_soul("VICTIM", M, user)
+	add_attack_logs(user, target, "Stolestone'd with [name]")
+	transfer_soul("VICTIM", target, user)
 	return
 
-/obj/item/soulstone/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+/obj/item/soulstone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(istype(I, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
@@ -177,10 +181,10 @@
 				EX.holy = TRUE
 				EX.icon_state = "shade_angelic"
 			user.visible_message("<span class='notice'>[user] purifies [src]!</span>", "<span class='notice'>You purify [src]!</span>")
-
-	else if(istype(O, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(!purified)
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
 		if(do_after(user, 40, target = src))
 			remove_filter("ray")
@@ -198,8 +202,8 @@
 				EX.holy = FALSE
 				EX.icon_state = GET_CULT_DATA(shade_icon_state, "shade")
 			to_chat(user, "<span class='notice'>You have cleansed [src] of holy magic.</span>")
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/soulstone/interact_with_atom(atom/A, mob/living/user, list/modifiers)
 	if(!isitem(A))
