@@ -256,7 +256,7 @@
 	activation_messages = list("MY LEG!")
 	deactivation_messages = list("You can feel your legs again.")
 	instability = -GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_PARAPLEGIC, TRAIT_FLOORED)
+	traits_to_add = list(TRAIT_PARAPLEGIC)
 
 /datum/mutation/disability/paraplegic/New()
 	..()
