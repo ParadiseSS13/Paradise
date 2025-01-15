@@ -25,7 +25,7 @@
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/dvorak_emp_loot
-	point_value = 50
+	point_value = 35
 	guaranteed = TRUE
 	loot = list(
 		/obj/item/grenade/empgrenade = 8,
@@ -76,7 +76,7 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/rare
 	name = "syndicate depot loot, rare"
 	icon_state = "doubleloot"
-	point_value = 30
+	point_value = 45
 	// Basic stealth, utility and environmental gear.
 	loot = list(
 		/obj/item/ammo_box/magazine/m10mm,
@@ -113,7 +113,7 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/officer
 	name = "syndicate depot loot, officer"
-	point_value = 120
+	point_value = 110
 	// Primarily utility items with occasional low damage weaponry, and a blood-red, because that's too good for rare-tier.
 	loot = list(
 		/obj/item/borg/upgrade/syndicate,
@@ -205,8 +205,8 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed
 	loot = list(
-		/obj/effect/spawner/random/pool/spaceloot/syndicate/common = 35,
-		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare = 30,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/common = 30,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare = 20,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/officer = 5,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/armory = 1,
 	)
