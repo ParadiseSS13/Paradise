@@ -74,7 +74,7 @@
 	if(!no_sound)
 		playsound(parent, open_sound, 100, 1)
 
-	if(do_after_once(user, time_to_open, target = airlock))
+	if(do_after_once(user, time_to_open, target = airlock, attempt_cancel_message = "You decide to stop prying [airlock] with [parent]."))
 		if(airlock.open(TRUE))
 			return // successfully opened
 
@@ -87,9 +87,11 @@
 
 /// subtype for mantis blades
 /datum/component/forces_doors_open/mantis/force_open_door(datum/source, mob/user, atom/target)
+	if(user.a_intent == INTENT_HARM)
+		return
+
 	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
 	if(!istype(secondblade, /obj/item/melee/mantis_blade))
 		to_chat(user, "<span class='warning'>You need a second [parent] to pry open doors!</span>")
 		return ITEM_INTERACT_COMPLETE
 	. = ..()
-
