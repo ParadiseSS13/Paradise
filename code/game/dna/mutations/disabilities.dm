@@ -123,6 +123,16 @@
 	..()
 	M.update_blind_effects()
 
+/datum/mutation/disability/paraplegic
+	name = "Paraplegic"
+	activation_messages = list("MY LEG!")
+	deactivation_messages = list("You can feel your legs again.")
+	instability = -GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_FLOORED, TRAIT_PARAPLEGIC)
+
+/datum/mutation/disability/paraplegic/New()
+	..()
+	block = GLOB.paraplegicblock
 
 /datum/mutation/disability/colourblindness
 	name = "Colourblindness"
