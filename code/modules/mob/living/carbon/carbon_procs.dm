@@ -17,8 +17,8 @@
 		drop_item_to_ground(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
-	QDEL_LIST_CONTENTS(stomach_contents)
-	QDEL_LIST_CONTENTS(processing_patches)
+	QDEL_LAZYLIST(stomach_contents)
+	QDEL_LAZYLIST(processing_patches)
 	GLOB.carbon_list -= src
 	if(in_throw_mode)
 		toggle_throw_mode()

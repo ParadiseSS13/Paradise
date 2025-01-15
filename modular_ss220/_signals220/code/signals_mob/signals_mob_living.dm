@@ -27,6 +27,6 @@
 		return FALSE
 	. = ..()
 
-/mob/living/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages)
+/mob/living/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic)
 	SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
 	. = ..()

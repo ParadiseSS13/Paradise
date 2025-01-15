@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(!input)
 			alert("No mission specified. Aborting.")
 			return
-	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
+	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 100-150.") as num
 	var/tcamount = text2num(tctext)
 	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)

@@ -501,6 +501,16 @@ SUBSYSTEM_DEF(jobs)
 
 	to_chat(H, chat_box_green(L.Join("<br>")))
 
+	// If the job has objectives, announce those too
+	if(length(H.mind.job_objectives))
+		var/list/objectives_message = list()
+		var/counter = 1
+		for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
+			objectives_message.Add("<b>Objective #[counter]: [objective.objective_name]</b>")
+			objectives_message.Add("[objective.description]<br>")
+			counter++
+		to_chat(H, chat_box_notice(objectives_message.Join("<br>")))
+
 	return H
 
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area

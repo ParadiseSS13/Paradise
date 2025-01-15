@@ -9,6 +9,7 @@
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
+	var/broken_icon_state = "mirror_broke"
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -44,7 +45,7 @@
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
 	if(!broken && !(flags & NODECONSTRUCT))
-		icon_state = "mirror_broke"
+		icon_state = broken_icon_state
 		if(!mapload)
 			playsound(src, "shatter", 70, TRUE)
 		if(desc == initial(desc))
@@ -95,6 +96,7 @@
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	icon_state = "magic_mirror"
+	broken_icon_state = "magic_mirror_broke"
 	var/options = list("Name", "Body", "Voice")
 	var/organ_warn = FALSE
 	var/actually_magical = TRUE
