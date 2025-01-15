@@ -150,11 +150,11 @@
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
 			if("r_hand")
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src))
 					return
 				M.put_in_r_hand(src)
 			if("l_hand")
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src))
 					return
 				M.put_in_l_hand(src)
 		add_fingerprint(usr)
@@ -445,7 +445,7 @@
 	if(user)
 		if(!Adjacent(user) && !isnewplayer(user))
 			return FALSE
-		if(!user.unEquip(I, silent = TRUE))
+		if(!user.unequip(I))
 			return FALSE
 		user.update_icons()	//update our overlays
 	if(QDELING(I))

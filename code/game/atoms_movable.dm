@@ -542,10 +542,8 @@
 /mob/living/forceMove(atom/destination)
 	if(buckled)
 		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
 		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
@@ -880,9 +878,9 @@
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
 	else
-		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 
 
 //Update the screentip to reflect what we're hovering over
