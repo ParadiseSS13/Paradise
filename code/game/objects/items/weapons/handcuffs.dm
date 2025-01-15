@@ -35,7 +35,7 @@
 		forceMove(user.drop_location())
 
 /obj/item/restraints/Initialize(mapload)
-	..()
+	. = ..()
 	ADD_TRAIT(src, TRAIT_DO_NOT_POSSESS, ROUNDSTART_TRAIT)
 
 //////////////////////////////
