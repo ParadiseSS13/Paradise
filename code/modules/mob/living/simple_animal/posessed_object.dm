@@ -23,6 +23,45 @@
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
 
+	/// Object types that should be able to read (and possibly write).
+	var/static/list/literate_objects = typecacheof(list(
+		/obj/item/book,
+		/obj/item/clipboard,
+		/obj/item/clothing/glasses,
+		/obj/item/dice,
+		/obj/item/folder,
+		/obj/item/hand_labeler,
+		/obj/item/mmi/robotic_brain,
+		/obj/item/organ/internal/brain,
+		/obj/item/paper,
+		/obj/item/paper_bin,
+		/obj/item/paper_bundle,
+		/obj/item/paperplane,
+		/obj/item/pen,
+		/obj/item/spellbook,
+		/obj/item/stamp,
+		/obj/item/toy/ai,
+		/obj/item/toy/character,
+		/obj/item/toy/codex_gigas,
+		/obj/item/toy/crayon,
+		/obj/item/toy/eight_ball,
+		/obj/item/toy/figure,
+		/obj/item/toy/plushie/abductor,
+		/obj/item/toy/plushie/greyplushie,
+		/obj/item/toy/plushie/ipcplushie,
+		/obj/item/toy/plushie/lizardplushie,
+		/obj/item/toy/plushie/nianplushie,
+		/obj/item/toy/plushie/nukeplushie,
+		/obj/item/toy/plushie/voxplushie
+	))
+
+	///Was this possession created from a shade?
+	var/was_shade = FALSE
+	///What type was the shade?
+	var/shade_type
+	///What name did the shade have?
+	var/shade_name = "Broken Shade"
+
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
@@ -42,17 +81,37 @@
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
+	if(was_shade)
+		var/response = tgui_alert(src, "Return to life as a shade? You will need help if you want to possess an object again.", "Are you sure you want to ghost?", list("Become shade", "Continue possessing"))
+		if(response != "Become shade")
+			return
+		lay_down()
+		death()
+		return
+
 	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
 	lay_down()
 	var/mob/dead/observer/ghost = ghostize(TRUE)
 	ghost.timeofdeath = world.time
-	death(0) // Turn back into a regular object.
+	death() // Turn back into a regular object.
 
 /mob/living/simple_animal/possessed_object/death(gibbed)
 	if(can_die())
-		ghostize(TRUE)
+		if(was_shade)
+			var/mob/living/simple_animal/shade/shade = new shade_type(loc)
+			shade.name = shade_name
+			shade.real_name = shade_name
+			shade.ckey = ckey
+			if(mind)
+				mind.transfer_to(shade)
+				mind = null
+			shade.cancel_camera()
+			SEND_SIGNAL(src, COMSIG_TRANSFER_HELD_BODY, shade)
+		else
+			ghostize(TRUE)
+
 		// if gibbed, the item goes with the ghost
 		if(!gibbed && possessed_item.loc == src)
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
@@ -62,11 +121,48 @@
 
 	return ..()
 
-/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
-	..()
+// Check to see if our host is still valid, i.e. if it got deleted
+// or replaced by a different /obj/item instance.
+/mob/living/simple_animal/possessed_object/proc/check_host()
+	if(possessed_item?.loc)
+		return TRUE
+	// Our posessed item disappeared. Check to see if it became
+	// something else.
+	var/new_host = locate(/obj/item) in contents
+	if(new_host)
+		// Sweet, new host.
+		possessed_item = new_host
+		return TRUE
+	else
+		// guess I'll die
+		death(TRUE)
+		return FALSE
 
-	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
-		death(1)
+// Don't drop what we're posessing.
+/mob/living/simple_animal/possessed_object/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	if(target != possessed_item)
+		return ..()
+
+	// Keep our hands clean, since possessed items never hold anything.
+	l_hand = null
+	r_hand = null
+	return FALSE
+
+// Enable activate keybind.
+/mob/living/simple_animal/possessed_object/mode()
+	if(!possessed_item)
+		return
+	if(possessed_item.new_attack_chain)
+		possessed_item.activate_self(src)
+	else
+		possessed_item.attack_self__legacy__attackchain(src)
+	update_icon()
+
+/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
+	if(!check_host())
+		return
+
+	..()
 
 	if(possessed_item.loc != src)
 		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
@@ -118,6 +214,8 @@
 	visible_message("<span class='notice'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
+/mob/living/simple_animal/possessed_object/is_literate()
+	return is_type_in_typecache(possessed_item, literate_objects)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
@@ -148,7 +246,7 @@
 	else
 		..()
 
-	if(possessed_item.loc != src)
+	if(check_host() && possessed_item.loc != src)
 		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)

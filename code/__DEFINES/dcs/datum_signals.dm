@@ -119,6 +119,6 @@
 ///from base of /datum/local_powernet/proc/power_change()
 #define COMSIG_POWERNET_POWER_CHANGE "powernet_power_change"
 
-/// Sent when bodies transfer between shades/shards and constructs
+/// Sent when bodies transfer between shades/shards/constructs/possessed items.
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
-#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
+#define COMSIG_TRANSFER_HELD_BODY "transfer_held_body"

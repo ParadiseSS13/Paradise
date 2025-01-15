@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "bluespace=4;materials=5"
+	new_attack_chain = TRUE
 
 	/// Should we show rays? Triggered by a held body
 	var/animate_rays = FALSE
@@ -17,15 +18,10 @@
 	var/optional = FALSE
 	/// Can this soul stone be used by anyone, or only cultists/wizards?
 	var/usability = FALSE
-	/// Can this soul stone be used more than once?
-	var/reusable = TRUE
-	/// If the soul stone can only be used once, has it been used?
-	var/spent = FALSE
 
 	/// For tracking during the 'optional' bit
 	var/opt_in = FALSE
 	var/purified = FALSE
-
 
 /obj/item/soulstone/proc/can_use(mob/living/user)
 	if(IS_CULTIST(user) && purified && !iswizard(user))
@@ -35,14 +31,6 @@
 		return TRUE
 
 	return FALSE
-
-/obj/item/soulstone/proc/was_used()
-	if(!reusable)
-		spent = TRUE
-		name = "dull [initial(name)]"
-		desc = "A fragment of the legendary treasure known simply as \
-			the 'Soul Stone'. The shard lies still, dull and lifeless; \
-			whatever spark it once held long extinguished."
 
 /obj/item/soulstone/anybody
 	usability = TRUE
@@ -55,7 +43,6 @@
 
 /obj/item/soulstone/anybody/purified/chaplain
 	name = "mysterious old shard"
-	reusable = FALSE
 
 /obj/item/soulstone/pickup(mob/living/user)
 	. = ..()
@@ -95,10 +82,6 @@
 		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-		return
-
-	if(spent)
-		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
 		return
 
 	if(!ishuman(M)) //If target is not a human
@@ -162,9 +145,6 @@
 
 		opt_in = FALSE
 
-		if(spent)//checking one more time against shenanigans
-			return
-
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 	return
@@ -187,7 +167,7 @@
 					icon_state = "purified_soulstone2"
 					if(IS_CULTIST(M))
 						M.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
+						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "that eldritch horror")] \
 									and the memories of your time as their servant with it.</span>")
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
@@ -221,9 +201,55 @@
 	else
 		..()
 
-/obj/item/soulstone/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/soulstone/interact_with_atom(atom/A, mob/living/user, list/modifiers)
+	if(!isitem(A))
+		return ..()
+	if(!can_use(user))
+		return ..()
+	var/mob/living/simple_animal/shade/shade = locate(/mob/living/simple_animal/shade) in contents
+	if(!shade)
+		to_chat(user, "<span class='warning'>The soulstone contains no souls!</span>")
+		return ..()
+	if(HAS_TRAIT(A, TRAIT_DO_NOT_POSSESS))
+		to_chat(user, "<span class='warning'>Try as you might, you can't seem to force the spirit into [A].</span>")
+		return ..()
+	user.visible_message("[user] holds [src] to [A] and begins chanting.")
+	if(!do_after(user, 4 SECONDS, target = A))
+		return ..()
+
+	var/mob/living/simple_animal/possessed_object/possession = new(A)
+	possession.was_shade = TRUE
+	possession.shade_type = shade.type
+	possession.shade_name = shade.real_name
+	possession.ckey = shade.ckey
+	if(shade.mind)
+		shade.mind.transfer_to(possession)
+	possession.del_on_death = FALSE
+	possession.cancel_camera()
+	SEND_SIGNAL(shade, COMSIG_TRANSFER_HELD_BODY, possession)
+	qdel(shade)
+
+	name = "soulstone"
+	icon_state = initial(icon_state)
+	remove_filter("ray")
+	STOP_PROCESSING(SSobj, src)
+	animate_rays = FALSE
+
+/obj/item/soulstone/activate_self(mob/living/user)
+	if(..() || !in_range(src, user))
+		return
+
 	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
-	if(!in_range(src, user) || !S)
+	if(!S)
+		if(!ishuman(user))
+			return
+		var/response = tgui_alert(user, "Sacrifice yourself to [src]? This will kill you and put you at the mercy of whoever holds the stone.", "Sacrifice yourself?", list("Sacrifice me!", "Stay alive"))
+		if(response != "Sacrifice me!")
+			return
+		if(src != user.get_active_hand())
+			return
+
+		user.do_suicide()
 		return
 
 	if(can_use(user))
@@ -264,10 +290,23 @@
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 		else
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will.</span>")
-		was_used()
 		remove_filter("ray")
 		STOP_PROCESSING(SSobj, src)
 		animate_rays = FALSE
+
+/obj/item/soulstone/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] kneels down and chants to [src]. It looks like [user.p_theyre()] trying to sacrifice [user.p_themselves()] to [src]!</span>")
+
+	if(!use_tool(user, user, 3 SECONDS))
+		return SHAME
+
+	if(!ishuman(user))
+		return BRUTELOSS
+
+	forceMove(user.loc)
+	init_shade(user, user)
+	user.death()
+	return OXYLOSS
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -295,7 +334,6 @@
 			user.Confused(20 SECONDS)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
-		SS.was_used()
 	else
 		return ..()
 
@@ -410,7 +448,7 @@
 	else
 		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")
 
-	SEND_SIGNAL(shade, COMSIG_SHADE_TO_CONSTRUCT_TRANSFER, src)
+	SEND_SIGNAL(shade, COMSIG_TRANSFER_HELD_BODY, src)
 	cancel_camera()
 	qdel(shell)
 	qdel(shade)
