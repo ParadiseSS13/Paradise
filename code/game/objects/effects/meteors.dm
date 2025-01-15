@@ -201,7 +201,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	invisibility = INVISIBILITY_MAXIMUM
 	density = FALSE
 	pass_flags = NONE
+	/// The station goal that is simulating this meteor.
 	var/datum/station_goal/station_shield/goal
+	/// Did we crash into something? Used to avoid falsely reporting success when qdeleted.
 	var/failed = FALSE
 
 /obj/effect/meteor/fake/Initialize(mapload)
