@@ -159,6 +159,15 @@
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/structure/bookcase/metal
+	icon_state = "bookshelf_metal"
+
+/obj/structure/bookcase/nt
+	icon_state = "bookshelf_nt"
+
+/obj/structure/bookcase/military
+	icon_state = "bookshelf_military"
+
 /*
  * Book binder
  */
