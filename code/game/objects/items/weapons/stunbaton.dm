@@ -333,6 +333,7 @@
 	name = "electrically-charged arm"
 	desc = "A piece of scrap metal wired directly to your power cell."
 	icon = 'icons/mob/robot_items.dmi'
+	base_icon = "elecarm"
 	icon_state = "elecarm"
 	hitcost = 100
 
