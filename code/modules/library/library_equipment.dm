@@ -76,7 +76,8 @@
 
 /obj/structure/bookcase/update_overlays()
 	. = ..()
-	. += "[icon_state]-[min(length(contents), 5)]"
+	if(length(contents))
+		. += "[icon_state]-[min(length(contents), 5)]"
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
