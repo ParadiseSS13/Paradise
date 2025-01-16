@@ -53,7 +53,6 @@
 	containername = "Executive Party crate"
 	containertype = /obj/structure/closet/crate/freezer/deluxe
 
-
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
