@@ -844,6 +844,7 @@
 #include "code\game\jobs\job_objectives\virology.dm"
 #include "code\game\machinery\adv_med.dm"
 #include "code\game\machinery\ai_display.dm"
+#include "code\game\machinery\ai_resource.dm"
 #include "code\game\machinery\ai_slipper.dm"
 #include "code\game\machinery\autolathe.dm"
 #include "code\game\machinery\Beacon.dm"

@@ -1163,3 +1163,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/plasteel = 5)
+
+/obj/item/circuitboard/processingnode
+	board_name = "Processing Node"
+	icon_state = "science"
+	build_path = /obj/machinery/processingnode
+	board_type = "machine"
+	origin_tech = "programming=4"
+	req_components = list(
+							/obj/item/stock_parts/capacitor = 2,
+							/obj/item/stack/sheet/mineral/gold = 10,
+							/obj/item/stack/sheet/mineral/silver = 10,
+							/obj/item/stack/sheet/mineral/diamond = 1,
+							/obj/item/stack/cable_coil = 5,
+	)
