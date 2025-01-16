@@ -330,81 +330,149 @@
 						"<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
 	QDEL_IN(src, 3 SECONDS)
 
+/obj/effect/hallucination/blob
+	duration = 30 SECONDS
+	/// The blob zombie hallucination.
+	var/obj/effect/hallucination/chaser/attacker/blob_zombie/zombie
+	/// The self delusion blob zombie hallucination, triggers on knockdown.
+	var/obj/effect/hallucination/blob_zombify/player_zombie
+	/// List of turfs that need expanding from.
+	var/list/turf/expand_queue = list()
+	/// Associative list of turfs that have already been processed.
+	var/list/turf/processed = list()
+	/// The image for the chaser zombie's blob head
+	var/image/chaser_blob_head
+	/// The image for the player zombie's blob head
+	var/image/target_blob_head
+	/// The delay at which the blob expands in deciseconds. Shouldn't be too low to prevent lag.
+	var/expand_delay
+	/// The amount of time in deciseconds the hallucination should continue after final expansion.
+	var/conclude_delay = 2 SECONDS
+	/// Expand timer handle.
+	var/expand_timer
+
+/obj/effect/hallucination/blob/Initialize(mapload, mob/living/carbon/target, expansions = 4)
+	. = ..()
+	expand_delay = (duration - conclude_delay) / max(1, expansions)
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		var/light_amount = T.get_lumcount()
+		if(!is_blocked_turf(T) && light_amount <= 0.5)
+			locs += T
+	if(!length(locs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = get_turf(pick(locs))
+	color = pick(COLOR_BLACK, 
+		COLOR_RIPPING_TENDRILS, 
+		COLOR_BOILING_OIL, 
+		COLOR_ENVENOMED_FILAMENTS, 
+		COLOR_LEXORIN_JELLY,
+		COLOR_KINETIC_GELATIN, 
+		COLOR_CRYOGENIC_LIQUID, 
+		COLOR_SORIUM, 
+		COLOR_TESLIUM_PASTE)
+	create_blob(T, core = TRUE)
+	target.playsound_local(T, 'sound/effects/splat.ogg', 50, 1)
+	create_zombie(T)
+	expand_queue += T
+	processed[T] = TRUE
+	expand_timer = addtimer(CALLBACK(src, PROC_REF(expand)), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
+
+/obj/effect/hallucination/blob/Destroy()
+	deltimer(expand_timer)
+	expand_queue.Cut()
+	processed.Cut()
+	QDEL_NULL(zombie)
+	QDEL_NULL(player_zombie)
+	if(!QDELETED(target))
+		target.client?.images -= chaser_blob_head
+		target.client?.images -= target_blob_head
+	chaser_blob_head = null
+	target_blob_head = null
+	return ..()
+
 /**
-  * # Hallucination - Xeno Pounce
-  *
-  * An imaginary alien hunter pounces towards the target.
+  * Called regularly in a timer to process the blob expanding.
   */
-/obj/effect/hallucination/xeno_pounce
-	duration = 15 SECONDS
-	// Settings
-	/// Maximum number of times the alien will pounce.
-	var/num_pounces = 3
-	/// How often to pounce in deciseconds.
-	var/pounce_interval = 5 SECONDS
-	// Variables
-	/// The xeno hallucination reference.
-	var/obj/effect/hallucination/xeno_pouncer/xeno = null
-
-/obj/effect/hallucination/xeno_pounce/Initialize(mapload, mob/living/carbon/target)
-	. = ..()
-
-	// Find a vent around us
-	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in range(world.view / 2, target))
-		vents += vent
-	if(!length(vents))
-		return
-
-	var/turf/T = get_turf(pick(vents))
-	xeno = new(T, target)
-	xeno.dir = get_dir(T, target)
-	addtimer(CALLBACK(src, PROC_REF(do_pounce)), pounce_interval)
-
-/obj/effect/hallucination/xeno_pounce/proc/do_pounce()
-	if(QDELETED(xeno) || QDELETED(target))
-		return
-
-	xeno.leap_to(target)
-	if(--num_pounces > 0)
-		addtimer(CALLBACK(src, PROC_REF(do_pounce)), pounce_interval)
-
-/obj/effect/hallucination/xeno_pouncer
-	hallucination_icon = 'icons/mob/alien.dmi'
-	hallucination_icon_state = "alienh_pounce"
-	hallucination_override = TRUE
-
-/obj/effect/hallucination/xeno_pouncer/Initialize(mapload, mob/living/carbon/target)
-	. = ..()
-	name = "\proper alien hunter ([rand(100, 999)])"
-
-/obj/effect/hallucination/xeno_pouncer/throw_impact(A)
-	if(A == target)
-		forceMove(get_turf(target))
-		target.Weaken(10 SECONDS)
-		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
-							"<span class='userdanger'>[name] pounces on you!</span>")
-
-		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
-		QDEL_IN(src, 2 SECONDS)
+/obj/effect/hallucination/blob/proc/expand()
+	// Brace for potentially expensive proc
+	for(var/turf/source_turf as anything in expand_queue)
+		expand_queue -= source_turf
+		//Expand to each dir
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
+				continue
+			create_blob(target_turf)
+			expand_queue += target_turf
+			processed[target_turf] = TRUE
 
 /**
-  * Throws the xeno towards the given loc.
+  * Creates a fake blob overlay on the given turf.
   *
   * Arguments:
-  * * dest - The loc to leap to.
+  * * T - The turf to create a fake blob overlay on.
   */
-/obj/effect/hallucination/xeno_pouncer/proc/leap_to(dest)
-	if(images && images[1])
-		images[1].icon = 'icons/mob/alienleap.dmi'
-		images[1].icon_state = "alienh_leap"
-	dir = get_dir(get_turf(src), dest)
-	throw_at(dest, 7, 1, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(reset_icon)))
+/obj/effect/hallucination/blob/proc/create_blob(turf/T, core = FALSE)
+	var/blob_icon_state = "blob"
+	if(core)
+		blob_icon_state = "blob_core"
+	var/image/I = image('icons/mob/blob.dmi', T, blob_icon_state, layer = FLY_LAYER)
+	I.plane = GAME_PLANE
+	I.color = color
+	add_icon(I)
 
-/**
-  * Resets the xeno's icon to a resting state.
-  */
-/obj/effect/hallucination/xeno_pouncer/proc/reset_icon()
-	if(images && images[1])
-		images[1].icon = 'icons/mob/alien.dmi'
-		images[1].icon_state = "alienh_pounce"
+/obj/effect/hallucination/blob/proc/create_zombie(turf/T)
+	zombie = new(T, target, src)
+
+/obj/effect/hallucination/blob/proc/zombify(turf/T)
+	player_zombie = new(T, target, src)
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie
+	name = "blob zombie"
+	hallucination_icon = 'icons/mob/human.dmi'
+	hallucination_icon_state = "zombie2_s"
+	duration = 45 SECONDS
+	damage = 25
+	/// The hallucination that spawned us.
+	var/obj/effect/hallucination/blob/owning_hallucination = null
+	/// Whether or not the target has been zombified already.
+	var/has_zombified = FALSE
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
+	. = ..()
+	name = "blob zombie"
+	var/image/I = image('icons/mob/blob.dmi', src, "blob_head")
+	I.color = blob.color
+	target.client.images += I
+	owning_hallucination = blob
+	blob.chaser_blob_head = I
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/attack_effects()
+	do_attack_animation(target)
+	target.playsound_local(get_turf(src), 'sound/weapons/genhit1.ogg', 50, TRUE)
+	to_chat(target, "<span class='userdanger'>[name] has hit [target]!</span>")
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/on_knockdown()
+	if(!QDELETED(owning_hallucination))
+		target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
+							"<span class='warning'>The corpse of [target.name] suddenly rises!</span>")
+		owning_hallucination.zombify(target)
+		has_zombified = TRUE
+	else
+		qdel(src)
+
+/obj/effect/hallucination/chaser/attacker/blob_zombie/think()
+	if(has_zombified)
+		return
+	return ..()
+
+/obj/effect/hallucination/blob_zombify
+	duration = 20 SECONDS
+
+/obj/effect/hallucination/blob_zombify/Initialize(mapload, mob/living/carbon/target, obj/effect/hallucination/blob/blob)
+	. = ..()
+	var/image/I = image('icons/mob/blob.dmi', target, icon_state = "blob_head")
+	I.color = blob.color
+	target.client.images += I
+	blob.target_blob_head = I

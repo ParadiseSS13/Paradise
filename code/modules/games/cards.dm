@@ -57,6 +57,8 @@
 	var/last_player_name
 	/// The action that the last player made. Should be in the form of "played a card", "drew a card."
 	var/last_player_action
+	// var/datum/proximity_monitor/advanced/card_deck/proximity_monitor
+	var/datum/card_deck_table_tracker/tracker
 
 /obj/item/deck/Initialize(mapload, parent_deck_id = -1)
 	. = ..()
@@ -72,8 +74,13 @@
 
 /obj/item/deck/LateInitialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor/table)
+
+	tracker = new(src)
 	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+
+/obj/item/deck/Destroy()
+	qdel(tracker)
+	. = ..()
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
@@ -479,7 +486,7 @@
 
 	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
-			M.unEquip(src)
+			M.drop_item_to_ground(src)
 		switch(over.name)
 			if("r_hand")
 				if(M.put_in_r_hand(src))
@@ -520,7 +527,7 @@
 
 	H.cards += cards
 	cards.Cut()
-	user.unEquip(src, force = 1)
+	user.unequip(src, force = TRUE)
 	qdel(src)
 
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -1024,7 +1031,7 @@
 				"<span class='notice'>You play \the [selected].</span>",
 				"<span class='notice'>You hear a card being played.</span>"
 			)
-		user.unEquip(new_hand)
+		user.drop_item_to_ground(new_hand)
 		var/atom/drop_location = get_step(user, user.dir)
 		var/obj/item/cardhand/hand_on_the_table = locate(/obj/item/cardhand) in drop_location
 		if(istype(hand_on_the_table) && parent_deck_id == hand_on_the_table.parent_deck_id)

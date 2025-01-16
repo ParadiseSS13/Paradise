@@ -512,26 +512,26 @@ STATUS EFFECTS
 /mob/living/proc/IsSlowed()
 	return has_status_effect(STATUS_EFFECT_SLOWED)
 
-/mob/living/proc/Slowed(amount, _slowdown_value)
+/mob/living/proc/Slowed(amount, slowdown_value)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
 		S.duration = max(world.time + amount, S.duration)
-		S.slowdown_value = _slowdown_value
+		S.slowdown_value = slowdown_value
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, slowdown_value)
 	return S
 
-/mob/living/proc/SetSlowed(amount, _slowdown_value)
+/mob/living/proc/SetSlowed(amount, slowdown_value)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
-	if(amount <= 0 || _slowdown_value <= 0)
+	if(amount <= 0 || slowdown_value <= 0)
 		if(S)
 			qdel(S)
 	else
 		if(S)
 			S.duration = amount
-			S.slowdown_value = _slowdown_value
+			S.slowdown_value = slowdown_value
 		else
-			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, slowdown_value)
 	return S
 
 

@@ -56,6 +56,7 @@
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
+	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \

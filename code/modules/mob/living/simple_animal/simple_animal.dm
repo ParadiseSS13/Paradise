@@ -504,12 +504,12 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
-	if(!. || !I)
+	if(!. || !target)
 		return
 
-	if(I == pcollar)
+	if(target == pcollar)
 		pcollar = null
 		regenerate_icons()
 
@@ -583,17 +583,17 @@
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
 
-/mob/living/simple_animal/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	if(AIStatus == AI_Z_OFF)
-		var/list/idle_mobs_on_old_z = LAZYACCESS(SSidlenpcpool.idle_mobs_by_zlevel, old_z)
+	if(AIStatus == AI_Z_OFF && old_turf)
+		var/list/idle_mobs_on_old_z = LAZYACCESS(SSidlenpcpool.idle_mobs_by_zlevel, old_turf.z)
 		LAZYREMOVE(idle_mobs_on_old_z, src)
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_item_to_ground(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
@@ -611,7 +611,7 @@
 
 	var/obj/old_collar = pcollar
 
-	unEquip(pcollar)
+	drop_item_to_ground(pcollar)
 
 	if(user)
 		user.put_in_hands(old_collar)
