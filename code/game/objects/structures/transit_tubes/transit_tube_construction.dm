@@ -9,6 +9,7 @@
 	var/installed_type = null
 	var/installed_type_flipped = null
 	var/flipped = FALSE
+	var/is_station = FALSE
 
 /obj/structure/transit_tube_construction/proc/rotate()
 	setDir(turn(dir, -90))
@@ -37,26 +38,31 @@
 		return
 
 	flipped = !flipped
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(!isfloorturf(T) && !isspaceturf(T))
-		to_chat(user, "<span class='notice'>You cannot install [src] here.</span>")
+		to_chat(user, "<span class='warning'>You cannot install [src] here.</span>")
 		return
 	for(var/obj/turf_contents in T)
 		// It's okay for tube parts to be installed over existing pods.
 		if(!istype(turf_contents, /obj/structure/transit_tube_pod) && turf_contents.density)
-			to_chat(user, "<span class='notice'>There is not enough space to install [src] here.</span>")
+			to_chat(user, "<span class='warning'>There is not enough space to install [src] here.</span>")
 			return
+	if(is_station && !user.can_reach(src))
+		to_chat(user, "<span class='warning'>[src] must be installed manually.</span>")
+		return
 
 	var/install_type = flipped ? installed_type_flipped : installed_type
 	var/atom/installed = new install_type(T)
 	installed.dir = dir
 	user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
+	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
+	. |= RPD_TOOL_SUCCESS
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -93,7 +99,7 @@
 
 			qdel(src)
 
-	to_chat(user, "<span class='notice'>[src] can only be installed in a transit tube!</span>")
+	to_chat(user, "<span class='warning'>[src] can only be installed in a transit tube!</span>")
 
 /obj/structure/transit_tube_construction/straight
 	installed_type = /obj/structure/transit_tube
@@ -121,14 +127,17 @@
 	installed_type = /obj/structure/transit_tube/station
 	base_icon_state = "transit_station"
 	icon_state = "transit_station"
+	is_station = TRUE
 
 /obj/structure/transit_tube_construction/terminus/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser/reverse
 	installed_type_flipped = /obj/structure/transit_tube/station/dispenser/reverse/flipped
 	base_icon_state = "transit_dispenser_terminus"
 	icon_state = "transit_dispenser_terminus"
+	is_station = TRUE
 
 /obj/structure/transit_tube_construction/station/dispenser
 	installed_type = /obj/structure/transit_tube/station/dispenser
 	base_icon_state = "transit_dispenser_station"
 	icon_state = "transit_dispenser_station"
+	is_station =  TRUE

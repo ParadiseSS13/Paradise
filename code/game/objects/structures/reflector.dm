@@ -42,7 +42,7 @@
 	return -1
 
 
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)

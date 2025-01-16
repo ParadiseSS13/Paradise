@@ -2,7 +2,7 @@
 	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/doorint.dmi'
-	icon_state = "door1"
+	icon_state = null
 	anchored = TRUE
 	opacity = TRUE
 	density = TRUE
@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE
@@ -142,7 +142,7 @@
 	return !density
 
 /obj/machinery/door/CanAtmosPass(direction)
-	return !density
+	return operating || !density
 
 /obj/machinery/door/get_superconductivity(direction)
 	if(!density)
@@ -256,7 +256,7 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
@@ -306,7 +306,7 @@
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
-		return
+		return FALSE
 	flick("door_spark", src)
 	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -373,6 +373,7 @@
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(0)
 	if(width > 1)
@@ -388,7 +389,6 @@
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE
-	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -494,6 +494,7 @@
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
+	icon_state = "door1"
 
 /obj/machinery/door/proc/lock()
 	return
@@ -610,6 +611,6 @@
 			blockage.max_integrity += 25
 		foam_level++
 		blockage.icon_state = "foamed_[foam_level]"
-		blockage.update_icon_state()
+		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL

@@ -8,7 +8,7 @@
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -19,7 +19,7 @@
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -44,7 +44,7 @@
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -101,7 +101,7 @@
 
 /obj/item/fish
 	name = "fish"
-	desc = "A generic fish"
+	desc = "A generic fish."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "fish"
 	throwforce = 1
@@ -133,7 +133,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(obj/item/O, mob/user as mob)
+/obj/item/fish/shark/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
 	if(istype(O, /obj/item/wirecutters))
 		to_chat(user, "You rip out the teeth of \the [src.name]!")
 		new /obj/item/fish/toothless_shark(get_turf(src))
@@ -159,15 +159,14 @@
 
 /obj/item/shard/shark_teeth/set_initial_icon_state()
 	icon_state = "teeth"
-	pixel_x = rand(-5,5)
-	pixel_y = rand(-5,5)
+	scatter_atom()
 
 /obj/item/fish/catfish
 	name = "catfish"
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
+/obj/item/fish/catfish/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/catfishmeat(get_turf(src))
@@ -186,7 +185,7 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
+/obj/item/fish/salmon/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/salmonmeat(get_turf(src))
@@ -202,7 +201,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
+/obj/item/fish/babycarp/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
 		new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.

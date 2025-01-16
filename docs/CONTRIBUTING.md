@@ -133,25 +133,34 @@ Status of your pull request will be communicated via PR labels. This includes:
 All PRs which modify maps are expected to follow all of our
 [mapping requirements](./mapping/requirements.md).
 
-## Modifying MILLA
+## Modifying Rust Code
 
-Our atmos engine, MILLA, is in the `milla/` directory. It's written in Rust for
-performance reasons, which means it's not compiled the same way as the rest of
-the code. If you're on Windows, you get a pre-built copy by default. If you're
-on Linux, you built one already to run the server.
+Some parts of Paradise are written in [Rust][] for performance or reliability
+reasons:
 
-If you make changes to MILLA, you'll want to rebuild. This will be very similar
-to RUSTG: https://github.com/ParadiseSS13/rust-g The only difference is that you
-run `cargo` from the `milla/` directory, and don't need to specify
-`--all-features` (though it doesn't hurt).
+- Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
+- The `mapmanip` library, an Aurora Station module used for automating DMM
+  modification, is in the `rust/src/mapmanip` library.
+
+The Rust parts of our codebase are compiled into a single library,
+separate from the rest of the code. If you're on Windows, you get a pre-built
+copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to the Rust library, you'll want to rebuild. This will be
+very similar to [rust-g][]. The only difference is that you run `cargo` from the
+`rust/` directory, and don't need to specify `--all-features` (though it doesn't
+hurt).
 
 The server will automatically detect that you have a local build, and use that
 over the default Windows one.
 
-When you're ready to make a PR, please DO NOT modify `milla.dll` or
-`tools/ci/libmilla_ci.so`. Leave "Allow edits and access to secrets by
-maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot
+When you're ready to make a PR, please DO NOT modify `rustlibs.dll` or
+`tools/ci/librustlibs_ci.so`. Leave "Allow edits and access to secrets by
+maintainers" enabled, and post a comment on your PR saying `!build_rust`. A bot
 will automatically build them for you and update your branch.
+
+[Rust]: https://www.rust-lang.org/
+[rust-g]: https://github.com/ParadiseSS13/rust-g
 
 ## Other Notes
 
@@ -190,9 +199,9 @@ Each role inherits the lower role's responsibilities
 `Headcoders` are the overarching "administrators" of the repository. People
 included in this role are:
 
+- [Burzah](https://github.com/Burzah)
+- [Contrabang](https://github.com/Contrabang)
 - [farie82](https://github.com/farie82)
-- [S34N](https://github.com/S34NW)
-- [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
 
@@ -200,25 +209,25 @@ included in this role are:
 PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
-- [Burzah](https://github.com/Burzah)
 - [Charliminator](https://github.com/hal9000PR)
-- [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
 - [lewcc](https://github.com/lewcc)
+- [S34N](https://github.com/S34NW)
+- [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
 
 `Review Team` members are people who are denoted as having reviews which can
 affect mergeability status. People included in this role are:
 
-- [Burzah](https://github.com/Burzah)
 - [Charliminator](https://github.com/hal9000PR)
-- [Contrabang](https://github.com/Contrabang)
+- [Chuga](https://github.com/chuga-git)
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
-- [Henri215](https://github.com/Henri215)
 - [lewcc](https://github.com/lewcc)
+- [S34N](https://github.com/S34NW)
 - [Sirryan2002](https://github.com/Sirryan2002)
+- [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
 - [Wilkson](https://github.com/BiancaWilkson)
 

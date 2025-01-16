@@ -2,7 +2,7 @@
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "watertank"
+	icon_state = "water"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
@@ -24,7 +24,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
-/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
 	return ..()
@@ -104,6 +104,13 @@
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
+/obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/reagent_dispensers/fueltank/Destroy()
 	QDEL_NULL(rig)
 	return ..()
@@ -158,7 +165,7 @@
 			lastrigger = null
 			overlays.Cut()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
@@ -209,9 +216,9 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
+/obj/structure/reagent_dispensers/fueltank/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(rig)
-		rig.Crossed(AM, oldloc)
+		rig.on_atom_entered(source, entered)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)
@@ -282,7 +289,7 @@
 	/// If TRUE, prevents the player from inserting the disk again while it is currently exploding.
 	var/exploding = FALSE
 
-/obj/structure/reagent_dispensers/beerkeg/nuke/attackby(obj/item/O, mob/user, params)
+/obj/structure/reagent_dispensers/beerkeg/nuke/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	. = ..()
 	if(exploding)
 		return

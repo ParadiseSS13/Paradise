@@ -105,7 +105,7 @@
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
-/obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
+/obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = W
 
@@ -375,3 +375,10 @@
 	name = "reactive armor power cell"
 	desc = "A cell used to power reactive armors."
 	maxcharge = 2400
+
+/obj/item/stock_parts/cell/flayerprod
+	name = "mind flayer internal cell"
+	desc = "you shouldn't be seeing this, contact a coder"
+	maxcharge = 4000
+	self_recharge = TRUE
+	chargerate = 200 //This self charges it 50 power per tick at the base level

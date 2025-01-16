@@ -90,6 +90,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/heat_resistance = 1500
 	/// Have we created sparks too recently?
 	var/on_spark_cooldown = FALSE
+	/// Synced with icon state for checking on callbacks
+	var/airlock_state
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
@@ -124,7 +126,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	/*
 	About the new airlock wires panel:
@@ -392,6 +394,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 
+	airlock_state = state
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
 
 	set_airlock_overlays(state)
@@ -614,8 +617,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(stat == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
 				playsound(src, doorDeni, 50, FALSE, 3)
-				sleep(6)
-				update_icon(AIRLOCK_CLOSED)
+				addtimer(CALLBACK(src, PROC_REF(handle_deny_end)), 0.6 SECONDS)
+
+/obj/machinery/door/airlock/proc/handle_deny_end()
+	if(airlock_state == AIRLOCK_DENY)
+		update_icon(AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -760,7 +766,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(user)
 			attack_ai(user)
 
-/obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/airlock/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && !locked)
 		if(mover.checkpass(PASSDOOR))
 			return TRUE
@@ -971,7 +977,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
 
-/obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return
@@ -1018,12 +1024,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
-		if(!user.unEquip(C))
+		if(!user.transfer_item_to(C, src))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
 		C.add_fingerprint(user)
 		user.create_log(MISC_LOG, "put [C] on", src)
-		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
@@ -1278,6 +1283,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
 	set_opacity(0)
@@ -1288,7 +1294,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = FALSE
 	if(width > 1)
 		set_fillers_density(FALSE)
-	recalculate_atmos_connectivity()
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1330,7 +1335,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = TRUE
 	if(width > 1)
 		set_fillers_density(TRUE)
-	recalculate_atmos_connectivity()
 	if(!override)
 		sleep(4)
 	if(!safe)
@@ -1343,6 +1347,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	sleep(1)
 	update_icon(AIRLOCK_CLOSED, 1)
 	operating = NONE
+	recalculate_atmos_connectivity()
 	if(safe)
 		CheckForMobs()
 	return TRUE
@@ -1396,12 +1401,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
-		return
+		return FALSE
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
 	sleep(6)
 	if(QDELETED(src))
-		return
+		return FALSE
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -1531,8 +1536,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		DA.polarized_glass = polarized_glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
-		DA.update_name()
-		DA.update_icon()
+		DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 		if(!disassembled)
 			if(DA)

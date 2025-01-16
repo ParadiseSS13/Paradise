@@ -71,7 +71,7 @@ GLOBAL_VAR(bomb_set)
 	extended = FALSE
 	anchored = FALSE
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
@@ -87,7 +87,7 @@ GLOBAL_VAR(bomb_set)
 	radio.follow_target = src
 	radio.config(list("Special Ops" = 0))
 
-/obj/machinery/nuclearbomb/syndicate/Initialize()
+/obj/machinery/nuclearbomb/syndicate/Initialize(mapload)
 	. = ..()
 	wires.labelled = FALSE
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
@@ -168,7 +168,7 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += core ? "nukecore3" : "nukecore4"
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/nuclearbomb/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(auth)
@@ -219,7 +219,7 @@ GLOBAL_VAR(bomb_set)
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!user.unEquip(O))
+			if(!user.drop_item_to_ground(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
@@ -228,9 +228,18 @@ GLOBAL_VAR(bomb_set)
 			update_icon(UPDATE_OVERLAYS)
 			return
 
-	else if(istype(O, /obj/item/disk/plantgene))
+	if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
 		return
+
+	else if(istype(O, /obj/item/disk))
+		if(O.icon_state == "datadisk4") //A similar green disk icon
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit! This isn't the NAD! If only you'd read the label...</span>")
+			return
+		else
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit. This isn't the NAD! It's not even the right colour...</span>")
+			return
+
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
@@ -365,7 +374,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
-		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		"<span class='notice'>You cut apart the anchoring system's sealant.</span>")
 		removal_stage = NUKE_SEALANT_OPEN
 	update_icon(UPDATE_OVERLAYS)
 
@@ -712,6 +721,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)
@@ -793,7 +803,7 @@ GLOBAL_VAR(bomb_set)
 	training = TRUE
 	sprite_prefix = "t_"
 
-/obj/machinery/nuclearbomb/training/Initialize()
+/obj/machinery/nuclearbomb/training/Initialize(mapload)
 	. = ..()
 	r_code = 11111 //Uuh.. one!
 

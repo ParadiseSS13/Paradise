@@ -5,7 +5,7 @@
 	icon_state = "cutters"
 	belt_icon = "wirecutters_red"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7
@@ -31,12 +31,12 @@
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
-/obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
+/obj/item/wirecutters/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		QDEL_NULL(C.handcuffed)
 		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.buckled.unbuckle_mob(C)
+			C.unbuckle()
 		C.update_handcuffed()
 		return
 	else
@@ -85,7 +85,7 @@
 	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION
@@ -94,6 +94,7 @@
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
+	belt_icon = "wirecutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -145,7 +146,7 @@
 
 	return OXYLOSS
 
-/obj/item/wirecutters/power/attack_self(mob/user)
+/obj/item/wirecutters/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")

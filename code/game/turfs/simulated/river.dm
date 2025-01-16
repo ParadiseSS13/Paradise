@@ -4,6 +4,8 @@
 #define RIVER_MIN_X 50
 #define RIVER_MIN_Y 50
 
+GLOBAL_LIST_EMPTY(river_waypoint_presets)
+
 /obj/effect/landmark/river_waypoint
 	name = "river waypoint"
 	/// Whether the turf of this landmark has already been linked to others during river generation.
@@ -43,15 +45,22 @@
 /datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
+
 	var/list/possible_locs = block(min_x, min_y, target_z, max_x, max_y, target_z)
 	while(num_spawned < nodes && length(possible_locs))
-		var/turf/T = pick(possible_locs)
-		var/area/A = get_area(T)
-		if(!istype(A, whitelist_area_type) || (T.flags & NO_LAVA_GEN))
-			possible_locs -= T
-		else
-			river_nodes += new /obj/effect/landmark/river_waypoint(T)
+		// Random chance of pulling a pre-mapped river waypoint instead.
+		if(length(GLOB.river_waypoint_presets) && prob(50))
+			var/obj/effect/landmark/river_waypoint/waypoint = pick_n_take(GLOB.river_waypoint_presets)
+			river_nodes += waypoint
 			num_spawned++
+		else
+			var/turf/T = pick(possible_locs)
+			var/area/A = get_area(T)
+			if(!istype(A, whitelist_area_type) || (T.flags & NO_LAVA_GEN))
+				possible_locs -= T
+			else
+				river_nodes += new /obj/effect/landmark/river_waypoint(T)
+				num_spawned++
 
 	//make some randomly pathing rivers
 	for(var/A in river_nodes)
@@ -60,7 +69,8 @@
 			continue
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
-		cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+		if(istype(get_area(cur_turf), whitelist_area_type) && !(cur_turf.flags & NO_LAVA_GEN))
+			cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
 		if(!target_turf)
 			break
@@ -97,7 +107,7 @@
 			else
 				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
 				if(prob(1))
-					new /obj/effect/spawner/bridge(river_turf)
+					new /obj/effect/spawner/dynamic_bridge(river_turf)
 				spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type)
 
 	for(var/WP in river_nodes)
@@ -125,7 +135,7 @@
 		if(!istype(T, start_turf.type) && T.ChangeTurf(start_turf.type, ignore_air = TRUE) && prob(probability))
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 			if(prob(1))
-				new /obj/effect/spawner/bridge(T)
+				new /obj/effect/spawner/dynamic_bridge(T)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
@@ -134,7 +144,7 @@
 		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
 			T.ChangeTurf(shoreline_turf_type, ignore_air = TRUE)
 			if(prob(1))
-				new /obj/effect/spawner/bridge(T)
+				new /obj/effect/spawner/dynamic_bridge(T)
 
 #undef RIVER_MAX_X
 #undef RIVER_MAX_Y

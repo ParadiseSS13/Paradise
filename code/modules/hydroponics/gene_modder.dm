@@ -130,7 +130,7 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/plantgenes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
 		update_icon(UPDATE_OVERLAYS)
 		return
@@ -451,7 +451,7 @@
 		else
 			core_gene.value = min(core_gene.value, genemod_var)
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
@@ -493,7 +493,7 @@
 			var/datum/plant_gene/core/C = gene.Copy()
 			disk.core_genes += C
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
@@ -583,13 +583,13 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/disk/plantgene/Destroy()
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/plantgene/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(is_pen(W))
 		rename_interactive(user, W)
@@ -650,14 +650,7 @@
 
 	icon_state = "datadisk_hydro"
 
-/obj/item/disk/plantgene/update_overlays()
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
-
-	. += "datadisk_gene"
-
-/obj/item/disk/plantgene/attack_self(mob/user)
+/obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	read_only = !read_only
@@ -669,6 +662,8 @@
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
+	return FALSE
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)

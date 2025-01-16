@@ -2,12 +2,6 @@
 //
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
 
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
 #define LIGHT_ON_DELAY_LOWER 1 SECONDS
 #define LIGHT_ON_DELAY_UPPER 3 SECONDS
 
@@ -23,7 +17,7 @@
   *
   * Incomplete light tube fixture
   *
-  * Becomes a [Light fixture] when completed
+  * Becomes a [/obj/machinery/light/built] when completed.
   */
 /obj/machinery/light_construct
 	name = "light fixture frame"
@@ -82,7 +76,7 @@
 
 	stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	update_icon(UPDATE_ICON_STATE)
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -102,7 +96,7 @@
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light_construct/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(stage != LIGHT_CONSTRUCT_EMPTY_FRAME)
@@ -135,11 +129,46 @@
 	icon_state = "[fixture_type]-construct-stage[stage]"
 
 /**
+  * # Brass fixture frame
+  *
+  * Incomplete brass light tube fixture
+  *
+  * Becomes a [Brass light fixture] when completed
+  */
+
+/obj/machinery/light_construct/clockwork
+	name = "brass light fixture frame"
+	desc = "A brass light fixture under construction."
+	icon_state = "clockwork_tube-construct-stage1"
+	construct_type = /obj/machinery/light/clockwork/built
+	fixture_type = "clockwork_tube"
+
+/obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	switch(stage)
+		if(1)
+			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
+			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+				return
+			new /obj/item/stack/tile/brass(get_turf(loc), sheets_refunded)
+			TOOL_DISMANTLE_SUCCESS_MESSAGE
+			qdel(src)
+		if(2)
+			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+		if(3)
+			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
+
+/obj/machinery/light_construct/clockwork/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/tile/brass(loc, sheets_refunded)
+	qdel(src)
+
+/**
   * # Small light fixture frame
   *
   * Incomplete light bulb fixture
   *
-  * Becomes a [Small light fixture] when completed
+  * Becomes a [/obj/machinery/light/small/built] when completed
   */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -162,6 +191,28 @@
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/floor/built
 
+/obj/machinery/light_construct/clockwork/small
+	name = "small brass light fixture frame"
+	desc = "A small brass light fixture under construction."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "clockwork_bulb-construct-stage1"
+	anchored = TRUE
+	layer = 5
+	stage = 1
+	fixture_type = "clockwork_bulb"
+	sheets_refunded = 1
+	construct_type = /obj/machinery/light/clockwork/small/built
+
+/obj/machinery/light_construct/clockwork/floor
+	name = "brass floor light fixture frame"
+	desc = "A brass floor light fixture under construction."
+	icon_state = "clockwork_floor-construct-stage1"
+	anchored = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+	fixture_type = "clockwork_floor"
+	sheets_refunded = 3
+	construct_type = /obj/machinery/light/clockwork/floor/built
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
@@ -184,7 +235,7 @@
 	layer = FLY_LAYER
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2  //when in low power mode
+	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
 	var/base_state = "tube" // Base description and icon_state
@@ -274,6 +325,37 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 
+/obj/machinery/light/clockwork
+	icon_state = "clockwork_tube1"
+	desc = "An industrial brass light fixture."
+	glow_icon_state = "clockwork_tube"
+	base_state = "clockwork_tube"
+	deconstruct_type = /obj/machinery/light_construct/clockwork
+	brightness_color = "#ffbb8d"
+
+/obj/machinery/light/clockwork/small
+	icon_state = "clockwork_bulb1"
+	desc = "A brass light fixture."
+	glow_icon_state = "clockwork_bulb"
+	base_state = "clockwork_bulb"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/small
+
+/obj/machinery/light/clockwork/floor
+	name = "brass floor light"
+	desc = "A brass floor light."
+	icon_state = "clockwork_floor1"
+	glow_icon_state = "clockwork_floor"
+	base_state = "clockwork_floor"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/floor
+	brightness_range = 6
+	nightshift_light_range = 6
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+
 /obj/machinery/light/built
 	status = LIGHT_EMPTY
 
@@ -283,6 +365,14 @@
 /obj/machinery/light/floor/built
 	status = LIGHT_EMPTY
 
+/obj/machinery/light/clockwork/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/small/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/floor/built
+	status = LIGHT_EMPTY
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -376,6 +466,17 @@
 	else
 		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
+/obj/machinery/light/fix(mob/user, obj/used_tool, emagged = FALSE)
+	if(status != LIGHT_OK)
+		to_chat(user, "<span class='notice'>You replace the [fitting] with [used_tool].</span>")
+		status = LIGHT_OK
+		switchcount = 0
+		rigged = emagged
+		on = has_power()
+		update(TRUE, TRUE, FALSE)
+	else
+		to_chat(user, "<span class='notice'>There is a working [fitting] already inserted!</span>")
+		return
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
   *
@@ -452,7 +553,8 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(nightshift_enabled ? IDLE_POWER_USE : ACTIVE_POWER_USE)
+
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
@@ -491,7 +593,7 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
@@ -610,7 +712,7 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/light/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
 		if(on && (I.flags & CONDUCT))
@@ -899,15 +1001,19 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+/obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered) && has_gravity(loc))
+		if(living_entered.incorporeal_move || HAS_TRAIT(living_entered, TRAIT_FLYING) || living_entered.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
-	return ..()
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1
@@ -975,7 +1081,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
-/obj/item/light/attackby(obj/item/I, mob/user, params)
+/obj/item/light/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
@@ -996,11 +1102,11 @@
 	else // If it's not a syringe
 		return ..()
 
-/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/light/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	..()
 	shatter()
 
-/obj/item/light/attack_obj(obj/O, mob/living/user, params)
+/obj/item/light/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	..()
 	shatter()
 
@@ -1024,9 +1130,5 @@
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED
 #undef LIGHT_ON_DELAY_LOWER
 #undef LIGHT_ON_DELAY_UPPER

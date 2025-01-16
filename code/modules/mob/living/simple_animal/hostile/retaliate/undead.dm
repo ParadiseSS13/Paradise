@@ -29,12 +29,13 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
+
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
 	return 1

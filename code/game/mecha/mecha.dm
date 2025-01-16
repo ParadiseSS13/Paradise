@@ -2,7 +2,7 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
 
 	density = TRUE //Dense. To raise the heat.
@@ -16,7 +16,6 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	/// Time it takes to enter the mech
@@ -109,6 +108,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	/// How much speed the mech loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -127,7 +130,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()
@@ -155,7 +158,7 @@
 	qdel(V)
 
 	set_light(lights_range_ambient, lights_power_ambient)
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/update_overlays()
 	. = ..()
@@ -401,7 +404,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = FALSE
 		if(istype(obstacle, /obj/structure/window))
@@ -456,15 +459,14 @@
 					throw_at(crashing, 50, throw_speed)
 
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
+		if(..())
+			return
+		if(isobj(obstacle))
+			var/obj/O = obstacle
+			if(!O.anchored)
 				step(obstacle, dir)
+		else if(ismob(obstacle))
+			step(obstacle, dir)
 
 
 ///////////////////////////////////
@@ -708,7 +710,7 @@
 ////// MARK: AttackBy
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
@@ -769,7 +771,7 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.unEquip(W))
+		if(!user.drop_item_to_ground(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
 
@@ -1003,7 +1005,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
@@ -1033,7 +1035,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	icon_state = reset_icon(icon_state)
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1191,7 +1193,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
-		update_overlays()
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	else
 		return FALSE
@@ -1230,7 +1232,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.unEquip(mmi_as_oc))
+		if(!user.drop_item_to_ground(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
 		var/mob/living/brain/brainmob = mmi_as_oc.brainmob
@@ -1247,7 +1249,7 @@
 		Move(loc)
 		icon_state = reset_icon()
 		dir = dir_in
-		update_overlays()
+		update_icon(UPDATE_OVERLAYS)
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1268,10 +1270,11 @@
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
+/obj/mecha/Exited(atom/movable/M, direction)
+	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
-			go_out(1, newloc)
+			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
@@ -1337,7 +1340,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()

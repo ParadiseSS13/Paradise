@@ -463,6 +463,9 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"qr" = (
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/area/shuttle/escape)
 "Jz" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -521,7 +524,7 @@ ab
 bo
 bt
 bz
-ab
+qr
 ab
 "}
 (3,1,1) = {"
@@ -555,7 +558,7 @@ aa
 aa
 ab
 ac
-ab
+qr
 aq
 ab
 aK
@@ -579,7 +582,7 @@ bL
 (5,1,1) = {"
 aa
 ab
-ab
+qr
 ak
 ai
 ar
@@ -604,7 +607,7 @@ bL
 "}
 (6,1,1) = {"
 ab
-ab
+qr
 ah
 ai
 al
@@ -625,7 +628,7 @@ ab
 bo
 bw
 bA
-ab
+qr
 ab
 "}
 (7,1,1) = {"
@@ -656,7 +659,7 @@ aa
 "}
 (8,1,1) = {"
 ab
-ab
+qr
 aj
 ai
 al
@@ -683,7 +686,7 @@ ab
 (9,1,1) = {"
 aa
 ab
-ab
+qr
 am
 ao
 al
@@ -711,7 +714,7 @@ aa
 aa
 ab
 ac
-ab
+qr
 ar
 ab
 aB
@@ -781,7 +784,7 @@ ac
 bs
 by
 bD
-ab
+qr
 ab
 "}
 (13,1,1) = {"

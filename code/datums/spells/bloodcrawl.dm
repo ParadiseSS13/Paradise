@@ -8,6 +8,7 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	antimagic_flags = NONE
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -28,6 +29,8 @@
 	if(!.)
 		return
 	if(!isliving(user))
+		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_JAUNT, get_turf(user)) & COMPONENT_BLOCK_JAUNT)
 		return FALSE
 
 /datum/spell/bloodcrawl/cast(list/targets, mob/living/user)

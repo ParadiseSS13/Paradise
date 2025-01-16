@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/attack_self__legacy__attackchain(mob/user)
 	toggle_veil(user, TRUE)
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)
@@ -60,13 +60,13 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 
-/obj/item/clothing/glasses/hud/tajblind/meson/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
@@ -86,12 +86,12 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/sci/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/sci/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/med
@@ -101,7 +101,7 @@
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/med/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/med/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
@@ -112,7 +112,7 @@
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/sec/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
@@ -121,7 +121,7 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/shaded/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has an in-built flash protection.</span>"
 
@@ -130,13 +130,13 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/dropped(mob/user)
@@ -157,12 +157,12 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med
@@ -172,7 +172,7 @@
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
@@ -184,7 +184,7 @@
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize()
+/obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 

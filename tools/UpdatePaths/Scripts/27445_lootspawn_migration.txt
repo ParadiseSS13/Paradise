@@ -1,0 +1,21 @@
+/obj/effect/spawner/lootdrop/crate_spawner : /obj/effect/spawner/random/loot/crate
+/obj/effect/spawner/lootdrop/three_course_meal : /obj/effect/spawner/random/food_or_drink/three_course_meal
+
+/obj/effect/spawner/lootdrop/trade_sol/civ : /obj/effect/spawner/random/traders/civilian
+/obj/effect/spawner/lootdrop/trade_sol/minerals : /obj/effect/spawner/random/traders/minerals
+/obj/effect/spawner/lootdrop/trade_sol/donksoft : /obj/effect/spawner/random/traders/donksoft
+/obj/effect/spawner/lootdrop/trade_sol/sci : /obj/effect/spawner/random/traders/science
+/obj/effect/spawner/lootdrop/trade_sol/med : /obj/effect/spawner/random/traders/medical
+/obj/effect/spawner/lootdrop/trade_sol/sec : /obj/effect/spawner/random/traders/security
+/obj/effect/spawner/lootdrop/trade_sol/eng : /obj/effect/spawner/random/traders/engineering
+/obj/effect/spawner/lootdrop/trade_sol/largeitem : /obj/effect/spawner/random/traders/large_item
+/obj/effect/spawner/lootdrop/trade_sol/vehicle : /obj/effect/spawner/random/traders/vehicle
+/obj/effect/spawner/lootdrop/trade_sol/serv : /obj/effect/spawner/random/traders/service
+
+/obj/effect/spawner/lootdrop/bluespace_tap/@SUBTYPES : /obj/effect/spawner/random/bluespace_tap/@SUBTYPES
+/obj/effect/spawner/lootdrop/trade_sol/@SUBTYPES : /obj/effect/spawner/random/traders/@SUBTYPES
+
+/obj/effect/spawner/lootdrop/telecomms_core_table : /obj/effect/spawner/random/telecomms_core_table
+/obj/effect/spawner/lootdrop/wizardcrash : /obj/effect/spawner/random/wizardcrash
+/obj/effect/spawner/lootdrop/pizzaparty : /obj/effect/spawner/random/pizzaparty
+/obj/effect/spawner/lootdrop/seed_vault : /obj/effect/spawner/random/seed_vault

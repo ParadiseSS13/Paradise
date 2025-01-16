@@ -102,10 +102,12 @@
 	..()
 	module = linked_module
 	button_overlay_icon_state = module.icon_state
+	button_background_icon_state = ((module.module_type == MODULE_TOGGLE && module.active) ? "bg_mod_active" : "bg_mod")
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
 	Grant(user)
+	RegisterSignals(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED), PROC_REF(linked_button_update))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -127,3 +129,8 @@
 	if(!.)
 		return
 	module.on_select()
+
+/datum/action/item_action/mod/pinned_module/proc/linked_button_update()
+	if(module.module_type != MODULE_PASSIVE)
+		button_background_icon_state = (module.active ? "bg_mod_active" : "bg_mod")
+		UpdateButtons()

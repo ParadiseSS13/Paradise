@@ -36,7 +36,7 @@
 				the experiments, and reported to have died in a \"work accident\" by Nanotrasen Inc."}
 	author = "Unauthorized"
 
-/datum/news_announcement/bluespace_research/announcement
+/datum/news_announcement/bluespace_research
 	round_time = 60*20
 	message = {"The new field of research trying to explain several interesting spacetime oddities,
 				also known as \"Bluespace Research\", has reached new heights. Of the several
@@ -69,7 +69,7 @@
 				accordingly."}
 	round_time = 60 * 90
 
-/datum/news_announcement/lotus_tree/explosions
+/datum/news_announcement/lotus_tree
 	channel_name = "Nyx Daily"
 	author = "Reporter Leland H. Howards"
 

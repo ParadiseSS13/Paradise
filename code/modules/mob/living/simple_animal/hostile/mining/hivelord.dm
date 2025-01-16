@@ -74,7 +74,6 @@
 	speed = 3
 	maxHealth = 1
 	health = 1
-	flying = TRUE
 	harm_intent_damage = 5
 	melee_damage_lower = 2
 	melee_damage_upper = 2
@@ -87,12 +86,12 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = TRUE
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -403,7 +402,7 @@
 			if(prob(10))
 				belt = pick(/obj/item/storage/belt/mining/vendor, /obj/item/storage/belt/utility/full)
 			if(prob(50))
-				back = /obj/item/bedsheet/rd/royal_cape
+				neck = /obj/item/bedsheet/rd/royal_cape
 			if(prob(10))
 				l_pocket = pick(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental)
 		if("YeOlde")

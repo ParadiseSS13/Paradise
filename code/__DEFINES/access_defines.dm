@@ -65,6 +65,7 @@
 #define ACCESS_MINERAL_STOREROOM		76
 #define ACCESS_CARGO_BAY				78
 #define ACCESS_SUPPLY_SHUTTLE			79
+#define ACCESS_TRAINER					80
 
 #define ACCESS_WEAPONS					99	//! Weapon authorization for secbots.
 
@@ -88,3 +89,4 @@
 #define ACCESS_AWAY01					271	//! Access used for moonoutpost19 ruin.
 #define ACCESS_FREE_GOLEMS				300	//! Ghost role: free golems.
 #define ACCESS_THETA_STATION			301	//! Ghost role: Theta station.
+#define ACCESS_DEEPSTORAGE				512	//! Space ruin: Deep Storage

@@ -102,7 +102,7 @@
 /obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
+/obj/machinery/biogenerator/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -157,7 +157,7 @@
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
-		if(!user.unEquip(O))
+		if(!user.drop_item_to_ground(O))
 			return
 
 		O.forceMove(src)

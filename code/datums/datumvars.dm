@@ -83,21 +83,21 @@
 /datum/proc/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
 	. = list()
-	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
+	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -204,11 +204,11 @@
 	if(islist)
 		dropdownoptions = list(
 			"---",
-			"Add Item" = "?_src_=vars;listadd=[refid]",
-			"Remove Nulls" = "?_src_=vars;listnulls=[refid]",
-			"Remove Dupes" = "?_src_=vars;listdupes=[refid]",
-			"Set len" = "?_src_=vars;listlen=[refid]",
-			"Shuffle" = "?_src_=vars;listshuffle=[refid]"
+			"Add Item" = "byond://?_src_=vars;listadd=[refid]",
+			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
+			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
+			"Set len" = "byond://?_src_=vars;listlen=[refid]",
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
@@ -536,11 +536,16 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
+			if(isdatum(name))
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[name]'>[VV_HTML_ENCODE(name)]</a> = <a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
+			else
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
 			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
+	else if(name in GLOB.bitfields)
+		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
 
@@ -776,17 +781,15 @@
 		if(!check_rights(R_SERVER | R_EVENT))
 			return
 
-		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		var/mob/living/carbon/human/C = locateUID(href_list["hallucinate"])
 		if(!istype(C))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager))
 		if(!haltype)
 			return
-		C.Hallucinate(20 SECONDS)
-		var/datum/status_effect/transient/hallucination/H = C.has_status_effect(STATUS_EFFECT_HALLUCINATION)
-		H.hallucinate(haltype)
+		C.invoke_hallucination(haltype)
 		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
 		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
 		href_list["datumrefresh"] = href_list["hallucinate"]
@@ -1152,8 +1155,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
-		if(!new_organ) return
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.", "Organ", subtypesof(/obj/item/organ))
+		if(!new_organ)
+			return
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1175,7 +1179,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")

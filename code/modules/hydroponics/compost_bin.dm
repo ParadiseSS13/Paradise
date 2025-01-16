@@ -66,7 +66,7 @@
 	qdel(O)
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
-/obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
+/obj/machinery/compost_bin/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -96,21 +96,21 @@
 			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
 	if(istype(O, /obj/item/food/grown))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
 			return
-		if(!user.unEquip(O))
+		if(!user.drop_item_to_ground(O))
 			return
 
 		O.forceMove(src)
 		make_biomass(O)
 		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	if(istype(O, /obj/item/reagent_containers))
 		var/proportion = 0
@@ -154,7 +154,7 @@
 			to_chat(user, "<span class='notice'>[src] has been nearly filled with potash.</span>")
 
 		SStgui.update_uis(src)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 
 		return TRUE
 
@@ -199,7 +199,7 @@
 
 	biomass -= conversion_amount + potash_saltpetre_conversion + potassium_saltpetre_conversion
 	compost += conversion_amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 // Makes soil from compost
@@ -209,7 +209,7 @@
 		return
 	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/compost_bin/attack_hand(mob/user)

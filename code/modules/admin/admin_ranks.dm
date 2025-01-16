@@ -139,7 +139,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		holder.rights = GLOB.admin_ranks[newrank]
 	else
 		holder = new /datum/admins(newrank,GLOB.admin_ranks[newrank],ckey)
-	remove_admin_verbs()
+	hide_verbs()
 	holder.associate(src)
 
 /client/verb/changerights(newrights as num)
@@ -147,7 +147,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		holder.rights = newrights
 	else
 		holder = new /datum/admins("testing",newrights,ckey)
-	remove_admin_verbs()
+	hide_verbs()
 	holder.associate(src)
 
 #endif

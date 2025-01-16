@@ -282,7 +282,7 @@ Difficulty: Medium
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700, 50)
 		for(var/mob/living/L in T.contents)
 			if((L in hit_list) || L == source)
 				continue
@@ -600,10 +600,10 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
+	desc = "A space carp turned dragon by vile magic. Has the same ferocity of a space carp, but also a much more enabling body."
 	maxHealth = 1000
 	health = 1000
 	faction = list("carp")
-	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
 	icon_living = "spacedragon"

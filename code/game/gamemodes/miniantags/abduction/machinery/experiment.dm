@@ -12,6 +12,7 @@
 	var/flash = "Idle."
 	var/obj/machinery/abductor/console/console
 	var/mob/living/carbon/human/occupant
+	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/abductor/experiment/Destroy()
 	eject_abductee()
@@ -140,7 +141,10 @@
 		H.mind.add_mind_objective(O)
 		var/list/messages = H.mind.prepare_announce_objectives()
 		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
-		SSticker.mode.update_abductor_icons_added(H.mind)
+
+		var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
+		hud.join_hud(H)
+		set_antag_hud(H, "abductee")
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()
@@ -173,7 +177,7 @@
 	H.clear_restraints()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
+/obj/machinery/abductor/experiment/attackby__legacy__attackchain(obj/item/G, mob/user)
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/grabbed = G
 		if(!ishuman(grabbed.affecting))
@@ -217,10 +221,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/relaymove()
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
+
+	COOLDOWN_START(src, spam_cooldown, 2 SECONDS)
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(!do_after(occupant, 20 SECONDS, FALSE, src))
+	if(!do_after_once(occupant, 20 SECONDS, FALSE, src))
 		return
 	var/list/possible_results = list(
 		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
@@ -234,7 +242,6 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
-	sleep(1 SECONDS)
 	occupant.electrocute_act(10, src)
 	do_sparks(5, TRUE, src)
 
@@ -243,7 +250,7 @@
 		return
 	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
 	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
-	occupant.reagents.add_reagent("ether", 5)
+	occupant.reagents.add_reagent("pancuronium", 3)
 
 /obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
 	eject_abductee()

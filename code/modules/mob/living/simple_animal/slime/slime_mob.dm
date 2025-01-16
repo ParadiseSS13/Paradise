@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
-	update_name()
+	update_appearance(UPDATE_NAME)
 	slime_mutation = mutation_table(colour)
 	var/sanitizedcolour = replacetext(colour, " ", "")
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
@@ -266,7 +266,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/slime/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
@@ -353,7 +353,7 @@
 
 
 
-/mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/slime/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(stat == DEAD && length(surgeries))
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)

@@ -29,7 +29,7 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
-/obj/machinery/computer/message_monitor/Initialize()
+/obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
 

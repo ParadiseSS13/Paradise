@@ -3,7 +3,7 @@
 /obj/effect/projectile
 	name = "pew"
 	icon = 'icons/obj/projectiles.dmi'
-	icon_state = "nothing"
+	icon_state = null
 	layer = HITSCAN_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = LONG_GLIDE

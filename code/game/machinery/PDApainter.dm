@@ -71,7 +71,7 @@
 		storedpda = null
 		update_icon()
 
-/obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/pdapainter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		power_change()
 		return

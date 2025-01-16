@@ -17,7 +17,7 @@ Thus, the two variables affect pump operation are set in New():
 	icon_state = "map_off"
 
 	name = "volumetric gas pump"
-	desc = "A volumetric pump"
+	desc = "A volumetric pump."
 
 	can_unwrench = TRUE
 	can_unwrench_while_on = FALSE
@@ -153,7 +153,7 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/binary/volume_pump/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W)
 		return TRUE

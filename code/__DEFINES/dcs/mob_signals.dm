@@ -22,11 +22,14 @@
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
 
+///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
+#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
+///from base of mob/can_block_magic(): (mob/user, casted_magic_flags, charge_cost)
+#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
+	#define COMPONENT_MAGIC_BLOCKED (1<<0)
+
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
-///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
-#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
-	#define COMPONENT_BLOCK_MAGIC (1<<0)
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
 ///from base of atom/attack_hand(): (mob/user)
@@ -36,7 +39,7 @@
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
-///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
+///from base of obj/item/afterattack__legacy__attackchain(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 ///from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
@@ -206,3 +209,12 @@
 
 /// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+/// called when something needs to force a mindflayer to retract their weapon implants
+#define COMSIG_FLAYER_RETRACT_IMPLANTS "flayer_retract_implants"
+
+/// Sent from datum/spell/ethereal_jaunt/cast, before the mob enters jaunting as a pre-check: (mob/jaunter)
+#define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
+	#define COMPONENT_BLOCK_JAUNT (1<<0)
+
+/// from remove_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"

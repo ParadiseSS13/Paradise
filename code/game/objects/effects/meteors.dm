@@ -13,8 +13,6 @@ GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium = 3, /obj/
 
 GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/meteor/meaty/xeno = 1)) //for meaty ore event
 
-GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
-
 
 ///////////////////////////////
 //Meteor spawning global procs
@@ -161,7 +159,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
+/obj/effect/meteor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
@@ -195,6 +193,52 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 ///////////////////////
 //Meteor types
 ///////////////////////
+
+//Fake
+/obj/effect/meteor/fake
+	name = "simulated meteor"
+	desc = "A simulated meteor for testing shield satellites. How did you see this, anyway?"
+	invisibility = INVISIBILITY_MAXIMUM
+	density = FALSE
+	pass_flags = NONE
+	/// The station goal that is simulating this meteor.
+	var/datum/station_goal/station_shield/goal
+	/// Did we crash into something? Used to avoid falsely reporting success when qdeleted.
+	var/failed = FALSE
+
+/obj/effect/meteor/fake/Initialize(mapload)
+	. = ..()
+	for(var/datum/station_goal/station_shield/found_goal in SSticker.mode.station_goals)
+		goal = found_goal
+		return
+
+/obj/effect/meteor/fake/Destroy()
+	if(!failed)
+		succeed()
+	goal = null
+	return ..()
+
+/obj/effect/meteor/fake/ram_turf(turf/T)
+	if(!isspaceturf(T))
+		fail()
+		return
+	for(var/thing in T)
+		if(isobj(thing) && !iseffect(thing))
+			fail()
+			return
+
+/obj/effect/meteor/fake/get_hit()
+	return
+
+/obj/effect/meteor/fake/proc/succeed()
+	if(istype(goal))
+		goal.update_coverage(TRUE, get_turf(src))
+
+/obj/effect/meteor/fake/proc/fail()
+	if(istype(goal))
+		goal.update_coverage(FALSE, get_turf(src))
+	failed = TRUE
+	qdel(src)
 
 //Dust
 /obj/effect/meteor/dust
@@ -333,30 +377,6 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)
 	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/xeno(T)
-
-//Meteor Ops
-/obj/effect/meteor/goreops
-	name = "MeteorOps"
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "syndicaterangedpsace"
-	hits = 10
-	hitpwr = EXPLODE_DEVASTATE
-	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = list(/obj/item/food/meat)
-	var/meteorgibs = /obj/effect/gibspawner/generic
-
-/obj/effect/meteor/goreops/make_debris()
-	..()
-	new meteorgibs(get_turf(src))
-
-
-/obj/effect/meteor/goreops/ram_turf(turf/T)
-	if(!isspaceturf(T))
-		new /obj/effect/decal/cleanable/blood(T)
-
-/obj/effect/meteor/goreops/Bump(atom/A)
-	A.ex_act(hitpwr)
-	get_hit()
 
 //////////////////////////
 //Spookoween meteors

@@ -395,7 +395,7 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
@@ -947,6 +947,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return has_access(list(), req_access, acc)
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
+	..()
 	if(href_list["close"]) // HUE HUE
 		if(usr in users)
 			users.Remove(usr)

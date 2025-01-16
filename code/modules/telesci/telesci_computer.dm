@@ -60,7 +60,7 @@
 	. = ..()
 	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
 
-/obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/telescience/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/bluespace_crystal))
 		var/obj/item/stack/ore/bluespace_crystal/B = W
 		if(crystals >= MAX_CRYSTALS)
@@ -75,8 +75,7 @@
 	else if(istype(W, /obj/item/gps))
 		if(!inserted_gps)
 			inserted_gps = W
-			user.unEquip(W)
-			W.forceMove(src)
+			user.transfer_item_to(W, src)
 			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
 			SStgui.update_uis(src)
 

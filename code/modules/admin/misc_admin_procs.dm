@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ////////////////////////////////
 /proc/message_admins(msg)
-	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
+	msg = "<span class='admin'><span class='prefix'>ADMIN LOG:</span> <span class='message'>[msg]</span></span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		var/rendered = "<span class='admin'><span class='prefix'>ATTACK:</span> <span class='message'>[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
@@ -473,9 +473,9 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
 	if(GLOB.dsay_enabled)
-		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally enabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	else
-		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally disabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
@@ -672,7 +672,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		antag_list += "Wizard"
 	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
-	if(M.mind in SSticker.mode.abductors)
+	if(M.mind.has_antag_datum(/datum/antagonist/abductor))
 		antag_list += "Abductor"
 	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
@@ -744,7 +744,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(length(matches)==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		chosen = tgui_input_list(usr, "Select an Atom Type", "Spawn Atom", matches)
 		if(!chosen)
 			return
 
@@ -795,30 +795,34 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
+	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
+		if(istype(S, /mob/living/silicon/decoy) && !S.client)
+			continue
 		ai_number++
 		if(isAI(S))
-			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>")
+			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			to_chat(usr, "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
+			messages += "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
 		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			to_chat(usr, "<b>pAI [key_name(S, TRUE)]'s laws:</b>")
-			to_chat(usr, "[P.pai_law0]")
+			messages += "<b>pAI [key_name(S, TRUE)]'s laws:</b>"
+			messages += "[P.pai_law0]"
 			if(P.pai_laws)
-				to_chat(usr, "[P.pai_laws]")
+				messages += "[P.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>")
+			messages += "<b>SILICON [key_name(S, TRUE)]'s laws:</b>"
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.")
+			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			S.laws.show_laws(usr)
+			messages += S.laws.return_laws_text()
 	if(!ai_number)
-		to_chat(usr, "<b>No AI's located.</b>")//Just so you know the thing is actually working and not just ignoring you.
+		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
+	to_chat(usr, chat_box_examine(messages.Join("\n")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -964,7 +968,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 		return TRUE
 
-	if(istype(tothing, /obj/structure/AIcore/deactivated))
+	if(istype(tothing, /obj/structure/ai_core/deactivated))
 
 		var/question = "Are you sure you want to place [frommob.name]([frommob.key]) in control of an empty AI core?"
 

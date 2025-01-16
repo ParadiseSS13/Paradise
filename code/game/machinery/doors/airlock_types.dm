@@ -197,11 +197,10 @@
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
 		DA.glass = TRUE
-	DA.update_icon()
-	DA.update_name()
+	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/plasma/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(C.get_heat() > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
@@ -216,7 +215,7 @@
 
 /obj/machinery/door/airlock/bananium
 	name = "bananium airlock"
-	desc = "Honkhonkhonk"
+	desc = "Honkhonkhonk!"
 	icon = 'icons/obj/doors/airlocks/station/bananium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_bananium
 	doorOpen = 'sound/items/bikehorn.ogg'
@@ -333,7 +332,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/centcom/glass/Initialize()
+/obj/machinery/door/airlock/centcom/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -367,11 +366,11 @@
 
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
-	req_access_txt = "150"
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/door/airlock/hatch/syndicate/command
 	name = "Command Center"
-	req_access_txt = "153"
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
@@ -398,7 +397,7 @@
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
-	req_access_txt = "151"
+	req_access = list(ACCESS_SYNDICATE)
 	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
@@ -448,7 +447,7 @@
 	else
 		lock(TRUE)
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(obj/C, mob/user, params)
+/obj/machinery/door/airlock/highsecurity/red/attackby__legacy__attackchain(obj/C, mob/user, params)
 	if(!issilicon(user))
 		if(isElectrified())
 			if(shock(user, 75))
@@ -488,6 +487,29 @@
 	security_level = 1
 	paintable = FALSE
 
+// MARK: Clockwork Airlocks
+
+/obj/machinery/door/airlock/clockwork
+	name = "pinion airlock"
+	desc = "A massive cogwheel set into two heavy slabs of brass."
+	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
+	paintable = FALSE
+
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/door(loc)
+
+/obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+	if(..())
+		new /obj/effect/temp_visual/ratvar/door(loc)
+		return TRUE
+
+/obj/machinery/door/airlock/clockwork/glass
+	glass = TRUE
+	opacity = FALSE
+
 //////////////////////////////////
 /*
 	MARK: Cult Airlocks
@@ -519,7 +541,7 @@
 	/// Inner airlock material (Glass, plasteel)
 	var/stealth_airlock_material = null
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
 	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
@@ -584,7 +606,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/glass/Initialize()
+/obj/machinery/door/airlock/cult/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -597,7 +619,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 
-/obj/machinery/door/airlock/cult/unruned/Initialize()
+/obj/machinery/door/airlock/cult/unruned/Initialize(mapload)
 	. = ..()
 	icon = GET_CULT_DATA(airlock_unruned_icon_file, initial(icon))
 	overlays_file = GET_CULT_DATA(airlock_unruned_overlays_file, initial(overlays_file))
@@ -610,7 +632,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -682,7 +704,7 @@
 	qdel(src)
 
 /// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
-/obj/airlock_filler_object/CanPass(atom/movable/mover, turf/target)
+/obj/airlock_filler_object/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return

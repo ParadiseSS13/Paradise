@@ -129,6 +129,9 @@
 	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
 	var/receive_ricochet_damage_coeff = 0.33
 
+	/// Whether this atom is using the new attack chain.
+	var/new_attack_chain = FALSE
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -297,7 +300,7 @@
 			var/atom/movable/M = A
 			if(isliving(M.loc))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_to_ground(M)
 			M.forceMove(src)
 
 ///Return the air if we can analyze it
@@ -308,6 +311,13 @@
 	return
 
 /atom/proc/Bumped(atom/movable/AM)
+	// This may seem scary but one will find that replacing this with
+	// SHOULD_NOT_SLEEP(TRUE) surfaces two dozen instances where /Bumped sleeps,
+	// such as airlocks. We cannot wait for these procs to finish because they
+	// will clobber any movement which occurred in the intervening time. If we
+	// want to get rid of this we need to move bumping in its entirety to signal
+	// handlers, which is scarier.
+	set waitfor = FALSE
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -330,9 +340,6 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
-/atom/proc/CheckExit()
-	return TRUE
-
 /atom/proc/HasProximity(atom/movable/AM)
 	return
 
@@ -340,7 +347,7 @@
  * Proc which will make the atom act accordingly to an EMP.
  * This proc can sleep depending on the implementation. So assume it sleeps!
  *
- * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ * severity - The severity of the EMP. Either EMP_HEAVY, EMP_LIGHT, or EMP_WEAKENED
  */
 /atom/proc/emp_act(severity)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
@@ -354,7 +361,7 @@
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
-		if(istype(src.loc, container))
+		if(istype(loc, container))
 			return TRUE
 	else if(src in container)
 		return TRUE
@@ -388,7 +395,7 @@
 /atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+	if(src.blood_DNA)
 		if(gender == PLURAL)
 			f_name = "some "
 		else
@@ -488,11 +495,13 @@
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
 
 /// Updates the description of the atom
 /atom/proc/update_desc(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
 /// Updates the icon of the atom
@@ -525,10 +534,12 @@
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+	PROTECTED_PROC(TRUE)
 	return
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
+	PROTECTED_PROC(TRUE)
 	return list()
 
 /atom/proc/relaymove()
@@ -544,23 +555,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
-
-/// If it returns TRUE, attack chain stops
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
-	switch(tool_type)
-		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
-		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
-		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
-		if(TOOL_WRENCH)
-			return wrench_act(user, I)
-		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
-		if(TOOL_WELDER)
-			return welder_act(user, I)
-
 
 // Tool-specific behavior procs. To be overridden in subtypes.
 /atom/proc/crowbar_act(mob/living/user, obj/item/I)
@@ -596,7 +590,7 @@
 	return
 
 /atom/proc/cmag_act(mob/user)
-	return
+	return FALSE
 
 /atom/proc/uncmag()
 	return
@@ -1057,6 +1051,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
+	if(neck)
+		if(neck.clean_blood(radiation_clean))
+			update_inv_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -1178,6 +1175,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_hearers, 30)
 
+/atom/proc/atom_emote(emote)
+	if(!emote)
+		return
+	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
+
+	runechat_emote(src, emote)
+
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
 
@@ -1191,14 +1195,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/vv_get_dropdown()
 	. = ..()
-	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
+	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
 	var/turf/curturf = get_turf(src)
 	if(curturf)
-		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
-	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
+	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
+	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1212,13 +1216,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/Entered(atom/movable/AM, atom/oldLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, direction)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+/atom/Exited(atom/movable/AM, direction)
+	var/new_loc = get_step(AM, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, new_loc)
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
@@ -1424,3 +1438,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+/// Used with the spawner component to do something when a mob is spawned.
+/atom/proc/on_mob_spawn(mob/created_mob)
+	return

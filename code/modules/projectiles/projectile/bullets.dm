@@ -167,7 +167,7 @@
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		location.hotspot_expose(700, 50, 1)
+		location.hotspot_expose(700, 50)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
@@ -224,7 +224,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	var/piercing = FALSE
+	var/penetrate_thick = FALSE
 
 /obj/item/projectile/bullet/dart/New()
 	..()
@@ -235,7 +235,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != INFINITY)
-			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null, FALSE, hit_zone, penetrate_thick)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 
 				reagents.reaction(M, REAGENT_INGEST, 0.1)
@@ -268,7 +268,7 @@
 	damage = 20
 
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore
-	piercing = TRUE
+	penetrate_thick = TRUE
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 

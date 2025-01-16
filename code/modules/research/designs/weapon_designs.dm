@@ -203,7 +203,7 @@
 
 /datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
-	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
+	desc = "A 20 round encased projector magazine for the IK Laser Rifle series."
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
@@ -273,7 +273,7 @@
 
 /datum/design/immolator
 	name = "Immolator Laser Gun Parts Kit"
-	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
+	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit."
 	id = "immolator"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
@@ -283,7 +283,7 @@
 
 /datum/design/reactive_armour
 	name = "Reactive Armor Shell"
-	desc = "A reactive armor shell, that can have an anomaly core inserted to make a reactive armor"
+	desc = "A reactive armor shell, that can have an anomaly core inserted to make a reactive armor."
 	id = "reactivearmor"
 	req_tech = list("combat" = 6, "materials" = 7, "engineering" = 5)
 	build_type = PROTOLATHE
@@ -350,10 +350,11 @@
 	desc = "An implant that enhances your muscles to punch harder and throw people back."
 	id = "muscle_implant"
 	req_tech = list("combat" = 7, "syndicate" = 4, "biotech" = 7)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
+	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/muscle
-	category = list("Weapons")
+	category = list("Medical", "Weapons")
 
 /datum/design/upgraded_chemical_flamethrower
 	name = "Extended Capacity Chemical Flamethrower Parts"

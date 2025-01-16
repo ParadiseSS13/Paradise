@@ -181,7 +181,7 @@
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
-	/// The SLOT_FLAG_* to equip to.
+	/// The ITEM_SLOT_* to equip to.
 	var/item_slot
 
 /datum/strippable_item/mob_item_slot/get_item(atom/source)
@@ -230,7 +230,7 @@
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/human_source = source
-		if(item_slot in human_source.check_obscured_slots())
+		if(item_slot & human_source.check_obscured_slots())
 			return STRIPPABLE_OBSCURING_COMPLETELY
 		return STRIPPABLE_OBSCURING_NONE
 
@@ -263,7 +263,7 @@
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
 /proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
-	if(!source.unEquip(item))
+	if(!source.drop_item_to_ground(item))
 		return
 
 	add_attack_logs(user, source, "Stripping of [item]")
@@ -318,7 +318,7 @@
 		var/list/result
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(item && (item.flags & ABSTRACT))
+		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP) || HAS_TRAIT(item, TRAIT_SKIP_EXAMINE)))
 			items[strippable_key] = result
 			continue
 
@@ -427,7 +427,7 @@
 						return
 
 					// make sure to drop the item
-					if(!user.unEquip(held_item))
+					if(!user.drop_item_to_ground(held_item))
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)

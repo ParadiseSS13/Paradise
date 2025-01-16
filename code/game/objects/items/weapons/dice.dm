@@ -165,7 +165,7 @@
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -339,7 +339,7 @@
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user)
+/obj/item/dice/attack_self__legacy__attackchain(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)

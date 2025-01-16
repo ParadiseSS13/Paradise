@@ -16,7 +16,7 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
-/obj/item/mod/module/storage/Initialize()
+/obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 	var/obj/item/storage/backpack/modstorage/S = new(src)
@@ -251,8 +251,8 @@
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = input(usr, "Pick new light color", "Flashlight Color") as color|null
-			if(!value)
+			value = tgui_input_color(usr, "Pick new light color", "Flashlight Color", light_color)
+			if(isnull(value))
 				return
 			if(is_color_dark(value, 50))
 				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))

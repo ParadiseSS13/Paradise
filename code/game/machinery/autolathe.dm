@@ -38,7 +38,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 	var/board_type = /obj/item/circuitboard/autolathe
 
-/obj/machinery/autolathe/Initialize()
+/obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	component_parts = list()
@@ -56,7 +56,7 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-/obj/machinery/autolathe/upgraded/Initialize()
+/obj/machinery/autolathe/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new board_type(null)
@@ -67,7 +67,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/autolathe/upgraded/gamma/Initialize()
+/obj/machinery/autolathe/upgraded/gamma/Initialize(mapload)
 	. = ..()
 	files = new /datum/research/autolathe/gamma(src)
 	adjust_hacked(TRUE)
@@ -80,10 +80,11 @@
 	return ..()
 
 /obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_TOOL_ATTACK
 	var/obj/item/I = tool
 	if(!istype(I))
 		return
+
 	// Allows screwdrivers to be recycled on harm intent
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
 		return COMPONENT_CANCEL_TOOLACT
@@ -262,7 +263,7 @@
 		data["queue"] = null
 	return data
 
-/obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
+/obj/machinery/autolathe/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
@@ -414,8 +415,9 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
-			new_item.pixel_y = rand(-5, 5)
-			new_item.pixel_x = rand(-5, 5)
+			new_item.scatter_atom()
+		if(is_station_level(z))
+			SSblackbox.record_feedback("tally", "station_autolathe_production", 1, "[D.type]")
 	SStgui.update_uis(src)
 	desc = initial(desc)
 
@@ -522,7 +524,7 @@
 	name = "syndicate autolathe"
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
-/obj/machinery/autolathe/syndicate/Initialize()
+/obj/machinery/autolathe/syndicate/Initialize(mapload)
 	. = ..()
 	files = new /datum/research/autolathe/syndicate(src)
 

@@ -31,7 +31,7 @@
 			I.forceMove(src)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bookcase/attackby(obj/item/O, mob/user)
+/obj/structure/bookcase/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
@@ -98,7 +98,7 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-/obj/structure/bookcase/manuals/medical/Initialize()
+/obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -107,7 +107,7 @@
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-/obj/structure/bookcase/manuals/engineering/Initialize()
+/obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/wiki/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
@@ -120,7 +120,7 @@
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-/obj/structure/bookcase/manuals/research_and_development/Initialize()
+/obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -128,7 +128,7 @@
 /obj/structure/bookcase/sop
 	name = "bookcase (Standard Operating Procedures)"
 
-/obj/structure/bookcase/sop/Initialize()
+/obj/structure/bookcase/sop/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/wiki/sop_command(src)
 	new /obj/item/book/manual/wiki/sop_engineering(src)
@@ -183,7 +183,7 @@
 	ui_interact(user)
 
 
-/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
+/obj/machinery/bookbinder/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/paper))
 		select_paper(I)
 	if(istype(I, /obj/item/paper_bundle))
@@ -337,7 +337,7 @@
 	var/obj/machinery/computer/library/computer
 	var/mode = BARCODE_MODE_SCAN_SELECT
 
-/obj/item/barcodescanner/attack_self(mob/user)
+/obj/item/barcodescanner/attack_self__legacy__attackchain(mob/user)
 	if(!check_connection(user))
 		return
 	mode++

@@ -20,7 +20,7 @@
 	if(!original_seed)
 		return FALSE
 
-	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
+	if(user && !user.drop_item_to_ground(source_item, silent = TRUE)) //couldn't drop the item
 		return FALSE
 
 	if(seed_count == -1)
@@ -74,7 +74,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
-/obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/seed_extractor/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
 		return
 

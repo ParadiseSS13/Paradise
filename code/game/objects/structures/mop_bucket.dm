@@ -23,7 +23,7 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
+/obj/structure/mopbucket/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.is_robot_module())
 		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
@@ -34,7 +34,7 @@
 			attacking_mop.wet_mop(src, user)
 			return
 
-		if(!user.unEquip(attacking_mop))
+		if(!user.drop_item_to_ground(attacking_mop))
 			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
 			return
 
