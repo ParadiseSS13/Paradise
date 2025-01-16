@@ -658,8 +658,6 @@
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
-	/// The typepath of the achievement to grant upon successful ascension.
-	var/datum/award/achievement/misc/ascension_achievement
 	/// The text of the ascension announcement.
 	/// %NAME% is replaced with the heretic's real name,
 	/// and %SPOOKY% is replaced with output from [generate_heretic_text]
@@ -733,8 +731,6 @@
 		color_override = "pink",
 	)
 
-	if(!isnull(ascension_achievement))
-		user.client?.give_award(ascension_achievement, user)
 	heretic_datum.increase_rust_strength()
 	return TRUE
 

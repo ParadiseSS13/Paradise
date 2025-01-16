@@ -32,8 +32,6 @@
 	stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
 	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 
-	/// Whether we give this antagonist objectives on gain.
-	var/give_objectives = TRUE
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -116,12 +114,12 @@
 		icon_state = mark_effect.effect_icon_state
 
 	//if the knowledge is an ascension, use the achievement sprite
-	else if(ispath(knowledge,/datum/heretic_knowledge/ultimate))
+	else if(ispath(knowledge,/datum/heretic_knowledge/ultimate))//qwertodo: icon
 		var/datum/heretic_knowledge/ultimate/ascension_knowledge = knowledge
-		var/datum/award/achievement/misc/achievement = ascension_knowledge.ascension_achievement
-		if(!isnull(achievement))
-			icon_path = achievement.icon
-			icon_state = achievement.icon_state
+//.		var/datum/award/achievement/misc/achievement = ascension_knowledge.ascension_achievement
+	//	if(!isnull(achievement))
+//			icon_path = achievement.icon
+//			icon_state = achievement.icon_state
 
 	var/list/result_parameters = list()
 	result_parameters["icon"] = icon_path

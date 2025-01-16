@@ -175,7 +175,7 @@
 		My foes were the Locks and my blades were the Key! \
 		The Labyrinth will be Locked no more, and freedom will be ours! WITNESS US!"
 	required_atoms = list(/mob/living/carbon/human = 3)
-	ascension_achievement = /datum/award/achievement/misc/lock_ascension
+
 	announcement_text = "Delta-class dimensional anomaly detec%SPOOKY% Reality rended, torn. Gates open, doors open, %NAME% has ascended! Fear the tide! %SPOOKY%"
 	announcement_sound = 'sound/music/antag/heretic/ascend_knock.ogg'
 

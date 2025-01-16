@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/spell/emp/eldritch
+/datum/spell/emplosion
 	name = "Energetic Pulse"
 	desc = "A spell that causes a large EMP around you, disabling electronics."
 

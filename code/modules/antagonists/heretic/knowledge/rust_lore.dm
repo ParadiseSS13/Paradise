@@ -167,7 +167,6 @@
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
 
-	ascension_achievement = /datum/award/achievement/misc/rust_ascension
 	announcement_text = "%SPOOKY% Fear the decay, for the Rustbringer, %NAME% has ascended! None shall escape the corrosion! %SPOOKY%"
 	announcement_sound = 'sound/music/antag/heretic/ascend_rust.ogg'
 	/// If TRUE, then immunities are currently active.
