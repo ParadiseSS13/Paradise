@@ -487,7 +487,11 @@
 
 /obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
-
+	// Make sure the target has a client. Otherwise, stop the hallucination
+	if(!target.client)
+		log_debug("Unable to find client with [target] for [src].")
+		qdel(src)
+		return
 	// Find a start spot for the sniper bullet
 	var/list/possible_turfs = list()
 	for(var/turf/T in RANGE_EDGE_TURFS(13, target.loc))
@@ -513,10 +517,9 @@
 	bullet.transform = M
 
 	// Handle who can see the bullet
-	if(target.client)
-		bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
-		bullet.bullet_image.transform = M
-		target.client.images += bullet.bullet_image
+	bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
+	bullet.bullet_image.transform = M
+	target.client.images += bullet.bullet_image
 
 	// Start flying
 	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, angle, SSprojectiles.global_pixel_speed)
