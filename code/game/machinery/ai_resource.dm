@@ -41,11 +41,13 @@
 			to_chat(user, "<span class = 'notice'>The Processing Node turns off.</span>")
 		else // We have an AI, up its memory
 			assigned_ai.program_picker.memory++
+			change_power_mode(ACTIVE_POWER_USE)
 
 	else // We're shutting down
 		if(assigned_ai)
 			assigned_ai.program_picker.memory--
 			assigned_ai = null
+		change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/processing_node/Destroy()
