@@ -8,7 +8,7 @@
 	trait_to_apply = TRAIT_SKITTISH
 
 /datum/quirk/positive/freerunner
-	name = "Freefrunner"
+	name = "Freerunner"
 	desc = "You can vault over tables faster than others."
 	cost = 4
 	trait_to_apply = TRAIT_FREERUNNER
@@ -42,7 +42,7 @@
 	name = "Meal Prepper"
 	desc = "You thought ahead and pre-packed a meal for the day."
 	cost = 1
-	items_to_give = list(/obj/item/storage/box/papersack/prepped_meal)
+	item_to_give = /obj/item/storage/box/papersack/prepped_meal
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"

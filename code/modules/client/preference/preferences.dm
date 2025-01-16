@@ -749,12 +749,22 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		active_character.loadout_gear[item] = loadout_cache[item] ? loadout_cache[item] : list()
 		total_cost += added_cost
 	return total_cost
-
-/datum/preferences/proc/get_quirk_balance()
+/*
+* Similarly to the above proc, this also serves two purposes. It tallies up and returns the total quirk balance of the current loadout
+* It also rebuilds then entire list of quirks, converting the JSON format it could be into a usable datum.
+*/
+/datum/preferences/proc/rebuild_quirks()
 	var/point_total = 0
+	if(!islist(active_character.quirks)) // If it's not a normal list then it has to be JSON. Or something went horribly wrong.
+		active_character.quirks = json_decode(active_character.quirks)
 	var/list/quirk_cache = active_character.quirks.Copy()
-	for(var/datum/quirk/chosen in quirk_cache)
-		point_total += chosen.cost
+	active_character.quirks.Cut()
+	for(var/quirk_name in quirk_cache)
+		var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
+		if(!quirk)
+			continue
+		point_total += quirk.cost
+		active_character.quirks += quirk
 	return point_total
 
 /datum/preferences/proc/init_keybindings(overrides, raw)

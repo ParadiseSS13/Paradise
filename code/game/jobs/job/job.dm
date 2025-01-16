@@ -224,10 +224,10 @@
 					gear_leftovers += G
 
 	if(H.client && length(H.client.prefs.active_character.quirks))
-		for(var/datum/quirk/quirk in H.client.prefs.active_character.quirks)
+		for(var/quirk_name in H.client.prefs.active_character.quirks)
+			var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
 			quirk.apply_quirk_effects(H)
-		var/list/quirk_gear = H.get_all_quirk_items()
-		gear_leftovers += quirk_gear
+			quirk.give_item(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

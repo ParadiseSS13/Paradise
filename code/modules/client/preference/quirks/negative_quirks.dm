@@ -19,7 +19,7 @@
 	name = "Foreigner"
 	desc = "You just recently joined the greater galactic community, and don't understand the common tongue yet."
 	cost = -1
-	items_to_give = /obj/item/taperecorder
+	item_to_give = /obj/item/taperecorder
 	spawn_text = "You feel out of place."
 
 /datum/quirk/negative/foreigner/apply_quirk_effects(mob/living/quirky)
@@ -30,7 +30,7 @@
 /datum/quirk/negative/allergy
 	organic_only = TRUE
 	trait_to_apply = TRAIT_ALLERGIC
-	items_to_give = list(/obj/item/reagent_containers/hypospray/autoinjector/survival)
+	item_to_give = list(/obj/item/reagent_containers/hypospray/autoinjector/survival)
 	/// Common allergens, reagents that are very easily avoidable
 	var/list/low_risk_allergens = list("banana", "apple", "peanuts", "toxin", "fungus", "egg", "tofu", "chocolate", "ants")
 	/// More uncommon medicines that could be a problem to be allergic to but can be worked around.
@@ -69,6 +69,10 @@
 	trait_to_apply = TRAIT_BLIND
 	blacklisted = TRUE
 
+/datum/quirk/negative/blind/apply_quirk_effects(mob/living/quirky)
+	..()
+	quirky.update_sight() // Gotta make sure to manually update sight, apparently.
+
 /datum/quirk/negative/frail
 	name = "Frail"
 	desc = "You get major injuries much easier."
@@ -81,4 +85,4 @@
 	cost = -4
 	organic_only = TRUE
 	trait_to_apply = TRAIT_ASTHMATIC
-	items_to_give = list(/obj/item/reagent_containers/pill/salbutamol)
+	item_to_give = /obj/item/reagent_containers/pill/salbutamol

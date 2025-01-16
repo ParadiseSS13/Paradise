@@ -16,8 +16,8 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/processes = FALSE
 	/// If this quirk applies a trait, what trait should be applied.
 	var/trait_to_apply
-	/// If this quirk lets the mob start with extra item/items.
-	var/list/items_to_give
+	/// If this quirk lets the mob start with extra item
+	var/item_to_give
 	/// If there's text that the user needs to be shown when they're given the quirk.
 	var/spawn_text
 
@@ -26,10 +26,12 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	owner = null
 	..()
 
+/datum/quirk/proc/build_quirks()
+
 /*
 * The proc for actually applying a quirk to a mob, most often during spawning.
 */
-/datum/quirk/proc/apply_quirk_effects(mob/living/quirky)
+/datum/quirk/proc/apply_quirk_effects(mob/living/carbon/human/quirky)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!quirky)
 		log_debug("[src] did not find a mob to apply its effects to.")
@@ -44,21 +46,34 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 
 /// For any behavior that needs to happen before a quirk is destroyed
 /datum/quirk/proc/remove_quirk_effects()
+	SHOULD_CALL_PARENT(TRUE)
 	if(trait_to_apply)
 		REMOVE_TRAIT(owner, trait_to_apply, "quirk")
 	if(processes)
 		STOP_PROCESSING(SSprocessing, src)
-	return
 
-/********************
-    * Mob Procs *
- *********************/
+/// The proc run at roundstart that gives users any items that a quirk may let them spawn with.
+/datum/quirk/proc/give_item(mob/living/carbon/human/quirky)
+	if(!item_to_give)
+		return
+	var/item = new item_to_give()
+	if(!isitem(item))
+		return
+	var/obj/item/to_give = item
+	quirky.equip_or_collect(to_give, ITEM_SLOT_IN_BACKPACK) //TODO make this actually put the item in their backpack.
+
+/********************************************************************
+*   Mob Procs, mostly for many mob/new_player in the lobby screen 	*
+ ********************************************************************/
 /mob/proc/add_quirk_to_save(datum/quirk/to_add)
 	var/datum/character_save/active_character = src.client?.prefs?.active_character
 	if(!active_character)
 		return FALSE
 	if(to_add.organic_only && (active_character.species == "Machine"))
 		to_chat(src, "<span class='warning'>You can't put that quirk on a robotic character.</span>")
+		return FALSE
+	if(to_add.machine_only && (active_character.species != "Machine"))
+		to_chat(src, "<span class='warning'>You can't put that quirk on an organic character.</span>")
 		return FALSE
 	active_character.quirks += to_add
 	return TRUE
@@ -73,14 +88,3 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 			active_character.quirks.Remove(quirk)
 			return TRUE
 	return FALSE
-
-/// Finds all items given to the user by their chosen quirks and returns them in a list.
-/mob/proc/get_all_quirk_items()
-	var/list/all_items = list()
-	var/datum/character_save/active_character = src.client?.prefs?.active_character
-	if(!active_character)
-		return FALSE
-	for(var/datum/quirk/quirk in active_character.quirks)
-		all_items += quirk.items_to_give
-	return all_items
-

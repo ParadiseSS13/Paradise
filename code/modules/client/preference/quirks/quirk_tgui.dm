@@ -15,10 +15,10 @@ GLOBAL_LIST_EMPTY(quirk_tgui_info)
 
 /datum/ui_module/quirk/ui_data(mob/user)
 	var/datum/preferences/preferences = user?.client?.prefs
-	var/list/data = list("quirk_balance" = preferences.get_quirk_balance())
+	var/list/data = list("quirk_balance" = preferences.rebuild_quirks())
 	var/list/selected_quirks = list()
-	for(var/datum/quirk/quirk in preferences.active_character?.quirks)
-		selected_quirks += quirk.name
+	for(var/quirk in preferences.active_character?.quirks)
+		selected_quirks += quirk
 	data["selected_quirks"] = selected_quirks
 	return data
 
