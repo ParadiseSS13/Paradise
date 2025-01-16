@@ -613,7 +613,6 @@
 	starts_charged = FALSE
 	level_max = 10
 	selection_activated_message = "<span class='notice'>You spool up your research tools...</span>"
-	selection_deactivated_message = "<span class='notice'>You spool down.</span>"
 	var/rnd_server = "station_rnd"
 
 /datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
