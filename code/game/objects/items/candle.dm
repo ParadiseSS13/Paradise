@@ -100,11 +100,11 @@
 		new/obj/item/trash/candle(src.loc)
 		if(ismob(src.loc))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.drop_item_to_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
 /obj/item/candle/proc/unlight()
 	if(lit)
@@ -118,9 +118,15 @@
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		unlight()
 
+/obj/item/candle/lit
+	start_lit = TRUE
+
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
+
+/obj/item/candle/eternal/lit
+	start_lit = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)

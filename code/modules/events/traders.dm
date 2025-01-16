@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/traders/cyber
 	trader_type = "Cybersun Industries"
-	trader_location = "-=ERROR: Unregisted Station Charter=-"
+	trader_location = "-=ERROR: Unregistered Station Charter=-"
 	dock_site = "an undercover robotics factory"
 	trader_species = /mob/living/carbon/human
 	trader_outfit = /datum/outfit/admin/trader/cyber

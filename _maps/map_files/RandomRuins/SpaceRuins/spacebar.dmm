@@ -223,7 +223,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aY" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/scalpel,
 /obj/structure/table,
@@ -323,7 +323,7 @@
 /area/ruin/space/powered/bar)
 "bn" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bo" = (
@@ -484,7 +484,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "pb" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /obj/machinery/door_control{
 	id = "SpaceBar";
 	name = "Public Shutters";
@@ -895,7 +895,7 @@
 /area/ruin/space/powered)
 "QU" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -949,7 +949,7 @@
 	},
 /area/ruin/space/powered/bar)
 "VR" = (
-/obj/item/stack/tile/mineral,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "VU" = (

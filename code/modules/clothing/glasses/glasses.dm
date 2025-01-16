@@ -13,7 +13,7 @@
 		if(prescription)
 			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
 			return
-		H.unEquip(I)
+		H.drop_item_to_ground(I)
 		upgrade_prescription(I)
 		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
 
