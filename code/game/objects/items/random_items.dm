@@ -39,19 +39,18 @@
 	reagents.add_reagent(R, volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 /obj/item/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
 	allow_wrap = FALSE
 	var/labelled = FALSE
+	scatter_distance = 10
 
 /obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 
 /obj/item/storage/pill_bottle/random_meds/populate_contents()
 	var/list/possible_meds_standard = GLOB.standard_medicines.Copy()

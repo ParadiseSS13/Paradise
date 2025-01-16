@@ -334,8 +334,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
-		occupant.unEquip(I)
-		I.forceMove(src)
+		occupant.transfer_item_to(I, src)
 		handle_contents(I)
 
 	//Delete all items not on the preservation list.
@@ -429,9 +428,9 @@
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(announce_rank)
-				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 			else
-				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(announce_rank)
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")

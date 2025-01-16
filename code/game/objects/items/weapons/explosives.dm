@@ -21,6 +21,10 @@
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
@@ -31,11 +35,10 @@
 /obj/item/grenade/plastic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
-		if(!user.unEquip(I))
+		if(!user.transfer_item_to(A, src))
 			return ..()
 		nadeassembly = A
 		A.master = src
-		A.loc = src
 		assemblyattacher = user.ckey
 		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
@@ -50,9 +53,9 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
@@ -82,8 +85,9 @@
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
 	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
-		if(!user.unEquip(src))
+		if(!user.unequip(src))
 			return
+
 		target = AM
 		loc = null
 

@@ -79,7 +79,7 @@
 		if(tank)
 			to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 			return
-		if(!user.unEquip(thetank))
+		if(!user.unequip(thetank))
 			return
 		to_chat(user, "<span class='notice'>As you hook [thetank] up to [src], the fist locks into place around your arm.</span>")
 		tank = thetank

@@ -83,13 +83,12 @@
 /turf/simulated/floor/grass/get_broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/grass/attackby__legacy__attackchain(obj/item/C, mob/user, params)
-	if(..())
-		return
-	if(istype(C, /obj/item/shovel))
+/turf/simulated/floor/grass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/shovel))
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
@@ -213,6 +212,12 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
+
+/turf/simulated/floor/carpet/grimey
+	icon = 'icons/turf/floors/carpet_grimey.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/grimey
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET,SMOOTH_GROUP_CARPET_GRIMEY)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_GRIMEY)
 
 /turf/simulated/floor/carpet/airless
 	oxygen = 0

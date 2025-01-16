@@ -537,8 +537,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv", "Hydrobot")
-			can_be_hatted = FALSE // Their base sprite already comes with a hat
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
+			can_wear_restricted_hats = TRUE
+		if("Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv")
+			can_be_hatted = FALSE
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
 			can_be_hatted = TRUE
@@ -1455,7 +1458,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "IC"
 
 	var/obj/item/W = get_active_hand()
-	if(W)
+	if(!W)
+		return
+	if(W.new_attack_chain)
+		W.activate_self(src)
+	else
 		W.attack_self__legacy__attackchain(src)
 
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
@@ -1809,3 +1816,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/robot/plushify(plushie_override, curse_time)
+	if(curse_time == -1)
+		QDEL_NULL(mmi)
+	return ..()

@@ -54,15 +54,17 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 	new /datum/stack_recipe_list("comfy chairs", list(
 		new /datum/stack_recipe("corporate comfy chair", /obj/structure/chair/comfy/corp, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("orange comfy chair", /obj/structure/chair/comfy/orange, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("yellow comfy chair", /obj/structure/chair/comfy/yellow, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("blue comfy chair", /obj/structure/chair/comfy/blue, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 
 	null,
@@ -172,9 +174,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/metal/New(loc, amount=null)
+/obj/item/stack/sheet/metal/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.metal_recipes
-	return ..()
 
 //////////////////////////////
 // MARK: PLASTEEL
@@ -226,9 +228,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasteel/New(loc, amount=null)
+/obj/item/stack/sheet/plasteel/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plasteel_recipes
-	return ..()
 
 /obj/item/stack/sheet/wood/cyborg
 	energy_type = /datum/robot_storage/energy/wood
@@ -291,9 +293,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	sheettype = "wood"
 	table_type = /obj/structure/table/wood
 
-/obj/item/stack/sheet/wood/New(loc, amount=null)
+/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.wood_recipes
-	return ..()
 
 //////////////////////////////
 // MARK: BAMBOO
@@ -330,9 +332,9 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	sheettype = "bamboo"
 	merge_type = /obj/item/stack/sheet/bamboo
 
-/obj/item/stack/sheet/bamboo/New(loc, amount=null)
+/obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.bamboo_recipes
-	return ..()
 
 /obj/item/stack/sheet/bamboo/fifty
 	amount = 50
@@ -343,7 +345,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
-		new /datum/stack_recipe("white scarf", /obj/item/clothing/accessory/scarf/white, 1),
+		new /datum/stack_recipe("white scarf", /obj/item/clothing/neck/scarf/white, 1),
 		new /datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
 		new /datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2),
 		null,
@@ -395,9 +397,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/cloth/New(loc, amount=null)
+/obj/item/stack/sheet/cloth/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.cloth_recipes
-	..()
 
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
@@ -512,9 +514,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/New(loc, amt = null)
+/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.cardboard_recipes
-	return ..()
 
 //////////////////////////////
 // MARK: SOIL
@@ -566,7 +568,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	. += ""
 	. += "Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."
 
-/obj/item/stack/sheet/runed_metal/New()
+/obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge)
 	. = ..()
 	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
@@ -654,9 +656,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/tile/brass/New(loc, amount=null)
-	recipes = GLOB.brass_recipes
+/obj/item/stack/tile/brass/Initialize(mapload, new_amount, merge)
 	. = ..()
+	recipes = GLOB.brass_recipes
 	pixel_x = 0
 	pixel_y = 0
 
@@ -747,9 +749,9 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	. += "Despite the extensive uses of plastics, they are not as ubiquitous as other materials (especially steel). This is due to a combination of environmental regulations, \
 	established market patterns, and the operational requirements for many space-based installations to employ easily recycled materials to conserve limited supplies."
 
-/obj/item/stack/sheet/plastic/New()
-	recipes = GLOB.plastic_recipes
+/obj/item/stack/sheet/plastic/Initialize(mapload, new_amount, merge)
 	. = ..()
+	recipes = GLOB.plastic_recipes
 
 /obj/item/stack/sheet/plastic/fifty
 	amount = 50

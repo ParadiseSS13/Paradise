@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(silver_recipes, list (
 		new /datum/stack_recipe("Corgi Statue", /obj/structure/statue/silver/corgi, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	null,
-	new /datum/stack_recipe("Silver Locket", /obj/item/clothing/accessory/necklace/locket/silver, 1),
+	new /datum/stack_recipe("Silver Locket", /obj/item/clothing/neck/necklace/locket/silver, 1),
 	))
 
 GLOBAL_LIST_INIT(diamond_recipes, list (
@@ -87,9 +87,9 @@ GLOBAL_LIST_INIT(gold_recipes, list (
 	new /datum/stack_recipe_list("gold clothing", list(
 		new /datum/stack_recipe("Simple Crown", /obj/item/clothing/head/crown, 5),
 		null,
-		new /datum/stack_recipe("Simple Necklace", /obj/item/clothing/accessory/necklace, 1),
-		new /datum/stack_recipe("Large Necklace", /obj/item/clothing/accessory/necklace/long, 2),
-		new /datum/stack_recipe("Gold Locket", /obj/item/clothing/accessory/necklace/locket, 1),
+		new /datum/stack_recipe("Simple Necklace", /obj/item/clothing/neck/necklace, 1),
+		new /datum/stack_recipe("Large Necklace", /obj/item/clothing/neck/necklace/long, 2),
+		new /datum/stack_recipe("Gold Locket", /obj/item/clothing/neck/necklace/locket, 1),
 		)),
 	))
 
@@ -148,10 +148,13 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throwforce = 5
 	throw_speed = 3
 
-/obj/item/stack/sheet/mineral/New()
-	..()
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+/obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
+	. = ..()
+	scatter_atom()
+
+/obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)
+	pixel_x = rand(-4,0) + offset_x
+	pixel_y = rand(-4,0) + offset_y
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
@@ -167,8 +170,8 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 /obj/item/stack/sheet/mineral/sandstone/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/sandstone/New()
-	..()
+/obj/item/stack/sheet/mineral/sandstone/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sandstone_recipes
 
 /*
@@ -188,9 +191,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	new /datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/sandbags/New()
+/obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sandbag_recipes
-	..()
 
 /obj/item/emptysandbag
 	name = "empty sandbag"
@@ -230,8 +233,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "Diamond is highly sought after for both aesthetic uses and as a component of many advanced technologies."
 
-/obj/item/stack/sheet/mineral/diamond/New()
-	..()
+/obj/item/stack/sheet/mineral/diamond/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.diamond_recipes
 
 /obj/item/stack/sheet/mineral/diamond/fifty
@@ -258,8 +261,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/uranium/New()
-	..()
+/obj/item/stack/sheet/mineral/uranium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.uranium_recipes
 
 /obj/item/stack/sheet/mineral/plasma
@@ -288,8 +291,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Despite its flammability, plasma-enhanced materials such as plasteel or plasma glass generally possess extreme fire resistance, ultra-low thermal conductivity, and a high emissivity. \
 	This allows, for example, a relatively thin pane of plasma glass to be cool to the touch even when a massive inferno is burning on the other side."
 
-/obj/item/stack/sheet/mineral/plasma/New()
-	..()
+/obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/fifty
@@ -341,8 +344,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/gold/New()
-	..()
+/obj/item/stack/sheet/mineral/gold/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.gold_recipes
 
 /obj/item/stack/sheet/mineral/silver
@@ -367,8 +370,8 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/silver/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/silver/New()
-	..()
+/obj/item/stack/sheet/mineral/silver/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.silver_recipes
 
 /obj/item/stack/sheet/mineral/bananium
@@ -393,11 +396,14 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
 
+/obj/item/stack/sheet/mineral/bananium/thirty
+	amount = 30
+
 /obj/item/stack/sheet/mineral/bananium/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/bananium/New(loc, amount=null)
-	..()
+/obj/item/stack/sheet/mineral/bananium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.bananium_recipes
 
 /obj/item/stack/sheet/mineral/tranquillite
@@ -424,11 +430,14 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
 
+/obj/item/stack/sheet/mineral/tranquillite/thirty
+	amount = 30
+
 /obj/item/stack/sheet/mineral/tranquillite/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
-	..()
+/obj/item/stack/sheet/mineral/tranquillite/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.tranquillite_recipes
 
 /*
@@ -461,12 +470,13 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
-	new /datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("surgical tray", /obj/item/storage/surgical_tray, 1),
+	new /datum/stack_recipe("surgical instrument table", /obj/structure/table/tray, 3, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/titanium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.titanium_recipes
-	..()
 
 /obj/item/stack/sheet/mineral/titanium/fifty
 	amount = 50
@@ -507,9 +517,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("reinforced wheelchair", /obj/structure/chair/wheelchair/plastitanium, 15, time = 7 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/plastitanium/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plastitanium_recipes
-	..()
 
 
 //Alien Alloy
@@ -537,9 +547,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/abductor/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/abductor/New(loc, amount=null)
+/obj/item/stack/sheet/mineral/abductor/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.abductor_recipes
-	..()
 
 /obj/item/stack/sheet/mineral/adamantine
 	name = "adamantine"
@@ -551,9 +561,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
 
-/obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
+/obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.adamantine_recipes
-	..()
 
 
 /obj/item/stack/sheet/mineral/adamantine/fifty
@@ -571,6 +581,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow
 
-/obj/item/stack/sheet/mineral/snow/New(loc, amount = null)
+/obj/item/stack/sheet/mineral/snow/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.snow_recipes
-	..()

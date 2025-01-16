@@ -93,7 +93,7 @@
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
-	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
+	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -161,7 +161,7 @@
 
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
-	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/airlock)
 
 /// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
 /obj/effect/mapping_helpers/bombable_wall
@@ -222,7 +222,8 @@
 	T.burn_tile()
 
 /obj/effect/mapping_helpers/turfs/rust
-	icon_state = "rustwall"
+	icon = 'icons/effects/rust_overlay.dmi'
+	icon_state = "rust1"
 	var/spawn_probability = 100
 
 /obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
@@ -230,7 +231,12 @@
 		return
 
 	if(prob(spawn_probability))
-		T.rust()
+		rustify(T)
+
+/obj/effect/mapping_helpers/turfs/proc/rustify(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !HAS_TRAIT(W, TRAIT_RUSTY))
+		W.rust_turf()
 
 /obj/effect/mapping_helpers/turfs/rust/probably
 	spawn_probability = 75
