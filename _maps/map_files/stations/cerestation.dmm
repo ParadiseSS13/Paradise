@@ -1194,6 +1194,7 @@
 /area/station/turret_protected/ai)
 "aiu" = (
 /obj/structure/filingcabinet/medical,
+/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "aiB" = (
@@ -4532,6 +4533,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/dispenser/oxygen,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "aNG" = (
@@ -4607,7 +4615,6 @@
 	},
 /area/station/telecomms/computer)
 "aOn" = (
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/power/apc/directional/north,
@@ -6011,6 +6018,9 @@
 	},
 /area/station/security/brig)
 "baq" = (
+/obj/structure/sign/greencross{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -8183,9 +8193,7 @@
 /obj/item/clothing/mask/muzzle,
 /obj/structure/closet/secure_closet/psychiatrist,
 /obj/item/storage/briefcase,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "bmX" = (
@@ -8405,6 +8413,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
+"bpa" = (
+/obj/structure/sign/greencross{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "bpc" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room"
@@ -20342,13 +20359,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = -32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20369,6 +20379,9 @@
 	pixel_x = 32
 	},
 /obj/structure/bed/psych,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
 "cOs" = (
@@ -30327,6 +30340,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "eHT" = (
@@ -33750,10 +33770,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -41386,6 +41406,13 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
+"hCz" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "hCG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -42660,13 +42687,6 @@
 "hQx" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
-	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 32
 	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/disposalpipe/segment,
@@ -45543,6 +45563,13 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/dirt/often,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "izC" = (
@@ -51228,6 +51255,19 @@
 	c_tag = "Medbay Asteroid Hallway 1";
 	dir = 8
 	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -8;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 1;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -55939,12 +55979,6 @@
 	temperature = 80
 	},
 /area/station/science/xenobiology)
-"kQa" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/medical/psych)
 "kQc" = (
 /obj/machinery/light{
 	dir = 4
@@ -65332,6 +65366,9 @@
 	c_tag = "Medbay Asteroid Hallway 5";
 	dir = 9
 	},
+/obj/structure/sign/greencross{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -66188,6 +66225,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/robotics)
 "npl" = (
+/obj/structure/sign/greencross{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -72868,7 +72908,24 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/firealarm/directional/west,
+/obj/structure/sign/directions/science{
+	pixel_x = -32;
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/service{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = 16
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -76727,22 +76784,6 @@
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"pRV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "pRX" = (
 /obj/machinery/light{
 	dir = 4
@@ -80495,7 +80536,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -81132,16 +81172,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
-"qUu" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "qUO" = (
 /mob/living/simple_animal/bunny{
 	desc = "It's Spaghetti, the official bnuy of Atmospherics. Appropriately named after the jumbled mess of piping.";
@@ -83323,7 +83353,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/starboard)
 "rzm" = (
 /obj/machinery/door/airlock/maintenance{
@@ -89050,6 +89082,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -91254,9 +91287,9 @@
 /area/station/hallway/primary/port/north)
 "tqQ" = (
 /obj/machinery/newscaster/directional/west,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -104913,6 +104946,17 @@
 	icon_state = "red"
 	},
 /area/station/security/range)
+"wDU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/greencross{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "wDV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -154483,7 +154527,7 @@ mbP
 vXn
 baq
 bvt
-cWQ
+bpa
 vXn
 uVv
 qeO
@@ -154999,7 +155043,7 @@ tiL
 ljp
 cWQ
 vXn
-pRV
+bMw
 nUg
 aAW
 wZv
@@ -155507,7 +155551,7 @@ aAk
 nUg
 nUg
 nUg
-qUu
+rPz
 vXn
 hXY
 bvt
@@ -156563,7 +156607,7 @@ nwI
 jgO
 ooM
 bmR
-bmR
+wDU
 oXl
 xUV
 dlj
@@ -157076,7 +157120,7 @@ lrO
 bwR
 udH
 fXz
-npl
+hCz
 npl
 jLn
 juZ
@@ -158589,7 +158633,7 @@ fmI
 neH
 cMM
 cOr
-kQa
+bcN
 fsi
 blG
 beC
