@@ -1164,10 +1164,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/plasteel = 5)
 
-/obj/item/circuitboard/processingnode
+/obj/item/circuitboard/processing_node
 	board_name = "Processing Node"
 	icon_state = "science"
-	build_path = /obj/machinery/processingnode
+	build_path = /obj/machinery/processing_node
 	board_type = "machine"
 	origin_tech = "programming=4"
 	req_components = list(

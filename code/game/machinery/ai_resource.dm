@@ -1,4 +1,4 @@
-/obj/machinery/processingnode
+/obj/machinery/processing_node
 	name = "Processing Node"
 	desc = "Test Description"
 	icon = 'icons/obj/machines/ai_machinery.dmi'
@@ -8,14 +8,15 @@
 	max_integrity = 100
 	idle_power_consumption = 5
 	active_power_consumption = 200
-
+	/// Is the machine active
 	var/active = FALSE
+	/// What AI is this machine associated with
 	var/mob/living/silicon/ai/assigned_ai = null
 
-/obj/machinery/processingnode/Initialize(mapload)
+/obj/machinery/processing_node/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/processingnode(null)
+	component_parts += new /obj/item/circuitboard/processing_node(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null, 2)
 	component_parts += new /obj/item/stack/sheet/mineral/gold(null, 10)
 	component_parts += new /obj/item/stack/sheet/mineral/silver(null, 10)
@@ -23,7 +24,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/processingnode/attack_hand(user as mob)
+/obj/machinery/processing_node/attack_hand(user as mob)
 	to_chat(user, "<span class = 'notice'>You toggle the Processing Node from [active ? "On" : "Off"] to [active ? "Off" : "On"]</span>")
 	active = !active
 	if(active) // We're booting up
@@ -42,15 +43,23 @@
 			assigned_ai.program_picker.memory++
 
 	else // We're shutting down
-		// TODO rest of shutting down code
+		if(assigned_ai)
+			assigned_ai.program_picker.memory--
+			assigned_ai = null
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/processing_node/Destroy()
+	. = ..()
+	if(assigned_ai)
 		assigned_ai.program_picker.memory--
 		assigned_ai = null
-		to_chat(user, "Turning off")
-	update_icon(UPDATE_ICON_STATE)
-	if(assigned_ai)
-		// "destroyed" "do"
-		// assigned_ai.program_picker.memory--
-		// assigned_ai = null
 
-/obj/machinery/processingnode/update_icon_state()
+/obj/machinery/processing_node/on_deconstruction()
+	. = ..()
+	if(assigned_ai)
+		assigned_ai.program_picker.memory--
+		assigned_ai = null
+
+/obj/machinery/processing_node/update_icon_state()
+	. = ..()
 	icon_state = "processor-[active ? "on" : "off"]"

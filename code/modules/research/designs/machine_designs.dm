@@ -602,12 +602,12 @@
 	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")
 
-/datum/design/processingnode
+/datum/design/processing_node
 	name =  "Machine Design (Processing Node)"
 	desc = "The circuit board for a processing node."
-	id = "processingnode"
+	id = "processing_node"
 	req_tech = list("programming" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
-	build_path = /obj/machinery/processingnode
+	build_path = /obj/machinery/processing_node
 	category = list("Misc. Machinery")
