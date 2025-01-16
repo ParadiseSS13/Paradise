@@ -55,7 +55,7 @@
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/extinguisher/activate_self(mob/user)
-	if (..())
+	if(..())
 		return
 
 	// Backpack extinguishers have no safety mechanism.
