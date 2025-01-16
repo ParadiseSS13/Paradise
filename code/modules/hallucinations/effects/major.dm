@@ -489,7 +489,6 @@
 	. = ..()
 	// Make sure the target has a client. Otherwise, stop the hallucination
 	if(!target.client)
-		log_debug("Unable to find client with [target] for [src].")
 		qdel(src)
 		return
 	// Find a start spot for the sniper bullet
