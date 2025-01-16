@@ -1,6 +1,6 @@
 /datum/spawn_pool/spaceloot
 	id = "space_loot_spawn_pool"
-	available_points = 1800
+	available_points = 1700
 
 /obj/effect/spawner/random/pool/spaceloot
 	icon = 'icons/effects/random_spawners.dmi'
