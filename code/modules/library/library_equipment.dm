@@ -162,11 +162,32 @@
 /obj/structure/bookcase/metal
 	icon_state = "bookshelf_metal"
 
+/obj/structure/bookcase/metal/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(loc, 5)
+	for(var/obj/item/I in contents)
+		if(is_type_in_list(I, allowed_books))
+			I.forceMove(get_turf(src))
+	..()
+
 /obj/structure/bookcase/nt
 	icon_state = "bookshelf_nt"
 
+/obj/structure/bookcase/nt/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(loc, 5)
+	for(var/obj/item/I in contents)
+		if(is_type_in_list(I, allowed_books))
+			I.forceMove(get_turf(src))
+	..()
+
 /obj/structure/bookcase/military
 	icon_state = "bookshelf_military"
+
+/obj/structure/bookcase/military/plasteeldeconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood(loc, 5)
+	for(var/obj/item/I in contents)
+		if(is_type_in_list(I, allowed_books))
+			I.forceMove(get_turf(src))
+	..()
 
 /*
  * Book binder
