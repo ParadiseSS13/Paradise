@@ -223,7 +223,7 @@
 
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
-		icon_state = "r_wall-[d_state]"
+		icon_state = "r_wall_[d_state]"
 		smoothing_flags = NONE
 	else
 		smoothing_flags = SMOOTH_BITMASK
