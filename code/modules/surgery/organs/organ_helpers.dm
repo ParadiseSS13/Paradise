@@ -79,12 +79,15 @@
 
 /mob/living/carbon/human/get_num_legs()
 	. = 0
+	if (HAS_TRAIT(src, TRAIT_PARAPLEGIC))
+		return . // Early return.
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/affecting = X
 		if(affecting.body_part == LEG_RIGHT)
 			.++
 		if(affecting.body_part == LEG_LEFT)
 			.++
+
 /* Returns true if all the mob's vital organs are functional, otherwise returns false.
 *  This proc is only used for checking if IPCs can revive from death, so calling it on a non IPC will always return false (right now)
 */

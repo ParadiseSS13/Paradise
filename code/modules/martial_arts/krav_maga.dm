@@ -56,7 +56,7 @@
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	if(!owner.get_num_legs())
-		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no working legs.</span>") // Changing bc this'll be returned for paraplegics, too.
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
