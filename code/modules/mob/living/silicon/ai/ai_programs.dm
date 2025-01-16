@@ -591,3 +591,72 @@
 	upgrade_level++
 	AI.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
 	installed = TRUE
+
+// Experimental Research Subsystem - Knowledge is power
+/datum/ai_program/research_subsystem
+	program_name = "Experimental Research Subsystem"
+	program_id = "research_subsystem"
+	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
+	cost = 5
+	nanite_cost = 60
+	power_type = /datum/spell/ai_spell/research_subsystem
+	unlock_text = "Research and Discovery submodule installation complete."
+
+/datum/spell/ai_spell/research_subsystem
+	name = "Experimental Research Subsystem"
+	desc = "Heal a crew member with large numbers of robotic nanomachines!"
+	action_icon = 'icons/obj/machines/research.dmi'
+	action_icon_state = "tdoppler"
+	auto_use_uses = FALSE
+	base_cooldown = 900 SECONDS
+	cooldown_min = 600 SECONDS
+	starts_charged = FALSE
+	level_max = 10
+	selection_activated_message = "<span class='notice'>You spool up your research tools...</span>"
+	selection_deactivated_message = "<span class='notice'>You spool down.</span>"
+	var/rnd_server = "station_rnd"
+
+/datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
+	// First, find the RND server
+	var/network_manager_uid = null
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC.network_name == rnd_server)
+			network_manager_uid = RNC.UID()
+			break
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(!RNC) // Could not find the RND server. It probably blew up.
+		return
+
+	var/upgraded = FALSE
+	var/datum/research/files = RNC.research_files
+	if(!files)
+		return
+	var/list/possible_tech = list()
+	for(var/datum/tech/T in files.possible_tech)
+		possible_tech += T
+	while(!upgraded)
+		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
+		// If there are no possible techs to upgrade, stop the program
+		if(!tech_to_upgrade)
+			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
+			return
+		// No illegals until level 10
+		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
+			continue
+		// No alien research
+		if(istype(tech_to_upgrade, /datum/tech/abductor))
+			continue
+		var/datum/tech/current = files.find_possible_tech_with_id(tech_to_upgrade.id)
+		if(!current)
+			continue
+		// If the tech is level 7 and the program too weak, don't upgrade
+		if(current.level >= 7 && spell_level < 5)
+			continue
+		// Nothing beyond 8
+		if(current.level >= 8)
+			continue
+		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
+		to_chat(user, "<span class='notice'>Discovered innovations has led to an increase in the [current] field!</span>")
+		upgraded = TRUE
+
+
