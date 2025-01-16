@@ -38,10 +38,6 @@
 	icon_state = "asteroid_core"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	sound_environment = SOUND_AREA_ASTEROID
-	
-/area/station/engineering/atmos/canister_storage
-	name = "Atmospherics Canister Storage"
-	icon_state = "atmos"
 
 // general engineering
 /area/station/engineering
