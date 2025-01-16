@@ -969,16 +969,15 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
-				var/mob/dead/observer/ghost = M.get_ghost()
 				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
 				M.do_jitter_animation(200) // Visual feedback of lazarus working.
-
+				var/mob/dead/observer/ghost = M.get_ghost()
 				if(ghost)
 					to_chat(ghost, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 					window_flash(ghost.client)
 					SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
-				addtimer(CALLBACK(src, /datum/reagent/medicine/lazarus_reagent/proc/check_revival, M), 5 SECONDS) // 5 seconds to re-enter body
+				addtimer(CALLBACK(src, PROC_REF(check_revival), M), 5 SECONDS) // same time as the defib to keep things consistant.
 
 	..()
 
@@ -1001,7 +1000,7 @@
 		M.delayed_gib(TRUE)
 		return
 
-	// If the ghost has re-entered the body, perform the revival
+	// If the ghost has re-entered the body, perform the revival!
 	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
 	M.adjustCloneLoss(50)
 	M.setOxyLoss(0)
