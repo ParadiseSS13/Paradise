@@ -1,5 +1,5 @@
 /// How many Z levels we allow before being suspicious that the wrong number was sent.
-pub(crate) const MAX_Z_LEVELS: i32 = 10;
+pub(crate) const MAX_Z_LEVELS: i32 = 14;
 
 /// How big is the map? Assumed square.
 pub(crate) const MAP_SIZE: usize = 255;

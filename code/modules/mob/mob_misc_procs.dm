@@ -285,12 +285,22 @@
 		if(prob(33.33))
 			if(lowertext(newletter) == "o")
 				newletter = "u"
+			if(lowertext(newletter) == "о")
+				newletter = "у"
+			if(lowertext(newletter) == "э")
+				newletter = "и"
 			if(lowertext(newletter) == "s")
 				newletter = "ch"
+			if(lowertext(newletter) == "с")
+				newletter = "сш"
 			if(lowertext(newletter) == "a")
 				newletter = "ah"
+			if(lowertext(newletter) == "а")
+				newletter = "ах"
 			if(lowertext(newletter) == "c")
 				newletter = "k"
+			if(lowertext(newletter) == "ц")
+				newletter = "сц"
 		if(prob(60))
 			if(prob(11.11))
 				newletter += pick(slurletters)

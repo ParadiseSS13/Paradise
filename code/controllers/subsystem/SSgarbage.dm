@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(garbage)
 	var/type = D.type
 	var/refID = text_ref(D)
 
-	del(D)
+	// del(D) SS220 EDIT - disable hard del (performance tweak)
 
 	tick = (TICK_USAGE - tick + ((world.time - ticktime) / world.tick_lag * 100))
 
