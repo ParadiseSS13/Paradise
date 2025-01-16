@@ -254,7 +254,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/riveted
-	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon = 'icons/turf/walls/32x40reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	smoothing_flags = SMOOTH_BITMASK
