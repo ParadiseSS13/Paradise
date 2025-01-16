@@ -18,6 +18,7 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
+	var/material_type = /obj/item/stack/sheet/wood
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
@@ -68,7 +69,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(loc, 5)
+	new material_type(get_turf(src), 5)
 	for(var/obj/item/I in contents)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
@@ -161,33 +162,15 @@
 
 /obj/structure/bookcase/metal
 	icon_state = "bookshelf_metal"
-
-/obj/structure/bookcase/metal/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(loc, 5)
-	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(get_turf(src))
-	..()
+	material_type = /obj/item/stack/sheet/metal
 
 /obj/structure/bookcase/nt
 	icon_state = "bookshelf_nt"
-
-/obj/structure/bookcase/nt/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(loc, 5)
-	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(get_turf(src))
-	..()
+	material_type = /obj/item/stack/sheet/metal
 
 /obj/structure/bookcase/military
 	icon_state = "bookshelf_military"
-
-/obj/structure/bookcase/military/plasteeldeconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(loc, 5)
-	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(get_turf(src))
-	..()
+	material_type = /obj/item/stack/sheet/plasteel
 
 /*
  * Book binder
