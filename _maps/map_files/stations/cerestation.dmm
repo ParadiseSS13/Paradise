@@ -4094,10 +4094,10 @@
 	},
 /area/station/hallway/primary/central/east)
 "aIQ" = (
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6349,6 +6349,10 @@
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
 	name = "Chemistry Cleaner"
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
@@ -14085,10 +14089,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -18031,6 +18035,12 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/hallway/primary/starboard/south)
+"cwM" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/station/maintenance/starboard)
 "cwP" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/random/trash,
@@ -19843,7 +19853,10 @@
 "cJR" = (
 /obj/item/reagent_containers/glass/rag,
 /obj/structure/table,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrownfull"
+	},
 /area/station/maintenance/starboard)
 "cJT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -20053,6 +20066,10 @@
 	},
 /obj/item/roller,
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -21982,8 +21999,8 @@
 /area/station/hallway/spacebridge/cargocom)
 "cXj" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 28;
-	name = "custom placement"
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34056,7 +34073,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/station/maintenance/starboard)
 "fGr" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -34752,6 +34773,10 @@
 /obj/item/screwdriver{
 	pixel_y = 8
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -35321,6 +35346,10 @@
 /area/station/hallway/primary/fore/north)
 "fXz" = (
 /obj/effect/spawner/random/dirt/often,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -38850,6 +38879,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "gXg" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -41547,10 +41580,10 @@
 /area/station/hallway/primary/central/east)
 "hFp" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrowncorners"
 	},
@@ -42945,6 +42978,10 @@
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
 "hUO" = (
@@ -44292,6 +44329,16 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
+"ikv" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay)
 "iky" = (
 /obj/machinery/disposal/delivery_chute{
 	desc = "A chute for big and small criminals alike!";
@@ -49209,6 +49256,10 @@
 	},
 /area/station/hallway/primary/port/north)
 "jqT" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -49603,10 +49654,10 @@
 /area/station/hallway/secondary/exit)
 "jvs" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkbrown"
@@ -50014,6 +50065,15 @@
 	temperature = 80
 	},
 /area/station/science/xenobiology)
+"jyX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/station/maintenance/starboard)
 "jzg" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -50816,10 +50876,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "jHP" = (
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrowncorners"
@@ -52955,7 +53015,10 @@
 	},
 /obj/item/caution,
 /obj/item/mop,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrownfull"
+	},
 /area/station/maintenance/starboard)
 "khV" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -54122,10 +54185,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "kvZ" = (
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -54694,6 +54757,10 @@
 	},
 /area/station/maintenance/disposal/northeast)
 "kBZ" = (
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -65807,6 +65874,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -66092,6 +66162,12 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/cmo)
+"noL" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrownfull"
+	},
+/area/station/maintenance/starboard)
 "noR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -68803,9 +68879,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "nYc" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -74371,10 +74446,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "pqe" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbrown"
@@ -78961,6 +79036,7 @@
 	},
 /area/station/command/teleporter)
 "quO" = (
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrowncorners"
@@ -79552,22 +79628,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/legal/lawoffice)
-"qCm" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/spawner/random/dirt/often,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/station/maintenance/starboard)
 "qCw" = (
 /obj/machinery/door_timer/cell_3{
 	pixel_y = -32
@@ -80543,6 +80603,19 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/north)
+"qNP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "qNZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -82206,10 +82279,10 @@
 	},
 /area/station/medical/storage/secondary)
 "rkJ" = (
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -82404,8 +82477,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -86532,8 +86606,10 @@
 /obj/machinery/door/airlock/mining{
 	name = "Starboard Asteroid Maintenance Access"
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrownfull"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/maintenance/starboard)
 "smn" = (
@@ -95681,10 +95757,10 @@
 /turf/simulated/floor/carpet,
 /area/station/service/bar)
 "uwr" = (
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -97918,25 +97994,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
-"uWY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/fore/east)
 "uXa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/liberty,
@@ -98391,6 +98448,19 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"vcX" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "vdj" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -98706,6 +98776,10 @@
 "vhp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -99352,10 +99426,10 @@
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "vpU" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkbrown"
@@ -103341,13 +103415,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -106255,12 +106329,12 @@
 	},
 /area/station/security/brig)
 "wWa" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -156978,7 +157052,7 @@ seO
 qMn
 qMn
 lgp
-xqn
+vcX
 xqn
 xqn
 qqb
@@ -158769,7 +158843,7 @@ jpX
 jpX
 twF
 fmI
-uWY
+neH
 cMM
 cMM
 cMM
@@ -160832,7 +160906,7 @@ bdE
 blE
 swb
 idF
-nqG
+ikv
 nyY
 pex
 nPv
@@ -163916,7 +163990,7 @@ idF
 idF
 idF
 idF
-bpH
+byY
 dAe
 kLy
 nZp
@@ -164687,7 +164761,7 @@ bom
 bil
 bil
 bil
-byY
+bpH
 dxK
 wBM
 biN
@@ -167025,7 +167099,7 @@ gSQ
 lBr
 gFg
 itf
-gPI
+qNP
 nuH
 shz
 uLo
@@ -170845,7 +170919,7 @@ gSQ
 abH
 itf
 itf
-gFg
+umz
 vDW
 yld
 qXF
@@ -171101,10 +171175,10 @@ alc
 fqw
 itf
 itf
+eFU
 umz
-gFg
 nYa
-gFg
+umz
 itf
 itf
 alc
@@ -171359,9 +171433,9 @@ mTO
 hNo
 itf
 fuN
-vHH
+pLe
 fGq
-gFg
+cwM
 cJR
 itf
 alc
@@ -171615,10 +171689,10 @@ alc
 tZj
 dxJ
 pdP
-umz
-vHH
+noL
+pLe
 fGq
-qpl
+jyX
 khP
 itf
 alc
@@ -172388,7 +172462,7 @@ itf
 itf
 nuK
 hFx
-qCm
+wnj
 jHP
 pqe
 itf
