@@ -534,6 +534,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	CureParaplegia()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)

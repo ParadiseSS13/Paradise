@@ -69,6 +69,7 @@
 	zomboid.CureDeaf()
 	zomboid.CureTourettes()
 	zomboid.CureEpilepsy()
+	zomboid.CureParaplegia()
 	zomboid.CureCoughing()
 	zomboid.CureNervous()
 	zomboid.SetEyeBlind(0)
