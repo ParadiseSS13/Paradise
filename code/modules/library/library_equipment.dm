@@ -10,7 +10,7 @@
 /obj/structure/bookcase
 	name = "bookcase"
 	icon = 'icons/obj/library.dmi'
-	icon_state = "bookshelf-0"
+	icon_state = "bookshelf"
 	anchored = TRUE
 	density = TRUE
 	opacity = TRUE
