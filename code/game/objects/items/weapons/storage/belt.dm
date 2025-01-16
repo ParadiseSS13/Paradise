@@ -785,15 +785,16 @@
 /obj/item/storage/belt/sheath/remove_from_storage(obj/item/W, atom/new_location)
 	if(!..())
 		return
-	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+	if(!length(contents)) // telekinesis grab spawns inside of the sheath and leaves it immediately...
+		playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
 /obj/item/storage/belt/sheath/update_icon_state()
 	if(length(contents))
-		icon_state = "[icon_state]-sword"
-		item_state = "[item_state]-sword"
+		icon_state = "[base_icon_state]-sword"
+		item_state = "[base_icon_state]-sword"
 	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
+		icon_state = base_icon_state
+		item_state = base_icon_state
 	if(isliving(loc))
 		var/mob/living/L = loc
 		L.update_inv_belt()
@@ -801,6 +802,7 @@
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
 	desc = "Can hold sabers."
+	base_icon_state = "sheath"
 	icon_state = "sheath"
 	item_state = "sheath"
 	can_hold = list(/obj/item/melee/saber)
