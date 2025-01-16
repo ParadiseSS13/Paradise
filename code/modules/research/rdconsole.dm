@@ -184,15 +184,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(istype(used, /obj/item/disk))
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
 		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		used.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
@@ -452,9 +452,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				SSblackbox.record_feedback("tally", "station_protolathe_production", amount, "[being_built.type]")
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				if(istype(new_item)) // Only want a random pixel offset if it IS actually an item, and not a structure like a bluespace closet
-					new_item.pixel_x = rand(-5, 5)
-					new_item.pixel_y = rand(-5, 5)
+				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches

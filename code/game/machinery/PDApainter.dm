@@ -74,11 +74,12 @@
 /obj/machinery/pdapainter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(default_unfasten_wrench(user, used))
 		power_change()
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/pda))
 		insertpda(user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
 	. = TRUE

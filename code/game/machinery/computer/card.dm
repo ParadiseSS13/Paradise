@@ -50,7 +50,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/nanotrasenrep,
 		/datum/job/chaplain,
 		/datum/job/officer,
-		/datum/job/qm
+		/datum/job/qm,
+		/datum/job/nanotrasentrainer
 )
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -151,23 +152,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		to_chat(user, "There is nothing to remove from the console.")
 
-/obj/machinery/computer/card/attackby__legacy__attackchain(obj/item/card/id/id_card, mob/user, params)
+/obj/machinery/computer/card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/card/id/id_card = used
 	if(!istype(id_card))
+		return ..()
+	if(istype(id_card, /obj/item/card/id/nct_data_chip))
 		return ..()
 
 	if(!scan && check_access(id_card))
 		user.drop_item()
 		id_card.forceMove(src)
 		scan = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(!modify)
 		user.drop_item()
 		id_card.forceMove(src)
 		modify = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
+
+	return ITEM_INTERACT_COMPLETE
 
 //Check if you can't touch a job in any way whatsoever
 /obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
@@ -425,14 +431,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
+					if(istype(I, /obj/item/card/id/nct_data_chip))
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+						return FALSE
 					if(!check_access(I))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
 						return FALSE
 					usr.drop_item()
 					I.forceMove(src)
 					scan = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			return
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
@@ -451,6 +461,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
+					if(istype(I, /obj/item/card/id/nct_data_chip))
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+						return FALSE
 					usr.drop_item()
 					I.forceMove(src)
 					modify = I

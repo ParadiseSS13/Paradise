@@ -58,24 +58,24 @@
 
 	if(!id_card.access) //no access
 		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	var/list/cardaccess = id_card.access
 	if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
 		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(!(ACCESS_HEADS in id_card.access)) //doesn't have this access
 		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 	if(!SSshuttle.emergency.aihacked)
 		var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != id_card)
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/seconds = SSshuttle.emergency.timeLeft()
 		if(seconds <= 10)
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		switch(choice)
 			if("Authorize")
@@ -100,11 +100,11 @@
 					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
 					authorized.Cut()
 
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	var/choice = tgui_alert(user, "\[ERROR] HOSTILE AI DETECTED IN SHUTTLE CONTROL. RESTORE SHUTTLE CONSOLE TO BACKUP SYSTEM? [auth_need - length(authorized)] AUTHORIZATIONS\s REQUIRED TO RESTORE. ABORT TO REMOVE ALL AUTHORIZATION OF BACKUP RESTORAL, P-P--PLEASE...", "HOSTILE VIRAL AI INTRUSION", list("Authorize", "Repeal", "Abort"))
 	if(user.get_active_hand() != id_card)
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	switch(choice)
 		if("Authorize")
@@ -131,7 +131,7 @@
 				GLOB.minor_announcement.Announce("All authorizations to restore shuttle AI backup have been re-- Really applied. The AI is gone. There is no reason to worry. Enjoy your flight.")
 				authorized.Cut()
 
-	return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED)

@@ -44,7 +44,7 @@
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
 
-#define THERMAL_RELEASE_MODIFIER 5         //Higher == less heat released during reaction, not to be confused with the above values
+#define THERMAL_RELEASE_MODIFIER 1         //Higher == less heat released during reaction, not to be confused with the above values
 #define PLASMA_RELEASE_MODIFIER 750        //Higher == less plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 325        //Higher == less oxygen released at high temperature/power
 
@@ -218,7 +218,7 @@
 
 	//vars used for supermatter events (Anomalous crystal activityw)
 	/// Do we have an active event?
-	var/datum/supermatter_event/event_active
+	var/datum/engi_event/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
 	var/gas_multiplier = 1
 	///flat multiplies the heat released by the SM
@@ -229,6 +229,11 @@
 	var/next_event_time
 	/// Run S-Class event? So we can only run one S-class event per round per crystal
 	var/has_run_sclass = FALSE
+
+	/// How often do we want to process the crystal?
+	var/ticks_per_run = 5
+	/// How long has it been since we processed the crystal?
+	var/tick_counter = 0
 
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
@@ -407,8 +412,11 @@
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
-	var/datum/milla_safe/supermatter_process/milla = new()
-	milla.invoke_async(src)
+	tick_counter += SSair.wait
+	if(tick_counter >= ticks_per_run)
+		var/datum/milla_safe/supermatter_process/milla = new()
+		milla.invoke_async(src)
+		tick_counter -= ticks_per_run
 
 /datum/milla_safe/supermatter_process
 
@@ -424,7 +432,7 @@
 	if(isnull(T))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(T)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
+	if(!istype(loc, /turf)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
 	if(T.density)
@@ -566,15 +574,11 @@
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
-		//To figure out how much temperature to add each tick, consider that at one atmosphere's worth
-		//of pure oxygen, with all four lasers firing at standard energy and no N2 present, at room temperature
-		//that the device energy is around 2140. At that stage, we don't want too much heat to be put out
-		//Since the core is effectively "cold"
-
-		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
-		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
-		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.set_temperature(removed.temperature() + max(0, min((2500 * dynamic_heat_modifier) - removed.temperature(), (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))))
+		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
+		if(removed.total_moles())
+			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			produced_joules *= (removed.heat_capacity() / removed.total_moles())
+			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
@@ -782,20 +786,20 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used) || (used.flags & ABSTRACT) || !istype(user))
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 	if(moveable && default_unfasten_wrench(user, used, time = 20))
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/scalpel/supermatter))
 		if(!ishuman(user))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/human/H = user
 		var/obj/item/scalpel/supermatter/scalpel = used
 
 		if(!scalpel.uses_left)
 			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
 		if(sliver)
@@ -848,7 +852,7 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
 
-/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
 	..()
 	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
 		Bumped(A)
@@ -1231,20 +1235,20 @@
 		return
 	if(event_active)
 		return
-	var/static/list/events = list(/datum/supermatter_event/delta_tier = 40,
-								/datum/supermatter_event/charlie_tier = 40,
-								/datum/supermatter_event/bravo_tier = 15,
-								/datum/supermatter_event/alpha_tier = 5,
-								/datum/supermatter_event/sierra_tier = 1)
+	var/static/list/events = list(/datum/engi_event/supermatter_event/delta_tier = 40,
+								/datum/engi_event/supermatter_event/charlie_tier = 40,
+								/datum/engi_event/supermatter_event/bravo_tier = 15,
+								/datum/engi_event/supermatter_event/alpha_tier = 5,
+								/datum/engi_event/supermatter_event/sierra_tier = 1)
 
-	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
-	if(ispath(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
+	var/datum/engi_event/supermatter_event/event = pick(subtypesof(pickweight(events)))
+	if(ispath(event, /datum/engi_event/supermatter_event/sierra_tier) && has_run_sclass)
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
 	make_next_event_time()
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
+/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/engi_event/supermatter_event/event) // mostly admin testing and stuff
 	if(ispath(event))
 		event = new event(src)
 	if(!istype(event))

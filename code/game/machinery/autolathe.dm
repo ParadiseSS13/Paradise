@@ -266,10 +266,10 @@
 /obj/machinery/autolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(stat)
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	// Disks in general
 	if(istype(used, /obj/item/disk))
@@ -301,12 +301,12 @@
 				busy = FALSE
 			else
 				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
-			return ITEM_INTERACT_ANY_BLOCKER
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			// So that people who are bad at computers don't shred their disks
 			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -415,8 +415,7 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
-			new_item.pixel_y = rand(-5, 5)
-			new_item.pixel_x = rand(-5, 5)
+			new_item.scatter_atom()
 		if(is_station_level(z))
 			SSblackbox.record_feedback("tally", "station_autolathe_production", 1, "[D.type]")
 	SStgui.update_uis(src)

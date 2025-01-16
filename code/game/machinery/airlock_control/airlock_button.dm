@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	// Swiping ID on the access button
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		attack_hand(user)
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

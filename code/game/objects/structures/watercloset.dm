@@ -307,6 +307,13 @@
 				pixel_y = -5
 				layer = FLY_LAYER
 
+/obj/machinery/shower/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -339,9 +346,11 @@
 		if(istype(T) && !T.density)
 			T.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
 
-/obj/machinery/shower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.type == /obj/item/analyzer)
+/obj/machinery/shower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
@@ -401,10 +410,10 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(on)
-		wash(AM)
+		wash(entered)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)

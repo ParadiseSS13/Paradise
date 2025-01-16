@@ -82,8 +82,7 @@
 /obj/machinery/computer/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
 	B.icon_state = "bottle"
-	B.pixel_x = rand(-3, 3)
-	B.pixel_y = rand(-3, 3)
+	B.scatter_atom()
 	replicator_cooldown(cooldown)
 	B.name = "[name] [bottle_type] bottle"
 	return B
@@ -384,24 +383,26 @@
 /obj/machinery/computer/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
+/obj/machinery/computer/pandemic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
 		power_change()
 		return
-	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(stat & (NOPOWER|BROKEN))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		beaker =  I
+		beaker = used
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

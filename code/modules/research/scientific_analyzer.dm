@@ -56,36 +56,36 @@ Note: Must be placed within 3 tiles of the R&D Console
 		if(linked_console)
 			linked_console.linked_analyzer = null
 			linked_console = null
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	// TODO: Almost positive this doesn't need to do the same exchange parts shit as /obj/machinery
 	if(exchange_parts(user, used))
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(default_deconstruction_crowbar(user, used))
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(!linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(isitem(used) && !loaded_item)
 		if(!used.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/list/temp_tech = ConvertReqString2List(used.origin_tech)
 		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[used] is stuck to your hand, you cannot put it in [src]!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		busy = TRUE
 		loaded_item = used
@@ -97,4 +97,4 @@ Note: Must be placed within 3 tiles of the R&D Console
 			icon_state = "s_analyzer_l"
 			busy = FALSE
 
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE

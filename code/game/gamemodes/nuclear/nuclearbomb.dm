@@ -173,28 +173,28 @@ GLOBAL_VAR(bomb_set)
 		if(extended)
 			if(auth)
 				to_chat(user,  "<span class='warning'>There's already a disk in the slot!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			if((istype(used, /obj/item/disk/nuclear/training) && !training) || (training && !istype(used, /obj/item/disk/nuclear/training)))
 				to_chat(user,  "<span class='warning'>[used] doesn't fit into [src]!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
 				to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			used.forceMove(src)
 			auth = used
 			add_fingerprint(user)
 			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		var/obj/item/stack/S = used
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(do_after(user, 2 SECONDS, target = src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			S.use(sheets_to_fix)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
 								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
@@ -202,36 +202,33 @@ GLOBAL_VAR(bomb_set)
 			if(core)
 				STOP_PROCESSING(SSobj, core)
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = used
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
-			return ITEM_INTERACT_BLOCKING
-		if(do_after(user, 2 SECONDS, target = src))
+		else if(do_after(user, 2 SECONDS, target = src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			S.use(sheets_to_fix)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
 								"<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
 			if(!user.unEquip(used))
 				to_chat(user, "<span class='notice'>The [used] is stuck to your hand!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			user.visible_message("<span class='notice'>[user] puts [used] back in [src].</span>", "<span class='notice'>You put [used] back in [src].</span>")
 			used.forceMove(src)
 			core = used
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_SUCCESS
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
-		return ITEM_INTERACT_SUCCESS
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -377,20 +374,24 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
-		return ui_interact(user)
+		ui_interact(user)
+		return FINISH_ATTACK
 	if(!Adjacent(user))
 		return
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
-		return wires.Interact(user)
+		wires.Interact(user)
+		return FINISH_ATTACK
 	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
 		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
-		return
+		return FINISH_ATTACK
 	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
+
 	update_icon(UPDATE_OVERLAYS)
+	return FINISH_ATTACK
 
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.physical_state
@@ -712,6 +713,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)

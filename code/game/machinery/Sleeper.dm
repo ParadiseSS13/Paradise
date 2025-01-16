@@ -305,44 +305,44 @@
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 
 			beaker = used
 			used.forceMove(src)
 			user.visible_message("[user] adds \a [used] to [src]!", "You add \a [used] to [src]!")
 			SStgui.update_uis(src)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(!ismob(G.affecting))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 
 			if(!G || !G.affecting)
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 
 			var/mob/M = G.affecting
 			M.forceMove(src)
@@ -352,7 +352,7 @@
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

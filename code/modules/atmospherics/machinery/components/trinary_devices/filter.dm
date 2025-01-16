@@ -230,7 +230,7 @@
 /obj/machinery/atmospherics/trinary/filter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(is_pen(used))
 		rename_interactive(user, used)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

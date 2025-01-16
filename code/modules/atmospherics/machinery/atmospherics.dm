@@ -260,7 +260,7 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

@@ -130,25 +130,25 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-/obj/machinery/plantgenes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
+/obj/machinery/plantgenes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", used))
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, I))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
-		return
+	if(istype(used, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [used] first!</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/seeds))
-		add_seed(I, user)
-		return
+	if(istype(used, /obj/item/seeds))
+		add_seed(used, user)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
-		add_disk(I, user)
-		return
+	if(istype(used, /obj/item/disk/plantgene) || istype(used, /obj/item/storage/box))
+		add_disk(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -669,6 +669,8 @@
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
+	return FALSE
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)

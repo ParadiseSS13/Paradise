@@ -1,6 +1,5 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
-#define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
 	name = "air vent"
@@ -11,29 +10,27 @@
 	plane = FLOOR_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
-
 	can_unwrench = TRUE
-	var/open = FALSE
+
+	/// Is the vent open to put a piece of paper in it
+	var/open = FALSE // A living relic of papercult
 
 	var/area/initial_loc
 
-	var/releasing = TRUE //FALSE = siphoning, TRUE = releasing
+	/// If false, siphons instead of releasing air
+	var/releasing = TRUE
+	var/max_transfer_joules = 200 /*kPa*/ * 2 * ONE_ATMOSPHERE
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
 
-	var/pressure_checks = PRESSURE_CHECKS
-	//1: Do not pass external_pressure_bound
-	//2: Do not pass internal_pressure_bound
-	//3: Do not pass either
+	/// What do we check when releasing/siphoning air - internal or external pressure
+	var/pressure_checks = ONLY_CHECK_EXT_PRESSURE
 
-	// Used when handling incoming radio signals requesting default settings
-	var/external_pressure_bound_default = EXTERNAL_PRESSURE_BOUND
-	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
-	var/pressure_checks_default = PRESSURE_CHECKS
-
-	var/welded = FALSE // Added for aliens -- TLE
-	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
+	/// Is this vent welded shut
+	var/welded = FALSE
+	/// How much pressure does there have to be in the pipe to burst the vent open?
+	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE
 
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
@@ -143,26 +140,31 @@
 	var/environment_pressure = environment.return_pressure()
 	if(vent_pump.releasing) //internal -> external
 		var/pressure_delta = 10000
-		if(vent_pump.pressure_checks & 1)
+		if(vent_pump.pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+			// Only checks difference between set pressure and environment pressure
 			pressure_delta = min(pressure_delta, (vent_pump.external_pressure_bound - environment_pressure))
-		if(vent_pump.pressure_checks & 2)
+		if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (vent_pump.air_contents.return_pressure() - vent_pump.internal_pressure_bound))
 
 		if(pressure_delta > 0.5 && vent_pump.air_contents.temperature() > 0)
-			var/transfer_moles = pressure_delta * environment.volume / (vent_pump.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+			// 1kPa * 1L = 1J
+			var/wanted_joules = pressure_delta * environment.volume
+			var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (vent_pump.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = vent_pump.air_contents.remove(transfer_moles)
 			environment.merge(removed)
 			vent_pump.parent.update = TRUE
 
 	else //external -> internal
 		var/pressure_delta = 10000
-		if(vent_pump.pressure_checks & 1)
+		if(vent_pump.pressure_checks == ONLY_CHECK_EXT_PRESSURE)
 			pressure_delta = min(pressure_delta, (environment_pressure - vent_pump.external_pressure_bound))
-		if(vent_pump.pressure_checks & 2)
+		if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (vent_pump.internal_pressure_bound - vent_pump.air_contents.return_pressure()))
 
 		if(pressure_delta > 0.5 && environment.temperature() > 0)
-			var/transfer_moles = pressure_delta * vent_pump.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+			// 1kPa * 1L = 1J
+			var/wanted_joules = pressure_delta * environment.volume
+			var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (environment.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 			vent_pump.air_contents.merge(removed)
 			vent_pump.parent.update = TRUE
@@ -192,7 +194,7 @@
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -252,4 +254,3 @@
 
 #undef EXTERNAL_PRESSURE_BOUND
 #undef INTERNAL_PRESSURE_BOUND
-#undef PRESSURE_CHECKS

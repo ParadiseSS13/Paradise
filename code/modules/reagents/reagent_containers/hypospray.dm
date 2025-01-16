@@ -159,7 +159,7 @@
 
 /obj/item/reagent_containers/hypospray/cmo/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/reagent_containers/hypospray/cmo/examine_more(mob/user)
 	. = ..()

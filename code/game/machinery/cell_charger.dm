@@ -64,31 +64,31 @@
 	if(istype(used, /obj/item/stock_parts/cell) && !panel_open)
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(charging)
 			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			if(!a.powernet.has_power(PW_CHANNEL_EQUIPMENT)) // There's no APC in this area, don't try to cheat power!
 				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 
 			used.forceMove(src)
 			charging = used
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			check_level()
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_SUCCESS
-	else
-		return ..()
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/cell_charger/crowbar_act(mob/user, obj/item/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))

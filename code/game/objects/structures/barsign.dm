@@ -198,13 +198,13 @@
 				update_icon()
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				add_fingerprint(user)
-				return ITEM_INTERACT_SUCCESS
+				return ITEM_INTERACT_COMPLETE
 		// Wiring the bar sign
 		if(BARSIGN_CIRCUIT)
 			if(istype(used, /obj/item/stack/cable_coil))
 				if(!used.use(5))
 					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-					return ITEM_INTERACT_BLOCKING
+					return ITEM_INTERACT_COMPLETE
 				stat &= ~EMPED
 				build_stage = BARSIGN_WIRED
 				update_icon()
@@ -212,13 +212,13 @@
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				power_state = IDLE_POWER_USE
 				add_fingerprint(user)
-				return ITEM_INTERACT_SUCCESS
+				return ITEM_INTERACT_COMPLETE
 		// Placing in the glass
 		if(BARSIGN_WIRED)
 			if(istype(used, /obj/item/stack/sheet/glass))
 				if(!used.use(2))
 					to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
-					return ITEM_INTERACT_BLOCKING
+					return ITEM_INTERACT_COMPLETE
 				build_stage = BARSIGN_COMPLETE
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				obj_integrity = max_integrity
@@ -226,7 +226,7 @@
 					stat &= ~BROKEN
 				set_sign(new /datum/barsign/hiddensigns/signoff)
 				add_fingerprint(user)
-				return ITEM_INTERACT_SUCCESS
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/barsign/proc/pick_sign(mob/user)

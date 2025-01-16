@@ -560,26 +560,25 @@
 			return RP
 	return FALSE
 
-//Attackby and x_acts
 /obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.is_open_container())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
 			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(is_organ(used) || is_type_in_list(used, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(used, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

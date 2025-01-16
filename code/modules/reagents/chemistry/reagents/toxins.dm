@@ -1075,6 +1075,16 @@
 	else if(istype(O, /obj/structure/spacevine))
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
+	else if(istype(O, /obj/item/toy/plushie/dionaplushie))
+		var/turf/T = get_turf(O)
+		var/obj/item/toy/plushie/dionaplushie/DP = O
+		if(DP.grenade)
+			DP.explosive_betrayal(DP.grenade)
+			return
+		new /obj/item/toy/plushie/nymphplushie(T)
+		new /obj/item/toy/plushie/nymphplushie(T)
+		DP.visible_message("<span class='warning'>The diona plushie splits apart!</span>")
+		qdel(DP)
 
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))
@@ -1118,6 +1128,9 @@
 	if(istype(O, /obj/effect/decal/cleanable/ants))
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
+	if(istype(O, /obj/item/toy/plushie/kidanplushie))
+		var/obj/item/toy/plushie/kidanplushie/stupidbug = O
+		stupidbug.make_cry()
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))

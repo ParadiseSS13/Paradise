@@ -125,7 +125,7 @@
 // attack by item places it in to disposal
 /obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & BROKEN || !user || used.flags & ABSTRACT)
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent != INTENT_HELP)
 		return ..()
@@ -134,12 +134,12 @@
 
 	if(istype(used, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(isstorage(used))
 		var/obj/item/storage/S = used
 		if(!S.removal_allowed_check(user))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
@@ -152,7 +152,7 @@
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
 			update()
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 	// Borg using their gripper to throw stuff away.
 	if(istype(used, /obj/item/gripper))
@@ -160,7 +160,7 @@
 		// Gripper is empty.
 		if(!gripper.gripped_item)
 			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
@@ -168,14 +168,14 @@
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 		)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	// Someone has a mob in a grab.
 	var/obj/item/grab/G = used
 	if(istype(G))
 		// If there's not actually a mob in the grab, stop it. Get some help.
 		if(!ismob(G.affecting))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/GM = G.affecting
 		user.visible_message(
@@ -186,7 +186,7 @@
 
 		// Abort if the target manages to scurry away.
 		if(!do_after(user, 2 SECONDS, target = GM))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		GM.forceMove(src)
 		user.visible_message(
@@ -197,10 +197,10 @@
 		qdel(G)
 		update()
 		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item() || QDELETED(used))
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	// If we're here, it's an item without any special interactions, drop it in the bin without any further delay.
 	used.forceMove(src)
@@ -211,7 +211,7 @@
 	)
 	update()
 
-	return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode != DISPOSALS_OFF) // It's on
@@ -615,7 +615,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/disposal/CanPass(atom/movable/mover, border_dir)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))

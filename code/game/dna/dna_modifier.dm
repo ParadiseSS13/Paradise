@@ -194,43 +194,43 @@
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [used] is stuck to you!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
 		SStgui.update_uis(src)
 		used.forceMove(src)
 		user.visible_message("[user] adds \a [used] to \the [src]!", "You add \a [used] to \the [src]!")
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(!ismob(G.affecting))
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.abiotic())
 			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		put_in(G.affecting)
 		add_fingerprint(user)
 		qdel(G)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -335,9 +335,10 @@
 			disk = used
 			to_chat(user, "You insert [used].")
 			SStgui.update_uis(src)
-			return ITEM_INTERACT_SUCCESS
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()

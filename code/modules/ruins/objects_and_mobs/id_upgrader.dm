@@ -13,7 +13,7 @@
 		var/obj/item/card/id/D = used
 		if(!length(access_to_give))
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/did_upgrade = FALSE
 		var/list/id_access = D.GetAccess()
@@ -29,6 +29,6 @@
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()

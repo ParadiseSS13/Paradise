@@ -221,10 +221,10 @@
 /obj/machinery/abductor/console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/abductor/gizmo) && AddGizmo(used))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-		return ITEM_INTERACT_SUCCESS
-	else if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

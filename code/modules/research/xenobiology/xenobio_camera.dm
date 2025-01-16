@@ -182,13 +182,13 @@
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [used] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(used)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/slimepotion/slime))
 		if(!user.drop_item())
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You load [used] in the console's potion slot[current_potion ? ", replacing the one that was there before" : ""].</span>")
 		insert_potion(used, user)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/storage/bag) || istype(used, /obj/item/storage/box))
 		var/obj/item/storage/P = used
 		var/loaded = 0
@@ -199,7 +199,7 @@
 			qdel(MC)
 		if(loaded)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [used]. [src] now has [monkeys] monkey cubes stored.</span>")
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

@@ -40,6 +40,7 @@
 	var/detectTime = 0
 	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
+	var/datum/proximity_monitor/proximity_monitor
 	/// If this camera doesnt add to camera chunks. Used by camera bugs.
 	var/non_chunking_camera = FALSE
 
@@ -64,6 +65,12 @@
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
+	create_prox_monitor()
+
+/obj/machinery/camera/proc/create_prox_monitor()
+	if(!proximity_monitor)
+		proximity_monitor = new(src, 1)
+		RegisterSignal(proximity_monitor, COMSIG_PARENT_QDELETING, PROC_REF(proximity_deleted))
 
 /obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -121,6 +128,10 @@
 		return
 	..()
 
+/obj/machinery/camera/proc/proximity_deleted()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	proximity_monitor = null
+
 /obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, 0)
@@ -137,20 +148,19 @@
 	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
 			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = used
 			upgradeEmpProof()
 			to_chat(user, "[msg]")
 			P.use(1)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "[msg2]")
-			return ITEM_INTERACT_SUCCESS
 	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
 			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
 			to_chat(user, "[msg]")
@@ -158,13 +168,13 @@
 		else
 			to_chat(user, "[msg2]")
 
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	// OTHER
 	else if((istype(used, /obj/item/paper) || istype(used, /obj/item/pda)) && isliving(user))
 		if(!can_use())
 			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
@@ -188,7 +198,7 @@
 			if(isAI(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
-					return ITEM_INTERACT_BLOCKING
+					return ITEM_INTERACT_COMPLETE
 				if(U.name == "Unknown")
 					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
@@ -197,14 +207,11 @@
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse("<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>", "window=[itemname]")
-
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = used
 		L.laser_act(src, user)
-		return ITEM_INTERACT_SUCCESS
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

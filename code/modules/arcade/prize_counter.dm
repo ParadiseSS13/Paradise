@@ -88,9 +88,9 @@
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

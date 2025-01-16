@@ -142,6 +142,8 @@
 	/// How often will the vendor tip when you walk by it when aggressive is true?
 	var/aggressive_tilt_chance = 25
 
+	var/datum/proximity_monitor/proximity_monitor
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -175,7 +177,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
 	if(aggressive)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src, 1)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -336,25 +338,25 @@
 	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return COMPONENT_BLOCK_UNTILT
 
-/obj/machinery/economy/vending/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/economy/vending/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		return ..()
 
-	if(isspacecash(I))
-		insert_cash(I, user)
-		return
-	if(istype(I, /obj/item/coin))
+	if(isspacecash(used))
+		insert_cash(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/coin))
 		to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
-		return
-	if(refill_canister && istype(I, refill_canister))
+		return ITEM_INTERACT_COMPLETE
+	if(refill_canister && istype(used, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/vending_refill/canister = I
+		var/obj/item/vending_refill/canister = ITEM_INTERACT_COMPLETE
 		var/transferred = restock(canister)
 		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
 			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
@@ -362,13 +364,17 @@
 			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
 		else // Nothing transferred, parts are still left, nothing to restock!
 			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(item_slot_check(user, I))
-		insert_item(user, I)
-		return
-	. = ..()
-	if(tiltable && !tilted && I.force)
+	if(item_slot_check(user, used))
+		insert_item(user, used)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/economy/vending/attacked_by(obj/item/attacker, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
+	if(tiltable && !tilted && attacker.force)
 		if(resistance_flags & INDESTRUCTIBLE)
 			// no goodies, but also no tilts
 			return
@@ -823,8 +829,7 @@
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
 			vended.forceMove(T)
-			vended.pixel_x = rand(-5, 5)
-			vended.pixel_y = rand(-5, 5)
+			vended.scatter_atom()
 		return TRUE
 	return FALSE
 
@@ -943,8 +948,9 @@
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 
-/obj/machinery/economy/vending/onTransitZ()
-	return
+/obj/machinery/economy/vending/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	// Don't bother notifying contents (for some reason (probably historical reasons (probably for no reason)))
+	return ..()
 
 /obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)

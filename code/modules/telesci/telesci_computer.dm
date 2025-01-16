@@ -65,12 +65,12 @@
 		var/obj/item/stack/ore/bluespace_crystal/B = used
 		if(crystals >= MAX_CRYSTALS)
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		crystals += 1
 		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
 		B.use(1)
 		SStgui.update_uis(src)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/gps))
 		// TODO: Provide some kind of message if there's already an inserted GPS.
 		// For now, just do nothing.
@@ -81,7 +81,7 @@
 			user.visible_message("<span class='notice'>[user] inserts [used] into [src]'s GPS device slot.</span>")
 			SStgui.update_uis(src)
 
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

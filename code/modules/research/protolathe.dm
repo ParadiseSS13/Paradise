@@ -84,14 +84,14 @@ Note: Must be placed west/left of and R&D console to function.
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	if(used.is_open_container())
-		return ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
