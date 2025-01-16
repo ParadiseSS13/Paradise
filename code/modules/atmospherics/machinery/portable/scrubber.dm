@@ -40,9 +40,9 @@
 /obj/machinery/atmospherics/portable/scrubber/update_overlays()
 	. = ..()
 	if(holding_tank)
-		. += "scrubber-open"
+		. += "pscrubber-open"
 	if(connected_port)
-		. += "scrubber-connector"
+		. += "pscrubber-connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()
