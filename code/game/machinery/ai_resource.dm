@@ -30,11 +30,10 @@
 	if(active) // We're booting up
 		// Find the AI with lowest memory
 		for(var/mob/living/silicon/ai/new_ai in GLOB.ai_list)
-			if(!assigned_ai) //not found
-				assigned_ai = new_ai //search for new in global ai list
+			if(!assigned_ai) // Not found
+				assigned_ai = new_ai // Assign to the first AI in the list to start
 			if(assigned_ai.program_picker.memory > new_ai.program_picker.memory)
 				assigned_ai = new_ai
-
 		if(!assigned_ai) // No eligible AI found, abort
 			active = FALSE
 			to_chat(user, "<span class = 'warning'>ERROR: No AI detected. Shutting down...</span>")
@@ -42,7 +41,6 @@
 		else // We have an AI, up its memory
 			assigned_ai.program_picker.memory++
 			change_power_mode(ACTIVE_POWER_USE)
-
 	else // We're shutting down
 		if(assigned_ai)
 			assigned_ai.program_picker.memory--
