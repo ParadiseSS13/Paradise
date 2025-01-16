@@ -79,8 +79,6 @@
 
 /mob/living/carbon/human/get_num_legs()
 	. = 0
-	if (HAS_TRAIT(src, TRAIT_PARAPLEGIC))
-		return . // Early return.
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/affecting = X
 		if(affecting.body_part == LEG_RIGHT)
