@@ -284,7 +284,7 @@
 	if(!Adjacent(user))
 		return
 	var/obj/item/I = user.get_active_hand()
-	if(!I)
+	if(!I || I == src) // dont try to slip inside itself
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
