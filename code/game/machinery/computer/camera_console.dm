@@ -1,7 +1,7 @@
 /// The root type of all camera consoles. When used, these open a UI that has a left-hand sidebar
 /// displaying a list of active cameras in the console's assigned camera `network`. The bulk of the window
 /// on the right hand side displays a camera feed of the selected camera. This feed will attempt to refresh
-/// at periods of `FOLLOW_COOLDOWN_RATE` as long as there are active watchers, living or dead.
+/// every time process() is called by SSobj as long as there are active watchers, living or dead.
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
