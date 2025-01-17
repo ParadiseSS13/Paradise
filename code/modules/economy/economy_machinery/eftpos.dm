@@ -24,6 +24,9 @@
 	///Current money account the EFTPOS is depositing to
 	var/datum/money_account/linked_account
 
+	///The vendors that are linked to this EFTPOS.
+	var/list/linked_vendors = list()
+
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "EFTPOS #[rand(101, 999)]"
 	access_code = rand(1000, 9999)
@@ -32,6 +35,14 @@
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
 	print_reference()
 	return ..()
+
+/obj/item/eftpos/Destroy()
+	account_database = null
+	linked_account = null
+	for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+		if(vendor.linked_pos == src)
+			vendor.linked_pos = null
+	linked_vendors.Cut()
 
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
@@ -135,6 +146,9 @@
 					transaction_paid = FALSE
 			else if(linked_account)
 				transaction_locked = TRUE
+				for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+					if(vendor.linked_pos == src)
+						SStgui.update_uis(vendor, TRUE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("reset")
