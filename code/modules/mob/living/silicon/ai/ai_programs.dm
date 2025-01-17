@@ -36,6 +36,12 @@
 	popup.open()
 	return
 
+/datum/program_picker/proc/modify_resource(var/key, var/amount)
+	if(key == "memory")
+		memory += amount
+	if(key == "bandwidth")
+		bandwidth += amount
+
 /datum/program_picker/Topic(href, href_list)
 	..()
 

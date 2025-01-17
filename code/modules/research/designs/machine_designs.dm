@@ -609,5 +609,15 @@
 	req_tech = list("programming" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
-	build_path = /obj/machinery/processing_node
+	build_path = /obj/machinery/ai_node/processing_node
+	category = list("Misc. Machinery")
+
+/datum/design/network_node
+	name =  "Machine Design (Network Node)"
+	desc = "The circuit board for a network node."
+	id = "network_node"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
+	build_path = /obj/machinery/ai_node/network_node
 	category = list("Misc. Machinery")

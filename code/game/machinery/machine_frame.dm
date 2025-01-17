@@ -1167,7 +1167,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/processing_node
 	board_name = "Processing Node"
 	icon_state = "science"
-	build_path = /obj/machinery/processing_node
+	build_path = /obj/machinery/ai_node/processing_node
 	board_type = "machine"
 	origin_tech = "programming=4"
 	req_components = list(
@@ -1177,3 +1177,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/mineral/diamond = 1,
 							/obj/item/stack/cable_coil = 5,
 	)
+
+/obj/item/circuitboard/network_node
+	board_name = "Network Node"
+	icon_state = "science"
+	build_path = /obj/machinery/ai_node/network_node
+	board_type = "machine"
+	origin_tech = "programming=4"
+	req_components = list(
+							/obj/item/stock_parts/capacitor = 2,
+							/obj/item/stack/sheet/mineral/gold = 10,
+							/obj/item/stack/sheet/mineral/silver = 10,
+							/obj/item/stack/cable_coil = 5,
+	)
+
