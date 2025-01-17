@@ -1,6 +1,3 @@
-/// The amount of time a camera console actively being watched will wait between feed refreshes.
-#define FOLLOW_COOLDOWN_RATE 2 SECONDS
-
 /// The root type of all camera consoles. When used, these open a UI that has a left-hand sidebar
 /// displaying a list of active cameras in the console's assigned camera `network`. The bulk of the window
 /// on the right hand side displays a camera feed of the selected camera. This feed will attempt to refresh
@@ -36,9 +33,6 @@
 	/// is the console silent when switching cameras?
 	var/silent_console = FALSE
 
-	/// Timer for the follow refresh cooldown; fires periodically every `FOLLOW_COOLDOWN_RATE` while there are watchers.
-	var/follow_cooldown
-
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
@@ -59,7 +53,7 @@
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
-	deltimer(follow_cooldown)
+	STOP_PROCESSING(SSobj, src)
 	qdel(cam_screen)
 	qdel(cam_background)
 	return ..()
@@ -100,14 +94,13 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole", name)
 		ui.open()
-		follow_cooldown = addtimer(CALLBACK(src, PROC_REF(refresh_feed)), FOLLOW_COOLDOWN_RATE, TIMER_UNIQUE)
+		START_PROCESSING(SSobj, src)
 
-/obj/machinery/computer/security/proc/refresh_feed()
+/obj/machinery/computer/security/process()
 	update_viewer()
 	if(length(watchers))
-		follow_cooldown = addtimer(CALLBACK(src, PROC_REF(refresh_feed)), FOLLOW_COOLDOWN_RATE, TIMER_UNIQUE)
-	else if(follow_cooldown)
-		deltimer(follow_cooldown)
+		return
+	STOP_PROCESSING(SSobj, src)
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
@@ -400,5 +393,3 @@
 	desc = "Used for watching the turbine vent.";
 	network = list("Turbine")
 	circuit = /obj/item/circuitboard/camera/turbine
-
-#undef FOLLOW_COOLDOWN_RATE
