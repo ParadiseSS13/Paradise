@@ -76,11 +76,15 @@
 	loot = list(
 		/obj/item/clothing/mask/gas/syndicate,
 		/obj/item/clothing/shoes/magboots/syndie,
-		/obj/item/clothing/under/syndicate,
+		/obj/item/clothing/suit/jacket/bomber/syndicate,
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored,
+		/obj/item/clothing/under/syndicate/combat,
+		/obj/item/clothing/under/syndicate/sniper,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/deck/cards/syndicate,
+		/obj/item/lighter/zippo/gonzofist,
 		/obj/item/soap/syndie,
-		/obj/item/storage/box/syndie_kit/space,
+		/obj/item/stamp/chameleon,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		/obj/item/storage/secure/briefcase/syndie,
 		/obj/item/storage/toolbox/syndicate,
@@ -109,29 +113,28 @@
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/clothing/gloves/color/black/thief,
 		/obj/item/clothing/shoes/chameleon/noslip,
-		/obj/item/clothing/suit/jacket/bomber/syndicate,
-		/obj/item/clothing/suit/storage/iaa/blackjacket/armored,
-		/obj/item/clothing/under/chameleon,
 		/obj/item/clothing/under/syndicate/silicon_cham,
+		/obj/item/clothing/mask/chameleon/voice_change,
 		/obj/item/flash/cameraflash,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,
-		/obj/item/lighter/zippo/gonzofist,
 		/obj/item/mod/control/pre_equipped/traitor,
 		/obj/item/mod/module/chameleon,
 		/obj/item/mod/module/holster/hidden,
 		/obj/item/mod/module/noslip,
 		/obj/item/mod/module/visor/night,
+		/obj/item/mod/module/plate_compression,
+		/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 		/obj/item/stack/sheet/mineral/gold{amount = 20},
 		/obj/item/stack/sheet/mineral/plasma{amount = 20},
 		/obj/item/stack/sheet/mineral/silver{amount = 20},
 		/obj/item/stack/sheet/mineral/uranium{amount = 20},
-		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
 		/obj/item/storage/belt/military,
 		/obj/item/storage/box/syndie_kit/camera_bug,
-		/obj/item/storage/firstaid/tactical,
+		/obj/item/storage/box/syndie_kit/chameleon,
+		/obj/item/storage/box/syndie_kit/space,
 	)
 
 /obj/effect/spawner/random/syndicate/loot/officer
@@ -139,13 +142,13 @@
 	spawn_loot_chance = 40
 	// Primarily utility items with occasional low damage weaponry.
 	loot = list(
-		/obj/item/borg/upgrade/selfrepair,
 		/obj/item/borg/upgrade/syndicate,
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/clothing/glasses/thermal,
 		/obj/item/clothing/shoes/magboots/elite,
 		/obj/item/door_remote/omni/access_tuner,
 		/obj/item/encryptionkey/binary,
+		/obj/item/gun/projectile/automatic/c20r/toy/riot,
 		/obj/item/jammer,
 		/obj/item/mod/module/power_kick,
 		/obj/item/mod/module/stealth,
@@ -153,9 +156,10 @@
 		/obj/item/pen/edagger,
 		/obj/item/pinpointer/advpinpointer,
 		/obj/item/stack/sheet/mineral/diamond{amount = 10},
-		/obj/item/stack/sheet/mineral/uranium{amount = 10},
+		/obj/item/storage/belt/sheath/snakesfang,
 		/obj/item/storage/box/syndidonkpockets,
 		/obj/item/storage/box/syndie_kit/stechkin,
+		/obj/item/storage/firstaid/tactical,
 	)
 
 /obj/effect/spawner/random/syndicate/loot/armory
@@ -163,17 +167,19 @@
 	spawn_inside = /obj/structure/closet/secure_closet/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	loot = list(
-		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
+		/obj/item/bio_chip_implanter/proto_adrenalin,
 		/obj/item/chameleon,
-		/obj/item/clothing/gloves/fingerless/rapid,
 		/obj/item/cqc_manual,
 		/obj/item/gun/medbeam,
+		/obj/item/gun/projectile/automatic/sniper_rifle/toy,
 		/obj/item/melee/energy/sword/saber,
+		/obj/item/mod/control/pre_equipped/traitor_elite,
+		/obj/item/organ/internal/cyberimp/arm/razorwire,
+		/obj/item/organ/internal/cyberimp/brain/sensory_enhancer,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants,
 		/obj/item/shield/energy,
 		/obj/item/storage/box/syndie_kit/teleporter,
 		/obj/item/weaponcrafting/gunkit/universal_gun_kit,
-		/obj/item/mod/control/pre_equipped/traitor_elite
 	)
 
 // Layout-affecting spawns

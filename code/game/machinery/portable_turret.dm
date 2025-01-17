@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(HasController())
 		return TRUE
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) || is_ai(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				if(isrobot(user))
 					return
 				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
-				if(!user.unEquip(I))
+				if(!user.unequip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				if(!E.can_fit_in_turrets)
@@ -953,7 +953,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(4)
 			if(isprox(I))
-				if(!user.unEquip(I))
+				if(!user.unequip(I, src))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				build_step = 5

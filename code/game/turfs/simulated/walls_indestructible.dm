@@ -3,6 +3,10 @@
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
 
+/turf/simulated/wall/indestructible/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
 
@@ -32,9 +36,6 @@
 	return
 
 /turf/simulated/wall/indestructible/burn_down()
-	return
-
-/turf/simulated/wall/indestructible/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)

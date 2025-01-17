@@ -135,7 +135,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 /datum/scoreboard/proc/check_station_player(mob/M)
 	if(!is_station_level(M.z) || M.stat != DEAD)
 		return
-	if(isAI(M))
+	if(is_ai(M))
 		dead_ai = TRUE
 		score_dead_crew++
 	else if(ishuman(M))

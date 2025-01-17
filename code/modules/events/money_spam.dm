@@ -99,7 +99,7 @@
 			last_spam_time = world.time
 
 			if(prob(50)) //Give the AI an increased chance to intercept the message
-				for(var/mob/living/silicon/ai/ai in GLOB.mob_list)
+				for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)
 						ai.show_message("<i>Intercepted message from <b>[sender]</b></i> (Unknown / spam?) <i>to <b>[P:owner]</b>: [message]</i>")

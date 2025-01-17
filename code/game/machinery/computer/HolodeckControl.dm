@@ -131,7 +131,8 @@
 
 	var/mob/M = obj.loc
 	if(istype(M))
-		M.unEquip(obj, TRUE) //Holoweapons should always drop.
+		// Holoweapons should always drop.
+		M.drop_item_to_ground(obj, force = TRUE)
 
 	if(!silent)
 		var/obj/old_obj = obj
@@ -227,6 +228,10 @@
 	thermal_conductivity = 0
 	icon_state = "plating"
 
+/turf/simulated/floor/holofloor/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/holofloor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
@@ -264,10 +269,6 @@
 	pixel_x = -9
 	pixel_y = -9
 	layer = ABOVE_OPEN_TURF_LAYER
-
-/turf/simulated/floor/holofloor/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	return
-	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/simulated/floor/holofloor/space
 	name = "\proper space"

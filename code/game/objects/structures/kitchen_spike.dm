@@ -87,7 +87,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))
+	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes

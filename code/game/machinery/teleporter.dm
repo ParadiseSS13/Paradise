@@ -51,10 +51,9 @@
 	if(istype(I, /obj/item/gps))
 		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
+			if(!user.transfer_item_to(L, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
-			L.forceMove(src)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else
@@ -335,8 +334,8 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(isAI(A) || istype(A, /obj/structure/ai_core))
-		if(isAI(A))
+	if(is_ai(A) || istype(A, /obj/structure/ai_core))
+		if(is_ai(A))
 			var/mob/living/silicon/ai/T = A
 			if(T.allow_teleporter)
 				return FALSE

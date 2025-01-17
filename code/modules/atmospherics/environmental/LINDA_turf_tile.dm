@@ -172,18 +172,10 @@
 #define INDEX_WEST	4
 
 /turf/proc/Initialize_Atmos(times_fired)
-	recalculate_atmos_connectivity()
-
-	if(!blocks_air)
-		var/datum/gas_mixture/air = new()
-		air.set_oxygen(oxygen)
-		air.set_carbon_dioxide(carbon_dioxide)
-		air.set_nitrogen(nitrogen)
-		air.set_toxins(toxins)
-		air.set_sleeping_agent(sleeping_agent)
-		air.set_agent_b(agent_b)
-		air.set_temperature(temperature)
-		blind_set_air(air)
+	// This is one of two places expected to call this otherwise-unsafe method.
+	private_unsafe_recalculate_atmos_connectivity()
+	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+	milla_data = milla_atmos_airtight + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + milla_superconductivity
 
 /turf/proc/recalculate_atmos_connectivity()
 	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()
@@ -192,48 +184,51 @@
 /datum/milla_safe/recalculate_atmos_connectivity
 
 /datum/milla_safe/recalculate_atmos_connectivity/on_run(turf/T)
-	if(isnull(T))
+	if(!istype(T))
 		return
 
-	if(T.blocks_air)
-		set_tile_airtight(T, list(TRUE, TRUE, TRUE, TRUE))
-		// Will be needed when we go back to having solid tile conductivity.
-		//reset_superconductivity(src)
-		reduce_superconductivity(T, list(0, 0, 0, 0))
+	// This is one of two places expected to call this otherwise-unsafe method.
+	T.private_unsafe_recalculate_atmos_connectivity()
+
+	set_tile_airtight(T, T.milla_atmos_airtight)
+	reset_superconductivity(T)
+	reduce_superconductivity(T, T.milla_superconductivity)
+
+/// This method is unsafe to use because it only updates milla_* properties, but does not write them to MILLA. Use recalculate_atmos_connectivity() instead.
+/turf/proc/private_unsafe_recalculate_atmos_connectivity()
+	if(blocks_air)
+		milla_atmos_airtight = list(TRUE, TRUE, TRUE, TRUE)
+		milla_superconductivity = list(0, 0, 0, 0)
 		return
 
-	var/list/atmos_airtight = list(
-		!T.CanAtmosPass(NORTH, FALSE),
-		!T.CanAtmosPass(EAST, FALSE),
-		!T.CanAtmosPass(SOUTH, FALSE),
-		!T.CanAtmosPass(WEST, FALSE))
+	milla_atmos_airtight = list(
+		!CanAtmosPass(NORTH, FALSE),
+		!CanAtmosPass(EAST, FALSE),
+		!CanAtmosPass(SOUTH, FALSE),
+		!CanAtmosPass(WEST, FALSE))
 
-	var/list/superconductivity = list(
+	milla_superconductivity = list(
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 
-	for(var/obj/O in T)
+	for(var/obj/O in src)
 		if(istype(O, /obj/item))
 			// Items can't block atmos.
 			continue
 		if(!O.CanAtmosPass(NORTH))
-			atmos_airtight[INDEX_NORTH] = TRUE
+			milla_atmos_airtight[INDEX_NORTH] = TRUE
 		if(!O.CanAtmosPass(EAST))
-			atmos_airtight[INDEX_EAST] = TRUE
+			milla_atmos_airtight[INDEX_EAST] = TRUE
 		if(!O.CanAtmosPass(SOUTH))
-			atmos_airtight[INDEX_SOUTH] = TRUE
+			milla_atmos_airtight[INDEX_SOUTH] = TRUE
 		if(!O.CanAtmosPass(WEST))
-			atmos_airtight[INDEX_WEST] = TRUE
-		superconductivity[INDEX_NORTH] = min(superconductivity[INDEX_NORTH], O.get_superconductivity(NORTH))
-		superconductivity[INDEX_EAST] = min(superconductivity[INDEX_EAST], O.get_superconductivity(EAST))
-		superconductivity[INDEX_SOUTH] = min(superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
-		superconductivity[INDEX_WEST] = min(superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
-
-	set_tile_airtight(T, atmos_airtight)
-	reset_superconductivity(T)
-	reduce_superconductivity(T, superconductivity)
+			milla_atmos_airtight[INDEX_WEST] = TRUE
+		milla_superconductivity[INDEX_NORTH] = min(milla_superconductivity[INDEX_NORTH], O.get_superconductivity(NORTH))
+		milla_superconductivity[INDEX_EAST] = min(milla_superconductivity[INDEX_EAST], O.get_superconductivity(EAST))
+		milla_superconductivity[INDEX_SOUTH] = min(milla_superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
+		milla_superconductivity[INDEX_WEST] = min(milla_superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
 
 /obj/effect/wind
 	anchored = TRUE
