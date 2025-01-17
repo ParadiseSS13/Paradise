@@ -8,7 +8,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "entropic_plume"
-	sound = 'sound/effects/magic/forcewall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 30 SECONDS
@@ -82,23 +82,23 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	projectile_type = /obj/projectile/magic/aoe/rust_wave
+	projectile_type = /obj/item/projectile/magic/aoe/rust_wave
 
-/obj/projectile/magic/aoe/rust_wave
+/obj/item/projectile/magic/aoe/rust_wave
 	name = "Patron's Reach"
 	icon_state = "eldritch_projectile"
 	alpha = 180
 	damage = 30
 	damage_type = TOX
-	hitsound = 'sound/items/weapons/punch3.ogg'
+	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	ignored_factions = list("heretic")
 	range = 15
 	speed = 1
 
-/obj/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+/obj/item/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	playsound(src, 'sound/items/tools/welder.ogg', 75, TRUE)
+	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
 	var/turf/T1
 	turflist += get_turf(src)
@@ -115,8 +115,8 @@
 
 /datum/spell/basic_projectile/rust_wave/short
 	name = "Lesser Patron's Reach"
-	projectile_type = /obj/projectile/magic/aoe/rust_wave/short
+	projectile_type = /obj/item/projectile/magic/aoe/rust_wave/short
 
-/obj/projectile/magic/aoe/rust_wave/short
+/obj/item/projectile/magic/aoe/rust_wave/short
 	range = 7
 	speed = 0.5

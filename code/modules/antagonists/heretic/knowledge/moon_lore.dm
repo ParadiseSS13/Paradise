@@ -160,11 +160,11 @@
 
 	announcement_text = "%SPOOKY% Laugh, for the ringleader %NAME% has ascended! \
 						The truth shall finally devour the lie! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_moon.ogg'
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_moon.ogg'
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
 //Qwertodo: redo this entire ultimate lmaoooo
-	var/brain_damage = sacrfiice.getBrainLoss()
+	var/brain_damage = sacrfice.getBrainLoss()
 	// Checks if our target has enough brain damage
 	if(brain_damage < 50)
 		return FALSE

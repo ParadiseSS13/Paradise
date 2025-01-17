@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "voidpull"
-	sound = 'sound/effects/magic/voidblink.ogg'
+	sound = 'sound/magic/voidblink.ogg'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 30 SECONDS

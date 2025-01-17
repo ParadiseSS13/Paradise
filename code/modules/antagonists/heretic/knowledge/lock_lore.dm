@@ -62,25 +62,23 @@
 	SIGNAL_HANDLER
 
 	if(ismecha(target))
-		var/obj/vehicle/sealed/mecha/mecha = target
-		mecha.dna_lock = null
-		mecha.mecha_flags &= ~ID_LOCK_ON
-		for(var/mob/living/occupant as anything in mecha.occupants)
+		var/obj/mecha/mecha = target
+		mecha.dna= null
+		mecha.operation_req_access = list()
+		for(var/mob/living/occupant as anything in mecha.occupant)
 			if(isAI(occupant))
 				continue
-			mecha.mob_exit(occupant, randomstep = TRUE)
-			occupant.Paralyze(5 SECONDS)
+			mecha.go_out(1)
+			occupant.Paralyse(5 SECONDS)
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target
-		door.unbolt()
-	else if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/computer = target
-		computer.authenticated = TRUE
-		computer.balloon_alert(source, "unlocked")
+		door.unlock()
+	//else if(istype(target, /obj/machinery/computer)) //qwertodo: as much of this as possible
+	//	var/obj/machinery/computer/computer = target
+	//	computer.authenticated = TRUE
+	//	computer.balloon_alert(source, "unlocked")
 
-	var/turf/target_turf = get_turf(target)
-	SEND_SIGNAL(target_turf, COMSIG_ATOM_MAGICALLY_UNLOCKED, src, source)
-	playsound(target, 'sound/effects/magic/hereticknock.ogg', 100, TRUE, -1)
+	playsound(target, 'sound/magic/hereticknock.ogg', 100, TRUE, -1)
 
 	return COMPONENT_USE_HAND
 
@@ -177,7 +175,7 @@
 	required_atoms = list(/mob/living/carbon/human = 3)
 
 	announcement_text = "Delta-class dimensional anomaly detec%SPOOKY% Reality rended, torn. Gates open, doors open, %NAME% has ascended! Fear the tide! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_knock.ogg'
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_knock.ogg'
 
 /datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()

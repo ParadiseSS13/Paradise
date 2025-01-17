@@ -204,7 +204,7 @@
 	/// Whether we're currently in duelist stance, gaining certain buffs (low health)
 	var/in_duelist_stance = FALSE
 
-/datum/heretic_knowledge/duel_stance/on_gain(mob/living/carbon/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/duel_stance/on_gain(mob/living/carbon/humaan/user, datum/antagonist/heretic/our_heretic)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -224,9 +224,9 @@
 /datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/carbon/user, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	var/obj/item/held_item = source.get_active_hand()
+	var/obj/item/held_item = user.get_active_hand()
 	if(in_duelist_stance)
-		examine_list += "<span class='warning'>[source] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
+		examine_list += "<span class='warning'>[user] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
 
 /datum/heretic_knowledge/duel_stance/proc/on_health_update(mob/living/source)
 	SIGNAL_HANDLER
@@ -239,7 +239,7 @@
 	if(!in_duelist_stance && source.health <= source.maxHealth * 0.5)
 		in_duelist_stance = TRUE
 		ADD_TRAIT(source, TRAIT_BATON_RESISTANCE, type)
-		SEND_SIGNAL(owner, COMSIG_LIVING_CLEAR_STUNS)
+		SEND_SIGNAL(source, COMSIG_LIVING_CLEAR_STUNS)
 		return
 
 #undef BLOOD_FLOW_PER_SEVEIRTY
@@ -291,7 +291,7 @@
 
 	return COMPONENT_CAST_HANDLESS
 
-/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/source, atom/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/carbon/human/source, atom/target, obj/item/sickly_blade/blade)
 	if(target == source)
 		return
 
@@ -306,7 +306,7 @@
 	// Give it a short delay (for style, also lets people dodge it I guess)
 	addtimer(CALLBACK(src, PROC_REF(follow_up_attack), source, target, off_hand), 0.25 SECONDS)
 
-/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/source, atom/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/carbon/human/source, atom/target, obj/item/sickly_blade/blade)
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
@@ -345,7 +345,7 @@
 /datum/heretic_knowledge/blade_upgrade/blade/proc/on_blade_equipped(mob/user, obj/item/equipped, slot)
 	SIGNAL_HANDLER
 	if(istype(equipped, /obj/item/sickly_blade/dark))
-		equipped.demolition_mod = 1.5
+		equipped.force += 1
 
 /datum/heretic_knowledge/spell/furious_steel
 	name = "Furious Steel"
@@ -361,7 +361,7 @@
 /datum/heretic_knowledge/ultimate/blade_final
 	name = "Maelstrom of Silver"
 	desc = "The ascension ritual of the Path of Blades. \
-		Bring 3 corpses with either no head or a split skull to a transmutation rune to complete the ritual. \
+		Bring 3 corpses with either no head to a transmutation rune to complete the ritual. \
 		When completed, you will be surrounded in a constant, regenerating orbit of blades. \
 		These blades will protect you from all attacks, but are consumed on use. \
 		Your Furious Steel spell will also have a shorter cooldown. \
@@ -371,7 +371,7 @@
 		I AM UNMATCHED! A STORM OF STEEL AND SILVER IS UPON US! WITNESS MY ASCENSION!"
 
 	announcement_text = "%SPOOKY% Master of blades, the Torn Champion's disciple, %NAME% has ascended! Their steel is that which will cut reality in a maelstom of silver! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_blade.ogg'
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_blade.ogg'
 
 /datum/heretic_knowledge/ultimate/blade_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()

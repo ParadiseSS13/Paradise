@@ -5,7 +5,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"
-	sound = 'sound/items/tools/welder.ogg'
+	sound = 'sound/items/welder.ogg'
 
 	school = SCHOOL_EVOCATION
 	base_cooldown = 10 SECONDS
@@ -129,7 +129,7 @@
 
 		if(prob(70))
 			carbon_user.adjustFireLoss(20)
-			playsound(carbon_user, 'sound/effects/wounds/sizzle1.ogg', 70, vary = TRUE)
+			playsound(carbon_user, 'sound/effects/fire_sizzle.ogg', 70, vary = TRUE)
 			if(prob(50))
 				carbon_user.emote("scream")
 				carbon_user.AdjustStuttering(26 SECONDS)

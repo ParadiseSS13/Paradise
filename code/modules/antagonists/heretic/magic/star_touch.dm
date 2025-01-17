@@ -10,7 +10,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "star_touch"
 
-	sound = 'sound/items/tools/welder.ogg'
+	sound = 'sound/items/welder.ogg'
 	is_a_heretic_spell = TRUE
 	base_cooldown = 15 SECONDS
 	invocation = "ST'R 'N'RG'!"
@@ -36,7 +36,7 @@
 
 /datum/spell/touch/star_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
 	if(victim.has_status_effect(/datum/status_effect/star_mark))
-		victim.apply_effect(4 SECONDS, effecttype = EFFECT_UNCONSCIOUS)
+		victim.Paralyse(4 SECONDS)
 		victim.remove_status_effect(/datum/status_effect/star_mark)
 	else
 		victim.apply_status_effect(/datum/status_effect/star_mark, caster)
@@ -49,8 +49,8 @@
 	var/list/target_turfs = list(get_turf(owner))
 	var/range = ascended ? 2 : 1
 	var/list/directions = list(turn(owner.dir, 90), turn(owner.dir, 270))
-	for (var/direction as anything in directions)
-		for (var/i in 1 to range)
+	for(var/direction as anything in directions)
+		for(var/i in 1 to range)
 			target_turfs += get_ranged_target_turf(owner, direction, i)
 	return target_turfs
 
@@ -95,7 +95,9 @@
 	. = "<span class='notice'>[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with cosmic energies. Fucking badass!</span>"
 	remove_hand_with_no_refund(user)
 
-/obj/item/melee/touch_attack/star_touch/attack_self(mob/living/user)
+/obj/item/melee/touch_attack/star_touch/activate_self(mob/user)
+	if(..())
+		return
 	var/datum/spell/touch/star_touch/star_touch_spell = spell_which_made_us?.resolve()
 	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
 	if(!star_gazer_mob)
@@ -107,8 +109,8 @@
 		get_turf(star_gazer_mob),
 		no_effects = TRUE,
 		channel = TELEPORT_CHANNEL_MAGIC,
-		asoundin = 'sound/effects/magic/cosmic_energy.ogg',
-		asoundout = 'sound/effects/magic/cosmic_energy.ogg',
+		asoundin = 'sound/magic/cosmic_energy.ogg',
+		asoundout = 'sound/magic/cosmic_energy.ogg',
 	)
 	remove_hand_with_no_refund(user)
 

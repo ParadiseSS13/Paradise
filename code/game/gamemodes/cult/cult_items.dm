@@ -220,7 +220,7 @@
 	if(!do_after(user, 6 SECONDS, src))
 		to_chat(user, "<span class='notice'>You were interrupted!</span>")
 		return
-	playsound(user, 'sound/items/weapons/slice.ogg', 30, TRUE)
+	playsound(user, 'sound/weapons/bladeslice.ogg', 30, TRUE)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
@@ -278,7 +278,7 @@
 	light_range += 3
 	trapped_entity.update_mob_action_buttons()
 
-	playsound(src ,'sound/misc/insane_low_laugh.ogg', 200, TRUE) //quiet
+	playsound(src ,'sound/spookoween/insane_low_laugh.ogg', 200, TRUE) //quiet
 	binding_filters_update()
 
 /obj/item/melee/cultblade/haunted/proc/rebind_blade(mob/user)
@@ -294,7 +294,7 @@
 		wielder_spell.Remove(user)
 	trapped_entity.update_mob_action_buttons()
 
-	playsound(src ,'sound/effects/hallucinations/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
+	playsound(src ,'sound/hallucinations/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
 	binding_filters_update()
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)

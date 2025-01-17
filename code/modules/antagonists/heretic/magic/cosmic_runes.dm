@@ -7,7 +7,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "cosmic_rune"
 
-	sound = 'sound/effects/magic/forcewall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 	is_a_heretic_spell = TRUE
 	base_cooldown = 15 SECONDS
 
@@ -101,8 +101,8 @@
 		get_turf(linked_rune_resolved),
 		no_effects = TRUE,
 		channel = TELEPORT_CHANNEL_MAGIC,
-		asoundin = 'sound/effects/magic/cosmic_energy.ogg',
-		asoundout = 'sound/effects/magic/cosmic_energy.ogg',
+		asoundin = 'sound/magic/cosmic_energy.ogg',
+		asoundout = 'sound/magic/cosmic_energy.ogg',
 	)
 	for(var/mob/living/person_on_rune in get_turf(src))
 		if(person_on_rune.has_status_effect(/datum/status_effect/star_mark))

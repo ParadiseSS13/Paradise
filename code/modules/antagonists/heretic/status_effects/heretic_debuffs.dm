@@ -301,7 +301,7 @@
 	set waitfor = FALSE
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
-	var/obj/projectile/curse_hand/C = new (spawn_turf)
+	var/obj/item/projectile/curse_hand/C = new (spawn_turf)
 	C.aim_projectile(owner, spawn_turf)
 	C.fire()
 

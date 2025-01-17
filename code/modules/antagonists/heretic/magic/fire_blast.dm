@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "flames"
-	sound = 'sound/effects/magic/fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 45 SECONDS

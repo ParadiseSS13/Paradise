@@ -63,7 +63,7 @@
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	carbon_target.adjust_silence(10 SECONDS)
+	carbon_target.Silence(10 SECONDS)
 	carbon_target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 /datum/heretic_knowledge/cold_snap
@@ -180,7 +180,7 @@
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 
 	announcement_text = "%SPOOKY% The nobleman of void %NAME% has arrived, stepping along the Waltz that ends worlds! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_void.ogg'
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic

@@ -7,7 +7,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "cosmic_domain"
 
-	sound = 'sound/effects/magic/cosmic_expansion.ogg'
+	sound = 'sound/magic/cosmic_expansion.ogg'
 	is_a_heretic_spell = TRUE
 	base_cooldown = 45 SECONDS
 
@@ -38,7 +38,7 @@
 
 /datum/spell/aoe/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)
 	var/list/target_turfs = list()
-	for (var/direction as anything in GLOB.cardinals)
+	for(var/direction as anything in GLOB.cardinals)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 2)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 3)
 	return target_turfs

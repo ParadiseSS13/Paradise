@@ -19,7 +19,7 @@
 	active_msg = "You summon forth three blades of furious silver."
 	deactive_msg = "You conceal the blades of furious silver."
 	cast_range = 20
-	projectile_type = /obj/projectile/floating_blade
+	projectile_type = /obj/item/projectile/floating_blade
 	projectile_amount = 3
 
 	///Effect of the projectile that surrounds us while the spell is active
@@ -98,7 +98,7 @@
 	blade_effect = null
 	on_deactivation()
 
-/obj/projectile/floating_blade
+/obj/item/projectile/floating_blade
 	name = "blade"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
@@ -111,11 +111,11 @@
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
 
-/obj/projectile/floating_blade/Initialize(mapload)
+/obj/item/projectile/floating_blade/Initialize(mapload)
 	. = ..()
 	add_filter("dio_knife", 2, list("type" = "outline", "color" = outline_color, "size" = 1))
 
-/obj/projectile/floating_blade/prehit_pierce(atom/hit)
+/obj/item/projectile/floating_blade/prehit_pierce(atom/hit)
 	if(isliving(hit) && isliving(firer))
 		var/mob/living/caster = firer
 		var/mob/living/victim = hit
@@ -133,7 +133,7 @@
 
 	return ..()
 
-/obj/projectile/floating_blade/haunted
+/obj/item/projectile/floating_blade/haunted
 	name = "ritual blade"
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
@@ -168,5 +168,5 @@
 	active_msg = "You summon forth two cursed blades."
 	deactive_msg = "You conceal the cursed blades."
 	projectile_amount = 2
-	projectile_type = /obj/projectile/floating_blade/haunted
+	projectile_type = /obj/item/projectile/floating_blade/haunted
 	projectile_effect = /obj/effect/floating_blade/haunted

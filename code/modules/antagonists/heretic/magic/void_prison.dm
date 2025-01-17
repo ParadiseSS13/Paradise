@@ -8,7 +8,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "voidball"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
-	sound = 'sound/effects/magic/voidblink.ogg'
+	sound = 'sound/magic/voidblink.ogg'
 
 	base_cooldown = 1 MINUTES
 	cast_range = 3

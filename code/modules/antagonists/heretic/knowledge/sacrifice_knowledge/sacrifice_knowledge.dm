@@ -399,7 +399,7 @@
 
 	var/total_implant = rand(2, 4)
 
-	for (var/i in 1 to total_implant)
+	for(var/i in 1 to total_implant)
 		if(!length(usable_organs))
 			return
 		var/organ_path = pick_n_take(usable_organs)

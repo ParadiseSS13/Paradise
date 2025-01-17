@@ -29,7 +29,7 @@
 	can_assign_self_objectives = TRUE
 	default_custom_objective = "Turn a department into a testament for your dark knowledge."
 	hardcore_random_bonus = TRUE
-	stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
+	stinger_sound = 'sound/ambience/antag/heretic/heretic_gain.ogg'
 	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 
 	/// Whether we've ascended! (Completed one of the final rituals)

@@ -168,7 +168,7 @@
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
 
 	announcement_text = "%SPOOKY% Fear the decay, for the Rustbringer, %NAME% has ascended! None shall escape the corrosion! %SPOOKY%"
-	announcement_sound = 'sound/music/antag/heretic/ascend_rust.ogg'
+	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
@@ -220,8 +220,8 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	for (var/turf/transform_turf as anything in GLOB.station_turfs)
-		if(transform_turf.turf_flags & NO_RUST)
+	for(var/turf/transform_turf as anything in GLOB.station_turfs)
+		if(transform_turf.flags & NO_RUST)
 			continue
 		var/dist = get_dist(center, transform_turf)
 		if(dist > greatest_dist)
@@ -230,7 +230,7 @@
 			turfs_to_transform["[dist]"] = list()
 		turfs_to_transform["[dist]"] += transform_turf
 
-	for (var/iterator in 1 to greatest_dist)
+	for(var/iterator in 1 to greatest_dist)
 		if(!turfs_to_transform["[iterator]"])
 			continue
 		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
