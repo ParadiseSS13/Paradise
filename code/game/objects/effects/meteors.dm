@@ -194,6 +194,52 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 //Meteor types
 ///////////////////////
 
+//Fake
+/obj/effect/meteor/fake
+	name = "simulated meteor"
+	desc = "A simulated meteor for testing shield satellites. How did you see this, anyway?"
+	invisibility = INVISIBILITY_MAXIMUM
+	density = FALSE
+	pass_flags = NONE
+	/// The station goal that is simulating this meteor.
+	var/datum/station_goal/station_shield/goal
+	/// Did we crash into something? Used to avoid falsely reporting success when qdeleted.
+	var/failed = FALSE
+
+/obj/effect/meteor/fake/Initialize(mapload)
+	. = ..()
+	for(var/datum/station_goal/station_shield/found_goal in SSticker.mode.station_goals)
+		goal = found_goal
+		return
+
+/obj/effect/meteor/fake/Destroy()
+	if(!failed)
+		succeed()
+	goal = null
+	return ..()
+
+/obj/effect/meteor/fake/ram_turf(turf/T)
+	if(!isspaceturf(T))
+		fail()
+		return
+	for(var/thing in T)
+		if(isobj(thing) && !iseffect(thing))
+			fail()
+			return
+
+/obj/effect/meteor/fake/get_hit()
+	return
+
+/obj/effect/meteor/fake/proc/succeed()
+	if(istype(goal))
+		goal.update_coverage(TRUE, get_turf(src))
+
+/obj/effect/meteor/fake/proc/fail()
+	if(istype(goal))
+		goal.update_coverage(FALSE, get_turf(src))
+	failed = TRUE
+	qdel(src)
+
 //Dust
 /obj/effect/meteor/dust
 	name = "space dust"

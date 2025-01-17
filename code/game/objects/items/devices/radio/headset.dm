@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -518,4 +518,9 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
+	recalculateChannels()
+
+/obj/item/radio/headset/proc/make_epsilon() // Turns AI's and cyborgs radio to Epsilon radio!
+	qdel(keyslot1)
+	keyslot1 = new /obj/item/encryptionkey/centcom
 	recalculateChannels()

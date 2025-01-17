@@ -161,7 +161,7 @@
 /datum/rcd_act/remove_wall/can_act(atom/A, obj/item/rcd/rcd)
 	if(!..())
 		return FALSE
-	if(isreinforcedwallturf(A) && !rcd.canRwall)
+	if(isreinforcedwallturf(A) && !rcd.can_rwall)
 		return FALSE
 	if(istype(A, /turf/simulated/wall/indestructible))
 		return FALSE
@@ -230,6 +230,7 @@
 	req_access = list(ACCESS_ENGINE)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 	/// No ammo warning
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
 	/// The spark system used to create sparks when the user interacts with the RCD.
@@ -241,7 +242,7 @@
 	/// The RCD's current build mode.
 	var/mode = MODE_TURF
 	/// If the RCD can deconstruct reinforced walls.
-	var/canRwall = FALSE
+	var/can_rwall = FALSE
 	/// Is the RCD's airlock access selection menu locked?
 	var/locked = TRUE
 	/// The current airlock type that will be build.
@@ -357,7 +358,7 @@
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!afterattack__legacy__attackchain(suicide_tile, user, TRUE))
+	if(!interact_with_atom(suicide_tile, user, TRUE))
 		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
@@ -413,11 +414,13 @@
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
-/obj/item/rcd/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/rcd_ammo))
+/obj/item/rcd/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/rcd_ammo))
 		return ..()
-	var/obj/item/rcd_ammo/R = W
-	load(R, user)
+	var/obj/item/rcd_ammo/ammo = used
+	load(ammo, user)
+	return ITEM_INTERACT_COMPLETE
+
 /**
  * Creates and displays a radial menu to a user when they trigger the `attack_self` of the RCD.
  *
@@ -464,8 +467,9 @@
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
 
-
-/obj/item/rcd/attack_self__legacy__attackchain(mob/user)
+/obj/item/rcd/activate_self(mob/user)
+	if(..())
+		return
 	//Change the mode // Oh I thought the UI was just for fucking staring at
 	radial_menu(user)
 
@@ -598,20 +602,19 @@
 		else
 			return FALSE
 
-/obj/item/rcd/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
+/obj/item/rcd/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(istype(target, /turf/space/transit))
 		return FALSE
-	if(istype(A, /turf/space/transit))
-		return FALSE
-	if(!is_type_in_list(A, allowed_targets))
+	if(!is_type_in_list(target, allowed_targets))
 		return FALSE
 
 	for(var/datum/rcd_act/act in possible_actions)
-		if(act.can_act(A, src))
-			. = act.try_act(A, src, user)
+		if(act.can_act(target, src))
+			. = act.try_act(target, src, user)
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(mode == MODE_DECON)
 		to_chat(user, "<span class='warning'>You can't deconstruct that!</span>")
@@ -656,20 +659,20 @@
 	add_overlay("[icon_state]_charge[ratio]")
 
 /obj/item/rcd/borg
-	canRwall = TRUE
-	/// A multipler which is applied to matter amount checks. A higher number means more power usage per RCD usage.
-	var/power_use_multiplier = 160
+	can_rwall = TRUE
+	matter = 100
 
 /obj/item/rcd/borg/syndicate
-	power_use_multiplier = 80
+	/// A multipler which is applied to matter amount checks. A higher number means more power usage per RCD usage.
+	var/power_use_multiplier = 80
 
-/obj/item/rcd/borg/use(amount)
+/obj/item/rcd/borg/syndicate/use(amount)
 	var/mob/living/silicon/robot/R = usr
 	if(!istype(R))
 		return FALSE
 	return R.cell.use(amount * power_use_multiplier)
 
-/obj/item/rcd/borg/tool_use_check(mob/user, amount)
+/obj/item/rcd/borg/syndicate/tool_use_check(mob/user, amount)
 	if(!isrobot(user))
 		return FALSE
 	var/mob/living/silicon/robot/R = user
@@ -701,7 +704,7 @@
 	item_state = "crcd"
 	max_matter = 500
 	matter = 500
-	canRwall = TRUE
+	can_rwall = TRUE
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
@@ -714,13 +717,15 @@
 	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
+	new_attack_chain = TRUE
 	var/ammoamt = 20
 
-/obj/item/rcd_ammo/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(!istype(I, /obj/item/rcd) || issilicon(user))
+/obj/item/rcd_ammo/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/rcd))
 		return ..()
-	var/obj/item/rcd/R = I
+	var/obj/item/rcd/R = used
 	R.load(src, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rcd_ammo/large
 	ammoamt = 100

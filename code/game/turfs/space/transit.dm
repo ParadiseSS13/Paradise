@@ -4,9 +4,10 @@
 	icon_state = "black"
 	dir = SOUTH
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby__legacy__attackchain(obj/O as obj, mob/user as mob, params)
-	return
+/turf/space/transit/Initialize(mapload)
+	. = ..()
+	// We don't want people building rods in space.
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /// moving to the north
 /turf/space/transit/north
