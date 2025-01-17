@@ -1388,6 +1388,7 @@ so that different stomachs can handle things in different ways VB*/
 	M.adjustBruteLoss(rand(0, 15))
 	M.adjustToxLoss(rand(0, 15))
 	M.adjustFireLoss(rand(0, 15))
+	M.do_jitter_animation(200)
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

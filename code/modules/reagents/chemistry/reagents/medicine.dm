@@ -973,15 +973,16 @@
 					M.visible_message("<span class='warning'>[M] twitches slightly, but appears to have no will to live!</span>")
 					return
 				if(HAS_TRAIT(M, TRAIT_HUSK || HAS_TRAIT(M, TRAIT_BADDNA))) // Feedback if the body is husked or has bad DNA.
-					M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS || !M.ghost_can_reenter()))
+						M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
 						return
 					M.delayed_gib(TRUE)
 					return
 				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
-				M.do_jitter_animation(200) // Visual feedback of lazarus working.
+				M.do_jitter_animation(300) // Visual feedback of lazarus working.
 				var/mob/dead/observer/G = M.get_ghost()
 				if(G)
 					to_chat(G, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
