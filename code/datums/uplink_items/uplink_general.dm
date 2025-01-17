@@ -949,6 +949,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
 	cost = 10
 
+/datum/uplink_item/cyber_implants/mantis_kit
+	name = "'Naginata' Mantis Blades Kit"
+	desc = "A pair of devastating 'Naginata' concealable mantis blades, which retract into the arms of the user. \
+	Their monomolecular edges will easily tear through flesh and armor alike, and can even pry open airlocks when used together. \
+	When both blades are equipped, they enable the user to perform double attacks. \
+	Can be used to parry incoming melee attacks."
+	reference = "MBK"
+	item = /obj/item/storage/box/syndie_kit/syndie_mantis
+	cost = 60
 
 ////////////////////////////////////////
 // MARK: POINTLESS BADASSERY

@@ -297,7 +297,7 @@
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled)
@@ -879,7 +879,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 
 						O.loc.Exited(O)
-						O.setLoc(X)
+						O.set_loc(X)
 						O.loc.Entered(O)
 
 					for(var/mob/M in T)

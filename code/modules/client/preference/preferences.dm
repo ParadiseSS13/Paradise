@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.f_style = "Shaved"
 
 
-			if(!(S.bodyflags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 
