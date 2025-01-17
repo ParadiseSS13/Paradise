@@ -260,9 +260,6 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
-	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
-		try_to_crowbar(user, I)
-		return TRUE
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return TRUE
