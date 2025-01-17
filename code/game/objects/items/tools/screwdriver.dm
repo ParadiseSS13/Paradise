@@ -28,6 +28,7 @@
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
+	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -52,18 +53,15 @@
 	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/attack(mob/living/target, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-		
+/obj/item/screwdriver/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
 	if(!istype(target) || user.a_intent == INTENT_HELP)
-		return FINISH_ATTACK
+		return
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
-		return FINISH_ATTACK
+		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		target = user
 	eyestab(target, user)
-	return FINISH_ATTACK
+	return COMPONENT_SKIP_ATTACK
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
