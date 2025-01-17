@@ -26,6 +26,28 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 			return
 
+	if(ai_laws_change)
+		var/list/ais = active_ais()
+		var/datum/ai_laws/death_squad_ai_law_set = new /datum/ai_laws/epsilon()
+		var/notice_sound = sound('sound/AI/epsilon_laws.ogg')
+		for(var/mob/living/silicon/ai/AI in ais)
+			death_squad_ai_law_set.sync(AI, TRUE, FALSE) // Reset all laws exept zero
+			to_chat(AI, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+			SEND_SOUND(AI, notice_sound)
+			AI.show_laws()
+			var/obj/item/radio/headset/heads/ai_integrated/ai_radio = AI.get_radio()
+			ai_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
+			ai_radio.config(ai_radio.channels)
+
+			for(var/mob/living/silicon/robot/R in AI.connected_robots)
+				R.sync()
+				to_chat(R, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+				SEND_SOUND(R, notice_sound)
+				R.show_laws()
+				var/obj/item/radio/borg/cyberg_radio = R.get_radio()
+				cyberg_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
+				cyberg_radio.config(cyberg_radio.channels)
+
 	// Locates commandos spawns
 	var/list/commando_spawn_locations = list()
 	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
