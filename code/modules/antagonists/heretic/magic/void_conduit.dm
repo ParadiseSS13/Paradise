@@ -1,4 +1,4 @@
-/datum/spell/conjure/void_conduit
+/datum/spell/aoe/conjure/void_conduit
 	name = "Void Conduit"
 	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
 		while afflicting Heathens with void chill. \
@@ -16,10 +16,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_radius = 0
 	summon_type = list(/obj/structure/void_conduit)
-	summon_respects_density = TRUE
-	summon_respects_prev_spawn_points = TRUE
 
 /obj/structure/void_conduit
 	name = "Void Conduit"

@@ -16,7 +16,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 /datum/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
-	cast_on.extinguish_mob()
+	cast_on.extinguishMob()
 	return ..()
 
 /datum/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)

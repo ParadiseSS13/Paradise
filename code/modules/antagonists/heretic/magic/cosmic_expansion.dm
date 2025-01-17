@@ -15,8 +15,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_amount = 9
-	summon_radius = 1
+	summon_amt = 9
 	summon_type = list(/obj/effect/forcefield/cosmic_field)
 	summon_ignore_density = TRUE
 	/// The range at which people will get marked with a star mark.

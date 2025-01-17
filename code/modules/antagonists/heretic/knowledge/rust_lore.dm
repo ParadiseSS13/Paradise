@@ -280,7 +280,7 @@
  */
 /datum/heretic_knowledge/ultimate/rust_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
 	SIGNAL_HANDLER
-
+	//qwertodo: nerf this to the ground lmao
 	var/turf/our_turf = get_turf(source)
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
@@ -289,9 +289,9 @@
 	var/base_heal_amt = 2.5 * DELTA_WORLD_TIME(SSmobs)
 	need_mob_update += source.adjustBruteLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-base_heal_amt, updating_health = FALSE)
-	need_mob_update += source.adjustToxLoss(-base_heal_amt, updating_health = FALSE, forced = TRUE)
+	need_mob_update += source.adjustToxLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustOxyLoss(-base_heal_amt, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-base_heal_amt * 4, updating_stamina = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-base_heal_amt * 4, updating = FALSE)
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += base_heal_amt
 	if(need_mob_update)

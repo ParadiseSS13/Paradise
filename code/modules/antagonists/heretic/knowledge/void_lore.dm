@@ -116,7 +116,7 @@
 	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
 		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
 		The doors won't close. I can't keep the cold out now."
-	action_to_add = /datum/spell/conjure/void_conduit
+	action_to_add = /datum/spell/aoe/conjure/void_conduit
 	cost = 1
 
 /datum/heretic_knowledge/spell/void_phase

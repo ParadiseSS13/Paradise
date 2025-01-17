@@ -579,7 +579,7 @@ STATUS EFFECTS
 	SetHereticSlur(max(AmountHereticSlurring(), amount))
 
 /mob/living/proc/SetHereticSlur(amount)
-	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_Heretic_SLUR, amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HERETIC_SLUR, amount)
 
 /mob/living/proc/AdjustHereticSlur(amount, bound_lower = 0, bound_upper = 5 MINUTES)
 	SetHereticSlur(directional_bounded_sum(AmountHereticSlurring(), amount, bound_lower, bound_upper))

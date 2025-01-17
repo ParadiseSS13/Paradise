@@ -98,7 +98,7 @@
 	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	if(!HAS_TRAIT(L, TRAIT_BATON_RESISTANCE))
+	if(!HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
 		target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)

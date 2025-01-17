@@ -78,10 +78,8 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "cosmic_carpet"
 	anchored = TRUE
-	layer = GIB_LAYER
 	density = FALSE
-	can_atmos_pass = ATMOS_PASS_NO
-	initial_duration = 30 SECONDS
+	lifetime = 30 SECONDS
 	/// Flags for what antimagic can just ignore our forcefields
 	var/antimagic_flags = MAGIC_RESISTANCE
 
@@ -89,7 +87,10 @@
 	. = ..()
 	antimagic_flags = flags
 
-/obj/effect/forcefield/cosmic_field/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/effect/forcefield/cosmic_field/CanAtmosPass(direction)
+	return FALSE
+
+/obj/effect/forcefield/cosmic_field/CanPass(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return ..()
 	var/mob/living/living_mover = mover
@@ -100,7 +101,7 @@
 	return ..()
 
 /obj/effect/forcefield/cosmic_field/fast
-	initial_duration = 5 SECONDS
+	lifetime = 5 SECONDS
 
 /obj/effect/forcefield/cosmic_field/extrafast
-	initial_duration = 2.5 SECONDS
+	lifetime = 2.5 SECONDS

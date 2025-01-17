@@ -62,8 +62,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(!where_to_put_our_heart)
 		var/static/list/backup_organs = list(
 			ORGAN_SLOT_LUNGS = /obj/item/organ/internal/lungs,
-			ORGAN_SLOT_LIVER = /obj/item/organ/internal/liver,
-			ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
+			ORGAN_SLOT_LIVER = /obj/item/organ/internal/liver
 		)
 
 		for(var/backup_slot in backup_organs)
@@ -90,6 +89,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 	else
 		to_chat(user, "<span class='boldnotice'>You don't have a heart, or any chest organs for that matter. You didn't get a Living Heart because of it.</span>")
+		message_admins("Oh fuck me, [user] did not have a heart, lungs, or liver. give [user] some organic lungs or something, then have them use the ritual again, then report this to me")
 
 /datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	var/obj/item/organ/our_living_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			CRASH("[type] required a replacement organic heart in on_finished_recipe, but did not find one.")
 		// Repair the organic heart, if needed, to just below the high threshold
 		if(our_replacement_heart.damage >= our_replacement_heart.min_broken_damage)
-			our_replacement_heart.damage = our_replacement_heart.high_threshold - 1
+			our_replacement_heart.damage = our_replacement_heart.min_broken_damage - 1
 		// And now, put our organic heart in its place
 		our_replacement_heart.insert(user, TRUE)
 		if(our_new_heart)

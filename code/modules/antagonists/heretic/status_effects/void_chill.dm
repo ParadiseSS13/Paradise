@@ -8,7 +8,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/void_chill
 	status_type = STATUS_EFFECT_REFRESH //Custom code
 	on_remove_on_mob_delete = TRUE
-	remove_on_fullheal = TRUE
 	///Current amount of stacks we have
 	var/stacks
 	///Maximum of stacks that we could possibly get
