@@ -21,6 +21,8 @@
 	var/heat_amount = 40000
 	/// Are we overheating?
 	var/overheating = FALSE
+	/// Used to ensure it takes a few seconds of being hot before overheating
+	var/overheat_counter = 0
 
 /obj/machinery/ai_node/process()
 	..()
@@ -123,7 +125,12 @@
 	// Heat check
 	if(env.temperature() > 373 || env.temperature() < 273) // If the temperature is outside 0-100C...
 		// Turn the node off due to temperature problems
-		node.Overheat()
+		node.overheat_counter++
+		if(node.overheat_counter >= 5)
+			node.Overheat()
+		return
+	node.overheat_counter--
+
 
 /obj/machinery/ai_node/processing_node
 	name = "Processing Node"
