@@ -235,7 +235,6 @@
 			name = "purple crayon"
 			colour = COLOR_PURPLE
 			dye_color = DYE_PURPLE
-	..()
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
