@@ -16,22 +16,22 @@
 	spell_requirements = NONE
 
 	/// Storage for the first rune.
-	var/datum/weakref/first_rune
+	var/first_rune
 	/// Storage for the second rune.
-	var/datum/weakref/second_rune
+	var/second_rune
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
 /datum/spell/cosmic_rune/cast(atom/cast_on)
 	. = ..()
-	var/obj/effect/cosmic_rune/first_rune_resolved = first_rune?.resolve()
-	var/obj/effect/cosmic_rune/second_rune_resolved = second_rune?.resolve()
+	var/obj/effect/cosmic_rune/first_rune_resolved = locateUID(first_rune)
+	var/obj/effect/cosmic_rune/second_rune_resolved = locateUID(second_rune)
 	if(first_rune_resolved && second_rune_resolved)
 		var/obj/effect/cosmic_rune/new_rune = new /obj/effect/cosmic_rune(get_turf(cast_on))
 		new rune_remove_effect(get_turf(first_rune_resolved))
 		QDEL_NULL(first_rune_resolved)
-		first_rune = WEAKREF(second_rune_resolved)
-		second_rune = WEAKREF(new_rune)
+		first_rune = second_rune_resolved.UID()
+		second_rune = new_rune.UID()
 		second_rune_resolved.link_rune(new_rune)
 		new_rune.link_rune(second_rune_resolved)
 		return
@@ -47,29 +47,26 @@
 	if(other_rune)
 		other_rune.link_rune(new_rune)
 		new_rune.link_rune(other_rune)
-	return WEAKREF(new_rune)
+	return new_rune.UID()
 
 /// A rune that allows you to teleport to the location of a linked rune.
 /obj/effect/cosmic_rune
 	name = "cosmic rune"
 	desc = "A strange rune, that can instantly transport people to another location."
 	anchored = TRUE
-	icon = 'icons/obj/service/hand_of_god_structures.dmi'
+	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "cosmic_rune"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
 	/// The other rune this rune is linked with
-	var/datum/weakref/linked_rune
+	var/linked_rune
 	/// Effect for when someone teleports
 	var/obj/effect/rune_effect = /obj/effect/temp_visual/rune_light
 
 /obj/effect/cosmic_rune/Initialize(mapload)
 	. = ..()
-	var/image/silicon_image = image(icon = 'icons/obj/service/hand_of_god_structures.dmi', icon_state = null, loc = src)
-	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
-	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
+	//qwertodo: maybe make invisible to admins
 
 /obj/effect/cosmic_rune/attack_paw(mob/living/user, list/modifiers)
 	return attack_hand(user, modifiers)
@@ -79,34 +76,32 @@
 	if(.)
 		return
 	if(!linked_rune)
-		balloon_alert(user, "no linked rune!")
+		to_chat(user, "<span class='warning'>There is no linked rune!</span>")
 		fail_invoke()
 		return
 	if(!(user in get_turf(src)))
-		balloon_alert(user, "not close enough!")
+		to_chat(user, "<span class='warning'>You must be on the rune to teleport!</span>")
 		fail_invoke()
 		return
 	if(user.has_status_effect(/datum/status_effect/star_mark))
-		balloon_alert(user, "blocked by star mark!")
+		to_chat(user, "<span class='warning'>The mark blocks you from using the rune!</span>")
 		fail_invoke()
 		return
 	invoke(user)
 
 /// For invoking the rune
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
-	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
+	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)
 	new rune_effect(get_turf(src))
-	do_teleport(
-		user,
-		get_turf(linked_rune_resolved),
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
-		asoundin = 'sound/magic/cosmic_energy.ogg',
-		asoundout = 'sound/magic/cosmic_energy.ogg',
-	)
+	if(!(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked_rune_resolved)) & COMPONENT_BLOCK_TELEPORT))
+		user.forceMove(get_turf(linked_rune_resolved))
 	for(var/mob/living/person_on_rune in get_turf(src))
 		if(person_on_rune.has_status_effect(/datum/status_effect/star_mark))
-			do_teleport(person_on_rune, get_turf(linked_rune_resolved), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+			if(SEND_SIGNAL(person_on_rune, COMSIG_MOVABLE_TELEPORTING, get_turf(linked_rune_resolved)) & COMPONENT_BLOCK_TELEPORT)
+				continue
+			person_on_rune.forceMove(get_turf(linked_rune_resolved))
+	playsound(src, 'sound/magic/cosmic_energy.ogg', 100, TRUE)
+	playsound(user, 'sound/magic/cosmic_energy.ogg', 100, TRUE)
 	new rune_effect(get_turf(linked_rune_resolved))
 
 /// For if someone failed to invoke the rune
@@ -118,11 +113,11 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 0.5 SECONDS)
 
 /// For linking a new rune
-/obj/effect/cosmic_rune/proc/link_rune(datum/weakref/new_rune)
-	linked_rune = WEAKREF(new_rune)
+/obj/effect/cosmic_rune/proc/link_rune(new_rune)
+	linked_rune = new_rune.UID()
 
 /obj/effect/cosmic_rune/Destroy()
-	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
+	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)
 	if(linked_rune_resolved)
 		linked_rune_resolved.unlink_rune()
 	return ..()
@@ -133,7 +128,7 @@
 
 /obj/effect/temp_visual/cosmic_rune_fade
 	name = "cosmic rune"
-	icon = 'icons/obj/service/hand_of_god_structures.dmi'
+	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
@@ -142,13 +137,13 @@
 
 /obj/effect/temp_visual/cosmic_rune_fade/Initialize(mapload)
 	. = ..()
-	var/image/silicon_image = image(icon = 'icons/obj/service/hand_of_god_structures.dmi', icon_state = null, loc = src)
-	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
+	//var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
+	//silicon_image.override = TRUE
+	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
 
 /obj/effect/temp_visual/rune_light
 	name = "cosmic rune"
-	icon = 'icons/obj/service/hand_of_god_structures.dmi'
+	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
@@ -157,6 +152,6 @@
 
 /obj/effect/temp_visual/rune_light/Initialize(mapload)
 	. = ..()
-	var/image/silicon_image = image(icon = 'icons/obj/service/hand_of_god_structures.dmi', icon_state = null, loc = src)
-	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
+	//var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
+	//silicon_image.override = TRUE
+//	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)

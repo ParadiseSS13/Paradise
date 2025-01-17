@@ -18,8 +18,6 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/spell/realignment/valid_target(target, user)
-	return isliving(cast_on)
 
 /datum/spell/realignment/cast(mob/living/cast_on)
 	. = ..()

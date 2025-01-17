@@ -11,12 +11,11 @@
 	return TRUE
 
 /datum/status_effect/amok/tick(seconds_between_ticks)
-	var/prev_combat_mode = owner.combat_mode
-	owner.set_combat_mode(TRUE)
+	owner.intent = INTENT_HARM
 
 	// If we're holding a gun, expand the range a bit.
 	// Otherwise, just look for adjacent targets
-	var/search_radius = isgun(owner.get_active_held_item()) ? 3 : 1
+	var/search_radius = isgun(owner.get_active_hand()) ? 3 : 1
 
 	var/list/mob/living/targets = list()
 	for(var/mob/living/potential_target in oview(owner, search_radius))
@@ -28,7 +27,6 @@
 		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
 		owner.ClickOn(pick(targets))
 
-	owner.set_combat_mode(prev_combat_mode)
 
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
@@ -112,7 +110,7 @@
 	/// icon state for the overlay
 	var/effect_icon_state = "cosmic_ring"
 	/// Storage for the spell caster
-	var/datum/weakref/spell_caster
+	var/spell_caster
 
 /atom/movable/screen/alert/status_effect/star_mark
 	name = "Star Mark"
@@ -122,7 +120,7 @@
 /datum/status_effect/star_mark/on_creation(mob/living/new_owner, mob/living/new_spell_caster)
 	cosmic_overlay = mutable_appearance(effect_icon, effect_icon_state, BELOW_MOB_LAYER)
 	if(new_spell_caster)
-		spell_caster = WEAKREF(new_spell_caster)
+		spell_caster = new_spell_caster.UID()
 	return ..()
 
 /datum/status_effect/star_mark/Destroy()
@@ -132,7 +130,7 @@
 /datum/status_effect/star_mark/on_apply()
 	if(istype(owner, /mob/living/basic/heretic_summon/star_gazer))
 		return FALSE
-	var/mob/living/spell_caster_resolved = spell_caster?.resolve()
+	var/mob/living/spell_caster_resolved = locateUID(spell_caster)
 	var/datum/antagonist/heretic_monster/monster = owner.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
 	if(spell_caster_resolved && monster)
 		if(monster.master?.current == spell_caster_resolved)
@@ -161,7 +159,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort
 	duration = 12 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = STATUS_EFFECT_NO_TICK
+	tick_interval = 0
 
 /atom/movable/screen/alert/status_effect/heretic_lastresort
 	name = "Last Resort"
@@ -183,7 +181,6 @@
 /datum/status_effect/moon_converted
 	id = "moon converted"
 	alert_type = /atom/movable/screen/alert/status_effect/moon_converted
-	duration = STATUS_EFFECT_PERMANENT
 	status_type = STATUS_EFFECT_REPLACE
 	///used to track damage
 	var/damage_sustained = 0
@@ -259,12 +256,9 @@
 
 /mob/living/proc/apply_necropolis_curse(set_curse)
 	var/datum/status_effect/necropolis_curse/C = has_status_effect(/datum/status_effect/necropolis_curse)
-	if(!set_curse)
-		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
 	if(QDELETED(C))
 		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
 	else
-		C.apply_curse(set_curse)
 		C.duration += 3000 //time added by additional curses
 	return C
 

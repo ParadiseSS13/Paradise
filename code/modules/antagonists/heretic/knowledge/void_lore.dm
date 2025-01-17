@@ -31,7 +31,7 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isfloorturf(loc))
-		loc.balloon_alert(user, "ritual failed, invalid location!")
+		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
 	var/turf/simulated/our_turf = loc
@@ -77,7 +77,7 @@
 	research_tree_icon_state = "the_freezer"
 
 	/// Traits we apply to become immune to the environment
-	var/static/list/gain_traits = list(TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE)
+	var/static/list/gain_traits = list(TRAIT_NOSLIP)
 
 /datum/heretic_knowledge/cold_snap/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	user.add_traits(list(TRAIT_NOBREATH, TRAIT_RESISTCOLD), type)
@@ -190,7 +190,7 @@
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isfloorturf(loc))
-		loc.balloon_alert(user, "ritual failed, invalid location!")
+		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
 	var/turf/simulated/our_turf = loc
@@ -236,9 +236,9 @@
 			if(IS_HERETIC_OR_MONSTER(close_carbon))
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
-			close_carbon.adjust_silence_up_to(2 SECONDS, 20 SECONDS)
+			close_carbon.Silence(2 SECONDS)
 			close_carbon.apply_status_effect(/datum/status_effect/void_chill, 1)
-			close_carbon.adjust_eye_blur(rand(0 SECONDS, 2 SECONDS))
+			close_carbon.EyeBlurry(rand(0, 2 SECONDS))
 			close_carbon.adjust_bodytemperature(-30 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 		if(istype(thing_in_range, /obj/machinery/door) || istype(thing_in_range, /obj/structure/door_assembly))
@@ -285,7 +285,7 @@
 		return FALSE
 	return TRUE
 
-/datum/heretic_knowledge/ultimate/void_final/proc/hit_by_projectile(mob/living/ascended_heretic, obj/projectile/hitting_projectile, def_zone)
+/datum/heretic_knowledge/ultimate/void_final/proc/hit_by_projectile(mob/living/ascended_heretic, obj/item/projectile/hitting_projectile, def_zone)
 	SIGNAL_HANDLER
 
 	if(!can_deflect(ascended_heretic))
@@ -295,7 +295,7 @@
 		"<span class='danger'>The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!</span>",
 		"<span class='userdanger'>The void storm protects you from [hitting_projectile]!</span>",
 	)
-	playsound(ascended_heretic, SFX_VOID_DEFLECT, 75, TRUE)
+	playsound(ascended_heretic, "void_deflect", 75, TRUE)
 	hitting_projectile.firer = ascended_heretic
 	if(prob(75))
 		hitting_projectile.set_angle(get_angle(hitting_projectile.firer, hitting_projectile.fired_from))

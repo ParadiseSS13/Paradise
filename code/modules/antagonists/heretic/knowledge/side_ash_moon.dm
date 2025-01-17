@@ -33,8 +33,8 @@
 	gain_text = "The flesh of humanity is weak. Make them bleed. Show them their fragility."
 
 	required_atoms = list(
-		/obj/item/bodypart/leg/left = 1,
-		/obj/item/bodypart/leg/right = 1,
+		/obj/item/organ/external/leg = 1,
+		/obj/item/organ/external/leg/right = 1,
 		/obj/item/hatchet = 1,
 	)
 	duration = 3 MINUTES

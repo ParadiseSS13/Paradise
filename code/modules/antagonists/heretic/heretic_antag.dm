@@ -457,7 +457,7 @@
 
 	// Locate a cultist team (Is there a better way??)
 	var/mob/living/random_cultist = pick(invokers)
-	var/datum/antagonist/cult/antag = random_cultist.mind.has_antag_datum(/datum/antagonist/cult)
+	var/datum/antagonist/cultist/antag = random_cultist.mind.has_antag_datum(/datum/antagonist/cultist)
 	ASSERT(antag)
 	var/datum/team/cult/cult_team = antag.get_team()
 
@@ -643,7 +643,7 @@
 
 	return parts.Join("<br>")
 
-/datum/antagonist/heretic/get_admin_commands()
+/datum/antagonist/heretic/get_admin_commands() //qwertodo: antag panel
 	. = ..()
 
 	switch(has_living_heart())

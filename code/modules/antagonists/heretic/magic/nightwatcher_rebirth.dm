@@ -21,7 +21,7 @@
 
 /datum/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
 	var/list/things = list()
-	for(var/mob/living/carbon/nearby_mob in range(aoe_radius, center))
+	for(var/mob/living/carbon/nearby_mob in range(aoe_range, center))
 		if(nearby_mob == owner || nearby_mob == center)
 			continue
 		if(!nearby_mob.mind || !nearby_mob.client)

@@ -16,7 +16,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	aoe_radius = 5
+	aoe_range = 5
 	/// Effect for when the spell triggers
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
@@ -26,7 +26,7 @@
 
 /datum/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
 	var/list/stuff = list()
-	var/list/o_range = orange(center, radius_override || aoe_radius) - list(owner, center)
+	var/list/o_range = orange(center, radius_override || aoe_range) - list(owner, center)
 	for(var/mob/living/carbon/nearby_mob in o_range)
 		if(nearby_mob.stat == DEAD)
 			continue

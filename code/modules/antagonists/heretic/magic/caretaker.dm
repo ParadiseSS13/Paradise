@@ -24,7 +24,7 @@
 
 	for(var/mob/living/alive in orange(5, user))
 		if(alive.stat != DEAD && alive.client)
-			owner.balloon_alert(owner, "other minds nearby!")
+			to_chat(user, "<span class='warning'>There are sentient beings blocking you from shifting!</span>")
 			return FALSE
 
 /datum/spell/caretaker/cast(list/targets, mob/user)

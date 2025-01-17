@@ -22,7 +22,7 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/spell/pointed/void_phase/before_cast(atom/cast_on)
+/datum/spell/pointed/void_phase/before_cast(list/targets, mob/user)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -36,8 +36,8 @@
 	var/turf/source_turf = get_turf(owner)
 	var/turf/targeted_turf = get_turf(cast_on)
 
-	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
-	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)
+	cause_aoe(source_turf, /obj/effect/temp_visual/voidin, user)
+	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout, user)
 
 	do_teleport(
 		owner,
@@ -48,15 +48,15 @@
 	)
 
 /// Does the AOE effect of the blinka t the passed turf
-/datum/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
+/datum/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin, mob/user)
 	new effect_type(target_turf)
 	playsound(target_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 	for(var/mob/living/living_mob in range(damage_radius, target_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == owner)
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user)
 			continue
 		if(living_mob.can_block_magic(antimagic_flags))
 			continue
-		living_mob.apply_damage(40, BRUTE, wound_bonus = CANT_WOUND)
+		living_mob.apply_damage(40, BRUTE)
 		living_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 /obj/effect/temp_visual/voidin

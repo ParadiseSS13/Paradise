@@ -15,7 +15,7 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	aoe_radius = 3
+	aoe_range = 3
 
 /datum/spell/aoe/wave_of_desperation/is_valid_target(mob/living/carbon/cast_on)
 	return ..() && istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
@@ -42,7 +42,7 @@
 
 /datum/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)
 	. = list()
-	for(var/atom/nearby in orange(center, radius_override ? radius_override : aoe_radius))
+	for(var/atom/nearby in orange(center, radius_override ? radius_override : aoe_range))
 		if(nearby == owner || nearby == center || isarea(nearby))
 			continue
 		if(!ismob(nearby))

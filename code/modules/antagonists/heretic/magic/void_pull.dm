@@ -15,7 +15,7 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	aoe_radius = 7
+	aoe_range = 7
 	/// The radius of the actual damage circle done before cast
 	var/damage_radius = 1
 	/// The radius of the stun applied to nearby people on cast
@@ -31,12 +31,12 @@
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
 	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(cast_on, damage_radius))
-		nearby_living.apply_damage(30, BRUTE, wound_bonus = CANT_WOUND)
+		nearby_living.apply_damage(30, BRUTE)
 		nearby_living.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 /datum/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 1)
 	var/list/things = list()
-	for(var/mob/living/nearby_mob in view(radius_override || aoe_radius, center))
+	for(var/mob/living/nearby_mob in view(radius_override || aoe_range, center))
 		if(nearby_mob == owner || nearby_mob == center)
 			continue
 		// Don't grab people who are tucked away or something
@@ -55,7 +55,7 @@
 /datum/spell/aoe/void_pull/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	// If the victim's within the stun radius, they're stunned / knocked down
 	if(get_dist(victim, caster) < stun_radius)
-		victim.AdjustKnockdown(3 SECONDS)
+		victim.Knockdown(3 SECONDS)
 		victim.AdjustWeakened(0.5 SECONDS)
 
 	// Otherwise, they take a few steps closer

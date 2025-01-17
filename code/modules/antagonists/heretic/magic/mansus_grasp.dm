@@ -13,15 +13,13 @@
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
-	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
+	spell_requirements = NONE
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
 /datum/spell/touch/mansus_grasp/valid_target(target, user)
 	return TRUE // This baby can hit anything
 
-/datum/spell/touch/mansus_grasp/can_cast_spell(feedback = TRUE)
-	return ..() && (!!IS_HERETIC(owner) || !!IS_LUNATIC(owner))
 
 /datum/spell/touch/mansus_grasp/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	victim.visible_message(
@@ -37,7 +35,7 @@
 		return FALSE
 
 	var/mob/living/living_hit = victim
-	living_hit.apply_damage(10, BRUTE, wound_bonus = CANT_WOUND)
+	living_hit.apply_damage(10, BRUTE)
 	if(!iscarbon(victim))
 		return TRUE
 
@@ -46,9 +44,9 @@
 	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
 	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
 	if(IS_CULTIST(carbon_hit))
-		carbon_hit.AdjustKnockdown(0.5 SECONDS)
-		carbon_hit.AdjustConfused_up_to(1.5 SECONDS, 3 SECONDS)
-		carbon_hit.adjust_dizzy_up_to(1.5 SECONDS, 3 SECONDS)
+		carbon_hit.KnockDown(0.5 SECONDS)
+		carbon_hit.AdjustConfused(3 SECONDS)
+		carbon_hit.AdjustDizzy(3 SECONDS)
 		ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, REF(src)) // We don't want this to be a good stunning tool, just minor disorientation
 		addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, REF(src)), 1 SECONDS)
 
@@ -60,11 +58,10 @@
 
 		to_chat(caster, "<span class='warning'>An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!</span>")
 		to_chat(carbon_hit, "<span class='warning'>As [caster] grasps you with eldritch forces, your blood magic absorbs most of the effects!</span>")
-		carbon_hit.balloon_alert_to_viewers("absorbed!")
 		return TRUE
 
 	carbon_hit.HereticSlur(15 SECONDS)
-	carbon_hit.AdjustKnockdown(5 SECONDS)
+	carbon_hit.KnockDown(5 SECONDS)
 	carbon_hit.adjustStaminaLoss(80)
 	carbon_hit.apply_status_effect(/datum/status_effect/next_shove_stuns)
 

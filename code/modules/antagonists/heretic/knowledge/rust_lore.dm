@@ -177,7 +177,7 @@
 	var/static/list/conditional_immunities = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_IGNORESLOWDOWN,
-		TRAIT_NO_SLIP_ALL,
+		TRAIT_NO_SLIP,
 		TRAIT_NOBREATH,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_PUSHIMMUNE,
@@ -212,7 +212,6 @@
 	trigger(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
 	rust_spread_spell?.base_cooldown /= 2
 
@@ -286,7 +285,6 @@
 		return
 
 	var/need_mob_update = FALSE
-	var/base_heal_amt = 2.5 * DELTA_WORLD_TIME(SSmobs)
 	need_mob_update += source.adjustBruteLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-base_heal_amt, updating_health = FALSE)
