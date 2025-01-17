@@ -105,6 +105,8 @@
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.vital && !limb.is_robotic())
 			limb.necrotize()
+		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
 
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
