@@ -969,6 +969,17 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
+				if(M.suiciding) // Feedback if the player suicided.
+					M.visible_message("<span class='warning'>[M] twitches slightly, but appears to have no will to live!</span>")
+					return
+				if(HAS_TRAIT(M, TRAIT_HUSK || HAS_TRAIT(M, TRAIT_BADDNA))) // Feedback if the body is husked or has bad DNA.
+					M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
+					return
+				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
+						return
+					M.delayed_gib(TRUE)
+					return
 				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
 				M.do_jitter_animation(200) // Visual feedback of lazarus working.
 				var/mob/dead/observer/ghost = M.get_ghost()
@@ -977,52 +988,9 @@
 					window_flash(ghost.client)
 					SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
-				addtimer(CALLBACK(src, PROC_REF(check_revival), M), 5 SECONDS) // same time as the defib to keep things consistant.
+				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, lazrevivial), M), 5 SECONDS) // same time as the defib to keep things consistant.
 
 	..()
-
-/datum/reagent/medicine/lazarus_reagent/proc/check_revival(mob/living/carbon/M)
-
-	var/mob/dead/observer/ghost = M.get_ghost()
-
-	if(ghost) // If the ghost is still outside the body, the revival fails.
-		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
-		return
-	if(M.suiciding) // Feedback if the player suicided.
-		M.visible_message("<span class='warning'>[M] twitches slightly, but appears to have no will to live!</span>")
-		return
-	if(HAS_TRAIT(M, TRAIT_HUSK || HAS_TRAIT(M, TRAIT_BADDNA))) // Feedback if the body is husked or has bad DNA.
-		M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
-		return
-	if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-		if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
-			return
-		M.delayed_gib(TRUE)
-		return
-
-	// If the ghost has re-entered the body, perform the revival!
-	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
-	M.adjustCloneLoss(50)
-	M.setOxyLoss(0)
-	M.adjustBruteLoss(rand(0, 15))
-	M.adjustToxLoss(rand(0, 15))
-	M.adjustFireLoss(rand(0, 15))
-
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/necrosis_prob = 15 * H.decaylevel
-		H.decaylevel = 0
-		for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-			if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
-				O.necrotize(FALSE)
-				if(O.status & ORGAN_DEAD)
-					O.germ_level = INFECTION_LEVEL_THREE
-		H.update_body()
-
-	M.grab_ghost()
-	M.update_revive()
-	add_attack_logs(M, M, "Revived with Lazarus Reagent")
-	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 
 /datum/reagent/medicine/sanguine_reagent
 	name = "Sanguine Reagent"
