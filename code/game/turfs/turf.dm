@@ -118,7 +118,7 @@
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
+	visibility_changed()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
@@ -150,7 +150,7 @@
 			qdel(A)
 		return
 	REMOVE_FROM_SMOOTH_QUEUE(src)
-	visibilityChanged()
+	visibility_changed()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	bound_air = null
@@ -480,9 +480,9 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/proc/visibilityChanged()
+/turf/proc/visibility_changed()
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 
 /turf/attack_by(obj/item/attacking, mob/user, params)
 	if(..())

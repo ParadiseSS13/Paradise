@@ -805,8 +805,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
-		if(src:cameraFollow)
-			src:cameraFollow = null
+		if(src:camera_follow)
+			src:camera_follow = null
 
 /mob/Topic(href, href_list)
 	if(href_list["flavor_more"])

@@ -660,7 +660,7 @@
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
 	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
+		if(is_ai(M))
 			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
 			AI.gib() //No wreck, no AI to recover
 		else
@@ -949,7 +949,7 @@
 /////////////////////////////////////
 
 /obj/mecha/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
+	if(!is_ai(user))
 		return
 	//Allows the Malf to scan a mech's status and loadout, helping it to decide if it is a worthy chariot.
 	if(user.can_dominate_mechs)
@@ -987,7 +987,7 @@
 				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
 				return
 			AI = occupant
-			if(!AI || !isAI(occupant)) //Mech does not have an AI for a pilot
+			if(!AI || !is_ai(occupant)) //Mech does not have an AI for a pilot
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
@@ -1042,6 +1042,7 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
+	AI.reset_perspective(src)
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='boldnotice'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
@@ -1273,7 +1274,7 @@
 /obj/mecha/Exited(atom/movable/M, direction)
 	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
-		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
+		if(!is_ai(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
 			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
@@ -1292,7 +1293,7 @@
 		var/mob/living/brain/brain = occupant
 		RemoveActions(brain)
 		mob_container = brain.container
-	else if(isAI(occupant))
+	else if(is_ai(occupant))
 		var/mob/living/silicon/ai/AI = occupant
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
@@ -1306,7 +1307,11 @@
 				return
 			to_chat(AI, "<span class='notice'>Returning to core...</span>")
 			AI.controlled_mech = null
-			AI.remote_control = null
+			if(istype(AI.eyeobj))
+				AI.remote_control = AI.eyeobj
+				AI.reset_perspective(AI.eyeobj)
+			else
+				AI.eyeobj = new /mob/camera/eye/ai(loc, AI.name, AI, AI)
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
@@ -1581,7 +1586,7 @@
 /obj/mecha/obj_destruction()
 	if(wreckage)
 		var/mob/living/silicon/ai/AI
-		if(isAI(occupant))
+		if(is_ai(occupant))
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
