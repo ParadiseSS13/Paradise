@@ -43,7 +43,6 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			ai_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
 			ai_radio.config(ai_radio.channels)
 
-
 			for(var/mob/living/silicon/robot/R in AI.connected_robots)
 				R.sync()
 				to_chat(R, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
@@ -52,7 +51,6 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 				var/obj/item/radio/borg/cyberg_radio = R.get_radio()
 				cyberg_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
 				cyberg_radio.config(cyberg_radio.channels)
-
 
 	// Locates commandos spawns
 	var/list/commando_spawn_locations = list()
