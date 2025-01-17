@@ -76,8 +76,7 @@
 		// For now, just do nothing.
 		if(!inserted_gps)
 			inserted_gps = used
-			user.unEquip(used)
-			used.forceMove(src)
+			user.transfer_item_to(used, src)
 			user.visible_message("<span class='notice'>[user] inserts [used] into [src]'s GPS device slot.</span>")
 			SStgui.update_uis(src)
 

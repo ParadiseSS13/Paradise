@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.drop_item_to_ground(P))
 					photo = P
 					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\

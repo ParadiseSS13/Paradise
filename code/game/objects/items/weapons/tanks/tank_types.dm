@@ -70,8 +70,7 @@
 			return
 		master = F
 		F.ptank = src
-		user.unEquip(src)
-		loc = F
+		user.transfer_item_to(src, F)
 		F.update_icon()
 	else
 		return ..()

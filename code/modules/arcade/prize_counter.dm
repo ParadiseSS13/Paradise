@@ -82,7 +82,7 @@
 /obj/machinery/prize_counter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = used
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+		if(user.drop_item_to_ground(T))
 			tickets += T.amount
 			SStgui.update_uis(src)
 			qdel(T)

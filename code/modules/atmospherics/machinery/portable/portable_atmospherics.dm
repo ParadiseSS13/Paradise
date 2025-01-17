@@ -41,8 +41,6 @@
 		air_contents.react()
 		return
 
-	update_icon()
-
 /obj/machinery/atmospherics/portable/Destroy()
 	SSair.atmos_machinery -= src
 	disconnect()
@@ -70,6 +68,8 @@
 
 	anchored = TRUE //Prevent movement
 
+	update_icon()
+
 	return TRUE
 
 /obj/machinery/atmospherics/portable/disconnect()
@@ -80,6 +80,8 @@
 
 	connected_port.connected_device = null
 	connected_port = null
+
+	update_icon()
 
 	return TRUE
 

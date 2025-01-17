@@ -1026,12 +1026,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!user.unEquip(used))
+		if(!user.transfer_item_to(used, src))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [used]!</span>")
 			return ITEM_INTERACT_COMPLETE
 		used.add_fingerprint(user)
 		user.create_log(MISC_LOG, "put [used] on", src)
-		used.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [used] to [src].</span>", "<span class='notice'>You pin [used] to [src].</span>")
 		note = used
 		update_icon()

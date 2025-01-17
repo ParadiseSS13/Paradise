@@ -919,11 +919,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(3)
 			if(istype(used, /obj/item/gun/energy)) //the gun installation part
-
 				if(isrobot(user))
 					return ITEM_INTERACT_COMPLETE
 				var/obj/item/gun/energy/E = used //typecasts the item to an energy gun
-				if(!user.unEquip(used))
+				if(!user.unequip(used))
 					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return ITEM_INTERACT_COMPLETE
 				if(!E.can_fit_in_turrets)
@@ -952,9 +951,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(4)
 			if(isprox(used))
-				if(!user.unEquip(used))
+				if(!user.unequip(used, src))
 					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return ITEM_INTERACT_COMPLETE
+					return
 				build_step = 5
 				qdel(used)
 				to_chat(user, "<span class='notice'>You add the prox sensor to the turret.</span>")

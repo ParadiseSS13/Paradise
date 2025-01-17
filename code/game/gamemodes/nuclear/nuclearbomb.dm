@@ -218,17 +218,28 @@ GLOBAL_VAR(bomb_set)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!user.unEquip(used))
+			if(!user.drop_item_to_ground(used))
 				to_chat(user, "<span class='notice'>The [used] is stuck to your hand!</span>")
-				return ITEM_INTERACT_COMPLETE
+				return
 			user.visible_message("<span class='notice'>[user] puts [used] back in [src].</span>", "<span class='notice'>You put [used] back in [src].</span>")
 			used.forceMove(src)
 			core = used
 			update_icon(UPDATE_OVERLAYS)
-		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/disk/plantgene))
+			return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
 		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/disk))
+		if(used.icon_state == "datadisk4") //A similar green disk icon
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit! This isn't the NAD! If only you'd read the label...</span>")
+			return ITEM_INTERACT_COMPLETE
+		else
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit. This isn't the NAD! It's not even the right colour...</span>")
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

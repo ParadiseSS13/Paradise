@@ -832,7 +832,7 @@
 		if(!myseed)
 			if(istype(used, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
-			user.unEquip(used)
+			user.unequip(used)
 			to_chat(user, "<span class='notice'>You plant [used].</span>")
 			dead = FALSE
 			myseed = used

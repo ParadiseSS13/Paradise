@@ -1,0 +1,1320 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ai" = (
+/obj/structure/sink{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"cK" = (
+/turf/space,
+/area/ruin/space/powered)
+"du" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"dB" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	lit = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"dG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/ruin/space/powered)
+"fZ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"gK" = (
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "Glass Door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"gS" = (
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
+/obj/structure/table_frame,
+/turf/space,
+/area/ruin/space/powered)
+"hg" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"hK" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"iy" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"jm" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/dress/sundress,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"jY" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"ka" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
+"kH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"lB" = (
+/obj/structure/girder,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"mo" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/obj/item/clothing/glasses/regular,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"mp" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"mH" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"mM" = (
+/obj/structure/girder,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"mN" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"nb" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"np" = (
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"ny" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	lit = 1
+	},
+/obj/item/shard,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"nz" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/suit/navy,
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/suit/sovietcoat,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"oF" = (
+/turf/template_noop,
+/area/ruin/space/powered)
+"qm" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"qp" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/shoes/cowboy,
+/obj/item/clothing/shoes/black,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"rx" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"ss" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/simulated/wall,
+/area/ruin/space/powered)
+"sE" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"sK" = (
+/obj/machinery/door/airlock,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"sR" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"uS" = (
+/obj/item/shard,
+/turf/space,
+/area/ruin/space/powered)
+"uV" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"vi" = (
+/turf/simulated/wall,
+/area/ruin/space/powered)
+"vj" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"vR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"wv" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/multi/fountain,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"xx" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"yC" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"zb" = (
+/obj/machinery/kitchen_machine/oven,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"Ah" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"An" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/ruin/space/powered)
+"At" = (
+/obj/structure/table/glass/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"Bd" = (
+/obj/structure/table/wood,
+/obj/item/radio{
+	icon_state = "radio";
+	name = "old radio";
+	pixel_y = 10
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Bz" = (
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"Cb" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"CA" = (
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"DF" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"EO" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Fa" = (
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
+"FF" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"Gc" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"GU" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/ruin/space/powered)
+"Hw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"HV" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"In" = (
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"Jn" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"Kx" = (
+/turf/template_noop,
+/area/space)
+"Ll" = (
+/obj/structure/safe/floor,
+/obj/item/stack/spacecash/c200,
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/clothing/gloves/ring/plasma,
+/obj/item/banhammer,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"LA" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/plate,
+/obj/item/kitchen/utensil/fork,
+/obj/item/kitchen/rollingpin,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"LN" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/dress/sundress,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"Mn" = (
+/obj/structure/table/glass/reinforced,
+/obj/item/food/grilledcheese{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"MK" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"Nh" = (
+/obj/item/crowbar,
+/obj/structure/rack,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"NN" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"Ol" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel/drunk_accident,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"PY" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/oven,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"Qy" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space/powered)
+"QF" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
+"RM" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
+"RW" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"Sg" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"Su" = (
+/obj/machinery/shower{
+	dir = 8;
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/structure/curtain/open/shower,
+/obj/item/soap,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/powered)
+"SE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/item/toy/plushie/nianplushie,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"SN" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered)
+"TR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"TZ" = (
+/obj/effect/spawner/airlock/w_to_e,
+/turf/simulated/wall,
+/area/ruin/space/powered)
+"US" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/damaged,
+/area/ruin/space/powered)
+"Vk" = (
+/obj/item/toy/plushie/nianplushie,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/burnt,
+/area/ruin/space/powered)
+"WZ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
+"XD" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"XK" = (
+/obj/structure/rack,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/ruin/space/powered)
+"Yp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/template_noop,
+/area/ruin/space/powered)
+"Yw" = (
+/obj/structure/safe/floor,
+/obj/item/stack/spacecash/c200,
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/clothing/gloves/ring/plasma,
+/obj/item/banhammer,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/powered)
+"Zg" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+
+(1,1,1) = {"
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(2,1,1) = {"
+oF
+yC
+mM
+yC
+vi
+vi
+vi
+vi
+vi
+Ol
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(3,1,1) = {"
+oF
+yC
+jm
+An
+vi
+SN
+sE
+np
+vi
+gK
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(4,1,1) = {"
+oF
+lB
+XK
+GU
+mN
+hK
+RW
+mH
+NN
+Sg
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(5,1,1) = {"
+oF
+yC
+nz
+Ll
+Vk
+qm
+Jn
+uV
+vi
+Su
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(6,1,1) = {"
+oF
+oF
+vi
+sR
+XD
+sR
+yC
+mN
+vi
+vi
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(7,1,1) = {"
+oF
+oF
+xx
+sR
+Hw
+nb
+In
+jY
+jY
+WZ
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(8,1,1) = {"
+oF
+oF
+TR
+sR
+kH
+sR
+mp
+jY
+jY
+At
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(9,1,1) = {"
+oF
+oF
+FF
+QF
+RM
+QF
+US
+In
+jY
+DF
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(10,1,1) = {"
+oF
+oF
+ny
+Qy
+Qy
+cK
+gS
+PY
+du
+iy
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(11,1,1) = {"
+oF
+oF
+vi
+Qy
+cK
+uS
+vi
+vi
+vi
+dG
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(12,1,1) = {"
+oF
+oF
+Fa
+MK
+rx
+MK
+MK
+MK
+Fa
+ka
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(13,1,1) = {"
+oF
+oF
+Fa
+MK
+MK
+MK
+MK
+rx
+MK
+Gc
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(14,1,1) = {"
+oF
+oF
+Fa
+rx
+MK
+MK
+MK
+MK
+oF
+oF
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(15,1,1) = {"
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(16,1,1) = {"
+oF
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+Ol
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(17,1,1) = {"
+oF
+vi
+LN
+Nh
+vi
+SN
+sE
+mo
+vi
+gK
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(18,1,1) = {"
+oF
+vi
+qp
+Ah
+mN
+mH
+mH
+mH
+NN
+Sg
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(19,1,1) = {"
+oF
+vi
+nz
+Yw
+vi
+SE
+Jn
+mH
+vi
+Su
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(20,1,1) = {"
+oF
+vi
+vi
+vi
+vi
+vi
+vi
+mN
+vi
+vi
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(21,1,1) = {"
+oF
+vi
+xx
+EO
+hg
+vi
+ai
+jY
+jY
+WZ
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(22,1,1) = {"
+oF
+vi
+fZ
+Bd
+HV
+vi
+LA
+jY
+jY
+Mn
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(23,1,1) = {"
+oF
+sK
+Zg
+Zg
+Zg
+sK
+jY
+jY
+jY
+DF
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(24,1,1) = {"
+Yp
+vi
+dB
+CA
+wv
+vi
+Bz
+zb
+du
+iy
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(25,1,1) = {"
+Cb
+TZ
+vi
+ss
+vi
+vi
+vi
+vi
+vi
+dG
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(26,1,1) = {"
+Cb
+vi
+Fa
+sR
+nb
+sR
+vj
+MK
+Fa
+ka
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(27,1,1) = {"
+Cb
+vi
+Fa
+XD
+vR
+vR
+RM
+MK
+MK
+Gc
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(28,1,1) = {"
+oF
+MK
+Fa
+sR
+sR
+sR
+vj
+MK
+oF
+oF
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(29,1,1) = {"
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(30,1,1) = {"
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+"}

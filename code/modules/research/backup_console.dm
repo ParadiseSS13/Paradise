@@ -41,7 +41,7 @@
 /obj/machinery/computer/rnd_backup/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!H.unEquip(used))
+		if(!H.drop_item_to_ground(used))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)

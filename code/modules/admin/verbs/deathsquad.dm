@@ -4,6 +4,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 /client/proc/send_deathsquad()
 	var/client/proccaller = usr.client
+	var/ai_laws_change = FALSE
 	if(!check_rights(R_EVENT))
 		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
@@ -15,6 +16,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	else
 		if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.", null, "Yes", "No") != "Yes")
 			return
+		if(alert("Do you want to set AI and cyborgs laws to Terminator?", null, "Yes", "No") != "No")
+			ai_laws_change = TRUE
+
 	message_admins("<span class='notice'>[key_name_admin(proccaller)] has started to spawn a DeathSquad.</span>")
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
 	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader.</span>")
@@ -25,6 +29,26 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 			return
+
+	if(ai_laws_change)
+		var/list/ais = active_ais()
+		var/datum/ai_laws/death_squad_ai_law_set = new /datum/ai_laws/epsilon()
+		var/notice_sound = sound('sound/AI/epsilon_laws.ogg')
+		for(var/mob/living/silicon/ai/AI in ais)
+			death_squad_ai_law_set.sync(AI, TRUE, FALSE) // Reset all laws exept zero
+			to_chat(AI, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+			SEND_SOUND(AI, notice_sound)
+			AI.show_laws()
+			var/obj/item/radio/headset/heads/ai_integrated/ai_radio = AI.get_radio()
+			ai_radio.make_epsilon()
+
+			for(var/mob/living/silicon/robot/R in AI.connected_robots)
+				R.sync()
+				to_chat(R, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+				SEND_SOUND(R, notice_sound)
+				R.show_laws()
+				var/obj/item/radio/headset/heads/ai_integrated/cyberg_radio = R.get_radio()
+				cyberg_radio.make_epsilon()
 
 	// Locates commandos spawns
 	var/list/commando_spawn_locations = list()
