@@ -982,13 +982,12 @@
 					return
 				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
 				M.do_jitter_animation(200) // Visual feedback of lazarus working.
-				var/mob/dead/observer/ghost = M.get_ghost()
-				if(ghost)
-					to_chat(ghost, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-					window_flash(ghost.client)
-					SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
-
-				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, lazrevivial), M), 5 SECONDS) // same time as the defib to keep things consistant.
+				var/mob/dead/observer/G = M.get_ghost()
+				if(G)
+					to_chat(G, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					window_flash(G.client)
+					SEND_SOUND(G, sound('sound/effects/genetics.ogg'))
+				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, lazrevival), M, G), 5 SECONDS) // same time as the defib to keep things consistant.
 
 	..()
 

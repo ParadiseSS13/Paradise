@@ -1373,11 +1373,11 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/can_breathe_tube()
 	return get_organ_slot("breathing_tube")
 
-/mob/living/carbon/proc/lazrevivial(mob/living/carbon/M)
+/mob/living/carbon/proc/lazrevival(mob/living/carbon/M, mob/dead/observer/G)
 
-	var/mob/dead/observer/ghost = M.get_ghost()
+	G = M.get_ghost() // Get the ghost again to see if it has returned to the body.
 
-	if(ghost) // If the ghost is still outside the body, the revival fails.
+	if(G) // ghosted after the timer expires.
 		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
 		return
 
