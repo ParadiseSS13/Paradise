@@ -2,12 +2,13 @@
 	name = "AI Node"
 	desc = "If you see me, make an issue report!"
 	icon = 'icons/obj/machines/ai_machinery.dmi'
-	icon_state = "processor"
+	icon_state = "processor-off"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
 	idle_power_consumption = 5
 	active_power_consumption = 250
+	var/icon_base
 	/// Is the machine active
 	var/active = FALSE
 	/// What AI is this machine associated with
@@ -20,10 +21,6 @@
 	var/heat_amount = 40000
 	/// Are we overheating?
 	var/overheating = FALSE
-
-/obj/machinery/ai_node/Initialize(mapload)
-	. = ..()
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ai_node/process()
 	..()
@@ -46,9 +43,9 @@
 /obj/machinery/ai_node/update_icon_state()
 	. = ..()
 	if(overheating)
-		icon_state = "[initial(icon_state)]-hot"
+		icon_state = "[icon_base]-hot"
 		return
-	icon_state = "[initial(icon_state)]-[active ? "on" : "off"]"
+	icon_state = "[icon_base]-[active ? "on" : "off"]"
 
 /obj/machinery/ai_node/attack_ai(mob/user)
 	return
@@ -132,8 +129,9 @@
 	name = "Processing Node"
 	desc = "Highly advanced machinery with a manual switch. While running, it grants an AI memory."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
-	icon_state = "processor"
+	icon_state = "processor-off"
 	resource_key = "memory"
+	icon_base = "processor"
 
 /obj/machinery/ai_node/processing_node/Initialize(mapload)
 	. = ..()
@@ -150,8 +148,9 @@
 	name = "Network Node"
 	desc = "Highly advanced machinery with an on/off switch. While running, it grants an AI bandwidth."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
-	icon_state = "network"
+	icon_state = "network-off"
 	resource_key = "bandwidth"
+	icon_base = "network"
 
 /obj/machinery/ai_node/network_node/examine_more(mob/user)
 	. = ..()
