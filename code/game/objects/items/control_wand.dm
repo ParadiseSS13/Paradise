@@ -18,8 +18,8 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/door_remote/New()
-	..()
+/obj/item/door_remote/Initialize(mapload)
+	. = ..()
 	ID = new /obj/item/card/id
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
@@ -245,8 +245,8 @@
 	var/last_airlock_uid
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
-/obj/item/door_remote/janikeyring/New()
-	..()
+/obj/item/door_remote/janikeyring/Initialize(mapload)
+	. = ..()
 	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
@@ -254,7 +254,6 @@
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
 /obj/item/door_remote/janikeyring/activate_self(mob/user)
-	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self), override = TRUE)
 	if(..() || cooldown > world.time)
 		return
 
