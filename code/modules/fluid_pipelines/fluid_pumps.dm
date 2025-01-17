@@ -24,14 +24,14 @@
 	connect_dirs = list(direction)
 	return ..()
 
-
 /obj/machinery/fluid_pipe/pump/Initialize(mapload)
 	connect_dirs = list(dir)
 	incoming = new(get_turf(src), REVERSE_DIR(dir))
+	update_icon()
 	return ..()
 
 /obj/machinery/fluid_pipe/pump/update_icon_state()
-	icon_state = "[initial(icon_state)]_[dir]"
+	icon_state = "pump_[dir]"
 
 /obj/machinery/fluid_pipe/pump/blind_connect()
 	clear_pipenet_refs() // You have to clear these every time you attempt connecting, otherwise it might keep pumping even though it's not connected

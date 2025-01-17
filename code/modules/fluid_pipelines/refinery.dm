@@ -15,9 +15,8 @@
 	var/datum/refinery_recipe/selected_recipe
 
 /obj/machinery/fluid_pipe/abstract/refinery_intake
-	connect_dirs = list()
 
-/obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, direction)
+/obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, _parent, direction)
 	connect_dirs = GLOB.cardinal.Copy()
 	connect_dirs -= dir
 	return ..()
@@ -28,6 +27,10 @@
 	connect_dirs = GLOB.cardinal.Copy()
 	connect_dirs -= REVERSE_DIR(dir)
 	make_intakes()
+	return ..()
+
+/obj/machinery/fluid_pipe/plasma_refinery/Destroy()
+	qdel(intake)
 	return ..()
 
 /obj/machinery/fluid_pipe/plasma_refinery/examine(mob/user)
@@ -66,7 +69,7 @@
 				list(MACH_CENTER, 1)
 			))
 
-	intake = new(get_step(src, REVERSE_DIR(dir)), dir)
+	intake = new(get_step(src, REVERSE_DIR(dir)), dir, src)
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
 	if(..())
