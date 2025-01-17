@@ -4,6 +4,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 /client/proc/send_deathsquad()
 	var/client/proccaller = usr.client
+	var/ai_laws_change = FALSE
 	if(!check_rights(R_EVENT))
 		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
@@ -15,6 +16,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	else
 		if(alert("Do you want to send in the Deathsquad? Once enabled, this is irreversible.", null, "Yes", "No") != "Yes")
 			return
+		if(alert("Do you want to set AI and cyborgs laws to Terminator?", null, "Yes", "No") != "No")
+			ai_laws_change = TRUE
+
 	message_admins("<span class='notice'>[key_name_admin(proccaller)] has started to spawn a DeathSquad.</span>")
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
 	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader.</span>")
