@@ -103,6 +103,5 @@
 	mob_to_summon = /mob/living/basic/heretic_summon/rust_walker
 	cost = 1
 
-	poll_ignore_define = POLL_IGNORE_RUST_SPIRIT
 
 

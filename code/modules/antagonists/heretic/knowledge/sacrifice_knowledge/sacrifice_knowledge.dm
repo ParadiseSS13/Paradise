@@ -54,7 +54,7 @@
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
 	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		to_chat(user, "<span class='warning'>The ritual failed, you have no living heart!</span>")
+		to_chat(user, "<span class='hierophant'>The ritual failed, you have no living heart!</span>")
 		return FALSE
 
 	// We've got no targets set, let's try to set some.
@@ -78,7 +78,7 @@
 		return TRUE
 
 	// or FALSE if we don't
-	to_chat(user, "<span class='warning'>The ritual failed, no valid sacrifice was found!</span>")
+	to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
 	return FALSE
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -89,7 +89,7 @@
 		if(obtain_targets(user, heretic_datum = heretic_datum))
 			return TRUE
 		else
-			to_chat(user, "<span class='warning'>The ritual failed, no valid sacrifice was found!</span>")
+			to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
 			return FALSE
 
 	sacrifice_process(user, selected_atoms, loc)

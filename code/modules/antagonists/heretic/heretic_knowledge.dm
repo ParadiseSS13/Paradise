@@ -38,8 +38,7 @@
 	var/research_tree_icon_state
 	var/research_tree_icon_frame = 1
 	var/research_tree_icon_dir = SOUTH
-	///Determines what kind of monster ghosts will ignore from here on out. Defaults to POLL_IGNORE_HERETIC_MONSTER, but we define other types of monsters for more granularity.
-	var/poll_ignore_define = POLL_IGNORE_HERETIC_MONSTER
+
 
 /** Called when the knowledge is first researched.
  * This is only ever called once per heretic.
@@ -185,7 +184,7 @@
 	/// Spell path we add to the heretic. Type-path.
 	var/datum/action/action_to_add
 	/// The spell we actually created.
-	var/datum/weakref/created_action_ref
+	var/created_action_ref
 
 /datum/heretic_knowledge/spell/Destroy()
 	QDEL_NULL(created_action_ref)
@@ -195,12 +194,12 @@
 	// Added spells are tracked on the body, and not the mind,
 	// because we handle heretic mind transfers
 	// via the antag datum (on_gain and on_lose).
-	var/datum/action/created_action = created_action_ref?.resolve() || new action_to_add(user)
+	var/datum/action/created_action = locateUID(created_action_ref)|| new action_to_add(user)
 	created_action.Grant(user)
-	created_action_ref = WEAKREF(created_action)
+	created_action_ref = created_action.UID()
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	var/datum/spell/created_action = created_action_ref?.resolve()
+	var/datum/spell/created_action = locateUID(created_action_ref)
 	if(created_action?.owner == user)
 		created_action.Remove(user)
 
@@ -214,7 +213,7 @@
 	/// The limit to how many items we can create at once.
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
-	var/list/datum/weakref/created_items
+	var/list/created_items
 
 /datum/heretic_knowledge/limited_amount/Destroy(force)
 	LAZYCLEARLIST(created_items)
@@ -222,12 +221,12 @@
 
 /datum/heretic_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	for(var/datum/weakref/ref as anything in created_items)
-		var/atom/real_thing = ref.resolve()
+		var/atom/real_thing = locateUID(ref)
 		if(QDELETED(real_thing))
 			LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		loc.balloon_alert(user, "ritual failed, at limit!")
+		to_chat(user, "<span class='hierophant'>The ritual failed, you are at the limit for this item!</span>")
 		return FALSE
 
 	return TRUE
@@ -235,7 +234,7 @@
 /datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	for(var/result in result_atoms)
 		var/atom/created_thing = new result(loc)
-		LAZYADD(created_items, WEAKREF(created_thing))
+		LAZYADD(created_items, locateUID(created_thing))
 	return TRUE
 
 /**

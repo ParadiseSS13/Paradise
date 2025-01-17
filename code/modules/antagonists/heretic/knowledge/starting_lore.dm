@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// they may have gained one unexpectantly in between now and then
 	if(!QDELETED(our_living_heart))
 		if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
-			to_chat(user, "<span class='warning'>The ritual failed, you already have a living heart!</span>")
+			to_chat(user, "<span class='hierophant'>The ritual failed, you already have a living heart!</span>")
 			return FALSE
 
 		// By this point they are making a new heart
@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		selected_atoms += nearby_organ
 		return TRUE
 
-	to_chat(user, "<span class='warning'>The ritual failed, you need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
+	to_chat(user, "<span class='hierophant'>The ritual failed, you need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
 	return FALSE
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)

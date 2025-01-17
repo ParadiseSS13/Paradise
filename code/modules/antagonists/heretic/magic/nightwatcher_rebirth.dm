@@ -17,7 +17,6 @@
 
 /datum/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
 	cast_on.extinguishMob()
-	return ..()
 
 /datum/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
 	var/list/things = list()

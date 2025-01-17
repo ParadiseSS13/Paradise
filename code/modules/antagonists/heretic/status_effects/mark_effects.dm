@@ -106,7 +106,7 @@
 
 /datum/status_effect/eldritch/void/on_effect()
 	owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	owner.adjust_silence(10 SECONDS)
+	owner.Silence(10 SECONDS)
 	return ..()
 
 // MARK OF BLADES
@@ -197,7 +197,7 @@
 	var/turf/further_behind_old_loc = get_edge_target_turf(old_loc, REVERSE_DIR(movement_dir))
 
 	source.Stun(1 SECONDS)
-	source.throw_at(further_behind_old_loc, 3, 1, gentle = TRUE) // Keeping this gentle so they don't smack into the heretic max speed
+	source.throw_at(further_behind_old_loc, 3, 1) // Keeping this gentle so they don't smack into the heretic max speed
 
 /datum/status_effect/eldritch/cosmic
 	effect_icon_state = "emark6"
@@ -217,12 +217,7 @@
 /datum/status_effect/eldritch/cosmic/on_effect()
 	new teleport_effect(get_turf(owner))
 	new /obj/effect/forcefield/cosmic_field(get_turf(owner))
-	do_teleport(
-		owner,
-		get_turf(cosmic_diamond),
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
-	)
+	owner.forceMove(get_turf(cosmic_diamond))
 	new teleport_effect(get_turf(owner))
 	owner.Paralyze(2 SECONDS)
 	return ..()
@@ -258,7 +253,7 @@
 		return FALSE
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
 	owner.emote(pick("giggle", "laugh"))
-	owner.balloon_alert(owner, "you feel unable to hurt a soul!")
+	to_chat(owner, "<span class='hierophant_warning'>You feel unable to hurt a soul!</span>")
 	RegisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	return TRUE
 
@@ -277,13 +272,12 @@
 
 	// Removes the trait in here since we don't wanna destroy the mark before its detonated or allow detonation triggers with other weapons
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
-	owner.balloon_alert(owner, "you feel able to once again strike!")
+	to_chat(owner, "<span class='hierophant'>You feel your pacifism has left!</span>")
 
 /datum/status_effect/eldritch/moon/on_effect()
 	owner.AdjustConfused(30 SECONDS)
-	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25, 160)
+	owner.adjustBrainLoss(20)
 	owner.emote(pick("giggle", "laugh"))
-	owner.add_mood_event("Moon Insanity", /datum/mood_event/moon_insanity)
 	return ..()
 
 /datum/status_effect/eldritch/moon/on_remove()

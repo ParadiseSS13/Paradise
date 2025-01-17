@@ -2,12 +2,8 @@
 /datum/antagonist/heretic_monster
 	name = "\improper Eldritch Horror"
 	roundend_category = "Heretics"
-	antagpanel_category = ANTAG_GROUP_HORRORS
-	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
-	suicide_cry = "MY MASTER SMILES UPON ME!!"
-	show_in_antagpanel = FALSE
 	stinger_sound = 'sound/ambience/antag/heretic/heretic_gain.ogg'
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
@@ -18,7 +14,7 @@
 			to_chat(master.current, "<span class='warning'>The essence of [owner], your servant, fades from your mind.</span>")
 		if(owner.current)
 			to_chat(owner.current, "<span class='deconversion_message'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
-			owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>", ignored_mobs = owner.current)
+			owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
 
 	master = null
 	return ..()

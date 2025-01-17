@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "uncuff"
-	sound = 'sound/effects/magic/swap.ogg'
+	sound = 'sound/magic/swap.ogg'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 5 MINUTES
@@ -17,33 +17,36 @@
 
 	aoe_range = 3
 
-/datum/spell/aoe/wave_of_desperation/is_valid_target(mob/living/carbon/cast_on)
-	return ..() && istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 
 // Before the cast, we do some small AOE damage around the caster
-/datum/spell/aoe/wave_of_desperation/before_cast(mob/living/carbon/cast_on)
+/datum/spell/aoe/wave_of_desperation/before_cast(list/targets, mob/living/carbon/user)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
+	if(!(user.handcuffed || user.legcuffed))
+		return
+	if(user.handcuffed)
+		user.visible_message("<span class='danger'>[user.handcuffed] on [user] shatter!</span>")
+		QDEL_NULL(user.handcuffed)
+	if(user.legcuffed)
+		user.visible_message("<span class='danger'>[user.legcuffed] on [user] shatters!</span>")
+		QDEL_NULL(user.legcuffed)
 
-	if(cast_on.handcuffed)
-		cast_on.visible_message("<span class='danger'>[cast_on.handcuffed] on [cast_on] shatter!</span>")
-		QDEL_NULL(cast_on.handcuffed)
-	if(cast_on.legcuffed)
-		cast_on.visible_message("<span class='danger'>[cast_on.legcuffed] on [cast_on] shatters!</span>")
-		QDEL_NULL(cast_on.legcuffed)
+	user.apply_status_effect(/datum/status_effect/heretic_lastresort)
+	new /obj/effect/temp_visual/knockblast(get_turf(user))
 
-	cast_on.apply_status_effect(/datum/status_effect/heretic_lastresort)
-	new /obj/effect/temp_visual/knockblast(get_turf(cast_on))
-
-	for(var/mob/living/victim in get_things_to_cast_on(cast_on, radius_override = 1))
-		victim.AdjustKnockdown(3 SECONDS)
+	for(var/mob/living/victim in get_things_to_cast_on(user, radius_override = 1))
+		victim.KnockDown(3 SECONDS)
 		victim.AdjustWeakened(0.5 SECONDS)
+		var/our_turf = get_turf(caster)
+		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
+		mover.throw_at(throwtarget, 3, 1)
+		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 
-/datum/spell/aoe/wave_of_desperation/get_things_to_cast_on(atom/center, radius_override)
+/datum/spell/aoe/wave_of_desperation/proc/get_things_to_cast_on(atom/center, radius_override)
 	. = list()
 	for(var/atom/nearby in orange(center, radius_override ? radius_override : aoe_range))
-		if(nearby == owner || nearby == center || isarea(nearby))
+		if(nearby == center || isarea(nearby))
 			continue
 		if(!ismob(nearby))
 			. += nearby
@@ -58,19 +61,7 @@
 
 		. += nearby_mob
 
-/datum/spell/aoe/wave_of_desperation/cast_on_thing_in_aoe(atom/victim, atom/caster)
-	if(!ismob(victim))
-		SEND_SIGNAL(owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 
-	var/atom/movable/mover = victim
-	if(!istype(mover))
-		return
-
-	if(mover.anchored)
-		return
-	var/our_turf = get_turf(caster)
-	var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
-	mover.safe_throw_at(throwtarget, 3, 1, force = MOVE_FORCE_STRONG)
 
 /obj/effect/temp_visual/knockblast
 	icon = 'icons/effects/effects.dmi'

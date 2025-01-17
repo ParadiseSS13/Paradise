@@ -21,7 +21,7 @@
 	// throw a fail to show the heretic that there's no point in rerolling
 	// if you don't have a heart to track the targets in the first place.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		to_chat(user, "<span class='warning'>The ritual failed, you have no living heart!</span>")
+		to_chat(user, "<span class='hierophant'>The ritual failed, you have no living heart!</span>")
 		return FALSE
 
 	return TRUE
@@ -36,7 +36,7 @@
 		CRASH("Heretic datum didn't have a hunt_and_sacrifice knowledge learned, what?")
 
 	if(!target_finder.obtain_targets(user, heretic_datum = heretic_datum))
-		to_chat(user, "<span class='warning'>The ritual failed, there were no targets found!</span>")
+		to_chat(user, "<span class='hierophant'>The ritual failed, there were no targets found!</span>")
 		return FALSE
 
 	return TRUE

@@ -236,7 +236,6 @@
 
 	mob_to_summon = /mob/living/basic/heretic_summon/raw_prophet
 	cost = 1
-	poll_ignore_define = POLL_IGNORE_RAW_PROPHET
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh
@@ -275,7 +274,6 @@
 	mob_to_summon = /mob/living/basic/heretic_summon/stalker
 	cost = 1
 
-	poll_ignore_define = POLL_IGNORE_STALKER
 
 
 /datum/heretic_knowledge/ultimate/flesh_final

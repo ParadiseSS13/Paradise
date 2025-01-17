@@ -22,22 +22,29 @@
 	var/stun_radius = 4
 
 // Before the cast, we do some small AOE damage around the caster
-/datum/spell/aoe/void_pull/before_cast(atom/cast_on)
+/datum/spell/aoe/void_pull/before_cast(list/targets, mob/user)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	new /obj/effect/temp_visual/voidin(get_turf(cast_on))
+	new /obj/effect/temp_visual/voidin(get_turf(user))
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
-	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(cast_on, damage_radius))
+	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(user, damage_radius))
 		nearby_living.apply_damage(30, BRUTE)
 		nearby_living.apply_status_effect(/datum/status_effect/void_chill, 1)
+		if(get_dist(nearby_living, user) < stun_radius)
+			nearby_living.KnockDown(3 SECONDS)
+			nearby_living.AdjustWeakened(0.5 SECONDS)
 
-/datum/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 1)
+		// Otherwise, they take a few steps closer
+		for(var/i in 1 to 3)
+			nearby_living.forceMove(get_step_towards(nearby_living, user))
+
+/datum/spell/aoe/void_pull/proc/get_things_to_cast_on(atom/center, radius_override = 1)
 	var/list/things = list()
 	for(var/mob/living/nearby_mob in view(radius_override || aoe_range, center))
-		if(nearby_mob == owner || nearby_mob == center)
+		if(nearby_mob == center)
 			continue
 		// Don't grab people who are tucked away or something
 		if(!isturf(nearby_mob.loc))
@@ -50,14 +57,3 @@
 		things += nearby_mob
 
 	return things
-
-// For the actual cast, we microstun people nearby and pull them in
-/datum/spell/aoe/void_pull/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	// If the victim's within the stun radius, they're stunned / knocked down
-	if(get_dist(victim, caster) < stun_radius)
-		victim.Knockdown(3 SECONDS)
-		victim.AdjustWeakened(0.5 SECONDS)
-
-	// Otherwise, they take a few steps closer
-	for(var/i in 1 to 3)
-		victim.forceMove(get_step_towards(victim, caster))
