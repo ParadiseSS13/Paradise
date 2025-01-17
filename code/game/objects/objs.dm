@@ -238,12 +238,12 @@
 
 /obj/vv_get_dropdown()
 	. = ..()
-	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
+	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
 	if(!speed_process)
-		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
+		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
 	else
-		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
+		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
+	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE

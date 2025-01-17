@@ -106,7 +106,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()

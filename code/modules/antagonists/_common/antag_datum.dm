@@ -372,8 +372,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
-		if(organization && organization.intro_desc)
-			messages.Add("<span class='boldnotice'>[organization.intro_desc]</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -404,11 +402,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /**
  * Create and assign a full set of randomized, basic human traitor objectives.
- * can_hijack - If you want the 10% chance for the antagonist to be able to roll hijack, only true for traitors
+ * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE)
 	// Hijack objective.
-	if(can_hijack && prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 

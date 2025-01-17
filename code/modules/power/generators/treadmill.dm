@@ -16,26 +16,40 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_atom_exited),
+	)
+
 /obj/machinery/power/treadmill/Initialize(mapload)
 	. = ..()
+	on_anchor_changed()
+
+/obj/machinery/power/treadmill/proc/on_anchor_changed()
 	if(anchored)
 		connect_to_network()
+		AddElement(/datum/element/connect_loc, loc_connections)
+	else
+		disconnect_from_network()
+		RemoveElement(/datum/element/connect_loc)
 
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
-/obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored && !M.anchored)
-		if(!istype(M) || M.dir != dir)
-			throw_off(M)
-		else
-			mobs_running[M] = M.last_movement
-	. = ..()
+/obj/machinery/power/treadmill/proc/on_atom_entered(datum/source, mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(crossed.anchored || crossed.throwing)
+		return
 
-/obj/machinery/power/treadmill/Uncrossed(mob/living/M)
-	if(anchored && istype(M))
-		mobs_running -= M
-	. = ..()
+	if(!istype(crossed) || crossed.dir != dir)
+		throw_off(crossed)
+	else
+		mobs_running[crossed] = crossed.last_movement
+
+/obj/machinery/power/treadmill/proc/on_atom_exited(mob/living/crossed)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
+	if(istype(crossed))
+		mobs_running -= crossed
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
@@ -98,10 +112,7 @@
 
 /obj/machinery/power/treadmill/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W, time = 60))
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
+		on_anchor_changed()
 		speed = 0
 		update_icon()
 		return

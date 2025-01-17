@@ -134,6 +134,7 @@
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
+	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
 
 /datum/spell/revenant_transmit/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -165,6 +166,7 @@
 	var/unlock_amount = 100
 	/// How much essence it costs to use
 	var/cast_amount = 50
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
 
 /datum/spell/aoe/revenant/New()
 	..()
@@ -493,18 +495,18 @@
 
 /turf/simulated/wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
-		rust()
+		magic_rust_turf()
 
 /turf/simulated/wall/indestructible/defile()
 	return
 
 /turf/simulated/wall/r_wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
-		rust()
+		magic_rust_turf()
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
@@ -529,8 +531,10 @@
 		broken = FALSE
 		burnt = FALSE
 		make_plating(1)
+		magic_rust_turf()
 
 /turf/simulated/floor/plating/defile()
+	magic_rust_turf()
 	if(flags & BLESSED_TILE)
 		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)

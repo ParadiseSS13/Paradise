@@ -184,6 +184,10 @@
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
+/obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
+
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
@@ -375,7 +379,7 @@
 	if(ishuman(owner) && !QDELETED(owner))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/thief = loc
-			thief.unEquip(src, TRUE, TRUE) // You're not my owner!
+			thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
 		if(owner.stat == DEAD)
 			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
 			return

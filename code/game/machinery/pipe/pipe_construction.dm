@@ -157,8 +157,7 @@
 			connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 
 	update(make_from)
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //update the name and icon of the pipe item depending on the type
 
@@ -267,10 +266,10 @@
 		if(PIPE_SIMPLE_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
 
-		if(PIPE_CONNECTOR,  PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
+		if(PIPE_CONNECTOR,  PIPE_HEAT_EXCHANGE)
 			return dir|flip
 
-		if(PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER)
+		if(PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR)
 			return dir
 
 		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W)
