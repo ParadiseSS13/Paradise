@@ -52,7 +52,7 @@
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
 			return ITEM_INTERACT_COMPLETE
 
-		if(!user.drop_item_to_ground(I))
+		if(!user.drop_item_to_ground(used))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)

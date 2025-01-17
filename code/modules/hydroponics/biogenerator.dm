@@ -161,7 +161,7 @@
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!user.drop_item_to_ground(O))
+		if(!user.drop_item_to_ground(used))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
