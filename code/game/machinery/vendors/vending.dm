@@ -817,7 +817,7 @@
 	var/list/record_to_check = product_records + physical_product_records
 	if(extended_inventory)
 		record_to_check = product_records + physical_product_records + hidden_records + physical_hidden_records
-	if(!extended_inventory && (R in hidden_records || R in physical_hidden_records))
+	if(!extended_inventory && ((R in hidden_records) || (R in physical_hidden_records)))
 		// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 		log_debug("player attempted to access a [name] vendor extended inventory when it was not allowed.</span>")
 		return
