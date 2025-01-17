@@ -176,6 +176,9 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(outgoing_call)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return
+
 	user.set_machine(src)
 	interact(user)
 
