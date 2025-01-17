@@ -50,7 +50,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/initializations_finished_with_no_players_logged_in
 
 	/// The type of the last subsystem to be fire()'d.
-	var/last_type_processed
+	var/datum/controller/subsystem/last_type_processed
 
 	/// Cache for the loading screen - cleared after
 	var/list/ss_in_init_order = list()
@@ -435,7 +435,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		if(queue_head)
 			if(!RunQueue())
-				stack_trace("MC: RunQueue returned early, [runqueues_running] orphaned RunQueue calls, last known RunQueue line is [runqueue_line]. Current error_level is [round(error_level, 0.25)].")
+				stack_trace("MC: RunQueue returned early, [runqueues_running] orphaned RunQueue calls, last known RunQueue line is [runqueue_line], and last processing [last_type_processed.name]. Current error_level is [round(error_level, 0.25)].")
 				if(error_level > 1) //skip the first error,
 					if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 						error_level++
