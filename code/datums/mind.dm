@@ -41,9 +41,6 @@
 	var/datum/martial_art/martial_art
 	var/list/known_martial_arts = list()
 
-	//Where do i place it?
-	var/datum/chameleon_system/chameleon_system
-
 	var/role_alt_title
 
 	var/datum/job/assigned_job

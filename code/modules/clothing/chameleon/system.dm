@@ -9,7 +9,7 @@
   * Responsible for sending signals to items, so they can change appearance when needed.
   */
 
-/datum/chameleon_system
+/datum/component/chameleon_system
 	// Human who has this system
 	var/mob/living/carbon/human/system_owner
 	// Scan action form chameleon glasses
@@ -29,31 +29,29 @@
 	var/static/list/outfit_options
 
 
-/datum/chameleon_system/New(owner)
-	..()
+/datum/component/chameleon_system/Initialize()
+	// dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
+	system_owner = parent
 
-	if(!owner)
+	if(!system_owner)
 		CRASH("Can't create hameleon system without a user")
 
 	if(!outfit_options)
 		initialize_outfits() // init outfit_options should be run only once
 
-	system_owner = owner
 
 	for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
 		chameleon_memory[i] = list("name" = "Save slot №[i]", "outfit" = null)
 
-/datum/chameleon_system/Destroy()
+
+/datum/component/chameleon_system/Destroy()
 
 	return ..()
 
 // core stuff
 
 // Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
-/datum/chameleon_system/proc/link_item(var/item, chameleon_name, chameleon_type, chameleon_blacklist)
-
-	if(!item)
-		CRASH("No item to link has been provided")
+/datum/component/chameleon_system/proc/link_item(var/item, name, type, blacklist)
 
 	if(!length(system_items_names))
 		change_all = new(system_owner)
@@ -63,25 +61,23 @@
 		change_one.Grant(system_owner)
 
 	//if(!is_type_in_list(item, system_items))
-	if(!items_disguises[chameleon_name])
+	if(!items_disguises[name])
 		// caled onece for every unique chameleon type item.
-		initialize_item_disguises(item, chameleon_name, chameleon_type, chameleon_blacklist)
+		initialize_item_disguises(item, name, type, blacklist)
 
 
 	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_names.Add(chameleon_name)
-	system_items_types.Add(chameleon_type)
+	system_items_names.Add(name)
+	system_items_types.Add(type)
 
 
 
 // Called when item leaves mob inventory and hands, now we no longer control this item
-/datum/chameleon_system/proc/unlink_item(var/item, chameleon_name, chameleon_type,)
-	if(!item)
-		CRASH("No item to unlink has been provided")
+/datum/component/chameleon_system/proc/unlink_item(var/item, name, type, blacklist)
 
 	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_names.Remove(chameleon_name)
-	system_items_types.Remove(chameleon_type)
+	system_items_names.Remove(name)
+	system_items_types.Remove(type)
 
 	if(!length(system_items_names))
 		change_all.Remove(system_owner)
@@ -91,7 +87,7 @@
 
 
 // Adds new "type" of item and it's disguises options in global list
-/datum/chameleon_system/proc/initialize_item_disguises(obj/item, chameleon_name, chameleon_type, chameleon_blacklist)
+/datum/component/chameleon_system/proc/initialize_item_disguises(obj/item, chameleon_name, chameleon_type, chameleon_blacklist)
 
 	chameleon_blacklist |= typecacheof(item.type)
 	items_disguises[chameleon_name] = list()
@@ -107,7 +103,7 @@
 
 // Change One
 
-/datum/chameleon_system/proc/change_one_trigger()
+/datum/component/chameleon_system/proc/change_one_trigger()
 
 	var/list/chameleon_items_on_user = system_items_names
 	var/obj/item/tranform_from = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
@@ -130,7 +126,7 @@
 
 // Change ALL
 // Adds all otfits disguises in global list
-/datum/chameleon_system/proc/initialize_outfits()
+/datum/component/chameleon_system/proc/initialize_outfits()
 	outfit_options = list()
 	for(var/path in subtypesof(/datum/outfit/job))
 		var/datum/outfit/O = path
@@ -139,7 +135,7 @@
 	sortTim(outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 
 
-/datum/chameleon_system/proc/select_outfit()
+/datum/component/chameleon_system/proc/select_outfit()
 
 	var/list/save_slot_names = get_memory_names()
 	var/outfits = save_slot_names + outfit_options
@@ -152,17 +148,17 @@
 
 // scan related stuff
 
-/datum/chameleon_system/proc/give_scan()
+/datum/component/chameleon_system/proc/give_scan()
 	scan = new(src)
 	scan.Grant(system_owner)
 
-/datum/chameleon_system/proc/lose_scan()
+/datum/component/chameleon_system/proc/lose_scan()
 	scan.Remove(system_owner)
 	qdel(scan)
 
 
 // Memory Helpers
-/datum/chameleon_system/proc/get_memory_names(var/item)
+/datum/component/chameleon_system/proc/get_memory_names(var/item)
 	var/list/save_slot_names = list()
 	for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
 		save_slot_names += chameleon_memory[i]["name"]
@@ -224,8 +220,9 @@
 	if(!disguise_name)
 		return
 
-	var/list/save_slot_names = user.mind.chameleon_system.get_memory_names()
-	var/chameleon_memory = user.mind.chameleon_system.chameleon_memory
+	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
+	var/list/save_slot_names = sys.get_memory_names()
+	var/chameleon_memory = sys.chameleon_memory
 
 
 	var/slot_name = tgui_input_list(user, "Please, select a save slot:", "Save slot selection", save_slot_names)
@@ -301,7 +298,8 @@
 
 /datum/action/chameleon_system/change_one/Trigger(left_click)
 	if(IsAvailable())
-		system_owner.mind.chameleon_system.change_one_trigger()
+		var/datum/component/chameleon_system/sys = system_owner.GetComponent(/datum/component/chameleon_system)
+		sys.change_one_trigger()
 
 
 //////////////////////////////
@@ -326,5 +324,6 @@
 
 /datum/action/chameleon_system/change_all_action/Trigger(left_click)
 	if(IsAvailable())
-		system_owner.mind.chameleon_system.select_outfit()
+		var/datum/component/chameleon_system/sys = system_owner.GetComponent(/datum/component/chameleon_system)
+		sys.select_outfit()
 
