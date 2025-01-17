@@ -138,6 +138,10 @@
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plasteel,
 /area/game_test)
+"ud" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "vi" = (
 /obj/effect/landmark/game_test/top_right_corner,
 /turf/simulated/floor/plasteel,
@@ -882,7 +886,7 @@ qc
 qc
 qc
 qc
-qc
+ud
 qc
 Ng
 qc

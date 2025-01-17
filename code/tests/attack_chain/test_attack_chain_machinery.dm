@@ -42,5 +42,16 @@
 	player.set_intent("harm")
 	player.click_on(abductor_console)
 	TEST_ASSERT_LAST_CHATLOG(player, "You hit Abductor console with the welding tool!")
+	player.puppet.drop_item()
+
+	var/obj/machinery/abductor/gland_dispenser/dispenser = teleport_to_first(player, /obj/machinery/abductor/gland_dispenser)
+	player.spawn_obj_in_hand(/obj/item/organ/internal/heart/gland)
+	player.click_on(dispenser)
+	TEST_ASSERT_EQUAL(length(dispenser.contents), 1, "did not place gland in dispenser")
+
+	var/obj/autolathe = teleport_to_first(player, /obj/machinery/autolathe)
+	player.spawn_obj_in_hand(/obj/item/disk/design_disk/golem_shell)
+	player.click_on(autolathe)
+	TEST_ASSERT_LAST_CHATLOG(player, "You begin to load a design")
 
 	return
