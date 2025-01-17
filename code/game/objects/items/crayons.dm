@@ -40,8 +40,8 @@
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|OXYLOSS
 
-/obj/item/toy/crayon/New()
-	..()
+/obj/item/toy/crayon/Initialize(mapload)
+	. = ..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/activate_self(mob/user)
@@ -207,7 +207,8 @@
 	colour = COLOR_PURPLE
 	dye_color = DYE_PURPLE
 
-/obj/item/toy/crayon/random/New()
+/obj/item/toy/crayon/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
 	switch(icon_state)
 		if("crayonred")
@@ -315,8 +316,8 @@
 	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
 	consumable = FALSE // To stop you from eating spraycans. It's TOO SILLY!
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
 	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	update_icon()
 
