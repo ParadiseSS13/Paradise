@@ -36,7 +36,7 @@
 	popup.open()
 	return
 
-/datum/program_picker/proc/modify_resource(var/key, var/amount)
+/datum/program_picker/proc/modify_resource(key, amount)
 	if(key == "memory")
 		memory += amount
 	if(key == "bandwidth")

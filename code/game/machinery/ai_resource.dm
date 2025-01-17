@@ -99,7 +99,7 @@
 	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/ai_node/proc/change_ai(var/mob/living/silicon/ai/new_ai)
+/obj/machinery/ai_node/proc/change_ai(mob/living/silicon/ai/new_ai)
 	if(!new_ai)
 		return
 	if(!istype(new_ai))
@@ -110,7 +110,7 @@
 
 /datum/milla_safe/ai_node_process
 
-/datum/milla_safe/ai_node_process/on_run(var/obj/machinery/ai_node/node)
+/datum/milla_safe/ai_node_process/on_run(obj/machinery/ai_node/node)
 	var/turf/simulated/L = get_turf(node)
 	if(!istype(L))
 		return
