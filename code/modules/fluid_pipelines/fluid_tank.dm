@@ -4,6 +4,7 @@
 	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
 	icon_state = "tank"
 	just_a_pipe = FALSE
+	capacity = 1000
 
 /obj/machinery/fluid_pipe/tank/update_icon_state()
 	return

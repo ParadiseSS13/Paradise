@@ -17,7 +17,7 @@
 	/// How many neighbours do we have? `DO NOT VAREDIT THIS`
 	var/neighbours = 0
 	/// How much fluid units can we fit in this pipe?
-	var/capacity = 100
+	var/capacity = 50
 	/// What directions do we look for connecting? Cardinals by default
 	var/list/connect_dirs = list(NORTH, SOUTH, EAST, WEST)
 

@@ -69,11 +69,11 @@
 
 /obj/machinery/fluid_pipe/barrel_filler/update_overlays()
 	..()
-	if(barrel)
-		. += "active"
-
 	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
 		. += "[get_dir(src, pipe)]"
+
+	if(barrel)
+		. += "active"
 
 /obj/machinery/fluid_pipe/barrel_filler/attack_hand(mob/user)
 	var/datum/fluid/liquid = tgui_input_list(user, "What liquid do you want to pump in the barrel?", "Barrel filler", GLOB.fluid_name_to_path)

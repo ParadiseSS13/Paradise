@@ -4,6 +4,7 @@
 	icon = 'icons/obj/pipes/64x64fluid_machinery.dmi'
 	icon_state = "refinery_4"
 	dir = EAST
+	layer = MOB_LAYER + 0.5
 	pixel_x = -32
 	just_a_pipe = FALSE
 	density = TRUE
@@ -69,7 +70,7 @@
 				list(MACH_CENTER, 1)
 			))
 
-	intake = new(get_step(src, REVERSE_DIR(dir)), dir, src)
+	intake = new(get_step(src, REVERSE_DIR(dir)), src, dir)
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
 	if(..())

@@ -9,6 +9,7 @@
 	var/total_capacity = 0
 	/// List with all fluids currently in the pipe
 	var/list/fluids = list()
+	// DGTODO MAKE INTERT DATUMS MEANT FOR STORING FLUIDS
 
 /*
  * pipe: a pipe that has this fluid_pipe datum attached to it
@@ -22,7 +23,8 @@
 
 	if(new_capacity)
 		total_capacity = new_capacity
-
+	if(istype(pipe, /obj/structure/barrel))
+		return // DGTODO
 	if(pipe.just_a_pipe)
 		connected_pipes += pipe
 	else

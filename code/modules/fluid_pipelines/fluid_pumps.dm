@@ -26,7 +26,7 @@
 
 /obj/machinery/fluid_pipe/pump/Initialize(mapload)
 	connect_dirs = list(dir)
-	incoming = new(get_turf(src), REVERSE_DIR(dir))
+	incoming = new(get_turf(src), src, REVERSE_DIR(dir))
 	update_icon()
 	return ..()
 
