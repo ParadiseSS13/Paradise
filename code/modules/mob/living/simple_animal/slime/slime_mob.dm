@@ -8,7 +8,6 @@
 	gender = NEUTER
 	var/is_adult = FALSE
 	var/docile = FALSE
-	// var/is_feeding = FALSE
 	faction = list("slime", "neutral")
 
 	harm_intent_damage = 5
