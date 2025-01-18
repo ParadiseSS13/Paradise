@@ -233,7 +233,7 @@
 	/// Are we overusing the metal synthesizer? can be used 5 times in quick succession, regains 1 use per 10 seconds
 	var/metal_synthesis_cooldown = 0
 	/// Is our nanofrost on cooldown?
-	COOLDOWN_DECLARE(nanofrost_cooldown)
+	var/nanofrost_cooldown = FALSE
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	if(!check_tank_exists(loc, src))
@@ -291,18 +291,18 @@
 			if(reagents.total_volume < 100)
 				to_chat(user, "<span class='notice'>You need at least 100 units of water to use the nanofrost launcher!</span>")
 				return
-			if(!COOLDOWN_FINISHED(src, nanofrost_cooldown))
+			if(nanofrost_cooldown)
 				to_chat(user, "<span class='notice'>Nanofrost launcher is still recharging.</span>")
 				return
-			COOLDOWN_START(src, nanofrost_cooldown, 12 SECONDS)
+			nanofrost_cooldown = TRUE
 			reagents.remove_any(100)
-			var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(get_turf(src))
+			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src,'sound/items/syringeproj.ogg', 40, TRUE)
-			var/delay = 2
-			var/datum/move_loop/loop = GLOB.move_manager.move_towards(nanofrost, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(nanofrost_stop_check))
-			RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(nanofrost_landed))
+			A.throw_at(target, 6, 2, user)
+			sleep(2)
+			A.Smoke()
+			addtimer(VARSET_CALLBACK(src, nanofrost_cooldown, FALSE))
 		if(METAL_FOAM)
 			if(!Adj)
 				return
@@ -313,20 +313,6 @@
 			F.spread_amount = 0
 			metal_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(metal_cooldown)), 10 SECONDS)
-
-/obj/item/extinguisher/mini/nozzle/proc/nanofrost_stop_check(datum/move_loop/source, succeeded)
-	SIGNAL_HANDLER
-	if(succeeded)
-		return
-	nanofrost_landed(source)
-	qdel(source)
-
-/obj/item/extinguisher/mini/nozzle/proc/nanofrost_landed(datum/move_loop/source)
-	SIGNAL_HANDLER
-	if(!istype(source.moving, /obj/effect/nanofrost_container) || QDELETED(source.moving))
-		return
-	var/obj/effect/nanofrost_container/nanofrost = source.moving
-	nanofrost.Smoke()
 
 /obj/item/extinguisher/mini/nozzle/proc/metal_cooldown()
 	metal_synthesis_cooldown--
@@ -346,6 +332,11 @@
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 	qdel(src)
+
+/obj/effect/nanofrost_container/anomaly
+	name = "nanofrost anomaly"
+	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area."
+	icon_state = "frozen_smoke_anomaly"
 
 #undef EXTINGUISHER
 #undef NANOFROST

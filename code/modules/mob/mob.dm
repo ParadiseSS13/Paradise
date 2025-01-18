@@ -649,9 +649,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
-			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+			result = A.examine(src)
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
