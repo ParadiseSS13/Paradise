@@ -81,6 +81,7 @@
 					return FALSE
 				memory -= program.cost
 				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
+				program.upgrade(A) // Usually does nothing, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
 				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
@@ -802,5 +803,55 @@
 		playsound(target, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
 		user.playsound_local(user, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
 
-/datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
+/datum/spell/ai_spell/ranged/honk_subsystem/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15) SECONDS, 15 SECONDS)
+
+// Enhanced Tracking System - Select a target. Get alerted after a delay whenever that target enters camera sight
+/datum/ai_program/enhanced_tracker
+	program_name = "Enhanced Tracking Subsystem"
+	program_id = "enhanced_tracker"
+	description = "New camera firmware allows automated alerts when an individual of interest enters camera view."
+	cost = 5
+	nanite_cost = 0
+	power_type = /datum/spell/ai_spell/enhanced_tracker
+	unlock_text = "Tag and track software online."
+	max_level = 8
+
+/datum/ai_program/enhanced_tracker/upgrade(mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(user))
+		return
+	AI.enhanced_tracking = TRUE
+	AI.alarms_listend_for += "Tracking"
+	AI.enhanced_tracking_delay = initial(AI.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+
+/datum/spell/ai_spell/enhanced_tracker
+	name = "Enhanced Tracking Subsystem"
+	desc = "Select a target of interest to be alerted to their presence on cameras."
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "videocam"
+	auto_use_uses = FALSE
+	base_cooldown = 10 SECONDS
+	cooldown_min = 10 SECONDS
+	level_max = 0
+
+/datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
+	if(!istype(user))
+		return
+	// Pick a mob to track
+	var/target_name = tgui_input_list(user, "Pick a trackable target...", "AI", user.trackable_mobs())
+	user.tracked_mob = (isnull(user.track.humans[target_name]) ? user.track.others[target_name] : user.track.humans[target_name])
+
+/mob/living/silicon/ai/proc/raise_tracking_alert(area/A, mob/target)
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(closest_camera == null)
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	target.visible_message("<span class='warning'>A purple light flashes on [closest_camera]!</span>")
+	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
+		// Cancel alert after 1 minute
+		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)

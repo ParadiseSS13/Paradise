@@ -6,7 +6,8 @@ GLOBAL_DATUM_INIT(alarm_manager, /datum/alarm_manager, new())
 		"Fire" = list(),
 		"Atmosphere" = list(),
 		"Power" = list(),
-		"Burglar" = list()
+		"Burglar" = list(),
+		"Tracking" = list()
 	)
 
 /datum/alarm_manager/proc/trigger_alarm(class, area/A, list/O, obj/alarmsource)

@@ -149,7 +149,6 @@
 		return
 	node.overheat_counter--
 
-
 /obj/machinery/ai_node/processing_node
 	name = "Processing Node"
 	desc = "Highly advanced machinery with a manual switch. While running, it grants an AI memory."

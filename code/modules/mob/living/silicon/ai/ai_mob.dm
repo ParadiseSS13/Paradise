@@ -80,6 +80,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/bluespace_miner_rate = 100
 	/// Time until next payout
 	var/next_payout = 10 MINUTES
+	/// Do we have the enhanced tracker?
+	var/enhanced_tracking = FALSE
+	/// Who are we tracking with the enhanced tracker?
+	var/mob/tracked_mob
+	/// The current delay on enhanced tracking
+	var/enhanced_tracking_delay = 10 SECONDS
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -240,7 +246,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-	
+
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
@@ -1493,7 +1499,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
-	
+
 	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms
