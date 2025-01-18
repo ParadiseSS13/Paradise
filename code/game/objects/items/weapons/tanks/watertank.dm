@@ -333,6 +333,11 @@
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 	qdel(src)
 
+/obj/effect/nanofrost_container/anomaly
+	name = "nanofrost anomaly"
+	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area."
+	icon_state = "frozen_smoke_anomaly"
+
 #undef EXTINGUISHER
 #undef NANOFROST
 #undef METAL_FOAM

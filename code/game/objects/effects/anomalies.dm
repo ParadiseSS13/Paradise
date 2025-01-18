@@ -418,7 +418,7 @@
 		shootAt(H)
 
 	if(prob(10))
-		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container/anomaly(get_turf(src))
 		for(var/i in 1 to 5)
 			step_towards(A, pick(turf_targets))
 			sleep(2)
