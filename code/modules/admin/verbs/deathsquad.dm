@@ -48,9 +48,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 				to_chat(R, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
 				SEND_SOUND(R, notice_sound)
 				R.show_laws()
-				var/obj/item/radio/borg/cyberg_radio = R.get_radio()
-				cyberg_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
-				cyberg_radio.config(cyberg_radio.channels)
+				var/obj/item/radio/borg/cyborg_radio = R.get_radio()
+				cyborg_radio.channels |= list("Response Team" = 1, "Special Ops" = 1)
+				cyborg_radio.config(cyborg_radio.channels)
 
 	// Locates commandos spawns
 	var/list/commando_spawn_locations = list()
