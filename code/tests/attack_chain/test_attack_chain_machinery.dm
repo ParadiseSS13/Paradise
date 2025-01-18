@@ -7,6 +7,7 @@
 		var/machine = machine_instances_by_type[obj_type][1]
 		player.puppet.forceMove(get_step(machine, dir))
 		return machine
+	TEST_FAIL("could not find [obj_type] to teleport puppet to")
 
 /datum/game_test/attack_chain_machinery/New()
 	. = ..()
@@ -27,31 +28,49 @@
 	player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
 	player.click_on(scanner)
 	TEST_ASSERT_LAST_CHATLOG(player, "You add a beaker")
-	player.spawn_obj_in_hand(/obj/item/screwdriver)
+	var/obj/screwdriver = player.spawn_obj_in_hand(/obj/item/screwdriver)
 	player.click_on(scanner)
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the maintenance hatch")
-	player.puppet.drop_item()
+	qdel(screwdriver)
 
 	// Abductor console
 	var/obj/abductor_console = teleport_to_first(player, /obj/machinery/abductor/console)
-	player.spawn_obj_in_hand(/obj/item/abductor/gizmo)
+	var/obj/gizmo = player.spawn_obj_in_hand(/obj/item/abductor/gizmo)
 	player.click_on(abductor_console)
 	TEST_ASSERT_LAST_CHATLOG(player, "You link the tool")
-	player.puppet.drop_item()
-	player.spawn_obj_in_hand(/obj/item/weldingtool)
+	qdel(gizmo)
+	var/obj/welder = player.spawn_obj_in_hand(/obj/item/weldingtool)
 	player.set_intent("harm")
 	player.click_on(abductor_console)
 	TEST_ASSERT_LAST_CHATLOG(player, "You hit Abductor console with the welding tool!")
-	player.puppet.drop_item()
+	qdel(welder)
 
 	var/obj/machinery/abductor/gland_dispenser/dispenser = teleport_to_first(player, /obj/machinery/abductor/gland_dispenser)
-	player.spawn_obj_in_hand(/obj/item/organ/internal/heart/gland)
+	var/obj/gland = player.spawn_obj_in_hand(/obj/item/organ/internal/heart/gland)
 	player.click_on(dispenser)
-	TEST_ASSERT_EQUAL(length(dispenser.contents), 1, "did not place gland in dispenser")
+	TEST_ASSERT(gland in dispenser.contents, "did not place gland in dispenser")
 
 	var/obj/autolathe = teleport_to_first(player, /obj/machinery/autolathe)
-	player.spawn_obj_in_hand(/obj/item/disk/design_disk/golem_shell)
+	var/obj/design_disk = player.spawn_obj_in_hand(/obj/item/disk/design_disk/golem_shell)
 	player.click_on(autolathe)
 	TEST_ASSERT_LAST_CHATLOG(player, "You begin to load a design")
+	qdel(design_disk)
 
-	return
+	var/obj/nuke = teleport_to_first(player, /obj/machinery/nuclearbomb/undeployed)
+	var/obj/disk = player.spawn_obj_in_hand(/obj/item/disk/nuclear)
+	player.click_on(nuke)
+	TEST_ASSERT_LAST_CHATLOG(player, "You need to deploy")
+	nuke.ui_act("deploy")
+	player.click_on(nuke)
+	TEST_ASSERT(disk in nuke.contents, "Disk not inserted into nuke")
+	screwdriver = player.spawn_obj_in_hand(/obj/item/screwdriver)
+	player.click_on(nuke)
+	TEST_ASSERT_LAST_CHATLOG(player, "You unscrew the control panel")
+
+	var/obj/camera = teleport_to_first(player, /obj/machinery/camera)
+	player.click_on(camera) // with screwdriver
+	TEST_ASSERT_LAST_CHATLOG(player, "panel open")
+	qdel(screwdriver)
+	player.spawn_obj_in_hand(/obj/item/stack/sheet/mineral/plasma)
+	player.click_on(camera)
+	TEST_ASSERT_LAST_CHATLOG(player, "You attach the stack of plasma")

@@ -202,7 +202,7 @@
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "KW" = (
-/obj/machinery/nuclearbomb,
+/obj/machinery/nuclearbomb/undeployed,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "KY" = (
@@ -277,6 +277,10 @@
 /area/game_test)
 "VL" = (
 /obj/machinery/chem_master,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"WF" = (
+/obj/machinery/camera,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "Xs" = (
@@ -955,7 +959,7 @@ qc
 qc
 KW
 qc
-qc
+WF
 qc
 qc
 to
