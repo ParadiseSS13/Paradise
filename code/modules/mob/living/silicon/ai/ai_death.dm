@@ -10,7 +10,7 @@
 	else
 		icon_state = "ai_dead"
 	if(eyeobj)
-		eyeobj.setLoc(get_turf(src))
+		eyeobj.set_loc(get_turf(src))
 
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()

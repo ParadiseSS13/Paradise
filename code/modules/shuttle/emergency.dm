@@ -182,7 +182,7 @@
 		attempt_hijack_stage(user)
 
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
-	var/is_ai = isAI(user)
+	var/is_ai = is_ai(user)
 	if(!Adjacent(user) && !is_ai)
 		return
 	if(!ishuman(user) && !is_ai) //No, xenomorphs, constructs and traitors in cyborgs can not hack it.

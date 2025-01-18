@@ -255,7 +255,7 @@
 						M_job = "Carbon-based"
 
 				else if(issilicon(M)) //silicon
-					if(isAI(M))
+					if(is_ai(M))
 						M_job = "AI"
 					else if(ispAI(M))
 						M_job = "pAI"
@@ -298,7 +298,7 @@
 			M_key = replacetext(M_key, "\\", "")
 
 			var/M_eyeUID = ""
-			if(isAI(M))
+			if(is_ai(M))
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
