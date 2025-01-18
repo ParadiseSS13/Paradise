@@ -5,7 +5,7 @@
  *
  * Lets the caster enter and exit tiles of space or misc turfs.
  */
-/datum/spell/jaunt/space_crawl
+/datum/spell/bloodcrawl/space_crawl
 	name = "Space Phase"
 	desc = "Allows you to phase in and out of existence while in space or misc tiles."
 
@@ -18,124 +18,31 @@
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
-	///List of traits that are added to the heretic while in space phase jaunt
-	var/static/list/jaunting_traits = list(TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NOBREATH)
 
-/datum/spell/jaunt/space_crawl/Grant(mob/grant_to)
-	. = ..()
-	RegisterSignal(grant_to, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
-
-/datum/spell/jaunt/space_crawl/Remove(mob/remove_from)
-	. = ..()
-	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
-
-/datum/spell/jaunt/space_crawl/can_cast_spell(feedback = TRUE)
-	. = ..()
-	if(!.)
-		return FALSE
-	if(isspaceturf(get_turf(owner)) || ismiscturf(get_turf(owner)))
+/datum/spell/bloodcrawl/space_crawl/valid_target(turf/target, user)
+	if(isspaceturf(get_turf(user))) //qwertodo: make this work on basalt / asteroid turf, if we get a planet map
 		return TRUE
-	if(feedback)
-		to_chat(owner, "<span class='warning'>You must stand on a space or misc turf!</span>")
+	to_chat(user, "<span class='warning'>You must stand on a space or misc turf!</span>")
 	return FALSE
 
-/datum/spell/jaunt/space_crawl/cast(mob/living/cast_on)
-	. = ..()
-	// Should always return something because we checked that in can_cast_spell before arriving here
-	var/turf/our_turf = get_turf(cast_on)
-	do_spacecrawl(our_turf, cast_on)
+/datum/spell/bloodcrawl/space_crawl/rise_message(atom/A)
+	return
 
-/**
- * Attempts to enter or exit the passed space or misc turf.
- * Returns TRUE if we successfully entered or exited said turf, FALSE otherwise
- */
-/datum/spell/jaunt/space_crawl/proc/do_spacecrawl(turf/our_turf, mob/living/jaunter)
-	if(is_jaunting(jaunter))
-		. = try_exit_jaunt(our_turf, jaunter)
-	else
-		. = try_enter_jaunt(our_turf, jaunter)
+/datum/spell/bloodcrawl/space_crawl/rise_animation(turf/tele_loc, mob/living/L, atom/A)
+	new /obj/effect/temp_visual/space_explosion(tele_loc)
+	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, SPACE_PHASING)
+	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
+	REMOVE_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_NOBREATH)
 
-	if(!.)
-		reset_spell_cooldown()
-		to_chat(jaunter, "<span class='warning'>You are unable to space crawl!</span>")
+/datum/spell/bloodcrawl/space_crawl/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
+	return
 
-/**
- * Attempts to enter the passed space or misc turfs.
- */
-/datum/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
-	// Begin the jaunt
-	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
-	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(jaunter, our_turf)
-	if(isnull(holder))
-		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
-		return FALSE
+/datum/spell/bloodcrawl/space_crawl/sink_animation(atom/A, mob/living/L)
+	A.visible_message("<span class='danger'>[L] sinks into [A]...</span>")
+	new /obj/effect/temp_visual/space_explosion(A)
+	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, SPACE_PHASING)
+	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD)
+	ADD_TRAIT(L, TRAIT_RESISTLOWPRESSURE, TRAIT_NOBREATH)
 
-	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
-	if(iscarbon(jaunter))
-		jaunter.drop_all_held_items()
-		// Sanity check to ensure we didn't lose our focus as a result.
-		if(!HAS_TRAIT(jaunter, TRAIT_ALLOW_HERETIC_CASTING))
-			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
-			exit_jaunt(jaunter, our_turf)
-			return FALSE
-		// Give them some space hands to prevent them from doing things
-		var/obj/item/space_crawl/left_hand = new(jaunter)
-		var/obj/item/space_crawl/right_hand = new(jaunter)
-		left_hand.icon_state = "spacehand_right" // Icons swapped intentionally..
-		right_hand.icon_state = "spacehand_left" // ..because perspective, or something
-		jaunter.put_in_hands(left_hand)
-		jaunter.put_in_hands(right_hand)
-
-	jaunter.add_traits(jaunting_traits, SPACE_PHASING)
-	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
-	playsound(our_turf, 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
-	our_turf.visible_message("<span class='warning'>[jaunter] sinks into [our_turf]!</span>")
-	new /obj/effect/temp_visual/space_explosion(our_turf)
-	jaunter.extinguish_mob()
-
-	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
-	return TRUE
-
-/**
- * Attempts to Exit the passed space or misc turf.
- */
-/datum/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
-	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, REF(src)))
-		to_chat(jaunter, "<span class='warning'>You cannot exit yet!!</span>")
-		return FALSE
-
-	if(!exit_jaunt(jaunter, our_turf))
-		return FALSE
-	jaunter.remove_traits(jaunting_traits, SPACE_PHASING)
-	our_turf.visible_message("<span class='boldwarning'>[jaunter] rises out of [our_turf]!</span>")
-	return TRUE
-
-/datum/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/phased_mob/jaunt, mob/living/unjaunter)
-	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
-	playsound(get_turf(unjaunter), 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
-	new /obj/effect/temp_visual/space_explosion(get_turf(unjaunter))
-	if(iscarbon(unjaunter))
-		for(var/obj/item/space_crawl/space_hand in unjaunter.held_items)
-			unjaunter.temporarilyRemoveItemFromInventory(space_hand, force = TRUE)
-			qdel(space_hand)
-	return ..()
-
-/// Signal proc for [SIGNAL_REMOVETRAIT] via [TRAIT_ALLOW_HERETIC_CASTING], losing our focus midcast will throw us out.
-/datum/spell/jaunt/space_crawl/proc/on_focus_lost(mob/living/source)
-	SIGNAL_HANDLER
-	var/turf/our_turf = get_turf(source)
-	try_exit_jaunt(our_turf, source, TRUE)
-
-/// Spacecrawl "hands", prevent the user from holding items in spacecrawl
-/obj/item/space_crawl
-	name = "space crawl"
-	desc = "You are unable to hold anything while in this form."
-	icon = 'icons/obj/antags/eldritch.dmi'
-	item_flags = ABSTRACT | DROPDEL
-
-/obj/item/space_crawl/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 #undef SPACE_PHASING

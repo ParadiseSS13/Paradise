@@ -5,7 +5,7 @@
 		such as windows, mirrors, and reflective walls or equipment."
 
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 
 	base_cooldown = 6 SECONDS

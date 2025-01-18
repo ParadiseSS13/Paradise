@@ -55,7 +55,7 @@
 	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
 	check_flags = AB_CHECK_CONSCIOUS
 
-	button_icon = 'icons/obj/antags/eldritch.dmi'
+	button_overlay_icon = 'icons/obj/antags/eldritch.dmi'
 	action_icon_state = "living_heart"
 	base_cooldown = 4 SECONDS
 

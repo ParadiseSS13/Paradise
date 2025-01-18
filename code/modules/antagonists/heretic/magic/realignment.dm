@@ -5,7 +5,7 @@
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
 
 	overlay_icon_state = "bg_heretic_border"
-	button_icon = 'icons/hud/implants.dmi'
+	button_overlay_icon = 'icons/hud/implants.dmi'
 	action_icon_state = "adrenal"
 	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
@@ -55,11 +55,9 @@
 	///Traits to add/remove
 	var/list/realignment_traits = list(TRAIT_BATON_RESISTANCE, TRAIT_PACIFISM)
 
-/datum/status_effect/realignment/get_examine_text()
-	return "<span class='notice'>[owner.p_Theyre()] glowing a soft white.</span>"
-
 /datum/status_effect/realignment/on_apply()
-	owner.add_traits(realignment_traits, id)
+	ADD_TRAIT(owner, TRAIT_BATON_RESISTANCE, "[id]")
+	ADD_TRAIT(owner, TRAIT_PACIFISM, "[id]")
 	owner.add_filter(id, 2, list("type" = "outline", "color" = "#d6e3e7", "size" = 2))
 	var/filter = owner.get_filter(id)
 	animate(filter, alpha = 127, time = 1 SECONDS, loop = -1)
@@ -68,14 +66,18 @@
 	return TRUE
 
 /datum/status_effect/realignment/on_remove()
-	owner.remove_traits(realignment_traits, id)
+	REMOVE_TRAIT(owner, TRAIT_BATON_RESISTANCE, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "[id]")
 	owner.remove_filter(id)
 
 /datum/status_effect/realignment/tick(seconds_between_ticks)
-	owner.adjustStaminaLoss(-10)
-	owner.AdjustAllImmobility(-1 SECONDS)
+	owner.adjustStaminaLoss(-10) //qwertodo: see if that is too little
+	owner.AdjustParalysis(-1 SECONDS)
+	owner.AdjustStunned(-1 SECONDS)
+	owner.AdjustWeakened(-1 SECONDS)
+	owner.AdjustKnockDown(-1 SECONDS)
 
 /atom/movable/screen/alert/status_effect/realignment
 	name = "Realignment"
-	desc = "You're realignment yourself. You cannot attack, but are rapidly regenerating stamina."
+	desc = "You're realigning yourself. You cannot attack, but are rapidly regenerating stamina."
 	icon_state = "realignment"

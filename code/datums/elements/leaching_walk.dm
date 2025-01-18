@@ -51,9 +51,12 @@
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc
-	source.AdjustAllImmobility((-0.5 SECONDS))
+	source.AdjustParalysis(-0.5 SECONDS)
+	source.AdjustStunned(-0.5 SECONDS)
+	source.AdjustWeakened(-0.5 SECONDS)
+	source.AdjustKnockDown(-0.5 SECONDS)
 	// Heals blood loss
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += 2.5
 	// Slowly regulates your body temp
-	source.adjust_bodytemperature((source.get_body_temp_normal() - source.bodytemperature) / 5)
+	//source.adjust_bodytemperature((source.get_body_temp_normal() - source.bodytemperature) / 5) //qwertodo

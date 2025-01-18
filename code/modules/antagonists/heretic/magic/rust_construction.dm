@@ -17,12 +17,6 @@
 	/// How long does the filter last on walls we make?
 	var/filter_duration = 2 MINUTES
 
-/**
- * Overrides 'aim assist' because we always want to hit just the turf we clicked on.
- */
-/datum/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
-	return get_turf(target)
-
 
 /datum/spell/pointed/rust_construction/before_cast(list/targets, mob/user)
 	. = ..()
@@ -30,7 +24,7 @@
 		return
 
 	var/mob/living/living_owner = user
-	var/turf/cast_on = targets[1]
+	var/turf/cast_on = get_turf(targets[1])
 	if(!isturf(cast_on))
 		to_chat(living_owner, "<span class='warning'>That is not a wall or a floor!</span>")
 		return FALSE

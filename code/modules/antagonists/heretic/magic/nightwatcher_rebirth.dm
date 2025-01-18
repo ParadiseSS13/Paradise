@@ -13,15 +13,18 @@
 
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = SPELL_REQUIRES_HUMAN
 
-/datum/spell/aoe/fiery_rebirth/cast(mob/living/carbon/human/cast_on)
-	cast_on.extinguishMob()
+/datum/spell/aoe/fiery_rebirth/create_new_targeting()
+	var/datum/spell_targeting/aoe/A = new()
+	A.include_user = FALSE
+	A.range = 7
+	A.allowed_type = /mob/living/carbon
+	return A
 
-/datum/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
-	var/list/things = list()
-	for(var/mob/living/carbon/nearby_mob in range(aoe_range, center))
-		if(nearby_mob == owner || nearby_mob == center)
+/datum/spell/aoe/fiery_rebirth/cast(list/targets, mob/living/carbon/user)
+	user.ExtinguishMob()
+	for(var/mob/living/carbon/nearby_mob in targets)
+		if(nearby_mob == user)
 			continue
 		if(!nearby_mob.mind || !nearby_mob.client)
 			continue
@@ -30,29 +33,24 @@
 		if(nearby_mob.stat == DEAD || !nearby_mob.on_fire)
 			continue
 
-		things += nearby_mob
 
-	return things
+		new /obj/effect/temp_visual/eldritch_smoke(get_turf(nearby_mob))
+		nearby_mob.Beam(user, icon_state = "r_beam", time = 2 SECONDS)
 
-/datum/spell/aoe/fiery_rebirth/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/carbon/human/caster)
-	new /obj/effect/temp_visual/eldritch_smoke(get_turf(victim))
-	victim.Beam(caster, icon_state = "r_beam", time = 2 SECONDS)
+		//This is essentially a death mark, use this to finish your opponent quicker.
+		if(nearby_mob.health <= 0)
+			victim.death()
+		victim.apply_damage(20, BURN)
 
-	//This is essentially a death mark, use this to finish your opponent quicker.
-	if(CAN_SUCCUMB(victim))
-		victim.investigate_log("has been executed by fiery rebirth.", INVESTIGATE_DEATHS)
-		victim.death()
-	victim.apply_damage(20, BURN)
-
-	// Heal the caster for every victim damaged
-	var/need_mob_update = FALSE
-	need_mob_update += caster.adjustBruteLoss(-10, updating_health = FALSE)
-	need_mob_update += caster.adjustFireLoss(-10, updating_health = FALSE)
-	need_mob_update += caster.adjustToxLoss(-10, updating_health = FALSE)
-	need_mob_update += caster.adjustOxyLoss(-10, updating_health = FALSE)
-	need_mob_update += caster.adjustStaminaLoss(-10, updating_stamina = FALSE)
-	if(need_mob_update)
-		caster.updatehealth()
+		// Heal the caster for every victim damaged
+		var/need_mob_update = FALSE
+		need_mob_update += user.adjustBruteLoss(-10, updating_health = FALSE)
+		need_mob_update += user.adjustFireLoss(-10, updating_health = FALSE)
+		need_mob_update += user.adjustToxLoss(-10, updating_health = FALSE)
+		need_mob_update += user.adjustOxyLoss(-10, updating_health = FALSE)
+		need_mob_update += user.adjustStaminaLoss(-10)
+		if(need_mob_update)
+			user.updatehealth()
 
 /obj/effect/temp_visual/eldritch_smoke
 	icon = 'icons/effects/eldritch.dmi'
