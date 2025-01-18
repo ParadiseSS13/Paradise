@@ -165,11 +165,6 @@
 "Au" = (
 /turf/simulated/wall/r_wall,
 /area/game_test)
-"AI" = (
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plasteel,
-/area/game_test)
 "AM" = (
 /obj/machinery/conveyor_switch,
 /turf/simulated/floor/plasteel,
@@ -1033,7 +1028,7 @@ qc
 qc
 to
 qc
-AI
+ic
 qc
 qc
 qc

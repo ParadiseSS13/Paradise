@@ -141,7 +141,7 @@
 			flipped = TRUE
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-		circP.attackby__legacy__attackchain(src, null, null)
+		circP.attack_by(src, null, null)
 		if(istype(circP) && circP.side == CIRCULATOR_SIDE_RIGHT)
 			flipped = TRUE
 
