@@ -51,7 +51,7 @@
 	if(HAS_TRAIT(target, TRAIT_BLIND))
 		return
 
-	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/eyes/E = target.get_int_organ(/obj/item/organ/internal/eyes)
 	if(!E)
 		return
 
@@ -86,9 +86,8 @@
 
 	// Also refunds 75% of charge!
 	var/datum/spell/touch/mansus_grasp/grasp = locate() in source.actions
-	if(grasp)
-		grasp.next_use_time -= round(grasp.base_cooldown*0.75)
-		grasp.build_all_button_icons()
+	if(grasp && grasp.cooldown_handler.is_on_cooldown())
+		grasp.cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.25)
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 
@@ -190,10 +189,10 @@
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	var/datum/spell/fire_sworn/circle_spell = new(user.mind)
-	circle_spell.Grant(user)
+	user.AddSpell(circle_spell)
 
 	var/datum/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
-	screen_wide_fire_spell.Grant(user)
+	user.AddSpell(screen_wide_fire_spell)
 
 	var/datum/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
 	if(existing_beam_spell)

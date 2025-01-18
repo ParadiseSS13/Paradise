@@ -122,7 +122,7 @@
 	)
 	result_atoms = list(/obj/item/heretic_labyrinth_handbook)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/service/library.dmi'
+	research_tree_icon_path = 'icons/obj/library.dmi'
 	research_tree_icon_state = "heretichandbook"
 
 /datum/heretic_knowledge/spell/burglar_finesse
@@ -134,17 +134,18 @@
 	action_to_add = /datum/spell/pointed/burglar_finesse
 	cost = 1
 
-/datum/heretic_knowledge/blade_upgrade/flesh/lock //basically a chance-based weeping avulsion version of the former
+/datum/heretic_knowledge/blade_upgrade/flesh/lock //basically a chance-based limb opening
 	name = "Opening Blade"
-	desc = "Your blade has a chance to cause a weeping avulsion on attack."
+	desc = "Your blade has a chance to open an limb on attack."
 	gain_text = "The Pilgrim-Surgeon was not an Steward. Nonetheless, its blades and sutures proved a match for their keys."
-	wound_type = /datum/wound/slash/flesh/critical
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_lock"
 	var/chance = 35
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(prob(chance))
+		var/obj/item/organ/external/lockbox = target.get_organ(source.zone_selected)
+		lockbox.open = ORGAN_ORGANIC_VIOLENT_OPEN
 		return ..()
 
 /datum/heretic_knowledge/spell/caretaker_refuge
@@ -182,14 +183,15 @@
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
-		if(LAZYLEN(body.get_organs_for_zone(BODY_ZONE_CHEST)))
+		var/obj/item/organ/external/affecting = get_organ(BODY_ZONE_CHEST)
+		if(length(affecting.contents))
 			to_chat(user, "<span class='hierophant_warning'>[body] has organs in their chest.</span>")
 			continue
 
 		selected_atoms += body
 
 	if(!LAZYLEN(selected_atoms))
-		loc.balloon_alert(user, "ritual failed, not enough valid bodies!")
+		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, you do not have enough valid bodies.</span>")
 		return FALSE
 	return TRUE
 
@@ -197,7 +199,7 @@
 	. = ..()
 	// buffs
 	var/datum/spell/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
-	transform_spell.Grant(user)
+	user.AddSpell(transform_spell)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/blade_upgrade/flesh/lock/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/flesh/lock)

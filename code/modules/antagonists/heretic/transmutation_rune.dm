@@ -161,7 +161,6 @@
 
 	if(length(what_are_we_missing))
 		// Let them know it screwed up
-		loc.balloon_alert(user, "ritual failed, missing components!")
 		// Then let them know what they're missing
 		to_chat(user, "<span class='hierophant_warning'>You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\".</span>")
 		return FALSE
@@ -178,7 +177,7 @@
 	// Some rituals may remove atoms from the selected_atoms list, and not consume them.
 	var/list/initial_selected_atoms = selected_atoms.Copy()
 	for(var/atom/to_disappear as anything in selected_atoms)
-		to_disappear.SetInvisibility(INVISIBILITY_ABSTRACT, id=type)
+		to_disappear.invisibility =INVISIBILITY_ABSTRACT
 
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
 	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)

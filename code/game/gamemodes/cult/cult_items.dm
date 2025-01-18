@@ -188,13 +188,13 @@
 	if(bound)
 		unbind_blade(user)
 		return
-	if(user.mind?.holy_role)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		on_priest_handle(user)
-	else if(IS_CULTIST_OR_CULTIST_MOB(user))
+	else if(IS_CULTIST(user))
 		on_cultist_handle(user)
-	else if(IS_HERETIC_OR_MONSTER(user) || IS_LUNATIC(user))
+	else if(IS_HERETIC_OR_MONSTER(user))
 		on_heresy_handle(user)
-	else if(IS_WIZARD(user))
+	else if(iswizard(user))
 		on_wizard_handle(user)
 	else
 		on_normie_handle(user)

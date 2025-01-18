@@ -140,27 +140,26 @@
 	icon = 'icons/obj/antags/eldritch.dmi'
 	icon_state = "moon_amulette"
 	w_class = WEIGHT_CLASS_SMALL
-	// How much damage does this item do to the targets sanity?
-	var/sanity_damage = 20
+	// How much brain damage does this item do?
+	var/brain_damage = 5
 
-/obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params) //QWERTODO: brain damage
+/obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params)
+	if(!ishuman(target))
+		return . = ..()
 	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
-		user.balloon_alert(user, "you feel a presence watching you")
-		user.add_mood_event("Moon Amulet Insanity", /datum/mood_event/amulet_insanity)
-		user.mob_mood.set_sanity(user.mob_mood.sanity - 50)
+		to_chat(user, "<span class='danger'>You feel a presence watching you!</span>")
+		user.adjustBrainLoss(30)
 		return
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
-	if(!hit.mob_mood)
-		return
-	if(hit.mob_mood.sanity_level < SANITY_LEVEL_UNSTABLE)
-		user.balloon_alert(user, "their mind is too strong!")
-		hit.add_mood_event("Moon Amulet Insanity", /datum/mood_event/amulet_insanity)
-		hit.mob_mood.set_sanity(hit.mob_mood.sanity - sanity_damage)
+	if(hit.getBrainLoss() < 80)
+		to_chat(user, "<span class='hierophant_warning'>Their mind is too strong!</span>")
+		hit.adjustBrainLoss(brain_damage)
 	else
-		user.balloon_alert(user, "their mind bends to see the truth!")
+		to_chat(user, "<span class='hierophant_warning'>Their mind has bent to see the truth!</span>")
 		hit.apply_status_effect(/datum/status_effect/moon_converted)
-		user.log_message("made [target] insane.", LOG_GAME)
-		hit.log_message("was driven insane by [user]")
+		add_attack_logs(user, target, "[target] was driven insane by [user]([src])")
+		log_game("[target] was driven insane by [user]")
+
 	. = ..()

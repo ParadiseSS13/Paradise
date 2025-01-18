@@ -30,7 +30,7 @@
 		return
 
 	var/mob/living/living_owner = user
-	var/cast_on = targets[1]
+	var/turf/cast_on = targets[1]
 	if(!isturf(cast_on))
 		to_chat(living_owner, "<span class='warning'>That is not a wall or a floor!</span>")
 		return FALSE

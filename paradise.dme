@@ -446,6 +446,7 @@
 #include "code\datums\components\defibrillator.dm"
 #include "code\datums\components\ducttape.dm"
 #include "code\datums\components\edit_complainer.dm"
+#include "code\datums\components\effect_remover.dm"
 #include "code\datums\components\emissive_blocker.dm"
 #include "code\datums\components\footstep.dm"
 #include "code\datums\components\fullauto.dm"

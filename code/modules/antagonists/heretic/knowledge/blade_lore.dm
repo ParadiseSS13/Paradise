@@ -204,7 +204,7 @@
 	/// Whether we're currently in duelist stance, gaining certain buffs (low health)
 	var/in_duelist_stance = FALSE
 
-/datum/heretic_knowledge/duel_stance/on_gain(mob/living/carbon/humaan/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/duel_stance/on_gain(mob/living/carbon/human/user, datum/antagonist/heretic/our_heretic)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -213,7 +213,6 @@
 	on_health_update(user) // Run this once, so if the knowledge is learned while hurt it activates properly
 
 /datum/heretic_knowledge/duel_stance/on_lose(mob/living/carbon/user, datum/antagonist/heretic/our_heretic)
-	REMOVE_TRAIT(user, TRAIT_NODISMEMBER, type)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags &= ~CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	if(in_duelist_stance)

@@ -246,16 +246,13 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_flesh"
 	///What type of wound do we apply on hit
-	var/wound_type = /datum/wound/slash/flesh/severe
 
 /datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	if(!iscarbon(target) || source == target)
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-	var/datum/wound/crit_wound = new wound_type()
-	crit_wound.apply_wound(bodypart, attack_direction = get_dir(source, target))
+	bleed(50)
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
@@ -265,9 +262,9 @@
 		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
 
 	required_atoms = list(
-		/obj/item/organ/tail = 1,
-		/obj/item/organ/stomach = 1,
-		/obj/item/organ/tongue = 1,
+		/obj/item/organ/internal/eyes = 1,
+		/obj/item/organ/external/arm = 1,
+		/obj/item/organ/internal/lungs = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)
@@ -297,7 +294,7 @@
 /datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	var/datum/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
-	worm_spell.Grant(user)
+	user.AddSpell(worm_spell)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_grasp)
