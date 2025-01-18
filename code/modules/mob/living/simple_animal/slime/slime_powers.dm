@@ -104,6 +104,7 @@
 		layer = M.layer + 0.01 //appear above the target mob
 		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
 						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+		// is_feeding = TRUE
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 
@@ -117,6 +118,7 @@
 		if(!silent)
 			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
+			// is_feeding = FALSE
 		layer = initial(layer)
 		unbuckle(force=TRUE)
 

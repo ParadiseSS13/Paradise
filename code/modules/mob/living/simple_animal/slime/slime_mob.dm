@@ -8,6 +8,7 @@
 	gender = NEUTER
 	var/is_adult = FALSE
 	var/docile = FALSE
+	// var/is_feeding = FALSE
 	faction = list("slime", "neutral")
 
 	harm_intent_damage = 5
@@ -225,6 +226,10 @@
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
 	return 2
+
+/mob/living/simple_animal/slime/resist()
+	. = ..()
+	Feedstop()
 
 /mob/living/simple_animal/slime/get_status_tab_items()
 	var/list/status_tab_data = ..()
