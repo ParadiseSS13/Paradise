@@ -62,9 +62,10 @@
 	player.click_on(autolathe)
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the maintenance hatch")
 	player.put_away(screwdriver)
-	player.spawn_obj_in_hand(/obj/item/storage/part_replacer/tier4)
+	var/obj/rped = player.spawn_obj_in_hand(/obj/item/storage/part_replacer/tier4)
 	player.click_on(autolathe)
 	TEST_ASSERT_LAST_CHATLOG(player, "micro-manipulator replaced with femto-manipulator")
+	qdel(rped)
 
 	var/obj/machinery/nuclearbomb/nuke = teleport_to_first(player, /obj/machinery/nuclearbomb/undeployed)
 	var/obj/disk = player.spawn_obj_in_hand(/obj/item/disk/nuclear/unrestricted)
@@ -106,3 +107,9 @@
 	player.puppet.swap_hand()
 	player.click_on(chem_dispenser)
 	TEST_ASSERT_LAST_CHATLOG(player, "You set the beaker on the machine")
+
+	var/obj/upload_console = teleport_to_first(player, /obj/machinery/computer/aiupload)
+	var/obj/ai_module = player.spawn_obj_in_hand(/obj/item/ai_module/asimov)
+	player.click_on(upload_console)
+	TEST_ASSERT_LAST_CHATLOG(player, "No AI selected")
+	qdel(ai_module)

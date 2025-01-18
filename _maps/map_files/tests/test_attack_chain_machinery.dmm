@@ -74,6 +74,10 @@
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plasteel,
 /area/game_test)
+"lr" = (
+/obj/machinery/computer/aiupload,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "lM" = (
 /obj/machinery/computer/guestpass{
 	pixel_y = 32
@@ -474,7 +478,7 @@ qc
 qc
 qc
 qc
-qc
+lr
 qc
 qc
 Ge
