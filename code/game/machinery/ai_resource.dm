@@ -18,11 +18,13 @@
 	/// How much resources does this machine provide
 	var/resource_amount = 1
 	/// How much heat does this put out?
-	var/heat_amount = 40000
+	var/heat_amount = 25000
 	/// Are we overheating?
 	var/overheating = FALSE
 	/// Used to ensure it takes a few seconds of being hot before overheating
 	var/overheat_counter = 0
+	/// How efficient is this machine?
+	var/efficiency = 1
 
 /obj/machinery/ai_node/process()
 	..()
@@ -51,6 +53,22 @@
 
 /obj/machinery/ai_node/attack_ai(mob/user)
 	return
+
+/obj/machinery/ai_node/RefreshParts()
+	. = ..()
+	var/E
+	for(var/obj/item/stock_parts/capacitor/M in component_parts)
+		E += M.rating
+	efficiency = E / 2
+	// Adjust values according to the new stock parts.
+	heat_amount = initial(heat_amount) * efficiency
+	update_idle_power_consumption(power_channel, initial(idle_power_consumption) * efficiency)
+	update_active_power_consumption(power_channel, initial(active_power_consumption) * efficiency)
+	var/old_resource_amount = resource_amount
+	resource_amount = round_down(initial(resource_amount) * efficiency)
+	// Adjust the resources of the connected AI if the machine is on
+	if(assigned_ai)
+		assigned_ai.program_picker.modify_resource(resource_key, (resource_amount - old_resource_amount))
 
 /obj/machinery/ai_node/attack_hand(user as mob)
 	if(overheating)
@@ -104,7 +122,7 @@
 	if(!istype(new_ai))
 		return
 	assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
-	assigned_ai = new_attack_chain
+	assigned_ai = new_ai
 	assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
 
 /datum/milla_safe/ai_node_process

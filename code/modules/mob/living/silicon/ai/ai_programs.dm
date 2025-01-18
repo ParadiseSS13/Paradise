@@ -488,7 +488,7 @@
 	upgrade_level++
 	installed = TRUE
 
-// RGB Lighting - Recolors Lights
+// Light Synthesizer - Fixes lights
 /datum/ai_program/light_repair
 	program_name = "Light Synthesizer"
 	program_id = "light_repair"
@@ -664,4 +664,143 @@
 		to_chat(user, "<span class='notice'>Discovered innovations has led to an increase in the [current] field!</span>")
 		upgraded = TRUE
 
+/datum/spell/ai_spell/research_subsystem/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 600 SECONDS)
 
+// Emergency Sealant - Patches holes with metal foam
+/datum/ai_program/research_semergency_sealantubsystem
+	program_name = "Emergency Sealant"
+	program_id = "emergency_sealant"
+	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
+	cost = 2
+	nanite_cost = 50
+	power_type = /datum/spell/ai_spell/ranged/emergency_sealant
+	unlock_text = "Metal foam synthesizer online."
+
+/datum/spell/ai_spell/ranged/emergency_sealant
+	name = "Emergency Sealant"
+	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
+	action_icon = 'icons/obj/structures.dmi'
+	action_icon_state = "reinforced"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 180 SECONDS
+	cooldown_min = 30 SECONDS
+	level_max = 5
+	selection_activated_message = "<span class='notice'>You fill a canister with metal foam...</span>"
+	selection_deactivated_message = "<span class='notice'>You dissolve the unused canister.</span>"
+
+/datum/spell/ai_spell/ranged/emergency_sealant/cast(list/targets, mob/user)
+	var/target = targets[1]
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 50
+	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/effects/bubbles2.ogg', 50, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 15)
+	F.spread_amount = 2
+
+/datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
+
+// Holosign Deployment - Deploys a holosign on the selected turf
+/datum/ai_program/holosign_displayer
+	program_name = "Holosign Displayer"
+	program_id = "holosign_displayer"
+	description = "Deploy a holographic sign to alert crewmembers to potential hazards."
+	cost = 1
+	nanite_cost = 10
+	power_type = /datum/spell/ai_spell/ranged/holosign_displayer
+	unlock_text = "Metal foam synthesizer online."
+
+/datum/spell/ai_spell/ranged/holosign_displayer
+	name = "Holosign Displayer"
+	desc = "Deploy a holographic sign to alert crewmembers to potential hazards."
+	action_icon = 'icons/obj/device.dmi'
+	action_icon_state = "signmaker"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 30 SECONDS
+	cooldown_min = 30 SECONDS
+	level_max = 8
+	selection_activated_message = "<span class='notice'>You spool up your projector...</span>"
+	selection_deactivated_message = "<span class='notice'>You stop spooling the projector.</span>"
+	/// Types of holosigns the AI can deploy
+	var/sign_choices = list(
+		"Engineering",
+		"Security",
+		"Wet Floor"
+	)
+	/// List of currently active signs
+	var/signs = list()
+
+/datum/spell/ai_spell/ranged/holosign_displayer/cast(list/targets, mob/user)
+	var/sign_id = tgui_input_list(usr, "Select an holosgn!", "AI", sign_choices)
+	if(!sign_id)
+		return
+	var/sign_type = null
+	switch(sign_id)
+		if("Engineering")
+			sign_type = /obj/structure/holosign/barrier/engineering
+		if("Wet Floor")
+			sign_type = /obj/structure/holosign/wetsign
+		if("Security")
+			sign_type = /obj/structure/holosign/barrier
+		else
+			return
+	var/target = targets[1]
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 10
+	var/H = new sign_type(get_turf(target), src)
+	addtimer(CALLBACK(src, PROC_REF(sign_timer_complete), H), (60 + 30 * spell_level) SECONDS, TIMER_UNIQUE)
+	user.playsound_local(user, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
+	playsound(target, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+
+/datum/spell/ai_spell/ranged/holosign_displayer/proc/sign_timer_complete(obj/structure/holosign/H)
+	playsound(H.loc, 'sound/machines/chime.ogg', 20, 1)
+	qdel(H)
+
+// HONK Subsystem - HONK
+/datum/ai_program/honk_subsystem
+	program_name = "Honk Subsystem"
+	program_id = "honk_subsystem"
+	description = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
+	nanite_cost = 5
+	power_type = /datum/spell/ai_spell/ranged/honk_subsystem
+	unlock_text = "Honker.exe installed."
+
+/datum/spell/ai_spell/ranged/honk_subsystem
+	name = "Honk Subsystem"
+	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "bike_horn"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 30 SECONDS
+	cooldown_min = 5 SECONDS
+	level_max = 10
+	selection_activated_message = "<span class='notice'>You prepare to honk...</span>"
+	selection_deactivated_message = "<span class='notice'>You reduce the amount of humor in your subsystems.</span>"
+
+/datum/spell/ai_spell/ranged/honk_subsystem/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(!target)
+		return
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 5
+	if(spell_level >= 10)
+		playsound(target, 'sound/items/airhorn.ogg', 100, 1)
+		user.playsound_local(user, 'sound/items/airhorn.ogg', 50, FALSE, use_reverb = FALSE)
+	else
+		playsound(target, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
+		user.playsound_local(user, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
+
+/datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15) SECONDS, 15 SECONDS)
