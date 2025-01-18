@@ -212,7 +212,7 @@
 
 	on_health_update(user) // Run this once, so if the knowledge is learned while hurt it activates properly
 
-/datum/heretic_knowledge/duel_stance/on_lose(mob/living/carbon/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/duel_stance/on_lose(mob/living/carbon/human/user, datum/antagonist/heretic/our_heretic)
 	for(var/obj/item/organ/external/current_organ in user.bodyparts)
 		current_organ.limb_flags &= ~CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	if(in_duelist_stance)
@@ -248,7 +248,7 @@
 	desc = "Attacking someone with a Sundered Blade in both hands \
 		will now deliver a blow with both at once, dealing two attacks in rapid succession. \
 		The second blow will be slightly weaker. \
-		You are able to infuse your mansus grasp directly into your blades, and your blades are more effective against structures."
+		You are able to infuse your mansus grasp directly into your blades."
 	gain_text = "I found him cleaved in twain, halves locked in a duel without end; \
 		a flurry of blades, neither hitting their mark, for the Champion was indomitable."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -261,18 +261,17 @@
 /datum/heretic_knowledge/blade_upgrade/blade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
-	RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_blade_equipped))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects))
 
 /datum/heretic_knowledge/blade_upgrade/blade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	UnregisterSignal(user, list(COMSIG_TOUCH_HANDLESS_CAST, COMSIG_MOB_EQUIPPED_ITEM, COMSIG_HERETIC_BLADE_ATTACK))
+	UnregisterSignal(user, list(COMSIG_TOUCH_HANDLESS_CAST, COMSIG_HERETIC_BLADE_ATTACK))
 
 ///Tries to infuse our held blade with our mansus grasp
 /datum/heretic_knowledge/blade_upgrade/blade/proc/on_grasp_cast(mob/living/carbon/cast_on)
 	SIGNAL_HANDLER
 
-	var/held_item = cast_on.get_active_held_item()
+	var/held_item = cast_on.get_active_hand()
 	if(!istype(held_item, /obj/item/sickly_blade/dark))
 		return NONE
 	var/obj/item/sickly_blade/dark/held_blade = held_item
@@ -282,11 +281,10 @@
 	held_blade.update_appearance(UPDATE_ICON)
 
 	//Infuse our off-hand blade just so it's nicer visually
-	var/obj/item/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_held_item()
+	var/obj/item/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_hand()
 	if(istype(off_hand_blade, /obj/item/sickly_blade/dark))
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
-	cast_on.update_held_items()
 
 	return COMPONENT_CAST_HANDLESS
 
@@ -294,7 +292,7 @@
 	if(target == source)
 		return
 
-	var/obj/item/off_hand = source.get_inactive_held_item()
+	var/obj/item/off_hand = source.get_inactive_hand()
 	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/sickly_blade))
 		return
 	// If our off-hand is the blade that's attacking,
@@ -309,7 +307,7 @@
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
-	if(blade != source.get_inactive_held_item())
+	if(blade != source.get_inactive_hand())
 		return
 	// And we easily could've moved away
 	if(!source.Adjacent(target))
@@ -339,12 +337,6 @@
 	blade.melee_attack_chain(source, target)
 	// Restore the force.
 	blade.force = last_weapon_force
-
-///Modifies our blade demolition modifier so we can take down doors with it
-/datum/heretic_knowledge/blade_upgrade/blade/proc/on_blade_equipped(mob/user, obj/item/equipped, slot)
-	SIGNAL_HANDLER
-	if(istype(equipped, /obj/item/sickly_blade/dark))
-		equipped.force += 1
 
 /datum/heretic_knowledge/spell/furious_steel
 	name = "Furious Steel"
@@ -376,33 +368,33 @@
 	. = ..()
 	if(!.)
 		return FALSE
-
-	return !sacrifice.get_bodypart(BODY_ZONE_HEAD) || HAS_TRAIT(sacrifice, TRAIT_HAS_CRANIAL_FISSURE)
+	var/obj/item/organ/external/head/head = sacrifice.get_organ("head")
+	if(!head)
+		return TRUE
+	return FALSE
 
 /datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_NEVER_WOUNDED, type)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 1 MINUTES)
 	user.add_stun_absorption(
-		source = name,
+		key = name,
+		duration = INFINITY,
 		message = "<span class='warning'>%EFFECT_OWNER throws off the stun!</span>",
 		self_message = "<span class='warning'>You throw off the stun!</span>",
 		examine_message = "<span class='hierophant_warning'>%EFFECT_OWNER_THEYRE standing stalwartly.</span>",
-		// flashbangs are like 5-10 seoncds,
-		// a banana peel is ~5 seconds, depending on botany
-		// body throws and tackles are less than 5 seconds,
-		// stun baton / stamcrit detracts no time,
-		// and worst case: beepsky / tasers are 10 seconds.
-		max_seconds_of_stuns_blocked = 45 SECONDS,
-		delete_after_passing_max = FALSE,
-		recharge_time = 2 MINUTES,
 	)
 	var/datum/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
 	steel_spell?.base_cooldown /= 2
 
 	var/mob/living/carbon/human/heretic = user
-	heretic.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.
+	heretic.physiology.stun_mod= 0.75
+	ADD_TRAIT(heretic, TRAIT_NO_BONES, name)
+	ADD_TRAIT(heretic, TRAIT_STURDY_LIMBS, name)
+	ADD_TRAIT(heretic, TRAIT_BURN_WOUND_IMMUNE, name)
+	ADD_TRAIT(heretic, TRAIT_IB_IMMUNE, name)
+	for(var/obj/item/organ/external/limb in heretic.bodyparts)
+		limb.add_limb_flags() // Otherwise knockdowns would probably overpower the stun absorption effect.
 
 /datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	SIGNAL_HANDLER
@@ -417,9 +409,7 @@
 		damage = bonus_damage,
 		damagetype = BRUTE,
 		spread_damage = TRUE,
-		wound_bonus = 5,
-		sharpness = SHARP_EDGED,
-		attack_direction = get_dir(source, target),
+		sharp = TRUE,
 	)
 
 	if(target.stat != DEAD)

@@ -200,8 +200,7 @@
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	var/datum/spell/created_action = locateUID(created_action_ref)
-	if(created_action?.owner == user)
-		created_action.Remove(user)
+	user.RemoveSpell(created_action)
 
 /**
  * A knowledge subtype for knowledge that can only
@@ -220,7 +219,7 @@
 	return ..()
 
 /datum/heretic_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	for(var/datum/weakref/ref as anything in created_items)
+	for(var/ref as anything in created_items)
 		var/atom/real_thing = locateUID(ref)
 		if(QDELETED(real_thing))
 			LAZYREMOVE(created_items, ref)
@@ -395,10 +394,10 @@
 	fingerprints = list()
 	blood_samples = list()
 	for(var/atom/requirement as anything in atoms)
-		for(var/print in GET_ATOM_FINGERPRINTS(requirement))
+		for(var/print in requirement.fingerprints)
 			fingerprints[print] = 1
 
-		for(var/blood in GET_ATOM_BLOOD_DNA(requirement))
+		for(var/blood in requirement.blood_DNA)
 			blood_samples[blood] = 1
 
 	return TRUE
@@ -410,11 +409,10 @@
 	// Boosted targets is a list of human mob references.
 	var/list/boosted_targets = list()
 
-	for(var/datum/mind/crewmember as anything in get_crewmember_minds())
-		var/mob/living/carbon/human/human_to_check = crewmember.current
+	for(var/mob/living/carbon/human/human_to_check  in GLOB.human_list)
 		if(!istype(human_to_check) || human_to_check.stat == DEAD || !human_to_check.dna)
 			continue
-		var/their_prints = md5(human_to_check.dna.unique_identity)
+		var/their_prints = md5(human_to_check.dna.uni_identity)
 		var/their_blood = human_to_check.dna.unique_enzymes
 		// Having their fingerprints or blood present will boost the curse
 		// and also not run any z or dist checks, as a bonus for those going beyond
@@ -428,7 +426,7 @@
 		// We have to match z-levels.
 		// Otherwise, you could probably hard own miners, which is funny but mean.
 		// Multi-z stations technically work though.
-		if(!is_valid_z_level(check_turf, loc))
+		if(!(user.z == human_to_check.z))
 			continue
 		// Also has to abide by our max range.
 		if(get_dist(check_turf, loc) > max_range)
@@ -436,13 +434,13 @@
 
 		potential_targets[human_to_check.real_name] = human_to_check
 
-	var/chosen_mob = tgui_input_list(user, "Select the victim you wish to curse.", name, sort_list(potential_targets, GLOBAL_PROC_REF(cmp_text_asc)))
+	var/chosen_mob = tgui_input_list(user, "Select the victim you wish to curse.", name, potential_targets)
 	if(isnull(chosen_mob))
 		return FALSE
 
 	var/mob/living/carbon/human/to_curse = potential_targets[chosen_mob]
 	if(QDELETED(to_curse))
-		loc.balloon_alert(user, "ritual failed, invalid choice!")
+		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no valid target was chosen.</span>")
 		return FALSE
 
 	// Yes, you COULD curse yourself, not sure why but you could
@@ -453,15 +451,14 @@
 
 	var/boosted = (to_curse in boosted_targets)
 	var/turf/curse_turf = get_turf(to_curse)
-	if(!boosted && (!is_valid_z_level(curse_turf, loc) || get_dist(curse_turf, loc) > max_range * 1.5)) // Give a bit of leeway on max range for people moving around
-		loc.balloon_alert(user, "ritual failed, too far!")
+	if(!boosted && (!(user.z == curse_turf.z) || get_dist(curse_turf, loc) > max_range * 1.5)) // Give a bit of leeway on max range for people moving around
+		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, the target is too far away!</span>")
 		return FALSE
 
 	if(to_curse.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, charge_cost = 0))
 		to_chat(to_curse, "<span class='warning'>You feel a ghastly chill, but the feeling passes shortly.</span>")
 		return TRUE
 
-	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([boosted ? "Boosted" : ""] [name])")
 	curse(to_curse, boosted)
 	to_chat(user, "<span class='hierophant'>You cast a[boosted ? "n empowered":""] [name] upon [to_curse.real_name].</span>")
 
@@ -515,36 +512,36 @@
  * * mob_to_summon - either a mob instance or a mob typepath
  */
 /datum/heretic_knowledge/proc/summon_ritual_mob(mob/living/user, turf/loc, mob/living/mob_to_summon)
-	var/mob/living/summoned
-	if(isliving(mob_to_summon))
+	var/mob/living/simple_animal/summoned
+	if(issimple_animal(mob_to_summon))
 		summoned = mob_to_summon
 	else
 		summoned = new mob_to_summon(loc)
-	summoned.ai_controller?.set_ai_status(AI_STATUS_OFF)
+	summoned.AIStatus = AI_OFF
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
 	summoned.alpha = 0
-	ADD_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
+	summoned.notransform = TRUE
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(check_jobban = ROLE_HERETIC, poll_time = 10 SECONDS, checked_target = summoned, ignore_category = poll_ignore_define, alert_pic = summoned, role_name_text = summoned.name)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_HERETIC, TRUE, 10 SECONDS, source = summoned)
+	var/mob/chosen_one = pick(candidates)
 	if(isnull(chosen_one))
-		loc.balloon_alert(user, "ritual failed, no ghosts!")
+		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no spirits possessed the summon!</span>")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
 
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
-	REMOVE_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
+	summoned.notransform = FALSE
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
 	summoned.key = chosen_one.key
 
-	user.log_message("created a [summoned.name], controlled by [key_name(chosen_one)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
 
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -644,7 +641,6 @@
 	to_chat(user, "<span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 	desc += " (Completed!)"
 	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
-	user.add_mob_memory(/datum/memory/heretic_knowledge_ritual)
 	return TRUE
 
 #undef KNOWLEDGE_RITUAL_POINTS
@@ -718,16 +714,10 @@
 
 	SSblackbox.record_feedback("tally", "heretic_ascended", 1, GLOB.heretic_research_tree[type][HKT_ROUTE])
 	log_heretic_knowledge("[key_name(user)] completed their final ritual at [worldtime2text()].")
-	notify_ghosts(
-		"[user] has completed an ascension ritual!",
-		source = user,
-		header = "A Heretic is Ascending!",
-	)
-	priority_announce(
-		text = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
-		title = generate_heretic_text(),
-		sound = announcement_sound,
-		color_override = "pink",
+	GLOB.major_announcement.Announce(
+		message = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
+		new_title = generate_heretic_text(),
+		new_sound = announcement_sound,
 	)
 
 	heretic_datum.increase_rust_strength()

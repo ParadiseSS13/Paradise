@@ -260,6 +260,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 
+#define TRAIT_BOMBIMMUNE "bombimmune"
+
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

@@ -30,6 +30,7 @@
 	edge_turfs = list()
 	for(var/turf/turf as anything in field_turfs)
 		cleanup_field_turf(turf)
+		let_me_bloody_clean_effects_as_my_sanity_fades(turf)
 	field_turfs = list()
 
 //Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
@@ -107,6 +108,10 @@
 /// Do NOT call this manually, requires management of the field_turfs list
 /datum/proximity_monitor/advanced/proc/cleanup_field_turf(turf/target)
 	PRIVATE_PROC(TRUE)
+	return
+
+///This should be changed before this is testmerged I just want this to bloody compile. qwertodo: do this, ask warriorstar about the above since it doesnt do anything?
+/datum/proximity_monitor/advanced/proc/let_me_bloody_clean_effects_as_my_sanity_fades(turf/target)
 	return
 
 /// Called when a turf in the edge of the monitor is linked

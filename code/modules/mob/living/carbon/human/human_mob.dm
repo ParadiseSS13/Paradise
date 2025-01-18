@@ -209,6 +209,8 @@
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return
 
 	var/brute_loss = 0
 	var/burn_loss = 0

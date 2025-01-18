@@ -109,9 +109,9 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_cosmos"
 	/// Storage for the second target.
-	var/datum/weakref/second_target
+	var/second_target
 	/// Storage for the third target.
-	var/datum/weakref/third_target
+	var/third_target
 	/// When this timer completes we reset our combo.
 	var/combo_timer
 	/// The active duration of the combo.
@@ -127,23 +127,25 @@
 
 /datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
 	var/static/list/valid_organ_slots = list(
-		"heart",
-		"lungs",
-		"eyes",
-		"ears",
-		"liver",
-		"brain"
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/lungs,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/ears,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/brain
 	)
 	if(source == target || !isliving(target))
 		return
 	if(combo_timer)
 		deltimer(combo_timer)
 	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combo), source), combo_duration, TIMER_STOPPABLE)
-	var/mob/living/second_target_resolved = second_target?.resolve()
-	var/mob/living/third_target_resolved = third_target?.resolve()
+	var/mob/living/second_target_resolved = locateUID(second_target)
+	var/mob/living/third_target_resolved = locateUID(third_target)
 	var/need_mob_update = FALSE
 	need_mob_update += target.adjustFireLoss(5, updating_health = FALSE)
-	need_mob_update += target.adjustOrganLoss(pick(valid_organ_slots), 8)
+	var/obj/item/organ/internal/organ_to_stab = target.get_int_organ(/obj/item/organ/internal/liver)
+	if(organ_to_stab)
+		organ_to_stab.receive_damage(8, TRUE)
 	if(need_mob_update)
 		target.updatehealth()
 	if(target == second_target_resolved || target == third_target_resolved)
@@ -156,7 +158,9 @@
 		playsound(get_turf(second_target_resolved), 'sound/magic/cosmic_energy.ogg', 25, FALSE)
 		need_mob_update = FALSE
 		need_mob_update += second_target_resolved.adjustFireLoss(14, updating_health = FALSE)
-		need_mob_update += second_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 12)
+		var/obj/item/organ/internal/second_organ_to_stab = second_target_resolved.get_int_organ(/obj/item/organ/internal/liver)
+		if(second_organ_to_stab)
+			second_organ_to_stab.receive_damage(12, TRUE)
 		if(need_mob_update)
 			second_target_resolved.updatehealth()
 		if(third_target_resolved)
@@ -164,7 +168,9 @@
 			playsound(get_turf(third_target_resolved), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
 			need_mob_update = FALSE
 			need_mob_update += third_target_resolved.adjustFireLoss(28, updating_health = FALSE)
-			need_mob_update += third_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 14)
+			var/obj/item/organ/internal/third_organ_to_stab = third_target_resolved.get_int_organ(/obj/item/organ/internal/liver)
+			if(third_organ_to_stab)
+				third_organ_to_stab.receive_damage(14, TRUE)
 			if(need_mob_update)
 				third_target_resolved.updatehealth()
 			if(combo_counter > 3)
@@ -174,7 +180,7 @@
 					if(combo_counter == 4)
 						source.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
 		third_target = second_target
-	second_target = WEAKREF(target)
+	second_target = target.UID()
 
 /// Resets the combo.
 /datum/heretic_knowledge/blade_upgrade/cosmic/proc/reset_combo(mob/living/source)
@@ -221,34 +227,25 @@
 	announcement_text = "%SPOOKY% A Star Gazer has arrived into the station, %NAME% has ascended! This station is the domain of the Cosmos! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_cosmic.ogg'
 	/// A static list of command we can use with our mob.
-	var/static/list/star_gazer_commands = list(
-		/datum/pet_command/idle,
-		/datum/pet_command/free,
-		/datum/pet_command/follow,
-		/datum/pet_command/attack/star_gazer
-	)
+//	var/static/list/star_gazer_commands = list(
+//		/datum/pet_command/idle,
+//		/datum/pet_command/free,
+//		/datum/pet_command/follow,
+//		/datum/pet_command/attack/star_gazer
+//	)
 
 /datum/heretic_knowledge/ultimate/cosmic_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	return sacrifice.has_reagent(/datum/reagent/bluespace)
+	return sacrifice.reagents.has_reagent(/datum/reagent/bluespace)
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/basic/heretic_summon/star_gazer(loc)
-	star_gazer_mob.maxHealth = INFINITY
-	star_gazer_mob.health = INFINITY
-	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
-	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
-	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list("heretic"), current_owner = user)
-	star_gazer_mob.befriend(user)
-	var/datum/action/cooldown/open_mob_commands/commands_action = new /datum/action/cooldown/open_mob_commands()
-	commands_action.Grant(user, star_gazer_mob)
 	var/datum/spell/touch/star_touch/star_touch_spell = locate() in user.actions
 	if(star_touch_spell)
-		star_touch_spell.set_star_gazer(star_gazer_mob)
+		//star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)

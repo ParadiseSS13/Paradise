@@ -1,4 +1,4 @@
-/datum/spell/charged/beam/fire_blast
+/datum/spell/charge_up/bounce/fire_blast
 	name = "Volcano Blast"
 	desc = "Charge up a blast of fire that chains between nearby targets, setting them ablaze. \
 		Targets already on fire will take priority. If the target fails to catch ablaze, or \
@@ -15,21 +15,20 @@
 	invocation = "V'LC'N!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
-	channel_time = 5 SECONDS
-	target_radius = 5
-	max_beam_bounces = 4
+	max_charge_time = 5 SECONDS
+	var/max_beam_bounces = 4
 
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
 
-/datum/spell/charged/beam/fire_blast/cast(atom/cast_on)
+/datum/spell/charge_up/bounce/fire_blast/cast(atom/cast_on)
 	var/mob/living/caster = get_caster_from_target(cast_on)
 	if(istype(caster))
 		// Caster becomes fireblasted, but in a good way - heals damage over time
 		caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
 
-/datum/spell/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
+/datum/spell/charge_up/bounce/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
 	// Send a beam from the origin to the hit mob
 	origin.Beam(to_beam, icon_state = "solar_beam", time = beam_duration, beam_type = /obj/effect/ebeam/reacting/fire)
 
@@ -45,9 +44,9 @@
 
 	// Otherwise, if unblocked apply the damage and set them up
 	else
-		to_beam.apply_damage(20, BURN, wound_bonus = 5)
+		to_beam.apply_damage(20, BURN)
 		to_beam.adjust_fire_stacks(3)
-		to_beam.ignite_mob()
+		to_beam.IgniteMob()
 		// Apply the fire blast status effect to show they got blasted
 		to_beam.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration * 0.5)
 
@@ -64,13 +63,13 @@
 		for(var/mob/living/nearby_living in range(1, to_beam))
 			if(IS_HERETIC_OR_MONSTER(nearby_living) || nearby_living == owner)
 				continue
-			nearby_living.Knockdown(0.8 SECONDS)
-			nearby_living.apply_damage(15, BURN, wound_bonus = 5)
+			nearby_living.KnockDown(0.8 SECONDS)
+			nearby_living.apply_damage(15, BURN)
 			nearby_living.adjust_fire_stacks(2)
-			nearby_living.ignite_mob()
+			nearby_living.IgniteMob()
 
 /// Timer callback to continue the chain, calling send_fire_bream recursively.
-/datum/spell/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
+/datum/spell/charge_up/bounce/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
 	// We will only continue the chain if we exist, are still on fire, and still have the status effect
 	if(QDELETED(beamed) || !beamed.on_fire || !beamed.has_status_effect(/datum/status_effect/fire_blasted))
 		return
@@ -85,7 +84,7 @@
 /// Pick a carbon mob in a radius around us that we can reach.
 /// Mobs on fire will have priority and be targeted over others.
 /// Returns null or a carbon mob.
-/datum/spell/charged/beam/fire_blast/get_target(atom/center)
+/datum/spell/charge_up/bounce/fire_blast/get_target(atom/center)
 	var/list/possibles = list()
 	var/list/priority_possibles = list()
 	for(var/mob/living/carbon/to_check in view(target_radius, center))
@@ -106,6 +105,10 @@
 		return null
 
 	return length(priority_possibles) ? pick(priority_possibles) : pick(possibles)
+
+/datum/spell/charge_up/bounce/fire_blast/get_bounce_amount()
+	return max_beam_bounces
+
 
 /**
  * Status effect applied when someone's hit by the fire blast.
@@ -130,7 +133,7 @@
 /datum/status_effect/fire_blasted/on_apply()
 	if(owner.on_fire && animate_duration > 0 SECONDS)
 		var/mutable_appearance/warning_sign = mutable_appearance('icons/effects/effects.dmi', "blessed", BELOW_MOB_LAYER)
-		var/atom/movable/flick_visual/warning = owner.flick_overlay_view(warning_sign, initial(duration))
+		var/effect/warning = owner.flick_overlay_view(warning_sign, initial(duration))
 		warning.alpha = 50
 		animate(warning, alpha = 255, time = animate_duration)
 

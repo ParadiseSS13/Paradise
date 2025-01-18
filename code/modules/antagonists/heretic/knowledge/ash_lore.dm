@@ -87,7 +87,7 @@
 	// Also refunds 75% of charge!
 	var/datum/spell/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp && grasp.cooldown_handler.is_on_cooldown())
-		grasp.cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.25)
+		grasp.cooldown_handler.start_recharge(grasp.cooldown_handler.recharge_duration * 0.25)
 
 /datum/heretic_knowledge/knowledge_ritual/ash
 
@@ -99,7 +99,7 @@
 		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
 		the beam will continue to another target."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
-	action_to_add = /datum/spell/charged/beam/fire_blast
+	action_to_add = /datum/spell/charge_up/bounce/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -194,7 +194,7 @@
 	var/datum/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
 	user.AddSpell(screen_wide_fire_spell)
 
-	var/datum/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
+	var/datum/spell/charge_up/bounce/fire_blast/existing_beam_spell = locate() in user.actions
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
@@ -203,4 +203,4 @@
 	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
 	fiery_rebirth?.base_cooldown *= 0.16
 
-	user.add_traits(traits_to_apply, type)
+	//user.add_traits(traits_to_apply, type) //qwertodo: 7 add traits

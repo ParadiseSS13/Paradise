@@ -16,6 +16,9 @@
 	charge_hand(user)
 
 /datum/spell/touch/proc/charge_hand(mob/living/carbon/user)
+	if(SEND_SIGNAL(cast_on, COMSIG_TOUCH_HANDLESS_CAST, src) & COMPONENT_CAST_HANDLESS)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration)
+		return
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(discharge_hand))

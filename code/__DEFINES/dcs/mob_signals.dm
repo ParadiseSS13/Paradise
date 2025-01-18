@@ -240,3 +240,7 @@
 	#define SPELL_NO_FEEDBACK (1 << 1)
 	/// Return from before cast signals to prevent the spell from going on cooldown before aftercast.
 	#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
+
+#define COMSIG_TOUCH_HANDLESS_CAST "spell_touch_handless_cast"
+	/// Return this to prevent the hand spawning/unspawning
+	#define COMPONENT_CAST_HANDLESS (1<<0)

@@ -927,3 +927,12 @@
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
+
+
+///Flattens a keyed list into a list of its contents
+/proc/flatten_list(list/key_list)
+	if(!islist(key_list))
+		return null
+	. = list()
+	for(var/key in key_list)
+		. |= LIST_VALUE_WRAP_LISTS(key_list[key])

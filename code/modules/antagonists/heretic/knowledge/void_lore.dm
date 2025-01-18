@@ -207,14 +207,10 @@
 	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	RegisterSignal(user, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
+	RegisterSignal(user, COMSIG_ATOM_PREHIT, PROC_REF(hit_by_projectile))
 	RegisterSignals(user, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
 	heavy_storm = new(user, 10)
-	if(ishuman(user))
-		var/mob/living/carbon/human/ascended_human = user
-		var/obj/item/organ/internal/eyes/heretic_eyes = ascended_human.get_organ_slot(ORGAN_SLOT_EYES)
-		heretic_eyes?.color_cutoffs = list(30, 30, 30)
-		ascended_human.update_sight()
+	//qwertodo: 70% colour cutoff. or 30%. TG does something here, figure it out
 
 /datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
@@ -255,7 +251,7 @@
 			environment.temperature *= 0.9
 
 	// Telegraph the storm in every area on the station.
-	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
+	var/list/station_levels = levels_by_trait(STATION_LEVEL)
 	if(!storm)
 		storm = new /datum/weather/void_storm(station_levels)
 		storm.telegraph()
@@ -275,7 +271,7 @@
 		QDEL_NULL(storm)
 	if(heavy_storm)
 		QDEL_NULL(heavy_storm)
-	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_PRE_BULLET_ACT, COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(source, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_PREHIT, COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING))
 
 ///Few checks to determine if we can deflect bullets
 /datum/heretic_knowledge/ultimate/void_final/proc/can_deflect(mob/living/ascended_heretic)
@@ -298,7 +294,7 @@
 	playsound(ascended_heretic, "void_deflect", 75, TRUE)
 	hitting_projectile.firer = ascended_heretic
 	if(prob(75))
-		hitting_projectile.set_angle(get_angle(hitting_projectile.firer, hitting_projectile.fired_from))
+		hitting_projectile.reflect_back(src)
 	else
 		hitting_projectile.set_angle(rand(0, 360))//SHING
-	return COMPONENT_BULLET_PIERCED
+	return ATOM_PREHIT_FAILURE

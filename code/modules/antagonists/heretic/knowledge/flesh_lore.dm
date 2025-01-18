@@ -38,12 +38,12 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	var/datum/objective/heretic_summon/summon_objective = new()
-	summon_objective.owner = our_heretic.owner
-	our_heretic.objectives += summon_objective
+//	var/datum/objective/heretic_summon/summon_objective = new() qwertodo
+	//summon_objective.owner = our_heretic.owner
+	//our_heretic.objectives += summon_objective
 
 	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
-	our_heretic.owner.announce_objectives()
+	//our_heretic.owner.announce_objectives()
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"
@@ -72,29 +72,28 @@
 		return
 
 	if(LAZYLEN(created_items) >= limit)
-		target.balloon_alert(source, "at ghoul limit!")
+		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, you are at your ghoul limit.</span>")
 		return COMPONENT_BLOCK_HAND_USE
 
 	if(HAS_TRAIT(target, TRAIT_HUSK))
-		target.balloon_alert(source, "husked!")
+		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target is husked.</span>")
 		return COMPONENT_BLOCK_HAND_USE
 
 	if(!IS_VALID_GHOUL_MOB(target))
-		target.balloon_alert(source, "invalid body!")
+		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target not valid.</span>")
 		return COMPONENT_BLOCK_HAND_USE
 
 	target.grab_ghost()
 
 	// The grab failed, so they're mindless or playerless. We can't continue
 	if(!target.mind || !target.client)
-		target.balloon_alert(source, "no soul!")
+		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target has no soul.</span>")
 		return COMPONENT_BLOCK_HAND_USE
 
 	make_ghoul(source, target)
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a ghoul, controlled by [key_name(victim)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a ghoul, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -107,11 +106,11 @@
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/apply_to_ghoul(mob/living/ghoul)
-	LAZYADD(created_items, WEAKREF(ghoul))
+	LAZYADD(created_items, ghoul.UID())
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_from_ghoul(mob/living/ghoul)
-	LAZYREMOVE(created_items, WEAKREF(ghoul))
+	LAZYREMOVE(created_items, ghoul.UID())
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	name = "Imperfect Ritual"
@@ -147,14 +146,14 @@
 		selected_atoms += body
 		return TRUE
 
-	loc.balloon_alert(user, "ritual failed, no valid body!")
+	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
 	return FALSE
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		loc.balloon_alert(user, "ritual failed, no valid body!")
+		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
@@ -163,7 +162,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/possible_ones = SSghost_spawns.poll_candidates("Do you want to play as [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, TRUE, 10 SECONDS, source = soon_to_be_ghoul)
 		if(!length(possible_ones))
-			loc.balloon_alert(user, "ritual failed, no ghosts!")
+			to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no spirits possessed the summon!</span>")
 			return FALSE
 		var/mob/chosen_one = pick(possible_ones)
 		message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(soon_to_be_ghoul)]) to replace an AFK player.")
@@ -176,7 +175,6 @@
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a voiceless dead, controlled by [key_name(victim)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -189,12 +187,12 @@
 
 /// Callback for the ghoul status effect - Tracks all of our ghouls and applies effects
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/apply_to_ghoul(mob/living/ghoul)
-	LAZYADD(created_items, WEAKREF(ghoul))
+	LAZYADD(created_items, ghoul.UID())
 	ADD_TRAIT(ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 
 /// Callback for the ghoul status effect - Tracks all of our ghouls and applies effects
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/remove_from_ghoul(mob/living/ghoul)
-	LAZYREMOVE(created_items, WEAKREF(ghoul))
+	LAZYREMOVE(created_items, ghoul.UID())
 	REMOVE_TRAIT(ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 
 /datum/heretic_knowledge/mark/flesh_mark
@@ -252,7 +250,7 @@
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	bleed(50)
+	carbon_target.bleed(50)
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
