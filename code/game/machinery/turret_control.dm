@@ -88,7 +88,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) || is_ai(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE

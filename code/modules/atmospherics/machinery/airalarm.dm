@@ -674,7 +674,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return data
 
 /obj/machinery/alarm/proc/has_rcon_access(mob/user)
-	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
+	return user && (is_ai(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
 // Intentional nulls here
 /obj/machinery/alarm/ui_data(mob/user)
@@ -796,7 +796,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return thresholds
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.lacks_power() || AI.apc_override)
 			return GLOB.always_state
@@ -821,7 +821,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
+	else if(is_ai(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked
@@ -830,7 +830,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != 2)
 		return UI_CLOSE
 
-	if(aidisabled && (isAI(user) || isrobot(user)))
+	if(aidisabled && (is_ai(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return UI_CLOSE
 

@@ -1509,7 +1509,7 @@
 				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(!isAI(current))
+				if(!is_ai(current))
 					return
 				var/mob/living/silicon/ai/ai = current
 				for(var/mob/living/silicon/robot/R in ai.connected_robots)

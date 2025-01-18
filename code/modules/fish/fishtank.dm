@@ -567,7 +567,7 @@
 		return ..()
 
 /obj/machinery/fishtank/attack_hand(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, TRUE)
