@@ -814,6 +814,7 @@
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
 	desc = "Can hold scimitars."
+	base_icon_state = "snakesfangsheath"
 	icon_state = "snakesfangsheath"
 	item_state = "snakesfangsheath"
 	can_hold = list(/obj/item/melee/snakesfang)
@@ -825,6 +826,7 @@
 /obj/item/storage/belt/sheath/breach_cleaver
 	name = "breach cleaver scabbard"
 	desc = "Can hold massive cleavers."
+	base_icon_state = "breachcleaversheath"
 	icon_state = "breachcleaversheath"
 	item_state = "breachcleaversheath"
 	can_hold = list(/obj/item/melee/breach_cleaver)
