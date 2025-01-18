@@ -137,6 +137,7 @@
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
 					cell.update_icon()
+					cell.forceMove(loc)
 					if(Adjacent(usr) && !issilicon(usr))
 						usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
