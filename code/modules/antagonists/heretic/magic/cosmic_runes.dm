@@ -68,8 +68,8 @@
 	. = ..()
 	//qwertodo: maybe make invisible to admins
 
-/obj/effect/cosmic_rune/attack_paw(mob/living/user, list/modifiers)
-	return attack_hand(user, modifiers)
+/obj/effect/cosmic_rune/attack_animal(mob/living/simple_animal/M)
+	return attack_hand(M)
 
 /obj/effect/cosmic_rune/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -114,7 +114,7 @@
 
 /// For linking a new rune
 /obj/effect/cosmic_rune/proc/link_rune(new_rune)
-	linked_rune = new_rune.UID()
+	linked_rune = new_rune
 
 /obj/effect/cosmic_rune/Destroy()
 	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)

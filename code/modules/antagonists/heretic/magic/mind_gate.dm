@@ -1,4 +1,4 @@
-/datum/spell/pointed/mind_gate
+/datum/spell/mind_gate
 	name = "Mind Gate"
 	desc = "Deals you 20 brain damage and the target suffers a hallucination, \
 			is left confused for 10 seconds, and suffers oxygen loss and brain damage."
@@ -14,28 +14,28 @@
 	invocation = "Op' 'oY 'Mi'd"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
-	cast_range = 6
 
-	active_msg = "You prepare to open your mind..."
+/datum/spell/blind/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
+	C.allowed_type = /mob/living/carbon/human
+	return C
 
-/datum/spell/pointed/mind_gate/can_cast_spell(feedback = TRUE)
-	return ..() && isliving(owner)
+/datum/spell/mind_gate/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		return
 
-/datum/spell/pointed/mind_gate/valid_target(target, user)
-	return ..() && ishuman(cast_on)
-
-/datum/spell/pointed/mind_gate/cast(mob/living/carbon/human/cast_on)
-	. = ..()
-	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, "<span class='notice'>Your mind feels closed.</span>")
-		to_chat(owner, "<span class='warning'>Their mind doesn't swing open, but neither does yours.</span>")
+	var/mob/living/target = targets[1]
+		to_chat(target, "<span class='notice'>Your mind feels closed.</span>")
+		to_chat(user, "<span class='warning'>Their mind doesn't swing open, but neither does yours.</span>")
 		return FALSE
 
-	cast_on.AdjustConfused(10 SECONDS)
-	cast_on.adjustOxyLoss(30)
-	cast_on.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), "Mind gate, cast by [owner]")
-	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate")
-	cast_on.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
+	target.AdjustConfused(10 SECONDS)
+	target.adjustOxyLoss(30)
+	//__rust_gtarget.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), "Mind gate, cast by [owner]")
+	//target.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate") QWERTODO: This should be a sprite that looks like heretics
+	target.adjustBrainLoss(25)
 
 	var/mob/living/living_owner = owner
-	living_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 140)
+	living_owner.adjustBrainLoss(16.5)

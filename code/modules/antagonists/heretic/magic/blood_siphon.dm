@@ -13,21 +13,16 @@
 
 	invocation = "FL'MS O'ET'RN'ITY."
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONEe
+	spell_requirements = NONE
 
 	cast_range = 6
 
-/datum/spell/pointed/blood_siphon/can_cast_spell(feedback = TRUE)
-	return ..() && isliving(owner)
 
-/datum/spell/pointed/blood_siphon/valid_target(target, user)
-	return ..() && isliving(target)
-
-/datum/spell/pointed/blood_siphon/cast(mob/living/cast_on)
+/datum/spell/pointed/blood_siphon/cast(list/targets, mob/user)
 	. = ..()
-	playsound(owner, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	var/mob/living/cast_on = targets[1]
+	playsound(user, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 	if(cast_on.can_block_magic())
-		owner.balloon_alert(owner, "spell blocked!")
 		cast_on.visible_message(
 			"<span class='danger'>The spell bounces off of [cast_on]!</span>",
 			"<span class='danger'>The spell bounces off of you!</span>",
@@ -39,7 +34,7 @@
 		"<span class='danger'>You pale as a red glow enevelops you!</span>",
 	)
 
-	var/mob/living/living_owner = owner
+	var/mob/living/living_owner = user
 	cast_on.adjustBruteLoss(20)
 	living_owner.adjustBruteLoss(-20)
 
@@ -50,19 +45,32 @@
 	if(living_owner.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
 		living_owner.blood_volume += 20
 
-	if(!iscarbon(cast_on) || !iscarbon(owner))
+	if(!ishuman(cast_on) || !ishuman(living_owner))
 		return TRUE
 
-	var/mob/living/carbon/carbon_target = cast_on
-	var/mob/living/carbon/carbon_user = owner
-	for(var/obj/item/bodypart/bodypart as anything in carbon_user.bodyparts)
-		for(var/datum/wound/iter_wound as anything in bodypart.wounds)
+	var/mob/living/carbon/human/carbon_target = cast_on
+	var/mob/living/carbon/human/carbon_user = living_owner
+	for(var/obj/item/organ/external/E in carbon_user.bodyparts)
+		if(E.status & ORGAN_INT_BLEEDING)
 			if(prob(50))
-				continue
-			var/obj/item/bodypart/target_bodypart = locate(bodypart.type) in carbon_target.bodyparts
-			if(!target_bodypart)
-				continue
-			iter_wound.remove_wound()
-			iter_wound.apply_wound(target_bodypart)
+				var/obj/item/organ/external/target_bodypart = locate(E.type) in carbon_target.bodyparts
+				if(!target_bodypart)
+					continue
+				E.fix_internal_bleeding()
+				target_bodypart.cause_internal_bleeding()
+		if(E.status & ORGAN_BROKEN)
+			if(prob(50))
+				var/obj/item/organ/external/target_bodypart = locate(E.type) in carbon_target.bodyparts
+				if(!target_bodypart)
+					continue
+				E.mend_fracture()
+				target_bodypart.fracture()
+		if(E.status & ORGAN_BURNT)
+			if(prob(50))
+				var/obj/item/organ/external/target_bodypart = locate(E.type) in carbon_target.bodyparts
+				if(!target_bodypart)
+					continue
+				E.fix_burn_wound()
+				target_bodypart.cause_burn_wound()
 
 	return TRUE

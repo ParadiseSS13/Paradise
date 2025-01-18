@@ -30,8 +30,8 @@
 /datum/action/cancel_crucible_soul
 	name = "Recall"
 	desc = "Use to end the blessing early"
-	button_icon = 'icons/obj/antags/eldritch.dmi'
-	action_icon_state = "crucible_soul"
+	button_background_icon = 'icons/obj/antags/eldritch.dmi'
+	button_icon_state = "crucible_soul"
 
 /datum/action/cancel_crucible_soul/Trigger(trigger_flags)
 	. = ..()
@@ -50,12 +50,12 @@
 	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
 
 /datum/status_effect/duskndawn/on_apply()
-	ADD_TRAIT(owner, TRAIT_XRAY_VISION, STATUS_EFFECT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, id)
 	owner.update_sight()
 	return TRUE
 
 /datum/status_effect/duskndawn/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, STATUS_EFFECT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_XRAY_VISION, id)
 	owner.update_sight()
 
 // WOUNDED SOLDIER
@@ -136,7 +136,7 @@
 	id = "Silver Knives"
 	alert_type = null
 	status_type = STATUS_EFFECT_MULTIPLE
-	tick_interval = STATUS_EFFECT_NO_TICK
+	tick_interval = 0
 	/// The number of blades we summon up to.
 	var/max_num_blades = 4
 	/// The radius of the blade's orbit.
@@ -152,7 +152,7 @@
 
 /datum/status_effect/protective_blades/on_creation(
 	mob/living/new_owner,
-	new_duration = STATUS_EFFECT_PERMANENT,
+	new_duration = -1,
 	max_num_blades = 4,
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,
@@ -254,7 +254,7 @@
 
 /datum/status_effect/protective_blades/recharging/on_creation(
 	mob/living/new_owner,
-	new_duration = STATUS_EFFECT_PERMANENT,
+	new_duration = -1,
 	max_num_blades = 4,
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,

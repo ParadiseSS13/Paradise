@@ -60,8 +60,7 @@
 /datum/status_effect/eldritch/flesh/on_effect()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		var/obj/item/bodypart/bodypart = pick(human_owner.bodyparts)
-		human_owner.cause_wound_of_type_and_severity(WOUND_SLASH, bodypart, WOUND_SEVERITY_SEVERE)
+		owner.bleed(75)
 
 	return ..()
 
@@ -122,13 +121,11 @@
 
 /datum/status_effect/eldritch/blade/on_apply()
 	. = ..()
-	RegisterSignal(owner, COMSIG_MOVABLE_PRE_THROW, PROC_REF(on_pre_throw))
 	RegisterSignal(owner, COMSIG_MOVABLE_TELEPORTING, PROC_REF(on_teleport))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /datum/status_effect/eldritch/blade/on_remove()
 	UnregisterSignal(owner, list(
-		COMSIG_MOVABLE_PRE_THROW,
 		COMSIG_MOVABLE_TELEPORTING,
 		COMSIG_MOVABLE_MOVED,
 	))
@@ -152,21 +149,6 @@
 
 	return TRUE
 
-/// Signal proc for [COMSIG_MOVABLE_PRE_THROW] that prevents people from escaping our locked area via throw.
-/datum/status_effect/eldritch/blade/proc/on_pre_throw(mob/living/source, list/throw_args)
-	SIGNAL_HANDLER
-
-	var/atom/throw_dest = throw_args[1]
-	if(!is_escaping_locked_area(source, throw_dest))
-		return
-
-	var/mob/thrower = throw_args[4]
-	if(istype(thrower))
-		to_chat(thrower, "<span class='hierophant_warning'>An otherworldly force prevents you from throwing [source] out of [get_area_name(locked_to)]!</span>")
-
-	to_chat(source, "<span class='hierophant_warning'>An otherworldly force prevents you from being thrown out of [get_area_name(locked_to)]!</span>")
-
-	return COMPONENT_CANCEL_THROW
 
 /// Signal proc for [COMSIG_MOVABLE_TELEPORTED] that blocks any teleports from our locked area.
 /datum/status_effect/eldritch/blade/proc/on_teleport(mob/living/source, atom/destination, channel)
@@ -219,7 +201,7 @@
 	new /obj/effect/forcefield/cosmic_field(get_turf(owner))
 	owner.forceMove(get_turf(cosmic_diamond))
 	new teleport_effect(get_turf(owner))
-	owner.Paralyze(2 SECONDS)
+	owner.Paralyse(2 SECONDS)
 	return ..()
 
 // MARK OF LOCK

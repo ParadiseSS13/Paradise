@@ -18,16 +18,12 @@
 
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
-	/// What type of wound we apply
-	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
-/datum/spell/pointed/cleave/valid_target(target, user)
-	return ..() && ishuman(user)
 
-/datum/spell/pointed/cleave/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/cleave/cast(list/targets, mob/user)
 	. = ..()
-	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
-		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
+	for(var/mob/living/carbon/human/victim in range(cleave_radius, user))
+		if(victim == user || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
@@ -44,10 +40,9 @@
 			"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>"
 		)
 
-		var/obj/item/bodypart/bodypart = pick(victim.bodyparts)
-		var/datum/wound/slash/flesh/crit_wound = new wound_type()
-		crit_wound.apply_wound(bodypart)
-		victim.apply_damage(20, BURN, wound_bonus = CANT_WOUND)
+		var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
+		bodypart.cause_internal_bleeding()
+		victim.apply_damage(20, BURN)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 
@@ -55,8 +50,7 @@
 
 /datum/spell/pointed/cleave/long
 	name = "Lesser Cleave"
-	base_cooldown = 60 SECONDS
-	wound_type = /datum/wound/slash/flesh/severe
+	base_cooldown = 90 SECONDS
 
 /obj/effect/temp_visual/cleave
 	icon = 'icons/effects/eldritch.dmi'

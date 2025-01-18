@@ -35,3 +35,4 @@
 	owner.announce_objectives()
 	to_chat(owner, "<span class='boldnotice'>You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus.</span>")
 	to_chat(owner, "<span class='notice'>Your master is [master]. Assist them to all ends.</span>")
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/heretic/heretic_gain.ogg'))

@@ -1,7 +1,7 @@
 /datum/spell/pointed/apetra_vulnera
 	name = "Apetra Vulnera"
-	desc = "Causes severe bleeding on every limb of a target which has more than 15 brute damage. \
-		Wounds a random limb if no limb is sufficiently damaged."
+	desc = "Causes severe bleeding and opens every limb of a target which has more than 15 brute damage. \
+		Opens a random limb if no limb is sufficiently damaged."
 
 	overlay_icon_state = "bg_heretic_border"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -15,8 +15,6 @@
 	spell_requirements = NONE
 
 	cast_range = 4
-	/// What type of wound we apply
-	var/wound_type = /datum/wound/slash/flesh/critical/cleave
 
 /datum/spell/pointed/apetra_vulnera/valid_target(target, user)
 	return ..() && ishuman(target)
@@ -38,16 +36,15 @@
 		return FALSE
 
 	var/a_limb_got_damaged = FALSE
-	for(var/obj/item/bodypart/bodypart in cast_on.bodyparts)
+	for(var/obj/item/organ/external/bodypart in cast_on.bodyparts)
 		if(bodypart.brute_dam < 15)
 			continue
 		a_limb_got_damaged = TRUE
-		var/datum/wound/slash/crit_wound = new wound_type()
-		crit_wound.apply_wound(bodypart)
+		bodypart.open = ORGAN_ORGANIC_VIOLENT_OPEN
 
 	if(!a_limb_got_damaged)
-		var/datum/wound/slash/crit_wound = new wound_type()
-		crit_wound.apply_wound(pick(cast_on.bodyparts))
+		var/obj/item/organ/external/other_bodypart = (pick(cast_on.bodyparts))
+		other_bodypart.open = ORGAN_ORGANIC_VIOLENT_OPEN
 
 	cast_on.visible_message(
 		"<span class='danger'>[cast_on]'s scratches and bruises are torn open by an unholy force!</span>",

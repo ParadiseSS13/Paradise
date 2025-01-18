@@ -101,6 +101,12 @@
 ///Called when movement intent is toggled.
 #define COMSIG_MOVE_INTENT_TOGGLED "move_intent_toggled"
 
+///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
+#define COMSIG_MOB_TRIED_ACCESS "tried_access"
+	#define ACCESS_ALLOWED (1<<0)
+	#define ACCESS_DISALLOWED (1<<1)
+	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
+
 // /mob/living
 
 ///from base of mob/living/resist() (/mob/living)
