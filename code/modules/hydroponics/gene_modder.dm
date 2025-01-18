@@ -338,7 +338,8 @@
 		if("eject_seed")
 			if(seed)
 				seed.forceMove(loc)
-				user.put_in_hands(seed)
+				if(Adjacent(usr) && !issilicon(usr))
+					user.put_in_hands(seed)
 				seed = null
 				update_genes()
 				update_icon(UPDATE_OVERLAYS)
@@ -351,7 +352,8 @@
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			if(D)
 				D.forceMove(loc)
-				user.put_in_hands(D)
+				if(Adjacent(usr) && !issilicon(usr))
+					user.put_in_hands(D)
 				disk = null
 				update_genes()
 			else
@@ -420,7 +422,8 @@
 			for(var/obj/item/disk/plantgene/D in contents)
 				if(!D.gene && !D.is_bulk_core)
 					D.forceMove(loc)
-					user.put_in_hands(D)
+					if(Adjacent(usr) && !issilicon(usr))
+						user.put_in_hands(D)
 					update_genes()
 					return
 			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
