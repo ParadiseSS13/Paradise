@@ -16,6 +16,7 @@
 		return
 
 	if(control_disabled || stat) return
+	if(ismecha(loc)) return
 
 	if(ismob(A))
 		ai_actual_track(A, TRUE)

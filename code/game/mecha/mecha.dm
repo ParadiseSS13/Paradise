@@ -1031,6 +1031,10 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
+	var/mob/camera/eye/hologram/hologram_eye = AI.remote_control
+	if(istype(hologram_eye))
+		hologram_eye.release_control()
+		qdel(hologram_eye)
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
@@ -1315,6 +1319,7 @@
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
+			AI.eyeobj?.set_loc(newloc)
 			qdel(AI.linked_core)
 	else
 		return
