@@ -292,14 +292,14 @@ Difficulty: Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	GLOB.move_manager.stop_looping(src)
+	walk(src, 0)
 	setDir(dir)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.8
-	GLOB.move_manager.home_onto(src, T, movespeed)
+	walk_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	GLOB.move_manager.stop_looping(src) // cancel the movement
+	walk(src, 0) // cancel the movement
 	charging = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/MeleeAction(patience = TRUE)
@@ -486,7 +486,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
-	GLOB.move_manager.stop_looping(src)
+	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
@@ -726,8 +726,8 @@ Difficulty: Hard
 		forceMove(core.loc)
 		core.fix_specific_leg(who_am_i)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling GLOB.move_manager.home_onto on the legs directly
-	GLOB.move_manager.home_onto(src, T, movespeed)
+/mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
+	walk_towards(src, T, movespeed)
 	DestroySurroundings()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
