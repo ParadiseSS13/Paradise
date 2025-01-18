@@ -338,7 +338,7 @@
 		if("eject_seed")
 			if(seed)
 				seed.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
+				if(Adjacent(user) && !issilicon(user))
 					user.put_in_hands(seed)
 				seed = null
 				update_genes()
@@ -352,7 +352,7 @@
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			if(D)
 				D.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
+				if(Adjacent(user) && !issilicon(user))
 					user.put_in_hands(D)
 				disk = null
 				update_genes()
@@ -422,7 +422,7 @@
 			for(var/obj/item/disk/plantgene/D in contents)
 				if(!D.gene && !D.is_bulk_core)
 					D.forceMove(loc)
-					if(Adjacent(usr) && !issilicon(usr))
+					if(Adjacent(user) && !issilicon(user))
 						user.put_in_hands(D)
 					update_genes()
 					return
