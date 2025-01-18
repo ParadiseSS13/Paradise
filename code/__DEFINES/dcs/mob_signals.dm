@@ -229,3 +229,14 @@
 #define COMSIG_LIVING_LIFE "living_life"
 	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
 	#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+
+/// Sent from /datum/action/cooldown/spell/before_cast() to the caster: (datum/action/cooldown/spell/spell, atom/cast_on)
+#define COMSIG_MOB_BEFORE_SPELL_CAST "mob_spell_pre_cast"
+/// Sent from /datum/action/cooldown/spell/before_cast() to the spell: (atom/cast_on)
+#define COMSIG_SPELL_BEFORE_CAST "spell_pre_cast"
+	/// Return to prevent the spell cast from continuing.
+	#define SPELL_CANCEL_CAST (1 << 0)
+	/// Return from before cast signals to prevent the spell from giving off sound or invocation.
+	#define SPELL_NO_FEEDBACK (1 << 1)
+	/// Return from before cast signals to prevent the spell from going on cooldown before aftercast.
+	#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)

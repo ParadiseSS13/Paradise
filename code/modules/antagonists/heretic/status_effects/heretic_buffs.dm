@@ -320,7 +320,7 @@
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
 	if(!istype(spell, /datum/spell/caretaker))
-		owner.balloon_alert(owner, "may not cast spells in refuge!")
+		to_chat(owner, "<span class='danger'>You can not cast a spell in refuge!</span>")
 		return SPELL_CANCEL_CAST
 
 /datum/status_effect/caretaker_refuge/proc/prevent_cuff(datum/source, mob/attemptee)

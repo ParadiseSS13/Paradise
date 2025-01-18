@@ -476,6 +476,12 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		if(T && is_admin_level(T.z))
 			return FALSE
 
+	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST, cast_on)
+	if(owner)
+		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
+	if(!sig_return)
+		return FALSE
+
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
 	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))

@@ -20,50 +20,43 @@
 
 	hand_path = /obj/item/melee/touch_attack/star_touch
 	/// Stores the weakref for the Star Gazer after ascending
-	var/datum/weakref/star_gazer
-	/// If the heretic is ascended or not
-	var/ascended = FALSE
+	var/atom/star_gazer
 
-/datum/spell/touch/star_touch/valid_target(target, user)
-	if(!isliving(cast_on))
-		return FALSE
-	return TRUE
+/obj/item/melee/touch_attack/star_touch/after_attack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	. = ..()
 
-/datum/spell/touch/star_touch/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	victim.visible_message(
-		"<span class='danger'>The spell bounces off of you!</span>",
-	)
-
-/datum/spell/touch/star_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
-	if(victim.has_status_effect(/datum/status_effect/star_mark))
-		victim.Paralyse(4 SECONDS)
-		victim.remove_status_effect(/datum/status_effect/star_mark)
+	if(!proximity_flag || target == user || blocked_by_antimagic || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //There are better ways to get a good nights sleep in a bed.
+		return
+	var/mob/living/living_target = target
+	if(living_target.has_status_effect(/datum/status_effect/star_mark))
+		living_target.Paralyse(4 SECONDS)
+		living_target.remove_status_effect(/datum/status_effect/star_mark)
 	else
-		victim.apply_status_effect(/datum/status_effect/star_mark, caster)
-	for(var/turf/cast_turf as anything in get_turfs(victim))
+		living_target.apply_status_effect(/datum/status_effect/star_mark, user)
+	for(var/turf/cast_turf as anything in get_turfs(living_target))
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
-	caster.apply_status_effect(/datum/status_effect/cosmic_beam, victim)
+	user.apply_status_effect(/datum/status_effect/cosmic_beam, living_target)
 	return TRUE
 
-/datum/spell/touch/star_touch/proc/get_turfs(mob/living/victim)
-	var/list/target_turfs = list(get_turf(owner))
-	var/range = ascended ? 2 : 1
-	var/list/directions = list(turn(owner.dir, 90), turn(owner.dir, 270))
+/obj/item/melee/touch_attack/star_touch/proc/get_turfs(mob/living/victim)
+	var/list/target_turfs = list(get_turf(loc))
+	var/range = attached_spell.ascended ? 2 : 1
+	var/list/directions = list(turn(loc.dir, 90), turn(loc.dir, 270))
 	for(var/direction as anything in directions)
 		for(var/i in 1 to range)
-			target_turfs += get_ranged_target_turf(owner, direction, i)
+			target_turfs += get_ranged_target_turf(loc, direction, i)
 	return target_turfs
 
 /// To set the star gazer
-/datum/spell/touch/star_touch/proc/set_star_gazer(mob/living/basic/heretic_summon/star_gazer/star_gazer_mob)
-	star_gazer = WEAKREF(star_gazer_mob)
+///datum/spell/touch/star_touch/proc/set_star_gazer(mob/living/basic/heretic_summon/star_gazer/star_gazer_mob)
+	//star_gazer = WEAKREF(star_gazer_mob)
 
 /// To obtain the star gazer if there is one
-/datum/spell/touch/star_touch/proc/get_star_gazer()
-	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_resolved = star_gazer?.resolve()
-	if(star_gazer_resolved)
-		return star_gazer_resolved
-	return FALSE
+///datum/spell/touch/star_touch/proc/get_star_gazer()
+//	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_resolved = star_gazer?.resolve()
+//	if(star_gazer_resolved)
+//		return star_gazer_resolved
+//	return FALSE
 
 /obj/item/melee/touch_attack/star_touch
 	name = "Star Touch"
@@ -86,32 +79,26 @@
  */
 /obj/item/melee/touch_attack/star_touch/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(target))
-	var/datum/spell/touch/star_touch/star_touch_spell = spell_which_made_us?.resolve()
-	star_touch_spell?.spell_feedback(user)
-	remove_hand_with_no_refund(user)
+	qdel(src)
 
-/obj/item/melee/touch_attack/star_touch/ignition_effect(atom/to_light, mob/user)
-	. = "<span class='notice'>[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with cosmic energies. Fucking badass!</span>"
-	remove_hand_with_no_refund(user)
-
-/obj/item/melee/touch_attack/star_touch/activate_self(mob/user)
-	if(..())
-		return
-	var/datum/spell/touch/star_touch/star_touch_spell = spell_which_made_us?.resolve()
-	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
-	if(!star_gazer_mob)
-		balloon_alert(user, "no linked star gazer!")
-		return ..()
-	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
-	do_teleport(
-		user,
-		get_turf(star_gazer_mob),
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
-		asoundin = 'sound/magic/cosmic_energy.ogg',
-		asoundout = 'sound/magic/cosmic_energy.ogg',
-	)
-	remove_hand_with_no_refund(user)
+///obj/item/melee/touch_attack/star_touch/activate_self(mob/user)
+//	if(..())
+//		return
+//	var/datum/spell/touch/star_touch/star_touch_spell = spell_which_made_us?.resolve()
+//	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
+//	if(!star_gazer_mob)
+//		balloon_alert(user, "no linked star gazer!")
+//		return ..()
+//	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
+//	do_teleport(
+//		user,
+//		get_turf(star_gazer_mob),
+//		no_effects = TRUE,
+//		channel = TELEPORT_CHANNEL_MAGIC,
+//		asoundin = 'sound/magic/cosmic_energy.ogg',
+//		asoundout = 'sound/magic/cosmic_energy.ogg',
+//	)
+//	remove_hand_with_no_refund(user)
 
 /obj/effect/ebeam/cosmic
 	name = "cosmic beam"
@@ -156,7 +143,7 @@
 
 	last_check = world.time
 
-	if(!los_check(owner, current_target))
+	if(!can_see(owner, current_target))
 		QDEL_NULL(current_beam)//this will give the target lost message
 		return
 
@@ -204,8 +191,8 @@
 
 /// What to add when the beam connects to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_hit(mob/living/target)
-	if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
-		target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	//if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
+	target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
 
 /// What to process when the beam is connected to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_tick(mob/living/target)
@@ -214,5 +201,5 @@
 
 /// What to remove when the beam disconnects from a target
 /datum/status_effect/cosmic_beam/proc/on_beam_release(mob/living/target)
-	if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
-		target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	//if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
+	target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)

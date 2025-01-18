@@ -17,19 +17,10 @@
 /datum/antagonist/heretic
 	name = "\improper Heretic"
 	roundend_category = "Heretics"
-	antagpanel_category = "Heretic"
-	ui_name = "AntagInfoHeretic"
-	antag_moodlet = /datum/mood_event/heretics
+
 	job_rank = ROLE_HERETIC
 	special_role = SPECIAL_ROLE_HERETIC
 	antag_hud_name = "heretic"
-	hijack_speed = 0.5
-	suicide_cry = "THE MANSUS SMILES UPON ME!!"
-	preview_outfit = /datum/outfit/heretic
-	can_assign_self_objectives = TRUE
-	default_custom_objective = "Turn a department into a testament for your dark knowledge."
-	hardcore_random_bonus = TRUE
-	stinger_sound = 'sound/ambience/antag/heretic/heretic_gain.ogg'
 	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 
 	/// Whether we've ascended! (Completed one of the final rituals)
@@ -57,7 +48,7 @@
 	/// A static typecache of all tools we can scribe with.
 	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
 	/// A blacklist of turfs we cannot scribe on.
-	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/space, /turf/simulated/floor/lava, /turf/simulated/floor/chasm))
 	/// Controls what types of turf we can spread rust to, increases as we unlock more powerful rust abilites
 	var/rust_strength = 0
 	/// Wether we are allowed to ascend
@@ -67,7 +58,7 @@
 	var/list/unlocked_heretic_items = list(
 		/obj/item/sickly_blade/cursed = 0,
 		/obj/item/clothing/neck/heretic_focus/crimson_medallion = 0,
-		/mob/living/basic/construct/harvester/heretic = 0,
+		///mob/living/basic/construct/harvester/heretic = 0, qwertodo:
 	)
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
@@ -96,7 +87,7 @@
 	else if(ispath(knowledge,/datum/heretic_knowledge/spell))
 		var/datum/heretic_knowledge/spell/spell_knowledge = knowledge
 		var/datum/spell/result_action = spell_knowledge.action_to_add
-		icon_path = result_action.button_overlay_icon
+		icon_path = result_action.action_background_icon
 		icon_state = result_action.action_icon_state
 
 	//if the knowledge is a summon, use the mob sprite
@@ -188,14 +179,6 @@
 
 	return data
 
-/datum/antagonist/heretic/ui_static_data(mob/user)
-	var/list/data = list()
-
-	data["objectives"] = get_objectives()
-	data["can_change_objective"] = can_assign_self_objectives
-
-	return data
-
 /datum/antagonist/heretic/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
@@ -215,19 +198,6 @@
 			log_heretic_knowledge("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
 			knowledge_points -= initial(researched_path.cost)
 			return TRUE
-
-/datum/antagonist/heretic/submit_player_objective(retain_existing = FALSE, retain_escape = TRUE, force = FALSE)
-	if(isnull(owner) || isnull(owner.current))
-		return
-	var/confirmed = tgui_alert(
-		owner.current,
-		message = "Are you sure? You will no longer be able to Ascend.",
-		title = "Reject the call?",
-		buttons = list("Yes", "No"),
-	) == "Yes"
-	if(!confirmed)
-		return
-	return ..()
 
 /datum/antagonist/heretic/ui_status(mob/user, datum/ui_state/state)
 	if(user.stat == DEAD)
@@ -253,7 +223,7 @@
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	return ..()
 
-/datum/antagonist/heretic/on_removal()
+/datum/antagonist/heretic/farewell()
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)
@@ -269,11 +239,10 @@
 	if(!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
 
-	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, REF(src))
+	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
-	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
-	RegisterSignal(our_mob, COMSIG_USER_ITEM_INTERACTION, PROC_REF(on_item_use))
-	RegisterSignal(our_mob, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(after_fully_healed))
+	RegisterSignals(our_mob, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(on_spell_cast))
+	RegisterSignal(our_mob, COMSIG_INTERACT_USER, PROC_REF(on_item_use))
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -283,12 +252,10 @@
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
 
-	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, REF(src))
+	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	UnregisterSignal(our_mob, list(
 		COMSIG_MOB_BEFORE_SPELL_CAST,
-		COMSIG_MOB_SPELL_ACTIVATED,
-		COMSIG_USER_ITEM_INTERACTION,
-		COMSIG_LIVING_POST_FULLY_HEAL,
+		COMSIG_INTERACT_USER,
 		COMSIG_LIVING_CULT_SACRIFICED,
 	))
 
@@ -313,7 +280,7 @@
 	SIGNAL_HANDLER
 
 	// Heretic spells are of the forbidden school, otherwise we don't care
-	if(spell.school != SCHOOL_FORBIDDEN)
+	if(!spell.is_a_heretic_spell)
 		return
 
 	// If we've got the trait, we don't care
@@ -324,7 +291,7 @@
 		return
 
 	// We shouldn't be able to cast this! Cancel it.
-	source.balloon_alert(source, "you need a focus!")
+	to_chat(source, "<span class='hierophant_warning'>You need a focus to cast this spell!</span>")
 	return SPELL_CANCEL_CAST
 
 /*
@@ -334,14 +301,14 @@
  * and have mansus grasp active in their offhand,
  * they're able to draw a transmutation rune.
  */
-/datum/antagonist/heretic/proc/on_item_use(mob/living/source, atom/target, obj/item/weapon, click_parameters)
+/datum/antagonist/heretic/proc/on_item_use(mob/living/source, atom/target, obj/item/tool, list/modifiers)
 	SIGNAL_HANDLER
-	if(!is_type_in_typecache(weapon, scribing_tools))
+	if(!is_type_in_typecache(tool, scribing_tools))
 		return NONE
 	if(!isturf(target) || !isliving(source))
 		return NONE
 
-	var/obj/item/offhand = source.get_inactive_held_item()
+	var/obj/item/offhand = source.get_inactive_hand()
 	if(QDELETED(offhand) || !istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
 		return NONE
 
@@ -360,15 +327,15 @@
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!isfloorturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			target_turf.balloon_alert(user, "invalid placement for rune!")
+			to_chat(user, "<span class='hierophant_warning'>This is not a valid polacement for a rune.</span>")
 			return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
-		target_turf.balloon_alert(user, "too close to another rune!")
+		to_chat(user, "<span class='hierophant_warning'>This is too close to another rune.</span>")
 		return
 
 	if(drawing_rune)
-		target_turf.balloon_alert(user, "already drawing a rune!")
+		to_chat(user, "<span class='hierophant_warning'>You are already drawing a rune.</span>")
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
@@ -386,22 +353,19 @@
 	drawing_rune = TRUE
 
 	var/rune_colour = GLOB.heretic_path_to_color[heretic_path]
-	target_turf.balloon_alert(user, "drawing rune...")
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
 	if(drawing_time < (10 SECONDS))
 		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
 	else
 		drawing_effect = new(target_turf, rune_colour)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
-		target_turf.balloon_alert(user, "interrupted!")
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
 		drawing_rune = FALSE
 		return
 
 	qdel(drawing_effect)
-	target_turf.balloon_alert(user, "rune created")
 	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
@@ -412,17 +376,9 @@
  * * user - the mob drawing the rune
  */
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
-	var/obj/item/offhand = user.get_inactive_held_item()
+	var/obj/item/offhand = user.get_inactive_hand()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
 
-/// Signal proc for [COMSIG_LIVING_POST_FULLY_HEAL],
-/// Gives the heretic aliving heart on aheal or organ refresh
-/datum/antagonist/heretic/proc/after_fully_healed(mob/living/source, heal_flags)
-	SIGNAL_HANDLER
-
-	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ADMIN))
-		var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
-		heart_knowledge.on_research(source, src)
 
 /// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to reward cultists for sacrificing a heretic
 /datum/antagonist/heretic/proc/on_cult_sacrificed(mob/living/source, list/invokers)
@@ -473,7 +429,7 @@
 
 		for(var/datum/mind/mind as anything in cult_team.members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
+				SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
 				to_chat(mind.current, "<span class='cultlarge>Arcane and forbidden knowledge floods your forges and archives. The cult has learned how to create the [result]!</span>")
 
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
@@ -643,18 +599,18 @@
 
 	return parts.Join("<br>")
 
-/datum/antagonist/heretic/get_admin_commands() //qwertodo: antag panel
-	. = ..()
-
-	switch(has_living_heart())
-		if(HERETIC_NO_LIVING_HEART)
-			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
-		if(HERETIC_HAS_LIVING_HEART)
-			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
-
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
-	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
+///datum/antagonist/heretic/get_admin_commands() //qwertodo: antag panel
+//	. = ..()
+//
+//	switch(has_living_heart())
+//		if(HERETIC_NO_LIVING_HEART)
+//			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
+//		if(HERETIC_HAS_LIVING_HEART)
+//			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
+//			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
+//
+//	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
+//	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
 
 /**
  * Admin proc for giving a heretic a Living Heart easily.
@@ -836,8 +792,7 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	if(!can_assign_self_objectives)
-		return FALSE // We spurned the offer of the Mansus :(
+	//qwertodo: hijack chance
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
 	for(var/datum/objective/must_be_done as anything in objectives)
