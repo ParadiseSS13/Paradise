@@ -94,15 +94,15 @@
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-		if(AI.cameraFollow == src)
+		if(AI.camera_follow == src)
 			detect_state = PROXIMITY_ON_SCREEN
 			break
 
-	if(!detect_state && GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
-		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
+	if(!detect_state && GLOB.cameranet.chunk_generated(our_turf.x, our_turf.y, our_turf.z))
+		var/datum/camerachunk/chunk = GLOB.cameranet.get_camera_chunk(our_turf.x, our_turf.y, our_turf.z)
 		if(chunk)
 			if(length(chunk.seenby))
-				for(var/mob/camera/ai_eye/A in chunk.seenby)
+				for(var/mob/camera/eye/ai/A in chunk.seenby)
 					//Checks if the A is to be detected or not
 					if(!A.ai_detector_visible)
 						continue
@@ -153,7 +153,7 @@
 
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION

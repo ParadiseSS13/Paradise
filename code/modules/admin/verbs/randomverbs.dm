@@ -9,7 +9,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.unEquip(W)
+		M.drop_item_to_ground(W)
 
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
@@ -23,12 +23,12 @@
 		return
 
 	if(ismob(M))
-		if(isAI(M))
+		if(is_ai(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.unEquip(W)
+			M.drop_item_to_ground(W)
 		//teleport person to cell
 		if(isliving(M))
 			var/mob/living/L = M
@@ -78,27 +78,38 @@
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
 		return
 
-	var/age = alert(src, "Age check", "Show accounts yonger then _____ days","7", "30" , "All")
-
-	if(age == "All")
-		age = 9999999
-	else
-		age = text2num(age)
+	var/age = input(src, "Show accounts younger then ____ days", "Age check") as num|null
+	var/playtime_hours = input(src, "Show accounts with less than ____ hours", "Playtime check") as num|null
+	if(isnull(age))
+		age = -1
+	if(isnull(playtime_hours))
+		playtime_hours = -1
+	if(age <= 0 && playtime_hours <= 0)
+		return
 
 	var/missing_ages = 0
 	var/msg = ""
+	var/is_admin = check_rights(R_ADMIN, 0)
 	for(var/client/C in GLOB.clients)
 		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
 			continue // Skip those in stealth mode if an admin isnt viewing the panel
 
-		if(C.player_age == "Requires database")
+		if(!isnum(C.player_age))
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			if(check_rights(R_ADMIN, 0))
+			if(is_admin)
 				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
 			else
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
+
+		var/client_hours = C.get_exp_type_num(EXP_TYPE_LIVING) + C.get_exp_type_num(EXP_TYPE_GHOST)
+		client_hours /= 60 // minutes to hours
+		if(client_hours < playtime_hours)
+			if(is_admin)
+				msg += "[key_name_admin(C.mob)]: [client_hours] living + ghost hours<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [client_hours] living + ghost hours<br>"
 
 	if(missing_ages)
 		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present")

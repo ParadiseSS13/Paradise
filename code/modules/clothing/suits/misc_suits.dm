@@ -204,7 +204,7 @@
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
 		for(var/mob/living/silicon/S in orange(2,src))
-			if(isAI(S)) continue
+			if(is_ai(S)) continue
 			step_towards(S,src)
 		for(var/mob/living/carbon/human/machine/M in orange(2,src))
 			step_towards(M,src)
@@ -1422,7 +1422,7 @@
 		return
 	var/abaya_type = options[choice]
 	var/obj/item/clothing/suit/hooded/abaya/abaya = new abaya_type(get_turf(src))
-	L.unEquip(src, silent = TRUE)
+	L.unequip(src)
 	L.put_in_active_hand(abaya)
 	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
 	qdel(src)
