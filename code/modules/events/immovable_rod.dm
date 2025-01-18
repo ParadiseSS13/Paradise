@@ -49,7 +49,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/proc/head_towards_dest()
 	if(end?.z == z_original)
-		GLOB.move_manager.home_onto(src, end, move_delay)
+		walk_towards(src, end, move_delay)
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["follow"])
@@ -150,9 +150,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		// our exit condition: get outta there kowalski
 		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
 		start = loc
-		GLOB.move_manager.stop_looping(src)
+		walk(src, 0)
 		exit = new /obj/effect/portal(target_turf, lifespan = 2 SECONDS)
-		GLOB.move_manager.home_onto(src, exit, move_delay)
+		walk_towards(src, exit, move_delay)
 	else if(locate(exit) in get_turf(src))
 		QDEL_NULL(exit)
 		qdel(src)
@@ -165,4 +165,4 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
  */
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	end = get_edge_target_turf(src, direction)
-	GLOB.move_manager.home_onto(src, end, move_delay)
+	walk_towards(src, end, move_delay)
