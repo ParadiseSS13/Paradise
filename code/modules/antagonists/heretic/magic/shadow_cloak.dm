@@ -114,7 +114,7 @@
 	/// How much damage we can be hit with before it starts rolling reveal chances
 	var/damage_before_reveal = 25
 	/// Method to track plant overlay on mob for later removal
-	var/mutable_appearance/mob_overlay
+	var/mutable_appearance/cloak_image
 
 /datum/status_effect/shadow_cloak/on_apply()
 	hide_user(owner)
@@ -126,12 +126,13 @@
 	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
 	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement))
 	return TRUE
 
 /datum/status_effect/shadow_cloak/on_remove()
 	// Remove image
-	QDEL_NULL(mob_overlay)
+	QDEL_NULL(cloak_image)
+	owner.remove_alt_appearance(id)
 	// Remove traits and modifiers
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, id)
 	REMOVE_TRAIT(owner, TRAIT_UNKNOWN, id)
@@ -148,7 +149,7 @@
 /datum/status_effect/shadow_cloak/proc/on_dir_change(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
 
-	mob_overlay.dir = new_dir
+	cloak_image.dir = new_dir
 
 /// Signal proc for [COMSIG_MOB_STATCHANGE], going past soft crit will stop the effect
 /datum/status_effect/shadow_cloak/proc/on_stat_change(datum/source, new_stat, old_stat)
@@ -177,45 +178,24 @@
 		qdel(src)
 
 /// Signal proc for [COMSIG_MOVABLE_MOVED], leaves a cool looking trail behind us as we walk
-/datum/status_effect/shadow_cloak/proc/on_move(datum/source, old_loc, movement_dir)
+/datum/status_effect/shadow_cloak/proc/on_movement(mob/living/carbon/L, atom/old_loc)
 	SIGNAL_HANDLER
-
-	if(owner.loc == old_loc)
-		return
-
-	// Only create an effect every other step, starting without one
-	var/obj/effect/temp_visual/dir_setting/cloak_walk/trail = new (old_loc, movement_dir)
+	var/obj/effect/temp_visual/dir_setting/cloak_walk/trail = new (old_loc, owner.dir)
 	if(owner.body_position == LYING_DOWN)
 		trail.transform = turn(trail.transform, 90)
 
 /datum/status_effect/shadow_cloak/proc/hide_user(mob/living/carbon/user)
-	mob_overlay = mutable_appearance('icons/effects/effects.dmi', "curse", user.layer, user.plane, 0, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
-	mob_overlay.dir = owner.dir
-	mob_overlay.override = TRUE
-	mob_overlay.alpha = 0
-	animate(mob_overlay, alpha = 255, 0.2 SECONDS)
-	RegisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS, PROC_REF(reapply_hide))
-	user.add_overlay(mob_overlay)
+	cloak_image = image('icons/effects/effects.dmi', owner, "curse", dir = owner.dir)
+	cloak_image.dir = owner.dir
+	cloak_image.override = TRUE
+	cloak_image.alpha = 0
+	animate(cloak_image, alpha = 255, 0.2 SECONDS)
+	owner.add_alt_appearance(id, cloak_image, GLOB.player_list)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.set_alpha_tracking(0, src)
 	else
 		user.alpha = 0
-
-/datum/status_effect/shadow_cloak/proc/unhide_user(mob/living/carbon/user)
-	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
-	user.cut_overlay(mob_overlay)
-	user.alpha = initial(user.alpha)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.set_alpha_tracking(ALPHA_VISIBLE, src)
-	QDEL_NULL(mob_overlay)
-
-/datum/status_effect/shadow_cloak/proc/reapply_hide(mob/living/carbon/user)
-	SIGNAL_HANDLER
-	// Reset the state of the user
-	unhide_user(user)
-	hide_user(user)
 
 
 // Visual effect for the shadow cloak "trail"

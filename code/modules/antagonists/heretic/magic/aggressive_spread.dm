@@ -20,7 +20,7 @@
 
 
 /datum/spell/aoe/rust_conversion/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 

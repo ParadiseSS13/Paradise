@@ -563,6 +563,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "eldritch coin"
 	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
 	icon_state = "coin_heretic_heretic"
+	cmineral = "heretic"
 	materials = list(MAT_DIAMOND = 1000, MAT_PLASMA = 1000)
 	sideslist = list("heretic", "blade")
 	heads_name = "heretic"

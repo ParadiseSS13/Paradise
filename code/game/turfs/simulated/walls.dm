@@ -555,7 +555,7 @@
 
 /turf/simulated/wall/magic_rust_turf()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		ChangeTurf(baseturf)
+		ChangeTurf(/turf/simulated/floor/plating)// Did you know most walls baseturf is space?
 		return
 
 	return ..()
