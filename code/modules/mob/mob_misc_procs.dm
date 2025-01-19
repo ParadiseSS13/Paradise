@@ -186,6 +186,7 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
 		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
 		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
 		M.key = theghost.key
@@ -350,6 +351,17 @@
 
 	return returntext
 
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
+
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = Gibberish(S.message, p, replace_rate)
@@ -449,7 +461,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -499,7 +511,7 @@
 	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
-	else if(isAI(user))
+	else if(is_ai(user))
 		var/mob/living/silicon/ai/AI=user
 		P = AI.aiMulti
 

@@ -81,6 +81,8 @@
 	var/list/datum/mind/abductors = list()
 	/// A list which contains the minds of all abductees
 	var/list/datum/mind/abductees = list()
+	/// A list which contains the all the abductor teams
+	var/list/datum/team/abductor/actual_abductor_teams = list()
 
 	/// A list of all the nuclear operatives' minds
 	var/list/datum/mind/syndicates = list()
@@ -624,17 +626,6 @@
 		something_to_print = TRUE
 	if(something_to_print)
 		print_command_report(trait_list_desc.Join("<br>"), "NAS Trurl Detected Divergencies", FALSE)
-
-
-/datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.join_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, "hudevent")
-
-/datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.leave_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, null)
 
 /// Gets the value of all end of round stats through auto_declare and returns them
 /datum/game_mode/proc/get_end_of_round_antagonist_statistics()

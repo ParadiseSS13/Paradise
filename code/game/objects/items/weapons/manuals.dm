@@ -996,6 +996,39 @@
 	title = "Science Standard Operating Procedures"
 	wiki_article_title = "Standard_Operating_Procedure_(Science)"
 
+/obj/item/book/manual/sop_ntinstructor
+	name = "Career Trainer SOP"
+	desc = "A set of guidelines for Instructors."
+	icon_state = "sop_legal"
+	author = "Nanotrasen"
+	title = "Instructor SOP"
+	pages = list({"
+		<html>
+				<head>
+				<style>
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+
+
+				</style>
+				</head>
+				<body>
+				<h1><U><B>Instructor SOP</B></U></h1><BR>
+				<p>
+				<ol>
+				<li>NT Career Trainers are to wear their company-provided uniform and <b>jacket OR their issued beret/hat</b> at all times while on duty. They are free to choose a beret that best matches their primary field of knowledge if they so desire. Additionally, Identifying equipment SHOULD not be distributed to crew members. </li>
+				<li>NT Career Trainers are to be available to all Crewmembers, regardless of Department. You may not only assist a singular Department. </li>
+				<li>NT Career Trainers are not to do a Trainee's work for them. </li>
+				<li>NT Career Trainers are to use NCT Data Chips only to acquire the access necessary for providing training. They are not to use said access for other purposes. </li>
+				<li>In the event of a lost or stolen NCT Data Chip, the NT Career Trainer is to report the incident to their local Nanotrasen Representative or Station Captain. </li>
+				<li>NT Career Trainers are permitted to carry a flash for self-defense.</li>
+				</ol>
+				</body>
+				</html>
+		"})
+
  //* MANUAL SPAWNERS *// (and space Law)
 
 /obj/item/book/manual/random

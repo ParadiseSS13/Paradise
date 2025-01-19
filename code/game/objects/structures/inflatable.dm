@@ -42,7 +42,7 @@
 	. = ..()
 	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target)
+/obj/structure/inflatable/CanPass(atom/movable/mover, border_dir)
 	return
 
 /obj/structure/inflatable/CanAtmosPass(direction)
@@ -107,7 +107,7 @@
 	var/is_operating = FALSE
 
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
+	if(is_ai(user)) //so the AI can't open it
 		return
 	else if(isrobot(user)) //but cyborgs can
 		if(get_dist(user,src) <= 1) //not remotely though
@@ -116,7 +116,7 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target)
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

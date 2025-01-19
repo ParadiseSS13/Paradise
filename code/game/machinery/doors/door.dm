@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE
@@ -142,7 +142,7 @@
 	return !density
 
 /obj/machinery/door/CanAtmosPass(direction)
-	return !density
+	return operating || !density
 
 /obj/machinery/door/get_superconductivity(direction)
 	if(!density)
@@ -260,9 +260,6 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
-	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
-		try_to_crowbar(user, I)
-		return TRUE
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return TRUE
@@ -373,6 +370,7 @@
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(0)
 	if(width > 1)
@@ -388,7 +386,6 @@
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE
-	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -469,7 +466,7 @@
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, 0)
+		GLOB.cameranet.update_visibility(src, 0)
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)

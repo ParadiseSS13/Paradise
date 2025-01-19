@@ -702,6 +702,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

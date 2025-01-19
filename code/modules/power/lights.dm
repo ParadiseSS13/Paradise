@@ -76,7 +76,7 @@
 
 	stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	update_icon(UPDATE_ICON_STATE)
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -235,7 +235,7 @@
 	layer = FLY_LAYER
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2  //when in low power mode
+	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
 	var/base_state = "tube" // Base description and icon_state
@@ -331,6 +331,7 @@
 	glow_icon_state = "clockwork_tube"
 	base_state = "clockwork_tube"
 	deconstruct_type = /obj/machinery/light_construct/clockwork
+	brightness_color = "#ffbb8d"
 
 /obj/machinery/light/clockwork/small
 	icon_state = "clockwork_bulb1"
@@ -552,7 +553,8 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(nightshift_enabled ? IDLE_POWER_USE : ACTIVE_POWER_USE)
+
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
@@ -999,15 +1001,19 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
+/obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered) && has_gravity(loc))
+		if(living_entered.incorporeal_move || HAS_TRAIT(living_entered, TRAIT_FLYING) || living_entered.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
-	return ..()
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

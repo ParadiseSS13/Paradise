@@ -30,6 +30,8 @@
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
+	plushie_type = /obj/item/toy/plushie/greyplushie
+
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	H.dna.SetSEState(GLOB.remotetalkblock, !remove, TRUE)

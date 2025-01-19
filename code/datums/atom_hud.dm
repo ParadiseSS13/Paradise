@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(),
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(),
 	DATA_HUD_JANITOR = new/datum/atom_hud/data/janitor(),
+	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(),
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),

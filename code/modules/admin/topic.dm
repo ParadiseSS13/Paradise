@@ -1198,7 +1198,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1212,7 +1212,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			if(M.unEquip(I))
+			if(M.drop_item_to_ground(I))
 				I.loc = locker
 				I.layer = initial(I.layer)
 				I.plane = initial(I.plane)
@@ -1349,12 +1349,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1381,12 +1381,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1413,7 +1413,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1437,12 +1437,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1544,7 +1544,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -2128,7 +2128,7 @@
 		if(!istype(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
-		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust")
+		var/ptypes = list("Lightning bolt", "Fire Death", "Gib", "Dust", "Plushify")
 		if(ishuman(M))
 			H = M
 			ptypes += "Brain Damage"
@@ -2173,6 +2173,9 @@
 			if("Dust")
 				M.dust()
 				logmsg = "dust"
+			if("Plushify")
+				M.plushify(curse_time = -1)
+				logmsg = "plushified"
 
 			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
@@ -2261,7 +2264,7 @@
 				logmsg = "floor cluwne"
 			if("Shamebrero")
 				if(H.head)
-					H.unEquip(H.head, TRUE)
+					H.drop_item_to_ground(H.head, force = TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 				logmsg = "shamebrero"
@@ -2272,12 +2275,13 @@
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 				logmsg = "nugget"
 			if("Bread")
-				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/mob/living/simple_animal/shade/sword/generic_item/breadshade = new(H.loc)
 				var/bready = pick(/obj/item/food/customizable/cook/bread, /obj/item/food/sliceable/meatbread, /obj/item/food/sliceable/xenomeatbread, /obj/item/food/sliceable/spidermeatbread, /obj/item/food/sliceable/bananabread, /obj/item/food/sliceable/tofubread, /obj/item/food/sliceable/bread, /obj/item/food/sliceable/creamcheesebread, /obj/item/food/sliceable/banarnarbread, /obj/item/food/flatbread, /obj/item/food/baguette)
 				var/obj/item/bread = new bready(get_turf(H))
 				breadshade.forceMove(bread)
 				breadshade.key = H.key
-				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				breadshade.name = "Bread spirit"
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/generic_item, handle_item_deletion))
 				qdel(H)
 				logmsg = "baked"
 				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
@@ -2303,7 +2307,7 @@
 		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			var/mob/living/silicon/ai/A = M
 			A.cryo_AI()
 		if(istype(M.loc, /obj/machinery/cryopod))
@@ -3011,7 +3015,7 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							H.unEquip(W)
+							H.drop_item_to_ground(W)
 							if(H.client)
 								H.client.screen -= W
 							if(W)
@@ -3663,7 +3667,7 @@
 			target = C.mob
 
 	. = ADMIN_FLW(target, "FLW")
-	if(isAI(target)) // AI core/eye follow links
+	if(is_ai(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"

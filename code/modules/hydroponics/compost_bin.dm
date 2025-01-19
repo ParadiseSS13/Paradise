@@ -103,7 +103,7 @@
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
 			return
-		if(!user.unEquip(O))
+		if(!user.drop_item_to_ground(O))
 			return
 
 		O.forceMove(src)

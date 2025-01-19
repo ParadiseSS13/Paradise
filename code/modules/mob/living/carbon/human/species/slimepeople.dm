@@ -59,6 +59,8 @@
 
 	var/reagent_skin_coloring = FALSE
 
+	plushie_type = /obj/item/toy/plushie/slimeplushie
+
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/regrow/grow = new()
