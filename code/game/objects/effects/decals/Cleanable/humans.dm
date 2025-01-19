@@ -14,6 +14,7 @@
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	blood_DNA = list()
 	var/base_icon = 'icons/effects/blood.dmi'
+	base_icon_state = "mfloor1"
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
@@ -21,6 +22,7 @@
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
+	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
 	inertia_move_delay = 5 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -33,10 +35,20 @@
 			C.bloodiness += bloodiness
 	return ..()
 
-/obj/effect/decal/cleanable/blood/Initialize(mapload)
+/obj/effect/decal/cleanable/blood/Initialize(mapload, decal_color)
 	. = ..()
-	weightless_image = new()
-	update_icon()
+	if(decal_color)
+		basecolor = decal_color
+	else
+		if(basecolor == "rainbow")
+			basecolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
+
+	color = basecolor
+	base_icon_state = icon_state
+
+	var/turf/T = get_turf(src)
+	check_gravity(T)
+	update_appearance()
 
 	if(!gravity_check)
 		//weightless blood cannot dry
@@ -56,38 +68,35 @@
 	QDEL_NULL(weightless_image)
 	return ..()
 
-/obj/effect/decal/cleanable/blood/update_icon()
-	var/turf/T = get_turf(src)
-	check_gravity(T)
+/obj/effect/decal/cleanable/blood/update_overlays()
+	. = ..()
 
+	if(gravity_check)
+		return
+
+	if(!weightless_image)
+		weightless_image = image(weightless_icon, base_icon_state)
+
+	weightless_image.icon += basecolor
+	. += weightless_image
+
+/obj/effect/decal/cleanable/blood/update_icon()
 	if(should_be_off_floor())
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
 
-	if(basecolor == "rainbow")
-		basecolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
-
-	color = basecolor
-
+	if(gravity_check)
+		color = basecolor
+		icon_state = base_icon_state
 	if(!gravity_check)
 		if(prob(50))
 			animate_float(src, -1, rand(30,120))
 		else
 			animate_levitate(src, -1, rand(30,120))
 
-		if(weightless_image && weightless_image.icon_state)
-			icon_state = weightless_image.icon_state
+		icon_state = null
 
-		overlays -= weightless_image
-		color = "#FFFFFF"
-		icon = 'icons/effects/blood_weightless.dmi'
-		weightless_image = image(icon, icon_state)
-		icon_state = "empty"
-		weightless_image.icon += basecolor
-		overlays += weightless_image
-	else
-		overlays.Cut()
 	..()
 
 /obj/effect/decal/cleanable/blood/proc/should_be_off_floor()
@@ -122,8 +131,7 @@
 	icon_state = weightless_image.icon_state
 	layer = initial(layer)
 	plane = initial(plane)
-	update_icon()
-
+	update_appearance()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
@@ -329,8 +337,9 @@
 
 /obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
-	var/obj/effect/decal/cleanable/blood/splatter/splatter = new(loc)
 	var/obj/effect/decal/cleanable/blood/target = source.target
+	var/obj/effect/decal/cleanable/blood/splatter/splatter = new(loc, istype(target) ? target.basecolor : basecolor)
+
 	if(istype(target))
 		splatter.basecolor = target.basecolor
 		splatter.update_icon()
