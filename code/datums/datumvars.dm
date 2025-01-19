@@ -83,21 +83,21 @@
 /datum/proc/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
 	. = list()
-	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
+	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -204,11 +204,11 @@
 	if(islist)
 		dropdownoptions = list(
 			"---",
-			"Add Item" = "?_src_=vars;listadd=[refid]",
-			"Remove Nulls" = "?_src_=vars;listnulls=[refid]",
-			"Remove Dupes" = "?_src_=vars;listdupes=[refid]",
-			"Set len" = "?_src_=vars;listlen=[refid]",
-			"Shuffle" = "?_src_=vars;listshuffle=[refid]"
+			"Add Item" = "byond://?_src_=vars;listadd=[refid]",
+			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
+			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
+			"Set len" = "byond://?_src_=vars;listlen=[refid]",
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()

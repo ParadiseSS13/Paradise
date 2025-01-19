@@ -405,7 +405,7 @@
 		. = message_larva
 	else if(issilicon(user) && message_robot)
 		. = message_robot
-	else if(isAI(user) && message_AI)
+	else if(is_ai(user) && message_AI)
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey

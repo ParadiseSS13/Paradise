@@ -44,7 +44,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /datum/antagonist/traitor/Destroy(force, ...)
 	// Remove all associated malf AI abilities.
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.clear_zeroth_law()
 		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
@@ -84,7 +84,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/select_organization()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		return
 	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
@@ -108,7 +108,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		forge_ai_objectives()
 	else
 		forge_human_objectives()
@@ -163,7 +163,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 		var/mob/living/silicon/ai/A = owner.current
@@ -211,7 +211,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Gives a traitor human their uplink, and uplink code.
  */
 /datum/antagonist/traitor/proc/give_uplink()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		return FALSE
 
 	var/mob/living/carbon/human/traitor_mob = owner.current

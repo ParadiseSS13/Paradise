@@ -46,9 +46,9 @@
 	return FALSE
 
 /obj/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return ..() || (can_be_hit && I.new_attack_chain \
+	return ..() || (can_be_hit && (I.new_attack_chain \
 		? I.attack_obj(src, user, params) \
-		: I.attack_obj__legacy__attackchain(src, user, params))
+		: I.attack_obj__legacy__attackchain(src, user, params)))
 
 /mob/living/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

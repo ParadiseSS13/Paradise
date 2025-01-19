@@ -173,7 +173,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/security/attack_ai(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		to_chat(user, "<span class='notice'>You realise it's kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips.</span>")
 		return
 
