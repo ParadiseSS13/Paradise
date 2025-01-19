@@ -325,9 +325,9 @@
 			var/obj/effect/nanofrost_container/iceball = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src,'sound/items/syringeproj.ogg', 40, TRUE)
-			A.throw_at(target, 6, 2, user)
+			iceball.throw_at(A, 6, 2, user)
 			sleep(2)
-			A.Smoke()
+			iceball.Smoke()
 			return
 
 		if(METAL_FOAM)
