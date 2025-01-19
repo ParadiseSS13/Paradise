@@ -239,10 +239,9 @@
 			reagents.remove_any(100)
 			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
-			playsound(src, 'sound/items/syringeproj.ogg', 40, 1)
-			for(var/counter in 1 to 5)
-				step_towards(A, target)
-				sleep(2)
+			playsound(src, 'sound/items/syringeproj.ogg', 40, TRUE)
+			A.throw_at(target, 6, 2, user)
+			sleep(2)
 			A.Smoke()
 
 		if(METAL_FOAM)

@@ -259,7 +259,7 @@
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
-#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define is_ai(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
@@ -273,7 +273,7 @@
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define iscameramob(A)	(istype((A), /mob/camera))
-#define isAIEye(A)		(istype((A), /mob/camera/ai_eye))
+#define is_ai_eye(A)		(istype((A), /mob/camera/eye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))

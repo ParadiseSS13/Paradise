@@ -308,7 +308,7 @@
 	. = ..()
 
 /obj/machinery/disposal/delivery_chute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(isprojectile(AM)	|| isAI(AM) || QDELETED(AM))
+	if(isprojectile(AM)	|| is_ai(AM) || QDELETED(AM))
 		return
 
 	// We may already contain the object because thrown objects
