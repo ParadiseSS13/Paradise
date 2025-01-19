@@ -147,12 +147,13 @@
 /obj/structure/bookcase/random
 	var/category = null
 	var/book_count = 5
-	icon_state = "random_bookcase"
+	icon_state = "random_bookshelf"
 	anchored = TRUE
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+	icon_state = "bookshelf" // to keep random_bookshelf icon for mappers
 
 /obj/structure/bookcase/random/proc/load_books()
 	var/list/books = GLOB.library_catalog.get_random_book(book_count)
