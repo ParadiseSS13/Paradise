@@ -63,7 +63,7 @@
 		mecha.dna= null
 		mecha.operation_req_access = list()
 		for(var/mob/living/occupant as anything in mecha.occupant)
-			if(isAI(occupant))
+			if(issilicon(occupant))
 				continue
 			//mecha.go_out(1) qwertodo: call this in a delayed proc to get around fuck ass do not sleep fuck you mech code fuck you
 			occupant.Paralyse(5 SECONDS)

@@ -191,11 +191,6 @@
 	cloak_image.alpha = 0
 	animate(cloak_image, alpha = 255, 0.2 SECONDS)
 	owner.add_alt_appearance(id, cloak_image, GLOB.player_list)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.set_alpha_tracking(0, src)
-	else
-		user.alpha = 0
 
 
 // Visual effect for the shadow cloak "trail"

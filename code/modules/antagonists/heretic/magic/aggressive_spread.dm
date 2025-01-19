@@ -22,6 +22,7 @@
 /datum/spell/aoe/rust_conversion/create_new_targeting()
 	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	A.allowed_type = /atom
 	return targeting
 
 /datum/spell/aoe/rust_conversion/cast(list/targets, mob/living/user = usr)

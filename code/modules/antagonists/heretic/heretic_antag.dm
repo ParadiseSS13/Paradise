@@ -185,6 +185,9 @@
 		ui = new(user, src, "AntagInfoHeretic", name)
 		ui.open()
 
+/datum/antagonist/heretic/proc/do_the_thing()
+	ui_interact(owner.current)
+
 /datum/antagonist/heretic/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
@@ -209,6 +212,9 @@
 	if(user.stat == DEAD)
 		return UI_CLOSE
 	return ..()
+
+/datum/antagonist/heretic/ui_state(mob/user)
+	return GLOB.always_state
 
 /datum/antagonist/heretic/farewell()
 	if(!silent)
@@ -503,7 +509,6 @@
  */
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	var/datum/objective/heretic_research/research_objective = new()
-	research_objective.owner = owner
 	add_antag_objective(research_objective)
 
 	var/num_heads = 0
@@ -513,7 +518,6 @@
 			num_heads ++
 
 	var/datum/objective/minor_sacrifice/sac_objective = new()
-	sac_objective.owner = owner
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
@@ -790,12 +794,11 @@
 	name = "minor sacrifice"
 
 /datum/objective/minor_sacrifice/New(text)
-	. = ..()
 	target_amount = rand(3, 4)
 	update_explanation_text()
+	. = ..()
 
 /datum/objective/minor_sacrifice/update_explanation_text()
-	. = ..()
 	explanation_text = "Sacrifice at least [target_amount] crewmembers."
 
 /datum/objective/minor_sacrifice/check_completion()
