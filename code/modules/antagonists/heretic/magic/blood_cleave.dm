@@ -2,7 +2,7 @@
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and several targets around them."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "cleave"

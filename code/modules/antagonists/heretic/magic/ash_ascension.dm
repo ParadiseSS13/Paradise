@@ -3,10 +3,11 @@
 	name = "Oath of Flame"
 	desc = "For a minute, you will passively create a ring of fire around you."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "fire_ring"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 70 SECONDS
@@ -59,10 +60,11 @@
 	name = "Lesser Fire Cascade"
 	desc = "Heats the air around you."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "fire_ring"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/items/welder.ogg'
 
 	is_a_heretic_spell = TRUE
@@ -100,10 +102,11 @@
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
 
-	overlay_icon_state = "bg_heretic"
+
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "flames"
 
 	is_a_heretic_spell = TRUE

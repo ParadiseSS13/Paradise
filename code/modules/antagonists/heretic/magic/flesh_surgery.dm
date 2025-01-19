@@ -4,10 +4,11 @@
 		Left-clicking will extract the organs of a victim without needing to complete surgery or disembowel. \
 		Right-clicking, if done on summons or minions, will restore health. Can also be used to heal damaged organs."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "mad_touch"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = null
 
 	is_a_heretic_spell = TRUE

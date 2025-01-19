@@ -3,6 +3,6 @@
 	name = "Eldritch Telepathy"
 	is_a_heretic_spell = TRUE
 
-	overlay_icon_state = "bg_heretic"
+
 	invocation_type = INVOCATION_NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND

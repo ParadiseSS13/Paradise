@@ -4,7 +4,7 @@
 	desc = "A spell that allows you to take on the form of another creature, gaining their abilities. \
 		After making your choice, you will be unable to change to another."
 
-	overlay_icon_state = "bg_heretic"
+
 
 	is_a_heretic_spell = TRUE
 	invocation = "SH'PE"

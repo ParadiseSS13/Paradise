@@ -3,10 +3,11 @@
 	desc = "Removes your restraints, repels and knocks down adjacent people, and applies certain effects of the Mansus Grasp upon everything nearby. \
 		Cannot be cast unless you are restrained, and the stress renders you unconscious 12 seconds later!"
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "uncuff"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/magic/swap.ogg'
 
 	is_a_heretic_spell = TRUE

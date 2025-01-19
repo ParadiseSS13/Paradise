@@ -4,10 +4,11 @@
 		while afflicting Heathens with void chill. \
 		Affected Heretics instead receive low pressure resistance."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "void_rift"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	base_cooldown = 1 MINUTES
 

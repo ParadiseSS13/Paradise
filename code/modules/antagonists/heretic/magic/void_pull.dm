@@ -3,10 +3,11 @@
 	desc = "Calls the void, damaging, knocking down, and stunning people nearby. \
 		Distant foes are also pulled closer to you (but not damaged)."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "voidpull"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/magic/voidblink.ogg'
 
 	is_a_heretic_spell = TRUE

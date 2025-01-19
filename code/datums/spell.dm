@@ -475,11 +475,10 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		var/turf/T = get_turf(user)
 		if(T && is_admin_level(T.z))
 			return FALSE
-
-	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST)
+	var/sig_return = FALSE
 	if(user)
-		sig_return |= SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src)
-	if(!sig_return)
+		sig_return = SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src)
+	if(sig_return)
 		return FALSE
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic

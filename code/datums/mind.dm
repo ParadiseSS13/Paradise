@@ -402,8 +402,8 @@
 
 /datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
 	. = _memory_edit_header("heretic")
-	if(has_antag_datum(/datum/antagonist/wizard))
-		. += "<b><font color='red'HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+	if(has_antag_datum(/datum/antagonist/heretic))
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
 	else
 		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
 

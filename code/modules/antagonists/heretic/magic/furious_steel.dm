@@ -4,10 +4,11 @@
 		While orbiting you, these blades will protect you from from attacks, but will be consumed on use. \
 		Additionally, you can click to fire the blades at a target, dealing damage and causing bleeding."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "furious_steel"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/weapons/guillotine.ogg'
 
 	is_a_heretic_spell = TRUE

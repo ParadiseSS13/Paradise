@@ -4,12 +4,13 @@
 		They will be unable to perform any actions for the duration. \
 		Afterwards, they will be chilled and returned to the mortal plane."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "voidball"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	sound = 'sound/magic/voidblink.ogg'
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	base_cooldown = 1 MINUTES
 	cast_range = 3

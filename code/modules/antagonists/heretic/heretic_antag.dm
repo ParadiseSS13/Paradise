@@ -281,14 +281,14 @@
 
 	// Heretic spells are of the forbidden school, otherwise we don't care
 	if(!spell.is_a_heretic_spell)
-		return
+		return FALSE
 
 	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
-		return
+		return FALSE
 	// All powerful, don't care
 	if(ascended)
-		return
+		return FALSE
 
 	// We shouldn't be able to cast this! Cancel it.
 	to_chat(source, "<span class='hierophant_warning'>You need a focus to cast this spell!</span>")

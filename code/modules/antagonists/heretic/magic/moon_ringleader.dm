@@ -4,10 +4,11 @@
 			The worse their sanity, the stronger this spell becomes. \
 			If their sanity is low enough, they even snap and go insane, and the spell then further halves their sanity."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "moon_ringleader"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/effects/moon_parade.ogg'
 
 	is_a_heretic_spell = TRUE

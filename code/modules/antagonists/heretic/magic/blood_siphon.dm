@@ -3,11 +3,12 @@
 	desc = "A targeted spell that heals your wounds while damaging the enemy. \
 		It has a chance to transfer wounds between you and your enemy."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "blood_siphon"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 15 SECONDS

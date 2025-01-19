@@ -4,7 +4,7 @@
 	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_icon = 'icons/obj/bio_chips.dmi'
 	action_icon_state = "adrenal"
 

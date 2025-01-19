@@ -9,11 +9,12 @@
 	name = "Space Phase"
 	desc = "Allows you to phase in and out of existence while in space or misc tiles."
 
-	overlay_icon_state = "bg_heretic"
+
 
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "space_crawl"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
 

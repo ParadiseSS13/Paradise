@@ -3,10 +3,11 @@
 	desc = "Lets you turn the gaze of the moon on someone \
 			temporarily blinding, muting, deafening and knocking down a single target if their sanity is low enough."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "moon_smile"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	ranged_mousepointer = 'icons/effects/mouse_pointers/moon_target.dmi'
 
 	sound = 'sound/magic/blind.ogg'

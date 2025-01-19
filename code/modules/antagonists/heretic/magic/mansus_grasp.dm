@@ -2,11 +2,11 @@
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 
-	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "mansus_grasp"
 	sound = 'sound/items/welder.ogg'
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	base_cooldown = 10 SECONDS
 

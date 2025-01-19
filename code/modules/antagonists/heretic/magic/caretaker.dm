@@ -5,10 +5,11 @@
 		You cannot enter the Refuge while near other sentient beings, \
 		and you can be removed from it upon contact with antimagical artifacts."
 
-	overlay_icon_state = "bg_heretic"
+
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "caretaker"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	sound = 'sound/effects/curse/curse2.ogg'
 
 	is_a_heretic_spell = TRUE
