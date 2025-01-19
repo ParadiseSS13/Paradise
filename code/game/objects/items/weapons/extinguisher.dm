@@ -19,8 +19,9 @@
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
 	var/max_water = 50
-	/// Required so backpack nozzles don't become inoperable when swapping modes.
+	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
 	var/has_safety = TRUE
+	/// If `TRUE`, the extinguisher will not fire.
 	var/safety_active = TRUE
 	/// `FALSE` by default, turfs picked from a spray are random, set to `TRUE` to make it always have at least one water effect per row.
 	var/precision = FALSE
