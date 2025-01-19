@@ -383,6 +383,13 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
+/obj/structure/closet/crate/freezer/deluxe
+	name = "Deluxe Freezer"
+	desc = "A fancy looking freezer emblazoned with the Nanotrasen logo."
+	icon_state = "freezerdeluxe"
+	icon_opened = "freezerdeluxe_open"
+	icon_closed = "freezerdeluxe"
+
 /obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = ..()
