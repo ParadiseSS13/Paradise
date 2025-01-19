@@ -20,7 +20,7 @@
 	sound1 = null
 	sound2 = null
 	jaunt_duration = 1.1 SECONDS
-	jaunt_in_time = 1.3 SECONDS
+	jaunt_in_time = 0.3 SECONDS //Did you know it sleeps 4x this number? So you have to make it 1/4th of what it actually is?
 	jaunt_out_time = 0.6 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
