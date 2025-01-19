@@ -244,3 +244,14 @@
 #define COMSIG_TOUCH_HANDLESS_CAST "spell_touch_handless_cast"
 	/// Return this to prevent the hand spawning/unspawning
 	#define COMPONENT_CAST_HANDLESS (1<<0)
+
+///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
+#define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	/// Return to stop the sac from occurring
+	#define STOP_SACRIFICE (1<<0)
+	/// Don't send a message for sacrificing this thing, we have our own
+	#define SILENCE_SACRIFICE_MESSAGE (1<<1)
+	/// Don't send a message for sacrificing this thing UNLESS it's the cult target
+	#define SILENCE_NONTARGET_SACRIFICE_MESSAGE (1<<2)
+	/// Dusts the target instead of gibbing them (no soulstone)
+	#define DUST_SACRIFICE (1<<3)

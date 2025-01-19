@@ -39,8 +39,8 @@
 
 		//This is essentially a death mark, use this to finish your opponent quicker.
 		if(nearby_mob.health <= 0)
-			victim.death()
-		victim.apply_damage(20, BURN)
+			nearby_mob.death()
+		nearby_mob.apply_damage(20, BURN)
 
 		// Heal the caster for every victim damaged
 		var/need_mob_update = FALSE

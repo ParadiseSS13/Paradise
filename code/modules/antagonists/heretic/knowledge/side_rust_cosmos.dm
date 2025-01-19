@@ -100,7 +100,8 @@
 		/obj/item/stack/sheet/metal = 10,
 		/obj/item/stack/cable_coil = 15,
 	)
-	mob_to_summon = /mob/living/basic/heretic_summon/rust_walker
+	//mob_to_summon = /mob/living/basic/heretic_summon/rust_walker
+	mob_to_summon = /mob/living/simple_animal/bunny
 	cost = 1
 
 

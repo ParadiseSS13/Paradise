@@ -58,8 +58,8 @@
 		return
 	var/mob/living/carbon/carbon_target = target
 	to_chat(carbon_target, "<span class='danger'>You hear echoing laughter from above</span>")
-	carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp")
-	carbon_target.mob_mood.set_sanity(carbon_target.mob_mood.sanity-30)
+	//carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp") qwertodo
+	carbon_target.adjustBrainLoss(15)
 
 /datum/heretic_knowledge/spell/moon_smile
 	name = "Smile of the moon"
@@ -126,12 +126,12 @@
 		return
 
 	target.adjustBrainLoss(10)
-	target.cause_hallucination( \
-			get_random_valid_hallucination_subtype(/datum/hallucination/body), \
-			"upgraded path of moon blades", \
-		)
+	//target.cause_hallucination( \
+	//		get_random_valid_hallucination_subtype(/datum/hallucination/body), \
+	//		"upgraded path of moon blades", \
+	//	) //qwertodo
 	target.emote(pick("giggle", "laugh"))
-	target.mob_mood.set_sanity(target.mob_mood.sanity - 10)
+	target.adjustBrainLoss(7)
 
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Ringleaders Rise"
@@ -164,7 +164,7 @@
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
 //Qwertodo: redo this entire ultimate lmaoooo
-	var/brain_damage = sacrfice.getBrainLoss()
+	var/brain_damage = sacrifice.getBrainLoss()
 	// Checks if our target has enough brain damage
 	if(brain_damage < 50)
 		return FALSE

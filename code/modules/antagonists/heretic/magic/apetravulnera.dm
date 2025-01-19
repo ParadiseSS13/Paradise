@@ -19,9 +19,9 @@
 /datum/spell/pointed/apetra_vulnera/valid_target(target, user)
 	return ..() && ishuman(target)
 
-/datum/spell/pointed/apetra_vulnera/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/apetra_vulnera/cast(list/targets, mob/user)
 	. = ..()
-
+	var/mob/living/carbon/human/cast_on = targets[1]
 	if(IS_HERETIC_OR_MONSTER(cast_on))
 		return FALSE
 

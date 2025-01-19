@@ -177,32 +177,30 @@
 	var/static/list/conditional_immunities = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_IGNORESLOWDOWN,
-		TRAIT_NO_SLIP,
+		TRAIT_NOSLIP,
 		TRAIT_NOBREATH,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_PUSHIMMUNE,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_SHOCKIMMUNE,
-		TRAIT_SLEEPIMMUNE,
-		TRAIT_STUNIMMUNE,
-	)
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+	) //QWERTODO: STUN IMMUNITY ON RUST
 
 /datum/heretic_knowledge/ultimate/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	// This map doesn't have a Bridge, for some reason??
 	// Let them complete the ritual anywhere
-	if(!GLOB.areas_by_type[ritual_location])
-		ritual_location = null
+	//if(!GLOB.areas_by_type[ritual_location])
+		//ritual_location = null
 
 /datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(ritual_location)
 		var/area/our_area = get_area(loc)
 		if(!istype(our_area, ritual_location))
-			loc.balloon_alert(user, "ritual failed, must be in [initial(ritual_location.name)]!") // "must be in bridge"
+			to_chat(user, "<span class='hierophant_warning'>The ritual has failed, it must be done in [initial(ritual_location.name)]!</span>")
 			return FALSE
 
 	return ..()
@@ -219,7 +217,7 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	for(var/turf/transform_turf as anything in GLOB.station_turfs)
+	for(var/turf/transform_turf as anything in get_turf(center)) //qwertodo: station turfs vs one t urf
 		if(transform_turf.flags & NO_RUST)
 			continue
 		var/dist = get_dist(center, transform_turf)
@@ -262,14 +260,12 @@
 	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		if(!immunities_active)
 			source.add_traits(conditional_immunities, type)
-			source.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 			immunities_active = TRUE
 
 	// If we're not on a rust turf, and we have given out our traits, nerf our guy
 	else
 		if(immunities_active)
 			source.remove_traits(conditional_immunities, type)
-			source.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 			immunities_active = FALSE
 
 /**
@@ -283,7 +279,7 @@
 	var/turf/our_turf = get_turf(source)
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
-
+	var/base_heal_amt = 2.5
 	var/need_mob_update = FALSE
 	need_mob_update += source.adjustBruteLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-base_heal_amt, updating_health = FALSE)

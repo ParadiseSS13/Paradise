@@ -27,6 +27,7 @@
 		return
 
 	var/mob/living/target = targets[1]
+	if(target.can_block_magic(antimagic_flags))
 		to_chat(target, "<span class='notice'>Your mind feels closed.</span>")
 		to_chat(user, "<span class='warning'>Their mind doesn't swing open, but neither does yours.</span>")
 		return FALSE
@@ -37,5 +38,5 @@
 	//target.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate") QWERTODO: This should be a sprite that looks like heretics
 	target.adjustBrainLoss(25)
 
-	var/mob/living/living_owner = owner
+	var/mob/living/living_owner = user
 	living_owner.adjustBrainLoss(16.5)

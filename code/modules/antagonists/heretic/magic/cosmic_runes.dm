@@ -22,12 +22,12 @@
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
-/datum/spell/cosmic_rune/cast(atom/cast_on)
+/datum/spell/cosmic_rune/cast(list/targets, mob/user)
 	. = ..()
 	var/obj/effect/cosmic_rune/first_rune_resolved = locateUID(first_rune)
 	var/obj/effect/cosmic_rune/second_rune_resolved = locateUID(second_rune)
 	if(first_rune_resolved && second_rune_resolved)
-		var/obj/effect/cosmic_rune/new_rune = new /obj/effect/cosmic_rune(get_turf(cast_on))
+		var/obj/effect/cosmic_rune/new_rune = new /obj/effect/cosmic_rune(get_turf(user))
 		new rune_remove_effect(get_turf(first_rune_resolved))
 		QDEL_NULL(first_rune_resolved)
 		first_rune = second_rune_resolved.UID()
@@ -36,10 +36,10 @@
 		new_rune.link_rune(second_rune_resolved)
 		return
 	if(!first_rune_resolved)
-		first_rune = make_new_rune(get_turf(cast_on), second_rune_resolved)
+		first_rune = make_new_rune(get_turf(user), second_rune_resolved)
 		return
 	if(!second_rune_resolved)
-		second_rune = make_new_rune(get_turf(cast_on), first_rune_resolved)
+		second_rune = make_new_rune(get_turf(user), first_rune_resolved)
 
 /// Returns a weak reference to a new rune, linked to an existing rune if provided
 /datum/spell/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
@@ -137,9 +137,9 @@
 
 /obj/effect/temp_visual/cosmic_rune_fade/Initialize(mapload)
 	. = ..()
-	//var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
-	//silicon_image.override = TRUE
-	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
+	var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance("cosmic", silicon_image, GLOB.silicon_mob_list)
 
 /obj/effect/temp_visual/rune_light
 	name = "cosmic rune"
@@ -152,6 +152,6 @@
 
 /obj/effect/temp_visual/rune_light/Initialize(mapload)
 	. = ..()
-	//var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
-	//silicon_image.override = TRUE
-//	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
+	var/image/silicon_image = image(icon = 'icons/obj/antags/eldritch.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance("cosmic", silicon_image, GLOB.silicon_mob_list)

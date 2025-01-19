@@ -5,34 +5,65 @@
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
 
 	overlay_icon_state = "bg_heretic_border"
-	button_overlay_icon = 'icons/hud/implants.dmi'
+	action_icon = 'icons/obj/bio_chips.dmi'
 	action_icon_state = "adrenal"
 	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 6 SECONDS
-	cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
-	spell_max_level = 10 // we can get up to / over a minute duration cd time
+	var/cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
+	level_max = 10 // we can get up to / over a minute duration cd time
 
 	invocation = "R'S'T."
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
 
-/datum/spell/realignment/cast(mob/living/cast_on)
+/datum/spell/realignment/cast(list/targets, mob/user)
 	. = ..()
-	cast_on.apply_status_effect(/datum/status_effect/realignment)
-	to_chat(cast_on, "<span class='notice'>We begin to realign ourselves.</span>")
+	user.apply_status_effect(/datum/status_effect/realignment)
+	to_chat(user, "<span class='notice'>We begin to realign ourselves.</span>")
 
 /datum/spell/realignment/after_cast(atom/cast_on)
 	. = ..()
 	// With every cast, our spell level increases for a short time, which goes back down after a period
 	// and with every spell level, the cooldown duration of the spell goes up
 	if(level_spell())
-		var/reduction_timer = max(base_cooldown * spell_max_level * 0.5, 1.5 MINUTES)
+		var/reduction_timer = max(base_cooldown * level_max * 0.5, 1.5 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(delevel_spell)), reduction_timer)
 
-/datum/spell/realignment/get_spell_title()
+/datum/spell/realignment/proc/level_spell(bypass_cap = FALSE)
+	// Spell cannot be levelled
+	if(level_max <= 1)
+		return FALSE
+
+	// Spell is at cap, and we will not bypass it
+	if((spell_level >= level_max))
+		return FALSE
+
+	spell_level++
+	cooldown_handler.recharge_duration = max(cooldown_handler.recharge_duration - cooldown_reduction_per_rank, 0.25 SECONDS) // 0 second CD starts to break things.
+	name = "[get_spell_title()][initial(name)]"
+	return TRUE
+
+/datum/spell/realignment/proc/delevel_spell()
+	// Spell cannot be levelled
+	if(level_max <= 1)
+		return FALSE
+
+	if(spell_level <= 1)
+		return FALSE
+
+	spell_level--
+	if(cooldown_reduction_per_rank > 0 SECONDS)
+		cooldown_handler.recharge_duration = min(cooldown_handler.recharge_duration + cooldown_reduction_per_rank, initial(cooldown_handler.recharge_duration))
+	else
+		cooldown_handler.recharge_duration = max(cooldown_handler.recharge_duration + cooldown_reduction_per_rank, initial(cooldown_handler.recharge_duration))
+
+	name = "[get_spell_title()][initial(name)]"
+	return TRUE
+
+/datum/spell/realignment/proc/get_spell_title()
 	switch(spell_level)
 		if(1, 2)
 			return "Hasty " // Hasty Realignment

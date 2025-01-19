@@ -47,21 +47,21 @@
 
 
 /datum/heretic_knowledge/curse/paralysis/curse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
-	if(chosen_mob.usable_legs <= 0) // What're you gonna do, curse someone who already can't walk?
-		to_chat(chosen_mob, "<span class='notice'>You feel a slight pain for a moment, but it passes shortly. Odd.</span>")
-		return
+	//if(chosen_mob.usable_legs <= 0) // What're you gonna do, curse someone who already can't walk?
+	//	to_chat(chosen_mob, "<span class='notice'>You feel a slight pain for a moment, but it passes shortly. Odd.</span>")
+	//	return
 
-	to_chat(chosen_mob, "<span class='danger'>You suddenly lose feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
-	chosen_mob.add_traits(list(TRAIT_PARALYSIS_L_LEG, TRAIT_PARALYSIS_R_LEG), type)
-	return ..()
+//	to_chat(chosen_mob, "<span class='danger'>You suddenly lose feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
+//	chosen_mob.add_traits(list(TRAIT_PARALYSIS_L_LEG, TRAIT_PARALYSIS_R_LEG), type)
+//	return ..() //qwertodo: do something here apart from breaking their legs
 
 /datum/heretic_knowledge/curse/paralysis/uncurse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
 	if(QDELETED(chosen_mob))
 		return
 
-	chosen_mob.remove_traits(list(TRAIT_PARALYSIS_L_LEG, TRAIT_PARALYSIS_R_LEG), type)
-	if(chosen_mob.usable_legs > 1)
-		to_chat(chosen_mob, "<span class='green'>You regain feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
+//	chosen_mob.remove_traits(list(TRAIT_PARALYSIS_L_LEG, TRAIT_PARALYSIS_R_LEG), type)
+//	if(chosen_mob.usable_legs > 1)
+//		to_chat(chosen_mob, "<span class='green'>You regain feeling in your leg[chosen_mob.usable_legs == 1 ? "":"s"]!</span>")
 	return ..()
 
 /datum/heretic_knowledge/summon/ashy
@@ -76,7 +76,8 @@
 		/obj/item/organ/external/head = 1,
 		/obj/item/book = 1,
 		)
-	mob_to_summon = /mob/living/basic/heretic_summon/ash_spirit
+	//mob_to_summon = /mob/living/basic/heretic_summon/ash_spirit
+	mob_to_summon = /mob/living/simple_animal/bunny
 	cost = 1
 
 

@@ -22,30 +22,16 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/spell/pointed/void_phase/before_cast(list/targets, mob/user)
+/datum/spell/pointed/void_phase/cast(list/targets, mob/user)
 	. = ..()
-	if(. & SPELL_CANCEL_CAST)
-		return
-
-	if(owner && get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
-		cast_on.balloon_alert(owner, "too close!")
-		return . | SPELL_CANCEL_CAST
-
-/datum/spell/pointed/void_phase/cast(atom/cast_on)
-	. = ..()
-	var/turf/source_turf = get_turf(owner)
+	var/turf/source_turf = get_turf(user)
+	var/cast_on = targets[1]
 	var/turf/targeted_turf = get_turf(cast_on)
 
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin, user)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout, user)
 
-	do_teleport(
-		owner,
-		targeted_turf,
-		precision = 1,
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
-	)
+	user.forceMove(cast_on)
 
 /// Does the AOE effect of the blinka t the passed turf
 /datum/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin, mob/user)

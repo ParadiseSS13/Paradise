@@ -80,8 +80,6 @@
 
 /// Make [victim] into a shattered risen ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/make_risen(mob/living/user, mob/living/carbon/human/victim)
-	user.log_message("created a shattered risen out of [key_name(victim)].", LOG_GAME)
-	victim.log_message("became a shattered risen of [key_name(user)]'s.", LOG_VICTIM, log_globally = FALSE)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a shattered risen, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -94,13 +92,13 @@
 
 /// Callback for the ghoul status effect - what effects are applied to the ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/apply_to_risen(mob/living/risen)
-	LAZYADD(created_items, WEAKREF(risen))
-	risen.AddComponent(/datum/component/mutant_hands, mutant_hand_path = /obj/item/mutant_hand/shattered_risen)
+	LAZYADD(created_items, risen.UID())
+	//risen.AddComponent(/datum/component/mutant_hands, mutant_hand_path = /obj/item/mutant_hand/shattered_risen) //QWERTODO: ADD TO HANDS FUCK ANOTHER COMPONENT
 
 /// Callback for the ghoul status effect - cleaning up effects after the ghoul status is removed.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/remove_from_risen(mob/living/risen)
-	LAZYREMOVE(created_items, WEAKREF(risen))
-	qdel(risen.GetComponent(/datum/component/mutant_hands))
+	LAZYREMOVE(created_items, risen.UID())
+	//qdel(risen.GetComponent(/datum/component/mutant_hands))
 
 #undef RISEN_MAX_HEALTH
 
@@ -150,5 +148,6 @@
 	)
 	cost = 1
 
-	mob_to_summon = /mob/living/basic/heretic_summon/maid_in_the_mirror
+	//mob_to_summon = /mob/living/basic/heretic_summon/maid_in_the_mirror
+	mob_to_summon = /mob/living/simple_animal/bunny
 

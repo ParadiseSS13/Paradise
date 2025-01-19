@@ -17,4 +17,4 @@
 	You were enslaved by the cult, but are not a member of it, and retain what remains of your free will. Besides this, there is little to be done but commentary. Try not to get trapped in a locker.</span>")
 	var/datum/objective/epic_fail = new /datum/objective/heretic_trapped()
 	epic_fail.completed = FALSE
-	objectives += epic_fail
+	add_antag_objective(epic_fail)

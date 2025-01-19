@@ -65,7 +65,7 @@
 		for(var/mob/living/occupant as anything in mecha.occupant)
 			if(isAI(occupant))
 				continue
-			mecha.go_out(1)
+			//mecha.go_out(1) qwertodo: call this in a delayed proc to get around fuck ass do not sleep fuck you mech code fuck you
 			occupant.Paralyse(5 SECONDS)
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target
@@ -183,7 +183,7 @@
 	for(var/mob/living/carbon/human/body in atoms)
 		if(body.stat != DEAD)
 			continue
-		var/obj/item/organ/external/affecting = get_organ(BODY_ZONE_CHEST)
+		var/obj/item/organ/external/affecting = body.get_organ(BODY_ZONE_CHEST)
 		if(length(affecting.contents))
 			to_chat(user, "<span class='hierophant_warning'>[body] has organs in their chest.</span>")
 			continue

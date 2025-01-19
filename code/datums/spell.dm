@@ -476,9 +476,9 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		if(T && is_admin_level(T.z))
 			return FALSE
 
-	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST, cast_on)
-	if(owner)
-		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
+	var/sig_return = SEND_SIGNAL(src, COMSIG_SPELL_BEFORE_CAST)
+	if(user)
+		sig_return |= SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src)
 	if(!sig_return)
 		return FALSE
 

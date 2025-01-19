@@ -498,24 +498,25 @@
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
-	objectives += research_objective
+	add_antag_objective(research_objective)
 
 	var/num_heads = 0
-	for(var/mob/player in GLOB.alive_player_list)
-		if(player.mind.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
-			num_heads++
+	var/list/heads = SSticker.mode.get_all_heads()
+	for(var/datum/mind/head in heads)
+		if(ishuman(head.current))
+			num_heads ++
 
 	var/datum/objective/minor_sacrifice/sac_objective = new()
 	sac_objective.owner = owner
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
-	objectives += sac_objective
+	add_antag_objective(sac_objective)
 
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
-		objectives += other_sac_objective
+		add_antag_objective(other_sac_objective)
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -557,47 +558,47 @@
  */
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
-	if(owner.current.stat <= SOFT_CRIT)
+	if(owner.current.stat == CONSCIOUS)
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list() //QWERTODO: Bring in line with other antagonists.
 
-	var/succeeded = TRUE
+	//var/succeeded = TRUE
 
 	parts += printplayer(owner)
 	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
 	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
-	if(length(objectives))
-		var/count = 1
-		for(var/datum/objective/objective as anything in objectives)
-			if(!objective.check_completion())
-				succeeded = FALSE
-			parts += "<b>Objective #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
-			count++
-	if(feast_of_owls)
-		parts += "<span class='greentext'>Ascension Forsaken</span>"
-	if(ascended)
-		parts += "<span class='greentext>THE HERETIC ASCENDED!</span>"
+//	if(length(objectives))
+//		var/count = 1
+//		for(var/datum/objective/objective as anything in get_all_objectives(include_team = FALSE))
+//			if(!objective.check_completion())
+//				succeeded = FALSE
+//			parts += "<b>Objective #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
+///			count++
+//	if(feast_of_owls)
+//		parts += "<span class='greentext'>Ascension Forsaken</span>"
+//	if(ascended)
+//		parts += "<span class='greentext>THE HERETIC ASCENDED!</span>"
 
-	else
-		if(succeeded)
-			parts += "<span class='greentext'>The heretic was successful, but did not ascend!</span>"
-		else
-			parts += "<span class='redtext'>The heretic has failed.</span>"
+//	else
+//		if(succeeded)
+//			parts += "<span class='greentext'>The heretic was successful, but did not ascend!</span>"
+//		else
+//			parts += "<span class='redtext'>The heretic has failed.</span>"
 
-	parts += "<b>Knowledge Researched:</b> "
+//	parts += "<b>Knowledge Researched:</b> "
 
-	var/list/string_of_knowledge = list()
+//	var/list/string_of_knowledge = list()
 
-	for(var/knowledge_index in researched_knowledge)
-		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		string_of_knowledge += knowledge.name
+//	for(var/knowledge_index in researched_knowledge)
+//		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
+//		string_of_knowledge += knowledge.name
 
-	parts += english_list(string_of_knowledge)
+//	parts += english_list(string_of_knowledge)
 
-	return parts.Join("<br>")
+//	return parts.Join("<br>")
 
 ///datum/antagonist/heretic/get_admin_commands() //qwertodo: antag panel
 //	. = ..()
@@ -642,7 +643,7 @@
 
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role?.title || "human"].</span>")
+		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
 
 	add_sacrifice_target(new_target)
 
@@ -698,30 +699,6 @@
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
 	to_chat(pawn, "<span class='hierophant_warning'>The Mansus has manifested you a focus.</span>")
 
-/datum/antagonist/heretic/antag_panel_data()
-	var/list/string_of_knowledge = list()
-
-	for(var/knowledge_index in researched_knowledge)
-		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		if(istype(knowledge, /datum/heretic_knowledge/ultimate))
-			string_of_knowledge += span_bold(knowledge.name)
-		else
-			string_of_knowledge += knowledge.name
-
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
-
-/datum/antagonist/heretic/antag_panel_objectives()
-	. = ..()
-
-	. += "<br>"
-	. += "<i><b>Current Targets:</b></i><br>"
-	if(LAZYLEN(sac_targets))
-		for(var/mob/living/carbon/human/target as anything in sac_targets)
-			. += " - <b>[target.real_name]</b>, the [target.mind?.assigned_role?.title || "human"].<br>"
-
-	else
-		. += "<i>None!</i><br>"
-	. += "<br>"
 
 /**
  * Learns the passed [typepath] of knowledge, creating a knowledge datum
@@ -795,7 +772,7 @@
 	//qwertodo: hijack chance
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
-	for(var/datum/objective/must_be_done as anything in objectives)
+	for(var/datum/objective/must_be_done as anything in owner.get_all_objectives(include_team = FALSE))
 		if(!must_be_done.check_completion())
 			return FALSE
 	return TRUE

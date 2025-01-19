@@ -16,7 +16,7 @@
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
+	add_alt_appearance("heretic_rune", silicon_image, GLOB.silicon_mob_list)
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
@@ -28,18 +28,8 @@
 
 /obj/effect/heretic_rune/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	(mob/living/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
-/obj/effect/heretic_rune/can_interact(mob/living/user)
-	. = ..()
-	if(!.)
-		return
-	if(!IS_HERETIC(user))
-		return FALSE
-	if(is_in_use)
-		return FALSE
-	return TRUE
 
 /obj/effect/heretic_rune/interact(mob/living/user)
 	. = ..()
@@ -51,12 +41,16 @@
  * Also ensures is_in_use is enabled and disabled before and after.
  */
 /obj/effect/heretic_rune/proc/try_rituals(mob/living/user)
+	if(!IS_HERETIC(user))
+		return FALSE
+	if(is_in_use)
+		return FALSE
 	is_in_use = TRUE
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		loc.balloon_alert(user, "no rituals available!")
+		to_chat(user, "<span class='hierophant_warning'>You have no rituals avalible?</span>")
 		is_in_use = FALSE
 		return
 
@@ -192,13 +186,13 @@
 	for(var/atom/to_appear as anything in initial_selected_atoms)
 		if(QDELETED(to_appear))
 			continue
-		to_appear.RemoveInvisibility(type)
+		to_appear.invisibility = 0
 
 	// And finally, give some user feedback
 	// No feedback is given on failure here -
 	// the ritual itself should handle it (providing specifics as to why it failed)
 	if(ritual_result)
-		loc.balloon_alert(user, "ritual complete")
+		to_chat(user, "<span class='hierophant'>The ritual was successful.</span>")
 
 	return ritual_result
 
@@ -236,7 +230,7 @@
 	icon_state = animation_state
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
+	add_alt_appearance("heretic_rune", silicon_image, GLOB.silicon_mob_list)
 
 /obj/effect/temp_visual/drawing_heretic_rune/fast
 	duration = 12 SECONDS

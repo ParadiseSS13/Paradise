@@ -24,7 +24,7 @@
 		targets += potential_target
 
 	if(LAZYLEN(targets))
-		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
+		//owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself //qwertodo so admins don't merk me
 		owner.ClickOn(pick(targets))
 
 
@@ -70,33 +70,39 @@
 	var/chance = rand(0, 100)
 	switch(chance)
 		if(0 to 10)
-			human_owner.vomit(VOMIT_CATEGORY_DEFAULT)
+			human_owner.vomit()
 		if(20 to 30)
-			human_owner.set_timed_status_effect(100 SECONDS, /datum/status_effect/dizziness, only_if_higher = TRUE)
-			human_owner.set_timed_status_effect(100 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
+			human_owner.Dizzy(10 SECONDS)
+			human_owner.Jitter(10 SECONDS)
 		if(30 to 40)
 			// Don't fully kill liver that's important
-			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 10, 90)
+			message_admins("do something here")
 		if(40 to 50)
 			// Don't fully kill heart that's important
-			human_owner.adjustOrganLoss("heart", 10, 90)
+			//human_owner.adjustOrganLoss("heart", 10, 90)
+			message_admins("do something here")
 		if(50 to 60)
 			// You can fully kill the stomach that's not crucial
-			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 10)
+			//human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 10)
+			message_admins("do something here")
 		if(60 to 70)
 			// Same with eyes
-			human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 5)
+			//human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 5)
+			message_admins("do something here")
 		if(70 to 80)
 			// And same with ears
-			human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
+			//human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
+			message_admins("do something here")
 		if(80 to 90)
 			// But don't fully kill lungs that's usually important
-			human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10, 90)
+			//human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10, 90)
+			message_admins("do something here")
 		if(90 to 95)
 			// And definitely don't fully kil brains
-			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
+			//human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
+			message_admins("do something here")
 		if(95 to 100)
-			human_owner.AdjustConfused_up_to(12 SECONDS, 24 SECONDS)
+			human_owner.Confused(12 SECONDS)
 
 /datum/status_effect/star_mark
 	id = "star_mark"
@@ -128,8 +134,8 @@
 	return ..()
 
 /datum/status_effect/star_mark/on_apply()
-	if(istype(owner, /mob/living/basic/heretic_summon/star_gazer))
-		return FALSE
+	//if(istype(owner, /mob/living/basic/heretic_summon/star_gazer))
+	//	return FALSE
 	var/mob/living/spell_caster_resolved = locateUID(spell_caster)
 	var/datum/antagonist/heretic_monster/monster = owner.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
 	if(spell_caster_resolved && monster)
@@ -167,13 +173,13 @@
 	icon_state = "lastresort"
 
 /datum/status_effect/heretic_lastresort/on_apply()
-	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
 	to_chat(owner, "<span class='userdanger'>You are on the brink of losing consciousness, run!</span>")
 	return TRUE
 
 /datum/status_effect/heretic_lastresort/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))
-	owner.AdjustUnconscious(20 SECONDS, ignore_canstun = TRUE)
+	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
+	owner.Paralyse(20 SECONDS, TRUE) //Stun immunity will not save you, pay the price of magic
 
 
 
@@ -207,16 +213,15 @@
 /datum/status_effect/moon_converted/on_apply()
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	// Heals them so people who are in crit can have this affect applied on them and still be of some use for the heretic
-	owner.adjustBruteLoss( -150 + owner.mob_mood.sanity)
-	owner.adjustFireLoss(-150 + owner.mob_mood.sanity)
+	owner.adjustBruteLoss( -100)
+	owner.adjustFireLoss(-100)
 
 	to_chat(owner, "<span class='hypnophrase'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span></span>")
-	owner.balloon_alert(owner, "they lie..THEY ALL LIE!!!")
-	owner.AdjustUnconscious(7 SECONDS, ignore_canstun = FALSE)
-	ADD_TRAIT(owner, TRAIT_MUTE, REF(src))
+	owner.Paralyse(7 SECONDS)
+	ADD_TRAIT(owner, TRAIT_MUTE, src.UID())
 	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_overlay))
 	owner.update_appearance(UPDATE_OVERLAYS)
-	owner.cause_hallucination(/datum/hallucination/delusion/preset/moon, "[id] status effect", duration = duration, affects_us = FALSE, affects_others = TRUE)
+	//owner.cause_hallucination(/datum/hallucination/delusion/preset/moon, "[id] status effect", duration = duration, affects_us = FALSE, affects_others = TRUE) qwertodo: need this, or look at cyborg disguise /blob spores
 	return TRUE
 
 /datum/status_effect/moon_converted/proc/on_damaged(datum/source, damage, damagetype)
@@ -240,9 +245,7 @@
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning and unconscious so they realize they aren't evil anymore
 	to_chat(owner, "<span class='warning'>Your mind is cleared from the effect of the mansus, your alligiences are as they were before</span>")
-	REMOVE_TRAIT(owner, TRAIT_MUTE, REF(src))
-	owner.AdjustUnconscious(5 SECONDS, ignore_canstun = FALSE)
-	owner.log_message("[owner] is no longer insane.", LOG_GAME)
+	REMOVE_TRAIT(owner, TRAIT_MUTE, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	owner.update_appearance(UPDATE_OVERLAYS)
@@ -275,7 +278,6 @@
 /datum/status_effect/necropolis_curse/on_creation(mob/living/new_owner, set_curse)
 	. = ..()
 	owner.overlay_fullscreen("curse", /atom/movable/screen/fullscreen/stretch/curse, 1)
-	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 1)
 
 
 /datum/status_effect/necropolis_curse/on_remove()
@@ -296,7 +298,13 @@
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/item/projectile/curse_hand/C = new (spawn_turf)
-	C.aim_projectile(owner, spawn_turf)
+	var/turf/T = get_turf(spawn_turf)
+	var/turf/U = get_turf(owner)
+	if(!T || !U)
+		return
+	C.current = spawn_turf
+	C.yo = U.y - T.y
+	C.xo = U.x - T.x
 	C.fire()
 
 /obj/effect/temp_visual/curse

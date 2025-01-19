@@ -30,9 +30,8 @@
 /datum/status_effect/void_chill/on_remove()
 	owner.update_icon(UPDATE_OVERLAYS)
 	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLUE_LIGHT)
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/void_chill)
 	owner.remove_alt_appearance("heretic_status")
-	REMOVE_TRAIT(owner, TRAIT_HYPOTHERMIC, REF(src))
+	REMOVE_TRAIT(owner, TRAIT_HYPOTHERMIC, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 
 /datum/status_effect/void_chill/tick(seconds_between_ticks)
@@ -55,7 +54,7 @@
 	stacks_overlay = image('icons/effects/effects.dmi', owner, "void_chill_partial")
 	if(stacks >= 5)
 		stacks_overlay = image('icons/effects/effects.dmi', owner, "void_chill_oh_fuck")
-	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretic, "heretic_status", stacks_overlay, NONE)
+	owner.add_alt_appearance("heretic_status", stacks_overlay, owner)
 
 /**
  * Setter and adjuster procs for stacks
@@ -73,20 +72,16 @@
 	stacks = max(0, min(stack_limit, stacks + new_stacks))
 	update_movespeed(stacks)
 	if(stacks >= 5)
-		ADD_TRAIT(owner, TRAIT_HYPOTHERMIC, REF(src))
+		ADD_TRAIT(owner, TRAIT_HYPOTHERMIC, src.UID())
 
 ///Updates the movespeed of owner based on the amount of stacks of the debuff
 /datum/status_effect/void_chill/proc/update_movespeed(stacks)
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE)
-	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE, multiplicative_slowdown = (0.5 * stacks))
+	///owner.add_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE) //qwertodo: slowdown from this
+	///owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE, multiplicative_slowdown = (0.5 * stacks))
 	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:center'>[stacks]</span>")
 
 /datum/status_effect/void_chill/lasting
 	id = "lasting_void_chill"
-
-/datum/movespeed_modifier/void_chill
-	variable = TRUE
-	multiplicative_slowdown = 0.1
 
 //---- Screen alert
 /atom/movable/screen/alert/status_effect/void_chill

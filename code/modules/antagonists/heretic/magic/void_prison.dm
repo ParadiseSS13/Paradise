@@ -26,8 +26,9 @@
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 
-/datum/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
+/datum/spell/pointed/void_prison/cast(list/targets, mob/user)
 	. = ..()
+	var/mob/living/carbon/human/cast_on = targets[1]
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
 			"<span class='danger'>A swirling, cold void wraps around [cast_on], but they burst free in a wave of heat!</span>",
@@ -56,7 +57,6 @@
 		owner.apply_status_effect(/datum/status_effect/void_chill, 3)
 	if(stasis_overlay)
 		//Free our prisoner
-		owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), REF(src))
 		owner.forceMove(get_turf(stasis_overlay))
 		stasis_overlay.forceMove(owner)
 		owner.vis_contents += stasis_overlay
@@ -71,7 +71,6 @@
 /datum/status_effect/void_prison/proc/enter_prison(mob/living/prisoner)
 	stasis_overlay.forceMove(prisoner.loc)
 	prisoner.forceMove(stasis_overlay)
-	prisoner.add_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), REF(src))
 
 ///Makes sure to clear the ref in case the voidball ever suddenly disappears
 /datum/status_effect/void_prison/proc/clear_overlay()

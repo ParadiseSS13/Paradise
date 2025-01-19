@@ -95,6 +95,7 @@
 	sacrifice_process(user, selected_atoms, loc)
 	return TRUE
 
+
 /**
  * Obtain a list of targets for the user to hunt down and sacrifice.
  * Tries to get four targets (minds) with living human currents.
@@ -132,25 +133,25 @@
 	var/list/datum/mind/final_targets = list() //Qwertodo: Figure out how the fuck to make this work after roundstart. Look at  traitor objectives?
 
 	// First target, any command.
-	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(head_mind.assigned_role?.job_flags & JOB_HEAD_OF_STAFF)
-			final_targets += head_mind
-			valid_targets -= head_mind
-			break
+	//for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
+	//	if(head_mind.assigned_role?.job_flags & JOB_HEAD_OF_STAFF)
+	//		final_targets += head_mind
+	//		valid_targets -= head_mind
+	//		break
 
 	// Second target, any security
-	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(sec_mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
-			final_targets += sec_mind
-			valid_targets -= sec_mind
-			break
+	//for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
+	//	if(sec_mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
+	//		final_targets += sec_mind
+	//		valid_targets -= sec_mind
+	//		break
 
 	// Third target, someone in their department.
-	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(department_mind.assigned_role?.departments_bitflags & user.mind.assigned_role?.departments_bitflags)
-			final_targets += department_mind
-			valid_targets -= department_mind
-			break
+	//for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
+	//	if(department_mind.assigned_role?.departments_bitflags & user.mind.assigned_role?.departments_bitflags)
+	//		final_targets += department_mind
+	//		valid_targets -= department_mind
+	//		break
 
 	// Now grab completely random targets until we'll full
 	var/target_sanity = 0
@@ -164,7 +165,7 @@
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
 		if(!silent)
-			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.assigned_role?.title].</span>")
+			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.assigned_role].</span>")
 
 	return TRUE
 
@@ -191,11 +192,11 @@
 
 
 	var/feedback = "Your patrons accept your offer"
-	var/sac_job_flag = sacrifice.mind?.assigned_role?.job_flags | sacrifice.last_mind?.assigned_role?.job_flags
+	var/sac_job = sacrifice.mind?.assigned_role
 	var/datum/antagonist/cultist/cultist_datum = IS_CULTIST(sacrifice)
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if((sac_job_flag & JOB_HEAD_OF_STAFF))
+	if((sac_job in GLOB.command_head_positions.))
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
 		feedback += " <i>graciously</i>"
@@ -206,7 +207,7 @@
 		var/rewards_given = heretic_datum.rewards_given
 		// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
 		if(prob(min(15 * rewards_given)) && (rewards_given <= 5))
-			for(var/datum/mind/mind as anything in cultist_datum.cult_team.members)
+			for(var/datum/mind/mind as anything in cultist_datum.get_team)
 				if(mind.current)
 					SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
 					var/message = "<span class='narsie'>A vile heretic has </span>" + \

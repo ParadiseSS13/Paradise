@@ -74,7 +74,6 @@
 	var/monster_type = pick(monster_types)
 	var/mob/living/monster = new monster_type(loc)
 	monster.key = user.key
-	monster.set_name()
 	var/datum/antagonist/heretic_monster/woohoo_free_antag = new(src)
 	monster.mind.add_antag_datum(woohoo_free_antag)
 	if(ascendee)
@@ -84,7 +83,7 @@
 	kill_all_your_friends.owner = monster.mind
 	kill_all_your_friends.explanation_text = "The station's crew must be culled."
 	kill_all_your_friends.completed = TRUE
-	woohoo_free_antag.objectives += kill_all_your_friends
+	woohoo_free_antag.add_antag_objective(kill_all_your_friends)
 
 /obj/structure/lock_tear/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -96,12 +95,11 @@
 
 /obj/effect/temp_visual/destabilising_tear
 	name = "destabilised tear"
-	icon = 'icons/obj/anomaly.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
-	layer = HIGH_PIPE_LAYER
+	layer = HIGH_SIGIL_LAYER
 	duration = 1 SECONDS
 
 /obj/effect/temp_visual/destabilising_tear/Initialize(mapload)

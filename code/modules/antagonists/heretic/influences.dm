@@ -62,7 +62,7 @@
 	tracked_heretics |= heretic
 
 	// If our heretic's on station, generate some new influences
-	if(ishuman(heretic.current) && !is_centcom_level(heretic.current.z))
+	if(ishuman(heretic.current) && !is_teleport_allowed(heretic.current.z))
 		generate_new_influences()
 
 /**
@@ -78,7 +78,6 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
-	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
@@ -88,7 +87,10 @@
 
 	var/image/silicon_image = image('icons/effects/eldritch.dmi', src, null, OBJ_LAYER)
 	silicon_image.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "pierced_reality", silicon_image)
+	add_alt_appearance("pierced_reality", silicon_image, GLOB.silicon_mob_list)
+
+/obj/effect/visible_heretic_influence/add_filter(name, priority, list/params)
+	return
 
 /*
  * Makes the influence fade in after 15 seconds.
@@ -111,7 +113,7 @@
 	var/obj/item/organ/external/their_poor_arm = human_user.get_active_hand()
 	if(prob(25))
 		to_chat(human_user, "<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
-		their_poor_arm.dismember()
+		their_poor_arm.droplimb()
 		qdel(their_poor_arm)
 	else
 		to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existence itself!</span>")
@@ -134,7 +136,7 @@
 	human_user.ghostize()
 	var/obj/item/organ/external/head/head = locate() in human_user.bodyparts
 	if(head)
-		head.dismember()
+		head.droplimb()
 		qdel(head)
 	else
 		human_user.gib()
@@ -155,7 +157,6 @@
 	name = "reality smash"
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
-	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 	/// Whether we're currently being drained or not.
@@ -168,11 +169,11 @@
 	GLOB.reality_smash_track.smashes += src
 	generate_name()
 
-	var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image)
+	//var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
+	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image) //qwertodo: get someone that knows huds
 
-	AddElement(/datum/element/block_turf_fingerprints)
-	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
+	//AddElement(/datum/element/block_turf_fingerprints)
+	//AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see))) //oh fuck my attack chain ass
 
 /obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
 	return (user.mind in GLOB.reality_smash_track.tracked_heretics)
@@ -181,24 +182,27 @@
 	GLOB.reality_smash_track.smashes -= src
 	return ..()
 
-/obj/effect/heretic_influence/attack_hand_secondary(mob/user, list/modifiers)
-	if(!IS_HERETIC(user)) // Shouldn't be able to do this, but just in case
-		return SECONDARY_ATTACK_CALL_NORMAL
+/obj/effect/heretic_influence/add_fingerprint(mob/living/M, ignoregloves)
+	return //No detective you can not scan the fucking influence to find out who touched it
 
-	if(being_drained)
-		loc.balloon_alert(user, "already being drained!")
+
+/obj/effect/heretic_influence/attack_hand(mob/user)
+
+	if(!IS_HERETIC(user)) // Shouldn't be able to do this, but just in case
+		return
+
 	else
 		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
 
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return
 
-/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, params)
-	. = ..()
-	if(.)
-		return
+
+/obj/effect/heretic_influence/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	// Using a codex will give you two knowledge points for draining.
-	if(drain_influence_with_codex(user, weapon))
+	if(drain_influence_with_codex(user, attacking))
 		return TRUE
 
 /obj/effect/heretic_influence/proc/drain_influence_with_codex(mob/user, obj/item/codex_cicatrix/codex)
@@ -254,6 +258,6 @@
 #undef NUM_INFLUENCES_PER_HERETIC
 
 /// Hud used for heretics to see influences
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic
-	antag_datum_type = /datum/antagonist/heretic
-	add_ghost_version = TRUE
+///datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic
+	//antag_datum_type = /datum/antagonist/heretic
+	//add_ghost_version = TRUE

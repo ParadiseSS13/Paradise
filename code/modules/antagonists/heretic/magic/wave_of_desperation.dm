@@ -38,9 +38,9 @@
 	for(var/mob/living/victim in get_things_to_cast_on(user, radius_override = 1))
 		victim.KnockDown(3 SECONDS)
 		victim.AdjustWeakened(0.5 SECONDS)
-		var/our_turf = get_turf(caster)
-		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
-		mover.throw_at(throwtarget, 3, 1)
+		var/our_turf = get_turf(user)
+		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(victim, our_turf)))
+		victim.throw_at(throwtarget, 3, 1)
 		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 
 /datum/spell/aoe/wave_of_desperation/proc/get_things_to_cast_on(atom/center, radius_override)

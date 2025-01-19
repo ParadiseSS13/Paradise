@@ -14,10 +14,10 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	active_msg = "You prepare to cast your star blast!"
-	deactive_msg = "You stop swirling cosmic energies from the palm of your hand... for now."
+	//active_msg = "You prepare to cast your star blast!"
+//	deactive_msg = "You stop swirling cosmic energies from the palm of your hand... for now."
 	cast_range = 12
-	projectile_type = /obj/item/projectile/magic/star_ball
+	//projectile_type = /obj/item/projectile/magic/star_ball
 
 /obj/item/projectile/magic/star_ball
 	name = "star ball"
