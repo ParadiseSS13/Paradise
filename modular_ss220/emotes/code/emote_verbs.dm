@@ -94,6 +94,11 @@
 	set category = "Эмоции"
 	emote("wbark", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_mrowss()
+	set name = "< " + EMOTE_HUMAN_MROWSS + " >"
+	set category = "Эмоции"
+	emote("mrowss", intentional = TRUE)
+
 /// Action Emotes ///
 /mob/living/carbon/human/verb/emote_collapse()
 	set name = "○ " + EMOTE_COLLAPSE + " "

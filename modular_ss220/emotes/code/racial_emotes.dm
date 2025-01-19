@@ -109,6 +109,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
 	H.verbs |= /mob/living/carbon/human/proc/emote_meow
 	H.verbs |= /mob/living/carbon/human/proc/emote_mrow
+	H.verbs |= /mob/living/carbon/human/proc/emote_mrowss
 
 /datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -119,6 +120,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
 	H.verbs -= /mob/living/carbon/human/proc/emote_meow
 	H.verbs -= /mob/living/carbon/human/proc/emote_mrow
+	H.verbs -= /mob/living/carbon/human/proc/emote_mrowss
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
