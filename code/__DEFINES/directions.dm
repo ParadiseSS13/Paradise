@@ -49,3 +49,5 @@
 #define TEXT_EAST "[EAST]"
 /// West direction as a string "[8]"
 #define TEXT_WEST "[WEST]"
+
+#define EXCLUSIVE_OR(thing_one, thing_two) ((thing_one)^(thing_two))

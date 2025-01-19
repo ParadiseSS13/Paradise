@@ -144,3 +144,6 @@
 				message_admins("New traitor roll passed. Making a new Traitor.")
 				log_game("New traitor roll passed. Making a new Traitor.")
 				character.mind.make_Traitor()
+
+/datum/game_mode/traitor/autotraitor/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	possible_traitors.Remove(sleepy_mob)
