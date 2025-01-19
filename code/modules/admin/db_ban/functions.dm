@@ -61,8 +61,8 @@
 	var/computerid
 	var/ip
 
-	if(ismob(banned_mob) && banned_mob.ckey)
-		ckey = banned_mob.ckey
+	if(ismob(banned_mob) && banned_mob.last_known_ckey)
+		ckey = banned_mob.last_known_ckey
 		if(banned_mob.client)
 			computerid = banned_mob.client.computer_id
 			ip = banned_mob.client.address
