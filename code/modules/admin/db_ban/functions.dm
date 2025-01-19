@@ -496,7 +496,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	output += "</select></td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='55' rows='10'></textarea><br>"
-	output += "<input type='checkbox' value='1' name='autopopulate' checked='1'>&nbsp;Auto populate CID & IP for online players<br>"
+	output += "<input type='checkbox' value='1' name='autopopulate' checked='1'>&nbsp;Auto populate CID & IP for players seen this round<br>"
 	output += "<input type='submit' value='Add ban'>"
 	output += "</form>"
 
