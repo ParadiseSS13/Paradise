@@ -30,7 +30,7 @@
 			choices += C
 
 	if(!length(choices))
-		to_chat(src, "<span class='warning'>No subjects nearby to feed on</span>")
+		to_chat(src, "<span class='warning'>No subjects nearby to feed on!</span>")
 		return
 
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feeding Selection", choices)
