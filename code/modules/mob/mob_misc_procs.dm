@@ -461,7 +461,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -511,7 +511,7 @@
 	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
-	else if(isAI(user))
+	else if(is_ai(user))
 		var/mob/living/silicon/ai/AI=user
 		P = AI.aiMulti
 

@@ -55,7 +55,7 @@
 	GLOB.cameranet.cameras += src
 	part_of_camera_network = should_add_to_cameranet
 	if(part_of_camera_network)
-		GLOB.cameranet.addCamera(src)
+		GLOB.cameranet.add_camera(src)
 	if(isturf(loc))
 		var/area/our_area = get_area(src)
 		LAZYADD(our_area.cameras, UID())
@@ -81,7 +81,7 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
-	GLOB.cameranet.removeCamera(src)
+	GLOB.cameranet.remove_camera(src)
 	GLOB.cameranet.cameras -= src
 	var/area/our_area = get_area(src)
 	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
@@ -134,7 +134,7 @@
 
 /obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
-	GLOB.cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.update_visibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
 	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
@@ -192,7 +192,7 @@
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)
-			if(isAI(O))
+			if(is_ai(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
@@ -415,7 +415,7 @@
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	if(isXRay() && isAI(user))
+	if(isXRay() && is_ai(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.see_in_dark = max(user.see_in_dark, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -446,5 +446,5 @@
 		return
 
 	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
-	GLOB.cameranet.updatePortableCamera(src, prev_turf)
+	GLOB.cameranet.update_portable_camera(src, prev_turf)
 	prev_turf = get_turf(src)

@@ -204,7 +204,7 @@
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
 		for(var/mob/living/silicon/S in orange(2,src))
-			if(isAI(S)) continue
+			if(is_ai(S)) continue
 			step_towards(S,src)
 		for(var/mob/living/carbon/human/machine/M in orange(2,src))
 			step_towards(M,src)

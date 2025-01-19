@@ -22,7 +22,7 @@
 		if(smoothing_flags & SMOOTH_CORNERS)
 			icon_state = ""
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
@@ -34,7 +34,7 @@
 /obj/structure/Destroy()
 	climbers = null
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
