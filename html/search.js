@@ -12,20 +12,20 @@ function updateSearch() {
 	for (var i = 0; i < table.rows.length; i++) {
 		try {
 			var row = table.rows[i];
-			if(row.className == 'title') continue;
+			if (row.className == 'title') continue;
 			var found = 0;
 			for (var j = 0; j < row.cells.length; j++) {
 				var cell = row.cells[j];
-				if(cell.innerText.toLowerCase().indexOf(filter) != -1) {
+				if (cell.innerText.toLowerCase().indexOf(filter) != -1) {
 					found = 1;
 					break;
 				}
 			}
-			if(found == 0) row.style.display = 'none';
+			if (found == 0) row.style.display = 'none';
 			else {
 				row.style.display = 'block';
 				row.className = alt_style;
-				if(alt_style == 'alt') alt_style = 'norm';
+				if (alt_style == 'alt') alt_style = 'norm';
 				else alt_style = 'alt';
 			}
 		} catch (err) {}

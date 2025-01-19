@@ -1,14 +1,14 @@
 // Polyfills and compatibility ------------------------------------------------
 var decoder = decodeURIComponent || unescape;
-if(!Array.prototype.includes) {
+if (!Array.prototype.includes) {
 	Array.prototype.includes = function (thing) {
 		for (var i = 0; i < this.length; i++) {
-			if(this[i] == thing) return true;
+			if (this[i] == thing) return true;
 		}
 		return false;
 	};
 }
-if(!String.prototype.trim) {
+if (!String.prototype.trim) {
 	String.prototype.trim = function () {
 		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 	};
@@ -52,15 +52,15 @@ function run_after_focus(callback) {
 }
 
 function createStatusTab(name) {
-	if(name.indexOf('.') != -1) {
+	if (name.indexOf('.') != -1) {
 		var splitName = name.split('.');
-		if(split_admin_tabs && splitName[0] === 'Admin') name = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Admin') name = splitName[1];
 		else name = splitName[0];
 	}
-	if(document.getElementById(name) || name.trim() == '') {
+	if (document.getElementById(name) || name.trim() == '') {
 		return;
 	}
-	if(!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
+	if (!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
 		return;
 	}
 	var button = document.createElement('DIV');
@@ -76,7 +76,7 @@ function createStatusTab(name) {
 	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
 	button.style.order = name.charCodeAt(0);
-	if(name == 'Status' || name == 'MC') {
+	if (name == 'Status' || name == 'MC') {
 		button.style.order = name == 'Status' ? 1 : 2;
 	}
 	//END ORDERING
@@ -86,11 +86,11 @@ function createStatusTab(name) {
 }
 
 function removeStatusTab(name) {
-	if(!document.getElementById(name) || permanent_tabs.includes(name)) {
+	if (!document.getElementById(name) || permanent_tabs.includes(name)) {
 		return;
 	}
 	for (var i = verb_tabs.length - 1; i >= 0; --i) {
-		if(verb_tabs[i] == name) {
+		if (verb_tabs[i] == name) {
 			verb_tabs.splice(i, 1);
 		}
 	}
@@ -101,9 +101,9 @@ function removeStatusTab(name) {
 function sortVerbs() {
 	verbs.sort(function (a, b) {
 		var selector = a[0] == b[0] ? 1 : 0;
-		if(a[selector].toUpperCase() < b[selector].toUpperCase()) {
+		if (a[selector].toUpperCase() < b[selector].toUpperCase()) {
 			return 1;
-		} else if(a[selector].toUpperCase() > b[selector].toUpperCase()) {
+		} else if (a[selector].toUpperCase() > b[selector].toUpperCase()) {
 			return -1;
 		}
 		return 0;
@@ -111,7 +111,7 @@ function sortVerbs() {
 }
 
 function addPermanentTab(name) {
-	if(!permanent_tabs.includes(name)) {
+	if (!permanent_tabs.includes(name)) {
 		permanent_tabs.push(name);
 	}
 	createStatusTab(name);
@@ -119,7 +119,7 @@ function addPermanentTab(name) {
 
 function removePermanentTab(name) {
 	for (var i = permanent_tabs.length - 1; i >= 0; --i) {
-		if(permanent_tabs[i] == name) {
+		if (permanent_tabs[i] == name) {
 			permanent_tabs.splice(i, 1);
 		}
 	}
@@ -128,7 +128,7 @@ function removePermanentTab(name) {
 
 function checkStatusTab() {
 	for (var i = 0; i < menu.children.length; i++) {
-		if(!verb_tabs.includes(menu.children[i].id) && !permanent_tabs.includes(menu.children[i].id)) {
+		if (!verb_tabs.includes(menu.children[i].id) && !permanent_tabs.includes(menu.children[i].id)) {
 			menu.removeChild(menu.children[i]);
 		}
 	}
@@ -138,7 +138,7 @@ function remove_verb(v) {
 	var verb_to_remove = v; // to_remove = [verb:category, verb:name]
 	for (var i = verbs.length - 1; i >= 0; i--) {
 		var part_to_remove = verbs[i];
-		if(part_to_remove[1] == verb_to_remove[1]) {
+		if (part_to_remove[1] == verb_to_remove[1]) {
 			verbs.splice(i, 1);
 		}
 	}
@@ -152,42 +152,42 @@ function check_verbs() {
 
 function verbs_cat_check(cat) {
 	var tabCat = cat;
-	if(cat.indexOf('.') != -1) {
+	if (cat.indexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if(split_admin_tabs && splitName[0] === 'Admin') tabCat = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Admin') tabCat = splitName[1];
 		else tabCat = splitName[0];
 	}
 	var verbs_in_cat = 0;
 	var verbcat = '';
-	if(!verb_tabs.includes(tabCat)) {
+	if (!verb_tabs.includes(tabCat)) {
 		removeStatusTab(tabCat);
 		return;
 	}
 	for (var v = 0; v < verbs.length; v++) {
 		var part = verbs[v];
 		verbcat = part[0];
-		if(verbcat.indexOf('.') != -1) {
+		if (verbcat.indexOf('.') != -1) {
 			var splitName = verbcat.split('.');
-			if(split_admin_tabs && splitName[0] === 'Admin') verbcat = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Admin') verbcat = splitName[1];
 			else verbcat = splitName[0];
 		}
-		if(verbcat != tabCat || verbcat.trim() == '') {
+		if (verbcat != tabCat || verbcat.trim() == '') {
 			continue;
 		} else {
 			verbs_in_cat = 1;
 			break; // we only need one
 		}
 	}
-	if(verbs_in_cat != 1) {
+	if (verbs_in_cat != 1) {
 		removeStatusTab(tabCat);
-		if(current_tab == tabCat) tab_change('Status');
+		if (current_tab == tabCat) tab_change('Status');
 	}
 }
 
 function findVerbindex(name, verblist) {
 	for (var i = 0; i < verblist.length; i++) {
 		var part = verblist[i];
-		if(part[1] == name) return i;
+		if (part[1] == name) return i;
 	}
 }
 function wipe_verbs() {
@@ -219,21 +219,21 @@ function TakeTabFromByond(tab) {
 }
 
 function tab_change(tab) {
-	if(tab == current_tab) return;
-	if(document.getElementById(current_tab)) document.getElementById(current_tab).className = 'button'; // disable active on last button
+	if (tab == current_tab) return;
+	if (document.getElementById(current_tab)) document.getElementById(current_tab).className = 'button'; // disable active on last button
 	current_tab = tab;
 	set_byond_tab(tab);
-	if(document.getElementById(tab)) document.getElementById(tab).className = 'button active'; // make current button active
+	if (document.getElementById(tab)) document.getElementById(tab).className = 'button active'; // make current button active
 	var verb_tabs_thingy = verb_tabs.includes(tab);
-	if(tab == 'Status') {
+	if (tab == 'Status') {
 		draw_status();
-	} else if(tab == 'MC') {
+	} else if (tab == 'MC') {
 		draw_mc();
-	} else if(verb_tabs_thingy) {
+	} else if (verb_tabs_thingy) {
 		draw_verbs(tab);
-	} else if(tab == 'Debug Stat Panel') {
+	} else if (tab == 'Debug Stat Panel') {
 		draw_debug();
-	} else if(tab == turfname) {
+	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
 		statcontentdiv.textContext = 'Loading...';
@@ -272,9 +272,9 @@ function draw_debug() {
 	for (var i = 0; i < verb_tabs.length; i++) {
 		var part = verb_tabs[i];
 		// Hide subgroups except admin subgroups if they are split
-		if(verb_tabs[i].lastIndexOf('.') != -1) {
+		if (verb_tabs[i].lastIndexOf('.') != -1) {
 			var splitName = verb_tabs[i].split('.');
-			if(split_admin_tabs && splitName[0] === 'Admin') part = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Admin') part = splitName[1];
 			else continue;
 		}
 		var tr = document.createElement('tr');
@@ -323,7 +323,7 @@ function draw_debug() {
 	document.getElementById('statcontent').appendChild(table3);
 }
 function draw_status() {
-	if(!document.getElementById('Status')) {
+	if (!document.getElementById('Status')) {
 		createStatusTab('Status');
 		current_tab = 'Status';
 	}
@@ -343,7 +343,7 @@ function draw_status() {
 	}
 	document.getElementById('statcontent').appendChild(table);
 
-	if(verb_tabs.length == 0 || !verbs) {
+	if (verb_tabs.length == 0 || !verbs) {
 		Byond.command('Fix-Stat-Panel');
 	}
 }
@@ -357,7 +357,7 @@ function draw_mc() {
 		var td1 = document.createElement('td');
 		td1.textContent = part[0];
 		var td2 = document.createElement('td');
-		if(part[2]) {
+		if (part[2]) {
 			var a = document.createElement('a');
 			a.onclick = debug_statclick(part[2]);
 			a.insertAdjacentHTML('beforeend', part[1]);
@@ -383,7 +383,7 @@ function listedturf_add_row(table, table_index, true_index) {
 
 function listedturf_fill_row(row, item_index) {
 	let object_info = turfcontents['' + item_index];
-	if(!object_info) {
+	if (!object_info) {
 		return false;
 	}
 
@@ -413,13 +413,13 @@ function listedturf_fill_row(row, item_index) {
 				default:
 					clickcatcher += ';statpanel_item_click=left';
 			}
-			if(e.shiftKey) {
+			if (e.shiftKey) {
 				clickcatcher += ';statpanel_item_shiftclick=1';
 			}
-			if(e.ctrlKey) {
+			if (e.ctrlKey) {
 				clickcatcher += ';statpanel_item_ctrlclick=1';
 			}
-			if(e.altKey) {
+			if (e.altKey) {
 				clickcatcher += ';statpanel_item_altclick=1';
 			}
 			window.location.href = clickcatcher;
@@ -436,12 +436,12 @@ function listedturf_fill_row(row, item_index) {
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
-			if(!turf_image_errors[object_info[3]]) {
+			if (!turf_image_errors[object_info[3]]) {
 				turf_image_errors[object_info[3]] = 0;
 				delay = imageFirstRetryDelay;
 			}
 			turf_image_errors[object_info[3]]++;
-			if(turf_image_errors[object_info[3]] > imageRetryLimit) {
+			if (turf_image_errors[object_info[3]] > imageRetryLimit) {
 				return;
 			}
 
@@ -466,7 +466,7 @@ function listedturf_fill_row(row, item_index) {
 function listedturf_fill_all() {
 	for (let i in turf_incomplete_rows) {
 		let item_index = turf_incomplete_rows[i];
-		if(!turf_rows[i] || listedturf_fill_row(turf_rows[i], item_index)) {
+		if (!turf_rows[i] || listedturf_fill_row(turf_rows[i], item_index)) {
 			delete turf_incomplete_rows[i];
 		}
 	}
@@ -484,7 +484,7 @@ function listedturf_scrolled() {
 	let table = document.getElementById('listedturf_table');
 	let padding = document.getElementById('listedturf_padding');
 
-	if(!turf_rows.initialized) {
+	if (!turf_rows.initialized) {
 		turf_rows = {
 			initialized: true,
 			min_row: 0,
@@ -492,26 +492,26 @@ function listedturf_scrolled() {
 		};
 	}
 
-	if(turf_size === 0) {
+	if (turf_size === 0) {
 		return;
 	}
 
 	let desired_min_row = Math.min(turf_size, Math.max(0, Math.floor(top_edge / turf_row_outer_height - 0.75)));
 	let desired_max_row = Math.min(turf_size, desired_min_row + Math.ceil(height / turf_row_outer_height + 1.75));
 	padding.style.height = desired_min_row * turf_row_outer_height + 'em';
-	if(desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
+	if (desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
 		listedturf_fill_all();
 		suppress_next_scroll_message = false;
 		return;
 	}
 
-	if(desired_min_row < turf_rows.min_row) {
+	if (desired_min_row < turf_rows.min_row) {
 		for (let i = desired_min_row; i < turf_rows.min_row; i++) {
 			listedturf_add_row(table, i - desired_min_row + 1, i);
 		}
-	} else if(desired_min_row > turf_rows.min_row) {
+	} else if (desired_min_row > turf_rows.min_row) {
 		for (let i = turf_rows.min_row; i < desired_min_row && i < turf_rows.max_row; i++) {
-			if(turf_rows[i]) {
+			if (turf_rows[i]) {
 				turf_rows[i].remove();
 				delete turf_rows[i];
 			}
@@ -521,14 +521,14 @@ function listedturf_scrolled() {
 
 	padding.style.height = turf_rows.min_row * turf_row_outer_height + 'em';
 
-	if(desired_max_row < turf_rows.max_row) {
+	if (desired_max_row < turf_rows.max_row) {
 		for (let i = Math.max(desired_max_row, turf_rows.min_row); i < turf_rows.max_row; i++) {
-			if(turf_rows[i]) {
+			if (turf_rows[i]) {
 				turf_rows[i].remove();
 				delete turf_rows[i];
 			}
 		}
-	} else if(desired_max_row > turf_rows.max_row) {
+	} else if (desired_max_row > turf_rows.max_row) {
 		for (let i = Math.max(turf_rows.min_row, turf_rows.max_row); i < desired_max_row; i++) {
 			listedturf_add_row(table, i - turf_rows.min_row + 1, i);
 		}
@@ -537,14 +537,14 @@ function listedturf_scrolled() {
 
 	listedturf_fill_all();
 
-	if(!suppress_next_scroll_message) {
+	if (!suppress_next_scroll_message) {
 		Byond.sendMessage('Listedturf-Scroll', { 'min': turf_rows.min_row, 'max': turf_rows.max_row });
 	}
 	suppress_next_scroll_message = false;
 }
 
 function draw_listedturf() {
-	if(document.getElementById('listedturf_div')) {
+	if (document.getElementById('listedturf_div')) {
 		let div = document.getElementById('listedturf_div');
 		div.style.height = turf_row_outer_height * turf_size + 'em';
 		suppress_next_scroll_message = true;
@@ -590,10 +590,10 @@ function draw_listedturf() {
 function remove_listedturf() {
 	removePermanentTab(turfname);
 	checkStatusTab();
-	if(current_tab == turfname) {
+	if (current_tab == turfname) {
 		tab_change('Status');
 	}
-	if(document.getElementById('listedturf_div')) {
+	if (document.getElementById('listedturf_div')) {
 		document.getElementById('listedturf_div').remove();
 	}
 	turf_rows = {};
@@ -605,7 +605,7 @@ function remove_listedturf() {
 
 function remove_mc() {
 	removePermanentTab('MC');
-	if(current_tab == 'MC') {
+	if (current_tab == 'MC') {
 		tab_change('Status');
 	}
 }
@@ -630,23 +630,23 @@ function draw_verbs(cat) {
 	var additions = {}; // additional sub-categories to be rendered
 	table.className = 'grid-container';
 	sortVerbs();
-	if(split_admin_tabs && cat.lastIndexOf('.') != -1) {
+	if (split_admin_tabs && cat.lastIndexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if(splitName[0] === 'Admin') cat = splitName[1];
+		if (splitName[0] === 'Admin') cat = splitName[1];
 	}
 	verbs.reverse(); // sort verbs backwards before we draw
 	for (var i = 0; i < verbs.length; ++i) {
 		var part = verbs[i];
 		var name = part[0];
-		if(split_admin_tabs && name.lastIndexOf('.') != -1) {
+		if (split_admin_tabs && name.lastIndexOf('.') != -1) {
 			var splitName = name.split('.');
-			if(splitName[0] === 'Admin') name = splitName[1];
+			if (splitName[0] === 'Admin') name = splitName[1];
 		}
 		var command = part[1];
 
-		if(command && name.lastIndexOf(cat, 0) != -1 && (name.length == cat.length || name.charAt(cat.length) == '.')) {
+		if (command && name.lastIndexOf(cat, 0) != -1 && (name.length == cat.length || name.charAt(cat.length) == '.')) {
 			var subCat = name.lastIndexOf('.') != -1 ? name.split('.')[1] : null;
-			if(subCat && !additions[subCat]) {
+			if (subCat && !additions[subCat]) {
 				var newTable = document.createElement('div');
 				newTable.className = 'grid-container';
 				additions[subCat] = newTable;
@@ -670,7 +670,7 @@ function draw_verbs(cat) {
 
 	// Append additional sub-categories if relevant
 	for (var cat in additions) {
-		if(additions.hasOwnProperty(cat)) {
+		if (additions.hasOwnProperty(cat)) {
 			// do addition here
 			var header = document.createElement('h3');
 			header.textContent = cat;
@@ -681,23 +681,23 @@ function draw_verbs(cat) {
 }
 
 function set_theme(which) {
-	if(which == 'light') {
+	if (which == 'light') {
 		document.body.className = '';
 		document.documentElement.className = 'light';
 		set_style_sheet('chat_panel_white');
-	} else if(which == 'dark') {
+	} else if (which == 'dark') {
 		document.body.className = 'dark';
 		document.documentElement.className = 'dark';
 		set_style_sheet('chat_panel');
-	} else if(which == 'ntos') {
+	} else if (which == 'ntos') {
 		document.body.className = 'ntos';
 		document.documentElement.className = 'ntos';
 		set_style_sheet('chat_panel_ntos');
-	} else if(which == 'paradise') {
+	} else if (which == 'paradise') {
 		document.body.className = 'paradise';
 		document.documentElement.className = 'paradise';
 		set_style_sheet('chat_panel_paradise');
-	} else if(which == 'syndicate') {
+	} else if (which == 'syndicate') {
 		document.body.className = 'syndicate';
 		document.documentElement.className = 'syndicate';
 		set_style_sheet('chat_panel_syndicate');
@@ -710,7 +710,7 @@ function set_font_size(fontSize) {
 
 function set_font_style(fontFamily) {
 	/* Yes, null is a string here. Live with that. */
-	if(fontFamily !== 'null') {
+	if (fontFamily !== 'null') {
 		document.body.style.setProperty('font-family', fontFamily);
 	} else {
 		document.body.style.removeProperty('font-family');
@@ -718,20 +718,20 @@ function set_font_style(fontFamily) {
 }
 
 function set_tabs_style(style) {
-	if(style == 'default') {
+	if (style == 'default') {
 		menu.classList.add('menu-wrap');
 		menu.classList.remove('tabs-classic');
-	} else if(style == 'classic') {
+	} else if (style == 'classic') {
 		menu.classList.add('menu-wrap');
 		menu.classList.add('tabs-classic');
-	} else if(style == 'scrollable') {
+	} else if (style == 'scrollable') {
 		menu.classList.remove('menu-wrap');
 		menu.classList.remove('tabs-classic');
 	}
 }
 
 function set_style_sheet(sheet) {
-	if(document.getElementById('goonStyle')) {
+	if (document.getElementById('goonStyle')) {
 		var currentSheet = document.getElementById('goonStyle');
 		currentSheet.parentElement.removeChild(currentSheet);
 	}
@@ -759,7 +759,7 @@ function getCookie(cname) {
 	for (var i = 0; i < ca.length; i++) {
 		var c = ca[i];
 		while (c.charAt(0) == ' ') c = c.substring(1);
-		if(c.indexOf(name) === 0) {
+		if (c.indexOf(name) === 0) {
 			return decoder(c.substring(name.length, c.length));
 		}
 	}
@@ -771,20 +771,20 @@ function add_verb_list(payload) {
 	to_add.sort(); // sort what we're adding
 	for (var i = 0; i < to_add.length; i++) {
 		var part = to_add[i];
-		if(!part[0]) continue;
+		if (!part[0]) continue;
 		var category = part[0];
-		if(category.indexOf('.') != -1) {
+		if (category.indexOf('.') != -1) {
 			var splitName = category.split('.');
-			if(split_admin_tabs && splitName[0] === 'Admin') category = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Admin') category = splitName[1];
 			else category = splitName[0];
 		}
-		if(findVerbindex(part[1], verbs)) continue;
-		if(verb_tabs.includes(category)) {
+		if (findVerbindex(part[1], verbs)) continue;
+		if (verb_tabs.includes(category)) {
 			verbs.push(part);
-			if(current_tab == category) {
+			if (current_tab == category) {
 				draw_verbs(category); // redraw if we added a verb to the tab we're currently in
 			}
-		} else if(category) {
+		} else if (category) {
 			verb_tabs.push(category);
 			verbs.push(part);
 			createStatusTab(category);
@@ -795,7 +795,7 @@ function add_verb_list(payload) {
 document.addEventListener('mouseup', restoreFocus);
 document.addEventListener('keyup', restoreFocus);
 
-if(!current_tab) {
+if (!current_tab) {
 	addPermanentTab('Status');
 	tab_change('Status');
 }
@@ -811,7 +811,7 @@ Byond.subscribeTo('remove_verb_list', function (v) {
 	}
 	check_verbs();
 	sortVerbs();
-	if(verb_tabs.includes(current_tab)) draw_verbs(current_tab);
+	if (verb_tabs.includes(current_tab)) draw_verbs(current_tab);
 });
 
 // passes a 2D list of (verbcategory, verbname) creates tabs and adds verbs to respective list
@@ -827,13 +827,13 @@ Byond.subscribeTo('init_verbs', function (payload) {
 		cat = verb_tabs[i];
 		createStatusTab(cat); // create a category if the verb doesn't exist yet
 	}
-	if(verb_tabs.includes(current_tab)) {
+	if (verb_tabs.includes(current_tab)) {
 		do_update = true;
 	}
-	if(payload.verblist) {
+	if (payload.verblist) {
 		add_verb_list(payload.verblist);
 		sortVerbs(); // sort them
-		if(do_update) {
+		if (do_update) {
 			draw_verbs(current_tab);
 		}
 	}
@@ -845,7 +845,7 @@ Byond.subscribeTo('update_stat', function (payload) {
 	var parsed = payload.global_data;
 
 	for (var i = 0; i < parsed.length; i++) {
-		if(parsed[i] != null) {
+		if (parsed[i] != null) {
 			status_tab_parts.push(parsed[i]);
 		}
 	}
@@ -861,14 +861,14 @@ Byond.subscribeTo('update_stat', function (payload) {
 	parsed = payload.mob_specific_data;
 
 	for (var i = 0; i < parsed.length; i++) {
-		if(parsed[i] != null) {
+		if (parsed[i] != null) {
 			status_tab_parts.push(parsed[i]);
 		}
 	}
 
-	if(current_tab == 'Status') {
+	if (current_tab == 'Status') {
 		draw_status();
-	} else if(current_tab == 'Debug Stat Panel') {
+	} else if (current_tab == 'Debug Stat Panel') {
 		draw_debug();
 	}
 });
@@ -877,19 +877,19 @@ Byond.subscribeTo('update_mc', function (payload) {
 	mc_tab_parts = payload.mc_data;
 	mc_tab_parts.splice(0, 0, ['Location:', payload.coord_entry]);
 
-	if(!verb_tabs.includes('MC')) {
+	if (!verb_tabs.includes('MC')) {
 		verb_tabs.push('MC');
 	}
 
 	createStatusTab('MC');
 
-	if(current_tab == 'MC') {
+	if (current_tab == 'MC') {
 		draw_mc();
 	}
 });
 
 Byond.subscribeTo('create_debug', function () {
-	if(!document.getElementById('Debug Stat Panel')) {
+	if (!document.getElementById('Debug Stat Panel')) {
 		addPermanentTab('Debug Stat Panel');
 	} else {
 		removePermanentTab('Debug Stat Panel');
@@ -904,7 +904,7 @@ Byond.subscribeTo('create_listedturf', function (TN) {
 });
 
 Byond.subscribeTo('remove_mc_tab', function (removeHref) {
-	if(removeHref) {
+	if (removeHref) {
 		href_token = null;
 	}
 	remove_mc();
@@ -913,14 +913,14 @@ Byond.subscribeTo('remove_mc_tab', function (removeHref) {
 Byond.subscribeTo('update_listedturf', function (TC) {
 	turfcontents = TC;
 	turf_size = TC['total'];
-	if(current_tab == turfname) {
+	if (current_tab == turfname) {
 		draw_listedturf();
 	}
 });
 
 Byond.subscribeTo('update_interviews', function (I) {
 	interviewManager = I;
-	if(current_tab == 'Tickets') {
+	if (current_tab == 'Tickets') {
 		draw_interviews();
 	}
 });
@@ -928,8 +928,8 @@ Byond.subscribeTo('update_interviews', function (I) {
 Byond.subscribeTo('update_split_admin_tabs', function (status) {
 	status = status == true;
 
-	if(split_admin_tabs !== status) {
-		if(split_admin_tabs === true) {
+	if (split_admin_tabs !== status) {
+		if (split_admin_tabs === true) {
 			removeStatusTab('Events');
 			removeStatusTab('Fun');
 			removeStatusTab('Game');
