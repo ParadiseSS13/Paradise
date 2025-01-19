@@ -525,7 +525,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user) || target.move_resist > user.pull_force)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || is_ai(user) || target.move_resist > user.pull_force)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return

@@ -149,7 +149,7 @@
 /obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	parent_action = new_parent_action
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open, time_to_open = 10 SECONDS)
 
 /obj/item/melee/arm_blade/Destroy()
 	if(parent_action)

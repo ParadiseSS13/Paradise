@@ -325,10 +325,9 @@
 			var/obj/effect/nanofrost_container/iceball = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src,'sound/items/syringeproj.ogg', 40, TRUE)
-			for(var/counter in 1 to 6)
-				step_towards(iceball, A)
-				sleep(2)
-			iceball.Smoke()
+			A.throw_at(target, 6, 2, user)
+			sleep(2)
+			A.Smoke()
 			return
 
 		if(METAL_FOAM)
@@ -336,7 +335,7 @@
 				return
 
 			if(metal_synthesis_charge <= 0)
-				to_chat(user, "<span class='warning'>Metal foam reagents are still synthesising!</span>")
+				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized!</span>")
 				return
 
 			if(reagents.total_volume < 10)
@@ -368,6 +367,11 @@
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 	qdel(src)
+
+/obj/effect/nanofrost_container/anomaly
+	name = "nanofrost anomaly"
+	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area."
+	icon_state = "frozen_smoke_anomaly"
 
 #undef EXTINGUISHER
 #undef NANOFROST

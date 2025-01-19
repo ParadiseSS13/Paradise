@@ -785,15 +785,16 @@
 /obj/item/storage/belt/sheath/remove_from_storage(obj/item/W, atom/new_location)
 	if(!..())
 		return
-	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+	if(!length(contents)) // telekinesis grab spawns inside of the sheath and leaves it immediately...
+		playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
 /obj/item/storage/belt/sheath/update_icon_state()
 	if(length(contents))
-		icon_state = "[icon_state]-sword"
-		item_state = "[item_state]-sword"
+		icon_state = "[base_icon_state]-sword"
+		item_state = "[base_icon_state]-sword"
 	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
+		icon_state = base_icon_state
+		item_state = base_icon_state
 	if(isliving(loc))
 		var/mob/living/L = loc
 		L.update_inv_belt()
@@ -801,8 +802,7 @@
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
 	desc = "Can hold sabers."
-	icon_state = "sheath"
-	item_state = "sheath"
+	base_icon_state = "sheath"
 	can_hold = list(/obj/item/melee/saber)
 
 /obj/item/storage/belt/sheath/saber/populate_contents()
@@ -812,8 +812,7 @@
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
 	desc = "Can hold scimitars."
-	icon_state = "snakesfangsheath"
-	item_state = "snakesfangsheath"
+	base_icon_state = "snakesfangsheath"
 	can_hold = list(/obj/item/melee/snakesfang)
 
 /obj/item/storage/belt/sheath/snakesfang/populate_contents()
@@ -823,8 +822,7 @@
 /obj/item/storage/belt/sheath/breach_cleaver
 	name = "breach cleaver scabbard"
 	desc = "Can hold massive cleavers."
-	icon_state = "breachcleaversheath"
-	item_state = "breachcleaversheath"
+	base_icon_state = "breachcleaversheath"
 	can_hold = list(/obj/item/melee/breach_cleaver)
 
 /obj/item/storage/belt/sheath/breach_cleaver/populate_contents()

@@ -497,7 +497,7 @@ SLIME SCANNER
 		scan_type = "robot"
 	else if(ishuman(M))
 		scan_type = "prosthetics"
-	else if(isAI(M))
+	else if(is_ai(M))
 		scan_type = "ai"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")

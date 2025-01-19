@@ -37,6 +37,22 @@
 	cost = 500
 	containername = "Pizza crate"
 
+/datum/supply_packs/organic/fancyparty
+	name = "Executive Party Crate"
+	contains = list(/obj/item/food/sliceable/cheesewheel/edam,
+					/obj/item/food/sliceable/cheesewheel/blue,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/smoked,
+					/obj/item/reagent_containers/drinks/bottle/wine,
+					/obj/item/food/caviar,
+					/obj/item/food/caviar,
+					/obj/item/reagent_containers/drinks/drinkingglass,
+					/obj/item/reagent_containers/drinks/drinkingglass)
+	cost = 1000
+	containername = "Executive Party crate"
+	containertype = /obj/structure/closet/crate/freezer/deluxe
+
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
