@@ -85,7 +85,7 @@
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)</span>")
 	for(var/mob/O in viewers(src))
 		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
 

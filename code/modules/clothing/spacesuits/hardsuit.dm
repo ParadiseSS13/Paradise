@@ -205,7 +205,7 @@
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(user.unEquip(I))
+		if(user.temperature_expose(I))
 			I.forceMove(src)
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")

@@ -504,12 +504,12 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
-	if(!. || !I)
+	if(!. || !target)
 		return
 
-	if(I == pcollar)
+	if(target == pcollar)
 		pcollar = null
 		regenerate_icons()
 
@@ -593,7 +593,7 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_item_to_ground(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
@@ -611,7 +611,7 @@
 
 	var/obj/old_collar = pcollar
 
-	unEquip(pcollar)
+	drop_item_to_ground(pcollar)
 
 	if(user)
 		user.put_in_hands(old_collar)

@@ -105,7 +105,7 @@
 		return
 	for(var/obj/machinery/atmospherics/supermatter_crystal/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
-		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !issimulatedturf(S.loc)))
+		if(!atoms_share_level(S, T) || !issimulatedturf(S.loc))
 			continue
 		supermatters.Add(S)
 

@@ -85,6 +85,16 @@
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/pressure_overlay/pressure_overlay
 
+	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
+	var/list/milla_superconductivity = list(
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT)
+	var/list/milla_data = list()
+
+	new_attack_chain = TRUE
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -108,7 +118,7 @@
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
+	visibility_changed()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
@@ -140,7 +150,7 @@
 			qdel(A)
 		return
 	REMOVE_FROM_SMOOTH_QUEUE(src)
-	visibilityChanged()
+	visibility_changed()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	bound_air = null
@@ -470,31 +480,31 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/proc/visibilityChanged()
+/turf/proc/visibility_changed()
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 
-/turf/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/turf/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return TRUE
 	if(can_lay_cable())
-		if(istype(I, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = I
+		if(istype(attacking, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = attacking
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
 					LC.attackby__legacy__attackchain(C, user)
-					return
+					return TRUE
 			C.place_turf(src, user)
 			return TRUE
-		else if(istype(I, /obj/item/rcl))
-			var/obj/item/rcl/R = I
+		else if(istype(attacking, /obj/item/rcl))
+			var/obj/item/rcl/R = attacking
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby__legacy__attackchain(R, user)
-						return
+						return TRUE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
-
-	return FALSE
 
 /turf/proc/can_have_cabling()
 	return TRUE
@@ -594,6 +604,19 @@
 	else
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
+
+/turf/proc/rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust)
+
+/turf/proc/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust/heretic)
+	new /obj/effect/glowing_rune(src)
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

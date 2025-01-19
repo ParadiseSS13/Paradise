@@ -263,7 +263,7 @@
 	var/list/data = list()
 
 	data["active"] = active
-	if(isAI(user))
+	if(is_ai(user))
 		data["is_ai"] = TRUE
 	else if(isrobot(user) && !Adjacent(user))
 		data["is_ai"] = TRUE

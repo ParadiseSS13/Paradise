@@ -142,8 +142,8 @@
 			S.add_plasmaglass()
 			S.update_icon()
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.unequip(src)
+		user.unequip(I)
 
 		user.put_in_hands(S)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
@@ -154,8 +154,8 @@
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.unequip(src)
+		user.unequip(I)
 
 		user.put_in_hands(P)
 		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")

@@ -23,7 +23,8 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
-	..()
+	eyeobj = new /mob/camera/eye/abductor(loc, name, src, current_user)
+	give_eye_control(current_user)
 	eyeobj.visible_icon = 1
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
@@ -74,10 +75,10 @@
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
@@ -101,10 +102,10 @@
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
 /datum/action/innate/vest_mode_swap
@@ -137,7 +138,7 @@
 		return
 
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 
 	var/obj/machinery/abductor/console/console = target
 	console.SetDroppoint(remote_eye.loc,owner)

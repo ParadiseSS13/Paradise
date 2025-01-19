@@ -472,6 +472,7 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/nuke
 	name = "operative's chameleon kit"
@@ -488,6 +489,7 @@
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/clothing/mask/chameleon/voice_change(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
@@ -577,3 +579,12 @@
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/syndie_mantis
+	name = "\improper Mantis Blades kit"
+	desc = "A sleek box marked with a Cybersun logo. The label says it contains a pair of CX-12 'Naginata' mantis blades and accompanying autosurgeons."
+
+/obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l(src)
+

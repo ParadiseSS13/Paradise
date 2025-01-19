@@ -472,7 +472,7 @@
 	if(ismob(the_item.loc) && isitem(the_item))
 		var/obj/item/eaten = the_item
 		var/mob/the_owner = the_item.loc
-		if(!the_owner.unEquip(eaten, FALSE, TRUE))
+		if(!the_owner.drop_item_to_ground(eaten, silent = TRUE))
 			to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
 			return
 	user.visible_message("<span class='danger'>[user] eats [the_item].</span>")

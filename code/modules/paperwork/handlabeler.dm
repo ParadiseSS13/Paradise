@@ -11,44 +11,62 @@
 	var/label = null
 	var/labels_left = 30
 	var/mode = LABEL_MODE_OFF
+	new_attack_chain = TRUE
 
-/obj/item/hand_labeler/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
-		return
-	if(mode == LABEL_MODE_OFF)	//if it's off, give up.
-		return
+/obj/item/hand_labeler/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There [labels_left == 1 ? "is" : "are"] [labels_left] label\s remaining.</span>"
+	if(label)
+		. += "<span class='notice'>The label is currently set to \"[label]\".</span>"
 
+/obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!mode == LABEL_MODE_OFF)
+		apply_label(target, user)
+		return ITEM_INTERACT_COMPLETE
+	if(remove_label(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/hand_labeler/proc/remove_label(atom/target, mob/living/user)
+	if(SEND_SIGNAL(target, COMSIG_LABEL_REMOVE)) // sends a signal to label.dm
+		playsound(target, 'sound/items/poster_ripped.ogg', 20, TRUE)
+		to_chat(user, "<span class='warning'>You remove the label from [target].</span>")
+		return TRUE
+
+/obj/item/hand_labeler/proc/apply_label(atom/target, mob/living/user)
 	if(!labels_left)
 		to_chat(user, "<span class='warning'>No labels left!</span>")
 		return
 	if(!label || !length(label))
 		to_chat(user, "<span class='warning'>No text set!</span>")
 		return
-	if(ismob(A))
+	if(ismob(target))
 		to_chat(user, "<span class='warning'>You can't label creatures!</span>") // use a collar
 		return
 
 	if(mode == LABEL_MODE_GOAL)
-		if(istype(A, /obj/item))
+		if(istype(target, /obj/item))
 			to_chat(user, "<span class='warning'>Put it in a personal crate instead!</span>")
 			return
-		user.visible_message("<span class='notice'>[user] labels [A] as part of a secondary goal for [label].</span>", \
-							"<span class='notice'>You label [A] as part of a secondary goal for [label].</span>")
-		A.AddComponent(/datum/component/label/goal, label)
+		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
+							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
+		target.AddComponent(/datum/component/label/goal, label)
 		return
 
-	if(length(A.name) + length(label) > 64)
+	if(length(target.name) + length(label) > 64)
 		to_chat(user, "<span class='warning'>Label too big!</span>")
 		return
 
-	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
-						"<span class='notice'>You label [A] as [label].</span>")
-	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) labelled \"[A]\" ([ADMIN_VV(A, "VV")]) with \"[label]\" at [COORD(A.loc)] [ADMIN_JMP(A)].", INVESTIGATE_RENAME) // Investigate goes BEFORE rename so the original name is preserved in the log
-	A.AddComponent(/datum/component/label, label)
-	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
+	user.visible_message("<span class='notice'>[user] labels [target] as [label].</span>", \
+						"<span class='notice'>You label [target] as [label].</span>")
+	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) labelled \"[target]\" ([ADMIN_VV(target, "VV")]) with \"[label]\" at [COORD(target.loc)] [ADMIN_JMP(target)].", INVESTIGATE_RENAME) // Investigate goes BEFORE rename so the original name is preserved in the log
+	target.AddComponent(/datum/component/label, label)
+	playsound(target, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
-/obj/item/hand_labeler/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/hand_labeler/activate_self(mob/user)
+	if(..())
+		return
+
 	// off -> normal
 	// normal or goal -> off
 	mode = !mode
@@ -65,22 +83,27 @@
 	else
 		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
 
-/obj/item/hand_labeler/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/hand_labeler_refill))
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+/obj/item/hand_labeler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/hand_labeler_refill))
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		user.drop_item()
-		qdel(I)
+		qdel(used)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
-	else if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/id = I
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/id = used
 		if(istype(id, /obj/item/card/id/guest) || !id.registered_name)
 			to_chat(user, "<span class='warning'>Invalid ID card.</span>")
-			return
-		label = id.registered_name
-		mode = LABEL_MODE_GOAL
-		to_chat(user, "<span class='notice'>You configure the hand labeler with [I].</span>")
-		icon_state = "labeler1"
-
+			return ITEM_INTERACT_COMPLETE
+		else
+			label = id.registered_name
+			mode = LABEL_MODE_GOAL
+			to_chat(user, "<span class='notice'>You configure the hand labeler with [used].</span>")
+			icon_state = "labeler1"
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/hand_labeler_refill
 	name = "hand labeler paper roll"

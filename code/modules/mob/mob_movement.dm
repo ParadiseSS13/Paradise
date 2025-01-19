@@ -91,12 +91,17 @@
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
-	if(isAI(mob))
-		if(istype(mob.loc, /obj/item/aicard))
-			var/obj/O = mob.loc
-			return O.relaymove(mob, direct) // aicards have special relaymove stuff
-		return AIMove(n, direct, mob)
-
+	if(is_ai(mob)) 
+		var/mob/living/silicon/ai/ai = mob
+		var/mob/camera/eye/ai/eye = ai.eyeobj
+		if(istype(eye) && !istype(ai.remote_control))
+			ai.remote_control = eye
+			return eye.relaymove(mob, direct)
+		if(!istype(eye) && !istype(mob.loc, /obj/item/aicard))
+			eye = new /mob/camera/eye/ai(mob.loc, ai.name, ai, ai)
+			if(istype(eye))
+				return eye.relaymove(mob, direct)
+		return FALSE // If the AI is outside of its eye or a mech (e.g. carded), it can't move
 
 	if(Process_Grab())
 		return

@@ -157,7 +157,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		"}
 
 	var/jumptoeye = ""
-	if(isAI(M))
+	if(is_ai(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			jumptoeye = " <b>(<A href='byond://?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</A>)</b>"
@@ -199,7 +199,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				body += "<A href='byond://?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
 
 			//AI / Cyborg
-			if(isAI(M))
+			if(is_ai(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='byond://?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
@@ -672,7 +672,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		antag_list += "Wizard"
 	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
-	if(M.mind in SSticker.mode.abductors)
+	if(M.mind.has_antag_datum(/datum/antagonist/abductor))
 		antag_list += "Abductor"
 	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
@@ -800,7 +800,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		if(istype(S, /mob/living/silicon/decoy) && !S.client)
 			continue
 		ai_number++
-		if(isAI(S))
+		if(is_ai(S))
 			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
