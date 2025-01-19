@@ -60,7 +60,7 @@
 /datum/status_effect/eldritch/flesh/on_effect()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		owner.bleed(75)
+		human_owner.bleed(75)
 
 	return ..()
 

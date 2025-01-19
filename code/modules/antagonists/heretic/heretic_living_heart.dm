@@ -87,7 +87,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 	if(!LAZYLEN(heretic_datum.sac_targets))
-		to_chat(target, "<span class='hierophant_warning'>You have no targets, visit a rune!</span>")
+		to_chat(owner, "<span class='hierophant_warning'>You have no targets, visit a rune!</span>")
 		return TRUE
 
 	var/list/targets_to_choose = list()

@@ -4,8 +4,9 @@
 		While cloaked, you move faster, but undergo actions much slower. \
 		Taking damage while cloaked may cause it to lift suddenly, causing negative effects. "
 
-	overlay_icon_state = "bg_heretic_border"
-	action_background_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
+	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 	sound = 'sound/effects/curse/curse2.ogg'
 

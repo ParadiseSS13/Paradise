@@ -6,8 +6,9 @@
 		until they can escape your sight. Star Touch can also remove Cosmic Runes, or teleport you \
 		to your Star Gazer when used on yourself."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "star_touch"
 
 	sound = 'sound/items/welder.ogg'

@@ -2,7 +2,7 @@
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_icon_state = "shield"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 

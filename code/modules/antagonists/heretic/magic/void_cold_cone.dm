@@ -5,7 +5,7 @@
 		Additionally, objects hit will be frozen and can shatter, and ground hit will be iced over and slippery - \
 		though they may thaw shortly if used in room temperature."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_icon_state = "icebeam"
 
 	is_a_heretic_spell = TRUE

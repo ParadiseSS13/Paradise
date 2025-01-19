@@ -4,8 +4,9 @@
 		Targets already on fire will take priority. If the target fails to catch ablaze, or \
 		extinguishes themselves before it bounces, the chain will stop."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "flames"
 	sound = 'sound/magic/fireball.ogg'
 

@@ -3,8 +3,9 @@
 	desc = "Creates a cosmic rune at your position, only two can exist at a time. Invoking one rune transports you to the other. \
 		Anyone with a star mark gets transported along with you."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "cosmic_rune"
 
 	sound = 'sound/magic/forcewall.ogg'

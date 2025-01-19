@@ -196,7 +196,7 @@
 	var/datum/antagonist/cultist/cultist_datum = IS_CULTIST(sacrifice)
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if((sac_job in GLOB.command_head_positions.))
+	if((sac_job in GLOB.command_head_positions))
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
 		feedback += " <i>graciously</i>"
@@ -207,7 +207,7 @@
 		var/rewards_given = heretic_datum.rewards_given
 		// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
 		if(prob(min(15 * rewards_given)) && (rewards_given <= 5))
-			for(var/datum/mind/mind as anything in cultist_datum.get_team)
+			for(var/datum/mind/mind as anything in cultist_datum.get_team())
 				if(mind.current)
 					SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
 					var/message = "<span class='narsie'>A vile heretic has </span>" + \

@@ -835,8 +835,10 @@
 	var/static/main_path_length = 0
 
 /datum/objective/heretic_research/New(text)
+	gen_amount_goal()
 	. = ..()
 
+/datum/objective/heretic_research/proc/gen_amount_goal()
 	if(!main_path_length)
 		// Let's find the length of a main path. We'll use rust because it's the coolest.
 		// (All the main paths are (should be) the same length, so it doesn't matter.)
@@ -854,9 +856,9 @@
 	// And add in some buffer, to require some sidepathing, especially since heretics get some free side paths.
 	target_amount += rand(2, 4)
 	update_explanation_text()
+	return target_amount
 
 /datum/objective/heretic_research/update_explanation_text()
-	. = ..()
 	explanation_text = "Research at least [target_amount] knowledge from the Mansus. You start with [length(GLOB.heretic_start_knowledge)] researched."
 
 /datum/objective/heretic_research/check_completion()

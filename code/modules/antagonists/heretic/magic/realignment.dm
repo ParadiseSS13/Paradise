@@ -4,10 +4,9 @@
 	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/bio_chips.dmi'
 	action_icon_state = "adrenal"
-	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 6 SECONDS
@@ -21,7 +20,10 @@
 
 /datum/spell/realignment/cast(list/targets, mob/user)
 	. = ..()
-	user.apply_status_effect(/datum/status_effect/realignment)
+	if(!isliving(user))
+		return
+	var/mob/living/living_user = user
+	living_user.apply_status_effect(/datum/status_effect/realignment)
 	to_chat(user, "<span class='notice'>We begin to realign ourselves.</span>")
 
 /datum/spell/realignment/after_cast(atom/cast_on)

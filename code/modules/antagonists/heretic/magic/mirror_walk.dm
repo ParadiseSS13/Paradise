@@ -4,7 +4,7 @@
 		You can only enter and exit the realm of mirrors when nearby reflective surfaces and items, \
 		such as windows, mirrors, and reflective walls or equipment."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	//button_overlay_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	action_icon_state = "ninja_cloak"
 

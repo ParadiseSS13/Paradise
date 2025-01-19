@@ -3,8 +3,9 @@
 	desc = "Causes severe bleeding and opens every limb of a target which has more than 15 brute damage. \
 		Opens a random limb if no limb is sufficiently damaged."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "apetra_vulnera"
 
 	is_a_heretic_spell = TRUE

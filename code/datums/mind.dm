@@ -400,6 +400,15 @@
 
 	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
 
+/datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
+	. = _memory_edit_header("heretic")
+	if(has_antag_datum(/datum/antagonist/wizard))
+		. += "<b><font color='red'HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_HERETIC)
+
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
 	if(src in SSticker.mode.syndicates)
@@ -547,6 +556,7 @@
 		"changeling",
 		"vampire", // "traitorvamp",
 		"mind_flayer",
+		"heretic",
 		"nuclear",
 		"traitor", // "traitorchan",
 	)
@@ -564,6 +574,8 @@
 		sections["vampire"] = memory_edit_vampire(H)
 		/** MINDFLAYER ***/
 		sections["mind_flayer"] = memory_edit_mind_flayer(H)
+		/** HERETIC ***/
+		sections["heretic"] = memory_edit_heretic(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
@@ -1136,6 +1148,19 @@
 				MF.set_swarms(new_swarms)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s current swarms to [new_swarms].")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s current swarms to [new_swarms].")
+
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/heretic))
+					remove_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has de-heretic'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-heretic'd [key_name(current)].")
+			if("heretic")
+				make_heretic()
+				log_admin("[key_name(usr)] has heretic'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>") //qwertodo lol
+				message_admins("[key_name(usr)] has heretic'd [key_name(current)].")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
@@ -1710,6 +1735,11 @@
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
+
+/datum/mind/proc/make_heretic()
+	if(!has_antag_datum(/datum/antagonist/heretic))
+		add_antag_datum(/datum/antagonist/heretic)
+		SSticker.mode.heretics |= src
 
 /datum/mind/proc/make_Abductor()
 	if(alert(usr, "Are you sure you want to turn this person into an abductor? This can't be undone!", "New Abductor?", "Yes", "No") != "Yes")

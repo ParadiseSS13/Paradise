@@ -2,8 +2,9 @@
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "ash_shift"
 	sound = null
 

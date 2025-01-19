@@ -82,7 +82,7 @@
 	result_atoms = list(/obj/item/ammo_box/lionhunter)
 	cost = 0
 
-	research_tree_icon_path = 'icons/obj/weapons/guns/ammo.dmi'
+	research_tree_icon_path = 'icons/obj/ammo.dmi'
 	research_tree_icon_state = "310_strip"
 
 

@@ -35,10 +35,10 @@
 		return FALSE
 
 	var/turf/simulated/our_turf = loc
-	var/datum/gas_mixture/environment = get_turf_air(our_turf)
-	if(environment.temperature() > T0C)
-		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
-		return FALSE
+	//var/datum/gas_mixture/environment = get_turf_air(our_turf) //QWERTODO MILLA
+//	if(environment.temperature() > T0C)
+//		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+//		return FALSE
 
 	return ..()
 
@@ -91,16 +91,16 @@
 ///Checks if our traits should be active
 /datum/heretic_knowledge/cold_snap/proc/check_environment(mob/living/user)
 	SIGNAL_HANDLER
-	var/turf/our_loc = get_turf(user)
-	var/datum/gas_mixture/environment = user.our_loc?.get_turf_air(location)
+	//var/turf/our_loc = get_turf(user)
+	//var/datum/gas_mixture/environment = user.our_loc?.get_turf_air(location)
 
-	if(!isnull(environment))
-		var/affected_temperature = environment.temperature()
-		var/affected_pressure = environment.return_pressure()
-		if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
-			user.add_traits(gain_traits, type)
-		else
-			user.remove_traits(gain_traits, type)
+//.	if(!isnull(environment))
+	//	var/affected_temperature = environment.temperature()
+	//	var/affected_pressure = environment.return_pressure()
+//		if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
+	//		user.add_traits(gain_traits, type)
+	//	else
+	//		user.remove_traits(gain_traits, type) living_user
 
 /datum/heretic_knowledge/mark/void_mark
 	name = "Mark of Void"
@@ -195,11 +195,11 @@
 		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
-	var/turf/simulated/our_turf = loc
-	var/datum/gas_mixture/environment = get_turf_air(our_turf)
-	if(environment.temperature() > T0C)
-		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
-		return FALSE
+//	var/turf/simulated/our_turf = loc
+	//var/datum/gas_mixture/environment = get_turf_air(our_turf)
+	//if(environment.temperature() > T0C)
+	//	to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+	//	return FALSE QWERTODO: MILLA
 
 	return ..()
 
@@ -248,10 +248,10 @@
 			var/obj/structure/affected_structure = thing_in_range
 			affected_structure.take_damage(rand(20, 40))
 
-		if(isturf(thing_in_range))
-			var/turf/affected_turf = thing_in_range
-			var/datum/gas_mixture/environment = get_turf_air(location)
-			environment.set_temperature(environment.temperature *= 0.9)
+		//if(isturf(thing_in_range))
+		//	var/turf/affected_turf = thing_in_range
+		//	var/datum/gas_mixture/environment = get_turf_air(location)
+		//	environment.set_temperature(environment.temperature *= 0.9) QWERTODO MILLA
 
 	// Telegraph the storm in every area on the station.
 	var/list/station_levels = levels_by_trait(STATION_LEVEL)

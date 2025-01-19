@@ -182,7 +182,7 @@
 /datum/heretic_knowledge/spell
 	abstract_parent_type = /datum/heretic_knowledge/spell
 	/// Spell path we add to the heretic. Type-path.
-	var/datum/action/action_to_add
+	var/datum/spell/action_to_add
 	/// The spell we actually created.
 	var/created_action_ref
 
@@ -194,8 +194,8 @@
 	// Added spells are tracked on the body, and not the mind,
 	// because we handle heretic mind transfers
 	// via the antag datum (on_gain and on_lose).
-	var/datum/action/created_action = locateUID(created_action_ref)|| new action_to_add(user)
-	created_action.Grant(user)
+	var/datum/spell/created_action = locateUID(created_action_ref) || new action_to_add(user)
+	user.AddSpell(created_action)
 	created_action_ref = created_action.UID()
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)

@@ -3,7 +3,7 @@
 	name = "Energetic Pulse"
 	desc = "A spell that causes a large EMP around you, disabling electronics."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 
 	is_a_heretic_spell = TRUE
 	base_cooldown = 30 SECONDS

@@ -372,7 +372,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			log_game("Sacrifice rune failed - not enough acolytes and target is living")
 			return
-
+	var/mob/living/first_invoker = invokers[1]
+	var/datum/antagonist/cultist/first_invoker_datum = first_invoker.mind.has_antag_datum(/datum/antagonist/cultist)
+	var/datum/team/cult/cult_team = first_invoker_datum.get_team()
 	var/signal_result = SEND_SIGNAL(offering, COMSIG_LIVING_CULT_SACRIFICED, invokers, cult_team)
 
 	var/do_message = TRUE

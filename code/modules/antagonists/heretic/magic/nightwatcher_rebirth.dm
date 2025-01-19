@@ -4,8 +4,9 @@
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "smoke"
 
 	is_a_heretic_spell = TRUE

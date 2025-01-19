@@ -2,8 +2,9 @@
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby surfaces."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "corrode"
 	sound = 'sound/items/welder.ogg'
 

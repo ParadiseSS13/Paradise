@@ -28,7 +28,7 @@
 
 /obj/effect/heretic_rune/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	return attack_hand(user, modifiers)
+	return attack_hand(M)
 
 
 /obj/effect/heretic_rune/interact(mob/living/user)
@@ -204,12 +204,12 @@
 	pixel_x = -30
 	pixel_y = 18
 	pixel_z = -48
-	greyscale_config = /datum/greyscale_config/heretic_rune
+	//greyscale_config = /datum/greyscale_config/heretic_rune
 
 /obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
-	if(path_colour)
-		set_greyscale(colors = list(path_colour))
+	//if(path_colour)
+	//	set_greyscale(colors = list(path_colour))
 
 /obj/effect/temp_visual/drawing_heretic_rune
 	duration = 30 SECONDS
@@ -220,13 +220,13 @@
 	pixel_z = -48
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
-	greyscale_config = /datum/greyscale_config/heretic_rune
+	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
 	var/animation_state = "transmutation_rune_draw"
 
 /obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
 	. = ..()
-	set_greyscale(colors = list(path_colour))
+	//set_greyscale(colors = list(path_colour))
 	icon_state = animation_state
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE

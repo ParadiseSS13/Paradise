@@ -3,14 +3,14 @@
 	desc = "It stares back. There's no reason to remain. Run."
 	max_integrity = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	icon = 'icons/obj/anomaly.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
 	anchored = TRUE
 	density = FALSE
-	layer = HIGH_PIPE_LAYER //0.01 above sigil layer used by heretic runes
+	layer = HIGH_SIGIL_LAYER //0.01 above sigil layer used by heretic runes
 	move_resist = INFINITY
 	/// Who is our daddy?
 	var/datum/mind/ascendee
@@ -20,8 +20,9 @@
 	var/static/list/monster_types
 	/// A static list of heretic summons which we should not create
 	var/static/list/monster_types_blacklist = list(
-		/mob/living/basic/heretic_summon/armsy,
-		/mob/living/basic/heretic_summon/star_gazer,
+		///mob/living/basic/heretic_summon/armsy,
+		///mob/living/basic/heretic_summon/star_gazer,
+		/mob/living/simple_animal/bunny
 	)
 
 /obj/structure/lock_tear/Initialize(mapload, datum/mind/ascendant_mind)
@@ -32,7 +33,7 @@
 	if(!isnull(ascendant_mind))
 		ascendee = ascendant_mind
 		RegisterSignals(ascendant_mind.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(end_madness))
-	SSpoints_of_interest.make_point_of_interest(src)
+	GLOB.poi_list += src
 	INVOKE_ASYNC(src, PROC_REF(poll_ghosts))
 
 /// Ask ghosts if they want to make some noise

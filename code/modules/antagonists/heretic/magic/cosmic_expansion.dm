@@ -3,8 +3,9 @@
 	desc = "This spell generates a 3x3 domain of cosmic fields. \
 		Creatures up to 7 tiles away will also receive a star mark."
 
-	overlay_icon_state = "bg_heretic_border"
+	overlay_icon_state = "bg_heretic"
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "cosmic_domain"
 
 	sound = 'sound/magic/cosmic_expansion.ogg'
