@@ -134,7 +134,8 @@
 /datum/heretic_knowledge/proc/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	if(!length(result_atoms))
 		return FALSE
-
+	for(var/result in result_atoms)
+		new result(loc)
 	return TRUE
 
 /**
@@ -233,7 +234,7 @@
 /datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	for(var/result in result_atoms)
 		var/atom/created_thing = new result(loc)
-		LAZYADD(created_items, locateUID(created_thing))
+		LAZYADD(created_items,created_thing.UID())
 	return TRUE
 
 /**
@@ -288,7 +289,7 @@
  *
  * Whenever we attack someone with our blade, attempt to trigger any marks on them.
  */
-/datum/heretic_knowledge/mark/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/mark/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	if(!isliving(target))
@@ -343,7 +344,7 @@
  *
  * Apply any melee effects from hitting someone with our blade.
  */
-/datum/heretic_knowledge/blade_upgrade/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	do_melee_effects(source, target, blade)
@@ -353,7 +354,7 @@
  *
  * Apply any ranged effects from hitting someone with our blade.
  */
-/datum/heretic_knowledge/blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	do_ranged_effects(source, target, blade)
@@ -362,14 +363,14 @@
  * Overridable proc that invokes special effects
  * whenever the heretic attacks someone in melee with their heretic blade.
  */
-/datum/heretic_knowledge/blade_upgrade/proc/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/proc/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	return
 
 /**
  * Overridable proc that invokes special effects
  * whenever the heretic clicks on someone at range with their heretic blade.
  */
-/datum/heretic_knowledge/blade_upgrade/proc/do_ranged_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/proc/do_ranged_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	return
 
 /**

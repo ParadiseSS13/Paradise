@@ -1,5 +1,5 @@
 
-/obj/item/sickly_blade
+/obj/item/melee/sickly_blade
 	name = "\improper sickly blade"
 	desc = "A sickly green crescent blade, decorated with an ornamental eye. You feel like you're being watched..."
 	icon = 'icons/obj/weapons/khopesh.dmi'
@@ -22,7 +22,7 @@
 	new_attack_chain = TRUE
 	var/after_use_message = ""
 
-/obj/item/sickly_blade/examine(mob/user)
+/obj/item/melee/sickly_blade/examine(mob/user)
 	. = ..()
 	if(!check_usability(user))
 		return
@@ -30,10 +30,10 @@
 	. += "<span class='notice'>You can shatter the blade to teleport to a random, (mostly) safe location by <b>activating it in-hand</b>.</span>"
 
 /// Checks if the passed mob can use this blade without being stunned
-/obj/item/sickly_blade/proc/check_usability(mob/living/user)
+/obj/item/melee/sickly_blade/proc/check_usability(mob/living/user)
 	return IS_HERETIC_OR_MONSTER(user)
 
-/obj/item/sickly_blade/pre_attack(atom/target, mob/living/user, params)
+/obj/item/melee/sickly_blade/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 	if(!check_usability(user))
@@ -43,13 +43,13 @@
 		return FINISH_ATTACK
 
 
-/obj/item/sickly_blade/activate_self(mob/user)
+/obj/item/melee/sickly_blade/activate_self(mob/user)
 	if(..())
 		return
 	seek_safety(user)
 
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
-/obj/item/sickly_blade/proc/seek_safety(mob/user)
+/obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
 	var/turf/safe_turf = find_safe_turf()
 	if(check_usability(user))
 		if(do_teleport(user, safe_turf))
@@ -61,16 +61,16 @@
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
 
-/obj/item/sickly_blade/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/sickly_blade/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_ATTACK, target, src)
 
-/obj/item/sickly_blade/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/melee/sickly_blade/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	SEND_SIGNAL(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, interacting_with, src)
 	return ITEM_INTERACT_COMPLETE
 
 // Path of Rust's blade
-/obj/item/sickly_blade/rust
+/obj/item/melee/sickly_blade/rust
 	name = "\improper rusted blade"
 	desc = "This crescent blade is decrepit, wasting to rust. \
 		Yet still it bites, ripping flesh and bone with jagged, rotten teeth."
@@ -79,7 +79,7 @@
 	after_use_message = "The Rusted Hills hear your call..."
 
 // Path of Ash's blade
-/obj/item/sickly_blade/ash
+/obj/item/melee/sickly_blade/ash
 	name = "\improper ashen blade"
 	desc = "Molten and unwrought, a hunk of metal warped to cinders and slag. \
 		Unmade, it aspires to be more than it is, and shears soot-filled wounds with a blunt edge."
@@ -89,7 +89,7 @@
 	resistance_flags = FIRE_PROOF
 
 // Path of Flesh's blade
-/obj/item/sickly_blade/flesh
+/obj/item/melee/sickly_blade/flesh
 	name = "\improper bloody blade"
 	desc = "A crescent blade born from a fleshwarped creature. \
 		Keenly aware, it seeks to spread to others the suffering it has endured from its dreadful origins."
@@ -98,7 +98,7 @@
 	after_use_message = "The Marshal hears your call..."
 
 // Path of Void's blade
-/obj/item/sickly_blade/void
+/obj/item/melee/sickly_blade/void
 	name = "\improper void blade"
 	desc = "Devoid of any substance, this blade reflects nothingness. \
 		It is a real depiction of purity, and chaos that ensues after its implementation."
@@ -108,7 +108,7 @@
 
 // Path of the Blade's... blade.
 // Opting for /dark instead of /blade to avoid "sickly_blade/blade".
-/obj/item/sickly_blade/dark
+/obj/item/melee/sickly_blade/dark
 	name = "\improper sundered blade"
 	desc = "A galliant blade, sundered and torn. \
 		Furiously, the blade cuts. Silver scars bind it forever to its dark purpose."
@@ -119,7 +119,7 @@
 	///If our blade is currently infused with the mansus grasp
 	var/infused = FALSE
 
-/obj/item/sickly_blade/dark/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/sickly_blade/dark/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -137,7 +137,7 @@
 	mark_to_apply.create_mark(user, living_target)
 
 	//Remove the infusion from any blades we own (and update their sprite)
-	for(var/obj/item/sickly_blade/dark/to_infuse in user.get_contents())
+	for(var/obj/item/melee/sickly_blade/dark/to_infuse in user.get_contents())
 		to_infuse.infused = FALSE
 		to_infuse.update_appearance(UPDATE_ICON)
 	user.update_inv_l_hand()
@@ -150,13 +150,13 @@
 	living_target.apply_damage(10, BRUTE)
 	playsound(living_target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
-/obj/item/sickly_blade/dark/dropped(mob/user, silent)
+/obj/item/melee/sickly_blade/dark/dropped(mob/user, silent)
 	. = ..()
 	if(infused)
 		infused = FALSE
 		update_appearance(UPDATE_ICON)
 
-/obj/item/sickly_blade/dark/update_icon_state()
+/obj/item/melee/sickly_blade/dark/update_icon_state()
 	. = ..()
 	if(infused)
 		icon_state = base_icon_state + "_infused"
@@ -166,7 +166,7 @@
 		item_state = base_icon_state
 
 // Path of Cosmos's blade
-/obj/item/sickly_blade/cosmic
+/obj/item/melee/sickly_blade/cosmic
 	name = "\improper cosmic blade"
 	desc = "A mote of celestial resonance, shaped into a star-woven blade. \
 		An iridescent exile, carving radiant trails, desperately seeking unification."
@@ -175,7 +175,7 @@
 	after_use_message = "The Stargazer hears your call..."
 
 // Path of Knock's blade
-/obj/item/sickly_blade/lock
+/obj/item/melee/sickly_blade/lock
 	name = "\improper key blade"
 	desc = "A blade and a key, a key to what? \
 		What grand gates does it open?"
@@ -186,7 +186,7 @@
 	toolspeed = 1.3
 
 // Path of Moon's blade
-/obj/item/sickly_blade/moon
+/obj/item/melee/sickly_blade/moon
 	name = "\improper moon blade"
 	desc = "A blade of iron, reflecting the truth of the earth: All join the troupe one day. \
 		A troupe bringing joy, carving smiles on their faces if they want one or not."
@@ -197,7 +197,7 @@
 // Path of Nar'Sie's blade
 // What!? This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.
-/obj/item/sickly_blade/cursed
+/obj/item/melee/sickly_blade/cursed
 	name = "\improper cursed blade"
 	desc = "A dark blade, cursed to bleed forever. In constant struggle between the eldritch and the dark, it is forced to accept any wielder as its master. \
 		Its eye's cornea drips blood endlessly into the ground, yet its piercing gaze remains on you."
@@ -207,7 +207,7 @@
 	item_state = "cursed_blade"
 	//qwertodo: parry
 
-///obj/item/sickly_blade/cursed/Initialize(mapload)
+///obj/item/melee/sickly_blade/cursed/Initialize(mapload)
 //	. = ..()
 
 //	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
@@ -217,15 +217,15 @@
 // qwertodo: fuck my ass how will they write cult runes we might have to remove that auugh
 	//AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text), turfs_that_boost_us = /turf) // Always fast to draw!
 
-///obj/item/sickly_blade/cursed/attack_self_secondary(mob/user)
+///obj/item/melee/sickly_blade/cursed/attack_self_secondary(mob/user)
 //	seek_safety(user, TRUE)
 
-/obj/item/sickly_blade/cursed/seek_safety(mob/user, secondary_attack = FALSE)
+/obj/item/melee/sickly_blade/cursed/seek_safety(mob/user, secondary_attack = FALSE)
 	if(IS_CULTIST(user) && !secondary_attack)
 		return FALSE
 	return ..()
 
-/obj/item/sickly_blade/cursed/check_usability(mob/living/user)
+/obj/item/melee/sickly_blade/cursed/check_usability(mob/living/user)
 	if(IS_HERETIC_OR_MONSTER(user) || IS_CULTIST(user))
 		return TRUE
 	if(prob(15))
@@ -239,7 +239,7 @@
 		user.adjustBrainLoss(15) // This can kill you if you ignore it
 	return TRUE
 
-/obj/item/sickly_blade/cursed/equipped(mob/user, slot)
+/obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
 	if(IS_HERETIC_OR_MONSTER(user))
 		after_use_message = "The Mansus hears your call..."
@@ -248,7 +248,7 @@
 	else
 		after_use_message = null
 
-/obj/item/sickly_blade/cursed/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/melee/sickly_blade/cursed/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)

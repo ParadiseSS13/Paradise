@@ -7,6 +7,7 @@
 
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	invocation = "SH'PE"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE

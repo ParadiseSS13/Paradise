@@ -11,6 +11,7 @@
 	sound = 'sound/magic/swap.ogg'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 
 	invocation = "F'K 'FF."

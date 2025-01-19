@@ -18,7 +18,7 @@
 		/obj/item/food/grown/poppy, // Used to regain a Living Heart.
 		/obj/item/food/grown/harebell, // Used to reroll targets
 		/obj/item/melee/rune_carver,
-		/obj/item/sickly_blade,
+		/obj/item/melee/sickly_blade,
 		/obj/item/organ, // Organs are also often used in rituals.
 		/obj/item/reagent_containers/cup/beaker/eldritch,
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics

@@ -403,7 +403,14 @@
 /datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
 	. = _memory_edit_header("heretic")
 	if(has_antag_datum(/datum/antagonist/heretic))
+		var/datum/antagonist/heretic/wheretic = has_antag_datum(/datum/antagonist/heretic)
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		switch(wheretic.has_living_heart())
+			if(HERETIC_NO_LIVING_HEART)
+				. += "<br>Give <a href='byond://?src=[UID()];heretic=heart'>Living heart</a>"
+			if(HERETIC_HAS_LIVING_HEART)
+				. += "<a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
+				. += "<a href='byond://?src=[UID()];heretic=RemoveTarget'><b>Remove A Target</b></a>"
 	else
 		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
 
@@ -1161,6 +1168,36 @@
 				log_admin("[key_name(usr)] has heretic'd [key_name(current)].")
 				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>") //qwertodo lol
 				message_admins("[key_name(usr)] has heretic'd [key_name(current)].")
+			if("Target")
+				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
+				if(!istype(new_target))
+					to_chat(usr, "<span class='warning'>You need to mark a human to do this!</span>")
+					return
+
+				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
+					to_chat(current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
+					to_chat(current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+					var/datum/antagonist/heretic/here = has_antag_datum(/datum/antagonist/heretic)
+					here.add_sacrifice_target(new_target)
+			if("RemoveTarget")
+				var/datum/antagonist/heretic/thereitic = has_antag_datum(/datum/antagonist/heretic)
+				var/list/removable = list()
+				for(var/mob/living/carbon/human/old_target as anything in thereitic.sac_targets)
+					removable[old_target.name] = old_target
+
+				var/name_of_removed = tgui_input_list(usr, "Choose a human to remove", "Who to Spare", removable)
+				if(QDELETED(src) || isnull(name_of_removed))
+					return
+				var/mob/living/carbon/human/chosen_target = removable[name_of_removed]
+				if(QDELETED(chosen_target) || !ishuman(chosen_target))
+					return
+
+				if(!thereitic.remove_sacrifice_target(chosen_target))
+					to_chat(usr, "<span class='warning'>Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways.</span>")
+					return
+
+				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
+					to_chat(current, "<span class='danger'>The Mansus has modified your targets.</span>")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current

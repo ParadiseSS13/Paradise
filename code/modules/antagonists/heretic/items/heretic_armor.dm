@@ -14,7 +14,7 @@
 	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
 	icon_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
+	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Quite well armored, though not vs disablers
 	armor = list(MELEE = 50, BULLET = 40, LASER = 30, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 20)
@@ -49,7 +49,7 @@
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
-	allowed = list(/obj/item/sickly_blade)
+	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS

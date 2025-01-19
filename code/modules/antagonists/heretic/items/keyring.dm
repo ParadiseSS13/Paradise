@@ -59,9 +59,9 @@
 
 	//get it?
 	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
-	if(SEND_SIGNAL(teleportee, COMSIG_MOVABLE_TELEPORTING, get_turf(teleportee)) & COMPONENT_BLOCK_TELEPORT)
+	if(SEND_SIGNAL(teleportee, COMSIG_MOVABLE_TELEPORTING, get_turf(destination)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
-	teleportee.forceMove(destination)
+	teleportee.forceMove(get_turf(destination))
 
 	teleportee.client?.move_delay = 0 //make moving through smoother
 
@@ -210,7 +210,7 @@
 		link = null
 		to_chat(user, "<span class='hierophant'>Link 2/2.</span>")
 	else
-		link = UID(target)
+		link = target.UID()
 		to_chat(user, "<span class='hierophant'>Link 1/2.</span>")
 	return ITEM_INTERACT_COMPLETE
 

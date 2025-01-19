@@ -14,6 +14,7 @@
 
 	sound = 'sound/items/welder.ogg'
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 	invocation = "ST'R 'N'RG'!"
 	invocation_type = INVOCATION_SHOUT

@@ -27,7 +27,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/item/trash = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/rust)
+	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "rust_blade"
 
@@ -132,7 +132,7 @@
 	. = ..()
 	our_heretic.increase_rust_strength()
 
-/datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 	target.adjust_disgust(50 SECONDS)

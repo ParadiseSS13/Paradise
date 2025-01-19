@@ -10,6 +10,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT

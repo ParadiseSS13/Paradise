@@ -110,6 +110,7 @@
 	action_icon_state = "flames"
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 300
 
 	invocation = "F'RE"

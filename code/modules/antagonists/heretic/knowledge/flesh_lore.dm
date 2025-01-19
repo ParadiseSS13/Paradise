@@ -31,7 +31,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/effect/decal/cleanable/blood = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/flesh)
+	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	limit = 3 // Bumped up so they can arm up their ghouls too.
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
@@ -246,7 +246,7 @@
 	research_tree_icon_state = "blade_upgrade_flesh"
 	///What type of wound do we apply on hit
 
-/datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(!iscarbon(target) || source == target)
 		return
 

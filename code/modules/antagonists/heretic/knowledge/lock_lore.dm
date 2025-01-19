@@ -28,7 +28,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/item/crowbar = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/lock)
+	result_atoms = list(/obj/item/melee/sickly_blade/lock)
 	limit = 2
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "key_blade"
@@ -142,7 +142,7 @@
 	research_tree_icon_state = "blade_upgrade_lock"
 	var/chance = 35
 
-/datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(prob(chance))
 		var/obj/item/organ/external/lockbox = target.get_organ(source.zone_selected)
 		lockbox.open = ORGAN_ORGANIC_VIOLENT_OPEN

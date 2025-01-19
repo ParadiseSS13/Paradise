@@ -26,7 +26,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/item/match = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/ash)
+	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "ash_blade"
 
@@ -131,7 +131,7 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_ash"
 
-/datum/heretic_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/ash/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 

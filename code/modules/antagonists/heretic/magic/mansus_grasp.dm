@@ -9,6 +9,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	base_cooldown = 10 SECONDS
+	clothes_req = FALSE
 
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
@@ -21,14 +22,17 @@
 	. = ..()
 	if(!isliving(target))
 		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target)
+		handle_delete(user)
 		return
 
 	if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target) & COMPONENT_BLOCK_HAND_USE)
+		handle_delete(user)
 		return
 
 	var/mob/living/living_hit = target
 	living_hit.apply_damage(10, BRUTE)
 	if(!iscarbon(target))
+		handle_delete(user)
 		return
 
 	var/mob/living/carbon/carbon_hit = target
@@ -47,14 +51,15 @@
 
 		to_chat(user, "<span class='warning'>An unholy force intervenes as you grasp [carbon_hit], absorbing most of the effects!</span>")
 		to_chat(carbon_hit, "<span class='warning'>As [user] grasps you with eldritch forces, your blood magic absorbs most of the effects!</span>")
-		return TRUE
+		handle_delete(user)
+		return
 
 	carbon_hit.HereticSlur(15 SECONDS)
 	carbon_hit.KnockDown(5 SECONDS)
 	carbon_hit.adjustStaminaLoss(80)
 	//qwertodo: some status effect to do the last 20
-
-	return TRUE
+	handle_delete(user)
+	return
 
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
@@ -63,6 +68,7 @@
 		It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus"
 	item_state = "mansus"
+	catchphrase = null
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
 	. = ..()

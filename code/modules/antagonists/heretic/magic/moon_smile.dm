@@ -12,6 +12,7 @@
 
 	sound = 'sound/magic/blind.ogg'
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "Mo'N S'M'LE"

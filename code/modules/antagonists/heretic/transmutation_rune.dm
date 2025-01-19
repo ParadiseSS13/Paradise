@@ -31,7 +31,7 @@
 	return attack_hand(M)
 
 
-/obj/effect/heretic_rune/interact(mob/living/user)
+/obj/effect/heretic_rune/attack_hand(mob/living/user)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
 	return TRUE

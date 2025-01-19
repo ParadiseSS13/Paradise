@@ -17,6 +17,7 @@
 
 	sound = null
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	invocation = "V''D PR'S'N!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE

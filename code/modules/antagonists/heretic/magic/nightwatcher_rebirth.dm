@@ -11,6 +11,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"

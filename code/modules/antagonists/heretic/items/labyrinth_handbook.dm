@@ -27,6 +27,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound = 'sound/items/handling/book_pickup.ogg'
+	new_attack_chain = TRUE
 	///what type of barrier do we spawn when used
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
 	///how many uses do we have left

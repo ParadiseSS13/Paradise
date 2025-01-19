@@ -27,7 +27,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/item/stack/sheet/mineral/plasma = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/cosmic)
+	result_atoms = list(/obj/item/melee/sickly_blade/cosmic)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "cosmic_blade"
 
@@ -125,7 +125,7 @@
 	/// The hits we have on a mob with a mind.
 	var/combo_counter = 0
 
-/datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	var/static/list/valid_organ_slots = list(
 		/obj/item/organ/internal/heart,
 		/obj/item/organ/internal/lungs,

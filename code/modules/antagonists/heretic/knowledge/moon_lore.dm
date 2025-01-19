@@ -27,7 +27,7 @@
 		/obj/item/kitchen/knife = 1,
 		/obj/item/stack/sheet/metal = 2,
 	)
-	result_atoms = list(/obj/item/sickly_blade/moon)
+	result_atoms = list(/obj/item/melee/sickly_blade/moon)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "moon_blade"
 
@@ -118,7 +118,7 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_moon"
 
-/datum/heretic_knowledge/blade_upgrade/moon/do_melee_effects(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/moon/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
 

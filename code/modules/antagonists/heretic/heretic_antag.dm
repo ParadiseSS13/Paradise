@@ -56,7 +56,7 @@
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
 	var/list/unlocked_heretic_items = list(
-		/obj/item/sickly_blade/cursed = 0,
+		/obj/item/melee/sickly_blade/cursed = 0,
 		/obj/item/clothing/neck/heretic_focus/crimson_medallion = 0,
 		///mob/living/basic/construct/harvester/heretic = 0, qwertodo:
 	)
@@ -178,6 +178,12 @@
 	data["knowledge_tiers"] = tiers
 
 	return data
+
+/datum/antagonist/heretic/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AntagInfoHeretic", name)
+		ui.open()
 
 /datum/antagonist/heretic/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
@@ -327,7 +333,7 @@
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!isfloorturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			to_chat(user, "<span class='hierophant_warning'>This is not a valid polacement for a rune.</span>")
+			to_chat(user, "<span class='hierophant_warning'>This is not a valid placement for a rune.</span>")
 			return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
@@ -359,7 +365,7 @@
 	else
 		drawing_effect = new(target_turf, rune_colour)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = list(additional_checks)))
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
 		drawing_rune = FALSE
@@ -628,24 +634,6 @@
 
 	heart_knowledge.on_research(owner.current, src)
 
-/**
- * Admin proc for adding a marked mob to a heretic's sac list.
- */
-/datum/antagonist/heretic/proc/add_marked_as_target(mob/admin)
-	if(!admin.client?.holder)
-		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
-		return
-
-	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
-	if(!istype(new_target))
-		to_chat(admin, "<span class='warning'>You need to mark a human to do this!</span>")
-		return
-
-	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
-
-	add_sacrifice_target(new_target)
 
 /**
  * Admin proc for removing a mob from a heretic's sac list.

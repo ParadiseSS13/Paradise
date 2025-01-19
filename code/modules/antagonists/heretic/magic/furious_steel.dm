@@ -12,6 +12,7 @@
 	sound = 'sound/weapons/guillotine.ogg'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 60 SECONDS
 	invocation = "F'LSH'NG S'LV'R!"
 	invocation_type = INVOCATION_SHOUT

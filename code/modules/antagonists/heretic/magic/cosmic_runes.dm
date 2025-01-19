@@ -11,6 +11,7 @@
 
 	sound = 'sound/magic/forcewall.ogg'
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 
 	invocation = "ST'R R'N'"

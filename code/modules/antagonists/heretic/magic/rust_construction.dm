@@ -7,6 +7,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 8 SECONDS
 
 	invocation_type = "none"

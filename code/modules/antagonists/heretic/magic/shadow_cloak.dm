@@ -11,6 +11,7 @@
 	sound = 'sound/effects/curse/curse2.ogg'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
 
 	invocation_type = INVOCATION_NONE
@@ -34,6 +35,8 @@
 		'sound/effects/curse/curse6.ogg',
 	)
 
+/datum/spell/shadow_cloak/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 /datum/spell/shadow_cloak/cast(list/targets, mob/user)
 	. = ..()
@@ -186,7 +189,7 @@
 		trail.transform = turn(trail.transform, 90)
 
 /datum/status_effect/shadow_cloak/proc/hide_user(mob/living/carbon/user)
-	mob_overlay = mutable_appearance('icons/effects/effects.dmi', "curse", user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
+	mob_overlay = mutable_appearance('icons/effects/effects.dmi', "curse", user.layer, user.plane, 0, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
 	mob_overlay.dir = owner.dir
 	mob_overlay.override = TRUE
 	mob_overlay.alpha = 0

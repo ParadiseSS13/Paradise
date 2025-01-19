@@ -7,6 +7,7 @@
 	base_icon_state = "book"
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 	/// Helps determine the icon state of this item when it's used on self.
 	var/book_open = FALSE
 
@@ -14,7 +15,6 @@
 	. = ..()
 	AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You remove %THEEFFECT.", \
-		tip_text = "Clear rune", \
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/heretic_rune))
 

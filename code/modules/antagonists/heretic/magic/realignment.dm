@@ -9,6 +9,7 @@
 	action_icon_state = "adrenal"
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
 	var/cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
 	level_max = 10 // we can get up to / over a minute duration cd time

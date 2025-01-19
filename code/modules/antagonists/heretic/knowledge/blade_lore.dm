@@ -27,7 +27,7 @@
 		/obj/item/kitchen/knife = 1,
 		list(/obj/item/stack/sheet/mineral/silver, /obj/item/stack/sheet/mineral/titanium) = 1,
 	)
-	result_atoms = list(/obj/item/sickly_blade/dark)
+	result_atoms = list(/obj/item/melee/sickly_blade/dark)
 	limit = 4 // It's the blade path, it's a given
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
@@ -115,12 +115,12 @@
 	var/obj/item/striking_with
 
 	// First we'll check if the offhand is valid
-	if(!QDELETED(off_hand) && istype(off_hand, /obj/item/sickly_blade))
+	if(!QDELETED(off_hand) && istype(off_hand, /obj/item/melee/sickly_blade))
 		striking_with = off_hand
 
 	// Then we'll check the mainhand
 	// We do mainhand second, because we want to prioritize it over the offhand
-	if(!QDELETED(main_hand) && istype(main_hand, /obj/item/sickly_blade))
+	if(!QDELETED(main_hand) && istype(main_hand, /obj/item/melee/sickly_blade))
 		striking_with = main_hand
 
 	// No valid item in either slot? No riposte
@@ -134,7 +134,7 @@
 	riposte_ready = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), BLADE_DANCE_COOLDOWN)
 
-/datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/sickly_blade/weapon, attack_text)
+/datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	source.visible_message(
 		"<span class='warning'>[source] leans into [attack_text] and delivers a sudden riposte back at [target]!</span>",
@@ -272,28 +272,28 @@
 	SIGNAL_HANDLER
 
 	var/held_item = cast_on.get_active_hand()
-	if(!istype(held_item, /obj/item/sickly_blade/dark))
+	if(!istype(held_item, /obj/item/melee/sickly_blade/dark))
 		return NONE
-	var/obj/item/sickly_blade/dark/held_blade = held_item
+	var/obj/item/melee/sickly_blade/dark/held_blade = held_item
 	if(held_blade.infused)
 		return NONE
 	held_blade.infused = TRUE
 	held_blade.update_appearance(UPDATE_ICON)
 
 	//Infuse our off-hand blade just so it's nicer visually
-	var/obj/item/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_hand()
-	if(istype(off_hand_blade, /obj/item/sickly_blade/dark))
+	var/obj/item/melee/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_hand()
+	if(istype(off_hand_blade, /obj/item/melee/sickly_blade/dark))
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
 
 	return COMPONENT_CAST_HANDLESS
 
-/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/carbon/human/source, atom/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/do_melee_effects(mob/living/carbon/human/source, atom/target, obj/item/melee/sickly_blade/blade)
 	if(target == source)
 		return
 
 	var/obj/item/off_hand = source.get_inactive_hand()
-	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/sickly_blade))
+	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/melee/sickly_blade))
 		return
 	// If our off-hand is the blade that's attacking,
 	// quit out now to avoid an infinite stab combo
@@ -303,7 +303,7 @@
 	// Give it a short delay (for style, also lets people dodge it I guess)
 	addtimer(CALLBACK(src, PROC_REF(follow_up_attack), source, target, off_hand), 0.25 SECONDS)
 
-/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/carbon/human/source, atom/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/blade_upgrade/blade/proc/follow_up_attack(mob/living/carbon/human/source, atom/target, obj/item/melee/sickly_blade/blade)
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
@@ -396,7 +396,7 @@
 	for(var/obj/item/organ/external/limb in heretic.bodyparts)
 		limb.add_limb_flags() // Otherwise knockdowns would probably overpower the stun absorption effect.
 
-/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/sickly_blade/blade)
+/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	if(target == source)

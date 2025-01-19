@@ -11,6 +11,7 @@
 
 	sound = 'sound/effects/curse.ogg'
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 20 SECONDS
 
 	invocation = "Op' 'oY 'Mi'd"

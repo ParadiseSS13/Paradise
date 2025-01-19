@@ -11,6 +11,7 @@
 
 	sound = 'sound/magic/cosmic_expansion.ogg'
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
 	invocation = "C'SM'S 'XP'ND"

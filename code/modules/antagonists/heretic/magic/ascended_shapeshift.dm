@@ -4,4 +4,5 @@
 	desc = "A spell that allows you to take on the form of another eldritch creature, gaining their abilities. \
 		You can change your choice at any time, and if your form dies, you dont die."
 	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
 //qwertodo fuck me do this
