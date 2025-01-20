@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(air)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	var/now = world.timeofday + (world.tick_lag * world.tick_usage) / 100
 	var/elapsed = now - last_complete_tick
-	if(!milla_idle || (elapsed >= 0 && elapsed < self_wait))
+	if(!milla_idle || length(sleepers) || (elapsed >= 0 && elapsed < self_wait))
 		return
 
 	if(last_tick_start <= last_complete_tick)
