@@ -66,12 +66,13 @@
 
 /datum/test_puppeteer/proc/change_turf_nearby(turf_type, direction = -1)
 	var/turf/T
+	var/turf/center = get_turf(puppet)
 	if(direction >= 0)
 		T = get_step(puppet, direction)
 	else
 		// just check for any contents, not blocked_turf which includes turf density
 		// (which we don't really care about)
-		for(var/turf/nearby in RANGE_TURFS(1, puppet))
+		for(var/turf/nearby in RANGE_TURFS(1, center))
 			if(!length(nearby.contents))
 				T = nearby
 

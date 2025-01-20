@@ -25,6 +25,7 @@
 
 	// DNA Scanner
 	var/obj/scanner = teleport_to_first(player, /obj/machinery/dna_scannernew)
+	var/area/admin_area = get_area(player.puppet)
 	player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
 	player.click_on(scanner)
 	TEST_ASSERT_LAST_CHATLOG(player, "You add a beaker")
@@ -139,3 +140,21 @@
 	player.click_on(cell_charger)
 	TEST_ASSERT_LAST_CHATLOG(player, "replaced with quadratic capacitor")
 	qdel(rped)
+
+	player.puppet.forceMove(top_right.loc)
+	var/turf/wall = player.change_turf_nearby(/turf/simulated/wall, EAST)
+	player.spawn_obj_in_hand(/obj/item/mounted/frame/firealarm)
+	admin_area.requires_power = TRUE
+	player.click_on(wall)
+	admin_area.requires_power = FALSE
+	player.spawn_obj_in_hand(/obj/item/firealarm_electronics)
+	var/obj/firealarm_frame = player.find_nearby(/obj/machinery/firealarm)
+	player.click_on(firealarm_frame)
+	TEST_ASSERT_LAST_CHATLOG(player, "You insert the circuit")
+	var/obj/cables = player.spawn_obj_in_hand(/obj/item/stack/cable_coil/ten)
+	player.click_on(firealarm_frame)
+	TEST_ASSERT_LAST_CHATLOG(player, "You wire")
+	qdel(cables)
+	player.retrieve(screwdriver)
+	player.click_on(firealarm_frame)
+	TEST_ASSERT_LAST_CHATLOG(player, "You close the panel")
