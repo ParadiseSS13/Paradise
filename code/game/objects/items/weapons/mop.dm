@@ -1,8 +1,8 @@
 #define MOP_SOUND_CD 2 SECONDS // How many seconds before the mopping sound triggers again
 
 /obj/item/mop
-	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
+	desc = "The world of janitalia wouldn't be complete without a mop."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
@@ -19,7 +19,7 @@
 	/// The cooldown between each mopping sound effect
 	var/mop_sound_cooldown
 
-/obj/item/mop/New()
+/obj/item/mop/Initialize(mapload)
 	..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
@@ -45,24 +45,29 @@
 	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
-/obj/item/mop/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
-		return
-	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
-		return
+/obj/item/mop/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	// Use the mop as a weapon.
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
+	// Wetting and insertion handled by the objects.
+	if(istype(target, /obj/structure/mopbucket) || istype(target, /obj/structure/janitorialcart/) || istype(target, /obj/item/reagent_containers/glass/bucket/))
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(world.time > mop_sound_cooldown)
 		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
 		mop_sound_cooldown = world.time + MOP_SOUND_CD
-	A.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
+	target.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/mop/can_clean()
+	. = FALSE
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		return TRUE
-	else
-		return FALSE
 
 /obj/item/mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -70,21 +75,21 @@
 		reagents.reaction(T, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/effect/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
+/obj/effect/attacked_by(obj/item/attacker, mob/living/user)
+	if(istype(attacker, /obj/item/mop) || istype(attacker, /obj/item/soap))
 		return
-	else
-		return ..()
+
+	return ..()
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-	return 1
+	return TRUE
 
 /obj/item/mop/advanced
-	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
 	name = "advanced mop"
+	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
 	mopcap = 10
 	icon_state = "advmop"
 	origin_tech = "materials=3;engineering=3"
@@ -92,15 +97,21 @@
 	throwforce = 8
 	throw_range = 4
 	mopspeed = 20
-	var/refill_enabled = TRUE //Self-refill toggle for when a janitor decides to mop with something other than water.
-	var/refill_rate = 1 //Rate per process() tick mop refills itself
-	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
+	/// Self-refill toggle for when a janitor decides to mop with something other than water.
+	var/refill_enabled = TRUE
+	/// Rate per process() tick mop refills itself
+	var/refill_rate = 1 
+	/// Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
+	var/refill_reagent = "water"
 
 /obj/item/mop/advanced/New()
 	..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mop/advanced/attack_self__legacy__attackchain(mob/user)
+/obj/item/mop/advanced/activate_self(mob/user)
+	if(..())
+		return
+	
 	refill_enabled = !refill_enabled
 	if(refill_enabled)
 		START_PROCESSING(SSobj, src)
