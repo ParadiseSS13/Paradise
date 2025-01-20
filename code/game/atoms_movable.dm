@@ -198,9 +198,9 @@
 		return FALSE
 	return TRUE
 
-// Used in shuttle movement and AI eye stuff.
-// Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
-/atom/movable/proc/setLoc(T, teleported=0)
+/// Used in shuttle movement and camera eye stuff.
+/// Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
+/atom/movable/proc/set_loc(T, teleported=0)
 	var/old_loc = loc
 	loc = T
 	Moved(old_loc, get_dir(old_loc, loc))

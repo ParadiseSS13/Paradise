@@ -35,3 +35,5 @@
 #define DIR_JUST_HORIZONTAL(dir) ((dir == EAST) || (dir == WEST))
 /// returns TRUE if the direction is NORTH or SOUTH
 #define DIR_JUST_VERTICAL(dir) ((dir == NORTH) || (dir == SOUTH))
+
+#define EXCLUSIVE_OR(thing_one, thing_two) ((thing_one)^(thing_two))

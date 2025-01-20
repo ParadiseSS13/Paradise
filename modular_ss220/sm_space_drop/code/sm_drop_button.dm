@@ -50,7 +50,7 @@
 	if(active)
 		return
 
-	if(isAI(user))
+	if(is_ai(user))
 		return
 
 	add_fingerprint(user)

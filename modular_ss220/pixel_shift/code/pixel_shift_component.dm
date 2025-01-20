@@ -12,7 +12,7 @@
 
 /datum/component/pixel_shift/Initialize(...)
 	. = ..()
-	if(!isliving(parent) || isAI(parent))
+	if(!isliving(parent) || is_ai(parent))
 		return COMPONENT_INCOMPATIBLE
 
 /datum/component/pixel_shift/RegisterWithParent()

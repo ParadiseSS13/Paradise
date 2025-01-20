@@ -32,6 +32,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/move_delay = 1
 	var/atom/start
 	var/atom/end
+	/// The minimum amount of damage dealt to walls, relative to their max HP.
+	var/wall_damage_min_fraction = 0.9
+	/// The maximum amount of damage dealt to walls, relative to their max HP. Values over 1 are useful for adjusting the probability of destroying the wall.
+	var/wall_damage_max_fraction = 1.4
 
 /obj/effect/immovablerod/New(atom/_start, atom/_end, delay)
 	. = ..()
@@ -84,8 +88,20 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		audible_message("CLANG")
 
 	clong_turf(newloc)
-	for(var/atom/victim as anything in newloc)
-		clong_thing(victim)
+	if(isnull(newloc))
+		// The turf is dead, long live the turf!
+		newloc = loc
+
+	while(TRUE)
+		var/hit_something_dense = FALSE
+		for(var/atom/victim as anything in newloc)
+			clong_thing(victim)
+			if(victim.density)
+				hit_something_dense = TRUE
+
+		// Keep hitting stuff until there's nothing dense or we randomly go through it.
+		if(!hit_something_dense || prob(25))
+			break
 
 /obj/effect/immovablerod/proc/clong_turf(turf/victim)
 	if(!victim.density)
@@ -93,7 +109,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(iswallturf(victim))
 		var/turf/simulated/wall/W = victim
-		W.take_damage(rand(W.damage_cap / 3, W.damage_cap * 4 / 3))
+		W.take_damage(rand(W.damage_cap * wall_damage_min_fraction, W.damage_cap * wall_damage_max_fraction))
 	else
 		victim.ex_act(EXPLODE_LIGHT)
 
@@ -111,9 +127,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			victim.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
+	wall_damage_min_fraction = 0.33
+	wall_damage_max_fraction = 1.33
 	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
-	// Chance to expose the tile to space is like 15% of this value.
+	// Chance to expose the tile to space is like 60% of this value.
 	var/floor_rip_chance = 40
+	// Chance to damage the floor if we didn't rip it.
+	var/floor_graze_chance = 50
 
 /obj/effect/immovablerod/event/Move()
 	. = ..()
@@ -124,13 +144,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(!isfloorturf(victim))
 		return ..()
 
-	if(!prob(floor_rip_chance))
-		return
-
 	var/turf/simulated/floor/T = victim
-	if(prob(25))
+	if(prob(floor_rip_chance))
 		T.ex_act(EXPLODE_HEAVY)
-	else
+	else if(prob(floor_graze_chance))
 		T.ex_act(EXPLODE_LIGHT)
 
 /obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)

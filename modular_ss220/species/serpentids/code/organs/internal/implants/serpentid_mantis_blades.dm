@@ -15,6 +15,6 @@
 /obj/item/kitchen/knife/combat/serpentblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	AddComponent(/datum/component/double_attack)

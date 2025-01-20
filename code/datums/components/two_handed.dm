@@ -111,6 +111,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 	RegisterSignal(parent, COMSIG_CARBON_UPDATE_HANDCUFFED, PROC_REF(on_handcuff_user))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT, PROC_REF(check_unwielded))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -306,6 +307,15 @@
 		qdel(offhand_item)
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
+
+/**
+ * Check if item is unwielded
+ *
+ * returns TRUE if unwielded
+ */
+/datum/component/two_handed/proc/check_unwielded()
+	SIGNAL_HANDLER // COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT
+	return wielded ? FALSE : TRUE;
 
 /**
  * on_attack triggers on attack with the parent item

@@ -364,7 +364,7 @@
 
 		return (hudtype in have_hudtypes)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+	else if(isrobot(M) || is_ai(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
 
 	else if(isobserver(M))

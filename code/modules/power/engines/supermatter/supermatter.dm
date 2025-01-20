@@ -143,7 +143,7 @@
 	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
 	var/power = 0
 	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
-	var/gas_coefficient
+	var/gas_coefficient = 0
 	///Determines the rate of positve change in gas comp values
 	var/gas_change_rate = 0.05
 

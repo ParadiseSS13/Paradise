@@ -280,8 +280,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
-/// Forces open doors after a delay specific to the item
-#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 /// Makes the item no longer spit out a visible message when thrown
 #define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
 /// Makes the item not display a message on storage insertion
