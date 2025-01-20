@@ -403,7 +403,7 @@
 
 /obj/item/kirbyplants/medium/medium1
 	icon_state = "medium-1"
-/obj/item/kirbyplants/medium/medium1
+/obj/item/kirbyplants/medium/medium2
 	icon_state = "medium-2"
 /obj/item/kirbyplants/medium/medium3
 	icon_state = "medium-3"
