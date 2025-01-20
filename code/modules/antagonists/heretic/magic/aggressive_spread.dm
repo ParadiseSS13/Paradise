@@ -20,24 +20,28 @@
 
 
 /datum/spell/aoe/rust_conversion/create_new_targeting()
-	var/datum/spell_targeting/aoe/targeting = new()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
-	A.allowed_type = /atom
 	return targeting
 
 /datum/spell/aoe/rust_conversion/cast(list/targets, mob/living/user = usr)
-	for(var/atom/victim in targets)
+	for(var/turf/target_turfs in targets)
 		// We have less chance of rusting stuff that's further
-		var/distance_to_caster = get_dist(victim, user)
+		var/distance_to_caster = get_dist(target_turfs, user)
 		var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_range + 1)
 
 		if(prob(chance_of_not_rusting))
-			return
-
+			continue
+		for(var/atom/victim in target_turfs)
+			if(isliving(user))
+				user.do_rust_heretic_act(victim)
+			else
+				victim.rust_heretic_act()
 		if(isliving(user))
-			user.do_rust_heretic_act(victim)
+			user.do_rust_heretic_act(target_turfs)
 		else
-			victim.rust_heretic_act()
+			target_turfs.rust_heretic_act()
+
 
 /datum/spell/aoe/rust_conversion/construct
 	name = "Construct Spread"

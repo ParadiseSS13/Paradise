@@ -309,7 +309,7 @@
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
 
-/turf/open/floor/plating/rust
+/turf/simulated/floor/plating/rust
 	//SDMM supports colors, this is simply for easier mapping
 	//and should be removed on initialize
 	color = COLOR_BROWN
@@ -319,7 +319,7 @@
 	AddElement(/datum/element/rust)
 	color = null
 
-/turf/open/floor/plating/heretic_rust
+/turf/simulated/floor/plating/heretic_rust
 	color = COLOR_GREEN_GRAY
 
 /turf/simulated/floor/plating/heretic_rust/Initialize(mapload)

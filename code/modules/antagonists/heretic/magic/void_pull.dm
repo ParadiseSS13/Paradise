@@ -24,12 +24,10 @@
 	/// The radius of the stun applied to nearby people on cast
 	var/stun_radius = 4
 
-// Before the cast, we do some small AOE damage around the caster
-/datum/spell/aoe/void_pull/before_cast(list/targets, mob/user)
-	. = ..()
-	if(. & SPELL_CANCEL_CAST)
-		return
+//qwertodo: unfuck this, first half on before cast, second on after?
 
+// Before the cast, we do some small AOE damage around the caster
+/datum/spell/aoe/void_pull/valid_target(target, user)
 	new /obj/effect/temp_visual/voidin(get_turf(user))
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
@@ -43,6 +41,7 @@
 		// Otherwise, they take a few steps closer
 		for(var/i in 1 to 3)
 			nearby_living.forceMove(get_step_towards(nearby_living, user))
+	return TRUE
 
 /datum/spell/aoe/void_pull/proc/get_things_to_cast_on(atom/center, radius_override = 1)
 	var/list/things = list()

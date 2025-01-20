@@ -45,7 +45,7 @@
 	var/need_mob_update = FALSE
 	need_mob_update += source.adjustBruteLoss(-3, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
-	need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE) // Slimes are people too
+	need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
 	need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
 	need_mob_update += source.adjustStaminaLoss(-10, updating= FALSE)
 	if(need_mob_update)

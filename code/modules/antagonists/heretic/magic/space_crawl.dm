@@ -21,6 +21,7 @@
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
+	allowed_type = /turf
 
 /datum/spell/bloodcrawl/space_crawl/valid_target(turf/target, user)
 	if(isspaceturf(get_turf(user))) //qwertodo: make this work on basalt / asteroid turf, if we get a planet map

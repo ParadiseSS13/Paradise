@@ -66,6 +66,13 @@
  */
 /datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, datum/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
+	var/list/final_targets
+	for(var/atom/thing in targets)
+		if(spell.valid_target(thing, user))
+			final_targets += targets
+	if(!length(final_targets))
+		to_chat(user, "<span class='warning'>No target found, aborting the spell!</span>")
+		return FALSE // no targets
 	spell.try_perform(targets, user)
 
 /**

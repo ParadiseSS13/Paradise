@@ -195,7 +195,7 @@
 		amount *= dna.species.oxy_mod
 	. = ..()
 
-/mob/living/carbon/human/adjustToxLoss(amount)
+/mob/living/carbon/human/adjustToxLoss(amount, updating_health = TRUE)
 	if(dna.species && amount > 0)
 		amount *= dna.species.tox_mod
 	. = ..()

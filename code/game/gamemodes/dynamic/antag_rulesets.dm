@@ -130,6 +130,15 @@
 		antag.add_antag_datum(traitor_datum)
 	addtimer(CALLBACK(dynamic, TYPE_PROC_REF(/datum/game_mode, fill_antag_slots)), random_time)
 
+/datum/ruleset/heretic
+	name = "Heretic"
+	ruleset_weight = 9
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/heretic
+
+	banned_jobs = list("Cyborg", "AI")
+
+
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12

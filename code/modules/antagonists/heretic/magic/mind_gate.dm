@@ -18,7 +18,7 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-/datum/spell/blind/create_new_targeting()
+/datum/spell/mind_gate/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
 	C.selection_type = SPELL_SELECTION_RANGE
 	C.allowed_type = /mob/living/carbon/human

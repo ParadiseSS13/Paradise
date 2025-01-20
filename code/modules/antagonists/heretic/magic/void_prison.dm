@@ -22,12 +22,10 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/spell/pointed/void_prison/before_cast(atom/cast_on)
-	. = ..()
-	if(. & SPELL_CANCEL_CAST)
-		return
-	if(!ismob(cast_on))
-		return SPELL_CANCEL_CAST
+/datum/spell/pointed/void_prison/valid_target(target, user)
+	if(!ismob(target))
+		return FALSE
+	return TRUE
 
 /datum/spell/pointed/void_prison/cast(list/targets, mob/user)
 	. = ..()

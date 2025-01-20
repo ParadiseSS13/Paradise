@@ -59,9 +59,9 @@
 
 	//get it?
 	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
-	if(SEND_SIGNAL(teleportee, COMSIG_MOVABLE_TELEPORTING, get_turf(destination)) & COMPONENT_BLOCK_TELEPORT)
+	if(SEND_SIGNAL(teleportee, COMSIG_MOVABLE_TELEPORTING, get_turf(doorstination)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
-	teleportee.forceMove(get_turf(destination))
+	teleportee.forceMove(get_turf(doorstination))
 
 	teleportee.client?.move_delay = 0 //make moving through smoother
 
@@ -74,15 +74,15 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	for(var/obj/machinery/door/airlock in GLOB.airlocks)
-		if(airlock.z != z)
+	for(var/obj/machinery/door/airlock/ourlock in GLOB.airlocks)
+		if(ourlock.z != z)
 			continue
-		if(airlock.loc == loc)
+		if(ourlock.loc == loc)
 			continue
-		var/area/airlock_area = get_area(airlock)
+		var/area/airlock_area = get_area(ourlock)
 		if(airlock_area.tele_proof)
 			continue
-		possible_destinations += airlock
+		possible_destinations += ourlock
 	return pick(possible_destinations)
 
 ///Asynchronous proc to unbolt, then open the passed door

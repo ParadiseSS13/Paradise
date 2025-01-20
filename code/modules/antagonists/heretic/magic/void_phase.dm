@@ -34,7 +34,7 @@
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin, user)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout, user)
 
-	user.forceMove(cast_on)
+	user.forceMove(targeted_turf)
 
 /// Does the AOE effect of the blinka t the passed turf
 /datum/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin, mob/user)

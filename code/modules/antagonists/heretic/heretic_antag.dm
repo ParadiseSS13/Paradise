@@ -230,6 +230,7 @@
 
 	for(var/starting_knowledge in GLOB.heretic_start_knowledge)
 		gain_knowledge(starting_knowledge)
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/heretic/heretic_gain.ogg'))
 
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
@@ -250,10 +251,11 @@
 
 	if(!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
-
+	var/datum/atom_hud/data/heretic/h_hud = GLOB.huds[DATA_HUD_HERETIC]
+	h_hud.add_hud_to(our_mob)
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
-	RegisterSignals(our_mob, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(on_spell_cast))
+	RegisterSignal(our_mob, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_INTERACT_USER, PROC_REF(on_item_use))
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
@@ -263,6 +265,8 @@
 
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
+	var/datum/atom_hud/data/heretic/h_hud = GLOB.huds[DATA_HUD_HERETIC]
+	h_hud.remove_hud_from(our_mob)
 
 	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	UnregisterSignal(our_mob, list(

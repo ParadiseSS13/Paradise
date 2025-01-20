@@ -20,15 +20,15 @@
 	spell_requirements = NONE
 
 
+/datum/spell/caretaker/create_new_targeting()
+	return new /datum/spell_targeting/self
 
-
-/datum/spell/caretaker/before_cast(list/targets, mob/user)
-	..()
-
+/datum/spell/caretaker/valid_target(target, user)
 	for(var/mob/living/alive in orange(5, user))
 		if(alive.stat != DEAD && alive.client)
 			to_chat(user, "<span class='warning'>There are sentient beings blocking you from shifting!</span>")
 			return FALSE
+	return TRUE
 
 /datum/spell/caretaker/cast(list/targets, mob/user)
 	. = ..()

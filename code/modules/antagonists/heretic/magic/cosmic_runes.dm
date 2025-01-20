@@ -25,6 +25,11 @@
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
+/datum/spell/cosmic_rune/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = 1
+	return targeting
+
 /datum/spell/cosmic_rune/cast(list/targets, mob/user)
 	. = ..()
 	var/obj/effect/cosmic_rune/first_rune_resolved = locateUID(first_rune)
@@ -116,8 +121,8 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 0.5 SECONDS)
 
 /// For linking a new rune
-/obj/effect/cosmic_rune/proc/link_rune(new_rune)
-	linked_rune = new_rune
+/obj/effect/cosmic_rune/proc/link_rune(obj/effect/cosmic_rune/new_rune)
+	linked_rune = new_rune.UID()
 
 /obj/effect/cosmic_rune/Destroy()
 	var/obj/effect/cosmic_rune/linked_rune_resolved = locateUID(linked_rune)

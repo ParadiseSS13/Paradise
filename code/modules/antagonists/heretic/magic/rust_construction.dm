@@ -2,8 +2,10 @@
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
 
-
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "shield"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	is_a_heretic_spell = TRUE
@@ -19,13 +21,12 @@
 	var/filter_duration = 2 MINUTES
 
 
-/datum/spell/pointed/rust_construction/before_cast(list/targets, mob/user)
-	. = ..()
+/datum/spell/pointed/rust_construction/valid_target(target, user)
 	if(!isliving(user))
 		return
 
 	var/mob/living/living_owner = user
-	var/turf/cast_on = get_turf(targets[1])
+	var/turf/cast_on = target
 	if(!isturf(cast_on))
 		to_chat(living_owner, "<span class='warning'>That is not a wall or a floor!</span>")
 		return FALSE
@@ -33,8 +34,10 @@
 	if(!HAS_TRAIT(cast_on, TRAIT_RUSTY))
 		if(living_owner)
 			to_chat(living_owner, "<span class='warning'>The target is not rusted!</span>")
-	user.visible_message("<span class='danger'><b>[living_owner]</b> drags [living_owner.p_their()] hand upwards as a wall of rust rises out of [cast_on]!</span>",
+			return
+	living_owner.visible_message("<span class='danger'><b>[living_owner]</b> drags [living_owner.p_their()] hand upwards as a wall of rust rises out of [cast_on]!</span>",
 	"<span class='notice'>You drag a hand upwards as a wall of rust rises out of [cast_on].</span>")
+	return TRUE
 
 /datum/spell/pointed/rust_construction/cast(list/targets, mob/user)
 	. = ..()

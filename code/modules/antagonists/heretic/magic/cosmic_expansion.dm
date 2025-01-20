@@ -21,6 +21,7 @@
 	summon_amt = 9
 	summon_type = list(/obj/effect/forcefield/cosmic_field)
 	summon_ignore_density = TRUE
+	aoe_range = 2
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 7
 	/// Effect for when the spell triggers

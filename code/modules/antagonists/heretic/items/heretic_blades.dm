@@ -183,6 +183,7 @@
 	item_state = "key_blade"
 	after_use_message = "The Stewards hear your call..."
 	tool_behaviour = TOOL_CROWBAR
+	usesound = 'sound/items/crowbar.ogg' //Maybe something else?
 	toolspeed = 1.3
 
 // Path of Moon's blade

@@ -76,6 +76,7 @@
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
+		HERETIC_HUD = 'icons/effects/eldritch.dmi',
 	)
 
 	for(var/hud in hud_possible)

@@ -70,6 +70,7 @@
 	else if(istype(target,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/door = target
 		door.unlock()
+		door.open()
 	//else if(istype(target, /obj/machinery/computer)) //qwertodo: as much of this as possible
 	//	var/obj/machinery/computer/computer = target
 	//	computer.authenticated = TRUE

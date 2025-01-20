@@ -41,7 +41,7 @@
 
 	var/location_sanity = 0
 	while((length(smashes) + num_drained) < how_many_can_we_make && location_sanity < 100)
-		var/turf/chosen_location = find_safe_turf()
+		var/turf/chosen_location = find_safe_turf() //QWERTODO: GET TG VERSION SO IT ISN'T ALL IN MAINTS
 
 		// We don't want them close to each other - at least 1 tile of separation
 		var/list/nearby_things = range(1, chosen_location)
@@ -62,7 +62,7 @@
 	tracked_heretics |= heretic
 
 	// If our heretic's on station, generate some new influences
-	if(ishuman(heretic.current) && !is_teleport_allowed(heretic.current.z))
+	if(ishuman(heretic.current) && is_teleport_allowed(heretic.current.z))
 		generate_new_influences()
 
 /**
@@ -80,6 +80,7 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
+	new_attack_chain = TRUE
 
 /obj/effect/visible_heretic_influence/Initialize(mapload)
 	. = ..()
@@ -156,27 +157,30 @@
 /obj/effect/heretic_influence
 	name = "reality smash"
 	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "reality_smash"
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO
+	hud_possible = list(HERETIC_HUD)
+	new_attack_chain = TRUE
 	/// Whether we're currently being drained or not.
 	var/being_drained = FALSE
-	/// The icon state applied to the image created for this influence.
-	var/real_icon_state = "reality_smash"
 
 /obj/effect/heretic_influence/Initialize(mapload)
 	. = ..()
 	GLOB.reality_smash_track.smashes += src
 	generate_name()
-
-	//var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
+	prepare_huds()
+	for(var/datum/atom_hud/data/heretic/h_hud in GLOB.huds)
+		h_hud.add_to_hud(src)
+	do_hud_stuff()
 	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image) //qwertodo: get someone that knows huds
 
 	//AddElement(/datum/element/block_turf_fingerprints)
 	//AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see))) //oh fuck my attack chain ass
 
-/obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
-	return (user.mind in GLOB.reality_smash_track.tracked_heretics)
+///obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
+	//return (user.mind in GLOB.reality_smash_track.tracked_heretics)
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
