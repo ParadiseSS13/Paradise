@@ -339,7 +339,7 @@
 
 	//Delete all items not on the preservation list.
 	var/list/items = contents
-	items -= occupant // Don't delete the occupant
+	items -= occupant // Don't delete the occupant // this fucking nullspaces the occupant btw, i fuckin hate old code
 	items -= announce // or the autosay radio.
 
 	ADD_TRAIT(occupant, TRAIT_CRYO_DESPAWNING, TRAIT_GENERIC)
@@ -367,6 +367,8 @@
 	if(IS_SACRIFICE_TARGET(occupant.mind))
 		SSticker.mode.cult_team.find_new_sacrifice_target()
 
+	SSticker.mode.on_mob_cryo(occupant, src)
+
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
 		if(occupant.mind.initial_account)
@@ -385,10 +387,6 @@
 
 		if(occupant.mind.objective_holder.clear())
 			occupant.mind.special_role = null
-		else
-			if(SSticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.
 
