@@ -11,3 +11,4 @@
 	. = ..()
 	ss220_misc = new()
 	safe_load(ss220_misc, "ss220_misc_configuration")
+	GLOB.blocked_chems += list("serpadrone")

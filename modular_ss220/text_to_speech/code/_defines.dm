@@ -9,8 +9,6 @@
 #define TTS_TRAIT_RATE_FASTER (1<<2)
 #define TTS_TRAIT_RATE_MEDIUM (1<<3)
 
-#define TTS_TRAIT_ROBOTIZE "tts_trait_robotize"
-
 #define TTS_CATEGORY_OTHER "Другое"
 #define TTS_CATEGORY_WARCRAFT3 "WarCraft 3"
 #define TTS_CATEGORY_HALFLIFE2 "Half-Life 2"

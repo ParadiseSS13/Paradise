@@ -7,11 +7,13 @@
 	RegisterSignal(parent, COMSIG_ATOM_TTS_CAST, PROC_REF(cast_tts))
 	RegisterSignal(parent, COMSIG_ATOM_TTS_TRAIT_ADD, PROC_REF(tts_trait_add))
 	RegisterSignal(parent, COMSIG_ATOM_TTS_TRAIT_REMOVE, PROC_REF(tts_trait_remove))
+	RegisterSignal(parent, COMSIG_ATOM_PRE_TTS_CAST, PROC_REF(atom_pre_tts_cast_mob))
 
 /datum/component/tts_component/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ATOM_TTS_SEED_CHANGE)
 	UnregisterSignal(parent, COMSIG_ATOM_TTS_CAST)
 	UnregisterSignal(parent, COMSIG_ATOM_TTS_TRAIT_ADD)
+	UnregisterSignal(parent, COMSIG_ATOM_TTS_TRAIT_REMOVE)
 	UnregisterSignal(parent, COMSIG_ATOM_TTS_TRAIT_REMOVE)
 
 /datum/component/tts_component/Initialize(datum/tts_seed/new_tts_seed, ...)
@@ -197,6 +199,13 @@
 
 	if(!isnull(trait) && (trait in traits))
 		traits -= trait
+
+/datum/component/tts_component/proc/atom_pre_tts_cast_mob(atom, listener, message, location, is_local, effect, traits, preSFX, postSFX)
+	SIGNAL_HANDLER
+	for(var/datum/multilingual_say_piece/phrase in message)
+		if(phrase.speaking?.no_tts)
+			return COMPONENT_TTS_INTERRUPT
+	return FALSE
 
 // Component usage
 

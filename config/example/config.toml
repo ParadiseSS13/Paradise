@@ -725,6 +725,7 @@ active_space_ruins = [
 	"_maps/map_files220/RandomRuins/SpaceRuins/convoy_ambush.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/voxraiders_1.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/spacehotel.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/sierra_1_4.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

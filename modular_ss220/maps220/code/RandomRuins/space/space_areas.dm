@@ -6,7 +6,7 @@
 	requires_power = TRUE
 	report_alerts = FALSE
 
-/* Twin-Nexus Space Hotel */
+//MARK: Twin-Nexus Space Hotel
 /area/ruin/space/spacehotelv1
 	report_alerts = FALSE
 	requires_power = TRUE
@@ -99,9 +99,34 @@
 	name = "Hotel Barber"
 	icon_state = "awaycontent22"
 
+//MARK:Vox base
 /area/vox_base
 	name = "Vox Base"
 	icon_state = "purple"
 	requires_power = FALSE
 	report_alerts = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
+//MARK: Sierra
+/area/ruin/space/sierra
+	report_alerts = FALSE
+	requires_power = TRUE
+
+/area/ruin/space/sierra/med
+	name = "Sierra Medical Department"
+	icon_state = "medbay"
+
+/area/ruin/space/sierra/rnd
+	name = "Sierra Research And Development"
+	icon_state = "scilab"
+
+/area/ruin/space/sierra/hall
+	name = "Sierra hall"
+	icon_state = "hallC"
+/area/ruin/space/sierra/maint
+	name = "Sierra Port Maintenance"
+	icon_state = "pmaint"
+
+/area/ruin/space/sierra/shelter
+	name = "Sierra Shelter"
+	icon_state = "head_quarters"

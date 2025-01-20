@@ -63,8 +63,8 @@
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "whiteship.dmm"
 	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
-	allow_duplicates = FALSE 
-	always_place = TRUE 
+	allow_duplicates = FALSE
+	always_place = TRUE
 	// cost = 0
 
 /datum/map_template/ruin/space/whiteship/get_cost()
@@ -88,3 +88,11 @@
 	// cost = 10
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/space/sierra_1_4
+	name = "Sierra Wreckage"
+	id = "sierra_1_4"
+	description = "Wreckage of the Sierra after a terrible incident"
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "sierra_1_4.dmm"
+	// cost = 20 я хуй знает как это тут сделать, так что похуй.
+	allow_duplicates = FALSE

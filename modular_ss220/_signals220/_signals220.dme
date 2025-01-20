@@ -7,3 +7,4 @@
 #include "code/signals_mob/signals_mob_silicon.dm"
 #include "code/signals_mob/signals_mob_simple.dm"
 #include "code/signals_obj.dm"
+#include "code/species.dm"

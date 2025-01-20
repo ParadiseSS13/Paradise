@@ -154,7 +154,7 @@
 		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
-		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
+		temp_img = icon(H.dna.species.butt_sprite_icon, H.dna.species.butt_sprite) // SS220 EDIT. Original: temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
 	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(isnymph(copymob))
