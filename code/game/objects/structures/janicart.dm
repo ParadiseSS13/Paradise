@@ -55,6 +55,7 @@
 
 /obj/structure/janitorialcart/proc/handle_item_interactions(mob/living/user, obj/item/used)
 	. = TRUE
+	var/item_present = FALSE
 	if(istype(used, /obj/item/mop))
 		var/obj/item/mop/attacking_mop = used
 		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
@@ -76,27 +77,6 @@
 		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
 		return
 
-	if(istype(used, /obj/item/push_broom) && !my_broom)
-		if(!my_broom)
-			my_broom = used
-			put_in_cart(user, used)
-			return
-	
-	if(istype(used, /obj/item/storage/bag/trash) && !my_bag)
-		my_bag = used
-		put_in_cart(user, used)
-		return
-
-	if(istype(used, /obj/item/reagent_containers/spray/cleaner) && !my_spray)
-		my_spray = used
-		put_in_cart(user, used)
-		return
-
-	if(istype(used, /obj/item/lightreplacer) && !my_replacer)
-		my_replacer = used
-		put_in_cart(user, used)
-		return
-
 	if(istype(used, /obj/item/caution))
 		if(signs < max_signs)
 			signs++
@@ -105,14 +85,46 @@
 			to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		return
 
-	else
+	if(istype(used, /obj/item/push_broom))
+		if(!my_broom)
+			my_broom = used
+			put_in_cart(user, used)
+			return
+		item_present = TRUE
+	
+	if(istype(used, /obj/item/storage/bag/trash))
+		if(!my_bag)
+			my_bag = used
+			put_in_cart(user, used)
+			return
+		item_present = TRUE
+
+	if(istype(used, /obj/item/reagent_containers/spray/cleaner))
+		if(!my_spray)
+			my_spray = used
+			put_in_cart(user, used)
+			return
+		item_present = TRUE
+
+	if(istype(used, /obj/item/lightreplacer))
+		if(!my_replacer)
+			my_replacer = used
+			put_in_cart(user, used)
+			return
+		item_present = TRUE
+
+	if(item_present)
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+		return
+
+	return FALSE
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
 		return
+
 	to_chat(user, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 	reagents.reaction(loc)
 	reagents.clear_reagents()
@@ -122,15 +134,18 @@
 	if(!anchored && !isinspace())
 		if(!I.use_tool(src, user, I.tool_volume))
 			return
+
 		user.visible_message( \
 			"[user] tightens [src]'s casters.", \
 			"<span class='notice'>You have tightened [src]'s casters.</span>", \
 			"You hear ratchet.")
 		anchored = TRUE
 		return
+
 	if(anchored)
 		if(!I.use_tool(src, user, I.tool_volume))
 			return
+
 		user.visible_message( \
 			"[user] loosens [src]'s casters.", \
 			"<span class='notice'>You have loosened [src]'s casters.</span>", \
