@@ -185,7 +185,7 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "vM" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
