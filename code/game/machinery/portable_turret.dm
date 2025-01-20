@@ -953,7 +953,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(isprox(used))
 				if(!user.unequip(used, src))
 					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				build_step = 5
 				qdel(used)
 				to_chat(user, "<span class='notice'>You add the prox sensor to the turret.</span>")

@@ -1058,7 +1058,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		if(AIR_ALARM_FRAME)
 			if(istype(used, /obj/item/airalarm_electronics))
 				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
-				playsound(get_turf(src), used.usesound, 50, 1)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				qdel(used)
 				buildstage = 1
 				update_icon(UPDATE_ICON_STATE)

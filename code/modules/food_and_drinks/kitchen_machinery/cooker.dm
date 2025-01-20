@@ -185,16 +185,17 @@
 	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
 		if(istype(used, /obj/item/storage/part_replacer))
 			exchange_parts(user, used)
-			return
+			return ITEM_INTERACT_COMPLETE
 	if(stat & (NOPOWER|BROKEN))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/grab))
-		return special_attack_grab(used, user)
+		if(special_attack_grab(used, user))
+			return ITEM_INTERACT_COMPLETE
 	if(!checkValid(used, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!burns)
 		if(istype(used, /obj/item/food))
 			if(checkCooked(used))

@@ -33,10 +33,10 @@
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [used] is stuck to you!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		beaker = used
 		used.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [used] to [src].</span>")

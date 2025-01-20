@@ -161,7 +161,7 @@
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)

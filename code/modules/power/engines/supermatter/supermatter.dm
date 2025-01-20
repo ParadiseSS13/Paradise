@@ -816,11 +816,11 @@
 				tongs.item_state = "supermatter_tongs_loaded"
 				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
 
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/supermatter_halberd))
 		carve_sliver(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[used] bounces off [src], you need to cut a sliver off first!</span>")

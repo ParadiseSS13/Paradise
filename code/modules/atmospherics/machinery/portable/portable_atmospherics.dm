@@ -124,7 +124,7 @@
 	if(istype(used, /obj/item/tank))
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 			var/obj/item/tank/T = used
 			user.drop_item()
 			if(holding_tank)
@@ -133,7 +133,7 @@
 			T.loc = src
 			holding_tank = T
 			update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/atmospherics/portable/wrench_act(mob/user, obj/item/I)

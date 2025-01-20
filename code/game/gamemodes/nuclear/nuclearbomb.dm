@@ -183,7 +183,8 @@ GLOBAL_VAR(bomb_set)
 			used.forceMove(src)
 			auth = used
 			add_fingerprint(user)
-			return attack_hand(user)
+			attack_hand(user)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return ITEM_INTERACT_COMPLETE
