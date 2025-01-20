@@ -527,8 +527,10 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_HERETIC, TRUE, 10 SECONDS, source = summoned)
-	var/mob/chosen_one = pick(candidates)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a heretic summon", ROLE_HERETIC, TRUE, 10 SECONDS, source = summoned)
+	var/mob/chosen_one
+	if(length(candidates))
+		chosen_one = pick(candidates)
 	if(isnull(chosen_one))
 		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no spirits possessed the summon!</span>")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
@@ -546,10 +548,10 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
 
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	heretic_monster.set_owner(user.mind)
 
 	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
 	summon_objective?.num_summoned++
+	heretic_monster.set_owner(user.mind) //qwertodo: sleep / timer before doing this
 
 	return TRUE
 

@@ -9,10 +9,12 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
+	/// What is the colour of the runes visual effects?
+	var/greyscale_colours = COLOR_LIME
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
-/obj/effect/heretic_rune/Initialize(mapload)
+/obj/effect/heretic_rune/Initialize(mapload, path_colour = COLOR_LIME)
 	. = ..()
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
@@ -162,7 +164,7 @@
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
-	flick("[icon_state]_active", src)
+ 	do_animation(TRUE)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,
@@ -196,6 +198,13 @@
 
 	return ritual_result
 
+/obj/effect/heretic_rune/proc/do_animation(do_flick = FALSE)
+	if(do_flick)
+		flick("[icon_state]_activate_colour", src)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/effects/96x96.dmi', "transmutation_rune_activate_white", FLOAT_LAYER - 1, appearance_flags = appearance_flags | RESET_TRANSFORM, color = greyscale_colours)
+	theme_icon.blend_mode = BLEND_MULTIPLY
+	add_overlay(theme_icon)
+
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
 /obj/effect/heretic_rune/big
@@ -204,38 +213,44 @@
 	pixel_x = -30
 	pixel_y = 18
 	pixel_z = -48
-	//greyscale_config = /datum/greyscale_config/heretic_rune
 
 /obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
-	//if(path_colour)
-	//	set_greyscale(colors = list(path_colour))
+	if(path_colour)
+		greyscale_colours = path_colour
+	do_animation() //Needed so the colour applies right the first time it is used. Don't ask
 
 /obj/effect/temp_visual/drawing_heretic_rune
 	duration = 30 SECONDS
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "transmutation_rune"
+	icon_state = null
 	pixel_x = -30
 	pixel_y = 18
 	pixel_z = -48
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
-	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
-	var/animation_state = "transmutation_rune_draw"
+	var/animation_state = "transmutation_rune_draw_colour"
+	/// What the blend state is
+	var/blend_state = "transmutation_rune_draw_white"
 
-/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
-	. = ..()
-	//set_greyscale(colors = list(path_colour))
+/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_LIME)
 	icon_state = animation_state
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/effects/96x96.dmi', blend_state, FLOAT_LAYER - 1, appearance_flags = appearance_flags | RESET_TRANSFORM, color = path_colour)
+	theme_icon.blend_mode = BLEND_MULTIPLY
+	add_overlay(theme_icon)
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance("heretic_rune", silicon_image, GLOB.silicon_mob_list)
+	. = ..()
+
 
 /obj/effect/temp_visual/drawing_heretic_rune/fast
 	duration = 12 SECONDS
-	animation_state = "transmutation_rune_fast"
+	animation_state = "transmutation_rune_fast_colour"
+	blend_state = "transmutation_rune_fast_white"
 
 /obj/effect/temp_visual/drawing_heretic_rune/fail
 	duration = 0.25 SECONDS
-	animation_state = "transmutation_rune_fail"
+	animation_state = "transmutation_rune_fail_colour"
+	blend_state = "transmutation_rune_fail_white"

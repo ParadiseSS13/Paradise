@@ -20,8 +20,9 @@
 
 /// Callback for effect_remover component after a rune is deleted
 /obj/item/codex_cicatrix/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	//new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, target.greyscale_colors)
-	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc)
+	if(istype(target, /obj/effect/heretic_rune))
+		var/obj/effect/heretic_rune/our_target = target
+		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, our_target.greyscale_colours)
 
 /obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()

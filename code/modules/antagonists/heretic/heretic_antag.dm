@@ -370,7 +370,7 @@
 
 	var/rune_colour = GLOB.heretic_path_to_color[heretic_path]
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
-	if(drawing_time < (10 SECONDS))
+	if(drawing_time <= (10 SECONDS))
 		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
 	else
 		drawing_effect = new(target_turf, rune_colour)
@@ -380,7 +380,7 @@
 		qdel(drawing_effect)
 		drawing_rune = FALSE
 		return
-
+	to_chat(user, "<span class='hierophant'>The rune is complete.</span>")
 	qdel(drawing_effect)
 	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
@@ -393,7 +393,7 @@
  */
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
 	var/obj/item/offhand = user.get_inactive_hand()
-	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
+	return !(!QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
 
 
 /// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to reward cultists for sacrificing a heretic

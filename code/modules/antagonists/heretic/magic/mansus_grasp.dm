@@ -58,7 +58,7 @@
 
 	carbon_hit.HereticSlur(15 SECONDS)
 	carbon_hit.KnockDown(5 SECONDS)
-	carbon_hit.adjustStaminaLoss(80)
+	carbon_hit.apply_damage(80, STAMINA)
 	//qwertodo: some status effect to do the last 20
 	handle_delete(user)
 	return
@@ -84,7 +84,8 @@
  * Callback for effect_remover component.
  */
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	//new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, target.greyscale_colors)
-	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc)
+	if(istype(target, /obj/effect/heretic_rune))
+		var/obj/effect/heretic_rune/our_target = target
+		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, our_target.greyscale_colours)
 	qdel(src)
 

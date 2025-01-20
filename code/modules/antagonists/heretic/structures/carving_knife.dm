@@ -314,7 +314,7 @@
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.adjustStaminaLoss(80)
+	carbon_victim.apply_damage(80, STAMINA)
 	carbon_victim.Silence(20 SECONDS)
 	carbon_victim.Stuttering(1 MINUTES)
 	carbon_victim.Confused(5 SECONDS)

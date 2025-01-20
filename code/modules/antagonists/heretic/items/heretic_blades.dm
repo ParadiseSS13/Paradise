@@ -258,6 +258,6 @@
 
 	// Can only carve runes with it if off combat mode.
 	if(isfloorturf(target) && user.intent == INTENT_HELP)
-		heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix
+		heretic_datum.try_draw_rune(user, target, drawing_time = 8 SECONDS)
 		return ITEM_INTERACT_COMPLETE
 	return NONE

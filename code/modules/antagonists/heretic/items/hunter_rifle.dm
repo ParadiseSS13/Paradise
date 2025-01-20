@@ -174,7 +174,7 @@
 	return
 
 /obj/item/projectile/homing/lionhunter/Destroy()
-	if(stored_mob)d
+	if(stored_mob)
 		stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
 		stored_mob.forceMove(loc)
 	return ..()

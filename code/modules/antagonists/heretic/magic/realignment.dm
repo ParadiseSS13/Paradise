@@ -84,7 +84,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 8 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/realignment
-	tick_interval = 0.2 SECONDS
+	tick_interval = 0.5 SECONDS
 	show_duration = TRUE
 	///Traits to add/remove
 	var/list/realignment_traits = list(TRAIT_BATON_RESISTANCE, TRAIT_PACIFISM)
@@ -105,7 +105,7 @@
 	owner.remove_filter(id)
 
 /datum/status_effect/realignment/tick(seconds_between_ticks)
-	owner.adjustStaminaLoss(-10) //qwertodo: see if that is too little
+	owner.adjustStaminaLoss(-10)
 	owner.AdjustParalysis(-1 SECONDS)
 	owner.AdjustStunned(-1 SECONDS)
 	owner.AdjustWeakened(-1 SECONDS)

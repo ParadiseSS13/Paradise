@@ -56,7 +56,7 @@
 		return
 
 	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
-	E.receive_damage(10) //Qwertodo: makesure this doesnt cause instant nearsightedness
+	E.receive_damage(9)
 	target.EyeBlurry(20 SECONDS)
 
 /datum/heretic_knowledge/spell/ash_passage

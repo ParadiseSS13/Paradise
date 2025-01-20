@@ -25,7 +25,6 @@
 	//owner.enslave_mind_to_creator(master.current)
 
 	var/datum/objective/master_obj = new()
-	master_obj.owner = owner
 	master_obj.explanation_text = "Assist your master."
 	master_obj.completed = TRUE
 
