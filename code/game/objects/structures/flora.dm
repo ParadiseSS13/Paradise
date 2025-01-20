@@ -257,6 +257,7 @@
 	name = "potted plant"
 	desc = "Some greenery, how nice."
 	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "random-big"
 	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	force = 10
