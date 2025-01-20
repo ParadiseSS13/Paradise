@@ -48,7 +48,7 @@
 
 	var/turf/T = get_turf(src)
 	check_gravity(T)
-	update_appearance()
+	update_icon()
 
 	if(!gravity_check)
 		//weightless blood cannot dry
@@ -75,9 +75,10 @@
 		return
 
 	if(!weightless_image)
+		color = COLOR_WHITE
 		weightless_image = image(weightless_icon, base_icon_state)
+		weightless_image.icon += basecolor
 
-	weightless_image.icon += basecolor
 	. += weightless_image
 
 /obj/effect/decal/cleanable/blood/update_icon()
@@ -87,9 +88,11 @@
 		plane = GAME_PLANE
 
 	if(gravity_check)
-		color = basecolor
+		icon = initial(icon)
 		icon_state = base_icon_state
-	if(!gravity_check)
+		color = basecolor
+		animate(src)
+	else
 		if(prob(50))
 			animate_float(src, -1, rand(30,120))
 		else
@@ -125,13 +128,10 @@
 		return
 	if(loc != T)
 		forceMove(T) //move to the turf to splatter on
-	animate(src) //stop floating
 	gravity_check = ALWAYS_IN_GRAVITY
-	icon = initial(icon)
-	icon_state = weightless_image.icon_state
 	layer = initial(layer)
 	plane = initial(plane)
-	update_appearance()
+	update_icon()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
