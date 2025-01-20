@@ -12,11 +12,19 @@ SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
 	init_order = INIT_ORDER_AIR
 	priority = FIRE_PRIORITY_AIR
-	wait = 2
-	flags = SS_BACKGROUND
+	// The MC really doesn't like it if we sleep (even though it's supposed to), and ends up running us continuously. Instead, we ask it to run us every tick, and "sleep" by skipping the current tick.
+	wait = 1
+	flags = SS_BACKGROUND | SS_TICKER
+	/// How long we actually wait between ticks. Will round up to the next server tick.
+	var/self_wait = 0.15 SECONDS
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+
+	/// When did we last finish running a complete tick?
+	var/last_complete_tick = 0
+	/// When did we last start a tick?
+	var/last_tick_start = 0
 
 	/// How long we took for a full pass through the subsystem. Custom-tracked version of `cost`.
 	var/datum/resumable_cost_counter/cost_full = new()
@@ -178,26 +186,21 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSair.currentpart
 	milla_idle = SSair.milla_idle
 
-#define SLEEPABLE_TIMER (world.time + world.tick_usage * world.tick_lag / 100)
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
-	if(!milla_idle || length(sleepers) > 0)
-		var/timer = SLEEPABLE_TIMER
+	var/now = world.timeofday + (world.tick_lag * world.tick_usage) / 100
+	var/elapsed = now - last_complete_tick
+	if(!milla_idle || (elapsed >= 0 && elapsed < self_wait))
+		return
 
-		while(!milla_idle || length(sleepers) > 0)
-			// Sleep for 1ms.
-			sleep(0.01)
-			var/new_timer = SLEEPABLE_TIMER
-			time_slept.record_progress((new_timer - timer) * 100, FALSE)
-			timer = new_timer
-
-		time_slept.record_progress((SLEEPABLE_TIMER - timer) * 100, TRUE)
+	if(last_tick_start <= last_complete_tick)
+		last_tick_start = now
+		time_slept.record_progress(max(0, elapsed) * 100, TRUE)
 
 		// Run the sleepless callbacks again in case more showed up since on_milla_tick_finished()
 		run_sleepless_callbacks()
 
 	fire_sleepless(resumed)
-#undef SLEEPABLE_TIMER
 
 /datum/controller/subsystem/air/proc/fire_sleepless(resumed)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -317,13 +320,15 @@ SUBSYSTEM_DEF(air)
 		milla_idle = FALSE
 
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
-		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
+		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
 		if(state == SS_PAUSED || state == SS_PAUSING)
 			in_milla_safe_code = FALSE
 			return
 		resumed = 0
 
 	currentpart = SSAIR_DEFERREDPIPENETS
+	last_complete_tick = world.timeofday + (world.tick_lag * world.tick_usage) / 100
+	cost_full.record_progress(0, TRUE)
 	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/proc/build_pipenets(resumed = 0)
@@ -624,6 +629,9 @@ SUBSYSTEM_DEF(air)
 	for(var/turf/T as anything in block(low_corner, high_corner))
 		T.Initialize_Atmos(times_fired)
 	milla_load_turfs(low_corner, high_corner)
+	for(var/turf/T as anything in block(low_corner, high_corner))
+		T.milla_data.len = 0
+		T.milla_data = null
 
 /datum/controller/subsystem/air/proc/setup_write_to_milla()
 	var/watch = start_watch()
