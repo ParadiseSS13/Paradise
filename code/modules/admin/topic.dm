@@ -1041,6 +1041,20 @@
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
 
+	else if(href_list["f_dynamic"])
+		if(!check_rights(R_ADMIN))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		var/dat = {"<!DOCTYPE html><b>Possible Rulesets:</b><hr>"}
+		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied)
+		dat += {"Budget: <a href='byond://?src=[UID()];f_dynamic2=budget'>[isnull(GLOB.dynamic_forced_rulesets["budget"]) ? "Random" : GLOB.dynamic_forced_rulesets["budget"]]</a><hr>"}
+		for(var/datum/ruleset/ruleset as anything in rulesets)
+			dat += {"[ruleset.name]: <a href='byond://?src=[UID()];f_dynamic2=[ruleset.type]'>[GLOB.dynamic_forced_rulesets[ruleset] || DYNAMIC_RULESET_NORMAL]</a><br>"}
+		usr << browse(dat, "window=f_dynamic")
+
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
@@ -1066,6 +1080,44 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>", 1)
 		Game() // updates the main game menu
 		.(href, list("f_secret"=1))
+
+	else if(href_list["f_dynamic2"])
+		if(!check_rights(R_ADMIN|R_SERVER))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		if(href_list["f_dynamic2"] == "budget")
+			var/budget = input(usr, "Pick a budget for the dynamic gamemode (-1 to randomize)", "Gamemode Budget") as num|null
+			if(isnull(budget))
+				return
+			if(budget < 0)
+				GLOB.dynamic_forced_rulesets -= "budget"
+				log_admin("[key_name(usr)] set the ruleset budget to random.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the ruleset budget to random.</span>")
+			else
+				GLOB.dynamic_forced_rulesets["budget"] = budget
+				log_admin("[key_name(usr)] set the ruleset budget to [budget]")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the ruleset budget to [budget].</span>")
+			.(href, list("f_dynamic"=1))
+			return
+
+		var/datum/ruleset/ruleset = text2path(href_list["f_dynamic2"])
+		switch(GLOB.dynamic_forced_rulesets[ruleset])
+			if(DYNAMIC_RULESET_FORCED)
+				log_admin("[key_name(usr)] banned the [ruleset] ruleset.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] banned the [ruleset.name] ([ruleset.type]) ruleset.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_BANNED
+			if(DYNAMIC_RULESET_BANNED)
+				log_admin("[key_name(usr)] set the [ruleset] ruleset to normal.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the [ruleset.name] ([ruleset.type]) ruleset to normal.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_NORMAL
+			else // not set, and already at normal
+				log_admin("[key_name(usr)] forced the [ruleset] ruleset.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] forced the [ruleset.name] ([ruleset.type]) ruleset.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_FORCED
+		.(href, list("f_dynamic"=1))
 
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
@@ -1146,7 +1198,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1297,7 +1349,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1329,7 +1381,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1361,7 +1413,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1385,7 +1437,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1492,7 +1544,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -2255,7 +2307,7 @@
 		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			var/mob/living/silicon/ai/A = M
 			A.cryo_AI()
 		if(istype(M.loc, /obj/machinery/cryopod))
@@ -3615,7 +3667,7 @@
 			target = C.mob
 
 	. = ADMIN_FLW(target, "FLW")
-	if(isAI(target)) // AI core/eye follow links
+	if(is_ai(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"

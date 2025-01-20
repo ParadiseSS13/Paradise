@@ -104,7 +104,9 @@ fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corn
     let property_ref = data_property.get_strid()?;
     for turf in byond_block(byond_xyz(&low_corner)?, byond_xyz(&high_corner)?)? {
         let (x, y, z) = byond_xyz(&turf)?.coordinates();
-        let data = turf.read_var_id(property_ref)?.get_list_values()?;
+        let mut property = turf.read_var_id(property_ref)?;
+        let data = property.get_list_values()?;
+        property.decrement_ref();
         if data.len() != 17 {
             return Err(eyre!("data property has the wrong length: {} vs {}", data.len(), 17));
         }

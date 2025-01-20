@@ -126,7 +126,6 @@
 /area/ruin/space/powered)
 "lq" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/jacket/fluff,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/suit/navy,
 /obj/item/clothing/under/pants/blackjeans,

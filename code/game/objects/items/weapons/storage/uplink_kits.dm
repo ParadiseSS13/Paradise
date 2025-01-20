@@ -586,3 +586,13 @@
 /obj/item/storage/box/syndie_kit/eftpos_hacking_kit/populate_contents()
 	new /obj/item/eftpos_hack_key(src)
 	new /obj/item/paper/eftpos_hack_key(src)
+
+/obj/item/storage/box/syndie_kit/syndie_mantis
+	name = "\improper Mantis Blades kit"
+	desc = "A sleek box marked with a Cybersun logo. The label says it contains a pair of CX-12 'Naginata' mantis blades and accompanying autosurgeons."
+
+/obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l(src)
+
+

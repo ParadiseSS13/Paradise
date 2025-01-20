@@ -140,8 +140,30 @@
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
+	if(!tile || !istype(tile))
+		return 0
+
+	if(scrubbing && !should_scrub(tile.get_readonly_air()))
+		return 0
+
 	var/datum/milla_safe/vent_scrubber_process/milla = new()
 	milla.invoke_async(src, tile)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
+	if(scrub_O2 && environment.oxygen() > 0.001)
+		return TRUE
+	if(scrub_N2 && environment.nitrogen() > 0.001)
+		return TRUE
+	if(scrub_CO2 && environment.carbon_dioxide() > 0.001)
+		return TRUE
+	if(scrub_Toxins && environment.toxins() > 0.001)
+		return TRUE
+	if(environment.sleeping_agent() > 0.001)
+		return TRUE
+	if(environment.agent_b() > 0.001)
+		return TRUE
+
+	return FALSE
 
 /datum/milla_safe/vent_scrubber_process
 
@@ -152,7 +174,7 @@
 	var/datum/gas_mixture/environment = get_turf_air(tile)
 
 	if(scrubber.scrubbing)
-		if((scrubber.scrub_O2 && environment.oxygen() > 0.001) || (scrubber.scrub_N2 && environment.nitrogen() > 0.001) || (scrubber.scrub_CO2 && environment.carbon_dioxide() > 0.001) || (scrubber.scrub_Toxins && environment.toxins() > 0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
+		if(scrubber.should_scrub(environment))
 			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
