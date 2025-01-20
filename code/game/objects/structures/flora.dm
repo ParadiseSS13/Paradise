@@ -254,10 +254,10 @@
 	name = "potted plant"
 	desc = "Some greenery, how nice."
 	icon = 'icons/obj/flora/plants.dmi'
-	icon_state = "random_plant"
+	icon_state = "random-big"
 	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	throwforce = 13
 	throw_speed = 2
@@ -267,29 +267,86 @@
 
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	if(prob(1) && icon_state == "random_plant")
-		icon_state = "plant-eye"
-	if(icon_state == "random_plant")
-		icon_state = "plant-[rand(1, 34)]"
+	switch(icon_state)
+		if("random-big")
+			if(prob(4))
+				icon_state = "alien-[rand(1,8)]"
+			else icon_state = "plant-[rand(1, 17)]"
+		if("random-medium")
+			icon_state = "medium-[rand(1,6)]"
+		if("random-small")
+			icon_state = "small-[rand(1,5)]"
+		if("random-alien")
+			icon_state = "alien-[rand(1,8)]"
 	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/kirbyplants/large/plant1
+	icon_state = "plant-1"
+/obj/item/kirbyplants/large/plant2
+	icon_state = "plant-2"
+/obj/item/kirbyplants/large/plant3
+	icon_state = "plant-3"
+/obj/item/kirbyplants/large/plant4
+	icon_state = "plant-4"
+/obj/item/kirbyplants/large/plant5
+	icon_state = "plant-5"
+/obj/item/kirbyplants/large/plant6
+	icon_state = "plant-6"
+/obj/item/kirbyplants/large/plant7
+	icon_state = "plant-7"
+/obj/item/kirbyplants/large/plant8
+	icon_state = "plant-8"
+/obj/item/kirbyplants/large/plant9
+	icon_state = "plant-9"
+/obj/item/kirbyplants/large/plant10
+	icon_state = "plant-10"
+/obj/item/kirbyplants/large/plant11
+	icon_state = "plant-11"
+/obj/item/kirbyplants/large/plant12
+	icon_state = "plant-12"
+/obj/item/kirbyplants/large/plant13
+	icon_state = "plant-13"
+/obj/item/kirbyplants/large/plant14
+	icon_state = "plant-14"
+/obj/item/kirbyplants/large/plant15
+	icon_state = "plant-15"
+/obj/item/kirbyplants/large/plant16
+	icon_state = "plant-16"
+/obj/item/kirbyplants/large/plant17
+	icon_state = "plant-17"
+
+/obj/item/kirbyplants/large/dead
+	icon_state = "plant-dead"
+
+/obj/item/kirbyplants/dead/rd
+	name = "\improper RD's potted plant"
+	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
+
+/obj/item/kirbyplants/large
+	icon_state = "random-big"
+	w_class = WEIGHT_CLASS_HUGE
+	desc = "A big potted plant. In enclosed starships and space stations, a bit of greenery is good for morale."
+
+/obj/item/kirbyplants/large/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
-/obj/item/kirbyplants/Destroy()
-	if(iscarbon(loc))
-		unhide_user(loc)
-
-	QDEL_NULL(mob_overlay)
-	return ..()
-
-/obj/item/kirbyplants/equipped(mob/living/carbon/user)
+/obj/item/kirbyplants/large/equipped(mob/living/carbon/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		hide_user(user)
 		return
 	unhide_user(user)
 
+/obj/item/kirbyplants/large/Destroy()
+	if(iscarbon(loc))
+		unhide_user(loc)
+
+	QDEL_NULL(mob_overlay)
+	return ..()
+
 /// User has decided to hold a plant, apply stealth.
-/obj/item/kirbyplants/proc/hide_user(mob/living/carbon/user)
+/obj/item/kirbyplants/large/proc/hide_user(mob/living/carbon/user)
 	RegisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS, PROC_REF(reapply_hide))
 	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
 	user.add_overlay(mob_overlay)
@@ -300,7 +357,7 @@
 		user.alpha = 0
 
 /// User has either dropped the plant, or plant is being destroyed, restore user to normal.
-/obj/item/kirbyplants/proc/unhide_user(mob/living/carbon/user)
+/obj/item/kirbyplants/large/proc/unhide_user(mob/living/carbon/user)
 	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
 	user.cut_overlay(mob_overlay)
 	user.alpha = initial(user.alpha)
@@ -310,127 +367,68 @@
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.
-/obj/item/kirbyplants/proc/reapply_hide(mob/living/carbon/user)
+/obj/item/kirbyplants/large/proc/reapply_hide(mob/living/carbon/user)
 	SIGNAL_HANDLER
 	// Reset the state of the user
 	unhide_user(user)
 	hide_user(user)
 
-/obj/item/kirbyplants/dropped(mob/living/carbon/user)
+/obj/item/kirbyplants/large/dropped(mob/living/carbon/user)
 	..()
 	unhide_user(user)
 
-/obj/item/kirbyplants/plant1
-	icon_state = "plant-1"
 
-/obj/item/kirbyplants/plant2
-	icon_state = "plant-2"
+/obj/item/kirbyplants/small
+	icon_state = "random-small"
+	desc = "A small potted houseplant, for livening up the decor."
 
-/obj/item/kirbyplants/plant3
-	icon_state = "plant-3"
+/obj/item/kirbyplants/small/small1
+	icon_state = "small-1"
+/obj/item/kirbyplants/small/small2
+	icon_state = "small-2"
+/obj/item/kirbyplants/small/small3
+	icon_state = "small-3"
+/obj/item/kirbyplants/small/small4
+	icon_state = "small-4"
+/obj/item/kirbyplants/small/small5
+	icon_state = "small-5"
 
-/obj/item/kirbyplants/plant4
-	icon_state = "plant-4"
 
-/obj/item/kirbyplants/plant5
-	icon_state = "plant-5"
+/obj/item/kirbyplants/medium
+	icon_state = "random-medium"
+	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
 
-/obj/item/kirbyplants/plant6
-	icon_state = "plant-6"
+/obj/item/kirbyplants/medium/medium1
+	icon_state = "medium-1"
+/obj/item/kirbyplants/medium/medium1
+	icon_state = "medium-2"
+/obj/item/kirbyplants/medium/medium3
+	icon_state = "medium-3"
+/obj/item/kirbyplants/medium/medium4
+	icon_state = "medium-4"
+/obj/item/kirbyplants/medium/medium2
+	icon_state = "medium-5"
+/obj/item/kirbyplants/medium/medium6
+	icon_state = "medium-6"
 
-/obj/item/kirbyplants/plant7
-	icon_state = "plant-7"
+/obj/item/kirbyplants/large/alien
+	icon_state = "random-alien"
+	desc = "An alien potted plant. Nanotrasen and the TSF usually favor Earth plants for decor, so plants like this are an exotic rarity in this part of the world."
 
-/obj/item/kirbyplants/plant8
-	icon_state = "plant-8"
-
-/obj/item/kirbyplants/plant9
-	icon_state = "plant-9"
-
-/obj/item/kirbyplants/plant10
-	icon_state = "plant-10"
-
-/obj/item/kirbyplants/plant11
-	icon_state = "plant-11"
-
-/obj/item/kirbyplants/plant12
-	icon_state = "plant-12"
-
-/obj/item/kirbyplants/plant13
-	icon_state = "plant-13"
-
-/obj/item/kirbyplants/plant14
-	icon_state = "plant-14"
-
-/obj/item/kirbyplants/plant15
-	icon_state = "plant-15"
-
-/obj/item/kirbyplants/plant16
-	icon_state = "plant-16"
-
-/obj/item/kirbyplants/plant17
-	icon_state = "plant-17"
-
-/obj/item/kirbyplants/plant18
-	icon_state = "plant-18"
-
-/obj/item/kirbyplants/plant19
-	icon_state = "plant-19"
-
-/obj/item/kirbyplants/plant20
-	icon_state = "plant-20"
-
-/obj/item/kirbyplants/plant21
-	icon_state = "plant-21"
-
-/obj/item/kirbyplants/plant22
-	icon_state = "plant-22"
-
-/obj/item/kirbyplants/plant23
-	icon_state = "plant-23"
-
-/obj/item/kirbyplants/plant24
-	icon_state = "plant-24"
-
-/obj/item/kirbyplants/plant25
-	icon_state = "plant-25"
-
-/obj/item/kirbyplants/plant26
-	icon_state = "plant-26"
-
-/obj/item/kirbyplants/plant27
-	icon_state = "plant-27"
-
-/obj/item/kirbyplants/plant28
-	icon_state = "plant-28"
-
-/obj/item/kirbyplants/plant29
-	icon_state = "plant-29"
-
-/obj/item/kirbyplants/plant30
-	icon_state = "plant-30"
-
-/obj/item/kirbyplants/plant31
-	icon_state = "plant-31"
-
-/obj/item/kirbyplants/plant32
-	icon_state = "plant-32"
-
-/obj/item/kirbyplants/plant33
-	icon_state = "plant-33"
-
-/obj/item/kirbyplants/plant34
-	icon_state = "plant-34"
-
-/obj/item/kirbyplants/applebush
-	icon_state = "applebush"
-
-/obj/item/kirbyplants/dead
-	icon_state = "plant-dead"
-
-/obj/item/kirbyplants/dead/rd
-	name = "\improper RD's potted plant"
-	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
+/obj/item/kirbyplants/large/alien/alien1
+	icon_state = "alien-1"
+/obj/item/kirbyplants/large/alien/alien3
+	icon_state = "alien-3"
+/obj/item/kirbyplants/large/alien/alien4
+	icon_state = "alien-4"
+/obj/item/kirbyplants/large/alien/alien5
+	icon_state = "alien-5"
+/obj/item/kirbyplants/large/alien/alien6
+	icon_state = "alien-6"
+/obj/item/kirbyplants/large/alien/alien7
+	icon_state = "alien-7"
+/obj/item/kirbyplants/large/alien/alien8
+	icon_state = "alien-8"
 
 //a rock is flora according to where the icon file is
 //and now these defines
