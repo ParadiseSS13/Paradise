@@ -37,6 +37,7 @@
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 	var/board_type = /obj/item/circuitboard/autolathe
+	var/disk_design_load_delay = 1.5 SECONDS
 
 /obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
@@ -293,7 +294,7 @@
 				)
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
-				if(do_after(user, 14.4, target = src))
+				if(do_after(user, disk_design_load_delay, target = src))
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)
 					recipiecache = list()

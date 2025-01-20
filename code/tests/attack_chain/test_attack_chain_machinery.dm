@@ -53,7 +53,8 @@
 	TEST_ASSERT(gland in dispenser.contents, "did not place gland in dispenser")
 
 	// Autolathe
-	var/obj/autolathe = teleport_to_first(player, /obj/machinery/autolathe)
+	var/obj/machinery/autolathe/autolathe = teleport_to_first(player, /obj/machinery/autolathe)
+	autolathe.disk_design_load_delay = 0
 	var/obj/design_disk = player.spawn_obj_in_hand(/obj/item/disk/design_disk/golem_shell)
 	player.click_on(autolathe)
 	TEST_ASSERT_LAST_CHATLOG(player, "You begin to load a design")
@@ -92,7 +93,7 @@
 	player.click_on(camera)
 	TEST_ASSERT_LAST_CHATLOG(player, "You hit the security camera with the kitchen knife")
 	player.set_intent("help")
-	qdel(knife)
+	player.put_away(knife)
 
 	var/obj/chem_dispenser = teleport_to_first(player, /obj/machinery/chem_dispenser)
 	player.retrieve(screwdriver)
@@ -113,3 +114,8 @@
 	player.click_on(upload_console)
 	TEST_ASSERT_LAST_CHATLOG(player, "No AI selected")
 	qdel(ai_module)
+	player.retrieve(knife)
+	player.set_intent("harm")
+	player.click_on(upload_console)
+	TEST_ASSERT_LAST_CHATLOG(player, "AI upload console with the kitchen knife")
+	player.put_away(knife)
