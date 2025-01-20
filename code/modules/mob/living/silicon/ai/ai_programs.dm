@@ -39,8 +39,33 @@
 /datum/program_picker/proc/modify_resource(key, amount)
 	if(key == "memory")
 		memory += amount
+		if(memory < 0)
+			refund_purchases()
 	if(key == "bandwidth")
 		bandwidth += amount
+		if(bandwidth < 0)
+			refund_upgrades()
+
+/datum/program_picker/proc/refund_purchases(mob/user)
+	var/list/potential_losses = possible_programs
+	while(memory < 0)
+		if(!potential_losses)
+			return
+		var/datum/ai_program/program = pick_n_take(potential_losses)
+		if(!program.installed)
+			continue
+		program.uninstall(user)
+
+/datum/program_picker/proc/refund_upgrades(mob/user)
+	var/list/potential_losses = possible_programs
+	while(bandwidth < 0)
+		if(!potential_losses)
+			return
+		var/datum/ai_program/program = pick_n_take(potential_losses)
+		if(!program.upgrade_level)
+			continue
+		while(program.upgrade_level > 0 && bandwidth < 0)
+			program.downgrade(user)
 
 /datum/program_picker/Topic(href, href_list)
 	..()
@@ -73,6 +98,7 @@
 							if(aspell.spell_level >= aspell.level_max)
 								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 							aspell.on_purchase_upgrade()
+							program.upgrade(A)
 							bandwidth--
 							return TRUE
 				// No same program found, install
@@ -81,7 +107,7 @@
 					return FALSE
 				memory -= program.cost
 				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-				program.upgrade(A) // Usually does nothing, but is needed for hybrid abilities like the enhanced tracker
+				program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
 				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
@@ -140,9 +166,39 @@
 	create_attack_logs = FALSE
 
 /datum/ai_program/proc/upgrade(mob/user)
+	upgrade_level++
+	bandwidth_used++
 	return
 
 /datum/ai_program/proc/downgrade(mob/user)
+	upgrade_level--
+	var/mob/living/silicon/ai/A = user
+	if(!istype(A))
+		return
+	A.program_picker.bandwidth++
+	if(!upgrade) // Passives need to be handled in their own procs
+		var/datum/spell/ai_spell/removed_spell = new power_type
+		for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+			if(removed_spell.type == aspell.type)
+				aspell.name = initial(aspell.name)
+				aspell.spell_level--
+				aspell.on_purchase_upgrade() // It's a downgrade, but we still need to recalculate values
+	return
+
+/datum/ai_program/proc/uninstall(mob/user)
+	upgrade_level = 0
+	installed = FALSE
+	var/mob/living/silicon/ai/A = user
+	if(!istype(A))
+		return
+	A.program_picker.bandwidth += bandwidth_used
+	bandwidth_used = 0
+	A.program_picker.memory += cost
+	if(!upgrade) // Passives need to be handled in their own procs
+		var/datum/spell/ai_spell/removed_spell = new power_type
+		for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+			if(removed_spell.type == aspell.type)
+				A.RemoveSpell(aspell)
 	return
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
