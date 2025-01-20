@@ -374,7 +374,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "A small potted houseplant, for setting on tables and shelves."
 
-/obj/item/kirbyplants/small/Initialize()
+/obj/item/kirbyplants/small/Initialize(mapload)
 	. = ..()
 	if(icon_state == "random-small")
 		icon_state = "small-[rand(1,5)]"
@@ -396,7 +396,7 @@
 	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/kirbyplants/medium/Initialize()
+/obj/item/kirbyplants/medium/Initialize(mapload)
 	. = ..()
 	if(icon_state == "random-medium")
 		icon_state = "medium-[rand(1,6)]"
@@ -419,7 +419,7 @@
 	icon_state = "random-alien"
 	desc = "An alien potted plant. Nanotrasen and the TSF usually favor Earthen plants for decor, so plants like this are an exotic novelty in this part of the galaxy."
 
-/obj/item/kirbyplants/large/alien/Initialize()
+/obj/item/kirbyplants/large/alien/Initialize(mapload)
 	. = ..()
 	if(icon_state == "random-alien")
 		icon_state = "alien-[rand(1,8)]"
