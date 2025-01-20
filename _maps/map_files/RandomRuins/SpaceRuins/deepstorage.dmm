@@ -6300,7 +6300,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Pq" = (
-/obj/item/kirbyplants/plant/large/plant11,
+/obj/item/kirbyplants/large/plant11,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
