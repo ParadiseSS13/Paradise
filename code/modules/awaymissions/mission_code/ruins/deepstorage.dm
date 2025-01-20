@@ -74,15 +74,15 @@
 		return
 	new /obj/effect/temp_visual/dragon_swoop/bubblegum(T)
 	charging = TRUE
-	GLOB.move_manager.stop_looping(src)
+	walk(src, 0)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	var/movespeed = 0.8
-	GLOB.move_manager.home_onto(src, T, movespeed)
+	walk_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	GLOB.move_manager.stop_looping(src)
+	walk(src, 0)
 	charging = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,

@@ -112,7 +112,7 @@
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			spawn(50)
 				stop_automated_movement = FALSE
-				GLOB.move_manager.stop_looping(src)
+				walk(src,0)
 		return 1
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
@@ -226,7 +226,7 @@
 	if(cocoon_target)
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		stop_automated_movement = TRUE
-		GLOB.move_manager.stop_looping(src)
+		walk(src, 0)
 		if(!do_after_once(src, 5 SECONDS, target = cocoon_target, attempt_cancel_message = "You stop wrapping [cocoon_target]."))
 			return
 		if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src, cocoon_target) <= 1)
