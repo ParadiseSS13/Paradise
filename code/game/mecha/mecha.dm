@@ -265,10 +265,11 @@
 			target = safepick(oview(1, src))
 		if(!melee_can_hit || !isatom(target))
 			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+		if(iswallturf(target) || isliving(target) || isobj(target))
+			target.mech_melee_attack(src)
+			melee_can_hit = FALSE
+			spawn(melee_cooldown)
+				melee_can_hit = TRUE
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)

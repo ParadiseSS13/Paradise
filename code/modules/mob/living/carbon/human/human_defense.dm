@@ -781,7 +781,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
