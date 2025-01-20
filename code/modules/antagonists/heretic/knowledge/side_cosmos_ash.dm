@@ -58,5 +58,5 @@
 	cost = 1
 
 	research_tree_icon_path = 'icons/obj/economy.dmi'
-	research_tree_icon_state = "coin_heretic"
+	research_tree_icon_state = "coin_heretic_heretic"
 

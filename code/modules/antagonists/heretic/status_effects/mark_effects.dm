@@ -16,7 +16,6 @@
 	return ..()
 
 /datum/status_effect/eldritch/Destroy()
-	QDEL_NULL(marked_underlay)
 	return ..()
 
 /datum/status_effect/eldritch/on_apply()
@@ -28,7 +27,9 @@
 
 /datum/status_effect/eldritch/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
+	owner.cut_overlay(marked_underlay)
 	owner.update_icon(UPDATE_OVERLAYS)
+	QDEL_NULL(marked_underlay)
 	return ..()
 
 /**
@@ -39,7 +40,7 @@
 /datum/status_effect/eldritch/proc/update_owner_underlay(atom/source, list/overlays)
 	SIGNAL_HANDLER
 
-	overlays += marked_underlay
+	source.add_overlay(marked_underlay)
 
 /**
  * Called when the mark is activated by the heretic.
@@ -201,7 +202,7 @@
 	new /obj/effect/forcefield/cosmic_field(get_turf(owner))
 	owner.forceMove(get_turf(cosmic_diamond))
 	new teleport_effect(get_turf(owner))
-	owner.Paralyse(2 SECONDS)
+	owner.Weaken(2 SECONDS)
 	return ..()
 
 // MARK OF LOCK

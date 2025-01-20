@@ -22,12 +22,16 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	name = "lionhunter rifle internal magazine"
+	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/lionhunter
 	caliber = "a762-H"
 	max_ammo = 3
 	multiload = TRUE
+	multi_sprite_step = 1
 
 /obj/item/ammo_casing/lionhunter
+	icon_state = "310-casing"
+	caliber = "a762-H"
 	projectile_type = /obj/item/projectile/homing/lionhunter
 	/// Whether we're currently aiming this casing at something
 	var/currently_aiming = FALSE
@@ -166,10 +170,11 @@
 		return
 
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
+	qdel(src)
 	return
 
 /obj/item/projectile/homing/lionhunter/Destroy()
-	if(stored_mob)
+	if(stored_mob)d
 		stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
 		stored_mob.forceMove(loc)
 	return ..()
@@ -181,6 +186,7 @@
 	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/lionhunter
 	max_ammo = 3
+	multi_sprite_step = 1
 
 /obj/effect/temp_visual/bullet_target
 	icon = 'icons/mob/actions/actions.dmi'

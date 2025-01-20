@@ -80,6 +80,7 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
+	invisibility = INVISIBILITY_LEVEL_TWO
 	new_attack_chain = TRUE
 
 /obj/effect/visible_heretic_influence/Initialize(mapload)
@@ -97,6 +98,7 @@
  * Makes the influence fade in after 15 seconds.
  */
 /obj/effect/visible_heretic_influence/proc/show_presence()
+	invisibility = 0
 	animate(src, alpha = 255, time = 15 SECONDS)
 
 /obj/effect/visible_heretic_influence/attack_hand(mob/living/user, list/modifiers)
@@ -174,13 +176,7 @@
 	for(var/datum/atom_hud/data/heretic/h_hud in GLOB.huds)
 		h_hud.add_to_hud(src)
 	do_hud_stuff()
-	//add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image) //qwertodo: get someone that knows huds
 
-	//AddElement(/datum/element/block_turf_fingerprints)
-	//AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see))) //oh fuck my attack chain ass
-
-///obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
-	//return (user.mind in GLOB.reality_smash_track.tracked_heretics)
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
@@ -261,7 +257,3 @@
 
 #undef NUM_INFLUENCES_PER_HERETIC
 
-/// Hud used for heretics to see influences
-///datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic
-	//antag_datum_type = /datum/antagonist/heretic
-	//add_ghost_version = TRUE

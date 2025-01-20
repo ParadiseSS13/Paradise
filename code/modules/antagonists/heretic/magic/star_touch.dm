@@ -39,7 +39,7 @@
 	for(var/turf/cast_turf as anything in get_turfs(living_target))
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
 	user.apply_status_effect(/datum/status_effect/cosmic_beam, living_target)
-	return TRUE
+	handle_delete(user)
 
 /obj/item/melee/touch_attack/star_touch/proc/get_turfs(mob/living/victim)
 	var/list/target_turfs = list(get_turf(loc))
@@ -132,7 +132,7 @@
 
 /datum/status_effect/cosmic_beam/be_replaced()
 	if(active)
-		QDEL_NULL(current_beam)
+		qdel(current_beam)
 		active = FALSE
 	return ..()
 
@@ -147,7 +147,7 @@
 	last_check = world.time
 
 	if(!can_see(owner, current_target))
-		QDEL_NULL(current_beam)//this will give the target lost message
+		qdel(current_beam)//this will give the target lost message
 		return
 
 	if(current_target)
@@ -158,7 +158,7 @@
  */
 /datum/status_effect/cosmic_beam/proc/lose_target()
 	if(active)
-		QDEL_NULL(current_beam)
+		qdel(current_beam)
 		active = FALSE
 	if(current_target)
 		on_beam_release(current_target)
@@ -188,7 +188,6 @@
 	current_beam = user.Beam(current_target, icon_state="cosmic_beam", time = 1 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/cosmic)
 	RegisterSignal(current_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died))
 
-	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	if(current_target)
 		on_beam_hit(current_target)
 

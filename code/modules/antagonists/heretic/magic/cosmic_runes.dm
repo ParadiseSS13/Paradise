@@ -27,7 +27,7 @@
 
 /datum/spell/cosmic_rune/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
-	targeting.range = 1
+	targeting.range = 0
 	return targeting
 
 /datum/spell/cosmic_rune/cast(list/targets, mob/user)
@@ -74,7 +74,9 @@
 
 /obj/effect/cosmic_rune/Initialize(mapload)
 	. = ..()
-	//qwertodo: maybe make invisible to admins
+	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance("cosmic_rune", silicon_image, GLOB.silicon_mob_list)
 
 /obj/effect/cosmic_rune/attack_animal(mob/living/simple_animal/M)
 	return attack_hand(M)

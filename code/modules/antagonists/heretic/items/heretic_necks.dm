@@ -4,6 +4,7 @@
 	icon_state = "eldritch_necklace"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 /obj/item/clothing/neck/heretic_focus/Initialize(mapload)
 	. = ..()
@@ -27,7 +28,7 @@
 		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
 		magic_holder.magic_enhanced = TRUE
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
-		for(var/datum/spell/spell_action in user.actions)
+		for(var/datum/spell/spell_action in user.mob_spell_list)
 			spell_action.cooldown_handler.recharge_duration *= 0.5
 			active = TRUE
 
@@ -45,8 +46,8 @@
 		to_chat(user, "<span class='notice'>Your heart and blood return to their regular old rhythm and flow.</span>")
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
-		for(var/datum/spell/spell_action in user.actions)
-			spell_action.cooldown_handler.recharge_duration  *= 2
+		for(var/datum/spell/spell_action in user.mob_spell_list)
+			spell_action.cooldown_handler.recharge_duration *= 2
 			active = FALSE
 	QDEL_NULL(component)
 	REMOVE_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
@@ -72,8 +73,8 @@
 	our_user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
 
 	// I want it to poison the user but I also think it'd be neat if they got their juice as well. But that cancels most of the damage out. So I dunno.
-	our_user.reagents?.add_reagent(/datum/reagent/fuel/unholywater, rand(6, 10))
-	our_user.reagents?.add_reagent(/datum/reagent/eldritch, rand(6, 10))
+	our_user.reagents?.add_reagent("unholywater", rand(6, 10))
+	our_user.reagents?.add_reagent("eldritch", rand(6, 10))
 	qdel(src)
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/examine(mob/user)

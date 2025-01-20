@@ -79,6 +79,7 @@
 	required_atoms = list(
 		/obj/item/ammo_casing = 3,
 	)
+	banned_atom_types = list(/obj/item/ammo_casing/lionhunter) // The gods are very generous with ingredients, but not *that* generous
 	result_atoms = list(/obj/item/ammo_box/lionhunter)
 	cost = 0
 

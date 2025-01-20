@@ -130,7 +130,6 @@
 	return ..()
 
 /datum/status_effect/star_mark/Destroy()
-	QDEL_NULL(cosmic_overlay)
 	return ..()
 
 /datum/status_effect/star_mark/on_apply()
@@ -149,11 +148,13 @@
 /datum/status_effect/star_mark/proc/update_owner_overlay(atom/source, list/overlays)
 	SIGNAL_HANDLER
 
-	overlays += cosmic_overlay
+	source.add_overlay(cosmic_overlay)
 
 /datum/status_effect/star_mark/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
+	owner.cut_overlay(cosmic_overlay)
 	owner.update_appearance(UPDATE_OVERLAYS)
+	QDEL_NULL(cosmic_overlay)
 	return ..()
 
 /datum/status_effect/star_mark/extended
@@ -207,7 +208,6 @@
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
 
 /datum/status_effect/moon_converted/Destroy()
-	QDEL_NULL(moon_insanity_overlay)
 	return ..()
 
 /datum/status_effect/moon_converted/on_apply()
@@ -240,7 +240,7 @@
 
 /datum/status_effect/moon_converted/proc/update_owner_overlay(atom/source, list/overlays)
 	SIGNAL_HANDLER
-	overlays += moon_insanity_overlay
+	source.add_overlay(moon_insanity_overlay)
 
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning and unconscious so they realize they aren't evil anymore
@@ -249,6 +249,8 @@
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	owner.update_appearance(UPDATE_OVERLAYS)
+	owner.cut_overlay(moon_insanity_overlay)
+	QDEL_NULL(moon_insanity_overlay)
 	return ..()
 
 

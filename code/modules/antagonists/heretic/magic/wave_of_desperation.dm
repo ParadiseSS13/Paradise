@@ -44,7 +44,7 @@
 		var/our_turf = get_turf(user)
 		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(victim, our_turf)))
 		victim.throw_at(throwtarget, 3, 1)
-		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
+		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) //qwertodo: primary
 
 /datum/spell/aoe/wave_of_desperation/proc/get_things_to_cast_on(atom/center, radius_override)
 	. = list()

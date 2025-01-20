@@ -20,14 +20,16 @@
 
 /obj/item/melee/touch_attack/mansus_fist/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(user == target || blocked_by_antimagic)
+		return
 	if(!isliving(target))
-		SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target)
-		handle_delete(user)
+		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target) & COMPONENT_USE_HAND)
+			handle_delete(user)
 		return
-
-	if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target) & COMPONENT_BLOCK_HAND_USE)
-		handle_delete(user)
-		return
+	else
+		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target) & COMPONENT_BLOCK_HAND_USE)
+			handle_delete(user)
+			return
 
 	var/mob/living/living_hit = target
 	living_hit.apply_damage(10, BRUTE)

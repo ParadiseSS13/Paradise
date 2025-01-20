@@ -10,7 +10,7 @@
 	action_icon_state = "void_rift"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
-	base_cooldown = 1 MINUTES
+	base_cooldown = 2 MINUTES
 
 	sound = null
 	is_a_heretic_spell = TRUE
@@ -18,6 +18,7 @@
 	invocation = "MBR'C' TH' V''D!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
+	aoe_range = 0
 
 	summon_type = list(/obj/structure/void_conduit)
 
@@ -28,6 +29,7 @@
 	icon_state = "void_conduit"
 	anchored = TRUE
 	density = TRUE
+	obj_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
 	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
