@@ -1,0 +1,6 @@
+#include "detective_rework.dm"
+
+#include "code/misc_stuff.dm"
+#include "code/machines.dm"
+#include "code/swabs.dm"
+#include "code/sample_kits.dm"

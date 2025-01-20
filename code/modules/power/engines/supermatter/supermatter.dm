@@ -313,8 +313,10 @@
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
 			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В КРИТИЧЕСКОМ СОСТОЯНИИ!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/meltdown.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_EMERGENCY)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В СОСТОЯНИИ КРИТИЧЕСКОГО ПЕРЕГРЕВА. ЯДЕРНАЯ КАТАСТРОФА НЕИЗБЕЖНА!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/core_overheating.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_DANGER)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
@@ -406,6 +408,7 @@
 			E.energy = 200 //Gets us about 9 balls
 
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
+	playsound(src, 'modular_ss220/aesthetics_sounds/sound/supermatter/explode.ogg', 100, FALSE, 40, 30, falloff_distance = 10) //SS220 EDIT - ADDITION
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)

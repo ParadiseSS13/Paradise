@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Zvezhan", 1)
+	add_language("Neo-Russkiya", 1) // SS220 EDIT - Zvezhan -> Neo-Russkiya
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
