@@ -27,7 +27,7 @@
 	if(!istype(used, /obj/item/mop))
 		return ..()
 
-	var/robot_mop = is_robot_module(used)
+	var/robot_mop = used.is_robot_module()
 	var/obj/item/mop/attacking_mop = used
 	if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
 		attacking_mop.wet_mop(src, user, robot_mop)

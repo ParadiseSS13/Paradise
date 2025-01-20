@@ -12,11 +12,11 @@
 	//copypaste sorry
 	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-	var/obj/item/storage/bag/trash/mybag = null
-	var/obj/item/mop/mymop = null
-	var/obj/item/push_broom/mybroom = null
-	var/obj/item/reagent_containers/spray/cleaner/myspray = null
-	var/obj/item/lightreplacer/myreplacer = null
+	var/obj/item/storage/bag/trash/my_bag = null
+	var/obj/item/mop/my_mop = null
+	var/obj/item/push_broom/my_broom = null
+	var/obj/item/reagent_containers/spray/cleaner/my_spray = null
+	var/obj/item/lightreplacer/my_replacer = null
 	var/signs = 0
 	var/const/max_signs = 4
 
@@ -27,11 +27,11 @@
 
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitorial_equipment -= src
-	QDEL_NULL(mybag)
-	QDEL_NULL(mymop)
-	QDEL_NULL(mybroom)
-	QDEL_NULL(myspray)
-	QDEL_NULL(myreplacer)
+	QDEL_NULL(my_bag)
+	QDEL_NULL(my_mop)
+	QDEL_NULL(my_broom)
+	QDEL_NULL(my_spray)
+	QDEL_NULL(my_replacer)
 	return ..()
 
 /obj/structure/janitorialcart/proc/put_in_cart(mob/user, obj/item/I)
@@ -47,49 +47,63 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/janitorialcart/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.is_robot_module())
-		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+/obj/structure/janitorialcart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(handle_item_interactions(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/structure/janitorialcart/proc/handle_item_interactions(mob/living/user, obj/item/used)
+	. = TRUE
+	if(istype(used, /obj/item/mop))
+		var/obj/item/mop/attacking_mop = used
+		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
+			attacking_mop.wet_mop(src, user)
+			return
+
+		if(!my_mop)
+			if(used.is_robot_module())
+				to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+				return
+
+			my_mop = attacking_mop
+			put_in_cart(user, attacking_mop)
+		else
+			to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 		return
 
-	if(istype(I, /obj/item/mop))
-		var/obj/item/mop/M = I
-		if(M.reagents.total_volume < M.reagents.maximum_volume)
-			M.wet_mop(src, user)
+	if(used.is_robot_module())
+		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+		return
+
+	if(istype(used, /obj/item/push_broom) && !my_broom)
+		if(!my_broom)
+			my_broom = used
+			put_in_cart(user, used)
 			return
-		if(!mymop)
-			mymop = I
-			put_in_cart(user, I)
-			return
-		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+	
+	if(istype(used, /obj/item/storage/bag/trash) && !my_bag)
+		my_bag = used
+		put_in_cart(user, used)
+		return
 
-	else if(istype(I, /obj/item/push_broom) && !mybroom)
-		mybroom = I
-		put_in_cart(user, I)
+	if(istype(used, /obj/item/reagent_containers/spray/cleaner) && !my_spray)
+		my_spray = used
+		put_in_cart(user, used)
+		return
 
-	else if(istype(I, /obj/item/storage/bag/trash) && !mybag)
-		mybag = I
-		put_in_cart(user, I)
+	if(istype(used, /obj/item/lightreplacer) && !my_replacer)
+		my_replacer = used
+		put_in_cart(user, used)
+		return
 
-	else if(istype(I, /obj/item/reagent_containers/spray/cleaner) && !myspray)
-		myspray = I
-		put_in_cart(user, I)
-
-	else if(istype(I, /obj/item/lightreplacer) && !myreplacer)
-		myreplacer = I
-		put_in_cart(user, I)
-
-	else if(istype(I, /obj/item/caution))
+	if(istype(used, /obj/item/caution))
 		if(signs < max_signs)
 			signs++
-			put_in_cart(user, I)
+			put_in_cart(user, used)
 		else
 			to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-
-		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
-
-	else if(mybag)
-		mybag.attackby__legacy__attackchain(I, user, params)
+		return
 
 	else
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
@@ -126,19 +140,19 @@
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	var/list/cart_items = list()
 
-	if(mybag)
-		cart_items["Trash Bag"] = image(icon = mybag.icon, icon_state = mybag.icon_state)
-	if(mymop)
-		cart_items["Mop"] = image(icon = mymop.icon, icon_state = mymop.icon_state)
-	if(mybroom)
-		cart_items["Broom"] = image(icon = mybroom.icon, icon_state = mybroom.icon_state)
-	if(myspray)
-		cart_items["Spray Bottle"] = image(icon = myspray.icon, icon_state = myspray.icon_state)
-	if(myreplacer)
-		cart_items["Light Replacer"] = image(icon = myreplacer.icon, icon_state = myreplacer.icon_state)
-	var/obj/item/caution/Sign = locate() in src
-	if(Sign)
-		cart_items["Sign"] = image(icon = Sign.icon, icon_state = Sign.icon_state)
+	if(my_bag)
+		cart_items["Trash Bag"] = image(icon = my_bag.icon, icon_state = my_bag.icon_state)
+	if(my_mop)
+		cart_items["Mop"] = image(icon = my_mop.icon, icon_state = my_mop.icon_state)
+	if(my_broom)
+		cart_items["Broom"] = image(icon = my_broom.icon, icon_state = my_broom.icon_state)
+	if(my_spray)
+		cart_items["Spray Bottle"] = image(icon = my_spray.icon, icon_state = my_spray.icon_state)
+	if(my_replacer)
+		cart_items["Light Replacer"] = image(icon = my_replacer.icon, icon_state = my_replacer.icon_state)
+	var/obj/item/caution/sign = locate() in src
+	if(sign)
+		cart_items["Sign"] = image(icon = sign.icon, icon_state = sign.icon_state)
 
 	if(!length(cart_items))
 		return
@@ -150,41 +164,41 @@
 
 	switch(pick)
 		if("Trash Bag")
-			if(!mybag)
+			if(!my_bag)
 				return
-			user.put_in_hands(mybag)
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
-			mybag = null
+			user.put_in_hands(my_bag)
+			to_chat(user, "<span class='notice'>You take [my_bag] from [src].</span>")
+			my_bag = null
 		if("Mop")
-			if(!mymop)
+			if(!my_mop)
 				return
-			user.put_in_hands(mymop)
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
-			mymop = null
+			user.put_in_hands(my_mop)
+			to_chat(user, "<span class='notice'>You take [my_mop] from [src].</span>")
+			my_mop = null
 		if("Broom")
-			if(!mybroom)
+			if(!my_broom)
 				return
-			user.put_in_hands(mybroom)
-			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
-			mybroom = null
+			user.put_in_hands(my_broom)
+			to_chat(user, "<span class='notice'>You take [my_broom] from [src].</span>")
+			my_broom = null
 		if("Spray Bottle")
-			if(!myspray)
+			if(!my_spray)
 				return
-			user.put_in_hands(myspray)
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
-			myspray = null
+			user.put_in_hands(my_spray)
+			to_chat(user, "<span class='notice'>You take [my_spray] from [src].</span>")
+			my_spray = null
 		if("Light Replacer")
-			if(!myreplacer)
+			if(!my_replacer)
 				return
-			user.put_in_hands(myreplacer)
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
-			myreplacer = null
+			user.put_in_hands(my_replacer)
+			to_chat(user, "<span class='notice'>You take [my_replacer] from [src].</span>")
+			my_replacer = null
 		if("Sign")
 			if(!signs)
 				return
-			if(Sign)
-				user.put_in_hands(Sign)
-				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
+			if(sign)
+				user.put_in_hands(sign)
+				to_chat(user, "<span class='notice'>You take \a [sign] from [src].</span>")
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")
@@ -197,15 +211,15 @@
 
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()
-	if(mybag)
+	if(my_bag)
 		. += "cart_garbage"
-	if(mymop)
+	if(my_mop)
 		. += "cart_mop"
-	if(mybroom)
+	if(my_broom)
 		. += "cart_broom"
-	if(myspray)
+	if(my_spray)
 		. += "cart_spray"
-	if(myreplacer)
+	if(my_replacer)
 		. += "cart_replacer"
 	if(signs)
 		. += "cart_sign[signs]"

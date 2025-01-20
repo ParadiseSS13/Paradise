@@ -14,6 +14,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 	var/mopcap = 6
 	var/mopspeed = 30
 	/// The cooldown between each mopping sound effect
@@ -44,7 +45,7 @@
 		if(istype(O, /obj/structure/janitorialcart))
 			var/obj/structure/janitorialcart/janicart = O	
 			if(!janicart.my_mop)
-				janicart.mymop = src
+				janicart.my_mop = src
 				janicart.put_in_cart(user, src)
 			return
 
@@ -69,7 +70,7 @@
 		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
 		mop_sound_cooldown = world.time + MOP_SOUND_CD
 	target.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
-		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mop/can_clean()
 	. = FALSE
