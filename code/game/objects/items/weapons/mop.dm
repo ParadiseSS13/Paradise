@@ -28,18 +28,25 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/item/mop/proc/wet_mop(obj/O, mob/user)
+/obj/item/mop/proc/wet_mop(obj/O, mob/user, robot_mop)
 	if(O.reagents.total_volume < 1)
 		to_chat(user, "<span class='notice'>[O] is empty!</span>")
+		if(robot_mop)
+			return
+
 		if(istype(O, /obj/structure/mopbucket))
 			var/obj/structure/mopbucket/mopbucket = O
-			mopbucket.mopbucket_insert(user, O)
+			if(!mopbucket.stored_mop)
+				mopbucket.stored_mop = src
+				mopbucket.put_in_cart(user, src)
+			return
+
 		if(istype(O, /obj/structure/janitorialcart))
-			var/obj/structure/janitorialcart/janicart = O
-			if(!janicart.mymop)
+			var/obj/structure/janitorialcart/janicart = O	
+			if(!janicart.my_mop)
 				janicart.mymop = src
 				janicart.put_in_cart(user, src)
-		return
+			return
 
 	O.reagents.trans_to(src, 6)
 	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
