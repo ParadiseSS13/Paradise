@@ -409,7 +409,7 @@
 	icon_state = "medium-3"
 /obj/item/kirbyplants/medium/medium4
 	icon_state = "medium-4"
-/obj/item/kirbyplants/medium/medium2
+/obj/item/kirbyplants/medium/medium5
 	icon_state = "medium-5"
 /obj/item/kirbyplants/medium/medium6
 	icon_state = "medium-6"
