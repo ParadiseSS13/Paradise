@@ -50,12 +50,16 @@
 	check_gravity(T)
 	update_icon()
 
-	if(!gravity_check)
+	if(gravity_check)
+		if(!. && !QDELETED(src))
+			dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+	else
+		if(prob(50))
+			animate_float(src, -1, rand(30,120))
+		else
+			animate_levitate(src, -1, rand(30,120))
 		//weightless blood cannot dry
 		return
-
-	if(!. && !QDELETED(src))
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
@@ -91,13 +95,7 @@
 		icon = initial(icon)
 		icon_state = base_icon_state
 		color = basecolor
-		animate(src)
 	else
-		if(prob(50))
-			animate_float(src, -1, rand(30,120))
-		else
-			animate_levitate(src, -1, rand(30,120))
-
 		icon_state = null
 
 	..()
@@ -131,25 +129,14 @@
 	gravity_check = ALWAYS_IN_GRAVITY
 	layer = initial(layer)
 	plane = initial(plane)
+	animate(src)
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
 		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return TRUE
-
-	if(pulledby && !pulledby.pulling)
-		return TRUE
-
-	if(throwing)
-		return TRUE
-
-	return FALSE
-
+	return ..()
 
 /obj/effect/decal/cleanable/blood/Bump(atom/A)
 	if(gravity_check)
