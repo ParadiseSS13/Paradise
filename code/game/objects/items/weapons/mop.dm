@@ -31,7 +31,7 @@
 
 /obj/item/mop/proc/wet_mop(obj/O, mob/user, robot_mop)
 	if(O.reagents.total_volume < 1)
-		to_chat(user, "<span class='notice'>[O] is empty!</span>")
+		to_chat(user, "<span class='warning'>[O] is empty!</span>")
 		if(robot_mop)
 			return
 

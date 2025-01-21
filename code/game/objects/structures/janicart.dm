@@ -57,22 +57,20 @@
 
 	if(istype(used, /obj/item/reagent_containers))
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-	
-	if(crowbar_act(user, used))
-		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
 /obj/structure/janitorialcart/proc/handle_janitorial_equipment(mob/living/user, obj/item/used)
 	. = TRUE
+	var/robot_module = used.is_robot_module()
 	var/item_present = FALSE
 	if(istype(used, /obj/item/mop))
 		var/obj/item/mop/attacking_mop = used
 		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
-			attacking_mop.wet_mop(src, user)
+			attacking_mop.wet_mop(src, user, robot_module)
 			return
 
-		if(used.is_robot_module())
+		if(robot_module)
 			to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
 			return
 
@@ -83,7 +81,7 @@
 			to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 		return
 
-	if(used.is_robot_module())
+	if(robot_module)
 		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
 		return
 
@@ -130,11 +128,12 @@
 	return FALSE
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
 	user.visible_message(
 		"<span class='warning'>[user] begins to empty the contents of [src].</span>",
 		"<span class='notice'>You begin to empty the contents of [src].</span>"
 		)
-	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 
 	user.visible_message(
@@ -143,12 +142,11 @@
 		)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
-	return TRUE
 
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!anchored && !isinspace())
-		if(!I.use_tool(src, user, I.tool_volume))
+		if(!I.use_tool(src, user, volume = I.tool_volume))
 			return
 
 		user.visible_message( \
@@ -159,7 +157,7 @@
 		return
 
 	if(anchored)
-		if(!I.use_tool(src, user, I.tool_volume))
+		if(!I.use_tool(src, user, volume = I.tool_volume))
 			return
 
 		user.visible_message( \
