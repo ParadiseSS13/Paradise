@@ -59,7 +59,7 @@
 		return ..()
 
 	if(istype(target, /obj/item/reagent_containers/glass/bucket/))
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ..()
 
 	if(istype(target, /obj/structure/janitorialcart/) || istype(target, /obj/structure/mopbucket))
 		return ITEM_INTERACT_COMPLETE
