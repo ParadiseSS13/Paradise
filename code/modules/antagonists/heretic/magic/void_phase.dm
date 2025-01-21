@@ -27,6 +27,14 @@
 
 //qwertodo: have valid target check 3 tile minimum range
 
+/datum/spell/pointed/void_phase/valid_target(target, user)
+	if(get_dist(target, user) < 3)
+		var/mob/living/living_owner = user
+		to_chat(living_owner, "<span class='warning'>That is too close to teleport to!</span>")
+		return FALSE
+	return TRUE
+
+
 /datum/spell/pointed/void_phase/cast(list/targets, mob/user)
 	. = ..()
 	var/turf/source_turf = get_turf(user)
@@ -47,7 +55,7 @@
 			continue
 		if(living_mob.can_block_magic(antimagic_flags))
 			continue
-		living_mob.apply_damage(40, BRUTE)
+		living_mob.apply_damage(20, BRUTE)
 		living_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 /obj/effect/temp_visual/voidin

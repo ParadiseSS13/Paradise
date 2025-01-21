@@ -20,6 +20,12 @@
 	/// How long does the filter last on walls we make?
 	var/filter_duration = 2 MINUTES
 
+/datum/spell/pointed/rust_construction/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.range = cast_range
+	T.allowed_type = /turf/simulated
+	return T
 
 /datum/spell/pointed/rust_construction/valid_target(target, user)
 	if(!isliving(user))

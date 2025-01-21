@@ -147,6 +147,8 @@
 	target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 /datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
+	if(!isliving(target))
+		return
 	if(!target.has_status_effect(/datum/status_effect/eldritch))
 		return
 

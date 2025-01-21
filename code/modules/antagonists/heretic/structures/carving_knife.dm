@@ -102,15 +102,15 @@
 	if(!do_after(user, 5 SECONDS, target = target_turf))
 		return
 	var/obj/structure/trap/eldritch/new_rune = new to_make(target_turf, user)
-	current_runes += UID(new_rune)
+	current_runes += new_rune.UID()
 
 /datum/action/item_action/rune_shatter
 	name = "Rune Break"
 	desc = "Destroys all runes carved by this blade."
 	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_
 	button_overlay_icon_state = "rune_break"
+	button_background_icon = "bg_heretic"
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
@@ -157,6 +157,7 @@
 	density = FALSE
 	anchored = TRUE
 	alpha = 30 //initially quite hidden when not "recharging"
+	flags = NO_SCREENTIPS //fuck you
 	var/flare_message = "The trap flares brightly!"
 	var/last_trigger = 0
 	var/time_between_triggers = 1 MINUTES
@@ -292,13 +293,13 @@
 	icon_state = "tentacle_rune"
 	time_between_triggers = 45 SECONDS
 	charges = 1
-	carver_tip = "When stepped on, causes heavy damage leg damage and stuns the victim for 5 seconds. Has 1 charge."
+	carver_tip = "When stepped on, causes heavy damage leg damage and immobilizes the victim for 5 seconds. Has 1 charge."
 
 /obj/structure/trap/eldritch/tentacle/trap_effect(mob/living/victim)
 	if(!iscarbon(victim))
 		return
 	var/mob/living/carbon/carbon_victim = victim
-	carbon_victim.Weaken(5 SECONDS)
+	carbon_victim.Immobilize(5 SECONDS)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)

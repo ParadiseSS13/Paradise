@@ -65,6 +65,8 @@
 	STOP_PROCESSING(SSobj, src)
 	for(var/turf/affected_turf as anything in overlayed_turfs) //If the portal is moved, the overlays don't stick around
 		affected_turf.cut_overlay(void_overlay)
+	var/turf/extra_overlay = get_turf(src)
+	extra_overlay.cut_overlay(void_overlay)
 	return ..()
 
 /obj/structure/void_conduit/process(seconds_per_tick)

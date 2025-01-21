@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  */
 /datum/heretic_knowledge/codex_cicatrix
 	name = "Codex Cicatrix"
-	desc = "Allows you to transmute a book, any unique pen (anything but generic pens), and your pick from any carcass (animal or human), leather, or hide to create a Codex Cicatrix. \
+	desc = "Allows you to transmute a book, any unique pen (anything but a generic pen, blue pen, or red pen), and your pick from any carcass (animal or human), leather, or hide to create a Codex Cicatrix. \
 		The Codex Cicatrix can be used when draining influences to gain additional knowledge, but comes at greater risk of being noticed. \
 		It can also be used to draw and remove transmutation runes easier, and as a spell focus in a pinch."
 	gain_text = "The occult leaves fragments of knowledge and power anywhere and everywhere. The Codex Cicatrix is one such example. \
@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/pen = 1,
 		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide) = 1,
 	)
-	banned_atom_types = list(/obj/item/pen)
+	banned_atom_types = list(/obj/item/pen, /obj/item/pen/blue, /obj/item/pen/red)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
 	is_starting_knowledge = TRUE
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_state = "book"
 
 /datum/heretic_knowledge/codex_cicatrix/parse_required_item(atom/item_path, number_of_things)
-	if(item_path == /obj/item/pen)
+	if(item_path == /obj/item/pen || item_path == /obj/item/pen/blue || item_path == /obj/item/pen/red)
 		return "unique type of pen"
 	return ..()
 
@@ -285,7 +285,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		stack_trace("Somehow, no book in codex cicatrix selected atoms! [english_list(selected_atoms)]")
 	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
-	body.visible_message("<span class='danger'>An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!</span>")
+	var/turf/our_turf = get_turf(body)
+	our_turf.visible_message("<span class='danger'>An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!</span>")
 	return ..()
 
 /datum/heretic_knowledge/feast_of_owls

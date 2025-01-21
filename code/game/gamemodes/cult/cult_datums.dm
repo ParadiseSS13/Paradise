@@ -5,6 +5,7 @@
 	var/dagger_icon = "blood_dagger"
 	var/sword_icon = "blood_blade"
 	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
+	var/haunted_longsword = "hauntedblade"
 
 	//God Entity
 	var/entity_name = "Nar'Sie"

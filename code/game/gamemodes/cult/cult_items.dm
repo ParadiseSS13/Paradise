@@ -90,6 +90,8 @@
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
 	sprite_sheets_inhand = null
+	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	/// holder for the actual action when created.
 	var/list/datum/spell/path_sword_actions
 	/// holder for the actual action when created.
@@ -159,6 +161,11 @@
 		) ,
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
+
+/obj/item/melee/cultblade/haunted/activate_self(mob/user) //qwertodo: REMOVE THIS HOLY SHIT THIS IS FOR TESTING
+	if(..())
+		return
+	bind_soul(user)
 
 /obj/item/melee/cultblade/haunted/examine(mob/user)
 	. = ..()
@@ -306,7 +313,8 @@
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
 	. = ..()
-
+	icon_state = GET_CULT_DATA(haunted_longsword, "hauntedblade")
+	item_state = GET_CULT_DATA(haunted_longsword, "hauntedblade")
 	AddElement(/datum/element/heretic_focus)
 	if(do_bind && !mapload)
 		bind_soul(soul_to_bind, awakener)
@@ -320,12 +328,18 @@
 	if(!trapped_mind)
 		return // Can't do anything further down the list
 
-	var/mob/living/simple_animal/shade/sword/generic_item/trapped_entity = new(get_turf(src))
+	trapped_entity = new/mob/living/simple_animal/shade/sword/generic_item(src)
 	trapped_entity.name = soul_to_bind.name
 
+	message_admins("[trapped_mind]")
+	message_admins("[trapped_mind.current]")
+	message_admins("[trapped_mind.key]")
 	// Get the heretic's new body and antag datum.
-	trapped_entity = trapped_mind?.current
-	trapped_entity.key = trapped_mind?.key
+	trapped_entity.key = trapped_mind.key
+	trapped_entity.mind = trapped_mind
+	message_admins("[trapped_mind]")
+	message_admins("[trapped_mind.current]")
+	message_admins("[trapped_mind.key]")
 	var/datum/antagonist/heretic/heretic_holder = IS_HERETIC(trapped_entity)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")

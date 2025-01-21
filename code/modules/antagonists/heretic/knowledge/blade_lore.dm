@@ -83,16 +83,16 @@
 /datum/heretic_knowledge/blade_dance/proc/on_shield_reaction(
 	mob/living/carbon/human/source,
 	atom/movable/hitby,
-	damage = 0,
 	attack_text = "the attack",
+	final_block_chance = 0,
+	damage = 0,
 	attack_type = MELEE_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
+	damage_type = BRUTE
 )
 
 	SIGNAL_HANDLER
 
-	if(attack_type != MELEE_ATTACK)
+	if(attack_type != MELEE_ATTACK && attack_type != UNARMED_ATTACK)
 		return
 
 	if(!riposte_ready)

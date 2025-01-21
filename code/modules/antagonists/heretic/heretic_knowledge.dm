@@ -188,7 +188,7 @@
 	var/created_action_ref
 
 /datum/heretic_knowledge/spell/Destroy()
-	QDEL_NULL(created_action_ref)
+	created_action_ref = null
 	return ..()
 
 /datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic)

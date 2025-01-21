@@ -53,6 +53,8 @@
 	var/rust_strength = 0
 	/// Wether we are allowed to ascend
 	var/feast_of_owls = FALSE
+	/// Our research menu
+	var/datum/action/heretic_menu/our_menu
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
 	var/list/unlocked_heretic_items = list(
@@ -216,14 +218,11 @@
 /datum/antagonist/heretic/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/antagonist/heretic/farewell()
-	if(!silent)
-		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
-	return ..()
-
 /datum/antagonist/heretic/on_gain()
 	if(!GLOB.heretic_research_tree)
 		GLOB.heretic_research_tree = generate_heretic_research_tree()
+	our_menu = new()
+	our_menu.Grant(owner.current)
 
 	if(give_objectives)
 		forge_primary_objectives()
@@ -237,11 +236,15 @@
 	return ..()
 
 /datum/antagonist/heretic/farewell()
+	if(!silent)
+		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)
+	our_menu.Remove(owner.current)
 
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
+
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
@@ -796,8 +799,9 @@
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/minor_sacrifice
 	name = "minor sacrifice"
+	needs_target = FALSE
 
-/datum/objective/minor_sacrifice/New(text)
+/datum/objective/minor_sacrifice/New()
 	target_amount = rand(3, 4)
 	update_explanation_text()
 	. = ..()
@@ -816,6 +820,7 @@
 	name = "major sacrifice"
 	target_amount = 1
 	explanation_text = "Sacrifice 1 head of staff."
+	needs_target = FALSE
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
@@ -826,10 +831,11 @@
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research
 	name = "research"
+	needs_target = FALSE
 	/// The length of a main path. Calculated once in New().
 	var/static/main_path_length = 0
 
-/datum/objective/heretic_research/New(text)
+/datum/objective/heretic_research/New()
 	gen_amount_goal()
 	. = ..()
 
@@ -866,6 +872,7 @@
 	name = "summon monsters"
 	target_amount = 2
 	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+	needs_target = FALSE
 	/// The total number of summons the objective owner has done
 	var/num_summoned = 0
 
@@ -878,3 +885,18 @@
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
+
+/datum/action/heretic_menu
+	name = "Info And Research"
+	desc = "Learn about the mansus and research your path"
+	button_overlay_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_overlay_icon_state = "book"
+	button_background_icon = "bg_heretic"
+
+/datum/action/heretic_menu/Trigger(left_click)
+	var/mob/living/L = owner
+	var/datum/antagonist/heretic = IS_HERETIC(L)
+	if(heretic)
+		heretic.ui_interact(L)
+

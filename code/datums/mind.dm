@@ -1166,7 +1166,7 @@
 			if("heretic")
 				make_heretic()
 				log_admin("[key_name(usr)] has heretic'd [key_name(current)].")
-				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>") //qwertodo lol
+				to_chat(current, "<b><font color='red'>You feel a whisper in your head. You are a Heretic!</font></b>") //qwertodo lol
 				message_admins("[key_name(usr)] has heretic'd [key_name(current)].")
 			if("Target")
 				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
