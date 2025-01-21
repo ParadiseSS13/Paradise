@@ -207,3 +207,10 @@
 
 /obj/machinery/economy/vending/engidrobe/free
 	prices = list()
+
+/obj/machinery/economy/vending/traindrobe/Initialize(mapload)
+	products |= list(
+		/obj/item/clothing/under/rank/procedure/nct/black = 2,
+		/obj/item/clothing/under/rank/procedure/nct/black/skirt = 2
+		)
+	. = ..()

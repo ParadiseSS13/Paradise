@@ -314,3 +314,24 @@
 		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
 		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
 	)
+
+/obj/item/clothing/under/rank/procedure/nct/black
+	icon = 'modular_ss220/clothing/icons/object/under.dmi'
+	desc = "A neatly pressed black shirt paired with black jeans, worn by those dedicated to shaping the future of the workforce."
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/under.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/under.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/under.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/species/grey/under.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/species/kidan/under.dmi'
+		)
+	icon_state = "trainer_black"
+	item_state = "trainer_black"
+	item_color = "trainer_black"
+
+/obj/item/clothing/under/rank/procedure/nct/black/skirt
+	name = "\improper NT Career Trainer's skirt"
+	desc = "A neatly pressed black shirt paired with a sleek black skirt, worn by those committed to mentoring the next generation."
+	icon_state = "trainer_black_skirt"
+	item_state = "trainer_black_skirt"
+	item_color = "trainer_black_skirt"
