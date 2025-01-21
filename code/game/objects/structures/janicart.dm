@@ -131,14 +131,16 @@
 	. = TRUE
 	user.visible_message(
 		"<span class='warning'>[user] begins to empty the contents of [src].</span>",
-		"<span class='notice'>You begin to empty the contents of [src].</span>"
+		"<span class='notice'>You begin to empty the contents of [src].</span>",
+		"<span class='warning'>You hear a prying sound.</span>"
 		)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 
 	user.visible_message(
 		"<span class='warning'>[user] empties the contents of [src]'s bucket onto the floor!</span>",
-		"<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
+		"<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>",
+		"<span class='warning'>You hear liquid spilling onto the floor.</span>"
 		)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
@@ -150,9 +152,10 @@
 			return
 
 		user.visible_message( \
-			"[user] tightens [src]'s casters.", \
-			"<span class='notice'>You have tightened [src]'s casters.</span>", \
-			"You hear ratchet.")
+			"<span class='notice'>[user] tightens [src]'s casters.</span>",
+			"<span class='notice'>You have tightened [src]'s casters.</span>",
+			"<span class='notice'>You hear ratcheting.</span>"
+			)
 		anchored = TRUE
 		return
 
@@ -161,9 +164,10 @@
 			return
 
 		user.visible_message( \
-			"[user] loosens [src]'s casters.", \
-			"<span class='notice'>You have loosened [src]'s casters.</span>", \
-			"You hear ratchet.")
+			"<span class='notice'>[user] loosens [src]'s casters.</span>",
+			"<span class='notice'>You have loosened [src]'s casters.</span>",
+			"<span class='notice'>You hear ratcheting.</span>"
+			)
 		anchored = FALSE
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
