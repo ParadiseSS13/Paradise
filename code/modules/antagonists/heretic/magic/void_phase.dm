@@ -25,7 +25,6 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-//qwertodo: have valid target check 3 tile minimum range
 
 /datum/spell/pointed/void_phase/valid_target(target, user)
 	if(get_dist(target, user) < 3)

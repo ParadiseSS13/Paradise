@@ -381,6 +381,7 @@
 	paralyze = 20
 	speed = 0.5
 	range = 16
+	forcedodge = -1
 	var/datum/beam/arm
 	var/handedness = 0
 

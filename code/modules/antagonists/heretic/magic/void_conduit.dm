@@ -31,7 +31,7 @@
 	density = TRUE
 	obj_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
-	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile") //qwertodo: grab this
+	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
 	var/list/overlayed_turfs = list()
 	///How many tiles far our effect is

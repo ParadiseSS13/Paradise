@@ -865,7 +865,7 @@
 /datum/reagent/bluespace/reaction_mob(mob/living/M, method, volume, show_message) //Qwertodo after heretic: I wanted to do more with this
 	. = ..()
 	if(method == REAGENT_TOUCH)
-		do_teleport(M, get_turf(M), (volume / 5), soundin = 'sound/effects/phasein.ogg') //4 tiles per crystal
+		do_teleport(M, get_turf(M), (volume / 5), sound_in = 'sound/effects/phasein.ogg') //4 tiles per crystal
 
 /datum/reagent/bluespace/on_mob_life(mob/living/M)
 	if(current_cycle > 10 && prob(10))
@@ -875,4 +875,4 @@
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 3 SECONDS)
 
 /mob/living/proc/bluespace_shuffle()
-	do_teleport(src, get_turf(src), 5, soundin = 'sound/effects/phasein.ogg')
+	do_teleport(src, get_turf(src), 5, sound_in = 'sound/effects/phasein.ogg')

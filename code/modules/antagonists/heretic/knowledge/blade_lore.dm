@@ -103,6 +103,9 @@
 
 	var/mob/living/attacker = hitby.loc
 	if(!istype(attacker))
+		attacker = hitby
+
+	if(!istype(attacker))
 		return
 
 	if(!source.Adjacent(attacker))

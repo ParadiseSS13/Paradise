@@ -407,10 +407,11 @@
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
 		switch(wheretic.has_living_heart())
 			if(HERETIC_NO_LIVING_HEART)
-				. += "<br>Give <a href='byond://?src=[UID()];heretic=heart'>Living heart</a>"
+				. += " | <br>Give <a href='byond://?src=[UID()];heretic=heart'>Living heart</a>"
 			if(HERETIC_HAS_LIVING_HEART)
-				. += "<a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
-				. += "<a href='byond://?src=[UID()];heretic=RemoveTarget'><b>Remove A Target</b></a>"
+				. += " | <a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
+				. += " | <a href='byond://?src=[UID()];heretic=RemoveTarget'><b>Remove A Target</b></a>"
+		. += " | <br>Give <a href='byond://?src=[UID()];heretic=focus'>focus</a>|<a href='byond://?src=[UID()];heretic=knowledge'> or adjust knowledge points.</a>."
 	else
 		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
 
@@ -1166,7 +1167,7 @@
 			if("heretic")
 				make_heretic()
 				log_admin("[key_name(usr)] has heretic'd [key_name(current)].")
-				to_chat(current, "<b><font color='red'>You feel a whisper in your head. You are a Heretic!</font></b>") //qwertodo lol
+				to_chat(current, "<b><font color='red'>You feel a whisper in your head. You are a Heretic!</font></b>")
 				message_admins("[key_name(usr)] has heretic'd [key_name(current)].")
 			if("Target")
 				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
@@ -1177,8 +1178,8 @@
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 					to_chat(current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
 					to_chat(current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
-					var/datum/antagonist/heretic/here = has_antag_datum(/datum/antagonist/heretic)
-					here.add_sacrifice_target(new_target)
+					var/datum/antagonist/heretic/hereitic = has_antag_datum(/datum/antagonist/heretic)
+					hereitic.add_sacrifice_target(new_target)
 			if("RemoveTarget")
 				var/datum/antagonist/heretic/thereitic = has_antag_datum(/datum/antagonist/heretic)
 				var/list/removable = list()
@@ -1198,6 +1199,16 @@
 
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 					to_chat(current, "<span class='danger'>The Mansus has modified your targets.</span>")
+			if("focus")
+				current.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(current)), ITEM_SLOT_NECK, TRUE, TRUE)
+				to_chat(current, "<span class='danger'>The Mansus has given you a focus!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a heretic focus")
+			if("knowledge")
+				var/change_num = tgui_input_number(usr, "Add or remove knowledge points", "Points", 0, 100, -100)
+				if(!change_num || QDELETED(src))
+					return
+				var/datum/antagonist/heretic/whereitic = has_antag_datum(/datum/antagonist/heretic)
+				whereitic.knowledge_points += change_num
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current

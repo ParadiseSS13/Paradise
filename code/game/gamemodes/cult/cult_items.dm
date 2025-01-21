@@ -92,6 +92,8 @@
 	sprite_sheets_inhand = null
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	/// holder for the actual action when created.
 	var/list/datum/spell/path_sword_actions
 	/// holder for the actual action when created.
@@ -237,7 +239,6 @@
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
-	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, "<span class='notice'>You need to hold a focus to bind [src]!</span>")

@@ -156,7 +156,7 @@
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
-	mansus_conversion_path = /obj/effect/heretic_rune
+	mansus_conversion_path = /obj/effect/heretic_rune/big
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
