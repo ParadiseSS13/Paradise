@@ -58,9 +58,11 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..()
 
-	// Wetting and insertion handled by the objects.
-	if(istype(target, /obj/structure/mopbucket) || istype(target, /obj/structure/janitorialcart/) || istype(target, /obj/item/reagent_containers/glass/bucket/))
+	if(istype(target, /obj/item/reagent_containers/glass/bucket/))
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+
+	if(istype(target, /obj/structure/janitorialcart/) || istype(target, /obj/structure/mopbucket))
+		return ITEM_INTERACT_COMPLETE
 
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")

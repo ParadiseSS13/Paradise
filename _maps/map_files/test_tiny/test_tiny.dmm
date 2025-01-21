@@ -11,20 +11,89 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"d" = (
+/obj/structure/table,
+/obj/item/storage/bag/trash,
+/obj/item/storage/bag/trash,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"f" = (
+/obj/structure/table,
+/obj/item/reagent_containers/syringe,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"g" = (
+/obj/structure/table,
+/obj/item/push_broom,
+/obj/item/push_broom,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"h" = (
+/obj/structure/table,
+/obj/item/caution,
+/obj/item/caution,
+/obj/item/caution,
+/obj/item/caution,
+/obj/item/caution,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"k" = (
+/obj/item/crowbar/red,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"q" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"r" = (
+/obj/structure/table,
+/obj/item/reagent_containers/dropper,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "u" = (
 /turf/simulated/wall/mineral/titanium,
+/area/shuttle/arrival/station)
+"w" = (
+/obj/structure/sink/kitchen{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"B" = (
+/obj/structure/table,
+/obj/item/reagent_containers/pill/salbutamol,
+/obj/item/reagent_containers/pill/salbutamol,
+/obj/item/reagent_containers/pill/salbutamol,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"C" = (
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"E" = (
+/obj/structure/table,
+/obj/item/lightreplacer,
+/obj/item/lightreplacer,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"H" = (
+/mob/living/silicon/robot,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
@@ -33,10 +102,54 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"L" = (
+/mob/living/carbon/human/skrell,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"M" = (
+/obj/structure/janitorialcart{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"R" = (
+/obj/structure/table,
+/obj/item/reagent_containers/applicator/dual,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"S" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"T" = (
+/obj/structure/mopbucket/full{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"V" = (
+/obj/structure/table,
+/obj/item/mop,
+/obj/item/mop,
+/obj/item/mop,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"W" = (
+/obj/structure/table,
+/obj/item/reagent_containers/hypospray/autoinjector,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"X" = (
+/obj/structure/table,
+/obj/item/reagent_containers/drinks/bottle/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -31521,9 +31634,9 @@ u
 x
 x
 x
+H
 x
-x
-x
+w
 x
 x
 x
@@ -31778,11 +31891,11 @@ u
 x
 x
 x
+L
 x
 x
-x
-x
-x
+S
+f
 x
 x
 x
@@ -32038,8 +32151,8 @@ x
 x
 x
 x
-x
-x
+g
+q
 x
 x
 F
@@ -32293,10 +32406,10 @@ x
 x
 x
 x
+M
 x
-x
-x
-x
+V
+r
 x
 x
 x
@@ -32550,10 +32663,10 @@ x
 x
 x
 x
-x
+T
 b
-x
-x
+h
+B
 x
 x
 x
@@ -32807,10 +32920,10 @@ x
 x
 x
 x
+k
 x
-x
-x
-x
+d
+X
 x
 x
 x
@@ -33066,8 +33179,8 @@ x
 x
 x
 x
-x
-x
+E
+R
 x
 x
 F
@@ -33323,8 +33436,8 @@ x
 x
 x
 x
-x
-x
+C
+W
 x
 x
 x

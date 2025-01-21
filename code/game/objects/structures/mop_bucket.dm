@@ -25,26 +25,38 @@
 	return ..()
 
 /obj/structure/mopbucket/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/mop))
+	if(user.a_intent != INTENT_HELP)
 		return ..()
 
+	if(handle_mop_interaction(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/reagent_containers))
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+
+	return ..()
+
+/obj/structure/mopbucket/proc/handle_mop_interaction(mob/living/user, obj/item/used)
+	if(!istype(used, /obj/item/mop))
+		return FALSE
+	
+	. = TRUE
 	var/robot_mop = used.is_robot_module()
 	var/obj/item/mop/attacking_mop = used
 	if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
 		attacking_mop.wet_mop(src, user, robot_mop)
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(robot_mop)
 		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(stored_mop)
 		to_chat(user, "<span class='notice'>There is already a mop in [src].</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(!put_in_cart(user, attacking_mop))
 		to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
-	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/mopbucket/proc/put_in_cart(mob/user, obj/item/mop/I)
 	if(!user.unequip(I))

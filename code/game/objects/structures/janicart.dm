@@ -49,12 +49,21 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(handle_item_interactions(user, used))
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
+	if(handle_janitorial_equipment(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/reagent_containers))
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+	
+	if(crowbar_act(user, used))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
-/obj/structure/janitorialcart/proc/handle_item_interactions(mob/living/user, obj/item/used)
+/obj/structure/janitorialcart/proc/handle_janitorial_equipment(mob/living/user, obj/item/used)
 	. = TRUE
 	var/item_present = FALSE
 	if(istype(used, /obj/item/mop))
@@ -63,11 +72,11 @@
 			attacking_mop.wet_mop(src, user)
 			return
 
-		if(!my_mop)
-			if(used.is_robot_module())
-				to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
-				return
+		if(used.is_robot_module())
+			to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+			return
 
+		if(!my_mop)
 			my_mop = attacking_mop
 			put_in_cart(user, attacking_mop)
 		else
@@ -121,14 +130,20 @@
 	return FALSE
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
-	. = TRUE
-	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
+	user.visible_message(
+		"<span class='warning'>[user] begins to empty the contents of [src].</span>",
+		"<span class='notice'>You begin to empty the contents of [src].</span>"
+		)
 	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
+	user.visible_message(
+		"<span class='warning'>[user] empties the contents of [src]'s bucket onto the floor!</span>",
+		"<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
+		)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
+	return TRUE
 
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
