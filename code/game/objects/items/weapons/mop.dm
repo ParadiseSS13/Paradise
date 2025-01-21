@@ -20,7 +20,7 @@
 	/// The cooldown between each mopping sound effect
 	var/mop_sound_cooldown
 
-/obj/item/mop/Initialize(mapload)
+/obj/item/mop/New()
 	..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
