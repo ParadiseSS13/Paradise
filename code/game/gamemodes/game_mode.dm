@@ -319,7 +319,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 // Just the above proc but for alive players
-/// Gets all alive players for a specific role. Disables offstation roles by default
+/**
+ * DEPRECATED!
+ * Gets all alive players for a specific role. Disables offstation roles by default
+ */
 /datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
@@ -645,6 +648,9 @@
 /datum/game_mode/proc/traitors_to_add()
 	return 0
 
+/**
+ * DEPRECATED!
+ */
 /datum/game_mode/proc/fill_antag_slots()
 	var/traitors_to_add = 0
 
