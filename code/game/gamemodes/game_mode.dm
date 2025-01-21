@@ -323,7 +323,7 @@
  * DEPRECATED!
  * Gets all alive players for a specific role. Disables offstation roles by default
  */
-/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE, banned_jobs)
+/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -352,9 +352,9 @@
 		players -= player
 
 	// Remove candidates who want to be antagonist but have a job that precludes it
-	if(banned_jobs)
+	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			if(player.assigned_role in banned_jobs)
+			if(player.assigned_role in restricted_jobs)
 				candidates -= player
 	return candidates
 
@@ -662,7 +662,7 @@
 	if(traitors_to_add <= 0)
 		return
 
-	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR, /datum/ruleset/traitor::banned_jobs + /datum/ruleset/traitor::protected_jobs)
+	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
 	for(var/datum/mind/candidate as anything in potential_recruits)
 		if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
 			potential_recruits.Remove(candidate)
