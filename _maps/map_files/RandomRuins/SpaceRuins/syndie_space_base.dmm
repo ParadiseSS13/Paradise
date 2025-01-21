@@ -2830,7 +2830,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/cave)
 "qj" = (
 /obj/machinery/light,
 /obj/machinery/camera{
