@@ -14,8 +14,44 @@
 
 	invocation = "Y'O'K!"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 6
 
-//qwertodo: atom storage to however our storage is
+
+/datum/spell/pointed/burglar_finesse/valid_target(target, user)
+	if(!ishuman(target))
+		return FALSE
+	var/mob/living/carbon/human/human_target = target
+	if(locate(/obj/item/storage/backpack) in human_target.contents)
+		return TRUE
+	if(locate(/obj/item/mod/control) in human_target.contents)
+		return TRUE
+	return FALSE
+
+/datum/spell/pointed/burglar_finesse/cast(list/targets, mob/user)
+	. = ..()
+	var/mob/living/carbon/cast_on = targets[1]
+	if(cast_on.can_block_magic(antimagic_flags))
+		to_chat(cast_on, "<span class='danger'>You feel a light tug, but are otherwise fine, you were protected by magical forces!</span>")
+		to_chat(user, "<span class='danger'>[cast_on] is protected by magical forces!</span>")
+		return FALSE
+
+	var/obj/storage_item = locate(/obj/item/storage/backpack) in cast_on.contents
+
+	if(isnull(storage_item))
+		if(locate(/obj/item/mod/control) in cast_on.contents)
+			var/obj/item/mod/control/temp_item = locate(/obj/item/mod/control) in cast_on.contents
+			if(temp_item.bag)
+				storage_item = temp_item.bag
+
+	if(isnull(storage_item))
+		return FALSE
+	if(isnull(storage_item.contents))
+		return FALSE
+	var/item = pick(storage_item.contents)
+	if(isnull(item))
+		return FALSE
+	to_chat(cast_on, "<span class='warning'>Your [storage_item] feels lighter...</span>")
+	to_chat(user, "<span class='notice'>With a blink, you pull [item] out of [cast_on][p_s()] [storage_item].</span>")
+	user.put_in_active_hand(item)

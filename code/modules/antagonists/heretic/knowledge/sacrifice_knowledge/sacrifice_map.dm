@@ -38,10 +38,22 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "lock heretic sacrifice landmark"
 	for_heretic_path = PATH_LOCK
 
+/obj/effect/landmark/heretic/moon
+	name = "moon heretic sacrifice landmark"
+	for_heretic_path = PATH_MOON
+
+/obj/effect/landmark/heretic/cosmic
+	name = "cosmic heretic sacrifice landmark"
+	for_heretic_path = PATH_COSMIC
+
+/obj/effect/landmark/heretic/blade
+	name = "blade heretic sacrifice landmark"
+	for_heretic_path = PATH_BLADE
+
 
 /obj/structure/signpost/void
 	name = "signpost at the edge of the universe"
-	desc = "A direction in the directionless void."
+	desc = "A direction in the directionless cosmos."
 	density = FALSE
 	/// Brightness of the signpost.
 	var/range = 2
@@ -76,6 +88,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "Mansus"
 	icon_state = "heretic"
 	sound_environment = SOUND_ENVIRONMENT_CAVE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/centcom/heretic_sacrifice/Initialize(mapload)
 	ambientsounds = list('sound/ambience/ambireebe1.ogg',
@@ -90,6 +103,14 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "Mansus Void Gate"
 	sound_environment = SOUND_ENVIRONMENT_UNDERWATER
 
+/area/centcom/heretic_sacrifice/void/Initialize(mapload)
+	ambientsounds = list('sound/ambience/ambireebe1.ogg',
+						'sound/ambience/ambireebe2.ogg',
+						'sound/ambience/ambireebe3.ogg',
+						'sound/ambience/antag/heretic/VoidsEmbrace.ogg' //a little void, in the end...
+						)
+	return ..()
+
 /area/centcom/heretic_sacrifice/flesh
 	name = "Mansus Flesh Gate"
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
@@ -101,3 +122,23 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice/lock
 	name = "Mansus Lock Gate"
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
+
+/area/centcom/heretic_sacrifice/cosmic
+	name = "Mansus Cosmic Gate"
+	sound_environment = SOUND_ENVIRONMENT_UNDERWATER
+
+/area/centcom/heretic_sacrifice/blade
+	name = "Mansus Blade Gate"
+	sound_environment = SOUND_ENVIRONMENT_ARENA
+
+/area/centcom/heretic_sacrifice/moon
+	name = "Mansus Moon Gate"
+	sound_environment = SOUND_ENVIRONMENT_AUDITORIUM
+
+/area/centcom/heretic_sacrifice/moon/Initialize(mapload)
+	ambientsounds = list('sound/ambience/ambireebe1.ogg',
+						'sound/ambience/ambireebe2.ogg',
+						'sound/ambience/ambireebe3.ogg',
+						'sound/effects/moon_parade.ogg' //a little moon, why not
+						)
+	return ..()

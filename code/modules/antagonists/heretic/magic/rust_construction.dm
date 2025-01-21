@@ -13,7 +13,7 @@
 	base_cooldown = 8 SECONDS
 
 	invocation_type = "none"
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 4
 

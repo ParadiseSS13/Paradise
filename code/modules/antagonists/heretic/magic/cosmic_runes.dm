@@ -16,7 +16,7 @@
 
 	invocation = "ST'R R'N'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// Storage for the first rune.
 	var/first_rune

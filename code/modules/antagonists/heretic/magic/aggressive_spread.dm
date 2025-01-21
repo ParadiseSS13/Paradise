@@ -15,7 +15,7 @@
 
 	invocation = "A'GRSV SPR'D"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	aoe_range = 2
 
 

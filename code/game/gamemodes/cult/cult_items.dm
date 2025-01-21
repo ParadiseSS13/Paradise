@@ -85,10 +85,10 @@
 	item_state = "hauntedblade"
 	force = 30
 	throwforce = 25
-	//qwertodo: parry or random block
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
+	light_power = 1
 	sprite_sheets_inhand = null
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
@@ -321,6 +321,7 @@
 		bind_soul(soul_to_bind, awakener)
 	binding_filters_update()
 	addtimer(CALLBACK(src, PROC_REF(start_glow_loop)), rand(0.1 SECONDS, 1.9 SECONDS))
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime.
 
 /obj/item/melee/cultblade/haunted/proc/bind_soul(mob/soul_to_bind, mob/awakener)
 

@@ -252,7 +252,6 @@
 				subtypesof(/area/station/service), \
 				subtypesof(/area/station/command), \
 				subtypesof(/area/station/hallway), \
-				subtypesof(/area/station/ai_monitored), \
 				subtypesof(/area/station/supply)
 			)
 

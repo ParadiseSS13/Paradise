@@ -16,7 +16,7 @@
 
 	invocation = "L'N'R P'RAD"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	//active_msg = "You prepare to make them join the parade!"
 	//deactive_msg = "You stop the music and halt the parade... for now."

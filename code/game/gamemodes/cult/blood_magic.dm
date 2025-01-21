@@ -469,7 +469,20 @@
 		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
 							"<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 	else
-		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		if(IS_HERETIC(L))
+			L.Stun(0.5 SECONDS)
+			L.AdjustConfused(3 SECONDS)
+			L.AdjustDizzy(3 SECONDS)
+
+			var/old_color = target.color
+			target.color = COLOR_HERETIC_GREEN
+			animate(target, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+			L.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
+			playsound(L, 'sound/effects/curse.ogg', 50, TRUE)
+
+			to_chat(user, "<span class='warning'>An eldritch force intervenes as you touch [target], absorbing most of the effects!</span>")
+			to_chat(target, "<span class='warning'>As [user] touches you with vile magicks, the Mansus absorbs most of the effects!</span>")
+			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 
 		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 		L.Silence(6 SECONDS)

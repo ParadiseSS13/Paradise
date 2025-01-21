@@ -16,7 +16,7 @@
 
 	invocation = "FL'MS O'ET'RN'ITY."
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 6
 

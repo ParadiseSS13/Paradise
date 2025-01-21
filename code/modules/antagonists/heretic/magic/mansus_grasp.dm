@@ -14,7 +14,7 @@
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
@@ -42,7 +42,7 @@
 	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
 	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
 	if(IS_CULTIST(carbon_hit))
-		carbon_hit.KnockDown(0.5 SECONDS)
+		carbon_hit.Stun(0.5 SECONDS)
 		carbon_hit.AdjustConfused(3 SECONDS)
 		carbon_hit.AdjustDizzy(3 SECONDS)
 

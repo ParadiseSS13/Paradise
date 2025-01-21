@@ -15,7 +15,7 @@
 	base_cooldown = 6 SECONDS
 
 	invocation_type = INVOCATION_NONE
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// How long before we automatically uncloak?
 	var/uncloak_time = 3 MINUTES

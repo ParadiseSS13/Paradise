@@ -14,7 +14,7 @@
 
 	invocation = "FL'MS"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// The radius of the fire ring
 	var/fire_radius = 1
@@ -72,7 +72,7 @@
 
 	invocation = "C'SC'DE"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
@@ -115,7 +115,7 @@
 
 	invocation = "F'RE"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15

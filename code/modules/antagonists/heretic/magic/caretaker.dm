@@ -17,7 +17,7 @@
 	base_cooldown = 1 MINUTES
 
 	invocation_type = INVOCATION_NONE
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 
 /datum/spell/caretaker/create_new_targeting()

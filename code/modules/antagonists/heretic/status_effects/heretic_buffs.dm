@@ -183,11 +183,11 @@
 /datum/status_effect/protective_blades/proc/on_shield_reaction(
 	mob/living/carbon/human/source,
 	atom/movable/hitby,
-	damage = 0,
 	attack_text = "the attack",
+	final_block_chance = 0,
+	damage = 0,
 	attack_type = MELEE_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
+	damage_type = BRUTE
 )
 	SIGNAL_HANDLER
 

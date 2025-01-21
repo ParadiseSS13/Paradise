@@ -4,6 +4,7 @@
 	name = "Unfathomable Curio"
 	desc = "It. It looks backs. It looks past. It looks in. It sees. It hides. It opens."
 	icon_state = "unfathomable_curio"
+	item_state = "unfathomable_curio"
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -54,11 +55,11 @@
 // Here we make sure our curio is only able to block while worn on the belt slot
 /obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(mob/living/carbon/human/owner,
 	atom/movable/hitby,
-	damage = 0,
 	attack_text = "the attack",
+	final_block_chance = 0,
+	damage = 0,
 	attack_type = MELEE_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
+	damage_type = BRUTE
 )
 	SIGNAL_HANDLER
 

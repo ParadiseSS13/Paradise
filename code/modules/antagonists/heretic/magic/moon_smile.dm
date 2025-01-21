@@ -17,7 +17,7 @@
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "Mo'N S'M'LE"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	cast_range = 6
 
 	//active_msg = "You prepare to let them see the true face..."

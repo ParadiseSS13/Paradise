@@ -16,7 +16,7 @@
 	base_cooldown = 20 SECONDS
 	invocation = "CL'M M'N!" // "CLAIM MINE", but also almost "KALI MA"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	hand_path = /obj/item/melee/touch_attack/flesh_surgery
 

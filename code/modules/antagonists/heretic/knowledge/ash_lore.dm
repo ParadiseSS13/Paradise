@@ -203,4 +203,4 @@
 	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
 	fiery_rebirth?.base_cooldown *= 0.16
 
-	//user.add_traits(traits_to_apply, type) //qwertodo: 7 add traits
+	user.add_traits(traits_to_apply, type)

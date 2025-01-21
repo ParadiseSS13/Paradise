@@ -14,7 +14,7 @@
 
 	invocation = "R'T'T' ST'R!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	clothes_req = FALSE
 	//active_msg = "You prepare to cast your star blast!"
 //	deactive_msg = "You stop swirling cosmic energies from the palm of your hand... for now."

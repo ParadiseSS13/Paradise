@@ -16,7 +16,7 @@
 
 	invocation = "Op' 'oY 'Mi'd"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/spell/mind_gate/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()

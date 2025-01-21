@@ -60,17 +60,14 @@
 
 	if(ismecha(target))
 		var/obj/mecha/mecha = target
-		mecha.dna= null
+		mecha.dna = null
 		mecha.operation_req_access = list()
 		for(var/mob/living/occupant as anything in mecha.occupant)
 			if(issilicon(occupant))
 				continue
-			//mecha.go_out(1) qwertodo: call this in a delayed proc to get around fuck ass do not sleep fuck you mech code fuck you
-			occupant.Paralyse(5 SECONDS)
-	else if(istype(target,/obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/door = target
-		door.unlock()
-		door.open()
+			INVOKE_ASYNC(src, PROC_REF(try_kick_out), mecha, occupant)
+	else if(istype(target, /obj/machinery/door/airlock))
+		INVOKE_ASYNC(src, PROC_REF(try_open_airlock), target)
 	//else if(istype(target, /obj/machinery/computer)) //qwertodo: as much of this as possible
 	//	var/obj/machinery/computer/computer = target
 	//	computer.authenticated = TRUE
@@ -79,6 +76,15 @@
 	playsound(target, 'sound/magic/hereticknock.ogg', 100, TRUE, -1)
 
 	return COMPONENT_USE_HAND
+
+/datum/heretic_knowledge/lock_grasp/proc/try_open_airlock(obj/machinery/door/airlock/ourlock)
+	ourlock.unlock()
+	ourlock.open()
+
+/datum/heretic_knowledge/lock_grasp/proc/try_kick_out(obj/mecha/mecha, mob/living/occupant)
+	mecha.go_out(1)
+	occupant.Weaken(5 SECONDS)
+
 
 /datum/heretic_knowledge/key_ring
 	name = "Key Keeper’s Burden"
@@ -144,7 +150,7 @@
 	var/chance = 35
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(prob(chance))
+	if(prob(chance) && ishuman(target))
 		var/obj/item/organ/external/lockbox = target.get_organ(source.zone_selected)
 		lockbox.open = ORGAN_ORGANIC_VIOLENT_OPEN
 		return ..()

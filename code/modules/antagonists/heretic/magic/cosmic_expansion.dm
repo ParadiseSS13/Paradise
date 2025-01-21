@@ -16,7 +16,7 @@
 
 	invocation = "C'SM'S 'XP'ND"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	summon_amt = 9
 	summon_type = list(/obj/effect/forcefield/cosmic_field)

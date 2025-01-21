@@ -14,6 +14,6 @@
 
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 //qwertodo: and this

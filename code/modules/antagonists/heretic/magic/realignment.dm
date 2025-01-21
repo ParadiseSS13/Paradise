@@ -16,7 +16,7 @@
 
 	invocation = "R'S'T."
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 
 /datum/spell/realignment/cast(list/targets, mob/user)

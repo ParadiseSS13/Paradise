@@ -17,7 +17,7 @@
 	clothes_req = FALSE
 	invocation = "MBR'C' TH' V''D!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	aoe_range = 0
 
 	summon_type = list(/obj/structure/void_conduit)

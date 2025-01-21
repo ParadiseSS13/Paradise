@@ -346,8 +346,8 @@
  */
 /datum/heretic_knowledge/blade_upgrade/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
-
-	do_melee_effects(source, target, blade)
+	if(isliving(target))
+		do_melee_effects(source, target, blade)
 
 /**
  * Signal proc for [COMSIG_HERETIC_RANGED_BLADE_ATTACK].

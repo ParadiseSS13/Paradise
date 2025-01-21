@@ -201,30 +201,16 @@
 /obj/item/melee/sickly_blade/cursed
 	name = "\improper cursed blade"
 	desc = "A dark blade, cursed to bleed forever. In constant struggle between the eldritch and the dark, it is forced to accept any wielder as its master. \
-		Its eye's cornea drips blood endlessly into the ground, yet its piercing gaze remains on you."
+		Its eye's cornea drips blood endlessly into the ground, yet its piercing gaze remains on you. Cultists can scribe runes faster with it."
 	force = 25
 	throwforce = 15
 	icon_state = "cursed_blade"
 	item_state = "cursed_blade"
-	//qwertodo: parry
+	toolspeed = 0.5
 
-///obj/item/melee/sickly_blade/cursed/Initialize(mapload)
-//	. = ..()
-
-//	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
-//	The combination of eldritch power and Nar'Sie's might allows for vastly increased rune drawing speed,
-//	alongside the vicious strength of the blade being more powerful than usual.\n
-//	<b>It can also be shattered in-hand by anyone, teleporting them to relative safety.<b>"}
-// qwertodo: fuck my ass how will they write cult runes we might have to remove that auugh
-	//AddComponent(/datum/component/cult_ritual_item, span_cult(examine_text), turfs_that_boost_us = /turf) // Always fast to draw!
-
-///obj/item/melee/sickly_blade/cursed/attack_self_secondary(mob/user)
-//	seek_safety(user, TRUE)
-
-/obj/item/melee/sickly_blade/cursed/seek_safety(mob/user, secondary_attack = FALSE)
-	if(IS_CULTIST(user) && !secondary_attack)
-		return FALSE
-	return ..()
+/obj/item/melee/sickly_blade/cursed/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/sickly_blade/cursed/check_usability(mob/living/user)
 	if(IS_HERETIC_OR_MONSTER(user) || IS_CULTIST(user))
@@ -257,7 +243,12 @@
 		return NONE
 
 	// Can only carve runes with it if off combat mode.
-	if(isfloorturf(target) && user.intent == INTENT_HELP)
+	if(isfloorturf(target) && user.a_intent == INTENT_HELP)
 		heretic_datum.try_draw_rune(user, target, drawing_time = 8 SECONDS)
 		return ITEM_INTERACT_COMPLETE
 	return NONE
+
+/obj/item/melee/sickly_blade/cursed/AltClick(mob/user)
+	. = ..()
+	if(IS_CULTIST(user))
+		scribe_rune(user)

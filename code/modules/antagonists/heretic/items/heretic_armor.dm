@@ -44,7 +44,7 @@
 	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, UID(src))
 	ADD_TRAIT(src, TRAIT_NO_STRIP, UID(src))
 
-/obj/item/clothing/suit/hooded/cultrobes/void
+/obj/item/clothing/suit/hooded/cultrobes/void //doesnt need to be a hood, tht is the solutiohn
 	name = "void cloak"
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."

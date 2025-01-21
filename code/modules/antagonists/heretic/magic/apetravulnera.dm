@@ -15,7 +15,7 @@
 
 	invocation = "AP'TRA VULN'RA!"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	cast_range = 4
 

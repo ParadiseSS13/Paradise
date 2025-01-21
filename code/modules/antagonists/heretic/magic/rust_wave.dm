@@ -17,7 +17,7 @@
 
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 //qwertodo: ebba cone spells
 //	cone_levels = 5
 	//respect_density = TRUE
@@ -85,7 +85,7 @@
 
 	invocation = "SPR'D TH' WO'D"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	//projectile_type = /obj/item/projectile/magic/aoe/rust_wave
 

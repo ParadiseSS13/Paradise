@@ -575,18 +575,29 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/mob/living/living_user = user
 	if(!IS_HERETIC(user))
 		living_user.adjustBruteLoss(5)
-		return
+		if(prob(90))
+			return
 	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
 		if(target_airlock.density)
-			target_airlock.open()
+			INVOKE_ASYNC(src, PROC_REF(try_open_airlock), target_airlock)
 			continue
-		target_airlock.close()
+		INVOKE_ASYNC(src, PROC_REF(try_close_airlock), target_airlock)
+
+/obj/item/coin/eldritch/proc/try_open_airlock(obj/machinery/door/airlock/ourlock)
+	ourlock.open()
+
+/obj/item/coin/eldritch/proc/try_close_airlock(obj/machinery/door/airlock/ourlock)
+	if(ourlock.safe)
+		ourlock.safe = FALSE
+	ourlock.close()
+	ourlock.safe = TRUE
 
 /obj/item/coin/eldritch/tails_action(mob/user)
 	var/mob/living/living_user = user
 	if(!IS_HERETIC(user))
 		living_user.adjustFireLoss(5)
-		return
+		if(prob(90))
+			return
 	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
 		if(target_airlock.locked)
 			target_airlock.unlock()

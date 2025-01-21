@@ -10,7 +10,7 @@
 	clothes_req = FALSE
 	invocation = "SH'PE"
 	invocation_type = INVOCATION_WHISPER
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 	possible_shapes = list(
 		/mob/living/simple_animal/hostile/carp,

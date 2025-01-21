@@ -17,7 +17,7 @@
 
 	invocation = "V'LC'N!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	max_charge_time = 5 SECONDS
 	var/max_beam_bounces = 4
 

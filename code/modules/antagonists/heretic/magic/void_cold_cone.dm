@@ -14,7 +14,7 @@
 
 	invocation = "FR'ZE!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 //cone spell qwertodo
 	// In room temperature, the ice won't last very long
 	// ...but in space / freezing rooms, it will stick around

@@ -319,6 +319,10 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"bj" = (
+/obj/effect/landmark/heretic/cosmic,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -340,6 +344,11 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"bs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "bt" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor/grass,
@@ -362,6 +371,14 @@
 /obj/item/hemostat/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"bx" = (
+/obj/effect/landmark/heretic/ash,
+/turf/simulated/floor/grass/jungle,
+/area/centcom/heretic_sacrifice/ash)
+"by" = (
+/obj/machinery/light/very_dim/directional/east,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "bz" = (
 /obj/structure/ninjatele{
 	pixel_y = 25
@@ -757,6 +774,13 @@
 /obj/item/trash/tastybread,
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
+"cV" = (
+/turf/simulated/wall/indestructible,
+/area/centcom/heretic_sacrifice/blade)
+"cW" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/centcom/heretic_sacrifice/void)
 "cX" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -791,6 +815,13 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"dd" = (
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/obj/structure/decorative_structures/metal/statue/moon,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -1135,6 +1166,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"eu" = (
+/turf/simulated/wall/indestructible/rock,
+/area/centcom/heretic_sacrifice/moon)
 "ev" = (
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
@@ -1344,6 +1378,11 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
+"ff" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/color/grey,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "fg" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/holding)
@@ -1571,6 +1610,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"fV" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal/wizard{
@@ -1634,6 +1677,12 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/wall/indestructible/rock/snow,
 /area/syndicate_mothership)
+"ge" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "gf" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -1870,6 +1919,10 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
+"gZ" = (
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "ha" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -2203,6 +2256,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"hR" = (
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "hS" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
@@ -2477,6 +2533,12 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
+"iG" = (
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/centcom/heretic_sacrifice/void)
 "iI" = (
 /obj/structure/table,
 /obj/item/aicard,
@@ -2592,6 +2654,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"jc" = (
+/obj/item/trash/popcorn,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
 "je" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
@@ -2992,6 +3058,10 @@
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"ku" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/indestructible/necropolis/normal_air,
+/area/centcom/heretic_sacrifice/flesh)
 "kv" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3307,6 +3377,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"lu" = (
+/obj/item/clothing/mask/madness_mask,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "lv" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel/dark,
@@ -4226,6 +4300,12 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"nV" = (
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "nW" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -4319,6 +4399,11 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"oo" = (
+/obj/item/kitchen/knife,
+/obj/structure/table,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "op" = (
 /obj/item/surgical_drapes,
 /obj/machinery/optable,
@@ -4327,6 +4412,19 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"oq" = (
+/turf/simulated/floor/transparent/glass{
+	desc = "A peek into the other side.";
+	name = "cosmic glass floor"
+	},
+/area/centcom/heretic_sacrifice/cosmic)
+"or" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/space/centcomm)
+"os" = (
+/obj/item/instrument/recorder,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "ot" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -4516,9 +4614,19 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"oZ" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "pa" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"pb" = (
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/centcom/heretic_sacrifice/void)
 "pc" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -4559,6 +4667,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"pk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "pl" = (
 /obj/structure/chair/stool/bar{
 	dir = 8
@@ -4618,6 +4731,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
+"pC" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "pD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4665,6 +4784,10 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"pI" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "pJ" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/jungle,
@@ -4687,6 +4810,9 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"pM" = (
+/turf/simulated/wall/indestructible/necropolis,
+/area/centcom/heretic_sacrifice/flesh)
 "pO" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -4969,6 +5095,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"qM" = (
+/obj/structure/legionnaire_bonfire,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "qN" = (
 /obj/structure/table/wood,
 /obj/item/deck/unum,
@@ -5244,6 +5374,9 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
+"rA" = (
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/centcom/heretic_sacrifice/void)
 "rB" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -5384,6 +5517,10 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"rX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "rY" = (
 /obj/effect/spawner/random/traders/medical,
 /obj/structure/closet,
@@ -5819,6 +5956,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"tN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/mechanical/old,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "tO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -5826,6 +5968,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"tP" = (
+/obj/effect/decal/snow/clean/edge,
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "tQ" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8;
@@ -6040,6 +6189,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"uv" = (
+/obj/effect/decal/snow/clean/surround,
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "ux" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
@@ -6090,6 +6246,12 @@
 	dir = 4
 	},
 /area/space/centcomm)
+"uF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/blood/often,
+/obj/item/clothing/under/color/grey,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "uG" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -6188,6 +6350,13 @@
 /obj/structure/statue/uranium/nuke,
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"va" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "vb" = (
 /obj/effect/spawner/random/traders/engineering,
 /obj/structure/closet,
@@ -6206,6 +6375,9 @@
 "vd" = (
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
+"ve" = (
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/area/centcom/heretic_sacrifice/cosmic)
 "vf" = (
 /obj/effect/landmark/spawner/trader,
 /obj/structure/chair/comfy/brown,
@@ -6472,6 +6644,12 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/admin)
+"vU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/blood/often,
+/obj/item/storage/toolbox/mechanical/old,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "vV" = (
 /obj/machinery/kitchen_machine/candy_maker/upgraded,
 /turf/simulated/floor/plasteel{
@@ -6730,6 +6908,17 @@
 	icon_state = "cafeteria"
 	},
 /area/ghost_bar)
+"wO" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
+"wQ" = (
+/obj/item/shard,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "wR" = (
 /obj/structure/rack,
 /obj/item/gun/energy/kinetic_accelerator/crossbow,
@@ -6861,6 +7050,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xg" = (
+/obj/structure/decorative_structures/metal/statue/moon,
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
+"xk" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "xl" = (
 /obj/structure/table,
 /obj/item/card/id/silver{
@@ -6874,6 +7074,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xm" = (
+/obj/effect/landmark/heretic/moon,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "xo" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -6920,6 +7124,9 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"xA" = (
+/turf/simulated/wall/indestructible/boss,
+/area/centcom/heretic_sacrifice/ash)
 "xB" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "syndishuttle_vent"
@@ -6945,6 +7152,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"xG" = (
+/obj/structure/table,
+/obj/item/kitchen/knife,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "xH" = (
 /turf/simulated/wall/indestructible/wood,
 /area/wizard_station)
@@ -6965,6 +7177,10 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"xN" = (
+/obj/effect/landmark/heretic/rust,
+/turf/simulated/floor/plating/rust,
+/area/centcom/heretic_sacrifice/rust)
 "xO" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/wizrobe/magusblue,
@@ -7047,12 +7263,25 @@
 	icon_state = "asteroidplating"
 	},
 /area/space/nearstation/centcom)
+"yf" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"yh" = (
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
+"yi" = (
+/obj/effect/spawner/random/blood/often,
+/obj/item/kitchen/knife,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "yj" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/gun/projectile/automatic/pistol,
@@ -7087,6 +7316,10 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"yr" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/grass/jungle,
+/area/centcom/heretic_sacrifice/ash)
 "yu" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/delivery/hollow,
@@ -7128,6 +7361,9 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
+"yJ" = (
+/turf/simulated/wall/indestructible/fakedoor,
+/area/centcom/heretic_sacrifice/blade)
 "yK" = (
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
@@ -7151,6 +7387,10 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"yS" = (
+/obj/structure/grille,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/heretic_sacrifice/lock)
 "yZ" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/external{
@@ -7160,6 +7400,17 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"zc" = (
+/obj/structure/barricade/wooden/crude/snow,
+/turf/simulated/wall/indestructible/fakedoor,
+/area/centcom/heretic_sacrifice/void)
+"ze" = (
+/turf/simulated/wall/indestructible/rock/snow,
+/area/centcom/heretic_sacrifice/void)
+"zf" = (
+/obj/effect/gibspawner/generic,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/flesh)
 "zg" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -7293,6 +7544,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"zD" = (
+/turf/simulated/floor/transparent/glass{
+	desc = "A peek into the other side.";
+	name = "cosmic glass floor"
+	},
+/area/space/centcomm)
 "zF" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -7356,6 +7613,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
+"zX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/landmark/heretic/lock,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "zY" = (
 /obj/machinery/smartfridge/foodcart{
 	dir = 4
@@ -7526,6 +7789,9 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Az" = (
+/turf/simulated/floor/grass/jungle,
+/area/centcom/heretic_sacrifice/ash)
 "AB" = (
 /obj/machinery/computer/arcade/battle{
 	dir = 4
@@ -7587,6 +7853,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"AN" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
 "AO" = (
 /turf/space,
 /area/admin)
@@ -7857,6 +8126,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
+"BP" = (
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel/dark,
@@ -7975,6 +8247,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"Co" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Cp" = (
 /obj/structure/sink{
 	dir = 4;
@@ -8122,6 +8400,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"CN" = (
+/obj/structure/legionnaire_bonfire,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/flesh)
 "CO" = (
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -8154,6 +8436,10 @@
 /obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
+"CX" = (
+/obj/structure/lattice,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/rust)
 "CY" = (
 /obj/machinery/economy/vending/artvend{
 	name = "\improper WizArtVend"
@@ -8188,6 +8474,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
+"Di" = (
+/turf/simulated/floor/indestructible/necropolis/normal_air,
+/area/centcom/heretic_sacrifice/flesh)
 "Dj" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -8249,6 +8538,14 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"Dt" = (
+/obj/structure/decorative_structures/metal/statue/moon,
+/obj/structure/decorative_structures/metal/statue/moon,
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/moon)
 "Dv" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/space_ninja,
@@ -8484,6 +8781,9 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
+"Eg" = (
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "Ei" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -8655,6 +8955,10 @@
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"EO" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "EP" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 4
@@ -8667,6 +8971,10 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"ES" = (
+/obj/structure/curtain/open/shower/security,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "ET" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -8686,6 +8994,10 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
+"EY" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -8729,6 +9041,9 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
+"Fh" = (
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "Fj" = (
 /obj/machinery/computer/med_data{
 	dir = 8
@@ -8935,12 +9250,20 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
+"FT" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/rust,
+/area/centcom/heretic_sacrifice/rust)
 "FU" = (
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"FV" = (
+/obj/effect/landmark/heretic,
+/turf/simulated/floor/grass/jungle,
+/area/centcom/heretic_sacrifice/ash)
 "FW" = (
 /obj/machinery/computer/card/centcom,
 /turf/simulated/floor/plasteel/dark,
@@ -9032,6 +9355,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Gm" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Gn" = (
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
@@ -9137,6 +9466,10 @@
 "GC" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/gamma)
+"GD" = (
+/obj/effect/landmark/heretic/blade,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "GE" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/mineral/titanium,
@@ -9361,6 +9694,10 @@
 	icon_state = "rampbottom"
 	},
 /area/holodeck/source_theatre)
+"Hq" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/rust)
 "Hr" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "SIT Ready Room"
@@ -9391,6 +9728,15 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Hw" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
+"Hx" = (
+/obj/structure/lattice,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating/rust,
+/area/centcom/heretic_sacrifice/rust)
 "Hy" = (
 /obj/structure/toilet{
 	dir = 8
@@ -9401,6 +9747,10 @@
 /obj/structure/railing,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"HA" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "HB" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/machinery/status_display{
@@ -9877,6 +10227,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
+"Jg" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Jh" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeadmin)
@@ -10141,6 +10497,9 @@
 /obj/item/gun/medbeam,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"JT" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "JU" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -10503,6 +10862,11 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"Lh" = (
+/obj/structure/legionnaire_bonfire,
+/obj/effect/gibspawner/generic,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/flesh)
 "Li" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light/small{
@@ -10542,6 +10906,12 @@
 "Ln" = (
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"Lo" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Lp" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
@@ -10555,6 +10925,11 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
+"Lr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/spear,
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
@@ -11066,6 +11441,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
+"MT" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "MU" = (
 /obj/machinery/economy/vending/cola/free{
 	name = "\improper Wizbust Softdrinks"
@@ -11269,6 +11651,9 @@
 	icon_state = "neutral"
 	},
 /area/shuttle/escape)
+"NJ" = (
+/turf/simulated/wall/indestructible/rock,
+/area/centcom/heretic_sacrifice/rust)
 "NK" = (
 /obj/machinery/computer/shuttle/admin{
 	dir = 8;
@@ -11341,6 +11726,9 @@
 /obj/machinery/power/port_gen/pacman/super/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"NV" = (
+/turf/simulated/floor/plating/ice/smooth,
+/area/centcom/heretic_sacrifice/void)
 "NW" = (
 /obj/structure/sign/securearea{
 	pixel_x = 32
@@ -11364,6 +11752,10 @@
 /obj/machinery/computer/security/telescreen/entertainment,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
+"Oa" = (
+/obj/structure/stone_tile/burnt,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Ob" = (
 /obj/structure/table,
 /obj/item/deck/cards,
@@ -11720,6 +12112,16 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Pc" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/obj/effect/landmark/heretic/void,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "Pd" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -11847,6 +12249,9 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"Pz" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/heretic_sacrifice/lock)
 "PA" = (
 /obj/effect/landmark/shuttle_import,
 /turf/space,
@@ -11899,6 +12304,14 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
+"PK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/light/floor{
+	invisibility = 100
+	},
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/lock)
 "PM" = (
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
@@ -11948,6 +12361,10 @@
 /obj/item/lighter,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"PT" = (
+/obj/machinery/light/very_dim/directional/south,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "PU" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -12032,6 +12449,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Qi" = (
+/turf/simulated/floor/indestructible,
+/area/centcom/heretic_sacrifice/rust)
 "Qj" = (
 /obj/structure/chair/sofa{
 	color = "#63009c"
@@ -12060,6 +12480,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Qq" = (
+/obj/item/whetstone,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "Qr" = (
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
@@ -12179,6 +12603,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"QJ" = (
+/obj/effect/landmark/heretic/flesh,
+/turf/simulated/floor/indestructible/necropolis/normal_air,
+/area/centcom/heretic_sacrifice/flesh)
 "QL" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -12698,6 +13126,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"SI" = (
+/turf/simulated/wall/indestructible/fakedoor,
+/area/centcom/heretic_sacrifice/lock)
 "SJ" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
@@ -12753,6 +13184,10 @@
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
+"SX" = (
+/obj/item/instrument/trombone,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "SY" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/suit/armor/riot/knight/blue,
@@ -13000,6 +13435,12 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ub" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Uc" = (
 /obj/structure/rack,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -13184,6 +13625,9 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+"UN" = (
+/turf/simulated/floor/plating/rust,
+/area/centcom/heretic_sacrifice/rust)
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
@@ -13356,6 +13800,11 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"VA" = (
+/obj/effect/decal/snow/clean/edge,
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
 "VC" = (
 /obj/item/rpd/bluespace,
 /obj/item/rpd/bluespace,
@@ -13400,6 +13849,9 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"VK" = (
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/flesh)
 "VL" = (
 /obj/structure/chair{
 	dir = 8
@@ -13598,6 +14050,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Ww" = (
+/obj/structure/table,
+/obj/item/whetstone,
+/turf/simulated/floor/plasteel/airless/indestructible,
+/area/centcom/heretic_sacrifice/blade)
 "Wx" = (
 /obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
@@ -13846,6 +14303,10 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/control)
+"WY" = (
+/obj/machinery/light/very_dim/directional/west,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "WZ" = (
 /obj/structure/table/reinforced,
 /obj/item/crowbar/red,
@@ -14113,6 +14574,10 @@
 "XU" = (
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"XV" = (
+/obj/structure/signpost/void,
+/turf/simulated/floor/plating/asteroid,
+/area/centcom/heretic_sacrifice/cosmic)
 "XW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/vacuum,
@@ -14224,6 +14689,10 @@
 /obj/item/pen/blue,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ym" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/heretic_sacrifice/ash)
 "Yo" = (
 /obj/structure/chair/comfy/purp{
 	name = "wizard council throne"
@@ -14371,6 +14840,19 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"YP" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
+"YQ" = (
+/obj/item/instrument/saxophone,
+/turf/simulated/floor/carpet/cyan,
+/area/centcom/heretic_sacrifice/moon)
 "YR" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -14526,6 +15008,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Zo" = (
+/obj/machinery/light/very_dim/directional/north,
+/turf/simulated/floor/fakespace,
+/area/centcom/heretic_sacrifice/cosmic)
 "Zp" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -54530,7 +55016,7 @@ aN
 aN
 aN
 aN
-aN
+zD
 aN
 aN
 aN
@@ -55299,59 +55785,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
 aN
 aN
 aN
@@ -55556,59 +56042,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+ze
+ze
+ze
+ze
+zc
+zc
+ze
+ze
+ze
+ze
+ze
+or
+Pz
+Pz
+yS
+yS
+Pz
+SI
+SI
+Pz
+yS
+yS
+Pz
+Pz
+or
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+or
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+or
 aN
 aN
 aN
@@ -55813,59 +56299,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+rA
+rA
+rA
+YP
+tP
+rA
+rA
+rA
+rA
+ze
+or
+Pz
+rX
+rX
+rX
+rX
+rX
+rX
+rX
+rX
+pk
+rX
+Pz
+or
+xA
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+xA
+or
+ve
+Fh
+oq
+Fh
+Fh
+WY
+Fh
+Fh
+Fh
+oq
+BP
+ve
+or
 aN
 aN
 aN
@@ -56070,59 +56556,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+pb
+rA
+rA
+rA
+rA
+rA
+rA
+pb
+rA
+ze
+or
+yS
+rX
+pk
+uF
+rX
+rX
+vU
+pk
+rX
+Lr
+pk
+yS
+or
+xA
+JT
+qM
+JT
+JT
+JT
+JT
+JT
+yh
+qM
+JT
+xA
+or
+ve
+oq
+XV
+oq
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+oq
+ve
+or
 aN
 aN
 aN
@@ -56327,59 +56813,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+rA
+rA
+rA
+uv
+rA
+rA
+cW
+rA
+rA
+ze
+or
+yS
+rX
+bs
+pk
+rX
+rX
+pk
+pk
+rX
+pk
+rX
+yS
+or
+xA
+JT
+EO
+JT
+JT
+JT
+JT
+JT
+JT
+EO
+JT
+xA
+or
+ve
+Fh
+oq
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+ve
+or
 aN
 aN
 aN
@@ -56584,59 +57070,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+cW
+rA
+rA
+rA
+rA
+rA
+rA
+rA
+rA
+ze
+or
+Pz
+rX
+pk
+pk
+rX
+rX
+pk
+rX
+rX
+pk
+rX
+Pz
+or
+xA
+JT
+JT
+JT
+JT
+Lo
+Lo
+JT
+JT
+JT
+JT
+xA
+or
+ve
+Fh
+Fh
+Fh
+oq
+oq
+Fh
+Fh
+Fh
+Fh
+oq
+ve
+or
 aN
 aN
 aN
@@ -56841,59 +57327,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+NV
+NV
+NV
+rA
+rA
+rA
+rA
+rA
+rA
+rA
+ze
+or
+SI
+rX
+pk
+pk
+rX
+zX
+ff
+rX
+rX
+rX
+pk
+SI
+or
+xA
+JT
+JT
+JT
+Co
+Az
+yr
+Ym
+JT
+JT
+JT
+xA
+or
+ve
+Fh
+Fh
+oq
+bj
+BP
+oq
+Fh
+Fh
+oq
+PT
+ve
+or
 aN
 aN
 aN
@@ -57098,59 +57584,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+NV
+NV
+NV
+NV
+Pc
+MT
+rA
+rA
+rA
+rA
+ze
+or
+SI
+pk
+rX
+rX
+rX
+pk
+PK
+rX
+rX
+pk
+rX
+SI
+or
+xA
+JT
+JT
+JT
+Co
+bx
+FV
+Ym
+JT
+JT
+JT
+xA
+or
+ve
+Zo
+Fh
+oq
+Hw
+BP
+oq
+Fh
+Fh
+oq
+BP
+ve
+or
 aN
 aN
 aN
@@ -57355,59 +57841,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+rA
+rA
+NV
+pC
+VA
+NV
+rA
+rA
+rA
+ze
+or
+Pz
+rX
+rX
+pk
+rX
+pk
+rX
+pk
+rX
+rX
+pk
+Pz
+or
+xA
+JT
+JT
+JT
+JT
+ge
+ge
+JT
+JT
+JT
+JT
+xA
+or
+ve
+Fh
+Fh
+Fh
+oq
+oq
+Fh
+Fh
+Fh
+oq
+BP
+ve
+or
 aN
 aN
 aN
@@ -57612,59 +58098,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+rA
+rA
+rA
+pC
+gZ
+NV
+NV
+NV
+NV
+ze
+or
+yS
+pk
+rX
+tN
+pk
+rX
+rX
+tN
+pk
+rX
+rX
+yS
+or
+xA
+JT
+fV
+yf
+JT
+JT
+Ub
+JT
+JT
+JT
+JT
+xA
+or
+ve
+oq
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+Fh
+oq
+ve
+or
 aN
 aN
 aN
@@ -57869,59 +58355,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+pb
+rA
+rA
+YP
+va
+rA
+NV
+iG
+NV
+ze
+or
+yS
+rX
+pk
+rX
+rX
+rX
+pk
+rX
+ff
+pk
+pk
+yS
+or
+xA
+JT
+qM
+Ym
+JT
+Jg
+xk
+Oa
+EO
+qM
+JT
+xA
+or
+ve
+BP
+oq
+Fh
+Fh
+Fh
+Fh
+Fh
+oq
+Fh
+Fh
+ve
+or
 aN
 aN
 aN
@@ -58126,59 +58612,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+rA
+rA
+rA
+rA
+cW
+rA
+rA
+rA
+rA
+rA
+ze
+or
+Pz
+rX
+rX
+pk
+pk
+rX
+rX
+rX
+rX
+rX
+rX
+Pz
+or
+xA
+JT
+JT
+JT
+JT
+Gm
+HA
+JT
+JT
+EO
+JT
+xA
+or
+ve
+BP
+Hw
+oq
+Fh
+Fh
+by
+oq
+pI
+oq
+Fh
+ve
+or
 aN
 aN
 aN
@@ -58383,59 +58869,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+ze
+or
+Pz
+Pz
+yS
+yS
+Pz
+SI
+SI
+Pz
+yS
+yS
+Pz
+Pz
+or
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+xA
+or
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+ve
+or
 aN
 aN
 aN
@@ -58640,59 +59126,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
 aN
 aN
 aN
@@ -58897,59 +59383,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+cV
+or
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+or
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+or
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+or
 aN
 aN
 aN
@@ -59154,59 +59640,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+Eg
+Eg
+Eg
+xG
+Ww
+Eg
+Eg
+Eg
+Eg
+cV
+or
+eu
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+eu
+or
+NJ
+FT
+FT
+FT
+UN
+UN
+UN
+UN
+UN
+UN
+UN
+NJ
+or
+pM
+Di
+VK
+Di
+Di
+Di
+Di
+Di
+Di
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -59411,59 +59897,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+nV
+wQ
+Eg
+Qq
+Eg
+Eg
+Eg
+nV
+Eg
+cV
+or
+eu
+AN
+xg
+AN
+AN
+AN
+AN
+AN
+AN
+dd
+AN
+eu
+or
+NJ
+FT
+Hx
+UN
+UN
+UN
+UN
+UN
+UN
+Hx
+UN
+NJ
+or
+pM
+zf
+CN
+VK
+VK
+VK
+VK
+VK
+zf
+CN
+VK
+pM
+or
 aN
 aN
 aN
@@ -59668,59 +60154,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+Eg
+Eg
+EY
+EY
+Eg
+EY
+Eg
+Qq
+Eg
+cV
+or
+eu
+AN
+hR
+hR
+ES
+AN
+wO
+wO
+wO
+AN
+AN
+eu
+or
+NJ
+UN
+UN
+UN
+Hq
+Qi
+UN
+Qi
+FT
+FT
+UN
+NJ
+or
+pM
+Di
+VK
+ku
+VK
+Di
+Di
+VK
+Di
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -59925,59 +60411,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+Eg
+Qq
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+wQ
+cV
+or
+eu
+AN
+os
+lu
+ES
+AN
+wO
+wO
+wO
+AN
+AN
+eu
+or
+NJ
+Qi
+FT
+FT
+UN
+Hq
+Qi
+Qi
+UN
+Qi
+UN
+NJ
+or
+pM
+Di
+VK
+VK
+zf
+VK
+VK
+VK
+VK
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -60182,59 +60668,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+oZ
+Eg
+Eg
+Eg
+Eg
+EY
+Eg
+EY
+Eg
+oZ
+cV
+or
+eu
+AN
+hR
+xm
+ES
+AN
+AN
+AN
+AN
+AN
+AN
+eu
+or
+NJ
+UN
+FT
+Hq
+UN
+UN
+UN
+UN
+UN
+Hq
+Qi
+NJ
+or
+pM
+Di
+VK
+Di
+VK
+Di
+Di
+VK
+Di
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -60439,59 +60925,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+xG
+Eg
+EY
+EY
+EY
+GD
+EY
+EY
+Eg
+oo
+cV
+or
+eu
+AN
+hR
+hR
+ES
+AN
+AN
+AN
+AN
+AN
+AN
+eu
+or
+NJ
+Qi
+Hq
+UN
+UN
+xN
+Qi
+Hq
+Hq
+FT
+UN
+NJ
+or
+pM
+Di
+VK
+Di
+VK
+QJ
+Di
+VK
+ku
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -60696,59 +61182,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Qq
+Eg
+Eg
+Eg
+Eg
+Eg
+EY
+Eg
+EY
+Eg
+cV
+or
+eu
+AN
+SX
+YQ
+ES
+AN
+wO
+wO
+wO
+AN
+AN
+eu
+or
+NJ
+UN
+UN
+UN
+UN
+UN
+UN
+UN
+UN
+UN
+UN
+NJ
+or
+pM
+Di
+VK
+VK
+VK
+VK
+VK
+VK
+VK
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -60953,59 +61439,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+Eg
+wQ
+Eg
+Eg
+Eg
+wQ
+Eg
+Eg
+Eg
+cV
+or
+eu
+AN
+hR
+hR
+ES
+AN
+wO
+wO
+wO
+AN
+AN
+eu
+or
+NJ
+Qi
+Hq
+Qi
+Hq
+CX
+FT
+UN
+UN
+FT
+UN
+NJ
+or
+pM
+Di
+VK
+Di
+VK
+Di
+Di
+VK
+Di
+VK
+Di
+pM
+or
 aN
 aN
 aN
@@ -61210,59 +61696,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+nV
+Eg
+yi
+Eg
+Eg
+Eg
+Qq
+nV
+Eg
+cV
+or
+eu
+AN
+xg
+AN
+AN
+AN
+jc
+AN
+AN
+Dt
+AN
+eu
+or
+NJ
+UN
+Hx
+UN
+UN
+Hq
+UN
+UN
+UN
+Hx
+UN
+NJ
+or
+pM
+VK
+Lh
+VK
+VK
+VK
+VK
+VK
+VK
+CN
+VK
+pM
+or
 aN
 aN
 aN
@@ -61467,59 +61953,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+cV
+or
+eu
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+AN
+eu
+or
+NJ
+UN
+FT
+UN
+UN
+UN
+Hq
+Qi
+UN
+UN
+UN
+NJ
+or
+pM
+Di
+VK
+ku
+Di
+Di
+Di
+Di
+Di
+zf
+Di
+pM
+or
 aN
 aN
 aN
@@ -61724,59 +62210,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+cV
+cV
+cV
+cV
+cV
+yJ
+yJ
+cV
+cV
+cV
+cV
+cV
+or
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+eu
+or
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+NJ
+or
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+pM
+or
 aN
 aN
 aN
@@ -61981,59 +62467,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
+or
 aN
 aN
 aN

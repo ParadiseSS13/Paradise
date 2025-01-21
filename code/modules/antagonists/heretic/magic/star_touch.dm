@@ -18,7 +18,7 @@
 	base_cooldown = 15 SECONDS
 	invocation = "ST'R 'N'RG'!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = MAGIC_RESISTANCE
 
 	hand_path = /obj/item/melee/touch_attack/star_touch
@@ -67,6 +67,7 @@
 		Causes people with a star mark to sleep for 4 seconds, and causes people without a star mark to get one."
 	icon_state = "star"
 	item_state = "star"
+	catchphrase = null
 
 /obj/item/melee/touch_attack/star_touch/Initialize(mapload)
 	. = ..()
