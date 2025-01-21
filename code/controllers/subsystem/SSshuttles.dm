@@ -173,7 +173,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/callShuttle = 1
 
 	for(var/thing in GLOB.shuttle_caller_list)
-		if(isAI(thing))
+		if(is_ai(thing))
 			var/mob/living/silicon/ai/AI = thing
 			if(AI.stat || !AI.client)
 				continue
@@ -223,9 +223,13 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 	//check if the shuttle is on lockdown
-	if(M.lockeddown)
-		return 3
 	if(M.uses_lockdown)
+		if(M.mode == SHUTTLE_IGNITING)
+			return 5
+		if(M.mode != SHUTTLE_IDLE)
+			return 4
+		if(M.lockeddown)
+			return 3
 		M.lockeddown = TRUE
 		addtimer(VARSET_CALLBACK(M, lockeddown, FALSE), 15 SECONDS)
 	if(!M)

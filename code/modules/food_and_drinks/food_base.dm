@@ -150,7 +150,7 @@
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
-		user.unEquip(src)	//so icons update :[
+		user.unequip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
 		user.put_in_hands(trash_item)
@@ -167,7 +167,6 @@
 		return ..()
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return FALSE
 
@@ -336,8 +335,7 @@
 	for(var/i in 1 to (slices_num - slices_lost))
 		var/obj/slice = new slice_path (loc)
 		reagents.trans_to(slice,reagents_per_slice)
-		slice.pixel_x = rand(-7, 7)
-		slice.pixel_y = rand(-7, 7)
+		slice.scatter_atom()
 	qdel(src)
 	return ..()
 

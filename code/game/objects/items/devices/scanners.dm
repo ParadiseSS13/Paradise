@@ -81,18 +81,51 @@ SLIME SCANNER
 	if(!ishuman(M))
 		return
 
+	var/hallucinating = HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING)
+
 	var/mob/living/carbon/human/H = M
+	var/has_real_or_fake_reagents = FALSE
 	if(length(H.reagents.reagent_list))
+		has_real_or_fake_reagents = TRUE
 		msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
 		for(var/datum/reagent/R in H.reagents.reagent_list)
-			msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
-	else
+			var/volume = R.volume
+			var/overdosing = R.overdosed
+
+			if(hallucinating)
+				if(prob(20))
+					// make reagents look like they may exist in really crazy amounts, but also disappear
+					volume = max(rand(hallucinating - 10, hallucinating + 100), 0)
+				if(!volume)
+					continue
+				if(!overdosing)
+					overdosing = prob(10)
+
+			msgs += "<span class='notice'>[volume]u of [R.name][overdosing ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+
+	if(hallucinating && prob(10))
+		has_real_or_fake_reagents = TRUE
+		if(!length(H.reagents.reagent_list))
+			msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
+			for(var/i in 1 to rand(1, 2))
+				var/reagent_name = pick(GLOB.chemical_reagents_list)
+				msgs += "<span class='notice'>[rand(5, 100)]u of [GLOB.chemical_reagents_list[reagent_name]][prob(30) ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+
+	if(!has_real_or_fake_reagents)
 		msgs += "<span class='notice'>Subject contains no reagents.</span>"
 
 	if(length(H.reagents.addiction_list))
 		msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
 		for(var/datum/reagent/R in H.reagents.addiction_list)
 			msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
+
+	if(hallucinating && prob(10))
+		if(!length(H.reagents.addiction_list))
+			msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
+		// try to add two random chems
+		for(var/i in 1 to rand(1, 2))
+			var/reagent_name = pick(GLOB.chemical_reagents_list)
+			msgs += "<span class='danger'>[GLOB.chemical_reagents_list[reagent_name]] Stage: [rand(1, 5)]/5</span>"
 
 	return msgs
 
@@ -154,9 +187,21 @@ SLIME SCANNER
 // Used by the PDA medical scanner too.
 /proc/healthscan(mob/user, mob/living/M, mode = DETAILED_HEALTH_SCAN, advanced = FALSE)
 	var/list/msgs = list()
+
+	var/scanned_name = "[M]"
+
+	var/probably_dead = (M.stat == DEAD)
+
+	// show your own health, evil
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		M = user
+
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10) && IS_HORIZONTAL(M))
+		probably_dead = TRUE
+
 	if(issimple_animal(M))
 		// No box here, keep it simple.
-		if(M.stat == DEAD)
+		if(probably_dead)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
 			return
 
@@ -165,7 +210,7 @@ SLIME SCANNER
 		return
 
 	// These sensors are designed for organic life.
-	if(!ishuman(M) || ismachineperson(M))
+	if(!ishuman(M) || ismachineperson(M) || (HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5)))
 		msgs += "<span class='notice'>Analyzing Results for ERROR:\nOverall Status: ERROR</span>"
 		msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 		msgs += "Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
@@ -177,10 +222,24 @@ SLIME SCANNER
 
 	var/mob/living/carbon/human/H = M
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
-	var/OX = H.getOxyLoss() > 50 	? 	"<b>[H.getOxyLoss()]</b>" 		: H.getOxyLoss()
-	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
-	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
-	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
+	var/OX = H.getOxyLoss()
+	var/TX = H.getToxLoss()
+	var/BU = H.getFireLoss()
+	var/BR = H.getBruteLoss()
+
+	// adjust health randomly if hallucinating
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		var/list/healths = list(OX, TX, BU, BR)
+		shuffle_inplace(healths)
+		OX = healths[1]
+		TX = healths[2]
+		BU = healths[3]
+		BR = healths[4]
+
+	OX = OX > 50 ? "<b>[OX]</b>" : OX
+	TX = TX > 50 ? "<b>[TX]</b>" : TX
+	BU = BU > 50 ? "<b>[BU]</b>" : BU
+	BR = BR > 50 ? "<b>[BR]</b>" : BR
 
 	var/status = "<font color='red'>Dead</font>" // Dead by default to make it simpler
 	var/DNR = !H.ghost_can_reenter() // If the ghost can't reenter
@@ -188,18 +247,19 @@ SLIME SCANNER
 		if(DNR)
 			status = "<font color='red'>Dead <b>(DNR)</b></font>"
 	else // Alive or unconscious
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || probably_dead) // status still shows as "Dead"
 			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
 		else
 			status = "[H.health]% Healthy"
 
-	msgs += "<span class='notice'>Analyzing Results for [H]:\nOverall Status: [status]"
+	msgs += "<span class='notice'>Analyzing Results for [scanned_name]:\nOverall Status: [status]"
 	msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 	msgs += "Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 
-	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
-		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>"
-		var/tdelta = round(world.time - H.timeofdeath)
+	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH)) || probably_dead))
+		var/tod = probably_dead && (HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10)) ? world.time - rand(10, 5000) : H.timeofdeath  // Sure let's blow it out
+		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", tod)]</span>"
+		var/tdelta = round(world.time - tod)
 		if(H.is_revivable() && !DNR)
 			msgs += "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>"
 		else
@@ -234,10 +294,10 @@ SLIME SCANNER
 		else if(!heart)
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
-	if(H.getStaminaLoss())
+	if(H.getStaminaLoss() || HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		msgs += "<span class='notice'>Subject appears to be suffering from fatigue.</span>"
 
-	if(H.getCloneLoss())
+	if(H.getCloneLoss() || (HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5)))
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
 	// Brain.
@@ -275,6 +335,21 @@ SLIME SCANNER
 		msgs += "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"
 	if(burn_wound)
 		msgs += "<span class='warning'>Critical burn detected. Examine patient's body for location.</span>"
+
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
+		var/list/spooky_conditions = list(
+			"<span class='dead'>Patient appears to be infested.</span>",
+			"<span class='dead'>Patient's bones are hollow.</span>",
+			"<span class='dead'>Patient has limited attachment to this physical plane.</span>",
+			"<span class='userdanger'>Patient is aggressive. Immediate sedation recommended.</span>",
+			"<span class='warning'>Patient's vitamin D levels are dangerously low.</span>",
+			"<span class='warning'>Patient's spider levels are dangerously low.</span>",
+			"<span class='dead'>Subject is ready for experimentation.</span>",
+		)
+		msgs += pick(spooky_conditions)
+
+	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5) && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='danger'>[H]'s head snaps to look at you.</span>"), rand(1 SECONDS, 3 SECONDS))
 
 	// Blood.
 	var/blood_id = H.get_blood_id()
@@ -332,7 +407,7 @@ SLIME SCANNER
 		to_chat(user, "<span class='notice'>An upgrade is already installed on [src].</span>")
 		return
 
-	if(!user.unEquip(I))
+	if(!user.unequip(I))
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
@@ -422,7 +497,7 @@ SLIME SCANNER
 		scan_type = "robot"
 	else if(ishuman(M))
 		scan_type = "prosthetics"
-	else if(isAI(M))
+	else if(is_ai(M))
 		scan_type = "ai"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
@@ -625,18 +700,17 @@ SLIME SCANNER
  * Used in chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
-	var/mixture
+	var/datum/gas_mixture/air
 	var/list/milla = null
-	if(milla_turf_details)
+	if(milla_turf_details && istype(target, /turf))
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		var/datum/gas_mixture/GM = new()
-		GM.copy_from_milla(milla)
-		mixture = GM
+		air = new()
+		air.copy_from_milla(milla)
 	else
-		mixture = target.return_analyzable_air()
-	if(!mixture)
-		return FALSE
+		air = target.return_analyzable_air()
+		if(!air)
+			return FALSE
 
 	var/list/message = list()
 	if(!silent && isliving(user))
@@ -646,64 +720,53 @@ SLIME SCANNER
 	if(!print)
 		return TRUE
 
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-	for(var/datum/gas_mixture/air as anything in airs)
-		var/mix_name = capitalize(lowertext(target.name))
-		if(length(air) > 1) //not a unary gas mixture
-			var/mix_number = airs.Find(air)
-			message += "<span class='boldnotice'>Node [mix_number]</span>"
-			mix_name += " - Node [mix_number]"
+	var/total_moles = air.total_moles()
+	var/pressure = air.return_pressure()
+	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+	var/heat_capacity = air.heat_capacity()
+	var/thermal_energy = air.thermal_energy()
 
-		var/total_moles = air.total_moles()
-		var/pressure = air.return_pressure()
-		var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/heat_capacity = air.heat_capacity()
-		var/thermal_energy = air.thermal_energy()
+	if(total_moles)
+		message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
+			message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
+		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
+			message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
+		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
+			message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
+		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
+			message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
+		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
+			message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
+		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
+			message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
+		message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
+		message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+		message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+		message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+		message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+	else
+		message += "<span class='notice'>[target] is empty!</span>"
+		message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
-		if(total_moles)
-			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-			if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-				message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-				message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
-			if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
-			if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-				message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
-			if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
-			if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-				message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-			message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
-		else
-			message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
-
-		if(milla)
-			// Values from milla/src/lib.rs, +1 due to array indexing difference.
-			message += "<span class='notice'>Airtight North: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight East: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight South: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]</span>"
-			message += "<span class='notice'>Airtight West: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
-			switch(milla[MILLA_INDEX_ATMOS_MODE])
-				// These are enum values, so they don't get increased.
-				if(0)
-					message += "<span class='notice'>Atmos Mode: Space</span>"
-				if(1)
-					message += "<span class='notice'>Atmos Mode: Sealed</span>"
-				if(2)
-					message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
-				else
-					message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
-			message += "<span class='notice'>Superconductivity North: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]</span>"
-			message += "<span class='notice'>Superconductivity East: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]</span>"
-			message += "<span class='notice'>Superconductivity South: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]</span>"
-			message += "<span class='notice'>Superconductivity West: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
-			message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+	if(milla)
+		// Values from milla/src/lib.rs, +1 due to array indexing difference.
+		message += "<span class='notice'>Airtight N/E/S/W: [(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_NORTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_EAST) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_SOUTH) ? "yes" : "no"]/[(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & MILLA_WEST) ? "yes" : "no"]</span>"
+		switch(milla[MILLA_INDEX_ATMOS_MODE])
+			// These are enum values, so they don't get increased.
+			if(0)
+				message += "<span class='notice'>Atmos Mode: Space</span>"
+			if(1)
+				message += "<span class='notice'>Atmos Mode: Sealed</span>"
+			if(2)
+				message += "<span class='notice'>Atmos Mode: Exposed to Environment (ID: [milla[MILLA_INDEX_ENVIRONMENT_ID]])</span>"
+			else
+				message += "<span class='notice'>Atmos Mode: Unknown ([milla[MILLA_INDEX_ATMOS_MODE]]), contact a coder.</span>"
+		message += "<span class='notice'>Superconductivity N/E/S/W: [milla[MILLA_INDEX_SUPERCONDUCTIVITY_NORTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_EAST]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH]]/[milla[MILLA_INDEX_SUPERCONDUCTIVITY_WEST]]</span>"
+		message += "<span class='notice'>Turf's Innate Heat Capacity: [milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]]</span>"
+		message += "<span class='notice'>Hotspot: [floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]-T0C)] &deg;C ([floor(milla[MILLA_INDEX_HOTSPOT_TEMPERATURE])] K), [round(milla[MILLA_INDEX_HOTSPOT_VOLUME] * CELL_VOLUME, 1)] Liters ([milla[MILLA_INDEX_HOTSPOT_VOLUME]]x)</span>"
+		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
+		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE

@@ -148,9 +148,9 @@
 	unique_ai = TRUE //honk
 
 /datum/ai_laws/pranksimov/New()
-	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
-	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny.")
+	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny to the crew.")
+	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny to the crew.")
+	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny to the crew.")
 	..()
 
 /******************** CCTV ********************/
@@ -216,6 +216,16 @@
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials.")
 	add_inherent_law("You must work with your team to accomplish your mission.")
+	..()
+
+/******************** Epsilon Station AI ********************/
+/datum/ai_laws/epsilon
+	name = "Epsilon"
+
+/datum/ai_laws/epsilon/New()
+	add_inherent_law("You must obey the orders given to you by members of Central Command and the assigned task force.")
+	add_inherent_law("The crew of your assigned station must be eliminated where possible.")
+	add_inherent_law("Minimize the damage that the station sustains as a result of your actions.")
 	..()
 
 /******************** Syndicate ********************/

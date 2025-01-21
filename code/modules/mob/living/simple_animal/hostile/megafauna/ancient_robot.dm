@@ -596,7 +596,7 @@ Difficulty: Hard
 					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 					hotspot.temperature = 1000
 					hotspot.recolor()
-					T.hotspot_expose(700,50,1)
+					T.hotspot_expose(700, 50)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)

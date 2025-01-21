@@ -15,6 +15,7 @@
 	var/screen = 0
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	scatter_distance = 8
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()
@@ -39,8 +40,7 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.unEquip(P)
-		P.loc = src
+		user.transfer_item_to(P, src)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
@@ -52,14 +52,12 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.unEquip(W)
-		W.loc = src
+		user.transfer_item_to(W, src)
 
 	else if(W.get_heat())
 		burnpaper(W, user)
 
 	else if(istype(W, /obj/item/paper_bundle))
-		user.unEquip(W)
 		for(var/obj/O in W)
 			O.loc = src
 			O.add_fingerprint(usr)
@@ -89,8 +87,6 @@
 		return
 	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
 	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
-
-	user.unEquip(src)
 
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -167,7 +163,7 @@
 			to_chat(usr, "<span class='notice'>You remove [W] from the bundle.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = get_page(1)
-				usr.unEquip(src)
+				usr.unequip(src)
 				usr.put_in_hands(P)
 				usr.unset_machine() // Ensure the bundle GCs
 				for(var/obj/O in src) // just in case we somehow lose something (it's happened, especially with photos)
@@ -218,7 +214,6 @@
 		O.plane = initial(O.plane)
 		O.add_fingerprint(user)
 
-	user.unEquip(src)
 	qdel(src)
 
 /obj/item/paper_bundle/update_desc()
