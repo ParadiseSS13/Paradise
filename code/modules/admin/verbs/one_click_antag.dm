@@ -132,7 +132,7 @@
 			H = pick(candidates)
 			H?.mind?.add_antag_datum(/datum/antagonist/rev/head)
 			candidates.Remove(H)
-			message_admins("[key_name_admin(owner)] made [H] a Revolutionary with One-Click-Antag")
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Revolutionary with One-Click-Antag")
 		return TRUE
 	return FALSE
 
