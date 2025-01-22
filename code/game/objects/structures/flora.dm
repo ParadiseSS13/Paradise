@@ -264,30 +264,30 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
-	
-
-//Large Plants
-/obj/item/kirbyplants/large
-	icon_state = "random-big"
-	w_class = WEIGHT_CLASS_HUGE
-	desc = "A big potted plant. In enclosed starships and space stations, a bit of greenery is good for morale."
-	/// Method to track plant overlay on mob for later removal
+	/// Variable to track plant overlay on mob for later removal
 	var/mutable_appearance/mob_overlay
+	var/hideable = FALSE
 
-/obj/item/kirbyplants/large/Initialize(mapload)
+/obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	if(icon_state == "random-big")
-		icon_state = "plant-[rand(1, 17)]"
-	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+	if(hideable)
+		AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
-/obj/item/kirbyplants/large/equipped(mob/living/carbon/user)
+/obj/item/kirbyplants/examine(mob/user)
+	. = ..()
+	if(hideable)
+		. += "<span class='notice'>You can hide behind [src] by picking it up with both hands free.</span>"
+	else
+		. += "<span class='notice'>It's too small to hide behind.</span>"
+
+/obj/item/kirbyplants/equipped(mob/living/carbon/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		hide_user(user)
 		return
 	unhide_user(user)
 
-/obj/item/kirbyplants/large/Destroy()
+/obj/item/kirbyplants/Destroy()
 	if(iscarbon(loc))
 		unhide_user(loc)
 
@@ -295,7 +295,7 @@
 	return ..()
 
 /// User has decided to hold a plant, apply stealth.
-/obj/item/kirbyplants/large/proc/hide_user(mob/living/carbon/user)
+/obj/item/kirbyplants/proc/hide_user(mob/living/carbon/user)
 	RegisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS, PROC_REF(reapply_hide))
 	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
 	user.add_overlay(mob_overlay)
@@ -306,7 +306,7 @@
 		user.alpha = 0
 
 /// User has either dropped the plant, or plant is being destroyed, restore user to normal.
-/obj/item/kirbyplants/large/proc/unhide_user(mob/living/carbon/user)
+/obj/item/kirbyplants/proc/unhide_user(mob/living/carbon/user)
 	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
 	user.cut_overlay(mob_overlay)
 	user.alpha = initial(user.alpha)
@@ -316,15 +316,27 @@
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.
-/obj/item/kirbyplants/large/proc/reapply_hide(mob/living/carbon/user)
+/obj/item/kirbyplants/proc/reapply_hide(mob/living/carbon/user)
 	SIGNAL_HANDLER
 	// Reset the state of the user
 	unhide_user(user)
 	hide_user(user)
 
-/obj/item/kirbyplants/large/dropped(mob/living/carbon/user)
+/obj/item/kirbyplants/dropped(mob/living/carbon/user)
 	..()
 	unhide_user(user)
+
+//Large Plants
+/obj/item/kirbyplants/large
+	icon_state = "random-big"
+	w_class = WEIGHT_CLASS_HUGE
+	desc = "A big potted plant. In enclosed starships and space stations, a bit of greenery is good for morale."
+	hideable = TRUE
+
+/obj/item/kirbyplants/large/Initialize(mapload)
+	. = ..()
+	if(icon_state == "random-big")
+		icon_state = "plant-[rand(1, 17)]"
 
 /obj/item/kirbyplants/large/plant1
 	icon_state = "plant-1"
@@ -368,6 +380,31 @@
 	name = "\improper RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 
+//Medium Plants
+/obj/item/kirbyplants/medium
+	icon_state = "random-medium"
+	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
+	w_class = WEIGHT_CLASS_BULKY
+	hideable = TRUE
+
+/obj/item/kirbyplants/medium/Initialize(mapload)
+	. = ..()
+	if(icon_state == "random-medium")
+		icon_state = "medium-[rand(1,6)]"
+
+/obj/item/kirbyplants/medium/medium1
+	icon_state = "medium-1"
+/obj/item/kirbyplants/medium/medium2
+	icon_state = "medium-2"
+/obj/item/kirbyplants/medium/medium3
+	icon_state = "medium-3"
+/obj/item/kirbyplants/medium/medium4
+	icon_state = "medium-4"
+/obj/item/kirbyplants/medium/medium5
+	icon_state = "medium-5"
+/obj/item/kirbyplants/medium/medium6
+	icon_state = "medium-6"
+
 //Small Plants
 /obj/item/kirbyplants/small
 	icon_state = "random-small"
@@ -389,30 +426,6 @@
 	icon_state = "small-4"
 /obj/item/kirbyplants/small/small5
 	icon_state = "small-5"
-
-//Medium Plants
-/obj/item/kirbyplants/medium
-	icon_state = "random-medium"
-	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
-	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/kirbyplants/medium/Initialize(mapload)
-	. = ..()
-	if(icon_state == "random-medium")
-		icon_state = "medium-[rand(1,6)]"
-
-/obj/item/kirbyplants/medium/medium1
-	icon_state = "medium-1"
-/obj/item/kirbyplants/medium/medium2
-	icon_state = "medium-2"
-/obj/item/kirbyplants/medium/medium3
-	icon_state = "medium-3"
-/obj/item/kirbyplants/medium/medium4
-	icon_state = "medium-4"
-/obj/item/kirbyplants/medium/medium5
-	icon_state = "medium-5"
-/obj/item/kirbyplants/medium/medium6
-	icon_state = "medium-6"
 
 //Alien Plants
 /obj/item/kirbyplants/large/alien
