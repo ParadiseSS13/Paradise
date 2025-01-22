@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		if(new_item)
 			user.put_in_hands(new_item)
 

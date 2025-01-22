@@ -501,7 +501,7 @@
 
 	for(var/mob in GLOB.mob_living_list)
 		var/mob/living/C = mob
-		if(ishuman(C) || isAI(C) || isrobot(C))
+		if(ishuman(C) || is_ai(C) || isrobot(C))
 			if(C.stat == DEAD)
 				continue
 			if(!C.client)

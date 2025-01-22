@@ -114,12 +114,10 @@ What are the archived variables for?
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()
-	var/moles = private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b
-	return moles
+	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = private_agent_b
-	return moles
+	return private_agent_b
 
 	/// Calculate pressure in kilopascals
 /datum/gas_mixture/proc/return_pressure()
@@ -662,23 +660,26 @@ What are the archived variables for?
 
 /proc/share_many_airs(list/mixtures)
 	var/total_volume = 0
-	var/total_thermal_energy = 0
-	var/total_heat_capacity = 0
 	var/total_oxygen = 0
 	var/total_nitrogen = 0
 	var/total_toxins = 0
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
+	var/must_share = FALSE
 
+	// Collect all the cheap data and check if there's a significant temperature difference.
+	var/temperature = null
 	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(!istype(G))
 			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
 			continue
 		total_volume += G.volume
-		var/heat_capacity = G.heat_capacity()
-		total_heat_capacity += heat_capacity
-		total_thermal_energy += G.private_temperature * heat_capacity
+
+		if(isnull(temperature))
+			temperature = G.private_temperature
+		else if(abs(temperature - G.private_temperature) >= 1)
+			must_share = TRUE
 
 		total_oxygen += G.private_oxygen
 		total_nitrogen += G.private_nitrogen
@@ -687,26 +688,65 @@ What are the archived variables for?
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
 
-	if(total_volume > 0)
-		//Calculate temperature
-		var/temperature = 0
+	if(total_volume <= 0)
+		return
 
-		if(total_heat_capacity > 0)
-			temperature = total_thermal_energy/total_heat_capacity
-
-		//Update individual gas_mixtures by volume ratio
+	// If we don't have a significant temperature difference, check for a significant gas amount difference.
+	if(!must_share)
 		for(var/datum/gas_mixture/G as anything in mixtures)
 			if(!istype(G))
 				continue
-			G.private_oxygen = total_oxygen * G.volume / total_volume
-			G.private_nitrogen = total_nitrogen * G.volume / total_volume
-			G.private_toxins = total_toxins * G.volume / total_volume
-			G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
-			G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
-			G.private_agent_b = total_agent_b * G.volume / total_volume
+			if(abs(G.private_oxygen - total_oxygen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_nitrogen - total_nitrogen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_toxins - total_toxins * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_carbon_dioxide - total_carbon_dioxide * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_sleeping_agent - total_sleeping_agent * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_agent_b - total_agent_b * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
 
-			G.private_temperature = temperature
-			G.set_dirty()
+	if(!must_share)
+		// Nothing significant, don't do any more work.
+		return
+
+	// Collect the more expensive data.
+	var/total_thermal_energy = 0
+	var/total_heat_capacity = 0
+	for(var/datum/gas_mixture/G as anything in mixtures)
+		if(!istype(G))
+			continue
+		var/heat_capacity = G.heat_capacity()
+		total_heat_capacity += heat_capacity
+		total_thermal_energy += G.private_temperature * heat_capacity
+
+	// Calculate shared temperature.
+	temperature = TCMB
+	if(total_heat_capacity > 0)
+		temperature = total_thermal_energy/total_heat_capacity
+
+	// Update individual gas_mixtures by volume ratio.
+	for(var/datum/gas_mixture/G as anything in mixtures)
+		if(!istype(G))
+			continue
+		G.private_oxygen = total_oxygen * G.volume / total_volume
+		G.private_nitrogen = total_nitrogen * G.volume / total_volume
+		G.private_toxins = total_toxins * G.volume / total_volume
+		G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
+		G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
+		G.private_agent_b = total_agent_b * G.volume / total_volume
+
+		G.private_temperature = temperature
+		// In theory, we should G.set_dirty() here, but that's only useful for bound mixtures, and these can't be.
 
 /datum/gas_mixture/proc/hotspot_expose(temperature, volume)
 	return
@@ -722,6 +762,7 @@ What are the archived variables for?
 #undef QUANTIZE
 
 /datum/gas_mixture/bound_to_turf
+	synchronized = FALSE
 	var/dirty = FALSE
 	var/lastread = 0
 	var/turf/bound_turf = null
