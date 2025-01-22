@@ -194,11 +194,11 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/computer/ai_resource_console
+/obj/machinery/computer/ai_resource
 	name = "AI resource control console"
 	desc = "Used to reassign memory and bandwidth between multiple AI units."
 	icon = 'icons/obj/computer.dmi'
-	icon_keyboard = "tech_key"
+	icon_keyboard = "rd_key"
 	icon_screen = "ai_resource"
 	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/ai_resource_console

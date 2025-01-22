@@ -405,7 +405,7 @@
 /obj/item/circuitboard/ai_resource_console
 	board_name = "AI Resource Management Console"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/ai_resource_console
+	build_path = /obj/machinery/computer/ai_resource
 	origin_tech = "programming=4"
 
 /obj/item/circuitboard/ordercomp
