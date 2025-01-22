@@ -328,6 +328,7 @@
 
 //Large Plants
 /obj/item/kirbyplants/large
+	name = "large potted plant"
 	icon_state = "random-big"
 	w_class = WEIGHT_CLASS_HUGE
 	desc = "A big potted plant. In enclosed starships and space stations, a bit of greenery is good for morale."
@@ -382,6 +383,7 @@
 
 //Medium Plants
 /obj/item/kirbyplants/medium
+	name = "potted plant"
 	icon_state = "random-medium"
 	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
 	w_class = WEIGHT_CLASS_BULKY
@@ -407,6 +409,7 @@
 
 //Small Plants
 /obj/item/kirbyplants/small
+	name = "small potted plant"
 	icon_state = "random-small"
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "A small potted houseplant, for setting on tables and shelves."
@@ -429,6 +432,7 @@
 
 //Alien Plants
 /obj/item/kirbyplants/large/alien
+	name = "potted alien plant"
 	icon_state = "random-alien"
 	desc = "An alien potted plant. Nanotrasen and the TSF usually favor Earthen plants for decor, so plants like this are an exotic novelty in this part of the galaxy."
 
