@@ -221,7 +221,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		if(!AM.Move(step, get_dir(AM, step))) // we hit something during our move...
+		if(!AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))) // we hit something during our move...
 			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
 				finalize()
 			return

@@ -213,8 +213,8 @@
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir
-	if(step(AM, t))
-		step(src, t)
+	if(AM.Move(get_step(AM.loc, t), t, glide_size))
+		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
@@ -598,7 +598,7 @@
 		return
 	return ..()
 
-/mob/living/Move(atom/newloc, direct, movetime)
+/mob/living/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
@@ -618,12 +618,12 @@
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pullee, movetime)
+		pull_pulled(old_loc, pullee, glide_size_override)
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
-/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
+/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, glide_size_override)
 	if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
 		if(pulling.anchored)
 			stop_pulling()
@@ -635,7 +635,7 @@
 				var/mob/living/M = pulling
 				if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth))) // So once you reach 50 brute damage you hit 100% chance to leave a blood trail for every tile you're pulled
 					M.makeTrail(dest)
-			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			pulling.Move(dest, get_dir(pulling, dest), glide_size_override) // the pullee tries to reach our previous position
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
@@ -1173,10 +1173,10 @@
 		return
 	return ..()
 
-/mob/living/Moved(OldLoc, Dir, Forced = FALSE)
+/mob/living/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/obj/O in src)
-		O.on_mob_move(Dir, src)
+		O.on_mob_move(movement_dir, src)
 
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
