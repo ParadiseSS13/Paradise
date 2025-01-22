@@ -129,9 +129,9 @@
 	if(direction == 0)
 		return
 
-	if(last_high_pressure_movement_time >= SSair.times_fired - 3)
+	if(last_high_pressure_movement_time >= SSair.milla_tick - 3)
 		return
-	last_high_pressure_movement_time = SSair.times_fired
+	last_high_pressure_movement_time = SSair.milla_tick
 
 	air_push(direction, (force - force_needed) / force_needed)
 
@@ -171,7 +171,7 @@
 #define INDEX_SOUTH	3
 #define INDEX_WEST	4
 
-/turf/proc/Initialize_Atmos(times_fired)
+/turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
 	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
