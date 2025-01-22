@@ -491,6 +491,9 @@
 	if(isnull(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
 
+	if(is_color_text(value))
+		return "<span class='value'>\"[value]\" <span class='colorbox' style='color:[value];background-color:[value];border: 1px solid black'>######</span></span>"
+
 	else if(istext(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 
