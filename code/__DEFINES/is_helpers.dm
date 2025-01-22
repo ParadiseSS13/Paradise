@@ -138,8 +138,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) istype(A, /obj/item/reagent_containers/pill)
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
-
-GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
 #define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // Modsuits
