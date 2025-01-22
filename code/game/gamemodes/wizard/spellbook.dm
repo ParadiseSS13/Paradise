@@ -444,6 +444,13 @@
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
 
+/datum/spellbook_entry/item/undeath_talisman
+	name = "Five Undeath Talismans"
+	desc = "Special engraved runes for raising the dead into a plague-ridden animated corpse"
+	item_path = /obj/item/storage/belt/undeath_talisman
+	category = "Artefacts"
+
+
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."

@@ -843,6 +843,77 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heresy = TRUE
 	unlimited = TRUE
 
+//////////////////////// Undeath Talisman //////////////////////////////
+
+/obj/item/undeath_talisman
+	name = "Undeath Talisman"
+	desc = "A vile rune capabale of raising the dead as plague-bearing creatures of destruction."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "undeathtalisman"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
+
+//checks if they're a valid target before trying to raise
+/obj/item/undeath_talisman/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	if(!istype(victim) || !istype(necromancer))
+		return ..()
+
+	if(victim.stat != DEAD)
+		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
+		return
+
+	if((!victim.mind || !victim.client) && !victim.grab_ghost())
+		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
+		return
+
+	if (victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		to_chat(necromancer, "<span class='warning'>This one has already been risen! Give it time.</span>")
+		return
+
+	raise_victim(victim, necromancer)
+
+//raises the victim into a special zombies and binds them to wiz
+/obj/item/undeath_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs for you are now above death!</span>"
+	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH)
+	var/disease = new pick_disease()
+
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
+	for(var/trait in plague_traits)
+		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
+
+	pick_disease(disease)
+	victim.AddSpell(new /datum/spell/zombie_claws/plague_claws)
+	victim.AddComponent(/datum/component/zombie_regen)
+
+	for(var/obj/item/organ/limb as anything in victim.bodyparts)
+		if(!(limb.status & ORGAN_DEAD) && !limb.vital && !limb.is_robotic())
+			limb.necrotize()
+			return FALSE
+
+		victim.med_hud_set_health()
+		victim.med_hud_set_status()
+		victim.update_hands_hud()
+		victim.update_body()
+
+
+
+//choose what disease this zombie will get
+/obj/item/undeath_talisman/proc/pick_disease()
+	var picked_disease
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
+	var/minor_length = length(minor_diseases)
+	var/major_length = length(major_diseases)
+	if (prob(66))
+		picked_disease = minor_diseases[rand(1, minor_length)]
+		return(picked_disease)
+	else
+		picked_disease = major_diseases[rand(1, minor_length)]
+		return(picked_disease)
+
+
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
 	pump_delay = 60

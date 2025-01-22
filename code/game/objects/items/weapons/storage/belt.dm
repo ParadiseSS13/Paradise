@@ -689,6 +689,22 @@
 		W.charges = W.max_charges
 	update_icon()
 
+/obj/item/storage/belt/undeath_talisman
+	name = "Runic Belt"
+	desc = "A belt designed to hold safely contain plague ridden runes. Beter hope it doesnt start to drip."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 5
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/undeath_talisman
+		)
+
+/obj/item/storage/belt/undeath_talisman/populate_contents()
+	for(var/count in 1 to storage_slots)
+		new /obj/item/undeath_talisman
+	update_icon()
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."

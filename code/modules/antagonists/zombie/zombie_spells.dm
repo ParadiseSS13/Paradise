@@ -154,3 +154,40 @@
 /obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	qdel(src)
+
+
+/datum/spell/zombie_claws/plague_claws
+
+
+
+/obj/item/zombie_claw/plague_claw
+	desc = "Ichor-coated claws extending from your rotting hands, perfect for ripping bone and flesh for your master."
+	armour_penetration_percentage = 20
+	force = 40
+
+/obj/item/zombie_claw/plague_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters, disease)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(!ishuman(atom_target) || ismachineperson(atom_target))
+		return
+	var/mob/living/carbon/human/target = atom_target
+	try_infect(target, user, disease)
+
+/obj/item/zombie_claw/plague_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user, disease)
+	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+		return
+	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
+		to_chat(user, "<span class='warning zombie'>Our infection cannot spread without their head or chest.</span>")
+		return
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		return FALSE
+	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected) // Head, or Chest.
+	if(affecting.is_robotic())
+		return // We don't want people to be infected via zombie claws if they're augmented or have robotic limbs. Bites are handled differently.
+
+	// already have the disease, or have contracted it.
+	if(!target.HasDisease(disease))
+		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
+		target.bleed_rate = max(5, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
+		target.ContractDisease(disease)
