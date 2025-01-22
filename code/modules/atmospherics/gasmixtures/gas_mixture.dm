@@ -762,6 +762,7 @@ What are the archived variables for?
 #undef QUANTIZE
 
 /datum/gas_mixture/bound_to_turf
+	synchronized = FALSE
 	var/dirty = FALSE
 	var/lastread = 0
 	var/turf/bound_turf = null
