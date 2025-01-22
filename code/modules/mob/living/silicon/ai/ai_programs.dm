@@ -6,8 +6,12 @@
 	var/list/possible_programs
 	/// How much memory is available
 	var/memory = 1
+	/// How much total memory does the system have?
+	var/total_memory = 1
 	/// How much bandwidth is available
 	var/bandwidth = 1
+	/// How much total bandwidth does the system have?
+	var/total_bandwidth = 1
 	/// How many nanites are available?
 	var/nanites = 50
 	/// What is the maximum number of nanites?
@@ -45,10 +49,12 @@
 /datum/program_picker/proc/modify_resource(key, amount)
 	if(key == "memory")
 		memory += amount
+		total_memory += amount
 		if(memory < 0)
 			refund_purchases()
 	if(key == "bandwidth")
 		bandwidth += amount
+		total_bandwidth += amount
 		if(bandwidth < 0)
 			refund_upgrades()
 

@@ -150,7 +150,7 @@
 	node.overheat_counter--
 
 /obj/machinery/ai_node/processing_node
-	name = "Processing Node"
+	name = "processing node"
 	desc = "Highly advanced machinery with a manual switch. While running, it grants an AI memory."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
 	icon_state = "processor-off"
@@ -169,7 +169,7 @@
 	RefreshParts()
 
 /obj/machinery/ai_node/network_node
-	name = "Network Node"
+	name = "network node"
 	desc = "Highly advanced machinery with an on/off switch. While running, it grants an AI bandwidth."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
 	icon_state = "network-off"
@@ -193,3 +193,70 @@
 	component_parts += new /obj/item/stack/sheet/mineral/diamond(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
+
+/obj/machinery/computer/ai_resource
+	name = "AI resource control console"
+	desc = "Used to reassign memory and bandwidth between multiple AI units."
+	icon = 'icons/obj/computer.dmi'
+	icon_keyboard = "tech_key"
+	icon_screen = "ai_resource"
+	req_access = list(ACCESS_RD)
+	circuit = /obj/item/circuitboard/ai_resource_console
+	light_color = LIGHT_COLOR_PURPLE
+
+/obj/machinery/computer/ai_resource/attack_ai(mob/user as mob) // Bad AI, no access to stealing resources
+	return
+
+/obj/machinery/computer/ai_resource/attack_hand(mob/user as mob)
+	if(..())
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
+	ui_interact(user)
+
+/obj/machinery/computer/ai_resource/proc/is_authenticated(mob/user)
+	if(!istype(user))
+		return FALSE
+	if(user.can_admin_interact())
+		return TRUE
+	if(allowed(user))
+		return TRUE
+	return FALSE
+
+/obj/machinery/computer/ai_resource/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/ai_resource/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "RoboticsControlConsole", name)
+		ui.open()
+
+/obj/machinery/computer/ai_resource/ui_data(mob/user)
+	var/list/data = list()
+	data["auth"] = is_authenticated(user)
+	data["ais"] = list()
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+		if(!console_shows(A))
+			continue
+		var/list/ai_data = list(
+			name = A.name,
+			uid = A.UID(),
+			memory = A.program_picker.memory,
+			memory_max = A.program_picker.total_memory,
+			bandwidth = A.program_picker.bandwidth,
+			bandwidth_max = A.program_picker.total_bandwidth
+		)
+		data["ais"] += list(ai_data)
+	return data
+
+/obj/machinery/computer/ai_resource/ui_act(action, params)
+	if(..())
+		return
+	. = FALSE
+	if(!is_authenticated(usr))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		to_chat(usr, "<span class='warning'>Access denied, AIs are no longer your station's property.</span>")
+		return

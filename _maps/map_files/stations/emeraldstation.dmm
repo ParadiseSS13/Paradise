@@ -13443,14 +13443,10 @@
 	},
 /area/station/maintenance/apmaint)
 "cHe" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/rd,
-/obj/item/stamp/rd{
-	pixel_x = 5;
-	pixel_y = -2
-	},
 /obj/machinery/newscaster/directional/south,
+/obj/machinery/computer/ai_resource{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -111441,7 +111437,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "waz" = (
-/obj/structure/rack,
 /obj/item/aicard,
 /obj/item/paicard{
 	pixel_x = 4
@@ -111451,6 +111446,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/requests_console/directional/south,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -121706,6 +121702,12 @@
 	pixel_x = 4
 	},
 /obj/item/paper/monitorkey,
+/obj/item/stamp/rd{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/pen/rd,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
