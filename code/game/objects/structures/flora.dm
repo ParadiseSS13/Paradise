@@ -337,7 +337,7 @@
 /obj/item/kirbyplants/large/Initialize(mapload)
 	. = ..()
 	if(icon_state == "random-big")
-		icon_state = "plant-[rand(1, 17)]"
+		icon_state = "plant-[rand(1, 15)]"
 
 /obj/item/kirbyplants/large/plant1
 	icon_state = "plant-1"
@@ -369,10 +369,6 @@
 	icon_state = "plant-14"
 /obj/item/kirbyplants/large/plant15
 	icon_state = "plant-15"
-/obj/item/kirbyplants/large/plant16
-	icon_state = "plant-16"
-/obj/item/kirbyplants/large/plant17
-	icon_state = "plant-17"
 
 /obj/item/kirbyplants/large/dead
 	icon_state = "plant-dead"
@@ -392,7 +388,7 @@
 /obj/item/kirbyplants/medium/Initialize(mapload)
 	. = ..()
 	if(icon_state == "random-medium")
-		icon_state = "medium-[rand(1,6)]"
+		icon_state = "medium-[rand(1,8)]"
 
 /obj/item/kirbyplants/medium/medium1
 	icon_state = "medium-1"
@@ -406,6 +402,10 @@
 	icon_state = "medium-5"
 /obj/item/kirbyplants/medium/medium6
 	icon_state = "medium-6"
+/obj/item/kirbyplants/medium/medium7
+	icon_state = "medium-7"
+/obj/item/kirbyplants/medium/medium8
+	icon_state = "medium-8"
 
 //Small Plants
 /obj/item/kirbyplants/small

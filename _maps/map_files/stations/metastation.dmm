@@ -11490,7 +11490,7 @@
 /area/station/turret_protected/ai_upload)
 "bbm" = (
 /obj/machinery/alarm/directional/north,
-/obj/item/kirbyplants/large/plant12,
+/obj/item/kirbyplants/large/medium8,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "neutral"
@@ -26179,7 +26179,7 @@
 /area/station/command/office/ntrep)
 "bXy" = (
 /obj/machinery/newscaster/directional/west,
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -26212,7 +26212,7 @@
 /area/station/supply/office)
 "bXF" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /obj/machinery/door_control{
 	id = "mechbay";
 	name = "Mech Bay Shutters Control";
@@ -27873,7 +27873,7 @@
 /area/station/hallway/primary/central/south)
 "cei" = (
 /obj/machinery/firealarm/directional/east,
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -28118,7 +28118,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/obj/item/kirbyplants/large/plant12,
+/obj/item/kirbyplants/large/medium8,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -32494,7 +32494,7 @@
 	},
 /area/station/medical/medbay)
 "cxL" = (
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -53563,7 +53563,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "jft" = (
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
 "jfN" = (
@@ -57834,7 +57834,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants/large/plant12,
+/obj/item/kirbyplants/large/medium8,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -76797,7 +76797,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "tyW" = (
-/obj/item/kirbyplants/large/plant12,
+/obj/item/kirbyplants/large/medium8,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -82591,7 +82591,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "wsf" = (
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

@@ -428,7 +428,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "kC" = (
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "kH" = (

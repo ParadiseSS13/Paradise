@@ -7485,7 +7485,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Xj" = (
-/obj/item/kirbyplants/large/plant16,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
