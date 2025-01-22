@@ -1,5 +1,7 @@
 // The datum and interface for the AI powers menu
 /datum/program_picker
+	/// Associated AI
+	var/mob/living/silicon/ai/assigned_ai
 	/// List of programs that can be bought
 	var/list/possible_programs
 	/// How much memory is available
@@ -10,7 +12,7 @@
 	var/nanites = 50
 	/// What is the maximum number of nanites?
 	var/max_nanites = 100
-	// Handles extra information displayed
+	/// Handles extra information displayed
 	var/temp
 
 /datum/program_picker/New()
@@ -21,6 +23,10 @@
 			possible_programs += program
 
 /datum/program_picker/proc/use(mob/user)
+	var/mob/living/silicon/ai/A = user
+	if(!istype(A))
+		return
+	assigned_ai = A
 	var/dat
 	dat += {"<B>Select program to install: (currently [memory] TB of memory and [bandwidth] TBPS of bandwidth left.)</B><BR>
 			<HR>
@@ -31,7 +37,7 @@
 	dat += "<HR>"
 	if(temp)
 		dat += "[temp]"
-	var/datum/browser/popup = new(user, "modpicker", "AI Program Menu", 400, 500)
+	var/datum/browser/popup = new(A, "modpicker", "AI Program Menu", 400, 500)
 	popup.set_content(dat)
 	popup.open()
 	return
@@ -46,7 +52,7 @@
 		if(bandwidth < 0)
 			refund_upgrades()
 
-/datum/program_picker/proc/refund_purchases(mob/user)
+/datum/program_picker/proc/refund_purchases()
 	var/list/potential_losses = possible_programs
 	while(memory < 0)
 		if(!potential_losses)
@@ -54,9 +60,9 @@
 		var/datum/ai_program/program = pick_n_take(potential_losses)
 		if(!program.installed)
 			continue
-		program.uninstall(user)
+		program.uninstall(assigned_ai)
 
-/datum/program_picker/proc/refund_upgrades(mob/user)
+/datum/program_picker/proc/refund_upgrades()
 	var/list/potential_losses = possible_programs
 	while(bandwidth < 0)
 		if(!potential_losses)
@@ -65,7 +71,7 @@
 		if(!program.upgrade_level)
 			continue
 		while(program.upgrade_level > 0 && bandwidth < 0)
-			program.downgrade(user)
+			program.downgrade(assigned_ai)
 
 /datum/program_picker/Topic(href, href_list)
 	..()
@@ -99,7 +105,6 @@
 								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 							aspell.on_purchase_upgrade()
 							program.upgrade(A)
-							bandwidth--
 							return TRUE
 				// No same program found, install
 				if(program.cost > memory)
@@ -165,40 +170,44 @@
 	auto_use_uses = FALSE // This is an infinite ability.
 	create_attack_logs = FALSE
 
-/datum/ai_program/proc/upgrade(mob/user)
+/datum/ai_program/proc/upgrade(mob/living/silicon/ai/user)
 	upgrade_level++
 	bandwidth_used++
+	if(!istype(user))
+		return
+	user.program_picker.bandwidth--
 	return
 
-/datum/ai_program/proc/downgrade(mob/user)
-	upgrade_level--
-	var/mob/living/silicon/ai/A = user
-	if(!istype(A))
+/datum/ai_program/proc/downgrade(mob/living/silicon/ai/user)
+	if(!istype(user))
 		return
-	A.program_picker.bandwidth++
+	upgrade_level--
+	if(!upgrade_level)
+		uninstall(user)
+		return
+	user.program_picker.bandwidth++
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
-		for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+		for(var/datum/spell/ai_spell/aspell in user.mob_spell_list)
 			if(removed_spell.type == aspell.type)
 				aspell.name = initial(aspell.name)
 				aspell.spell_level--
 				aspell.on_purchase_upgrade() // It's a downgrade, but we still need to recalculate values
 	return
 
-/datum/ai_program/proc/uninstall(mob/user)
+/datum/ai_program/proc/uninstall(mob/living/silicon/ai/user)
 	upgrade_level = 0
 	installed = FALSE
-	var/mob/living/silicon/ai/A = user
-	if(!istype(A))
+	if(!istype(user))
 		return
-	A.program_picker.bandwidth += bandwidth_used
+	user.program_picker.bandwidth += bandwidth_used
 	bandwidth_used = 0
-	A.program_picker.memory += cost
+	user.program_picker.memory += cost
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
-		for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
+		for(var/datum/spell/ai_spell/aspell in user.mob_spell_list)
 			if(removed_spell.type == aspell.type)
-				A.RemoveSpell(aspell)
+				user.RemoveSpell(aspell)
 	return
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
@@ -392,14 +401,24 @@
 	unlock_text = "Universal adapter installation complete!"
 	upgrade = TRUE
 
-/datum/ai_program/universal_adapter/upgrade(mob/user)
-	var/mob/living/silicon/ai/AI = user
+/datum/ai_program/universal_adapter/upgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
-	AI.universal_adapter = TRUE
-	AI.adapter_efficiency = 0.5 + (0.1 * upgrade_level)
-	upgrade_level++
+	user.universal_adapter = TRUE
+	user.adapter_efficiency = 0.5 + (0.1 * upgrade_level)
 	installed = TRUE
+
+/datum/ai_program/universal_adapter/downgrade(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
+		return
+	user.adapter_efficiency = 0.5 + (0.1 * upgrade_level)
+
+/datum/ai_program/universal_adapter/uninstall(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
+		return
+	user.adapter_efficiency = 0.5
 
 // Door Override - Repairs door wires if the AI wire is not cut
 /datum/ai_program/door_override
@@ -514,15 +533,25 @@
 	unlock_text = "Bluespace miner installation complete!"
 	upgrade = TRUE
 
-/datum/ai_program/bluespace_miner/upgrade(mob/user)
-	var/mob/living/silicon/ai/AI = user
+/datum/ai_program/bluespace_miner/upgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
-	AI.bluespace_miner_rate = 100 + (100 * upgrade_level)
-	AI.next_payout = 10 MINUTES + world.time
-	AI.bluespace_miner = TRUE
-	upgrade_level++
+	user.bluespace_miner_rate = 100 + (100 * upgrade_level)
+	user.next_payout = 10 MINUTES + world.time
+	user.bluespace_miner = TRUE
 	installed = TRUE
+
+/datum/ai_program/bluespace_miner/downgrade(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
+		return
+	user.bluespace_miner_rate = 100 + (100 * upgrade_level)
+
+/datum/ai_program/bluespace_miner/uninstall(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
+		return
+	user.bluespace_miner_rate = 100
 
 // Multimarket Analysis Subsystem: Reduce prices of things at cargo
 /datum/ai_program/multimarket_analyser
@@ -537,13 +566,21 @@
 	var/original_price_mod
 
 /datum/ai_program/multimarket_analyser/New()
-	. = ..()
+	..()
 	original_price_mod = SSeconomy.pack_price_modifier
 
-/datum/ai_program/multimarket_analyser/upgrade(mob/user)
+/datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user)
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
 	upgrade_level++
 	installed = TRUE
+
+/datum/ai_program/multimarket_analyser/downgrade(mob/living/silicon/ai/user)
+	..()
+	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
+
+/datum/ai_program/multimarket_analyser/uninstall(mob/living/silicon/ai/user)
+	..()
+	SSeconomy.pack_price_modifier = original_price_mod
 
 // Light Synthesizer - Fixes lights
 /datum/ai_program/light_repair
@@ -647,13 +684,20 @@
 	/// Track the original delay
 	var/original_door_delay = 3 SECONDS
 
-/datum/ai_program/enhanced_doors/upgrade(mob/user)
-	var/mob/living/silicon/ai/AI = user
+/datum/ai_program/enhanced_doors/upgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
-	upgrade_level++
-	AI.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
+	user.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
 	installed = TRUE
+
+/datum/ai_program/enhanced_doors/downgrade(mob/living/silicon/ai/user)
+	..()
+	user.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
+
+/datum/ai_program/enhanced_doors/uninstall(mob/living/silicon/ai/user)
+	..()
+	user.door_bolt_delay = original_door_delay
+
 
 // Experimental Research Subsystem - Knowledge is power
 /datum/ai_program/research_subsystem
@@ -873,13 +917,22 @@
 	unlock_text = "Tag and track software online."
 	max_level = 8
 
-/datum/ai_program/enhanced_tracker/upgrade(mob/user)
-	var/mob/living/silicon/ai/AI = user
+/datum/ai_program/enhanced_tracker/upgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
-	AI.enhanced_tracking = TRUE
-	AI.alarms_listend_for += "Tracking"
-	AI.enhanced_tracking_delay = initial(AI.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking = TRUE
+	user.alarms_listend_for += "Tracking"
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+
+/datum/ai_program/enhanced_tracker/downgrade(mob/living/silicon/ai/user)
+	..()
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+
+/datum/ai_program/enhanced_tracker/uninstall(mob/living/silicon/ai/user)
+	..()
+	user.enhanced_tracking = FALSE
+	user.alarms_listend_for -= "Tracking"
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay)
 
 /datum/spell/ai_spell/enhanced_tracker
 	name = "Enhanced Tracking Subsystem"
