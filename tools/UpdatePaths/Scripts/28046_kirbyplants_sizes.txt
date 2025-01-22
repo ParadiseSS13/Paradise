@@ -1,11 +1,11 @@
-/obj/item/kirbyplants/applebush : /obj/item/kirbyplants/large/medium8{@OLD}
+/obj/item/kirbyplants/applebush : /obj/item/kirbyplants/medium/medium8{@OLD}
 /obj/item/kirbyplants/dead : /obj/item/kirbyplants/large/dead{@OLD}
 /obj/item/kirbyplants/eye : /obj/item/kirbyplants/large/alien/alien2{@OLD}
 /obj/item/kirbyplants/plant1 : /obj/item/kirbyplants/medium/medium2{@OLD}
 /obj/item/kirbyplants/plant2 : /obj/item/kirbyplants/medium/medium5{@OLD}
 /obj/item/kirbyplants/plant3 : /obj/item/kirbyplants/large/alien/alien7{@OLD}
 /obj/item/kirbyplants/plant4 : /obj/item/kirbyplants/medium/medium1{@OLD}
-/obj/item/kirbyplants/plant5 : /obj/item/kirbyplants/large/medium7{@OLD}
+/obj/item/kirbyplants/plant5 : /obj/item/kirbyplants/medium/medium7{@OLD}
 /obj/item/kirbyplants/plant6 : /obj/item/kirbyplants/medium/medium4{@OLD}
 /obj/item/kirbyplants/plant7 : /obj/item/kirbyplants/large/alien/alien1{@OLD}
 /obj/item/kirbyplants/plant8 : /obj/item/kirbyplants/medium/medium3{@OLD}

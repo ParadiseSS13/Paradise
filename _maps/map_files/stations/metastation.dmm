@@ -11490,7 +11490,7 @@
 /area/station/turret_protected/ai_upload)
 "bbm" = (
 /obj/machinery/alarm/directional/north,
-/obj/item/kirbyplants/large/medium8,
+/obj/item/kirbyplants/medium/medium8,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "neutral"
@@ -28118,7 +28118,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/obj/item/kirbyplants/large/medium8,
+/obj/item/kirbyplants/medium/medium8,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -57834,7 +57834,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants/large/medium8,
+/obj/item/kirbyplants/medium/medium8,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -76797,7 +76797,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "tyW" = (
-/obj/item/kirbyplants/large/medium8,
+/obj/item/kirbyplants/medium/medium8,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
