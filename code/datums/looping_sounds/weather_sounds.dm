@@ -57,5 +57,7 @@
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/ambience/antag/heretic/VoidsEmbrace.ogg'=1)
 	mid_length = 166.9 SECONDS // exact length of the music in ticks
-	volume = 100
+	start_sound = 'sound/ambience/antag/heretic/VoidsEmbrace.ogg'
+	start_length = 166.9 SECONDS
+	volume = 120
 	extra_range = 30

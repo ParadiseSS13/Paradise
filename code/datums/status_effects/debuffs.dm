@@ -941,7 +941,7 @@
 			owner.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 
 /datum/status_effect/transient/disgust/calc_decay()
-	return -0.5 SECONDS //Yes, this sucks. Unfortunently how transient works, otherwise I need to tweak the prob in strange ways.
+	return -1 SECONDS //Yes, this sucks. Unfortunently how transient works, otherwise I need to tweak the prob in strange ways.
 
 /atom/movable/screen/alert/gross
 	name = "Grossed out."
@@ -1516,7 +1516,7 @@
 		owner.adjustBruteLoss(10)
 		return
 	if(ishuman(owner))
-		owner.adjust_disgust(5)
+		owner.adjust_disgust(5 SECONDS)
 		owner.reagents?.remove_all(0.75)
 	else
 		owner.adjustBruteLoss(3) //Weaker than borgs but still constant.

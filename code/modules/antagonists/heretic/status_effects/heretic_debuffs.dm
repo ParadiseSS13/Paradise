@@ -300,13 +300,9 @@
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/item/projectile/curse_hand/C = new (spawn_turf)
-	var/turf/T = get_turf(spawn_turf)
-	var/turf/U = get_turf(owner)
-	if(!T || !U)
+	C.preparePixelProjectile(owner, spawn_turf)
+	if(QDELETED(C)) // safety check if above fails - above has a stack trace if it does fail
 		return
-	C.current = spawn_turf
-	C.yo = U.y - T.y
-	C.xo = U.x - T.x
 	C.fire()
 
 /obj/effect/temp_visual/curse

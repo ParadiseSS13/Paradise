@@ -27,6 +27,7 @@
 /datum/proximity_monitor/advanced/proc/cleanup_field()
 	for(var/turf/turf as anything in edge_turfs)
 		cleanup_edge_turf(turf)
+		let_me_bloody_clean_effects_as_my_sanity_fades(turf)
 	edge_turfs = list()
 	for(var/turf/turf as anything in field_turfs)
 		cleanup_field_turf(turf)
@@ -49,10 +50,12 @@
 		if(QDELETED(src))
 			return
 		cleanup_field_turf(old_turf)
+		let_me_bloody_clean_effects_as_my_sanity_fades(old_turf)
 	for(var/turf/old_turf as anything in old_edge_turfs - edge_turfs)
 		if(QDELETED(src))
 			return
 		cleanup_edge_turf(old_turf)
+		let_me_bloody_clean_effects_as_my_sanity_fades(old_turf)
 
 	if(full_recalc)
 		old_field_turfs = list()

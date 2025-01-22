@@ -67,7 +67,7 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.health < 0)
+		if(sacrifice.health > 0)
 			atoms -= sacrifice
 		// Otherwise if it's neither a target nor a cultist, remove it
 		else if(!(sacrifice in heretic_datum.sac_targets) && !IS_CULTIST(sacrifice))
@@ -373,7 +373,7 @@
 	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
 		disembowel_target(sac_target)
 		return
-
+	sac_target.forceMove(destination)
 	// If our target died during the (short) wait timer,
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
@@ -405,6 +405,10 @@
 			return
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/internal/to_give = new organ_path
+		var/obj/item/organ/internal/to_eject = sac_target.get_int_organ(organ_path)
+		if(to_eject)
+			to_eject.remove(sac_target, TRUE)
+			to_eject.forceMove(get_turf(sac_target))
 		to_give.insert(sac_target)
 
 	new /obj/effect/gibspawner/generic(get_turf(sac_target))
@@ -515,7 +519,7 @@
 			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
 
 		composed_return_message += "<span class='notice'>You hear a whisper... </span>"
-		composed_return_message += "<span class='hierophant'>You hear a whisper...[get_area_name(safe_turf, TRUE)]</span>"
+		composed_return_message += "<span class='hierophant'>[get_area_name(safe_turf, TRUE)]</span>"
 		to_chat(heretic_mind.current, composed_return_message)
 
 /**

@@ -217,7 +217,7 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	for(var/turf/transform_turf as anything in get_turf(center)) //qwertodo: station turfs vs one t urf
+	for(var/turf/transform_turf as anything in GLOB.station_turfs)
 		if(transform_turf.flags & NO_RUST)
 			continue
 		var/dist = get_dist(center, transform_turf)

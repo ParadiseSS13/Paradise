@@ -35,10 +35,11 @@
 		return FALSE
 
 	var/turf/simulated/our_turf = loc
-	//var/datum/gas_mixture/environment = get_turf_air(our_turf) //QWERTODO MILLA
-//	if(environment.temperature() > T0C)
-//		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
-//		return FALSE
+	var/datum/gas_mixture/G = our_turf.get_readonly_air()
+	var/turf_hotness = G.temperature()
+	if(turf_hotness > T0C)
+		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+		return FALSE
 
 	return ..()
 
@@ -77,6 +78,8 @@
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "the_freezer"
 
+	/// How many life cycles have we failed? After 3, remove the buff
+	var/failed_life_cycles = 0
 	/// Traits we apply to become immune to the environment
 	var/static/list/gain_traits = list(TRAIT_NOSLIP)
 
@@ -91,16 +94,19 @@
 ///Checks if our traits should be active
 /datum/heretic_knowledge/cold_snap/proc/check_environment(mob/living/user)
 	SIGNAL_HANDLER
-	//var/turf/our_loc = get_turf(user)
-	//var/datum/gas_mixture/environment = user.our_loc?.get_turf_air(location)
-
-//.	if(!isnull(environment))
-	//	var/affected_temperature = environment.temperature()
-	//	var/affected_pressure = environment.return_pressure()
-//		if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
-	//		user.add_traits(gain_traits, type)
-	//	else
-	//		user.remove_traits(gain_traits, type) living_user
+	var/turf/simulated/our_turf = get_turf(user)
+	var/datum/gas_mixture/G = our_turf.get_readonly_air()
+	var/turf_hotness = G.temperature()
+	var/turf_pressure = G.return_pressure()
+	if(turf_hotness <= T0C || turf_pressure < ONE_ATMOSPHERE)
+		user.add_traits(gain_traits, type)
+		failed_life_cycles = 0
+	else
+		if(failed_life_cycles >= 3)
+			failed_life_cycles = 0
+			user.remove_traits(gain_traits, type)
+			return
+		failed_life_cycles++
 
 /datum/heretic_knowledge/mark/void_mark
 	name = "Mark of Void"
@@ -197,11 +203,11 @@
 		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
-//	var/turf/simulated/our_turf = loc
-	//var/datum/gas_mixture/environment = get_turf_air(our_turf)
-	//if(environment.temperature() > T0C)
-	//	to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
-	//	return FALSE QWERTODO: MILLA
+	var/datum/gas_mixture/G = loc.get_readonly_air()
+	var/turf_hotness = G.temperature()
+	if(turf_hotness > T0C)
+		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+		return FALSE
 
 	return ..()
 
@@ -250,16 +256,24 @@
 			var/obj/structure/affected_structure = thing_in_range
 			affected_structure.take_damage(rand(20, 40))
 
-		//if(isturf(thing_in_range))
-		//	var/turf/affected_turf = thing_in_range
-		//	var/datum/gas_mixture/environment = get_turf_air(location)
-		//	environment.set_temperature(environment.temperature *= 0.9) QWERTODO MILLA
+		if(isturf(thing_in_range))
+			//qwertodo: make it not run if the temperature is below -100
+			var/datum/milla_safe/void_cool/milla = new()
+			milla.invoke_async(thing_in_range)
 
 	// Telegraph the storm in every area on the station.
 	var/list/station_levels = levels_by_trait(STATION_LEVEL)
 	if(!storm)
 		storm = new /datum/weather/void_storm(station_levels)
 		storm.telegraph()
+
+
+/datum/milla_safe/void_cool
+
+/datum/milla_safe/void_cool/on_run(turf/T)
+	var/datum/gas_mixture/air = get_turf_air(T)
+	air.set_temperature(air.temperature() * 0.9)
+	air.react()
 
 /**
  * Signal proc for [COMSIG_MOB_DEATH].
