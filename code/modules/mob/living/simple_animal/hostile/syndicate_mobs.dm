@@ -340,7 +340,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/death()
 	visible_message("<span class='warning'>[src] explodes!</span>")
 	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
-	explosion(src, 0.4, 0.8, 2, flame_range = 2, adminlog = FALSE)
+	explosion(src, 0, 0.8, 2, flame_range = 2, adminlog = FALSE)
 	qdel(src)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
