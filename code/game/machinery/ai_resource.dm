@@ -1,3 +1,6 @@
+/// Stores a list of all AI resource nodes
+GLOBAL_LIST_EMPTY(ai_nodes)
+
 /obj/machinery/ai_node
 	name = "AI Node"
 	desc = "If you see me, make an issue report!"
@@ -26,6 +29,10 @@
 	/// How efficient is this machine?
 	var/efficiency = 1
 
+/obj/machinery/ai_node/Initialize(mapload)
+	..()
+	GLOB.ai_nodes += src
+
 /obj/machinery/ai_node/process()
 	..()
 	if(active)
@@ -37,12 +44,14 @@
 	if(assigned_ai)
 		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
 		assigned_ai = null
+	GLOB.ai_nodes -= src
 
 /obj/machinery/ai_node/on_deconstruction()
 	. = ..()
 	if(assigned_ai)
 		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
 		assigned_ai = null
+	GLOB.ai_nodes -= src
 
 /obj/machinery/ai_node/update_icon_state()
 	. = ..()
@@ -235,17 +244,27 @@
 /obj/machinery/computer/ai_resource/ui_data(mob/user)
 	var/list/data = list()
 	data["auth"] = is_authenticated(user)
-	data["ais"] = list()
+	data["ai_list"] = list()
+	data["nodes_list"] = list()
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		var/list/ai_data = list(
-			name = A.name,
-			uid = A.UID(),
-			memory = A.program_picker.memory,
-			memory_max = A.program_picker.total_memory,
-			bandwidth = A.program_picker.bandwidth,
-			bandwidth_max = A.program_picker.total_bandwidth
+			"name" = A.name,
+			"uid" = A.UID(),
+			"memory" = A.program_picker.memory,
+			"memory_max" = A.program_picker.total_memory,
+			"bandwidth" = A.program_picker.bandwidth,
+			"bandwidth_max" = A.program_picker.total_bandwidth
 		)
-		data["ais"] += list(ai_data)
+		data["ai_list"] += list(ai_data)
+	for(var/obj/machinery/ai_node/node in GLOB.ai_nodes)
+		var/list/node_data = list(
+			"name" = node.name,
+			"uid" = node.UID(),
+			"resource" = node.resource_key,
+			"amount" = node.resource_amount,
+			"assigned_ai" = node.assigned_ai
+		)
+		data["nodes_list"] += list(node_data)
 	return data
 
 /obj/machinery/computer/ai_resource/ui_act(action, params)
