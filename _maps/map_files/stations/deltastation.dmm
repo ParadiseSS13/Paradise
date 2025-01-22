@@ -67358,10 +67358,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
-"kol" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "kot" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -76483,6 +76479,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
+"pvo" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "pvv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal,
@@ -127280,7 +127280,7 @@ tik
 xjh
 mQi
 rLQ
-kol
+pvo
 drn
 dhG
 fBk

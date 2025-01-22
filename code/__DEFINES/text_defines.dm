@@ -6,6 +6,7 @@
 #define MAX_CHARACTERS_PER_BOOKPAGE 5000
 #define MAX_SUMMARY_LEN 1500
 #define MAX_NAME_LEN 50 	//diona names can get loooooooong
+#define MAX_FLAVORTEXT_PRINT 400 //Amount of flavor text characters to print before cutting off.
 
 /// Removes characters incompatible with file names.
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))

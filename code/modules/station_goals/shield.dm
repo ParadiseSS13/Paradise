@@ -110,12 +110,13 @@
 
 	data["satellites"] = list()
 	for(var/obj/machinery/satellite/S in GLOB.machines)
+		var/turf/T = get_turf(S)
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
 			"mode" = S.mode,
-			"x" = S.x,
-			"y" = S.y
+			"x" = T.x,
+			"y" = T.y
 		))
 	update_notice()
 	data["notice"] = notice
@@ -276,8 +277,9 @@
 			continue
 		if(get_dist(M, src) > kill_range)
 			continue
-		if(!emagged && space_los(M))
-			if(!istype(M, /obj/effect/meteor/fake))
+		var/is_fake = istype(M, /obj/effect/meteor/fake)
+		if((!emagged || is_fake) && space_los(M))
+			if(!is_fake)
 				Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 				if(istype(M, /obj/effect/space_dust/meaty))
 					new /obj/item/food/meatsteak(get_turf(M))
