@@ -160,3 +160,29 @@
 		else
 			H.makeAntiCluwne()
 	handle_delete(user)
+
+/obj/item/melee/touch_attack/plague
+	name = "Plague and Pestilence"
+	desc = "Your hand glows dim with blisters and boils both real and imaginary. Yuck!"
+	catchphrase = "INF'IC EI!"
+	on_use_sound = 'sound/magic/teleport_app.ogg'
+	icon_state = "disintegrate"
+	item_state = "disintegrate"
+
+/obj/item/melee/touch_attack/plague/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+
+	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Dying a choking and coughing death would be an unfortunate way to go
+
+	var/datum/effect_system/smoke_spread/s = new
+	s.set_up(1, FALSE, target)
+	s.start()
+
+	// gives a short stun for wiz survivability
+	var/mob/living/L = target
+	L.Stun(4 SECONDS)
+
+	chosen_disease = new
+
+
+
