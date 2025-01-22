@@ -139,6 +139,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
 
+GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
+#define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
+
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
 
@@ -153,7 +156,3 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 #define is_screen_atom(A) istype(A, /atom/movable/screen)
 
 #define is_multi_tile_object(atom) (atom?.bound_width > world.icon_size || atom?.bound_height > world.icon_size)
-
-GLOBAL_DATUM_INIT(regex_rgb_text, /regex, regex(@"^#?(([0-9a-fA-F]{8})|([0-9a-fA-F]{6})|([0-9a-fA-F]{3}))$"))
-
-#define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
