@@ -194,7 +194,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/computer/ai_resource
+/obj/machinery/computer/ai_resource_console
 	name = "AI resource control console"
 	desc = "Used to reassign memory and bandwidth between multiple AI units."
 	icon = 'icons/obj/computer.dmi'
@@ -237,8 +237,6 @@
 	data["auth"] = is_authenticated(user)
 	data["ais"] = list()
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-		if(!console_shows(A))
-			continue
 		var/list/ai_data = list(
 			name = A.name,
 			uid = A.UID(),

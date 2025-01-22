@@ -1190,4 +1190,3 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/mineral/silver = 10,
 							/obj/item/stack/cable_coil = 5,
 	)
-

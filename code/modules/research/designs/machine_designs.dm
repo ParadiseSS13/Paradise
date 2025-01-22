@@ -609,7 +609,7 @@
 	req_tech = list("programming" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
-	build_path = /obj/machinery/ai_node/processing_node
+	build_path = /obj/item/circuitboard/processing_node
 	category = list("Misc. Machinery")
 
 /datum/design/network_node
@@ -619,5 +619,15 @@
 	req_tech = list("programming" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
-	build_path = /obj/machinery/ai_node/network_node
+	build_path = /obj/item/circuitboard/network_node
+	category = list("Misc. Machinery")
+
+/datum/design/ai_resource_console
+	name =  "Computer Design (AI Resource Console)"
+	desc = "The circuit board for an AI Resource Console."
+	id = "ai_resource_console"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/ai_resource_console
 	category = list("Misc. Machinery")
