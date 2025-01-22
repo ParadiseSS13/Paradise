@@ -58,7 +58,7 @@
 		return
 	var/mob/living/carbon/carbon_target = target
 	to_chat(carbon_target, "<span class='danger'>You hear echoing laughter from above</span>")
-	//carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp") qwertodo
+	new /obj/effect/hallucination/delusion(get_turf(carbon_target), carbon_target, 'icons/effects/eldritch.dmi', "heretic")
 	carbon_target.adjustBrainLoss(15)
 
 /datum/heretic_knowledge/spell/moon_smile
@@ -111,7 +111,7 @@
 
 /datum/heretic_knowledge/blade_upgrade/moon
 	name = "Moonlight Blade"
-	desc = "Your blade now deals brain damage, causes  random hallucinations and does sanity damage."
+	desc = "Your blade now deals brain damage, causes random hallucinations and does sanity damage."
 	gain_text = "His wit was sharp as a blade, cutting through the lie to bring us joy."
 
 
@@ -126,12 +126,8 @@
 		return
 
 	target.adjustBrainLoss(10)
-	//target.cause_hallucination( \
-	//		get_random_valid_hallucination_subtype(/datum/hallucination/body), \
-	//		"upgraded path of moon blades", \
-	//	) //qwertodo
+	target.Hallucinate(10 SECONDS)
 	target.emote(pick("giggle", "laugh"))
-	target.adjustBrainLoss(7)
 
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Ringleaders Rise"

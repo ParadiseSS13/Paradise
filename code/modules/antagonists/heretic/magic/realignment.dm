@@ -5,8 +5,10 @@
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
 
 
-	action_icon = 'icons/obj/bio_chips.dmi'
+	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_background_icon_state = "bg_heretic"
 	action_icon_state = "adrenal"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
@@ -18,6 +20,8 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
+/datum/spell/realignment/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 /datum/spell/realignment/cast(list/targets, mob/user)
 	. = ..()

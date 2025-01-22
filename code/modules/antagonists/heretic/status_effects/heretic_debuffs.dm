@@ -204,8 +204,8 @@
 	icon_state = "lastresort"
 
 /datum/status_effect/moon_converted/on_creation()
-	. = ..()
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
+	. = ..()
 
 /datum/status_effect/moon_converted/Destroy()
 	return ..()
@@ -213,7 +213,7 @@
 /datum/status_effect/moon_converted/on_apply()
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	// Heals them so people who are in crit can have this affect applied on them and still be of some use for the heretic
-	owner.adjustBruteLoss( -100)
+	owner.adjustBruteLoss(-100)
 	owner.adjustFireLoss(-100)
 
 	to_chat(owner, "<span class='hypnophrase'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span></span>")
@@ -221,7 +221,6 @@
 	ADD_TRAIT(owner, TRAIT_MUTE, src.UID())
 	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_overlay))
 	owner.update_appearance(UPDATE_OVERLAYS)
-	//owner.cause_hallucination(/datum/hallucination/delusion/preset/moon, "[id] status effect", duration = duration, affects_us = FALSE, affects_others = TRUE) qwertodo: need this, or look at cyborg disguise /blob spores
 	return TRUE
 
 /datum/status_effect/moon_converted/proc/on_damaged(datum/source, damage, damagetype)

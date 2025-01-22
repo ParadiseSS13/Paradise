@@ -257,7 +257,6 @@
 			affected_structure.take_damage(rand(20, 40))
 
 		if(isturf(thing_in_range))
-			//qwertodo: make it not run if the temperature is below -100
 			var/datum/milla_safe/void_cool/milla = new()
 			milla.invoke_async(thing_in_range)
 
@@ -272,6 +271,8 @@
 
 /datum/milla_safe/void_cool/on_run(turf/T)
 	var/datum/gas_mixture/air = get_turf_air(T)
+	if(air.temperature() < T0C - 100)
+		return
 	air.set_temperature(air.temperature() * 0.9)
 	air.react()
 

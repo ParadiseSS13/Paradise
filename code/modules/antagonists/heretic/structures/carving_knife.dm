@@ -148,6 +148,7 @@
 	target_sword.current_runes = list()
 	target_sword.SpinAnimation(5, 1)
 	return TRUE
+
 //General trap
 /obj/structure/trap
 	name = "IT'S A TRAP"
@@ -252,16 +253,16 @@
 	/// Reference to trap owner mob
 	var/owner
 
-/obj/structure/trap/eldritch/Initialize(mapload, new_owner)
+/obj/structure/trap/eldritch/Initialize(mapload, atom/new_owner)
 	. = ..()
 	if(new_owner)
-		owner = UID(new_owner)
+		owner = new_owner.UID()
 
 /obj/structure/trap/eldritch/on_entered(datum/source, atom/movable/entering_atom)
 	if(!isliving(entering_atom))
 		return
 	var/mob/living/living_mob = entering_atom
-	if(UID(living_mob) == owner)
+	if(living_mob.UID() == owner)
 		return
 	if(IS_HERETIC_OR_MONSTER(living_mob))
 		return

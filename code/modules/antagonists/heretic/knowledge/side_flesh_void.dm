@@ -23,7 +23,7 @@
 		/obj/item/clothing/suit = 1,
 		/obj/item/bedsheet = 1,
 	)
-	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
+	result_atoms = list(/obj/item/clothing/suit/storage/void_cloak)
 	cost = 1
 
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'

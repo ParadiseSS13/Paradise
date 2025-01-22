@@ -28,7 +28,7 @@
 	var/mob/living/cast_on = targets[1]
 	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
 	var/maximum_duration = 15 SECONDS
-	var/moon_smile_duration = (100 / (cast_on.getBrainLoss())) * maximum_duration
+	var/moon_smile_duration = (100 / (cast_on.getBrainLoss() + 1)) * maximum_duration
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, "<span class='notice'>The moon turns, its smile no longer set on you.</span>")
 		to_chat(user, "<span class='warning'>The moon does not smile upon them.</span>")
@@ -36,14 +36,14 @@
 
 	playsound(cast_on, 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	to_chat(cast_on, "<span class='warning'>Your eyes cry out in pain, your ears bleed and your lips seal! THE MOON SMILES UPON YOU!</span>")
-	cast_on.EyeBlind(moon_smile_duration / 2 + 1 SECONDS)
-	cast_on.EyeBlurry(moon_smile_duration + 2 SECONDS)
+	cast_on.EyeBlind(moon_smile_duration / 2 + (1 SECONDS))
+	cast_on.EyeBlurry(moon_smile_duration + (2 SECONDS))
 
-	cast_on.Deaf(moon_smile_duration + 2 SECONDS)
+	cast_on.Deaf(moon_smile_duration + (2 SECONDS))
 
-	cast_on.Silence(moon_smile_duration + 1 SECONDS)
+	cast_on.Silence(moon_smile_duration + (1 SECONDS))
 
 	// Only knocksdown if the target has a low enough sanity
-	if(cast_on.getBrainLoss() < 40)
+	if(cast_on.getBrainLoss() > 40)
 		cast_on.KnockDown(2 SECONDS)
 	return TRUE

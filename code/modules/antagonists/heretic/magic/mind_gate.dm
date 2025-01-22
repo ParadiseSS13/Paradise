@@ -37,8 +37,7 @@
 
 	target.AdjustConfused(10 SECONDS)
 	target.adjustOxyLoss(30)
-	//__rust_gtarget.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), "Mind gate, cast by [owner]")
-	//target.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Caused by mindgate") QWERTODO: This should be a sprite that looks like heretics
+	new /obj/effect/hallucination/delusion(get_turf(target), target, 'icons/effects/eldritch.dmi', "heretic")
 	target.adjustBrainLoss(25)
 
 	var/mob/living/living_owner = user

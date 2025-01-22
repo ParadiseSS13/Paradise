@@ -29,60 +29,82 @@
 	. += "<span class='notice'>Allows you to cast heretic spells while the hood is up.</span>"
 
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
-/obj/item/clothing/head/hooded/cult_hoodie/void
-	name = "void hood"
-	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
-		With each flash you lose comprehension of what you are seeing."
-	icon_state = "void_cloak"
-	flags_inv = NONE
-	flags_cover = NONE
-	armor = list(MELEE = 30, BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
+// To future coders, if we get atom storage, make it back into a hood again.
 
-
-/obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, UID(src))
-	ADD_TRAIT(src, TRAIT_NO_STRIP, UID(src))
-
-/obj/item/clothing/suit/hooded/cultrobes/void //doesnt need to be a hood, tht is the solutiohn
+/obj/item/clothing/suit/storage/void_cloak
 	name = "void cloak"
 	desc = "Black like tar, reflecting no light. Runic symbols line the outside. \
 		With each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
-	allowed = list(/obj/item/melee/sickly_blade)
-	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
+	new_attack_chain = TRUE
 	flags_inv = NONE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	// slightly worse than normal cult robes
 	armor = list(MELEE = 30, BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
+	actions_types = list(/datum/action/item_action/toggle)
+	/// Are we invisible?
+	var/cloak_invisible = FALSE
 
-/obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
+/obj/item/clothing/suit/storage/void_cloak/Initialize(mapload)
 	. = ..()
-	//create_storage(storage_type = /datum/storage/pockets/void_cloak) QWERTODO: FIGURE OUT STORAGE
+	pockets.storage_slots = 3	//two slots //qwertodo: figure out why won't hold /obj/item/melee/sickly_blade
+	pockets.max_w_class = WEIGHT_CLASS_NORMAL
+	pockets.max_combined_w_class = 5
+	pockets.can_hold = list(
+		/obj/item/ammo_box/lionhunter,
+		/obj/item/heretic_labyrinth_handbook,
+		/obj/item/clothing/neck/eldritch_amulet,
+		/obj/item/clothing/neck/heretic_focus,
+		/obj/item/codex_cicatrix,
+		/obj/item/eldritch_potion,
+		/obj/item/food/grown/poppy, // Used to regain a Living Heart.
+		/obj/item/food/grown/harebell, // Used to reroll targets
+		/obj/item/melee/rune_carver,
+		/obj/item/melee/sickly_blade,
+		/obj/item/organ, // Organs are also often used in rituals.
+		/obj/item/reagent_containers/cup/beaker/eldritch,
+		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
+	)
 	make_visible()
 
-/obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
+/obj/item/clothing/suit/storage/void_cloak/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_OUTER_SUIT)
 		RegisterSignal(user, COMSIG_ITEM_EQUIPPED, PROC_REF(hide_item))
 		RegisterSignal(user, COMSIG_ITEM_DROPPED, PROC_REF(show_item))
 
-/obj/item/clothing/suit/hooded/cultrobes/void/dropped(mob/user)
+/obj/item/clothing/suit/storage/void_cloak/dropped(mob/user)
 	. = ..()
 	UnregisterSignal(user, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/hide_item(atom/movable/source, mob/equipper, slot)
+/obj/item/clothing/suit/storage/void_cloak/item_action_slot_check(slot, mob/user)
+	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
+		return TRUE
+
+/obj/item/clothing/suit/storage/void_cloak/activate_self(mob/user)
+	if(..())
+		return
+	if(cloak_invisible)
+		make_visible()
+	else
+		make_invisible()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/C = loc
+		C.update_inv_wear_suit()
+
+
+/obj/item/clothing/suit/storage/void_cloak/proc/hide_item(atom/movable/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 	if(slot & ITEM_SLOT_SUIT_STORE)
-		ADD_TRAIT(source, TRAIT_SKIP_EXAMINE, UID(src))
-		ADD_TRAIT(source, TRAIT_NO_STRIP, UID(src))
+		ADD_TRAIT(source, TRAIT_SKIP_EXAMINE, UID())
+		ADD_TRAIT(source, TRAIT_NO_STRIP, UID())
 
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/show_item(atom/movable/source, mob/equipper, slot)
+/obj/item/clothing/suit/storage/void_cloak/proc/show_item(atom/movable/source, mob/equipper, slot)
 	SIGNAL_HANDLER
-	REMOVE_TRAIT(source, TRAIT_NO_STRIP, UID(src))
-	REMOVE_TRAIT(source, TRAIT_SKIP_EXAMINE, UID(src))
+	REMOVE_TRAIT(source, TRAIT_NO_STRIP, UID())
+	REMOVE_TRAIT(source, TRAIT_SKIP_EXAMINE, UID())
 
-/obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
+/obj/item/clothing/suit/storage/void_cloak/examine(mob/user)
 	. = ..()
 	if(!IS_HERETIC(user))
 		return
@@ -90,39 +112,25 @@
 	// Let examiners know this works as a focus only if the hood is down
 	. += "<span class='notice'>Allows you to cast heretic spells while the hood is down.</span>"
 
-/obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
-	make_visible()
-	return ..()
-
-/obj/item/clothing/suit/hooded/cultrobes/void/try_to_deploy()
-	if(!isliving(loc))
-		CRASH("[src] attempted to make a hood on a non-living thing: [loc]")
-	var/mob/living/wearer = loc
-	if(IS_HERETIC_OR_MONSTER(wearer))
-		return TRUE
-
-	to_chat(loc, "You can't seem to get the hood up!")
-	return FALSE
-
-/obj/item/clothing/suit/hooded/cultrobes/void/on_hood_deploy()
-	make_invisible()
-
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
-	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, UID(src))
-	ADD_TRAIT(src, TRAIT_NO_STRIP, UID(src))
+/obj/item/clothing/suit/storage/void_cloak/proc/make_invisible()
+	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, UID())
+	ADD_TRAIT(src, TRAIT_NO_STRIP, UID())
+	icon_state = "void_cloak_invisible"
+	cloak_invisible TRUE
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))
-		REMOVE_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID(src))
+		REMOVE_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID())
 		loc.visible_message("<span class='notice'>Light shifts around [loc], making the cloak around them invisible!</span>")
 
 /// Makes our cloak "visible" again.
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
-	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, UID(src))
-	REMOVE_TRAIT(src, TRAIT_NO_STRIP, UID(src))
+/obj/item/clothing/suit/storage/void_cloak/proc/make_visible()
+	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, UID())
+	REMOVE_TRAIT(src, TRAIT_NO_STRIP, UID())
 	AddElement(/datum/element/heretic_focus)
-
+	icon_state = "void_cloak"
+	cloak_invisible = FALSE
 	if(isliving(loc))
-		ADD_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID(src))
+		ADD_TRAIT(loc, TRAIT_RESISTLOWPRESSURE, UID())
 		loc.visible_message("<span class='notice'>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")
