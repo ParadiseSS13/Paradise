@@ -113,3 +113,16 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		if(!I.on && !ignore_power)
 			continue
 		playsound(I, melody, cvol)
+
+/client/proc/stop_sounds()
+	set category = "Debug"
+	set name = "Stop All Playing Sounds"
+	if(!check_rights(R_SOUNDS))
+		return
+
+	log_admin("[key_name(src)] stopped all currently playing sounds.")
+	message_admins("[key_name_admin(src)] stopped all currently playing sounds.")
+	for(var/mob/M in GLOB.player_list)
+		SEND_SOUND(M, sound(null))
+		var/client/C = M.client
+		C?.tgui_panel?.stop_music()
