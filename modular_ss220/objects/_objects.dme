@@ -44,6 +44,7 @@
 #include "code/posters.dm"
 #include "code/shuttle.dm"
 #include "code/smartfridge.dm"
+#include "code/spellbook.dm"
 #include "code/tribune.dm"
 #include "code/key.dm"
 #include "code/musician.dm"

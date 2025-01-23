@@ -11004,7 +11004,7 @@
 	dir = 1
 	},
 /obj/structure/sacrificealtar,
-/obj/item/spellbook/oneuse/random,
+/obj/item/spellbook/oneuse/random/necropolis,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "Zv" = (
