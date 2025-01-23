@@ -272,6 +272,14 @@
 /obj/item/storage/box/debug/debugtools
 	name = "debug tools"
 
+/obj/item/paper/researchnotes/debug
+	desc = "Your brain is melting just from looking at this endless knowledge."
+
+/obj/item/paper/researchnotes/debug/Initialize(mapload)
+	. = ..()
+	origin_tech = "materials=10;engineering=10;plasmatech=10;powerstorage=10;bluespace=10;biotech=10;combat=10;magnets=10;programming=10;toxins=10;syndicate=10;abductor=10"
+	name = "Debug Reseach Notes"
+
 /obj/item/storage/box/debug/debugtools/populate_contents()
 	new /obj/item/card/emag(src)
 	new /obj/item/rcd/combat/admin(src)
@@ -284,6 +292,7 @@
 	new /obj/item/storage/box/debug/misc_debug(src)
 	new /obj/item/storage/box/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
+	new /obj/item/paper/researchnotes/debug(src)
 
 /obj/item/storage/box/debug/material
 	name = "box of materials"
