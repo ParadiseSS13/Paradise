@@ -1,6 +1,5 @@
 /datum/spell/cone
 
-
 /datum/spell/cone/create_new_targeting()
 	return new /datum/spell_targeting/cone
 
@@ -26,7 +25,7 @@
 				do_mob_cone_effect(movable_content, user, level)
 
 /datum/spell/cone/proc/do_turf_cone_effect(turf/target_turf, mob/caster, level)
-	return
+	target_turf.color = COLOR_GREEN
 
 /datum/spell/cone/proc/do_obj_cone_effect(obj/target_obj, mob/caster, level)
 	return

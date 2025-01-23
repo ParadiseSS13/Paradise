@@ -27,6 +27,18 @@
 		if(WEST)
 			left_dir = SOUTH
 			right_dir = NORTH
+		if(NORTHEAST)
+			left_dir = NORTH
+			right_dir = EAST
+		if(NORTHWEST)
+			left_dir = WEST
+			right_dir = NORTH
+		if(SOUTHEAST)
+			left_dir = SOUTH
+			right_dir = EAST
+		if(SOUTHWEST)
+			left_dir = WEST
+			right_dir = SOUTH
 
 	// Go though every level of the cone levels and generate the cone.
 	for(var/level in 1 to cone_levels)
