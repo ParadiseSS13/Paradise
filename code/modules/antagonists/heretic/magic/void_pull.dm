@@ -24,23 +24,27 @@
 	/// The radius of the stun applied to nearby people on cast
 	var/stun_radius = 4
 
-//qwertodo: unfuck this, first half on before cast, second on after?
+/datum/spell/aoe/void_pull/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	return targeting
 
 // Before the cast, we do some small AOE damage around the caster
-/datum/spell/aoe/void_pull/valid_target(target, user)
+/datum/spell/aoe/void_pull/cast(list/targets, mob/user)
+	. = ..()
 	new /obj/effect/temp_visual/voidin(get_turf(user))
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
 	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(user, damage_radius))
 		nearby_living.apply_damage(30, BRUTE)
 		nearby_living.apply_status_effect(/datum/status_effect/void_chill, 1)
-		if(get_dist(nearby_living, user) < stun_radius)
-			nearby_living.KnockDown(3 SECONDS)
-			nearby_living.AdjustWeakened(0.5 SECONDS)
 
-		// Otherwise, they take a few steps closer
+	// Otherwise, they take a few steps closer
+	for(var/mob/living/living_target in targets)
+		if(get_dist(living_target, user) < stun_radius)
+			living_target.KnockDown(3 SECONDS)
 		for(var/i in 1 to 3)
-			nearby_living.forceMove(get_step_towards(nearby_living, user))
+			living_target.forceMove(get_step_towards(living_target, user))
 	return TRUE
 
 /datum/spell/aoe/void_pull/proc/get_things_to_cast_on(atom/center, radius_override = 1)
