@@ -1318,9 +1318,9 @@
 	editor.ui_interact(mob)
 
 /client/verb/stop_client_sounds()
-	set name = "Stop Sounds"
 	set category = "Special Verbs"
-	set desc = "Stop Current Sounds"
+	set name = "Stop Sounds"
+	set desc = "Stop Current Sounds."
 	SEND_SOUND(usr, sound(null))
 	to_chat(src, "All sounds stopped.")
 	tgui_panel?.stop_music()
