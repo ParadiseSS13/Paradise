@@ -159,9 +159,8 @@
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	gravity_check = has_gravity(src, T)
-	if(loc != T)
-		forceMove(T)
+	check_gravity(T)
+
 	if(!gravity_check)
 		layer = MOB_LAYER
 		plane = GAME_PLANE
@@ -177,9 +176,17 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/decal/cleanable/vomit/Bump(atom/A)
-	. = ..()
-	if(A.density)
+	if(gravity_check)
+		return ..()
+
+	if(iswallturf(A) || istype(A, /obj/structure/window))
 		splat(A)
+		return
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	return ..()
 
 /obj/effect/decal/cleanable/vomit/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!gravity_check)
@@ -204,22 +211,11 @@
 		plane = initial(plane)
 	animate(src)
 
-/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
-		return 1
+		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return 1
-
-	if(pulledby && !pulledby.pulling)
-		return 1
-
-	if(throwing)
-		return 1
-
-	return 0
+	return ..()
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"

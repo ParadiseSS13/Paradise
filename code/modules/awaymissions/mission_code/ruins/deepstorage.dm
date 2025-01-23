@@ -175,7 +175,7 @@
 	if(target)
 		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
 
-/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc)
+/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(ischasm(newloc)) // as this place filled with chasms, they shouldn't randomly fall in while wandering around
 		return FALSE
 	return ..()

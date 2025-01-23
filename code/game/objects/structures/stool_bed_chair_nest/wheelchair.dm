@@ -73,8 +73,6 @@
 		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
 			loc = buckled_mob.loc //we gotta go back
 			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
 			. = 0
 
 		else
