@@ -230,6 +230,7 @@
 /area/ruin/space/derelict/teleporter)
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"

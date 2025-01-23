@@ -22,6 +22,10 @@
 "q" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/space/unpowered)
+"r" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "v" = (
 /obj/structure/spawner/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -175,7 +179,7 @@ q
 c
 c
 c
-b
+r
 c
 c
 q
