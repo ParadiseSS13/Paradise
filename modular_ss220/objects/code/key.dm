@@ -12,9 +12,7 @@
 	return
 
 /obj/item/door_remote/key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!proximity)
-		return
-
+	var/obj/machinery/door/airlock/attacked_airlock = target
 	if(!istype(attacked_airlock))
 		return
 
@@ -47,6 +45,9 @@
 		attacked_airlock.close()
 		return
 	attacked_airlock.open()
+
+/obj/item/door_remote/key/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/door_remote/key/engineer
 	name = "\proper ключ от инженерного отдела"
