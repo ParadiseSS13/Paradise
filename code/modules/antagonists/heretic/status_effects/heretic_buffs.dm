@@ -194,10 +194,10 @@
 	if(!length(blades))
 		return
 
-	//if(HAS_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED))
-	//	return
+	if(HAS_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED))
+		return SHIELD_BLOCK
 
-	//ADD_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED, type)
+	ADD_TRAIT(source, TRAIT_BEING_BLADE_SHIELDED, type)
 
 	var/obj/effect/floating_blade/to_remove = blades[1]
 
@@ -210,7 +210,7 @@
 
 	qdel(to_remove)
 
-	//addtimer(TRAIT_CALLBACK_REMOVE(source, TRAIT_BEING_BLADE_SHIELDED, type), 0.1 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), source, TRAIT_BEING_BLADE_SHIELDED, type), 0.1 SECONDS)
 
 	return SHIELD_BLOCK
 
@@ -242,7 +242,7 @@
 	max_num_blades = 4,
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,
-	blade_type = /obj/item/projectile/floating_blade,
+	blade_type = /obj/item/projectile/magic/floating_blade,
 	blade_recharge_time = 1 MINUTES,
 )
 
@@ -329,6 +329,3 @@
 	desc = "The Moon clouds their vision, as the sun always has yours."
 	icon_state = "moon_hide"
 
-//QWERTODO: REMOVE THIS TEMP SO COMPILES
-/obj/item/projectile/floating_blade
-	name = "qwertodo"

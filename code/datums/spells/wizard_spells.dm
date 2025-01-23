@@ -343,6 +343,13 @@
 
 	active = FALSE
 
+	should_recharge_after_cast = FALSE
+
+	/// How many projectiles we can fire per cast. Not all at once, per click, kinda like charges. Unlike charges, it doesn't share cooldown
+	var/projectile_amount = 1
+	/// How many projectiles we have yet to fire, based on projectile_amount
+	var/current_amount = 0
+
 /datum/spell/fireball/apprentice
 	centcom_cancast = FALSE
 
@@ -371,8 +378,22 @@
 	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
+	if(should_recharge_after_cast)
+		should_recharge_after_cast = FALSE
+		remove_ranged_ability(user)
 
 	return TRUE
+
+/datum/spell/fireball/should_remove_click_intercept()
+	return FALSE
+
+/datum/spell/fireball/before_cast(list/targets, mob/user)
+	. = ..()
+	current_amount++
+	if(current_amount >= projectile_amount)
+		current_amount = 0
+		should_recharge_after_cast = TRUE
+
 
 /datum/spell/fireball/toolbox
 	name = "Homing Toolbox"

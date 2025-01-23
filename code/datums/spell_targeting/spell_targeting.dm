@@ -71,9 +71,9 @@
 		if(spell.valid_target(thing, user))
 			final_targets += targets
 	if(!length(final_targets))
-		to_chat(user, "<span class='warning'>No target found, aborting the spell!</span>")
 		return FALSE // no targets
 	spell.try_perform(targets, user)
+	return TRUE
 
 /**
  * Checks whether or not the given target is valid. Calls spell.valid_target as well

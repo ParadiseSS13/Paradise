@@ -132,6 +132,7 @@
 
 /// Applies a given status effect to this mob, returning the effect if it was successful or null otherwise
 /mob/living/proc/apply_status_effect(effect, ...)
+	RETURN_TYPE(/datum/status_effect)
 	. = null
 	if(QDELETED(src))
 		return
@@ -149,7 +150,7 @@
 	var/list/arguments = args.Copy()
 	arguments[1] = src
 	S1 = new effect(arguments)
-	. = S1
+	return S1
 
 /// Removes all of a given status effect from this mob, returning TRUE if at least one was removed
 /mob/living/proc/remove_status_effect(effect, ...)

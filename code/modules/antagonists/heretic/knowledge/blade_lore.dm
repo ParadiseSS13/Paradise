@@ -349,7 +349,7 @@
 		at a target, dealing damage and causing bleeding."
 	gain_text = "Without thinking, I took the knife of a fallen soldier and threw with all my might. My aim was true! \
 		The Torn Champion smiled at their first taste of agony, and with a nod, their blades became my own."
-	action_to_add = /datum/spell/pointed/projectile/furious_steel
+	action_to_add = /datum/spell/fireball/furious_steel
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/blade_final
@@ -378,7 +378,7 @@
 
 /datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade_final))
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 1 MINUTES)
 	user.add_stun_absorption(
 		key = name,
@@ -387,11 +387,10 @@
 		self_message = "<span class='warning'>You throw off the stun!</span>",
 		examine_message = "<span class='hierophant_warning'>%EFFECT_OWNER_THEYRE standing stalwartly.</span>",
 	)
-	var/datum/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
-	steel_spell?.base_cooldown /= 2
+	var/datum/spell/fireball/furious_steel/steel_spell = locate() in user.actions
+	steel_spell?.cooldown_handler.recharge_duration *= 0.5
 
 	var/mob/living/carbon/human/heretic = user
-	heretic.physiology.stun_mod= 0.75
 	ADD_TRAIT(heretic, TRAIT_NO_BONES, name)
 	ADD_TRAIT(heretic, TRAIT_STURDY_LIMBS, name)
 	ADD_TRAIT(heretic, TRAIT_BURN_WOUND_IMMUNE, name)
@@ -399,7 +398,7 @@
 	for(var/obj/item/organ/external/limb in heretic.bodyparts)
 		limb.add_limb_flags() // Otherwise knockdowns would probably overpower the stun absorption effect.
 
-/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade_final(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	if(target == source)

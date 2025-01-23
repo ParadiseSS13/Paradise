@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	spell = spell_to_cast
 
 /datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
-	spell.InterceptClickOn(user, params, object)
+	return spell.InterceptClickOn(user, params, object)
 
 /datum/click_intercept/proc_holder/quit()
 	spell.remove_ranged_ability(spell.ranged_ability_user)
@@ -18,11 +18,11 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(user.ranged_ability != src)
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.</span>")
 		user.ranged_ability.remove_ranged_ability(user)
-		return TRUE //TRUE for failed, FALSE for passed.
+		return FALSE
 	user.face_atom(A)
 	if(targeting)
 		targeting.InterceptClickOn(user, params, A, src)
-	return FALSE
+	return TRUE
 
 /datum/spell/proc/add_ranged_ability(mob/user, msg)
 	if(!user || !user.client)
@@ -38,6 +38,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(msg)
 		to_chat(user, msg)
 	update_spell_icon()
+	return TRUE
 
 /datum/spell/proc/update_spell_icon()
 	return
@@ -317,7 +318,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(!cast_check(TRUE, TRUE, user))
 		return
 
-	perform(targets, should_recharge_after_cast, user)
+	perform(targets, user)
 
 /**
  * Called in `try_perform` before removing the click interceptor. useful to override if you have a spell that requires more than 1 click
@@ -331,10 +332,9 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
  *
  * Arguments:
  * * targets - The list of targets the spell is being cast on. Will not be empty or null
- * * recharge - Whether or not the spell should go recharge
  * * user - The caster of the spell
  */
-/datum/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+/datum/spell/proc/perform(list/targets, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 	before_cast(targets, user)
 	invocation(user)
@@ -343,7 +343,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 			write_custom_logs(targets, user)
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	if(recharge)
+
+	if(should_recharge_after_cast)
 		cooldown_handler.start_recharge()
 
 	if(sound)

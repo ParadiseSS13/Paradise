@@ -282,20 +282,21 @@
 	else
 		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
 
-/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return
+/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target) //This should not exist
+	. = ..()
+	if(!.)
+		return FALSE
 	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
-		return
+		return TRUE
 	if(user.holy_check())
-		return
+		return TRUE
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
-		return FALSE
+		return TRUE
 	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || IS_CULTIST(target))
-			return
+			return TRUE
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
@@ -307,6 +308,7 @@
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, "<span class='cult'>You have exhausted the spell's power!</span>")
 			qdel(src)
+		return TRUE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"

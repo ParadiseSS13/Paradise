@@ -76,6 +76,6 @@
 /datum/spell_targeting/cone/InterceptClickOn(mob/user, params, atom/A, datum/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No target found, aborting the spell!</span>")
 		return FALSE // no targets
 	spell.try_perform(targets, user)
+	return TRUE

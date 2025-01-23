@@ -85,24 +85,25 @@
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
 	if(user == object || !ishuman(object))
-		return
+		return TRUE
 	var/mob/living/carbon/human/receiver = object
 	if(receiver.stat != CONSCIOUS)
 		to_chat(user, "<span class='warning'>[receiver] can't accept any items because they're not conscious!</span>")
-		return
+		return TRUE
 	var/obj/item/I = user.get_active_hand()
 	if(!user.Adjacent(receiver))
 		to_chat(user, "<span class='warning'>You need to be closer to [receiver] to offer them [I].</span>")
-		return
+		return TRUE
 	if(!receiver.client)
 		to_chat(user, "<span class='warning'>You offer [I] to [receiver], but they don't seem to respond...</span>")
-		return
+		return TRUE
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
 	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, I))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
 	to_chat(user, "<span class='notice'>You offer [I] to [receiver].</span>")
 	qdel(src)
+	return TRUE
 
 
 /**
