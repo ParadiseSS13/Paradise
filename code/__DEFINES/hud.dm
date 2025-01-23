@@ -62,6 +62,8 @@
 #define ANTAG_HUD_ZOMBIE 				23
 #define ANTAG_HUD_MIND_FLAYER 			24
 #define DATA_HUD_HERETIC				25
+#define ANTAG_HUD_HERETIC	 			26
+#define ANTAG_HUD_HERETIC_BEAST			27
 
 
 // Notification action types

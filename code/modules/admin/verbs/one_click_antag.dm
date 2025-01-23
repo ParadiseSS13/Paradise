@@ -22,6 +22,7 @@
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
 		<a href='byond://?src=[UID()];makeAntag=9'>Make Event Characters</a><br>
+		<a href='byond://?src=[UID()];makeAntag=10'>Make Heretics</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -311,6 +312,37 @@
 		flayer.make_mind_flayer()
 	qdel(temp)
 	return TRUE
+
+/datum/admins/proc/makeHeretics()
+	var/datum/game_mode/traitor/temp = new
+
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many Heretics you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] Heretics with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Heretics with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_HERETIC, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numHeretics = min(length(candidates), antnum)
+
+		for(var/i = 0, i<numHeretics, i++)
+			H = pick(candidates)
+			H.mind.make_heretic()
+			candidates.Remove(H)
+
+		return 1
+	return 0
+
 
 /datum/admins/proc/makeEventCharacters()
 	var/list/mob/living/carbon/human/candidates = list()

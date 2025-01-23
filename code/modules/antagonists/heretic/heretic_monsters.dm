@@ -3,6 +3,7 @@
 	name = "\improper Eldritch Horror"
 	roundend_category = "Heretics"
 	job_rank = ROLE_HERETIC
+	antag_hud_type = ANTAG_HUD_HERETIC_BEAST
 	antag_hud_name = "heretic_beast"
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
@@ -24,12 +25,16 @@
 	src.master = master
 	//owner.enslave_mind_to_creator(master.current)
 
-	var/datum/objective/master_obj = new()
-	master_obj.explanation_text = "Assist your master."
-	master_obj.completed = TRUE
+	add_antag_objective(/datum/objective/assist_master)
 
-	add_antag_objective(master_obj)
-	//owner.announce_objectives()
-	to_chat(owner, "<span class='boldnotice'>You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus.</span>")
-	to_chat(owner, "<span class='notice'>Your master is [master]. Assist them to all ends.</span>")
+/datum/objective/assist_master
+	explanation_text = "Assist your master."
+	completed = TRUE
+	needs_target = FALSE
+
+/datum/antagonist/heretic_monster/greet()
+	var/list/messages = list()
+	messages.Add("<span class='boldnotice'>You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus.</span>")
+	messages.Add("<span class='notice'>Your master is [master]. Assist them to all ends.</span>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/heretic/heretic_gain.ogg'))
+	return messages

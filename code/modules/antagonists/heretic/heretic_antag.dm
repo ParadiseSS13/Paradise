@@ -22,6 +22,8 @@
 	special_role = SPECIAL_ROLE_HERETIC
 	antag_hud_name = "heretic"
 	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+	antag_hud_type = ANTAG_HUD_HERETIC
+	antag_hud_name = "heretic"
 
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE

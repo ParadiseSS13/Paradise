@@ -153,7 +153,9 @@
 /// Called when [TRAIT_FAKEDEATH] is added to the mob.
 /mob/living/proc/on_fakedeath_trait_gain(datum/source)
 	SIGNAL_HANDLER
-	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
+	if(!has_status_effect(/datum/status_effect/ghoul))
+		ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH) //Let us not make ghouls sleep forever
+
 	apply_status_effect(STATUS_EFFECT_REVIVABLE)
 
 /mob/living/carbon/human/on_fakedeath_trait_gain(datum/source)
