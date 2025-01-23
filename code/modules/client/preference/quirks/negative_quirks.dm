@@ -24,36 +24,8 @@
 
 /datum/quirk/negative/foreigner/apply_quirk_effects(mob/living/quirky)
 	quirky.remove_language("Galactic Common")
+	quirky.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
 	. = ..()
-
-
-/datum/quirk/negative/allergy
-	organic_only = TRUE
-	trait_to_apply = TRAIT_ALLERGIC
-	item_to_give = list(/obj/item/reagent_containers/hypospray/autoinjector/survival)
-	/// Common allergens, reagents that are very easily avoidable
-	var/list/low_risk_allergens = list("banana", "apple", "peanuts", "toxin", "fungus", "egg", "tofu", "chocolate", "ants")
-	/// More uncommon medicines that could be a problem to be allergic to but can be worked around.
-	var/list/medium_risk_allergens = list("teporone", "sal_acid", "mitocholide", "hydrocodone", "morphine", "ephedrine", "perfluorodecalin", "synthflesh", "atropine")
-	/// The most commonly used medicines. Medbay is always going to be a pain for people with these.
-	var/list/high_risk_allergens = list("salglu_solution", "silver_sulfadizine", "styptic_powder", "salbutamol", "cryoxadone", "spaceicilin")
-	var/datum/reagent/allergen
-	spawn_text = "You're allergic to.... something."
-
-/datum/quirk/negative/allergy/low
-	name = "Low-Risk Allergy"
-	desc = "You have an allergy to a random, non-essential reagent."
-	cost = -1
-
-/datum/quirk/negative/allergy/moderate
-	name = "Moderate-Risk Allergy"
-	desc = "You have an allergy to a random uncommon medicine."
-	cost = -2
-
-/datum/quirk/negative/allgery/high
-	name = "High-Risk Allergy"
-	desc = "You have an allergy to a random common medicine."
-	cost = -3
 
 /datum/quirk/negative/deaf
 	name = "Deafness"
@@ -85,4 +57,7 @@
 	cost = -4
 	organic_only = TRUE
 	trait_to_apply = TRAIT_ASTHMATIC
+	processes = TRUE
 	item_to_give = /obj/item/reagent_containers/pill/salbutamol
+
+/datum/quirk/negative/asthma/process()
