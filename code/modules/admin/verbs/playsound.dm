@@ -114,9 +114,9 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			continue
 		playsound(I, melody, cvol)
 
-/client/proc/stop_sounds()
+/client/proc/stop_global_all_sounds()
 	set category = "Debug"
-	set name = "Stop All Playing Sounds"
+	set name = "Stop Global All Sounds"
 	if(!check_rights(R_SOUNDS))
 		return
 
