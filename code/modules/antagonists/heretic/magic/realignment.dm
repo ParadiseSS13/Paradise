@@ -45,7 +45,7 @@
 		return FALSE
 
 	// Spell is at cap, and we will not bypass it
-	if((spell_level >= level_max))
+	if(spell_level >= level_max)
 		return FALSE
 
 	spell_level++

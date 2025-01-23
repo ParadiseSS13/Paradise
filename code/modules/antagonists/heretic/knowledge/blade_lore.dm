@@ -223,7 +223,7 @@
 
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_LIVING_HEALTH_UPDATE))
 
-/datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/carbon/user, mob/user, list/examine_list)
+/datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/carbon/human/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
 	var/obj/item/held_item = user.get_active_hand()

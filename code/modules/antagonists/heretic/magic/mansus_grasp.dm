@@ -89,7 +89,7 @@
 		handle_delete(user)
 		return
 
-	 //This doesn't mute for very long (by default), but does block AI tracking!
+	//This doesn't mute for very long (by default), but does block AI tracking!
 	ADD_TRAIT(carbon_hit, TRAIT_AI_UNTRACKABLE, "mansus_grasp")
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), carbon_hit, TRAIT_AI_UNTRACKABLE, "mansus_grasp"), 15 SECONDS)
 	carbon_hit.HereticSlur(15 SECONDS)

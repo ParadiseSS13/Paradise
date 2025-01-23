@@ -4,7 +4,7 @@
 
 /datum/element/leeching_walk/Attach(datum/target)
 	. = ..()
-	if (!isliving(target))
+	if(!isliving(target))
 		return ELEMENT_INCOMPATIBLE
 
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))

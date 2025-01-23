@@ -1,6 +1,6 @@
 // The knowledge and process of heretic sacrificing.
 
-/// How long we put the target so sleep for (during sacrifice).
+/// How long we put the target so sleep for during sacrifice.
 #define SACRIFICE_SLEEP_DURATION (12 SECONDS)
 /// How long sacrifices must stay in the shadow realm to survive.
 #define SACRIFICE_REALM_DURATION (2.5 MINUTES)
@@ -196,7 +196,7 @@
 	var/datum/antagonist/cultist/cultist_datum = IS_CULTIST(sacrifice)
 	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
-	if((sac_job in GLOB.command_head_positions))
+	if(sac_job in GLOB.command_head_positions)
 		heretic_datum.knowledge_points += 3
 		heretic_datum.high_value_sacrifices++
 		feedback += " <i>graciously</i>"

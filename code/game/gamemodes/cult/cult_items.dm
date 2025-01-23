@@ -126,11 +126,11 @@
 			SWORD_PREFIX = "tenebrous",
 		),
 		// Blade
-		//PATH_BLADE = list( //qwertodo
-			//WIELDER_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/haunted),
-			//SWORD_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/solo),
-			//SWORD_PREFIX = "keen",
-		//),
+		PATH_BLADE = list( //qwertodo
+			WIELDER_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/haunted),
+			SWORD_SPELLS = list(/datum/spell/pointed/projectile/furious_steel/solo),
+			SWORD_PREFIX = "keen",
+		),
 		// Rust
 		PATH_RUST = list(
 			WIELDER_SPELLS = list(/datum/spell/cone/staggered/entropic_plume),
@@ -429,7 +429,7 @@
 
 /obj/item/melee/cultblade/haunted/proc/start_glow_loop()
 	var/filter = get_filter("bind_glow")
-	if (!filter)
+	if(!filter)
 		return
 
 	animate(filter, alpha = 110, time = 1.5 SECONDS, loop = -1)
