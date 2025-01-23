@@ -11,7 +11,8 @@
 	return TRUE
 
 /datum/status_effect/amok/tick(seconds_between_ticks)
-	owner.intent = INTENT_HARM
+	var/last_intent = owner.a_intent
+	owner.a_intent = INTENT_HARM
 
 	// If we're holding a gun, expand the range a bit.
 	// Otherwise, just look for adjacent targets
@@ -24,9 +25,10 @@
 		targets += potential_target
 
 	if(LAZYLEN(targets))
-		//owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself //qwertodo so admins don't merk me
-		owner.ClickOn(pick(targets))
-
+		var/poor_smuck = pick(targets)
+		add_attack_logs(owner, poor_smuck, "attacked [poor_smuck] due to the amok debuff.", ATKLOG_FEW) //the following attack will log itself //qwertodo so admins don't merk me
+		owner.ClickOn(poor_smuck)
+	owner.a_intent = last_intent
 
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"

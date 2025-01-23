@@ -28,7 +28,7 @@
 	var/mob/living/cast_on = targets[1]
 	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
 	var/maximum_duration = 15 SECONDS
-	var/moon_smile_duration = (100 / (cast_on.getBrainLoss() + 1)) * maximum_duration
+	var/moon_smile_duration = ((cast_on.getBrainLoss() + 1) / 100) * maximum_duration
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, "<span class='notice'>The moon turns, its smile no longer set on you.</span>")
 		to_chat(user, "<span class='warning'>The moon does not smile upon them.</span>")

@@ -13,41 +13,50 @@
 	sound = 'sound/magic/forcewall.ogg'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-//qwertodo: ebba cone spells
-//	cone_levels = 5
-	//respect_density = TRUE
+	cone_levels = 5
+	respect_density = TRUE
 
-///datum/spell/cone/staggered/entropic_plume/cast(atom/cast_on)
-//	. = ..()
-//	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
+/datum/spell/cone/staggered/entropic_plume/create_new_targeting()
+	var/datum/spell_targeting/cone/entropic/E = new()
+	E.cone_levels = cone_levels
+	E.respect_density = respect_density
+	return E
 
-///datum/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
-//	if(ismob(caster))
-//		caster.do_rust_heretic_act(target_turf)
-//	else
-	//	target_turf.rust_heretic_act()
+/datum/spell_targeting/cone/entropic
 
-///datum/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
-//	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
-//		return
-//	victim.apply_status_effect(/datum/status_effect/amok)
-//	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
-//	victim.adjust_disgust(100 SECONDS)
-
-///datum/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
+/datum/spell_targeting/cone/entropic/calculate_cone_shape(current_level)
 	// At the first level (that isn't level 1) we will be small
-	//if(current_level == 2)
-	//	return 3
+	if(current_level == 2)
+		return 3
 	// At the max level, we turn small again
-	//if(current_level == cone_levels)
-	//	return 3
+	if(current_level == cone_levels)
+		return 3
 	// Otherwise, all levels in between will be wider
-	//return 5
+	return 5
+
+/datum/spell/cone/staggered/entropic_plume/cast(list/targets, mob/user)
+	. = ..()
+	new /obj/effect/temp_visual/dir_setting/entropic(get_step(user, user.dir), user.dir)
+
+/datum/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, mob/living/caster, level)
+	if(ismob(caster))
+		caster.do_rust_heretic_act(target_turf)
+	else
+		target_turf.rust_heretic_act()
+
+/datum/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, atom/caster, level)
+	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
+		return
+	victim.apply_status_effect(/datum/status_effect/amok)
+	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
+	victim.adjust_disgust(100 SECONDS)
+
 
 /obj/effect/temp_visual/dir_setting/entropic
 	icon = 'icons/effects/160x160.dmi'
