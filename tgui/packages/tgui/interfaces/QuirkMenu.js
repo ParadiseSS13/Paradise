@@ -24,11 +24,17 @@ const Quirks = ({context}) => {
     return Boolean(selected_quirks && selected_quirks.includes(quirk.name))
   };
 
+  const BalanceCheck = (quirk) => {
+    return Boolean(quirk_balance + quirk.cost > 0)
+  }
+
   const RenderQuirk = (quirk) => {
     const alreadyChosen = HasChosenQuirk(quirk);
+    const canPick = BalanceCheck(quirk)
     return (
     <Stack>
         <ButtonCheckbox checked = {alreadyChosen}
+          disabled = {canPick && !alreadyChosen}
           onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', {path: quirk.path})}/>
       <Stack vertical>
         <Stack.Item bold>
