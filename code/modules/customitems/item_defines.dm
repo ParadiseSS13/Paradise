@@ -960,9 +960,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hood"
 
-/obj/item/clothing/suit/hooded/fluff
-	w_class = WEIGHT_CLASS_SMALL
-
 /// Doru7: Jack Bone
 /obj/item/clothing/suit/hooded/fluff/bone
 	name = "skeleton suit"
