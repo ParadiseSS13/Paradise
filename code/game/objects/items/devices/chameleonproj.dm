@@ -192,7 +192,6 @@
 	var/activation_upkeep = 50
 	var/image/disguise
 	var/mob/living/silicon/robot/syndicate/saboteur/S
-	new_attack_chain = TRUE
 
 /obj/item/borg_chameleon/Destroy()
 	if(S)
