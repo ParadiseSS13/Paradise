@@ -25,9 +25,9 @@ const MainSettings = (props, context) => {
         />
         {admin === 1 ? (
           <Button
-            icon="exclamation"
+            icon="gears"
             color="red"
-            content="[ADMIN] Maximize Research Levels"
+            content="[ADMIN] Maximize research levels"
             onClick={() => act('maxresearch')}
           />
         ) : null}
