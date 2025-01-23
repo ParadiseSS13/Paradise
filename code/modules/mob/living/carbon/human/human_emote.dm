@@ -420,7 +420,7 @@
 		to_chat(user, "<span class='warning'>You must lock [eftpos] before it can accept payments.</span>")
 		return TRUE
 	if(user.has_status_effect(status))
-		user.visible_message("[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card.")
+		user.visible_message("<span class='notice'>[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card.</span>")
 		return TRUE
 
 	var/datum/result = set_status(user)

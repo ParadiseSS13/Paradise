@@ -166,12 +166,12 @@
 	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
 
 	if(!linked_account)
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"EFTPOS is not connected to an account.\"</span>", "You hear something buzz.")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"EFTPOS is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	if(!D)
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Card is not connected to an account.\"</span>", "You hear something buzz.")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Card is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	//if security level high enough, prompt for pin
 	var/attempt_pin
@@ -181,7 +181,7 @@
 			return
 	//given the credentials, can the associated account be accessed right now?
 	if(!GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Access denied.\"</span>", "You hear something buzz.")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Access denied.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	if(tgui_alert(user, "Are you sure you want to pay $[transaction_amount] to: [linked_account.account_name]", "Confirm transaction", list("Yes", "No")) != "Yes")
 		return
@@ -189,11 +189,11 @@
 		return
 	//attempt to charge account money
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Insufficient funds.\"</span>", "You hear something buzz.")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Insufficient funds.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
 	playsound(src, transaction_sound, 50, TRUE)
-	visible_message("[bicon(src)]<span class='notice'>[src] chimes as its display reads \"Transaction successful!\"</span>", "You hear something chime.")
+	visible_message("[bicon(src)]<span class='notice'>[src] chimes as its display reads \"Transaction successful!\"</span>", "<span class='notice'>You hear something chime.</span>")
 	transaction_paid = TRUE
 	addtimer(VARSET_CALLBACK(src, transaction_paid, FALSE), 5 SECONDS)
 
