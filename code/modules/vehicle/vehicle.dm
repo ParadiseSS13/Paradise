@@ -229,7 +229,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(has_gravity(src))
 		return TRUE
 
@@ -245,7 +245,7 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/vehicle/zap_act(power, zap_flags)

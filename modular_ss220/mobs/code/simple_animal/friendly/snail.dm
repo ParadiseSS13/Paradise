@@ -30,7 +30,7 @@
 	reagents = new()
 	holder_type = /obj/item/holder/snail
 
-/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/living/simple_animal/snail/Move(atom/newloc, direct, movetime)

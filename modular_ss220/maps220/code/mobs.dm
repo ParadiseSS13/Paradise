@@ -1341,6 +1341,9 @@
 	icon_state = "drone"
 	syndi_mob = /mob/living/simple_animal/hostile/malf_drone/spacebattle
 
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle
+	loot = list(/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle)
+
 //Enemies
 /mob/living/simple_animal/hostile/syndicate
 	//Обычный лут, дропается со всех
@@ -1477,7 +1480,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, SynMobDrop, SynRange, SynSpace)
-	return .
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle
 	icon = 'modular_ss220/maps220/icons/spacebattle.dmi'

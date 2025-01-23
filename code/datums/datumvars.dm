@@ -786,7 +786,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager))
+		var/haltype = tgui_input_list(usr, "Select Hallucination Type", "Hallucinate", (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager)))
 		if(!haltype)
 			return
 		C.invoke_hallucination(haltype)

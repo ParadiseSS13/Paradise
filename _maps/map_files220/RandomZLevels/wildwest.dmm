@@ -4336,7 +4336,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidplating"
 	},

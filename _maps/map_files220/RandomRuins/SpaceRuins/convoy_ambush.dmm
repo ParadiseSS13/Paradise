@@ -54,9 +54,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "cj" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib{
-	wander = 0
-	},
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -1074,9 +1072,7 @@
 "Sn" = (
 /obj/structure/closet/walllocker/emerglocker/west,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib{
-	wander = 0
-	},
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},

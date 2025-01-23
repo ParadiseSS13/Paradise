@@ -1748,6 +1748,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			matches[key] = value
 	return matches
 
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 
 //Increases delay as the server gets more overloaded,

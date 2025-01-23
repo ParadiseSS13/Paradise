@@ -641,11 +641,11 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
-	if(air.lastread < SSair.times_fired)
+	if(air.lastread < SSair.milla_tick)
 		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(src, milla_tile)
 		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.times_fired
+		air.lastread = SSair.milla_tick
 		air.readonly = null
 		air.dirty = FALSE
 		air.synchronized = FALSE
@@ -678,7 +678,7 @@
 			return FALSE
 
 		// If it's old, delete it.
-		if(active_hotspot.death_timer < SSair.times_fired)
+		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
 			return FALSE
 		else
@@ -687,7 +687,7 @@
 	if(isnull(active_hotspot))
 		active_hotspot = new(src)
 
-	active_hotspot.death_timer = SSair.times_fired + 4
+	active_hotspot.death_timer = SSair.milla_tick + 4
 	if(air.hotspot_volume() > 0)
 		active_hotspot.temperature = air.hotspot_temperature()
 		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
@@ -699,7 +699,7 @@
 	return TRUE
 
 /turf/simulated/proc/update_wind()
-	if(wind_tick != SSair.times_fired)
+	if(wind_tick != SSair.milla_tick)
 		QDEL_NULL(wind_effect)
 		wind_tick = null
 		return FALSE

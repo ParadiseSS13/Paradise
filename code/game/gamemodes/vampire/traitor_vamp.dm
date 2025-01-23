@@ -13,7 +13,7 @@
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
-	to_chat(world, "<B>There are Bluespace Vampires infesting your fellow crew on the station along with some syndicate operatives out for their own gain! Do not let the vampires and the traitors succeed!</B>")
+	to_chat(world, "<B>There are Vampires on the station along with syndicate operatives out for their own gain! Do not let the vampires and the traitors succeed!</B>")
 
 
 /datum/game_mode/traitor/vampire/pre_setup()

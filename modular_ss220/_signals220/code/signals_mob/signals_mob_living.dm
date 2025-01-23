@@ -22,7 +22,7 @@
 	. = ..()
 
 // Да, костыльно, но модульно по другому не вижу как - PIXEL_SHIFT
-/mob/living/Process_Spacemove(movement_dir)
+/mob/living/Process_Spacemove(movement_dir, continuous_move = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_PROCESS_SPACEMOVE, movement_dir) & COMPONENT_BLOCK_SPACEMOVE)
 		return FALSE
 	. = ..()

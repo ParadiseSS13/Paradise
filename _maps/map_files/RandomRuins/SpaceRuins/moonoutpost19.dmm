@@ -4992,7 +4992,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5921,9 +5921,8 @@
 /area/ruin/space/moonbase19)
 "vh" = (
 /obj/structure/rack,
-/obj/item/mecha_parts/core,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stock_parts/cell/infinite/abductor,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8137,8 +8136,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/assembly/signaler/anomaly/random,
-/obj/item/storage/lockbox/experimental_weapon,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

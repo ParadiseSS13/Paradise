@@ -1141,7 +1141,7 @@
 /turf/simulated/floor/fakespace,
 /area/awaymission/space_battle/sec_storage)
 "dL" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "dM" = (
@@ -1234,7 +1234,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate3)
 "eh" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/engineering)
 "ei" = (
@@ -1408,7 +1408,7 @@
 /turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "eN" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "eO" = (
@@ -1442,7 +1442,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/hallway2)
 "eT" = (
@@ -1627,7 +1627,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/engine)
 "fx" = (
@@ -2104,7 +2104,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/space_battle/syndicate)
 "gQ" = (
@@ -4518,7 +4518,7 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_construct/directional/south,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/living)
 "oz" = (
@@ -4812,7 +4812,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "pA" = (
@@ -5126,7 +5126,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "qL" = (
@@ -5430,7 +5430,7 @@
 "rI" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/chair/comfy/shuttle,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/space/nearstation)
 "rJ" = (
@@ -6281,7 +6281,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/engine)
 "uD" = (
@@ -6367,7 +6367,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "uT" = (
@@ -7400,7 +7400,7 @@
 /turf/space,
 /area/space/nearstation)
 "yr" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/space,
 /area/space)
 "ys" = (
@@ -7965,7 +7965,7 @@
 /area/awaymission/space_battle/hallway9)
 "Am" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/engineering)
 "An" = (
@@ -8019,7 +8019,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "Ax" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "podfloor"
 	},
@@ -8439,7 +8439,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate6)
 "BS" = (
@@ -8735,7 +8735,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutral";
 	dir = 4
@@ -9478,7 +9478,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Fd" = (
@@ -9625,7 +9625,7 @@
 	color = "red";
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate6)
 "FB" = (
@@ -10219,7 +10219,7 @@
 /area/awaymission/space_battle/hallway8)
 "Ht" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/living)
 "Hu" = (
@@ -10836,7 +10836,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Ju" = (
@@ -12110,7 +12110,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway10)
 "NB" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/space,
 /area/space)
 "NC" = (
@@ -12962,7 +12962,7 @@
 	},
 /area/awaymission/space_battle/hallway6)
 "Qr" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "podfloor"
 	},
@@ -13460,7 +13460,7 @@
 /area/awaymission/space_battle/bridge)
 "RU" = (
 /obj/structure/chair/comfy/shuttle/dark,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "RV" = (
@@ -13795,7 +13795,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "Tb" = (
@@ -13900,7 +13900,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/hallway2)
 "Tu" = (
@@ -14838,7 +14838,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "Wx" = (
