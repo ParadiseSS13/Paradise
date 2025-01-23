@@ -74,7 +74,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 
-/mob/living/simple_animal/hostile/viscerator/vox/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/viscerator/vox/Process_Spacemove(movement_dir, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/viscerator/vox/stamina

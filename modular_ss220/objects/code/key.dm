@@ -9,7 +9,7 @@
 	var/hack_speed = 1 SECONDS
 
 /obj/item/door_remote/key/activate_self(mob/user)
-	return
+	..()
 
 /obj/item/door_remote/key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/obj/machinery/door/airlock/attacked_airlock = target
