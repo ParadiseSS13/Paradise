@@ -25,7 +25,7 @@
 				do_mob_cone_effect(movable_content, user, level)
 
 /datum/spell/cone/proc/do_turf_cone_effect(turf/target_turf, mob/caster, level)
-	target_turf.color = COLOR_GREEN
+	return
 
 /datum/spell/cone/proc/do_obj_cone_effect(obj/target_obj, mob/caster, level)
 	return
