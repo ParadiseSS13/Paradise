@@ -835,7 +835,7 @@
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
-	desc = "The greatest in pants-supporting technology."
+	desc = "A bleeding-edge storage medium that incorporates principles developed for the Bag of Holding into belt form."
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
