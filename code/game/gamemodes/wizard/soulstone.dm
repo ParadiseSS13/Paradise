@@ -205,9 +205,18 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/item/soulstone/interact_with_atom(atom/A, mob/living/user, list/modifiers)
+/obj/item/soulstone/interact_with_atom(atom/movable/A, mob/living/user, list/modifiers)
 	if(!isitem(A))
 		return ..()
+	if(user.a_intent == INTENT_HELP || !issimulatedturf(A.loc))
+		if(istype(A, /obj/item/storage))
+			var/obj/item/storage/S = A
+			if(S.can_be_inserted(src, TRUE))
+				return ..()
+		else if(istype(A, /obj/item/clothing/suit/storage))
+			var/obj/item/clothing/suit/storage/coat = A
+			if(coat.pockets.can_be_inserted(src, TRUE))
+				return ..()
 	if(!can_use(user))
 		return ..()
 	var/mob/living/simple_animal/shade/shade = locate(/mob/living/simple_animal/shade) in contents
