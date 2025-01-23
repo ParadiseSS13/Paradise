@@ -4,7 +4,6 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, DmIcon, Flex, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
-
 const hereticRed = {
   color: '#e03c3c',
 };
@@ -97,8 +96,7 @@ const FlavorSection = () => {
             <span style={hereticBlue}>shimmer</span>
             &nbsp;around you, as a realization of something&nbsp;
             <span style={hereticRed}>strange</span>
-            &nbsp;in the air unfolds. You look inwards and discover something
-            that will change your life.
+            &nbsp;in the air unfolds. You look inwards and discover something that will change your life.
           </i>
         </Stack.Item>
         <Stack.Item>
@@ -121,45 +119,38 @@ const GuideSection = () => {
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>right click</b> on them to harvest them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. Tapping them makes
-          them visible to all after a short time.
+          <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
         </Stack.Item>
         <Stack.Item>
           - Use your&nbsp;
           <span style={hereticRed}>Living Heart action</span>
           &nbsp;to track down&nbsp;
-          <span style={hereticRed}>sacrifice targets</span>, but be careful:
-          Pulsing it will produce a heartbeat sound that nearby people may hear.
-          This action is tied to your <b>heart</b> - if you lose it, you must
-          complete a ritual to regain it.
+          <span style={hereticRed}>sacrifice targets</span>, but be careful: Pulsing it will produce a heartbeat sound
+          that nearby people may hear. This action is tied to your <b>heart</b> - if you lose it, you must complete a
+          ritual to regain it.
         </Stack.Item>
         <Stack.Item>
           - Draw a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> by using a
-          drawing tool (a pen or crayon) on the floor while having&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> by using a drawing tool (a pen or crayon) on the floor
+          while having&nbsp;
           <span style={hereticGreen}>Mansus Grasp</span>
-          &nbsp;active in your other hand. This rune allows you to complete
-          rituals and sacrifices.
+          &nbsp;active in your other hand. This rune allows you to complete rituals and sacrifices.
         </Stack.Item>
         <Stack.Item>
-          - Follow your <span style={hereticRed}>Living Heart</span> to find
-          your targets. Bring them back to a&nbsp;
-          <span style={hereticGreen}>transmutation rune</span> in critical or
-          worse condition to&nbsp;
+          - Follow your <span style={hereticRed}>Living Heart</span> to find your targets. Bring them back to a&nbsp;
+          <span style={hereticGreen}>transmutation rune</span> in critical or worse condition to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
-          <span style={hereticBlue}>knowledge points</span>. The Mansus{' '}
-          <b>ONLY</b> accepts targets pointed to by the&nbsp;
+          <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by
+          the&nbsp;
           <span style={hereticRed}>Living Heart</span>.
         </Stack.Item>
         <Stack.Item>
-          - Make yourself a <span style={hereticYellow}>focus</span> to be able
-          to cast various advanced spells to assist you in acquiring harder and
-          harder sacrifices.
+          - Make yourself a <span style={hereticYellow}>focus</span> to be able to cast various advanced spells to
+          assist you in acquiring harder and harder sacrifices.
         </Stack.Item>
         <Stack.Item>
-          - Accomplish all of your objectives to be able to learn the{' '}
-          <span style={hereticYellow}>final ritual</span>. Complete the ritual
-          to become all powerful!
+          - Accomplish all of your objectives to be able to learn the <span style={hereticYellow}>final ritual</span>.
+          Complete the ritual to become all powerful!
         </Stack.Item>
       </Stack>
     </Stack.Item>
@@ -187,10 +178,7 @@ const InformationSection = (props, context) => {
         )}
         <Stack.Item>
           You have <b>{charges || 0}</b>&nbsp;
-          <span style={hereticBlue}>
-            knowledge point{charges !== 1 ? 's' : ''}
-          </span>
-          .
+          <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span>.
         </Stack.Item>
         <Stack.Item>
           You have made a total of&nbsp;
@@ -216,12 +204,7 @@ const KnowledgeTree = (props, context) => {
           ? 'None!'
           : knowledge_tiers.map((tier, i) => (
               <Stack.Item key={i}>
-                <Flex
-                  justify="center"
-                  align="center"
-                  backgroundColor="transparent"
-                  wrap="wrap"
-                >
+                <Flex justify="center" align="center" backgroundColor="transparent" wrap="wrap">
                   {tier.nodes.map((node) => (
                     <Flex.Item key={node.name}>
                       <Button
@@ -229,9 +212,7 @@ const KnowledgeTree = (props, context) => {
                         tooltip={`${node.name}:
                           ${node.desc}`}
                         onClick={
-                          node.disabled || node.finished
-                            ? undefined
-                            : () => act('research', { path: node.path })
+                          node.disabled || node.finished ? undefined : () => act('research', { path: node.path })
                         }
                         width={node.ascension ? '192px' : '64px'}
                         height={node.ascension ? '192px' : '64px'}
@@ -242,13 +223,7 @@ const KnowledgeTree = (props, context) => {
                       >
                         <DmIcon
                           icon="icons/ui_icons/antags/heretic/knowledge.dmi"
-                          icon_state={
-                            node.disabled
-                              ? 'node_locked'
-                              : node.finished
-                                ? 'node_finished'
-                                : node.bgr
-                          }
+                          icon_state={node.disabled ? 'node_locked' : node.finished ? 'node_finished' : node.bgr}
                           height={node.ascension ? '192px' : '64px'}
                           width={node.ascension ? '192px' : '64px'}
                           top="0px"
@@ -267,16 +242,8 @@ const KnowledgeTree = (props, context) => {
                           left={node.ascension ? '20px' : '0px'}
                           position="absolute"
                         />
-                        <Box
-                          position="absolute"
-                          top="0px"
-                          left="0px"
-                          backgroundColor="black"
-                          textColor="white"
-                          bold
-                        >
-                          {!node.finished &&
-                            (node.cost > 0 ? node.cost : 'FREE')}
+                        <Box position="absolute" top="0px" left="0px" backgroundColor="black" textColor="white" bold>
+                          {!node.finished && (node.cost > 0 ? node.cost : 'FREE')}
                         </Box>
                       </Button>
                       {!!node.ascension && (
@@ -303,10 +270,7 @@ const ResearchInfo = (props, context) => {
     <Stack vertical fill>
       <Stack.Item fontSize="20px" textAlign="center">
         You have <b>{charges || 0}</b>&nbsp;
-        <span style={hereticBlue}>
-          knowledge point{charges !== 1 ? 's' : ''}
-        </span>{' '}
-        to spend.
+        <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span> to spend.
       </Stack.Item>
       <Stack.Item grow>
         <KnowledgeTree />
@@ -334,11 +298,7 @@ export const AntagInfoHeretic = (props, context) => {
         <Stack vertical fill>
           <Stack.Item>
             <Tabs fluid>
-              <Tabs.Tab
-                icon="info"
-                selected={currentTab === 0}
-                onClick={() => setTab(0)}
-              >
+              <Tabs.Tab icon="info" selected={currentTab === 0} onClick={() => setTab(0)}>
                 Information
               </Tabs.Tab>
               <Tabs.Tab
@@ -350,9 +310,7 @@ export const AntagInfoHeretic = (props, context) => {
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
-          <Stack.Item grow>
-            {(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}
-          </Stack.Item>
+          <Stack.Item grow>{(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
