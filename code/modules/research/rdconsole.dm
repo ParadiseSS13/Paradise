@@ -784,7 +784,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui = new(user, src, "RndConsole", name)
 		ui.open()
 
-
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
 	if(!machine)
 		return
