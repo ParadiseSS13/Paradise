@@ -225,6 +225,7 @@
 /// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
 
+
 ///From living/Life(). (seconds, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
 	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
@@ -255,3 +256,12 @@
 	#define SILENCE_NONTARGET_SACRIFICE_MESSAGE (1<<2)
 	/// Dusts the target instead of gibbing them (no soulstone)
 	#define DUST_SACRIFICE (1<<3)
+
+/// From base of /client/Move(): (new_loc, direction)
+#define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	/// The argument of move_args which corresponds to the loc we're moving to
+	#define MOVE_ARG_NEW_LOC 1
+	/// The arugment of move_args which dictates our movement direction
+	#define MOVE_ARG_DIRECTION 2

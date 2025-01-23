@@ -455,6 +455,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait applied by element
 #define ELEMENT_TRAIT(source) "element_trait_[source]"
 
+//***** MOVABLE ATOM TRAITS *****//
+// Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
+#define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
+
+
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_add_trait(datum/target, trait, source)

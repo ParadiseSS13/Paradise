@@ -87,13 +87,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/pressure_overlay/pressure_overlay
 
-	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
-	var/list/milla_superconductivity = list(
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT)
-	var/list/milla_data = list()
+	var/list/milla_data = null
 
 	///This turf's resistance to getting rusted QWERTODO: check fucking every floortile
 	var/rust_resistance = RUST_RESISTANCE_ORGANIC
@@ -660,11 +654,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	RETURN_TYPE(/datum/gas_mixture)
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
-	if(air.lastread < SSair.times_fired)
+	if(air.lastread < SSair.milla_tick)
 		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(src, milla_tile)
 		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.times_fired
+		air.lastread = SSair.milla_tick
 		air.readonly = null
 		air.dirty = FALSE
 		air.synchronized = FALSE
@@ -697,7 +691,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			return FALSE
 
 		// If it's old, delete it.
-		if(active_hotspot.death_timer < SSair.times_fired)
+		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
 			return FALSE
 		else
@@ -706,7 +700,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(isnull(active_hotspot))
 		active_hotspot = new(src)
 
-	active_hotspot.death_timer = SSair.times_fired + 4
+	active_hotspot.death_timer = SSair.milla_tick + 4
 	if(air.hotspot_volume() > 0)
 		active_hotspot.temperature = air.hotspot_temperature()
 		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
@@ -718,7 +712,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return TRUE
 
 /turf/simulated/proc/update_wind()
-	if(wind_tick != SSair.times_fired)
+	if(wind_tick != SSair.milla_tick)
 		QDEL_NULL(wind_effect)
 		wind_tick = null
 		return FALSE

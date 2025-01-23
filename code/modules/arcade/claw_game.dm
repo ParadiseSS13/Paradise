@@ -78,3 +78,7 @@ GLOBAL_VAR(claw_game_html)
 		close_game()
 		if(prize_won == "1")
 			win()
+
+/obj/machinery/economy/arcade/claw/syndi
+	desc = "No longer one of the most infuriating ways to win a toy, thanks to the hacking device granting infinite credits."
+	freeplay = TRUE

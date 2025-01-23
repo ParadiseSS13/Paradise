@@ -1955,6 +1955,9 @@
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
+/obj/structure/cable/green{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2419,6 +2422,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
+"nV" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "nW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2813,11 +2819,18 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "qf" = (
-/obj/machinery/economy/arcade/claw,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/light/small{
+	dir = 8
 	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
+/obj/item/toy/plushie/lizardplushie{
+	name = "Forks-the-Outlet"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "qj" = (
 /obj/machinery/light,
 /obj/machinery/camera{
@@ -2946,6 +2959,10 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"rd" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/main)
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -3198,6 +3215,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/cable/green{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3441,6 +3461,9 @@
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SBW6";
 	location = "SBW5"
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4042,6 +4065,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"xM" = (
+/obj/machinery/economy/arcade/claw/syndi,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "xO" = (
 /obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
@@ -4096,6 +4125,20 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "yc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
+"ye" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -5294,6 +5337,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7163,6 +7209,18 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"RM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "RN" = (
 /obj/machinery/reagentgrinder,
 /obj/item/stack/sheet/mineral/plasma{
@@ -7214,6 +7272,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"RW" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "RX" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/main)
@@ -7592,6 +7660,9 @@
 "TK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/cable/green{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9416,12 +9487,12 @@ xn
 xn
 xn
 xn
-My
+ye
 ma
 nZ
 kk
 ZI
-My
+RM
 xn
 xn
 xn
@@ -9996,7 +10067,7 @@ xn
 xn
 xn
 xn
-qf
+xM
 xQ
 xQ
 My
@@ -10069,7 +10140,7 @@ kE
 kE
 kE
 xn
-qf
+xM
 xQ
 vR
 nW
@@ -11995,8 +12066,8 @@ wA
 PL
 sV
 TK
-RX
-kE
+RW
+qf
 kE
 kE
 kE
@@ -12068,8 +12139,8 @@ hO
 PL
 am
 am
-RX
-kE
+rd
+nV
 kE
 kE
 kE
