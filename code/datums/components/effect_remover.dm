@@ -42,32 +42,32 @@
 	return ..()
 
 /datum/component/effect_remover/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_INTERACT_TARGET, PROC_REF(try_remove_effect))
+	RegisterSignal(parent, COMSIG_INTERACTING, PROC_REF(try_remove_effect))
 
 
 
 /datum/component/effect_remover/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_INTERACT_TARGET)
+	UnregisterSignal(parent, COMSIG_INTERACTING)
 
 /*
  * Signal proc for [COMSIG_ITEM_INTERACTING_WITH_ATOM].
  */
 
-/datum/component/effect_remover/proc/try_remove_effect(obj/item/tool, mob/living/user, atom/source, list/modifiers)
+/datum/component/effect_remover/proc/try_remove_effect(datum/source, mob/user, atom/target)
 	SIGNAL_HANDLER
 
 	if(!isliving(user))
 		return NONE
 
-	if(is_type_in_typecache(source, effects_we_clear)) // Make sure we get all subtypes and everything
-		INVOKE_ASYNC(src, PROC_REF(do_remove_effect), source, user)
+	if(is_type_in_typecache(target, effects_we_clear)) // Make sure we get all subtypes and everything
+		INVOKE_ASYNC(src, PROC_REF(do_remove_effect), target, user)
 		return ITEM_INTERACT_COMPLETE
 
 /*
  * Actually removes the effect, invoking our on_clear_callback before it's deleted.
  */
 /datum/component/effect_remover/proc/do_remove_effect(obj/effect/target, mob/living/user)
-	if(time_to_remove && !do_after(user, time_to_remove, target))
+	if(time_to_remove && !do_after(user, time_to_remove, target = target))
 		return
 
 	var/obj/item/item_parent = parent

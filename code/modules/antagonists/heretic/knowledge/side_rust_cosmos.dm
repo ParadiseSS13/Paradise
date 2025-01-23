@@ -5,7 +5,7 @@
 	route = PATH_SIDE
 
 	tier1 = /datum/heretic_knowledge/essence
-	tier2 = list(/datum/heretic_knowledge/curse/corrosion, /datum/heretic_knowledge/entropy_pulse)
+	tier2 = /datum/heretic_knowledge/entropy_pulse
 	tier3 = /datum/heretic_knowledge/summon/rusty
 
 
@@ -55,39 +55,6 @@
 		nearby_turf.rust_heretic_act()
 	return TRUE
 
-/datum/heretic_knowledge/curse/corrosion
-	name = "Curse of Corrosion"
-	desc = "Allows you to transmute wirecutters, a pool of vomit, and a heart to cast a curse of sickness on a crew member. \
-		While cursed, the victim will repeatedly vomit while their organs will take constant damage. You can additionally supply an item \
-		that a victim has touched or is covered in the victim's blood to make the curse last longer."
-	gain_text = "The body of humanity is temporary. Their weaknesses cannot be stopped, like iron falling to rust. Show them all."
-
-	required_atoms = list(
-		/obj/item/wirecutters = 1,
-		/obj/effect/decal/cleanable/vomit = 1,
-		/obj/item/organ/internal/heart = 1,
-	)
-	duration = 0.5 MINUTES
-	duration_modifier = 4
-	curse_color = "#c1ffc9"
-	cost = 1
-
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "curse_corrosion"
-
-
-/datum/heretic_knowledge/curse/corrosion/curse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
-	to_chat(chosen_mob, "<span class='danger'>You feel very ill...</span>")
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
-	return ..()
-
-/datum/heretic_knowledge/curse/corrosion/uncurse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
-	if(QDELETED(chosen_mob))
-		return
-
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-	to_chat(chosen_mob, "<span class='green'>You start to feel better.</span>")
-	return ..()
 
 /datum/heretic_knowledge/summon/rusty
 	name = "Rusted Ritual"

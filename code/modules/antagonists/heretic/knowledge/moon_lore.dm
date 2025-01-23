@@ -86,7 +86,7 @@
 	desc = "Grants you Lunar Parade, a spell that - after a short charge - sends a carnival forward \
 		when hitting someone they are forced to join the parade and suffer hallucinations."
 	gain_text = "The music like a reflection of the soul compelled them, like moths to a flame they followed"
-	action_to_add = /datum/spell/pointed/projectile/moon_parade
+	action_to_add = /datum/spell/fireball/moon_parade
 	cost = 1
 
 /datum/heretic_knowledge/moon_amulet

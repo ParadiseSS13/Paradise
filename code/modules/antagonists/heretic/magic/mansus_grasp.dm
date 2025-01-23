@@ -18,13 +18,46 @@
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
+/obj/item/melee/touch_attack/mansus_fist
+	name = "Mansus Grasp"
+	desc = "A sinister looking aura that distorts the flow of reality around it. \
+		Causes knockdown, minor bruises, and major stamina damage. \
+		It gains additional beneficial effects as you expand your knowledge of the Mansus."
+	icon_state = "mansus"
+	item_state = "mansus"
+	catchphrase = null
+
+/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/effect_remover, \
+		success_feedback = "You remove %THEEFFECT.", \
+		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
+		effects_we_clear = list(/obj/effect/heretic_rune), \
+		time_to_remove = 0.4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(setup_signal)), 0.1 SECONDS)
+
+/obj/item/melee/touch_attack/mansus_fist/proc/setup_signal()
+	RegisterSignal(loc, COMSIG_MOB_ALTCLICKON, PROC_REF(on_special_click))
+
+/obj/item/melee/touch_attack/mansus_fist/Destroy()
+	UnregisterSignal(loc, COMSIG_MOB_ALTCLICKON)
+	return ..()
+
+
+/*
+ * Callback for effect_remover component.
+ */
+/obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
+	if(istype(target, /obj/effect/heretic_rune))
+		var/obj/effect/heretic_rune/our_target = target
+		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, our_target.greyscale_colours)
+	qdel(src)
+
 /obj/item/melee/touch_attack/mansus_fist/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(user == target || blocked_by_antimagic)
 		return
 	if(!isliving(target))
-		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target) & COMPONENT_USE_HAND)
-			handle_delete(user)
 		return
 	else
 		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target) & COMPONENT_BLOCK_HAND_USE)
@@ -56,36 +89,23 @@
 		handle_delete(user)
 		return
 
+	 //This doesn't mute for very long (by default), but does block AI tracking!
+	ADD_TRAIT(carbon_hit, TRAIT_AI_UNTRACKABLE, "mansus_grasp")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), carbon_hit, TRAIT_AI_UNTRACKABLE, "mansus_grasp"), 15 SECONDS)
 	carbon_hit.HereticSlur(15 SECONDS)
+	carbon_hit.Silence(3 SECONDS)
 	carbon_hit.KnockDown(5 SECONDS)
 	carbon_hit.apply_damage(80, STAMINA)
-	//qwertodo: some status effect to do the last 20
 	handle_delete(user)
 	return
 
-/obj/item/melee/touch_attack/mansus_fist
-	name = "Mansus Grasp"
-	desc = "A sinister looking aura that distorts the flow of reality around it. \
-		Causes knockdown, minor bruises, and major stamina damage. \
-		It gains additional beneficial effects as you expand your knowledge of the Mansus."
-	icon_state = "mansus"
-	item_state = "mansus"
-	catchphrase = null
+/// Called when someone alt clicks with a grasp on something.
+/obj/item/melee/touch_attack/mansus_fist/proc/on_special_click(mob/source, atom/target)
+	SIGNAL_HANDLER
+	if(!source.Adjacent(target))
+		return
+	if(SEND_SIGNAL(source, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target) & COMPONENT_USE_HAND)
+		INVOKE_ASYNC(src, PROC_REF(handle_delete), source)
+	return COMSIG_MOB_CANCEL_CLICKON
 
-/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/effect_remover, \
-		success_feedback = "You remove %THEEFFECT.", \
-		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
-		effects_we_clear = list(/obj/effect/heretic_rune), \
-		time_to_remove = 0.4 SECONDS)
-
-/*
- * Callback for effect_remover component.
- */
-/obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	if(istype(target, /obj/effect/heretic_rune))
-		var/obj/effect/heretic_rune/our_target = target
-		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, our_target.greyscale_colours)
-	qdel(src)
 

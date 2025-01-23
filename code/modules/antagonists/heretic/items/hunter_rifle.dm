@@ -15,6 +15,9 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	pixel_x = -8
 
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_LIONHUNTER_FIRE)
 
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/Initialize(mapload)
 	. = ..()
@@ -45,13 +48,12 @@
 		return
 	if(!check_fire(target, user))
 		return
-
 	return ..()
 
 /// Checks if we can successfully fire our projectile.
 /obj/item/ammo_casing/lionhunter/proc/check_fire(atom/target, mob/living/user)
 	// In case someone puts this in turrets or something wacky, just fire like normal
-	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/shotgun/boltaction/lionhunter))
+	if(!iscarbon(user) || !istype(loc, /obj/item/ammo_box/magazine/internal/boltaction/lionhunter))
 		return TRUE
 
 	if(currently_aiming)
@@ -90,24 +92,23 @@
 	animate(reticle, fire_time * 0.5, transform = turn(reticle.transform, 180))
 
 	currently_aiming = TRUE
-	. = do_after(user, fire_time, target, extra_checks = CALLBACK(src, PROC_REF(check_fire_callback), target, user), allow_moving_target = TRUE)
-	currently_aiming = FALSE
-
+	var/output = do_after(user, fire_time, target = target, extra_checks = list(CALLBACK(src, PROC_REF(check_fire_callback), target, user)), allow_moving_target = TRUE)
 	animate(reticle, 0.5 SECONDS, alpha = 0)
 	for(var/mob/viewer as anything in viewers)
 		viewer.client?.images -= reticle
-
-	if(!.)
+	if(!output)
+		currently_aiming = FALSE
 		to_chat(user, "<span class='hierophant_warning'>You were interrupted!</span>")
+		return FALSE
 
-	return .
+	return TRUE
 
 /// Callback for the do_after within the check_fire proc to see if something will prevent us from firing while aiming
 /obj/item/ammo_casing/lionhunter/proc/check_fire_callback(mob/living/target, mob/living/user)
 	if(!isturf(target.loc))
-		return FALSE
+		return TRUE
 
-	return TRUE
+	return FALSE
 
 /obj/item/ammo_casing/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
 	if(!BB)
@@ -123,6 +124,7 @@
 		BB.knockdown = 0.5 SECONDS
 		BB.stutter = 6 SECONDS
 		BB.forcedodge = -1
+		BB.armour_penetration_flat = 100 //No parrying this bad boy
 		if(istype(BB, /obj/item/projectile/homing/lionhunter))
 			var/obj/item/projectile/homing/lionhunter/if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad = BB
 			if_an_admin_var_edits_another_projectile_inside_an_ammo_casing_ill_be_very_mad.homing_active = TRUE
@@ -135,7 +137,6 @@
 	// If fired without aiming or at someone too close, it will do this much
 	damage = 30
 	stamina = 30
-	armour_penetration_flat = 100
 	homing_active = FALSE
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
@@ -161,12 +162,13 @@
 
 /obj/item/projectile/homing/lionhunter/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
-	if(!isliving(target))
+	if(target != original)
 		return
-	stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet once we hit a mob
+	stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet once we hit our target
 	var/mob/living/victim = target
 	var/mob/firing_mob = firer
 	if(IS_HERETIC_OR_MONSTER(victim) || !IS_HERETIC(firing_mob))
+		qdel(src)
 		return
 
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)

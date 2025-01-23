@@ -337,7 +337,8 @@
 	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
 
 	var/fireball_type = /obj/item/projectile/magic/fireball
-	action_icon_state = "fireball0"
+	var/what_icon_state = "fireball"
+	action_icon_state = "fireball"
 	sound = 'sound/magic/fireball.ogg'
 
 	active = FALSE
@@ -353,12 +354,12 @@
 /datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
-	action.button_overlay_icon_state = "fireball[active]"
+	action.button_overlay_icon_state = "[what_icon_state][active]"
 	action.UpdateButtons()
 
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
-	var/turf/T = user.loc
+	var/turf/T = get_turf(user)
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
 	if(!isturf(U) || !isturf(T))
 		return FALSE

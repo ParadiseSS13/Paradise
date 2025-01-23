@@ -116,6 +116,12 @@
 		return "bod[number_of_things > 1 ? "ies" : "y"]"
 	if(ispath(item_path, /mob/living))
 		return "carcass[number_of_things > 1 ? "es" : ""] of any kind"
+	if(ispath(item_path, /obj/item/kitchen/knife))
+		return "knife[number_of_things > 1 ? "s" : ""] of any kind"
+	if(ispath(item_path, /obj/item/toy/crayon))
+		return "crayon[number_of_things > 1 ? "s" : ""] of any kind"
+	if(ispath(item_path, /obj/item/organ/internal/eyes))
+		return "[number_of_things > 1 ? "s" : ""] of any kind"
 	return "[initial(item_path.name)]\s"
 /**
  * Called whenever the knowledge's associated ritual is completed successfully.
@@ -372,127 +378,6 @@
  */
 /datum/heretic_knowledge/blade_upgrade/proc/do_ranged_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	return
-
-/**
- * A knowledge subtype lets the heretic curse someone with a ritual.
- */
-/datum/heretic_knowledge/curse
-	abstract_parent_type = /datum/heretic_knowledge/curse
-	/// How far can we curse people?
-	var/max_range = 64
-	/// The duration of the curse
-	var/duration = 1 MINUTES
-	/// The duration of the curse on people which have a fingerprint or blood sample present
-	var/duration_modifier = 2
-	/// What color do we outline cursed folk with?
-	var/curse_color = "#dadada"
-	/// A list of all the fingerprints that were found on our atoms, in our last go at the ritual
-	var/list/fingerprints
-	/// A list of all the blood samples that were found on our atoms, in our last go at the ritual
-	var/list/blood_samples
-
-/datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	fingerprints = list()
-	blood_samples = list()
-	for(var/atom/requirement as anything in atoms)
-		for(var/print in requirement.fingerprints)
-			fingerprints[print] = 1
-
-		for(var/blood in requirement.blood_DNA)
-			blood_samples[blood] = 1
-
-	return TRUE
-
-/datum/heretic_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)
-
-	// Potential targets is an assoc list of [names] to [human mob ref].
-	var/list/potential_targets = list()
-	// Boosted targets is a list of human mob references.
-	var/list/boosted_targets = list()
-
-	for(var/mob/living/carbon/human/human_to_check  in GLOB.human_list)
-		if(!istype(human_to_check) || human_to_check.stat == DEAD || !human_to_check.dna)
-			continue
-		var/their_prints = md5(human_to_check.dna.uni_identity)
-		var/their_blood = human_to_check.dna.unique_enzymes
-		// Having their fingerprints or blood present will boost the curse
-		// and also not run any z or dist checks, as a bonus for those going beyond
-		if(fingerprints[their_prints] || blood_samples[their_blood])
-			boosted_targets += human_to_check
-			potential_targets["[human_to_check.real_name] (Boosted)"] = human_to_check
-			continue
-
-		// No boost present, so we should be a little stricter moving forward
-		var/turf/check_turf = get_turf(human_to_check)
-		// We have to match z-levels.
-		// Otherwise, you could probably hard own miners, which is funny but mean.
-		// Multi-z stations technically work though.
-		if(!(user.z == human_to_check.z))
-			continue
-		// Also has to abide by our max range.
-		if(get_dist(check_turf, loc) > max_range)
-			continue
-
-		potential_targets[human_to_check.real_name] = human_to_check
-
-	var/chosen_mob = tgui_input_list(user, "Select the victim you wish to curse.", name, potential_targets)
-	if(isnull(chosen_mob))
-		return FALSE
-
-	var/mob/living/carbon/human/to_curse = potential_targets[chosen_mob]
-	if(QDELETED(to_curse))
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, no valid target was chosen.</span>")
-		return FALSE
-
-	// Yes, you COULD curse yourself, not sure why but you could
-	if(to_curse == user)
-		var/are_you_sure = tgui_alert(user, "Are you sure you want to curse yourself?", name, list("Yes", "No"))
-		if(are_you_sure != "Yes")
-			return FALSE
-
-	var/boosted = (to_curse in boosted_targets)
-	var/turf/curse_turf = get_turf(to_curse)
-	if(!boosted && (!(user.z == curse_turf.z) || get_dist(curse_turf, loc) > max_range * 1.5)) // Give a bit of leeway on max range for people moving around
-		to_chat(user, "<span class='hierophant_warning'>The ritual has failed, the target is too far away!</span>")
-		return FALSE
-
-	if(to_curse.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, charge_cost = 0))
-		to_chat(to_curse, "<span class='warning'>You feel a ghastly chill, but the feeling passes shortly.</span>")
-		return TRUE
-
-	curse(to_curse, boosted)
-	to_chat(user, "<span class='hierophant'>You cast a[boosted ? "n empowered":""] [name] upon [to_curse.real_name].</span>")
-
-	fingerprints = null
-	blood_samples = null
-	return TRUE
-
-/**
- * Calls a curse onto [chosen_mob].
- */
-/datum/heretic_knowledge/curse/proc/curse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	addtimer(CALLBACK(src, PROC_REF(uncurse), chosen_mob, boosted), duration * (boosted ? duration_modifier : 1))
-
-	if(!curse_color)
-		return
-
-	chosen_mob.add_filter(name, 2, list("type" = "outline", "color" = curse_color, "size" = 1))
-
-/**
- * Removes a curse from [chosen_mob]. Used in timers / callbacks.
- */
-/datum/heretic_knowledge/curse/proc/uncurse(mob/living/carbon/human/chosen_mob, boosted = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	if(QDELETED(chosen_mob))
-		return
-
-	if(!curse_color)
-		return
-
-	chosen_mob.remove_filter(name)
 
 /**
  * A knowledge subtype lets the heretic summon a monster with the ritual.

@@ -94,7 +94,7 @@
 	desc = "Fires a projectile that moves very slowly, raising a short-lived wall of cosmic fields where it goes. \
 		Anyone hit by the projectile will receive burn damage, a knockdown, and give people in a three tile range a star mark."
 	gain_text = "The Beast was behind me now at all times, with each sacrifice words of affirmation coursed through me."
-	action_to_add = /datum/spell/pointed/projectile/star_blast
+	action_to_add = /datum/spell/fireball/star_blast
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/cosmic

@@ -1,4 +1,4 @@
-/datum/spell/pointed/projectile/star_blast
+/datum/spell/fireball/star_blast
 	name = "Star Blast"
 	desc = "This spell fires a disk with cosmic energies at a target, spreading the star mark."
 
@@ -6,6 +6,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "star_blast"
+	what_icon_state = "star_blast"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	sound = 'sound/magic/cosmic_energy.ogg'
@@ -16,17 +17,16 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	clothes_req = FALSE
-	//active_msg = "You prepare to cast your star blast!"
-//	deactive_msg = "You stop swirling cosmic energies from the palm of your hand... for now."
-	cast_range = 12
-	//projectile_type = /obj/item/projectile/magic/star_ball
+	selection_activated_message = "You prepare to cast your star blast!"
+	selection_deactivated_message = "You stop swirling cosmic energies from the palm of your hand... for now."
+	fireball_type = /obj/item/projectile/magic/star_ball
 
 /obj/item/projectile/magic/star_ball
 	name = "star ball"
 	icon_state = "star_ball"
 	damage = 20
 	damage_type = BURN
-	speed = 0.2
+	speed = 5
 	range = 100
 	knockdown = 4 SECONDS
 	/// Effect for when the ball hits something
@@ -41,16 +41,20 @@
 /obj/item/projectile/magic/star_ball/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	var/mob/living/cast_on = firer
+	var/pins_hit = 0
 	for(var/mob/living/nearby_mob in range(star_mark_range, target))
 		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)
+		pins_hit++
+	if(pins_hit >= 10)
+		playsound(get_turf(src), 'sound/effects/bowling_strike.ogg', 100, FALSE)
+		for(var/mob/nearby_mob in range(9, target))
+			to_chat(nearby_mob, "<span class='hierophant_warning'>STRIKE!</span>")
 
 /obj/item/projectile/magic/star_ball/Destroy()
 	playsound(get_turf(src), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
-	for(var/turf/cast_turf as anything in get_turfs())
+	for(var/turf/cast_turf in RANGE_TURFS(1, src))
 		new /obj/effect/forcefield/cosmic_field(cast_turf)
 	return ..()
 
-/obj/item/projectile/magic/star_ball/proc/get_turfs()
-	return list(get_turf(src), pick(get_step(src, NORTH), get_step(src, SOUTH)), pick(get_step(src, EAST), get_step(src, WEST)))

@@ -43,6 +43,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	if(istype(parent, /obj/item/gun))
 		RegisterSignal(parent, COMSIG_GUN_TRY_FIRE, PROC_REF(on_gun_fire))
+		RegisterSignal(parent, COMSIG_LIONHUNTER_FIRE, PROC_REF(on_lionhunter_fire))
 
 /datum/component/scope/UnregisterFromParent()
 	if(item_action_type)
@@ -55,6 +56,7 @@
 		SIGNAL_REMOVETRAIT(TRAIT_WIELDED),
 		COMSIG_GUN_TRY_FIRE,
 		COMSIG_PARENT_EXAMINE,
+		COMSIG_LIONHUNTER_FIRE,
 	))
 
 /datum/component/scope/process()
@@ -111,6 +113,13 @@
 	switch(zoom_method)
 		if(ZOOM_METHOD_WIELD)
 			examine_list += "<span class='notice'>You can [scope] by wielding it with both hands.</span>"
+
+/datum/component/scope/proc/on_lionhunter_fire(obj/item/gun/projectile/shotgun/boltaction/lionhunter/lion)
+	SIGNAL_HANDLER // COMSIG_LIONHUNTER_FIRE
+	if(is_zoomed_in())
+		var/mob/living/user = lion.loc
+		stop_zooming(user)
+
 
 /**
  * We find and return the best target to hit on a given turf.

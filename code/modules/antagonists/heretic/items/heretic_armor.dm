@@ -42,15 +42,21 @@
 	// slightly worse than normal cult robes
 	armor = list(MELEE = 30, BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	actions_types = list(/datum/action/item_action/toggle)
+	pockets = /obj/item/storage/internal/void_cloak
 	/// Are we invisible?
 	var/cloak_invisible = FALSE
 
 /obj/item/clothing/suit/storage/void_cloak/Initialize(mapload)
 	. = ..()
-	pockets.storage_slots = 3	//two slots //qwertodo: figure out why won't hold /obj/item/melee/sickly_blade
+	make_visible()
+	// We have to overide the initalize from above
+	pockets.storage_slots = 3	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_NORMAL
 	pockets.max_combined_w_class = 5
-	pockets.can_hold = list(
+
+/obj/item/storage/internal/void_cloak
+	silent = TRUE //Sneaky cloak, sneaky storage
+	can_hold = list(
 		/obj/item/ammo_box/lionhunter,
 		/obj/item/heretic_labyrinth_handbook,
 		/obj/item/clothing/neck/eldritch_amulet,
@@ -65,7 +71,6 @@
 		/obj/item/reagent_containers/cup/beaker/eldritch,
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
 	)
-	make_visible()
 
 /obj/item/clothing/suit/storage/void_cloak/equipped(mob/user, slot)
 	. = ..()
@@ -117,7 +122,7 @@
 	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, UID())
 	ADD_TRAIT(src, TRAIT_NO_STRIP, UID())
 	icon_state = "void_cloak_invisible"
-	cloak_invisible TRUE
+	cloak_invisible = TRUE
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))

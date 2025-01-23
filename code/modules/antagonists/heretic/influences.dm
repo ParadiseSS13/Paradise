@@ -224,7 +224,7 @@
 	being_drained = TRUE
 	to_chat(user, "<span class='notice'>You begin to drain the influcence</span>")
 
-	if(!do_after(user, 10 SECONDS, src))
+	if(!do_after(user, 10 SECONDS, target = src))
 		being_drained = FALSE
 		return
 

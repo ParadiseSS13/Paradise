@@ -140,7 +140,7 @@
 		// Cosmic
 		PATH_COSMIC = list(
 			WIELDER_SPELLS = list(/datum/spell/aoe/conjure/cosmic_expansion),
-			SWORD_SPELLS = list(/datum/spell/pointed/projectile/star_blast),
+			SWORD_SPELLS = list(/datum/spell/fireball/star_blast),
 			SWORD_PREFIX = "astral",
 		),
 		// Lock
@@ -151,7 +151,7 @@
 		),
 		// Moon
 		PATH_MOON = list(
-			WIELDER_SPELLS = list(/datum/spell/pointed/projectile/moon_parade),
+			WIELDER_SPELLS = list(/datum/spell/fireball/moon_parade),
 			SWORD_SPELLS = list(/datum/spell/pointed/moon_smile),
 			SWORD_PREFIX = "shimmering",
 		),

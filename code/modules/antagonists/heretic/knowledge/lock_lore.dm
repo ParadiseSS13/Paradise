@@ -35,7 +35,7 @@
 
 /datum/heretic_knowledge/lock_grasp
 	name = "Grasp of Lock"
-	desc = "Your mansus grasp allows you to access anything! Right click on an airlock or a locker to force it open. \
+	desc = "Your mansus grasp allows you to access *mostly* anything! Alt click on an airlock or a locker to force it open. \
 		DNA locks on mechs will be removed, and any pilot will be ejected. Works on consoles. \
 		Makes a distinctive knocking sound on use."
 	gain_text = "Nothing may remain closed from my touch."
@@ -68,10 +68,9 @@
 			INVOKE_ASYNC(src, PROC_REF(try_kick_out), mecha, occupant)
 	else if(istype(target, /obj/machinery/door/airlock))
 		INVOKE_ASYNC(src, PROC_REF(try_open_airlock), target)
-	//else if(istype(target, /obj/machinery/computer)) //qwertodo: as much of this as possible
-	//	var/obj/machinery/computer/computer = target
-	//	computer.authenticated = TRUE
-	//	computer.balloon_alert(source, "unlocked")
+	else if(istype(target, /obj/structure/closet))
+		INVOKE_ASYNC(src, PROC_REF(try_open_closet), target)
+
 
 	playsound(target, 'sound/magic/hereticknock.ogg', 100, TRUE, -1)
 
@@ -80,6 +79,12 @@
 /datum/heretic_knowledge/lock_grasp/proc/try_open_airlock(obj/machinery/door/airlock/ourlock)
 	ourlock.unlock()
 	ourlock.open()
+
+/datum/heretic_knowledge/lock_grasp/proc/try_open_closet(obj/structure/closet/C)
+	if(istype(C, /obj/structure/closet/secure_closet))
+		var/obj/structure/closet/secure_closet/SC = C
+		SC.locked = FALSE
+	C.open()
 
 /datum/heretic_knowledge/lock_grasp/proc/try_kick_out(obj/mecha/mecha, mob/living/occupant)
 	mecha.go_out(1)
@@ -128,6 +133,7 @@
 		/obj/item/multitool = 1,
 	)
 	result_atoms = list(/obj/item/heretic_labyrinth_handbook)
+	limit = 2
 	cost = 1
 	research_tree_icon_path = 'icons/obj/library.dmi'
 	research_tree_icon_state = "heretichandbook"

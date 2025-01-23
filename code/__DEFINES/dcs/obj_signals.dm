@@ -36,3 +36,6 @@
 
 /// When the lionhunter rifle hits something
 #define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
+
+/// When the lionhunter shoots so I can unscope
+#define COMSIG_LIONHUNTER_FIRE "lionhunter_fire"

@@ -202,7 +202,7 @@
 		He was without rival, equal, or purpose."
 	cost = 1
 	research_tree_icon_path = 'icons/effects/blood.dmi'
-	research_tree_icon_state = "suitblood"
+	research_tree_icon_state = "u_madman"
 	research_tree_icon_dir = SOUTH
 	/// Whether we're currently in duelist stance, gaining certain buffs (low health)
 	var/in_duelist_stance = FALSE
