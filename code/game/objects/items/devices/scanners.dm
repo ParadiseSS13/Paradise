@@ -700,16 +700,21 @@ SLIME SCANNER
  * Used in chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
-	var/datum/gas_mixture/air
+	var/datum/gas_mixture/gasmix
+	var/list/airs
 	var/list/milla = null
 	if(milla_turf_details && istype(target, /turf))
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		air = new()
-		air.copy_from_milla(milla)
+		gasmix = new()
+		gasmix.copy_from_milla(milla)
+		airs += gasmix
 	else
-		air = target.return_analyzable_air()
-		if(!air)
+		gasmix = target.return_analyzable_air()
+		if(!istype(gasmix, /list))
+			gasmix = list(gasmix)
+		airs += gasmix
+		if(!gasmix)
 			return FALSE
 
 	var/list/message = list()
@@ -719,28 +724,48 @@ SLIME SCANNER
 
 	if(!print)
 		return TRUE
+	var/total_moles = 0
+	var/pressure = 0
+	var/volume = 0
+	var/heat_capacity = 0
+	var/thermal_energy = 0
+	var/oxygen = 0
+	var/nitrogen = 0
+	var/toxins
+	var/carbon_dioxide = 0
+	var/sleeping_agent = 0
+	var/agent_b = 0
 
-	var/total_moles = air.total_moles()
-	var/pressure = air.return_pressure()
-	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-	var/heat_capacity = air.heat_capacity()
-	var/thermal_energy = air.thermal_energy()
+	for(var/datum/gas_mixture/air as anything in airs)
+		total_moles += air.total_moles()
+		pressure += air.return_pressure()
+		volume += air.return_volume()
+		heat_capacity += air.heat_capacity()
+		thermal_energy += air.thermal_energy()
+		oxygen += air.oxygen()
+		nitrogen += air.nitrogen()
+		toxins += air.toxins()
+		carbon_dioxide += air.carbon_dioxide()
+		sleeping_agent += air.sleeping_agent()
+		agent_b += air.agent_b()
+
+	var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
 
 	if(total_moles)
 		message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-			message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
-		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-			message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
-		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-			message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
-		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-			message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
-		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-			message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
-		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-			message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-		message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
+		if(oxygen && (milla_turf_details || oxygen / total_moles > 0.01))
+			message += "  <span class='oxygen'>Oxygen: [round(oxygen, 0.01)] moles ([round(oxygen / total_moles * 100, 0.01)] %)</span>"
+		if(nitrogen && (milla_turf_details || nitrogen / total_moles > 0.01))
+			message += "  <span class='nitrogen'>Nitrogen: [round(nitrogen, 0.01)] moles ([round(nitrogen / total_moles * 100, 0.01)] %)</span>"
+		if(carbon_dioxide && (milla_turf_details || carbon_dioxide / total_moles > 0.01))
+			message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(carbon_dioxide, 0.01)] moles ([round(carbon_dioxide / total_moles * 100, 0.01)] %)</span>"
+		if(toxins && (milla_turf_details || toxins / total_moles > 0.01))
+			message += "  <span class='plasma'>Plasma: [round(toxins, 0.01)] moles ([round(toxins / total_moles * 100, 0.01)] %)</span>"
+		if(sleeping_agent && (milla_turf_details || sleeping_agent / total_moles > 0.01))
+			message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(sleeping_agent, 0.01)] moles ([round(sleeping_agent / total_moles * 100, 0.01)] %)</span>"
+		if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
+			message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
+		message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
 		message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
 		message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
 		message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
