@@ -59,6 +59,8 @@
 	return ..()
 
 /obj/effect/hallucination/no_delete/blind_rusher/proc/rush()
+	if(QDELETED(src))
+		return
 	if(get_dist(src, target) > min_distance)
 		var/direction = get_dir(src, target) //making sure the hallucination is facing the player correctly.
 		forceMove(get_step(src, direction)) //forceMove to go through walls and other dense turfs.
