@@ -387,8 +387,8 @@
 		/obj/item/rcd,
 		/obj/item/rcd_ammo,
 		/obj/item/ammo_box,
-		/obj/item/melee/baton
-		/obj/item/melee/classic_baton
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
 		/obj/item/kitchen/knife
 	)
 
