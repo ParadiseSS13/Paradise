@@ -664,15 +664,15 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
 	if(!ancient)
-		qdel(src) //no
+		return INITIALIZE_HINT_QDEL // No
 	core = ancient
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
-
 /mob/living/simple_animal/hostile/ancient_robot_leg/Destroy()
 	QDEL_NULL(leg_part)
+	core = null
 	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
