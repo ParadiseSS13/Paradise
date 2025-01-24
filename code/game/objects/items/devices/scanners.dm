@@ -612,7 +612,7 @@ SLIME SCANNER
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click [src] to activate the barometer function.</span>"
-	. += "<span class='notice'>Alt-Shift-click [src] to toggle detailed reporting.</span>"
+	. += "<span class='notice'>Alt-Shift-click [src] to toggle detailed reporting on or off.</span>"
 
 /obj/item/analyzer/attack_self__legacy__attackchain(mob/user as mob)
 
