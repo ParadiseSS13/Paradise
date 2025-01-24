@@ -10,6 +10,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 70 SECONDS
 
 	invocation = "FL'MS"
@@ -22,9 +23,14 @@
 	var/duration = 1 MINUTES
 
 
-/datum/spell/fire_sworn/cast(mob/living/cast_on, mob/user)
+/datum/spell/fire_sworn/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/fire_sworn/cast(list/targets, mob/user)
 	. = ..()
-	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		living_user.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
 
 /// Simple status effect for adding a ring of fire around a mob.
 /datum/status_effect/fire_ring
@@ -40,7 +46,7 @@
 	src.ring_radius = radius
 	return ..()
 
-/datum/status_effect/fire_ring/tick(seconds_between_ticks)
+/datum/status_effect/fire_ring/tick()
 	if(QDELETED(owner) || owner.stat == DEAD)
 		qdel(src)
 		return
@@ -49,11 +55,11 @@
 		return
 
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
-		var/obj/effect/hotspot/flame_tile = locate(nearby_turf) || new(nearby_turf)
-		flame_tile.alpha = 125
-		nearby_turf.hotspot_expose(750, 25 * seconds_between_ticks, 1)
+		fireflash(nearby_turf, 0, 750)
 		for(var/mob/living/fried_living in nearby_turf.contents - owner)
-			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
+			fried_living.apply_damage(1.5, BURN)
+	for(var/obj/effect/hotspot/flame_tile in range(2, owner)) //Extra range for if they are moving about since there is async shit going on
+		flame_tile.alpha = 125
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
 /datum/spell/fire_cascade
@@ -68,6 +74,7 @@
 	sound = 'sound/items/welder.ogg'
 
 	is_a_heretic_spell = TRUE
+	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "C'SC'DE"
@@ -77,27 +84,30 @@
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
 
-/datum/spell/fire_cascade/cast(atom/cast_on, mob/user)
+/datum/spell/fire_cascade/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/fire_cascade/cast(list/targets, mob/user)
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), user, flame_radius)
+	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(user), user, flame_radius)
 
 /// Spreads a huge wave of fire in a radius around us, staggered between levels
 /datum/spell/fire_cascade/proc/fire_cascade(atom/centre, mob/user, flame_radius = 1)
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
-			var/obj/effect/hotspot/flame_tile = locate(nearby_turf) || new(nearby_turf)
-			flame_tile.alpha = 125
-			nearby_turf.hotspot_expose(750, 50, 1)
+			fireflash(nearby_turf, 0, 750)
 			for(var/mob/living/fried_living in nearby_turf.contents - user)
 				fried_living.apply_damage(5, BURN)
 
 		stoplag(0.3 SECONDS)
+		for(var/obj/effect/hotspot/flame_tile in range(i + 2, user)) //Extra range for if they are moving about since there is async shit going on
+			flame_tile.alpha = 125
 
 /datum/spell/fire_cascade/big
 	name = "Greater Fire Cascade"
 	flame_radius = 6
 
-// Currently unused - releases streams of fire around the caster.
+// Currently used only by the funny haunted longsword
 /datum/spell/pointed/ash_beams
 	name = "Nightwatcher's Rite"
 	desc = "A powerful spell that releases five streams of eldritch fire towards the target."
@@ -120,8 +130,9 @@
 	/// The length of the flame line spit out.
 	var/flame_line_length = 15
 
-/datum/spell/pointed/ash_beams/cast(atom/target, mob/user)
+/datum/spell/pointed/ash_beams/cast(list/targets, mob/user)
 	. = ..()
+	var/target = targets[1]
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)
 		INVOKE_ASYNC(src, PROC_REF(fire_line), user, line_target(offset, flame_line_length, target, user))
@@ -155,8 +166,7 @@
 			L.adjustFireLoss(20)
 			to_chat(L, "<span class='userdanger'>You're hit by [source]'s eldritch flames!</span>")
 
-		new /obj/effect/hotspot(T)
-		T.hotspot_expose(700,50,1)
+		fireflash(T, 0, 750)
 		// deals damage to mechs
 		for(var/obj/mecha/M in T.contents)
 			if(M in hit_list)

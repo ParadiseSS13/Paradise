@@ -100,7 +100,7 @@
 	return
 
 /// Called when someone alt clicks with a grasp on something.
-/obj/item/melee/touch_attack/mansus_fist/proc/on_special_click(mob/source, atom/target)
+/obj/item/melee/touch_attack/mansus_fist/proc/on_special_click(mob/source, atom/target) //QWERTODO: BLOCK THIS IF THEY HAVE ANTITELEPORT AND NO FOCUS SO YOU CAN PERMA RUST / LOCK
 	SIGNAL_HANDLER
 	if(!source.Adjacent(target))
 		return

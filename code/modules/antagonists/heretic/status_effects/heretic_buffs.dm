@@ -1,49 +1,5 @@
 // POTIONS
 
-// CRUCIBLE SOUL
-/datum/status_effect/crucible_soul
-	id = "Blessing of Crucible Soul"
-	status_type = STATUS_EFFECT_REFRESH
-	duration = 40 SECONDS
-	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
-	show_duration = TRUE
-	///Stores the location where the mob drank the potion, used to teleport the drinker back to the spot after expiration
-	var/turf/location
-
-/datum/status_effect/crucible_soul/on_apply()
-	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
-	owner.alpha = 180
-	owner.incorporeal_move = 1
-	location = get_turf(owner)
-	var/datum/action/cancel_crucible_soul/cancel_button = new(src)
-	cancel_button.Grant(owner)
-	return TRUE
-
-/datum/status_effect/crucible_soul/on_remove()
-	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
-	owner.alpha = initial(owner.alpha)
-	owner.incorporeal_move = 0
-	owner.forceMove(location)
-	location = null
-
-
-/datum/action/cancel_crucible_soul
-	name = "Recall"
-	desc = "Use to end the blessing early"
-	button_background_icon = 'icons/obj/antags/eldritch.dmi'
-	button_overlay_icon_state = "crucible_soul"
-
-/datum/action/cancel_crucible_soul/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	if(!iscarbon(owner))
-		return
-	var/mob/living/carbon/carbon_owner = owner
-	var/datum/status_effect/active_effect = carbon_owner.has_status_effect(/datum/status_effect/crucible_soul)
-	target = active_effect
-	qdel(target)
-
 // DUSK AND DAWN
 /datum/status_effect/duskndawn
 	id = "Blessing of Dusk and Dawn"
@@ -89,17 +45,16 @@
 /datum/status_effect/marshal/tick()
 	if(!iscarbon(owner))
 		return
-	var/mob/living/carbon/carbie = owner
+	var/mob/living/carbon/human/carbie = owner
 
-	carbie.adjustBruteLoss(-0.5,updating_health = FALSE)
-	carbie.adjustFireLoss(-0.5, updating_health = FALSE)
-	//qwertodo: healing off broken ib burns
+	carbie.adjustBruteLoss(-0.5,updating_health = FALSE, robotic = TRUE)
+	carbie.adjustFireLoss(-0.5, updating_health = FALSE, robotic = TRUE)
+	for(var/obj/item/organ/external/E in carbie.bodyparts)
+		if(E.status & ORGAN_BROKEN | ORGAN_BURNT | ORGAN_INT_BLEEDING)
+			carbie.adjustBruteLoss(-0.5,updating_health = FALSE, robotic = TRUE)
+			carbie.adjustFireLoss(-0.5, updating_health = FALSE, robotic = TRUE)
+	carbie.updatehealth("marshal status effect")
 
-
-/atom/movable/screen/alert/status_effect/crucible_soul
-	name = "Blessing of Crucible Soul"
-	desc = "You phased through reality. You are halfway to your final destination..."
-	icon_state = "crucible"
 
 /atom/movable/screen/alert/status_effect/duskndawn
 	name = "Blessing of Dusk and Dawn"

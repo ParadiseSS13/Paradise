@@ -107,7 +107,7 @@
 	if(burn_time)
 		QDEL_IN(src, burn_time)
 
-/proc/fireflash(atom/center, radius, temp)
+/proc/fireflash(atom/center, radius, temp, faker)
 	if(!temp)
 		temp = rand(2800, 3200)
 	for(var/turf/T in view(radius, get_turf(center)))

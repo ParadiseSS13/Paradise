@@ -275,13 +275,6 @@
 	var/mob/living/carbon/carbon_user = user
 	carbon_user.apply_status_effect(status_effect)
 
-/obj/item/eldritch_potion/crucible_soul
-	name = "brew of the crucible soul"
-	desc = "A glass bottle contianing a bright orange, translucent liquid."
-	icon_state = "crucible_soul"
-	status_effect = /datum/status_effect/crucible_soul
-	crucible_tip = "Allows you to walk through walls. After expiring, you are teleported to your original location. Lasts 15 seconds."
-
 /obj/item/eldritch_potion/duskndawn
 	name = "brew of dusk and dawn"
 	desc = "A glass bottle contianing a dull yellow liquid. It seems to fade in and out with regularity."

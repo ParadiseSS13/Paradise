@@ -173,6 +173,7 @@
 		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOSLIP, // so pressure doesn't meme them
 	)
 
 /datum/heretic_knowledge/ultimate/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
@@ -194,13 +195,13 @@
 	var/datum/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
 	user.AddSpell(screen_wide_fire_spell)
 
-	var/datum/spell/charge_up/bounce/fire_blast/existing_beam_spell = locate() in user.actions
+	var/datum/spell/charge_up/bounce/fire_blast/existing_beam_spell = locate() in user.mob_spell_list
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
-		existing_beam_spell.beam_duration *= 0.66 // Faster beams
-		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
+		existing_beam_spell.bounce_time *= 0.66 // Faster beams
+		existing_beam_spell.cooldown_handler.recharge_duration *= 0.66 // Lower cooldown
 
-	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
+	var/datum/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mob_spell_list
 	fiery_rebirth?.base_cooldown *= 0.16
 
 	user.add_traits(traits_to_apply, type)

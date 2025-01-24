@@ -52,14 +52,16 @@
 /datum/status_effect/unholy_determination/proc/adjust_all_damages(amount)
 
 	owner.adjust_fire_stacks(-1)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/our_human = owner
 
-	var/damage_healed = 0
-	damage_healed += owner.adjustToxLoss(-amount, updating_health = FALSE)
-	damage_healed += owner.adjustOxyLoss(-amount, updating_health = FALSE)
-	damage_healed += owner.adjustBruteLoss(-amount, updating_health = FALSE)
-	damage_healed += owner.adjustFireLoss(-amount, updating_health = FALSE)
-	if(damage_healed > 0)
-		owner.updatehealth()
+		var/damage_healed = 0
+		damage_healed += our_human.adjustToxLoss(-amount, updating_health = FALSE)
+		damage_healed += our_human.adjustOxyLoss(-amount, updating_health = FALSE)
+		damage_healed += our_human.adjustBruteLoss(-amount, updating_health = FALSE, robotic = TRUE)
+		damage_healed += our_human.adjustFireLoss(-amount, updating_health = FALSE, robotic = TRUE)
+		if(damage_healed > 0)
+			owner.updatehealth()
 
 
 /// Torment the target with a frightening hand
