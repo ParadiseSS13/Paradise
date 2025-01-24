@@ -31,7 +31,8 @@
 	density = TRUE
 	obj_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
-	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
+	/// List of possible overlays to apply to the tiles in range of the conduit
+	var/static/list/overlay_list = list()
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
 	var/list/overlayed_turfs = list()
 	///How many tiles far our effect is
@@ -46,27 +47,34 @@
 	soundloop = new(src, start_immediately = TRUE)
 	timerid = QDEL_IN(src, 1 MINUTES)
 	START_PROCESSING(SSobj, src)
+	if(!length(overlay_list))
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_1")
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_2")
+		overlay_list += image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile_3")
 	build_view_turfs()
 
 /obj/structure/void_conduit/proc/build_view_turfs()
 	for(var/turf/affected_turf as anything in overlayed_turfs)
-		affected_turf.cut_overlay(void_overlay)
+		affected_turf.cut_overlay(overlay_list)
+
 	for(var/turf/affected_turf as anything in view(effect_range, src))
 		if(!isfloorturf(affected_turf))
 			continue
-		affected_turf.add_overlay(void_overlay)
-		overlayed_turfs += affected_turf
+		var/image/void_overlay = pick(overlay_list)
 		void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		void_overlay.alpha = 180
+
+		affected_turf.add_overlay(void_overlay)
+		overlayed_turfs += affected_turf
 
 /obj/structure/void_conduit/Destroy(force)
 	QDEL_NULL(soundloop)
 	deltimer(timerid)
 	STOP_PROCESSING(SSobj, src)
-	for(var/turf/affected_turf as anything in overlayed_turfs) //If the portal is moved, the overlays don't stick around
-		affected_turf.cut_overlay(void_overlay)
+	for(var/turf/affected_turf as anything in overlayed_turfs) // If the portal is moved, the overlays don't stick around
+		affected_turf.cut_overlay(overlay_list)
 	var/turf/extra_overlay = get_turf(src)
-	extra_overlay.cut_overlay(void_overlay)
+	extra_overlay.cut_overlay(overlay_list)
 	return ..()
 
 /obj/structure/void_conduit/process(seconds_per_tick)
