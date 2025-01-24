@@ -61,6 +61,7 @@
 /area/ruin/space/unpowered)
 "p" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "q" = (

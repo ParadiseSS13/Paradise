@@ -38,6 +38,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -46,6 +47,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/dress/sundress,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
 "fH" = (
@@ -74,6 +76,7 @@
 "gP" = (
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
