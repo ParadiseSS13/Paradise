@@ -492,7 +492,7 @@
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
 
 	else if(is_color_text(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>
+		item = "[VV_HTML_ENCODE(name)] = <span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
 
 	else if(istext(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
