@@ -15,6 +15,10 @@
 /obj/structure/spawner/mining/goliath,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"o" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "A" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/space/unpowered)
@@ -606,7 +610,7 @@ d
 c
 c
 b
-d
+o
 d
 c
 d

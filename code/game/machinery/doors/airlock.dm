@@ -103,7 +103,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
-	var/is_special = FALSE
 	/// Our ID tag for map-based linking shenanigans
 	var/id_tag
 	/// List of people who have shocked this door for logging purposes
