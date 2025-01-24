@@ -181,8 +181,8 @@
 		/obj/vehicle/motorcycle,
 		/obj/vehicle/snowmobile,
 		/obj/vehicle/snowmobile/blue,
-		/obj/vehicle/space/speedbike/red,
-		/obj/vehicle/space/speedbike,
+		/obj/tgvehicle/speedbike/red,
+		/obj/tgvehicle/speedbike,
 	)
 
 /obj/effect/spawner/random/traders/vehicle/make_item(spawn_loc, type_path_to_make)

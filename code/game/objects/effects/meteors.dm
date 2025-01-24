@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	if(timerid)
 		deltimer(timerid)
 	GLOB.meteor_list -= src
-	walk(src, 0) //this cancels the walk_towards() proc
+	GLOB.move_manager.stop_looping(src) //this cancels the GLOB.move_manager.home_onto() proc
 	return ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
@@ -108,6 +108,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	SpinAnimation()
 	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
+
+/obj/effect/meteor/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
@@ -158,7 +161,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
 	set waitfor = FALSE
 	if(chasing)
-		walk_towards(src, chasing, delay)
+		GLOB.move_manager.home_onto(src, chasing, delay)
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
