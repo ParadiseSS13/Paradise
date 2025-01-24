@@ -129,7 +129,6 @@ Difficulty: Hard
 	fix_specific_leg(BOTTOM_RIGHT)
 	fix_specific_leg(BOTTOM_LEFT)
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
 	QDEL_NULL(TR)
 	QDEL_NULL(TL)
