@@ -32,6 +32,11 @@
 		payload_name += " " // formatting, ignore me
 	update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
 	QDEL_LIST_CONTENTS(beakers)
@@ -246,9 +251,9 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/chem_grenade/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)

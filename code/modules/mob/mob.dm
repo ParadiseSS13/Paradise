@@ -75,6 +75,7 @@
 		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+		PRESSURE_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -330,6 +331,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	for(var/slot in GLOB.slot_equipment_priority)
 		if(isstorage(W) && slot == ITEM_SLOT_HEAD) // Storage items should be put on the belt before the head
+			continue
+		if(W.prefered_slot_flags && !(W.prefered_slot_flags & slot)) //If there's a prefered slot flags list, make sure this slot is in it
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -646,9 +649,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
-			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+			result = A.examine(src)
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
@@ -788,10 +793,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -802,8 +807,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
-		if(src:cameraFollow)
-			src:cameraFollow = null
+		if(src:camera_follow)
+			src:camera_follow = null
 
 /mob/Topic(href, href_list)
 	if(href_list["flavor_more"])
@@ -1131,13 +1136,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
-/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src), force_no_usr_check = FALSE, automatic = FALSE)
 	if(!ckey)
 		return
 	var/real_ckey = ckey
 	if(ckey[1] == "@") // Admin aghosting will do this
 		real_ckey = copytext(ckey, 2)
-	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time, force_no_usr_check, automatic)
 	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
@@ -1177,31 +1182,31 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
+	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
 
-	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "?_src_=vars;gib=[UID()]"
+	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
@@ -1427,3 +1432,90 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(user.incapacitated())
 		return
 	return relaydrive(user, direction)
+
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
+
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	// A list of all things which are providing anti-magic to us
+	var/list/antimagic_sources = list()
+	var/is_magic_blocked = FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
+		is_magic_blocked = TRUE
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_recent_magic_block)), 6 SECONDS)
+
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
+			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/magic/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			"<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>",
+			"<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			"<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>",
+			"<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light(_color = antimagic_color, _range = 2, _power = 2, _duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
+
+/mob/living/proc/remove_recent_magic_block()
+	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)

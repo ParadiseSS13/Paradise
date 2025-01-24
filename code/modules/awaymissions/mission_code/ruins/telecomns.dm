@@ -48,9 +48,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
-/obj/effect/abstract/bot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/bot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/bot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
@@ -60,9 +66,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/loot_trap
 	name = "table surrounding loot trap"
 
-/obj/effect/abstract/loot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/loot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/loot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			DD.thief = TRUE
@@ -75,9 +87,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/cheese_trap
 	name = "cheese preventer"
 
-/obj/effect/abstract/cheese_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/cheese_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/cheese_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			if(DD.thief)
 				DD.start_the_party(TRUE)
@@ -370,7 +388,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/remote_ai_upload // A 1 use AI upload. Potential D.V.O.R.A.K reward.
 	name = "remote AI upload"
-	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
+	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
 	w_class = WEIGHT_CLASS_TINY
@@ -471,10 +489,11 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	var/soundblock = null
 	/// How long do we sleep between messages? 5 seconds by default.
 	var/loop_sleep_time = 5 SECONDS
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/environmental_storytelling_holopad/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 
 /obj/structure/environmental_storytelling_holopad/Destroy()
 	QDEL_NULL(our_holo)
@@ -488,8 +507,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	DeleteComponent(/datum/component/proximity_monitor)
-
+	QDEL_NULL(proximity_monitor)
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))

@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "cq" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "dL" = (
@@ -267,7 +268,7 @@
 /area/ruin/space/syndicate_druglab)
 "Fq" = (
 /obj/structure/closet/cabinet,
-/obj/item/soap/syndie,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/syndicate_druglab)
 "Fx" = (

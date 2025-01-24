@@ -83,6 +83,10 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"lE" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "mn" = (
 /obj/structure/closet/crate,
 /obj/item/toy/plushie/nianplushie,
@@ -172,7 +176,7 @@
 /area/ruin/space/unpowered)
 "xQ" = (
 /obj/structure/table,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "yq" = (
@@ -241,6 +245,7 @@
 /area/ruin/space/unpowered)
 "LA" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "LD" = (
@@ -1324,7 +1329,7 @@ Qx
 Qx
 Qx
 Qx
-zN
+lE
 vE
 hG
 bO

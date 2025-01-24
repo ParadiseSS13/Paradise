@@ -57,6 +57,11 @@ jobs:
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
+
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
@@ -69,6 +74,10 @@ jobs:
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh
@@ -104,7 +113,7 @@ jobs:
             '/datum/map/cerestation',
             '/datum/map/emeraldstation',
           ]
-        byondtype: ['STABLE']
+        byondtype: ['STABLE', 'BETA']
     services:
       mariadb:
         image: mariadb:latest

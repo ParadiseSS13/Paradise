@@ -138,6 +138,13 @@
 /obj/item/projectile/New()
 	return ..()
 
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -262,10 +269,7 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return
-
+/obj/item/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
@@ -322,7 +326,7 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()
@@ -432,10 +436,10 @@
 	xo = new_x - curloc.x
 	set_angle(get_angle(curloc, original))
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+/// A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

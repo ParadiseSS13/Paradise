@@ -74,6 +74,7 @@
 	orient2hud()
 
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_atom_exited))
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
@@ -102,7 +103,7 @@
 /obj/item/storage/proc/removal_allowed_check(mob/user)
 	return TRUE
 
-/obj/item/storage/MouseDrop(obj/over_object)
+/obj/item/storage/MouseDrop(obj/over_object, src_location, over_location, src_control, over_control, params)
 	if(!ismob(usr)) //so monkeys can take off their backpacks -- Urist
 		return
 	var/mob/M = usr
@@ -133,8 +134,12 @@
 		M.face_atom(over_object)
 		M.visible_message("<span class='notice'>[M] empties [src] onto [over_object].</span>",
 			"<span class='notice'>You empty [src] onto [over_object].</span>")
+		var/list/params_list = params2list(params)
+		var/x_offset = text2num(params_list["icon-x"]) - 16
+		var/y_offset = text2num(params_list["icon-y"]) - 16
 		for(var/obj/item/I in contents)
 			remove_from_storage(I, T)
+			I.scatter_atom(x_offset, y_offset)
 		update_icon() // For content-sensitive icons
 		return
 
@@ -145,11 +150,11 @@
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
 			if("r_hand")
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src))
 					return
 				M.put_in_r_hand(src)
 			if("l_hand")
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src))
 					return
 				M.put_in_l_hand(src)
 		add_fingerprint(usr)
@@ -440,7 +445,7 @@
 	if(user)
 		if(!Adjacent(user) && !isnewplayer(user))
 			return FALSE
-		if(!user.unEquip(I, silent = TRUE))
+		if(!user.unequip(I))
 			return FALSE
 		user.update_icons()	//update our overlays
 	if(QDELING(I))
@@ -490,6 +495,9 @@
 	update_icon()
 	return TRUE
 
+/obj/item/storage/proc/on_atom_exited(datum/source, atom/exited, direction)
+	return remove_from_storage(exited, exited.loc)
+
 /**
   * Handles the removal of an item from a storage container.
   *
@@ -529,10 +537,6 @@
 	I.mouse_opacity = initial(I.mouse_opacity)
 	update_icon()
 	return TRUE
-
-/obj/item/storage/Exited(atom/A, loc)
-	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
-	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
@@ -608,6 +612,7 @@
 	hide_from(user)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
+		I.scatter_atom()
 		CHECK_TICK
 
 /**

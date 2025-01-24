@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -308,6 +308,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
+/obj/item/radio/headset/headset_nct
+	name = "\improper Nanotrasen career trainer radio headset"
+	desc = "This is used by your well-taught corporate training team."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_nct
+
 /obj/item/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate."
@@ -402,7 +409,7 @@
 			to_chat(user, "The headset can't hold another key!")
 			return
 
-		if(!user.unEquip(key))
+		if(!user.drop_item_to_ground(key))
 			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 

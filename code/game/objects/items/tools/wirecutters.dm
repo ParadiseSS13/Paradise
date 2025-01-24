@@ -23,6 +23,8 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
+	new_attack_chain = TRUE
+
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
 	if(random_color)
@@ -31,16 +33,15 @@
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
-/obj/item/wirecutters/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		QDEL_NULL(C.handcuffed)
-		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.unbuckle()
-		C.update_handcuffed()
-		return
-	else
-		return ..()
+/obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	var/mob/living/carbon/mob = target
+	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
+		user.visible_message("<span class='notice'>[user] cuts [mob]'s restraints with [src]!</span>")
+		QDEL_NULL(mob.handcuffed)
+		if(mob.buckled && mob.buckled.buckle_requires_restraints)
+			mob.unbuckle()
+		mob.update_handcuffed()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -85,7 +86,7 @@
 	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION
@@ -94,6 +95,7 @@
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
+	belt_icon = "wirecutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -145,7 +147,10 @@
 
 	return OXYLOSS
 
-/obj/item/wirecutters/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/wirecutters/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")

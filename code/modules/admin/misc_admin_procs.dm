@@ -157,7 +157,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		"}
 
 	var/jumptoeye = ""
-	if(isAI(M))
+	if(is_ai(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			jumptoeye = " <b>(<A href='byond://?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</A>)</b>"
@@ -199,7 +199,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				body += "<A href='byond://?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
 
 			//AI / Cyborg
-			if(isAI(M))
+			if(is_ai(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='byond://?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
@@ -327,6 +327,8 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
 		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
+	if(GLOB.master_mode == "dynamic" || (GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+		dat += "<p><a href='byond://?src=[cached_UID];f_dynamic=1'>(Force Dynamic Rulesets)</a><br></p>"
 	dat += "<hr><br>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
@@ -672,7 +674,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		antag_list += "Wizard"
 	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
-	if(M.mind in SSticker.mode.abductors)
+	if(M.mind.has_antag_datum(/datum/antagonist/abductor))
 		antag_list += "Abductor"
 	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
@@ -744,7 +746,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(length(matches)==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		chosen = tgui_input_list(usr, "Select an Atom Type", "Spawn Atom", matches)
 		if(!chosen)
 			return
 
@@ -800,7 +802,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		if(istype(S, /mob/living/silicon/decoy) && !S.client)
 			continue
 		ai_number++
-		if(isAI(S))
+		if(is_ai(S))
 			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S

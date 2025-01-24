@@ -297,7 +297,7 @@
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled)
@@ -772,6 +772,14 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
+/datum/coords/New(x_pos_, y_pos_, z_pos_)
+	x_pos = x_pos_
+	y_pos = y_pos_
+	z_pos = z_pos_
+
+/datum/coords/proc/to_string(z = null)
+	return "([x_pos],[y_pos],[z ? z : z_pos])"
+
 /area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
@@ -871,7 +879,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 
 						O.loc.Exited(O)
-						O.setLoc(X)
+						O.set_loc(X)
 						O.loc.Entered(O)
 
 					for(var/mob/M in T)
@@ -1005,7 +1013,28 @@ Returns 1 if the chain up to the area contains the given typepath
 					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+						if(!(V in list(
+							"ckey",
+							"comp_lookup",
+							"contents",
+							"destination_x",
+							"destination_y",
+							"destination_z",
+							"group",
+							"key",
+							"loc",
+							"locs",
+							"luminosity",
+							"parent_type",
+							"parent",
+							"signal_procs",
+							"type",
+							"vars",
+							"verbs",
+							"x",
+							"y",
+							"z",
+						)))
 							X.vars[V] = T.vars[V]
 
 					to_update += X
@@ -1718,6 +1747,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 

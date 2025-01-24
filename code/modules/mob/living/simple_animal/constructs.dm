@@ -305,9 +305,9 @@
 	health = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	attacktext = "prods"
+	attacktext = "rends"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	attack_sound = 'sound/weapons/tap.ogg'
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/datum/spell/night_vision,
 							/datum/spell/aoe/conjure/build/wall,
@@ -318,7 +318,7 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 
@@ -327,6 +327,31 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
+/mob/living/simple_animal/hostile/construct/proteon
+	name = "Proteon"
+	real_name = "Proteon"
+	desc = "A weaker construct meant to scour ruins for objects of Nar'Sie's affection. Those barbed claws are no joke."
+	icon_state = "proteon"
+	icon_living = "proteon"
+	maxHealth = 35
+	health = 35
+	melee_damage_lower = 8
+	melee_damage_upper = 10
+	obj_damage = 20 // Bit better at breaking stuff than cult ghosts, but only *barely*
+	retreat_distance = 4 // AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
+	attacktext = "pinches"
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES // No you can not break down all the walls of the station
+	attack_sound = 'sound/weapons/punch2.ogg'
+	playstyle_string = "<b>You are a Proteon. Your abilities in combat are outmatched by most combat constructs, but you are still fast and nimble. Run metal and supplies, and cooperate with your fellow cultists.</b>"
+	construct_type = "proteon"
+
+/mob/living/simple_animal/hostile/construct/proteon/Initialize(mapload)
+	. = ..()
+	add_overlay("glow_proteon_cult")
+
+// This is the type you will run into, spawned by the proteon spawner
+/mob/living/simple_animal/hostile/construct/proteon/hostile
+	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/construct/proc/make_holy()
 	if(holy) // Already holy-fied

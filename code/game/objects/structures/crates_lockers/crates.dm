@@ -37,7 +37,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
 				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
@@ -382,6 +382,13 @@
 	icon_closed = "freezer"
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
+
+/obj/structure/closet/crate/freezer/deluxe
+	name = "Deluxe Freezer"
+	desc = "A fancy looking freezer emblazoned with the Nanotrasen logo."
+	icon_state = "freezerdeluxe"
+	icon_opened = "freezerdeluxe_open"
+	icon_closed = "freezerdeluxe"
 
 /obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

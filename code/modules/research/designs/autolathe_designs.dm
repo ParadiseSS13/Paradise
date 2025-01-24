@@ -548,7 +548,7 @@
 	id = "stethoscope"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/clothing/accessory/stethoscope
+	build_path = /obj/item/clothing/neck/stethoscope
 	category = list("initial", "Medical")
 
 /datum/design/timer
@@ -963,6 +963,7 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+	requires_whitelist = TRUE
 
 /datum/design/desk_bell
 	name = "Desk Bell"

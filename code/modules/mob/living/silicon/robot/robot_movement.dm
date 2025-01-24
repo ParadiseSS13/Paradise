@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
+/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(ionpulse())
 		return TRUE
 	if(..())
@@ -25,5 +25,6 @@
 	return ..() || mob_negates_gravity()
 
 /mob/living/silicon/robot/experience_pressure_difference(flow_x, flow_y)
-	if(!HAS_TRAIT(src, TRAIT_MAGPULSE))
-		return ..()
+	if(HAS_TRAIT(src, TRAIT_MAGPULSE))
+		return
+	..()

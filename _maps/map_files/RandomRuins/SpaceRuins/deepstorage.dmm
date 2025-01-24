@@ -477,9 +477,7 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/unpowered)
 "bv" = (
@@ -1277,7 +1275,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2659,7 +2657,7 @@
 /obj/item/salvage/ruin/soviet,
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2669,7 +2667,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -5468,7 +5466,7 @@
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/effect/spawner/random/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5999,9 +5997,9 @@
 /area/ruin/space/deepstorage)
 "MR" = (
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/deepstorage_reward/main,
+/obj/effect/spawner/random/pool/spaceloot/deepstorage/main,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"

@@ -43,7 +43,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ao" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/template_noop,
 /area/template_noop)
 "ap" = (
@@ -85,7 +85,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "aG" = (
-/obj/random/toolbox,
+/obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/burnt/airless,
 /area/template_noop)
 "aI" = (
@@ -147,6 +147,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/turf/simulated/floor/plating/burnt/airless,
+/area/template_noop)
+"QL" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/burnt/airless,
 /area/template_noop)
 
@@ -359,7 +363,7 @@ aa
 ay
 ad
 ml
-ay
+QL
 aU
 aa
 aa

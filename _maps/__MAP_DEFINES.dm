@@ -29,6 +29,8 @@
 	#define SPAWN_RUINS "Spawn Ruins"
 	/// A level that can be navigated to through space, but for real this time.
 	#define REACHABLE_SPACE_ONLY "Reachable Space Only"
+	/// A level used for spawning map areas in tests
+	#define GAME_TEST_LEVEL "Game Test Level"
 
 // Level names
 	#define MAIN_STATION "Main Station"

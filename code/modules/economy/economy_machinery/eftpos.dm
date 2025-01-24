@@ -167,7 +167,7 @@
 	//if security level high enough, prompt for pin
 	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
-		attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 9999, min_value = 1000)
+		attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!attempt_pin || !Adjacent(user))
 			return
 	//given the credentials, can the associated account be accessed right now?

@@ -34,7 +34,7 @@
 
 
 
-/mob/living/simple_animal/hostile/deathsquid/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/deathsquid/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //copypasta from carp code
 
 /mob/living/simple_animal/hostile/deathsquid/ex_act(severity)

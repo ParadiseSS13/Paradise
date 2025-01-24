@@ -96,37 +96,30 @@
 	if(istype(used, /obj/item/storage/bag/trash))
 		if(mybag)
 			to_chat(user, fail_msg)
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You hook [used] onto [src].</span>")
 		used.forceMove(src)
 		mybag = used
 		update_icon(UPDATE_OVERLAYS)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/borg/upgrade/floorbuffer))
 		if(buffer_installed)
 			to_chat(user, fail_msg)
-			return ITEM_INTERACT_BLOCKING
+			return ITEM_INTERACT_COMPLETE
 		buffer_installed = TRUE
 		qdel(used)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [used].</span>")
 		update_icon(UPDATE_OVERLAYS)
-		return ITEM_INTERACT_SUCCESS
+		return ITEM_INTERACT_COMPLETE
 
 	if(mybag && user.a_intent == INTENT_HELP && !is_key(used))
 		mybag.attackby__legacy__attackchain(used, user)
-		return ITEM_INTERACT_ANY_BLOCKER
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
-
-/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-	if(..() && floorbuffer)
-		floorbuffer = FALSE
-		vehicle_move_delay -= buffer_delay
-
-	return TRUE
 
 /obj/vehicle/janicart/update_overlays()
 	. = ..()

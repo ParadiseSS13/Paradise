@@ -129,6 +129,13 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
@@ -187,9 +194,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+/obj/item/reagent_containers/glass/beaker/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.on_atom_entered(source, entered)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -263,7 +270,7 @@
 
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete."
+	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -299,6 +306,7 @@
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
+	prefered_slot_flags = ITEM_SLOT_IN_BACKPACK
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -333,7 +341,7 @@
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.unEquip(src)
+		user.unequip(src)
 		qdel(src)
 	else
 		..()
