@@ -606,8 +606,6 @@ SLIME SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
-	/// Whether the report lists each gas mix separately or their sum
-	var/sum_report = TRUE
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
@@ -670,11 +668,6 @@ SLIME SCANNER
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(ping)), cooldown_time)
 
-/obj/item/analyzer/AltShiftClick(mob/user)
-	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
-		sum_report = !sum_report
-		to_chat(user,"<span class='info'>The analyzer will now give a [sum_report ? "summarized" : "detailed"] report</span>")
-
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
 		var/mob/living/L = loc
@@ -698,9 +691,9 @@ SLIME SCANNER
 	if(!can_see(user, target, 1))
 		return
 	if(target.return_analyzable_air())
-		atmos_scan(user, target, detailed = !sum_report)
+		atmos_scan(user, target)
 	else
-		atmos_scan(user, get_turf(target), detailed = !sum_report)
+		atmos_scan(user, get_turf(target))
 
 /**
  * Outputs a message to the user describing the target's gasmixes.
@@ -727,76 +720,6 @@ SLIME SCANNER
 	if(!print)
 		return TRUE
 
-	var/list/airs = islist(mixture) ? mixture : list(mixture)
-
-	var/total_moles = 0
-	var/pressure = 0
-	var/volume = 0
-	var/heat_capacity = 0
-	var/thermal_energy = 0
-	var/mix_name = capitalize(lowertext(target.name))
-	var/o2
-	var/n2
-	var/co2
-	var/tox
-	var/n2o
-	var/agent_b
-
-	for(var/datum/gas_mixture/air as anything in airs)
-		if(detailed)
-			total_moles = air.total_moles()
-			pressure = air.return_pressure()
-			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-			heat_capacity = air.heat_capacity()
-			thermal_energy = air.thermal_energy()
-			o2 = air.oxygen()
-			n2 = air.nitrogen()
-			co2 = air.carbon_dioxide()
-			tox = air.toxins()
-			n2o = air.sleeping_agent()
-			agent_b = air.agent_b()
-
-		else
-			total_moles += air.total_moles()
-			pressure += air.return_pressure()
-			volume += air.return_volume()
-			heat_capacity += air.heat_capacity()
-			thermal_energy += air.thermal_energy()
-			o2 += air.oxygen()
-			n2 += air.nitrogen()
-			co2 += air.carbon_dioxide()
-			tox += air.toxins()
-			n2o += air.sleeping_agent()
-			agent_b += air.agent_b()
-
-		if(detailed || airs.Find(air) == length(airs))
-			if(length(airs) > 1 && detailed) //not a unary gas mixture
-				var/mix_number = airs.Find(air)
-				message += "<span class='boldnotice'>Node [mix_number]</span>"
-				mix_name += " - Node [mix_number]"
-
-			if(total_moles)
-				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-				if(o2 && (milla_turf_details || o2 / total_moles > 0.01))
-					message += "  <span class='oxygen'>Oxygen: [round(o2, 0.01)] moles ([round(o2 / total_moles * 100, 0.01)] %)</span>"
-				if(n2 && (milla_turf_details || n2 / total_moles > 0.01))
-					message += "  <span class='nitrogen'>Nitrogen: [round(n2, 0.01)] moles ([round(n2 / total_moles * 100, 0.01)] %)</span>"
-				if(co2 && (milla_turf_details || co2 / total_moles > 0.01))
-					message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(co2, 0.01)] moles ([round(co2 / total_moles * 100, 0.01)] %)</span>"
-				if(tox && (milla_turf_details || tox / total_moles > 0.01))
-					message += "  <span class='plasma'>Plasma: [round(tox, 0.01)] moles ([round(tox / total_moles * 100, 0.01)] %)</span>"
-				if(n2o && (milla_turf_details || n2o / total_moles > 0.01))
-					message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(n2o, 0.01)] moles ([round(n2o / total_moles * 100, 0.01)] %)</span>"
-				if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
-					message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
-				message += "<span class='notice'>Temperature: [round(length(airs) > 1 ? (thermal_energy / heat_capacity) - T0C : air.temperature() - T0C)] &deg;C ([round(length(airs) > 1 ? thermal_energy / heat_capacity : air.temperature())] K)</span>"
-				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-				message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-				message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
-			else
-				message += length(airs) > 1 ? "<span class='notice'>This node is empty!</span>" : "<span class='notice'>[target] is empty!</span>"
-				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 	var/total_moles = air.total_moles()
 	var/pressure = air.return_pressure()
 	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
