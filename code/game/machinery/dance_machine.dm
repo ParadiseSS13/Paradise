@@ -510,7 +510,7 @@
 
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"
-	desc = "The mark V is nigh-immovable, thanks to its bluespace-plastitanium anchor. The technology required to stop visitors from stealing this thing is astounding."
+	desc = "A massive disco ball permanently anchored to the floor with heat-sealed bolts. Merely being in the presence of such a majestic contraption fills you with the urge to dance."
 	anchored = TRUE
 
 /obj/machinery/disco/immobile/wrench_act()

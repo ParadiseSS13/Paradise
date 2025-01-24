@@ -36171,8 +36171,24 @@
 /obj/structure/closet/crate{
 	name = "solar pack crate"
 	},
-/obj/effect/turf_decal/delivery/hollow,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
+/obj/item/tracker_electronics,
+/obj/item/paper/solar,
 /obj/machinery/alarm/directional/south,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "csA" = (
@@ -67358,10 +67374,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
-"kol" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "kot" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -76483,6 +76495,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
+"pvo" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "pvv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal,
@@ -127280,7 +127296,7 @@ tik
 xjh
 mQi
 rLQ
-kol
+pvo
 drn
 dhG
 fBk

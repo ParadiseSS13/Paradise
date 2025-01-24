@@ -70,9 +70,10 @@
 
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
+	var/atom/container
 
 	if(spawn_inside)
-		new spawn_inside(loc)
+		container = new spawn_inside(loc)
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
@@ -126,6 +127,10 @@
 						var/column = FLOOR(loot_spawned / pixel_divider, 1)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
+
+				if(container)
+					spawned_loot.forceMove(container)
+
 
 /**
  *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,

@@ -122,7 +122,7 @@
 	if((!(A) || !(src in A.locs)))
 		return
 
-	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING))
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING) && !HAS_TRAIT(A, TRAIT_NO_EDGE_TRANSITIONS))
 		var/tx = destination_x
 		var/ty = destination_y
 		var/turf/DT = locate(tx, ty, destination_z)

@@ -326,7 +326,7 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()

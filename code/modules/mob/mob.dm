@@ -649,9 +649,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
-			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+			result = A.examine(src)
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
@@ -791,10 +793,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
