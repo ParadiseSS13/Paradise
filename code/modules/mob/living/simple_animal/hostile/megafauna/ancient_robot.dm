@@ -97,11 +97,11 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
-	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, TOP_RIGHT)
-	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, TOP_LEFT)
-	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_RIGHT)
-	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_LEFT)
-	beam = new /obj/effect/abstract(loc)
+	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(get_turf(src), src, TOP_RIGHT)
+	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(get_turf(src), src, TOP_LEFT)
+	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(get_turf(src), src, BOTTOM_RIGHT)
+	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(get_turf(src), src, BOTTOM_LEFT)
+	beam = new /obj/effect/abstract(get_turf(src))
 	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX, CRYO) //picks one of the 6 cores
 	switch(mode)
 		if(BLUESPACE)
