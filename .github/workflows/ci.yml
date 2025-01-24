@@ -99,20 +99,42 @@ jobs:
           tools/ci/generate_maplist.sh
           DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  station_mapload_tests:
+    name: Station Tests
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype:
-          [
-            '/datum/map/boxstation',
-            '/datum/map/deltastation',
-            '/datum/map/metastation',
-            '/datum/map/cerestation',
-            '/datum/map/emeraldstation',
-          ]
+        station:
+          ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        byondtype: ['STABLE', 'BETA']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Cache
+        uses: actions/cache@v4
+        with:
+          path: $HOME/BYOND
+          key: ${{ runner.os }}-byond
+      - name: Install RUST_G Deps
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install zlib1g-dev:i386
+          tools/ci/install_rustg.sh
+      - name: Compile & Run Unit Tests
+        run: |
+          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
+          source $HOME/BYOND/byond/bin/byondsetup
+          DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
+          tools/ci/run_server.sh
+
+  unit_tests_and_sql:
+    name: Unit Tests + SQL Validation
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
         byondtype: ['STABLE', 'BETA']
     services:
       mariadb:
@@ -144,8 +166,8 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DMULTIINSTANCE -DCIBUILDING paradise.dme
-          echo '${{ matrix.maptype }}' > data/next_map.txt
+          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
   windows_dll_tests:
