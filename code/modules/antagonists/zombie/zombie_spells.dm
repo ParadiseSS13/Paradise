@@ -1,6 +1,7 @@
 /datum/spell/zombie_claws
 	name = "Zombie Claws"
 	desc = "Toggle your claws, allowing you to slash and infect other people."
+	icon = 'icons/effects/vampire_effects.dmi'
 	action_icon_state = "vampire_claws"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -156,38 +157,114 @@
 	qdel(src)
 
 
+//wizard plague zombie claws
 /datum/spell/zombie_claws/plague_claws
+	name = "Plague Claws"
+	desc = "Toggle your claws, allowing you to slash and infect people with deadly diseases."
+	var/disease
 
+/datum/spell/zombie_claws/plague_claws/Initialize(mapload)
+	plague_claws.disease = pick_disease()
 
+/datum/spell/zombie_claws/plague_claws/cast(mob/user)
+	if(dispel())
+		return
 
-/obj/item/zombie_claw/plague_claw
+	var/obj/item/plague_claw/claws = new /obj/item/plague_claw(user.loc, src, plague_claws.disease)
+	if(user.put_in_hands(claws))
+		our_claws += claws
+	else
+		qdel(claws)
+		to_chat(user, "<span class='warning zombie'>We have no claws...</span>")
+
+/datum/spell/zombie_claws/plague_claws/dispel()
+	var/mob/living/carbon/human/user = action.owner
+	var/obj/item/plague_claw/claw = user.get_active_hand()
+	if(istype(claw, /obj/item/zombie_claw))
+		qdel(claw)
+		return TRUE
+
+/datum/spell/zombie_claws/plague_claws/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
+		return ..()
+
+//choose what disease this zombie will get
+/datum/spell/zombie_claws/plague_claws/proc/pick_disease()
+	var picked_disease
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
+	var/minor_length = length(minor_diseases)
+	var/major_length = length(major_diseases)
+	if (prob(66))
+		picked_disease = minor_diseases[rand(1, minor_length)]
+		return(picked_disease)
+	else
+		picked_disease = major_diseases[rand(1, major_length)]
+		return(picked_disease)
+
+/obj/item/plague_claw
+	name = "claws"
 	desc = "Ichor-coated claws extending from your rotting hands, perfect for ripping bone and flesh for your master."
-	armour_penetration_percentage = 20
-	force = 40
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "vamp_claws"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	armour_penetration_percentage = 25
+	force = 30
+	w_class = WEIGHT_CLASS_BULKY
+	flags = ABSTRACT | NODROP | DROPDEL
+	gender = PLURAL
+	attack_effect_override = ATTACK_EFFECT_CLAW
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("slashed", "sliced", "torn", "ripped", "mauled", "cut", "savaged", "clawed")
+	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
+	var/datum/spell/zombie_claws/plague_claws/parent_spell
+	var/claw_disease
 
-/obj/item/zombie_claw/plague_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters, disease)
+/obj/item/plague_claw/Initialize(mapload, new_parent_spell)
+	. = ..()
+	if(new_parent_spell)
+		parent_spell = new_parent_spell
+		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
+
+/obj/item/plague_claw/proc/dispel(mob/user)
+	if(user && user.get_active_hand() == src)
+		qdel(src)
+
+/obj/item/plague_claw/Destroy()
+	if(parent_spell)
+		UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		if(parent_spell)
+			parent_spell.our_claws -= src
+			parent_spell = null
+	return ..()
+
+/obj/item/plague_claw/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+
+/obj/item/plague_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters, claw_disease)
 	. = ..()
 	if(!proximity_flag)
 		return
 	if(!ishuman(atom_target) || ismachineperson(atom_target))
 		return
 	var/mob/living/carbon/human/target = atom_target
-	try_infect(target, user, disease)
+	try_virus_infect(target, user, claw_disease)
 
-/obj/item/zombie_claw/plague_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user, disease)
-	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
-		return
-	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
-		to_chat(user, "<span class='warning zombie'>Our infection cannot spread without their head or chest.</span>")
-		return
+/obj/item/plague_claw/proc/try_virus_infect(mob/living/carbon/human/target, mob/living/user)
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		return FALSE
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected) // Head, or Chest.
+	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.is_robotic())
-		return // We don't want people to be infected via zombie claws if they're augmented or have robotic limbs. Bites are handled differently.
+		return // We don't want people to be infected via plague claws if they're augmented or have robotic limbs.
 
 	// already have the disease, or have contracted it.
-	if(!target.HasDisease(disease))
+	if(!target.HasDisease(plague_claws.disease))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
-		target.bleed_rate = max(5, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
-		target.ContractDisease(disease)
+		target.bleed_rate = max(5, target.bleed_rate + 1) // Them claws sharp! Good luck with whatever they were laced with
+		target.ContractDisease(plague_claws.disease)
+
+/obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
+	. = ..()
+	qdel(src)

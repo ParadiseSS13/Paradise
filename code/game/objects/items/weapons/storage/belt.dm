@@ -702,7 +702,7 @@
 
 /obj/item/storage/belt/undeath_talisman/populate_contents()
 	for(var/count in 1 to storage_slots)
-		new /obj/item/undeath_talisman
+		new /obj/item/undeath_talisman(src)
 	update_icon()
 
 /obj/item/storage/belt/fannypack
