@@ -368,7 +368,7 @@
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 
-/obj/item/storage/belt/federation/webbing
+/obj/item/storage/belt/federation_webbing
 	name = "\improper Federation combat webbing"
 	desc = "A tactical chest rig used by soldiers and marines of the Trans-Solar Federation. It's covered in pouches and attachment points."
 	icon_state = "federationwebbing"
