@@ -73,7 +73,8 @@
 		streak += intent_to_streak(step)
 		var/mob/living/carbon/human/owner = locateUID(owner_UID)
 		if(istype(owner) && !QDELETED(owner))
-			owner.hud_used.combo_display.update_icon(ALL, streak)
+			if(owner.hud_used)
+				owner.hud_used.combo_display.update_icon(ALL, streak)
 			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
