@@ -72,6 +72,8 @@
 	// if they're our cordon turfs, accept them
 	possible_turfs -= cordon_turfs
 	for(var/turf/cordon_turf as anything in possible_turfs)
+		// if we changed this to check reservation turf instead of not unused, we could have overlapping cordons.
+		// Unfortunately, that means adding logic for cordons not being removed if they have multiple edges and I'm lazy
 		if(!(cordon_turf.turf_flags & UNUSED_RESERVATION_TURF))
 			return FALSE
 	cordon_turfs |= possible_turfs
@@ -150,6 +152,7 @@
 		SSmapping.unused_turfs["[T.z]"] -= T
 		SSmapping.used_turfs[T] = src
 		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
+		T.blocks_air = FALSE // Experimental atmos on this z-level
 		T.empty(turf_type)
 
 	bottom_left_turf = bottom_left

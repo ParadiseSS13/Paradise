@@ -386,6 +386,13 @@ SUBSYSTEM_DEF(mapping)
 	num_of_res_levels++
 	. = GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC))
 	initialize_reserved_level(.)
+	if(!initialized)
+		return
+	if(length(SSidlenpcpool.idle_mobs_by_zlevel) == . || !islist(SSidlenpcpool.idle_mobs_by_zlevel)) // arbitrary chosen from these lists that require the length of the z-levels
+		return
+	SSidlenpcpool.idle_mobs_by_zlevel.len = .
+	SSmobs.clients_by_zlevel.len = .
+	SSmobs.dead_players_by_zlevel.len = .
 
 ///Sets up a z level as reserved
 ///This is not for wiping reserved levels, use wipe_reservations() for that.
@@ -413,7 +420,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
-	var/list/unused_turfs = src.unused_turfs
+	var/list/list/turf/unused_turfs = src.unused_turfs
 	var/list/world_contents = GLOB.all_unique_areas[world.area].contents
 	// var/list/world_turf_contents_by_z = GLOB.all_unique_areas[world.area].turfs_by_zlevel
 	var/list/lists_to_reserve = src.lists_to_reserve
@@ -429,7 +436,8 @@ SUBSYSTEM_DEF(mapping)
 			var/turf/reserving_turf = packet[packetlen]
 			reserving_turf.empty(/turf/space)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
-			unused_turfs["[reserving_turf.z]"] |= reserving_turf
+			if(!(reserving_turf in unused_turfs["[reserving_turf.z]"]))
+				unused_turfs["[reserving_turf.z]"].Insert(1, reserving_turf)
 			// var/area/old_area = reserving_turf.loc
 			// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
 			// old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
