@@ -628,7 +628,7 @@ SLIME SCANNER
 
 /obj/item/analyzer/AltShiftClick(mob/user)
 	show_detailed = !show_detailed
-	to_chat(user, "<span class='notice'>You toggle detailed reporting [show_detailed ? "on" : "off"]")
+	to_chat(user, "<span class='notice'>You toggle detailed reporting [show_detailed ? "on" : "off"]</span>")
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
