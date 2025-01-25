@@ -16,20 +16,20 @@
 	/// The height of the reservation
 	var/height = 0
 
-	/// List of the bottom left turfs. Indexed by what their z index for this reservation is
-	var/list/bottom_left_turfs = list()
+	/// Bottom left turf of the reservation
+	var/turf/bottom_left_turf
 
-	/// List of the top right turfs. Indexed by what their z index for this reservation is
-	var/list/top_right_turfs = list()
+	/// Top right turf of the reservation
+	var/turf/top_right_turf
 
 	/// The turf type the reservation is initially made with
 	var/turf_type = /turf/space
 
 	/// Do we override baseturfs with turf_type?
-	var/turf_type_is_baseturf = TRUE
+	// var/turf_type_is_baseturf = TRUE
 
-	///Distance away from the cordon where we can put a "sort-cordon" and run some extra code (see make_repel). 0 makes nothing happen
-	var/pre_cordon_distance = 0
+	// ///Distance away from the cordon where we can put a "sort-cordon" and run some extra code (see make_repel). 0 makes nothing happen
+	// var/pre_cordon_distance = 0
 
 /datum/turf_reservation/New()
 	LAZYADD(SSmapping.turf_reservations, src)
@@ -40,8 +40,8 @@
 	return ..()
 
 /datum/turf_reservation/proc/Release()
-	bottom_left_turfs.Cut()
-	top_right_turfs.Cut()
+	bottom_left_turf = null
+	top_right_turf = null
 
 	var/list/reserved_copy = reserved_turfs.Copy()
 	SSmapping.used_turfs -= reserved_turfs
@@ -72,32 +72,32 @@
 	// if they're our cordon turfs, accept them
 	possible_turfs -= cordon_turfs
 	for(var/turf/cordon_turf as anything in possible_turfs)
-		if(!(cordon_turf.flags & UNUSED_RESERVATION_TURF))
+		if(!(cordon_turf.turf_flags & UNUSED_RESERVATION_TURF))
 			return FALSE
 	cordon_turfs |= possible_turfs
 
-	if(pre_cordon_distance)
-		var/turf/offset_turf = locate(bottom_left.x + pre_cordon_distance, bottom_left.y + pre_cordon_distance, bottom_left.z)
-		var/list/to_add = CORNER_OUTLINE(offset_turf, width - pre_cordon_distance * 2, height - pre_cordon_distance * 2) //we step-by-stop move inwards from the outer cordon
-		for(var/turf/turf_being_added as anything in to_add)
-			pre_cordon_turfs |= turf_being_added //add one by one so we can filter out duplicates
+	// if(pre_cordon_distance)
+	// 	var/turf/offset_turf = locate(bottom_left.x + pre_cordon_distance, bottom_left.y + pre_cordon_distance, bottom_left.z)
+	// 	var/list/to_add = CORNER_OUTLINE(offset_turf, width - pre_cordon_distance * 2, height - pre_cordon_distance * 2) //we step-by-stop move inwards from the outer cordon
+	// 	for(var/turf/turf_being_added as anything in to_add)
+	// 		pre_cordon_turfs |= turf_being_added //add one by one so we can filter out duplicates
 
 	return TRUE
 
 /// Actually generates the cordon around the reservation, and marking the cordon turfs as reserved
 /datum/turf_reservation/proc/generate_cordon()
 	for(var/turf/cordon_turf as anything in cordon_turfs)
-		// var/area/cordon/cordon_area = GLOB.all_unique_areas[/area/cordon] || new /area/cordon
+		var/area/cordon/cordon_area = GLOB.all_unique_areas[/area/cordon] || new /area/cordon
 		// var/area/old_area = cordon_turf.loc
 
 		// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, cordon_turf.z, list())
 		// LISTASSERTLEN(cordon_area.turfs_by_zlevel, cordon_turf.z, list())
 		// old_area.turfs_to_uncontain_by_zlevel[cordon_turf.z] += cordon_turf
 		// cordon_area.turfs_by_zlevel[cordon_turf.z] += cordon_turf
-		// cordon_area.contents += cordon_turf
+		cordon_area.contents += cordon_turf
 
 		// Its no longer unused, but its also not "used"
-		cordon_turf.flags &= ~UNUSED_RESERVATION_TURF
+		cordon_turf.turf_flags &= ~UNUSED_RESERVATION_TURF
 		cordon_turf.empty(/turf/cordon)
 		SSmapping.unused_turfs["[cordon_turf.z]"] -= cordon_turf
 		// still gets linked to us though
@@ -114,88 +114,84 @@
 	if(width > world.maxx || height > world.maxy || width < 1 || height < 1)
 		return FALSE
 	var/list/avail = SSmapping.unused_turfs["[zlevel]"]
-	var/turf/currently_inspecting_turf
-	var/turf/other_corner
+	var/turf/bottom_left
+	var/turf/top_right
 	var/list/turf/final_turfs = list()
 	var/passing = FALSE
 	for(var/i in avail)
 		CHECK_TICK
-		currently_inspecting_turf = i
-		if(!(currently_inspecting_turf.flags & UNUSED_RESERVATION_TURF))
+		bottom_left = i
+		if(!(bottom_left.turf_flags & UNUSED_RESERVATION_TURF))
 			continue
-		if(currently_inspecting_turf.x + width > world.maxx || currently_inspecting_turf.y + height > world.maxy)
+		if(bottom_left.x + width > world.maxx || bottom_left.y + height > world.maxy)
 			continue
-		other_corner = locate(currently_inspecting_turf.x + width - 1, currently_inspecting_turf.y + height - 1, currently_inspecting_turf.z)
-		if(!(other_corner.flags & UNUSED_RESERVATION_TURF))
+		top_right = locate(bottom_left.x + width - 1, bottom_left.y + height - 1, bottom_left.z)
+		if(!(top_right.turf_flags & UNUSED_RESERVATION_TURF))
 			continue
-		final_turfs = block(currently_inspecting_turf, other_corner)
+		final_turfs = block(bottom_left, top_right)
 		if(!final_turfs)
 			continue
 		passing = TRUE
 		for(var/I in final_turfs)
 			var/turf/checking = I
-			if(!(checking.flags & UNUSED_RESERVATION_TURF))
+			if(!(checking.turf_flags & UNUSED_RESERVATION_TURF))
 				passing = FALSE
 				break
 		if(passing) // found a potentially valid area, now try to calculate its cordon
-			passing = calculate_cordon_turfs(currently_inspecting_turf, other_corner)
+			passing = calculate_cordon_turfs(bottom_left, top_right)
 		if(!passing)
 			continue
 		break
-	if(!passing || !istype(currently_inspecting_turf) || !istype(other_corner))
+	if(!passing || !istype(bottom_left) || !istype(top_right))
 		return FALSE
 	for(var/i in final_turfs)
 		var/turf/T = i
 		reserved_turfs |= T
 		SSmapping.unused_turfs["[T.z]"] -= T
 		SSmapping.used_turfs[T] = src
-		T.flags = (T.flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
+		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
 		T.empty(turf_type)
 
-	bottom_left_turfs += currently_inspecting_turf
-	top_right_turfs += other_corner
+	bottom_left_turf = bottom_left
+	top_right_turf = top_right
 	return TRUE
 
 /datum/turf_reservation/proc/reserve(width, height, z_reservation)
 
-	var/failed_reservation = FALSE
 	if(!_reserve_area(width, height, z_reservation))
-		failed_reservation = TRUE
-		break
-
-	if(failed_reservation)
+		log_debug("Failed turf reservation: releasing")
 		Release()
 		return FALSE
 
+	log_debug("Turf reservation successful, generating cordon")
 	generate_cordon()
 	return TRUE
 
 /// Calculates the effective bounds information for the given turf. Returns a list of the information, or null if not applicable.
-/datum/turf_reservation/proc/calculate_turf_bounds_information(turf/target)
-	var/turf/bottom_left = bottom_left_turfs[z_idx]
-	var/turf/top_right = top_right_turfs[z_idx]
-	var/bl_x = bottom_left.x
-	var/bl_y = bottom_left.y
-	var/tr_x = top_right.x
-	var/tr_y = top_right.y
+// /datum/turf_reservation/proc/calculate_turf_bounds_information(turf/target)
+// 	var/turf/bottom_left = bottom_left_turfs[z_idx]
+// 	var/turf/top_right = top_right_turfs[z_idx]
+// 	var/bl_x = bottom_left.x
+// 	var/bl_y = bottom_left.y
+// 	var/tr_x = top_right.x
+// 	var/tr_y = top_right.y
 
-	if(target.x < bl_x)
-		continue
+// 	if(target.x < bl_x)
+// 		return
 
-	if(target.y < bl_y)
-		continue
+// 	if(target.y < bl_y)
+// 		return
 
-	if(target.x > tr_x)
-		continue
+// 	if(target.x > tr_x)
+// 		return
 
-	if(target.y > tr_y)
-		continue
+// 	if(target.y > tr_y)
+// 		return
 
-	var/list/return_information = list()
-	return_information["z_idx"] = z_idx
-	return_information["offset_x"] = target.x - bl_x
-	return_information["offset_y"] = target.y - bl_y
-	return return_information
+// 	var/list/return_information = list()
+// 	return_information["offset_x"] = target.x - bl_x
+// 	return_information["offset_y"] = target.y - bl_y
+// 	return return_information
 
 /// Schedules a group of turfs to be handed back to the reservation system's control
 /datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs)
