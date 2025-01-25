@@ -785,7 +785,7 @@ Difficulty: Hard
 	if(target.occupant)
 		if(friendly_fire_check && caster && caster.faction_check_mob(target.occupant))
 			return
-		to_chat(target.occupant, "<span class='userdanger'>Your [target.name] is struck by a [name]!</span>")
+		to_chat(target.occupant, "<span class='userdanger'>Your [target.name] is struck by \a [name]!</span>")
 	playsound(target, 'sound/weapons/sear.ogg', 50, TRUE, -4)
 	target.take_damage(damage, BURN, 0, 0)
 
