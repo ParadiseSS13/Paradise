@@ -170,8 +170,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	return "[name] ([english_list(rulesets + implied_and_used, nothing_text = "Extended")])"
 
 /proc/log_dynamic(text)
+	log_game("Dynamic: [text]")
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if(!istype(dynamic))
 		return
-	log_game("Dynamic: [text]")
 	dynamic.dynamic_log += text
