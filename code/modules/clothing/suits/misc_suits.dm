@@ -626,7 +626,7 @@
 
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
-	desc = "A high-tech ablative hood attached to an ablative trenchcoat. Dissipates energy attacks with ease, and has an integrated flashproof visor. Entirely ineffecitve against kinetic attacks."
+	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
 	icon_state = "ablativehood"
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags = BLOCKHAIR
@@ -637,8 +637,7 @@
 
 /obj/item/clothing/suit/hooded/ablative
 	name = "ablative trenchcoat"
-	desc = "A cutting-edge ablative armor system developed by Nanotrasen. Miniaturized shielding systems deflect incoming energy projectiles, while prototype heatsinks and dissipation materials blunt any energy weapon that makes impact. \
-		Unfortunately, if offers little to no protection against solid impacts."
+	desc = "Experimental trenchcoat specially crafted to reflect and absorb laser and disabler shots. Don't expect it to do all that much against an axe or a shotgun, however."
 	icon_state = "ablativecoat"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "ablativecoat"
