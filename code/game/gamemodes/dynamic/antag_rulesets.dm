@@ -186,7 +186,7 @@
 	banned_species_only = TRUE
 
 /datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
-	// log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
+	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE
