@@ -2914,6 +2914,7 @@
 #include "code\modules\surgery\robotics.dm"
 #include "code\modules\surgery\surgery.dm"
 #include "code\modules\surgery\surgery_helpers.dm"
+#include "code\modules\surgery\tending.dm"
 #include "code\modules\surgery\tools.dm"
 #include "code\modules\surgery\organs\augments_arms.dm"
 #include "code\modules\surgery\organs\augments_eyes.dm"

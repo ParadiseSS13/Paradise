@@ -49,6 +49,14 @@
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 
+/**
+ * Create a new surgery.
+ *
+ * Arguments:
+ * * surgery_target - The atom the target is being performed on.
+ * * surgery_location - The body zone that the surgery is being performed on.
+ * * surgery_bodypart - The body part that the surgery is being performed on.
+ */
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
