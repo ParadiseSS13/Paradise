@@ -146,13 +146,11 @@
 		break
 	if(!passing || !istype(bottom_left) || !istype(top_right))
 		return FALSE
-	for(var/i in final_turfs)
-		var/turf/T = i
+	for(var/turf/T as anything in final_turfs)
 		reserved_turfs |= T
 		SSmapping.unused_turfs["[T.z]"] -= T
 		SSmapping.used_turfs[T] = src
 		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
-		T.blocks_air = FALSE // Experimental atmos on this z-level
 		T.empty(turf_type)
 
 	bottom_left_turf = bottom_left
@@ -170,6 +168,6 @@
 	generate_cordon()
 	return TRUE
 
-/// Schedules a group of turfs to be handed back to the reservation system's control
-/datum/controller/subsystem/mapping/proc/unreserve_turfs(list/turfs)
-	lists_to_reserve += list(turfs)
+// /datum/turf_reservation/proc/post_load()
+// 	for(var/turf/T as anything in reserved_turfs)
+// 		T.blocks_air = initial(T.blocks_air) // Experimental atmos on this z-level
