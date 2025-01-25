@@ -37,7 +37,7 @@ export const EFTPOS = (props, context) => {
 
 const LockedView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { transaction_amount, transaction_paid } = data;
+  const { transaction_amount, transaction_paid, can_offer } = data;
   return (
     <>
       <Box
@@ -56,6 +56,12 @@ const LockedView = (props, context) => {
           ? 'This transaction has been processed successfully '
           : 'Swipe your card to finish this transaction.'}
       </Box>
+      {(can_offer && (
+        <Box mt={0.5} fontSize="1.25rem" align="center" justify="center">
+          <Button content="Request Payment" icon="credit-card" onClick={() => act('offer')} />
+        </Box>
+      )) ||
+        ''}
     </>
   );
 };
@@ -63,7 +69,7 @@ const LockedView = (props, context) => {
 const UnlockedView = (props, context) => {
   const { act, data } = useBackend(context);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const { transaction_purpose, transaction_amount, linked_account, available_accounts } = data;
+  const { transaction_purpose, transaction_amount, linked_account, available_accounts, can_offer } = data;
 
   let accountMap = [];
   available_accounts.map((account) => (accountMap[account.name] = account.UID));

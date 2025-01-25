@@ -135,7 +135,7 @@
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
-	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	mask_type = /obj/item/clothing/mask/gas/sechailer/swat/hos
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
