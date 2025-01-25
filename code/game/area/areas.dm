@@ -311,11 +311,7 @@
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
 		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
-		
 
-
-
-			
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
