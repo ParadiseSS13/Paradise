@@ -203,7 +203,7 @@ GLOBAL_VAR(bomb_set)
 			if(core)
 				STOP_PROCESSING(SSobj, core)
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = used
 		if(S.get_amount() < sheets_to_fix)
@@ -226,7 +226,8 @@ GLOBAL_VAR(bomb_set)
 			used.forceMove(src)
 			core = used
 			update_icon(UPDATE_OVERLAYS)
-			return ITEM_INTERACT_COMPLETE
+
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
