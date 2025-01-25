@@ -107,8 +107,8 @@
 	else
 		new_color[4] = 255
 
-	for (var/row_index in 1 to length(matrix) / row_length)
-		for (var/row_elem in 1 to row_length)
+	for(var/row_index in 1 to length(matrix) / row_length)
+		for(var/row_elem in 1 to row_length)
 			var/elem = matrix[(row_index - 1) * row_length + row_elem]
 			if(!has_constants || row_index != (length(matrix) / row_length))
 				new_color[row_index] += color[row_elem] * elem
