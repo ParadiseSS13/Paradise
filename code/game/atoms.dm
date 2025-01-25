@@ -1449,7 +1449,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 ///Returns the src and all recursive contents as a list.
-/atom/proc/get_all_contents(ignore_flag_1)
+/atom/proc/get_all_contents()
 	. = list(src)
 	var/i = 0
 	while(i < length(.))
