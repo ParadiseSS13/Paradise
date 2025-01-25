@@ -24,7 +24,6 @@
 
 /datum/surgery/heal
 	abstract = TRUE  // don't need this popping up
-	ignore_clothes = FALSE  // needs to be some kind of drawback
 	requires_organic_bodypart = TRUE
 	/// A subtype of /datum/surgery_step/heal that this will invoke.
 	var/healing_step_type
@@ -62,6 +61,8 @@
 
 	// no sounds, since it would quickly get annoying
 
+	var/shown_starting_message_already = FALSE
+
 	COOLDOWN_DECLARE(success_message_spam_cooldown)
 
 	var/damage_name_pretty = "wounds"
@@ -97,11 +98,13 @@
 
 /datum/surgery_step/heal/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
-		"[user] starts to patch some of the [damage_name_pretty] on [target]'s [affected.name] with [tool].",
-		"You start to patch some of the [damage_name_pretty] on [target]'s [affected.name] with [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
-	)
+	if(!shown_starting_message_already)
+		shown_starting_message_already = TRUE
+		user.visible_message(
+			"[user] starts to patch some of the [damage_name_pretty] on [target]'s [affected.name] with [tool].",
+			"You start to patch some of the [damage_name_pretty] on [target]'s [affected.name] with [tool].",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 
 	return ..()
@@ -186,7 +189,7 @@
 	brute_damage_healmod = 0.07
 
 /datum/surgery_step/heal/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
-x	if(!brute_healed)
+	if(!brute_healed)
 		return
 
 	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
