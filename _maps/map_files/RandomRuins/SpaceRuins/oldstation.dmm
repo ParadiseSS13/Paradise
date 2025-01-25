@@ -383,10 +383,6 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/yellow,
-/obj/item/stack/cable_coil/yellow{
-	pixel_x = 2;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -841,14 +837,20 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating/airless,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/space/nearstation)
 "cD" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating/airless,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/space/nearstation)
 "cE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1085,7 +1087,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/space/nearstation)
 "dq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1293,15 +1297,6 @@
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/ancientstation/betanorth)
-"dT" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/space/nearstation)
 "dU" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1961,7 +1956,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/item/stack/cable_coil/yellow,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "fK" = (
@@ -2046,6 +2040,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "fT" = (
@@ -2605,6 +2600,7 @@
 "ho" = (
 /obj/structure/cable/yellow,
 /obj/structure/lattice/catwalk,
+/obj/machinery/power/tracker,
 /turf/template_noop,
 /area/space/nearstation)
 "hp" = (
@@ -2709,11 +2705,6 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/ancientstation/kitchen)
-"hA" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/power/solar,
-/turf/template_noop,
-/area/space/nearstation)
 "hB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2795,6 +2786,11 @@
 /area/ruin/ancientstation/kitchen)
 "hJ" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "hK" = (
@@ -3826,6 +3822,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kO" = (
@@ -4356,20 +4353,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
-"nn" = (
-/obj/structure/closet/crate/engineering/electrical,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass{
-	amount = 30
-	},
-/obj/item/tracker_electronics,
-/obj/item/paper/solar,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "nw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4443,11 +4426,13 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -4708,6 +4693,7 @@
 	dir = 10
 	},
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "rG" = (
@@ -4878,6 +4864,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
+"tI" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "tL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5297,6 +5292,20 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/ancientstation/kitchen)
+"zC" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "zJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5370,6 +5379,20 @@
 	icon_state = "brownfull"
 	},
 /area/ruin/ancientstation/comm)
+"AI" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "AM" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -5601,6 +5624,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
+"Cz" = (
+/obj/structure/lattice,
+/obj/structure/closet/crate/engineering/electrical,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/stack/sheet/glass{
+	amount = 30
+	},
+/obj/item/paper/solar,
+/turf/template_noop,
+/area/space/nearstation)
 "CA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -5665,6 +5702,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"Di" = (
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
 "Dl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -5705,6 +5751,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
+"Eb" = (
+/obj/structure/lattice,
+/obj/machinery/power/solar,
+/turf/template_noop,
+/area/space/nearstation)
 "Eg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5958,6 +6009,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "HQ" = (
@@ -6002,6 +6058,10 @@
 "Im" = (
 /obj/structure/lattice/catwalk,
 /obj/item/solar_assembly,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "Iu" = (
@@ -6181,6 +6241,15 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"KA" = (
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space/nearstation)
 "KC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6314,6 +6383,20 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"LO" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "LR" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
@@ -6420,15 +6503,6 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/ruin/ancientstation/atmo)
-"NW" = (
-/obj/structure/closet/crate/engineering/electrical,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "Oc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6459,6 +6533,25 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"Os" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/space/nearstation)
 "OB" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /obj/machinery/door/window/reinforced/normal{
@@ -6558,7 +6651,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
 /area/space/nearstation)
 "PF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6584,6 +6679,11 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -7095,6 +7195,9 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "VC" = (
@@ -7944,7 +8047,7 @@ eJ
 aa
 aa
 uQ
-eO
+uQ
 aa
 aa
 aa
@@ -8273,13 +8376,13 @@ aa
 mB
 aa
 aa
-ae
-ae
-ae
-uQ
-ae
-ae
-ae
+KA
+KA
+KA
+eO
+KA
+KA
+KA
 uQ
 aa
 aa
@@ -8319,14 +8422,14 @@ kt
 rQ
 Bk
 HO
+rQ
+Bk
+AI
+AI
 hJ
-hJ
-hJ
-hJ
-hJ
-Im
-hJ
-hJ
+Bk
+AI
+AI
 hJ
 uQ
 aa
@@ -8369,13 +8472,13 @@ aa
 mB
 aa
 aa
-ae
-NW
-ae
+KA
+KA
+KA
 uQ
-ae
-ae
-ae
+KA
+KA
+KA
 uQ
 uQ
 aa
@@ -8412,18 +8515,18 @@ uQ
 vn
 Lz
 qv
-dT
-dT
-PG
-hJ
-hJ
-hJ
-hJ
-hJ
-hJ
-hJ
-Im
+rQ
 Bk
+PG
+rQ
+Bk
+Os
+Os
+LO
+Bk
+Os
+Os
+Os
 ho
 uQ
 aa
@@ -8465,13 +8568,13 @@ aa
 mB
 aa
 aa
-ae
-nn
-ae
-uQ
-ae
-ae
-ae
+Di
+Di
+Di
+Cz
+Di
+Di
+Di
 uQ
 uQ
 aa
@@ -8511,15 +8614,15 @@ Fg
 rQ
 Bk
 HO
-hJ
-hJ
-hA
-hJ
-hJ
+rQ
+Bk
+zC
+zC
+tI
 Im
-hJ
-hJ
-hJ
+zC
+zC
+tI
 uQ
 aa
 aa
@@ -8561,13 +8664,13 @@ aa
 mB
 aa
 aa
-ae
-ae
-ae
+Di
+Di
+Di
 uQ
-ae
-ae
-ae
+Di
+Di
+Di
 uQ
 aa
 aa
@@ -8611,7 +8714,7 @@ aa
 aa
 aa
 aa
-uQ
+Eb
 aa
 aa
 aa
