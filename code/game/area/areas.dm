@@ -301,16 +301,21 @@
 			continue
 
 		// At this point, the area is safe and the door is technically functional.
+		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created. Emagged doors are permanently disabled from automatically closing, or being operated by alarms altogether apart from the lights.
+		if(!D.emagged)
+			if(opening)
+				D.autoclose = FALSE
+			else
+				D.autoclose = TRUE
 
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
 		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
 		
-		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created.
-		if(opening)
-			D.autoclose = FALSE
-		else
-			D.autoclose = TRUE
+
+
+
+			
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
