@@ -1,7 +1,6 @@
 /datum/spell/zombie_claws
 	name = "Zombie Claws"
 	desc = "Toggle your claws, allowing you to slash and infect other people."
-	icon = 'icons/effects/vampire_effects.dmi'
 	action_icon_state = "vampire_claws"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -163,14 +162,11 @@
 	desc = "Toggle your claws, allowing you to slash and infect people with deadly diseases."
 	var/disease
 
-/datum/spell/zombie_claws/plague_claws/Initialize(mapload)
-	plague_claws.disease = pick_disease()
-
 /datum/spell/zombie_claws/plague_claws/cast(mob/user)
 	if(dispel())
 		return
 
-	var/obj/item/plague_claw/claws = new /obj/item/plague_claw(user.loc, src, plague_claws.disease)
+	var/obj/item/plague_claw/claws = new /obj/item/plague_claw(user.loc, src, disease)
 	if(user.put_in_hands(claws))
 		our_claws += claws
 	else
@@ -188,20 +184,6 @@
 	var/mob/living/L = user
 	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
 		return ..()
-
-//choose what disease this zombie will get
-/datum/spell/zombie_claws/plague_claws/proc/pick_disease()
-	var picked_disease
-	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
-	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
-	var/minor_length = length(minor_diseases)
-	var/major_length = length(major_diseases)
-	if (prob(66))
-		picked_disease = minor_diseases[rand(1, minor_length)]
-		return(picked_disease)
-	else
-		picked_disease = major_diseases[rand(1, major_length)]
-		return(picked_disease)
 
 /obj/item/plague_claw
 	name = "claws"
@@ -222,11 +204,16 @@
 	var/datum/spell/zombie_claws/plague_claws/parent_spell
 	var/claw_disease
 
-/obj/item/plague_claw/Initialize(mapload, new_parent_spell)
+/obj/item/plague_claw/Initialize(mapload, new_parent_spell, disease)
 	. = ..()
 	if(new_parent_spell)
 		parent_spell = new_parent_spell
 		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
+	claw_disease = disease
+	if (claw_disease)
+		to_chat(world, "Successfully given the claws the disease: [disease]")
+	else
+		to_chat(world, "No disease detected in the claws")
 
 /obj/item/plague_claw/proc/dispel(mob/user)
 	if(user && user.get_active_hand() == src)
@@ -260,10 +247,10 @@
 		return // We don't want people to be infected via plague claws if they're augmented or have robotic limbs.
 
 	// already have the disease, or have contracted it.
-	if(!target.HasDisease(plague_claws.disease))
+	if(!target.HasDisease(claw_disease))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 		target.bleed_rate = max(5, target.bleed_rate + 1) // Them claws sharp! Good luck with whatever they were laced with
-		target.ContractDisease(plague_claws.disease)
+		target.ContractDisease(claw_disease)
 
 /obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
 	. = ..()

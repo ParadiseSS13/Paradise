@@ -886,7 +886,22 @@ GLOBAL_LIST_EMPTY(multiverse)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
 
 	victim.AddSpell(new /datum/spell/zombie_claws/plague_claws)
+	plague_claws.disease = pick_disease()
 	victim.AddComponent(/datum/component/zombie_regen)
+
+//choose what disease this zombie will get
+/obj/item/undeath_talisman/proc/pick_disease()
+	var picked_disease
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
+	var/minor_length = length(minor_diseases)
+	var/major_length = length(major_diseases)
+	if (prob(66))
+		picked_disease = minor_diseases[rand(1, minor_length)]
+		return(picked_disease)
+	else
+		picked_disease = major_diseases[rand(1, major_length)]
+		return(picked_disease)
 
 	//time to rot
 	if(!istype(victim))
