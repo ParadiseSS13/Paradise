@@ -49,14 +49,14 @@
 //PACS related code
 
 /proc/color_transition_filter(new_color, saturation_behavior = SATURATION_MULTIPLY)
-	if (islist(new_color))
+	if(islist(new_color))
 		new_color = rgb(new_color[1], new_color[2], new_color[3])
 	new_color = rgb2num(new_color, COLORSPACE_HSL)
 	var/hue = new_color[1] / 360
 	var/saturation = new_color[2] / 100
 	var/added_saturation = 0
 	var/deducted_light = 0
-	if (saturation_behavior == SATURATION_OVERRIDE)
+	if(saturation_behavior == SATURATION_OVERRIDE)
 		added_saturation = saturation * 0.75
 		deducted_light = saturation * 0.5
 		saturation = min(saturation, 1 - added_saturation)
@@ -72,11 +72,11 @@
 
 /// Applies a color filter to a hex/RGB list color
 /proc/apply_matrix_to_color(color, list/matrix, colorspace = COLORSPACE_HSL)
-	if (islist(color))
+	if(islist(color))
 		color = rgb(color[1], color[2], color[3], color[4])
 	color = rgb2num(color, colorspace)
 	// Pad alpha if we're lacking it
-	if (length(color) < 4)
+	if(length(color) < 4)
 		color += 255
 
 	// Do we have a constants row?
@@ -84,17 +84,17 @@
 	// Do we have an alpha row/parameters?
 	var/has_alpha = FALSE
 
-	switch (length(matrix))
-		if (9)
+	switch(length(matrix))
+		if(9)
 			has_constants = FALSE
 			has_alpha = FALSE
-		if (12)
+		if(12)
 			has_constants = TRUE
 			has_alpha = FALSE
-		if (16)
+		if(16)
 			has_constants = FALSE
 			has_alpha = TRUE
-		if (20)
+		if(20)
 			has_constants = TRUE
 			has_alpha = TRUE
 		else
@@ -102,7 +102,7 @@
 
 	var/list/new_color = list(0, 0, 0, 0)
 	var/row_length = 3
-	if (has_alpha)
+	if(has_alpha)
 		row_length = 4
 	else
 		new_color[4] = 255
@@ -110,26 +110,26 @@
 	for (var/row_index in 1 to length(matrix) / row_length)
 		for (var/row_elem in 1 to row_length)
 			var/elem = matrix[(row_index - 1) * row_length + row_elem]
-			if (!has_constants || row_index != (length(matrix) / row_length))
+			if(!has_constants || row_index != (length(matrix) / row_length))
 				new_color[row_index] += color[row_elem] * elem
 				continue
 
 			// Constant values at the end of the list (if we have such)
-			if (colorspace != COLORSPACE_HSV && colorspace != COLORSPACE_HCY && colorspace != COLORSPACE_HSL)
+			if(colorspace != COLORSPACE_HSV && colorspace != COLORSPACE_HCY && colorspace != COLORSPACE_HSL)
 				new_color[row_elem] += elem * 255
 				continue
 
 			// HSV/HSL/HCY have non-255 maximums for their values
 			var/multiplier = 255
-			switch (row_elem)
+			switch(row_elem)
 				// Hue goes from 0 to 360
-				if (1)
+				if(1)
 					multiplier = 360
 				// Value, luminance, chroma, etc go from 0 to 100
-				if (2 to 3)
+				if(2 to 3)
 					multiplier = 100
 					// Alpha still goes from 0 to 255
-				if (4)
+				if(4)
 					multiplier = 255
 			new_color[row_elem] += elem * multiplier
 
