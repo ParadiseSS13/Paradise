@@ -4,6 +4,24 @@
 
 #define HEALING_STEP "healing_step"
 
+// Since these both share surgery steps, we can only realistically expose one
+/datum/surgery_step/proxy/open_organ/extra
+	/// Other surgeries to fire off next.
+	var/list/other_surgeries
+
+/datum/surgery_step/proxy/open_organ/extra/New()
+	for(var/healing_step_type in other_surgeries)
+		if(!ispath(healing_step_type))
+			CRASH("open_organ was given an additional option that was not a type path: [healing_step_type]")
+		branches |= healing_step_type
+	return ..()
+
+/datum/surgery_step/proxy/open_organ/extra/brute
+	other_surgeries = list(/datum/surgery/intermediate/heal/brute)
+
+/datum/surgery_step/proxy/open_organ/extra/burn
+	other_surgeries = list(/datum/surgery/intermediate/heal/burn)
+
 /datum/surgery/heal
 	abstract = TRUE  // don't need this popping up
 	ignore_clothes = FALSE  // needs to be some kind of drawback
@@ -21,7 +39,7 @@
 
 /datum/surgery/heal/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
-	if(ispath(healing_step_type, /datum/surgery_step/heal))
+	if(ispath(healing_step_type))
 		steps = list(
 			/datum/surgery_step/generic/cut_open,
 			/datum/surgery_step/generic/clamp_bleeders,
@@ -35,8 +53,7 @@
 
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
-		TOOL_SCREWDRIVER = 65,
-		TOOL_WIRECUTTER = 60,
+		TOOL_WIRECUTTER = 65,
 		/obj/item/pen = 55
 	)
 
@@ -62,14 +79,15 @@
 /datum/surgery_step/heal/proc/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	return
 
-/datum/surgery_step/heal/proc/get_damage_amount(obj/item/organ/external/O)
-	return O.brute_dam
-
 /datum/surgery_step/heal/proc/can_be_healed(mob/living/user, mob/living/carbon/target, target_zone)
+	if(brute_damage_healed == 0 && burn_damage_healed == 0)
+		stack_trace("A healing surgery was given no healing values.")
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected.is_broken())
 		return FALSE
-	return get_damage_amount(affected) > 0
+
+	return (brute_damage_healed && target.get_damage_amount(BRUTE) || burn_damage_healed && target.get_damage_amount(BURN))
 
 /datum/surgery_step/heal/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!can_be_healed(user, target, target_zone))
@@ -149,13 +167,13 @@
 	name = "Tend Wounds"
 	desc = "Tend a patient's wounds, gradually treating their brute damage."
 	abstract = FALSE
-	healing_step_type = /datum/surgery_step/heal/brute
+	healing_step_type = /datum/surgery_step/proxy/open_organ/extra/brute
 
 /datum/surgery/heal/burns
 	name = "Treat Burns"
 	desc = "Tend a patient's burns, gradually treating their burn damage."
 	abstract = FALSE
-	healing_step_type = /datum/surgery_step/heal/burn
+	healing_step_type = /datum/surgery_step/proxy/open_organ/extra/burn
 
 
 /********************BRUTE STEPS********************/
@@ -168,7 +186,7 @@
 	brute_damage_healmod = 0.07
 
 /datum/surgery_step/heal/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
-	if(!brute_healed)
+x	if(!brute_healed)
 		return
 
 	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
@@ -198,8 +216,8 @@
 /datum/surgery_step/heal/burn
 	name = "treat burns"
 	damage_name_pretty = "burns"
-	brute_damage_healed = 5
-	brute_damage_healmod = 0.07
+	burn_damage_healed = 5
+	burn_damage_healmod = 0.07
 
 /********************BURN STEPS********************/
 /datum/surgery_step/heal/burn/get_progress(mob/living/user, mob/living/carbon/target, brute_healed, burn_healed)
@@ -228,3 +246,45 @@
 				progress_text = ", though you feel like you're barely making a dent in treating [target.p_their()] charred body"
 
 	return progress_text
+
+
+// Intermediate versions of the above surgeries
+
+
+/datum/surgery/intermediate/heal
+	possible_locs = list(BODY_ZONE_CHEST)
+
+/datum/surgery/intermediate/heal/brute
+	name = "Tend Wounds (abstract)"
+	desc = "An intermediate surgery to tend to a patient's wounds while they're undergoing another procedure."
+	steps = list(
+		/datum/surgery_step/heal/brute
+	)
+
+
+/datum/surgery/intermediate/heal/brute/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return
+	if(target.getBruteLoss() == 0)
+		to_chat(user, "<span class='warning'>[target] doesn't even have a bruise on [target.p_them()], there's nothing to treat.</span>")
+		return FALSE
+	return TRUE
+	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
+	// It's alright for intermediate surgeries, though, since they never get listed out
+
+/datum/surgery/intermediate/heal/burn
+	name = "Treat Burns (abstract)"
+	desc = "An intermediate surgery to tend to a patient's burns while they're undergoing another procedure."
+	steps = list(
+		/datum/surgery_step/heal/burn
+	)
+
+/datum/surgery/intermediate/heal/burn/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return
+	if(target.getFireLoss() == 0)
+		to_chat(user, "<span class='warning'>[target] doesn't even have a blister on [target.p_them()], there's nothing to treat.</span>")
+		return FALSE
+	return TRUE
