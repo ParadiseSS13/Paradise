@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING // 9
-	flags = SS_NO_FIRE
+
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round
@@ -30,6 +30,15 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/ruin_placer/space/space_ruins_placer
 	/// Ruin placement manager for lavaland levels.
 	var/datum/ruin_placer/lavaland/lavaland_ruins_placer
+
+	var/num_of_res_levels = 0
+	var/clearing_reserved_turfs = FALSE
+	var/list/datum/turf_reservations //list of turf reservations
+
+	var/list/turf/unused_turfs = list() //Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/used_turfs = list() //list of turf = datum/turf_reservation
+	/// List of lists of turfs to reserve
+	var/list/lists_to_reserve = list()
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -109,6 +118,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
+	// Add a reserved z-level
+	add_reservation_zlevel()
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
@@ -347,3 +358,83 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
+
+/datum/controller/subsystem/mapping/proc/get_reservation_from_turf(turf/T)
+	RETURN_TYPE(/datum/turf_reservation)
+	return used_turfs[T]
+
+/// Requests a /datum/turf_reservation based on the given width, height.
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height)
+	UNTIL(!clearing_reserved_turfs)
+	var/datum/turf_reservation/reserve = new /datum/turf_reservation
+	for(var/i in levels_by_trait(Z_FLAG_RESERVED))
+		if(reserve.reserve(width, height, i))
+			return reserve
+	//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
+	var/datum/space_level/newReserved = add_reservation_zlevel()
+	initialize_reserved_level(newReserved.zpos)
+	if(reserve.reserve(width, height, newReserved.zpos))
+		return reserve
+	qdel(reserve)
+
+/datum/controller/subsystem/mapping/proc/add_reservation_zlevel()
+	num_of_res_levels++
+	return GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC))
+
+///Sets up a z level as reserved
+///This is not for wiping reserved levels, use wipe_reservations() for that.
+///If this is called after SSatom init, it will call Initialize on all turfs on the passed z, as its name promises
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
+	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
+	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
+	if(!check_level_trait(z, Z_FLAG_RESERVED))
+		clearing_reserved_turfs = FALSE
+		CRASH("Invalid z level prepared for reservations.")
+	var/block = block(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z)
+	for(var/turf/T as anything in block)
+		// No need to empty() these, because they just got created and are already /turf/open/space/basic.
+		T.flags |= UNUSED_RESERVATION_TURF
+		T.blocks_air = TRUE
+		CHECK_TICK
+
+	// Gotta create these suckers if we've not done so already
+	if(SSatoms.initialized)
+		SSatoms.InitializeAtoms(block(1, 1, world.maxx, world.maxy, z))
+
+	unused_turfs["[z]"] = block
+	clearing_reserved_turfs = FALSE
+
+/datum/controller/subsystem/mapping/fire(resumed)
+	// Cache for sonic speed
+	var/list/unused_turfs = src.unused_turfs
+	var/list/world_contents = GLOB.all_unique_areas[world.area].contents
+	// var/list/world_turf_contents_by_z = GLOB.all_unique_areas[world.area].turfs_by_zlevel
+	var/list/lists_to_reserve = src.lists_to_reserve
+	var/index = 0
+	while(index < length(lists_to_reserve))
+		var/list/packet = lists_to_reserve[index + 1]
+		var/packetlen = length(packet)
+		while(packetlen)
+			if(MC_TICK_CHECK)
+				if(index)
+					lists_to_reserve.Cut(1, index)
+				return
+			var/turf/reserving_turf = packet[packetlen]
+			reserving_turf.empty(/turf/space)
+			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
+			unused_turfs["[reserving_turf.z]"] |= reserving_turf
+			var/area/old_area = reserving_turf.loc
+			// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
+			// old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
+			reserving_turf.flags = UNUSED_RESERVATION_TURF
+			// reservation turfs are not allowed to interact with atmos at all
+			reserving_turf.blocks_air = TRUE
+
+			world_contents += reserving_turf
+			// LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
+			// world_turf_contents_by_z[reserving_turf.z] += reserving_turf
+			packet.len--
+			packetlen = length(packet)
+
+		index++
+	lists_to_reserve.Cut(1, index)
