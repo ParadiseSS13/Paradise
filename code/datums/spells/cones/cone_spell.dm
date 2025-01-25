@@ -1,6 +1,5 @@
 /datum/spell/cone
 
-
 /datum/spell/cone/create_new_targeting()
 	return new /datum/spell_targeting/cone
 
