@@ -758,7 +758,7 @@ Difficulty: Hard
 
 	target.flash_screen_color("#660099", 1)
 	playsound(target,'sound/weapons/sear.ogg', 50, TRUE, -4)
-	to_chat(target, "<span class='userdanger'>You're struck by a [name]!</span>")
+	to_chat(target, "<span class='userdanger'>You're struck by \a [name]!</span>")
 	var/limb_to_hit = target.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	var/armor = target.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
 	target.apply_damage(damage, BURN, limb_to_hit, armor)
