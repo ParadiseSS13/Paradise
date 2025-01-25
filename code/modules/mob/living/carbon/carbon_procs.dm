@@ -1375,3 +1375,33 @@ so that different stomachs can handle things in different ways VB*/
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
 	return get_organ_slot("breathing_tube")
+
+/mob/living/carbon/proc/lazrevival(mob/living/carbon/M)
+	if(M.get_ghost()) // ghosted after the timer expires.
+		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
+		return
+
+	// If the ghost has re-entered the body, perform the revival!
+	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
+	M.adjustCloneLoss(50)
+	M.setOxyLoss(0)
+	M.adjustBruteLoss(rand(0, 15))
+	M.adjustToxLoss(rand(0, 15))
+	M.adjustFireLoss(rand(0, 15))
+	M.do_jitter_animation(200)
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/necrosis_prob = 15 * H.decaylevel
+		H.decaylevel = 0
+		for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+			if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
+				O.necrotize(FALSE)
+				if(O.status & ORGAN_DEAD)
+					O.germ_level = INFECTION_LEVEL_THREE
+		H.update_body()
+
+	M.grab_ghost()
+	M.update_revive()
+	add_attack_logs(M, M, "Revived with Lazarus Reagent")
+	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
