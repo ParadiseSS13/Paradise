@@ -250,3 +250,15 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+
+	// Bloopers
+
+
+
+	var/sound/blooper
+	var/blooper_id
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = 4
+	var/blooper_volume = 50
+	var/blooper_current_blooper // antispam, will be used in a check

@@ -690,6 +690,11 @@
 					if(new_height in GLOB.character_heights)
 						active_character.height = new_height
 
+				if("blooper_id")
+					var/new_blooperid = tgui_input_list(user, "Choose your voice!", "Character Preference", GLOB.blooper_list)
+					if(new_blooperid in GLOB.blooper_list)
+						active_character.blooper_id = new_blooperid
+
 				if("flavor_text")
 					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 					if(isnull(msg))

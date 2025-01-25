@@ -56,12 +56,18 @@
 #define DNA_UI_HACC_STYLE	41
 #define DNA_UI_BACC_STYLE	42
 #define DNA_UI_HAIR_GRADIENT_STYLE	43
-#define DNA_UI_HEAD_MARK_STYLE	44
-#define DNA_UI_BODY_MARK_STYLE	45
-#define DNA_UI_TAIL_MARK_STYLE	46
-#define DNA_UI_PHYSIQUE		47
-#define DNA_UI_HEIGHT		48
-#define DNA_UI_LENGTH		49 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HEAD_MARK_STYLE		44
+#define DNA_UI_BODY_MARK_STYLE		45
+#define DNA_UI_TAIL_MARK_STYLE		46
+#define DNA_UI_PHYSIQUE				47
+#define DNA_UI_HEIGHT				48
+#define DNA_UI_BLOOPER_ID			49
+#define DNA_UI_BLOOPER_PITCH		50
+#define DNA_UI_BLOOPER_SPEED		51
+#define DNA_UI_BLOOPER_PITCH_RANGE	52
+
+
+#define DNA_UI_LENGTH		53 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 

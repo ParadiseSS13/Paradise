@@ -90,3 +90,10 @@ GLOBAL_LIST_INIT(pda_ringtone_choices, list("beep" = 'sound/machines/twobeep.ogg
 								"zap" = 'sound/effects/eleczap.ogg',
 								"disgusting" = 'sound/effects/blobattack.ogg',
 								"hungry" = 'sound/weapons/bite.ogg'))
+
+
+// Code for bloopers
+
+GLOBAL_LIST_EMPTY(blooper_list)
+GLOBAL_LIST_EMPTY(blooper_random_list)
+GLOBAL_VAR_INIT(blooper_allowed, TRUE) // For administrators

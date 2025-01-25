@@ -108,6 +108,20 @@
 			if(SP.speaking && SP.speaking.flags & INNATE)
 				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
+	if(client.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS)
+		if(ishuman(speaker))
+			var/mob/living/carbon/human/bloop_source = speaker
+			if(bloop_source.blooper_id || bloop_source.blooper)
+				var/bloopers = min(round((LAZYLEN(message) / bloop_source.blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS)
+				var/total_delay
+				bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
+				for(var/i in 1 to bloopers)
+					if(total_delay > BLOOPER_MAX_TIME)
+						break
+					addtimer(CALLBACK(src, PROC_REF(do_blooper), bloop_source, bloop_source.blooper_volume, BLOOPER_DO_VARY(bloop_source.blooper_pitch, bloop_source.blooper_pitch_range), blooper_current_blooper), total_delay)
+					total_delay += rand(DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
+
+
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
@@ -126,6 +140,7 @@
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
+
 
 
 /mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
@@ -213,3 +228,32 @@
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)
+
+// Bloopers
+/mob/proc/bp_bloop(bloopsound)
+	blooper = sound(bloopsound)
+
+/mob/proc/set_blooper_id(id)
+	if(!id)
+		return FALSE
+	var/datum/blooper/B = GLOB.blooper_list[id]
+	if(!B)
+		return FALSE
+	blooper = sound(initial(B.soundpath))
+	blooper_id = id
+	return blooper
+
+/mob/proc/do_blooper(mob/source, distance, volume, pitch, queue_time)
+	if(!GLOB.blooper_allowed)
+		return
+	if(queue_time && blooper_current_blooper != queue_time)
+		return
+	if(!source.blooper)
+		if(!source.blooper_id || !source.set_blooper_id("mutedc4")) // jit bloopers
+			return
+	if(!ishuman(source))
+		return
+	volume = min(volume, 100)
+	var/turf/T = get_turf(src)
+	//source.playsound_local(T, vol=volume, vary = TRUE, frequency = pitch, max_distance = distance, falloff_distance = 0, falloff_exponent = BLOOPER_SOUND_FALLOFF_EXPONENT,S = blooper, distance_multiplier = 1, soundin = null)
+	src.playsound_local(T, source.blooper, 20, TRUE)

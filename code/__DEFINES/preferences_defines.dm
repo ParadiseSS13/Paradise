@@ -80,13 +80,14 @@
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_THOUGHT_BUBBLE|PREFTOGGLE_2_DANCE_DISCO|PREFTOGGLE_2_MOD_ACTIVATION_METHOD|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
+#define PREFTOGGLE_3_HEAR_BLOOPERS (1<<0) //1
 
 // toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
 #define TOGGLES_3_TOTAL 							1023 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 // When you add a toggle here, inform AA on merge so the column can be zeroed out. This needs to exist to avoid the compiler freaking out
 // Also update the above value to the actual total
-#define TOGGLES_3_DEFAULT (1)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_HEAR_BLOOPERS)
 
 // Sanity checks
 // I should really convert these to a JSON list at some point hnnnnnng

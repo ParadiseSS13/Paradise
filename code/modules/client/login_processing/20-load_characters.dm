@@ -64,7 +64,9 @@
 		height,
 		cyborg_brain_type,
 		body_type,
-		pda_ringtone
+		pda_ringtone,
+		blooper_id,
+		blooper_vol,
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

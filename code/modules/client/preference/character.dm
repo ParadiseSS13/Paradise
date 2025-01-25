@@ -85,6 +85,12 @@
 
 	var/height = "average height"
 
+	var/blooper_id = "mutedc4"
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = 4
+	var/blooper_volume = 50
+
 	// OOC Metadata:
 	var/metadata = ""
 
