@@ -157,12 +157,23 @@
 
 
 //wizard plague zombie claws
-/datum/spell/zombie_claws/plague_claws
+/datum/spell/plague_claws
 	name = "Plague Claws"
 	desc = "Toggle your claws, allowing you to slash and infect people with deadly diseases."
+	action_icon_state = "vampire_claws"
+	action_background_icon_state = "bg_vampire"
+	human_req = TRUE
+	clothes_req = FALSE
+	antimagic_flags = NONE
+	base_cooldown = 0 SECONDS
+	var/list/our_claws = list()
 	var/disease
 
-/datum/spell/zombie_claws/plague_claws/cast(mob/user)
+/datum/spell/plague_claws/Destroy()
+	QDEL_LIST_CONTENTS(our_claws)
+	return ..()
+
+/datum/spell/plague_claws/cast(mob/user)
 	if(dispel())
 		return
 
@@ -173,27 +184,30 @@
 		qdel(claws)
 		to_chat(user, "<span class='warning zombie'>We have no claws...</span>")
 
-/datum/spell/zombie_claws/plague_claws/dispel()
+/datum/spell/plague_claws/proc/dispel()
 	var/mob/living/carbon/human/user = action.owner
 	var/obj/item/plague_claw/claw = user.get_active_hand()
 	if(istype(claw, /obj/item/zombie_claw))
 		qdel(claw)
 		return TRUE
 
-/datum/spell/zombie_claws/plague_claws/can_cast(mob/user, charge_check, show_message)
+/datum/spell/plague_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
 		return ..()
 
+/datum/spell/plague_claws/create_new_targeting()
+	return new /datum/spell_targeting/self
+
 /obj/item/plague_claw
-	name = "claws"
+	name = "Plague Claws"
 	desc = "Ichor-coated claws extending from your rotting hands, perfect for ripping bone and flesh for your master."
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	armour_penetration_percentage = 25
-	force = 30
+	force = 40
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	gender = PLURAL
@@ -201,7 +215,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "mauled", "cut", "savaged", "clawed")
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
-	var/datum/spell/zombie_claws/plague_claws/parent_spell
+	var/datum/spell/plague_claws/parent_spell
 	var/claw_disease
 
 /obj/item/plague_claw/Initialize(mapload, new_parent_spell, disease)
@@ -210,10 +224,7 @@
 		parent_spell = new_parent_spell
 		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 	claw_disease = disease
-	if (claw_disease)
-		to_chat(world, "Successfully given the claws the disease: [disease]")
-	else
-		to_chat(world, "No disease detected in the claws")
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/plague_claw/proc/dispel(mob/user)
 	if(user && user.get_active_hand() == src)
@@ -250,7 +261,8 @@
 	if(!target.HasDisease(claw_disease))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 		target.bleed_rate = max(5, target.bleed_rate + 1) // Them claws sharp! Good luck with whatever they were laced with
-		target.ContractDisease(claw_disease)
+		var/datum/disease/plague = new claw_disease
+		target.ContractDisease(plague)
 
 /obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
 	. = ..()

@@ -884,10 +884,27 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	for(var/trait in plague_traits)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
-
-	victim.AddSpell(new /datum/spell/zombie_claws/plague_claws)
-	plague_claws.disease = pick_disease()
 	victim.AddComponent(/datum/component/zombie_regen)
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+
+	var/datum/spell/plague_claws/plague_claws = new /datum/spell/plague_claws
+	victim.AddSpell(plague_claws)
+	plague_claws.disease = pick_disease()
+
+	//time to rot
+	if(!istype(victim))
+		return FALSE
+	for(var/obj/item/organ/limb as anything in victim.bodyparts)
+		if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
+			limb.necrotize(TRUE, TRUE)
+
+	victim.heal_overall_damage(1000, 1000) // Cant very well have your new minions dead for so long if already hurt
+	victim.med_hud_set_health()
+	victim.med_hud_set_status()
+	victim.update_hands_hud()
+	victim.update_body()
+	qdel(src)
 
 //choose what disease this zombie will get
 /obj/item/undeath_talisman/proc/pick_disease()
@@ -902,18 +919,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	else
 		picked_disease = major_diseases[rand(1, major_length)]
 		return(picked_disease)
-
-	//time to rot
-	if(!istype(victim))
-		return FALSE
-	for(var/obj/item/organ/limb as anything in victim.bodyparts)
-		if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
-			limb.necrotize(TRUE, TRUE)
-
-		victim.med_hud_set_health()
-		victim.med_hud_set_status()
-		victim.update_hands_hud()
-		victim.update_body()
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
