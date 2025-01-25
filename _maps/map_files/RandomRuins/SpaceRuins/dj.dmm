@@ -525,6 +525,7 @@
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -694,6 +695,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
