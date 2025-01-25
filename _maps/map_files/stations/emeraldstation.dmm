@@ -42940,6 +42940,14 @@
 /obj/item/storage/box/cups,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
+"iAk" = (
+/obj/machinery/camera/motion{
+	c_tag = "AI Satellite Hallway";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/aisat/hall)
 "iAo" = (
 /mob/living/simple_animal/hostile/scarybat,
 /obj/structure/closet/crate{
@@ -108522,6 +108530,10 @@
 	},
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
+"vyc" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/bluegrid,
+/area/station/aisat/hall)
 "vyj" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -166632,7 +166644,7 @@ geh
 iLL
 uwp
 aKa
-lLR
+vyc
 sRx
 tFJ
 aKa
@@ -167658,7 +167670,7 @@ dQC
 sIx
 xwv
 iLL
-uwp
+iAk
 aKa
 bqT
 rtf
