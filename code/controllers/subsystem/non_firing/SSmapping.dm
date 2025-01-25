@@ -384,15 +384,16 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/add_reservation_zlevel()
 	num_of_res_levels++
+	// . here is the z of the just added z-level
 	. = GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC))
 	initialize_reserved_level(.)
 	if(!initialized)
 		return
 	if(length(SSidlenpcpool.idle_mobs_by_zlevel) == . || !islist(SSidlenpcpool.idle_mobs_by_zlevel)) // arbitrary chosen from these lists that require the length of the z-levels
 		return
-	SSidlenpcpool.idle_mobs_by_zlevel.len = .
-	SSmobs.clients_by_zlevel.len = .
-	SSmobs.dead_players_by_zlevel.len = .
+	LISTASSERTLEN(SSidlenpcpool.idle_mobs_by_zlevel, ., list())
+	LISTASSERTLEN(SSmobs.clients_by_zlevel, ., list())
+	LISTASSERTLEN(SSmobs.dead_players_by_zlevel, ., list())
 
 ///Sets up a z level as reserved
 ///This is not for wiping reserved levels, use wipe_reservations() for that.

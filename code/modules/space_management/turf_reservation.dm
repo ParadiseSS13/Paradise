@@ -60,8 +60,8 @@
 		// CALCULATE_ADJACENT_TURFS(reserved_turf, KILL_EXCITED)
 
 	// Makes the linter happy, even tho we don't await this
-	SSmapping.reserve_turfs(release_turfs)
-	// INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, reserve_turfs), release_turfs)
+	SSmapping.unreserve_turfs(release_turfs)
+	// INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, unreserve_turfs), release_turfs)
 
 /// Attempts to calaculate and store a list of turfs around the reservation for cordoning. Returns whether a valid cordon was calculated
 /datum/turf_reservation/proc/calculate_cordon_turfs(turf/bottom_left, turf/top_right)
@@ -170,32 +170,6 @@
 	generate_cordon()
 	return TRUE
 
-/// Calculates the effective bounds information for the given turf. Returns a list of the information, or null if not applicable.
-// /datum/turf_reservation/proc/calculate_turf_bounds_information(turf/target)
-// 	var/turf/bottom_left = bottom_left_turfs[z_idx]
-// 	var/turf/top_right = top_right_turfs[z_idx]
-// 	var/bl_x = bottom_left.x
-// 	var/bl_y = bottom_left.y
-// 	var/tr_x = top_right.x
-// 	var/tr_y = top_right.y
-
-// 	if(target.x < bl_x)
-// 		return
-
-// 	if(target.y < bl_y)
-// 		return
-
-// 	if(target.x > tr_x)
-// 		return
-
-// 	if(target.y > tr_y)
-// 		return
-
-// 	var/list/return_information = list()
-// 	return_information["offset_x"] = target.x - bl_x
-// 	return_information["offset_y"] = target.y - bl_y
-// 	return return_information
-
 /// Schedules a group of turfs to be handed back to the reservation system's control
-/datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs)
+/datum/controller/subsystem/mapping/proc/unreserve_turfs(list/turfs)
 	lists_to_reserve += list(turfs)
