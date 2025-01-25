@@ -500,7 +500,7 @@
 	var/list/tools = list()
 	for(var/tool in allowed_tools)
 		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
-		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.tool_tool_behaviors) && allowed_tools[tool] == 100))
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
 			tools |= tool
 	if(!length(tools))
 		// if nothing else, just pick the first in the list.

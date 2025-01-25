@@ -6,7 +6,7 @@
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
 
-GLOBAL_LIST_INIT(tool_tool_behaviors, list(
+GLOBAL_LIST_INIT(construction_tool_behaviors, list(
 	TOOL_CROWBAR,
 	TOOL_MULTITOOL,
 	TOOL_SCREWDRIVER,
