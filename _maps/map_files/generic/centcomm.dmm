@@ -4248,7 +4248,7 @@
 /area/centcom/suppy)
 "nY" = (
 /obj/structure/table/wood,
-/obj/item/food/mushroompizzaslice{
+/obj/item/food/sliced/mushroom_pizza{
 	pixel_x = -5;
 	pixel_y = 5
 	},
