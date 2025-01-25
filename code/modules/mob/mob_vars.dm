@@ -259,6 +259,6 @@
 	var/blooper_id
 	var/blooper_pitch = 1
 	var/blooper_pitch_range = 0.2
-	var/blooper_speed = 4
+	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	var/blooper_volume = 50
 	var/blooper_current_blooper // antispam, will be used in a check

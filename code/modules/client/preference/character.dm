@@ -195,6 +195,8 @@
 					nanotrasen_relation=:nanotrasen_relation,
 					physique=:physique,
 					height=:height,
+					blooper_id=:blooper_id
+					blooper_speed=:blooper_speed
 					speciesprefs=:speciesprefs,
 					socks=:socks,
 					body_accessory=:body_accessory,
@@ -391,6 +393,9 @@
 		"nanotrasen_relation" = nanotrasen_relation,
 		"physique" = physique,
 		"height" = height,
+		"blooper_id" = blooper_id,
+		"blooper_speed" = blooper_speed,
+		"blooper_pitch" = blooper_pitch,
 		"speciesprefs" = speciesprefs,
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -499,6 +504,9 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
+	blooper_id = query.item[62]
+	blooper_speed = query.item[63]
+	blooper_pitch = query.item[64]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -524,6 +532,15 @@
 
 	if(isnull(height))
 		height = initial(height)
+
+	if(isnull(blooper_id))
+		blooper_id = initial(blooper_id)
+
+	if(isnull(blooper_speed))
+		blooper_speed = initial(blooper_speed)
+
+	if(isnull(blooper_pitch))
+		blooper_pitch = initial(blooper_pitch)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
@@ -1853,6 +1870,10 @@
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+
+	character.blooper_id = blooper_id
+	character.blooper_speed = blooper_speed
+	character.blooper_pitch = blooper_pitch
 
 	character.change_gender(gender)
 	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here

@@ -59,6 +59,7 @@
 	if(!client)
 		return 0
 
+
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
@@ -112,13 +113,14 @@
 		if(ishuman(speaker))
 			var/mob/living/carbon/human/bloop_source = speaker
 			if(bloop_source.blooper_id || bloop_source.blooper)
-				var/bloopers = min(round((LAZYLEN(message) / bloop_source.blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS)
+				var/datum/multilingual_say_piece/message_inst = message_pieces[1]
+				var/bloopers = min(round((length_char(message_inst.message) / bloop_source.blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS)
 				var/total_delay
 				bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
 				for(var/i in 1 to bloopers)
 					if(total_delay > BLOOPER_MAX_TIME)
 						break
-					addtimer(CALLBACK(src, PROC_REF(do_blooper), bloop_source, bloop_source.blooper_volume, BLOOPER_DO_VARY(bloop_source.blooper_pitch, bloop_source.blooper_pitch_range), blooper_current_blooper), total_delay)
+					addtimer(CALLBACK(src, PROC_REF(do_blooper), speaker, 7, max(bloop_source.blooper_volume,100), BLOOPER_DO_VARY(bloop_source.blooper_pitch, bloop_source.blooper_pitch_range), blooper_current_blooper),total_delay)
 					total_delay += rand(DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
 
 
@@ -255,5 +257,5 @@
 		return
 	volume = min(volume, 100)
 	var/turf/T = get_turf(src)
-	//source.playsound_local(T, vol=volume, vary = TRUE, frequency = pitch, max_distance = distance, falloff_distance = 0, falloff_exponent = BLOOPER_SOUND_FALLOFF_EXPONENT,S = blooper, distance_multiplier = 1, soundin = null)
-	src.playsound_local(T, source.blooper, 20, TRUE)
+	src.playsound_local(T, vol=volume, vary = TRUE, frequency = pitch, max_distance = distance, falloff_distance = 0, falloff_exponent = BLOOPER_SOUND_FALLOFF_EXPONENT,S = blooper, distance_multiplier = 1, soundin = null)
+	//src.playsound_local(T, source.blooper, volume, TRUE, pitch, BLOOPER_SOUND_FALLOFF_EXPONENT, max_distance = distance, falloff_distance =)
