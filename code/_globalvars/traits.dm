@@ -154,6 +154,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 
 	/atom/movable = list(
 		"TRAIT_NO_EDGE_TRANSITIONS" = TRAIT_NO_EDGE_TRANSITIONS
+	),
+	/atom = list(
+		"TRAIT_KEEP_TOGETHER" = TRAIT_KEEP_TOGETHER
 	)
 ))
 

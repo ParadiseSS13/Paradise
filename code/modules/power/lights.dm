@@ -613,7 +613,7 @@
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
 		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-		color = new_color
+		color = add_atom_colour(color_transition_filter(new_color, SATURATION_MULTIPLY), ADMIN_COLOUR_PRIORITY)
 		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
 		brightness_color = new_color
 		update(TRUE, TRUE, FALSE)

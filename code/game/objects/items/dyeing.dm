@@ -14,36 +14,42 @@
 	if(!dyeable || !dye_color)
 		return
 	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
-	if(!dye_key_selector)
-		return FALSE
-	if(!GLOB.dye_registry[dye_key_selector])
-		stack_trace("Item just tried to be dyed with an invalid registry key: [dye_key_selector]")
-		return FALSE
-	var/obj/item/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
-	if(!target_type)
-		return FALSE
-	var/obj/item/target_obj = new target_type
-	// update icons
-	icon = initial(target_obj.icon)
-	icon_state = initial(target_obj.icon_state)
-	item_state = initial(target_obj.item_state)
-	sprite_sheets = target_obj.sprite_sheets
-	item_color = target_obj.item_color
-	desc = target_obj.desc
-	base_icon_state = target_obj.base_icon_state
+	var/has_key = TRUE // If not, we're gonna assign it using the PACS system.
+	if(dye_key_selector)
+		if(!GLOB.dye_registry[dye_key_selector])
+			stack_trace("Item just tried to be dyed with an invalid registry key: [dye_key_selector]")
+			return FALSE
+		var/obj/item/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+		var/obj/item/target_obj = new target_type
+		if(!target_type)
+			return FALSE
+		// update icons
+		if(has_key)
+			icon = initial(target_obj.icon)
+			icon_state = initial(target_obj.icon_state)
+			item_state = initial(target_obj.item_state)
+			sprite_sheets = target_obj.sprite_sheets
+			item_color = target_obj.item_color
+			desc = target_obj.desc
+			base_icon_state = target_obj.base_icon_state
 
-	// update inhand sprites
-	lefthand_file = initial(target_obj.lefthand_file)
-	righthand_file = initial(target_obj.righthand_file)
-	inhand_x_dimension = initial(target_obj.inhand_x_dimension)
-	inhand_y_dimension = initial(target_obj.inhand_y_dimension)
+			// update inhand sprites
+			lefthand_file = initial(target_obj.lefthand_file)
+			righthand_file = initial(target_obj.righthand_file)
+			inhand_x_dimension = initial(target_obj.inhand_x_dimension)
+			inhand_y_dimension = initial(target_obj.inhand_y_dimension)
 
-	// update the name/description
-	name = initial(target_obj.name)
+			// update the name/description
+			name = initial(target_obj.name)
+			qdel(target_obj)
+	else
+		has_key = FALSE
+		add_atom_colour(color_transition_filter(dye_color, SATURATION_MULTIPLY), ADMIN_COLOUR_PRIORITY)
+
 	desc += "\nThe colors look a little dodgy."
-	qdel(target_obj)
+
 	update_appearance(ALL)
-	return target_type
+	return TRUE
 
 /// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)

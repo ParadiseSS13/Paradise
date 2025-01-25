@@ -331,3 +331,9 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 		.["offset"] = offset
 	if(!isnull(alpha))
 		.["alpha"] = alpha
+
+// PACS related
+/proc/convert_list_to_filter(list/list_filter)
+	var/list/arguments = list_filter.Copy()
+	arguments -= "priority"
+	return filter(arglist(arguments))
