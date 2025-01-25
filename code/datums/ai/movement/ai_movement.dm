@@ -32,7 +32,7 @@
 	var/datum/ai_controller/controller = source.extra_info
 
 	var/can_move = TRUE
-	if((controller.ai_traits & STOP_MOVING_WHEN_PULLED) && pawn.pulledby) // Need to store more state. Annoying.
+	if((controller.ai_traits & AI_FLAG_STOP_MOVING_WHEN_PULLED) && pawn.pulledby) // Need to store more state. Annoying.
 		can_move = FALSE
 
 	if(!isturf(pawn.loc)) // No moving if not on a turf
@@ -48,7 +48,7 @@
 /// Anything to do before moving; any checks if the pawn should be able to
 /// move should be placed in allowed_to_move() and called by this proc.
 /datum/ai_movement/proc/pre_move(datum/move_loop/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_PREPROCESS_CHECK
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	var/datum/ai_controller/controller = source.extra_info
@@ -68,7 +68,7 @@
 
 /// Anything to do post-movement.
 /datum/ai_movement/proc/post_move(datum/move_loop/source, succeeded)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
 	if(succeeded != FALSE)
 		return
 	var/datum/ai_controller/controller = source.extra_info

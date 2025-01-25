@@ -87,6 +87,11 @@ RESTRICT_TYPE(/datum/ai_controller)
 	set_movement_target(type, null)
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
+
+	LAZYCLEARLIST(planned_behaviors)
+	LAZYCLEARLIST(planning_subtrees)
+	LAZYCLEARLIST(current_behaviors)
+
 	return ..()
 
 /// Sets the current movement target, with an optional param to override the movement behavior
@@ -166,7 +171,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!continue_processing_when_client && mob_pawn.client)
 		. = AI_STATUS_OFF
 
-	if(ai_traits & CAN_ACT_WHILE_DEAD)
+	if(ai_traits & AI_FLAG_CAN_ACT_WHILE_DEAD)
 		return
 
 	if(mob_pawn.stat == DEAD)
@@ -243,7 +248,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 	if(current_movement_target)
 		if(!isatom(current_movement_target))
-			stack_trace("[pawn]'s current movement target is not an atom, rather a [current_movement_target.type]! Did you accidentally set it to a weakref?")
+			stack_trace("[pawn]'s current movement target is [current_movement_target], not an atom!")
 			cancel_actions()
 			return
 

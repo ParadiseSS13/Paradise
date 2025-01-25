@@ -46,13 +46,13 @@
 // AI flags
 
 /// Don't move if being pulled
-#define STOP_MOVING_WHEN_PULLED (1<<0)
+#define AI_FLAG_STOP_MOVING_WHEN_PULLED (1<<0)
 /// Continue processing even if dead
-#define CAN_ACT_WHILE_DEAD (1<<1)
+#define AI_FLAG_CAN_ACT_WHILE_DEAD (1<<1)
 /// Stop processing while in a progress bar
-#define PAUSE_DURING_DO_AFTER (1<<2)
+#define AI_FLAG_PAUSE_DURING_DO_AFTER (1<<2)
 /// Continue processing while in stasis
-#define CAN_ACT_IN_STASIS (1<<3)
+#define AI_FLAG_CAN_ACT_IN_STASIS (1<<3)
 
 // Base Subtree defines
 

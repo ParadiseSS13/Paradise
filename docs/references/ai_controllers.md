@@ -138,7 +138,7 @@ person who tipped it).
 
 Finally, we have some more minor things.
 
-- `ai_traits` are flags for the AI, things like `STOP_MOVING_WHEN_PULLED`,
+- `ai_traits` are flags for the AI, things like `AI_FLAG_STOP_MOVING_WHEN_PULLED`,
   slightly modifying how the AI acts under some situations.
 - `ai_movement` is how the mob moves to its movement target. This can range from
   simple behaviors like `ai_movement/dumb` that always moves in the direction of

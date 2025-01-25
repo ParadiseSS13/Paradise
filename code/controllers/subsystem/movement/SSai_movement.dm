@@ -10,11 +10,9 @@ MOVEMENT_SUBSYSTEM_DEF(ai_movement)
 	var/list/movement_types
 
 /datum/controller/subsystem/movement/ai_movement/Initialize()
-	SetupAIMovementInstances()
-	// para-port
-	// return SS_INIT_SUCCESS
+	setup_ai_movement_instances()
 
-/datum/controller/subsystem/movement/ai_movement/proc/SetupAIMovementInstances()
+/datum/controller/subsystem/movement/ai_movement/proc/setup_ai_movement_instances()
 	movement_types = list()
 	for(var/key as anything in subtypesof(/datum/ai_movement))
 		var/datum/ai_movement/ai_movement = new key
