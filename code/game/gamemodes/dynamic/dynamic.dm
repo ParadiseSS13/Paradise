@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 	log_dynamic("Budget overflow: [budget_overflow].")
 	// for the future, maybe try readding antagonists with apply_antag_budget(budget_overflow)
-	log_dynamic("Finished dynamic setup in [stop_watch(watch)]s")
+	log_dynamic("Finished dynamic setup in [stop_watch(watch)]s.")
 	return TRUE
 
 /datum/game_mode/dynamic/post_setup()
@@ -142,6 +142,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		ruleset.roundstart_post_setup(src)
 		if(ruleset.latespawn_time)
 			addtimer(CALLBACK(ruleset, TYPE_PROC_REF(/datum/ruleset, latespawn), src), ruleset.latespawn_time)
+			log_dynamic("[ruleset]s will latespawn at [ruleset.latespawn_time / 600].")
 	..()
 
 /datum/game_mode/dynamic/latespawn(mob)
@@ -172,4 +173,5 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if(!istype(dynamic))
 		return
+	log_game("Dynamic: [text]")
 	dynamic.dynamic_log += text
