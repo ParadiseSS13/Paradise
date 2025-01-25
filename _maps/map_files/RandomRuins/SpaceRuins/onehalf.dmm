@@ -1030,6 +1030,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dd" = (
 /obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "de" = (
@@ -1122,6 +1123,11 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
+"jI" = (
+/obj/structure/disposalpipe/trunk,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/onehalf/drone_bay)
 "jQ" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -1548,7 +1554,7 @@ aa
 aa
 aa
 as
-aE
+jI
 aM
 ba
 bo
@@ -1680,7 +1686,7 @@ aa
 aa
 aa
 av
-aE
+jI
 aR
 by
 bo

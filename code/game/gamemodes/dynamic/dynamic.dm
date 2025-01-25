@@ -3,7 +3,6 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 /datum/game_mode/dynamic
 	name = "Dynamic"
 	config_tag = "dynamic"
-	secondary_restricted_jobs = list("AI")
 	required_players = 10
 	/// Non-implied rulesets in play
 	var/list/datum/ruleset/rulesets = list()
@@ -129,7 +128,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets)) // rulesets first, then implied rulesets
 		log_dynamic("Applying [ruleset.antag_amount] [ruleset.name]\s.")
-		budget_overflow += ruleset.pre_setup()
+		budget_overflow += ruleset.roundstart_pre_setup()
 
 	log_dynamic("Budget overflow: [budget_overflow].")
 	// for the future, maybe try readding antagonists with apply_antag_budget(budget_overflow)
@@ -140,12 +139,10 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets))
 		if(length(ruleset.pre_antags))
 			log_dynamic("Making antag datums for [ruleset.name] ruleset.")
-		ruleset.post_setup(src)
+		ruleset.roundstart_post_setup(src)
+		if(ruleset.latespawn_time)
+			addtimer(CALLBACK(ruleset, TYPE_PROC_REF(/datum/ruleset, latespawn), src), ruleset.latespawn_time)
 	..()
-
-/datum/game_mode/dynamic/traitors_to_add()
-	. = floor(budget_overflow / /datum/ruleset/traitor::antag_cost)
-	budget_overflow -= (. * /datum/ruleset/traitor::antag_cost)
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()

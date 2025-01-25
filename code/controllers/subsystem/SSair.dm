@@ -17,6 +17,10 @@ SUBSYSTEM_DEF(air)
 	flags = SS_BACKGROUND | SS_TICKER
 	/// How long we actually wait between ticks. Will round up to the next server tick.
 	var/self_wait = 0.15 SECONDS
+	/// MC seems to not be good at tracking whether SSair pauses, so track that ourselves.
+	var/was_paused = FALSE
+	/// And that means we also nee a replacement for times_fired.
+	var/milla_tick = 0
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
@@ -186,6 +190,10 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSair.currentpart
 	milla_idle = SSair.milla_idle
 
+/datum/controller/subsystem/air/pause()
+	was_paused = TRUE
+	return ..()
+
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	var/now = world.timeofday + (world.tick_lag * world.tick_usage) / 100
@@ -200,12 +208,13 @@ SUBSYSTEM_DEF(air)
 		// Run the sleepless callbacks again in case more showed up since on_milla_tick_finished()
 		run_sleepless_callbacks()
 
-	fire_sleepless(resumed)
+	fire_sleepless(resumed || was_paused)
 
 /datum/controller/subsystem/air/proc/fire_sleepless(resumed)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 	in_milla_safe_code = TRUE
+	was_paused = FALSE
 
 	var/timer = TICK_USAGE_REAL
 
@@ -317,6 +326,7 @@ SUBSYSTEM_DEF(air)
 		timer = TICK_USAGE_REAL
 
 		spawn_milla_tick_thread()
+		milla_tick++
 		milla_idle = FALSE
 
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
@@ -415,9 +425,9 @@ SUBSYSTEM_DEF(air)
 		// Bind the MILLA tile we got, if needed.
 		if(isnull(T.bound_air))
 			bind_turf(T, milla_tile)
-		else if(T.bound_air.lastread < times_fired)
+		else if(T.bound_air.lastread < milla_tick)
 			T.bound_air.copy_from_milla(milla_tile)
-			T.bound_air.lastread = times_fired
+			T.bound_air.lastread = milla_tick
 			T.bound_air.readonly = null
 			T.bound_air.dirty = FALSE
 			T.bound_air.synchronized = FALSE
@@ -446,7 +456,7 @@ SUBSYSTEM_DEF(air)
 				if(isnull(S.wind_tick))
 					// Didn't have wind before, add it.
 					windy_tiles += S
-				S.wind_tick = times_fired
+				S.wind_tick = milla_tick
 				S.wind_x = x_flow
 				S.wind_y = y_flow
 			T.high_pressure_movements(x_flow, y_flow)
@@ -463,14 +473,16 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
 		var/turf/simulated/S = currentrun[length(currentrun)]
-		currentrun.len--
 
 		if(!istype(S))
+			currentrun.len--
 			continue
 
 		if(S.update_hotspot())
 			// Is still a hotspot, keep it.
 			new_hotspots += S
+
+		currentrun.len--
 
 		if(MC_TICK_CHECK)
 			return
@@ -627,32 +639,11 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/setup_turfs(turf/low_corner = locate(1, 1, 1), turf/high_corner = locate(world.maxx, world.maxy, world.maxz))
 	for(var/turf/T as anything in block(low_corner, high_corner))
-		T.Initialize_Atmos(times_fired)
+		T.Initialize_Atmos(milla_tick)
 	milla_load_turfs(low_corner, high_corner)
 	for(var/turf/T as anything in block(low_corner, high_corner))
 		T.milla_data.len = 0
 		T.milla_data = null
-
-/datum/controller/subsystem/air/proc/setup_write_to_milla()
-	var/watch = start_watch()
-	log_startup_progress("Writing tiles to MILLA...")
-
-	//cache for sanic speed (lists are references anyways)
-	var/list/cache = bound_mixtures
-	var/count = length(cache)
-	while(length(cache))
-		var/datum/gas_mixture/bound_to_turf/mixture = cache[length(cache)]
-		cache.len--
-		if(mixture.dirty)
-			in_milla_safe_code = TRUE
-			// This is one of two places expected to call this otherwise-unsafe method.
-			mixture.private_unsafe_write()
-			in_milla_safe_code = FALSE
-		mixture.bound_turf.bound_air = null
-		mixture.bound_turf = null
-		CHECK_TICK
-
-	log_startup_progress("Wrote [count] tiles in [stop_watch(watch)]s.")
 
 /datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
@@ -713,7 +704,7 @@ SUBSYSTEM_DEF(air)
 		milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(T, milla_tile)
 	B.copy_from_milla(milla_tile)
-	B.lastread = src.times_fired
+	B.lastread = src.milla_tick
 	B.readonly = null
 	B.dirty = FALSE
 	B.synchronized = FALSE
@@ -832,11 +823,11 @@ SUBSYSTEM_DEF(air)
 	soft_assert_safe()
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
-	if(air.lastread < SSair.times_fired)
+	if(air.lastread < SSair.milla_tick)
 		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(T, milla_tile)
 		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.times_fired
+		air.lastread = SSair.milla_tick
 		air.readonly = null
 		air.dirty = FALSE
 	if(!air.synchronized)
@@ -882,11 +873,11 @@ SUBSYSTEM_DEF(air)
 	soft_assert_safe()
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
-	if(air.lastread < SSair.times_fired)
+	if(air.lastread < SSair.milla_tick)
 		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(T, milla_tile)
 		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.times_fired
+		air.lastread = SSair.milla_tick
 		air.readonly = null
 		air.dirty = FALSE
 	if(!air.synchronized)

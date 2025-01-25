@@ -49,6 +49,8 @@
 	var/antag_amount = 0
 	/// All of the minds that we will make into our antagonist type
 	var/list/datum/mind/pre_antags = list()
+	/// If non-zero, how long from the start of the game should a latespawn for this role occur?
+	var/latespawn_time
 
 /datum/ruleset/Destroy(force, ...)
 	stack_trace("[src] ([type]) was destroyed.")
@@ -63,7 +65,7 @@
 /datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= antag_cost
 
-/datum/ruleset/proc/pre_setup()
+/datum/ruleset/proc/roundstart_pre_setup()
 	if(antag_amount == 0)
 		return
 	if(antag_amount < 0)
@@ -81,7 +83,7 @@
 	for(var/datum/mind/antag as anything in possible_antags)
 		if(antag_amount <= 0)
 			break
-		if(!can_apply(antag))
+		if(!roundstart_can_apply(antag))
 			continue
 		pre_antags += antag
 		if(assign_job_role)
@@ -94,7 +96,7 @@
 		refund("Missing [antag_amount] antagonists for [src] ruleset.")
 		return antag_cost * antag_amount // shitty refund for now
 
-/datum/ruleset/proc/can_apply(datum/mind/antag)
+/datum/ruleset/proc/roundstart_can_apply(datum/mind/antag)
 	if(EXCLUSIVE_OR(antag.current.client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
@@ -102,7 +104,7 @@
 		return FALSE
 	return TRUE
 
-/datum/ruleset/proc/post_setup(datum/game_mode/dynamic)
+/datum/ruleset/proc/roundstart_post_setup(datum/game_mode/dynamic)
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist_type)
 
@@ -113,6 +115,47 @@
 	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
 	return
 
+/datum/ruleset/proc/get_latejoin_players()
+	var/list/candidates = list()
+
+	// Assemble a list of active players without jobbans.
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		// Has a mind
+		if(!player.mind)
+			continue
+		// Connected and not AFK
+		if(!player.client || (locate(player) in SSafk.afk_players))
+			continue
+		// Not antag-banned and not specific antag banned
+		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
+			continue
+		// Make sure they want to play antag, and that they're not already something (off station or antag)
+		if(player.client.skip_antag || player.mind.offstation_role || player.mind.special_role)
+			continue
+		// Make sure they actually want to be this antagonist
+		if(!(antagonist_type::job_rank in player.client.prefs.be_special))
+			continue
+		// Make sure their species CAN be this antagonist
+		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
+			continue
+		// Make sure they're not in a banned job
+		if(player.mind.assigned_role in banned_jobs)
+			continue
+
+		candidates += player.mind
+
+	return shuffle(candidates)
+
+/datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
+	// latespawning is only used by traitors at this point, so we're just going to be naive and allocate all budget when this proc is called.
+	var/late_antag_amount = floor(dynamic.budget_overflow / antag_cost)
+	dynamic.budget_overflow -= (late_antag_amount * antag_cost)
+
+	var/list/datum/mind/possible_antags = get_latejoin_players()
+	for(var/i in 1 to late_antag_amount)
+		var/datum/mind/antag = pick_n_take(possible_antags)
+		antag.add_antag_datum(antagonist_type)
+
 /datum/ruleset/traitor
 	name = "Traitor"
 	ruleset_weight = 11
@@ -120,15 +163,14 @@
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
 
-/datum/ruleset/traitor/post_setup(datum/game_mode/dynamic)
-	var/random_time = rand(5 MINUTES, 15 MINUTES)
+/datum/ruleset/traitor/roundstart_post_setup(datum/game_mode/dynamic)
+	latespawn_time = rand(5 MINUTES, 15 MINUTES)
 	for(var/datum/mind/antag as anything in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new antagonist_type()
 		if(ishuman(antag.current))
 			traitor_datum.delayed_objectives = TRUE
-			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
+			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
-	addtimer(CALLBACK(dynamic, TYPE_PROC_REF(/datum/game_mode, fill_antag_slots)), random_time)
 
 /datum/ruleset/vampire
 	name = "Vampire"

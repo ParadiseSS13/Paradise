@@ -793,10 +793,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
