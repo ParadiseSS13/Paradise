@@ -2,8 +2,6 @@
 	icon = 'icons/obj/clothing/under/security.dmi'
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	strip_delay = 50
-	dyeable = TRUE
-	dyeing_key = FALSE
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/security.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',

@@ -38,7 +38,6 @@
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	user.add_atom_colour(color_transition_filter(colour, SATURATION_OVERRIDE), ADMIN_COLOUR_PRIORITY)
 	return BRUTELOSS|OXYLOSS
 
 /obj/item/toy/crayon/Initialize(mapload)

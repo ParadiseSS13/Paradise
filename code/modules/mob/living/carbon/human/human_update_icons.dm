@@ -614,7 +614,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					else
 						standing.overlays += image("icon" = 'icons/mob/accessories.dmi', "icon_state" = "[tie_color]")
 			standing.alpha = w_uniform.alpha
-			standing = w_uniform.color_atom_overlay(standing)
+			standing.color = w_uniform.color
 			overlays_standing[UNIFORM_LAYER] = standing
 
 	else if(!dna.species.nojumpsuit)
@@ -816,7 +816,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				bloodsies.color = shoes.blood_color
 				standing.overlays += bloodsies
 			standing.alpha = shoes.alpha
-			standing = shoes.color_atom_overlay(standing)
+			standing.color = shoes.color
 			overlays_standing[SHOES_LAYER] = standing
 	else
 		if(feet_blood_DNA) // Checks for feet to make sure we don't have mysterious floating blood.
@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bloodsies.color = head.blood_color
 			standing.overlays += bloodsies
 		standing.alpha = head.alpha
-		standing = head.color_atom_overlay(standing)
+		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
@@ -979,7 +979,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.overlays += special_overlays
 
 		standing.alpha = wear_suit.alpha
-		standing = wear_suit.color_atom_overlay(standing)
+		standing.color = wear_suit.color
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
@@ -1056,7 +1056,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				standing.overlays += bloodsies
 
 			standing.alpha = wear_mask.alpha
-			standing = wear_mask.color_atom_overlay(standing)
+			standing.color = wear_mask.color
 			overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
@@ -1107,8 +1107,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		//create the image
 		standing.alpha = back.alpha
-		//standing.color = back.color
-		standing = back.color_atom_overlay(standing)
+		standing.color = back.color
 		overlays_standing[BACK_LAYER] = standing
 	apply_overlay(BACK_LAYER)
 

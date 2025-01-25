@@ -131,9 +131,6 @@
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
 
-
-
-
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
@@ -387,11 +384,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
 
-
-/// Trait aquired from being painted a certain color
-#define ATOM_COLOR_TRAIT "atom_color"
-
-
 //status effec traits
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"
@@ -457,6 +449,3 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_remove_trait(datum/target, trait, source)
 	REMOVE_TRAIT(target, trait, source)
-
-///Used for managing KEEP_TOGETHER in [appearance_flags]
-#define TRAIT_KEEP_TOGETHER 	"keep-together"
