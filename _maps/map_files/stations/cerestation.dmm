@@ -14324,6 +14324,25 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
 "bTk" = (
+/obj/structure/closet/crate{
+	name = "solar pack crate"
+	},
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
+/obj/item/tracker_electronics,
+/obj/item/paper/solar,
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
 "bTl" = (
@@ -32603,9 +32622,9 @@
 /area/station/security/permabrig)
 "flp" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,

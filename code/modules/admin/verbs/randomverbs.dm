@@ -23,7 +23,7 @@
 		return
 
 	if(ismob(M))
-		if(isAI(M))
+		if(is_ai(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:

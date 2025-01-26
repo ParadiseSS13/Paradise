@@ -34,9 +34,9 @@
 			var/pp = replacetext(replacetext("[merch.typepath]", "/obj/item/", ""), "/", "-")
 			imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 
-/obj/machinery/economy/merch/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(isspacecash(I))
-		insert_cash(I, user)
+/obj/machinery/economy/merch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(isspacecash(used))
+		insert_cash(used, user)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

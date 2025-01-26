@@ -280,8 +280,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
-/// Forces open doors after a delay specific to the item
-#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 /// Makes the item no longer spit out a visible message when thrown
 #define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
 /// Makes the item not display a message on storage insertion
@@ -438,6 +436,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
+
+//***** MOVABLE ATOM TRAITS *****//
+// Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
+#define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

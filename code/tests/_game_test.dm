@@ -15,6 +15,8 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 /// Asserts that a parameter is null
 #define TEST_ASSERT_NULL(a, reason) if(!isnull(a)) { return Fail("Expected null value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
 
+#define TEST_ASSERT_LAST_CHATLOG(puppet, text) if(!puppet.last_chatlog_has_text(text)) { return Fail("Expected `[text]` in last chatlog but got `[puppet.get_last_chatlog()]`", __FILE__, __LINE__) }
+
 /// Asserts that the two parameters passed are equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_EQUAL(a, b, message) do { \
@@ -49,12 +51,15 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 	var/list/procs_tested
 
 	//usable vars
-	var/static/list/available_turfs
+	var/list/available_turfs
 
 	//internal shit
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
+	var/testing_area_name = "test_generic.dmm"
+	var/obj/effect/landmark/bottom_left
+	var/obj/effect/landmark/top_right
 
 /datum/game_test/New()
 	if(!length(available_turfs))
@@ -66,7 +71,7 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 	if(!length(testing_levels))
 		Fail("Could not find appropriate z-level for spawning test areas")
 	var/testing_z_level = pick(testing_levels)
-	var/datum/map_template/generic_test_area = GLOB.map_templates["test_generic.dmm"]
+	var/datum/map_template/generic_test_area = GLOB.map_templates[testing_area_name]
 	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
 		Fail("Could not place generic testing area on z-level [testing_z_level]")
 
@@ -76,6 +81,12 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 	for(var/turf/T in get_area_turfs(/area/game_test))
 		for(var/atom/movable/AM in T)
 			qdel(AM)
+
+	// Gotta destroy these landmarks so the next test
+	// doesn't end up seeing them if it tries to load a new map
+	qdel(bottom_left)
+	qdel(top_right)
+
 	return ..()
 
 /datum/game_test/proc/Run()
@@ -91,8 +102,6 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 
 /datum/game_test/proc/get_test_turfs()
 	var/list/result = list()
-	var/obj/effect/landmark/bottom_left
-	var/obj/effect/landmark/top_right
 	for(var/obj/effect/landmark in GLOB.landmarks_list)
 		if(istype(landmark, /obj/effect/landmark/game_test/bottom_left_corner))
 			bottom_left = landmark

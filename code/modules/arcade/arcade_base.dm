@@ -56,16 +56,16 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/economy/arcade/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+/obj/machinery/economy/arcade/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!freeplay)
-		if(isspacecash(I))
-			insert_cash(I, user, token_price)
+		if(isspacecash(used))
+			insert_cash(used, user, token_price)
 			if(pay_with_cash(token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return ITEM_INTERACT_COMPLETE
 
-		if(istype(I, /obj/item/card/id))
-			if(pay_with_card(I, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
+		if(istype(used, /obj/item/card/id))
+			if(pay_with_card(used, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return ITEM_INTERACT_COMPLETE
 

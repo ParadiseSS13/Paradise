@@ -117,12 +117,14 @@
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 			return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
 	if((!(A) || !(src in A.locs)))
 		return
 
-	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING))
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING) && !HAS_TRAIT(A, TRAIT_NO_EDGE_TRANSITIONS))
 		var/tx = destination_x
 		var/ty = destination_y
 		var/turf/DT = locate(tx, ty, destination_z)

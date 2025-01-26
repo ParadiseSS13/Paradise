@@ -567,7 +567,7 @@
 		return ..()
 
 /obj/machinery/fishtank/attack_hand(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, TRUE)
@@ -604,22 +604,22 @@
 		new /obj/item/stack/sheet/glass(get_turf(src), shard_count + 1)		//Produce the appropriate number of glass sheets, in a single stack
 	qdel(src)
 
-/obj/machinery/fishtank/attackby__legacy__attackchain(obj/item/O, mob/user)
+/obj/machinery/fishtank/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//Open reagent containers add and remove water
-	if(O.is_drainable())
+	if(used.is_drainable())
 		//Containers with any reagents will get dumped in
-		if(O.reagents.total_volume)
+		if(used.reagents.total_volume)
 			var/water_value = 0
-			water_value += O.reagents.get_reagent_amount("water")				//Water is full value
-			water_value += O.reagents.get_reagent_amount("holywater") *1.1		//Holywater is (somehow) better. Who said religion had to make sense?
-			water_value += O.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
-			water_value += O.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
-			water_value += O.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
-			water_value += O.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
+			water_value += used.reagents.get_reagent_amount("water")				//Water is full value
+			water_value += used.reagents.get_reagent_amount("holywater") *1.1		//Holywater is (somehow) better. Who said religion had to make sense?
+			water_value += used.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
+			water_value += used.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
+			water_value += used.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
+			water_value += used.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
 			var/message = ""
 			if(!water_value)													//The container has no water value, clear everything in it
 				message = "The filtration process removes everything, leaving the water level unchanged."
-				O.reagents.clear_reagents()
+				used.reagents.clear_reagents()
 			else
 				if(water_level == water_capacity)
 					to_chat(user, "<span class='notice'>[src] is already full!</span>")
@@ -630,25 +630,27 @@
 						message += " You filled [src] to the brim!"
 					if((water_level + water_value) > water_capacity)
 						message += " You overfilled [src] and some water runs down the side, wasted."
-					O.reagents.clear_reagents()
+					used.reagents.clear_reagents()
 					adjust_water_level(water_value)
-			user.visible_message("<span class='notice'>[user.name] pours the contents of [O.name] into [src].</span>", "<span class='notice'>[message]</span>")
+			user.visible_message("<span class='notice'>[user.name] pours the contents of [used.name] into [src].</span>", "<span class='notice'>[message]</span>")
 		//Empty containers will scoop out water, filling the container as much as possible from the water_level
-		else if(O.is_refillable())
+		else if(used.is_refillable())
 			if(!water_level)
 				to_chat(user, "<span class='notice'>[src] is empty!</span>")
 			else
-				if(water_level >= O.reagents.maximum_volume) //Enough to fill the container completely
-					O.reagents.add_reagent("fishwater", O.reagents.maximum_volume)
-					adjust_water_level(-O.reagents.maximum_volume)
-					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You completely fill [O.name] from [src].</span>")
+				if(water_level >= used.reagents.maximum_volume) //Enough to fill the container completely
+					used.reagents.add_reagent("fishwater", used.reagents.maximum_volume)
+					adjust_water_level(-used.reagents.maximum_volume)
+					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You completely fill [used.name] from [src].</span>")
 				else															//Fill the container as much as possible with the water_level
-					O.reagents.add_reagent("fishwater", water_level)
+					used.reagents.add_reagent("fishwater", water_level)
 					adjust_water_level(-water_level)
-					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You fill [O.name] with the last of the water in [src].</span>")
+					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You fill [used.name] with the last of the water in [src].</span>")
+
+			return ITEM_INTERACT_COMPLETE
 	//Fish eggs
-	else if(istype(O, /obj/item/fish_eggs))
-		var/obj/item/fish_eggs/egg = O
+	else if(istype(used, /obj/item/fish_eggs))
+		var/obj/item/fish_eggs/egg = used
 		//Don't add eggs if there is no water (they kinda need that to live)
 		if(!water_level)
 			to_chat(user, "<span class='warning'>[src] has no water; [egg.name] won't hatch without water!</span>")
@@ -659,8 +661,10 @@
 			else
 				add_fish(egg.fish_type)
 				qdel(egg)
+
+		return ITEM_INTERACT_COMPLETE
 	//Fish food
-	else if(istype(O, /obj/item/fishfood))
+	else if(istype(used, /obj/item/fishfood))
 		//Only add food if there is water and it isn't already full of food
 		if(water_level)
 			if(food_level < 10)
@@ -673,8 +677,10 @@
 				to_chat(user, "<span class='notice'>[src] already has plenty of food in it. You decide to not add more.</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] doesn't have any water in it. You should fill it with water first.</span>")
+
+		return ITEM_INTERACT_COMPLETE
 	//Fish egg scoop
-	else if(istype(O, /obj/item/egg_scoop))
+	else if(istype(used, /obj/item/egg_scoop))
 		if(egg_count)
 			// Is the user holding a fish bag?
 			var/obj/item/storage/bag/fish_bag
@@ -686,18 +692,22 @@
 			harvest_eggs(user, fish_bag)
 		else
 			user.visible_message("<span class='notice'>[user.name] fails to harvest any fish eggs from [src].</span>", "<span class='notice'>There are no fish eggs in [src] to scoop out.</span>")
+
+		return ITEM_INTERACT_COMPLETE
 	//Fish net
-	else if(istype(O, /obj/item/fish_net))
+	else if(istype(used, /obj/item/fish_net))
 		harvest_fish(user)
+		return ITEM_INTERACT_COMPLETE
 	//Tank brush
-	else if(istype(O, /obj/item/tank_brush))
+	else if(istype(used, /obj/item/tank_brush))
 		if(filth_level == 0)
 			to_chat(user, "<span class='warning'>[src] is already spotless!</span>")
 		else
 			adjust_filth_level(-filth_level)
 			user.visible_message("<span class='notice'>[user.name] scrubs the inside of [src], cleaning the filth.</span>", "<span class='notice'>You scrub the inside of [src], cleaning the filth.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	. = TRUE

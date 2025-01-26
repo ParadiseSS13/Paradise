@@ -425,7 +425,7 @@
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		return ..()
 
 	if(isspacecash(used))
@@ -453,7 +453,11 @@
 		insert_item(user, used)
 		return ITEM_INTERACT_COMPLETE
 
-	if(tiltable && !tilted && used.force)
+/obj/machinery/economy/vending/attacked_by(obj/item/attacker, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
+	if(tiltable && !tilted && attacker.force)
 		if(resistance_flags & INDESTRUCTIBLE)
 			// no goodies, but also no tilts
 			return ..()

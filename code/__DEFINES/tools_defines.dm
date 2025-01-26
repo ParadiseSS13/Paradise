@@ -6,6 +6,15 @@
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
 
+GLOBAL_LIST_INIT(construction_tool_behaviors, list(
+	TOOL_CROWBAR,
+	TOOL_MULTITOOL,
+	TOOL_SCREWDRIVER,
+	TOOL_WIRECUTTER,
+	TOOL_WRENCH,
+	TOOL_WELDER
+))
+
 // Surgery tools
 #define TOOL_RETRACTOR "retractor"
 #define TOOL_HEMOSTAT "hemostat"

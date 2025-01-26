@@ -21,6 +21,7 @@
 /area/ruin/space/mech_transport)
 "aZ" = (
 /obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "bk" = (
@@ -101,10 +102,10 @@
 /area/ruin/space/mech_transport)
 "hm" = (
 /obj/structure/table,
-/obj/item/mecha_parts/core,
 /obj/structure/sign/poster/contraband/tools{
 	pixel_y = 32
 	},
+/obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "hu" = (
@@ -121,12 +122,7 @@
 /area/ruin/space/mech_transport)
 "hW" = (
 /obj/structure/table,
-/obj/item/mecha_parts/mecha_equipment/repair_droid,
-/obj/item/mecha_parts/mecha_equipment/extinguisher,
-/obj/item/mecha_modkit/voice/honk{
-	pixel_y = 10;
-	pixel_x = 3
-	},
+/obj/effect/spawner/random/pool/spaceloot/mechtransport/storage1,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "iG" = (
@@ -164,6 +160,7 @@
 	},
 /obj/machinery/door/window,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "od" = (
@@ -201,6 +198,7 @@
 /area/ruin/space/mech_transport)
 "pJ" = (
 /obj/structure/closet/firecloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qs" = (
@@ -212,7 +210,6 @@
 "qE" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/nosmoking_1{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /obj/effect/mapping_helpers/turfs/burn,
@@ -248,7 +245,6 @@
 "sr" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/glass/fifty{
-	pixel_y = 0;
 	pixel_x = -2
 	},
 /obj/item/stack/sheet/metal/fifty{
@@ -263,6 +259,7 @@
 /area/ruin/space/mech_transport)
 "sY" = (
 /obj/structure/closet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
 "ta" = (
@@ -313,13 +310,7 @@
 /area/ruin/space/mech_transport)
 "wo" = (
 /obj/structure/table,
-/obj/item/mecha_parts/mecha_equipment/drill,
-/obj/item/mecha_parts/mecha_equipment/drill{
-	pixel_y = 10
-	},
-/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill{
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/pool/spaceloot/mechtransport/storage2,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "wz" = (
@@ -542,7 +533,7 @@
 /area/ruin/space/mech_transport)
 "MK" = (
 /obj/structure/table,
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
+/obj/effect/spawner/random/pool/spaceloot/mechtransport/storage3,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Nc" = (
