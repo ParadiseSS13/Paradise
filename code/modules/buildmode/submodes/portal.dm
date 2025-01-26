@@ -55,7 +55,7 @@
 	if(lifetime_select)
 		lifetime = lifetime_select SECONDS
 		to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime_select] seconds</span>")
-		if (lifetime_select == -1)
+		if(lifetime_select == -1)
 			to_chat(user, "<span class='notice'>Portal Lifetime set to forever</span>")
 	else // Default to 5 seconds
 		lifetime = 5 SECONDS
