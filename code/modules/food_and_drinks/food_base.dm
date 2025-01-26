@@ -293,8 +293,9 @@
 	slices_num = 2
 
 /obj/item/food/sliceable/Initialize(mapload)
-	if(!ispath(slice_path, /obj/item/food/sliced))
-		CRASH("Invalid type assigned to slice_path: [slice_path]")
+	// SS220 TODO: uncomment this when needed
+	// if(!ispath(slice_path, /obj/item/food/sliced))
+		// CRASH("Invalid type assigned to slice_path: [slice_path]")
 	return ..()
 
 /obj/item/food/sliceable/examine(mob/user)

@@ -16,7 +16,7 @@
 	desc = "A funny cake with a clown face on it."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake"
-	slice_path = /obj/item/food/frozen/clowncakeslice
+	slice_path = /obj/item/food/frozen/clowncakeslice // SS220 TODO: conflict here probably means something is fixed so code\modules\food_and_drinks\food_base.dm:296 is needed again
 	slices_num = 5
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
