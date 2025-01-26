@@ -3,7 +3,7 @@
 
 	var/obj/effect/portal/advanced/bmportal
 	var/two_way = FALSE
-	var/lifetime = 10 SECONDS
+	var/lifetime = 5 SECONDS
 	var/portal_icon = 'icons/obj/stationobjs.dmi'
 	var/portal_icon_state = "portal"
 	var/turf/origin
@@ -18,10 +18,11 @@
 
 /datum/buildmode_mode/portal/change_settings(mob/user)
 	var/twoway_select = null
-	var/lifetime_select = null
+	var/lifetime_select = null SECONDS
 	var/style_select = null
 	var/portal_styles = list("NT Standard", "Syndicate", "Cult", "Wormhole", "Vortex")
-	var/list/portal_icon_maps = list( // It was either this or a mass of if statements, this is easier on the eyes.
+	// It was either this or a mass of if statements, this is easier on the eyes.
+	var/list/portal_icon_maps = list(
 		"NT Standard" = list(icon = 'icons/obj/stationobjs.dmi', state = "portal"),
 		"Syndicate" = list(icon = 'icons/obj/stationobjs.dmi', state = "portal-syndicate"),
 		"Cult" = list(icon = 'icons/obj/stationobjs.dmi', state = "portal1"),
@@ -31,7 +32,7 @@
 	style_select = tgui_input_list(user, "Choose the style of your portals.", "Portal Style", portal_styles)
 	var/selected_portal = portal_icon_maps[style_select]
 	if(selected_portal)
-		portal_icon = selected_portal["icon"] // DM brings me pain, a LOT of guessing went into this.
+		portal_icon = selected_portal["icon"]
 		portal_icon_state = selected_portal["state"]
 		to_chat(user, "<span class='notice'>Portal Style set to [style_select]</span>")
 	else
@@ -50,15 +51,15 @@
 		to_chat(user, "<span class='notice'>One-Way Portal Selected</span>")
 
 	// Duration for the portal to remain open for, 0 means infinite duration.
-	lifetime_select = tgui_input_number(user, "Select how long you want the portal to remain open for in seconds, -1 means forever.", "Portal Duration", 10 , max_value = 60 SECONDS, min_value = -1 SECONDS)
+	lifetime_select = tgui_input_number(user, "Select how long you want the portal to remain open for in seconds, -1 means forever.", "Portal Duration", 5, max_value = 500, min_value = -1)
 	if(lifetime_select)
 		lifetime = lifetime_select SECONDS
 		to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime_select] seconds</span>")
 		if (lifetime_select == -1)
 			to_chat(user, "<span class='notice'>Portal Lifetime set to forever</span>")
-	else // Default to 10 seconds
-		lifetime = 10 SECONDS
-		to_chat(user, "<span class='notice'>Portal Lifetime defaulted to 10 seconds</span>")
+	else // Default to 5 seconds
+		lifetime = 5 SECONDS
+		to_chat(user, "<span class='notice'>Portal Lifetime defaulted to 5 seconds</span>")
 
 /datum/buildmode_mode/portal/handle_click(mob/user, params, obj/loc)
 	var/list/pa = params2list(params)
@@ -71,14 +72,19 @@
 			to_chat(user, "<span class='notice'>Origin set to [get_area(origin)].</span>")
 		else
 			destination = get_turf(loc)
-			to_chat(user, "<span class='notice'>Destination set to [destination]</span>")
+			to_chat(user, "<span class='notice'>Destination set to [get_area(destination)]</span>")
 			if(origin && destination)
 				if(two_way)
 					bmportal = new /obj/effect/portal/advanced(origin, destination, null, lifetime)
 					bmportal.icon = portal_icon
 					bmportal.icon_state = portal_icon_state
 					bmportal = new /obj/effect/portal/advanced(destination, origin, null, lifetime)
-					bmportal.icon = portal_icon // second portal was always blue, this might fix it?
+					/*
+					* Have to edit each instance of the portals icon and state to change it.
+					* This seems less invasive than changing the constructor to accept the icon and state.
+					* At the cost of repeat code hoever.
+					*/
+					bmportal.icon = portal_icon
 					bmportal.icon_state = portal_icon_state
 					message_admins("[key_name_admin(user)] Created a two-way portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime/10] seconds.")
 				else
@@ -89,11 +95,11 @@
 				origin = null
 				destination = null
 
-
-	if(right_click)
+	else if(right_click)
 		if(!origin)
 			origin = get_turf(loc)
 			to_chat(user, "Origin set for quick portal creation.</span>")
+			//tgui select your destination so you don't have to fly over.
 		var/destination_area = tgui_input_list(user, "Location of Destination", "Target", SSmapping.ghostteleportlocs)
 		if(destination_area)
 			var/possible_destinations = get_area_turfs(SSmapping.ghostteleportlocs[destination_area])
