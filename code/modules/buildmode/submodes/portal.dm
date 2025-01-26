@@ -35,7 +35,7 @@
 	two_way = (tgui_alert(user, "Portal Type", "Portal Type", list("One-Way", "Two-Way")) == "Two-Way") || FALSE
 	to_chat(user, "<span class='notice'>[two_way ? "Two-Way Portal Selected" : "One-Way Portal Selected"]</span>")
 
-	// While we can have a portal that lasts forever, I can't imagine needing for more than 500 seconds
+	// While we can have a portal that lasts forever, I can't imagine needing a temporary one for more than 500 seconds
 	lifetime = tgui_input_number(user, "Select how long you want the portal to remain open for in seconds, -1 means forever.", "Portal Duration", 5, max_value = 500, min_value = -1) SECONDS || 5 SECONDS
 	to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime/10] seconds</span>")
 
