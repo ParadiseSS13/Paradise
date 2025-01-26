@@ -495,6 +495,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			return TRUE
 
+		if("maxresearch")
+			if(!check_rights(R_ADMIN))
+				return
+			if(!network_manager_uid)
+				return
+			var/choice = tgui_alert(ui.user, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))
+			if(choice == "Yes")
+				log_admin("[key_name(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				message_admins("[key_name_admin(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				maximize()
+
+			return TRUE
+
 		// You should only be able to link if its not linked, to prevent weirdness
 		if("linktonetworkcontroller")
 			if(network_manager_uid)
@@ -745,6 +758,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
+/obj/machinery/computer/rdconsole/proc/maximize()
+	var/datum/research/files = get_files()
+	if(!files)
+		return
+	for(var/T in files.known_tech)
+		files.UpdateTech(T, 8)
+	SStgui.update_uis(src)
+
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
 		return 1
@@ -873,6 +894,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked"] = TRUE
 	files.RefreshResearch()
 
+	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["menu"] = menu
 	data["submenu_protolathe"] = submenu_protolathe
 	data["submenu_imprinter"] = submenu_imprinter
