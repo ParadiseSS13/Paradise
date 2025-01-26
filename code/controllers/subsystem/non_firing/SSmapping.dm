@@ -477,7 +477,6 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	template.load(reservation.bottom_left_turf)
-	reservation.post_load()
 	return reservation
 
 /// Schedules a group of turfs to be handed back to the reservation system's control
