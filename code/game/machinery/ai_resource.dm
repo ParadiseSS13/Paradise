@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/computer/ai_resource/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RoboticsControlConsole", name)
+		ui = new(user, src, "AIResourceManagementConsole", name)
 		ui.open()
 
 /obj/machinery/computer/ai_resource/ui_data(mob/user)

@@ -79,7 +79,7 @@
 		while(program.upgrade_level > 0 && bandwidth < 0)
 			program.downgrade(assigned_ai)
 
-/datum/program_picker/Topic(href, href_list)
+/datum/program_picker/Topic(href, href_list) // All the program purchasing logic is here. Need to translate to TGUI.
 	..()
 
 	if(!is_ai(usr))
@@ -138,6 +138,31 @@
 			if(program.program_id == href_list["showdesc"])
 				temp = program.description
 	use(usr)
+
+/datum/program_picker/ui_state(mob/user)
+	return GLOB.default_state
+
+/datum/program_picker/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AIProgramPicker", "Program Picker")
+		ui.open()
+
+/datum/program_picker/ui_data(mob/user)
+	var/list/data = list()
+	data["program_list"] = list()
+	for(var/datum/ai_program/program in possible_programs)
+		var/list/program_data = list(
+			"name" = program.program_name,
+			"UID" = program.UID(),
+			"description" = program.description,
+			"memory_cost" = program.cost,
+			"installed" = program.installed,
+			"upgrade_level" = program.upgrade_level,
+			"is_passive" = program.upgrade
+		)
+		data["program_list"] += list(program_data)
+	return data
 
 // The base program type, which holds info about each ability.
 /datum/ai_program
@@ -218,7 +243,8 @@
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
-	user.program_picker.use(user)
+	user.program_picker.use(user) // WebUI call. Replace with TGUI call below.
+	user.program_picker.ui_interact(user)
 
 // RGB Lighting - Recolors Lights
 /datum/ai_program/rgb_lighting
