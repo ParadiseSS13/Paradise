@@ -46,6 +46,8 @@
 			vendor.linked_pos = null
 	linked_vendors.Cut()
 
+	return ..()
+
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
 

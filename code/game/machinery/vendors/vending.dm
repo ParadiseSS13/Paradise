@@ -849,7 +849,8 @@
 	currently_vending = R
 	var/paid = FALSE
 
-	if(cash_transaction < currently_vending.price && get_vendor_account()?.suspended)
+	var/datum/money_account/vendor_account = get_vendor_account()
+	if(cash_transaction < currently_vending.price && (isnull(vendor_account) || vendor_account.suspended))
 		to_chat(user, "Vendor account offline. Unable to process transaction.")
 		flick(icon_deny, src)
 		vend_ready = TRUE

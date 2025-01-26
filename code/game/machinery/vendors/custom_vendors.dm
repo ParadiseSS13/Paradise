@@ -44,19 +44,29 @@
 			var/obj/item/existing = record.items[1]
 			if(existing.should_stack_with(used))
 				record.items += used
-				user.unequip_to(used, null, TRUE, TRUE)
+				user.unequip(used)
+				used.forceMove(null)
 				user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
 				return ITEM_INTERACT_COMPLETE
 
 	var/price = tgui_input_number(user, "How much do you want to sell [used] for?")
-	if(isnum(price))
-		var/datum/data/vending_product/physical/record = new(used.name, used.icon, used.icon_state)
-		record.items += used
-		record.price = price
-		physical_product_records += record
-		SStgui.update_uis(src, TRUE)
-		user.unequip_to(used, null, TRUE, TRUE)
-		user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
+	if(!isnum(price))
+		return ITEM_INTERACT_COMPLETE
+	if(!user.is_holding(used))
+		to_chat(user, "<span style='warning'>\The [used] isn't in your hand anymore!</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(!user.canUnEquip(used, FALSE))
+		to_chat(user, "<span style='warning'>\The [used] is stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	var/datum/data/vending_product/physical/record = new(used.name, used.icon, used.icon_state)
+	record.items += used
+	record.price = price
+	physical_product_records += record
+	SStgui.update_uis(src, TRUE)
+	user.unequip(used)
+	used.forceMove(null)
+	user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/I)
