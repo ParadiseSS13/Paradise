@@ -114,8 +114,10 @@
 	usr.show_message(t, EMOTE_VISIBLE)
 
 /mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+#ifndef GAME_TESTS
 	if(!client)
 		return
+#endif
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related

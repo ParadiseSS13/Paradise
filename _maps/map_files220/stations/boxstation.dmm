@@ -7312,7 +7312,7 @@
 "aDq" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table,
-/obj/item/food/cheesewedge,
+/obj/item/food/sliced/cheesewedge,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aDr" = (
@@ -60555,7 +60555,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/item/food/tomatoslice,
+/obj/item/food/sliced/tomato,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -67349,7 +67349,7 @@
 /area/station/security/prisonershuttle)
 "mze" = (
 /obj/structure/table/reinforced,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
@@ -87314,9 +87314,9 @@
 /area/station/science/test_chamber)
 "tWD" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,

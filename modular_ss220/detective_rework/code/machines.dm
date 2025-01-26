@@ -60,20 +60,19 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
-/obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
-
+/obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(swab)
 		to_chat(user, span_warning("Внутри сканера уже есть пробирка."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/forensics/swab))
-		to_chat(user, span_notice("Вы вставляете [W] в ДНК анализатор."))
-		user.unequip(W)
-		W.forceMove(src)
-		swab = W
+	if(istype(used, /obj/item/forensics/swab))
+		to_chat(user, span_notice("Вы вставляете [used] в ДНК анализатор."))
+		user.unequip(used)
+		used.forceMove(src)
+		swab = used
 		update_icon()
-		return
-	..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
@@ -183,22 +182,20 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/microscope/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
-
+/obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(sample)
 		to_chat(user, span_warning("В микроскопе уже есть образец!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
+	if(istype(used, /obj/item/forensics/swab)|| istype(used, /obj/item/sample/fibers) || istype(used, /obj/item/sample/print))
 		add_fingerprint(user)
-		to_chat(user, span_notice("Вы вставили [W] в микроскоп."))
-		user.unequip(W)
-		W.forceMove(src)
-		sample = W
+		to_chat(user, span_notice("Вы вставили [used] в микроскоп."))
+		user.unequip(used)
+		used.forceMove(src)
+		sample = used
 		update_icon()
-
-		return
-	..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/machinery/microscope/attack_hand(mob/user)
 

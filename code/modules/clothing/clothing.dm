@@ -302,7 +302,7 @@
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return
 
@@ -321,7 +321,7 @@
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	// If they walk away after the menu is already open.
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 		// If your hands get lopped off or cuffed after the menu is open.

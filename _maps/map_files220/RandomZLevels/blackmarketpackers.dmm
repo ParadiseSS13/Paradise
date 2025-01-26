@@ -3031,7 +3031,7 @@
 /area/space)
 "jF" = (
 /obj/structure/table,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliceable/xenomeatbread{
 	pixel_x = -8
 	},
 /obj/item/trash/plate{
@@ -5531,7 +5531,7 @@
 /area/awaymission/bmp_ship/containment)
 "Gu" = (
 /obj/item/assembly/mousetrap/armed,
-/obj/item/food/breadslice{
+/obj/item/food/sliced/bread{
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,

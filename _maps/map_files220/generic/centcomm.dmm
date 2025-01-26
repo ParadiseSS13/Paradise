@@ -7929,7 +7929,7 @@
 /area/syndicate_mothership)
 "eKK" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/food/limecakeslice,
+/obj/item/food/sliced/lime_cake,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "eLp" = (
@@ -14586,7 +14586,7 @@
 /area/shuttle/syndicate)
 "iwf" = (
 /obj/structure/table/wood,
-/obj/item/food/chocolatecakeslice,
+/obj/item/food/sliced/chocolate_cake,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "iwk" = (
@@ -25952,7 +25952,7 @@
 /area/syndicate_mothership)
 "prs" = (
 /obj/structure/table/glass,
-/obj/item/food/applecakeslice{
+/obj/item/food/sliced/apple_cake{
 	pixel_y = 4
 	},
 /obj/item/kitchen/utensil/fork{
@@ -28988,7 +28988,7 @@
 /area/centcom/ss220/evac)
 "rjq" = (
 /obj/structure/table/wood,
-/obj/item/food/watermelonslice,
+/obj/item/food/sliced/watermelon,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo11"
 	},
@@ -39207,7 +39207,7 @@
 /area/shuttle/syndicate)
 "xbg" = (
 /obj/structure/table/glass,
-/obj/item/food/bananacakeslice{
+/obj/item/food/sliced/banana_cake{
 	pixel_y = 4
 	},
 /obj/item/kitchen/utensil/fork{
@@ -39854,7 +39854,7 @@
 	color = "#996633"
 	},
 /obj/item/food/sliceable/pizza/bacon,
-/obj/item/food/lemoncakeslice,
+/obj/item/food/sliced/lemon_cake,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},

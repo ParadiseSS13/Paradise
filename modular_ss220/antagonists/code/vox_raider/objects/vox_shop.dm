@@ -81,12 +81,12 @@
 /obj/machinery/vox_shop/attack_ai(mob/user)
 	return FALSE
 
-/obj/machinery/vox_shop/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(isvoxcash(O))
+/obj/machinery/vox_shop/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(isvoxcash(used))
 		user.do_attack_animation(src)
-		insert_cash(O, user)
-		return TRUE
-	. = ..()
+		insert_cash(used, user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/machinery/vox_shop/proc/insert_cash(obj/item/stack/vox_cash, mob/user)
 	visible_message("<span class='info'>[user] загрузил [vox_cash] в [src].</span>")

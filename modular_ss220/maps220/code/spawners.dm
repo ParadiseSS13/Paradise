@@ -7,9 +7,9 @@
 	loot = list(
 		/obj/item/food/baguette,
 		/obj/item/food/applepie,
-		/obj/item/food/bananabreadslice,
-		/obj/item/food/bananacakeslice,
-		/obj/item/food/carrotcakeslice,
+		/obj/item/food/sliced/banana_bread,
+		/obj/item/food/sliced/banana_cake,
+		/obj/item/food/sliced/carrot_cake,
 		/obj/item/food/croissant,
 		/obj/item/reagent_containers/drinks/cans/cola,
 		)

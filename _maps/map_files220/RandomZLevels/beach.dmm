@@ -3926,7 +3926,7 @@
 	pixel_y = 6;
 	pixel_x = 6
 	},
-/obj/item/food/watermelonslice{
+/obj/item/food/sliced/watermelon{
 	pixel_x = -6
 	},
 /turf/simulated/floor/beach/away/sand_alternative,

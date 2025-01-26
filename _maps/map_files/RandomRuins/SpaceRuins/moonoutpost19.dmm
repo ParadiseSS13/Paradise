@@ -2001,7 +2001,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/drinks/coffee{
@@ -6702,12 +6702,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/food/xenomeatbreadslice,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread,
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 9;
 	pixel_x = -5
 	},

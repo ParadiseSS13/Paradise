@@ -125,8 +125,8 @@
 /datum/recipe/microwave/cheese_sauce
 	reagents = list("milk" = 15, "cream" = 5)
 	items = list(
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge)
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge)
 	result = /obj/item/reagent_containers/condiment/cheese_sauce
 
 // Mushroom Sauce

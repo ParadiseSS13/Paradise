@@ -72547,9 +72547,9 @@
 /area/station/maintenance/starboard2)
 "lLS" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,
@@ -105626,7 +105626,7 @@
 "weH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/food/birthdaycakeslice,
+/obj/item/food/sliced/birthday_cake,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "weO" = (

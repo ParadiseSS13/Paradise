@@ -3677,11 +3677,6 @@
 "ewG" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/high_security_hallway)
-"ewJ" = (
-/obj/structure/table/wood,
-/obj/item/food/xenomeatbreadslice,
-/turf/simulated/floor/wood/fancy/cherry,
-/area/awaymission/black_mesa/xen/vortigaunt_village)
 "ewP" = (
 /obj/machinery/gateway{
 	dir = 1
@@ -43183,7 +43178,7 @@ qBv
 qBv
 hmn
 cvC
-ewJ
+cvC
 qBv
 xti
 xti

@@ -80,27 +80,33 @@
 	if(anchored)
 		return ui_interact(user)
 
-/obj/machinery/jukebox/attackby__legacy__attackchain(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/coin))
+/obj/machinery/jukebox/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/coin))
 		if(payment)
 			to_chat(user, span_info("Монетка уже вставлена."))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
 			to_chat(user, span_warning("Монетка выскользнула с вашей руки!"))
-			return
-		item.forceMove(src)
-		payment = item
-		to_chat(user, span_notice("Вы вставили [item] в музыкальный автомат."))
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
+		payment = used
+		to_chat(user, span_notice("Вы вставили [used] в музыкальный автомат."))
 		playsound(src, 'modular_ss220/aesthetics_sounds/sound/coin_accept.ogg', 50, TRUE)
 		ui_interact(user)
 		add_fingerprint(user)
-	if(item.GetID())
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.GetID())
 		if(allowed(user))
 			need_coin = !need_coin
 			to_chat(user, span_notice("Вы [need_coin ? "вернули" : "сняли"] ограничения [need_coin ? "в" : "с"] [src]."))
 		else
 			to_chat(user, span_warning("Access denied."))
-			return
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 
 /obj/machinery/jukebox/ui_state(mob/user)

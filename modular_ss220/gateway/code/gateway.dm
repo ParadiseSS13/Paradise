@@ -165,10 +165,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 
-/obj/machinery/gateway/centerstation/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/multitool))
+/obj/machinery/gateway/centerstation/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /////////////////////////////////////Away////////////////////////
@@ -288,13 +288,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			return TRUE
 	return FALSE
 
-/obj/machinery/gateway/centeraway/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/multitool))
+/obj/machinery/gateway/centeraway/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/multitool))
 		if(calibrated)
 			to_chat(user, span_notice("The gate is already calibrated, there is no work for you to do here."))
-			return
 		else
 			to_chat(user, span_boldannounce("Recalibration successful!") + span_notice(": This gate's systems have been fine tuned.  Travel to this gate will now be on target."))
 			calibrated = TRUE
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
