@@ -226,6 +226,10 @@
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 2
 
+/mob/living/simple_animal/slime/resist_buckle()
+	..()
+	Feedstop()
+
 /mob/living/simple_animal/slime/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
