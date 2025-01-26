@@ -494,8 +494,6 @@
 	plant_hud_set_health()
 	plant_hud_set_status()
 
-
-
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
@@ -859,6 +857,7 @@
 			update_state()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/storage/bag/plants))
 		if(!harvest)
