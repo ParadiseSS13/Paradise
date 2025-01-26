@@ -15,7 +15,10 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
-	if(control_disabled || stat) return
+	if(control_disabled || stat) 
+		return
+	if(ismecha(loc)) 
+		return
 
 	if(ismob(A))
 		ai_actual_track(A, TRUE)
