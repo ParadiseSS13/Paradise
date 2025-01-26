@@ -26,14 +26,14 @@
 		pos.linked_vendors += src
 		return ITEM_INTERACT_COMPLETE
 	else if(isnull(linked_pos))
-		to_chat(user, "<span style='warning'>You need to link a point of sale device first!</span>")
+		to_chat(user, "<span class='warning'>You need to link a point of sale device first!</span>")
 		return ITEM_INTERACT_COMPLETE
 	else if(locked())
 		return ..()
 	else if(used.tool_behaviour == TOOL_CROWBAR)
 		return ..()
 	if(!user.canUnEquip(used, FALSE))
-		to_chat(user, "<span style='warning'>\The [used] is stuck to your hand!</span>")
+		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	for(var/datum/data/vending_product/physical/record in physical_product_records)
@@ -45,18 +45,21 @@
 			if(existing.should_stack_with(used))
 				record.items += used
 				user.unequip(used)
-				used.forceMove(null)
+				used.moveToNullspace()
 				user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
 				return ITEM_INTERACT_COMPLETE
 
 	var/price = tgui_input_number(user, "How much do you want to sell [used] for?")
 	if(!isnum(price))
 		return ITEM_INTERACT_COMPLETE
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You can't reach [src] from here!</span>")
+		return ITEM_INTERACT_COMPLETE
 	if(!user.is_holding(used))
-		to_chat(user, "<span style='warning'>\The [used] isn't in your hand anymore!</span>")
+		to_chat(user, "<span class='warning'>\The [used] isn't in your hand anymore!</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(!user.canUnEquip(used, FALSE))
-		to_chat(user, "<span style='warning'>\The [used] is stuck to your hand!</span>")
+		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	var/datum/data/vending_product/physical/record = new(used.name, used.icon, used.icon_state)
@@ -65,7 +68,7 @@
 	physical_product_records += record
 	SStgui.update_uis(src, TRUE)
 	user.unequip(used)
-	used.forceMove(null)
+	used.moveToNullspace()
 	user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
 	return ITEM_INTERACT_COMPLETE
 
