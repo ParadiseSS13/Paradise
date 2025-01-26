@@ -1,6 +1,6 @@
 /*
  FUN ZONE OF ADMIN LISTINGS
- Try to keep this in sync with __DEFINES/traits.dm
+ Try to keep this in sync with __HELPERS/trait_helpers.dm
  quirks have it's own panel so we don't need them here.
 */
 GLOBAL_LIST_INIT(traits_by_type, list(
@@ -150,6 +150,10 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 
 	/obj/effect = list(
 		"TRAIT_EFFECT_CAN_TELEPORT" = TRAIT_EFFECT_CAN_TELEPORT
+	),
+
+	/atom/movable = list(
+		"TRAIT_NO_EDGE_TRANSITIONS" = TRAIT_NO_EDGE_TRANSITIONS
 	)
 ))
 

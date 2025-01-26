@@ -149,21 +149,21 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/food/monkeycube))
+/obj/machinery/computer/camera_advanced/xenobio/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food/monkeycube))
 		if(user.drop_item())
 			monkeys++
-			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
-			qdel(O)
-		return
-	else if(istype(O, /obj/item/slimepotion/slime))
+			to_chat(user, "<span class='notice'>You feed [used] to [src]. It now has [monkeys] monkey cubes stored.</span>")
+			qdel(used)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/slimepotion/slime))
 		if(!user.drop_item())
-			return
-		to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[current_potion ? ", replacing the one that was there before" : ""].</span>")
-		insert_potion(O, user)
-		return
-	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
-		var/obj/item/storage/P = O
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You load [used] in the console's potion slot[current_potion ? ", replacing the one that was there before" : ""].</span>")
+		insert_potion(used, user)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/storage/bag) || istype(used, /obj/item/storage/box))
+		var/obj/item/storage/P = used
 		var/loaded = 0
 		for(var/obj/item/food/monkeycube/MC in P.contents)
 			loaded = 1
@@ -171,8 +171,9 @@
 			P.remove_from_storage(MC)
 			qdel(MC)
 		if(loaded)
-			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
-		return
+			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [used]. [src] now has [monkeys] monkey cubes stored.</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)

@@ -4,6 +4,7 @@
 
 #define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 
+//MARK: FOOD
 /obj/item/food
 	name = "snack"
 	desc = "yummy!"
@@ -40,13 +41,13 @@
 	var/goal_difficulty = FOOD_GOAL_SKIP
 
 	var/bitecount = 0
-	var/trash = null
+	var/trash
 	var/slice_path
 	var/slices_num
-	var/dried_type = null
+	var/dried_type
 	var/dry = FALSE
 	var/cooktype[0]
-	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
+	var/cooked_type  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
@@ -273,8 +274,28 @@
 			W.taste(reagents)
 			W.consume(src)
 
+//MARK: SLICE
+/obj/item/food/sliced
+
+/obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
+	if(made_by_sliceable)
+		return ..()
+	if(length(list_reagents))
+		return ..()
+
+	// We don't have any reagents, let's add someting
+	list_reagents = list("nutriment" = 5)
+
+	return ..()
+
+//MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
+
+/obj/item/food/sliceable/Initialize(mapload)
+	if(!ispath(slice_path, /obj/item/food/sliced))
+		CRASH("Invalid type assigned to slice_path: [slice_path]")
+	return ..()
 
 /obj/item/food/sliceable/examine(mob/user)
 	. = ..()
@@ -333,7 +354,7 @@
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
-		var/obj/slice = new slice_path (loc)
+		var/obj/slice = new slice_path (loc, TRUE)
 		reagents.trans_to(slice,reagents_per_slice)
 		slice.scatter_atom()
 	qdel(src)
@@ -352,8 +373,7 @@
 	cooktype["grilled"] = TRUE
 	cooktype["deep fried"] = TRUE
 
-// MISC
-
+//MARK: MISC
 /obj/item/food/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."

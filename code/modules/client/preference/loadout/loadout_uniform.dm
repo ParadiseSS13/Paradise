@@ -390,12 +390,12 @@
 /datum/gear/uniform/sec/secorporate
 	display_name = "Security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/officer/corporate
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "Security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/security/officer/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/casual
 	display_name = "Security uniform, casual"

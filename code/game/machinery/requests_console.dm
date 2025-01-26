@@ -292,43 +292,47 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
+/obj/machinery/requests_console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/stamp/stamp = used
+	if(istype(stamp))
+		if(screen == RCS_MESSAUTH && !inoperable(MAINT))
+			msgStamped = "Stamped with the [stamp.name]"
+			SStgui.update_uis(src)
 
-/obj/machinery/requests_console/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
-		if(inoperable(MAINT))
-			return
-		if(screen == RCS_MESSAUTH)
-			var/obj/item/card/id/T = I
-			msgVerified = "Verified by [T.registered_name] ([T.assignment])"
-			SStgui.update_uis(src)
-		if(screen == RCS_ANNOUNCE)
-			var/obj/item/card/id/ID = I
-			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
-				announceAuth = TRUE
-				announcer.author = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
-			else
-				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
-			SStgui.update_uis(src)
-		if(screen == RCS_SECONDARY)
-			var/obj/item/card/id/ID = I
-			if(ID)
-				secondaryGoalAuth = TRUE
-				goalRequester = ID
-				has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
-		if(screen == RCS_SHIPPING)
-			var/obj/item/card/id/T = I
-			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
-			SStgui.update_uis(src)
-	if(istype(I, /obj/item/stamp))
-		if(inoperable(MAINT))
-			return
-		if(screen == RCS_MESSAUTH)
-			var/obj/item/stamp/T = I
-			msgStamped = "Stamped with the [T.name]"
-			SStgui.update_uis(src)
-	else
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/card/id/id_card = used
+	if(!istype(id_card))
 		return ..()
+
+	if(inoperable(MAINT))
+		return ITEM_INTERACT_COMPLETE
+	if(screen == RCS_MESSAUTH)
+		msgVerified = "Verified by [id_card.registered_name] ([id_card.assignment])"
+		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
+	if(screen == RCS_ANNOUNCE)
+		if(ACCESS_RC_ANNOUNCE in id_card.GetAccess())
+			announceAuth = TRUE
+			announcer.author = id_card.assignment ? "[id_card.assignment] [id_card.registered_name]" : id_card.registered_name
+		else
+			reset_message()
+			to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
+		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
+	if(screen == RCS_SECONDARY)
+		secondaryGoalAuth = TRUE
+		goalRequester = id_card
+		has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
+
+		return ITEM_INTERACT_COMPLETE
+	if(screen == RCS_SHIPPING)
+		msgVerified = "Sender verified as [id_card.registered_name] ([id_card.assignment])"
+		SStgui.update_uis(src)
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""

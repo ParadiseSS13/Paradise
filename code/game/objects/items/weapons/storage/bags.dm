@@ -98,7 +98,7 @@
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
-	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
+	desc = "An advanced trash bag that uses experimental bluespace technology to send stored trash to a specialized pocket dimension."
 	icon_state = "bluetrashbag"
 	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
@@ -348,8 +348,7 @@
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
-		I.forceMove(M)
-		INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
+		do_scatter(I)
 
 	if(prob(50))
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
@@ -359,13 +358,18 @@
 	if(ishuman(M) && prob(10))
 		M.KnockDown(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/scatter_tray_items(obj/item/I)
-	if(!I)
-		return
+/obj/item/storage/bag/tray/proc/do_scatter(obj/item/tray_item)
+	var/delay = rand(2, 4)
+	var/datum/move_loop/loop = GLOB.move_manager.move_rand(tray_item, GLOB.cardinal, delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
+	//This does mean scattering is tied to the tray. Not sure how better to handle it
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
-	for(var/i in 1 to rand(1, 2))
-		step(I, pick(NORTH,SOUTH,EAST,WEST))
-		sleep(rand(2, 4))
+/obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
+	var/new_delay = rand(2, 4)
+	var/count = source.lifetime / source.delay
+	source.lifetime = count * new_delay
+	source.delay = new_delay
 
 /obj/item/storage/bag/tray/update_icon_state()
 	return
@@ -415,7 +419,7 @@
 		I.forceMove(dropspot)
 		// If there is no table, dump the contents of the tray at our feet like we're doing the service equivilent of a micdrop.
 		if(!found_table && isturf(dropspot))
-			INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
+			INVOKE_ASYNC(src, PROC_REF(do_scatter), I)
 
 	if(found_table)
 		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")

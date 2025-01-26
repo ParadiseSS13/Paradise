@@ -129,6 +129,11 @@
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
+"Di" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/airless,
+/area/template_noop)
 
 (1,1,1) = {"
 aa
@@ -179,7 +184,7 @@ aa
 ad
 aG
 aA
-aM
+Di
 aF
 ad
 as
