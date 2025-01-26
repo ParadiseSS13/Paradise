@@ -371,11 +371,11 @@
 /area/ruin/space/syndicakefactory)
 "qd" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice{
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread{
 	pixel_y = 4
 	},
-/obj/item/food/breadslice{
+/obj/item/food/sliced/bread{
 	pixel_y = 8
 	},
 /obj/machinery/light/small{
@@ -1076,7 +1076,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/food/birthdaycakeslice,
+/obj/item/food/sliced/birthday_cake,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},

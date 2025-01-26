@@ -1,6 +1,6 @@
 /obj/item/clothing/head/helmet
 	name = "helmet"
-	desc = "A standard-issue protective helmet used by Nanotrasen corporate security. Provides light protection against most sources of damage."
+	desc = "A mass-produced protective helmet used by security personnel across the sector. Provides light protection against most sources of damage."
 	icon_state = "helmetmaterials"
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = HEADBANGPROTECT

@@ -156,6 +156,8 @@
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
 
+	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+
 /datum/ruleset/traitor
 	name = "Traitor"
 	ruleset_weight = 11
@@ -228,7 +230,7 @@
 	banned_species_only = TRUE
 
 /datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
-	// log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
+	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE

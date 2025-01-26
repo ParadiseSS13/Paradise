@@ -86137,9 +86137,9 @@
 /area/station/hallway/secondary/entry/south)
 "urY" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,
@@ -92976,6 +92976,13 @@
 /obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"ydD" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/medbay)
 "ydY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -139899,7 +139906,7 @@ cZN
 lQs
 uLc
 dwG
-cKO
+ydD
 hbt
 cSA
 cSA
