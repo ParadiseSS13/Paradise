@@ -39,7 +39,7 @@
 		// Default to NT Standard
 		portal_icon = 'icons/obj/stationobjs.dmi'
 		portal_icon_state = "portal"
-		to_chat(user, "<span class='warning'>Invalid portal style selected. Defaulting to Blue.</span>")
+		to_chat(user, "<span class='warning'>Invalid portal style selected. Defaulting to NT Standard.</span>")
 
 	// User has a choice of a way way portal or two-way.
 	twoway_select = tgui_alert(user, "Portal Type", "Portal Type", list("One-Way", "Two-Way"))
