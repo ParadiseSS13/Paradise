@@ -976,63 +976,67 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
 
-/obj/machinery/door/airlock/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
-				if(istype(C, /obj/item/stack/sheet/metal))
-					var/obj/item/stack/sheet/metal/S = C
+				if(istype(used, /obj/item/stack/sheet/metal))
+					var/obj/item/stack/sheet/metal/S = used
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 metal sheets to reinforce [src].</span>")
-						return
+						return ITEM_INTERACT_COMPLETE
 					to_chat(user, "<span class='notice'>You start reinforcing [src]...</span>")
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
-							return
+							return ITEM_INTERACT_COMPLETE
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with metal.</span>",
 											"<span class='notice'>You reinforce \the [src] with metal.</span>")
 						security_level = AIRLOCK_SECURITY_METAL
 						update_icon()
-					return
-				else if(istype(C, /obj/item/stack/sheet/plasteel))
-					var/obj/item/stack/sheet/plasteel/S = C
+					return ITEM_INTERACT_COMPLETE
+				else if(istype(used, /obj/item/stack/sheet/plasteel))
+					var/obj/item/stack/sheet/plasteel/S = used
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
-						return
+						return ITEM_INTERACT_COMPLETE
 					to_chat(user, "<span class='notice'>You start reinforcing [src]...</span>")
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
-							return
+							return ITEM_INTERACT_COMPLETE
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with plasteel.</span>",
 											"<span class='notice'>You reinforce \the [src] with plasteel.</span>")
 						security_level = AIRLOCK_SECURITY_PLASTEEL
 						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 						update_icon()
-					return
+					return ITEM_INTERACT_COMPLETE
 
-	if(istype(C, /obj/item/assembly/signaler))
-		return interact_with_panel(user)
-	else if(istype(C, /obj/item/pai_cable))	// -- TLE
-		var/obj/item/pai_cable/cable = C
+	if(istype(used, /obj/item/assembly/signaler))
+		interact_with_panel(used)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/pai_cable))	// -- TLE
+		var/obj/item/pai_cable/cable = used
 		cable.plugin(src, user)
-	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo))
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
-			return
-		if(!user.transfer_item_to(C, src))
-			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
-			return
-		C.add_fingerprint(user)
-		user.create_log(MISC_LOG, "put [C] on", src)
-		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
-		note = C
+			return ITEM_INTERACT_COMPLETE
+		if(!user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [used]!</span>")
+			return ITEM_INTERACT_COMPLETE
+		used.add_fingerprint(user)
+		user.create_log(MISC_LOG, "put [used] on", src)
+		user.visible_message("<span class='notice'>[user] pins [used] to [src].</span>", "<span class='notice'>You pin [used] to [src].</span>")
+		note = used
 		update_icon()
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/door/airlock/screwdriver_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))

@@ -784,22 +784,22 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
 
-/obj/machinery/atmospherics/supermatter_crystal/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(!istype(I) || (I.flags & ABSTRACT) || !istype(user))
-		return
-	if(moveable && default_unfasten_wrench(user, I, time = 20))
-		return
+/obj/machinery/atmospherics/supermatter_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used) || (used.flags & ABSTRACT) || !istype(user))
+		return ITEM_INTERACT_COMPLETE
+	if(moveable && default_unfasten_wrench(user, used, time = 20))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/scalpel/supermatter))
+	if(istype(used, /obj/item/scalpel/supermatter))
 		if(!ishuman(user))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/human/H = user
-		var/obj/item/scalpel/supermatter/scalpel = I
+		var/obj/item/scalpel/supermatter/scalpel = used
 
 		if(!scalpel.uses_left)
 			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
 		if(sliver)
@@ -816,20 +816,20 @@
 				tongs.item_state = "supermatter_tongs_loaded"
 				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
 
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/supermatter_halberd))
+	if(istype(used, /obj/item/supermatter_halberd))
 		carve_sliver(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/retractor/supermatter))
-		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
+	if(istype(used, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>[used] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
-		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
-			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
+		user.visible_message("<span class='danger'>As [user] touches [src] with \a [used], silence fills the room...</span>",\
+			"<span class='userdanger'>You touch [src] with [used], and everything suddenly goes silent.</span>\n<span class='notice'>[used] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
-		investigate_log("has been attacked ([I]) by [key_name(user)]", "supermatter")
-		Consume(I)
+		investigate_log("has been attacked ([used]) by [key_name(user)]", "supermatter")
+		Consume(used)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
 		radiation_pulse(src, 150, 4)
