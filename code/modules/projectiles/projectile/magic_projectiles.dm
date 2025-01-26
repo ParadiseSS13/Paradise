@@ -172,8 +172,6 @@
 
 /obj/item/projectile/magic/door/on_hit(atom/target)
 	. = ..()
-	if(!.)
-		return .
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
 		if(!(istype(target, /turf/simulated/wall/indestructible)))
@@ -185,6 +183,8 @@
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
+	if(!.)
+		return .
 
 /obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
