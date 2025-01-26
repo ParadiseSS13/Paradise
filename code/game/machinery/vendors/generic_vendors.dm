@@ -164,10 +164,7 @@
 		return
 
 	vended.reagents.trans_to(inserted_item, vended.reagents.total_volume)
-	if(vended.reagents.total_volume)
-		if(user && iscarbon(user) && user.Adjacent(src))
-			user.put_in_hands(vended)
-	else
+	if(!vended.reagents.total_volume)
 		qdel(vended)
 
 
