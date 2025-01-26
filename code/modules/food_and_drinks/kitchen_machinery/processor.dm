@@ -105,7 +105,7 @@
 	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/food/doughslice
+	input = /obj/item/food/sliced/dough
 	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni
@@ -188,33 +188,33 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		return
+	if(default_deconstruction_screwdriver(user, "processor_open", "processor", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	default_deconstruction_crowbar(user, O)
+	default_deconstruction_crowbar(user, used)
 
-	var/obj/item/what = O
+	var/obj/item/what = used
 
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if(!P)
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
+		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
 		"<span class='notice'>You put \the [what] into \the [src].")
@@ -222,7 +222,7 @@
 	user.drop_item()
 
 	what.loc = src
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken
