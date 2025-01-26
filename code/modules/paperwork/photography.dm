@@ -291,8 +291,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				atoms.Add(A)
 				continue
 
-			// Silicons can't see unconsealed runes or cult portals
-			if(A.invisibility == INVISIBILITY_RUNES && !istype(src, /obj/item/camera/siliconcam))
+			// AI can't see unconsealed runes or cult portals
+			if(A.invisibility == INVISIBILITY_RUNES && !istype(src, /obj/item/camera/siliconcam/ai_camera))
 				atoms.Add(A)
 				continue
 			if(A.invisibility)
