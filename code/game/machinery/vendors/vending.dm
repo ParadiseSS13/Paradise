@@ -356,7 +356,7 @@
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/vending_refill/canister = ITEM_INTERACT_COMPLETE
+		var/obj/item/vending_refill/canister = used
 		var/transferred = restock(canister)
 		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
 			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
