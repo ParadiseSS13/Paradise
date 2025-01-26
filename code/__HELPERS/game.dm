@@ -177,6 +177,10 @@
 
 /proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
+#ifdef GAME_TESTS
+	// kind of feels cleaner clobbering here than changing the loop?
+	include_clientless = TRUE
+#endif
 
 	var/turf/T = get_turf(source)
 	var/list/hear = list()
