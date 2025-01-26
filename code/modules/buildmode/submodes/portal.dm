@@ -50,7 +50,7 @@
 		two_way = FALSE
 		to_chat(user, "<span class='notice'>One-Way Portal Selected</span>")
 
-	// Duration for the portal to remain open for, 0 means infinite duration.
+	// Duration for the portal to remain open for, -1 means infinite duration.
 	lifetime_select = tgui_input_number(user, "Select how long you want the portal to remain open for in seconds, -1 means forever.", "Portal Duration", 5, max_value = 500, min_value = -1)
 	if(lifetime_select)
 		lifetime = lifetime_select SECONDS
