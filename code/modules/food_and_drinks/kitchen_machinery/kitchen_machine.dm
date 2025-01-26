@@ -113,6 +113,8 @@
 				add_item(S, user)
 		else
 			add_item(used, user)
+
+		return ITEM_INTERACT_COMPLETE
 	else if(is_type_in_list(used, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!used.reagents)
 			return ITEM_INTERACT_COMPLETE
