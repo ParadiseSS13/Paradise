@@ -2,7 +2,6 @@
  * Surgeries for tending brute and burn damage without needing to expend items.
  */
 
-#define HEALING_STEP "healing_step"
 
 // Since these both share surgery steps, we can only realistically expose one
 /datum/surgery_step/proxy/open_organ/extra
