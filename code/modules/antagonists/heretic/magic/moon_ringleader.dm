@@ -23,11 +23,31 @@
 	/// Effect for when the spell triggers
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
+/datum/spell/aoe/moon_ringleader/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	return targeting
+
 /datum/spell/aoe/moon_ringleader/cast(list/targets, mob/user)
 	new moon_effect(get_turf(user))
-	return ..()
+	for(var/mob/living/carbon/human/human_target in targets)
+		if(human_target.stat == DEAD)
+			continue
+		if(IS_HERETIC_OR_MONSTER(human_target))
+			continue
+		if(human_target.can_block_magic(antimagic_flags))
+			continue
+		var/drain_bamage = human_target.getBrainLoss()
+		human_target.Hallucinate(max((drain_bamage *= 0.5) SECONDS, 40 SECONDS))
+		human_target.AdjustConfused(10 SECONDS)
+		if(drain_bamage >= 80)
+			human_target.apply_status_effect(/datum/status_effect/moon_converted)
+			add_attack_logs(user, human_target, "[human_target] was driven insane by [user]([src])")
+			log_game("[human_target] was driven insane by [user]")
+		else
+			human_target.adjustBrainLoss(25)
 
-//QWERTODO: YOU KNOW THE DRILL MAKE THIS A PROPER AOE SPELL
+	return ..()
 
 
 /obj/effect/temp_visual/moon_ringleader

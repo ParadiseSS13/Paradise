@@ -23,6 +23,12 @@
 	//active_msg = "You prepare to let them see the true face..."
 
 
+/datum/spell/pointed/moon_smile/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
+	C.allowed_type = /mob/living/carbon/human
+	return C
+
 /datum/spell/pointed/moon_smile/cast(list/targets, mob/user)
 	. = ..()
 	var/mob/living/cast_on = targets[1]
