@@ -57,6 +57,8 @@
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
 
+// MARK: MILLA
+
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
@@ -115,6 +117,11 @@
 
 /proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+
+/proc/set_zlevel_freeze(z, bool_frozen)
+	return RUSTLIB_CALL(milla_set_zlevel_frozen, z, bool_frozen)
+
+// MARK: MapManip
 
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
