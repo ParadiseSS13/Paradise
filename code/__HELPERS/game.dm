@@ -180,11 +180,6 @@
 		return hear
 
 	for(var/atom/A in hear(R, T))
-		if(ismob(A))
-			var/mob/M = A
-			if(M.client || include_clientless)
-				hear += M
-
 		if(isobj(A) || ismob(A))
 			collect_nested_mobs(A, hear, 3, !include_clientless)
 
