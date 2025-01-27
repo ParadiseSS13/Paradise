@@ -1,0 +1,4 @@
+/obj/item/food/sliced/clowncake : /obj/item/food/frozen/clowncakeslice{@OLD}
+/obj/item/food/sliced/garlic_pizza : /obj/item/food/garlic_pizza{@OLD}
+/obj/item/food/sliced/sushi_ikura : /obj/item/food/sushi_ikura{@OLD}
+/obj/item/food/sliced/sushi_ebi : /obj/item/food/sushi_ebi{@OLD}
