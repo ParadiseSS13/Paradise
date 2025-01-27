@@ -15,7 +15,7 @@
 
 /datum/quirk/positive/crafty
 	name = "Crafty"
-	desc = "You can craft things faster than normal."
+	desc = "You can craft things twice as fast."
 	cost = 2
 	trait_to_apply = TRAIT_CRAFTY
 
@@ -23,7 +23,7 @@
 	name = "Heavy Drinker"
 	desc = "You're used to the effects of alcohol, and get drunk slower than others."
 	cost = 1
-	var/alcohol_modifier = 0.8
+	var/alcohol_modifier = 0.7
 
 /datum/quirk/positive/heavy_drinker/apply_quirk_effects(mob/living/quirky)
 	if(!ishuman(quirky))
