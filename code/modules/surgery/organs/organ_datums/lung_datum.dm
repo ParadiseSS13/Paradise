@@ -79,7 +79,7 @@
 		return FALSE
 
 	var/gas_breathed = 0
-
+	var/asthma_multiplier = HAS_TRAIT(H, TRAIT_ASTHMATIC) ? 0.5 : 1
 	//Partial pressures in our breath
 	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
@@ -105,7 +105,7 @@
 			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
 			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			gas_breathed = breath.oxygen()
 			H.clear_alert("not_enough_oxy")
 
@@ -131,7 +131,7 @@
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
 			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			gas_breathed = breath.nitrogen()
 			H.clear_alert("not_enough_nitro")
 
@@ -166,7 +166,7 @@
 			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
 			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			gas_breathed = breath.carbon_dioxide()
 			H.clear_alert("not_enough_co2")
 
@@ -194,7 +194,7 @@
 			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
 			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
-			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
+			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS * asthma_multiplier)
 			gas_breathed = breath.toxins()
 			H.clear_alert("not_enough_tox")
 
