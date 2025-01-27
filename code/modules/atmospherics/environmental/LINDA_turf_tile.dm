@@ -240,6 +240,9 @@
 	layer = MASSIVE_OBJ_LAYER
 	blend_mode = BLEND_OVERLAY
 
+	// Wind has nothing it needs to initialize, and it's not surprising if it gets both created and qdeleted during an init freeze. Prevent that from causing an init sanity error.
+	initialized = TRUE
+
 #undef INDEX_NORTH
 #undef INDEX_EAST
 #undef INDEX_SOUTH
