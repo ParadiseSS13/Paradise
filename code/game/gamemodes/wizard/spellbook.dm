@@ -444,10 +444,10 @@
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
 
-/datum/spellbook_entry/item/undeath_talisman
-	name = "Five Undeath Talismans"
+/datum/spellbook_entry/item/plague_talisman
+	name = "Five Plague Talismans"
 	desc = "Special engraved runes for raising the dead into a plague-ridden animated corpse"
-	item_path = /obj/item/storage/belt/undeath_talisman
+	item_path = /obj/item/storage/belt/plague_talisman
 	category = "Artefacts"
 
 

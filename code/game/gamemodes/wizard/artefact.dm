@@ -843,18 +843,18 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heresy = TRUE
 	unlimited = TRUE
 
-//////////////////////// Undeath Talisman //////////////////////////////
+//////////////////////// plague Talisman //////////////////////////////
 
-/obj/item/undeath_talisman
-	name = "Undeath Talisman"
+/obj/item/plague_talisman
+	name = "plague Talisman"
 	desc = "A vile rune capabale of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks"
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "undeath_talisman"
+	icon_state = "plague_talisman"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
 
 //checks if they're a valid target before trying to raise
-/obj/item/undeath_talisman/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+/obj/item/plague_talisman/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
@@ -873,7 +873,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	raise_victim(victim, necromancer)
 
 //raises the victim into a special zombies and binds them to wiz
-/obj/item/undeath_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+/obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs for you are now above death!</span>"
 	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE)
@@ -906,7 +906,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	qdel(src)
 
 //choose what disease this zombie will get
-/obj/item/undeath_talisman/proc/pick_disease()
+/obj/item/plague_talisman/proc/pick_disease()
 	var picked_disease
 	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
 	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
