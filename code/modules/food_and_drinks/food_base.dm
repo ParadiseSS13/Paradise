@@ -279,11 +279,14 @@
 
 /obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
 	if(made_by_sliceable)
+		// we null reagent from subclass, because it will get reagents from parent sliceable
+		list_reagents = list()
 		return ..()
 	if(length(list_reagents))
 		return ..()
 
 	// We don't have any reagents, let's add something
+	log_debug("[src] was a sliced food, which was neither sliced and has no reagents.")
 	list_reagents = list("nutriment" = 5)
 
 	return ..()
