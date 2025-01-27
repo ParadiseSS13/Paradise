@@ -366,6 +366,8 @@
 
 	announcement_text = "%SPOOKY% Master of blades, the Torn Champion's disciple, %NAME% has ascended! Their steel is that which will cut reality in a maelstom of silver! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_blade.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "bladeascend"
 
 /datum/heretic_knowledge/ultimate/blade_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()

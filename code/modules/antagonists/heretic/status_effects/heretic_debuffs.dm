@@ -26,7 +26,7 @@
 
 	if(LAZYLEN(targets))
 		var/poor_smuck = pick(targets)
-		add_attack_logs(owner, poor_smuck, "attacked [poor_smuck] due to the amok debuff.", ATKLOG_FEW) //the following attack will log itself //qwertodo so admins don't merk me
+		add_attack_logs(owner, poor_smuck, "attacked [poor_smuck] due to the amok debuff.", ATKLOG_FEW)
 		owner.ClickOn(poor_smuck)
 	owner.a_intent = last_intent
 

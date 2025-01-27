@@ -62,7 +62,7 @@
 	var/list/unlocked_heretic_items = list(
 		/obj/item/melee/sickly_blade/cursed = 0,
 		/obj/item/clothing/neck/heretic_focus/crimson_medallion = 0,
-		///mob/living/basic/construct/harvester/heretic = 0, qwertodo:
+		/mob/living/simple_animal/hostile/construct/harvester/heretic = 0,
 	)
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
@@ -88,33 +88,27 @@
 		icon_state = knowledge.research_tree_icon_state
 
 	//if the knowledge is a spell, use the spell's button
-	else if(ispath(knowledge,/datum/heretic_knowledge/spell))
+	else if(ispath(knowledge, /datum/heretic_knowledge/spell))
 		var/datum/heretic_knowledge/spell/spell_knowledge = knowledge
 		var/datum/spell/result_action = spell_knowledge.action_to_add
 		icon_path = result_action.action_background_icon
 		icon_state = result_action.action_icon_state
 
 	//if the knowledge is a summon, use the mob sprite
-	else if(ispath(knowledge,/datum/heretic_knowledge/summon))
+	else if(ispath(knowledge, /datum/heretic_knowledge/summon))
 		var/datum/heretic_knowledge/summon/summon_knowledge = knowledge
 		var/mob/living/result_mob = summon_knowledge.mob_to_summon
 		icon_path = result_mob.icon
 		icon_state = result_mob.icon_state
 
 	//if the knowledge is an eldritch mark, use the mark sprite
-	else if(ispath(knowledge,/datum/heretic_knowledge/mark))
+	else if(ispath(knowledge, /datum/heretic_knowledge/mark))
 		var/datum/heretic_knowledge/mark/mark_knowledge = knowledge
 		var/datum/status_effect/eldritch/mark_effect = mark_knowledge.mark_type
 		icon_path = mark_effect.effect_icon
 		icon_state = mark_effect.effect_icon_state
 
-	//if the knowledge is an ascension, use the achievement sprite
-	else if(ispath(knowledge,/datum/heretic_knowledge/ultimate))//qwertodo: icon
-		var/datum/heretic_knowledge/ultimate/ascension_knowledge = knowledge
-//.		var/datum/award/achievement/misc/achievement = ascension_knowledge.ascension_achievement
-	//	if(!isnull(achievement))
-//			icon_path = achievement.icon
-//			icon_state = achievement.icon_state
+
 
 	var/list/result_parameters = list()
 	result_parameters["icon"] = icon_path

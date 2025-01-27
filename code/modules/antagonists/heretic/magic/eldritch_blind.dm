@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/spell/pointed/blind/eldritch
+/datum/spell/blind/eldritch
 	name = "Eldritch Blind"
 
 
@@ -9,4 +9,3 @@
 	invocation = "E'E'S"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	cast_range = 10

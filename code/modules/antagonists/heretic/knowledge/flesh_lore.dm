@@ -219,8 +219,8 @@
 /datum/heretic_knowledge/summon/raw_prophet
 	name = "Raw Ritual"
 	desc = "Allows you to transmute a pair of eyes, a left arm, and a pool of blood to create a Raw Prophet. \
-		Raw Prophets have a greatly increased sight range and x-ray vision, as well as a long range jaunt and \
-		the ability to link minds to communicate with ease, but are very fragile and weak in combat."
+		Raw Prophets have a greatly increased sight range and x-ray vision, as well as a long range jaunt, \
+		but are very fragile and weak in combat."
 	gain_text = "I could not continue alone. I was able to summon The Uncanny Man to help me see more. \
 		The screams... once constant, now silenced by their wretched appearance. Nothing was out of reach."
 	required_atoms = list(
@@ -232,8 +232,7 @@
 		/obj/item/organ/external/arm/right
 	)
 
-	//mob_to_summon = /mob/living/basic/heretic_summon/raw_prophet
-	mob_to_summon = /mob/living/simple_animal/bunny
+	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	cost = 1
 
 
@@ -255,7 +254,7 @@
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Lonely Ritual"
-	desc = "Allows you to transmute a tail of any kind, a stomach, a tongue, a pen and a piece of paper to create a Stalker. \
+	desc = "Allows you to transmute eyes, an arm, a pair of lungs, a pen and a piece of paper to create a Stalker. \
 		Stalkers can jaunt, release EMPs, shapeshift into animals or automatons, and are strong in combat."
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. \
 		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
@@ -268,6 +267,7 @@
 		/obj/item/paper = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/stalker
+	mind_spell = /datum/spell/shapeshift/eldritch
 	cost = 1
 
 
@@ -289,6 +289,8 @@
 
 	announcement_text = "%SPOOKY% Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %NAME% has ascended! Fear the ever twisting hand! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_flesh.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "fleshascend"
 
 /datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()

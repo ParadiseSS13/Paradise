@@ -182,6 +182,8 @@
 
 	announcement_text = "Delta-class dimensional anomaly detec%SPOOKY% Reality rended, torn. Gates open, doors open, %NAME% has ascended! Fear the tide! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_knock.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "lockascend"
 
 /datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()

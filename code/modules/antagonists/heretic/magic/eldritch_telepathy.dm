@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/spell/list_target/telepathy/eldritch
+/datum/spell/remotetalk/eldritch
 	name = "Eldritch Telepathy"
 	is_a_heretic_spell = TRUE
 

@@ -38,6 +38,8 @@
 	var/research_tree_icon_state
 	var/research_tree_icon_frame = 1
 	var/research_tree_icon_dir = SOUTH
+	/// A spell we need to add to the mind vs the mob.
+	var/mind_spell
 
 
 /** Called when the knowledge is first researched.
@@ -120,8 +122,6 @@
 		return "knife[number_of_things > 1 ? "s" : ""] of any kind"
 	if(ispath(item_path, /obj/item/toy/crayon))
 		return "crayon[number_of_things > 1 ? "s" : ""] of any kind"
-	if(ispath(item_path, /obj/item/organ/internal/eyes))
-		return "[number_of_things > 1 ? "s" : ""] of any kind"
 	return "[initial(item_path.name)]\s"
 /**
  * Called whenever the knowledge's associated ritual is completed successfully.
@@ -437,8 +437,13 @@
 	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
 	summon_objective?.num_summoned++
 	heretic_monster.set_owner(user.mind) //qwertodo: sleep / timer before doing this
-
+	if(mind_spell)
+		addtimer(CALLBACK(src, PROC_REF(add_mind_spell), summoned), 1 SECONDS)
 	return TRUE
+
+/datum/heretic_knowledge/proc/add_mind_spell(mob/living/summoned)
+	summoned.mind.AddSpell(mind_spell)
+
 
 /// The amount of knowledge points the knowledge ritual gives on success.
 #define KNOWLEDGE_RITUAL_POINTS 4

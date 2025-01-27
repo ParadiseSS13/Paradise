@@ -78,7 +78,7 @@
 			pixel_x = -128
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
-/datum/spell/basic_projectile/rust_wave //qwertodo make this work dipshit
+/datum/spell/fireball/rust_wave //qwertodo make this work dipshit
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 
@@ -96,21 +96,19 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	//projectile_type = /obj/item/projectile/magic/aoe/rust_wave
+	fireball_type = /obj/item/projectile/magic/rust_wave
 
-/obj/item/projectile/magic/aoe/rust_wave
+/obj/item/projectile/magic/rust_wave
 	name = "Patron's Reach"
 	icon_state = "eldritch_projectile"
 	alpha = 180
 	damage = 30
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
-	//trigger_range = 0
-	//ignored_factions = list("heretic")
 	range = 15
 	speed = 1
 
-/obj/item/projectile/magic/aoe/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+/obj/item/projectile/magic/rust_wave/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
@@ -127,10 +125,10 @@
 			continue
 		T.rust_heretic_act()
 
-/datum/spell/basic_projectile/rust_wave/short
+/datum/spell/fireball/rust_wave/short
 	name = "Lesser Patron's Reach"
-	//projectile_type = /obj/item/projectile/magic/aoe/rust_wave/short
+	fireball_type = /obj/item/projectile/magic/rust_wave/short
 
-/obj/item/projectile/magic/aoe/rust_wave/short
+/obj/item/projectile/magic/rust_wave/short
 	range = 7
 	speed = 0.5

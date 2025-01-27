@@ -13,6 +13,7 @@
 	speak_chance = 1
 	speed = 0
 	stop_automated_movement = TRUE
+	a_intent = INTENT_HARM
 	AIStatus = AI_OFF
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -47,7 +48,7 @@
 	sight = SEE_TURFS
 	actions_to_add = list(
 		/datum/spell/aoe/rust_conversion/construct,
-		/datum/spell/basic_projectile/rust_wave/short,
+		/datum/spell/fireball/rust_wave/short,
 	)
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/setDir(newdir)
@@ -104,8 +105,58 @@
 	melee_damage_upper = 20
 	sight = SEE_MOBS
 	actions_to_add = list(
-		/datum/spell/shapeshift/eldritch,
 		/datum/spell/ethereal_jaunt/ash,
 		/datum/spell/emplosion/heretic,
-	) //qwertodo: add the shapeshift to mind vs body
+	)
 
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet
+	name = "Raw Prophet"
+	real_name = "Raw Prophet"
+	desc = "An abomination stitched together from a few severed arms and one lost eye."
+	icon_state = "raw_prophet"
+	icon_living = "raw_prophet"
+	status_flags = CANPUSH
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	maxHealth = 65
+	health = 65
+	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
+	loot = list(/obj/effect/gibspawner/human, /obj/item/organ/external/arm, /obj/item/organ/internal/eyes)
+	actions_to_add = list(
+		/datum/spell/ethereal_jaunt/ash/long,
+		/datum/spell/remotetalk/eldritch,
+		/datum/spell/blind/eldritch,
+	)
+	/// The UID to the last target we smacked. Hitting targets consecutively does more damage.
+	var/last_target
+
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	if(user == src) // Easy to hit yourself + very fragile = accidental suicide, prevent that
+		return
+
+	return ..()
+
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/AttackingTarget()
+	if(target.UID() == last_target)
+		melee_damage_lower = min(melee_damage_lower + 5, 30)
+		melee_damage_upper = min(melee_damage_upper + 5, 35)
+	else
+		melee_damage_lower = initial(melee_damage_lower)
+		melee_damage_upper = initial(melee_damage_upper)
+
+	. = ..()
+	if(!.)
+		return
+
+	SpinAnimation(5, 1)
+	last_target = target.UID()
+
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	var/rotation_degree = (360 / 3)
+	if(movement_dir & WEST || movement_dir & SOUTH)
+		rotation_degree *= -1
+
+	var/matrix/to_turn = matrix(transform)
+	to_turn = turn(transform, rotation_degree)
+	animate(src, transform = to_turn, time = 0.1 SECONDS)

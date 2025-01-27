@@ -327,6 +327,47 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
+/mob/living/simple_animal/hostile/construct/harvester/heretic
+	name = "Rusted Harvester"
+	real_name = "Rusted Harvester"
+	desc = "A long, thin, decrepit construct originally built to herald Nar'Sie's rise, corrupted and rusted by the forces of the Mansus to spread its will instead."
+	playstyle_string = "You are a Rusted Harvester, built to serve the Sanguine Apostate, twisted to work the will of the Mansus. You are fragile and weak, but you rend cultists (only) apart on each attack. Follow your Master's orders!"
+	faction = list("heretic")
+	construct_spells = list(
+		/datum/spell/aoe/rust_conversion,
+		/datum/spell/pointed/rust_construction,
+	)
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/leeching_walk)
+	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, UID())
+	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
+	if(user == src)
+		return
+	return ..()
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds, times_fired)
+	. = ..()
+
+	for(var/mob/living/living_victims in range(3, src))
+		if(IS_HERETIC_OR_MONSTER(living_victims))
+			continue
+		living_victims.adjustBruteLoss(0.5, FALSE)
+		living_victims.adjustFireLoss(0.5, FALSE)
+		living_victims.adjustToxLoss(0.5, FALSE)
+		living_victims.apply_damage(4, STAMINA)
+	var/turf/adjacent = get_step(src, pick(GLOB.alldirs))
+	// 90% chance to be directional, otherwise what we're on top of
+	var/turf/simulated/land = (issimulatedturf(adjacent) && prob(90)) ? adjacent : get_turf(src)
+	do_rust_heretic_act(land)
+
+
 /mob/living/simple_animal/hostile/construct/proteon
 	name = "Proteon"
 	real_name = "Proteon"

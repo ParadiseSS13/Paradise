@@ -169,6 +169,8 @@
 
 	announcement_text = "%SPOOKY% Fear the decay, for the Rustbringer, %NAME% has ascended! None shall escape the corrosion! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "rustascend"
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
@@ -213,7 +215,6 @@
 	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
 	rust_spread_spell?.base_cooldown /= 2
 
-// I sure hope this doesn't have performance implications
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()

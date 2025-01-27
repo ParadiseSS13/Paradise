@@ -997,7 +997,7 @@
 	return new /datum/spell_targeting/telepathic
 
 /datum/spell/remotetalk/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))
+	if(!isliving(user))
 		return
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
@@ -1033,7 +1033,7 @@
 	return new /datum/spell_targeting/telepathic
 
 /datum/spell/mindscan/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))
+	if(!isliving(user))
 		return
 	for(var/mob/living/target in targets)
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"

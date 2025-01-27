@@ -54,6 +54,9 @@
 	/// How much this door reduces superconductivity to when closed.
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
 
+	/// Blocks the door from making sparks when on cooldown. Lag preventor, disabled by disable_door_sparks for 3 seconds
+	COOLDOWN_DECLARE(spark_block_cooldown)
+
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -278,7 +281,7 @@
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		if(damage_amount >= 10 && prob(30))
+		if(damage_amount >= 10 && prob(30) && COOLDOWN_FINISHED(src, spark_block_cooldown))
 			spark_system.start()
 
 /obj/machinery/door/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -611,3 +614,6 @@
 		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL
+
+/obj/machinery/door/proc/disable_door_sparks()
+	COOLDOWN_START(src, spark_block_cooldown, 3 SECONDS)

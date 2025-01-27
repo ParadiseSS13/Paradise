@@ -164,6 +164,8 @@
 
 	announcement_text = "%SPOOKY% Fear the blaze, for the Ashlord, %NAME% has ascended! The flames shall consume all! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_ash.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "ashascend"
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,

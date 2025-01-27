@@ -191,6 +191,8 @@
 
 	announcement_text = "%SPOOKY% The nobleman of void %NAME% has arrived, stepping along the Waltz that ends worlds! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "voidascend"
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic
@@ -221,7 +223,8 @@
 	RegisterSignal(user, COMSIG_ATOM_PREHIT, PROC_REF(hit_by_projectile))
 	RegisterSignals(user, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
 	heavy_storm = new(user, 10)
-	//qwertodo: 70% colour cutoff. or 30%. TG does something here, figure it out
+	user.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	user.update_sight()
 
 /datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
@@ -248,11 +251,12 @@
 			close_carbon.EyeBlurry(rand(0, 2 SECONDS))
 			close_carbon.adjust_bodytemperature(-30 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
-		if(istype(thing_in_range, /obj/machinery/door) || istype(thing_in_range, /obj/structure/door_assembly))
-			var/obj/affected_door = thing_in_range
+		if(istype(thing_in_range, /obj/machinery/door))
+			var/obj/machinery/door/affected_door = thing_in_range
+			affected_door.disable_door_sparks() //Sparks are the majority of the lag from this ascension, let us kill that off.
 			affected_door.take_damage(rand(60, 80))
 
-		if(istype(thing_in_range, /obj/structure/window) || istype(thing_in_range, /obj/structure/grille))
+		if(istype(thing_in_range, /obj/structure/window) || istype(thing_in_range, /obj/structure/grille) || istype(thing_in_range, /obj/structure/door_assembly) || istype(thing_in_range, /obj/structure/firelock_frame))
 			var/obj/structure/affected_structure = thing_in_range
 			affected_structure.take_damage(rand(20, 40))
 

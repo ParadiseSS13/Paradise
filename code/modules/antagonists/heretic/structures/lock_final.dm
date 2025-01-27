@@ -39,7 +39,7 @@
 /// Ask ghosts if they want to make some noise
 /obj/structure/lock_tear/proc/poll_ghosts()
 	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to be a random eldritch monster attacking the crew?", ROLE_HERETIC, TRUE, 10 SECONDS, source = src)
-	while(LAZYLEN(candidates)) //qwertodo: no, no while.
+	while(LAZYLEN(candidates))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		ghost_to_monster(candidate, should_ask = FALSE)
 	gathering_candidates = FALSE

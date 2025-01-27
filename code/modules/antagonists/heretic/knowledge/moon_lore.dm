@@ -157,6 +157,8 @@
 	announcement_text = "%SPOOKY% Laugh, for the ringleader %NAME% has ascended! \
 						The truth shall finally devour the lie! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_moon.ogg'
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "moonascend"
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
 //Qwertodo: redo this entire ultimate lmaoooo
