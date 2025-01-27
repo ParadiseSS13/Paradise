@@ -183,8 +183,6 @@
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
-	if(!.)
-		return .
 
 /obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
