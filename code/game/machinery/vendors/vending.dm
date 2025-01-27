@@ -167,7 +167,7 @@
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister
-	/// Should we always deconstruct this into components, even if it has no refill_canister?
+	/// Should we always be able to deconstruct this into components, even if it has no refill_canister?
 	var/always_deconstruct = FALSE
 
 	// Things that can go wrong
@@ -233,6 +233,10 @@
 	var/build_inv = FALSE
 	if(!refill_canister)
 		build_inv = TRUE
+		if(always_deconstruct)
+			var/obj/item/circuitboard/vendor/V = new
+			V.set_type(replacetext(initial(name), "\improper", ""))
+			component_parts = list(V)
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
@@ -411,7 +415,7 @@
 	eject_item()
 	for(var/datum/data/vending_product/physical/R in physical_product_records + physical_hidden_records)
 		R.on_deconstruct(loc)
-	if(!refill_canister && !always_deconstruct) //the non constructable vendors drop metal instead of a machine frame.
+	if(!component_parts) //the non constructable vendors drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/metal(loc, 3)
 		qdel(src)
 	else
@@ -857,12 +861,12 @@
 		return
 
 	if(cash_transaction >= currently_vending.price)
-		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, get_vendor_account())
+		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, vendor_account)
 	else if(istype(C, /obj/item/card))
 		// Because this uses H.get_idcard(TRUE), it will attempt to use:
 		// active hand, inactive hand, pda.id, and then wear_id ID in that order
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, get_vendor_account())
+		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, vendor_account)
 	else if(user.can_advanced_admin_interact())
 		to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
 		paid = TRUE

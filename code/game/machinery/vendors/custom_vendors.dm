@@ -30,8 +30,6 @@
 		return ITEM_INTERACT_COMPLETE
 	else if(locked())
 		return ..()
-	else if(used.tool_behaviour == TOOL_CROWBAR)
-		return ..()
 	if(!user.canUnEquip(used, FALSE))
 		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
