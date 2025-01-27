@@ -876,15 +876,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs for you are now above death!</span>"
-	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE)
+	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
-	victim.visible_message("<span class='warning'>[necromancer] places a vile rune onto the corpse where it adheres to the flesh. [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
+	victim.visible_message("<span class='warning'>[necromancer] places a vile rune onto the corpse's forehead where it adheres to the flesh. [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
 	for(var/trait in plague_traits)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
 	victim.AddComponent(/datum/component/zombie_regen)
-	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT) // Cant have the user/zombie getting infected by their own plagues
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT) // Cant have the user or zombie getting infected by their own plagues
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
 	var/datum/spell/plague_claws/plague_claws = new /datum/spell/plague_claws
