@@ -283,7 +283,7 @@
 	if(length(list_reagents))
 		return ..()
 
-	// We don't have any reagents, let's add someting
+	// We don't have any reagents, let's add something
 	list_reagents = list("nutriment" = 5)
 
 	return ..()
@@ -291,11 +291,6 @@
 //MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
-
-/obj/item/food/sliceable/Initialize(mapload)
-	if(!ispath(slice_path, /obj/item/food/sliced))
-		CRASH("Invalid type assigned to slice_path: [slice_path]")
-	return ..()
 
 /obj/item/food/sliceable/examine(mob/user)
 	. = ..()
