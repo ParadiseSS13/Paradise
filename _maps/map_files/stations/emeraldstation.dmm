@@ -2127,6 +2127,10 @@
 "ave" = (
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"avi" = (
+/obj/structure/sign/poster/official/random,
+/turf/simulated/wall,
+/area/station/public/dorms)
 "avk" = (
 /obj/item/cigbutt/roach,
 /turf/simulated/floor/plating,
@@ -16250,6 +16254,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/hallway/spacebridge/security/south)
+"dbV" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "dbY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
@@ -24156,6 +24166,7 @@
 /area/station/service/bar)
 "eBG" = (
 /obj/structure/chair/sofa,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "eBM" = (
@@ -35815,6 +35826,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
+"gHb" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "gHf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66505,6 +66523,10 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/assistant,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -104350,9 +104372,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "tlu" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -104591,10 +104611,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -111711,6 +111728,13 @@
 	icon_state = "cult"
 	},
 /area/station/legal/lawoffice)
+"uDE" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "uDO" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -159132,7 +159156,7 @@ giS
 giS
 onz
 rpb
-eUn
+tlu
 eUn
 eUn
 qDZ
@@ -159376,7 +159400,7 @@ vIv
 uJr
 nXW
 tyb
-bvA
+dbV
 njj
 kgg
 kgg
@@ -163515,7 +163539,7 @@ bQA
 vAZ
 vAZ
 vAZ
-vAZ
+avi
 vAZ
 obO
 rxd
@@ -164268,7 +164292,7 @@ mbN
 iAy
 nXh
 uQI
-nXh
+gHb
 nXh
 iuw
 iUr
@@ -167857,7 +167881,7 @@ rjc
 vAZ
 xCR
 urb
-sRm
+uDE
 tZO
 tZO
 xYm
