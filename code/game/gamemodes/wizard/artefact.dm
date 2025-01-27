@@ -908,7 +908,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()
 	var picked_disease
-	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
 	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
 	var/minor_length = length(minor_diseases)
 	var/major_length = length(major_diseases)
