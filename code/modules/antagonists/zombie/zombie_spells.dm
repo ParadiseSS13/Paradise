@@ -173,11 +173,12 @@
 	QDEL_LIST_CONTENTS(our_claws)
 	return ..()
 
-/datum/spell/plague_claws/cast(mob/user)
+/datum/spell/plague_claws/cast(mob/living/carbon/human/user)
 	if(dispel())
 		return
-
 	var/obj/item/plague_claw/claws = new /obj/item/plague_claw(user.loc, src, disease)
+	if(user.get_organ("l_hand") && user.get_organ("r_hand")) // Takes always takes both hand slots, but doesnt require both
+		claws.AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	if(user.put_in_hands(claws))
 		our_claws += claws
 	else
@@ -207,7 +208,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	armour_penetration_percentage = 25
-	force = 40
+	force = 35
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	gender = PLURAL
@@ -224,7 +225,7 @@
 		parent_spell = new_parent_spell
 		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 	claw_disease = disease
-	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+
 
 /obj/item/plague_claw/proc/dispel(mob/user)
 	if(user && user.get_active_hand() == src)
