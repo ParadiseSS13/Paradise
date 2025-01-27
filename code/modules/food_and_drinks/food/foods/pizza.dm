@@ -254,12 +254,12 @@
 	name = "garlic pizza"
 	desc = "Ahh, garlic. A universally loved ingredient, except possibly by vampires."
 	icon_state = "garlicpizza"
-	slice_path = /obj/item/food/garlic_pizza
+	slice_path = /obj/item/food/sliced/garlic_pizza
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5, "garlic" = 12)
 	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/garlic_pizza
+/obj/item/food/sliced/garlic_pizza
 	name = "garlic pizza slice"
 	desc = "What's not to love?"
 	icon = 'icons/obj/food/pizza.dmi'
