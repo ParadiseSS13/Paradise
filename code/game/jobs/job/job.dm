@@ -227,7 +227,8 @@
 		for(var/quirk_name in H.client.prefs.active_character.quirks)
 			var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
 			quirk.apply_quirk_effects(H)
-			quirk.give_item(H)
+			if(quirk.item_to_give)
+				equip_item(H, quirk.item_to_give, quirk.item_slot)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

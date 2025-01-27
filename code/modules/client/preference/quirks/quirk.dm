@@ -4,8 +4,8 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/desc = "Uh oh sisters! No description!"
 	var/quirk_type = QUIRK_NEUTRAL
 	var/cost = 0
-	/// The mind that this quirk gets applied to
-	var/datum/mind/owner
+	/// The mob that this quirk gets applied to.
+	var/mob/living/carbon/human/owner
 	/// If only organic characters can have it
 	var/organic_only = FALSE
 	/// If only IPC characters can have it
@@ -16,8 +16,10 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/processes = FALSE
 	/// If this quirk applies a trait, what trait should be applied.
 	var/trait_to_apply
-	/// If this quirk lets the mob start with extra item
+	/// If this quirk lets the mob spawn with an item
 	var/item_to_give
+	/// If there's an item to give, what slot should it be equipped to roundstart?
+	var/item_slot = ITEM_SLOT_IN_BACKPACK
 	/// If there's text that the user needs to be shown when they're given the quirk.
 	var/spawn_text
 
@@ -36,13 +38,11 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	if(!quirky)
 		log_debug("[src] did not find a mob to apply its effects to.")
 		return FALSE
-	owner = quirky.mind
+	owner = quirky
 	if(processes)
 		START_PROCESSING(SSprocessing, src)
 	if(trait_to_apply)
-		ADD_TRAIT(quirky, trait_to_apply, "quirk")
-	if(spawn_text)
-		to_chat(quirky, "<span class='notice'>[spawn_text]</span>")
+		ADD_TRAIT(owner, trait_to_apply, "quirk")
 
 /// For any behavior that needs to happen before a quirk is destroyed
 /datum/quirk/proc/remove_quirk_effects()
@@ -51,16 +51,6 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 		REMOVE_TRAIT(owner, trait_to_apply, "quirk")
 	if(processes)
 		STOP_PROCESSING(SSprocessing, src)
-
-/// The proc run at roundstart that gives users any items that a quirk may let them spawn with.
-/datum/quirk/proc/give_item(mob/living/carbon/human/quirky)
-	if(!item_to_give)
-		return
-	var/item = new item_to_give()
-	if(!isitem(item))
-		return
-	var/obj/item/to_give = item
-	quirky.equip_or_collect(to_give, ITEM_SLOT_IN_BACKPACK) //TODO make this actually put the item in their backpack.
 
 /********************************************************************
 *   Mob Procs, mostly for many mob/new_player in the lobby screen 	*
