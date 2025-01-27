@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
-	if (victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
 		to_chat(necromancer, "<span class='warning'>This one has already been risen! Give it time.</span>")
 		return
 
@@ -912,7 +912,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
 	var/minor_length = length(minor_diseases)
 	var/major_length = length(major_diseases)
-	if (prob(66))
+	if(prob(66))
 		picked_disease = minor_diseases[rand(1, minor_length)]
 		return(picked_disease)
 	else
