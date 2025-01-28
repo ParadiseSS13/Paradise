@@ -300,7 +300,7 @@
 			var/atom/movable/M = A
 			if(isliving(M.loc))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_to_ground(M)
 			M.forceMove(src)
 
 ///Return the air if we can analyze it
@@ -1175,6 +1175,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_hearers, 30)
 
+/atom/proc/atom_emote(emote)
+	if(!emote)
+		return
+	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
+
+	runechat_emote(src, emote)
+
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
 
@@ -1188,14 +1195,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/vv_get_dropdown()
 	. = ..()
-	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
+	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
 	var/turf/curturf = get_turf(src)
 	if(curturf)
-		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
-	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
+	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
+	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1431,3 +1438,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+/// Used with the spawner component to do something when a mob is spawned.
+/atom/proc/on_mob_spawn(mob/created_mob)
+	return

@@ -150,8 +150,11 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
 	. = ..()
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+	scatter_atom()
+
+/obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)
+	pixel_x = rand(-4,0) + offset_x
+	pixel_y = rand(-4,0) + offset_y
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
@@ -467,7 +470,8 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
-	new /datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("surgical tray", /obj/item/storage/surgical_tray, 1),
+	new /datum/stack_recipe("surgical instrument table", /obj/structure/table/tray, 3, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/mineral/titanium/Initialize(mapload, new_amount, merge)

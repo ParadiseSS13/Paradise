@@ -225,7 +225,6 @@
 	name = "Suspicious Supply Depot"
 	description = "A syndicate supply depot, heavily stocked, but heavily guarded with an assortment of shields, sentry bots, armed operatives and more."
 	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list because of the shielding chance
 
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
@@ -357,4 +356,12 @@
 	suffix = "unathi_skiff.dmm"
 	name = "Damaged Drakehound Skiff"
 	description = "A small Drakehound craft, damaged from an engine malfunction."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/clockwork_monastery
+	id = "clockwork_monastery"
+	suffix = "clockwork_monastery.dmm"
+	name = "Abandoned Clockwork Monastery"
+	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
+		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
 	allow_duplicates = FALSE

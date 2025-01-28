@@ -293,6 +293,7 @@
 /area/ruin/space/powered/casino/security)
 "hv" = (
 /obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "hJ" = (
@@ -323,6 +324,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "in" = (
@@ -382,6 +385,7 @@
 /area/ruin/space/powered/casino/arrivals)
 "jz" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "jJ" = (
@@ -660,6 +664,7 @@
 "rh" = (
 /obj/structure/grille/broken,
 /obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "rp" = (
@@ -802,6 +807,7 @@
 	dir = 8
 	},
 /obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "wo" = (
@@ -1111,6 +1117,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
+"EK" = (
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/casino/kitchen)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/spawner/random/dirt/maybe,
@@ -1310,6 +1323,7 @@
 "Nh" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/casino/docked_ships)
 "Nj" = (
@@ -1368,6 +1382,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
+"OZ" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
 "Pz" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -2222,7 +2243,7 @@ cc
 cc
 fT
 sO
-UO
+OZ
 RS
 Is
 Is
@@ -2454,7 +2475,7 @@ An
 IS
 sO
 UW
-DM
+EK
 ql
 DM
 sO

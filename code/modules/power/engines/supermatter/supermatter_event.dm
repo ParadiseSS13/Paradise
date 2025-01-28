@@ -109,7 +109,7 @@
 	duration = 5 MINUTES
 
 /datum/engi_event/supermatter_event/charlie_tier/heat_penalty_threshold/on_start()
-	supermatter.heat_penalty_threshold -= -173
+	supermatter.heat_penalty_threshold -= 173
 
 //Class B events
 /datum/engi_event/supermatter_event/bravo_tier

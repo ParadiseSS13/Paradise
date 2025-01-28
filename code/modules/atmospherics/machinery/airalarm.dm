@@ -222,6 +222,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
+	alarm_area.air_alarms += src
 
 	if(!mapload)
 		GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -231,41 +232,18 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!building)
 		first_run()
 
-	if(!master_is_operating())
-		elect_master()
-
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
+	alarm_area.air_alarms -= src
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
-	if(alarm_area && alarm_area.master_air_alarm == src)
-		alarm_area.master_air_alarm = null
-		elect_master(exclude_self = 1)
 	alarm_area = null
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
-
-/obj/machinery/alarm/proc/master_is_operating()
-	if(!alarm_area)
-		alarm_area = get_area(src)
-	if(!alarm_area)
-		. = FALSE
-		CRASH("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()")
-	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
-
-
-/obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
-	for(var/obj/machinery/alarm/AA in alarm_area)
-		if(exclude_self && AA == src)
-			continue
-		if(!(AA.stat & (NOPOWER|BROKEN)))
-			alarm_area.master_air_alarm = AA
-			return 1
-	return 0
 
 /obj/machinery/alarm/process()
 	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2)
@@ -275,8 +253,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!istype(location))
 		return 0
 
-	var/datum/milla_safe/airalarm_heat_cool/milla = new()
-	milla.invoke_async(src)
+	if(thermostat_state)
+		var/datum/milla_safe/airalarm_heat_cool/milla = new()
+		milla.invoke_async(src)
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
@@ -342,8 +321,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/turf/location = get_turf(alarm)
 	var/datum/gas_mixture/environment = get_turf_air(location)
 
-	if(!alarm.thermostat_state)
-		return
 	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
@@ -674,7 +651,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return data
 
 /obj/machinery/alarm/proc/has_rcon_access(mob/user)
-	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
+	return user && (is_ai(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
 // Intentional nulls here
 /obj/machinery/alarm/ui_data(mob/user)
@@ -796,7 +773,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return thresholds
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.lacks_power() || AI.apc_override)
 			return GLOB.always_state
@@ -821,7 +798,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
+	else if(is_ai(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked
@@ -830,7 +807,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != 2)
 		return UI_CLOSE
 
-	if(aidisabled && (isAI(user) || isrobot(user)))
+	if(aidisabled && (is_ai(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return UI_CLOSE
 

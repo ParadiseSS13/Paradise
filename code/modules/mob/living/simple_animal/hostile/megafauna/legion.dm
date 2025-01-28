@@ -188,7 +188,7 @@ Difficulty: Medium
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
-/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)

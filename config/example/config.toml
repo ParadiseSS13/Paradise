@@ -263,17 +263,18 @@ gamemode_probabilities = [
 	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 3 },
 	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
-	{ gamemode = "extended", probability = 3 },
+	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
 	{ gamemode = "raginmages", probability = 0 },
 	{ gamemode = "revolution", probability = 0 },
-	{ gamemode = "traitor", probability = 2 },
-	{ gamemode = "traitorchan", probability = 3 },
-	{ gamemode = "traitorvamp", probability = 3 },
-	{ gamemode = "vampchan", probability = 3 },
-	{ gamemode = "vampire", probability = 3 },
+	{ gamemode = "traitor", probability = 0 },
+	{ gamemode = "traitorchan", probability = 0 },
+	{ gamemode = "traitorvamp", probability = 0 },
+	{ gamemode = "vampchan", probability = 0 },
+	{ gamemode = "vampire", probability = 0 },
 	{ gamemode = "wizard", probability = 2 },
-	{ gamemode = "trifecta", probability = 3 },
+	{ gamemode = "trifecta", probability = 0 },
+	{ gamemode = "dynamic", probability = 20 },
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -701,6 +702,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
