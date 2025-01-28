@@ -68,29 +68,6 @@
 	..()
 	block = GLOB.clumsyblock
 
-/datum/mutation/disability/tourettes
-	name = "Tourettes"
-	activation_messages = list("You twitch.")
-	deactivation_messages = list("Your mouth tastes like soap.")
-
-/datum/mutation/disability/tourettes/New()
-	..()
-	block = GLOB.twitchblock
-
-/datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if(prob(10))
-		switch(rand(1, 3))
-			if(1)
-				H.emote("twitch")
-			if(2 to 3)
-				H.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
-		var/x_offset_old = H.pixel_x
-		var/y_offset_old = H.pixel_y
-		var/x_offset = H.pixel_x + rand(-2, 2)
-		var/y_offset = H.pixel_y + rand(-1, 1)
-		animate(H, pixel_x = x_offset, pixel_y = y_offset, time = 1)
-		animate(H, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
-
 /datum/mutation/disability/nervousness
 	name = "Nervousness"
 	activation_messages = list("You feel nervous.")
