@@ -9,8 +9,29 @@
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 	density = FALSE
+	var/image/overlay = null
 	new_attack_chain = TRUE
 	var/assembled = FALSE
+	var/overlay_color = "#ffffff"
+	var/overlay_alpha = 255
+
+
+/obj/structure/curtain/Initialize(mapload)
+	. = ..()
+	if(opacity)
+		icon_state = "closed"
+		overlay = image("closed_overlay")
+		overlay.color = overlay_color
+		overlay.alpha = overlay_alpha
+		add_overlay(overlay)
+		layer = SHOWER_CLOSED_LAYER
+	else
+		icon_state = "open"
+		overlay = image("open_overlay")
+		overlay.color = overlay_color
+		overlay.alpha = overlay_alpha
+		add_overlay(overlay)
+		layer = SHOWER_OPEN_LAYER
 
 /obj/structure/curtain/open
 	icon_state = "open"
@@ -117,11 +138,20 @@
 
 /obj/structure/curtain/proc/toggle()
 	set_opacity(!opacity)
+	cut_overlays()
 	if(opacity)
 		icon_state = "closed"
+		overlay = image("closed_overlay")
+		overlay.color = overlay_color
+		overlay.alpha = overlay_alpha
+		add_overlay(overlay)
 		layer = SHOWER_CLOSED_LAYER
 	else
 		icon_state = "open"
+		overlay = image("open_overlay")
+		overlay.color = overlay_color
+		overlay.alpha = overlay_alpha
+		add_overlay(overlay)
 		layer = SHOWER_OPEN_LAYER
 
 /obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -175,26 +205,26 @@
 
 /obj/structure/curtain/black
 	name = "black curtain"
-	color = "#222222"
+	overlay_color = "#222222"
 
 /obj/structure/curtain/medical
 	name = "plastic curtain"
-	color = "#B8F5E3"
-	alpha = 200
+	overlay_color = "#B8F5E3"
+	overlay_alpha = 200
 
 /obj/structure/curtain/open/shower
 	name = "shower curtain"
-	color = "#7aa6c4"
-	alpha = 200
+	overlay_color = "#7aa6c4"
+	overlay_alpha = 200
 
 /obj/structure/curtain/open/shower/engineering
-	color = "#FFA500"
+	overlay_color = "#FFA500"
 
 /obj/structure/curtain/open/shower/security
-	color = "#AA0000"
+	overlay_color = "#AA0000"
 
 /obj/structure/curtain/open/shower/centcom
-	color = "#000066"
+	overlay_color = "#000066"
 
 #undef SHOWER_OPEN_LAYER
 #undef SHOWER_CLOSED_LAYER
