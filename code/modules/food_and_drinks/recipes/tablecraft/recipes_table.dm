@@ -76,7 +76,7 @@
 		/obj/item/food/boiled_shrimp = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_ebi)
+	result = list(/obj/item/food/sliced/sushi_ebi)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -99,7 +99,7 @@
 		/obj/item/fish_eggs/salmon = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_ikura)
+	result = list(/obj/item/food/sliced/sushi_ikura)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
