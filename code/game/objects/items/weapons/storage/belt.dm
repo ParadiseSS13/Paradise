@@ -691,7 +691,7 @@
 
 /obj/item/storage/belt/plague_talisman
 	name = "Runic Belt"
-	desc = "A belt designed to hold safely contain plague ridden runes. Beter hope it doesnt start to drip."
+	desc = "A belt designed to hold safely contain Plague Talismans. Better hope it doesn't start dripping..."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 5
