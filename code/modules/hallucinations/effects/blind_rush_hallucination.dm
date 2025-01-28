@@ -48,19 +48,13 @@
 	var/rush_timer = null
 
 /obj/effect/hallucination/no_delete/blind_rusher/Initialize(mapload, mob/living/carbon/target)
-	rush_timer = addtimer(CALLBACK(src, PROC_REF(rush)), rush_time, TIMER_LOOP | TIMER_STOPPABLE)
+	rush_timer = addtimer(CALLBACK(src, PROC_REF(rush)), rush_time, TIMER_LOOP | TIMER_DELETE_ME)
 	if(prob(50))
 		hallucination_icon = 'icons/mob/simple_human.dmi'
 		hallucination_icon_state = pick("clown", "skeleton_warden", "skeleton_warden_alt")
 	return ..()
 
-/obj/effect/hallucination/no_delete/blind_rusher/Destroy()
-	deltimer(rush_timer)
-	return ..()
-
 /obj/effect/hallucination/no_delete/blind_rusher/proc/rush()
-	if(QDELETED(src))
-		return
 	if(get_dist(src, target) > min_distance)
 		var/direction = get_dir(src, target) //making sure the hallucination is facing the player correctly.
 		forceMove(get_step(src, direction)) //forceMove to go through walls and other dense turfs.
