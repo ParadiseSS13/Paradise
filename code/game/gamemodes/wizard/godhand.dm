@@ -160,11 +160,3 @@
 		else
 			H.makeAntiCluwne()
 	handle_delete(user)
-
-/obj/item/melee/touch_attack/plague
-	name = "Plague and Pestilence"
-	desc = "Your hand emits a dim glow, as blisters both real and imaginary sprout all over it. Yuck!"
-	catchphrase = "INF'IC EI!"
-	on_use_sound = 'sound/magic/teleport_app.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
