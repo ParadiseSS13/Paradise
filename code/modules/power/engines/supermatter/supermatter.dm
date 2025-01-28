@@ -471,7 +471,7 @@
 		// Pass all the gas related code an empty gas container
 		removed = new()
 	damage_archived = damage
-	if(!removed || !removed.total_moles() || isspaceturf(T)) //we're in space or there is no gas to process
+	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
 		if(takes_damage)
 			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
 	else
