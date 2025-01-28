@@ -202,7 +202,7 @@
 
 /obj/item/plague_claw
 	name = "Plague Claws"
-	desc = "Ichor-coated claws extending from your rotting hands, perfect for ripping bone and flesh for your master."
+	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
