@@ -87,9 +87,9 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= 10)
-				add_splatter_floor(loc, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+				add_splatter_floor(loc)
 			else
-				add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -108,7 +108,7 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 			custom_emote(EMOTE_VISIBLE, "coughs up blood!")
-			add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+			add_splatter_floor(loc, 1)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
 			vomit(0, 1)
@@ -256,7 +256,7 @@
 			. += list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
 		return
 	if(!T)
@@ -264,13 +264,14 @@
 
 	var/list/temp_blood_DNA
 	var/list/b_data = get_blood_data(get_blood_id())
+	var/datum/move_loop/move/move_loop = GLOB.move_manager.processing_on(src, SSspacedrift)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
 		if(drop)
-			if(emittor_intertia)
-				drop.newtonian_move(emittor_intertia)
+			if(move_loop)
+				drop.newtonian_move(move_loop.direction, instant = TRUE)
 			if(drop.drips < 5)
 				drop.drips++
 				var/image/I = image(drop.icon, drop.random_icon_states)
@@ -295,8 +296,8 @@
 			else
 				drop.basecolor = "#A10808"
 			drop.update_icon()
-			if(emittor_intertia)
-				drop.newtonian_move(emittor_intertia)
+			if(move_loop)
+				drop.newtonian_move(move_loop.direction, instant = TRUE)
 			return
 
 	// Find a blood decal or create a new one.
@@ -318,8 +319,8 @@
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
-	if(emittor_intertia)
-		B.newtonian_move(emittor_intertia)
+	if(move_loop)
+		B.newtonian_move(move_loop.direction, instant = TRUE)
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
 	if(!(NO_BLOOD in dna.species.species_traits))

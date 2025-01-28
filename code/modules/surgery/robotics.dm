@@ -444,10 +444,6 @@
 		to_chat(user, "<span class='notice'>[I] is in no state to be transplanted.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(target.get_int_organ(I))
-		to_chat(user, "<span class='warning'>[target] already has [I].</span>")
-		return SURGERY_BEGINSTEP_SKIP
-
 	user.visible_message(
 		"[user] begins reattaching [target]'s [tool].",
 		"You start reattaching [target]'s [tool]."

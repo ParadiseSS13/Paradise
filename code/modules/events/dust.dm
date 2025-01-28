@@ -42,7 +42,7 @@
 	var/turf/start = pick_edge_loc(startside, level_name_to_num(MAIN_STATION))
 	forceMove(start)
 	goal = pick_edge_loc(REVERSE_DIR(startside), level_name_to_num(MAIN_STATION))
-	walk_towards(src, goal, 1)
+	GLOB.move_manager.home_onto(src, goal, 1)
 
 /obj/effect/space_dust/Bump(atom/A)
 	if(QDELETED(src))
@@ -64,7 +64,7 @@
 
 	life--
 	if(life <= 0)
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		on_shatter(where)
 		qdel(src)
 

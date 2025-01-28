@@ -149,6 +149,10 @@
 	},
 /turf/simulated/floor/plating/burnt/airless,
 /area/template_noop)
+"QL" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/burnt/airless,
+/area/template_noop)
 
 (1,1,1) = {"
 aa
@@ -359,7 +363,7 @@ aa
 ay
 ad
 ml
-ay
+QL
 aU
 aa
 aa

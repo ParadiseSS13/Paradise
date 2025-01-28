@@ -450,64 +450,64 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-
-		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is in use.</span>")
-			return
-
-		if(!ismob(G.affecting))
-			return
-
-		if(!check_occupant_allowed(G.affecting))
-			return
-
-		var/willing = null //We don't want to allow people to be forced into despawning.
-		var/mob/living/M = G.affecting
-		time_till_despawn = initial(time_till_despawn)
-
-		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
-			return
-
-		if(M.client)
-			if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
-				if(!M || !G || !G.affecting)
-					return
-				willing = willing_time_divisor
-		else
-			willing = 1
-
-		if(willing)
-
-			visible_message("[user] starts putting [G.affecting.name] into [src].")
-
-			if(do_after(user, 20, target = G.affecting))
-				if(!M || !G || !G.affecting)
-					return
-
-				if(occupant)
-					to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
-					return
-
-				take_occupant(M, willing)
-
-			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
-				return
-
-			icon_state = occupied_icon_state
-
-			M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
-			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
-			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-
-			take_occupant(M, willing)
-	else
+/obj/machinery/cryopod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/grab/G = used
+	if(!istype(G))
 		return ..()
 
+	if(occupant)
+		to_chat(user, "<span class='notice'>[src] is in use.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!ismob(G.affecting))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!check_occupant_allowed(G.affecting))
+		return ITEM_INTERACT_COMPLETE
+
+	var/willing = null //We don't want to allow people to be forced into despawning.
+	var/mob/living/M = G.affecting
+	time_till_despawn = initial(time_till_despawn)
+
+	if(!istype(M) || M.stat == DEAD)
+		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(M.client)
+		if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
+			if(!M || !G || !G.affecting)
+				return ITEM_INTERACT_COMPLETE
+			willing = willing_time_divisor
+	else
+		willing = 1
+
+	if(willing)
+
+		visible_message("[user] starts putting [G.affecting.name] into [src].")
+
+		if(do_after(user, 20, target = G.affecting))
+			if(!M || !G || !G.affecting)
+				return ITEM_INTERACT_COMPLETE
+
+			if(occupant)
+				to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
+				return ITEM_INTERACT_COMPLETE
+
+			take_occupant(M, willing)
+
+		else //because why the fuck would you keep going if the mob isn't in the pod
+			to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		icon_state = occupied_icon_state
+
+		M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
+		to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
+		to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+
+		take_occupant(M, willing)
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 
