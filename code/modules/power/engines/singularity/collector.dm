@@ -65,24 +65,23 @@
 	else
 		disconnect_from_network()
 
-
-/obj/machinery/power/rad_collector/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/internals/plasma))
+/obj/machinery/power/rad_collector/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 		if(loaded_tank)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 		if(user.drop_item())
-			loaded_tank = I
-			I.forceMove(src)
+			loaded_tank = used
+			used.forceMove(src)
 			update_icons()
-	else if(I.tool_behaviour == TOOL_CROWBAR)
+	else if(used.tool_behaviour == TOOL_CROWBAR)
 		if(loaded_tank && !locked)
 			eject()
-			return TRUE
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+			return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(allowed(user))
 			if(active)
 				locked = !locked
@@ -92,7 +91,8 @@
 				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is active</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied!</span>")
-			return TRUE
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

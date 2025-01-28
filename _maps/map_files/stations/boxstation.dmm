@@ -79699,9 +79699,9 @@
 /area/station/science/test_chamber)
 "tWD" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,
