@@ -3,7 +3,7 @@
 
 /obj/structure/curtain
 	icon = 'icons/obj/curtain.dmi'
-	name = "\improper curtain"
+	name = "curtain"
 	icon_state = "closed"
 	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
