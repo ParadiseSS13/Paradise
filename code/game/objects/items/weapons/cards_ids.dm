@@ -165,6 +165,27 @@
 	if(can_id_flash)
 		flash_card(user)
 
+/obj/item/card/id/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isliving(target))
+		return NONE
+	return shared_interact(target, user)
+
+/obj/item/card/id/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isliving(target) && get_dist(target, user) <= 2)
+		return shared_interact(target, user)
+	return NONE
+
+/obj/item/card/id/proc/shared_interact(mob/living/victim, mob/living/user)
+	if(victim.has_status_effect(STATUS_EFFECT_OFFERING_EFTPOS))
+		var/obj/item/eftpos/eftpos = victim.is_holding_item_of_type(/obj/item/eftpos)
+		if(!eftpos || !eftpos.can_offer)
+			to_chat(user, "<span class='warning'>They don't seem to have it in hand anymore.</span>")
+			return ITEM_INTERACT_COMPLETE
+		victim.remove_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
+		eftpos.scan_card(src, user)
+		return ITEM_INTERACT_COMPLETE
+	return NONE
+
 /obj/item/card/id/proc/UpdateName()
 	name = "[registered_name]'s ID Card ([assignment])"
 

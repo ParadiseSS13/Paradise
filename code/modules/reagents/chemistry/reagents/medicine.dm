@@ -969,41 +969,27 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
+				if(M.suiciding) // Feedback if the player suicided.
+					M.visible_message("<span class='warning'>[M] twitches slightly, but appears to have no will to live!</span>")
+					return
+				if(HAS_TRAIT(M, TRAIT_HUSK) || HAS_TRAIT(M, TRAIT_BADDNA)) // Feedback if the body is husked or has bad DNA.
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					return
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS) || !M.ghost_can_reenter())
+						M.visible_message("<span class='warning'>[M] twitches slightly, but nothing happens.</span>")
 						return
 					M.delayed_gib(TRUE)
 					return
-				if(!M.ghost_can_reenter())
-					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
-					return
+				M.visible_message("<span class='notice'>[M]'s body begins to twitch as the Lazarus Reagent takes effect!</span>")
+				M.do_jitter_animation(300) // Visual feedback of lazarus working.
+				var/mob/dead/observer/G = M.get_ghost()
+				if(G)
+					to_chat(G, "<span class='ghostalert'>Lazarus Reagent is attempting to revive your body. Re-enter your body to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+					window_flash(G.client)
+					SEND_SOUND(G, sound('sound/effects/genetics.ogg'))
+				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, lazrevival), M), 5 SECONDS) // same time as the defib to keep things consistant.
 
-				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
-					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.adjustCloneLoss(50)
-					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0, 15))
-					M.adjustToxLoss(rand(0, 15))
-					M.adjustFireLoss(rand(0, 15))
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
-						var/necrosis_prob = 15 * H.decaylevel
-						H.decaylevel = 0
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-							// Per non-vital body part:
-							// 15% * H.decaylevel (1 to 4)
-							// Min of 0%, Max of 60%
-							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
-								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
-
-					M.grab_ghost()
-					M.update_revive()
-					add_attack_logs(M, M, "Revived with lazarus reagent") //Yes, the logs say you revived yourself.
-					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
 /datum/reagent/medicine/sanguine_reagent

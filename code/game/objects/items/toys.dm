@@ -830,7 +830,7 @@
 /obj/item/toy/plushie/ipcplushie/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/food/breadslice))
+	if(istype(attacking, /obj/item/food/sliced/bread))
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
