@@ -446,7 +446,7 @@
 
 /datum/spellbook_entry/item/plague_talisman
 	name = "Five Plague Talismans"
-	desc = "Special engraved runes for raising the dead into a plague-ridden animated corpse"
+	desc = "Special engraved runes, used to raise the dead into plague-ridden, animated corpses."
 	item_path = /obj/item/storage/belt/plague_talisman
 	category = "Artefacts"
 
