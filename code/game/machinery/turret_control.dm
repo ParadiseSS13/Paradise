@@ -88,7 +88,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) || is_ai(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -106,18 +106,19 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/machinery/turretid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & BROKEN)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(istype(used, /obj/item/card/id)||istype(used, /obj/item/pda))
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
 			else
 				locked = !locked
 				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/turretid/emag_act(user as mob)

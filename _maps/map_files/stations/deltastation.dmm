@@ -36171,8 +36171,24 @@
 /obj/structure/closet/crate{
 	name = "solar pack crate"
 	},
-/obj/effect/turf_decal/delivery/hollow,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
+/obj/item/tracker_electronics,
+/obj/item/paper/solar,
 /obj/machinery/alarm/directional/south,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "csA" = (
@@ -44960,10 +44976,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
-"cVr" = (
-/obj/structure/sign/nosmoking_2,
-/turf/simulated/wall,
-/area/station/science/rnd)
 "cVs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -60220,6 +60232,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/test_chamber)
+"geq" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "get" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel,
@@ -64349,6 +64367,7 @@
 	name = "Toxins Launcher Bay Door";
 	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "ixF" = (
@@ -67358,10 +67377,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
-"kol" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "kot" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -72048,6 +72063,13 @@
 	icon_state = "vault"
 	},
 /area/station/command/bridge)
+"mXh" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "mXA" = (
 /turf/simulated/wall,
 /area/station/medical/sleeper)
@@ -76483,6 +76505,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
+"pvo" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "pvv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal,
@@ -82215,9 +82241,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
-"ssx" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/break_room)
 "ssy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -82342,6 +82365,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"svR" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "svX" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -82501,10 +82531,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "sAB" = (
@@ -84868,6 +84898,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
+"tOx" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/research)
 "tOF" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -85724,12 +85758,12 @@
 /area/station/security/permabrig)
 "ugy" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "ugz" = (
@@ -86121,9 +86155,9 @@
 /area/station/hallway/secondary/entry/south)
 "urY" = (
 /obj/structure/closet/crate,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/potato,
 /obj/item/food/grown/onion,
@@ -86885,6 +86919,15 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"uND" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "uNJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -88703,9 +88746,7 @@
 /area/station/medical/surgery/observation)
 "vPd" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -88715,6 +88756,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "vPo" = (
@@ -92960,6 +93003,13 @@
 /obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"ydD" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/medbay)
 "ydY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -124729,7 +124779,7 @@ hdu
 hnH
 ojf
 lSc
-cPn
+mXh
 cRd
 cZt
 hHk
@@ -126775,7 +126825,7 @@ fBk
 fBk
 fBk
 fBk
-dau
+svR
 yid
 cPn
 dFm
@@ -127280,7 +127330,7 @@ tik
 xjh
 mQi
 rLQ
-kol
+pvo
 drn
 dhG
 fBk
@@ -128574,7 +128624,7 @@ aNa
 qJw
 vDT
 fBk
-dau
+uND
 yid
 cPn
 hkY
@@ -128598,7 +128648,7 @@ dBe
 wJr
 oKa
 kxJ
-ssx
+ykJ
 ykJ
 hOr
 iqc
@@ -129085,7 +129135,7 @@ tQM
 cSm
 cZt
 cTU
-cMm
+tOx
 cXb
 cZt
 dZb
@@ -129871,7 +129921,7 @@ cSt
 cSt
 dIi
 dsu
-cSt
+geq
 cSt
 cSt
 dvj
@@ -130369,7 +130419,7 @@ pGk
 xAc
 cSp
 cTQ
-cVr
+cTR
 cTR
 cTR
 cTR
@@ -139883,7 +139933,7 @@ cZN
 lQs
 uLc
 dwG
-cKO
+ydD
 hbt
 cSA
 cSA

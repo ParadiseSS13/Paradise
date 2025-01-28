@@ -49,9 +49,9 @@
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/holosign_switch/attackby__legacy__attackchain(obj/item/W, mob/user as mob, params)
-	if(istype(W, /obj/item/detective_scanner))
-		return
+/obj/machinery/holosign_switch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/detective_scanner))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/holosign_switch/attack_hand(mob/user as mob)

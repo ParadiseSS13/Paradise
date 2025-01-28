@@ -47,7 +47,7 @@
 		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
+	if(is_ai(user)) //so the AI can't open it
 		return
 	else if(isrobot(user) && Adjacent(user)) //but cyborgs can, but not remotely
 		return try_to_operate(user)

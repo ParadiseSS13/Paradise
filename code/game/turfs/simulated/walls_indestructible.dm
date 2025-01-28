@@ -302,3 +302,13 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
+/turf/simulated/wall/indestructible/backrooms
+	name = "wall"
+	desc = "A strange wall that looks like cheap wallpaper and drywall."
+	icon = 'icons/turf/walls/backrooms_wall.dmi'
+	icon_state = "backrooms_wall-0"
+	base_icon_state = "backrooms_wall"
+	explosion_block = 4
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_BACKROOMS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BACKROOMS_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)

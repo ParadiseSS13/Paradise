@@ -108,6 +108,7 @@
 					/obj/item/reagent_containers/condiment/saltshaker =5,
 					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
+					/obj/item/storage/box/papersack = 20,
 					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1,
 					/obj/item/kitchen/mould/worm = 1,

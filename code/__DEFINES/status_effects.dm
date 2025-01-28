@@ -200,6 +200,7 @@
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_OFFERING_EFTPOS /datum/status_effect/high_five/offering_eftpos
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 #define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
 

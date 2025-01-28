@@ -534,7 +534,7 @@
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
 		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
-	else if(isAI(commenter))
+	else if(is_ai(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"

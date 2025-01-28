@@ -165,7 +165,7 @@
 					step_towards(M, center)
 
 			for(var/mob/living/silicon/S in orange(magnetic_field, center))
-				if(isAI(S)) continue
+				if(is_ai(S)) continue
 				step_towards(S, center)
 
 		use_power(electricity_level * 5)
