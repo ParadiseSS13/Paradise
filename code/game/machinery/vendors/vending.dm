@@ -855,7 +855,7 @@
 
 	var/datum/money_account/vendor_account = get_vendor_account()
 	if(cash_transaction < currently_vending.price && (isnull(vendor_account) || vendor_account.suspended))
-		to_chat(user, "Vendor account offline. Unable to process transaction.")
+		to_chat(user, "<span class='warning'>Vendor account offline. Unable to process transaction.</span>")
 		flick(icon_deny, src)
 		vend_ready = TRUE
 		return

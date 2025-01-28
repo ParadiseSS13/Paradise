@@ -18,7 +18,7 @@
 
 /obj/machinery/economy/vending/custom/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/eftpos))
-		visible_message("[src] beeps as [user] links it to [used].", "You hear something beep.")
+		visible_message("<span class='notice'>[src] beeps as [user] links it to [used]."</span>, "<span class='notice'>You hear something beep.</span>")
 		if(!isnull(linked_pos))
 			linked_pos.linked_vendors -= src
 		linked_pos = used
@@ -44,7 +44,7 @@
 				record.items += used
 				user.unequip(used)
 				used.moveToNullspace()
-				user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
+				user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice>'You put [used] into [src].</span>")
 				return ITEM_INTERACT_COMPLETE
 
 	var/price = tgui_input_number(user, "How much do you want to sell [used] for?")
@@ -72,7 +72,7 @@
 
 /obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/I)
 	if(!isnull(linked_pos) && linked_pos.transaction_locked)
-		user.visible_message("[user] tries to pry [src] apart, but fails.", "The lock on [src] resists your efforts to pry it apart.")
+		user.visible_message("<span class='notice'>[user] tries to pry [src] apart, but fails.</span>", "<span class='notice'>The lock on [src] resists your efforts to pry it apart.</span>")
 		return TRUE
 	return ..()
 
