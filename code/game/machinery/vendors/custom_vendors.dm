@@ -18,7 +18,7 @@
 
 /obj/machinery/economy/vending/custom/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/eftpos))
-		visible_message("<span class='notice'>[src] beeps as [user] links it to [used]."</span>, "<span class='notice'>You hear something beep.</span>")
+		visible_message("<span class='notice'>[src] beeps as [user] links it to [used].</span>", "<span class='notice'>You hear something beep.</span>")
 		if(!isnull(linked_pos))
 			linked_pos.linked_vendors -= src
 		linked_pos = used
