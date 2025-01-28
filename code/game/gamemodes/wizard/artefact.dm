@@ -847,7 +847,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/plague_talisman
 	name = "plague Talisman"
-	desc = "A vile rune capabale of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks"
+	desc = "A vile rune, capable of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "plague_talisman"
 	origin_tech = "bluespace=4;materials=4"
