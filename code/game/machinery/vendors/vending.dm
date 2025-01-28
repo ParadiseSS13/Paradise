@@ -782,15 +782,15 @@
 				if(!isnull(new_name))
 					name = new_name
 		if("change_appearance")
+			if(locked())
+				return
 			var/possible_icons = list()
 			var/icon_lookup = list()
-			var/seen = list()
-			for(var/obj/machinery/economy/vending/vendor_type as anything in subtypesof(/obj/machinery/economy/vending))
-				if(seen[initial(vendor_type.icon_state)])
-					continue
-				possible_icons[initial(vendor_type.name)] = image(icon = initial(vendor_type.icon), icon_state = initial(vendor_type.icon_state))
-				icon_lookup[initial(vendor_type.name)] = list(initial(vendor_type.icon), initial(vendor_type.icon_state))
-				seen[initial(vendor_type.icon_state)] = TRUE
+			var/buildable_vendors = /obj/item/circuitboard/vendor::station_vendors
+			for(var/vendor_name in buildable_vendors)
+				var/obj/machinery/economy/vending/vendor_type = buildable_vendors[vendor_name]
+				possible_icons[vendor_name] = image(icon = initial(vendor_type.icon), icon_state = initial(vendor_type.icon_state))
+				icon_lookup[vendor_name] = list(initial(vendor_type.icon), initial(vendor_type.icon_state))
 			var/choice = show_radial_menu(user, src, possible_icons, radius=48)
 			if(!choice || !(choice in icon_lookup) || user.stat || !in_range(user, src) || QDELETED(src))
 				return
