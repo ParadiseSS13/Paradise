@@ -852,6 +852,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon_state = "plague_talisman"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
+	var/chosen_plague
 
 //checks if they're a valid target before trying to raise
 /obj/item/plague_talisman/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
@@ -875,7 +876,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 //raises the victim into a special zombies and binds them to wiz
 /obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
-	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!</span>"
+	chosen_plague = pick_disease()
+
+	var/datum/disease/plague = chosen_plague
+
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
+		You have been bestowed the following plague: <br> \
+		[plague.name]!</span>"
+
 	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
@@ -889,7 +897,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/datum/spell/plague_claws/plague_claws = new /datum/spell/plague_claws
 	victim.AddSpell(plague_claws)
-	plague_claws.disease = pick_disease()
+	plague_claws.disease = chosen_plague
 
 	//time to rot
 	if(!istype(victim))
