@@ -3,23 +3,107 @@
 
 /obj/structure/curtain
 	icon = 'icons/obj/curtain.dmi'
-	name = "curtain"
+	name = "\improper curtain"
 	icon_state = "closed"
 	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 	density = FALSE
 	new_attack_chain = TRUE
+	var/assembled = FALSE
 
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
 	opacity = FALSE
 
+/obj/item/mounted/curtain/curtain_fixture
+	icon_state = "handheld"
+	icon = 'icons/obj/curtain.dmi'
+	name = "\improper curtain rod assembly"
+	new_attack_chain = TRUE
+
+/obj/item/mounted/curtain/curtain_fixture/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(!istype(target,/obj/structure/window) && !istype(target,/turf/simulated/wall/))
+		return
+	var/on_wall = get_turf(target)
+	to_chat(user, "You begin attaching [src] to the [on_wall].")
+	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
+	if(!do_after(user, 30, target = on_wall))
+		return
+	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(on_wall)
+	new_curtain.fingerprints = src.fingerprints
+	new_curtain.fingerprintshidden = src.fingerprintshidden
+	new_curtain.fingerprintslast = src.fingerprintslast
+
+	user.visible_message("[user] attaches the [src] to the [on_wall].", \
+		"You attach the [src] to the [on_wall].")
+	qdel(src)
+
+/obj/item/mounted/curtain/curtain_fixture/activate_self(mob/user)
+	. = ..()
+	to_chat(user, "You begin attaching [src] to the ceiling.")
+	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
+	if(!do_after(user, 30, target = get_turf(user)))
+		return
+	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(get_turf(user))
+	new_curtain.fingerprints = src.fingerprints
+	new_curtain.fingerprintshidden = src.fingerprintshidden
+	new_curtain.fingerprintslast = src.fingerprintslast
+
+	user.visible_message("[user] attaches the [src] to the ceiling.", \
+		"You attach the [src] to the ceiling.")
+	qdel(src)
+
+
+
+/obj/structure/curtain/assembly
+	icon_state = "assembly0"
+	name = "Curtain Rod"
+	opacity = FALSE
+	density = FALSE
+	desc = "A curtain assembly! It needs a <b>material</b>."
+
+/obj/structure/curtain/assembly/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-Click to take it down.</span>"
+
+/obj/structure/curtain/assembly/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	// TODO: turn back into assembly item
+	new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
+	playsound(loc, 'sound/effects/salute.ogg' , 75, 1)
+	qdel(src)
+
+/obj/structure/curtain/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/sheet/cloth)) // Are we putting the cloth onto the assembly on the wall?
+		var/obj/item/stack/sheet/cloth/cloth_used = used
+		if(!cloth_used.use(2))
+			to_chat(user, "<span class='warning'> You need two sheets of cloth to hang the curtains.</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/structure/curtain/new_curtain = new /obj/structure/curtain/(loc, 1)
+		new_curtain.assembled = TRUE
+		playsound(loc, used.drop_sound, 75, 1) // Play a generic cloth sound.
+		qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
+
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
 	toggle()
 	..()
+/obj/structure/curtain/attack_robot(mob/living/user)
+	. = ..()
+	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
+	toggle()
+	..()
+
 
 /obj/structure/curtain/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -68,6 +152,17 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
+	if(assembled)
+		WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
+		if(I.use_tool(src,user,50,volume = I.tool_volume))
+			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc,1)
+			new_assembly.assembled = TRUE
+			var/obj/item/stack/sheet/cloth/dropped_cloth = new /obj/item/stack/sheet/cloth(loc,2)
+			qdel(src)
+			return
+		return
+
 	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
@@ -75,7 +170,6 @@
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)
-	new /obj/item/stack/sheet/plastic(loc, 2)
 	new /obj/item/stack/rods(loc, 1)
 	qdel(src)
 
@@ -90,7 +184,7 @@
 
 /obj/structure/curtain/open/shower
 	name = "shower curtain"
-	color = "#ACD1E9"
+	color = "#7aa6c4"
 	alpha = 200
 
 /obj/structure/curtain/open/shower/engineering
