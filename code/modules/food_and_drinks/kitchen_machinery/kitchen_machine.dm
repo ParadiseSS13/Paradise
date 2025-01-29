@@ -123,6 +123,7 @@
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [used.name] contains components unsuitable for cookery.</span>")
 				return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/storage))
 		var/obj/item/storage/S = used
 		if(!S.allow_quick_empty)
@@ -144,6 +145,7 @@
 			S.remove_from_storage(ingredient, src)
 			CHECK_TICK
 		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
