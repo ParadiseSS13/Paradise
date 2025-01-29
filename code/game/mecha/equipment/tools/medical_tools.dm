@@ -597,8 +597,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/can_attach(obj/mecha/medical/M)
 	if(..())
-		for(var/obj/item/B in M)
-			if(istype(B, /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam))
+		for(var/obj/item/beamgun in M)
+			if(istype(beamgun, /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam))
 				return FALSE	//One beamgun per mech
 		if(istype(M))
 			return TRUE
