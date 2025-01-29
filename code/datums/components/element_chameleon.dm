@@ -97,7 +97,7 @@
 		return
 
 	update_item_appearance(requested_item)
-	requested_item.update_slot_icon()
+	chameleon_item.update_slot_icon()
 
 
 	return TRUE
