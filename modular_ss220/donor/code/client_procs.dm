@@ -4,7 +4,7 @@
 /datum/client_login_processor/donator_check/proc/CheckAutoDonatorLevel(client/C)
 	var/static/list/ultimate_worker = list("Банда", "Братюня", "Сестрюня", "Главный Администратор", "Старший Администратор")
 
-	var/static/list/big_worker = list("Администратор", "Старший Разработчик", "Разработчик", "Бригадир мапперов", "Маппер", "Администратор СС14")
+	var/static/list/big_worker = list("Администратор", "Старший Разработчик", "Разработчик", "Бригадир Мапперов", "Маппер", "Ведущий Редактор Вики", "Администратор СС14")
 
 	if(C.holder)
 		C.donator_level = (C.holder.rank in ultimate_worker) ? DONATOR_LEVEL_MAX : (C.holder.rank in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
