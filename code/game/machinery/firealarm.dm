@@ -149,6 +149,8 @@ FIRE ALARM
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_UNWIRED)
 		return
@@ -200,6 +202,7 @@ FIRE ALARM
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	update_icon()
 	WIRECUTTER_SNIP_MESSAGE
 	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
 	new_coil.amount = 5
