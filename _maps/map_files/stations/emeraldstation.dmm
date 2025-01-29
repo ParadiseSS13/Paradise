@@ -14361,11 +14361,6 @@
 "cRi" = (
 /turf/simulated/wall,
 /area/station/security/main)
-"cRk" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "cRu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -15571,7 +15566,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "dfs" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -22315,7 +22309,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -37928,7 +37921,6 @@
 "hzk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "hzA" = (
@@ -40360,11 +40352,6 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
-"iam" = (
-/obj/effect/spawner/random/oil/maybe,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/fore)
 "iaw" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -53362,11 +53349,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/atmos)
-"kCz" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/apmaint2)
 "kCA" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -55233,11 +55215,6 @@
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
-"kXa" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/port)
 "kXf" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -57395,15 +57372,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
-"lut" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/fore)
 "luC" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
@@ -60007,7 +59975,6 @@
 /area/station/supply/lobby)
 "lWJ" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
@@ -64944,12 +64911,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"mXx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/oil/maybe,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "mXy" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/firealarm/directional/north,
@@ -67699,14 +67660,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"nzU" = (
-/mob/living/simple_animal/mouse,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/apmaint2)
 "nAc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -68380,12 +68333,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
-"nGt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
 "nGw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -69395,11 +69342,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"nPx" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
 "nPG" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
@@ -69687,11 +69629,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"nSa" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/fore)
 "nSe" = (
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
@@ -74317,7 +74254,6 @@
 /turf/simulated/wall,
 /area/station/engineering/tech_storage)
 "oMl" = (
-/mob/living/simple_animal/mouse/white,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -76832,7 +76768,6 @@
 /area/station/engineering/break_room/secondary)
 "piI" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -77523,11 +77458,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
-"pqt" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fpmaint)
 "pqI" = (
 /obj/structure/chair{
 	dir = 1
@@ -79178,10 +79108,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"pHV" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/asmaint)
 "pHX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -81942,11 +81868,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
-"qmI" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "qmJ" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -95408,11 +95329,6 @@
 "sTG" = (
 /turf/simulated/wall,
 /area/station/science/genetics)
-"sTI" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "sTJ" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -106010,12 +105926,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
-"uWS" = (
-/obj/effect/decal/cleanable/generic,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/starboard)
 "uWU" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -106394,7 +106304,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -109585,10 +109494,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"vJc" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "vJm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -112013,7 +111918,6 @@
 "whf" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/generic,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "whh" = (
@@ -132920,7 +132824,7 @@ ipM
 hcH
 uPm
 bqU
-nzU
+xQq
 bGM
 xKc
 rPz
@@ -134462,7 +134366,7 @@ mIg
 eyo
 opq
 yiE
-cRk
+opq
 xQq
 fMB
 aco
@@ -138550,7 +138454,7 @@ qXp
 xrG
 feI
 idv
-mXx
+eBv
 sqZ
 mQe
 lQZ
@@ -140127,7 +140031,7 @@ oeh
 pdx
 vSD
 cBD
-kCz
+fMB
 lUy
 eJa
 sqB
@@ -146478,7 +146382,7 @@ ndJ
 qZs
 qci
 lfn
-qmI
+vWJ
 gmL
 nwf
 nwf
@@ -148244,7 +148148,7 @@ aSK
 wIh
 qci
 vWJ
-pqt
+eMT
 vWJ
 vWJ
 eMT
@@ -151137,7 +151041,7 @@ dsL
 twa
 vIV
 ril
-kXa
+ewj
 xmm
 rxd
 iSc
@@ -158586,7 +158490,7 @@ egS
 gsU
 fRA
 oPi
-uWS
+pIl
 xmi
 cPy
 kcb
@@ -159062,7 +158966,7 @@ soN
 dlV
 iNN
 syn
-nSa
+sul
 ydG
 rNs
 rtR
@@ -159890,7 +159794,7 @@ lRd
 snP
 aIj
 rWj
-vJc
+xaN
 bVp
 dtF
 bTR
@@ -162101,7 +162005,7 @@ iBy
 gbl
 oei
 iXk
-lut
+plQ
 oIH
 cwI
 cwI
@@ -168790,7 +168694,7 @@ cwI
 cwI
 qTH
 xEt
-iam
+cuO
 fsJ
 lVs
 vKT
@@ -169139,7 +169043,7 @@ mXw
 tVw
 dGc
 qFP
-nGt
+iPH
 bpH
 bpH
 bpp
@@ -172770,7 +172674,7 @@ qDC
 bNH
 jnC
 jnC
-pHV
+uMS
 ugn
 nuJ
 kTf
@@ -172966,7 +172870,7 @@ fIk
 stp
 stp
 oAs
-sTI
+mXw
 bnw
 tlf
 eDe
@@ -174532,7 +174436,7 @@ oTL
 mXw
 mIH
 nWG
-nPx
+jcy
 aQl
 caq
 pga
