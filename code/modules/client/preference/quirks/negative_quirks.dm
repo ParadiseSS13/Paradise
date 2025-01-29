@@ -71,6 +71,8 @@
 	item_to_give = /obj/item/reagent_containers/pill/salbutamol // If an inhaler ever gets made put it here
 
 /datum/quirk/negative/asthma/process()
+	if(owner.stat == DEAD)
+		return
 	var/ease_of_breathing = owner.getOxyLoss() + owner.getStaminaLoss() / 2
 	if(ease_of_breathing < ASTHMA_ATTACK_THRESHOLD)
 		return

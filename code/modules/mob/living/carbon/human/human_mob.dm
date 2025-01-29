@@ -254,6 +254,9 @@
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
+	if(HAS_TRAIT(src, TRAIT_FRAIL))
+		limb_loss_chance *= 2
+		
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)
 		var/obj/item/organ/external/BP = get_organ(X)
