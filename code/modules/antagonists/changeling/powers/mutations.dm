@@ -223,7 +223,6 @@
 	check_delete_on_shoot()
 
 /obj/item/gun/magic/tentacle/proc/check_delete_on_shoot()
-	hit_something = TRUE
 	if(!shooting_right_now)
 		qdel(src)
 
@@ -307,7 +306,7 @@
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	var/mob/living/carbon/human/H = firer
-	source.gun.check_delete_on_shoot()
+	source.gun.hit_something = TRUE
 	if(blocked >= 100)
 		return FALSE
 	if(isitem(target))
