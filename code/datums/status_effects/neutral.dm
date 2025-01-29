@@ -353,8 +353,6 @@
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible || isLivingSSD(L)) //xenobio moment
 				continue
-			// if(isLivingSSD(L))
-			// 	return
 			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
