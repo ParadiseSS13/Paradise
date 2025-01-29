@@ -399,3 +399,15 @@
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics
 	category = list("Weapons")
+
+/datum/design/nt_mantis
+	name = "'Scylla' mantis blade implant"
+	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
+	id = "mantis_blade_nt"
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
+	build_path = /obj/item/organ/internal/cyberimp/arm/nt_mantis
+	category = list("Medical", "Weapons")
+

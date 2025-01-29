@@ -167,7 +167,7 @@
 	if(!usr.canUnEquip(src))
 		return
 
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 
 	if(src)
 		user.put_in_hands(src)
@@ -302,7 +302,7 @@
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return
 
@@ -321,7 +321,7 @@
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	// If they walk away after the menu is already open.
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 		// If your hands get lopped off or cuffed after the menu is open.
@@ -508,7 +508,7 @@
 
 /obj/item/clothing/head/proc/attach_hat(obj/item/clothing/head/hat, mob/user, unequip = FALSE)
 	if(can_attach_hat(hat))
-		if(unequip && !user.unEquip(hat)) // Make absolutely sure this hat is removed from hands
+		if(unequip && !user.drop_item_to_ground(hat)) // Make absolutely sure this hat is removed from hands
 			return FALSE
 
 		attached_hats += hat
@@ -571,13 +571,13 @@
 				flags_cover |= MASKCOVERSMOUTH
 		if(H.head == src)
 			if(isnull(user.get_item_by_slot(slot_flags)))
-				user.unEquip(src)
+				user.drop_item_to_ground(src)
 				user.equip_to_slot(src, slot_flags)
 			else if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-					user.unEquip(src)
+					user.drop_item_to_ground(src)
 				else //Otherwise, put it in an available hand, the active one preferentially.
-					user.unEquip(src)
+					user.drop_item_to_ground(src)
 					user.put_in_hands(src)
 	else
 		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
@@ -598,13 +598,13 @@
 			flags &= ~AIRTIGHT
 		if(user.wear_mask == src)
 			if(isnull(user.get_item_by_slot(slot_flags)))
-				user.unEquip(src)
+				user.drop_item_to_ground(src)
 				user.equip_to_slot(src, slot_flags)
 			else if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-					user.unEquip(src)
+					user.drop_item_to_ground(src)
 				else //Otherwise, put it in an available hand, the active one preferentially.
-					user.unEquip(src)
+					user.drop_item_to_ground(src)
 					user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = up)
 	usr.update_inv_wear_mask()
@@ -697,7 +697,7 @@
 		if(hidden_blade)
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			return
 		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
 			"<span class='notice'>You place [I] into the side of your [name]!</span>")
@@ -820,10 +820,10 @@
 					if(istype(O, /obj/item/storage/internal)) //If it's a pocket...
 						if(O.contents) //Check to see if the pocket's got anything in it.
 							for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
-								user.unEquip(I,1)
+								user.drop_item_to_ground(I, force = TRUE)
 
 			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
-			user.unEquip(src)
+			user.drop_item_to_ground(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 			user.update_inv_wear_suit()
@@ -901,7 +901,7 @@
 		return
 
 	user.visible_message("<span class='danger'>[user] manages to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_restraints ? "break" : "remove"] [src].</span>")
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 
 //////////////////////////////
 // MARK: SPACE SUIT
@@ -1068,7 +1068,7 @@
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.drop_item_to_ground(A)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
 
 		accessories += A

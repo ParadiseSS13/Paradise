@@ -97,21 +97,21 @@
 		if(DY == 0)
 			Pixel_y = 0
 		else
-			Pixel_y = round(cos(Angle)+32*cos(Angle)*(N+16)/32)
+			Pixel_y = round(cos(Angle) + 32 * cos(Angle) * (N + 16) / 32)
 
 		//Position the effect so the beam is one continous line
-		var/a
+		var/final_x = X.x
+		var/final_y = X.y
 		if(abs(Pixel_x)>32)
-			a = Pixel_x > 0 ? round(Pixel_x/32) : CEILING(Pixel_x/32, 1)
-			X.x += a
+			final_x += Pixel_x > 0 ? round(Pixel_x / 32) : CEILING(Pixel_x / 32, 1)
 			Pixel_x %= 32
 		if(abs(Pixel_y)>32)
-			a = Pixel_y > 0 ? round(Pixel_y/32) : CEILING(Pixel_y/32, 1)
-			X.y += a
+			final_y += Pixel_y > 0 ? round(Pixel_y / 32) : CEILING(Pixel_y / 32, 1)
 			Pixel_y %= 32
 
-		X.pixel_x = Pixel_x
-		X.pixel_y = Pixel_y
+		X.forceMove(locate(final_x, final_y, X.z))
+		X.pixel_x = origin.pixel_x + Pixel_x
+		X.pixel_y = origin.pixel_y + Pixel_y
 
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

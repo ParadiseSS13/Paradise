@@ -74,51 +74,57 @@
 			return
 		set_light(0)
 
-/turf/space/attackby__legacy__attackchain(obj/item/C as obj, mob/user as mob, params)
-	..()
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
+/turf/space/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = used
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
 			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(L)
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
-			return
+				return ITEM_INTERACT_COMPLETE
 		if(R.use(1))
 			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-		return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You build a floor.</span>")
 				ChangeTurf(/turf/simulated/floor/plating)
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
 	if((!(A) || !(src in A.locs)))
 		return
 
-	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING))
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING) && !HAS_TRAIT(A, TRAIT_NO_EDGE_TRANSITIONS))
 		var/tx = destination_x
 		var/ty = destination_y
 		var/turf/DT = locate(tx, ty, destination_z)

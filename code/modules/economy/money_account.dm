@@ -47,7 +47,7 @@
 	security_level = _security_level
 	account_number = SSeconomy.generate_account_number()
 	account_type = _account_type
-	account_pin = rand(10000, 99999)
+	account_pin = rand(BANK_PIN_MIN, BANK_PIN_MAX) // defines are currently housed in misc_defines.dm
 	//update SSeconomy stats
 	SSeconomy.total_space_credits += starting_balance
 

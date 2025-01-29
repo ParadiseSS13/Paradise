@@ -223,8 +223,12 @@
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
 
-/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 2
+
+/mob/living/simple_animal/slime/resist_buckle()
+	..()
+	Feedstop()
 
 /mob/living/simple_animal/slime/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -266,7 +270,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/slime/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)

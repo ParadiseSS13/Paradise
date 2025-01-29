@@ -4,9 +4,9 @@
 	var/obj/structure/table/table = null
 	var/setup_complete = FALSE
 
-/datum/milla_safe/ventcrawl_test_setup
+/datum/milla_safe_must_sleep/ventcrawl_test_setup
 
-/datum/milla_safe/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
+/datum/milla_safe_must_sleep/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
 	// I'm sure get_area_turfs is totally deterministic and this will never go wrong
 	var/turf/run_loc_bottom_left = test.available_turfs[1]
 	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
@@ -26,7 +26,7 @@
 	TEST_FAIL("Couldn't find spawned test object of type: [test_object_type].")
 
 /datum/game_test/ventcrawl/Run()
-	var/datum/milla_safe/ventcrawl_test_setup/milla = new()
+	var/datum/milla_safe_must_sleep/ventcrawl_test_setup/milla = new()
 	milla.invoke_async(src)
 	while(!setup_complete)
 		sleep(world.tick_lag)

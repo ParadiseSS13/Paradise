@@ -723,7 +723,7 @@
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/U = user
 		rank = "[U.modtype] [U.braintype]"
-	else if(isAI(user))
+	else if(is_ai(user))
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
@@ -929,7 +929,7 @@
 					H.UpdateAppearance()
 
 	//Replacing lost organs with the species default.
-	temp_holder = new /mob/living/carbon/human()
+	temp_holder = new /mob/living/carbon/human/fake()
 	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
 	if(H.dna.species.mutantears)
 		species_organs["ears"] = H.dna.species.mutantears
@@ -1453,7 +1453,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in get_both_hands(src))
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_to_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	rad_act(current_size * 3)

@@ -1284,6 +1284,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -3271,6 +3272,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "iI" = (
 /obj/structure/closet/firecloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -4893,6 +4895,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -4939,6 +4942,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "nh" = (
 /obj/structure/closet/athletic_mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -5169,16 +5173,12 @@
 /area/ruin/space/derelict/hallway/primary)
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nR" = (
 /obj/machinery/light/small{
@@ -5189,9 +5189,7 @@
 	pixel_y = 8
 	},
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
@@ -5283,17 +5281,13 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "of" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "og" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oh" = (
 /obj/structure/cable{
@@ -5387,17 +5381,13 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ov" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ow" = (
 /obj/structure/cable{
@@ -5524,9 +5514,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oO" = (
 /obj/machinery/door/airlock/public/glass{
@@ -5732,6 +5720,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "pt" = (
 /obj/structure/closet/jcloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pu" = (
@@ -6966,6 +6955,10 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"Ae" = (
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
 "Bx" = (
 /obj/machinery/door_control{
 	id = "ruslock";
@@ -7044,6 +7037,13 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
+/area/ruin/space/derelict/arrival)
+"Za" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 
 (1,1,1) = {"
@@ -7280,7 +7280,7 @@ ac
 ir
 iP
 ji
-jQ
+Za
 jQ
 lt
 lI
@@ -12468,7 +12468,7 @@ ac
 aV
 pm
 pt
-hU
+Ae
 pM
 pY
 db
@@ -12752,7 +12752,7 @@ pn
 pw
 pw
 db
-db
+qA
 db
 Mi
 aV

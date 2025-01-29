@@ -46,11 +46,13 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
-	owner.adjustFireLoss(-grace_heal)
-	owner.adjustToxLoss(-grace_heal)
-	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+
+	var/mob/living/carbon/human/owner_human = owner
+	owner_human.adjustBruteLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustFireLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustToxLoss(-grace_heal)
+	owner_human.adjustOxyLoss(-(grace_heal * 2))
+	owner_human.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
@@ -340,11 +342,13 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
+	owner.permanent_huds |= H
 	return ..()
 
 /datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	owner.permanent_huds ^= H
 	H.remove_hud_from(owner)
 
 /datum/status_effect/hippocratic_oath/tick()

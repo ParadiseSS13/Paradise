@@ -2001,7 +2001,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/drinks/coffee{
@@ -4992,7 +4992,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5921,9 +5921,8 @@
 /area/ruin/space/moonbase19)
 "vh" = (
 /obj/structure/rack,
-/obj/item/mecha_parts/core,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stock_parts/cell/infinite/abductor,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6703,12 +6702,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/food/xenomeatbreadslice,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread,
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 9;
 	pixel_x = -5
 	},
@@ -8137,8 +8136,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/assembly/signaler/anomaly/random,
-/obj/item/storage/lockbox/experimental_weapon,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

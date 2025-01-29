@@ -66,7 +66,7 @@
 			if(HAS_TRAIT(F, TRAIT_WIELDED))
 				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
-			if(!user.unEquip(F, FALSE))
+			if(!user.unequip(F, FALSE))
 				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
 				return
 			fireaxe = F
