@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/attack_hand(user as mob)
 	if(overheating)
-		to_chat(user, "<span class = 'notice'>You turn the overheating [src] off.</span>")
+		to_chat(user, "<span class='notice'>You turn the overheating [src] off.</span>")
 		overheating = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return
