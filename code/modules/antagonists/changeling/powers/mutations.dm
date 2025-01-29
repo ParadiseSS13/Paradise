@@ -213,8 +213,10 @@
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
-	var/hit_something = FALSE //Used for deleting gun after hitting something
-	var/shooting_right_now = FALSE //Used to track shooting to prevent deleting mid shot
+	/// Used for deleting gun after hitting something
+	var/hit_something = FALSE
+	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
+	var/shooting_right_now = FALSE 
 
 /obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	shooting_right_now = TRUE
