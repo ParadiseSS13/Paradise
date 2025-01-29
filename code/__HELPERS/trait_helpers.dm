@@ -234,7 +234,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
 #define TRAIT_CLING_BURSTING "cling_bursting" // This changeling is about to burst into a headslug, block cremation / gibber to prevent nullspace issues
 #define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
-#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ" // A general trait for tracking whether a zombie owned the organ or limb
 #define TRAIT_NON_INFECTIOUS_ZOMBIE "non_infectious_zombie" // A trait for checking if a zombie shouldn't be able to infect other people
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
@@ -317,6 +316,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
 
+/// A general trait for tracking whether a zombie owned the organ or limb
+#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
