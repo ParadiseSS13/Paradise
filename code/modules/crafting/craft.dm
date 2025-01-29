@@ -166,8 +166,8 @@
 		return ", missing tool."
 	if(!check_pathtools(user, recipe, contents))
 		return ", missing tool."
-
-	if(!do_after(user, recipe.time, target = user))
+	var/crafty_multiplier = HAS_TRAIT(user, TRAIT_CRAFTY) ? 0.8 : 1
+	if(!do_after(user, recipe.time * crafty_multiplier, target = user))
 		return "."
 	contents = get_surroundings(user)
 
