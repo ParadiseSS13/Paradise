@@ -220,8 +220,7 @@
 	shooting_right_now = TRUE
 	. = ..()
 	shooting_right_now = FALSE
-	if(hit_something)
-		qdel(src)
+	check_delete_on_shoot()
 
 /obj/item/gun/magic/tentacle/proc/check_delete_on_shoot()
 	hit_something = TRUE
