@@ -34,7 +34,7 @@
 
 /datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
 	var/area/A = get_area(target)
-	if(A == null)
+	if(!istype(A))
 		return
 	var/closest_camera = null
 	for(var/obj/machinery/camera/C in A)
