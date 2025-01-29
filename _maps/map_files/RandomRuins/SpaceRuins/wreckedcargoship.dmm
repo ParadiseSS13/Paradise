@@ -224,8 +224,8 @@
 /area/ruin/space/wreck_cargoship)
 "jm" = (
 /obj/item/toy/plushie/ipcplushie,
-/obj/item/food/breadslice,
-/obj/item/food/breadslice,
+/obj/item/food/sliced/bread,
+/obj/item/food/sliced/bread,
 /obj/item/paper/crumpled{
 	name = "unintelligible scribbles";
 	info = "toast... i must... the plushie..."
@@ -274,6 +274,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/rack,
 /obj/item/stack/rods/fifty,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -666,6 +667,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/wreck_cargoship)
 "AN" = (
@@ -783,6 +785,7 @@
 "Fk" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -1084,6 +1087,7 @@
 	pixel_y = -32
 	},
 /obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
@@ -1193,6 +1197,7 @@
 "Vc" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -1307,6 +1312,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "XX" = (

@@ -137,7 +137,7 @@
 	// MORE POWER
 	movement_beam(move_target, 1 SECONDS)
 	sleep(0.5 SECONDS)
-	walk_towards(src, move_target, 0, 10)
+	GLOB.move_manager.home_onto(src, move_target, 0, 10)
 
 /obj/singularity/energy_ball/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered

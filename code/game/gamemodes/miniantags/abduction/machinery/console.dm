@@ -218,13 +218,15 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby__legacy__attackchain(obj/O, mob/user, params)
-	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
+/obj/machinery/abductor/console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/abductor/gizmo) && AddGizmo(used))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)

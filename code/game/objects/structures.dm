@@ -22,7 +22,7 @@
 		if(smoothing_flags & SMOOTH_CORNERS)
 			icon_state = ""
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
@@ -34,7 +34,7 @@
 /obj/structure/Destroy()
 	climbers = null
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
@@ -43,7 +43,7 @@
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/Move()
+/obj/structure/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	var/atom/old = loc
 	if(!..())
 		return FALSE

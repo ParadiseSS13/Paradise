@@ -10,8 +10,37 @@
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/gas_type = "oxygen"
 	var/on = FALSE
-	var/stabilizers = FALSE
 	var/volume_rate = 500              //Needed for borg jetpack transfer
+	var/stabilize = FALSE
+	var/thrust_callback
+
+/obj/item/tank/jetpack/Initialize(mapload)
+	. = ..()
+	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
+	configure_jetpack(stabilize)
+
+/obj/item/tank/jetpack/Destroy()
+	thrust_callback = null
+	return ..()
+
+/**
+ * configures/re-configures the jetpack component
+ *
+ * Arguments
+ * stabilize - Should this jetpack be stabalized
+ */
+/obj/item/tank/jetpack/proc/configure_jetpack(stabilize)
+	src.stabilize = stabilize
+
+	AddComponent( \
+		/datum/component/jetpack, \
+		src.stabilize, \
+		COMSIG_JETPACK_ACTIVATED, \
+		COMSIG_JETPACK_DEACTIVATED, \
+		JETPACK_ACTIVATION_FAILED, \
+		thrust_callback, \
+		/datum/effect_system/trail_follow/ion \
+	)
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
@@ -37,8 +66,8 @@
 
 /obj/item/tank/jetpack/proc/toggle_stabilization(mob/user)
 	if(on)
-		stabilizers = !stabilizers
-		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilizers ? "on" : "off"].</span>")
+		configure_jetpack(!stabilize)
+		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilize ? "on" : "off"].</span>")
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -54,31 +83,40 @@
 		var/datum/action/A = X
 		A.UpdateButtons()
 
-
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED, user) & JETPACK_ACTIVATION_FAILED)
+		return FALSE
+
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
+	SEND_SIGNAL(src, COMSIG_JETPACK_DEACTIVATED, user)
 	on = FALSE
-	stabilizers = FALSE
 	icon_state = initial(icon_state)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
-	if(!on)
-		return 0
+/obj/item/tank/jetpack/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		turn_off(user)
+
+/obj/item/tank/jetpack/proc/allow_thrust(num)
+	if(!ismob(loc))
+		return FALSE
+	var/mob/user = loc
+
 	if((num < 0.005 || air_contents.total_moles() < num))
 		turn_off(user)
-		return 0
+		return FALSE
 
 	var/datum/gas_mixture/removed = air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
 		turn_off(user)
-		return 0
+		return FALSE
 
 	var/turf/T = get_turf(user)
 	T.blind_release_air(removed)
-	return 1
+	return TRUE
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"

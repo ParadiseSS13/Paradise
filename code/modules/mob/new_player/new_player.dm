@@ -401,7 +401,7 @@
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-			if(A.announce_arrivals)
+			if(A.stat != DEAD && A.announce_arrivals)
 				ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)

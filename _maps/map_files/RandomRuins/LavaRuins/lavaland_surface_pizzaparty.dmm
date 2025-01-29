@@ -33,7 +33,7 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "j" = (
-/obj/item/food/mushroompizzaslice,
+/obj/item/food/sliced/mushroom_pizza,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/pizza_party)
@@ -144,13 +144,13 @@
 /area/ruin/powered/pizza_party)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/food/margheritapizzaslice,
+/obj/item/food/sliced/margherita_pizza,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/food/meatpizzaslice,
+/obj/item/food/sliced/meat_pizza,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "F" = (
