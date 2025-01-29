@@ -38,7 +38,7 @@
 		return
 	var/closest_camera = null
 	for(var/obj/machinery/camera/C in A)
-		if(closest_camera == null)
+		if(isnull(closest_camera))
 			closest_camera = C
 			continue
 		if(get_dist(closest_camera, target) > get_dist(C, target))
