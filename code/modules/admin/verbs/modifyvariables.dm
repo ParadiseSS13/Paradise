@@ -87,6 +87,9 @@ GLOBAL_PROTECT(VVmaint_only)
 				VV_NEW_DATUM,
 				VV_NEW_TYPE,
 				VV_NEW_LIST,
+				VV_VISIBLE_ATOM,
+				VV_INSIDE_VISIBLE_ATOM,
+				VV_VISIBLE_TURF,
 				VV_NULL,
 				VV_RESTORE_DEFAULT
 				)
@@ -210,6 +213,45 @@ GLOBAL_PROTECT(VVmaint_only)
 				return
 			.["value"] = things[value]
 
+
+		if(VV_VISIBLE_ATOM)
+			var/atom/clicked = prompt_for_atom_click("Click an atom.")
+			if(!clicked)
+				.["class"] = null
+				return
+			.["value"] = clicked
+		if(VV_INSIDE_VISIBLE_ATOM)
+			var/atom/clicked = prompt_for_atom_click("Click an atom to search inside.")
+			if(!clicked)
+				.["class"] = null
+				return
+
+			// Collect everything inside the atom.
+			var/list/ancestors = list(clicked)
+			var/list/descendants = list()
+			while(length(ancestors) > 0 && length(descendants) < 100)
+				var/atom/ancestor = ancestors[length(ancestors)]
+				ancestors.len--
+				for(var/atom/child in ancestor)
+					ancestors += child
+					descendants += child
+
+			// Prompt for which to pick.
+			var/descendant = input("Pick an atom:", "Inside a Visible Atom", src) in descendants
+			if(!descendant)
+				.["class"] = null
+				return
+			.["value"] = descendant
+		if(VV_VISIBLE_TURF)
+			var/atom/clicked = prompt_for_atom_click("Pick a turf (or any atom on it).")
+			if(!clicked)
+				.["class"] = null
+				return
+			var/turf/where = get_turf(clicked)
+			if(!where)
+				.["class"] = null
+				return
+			.["value"] = where
 
 
 		if(VV_CLIENT)
@@ -556,6 +598,25 @@ GLOBAL_PROTECT(VVmaint_only)
 			return FALSE
 
 	return TRUE
+
+/datum/click_intercept/pick_atom
+	var/picked = null
+
+/datum/click_intercept/pick_atom/InterceptClickOn(user, params, atom/object)
+	picked = object
+
+/client/proc/prompt_for_atom_click(prompt = "Click something!")
+	to_chat(src, "<span class='notice big'>[prompt]</span>")
+	var/datum/click_intercept/pick_atom/picker = new()
+	click_intercept = picker
+	while(isnull(picker.picked))
+		if(isnull(src) || click_intercept != picker)
+			return null
+		sleep(1)
+
+	click_intercept = null
+	return picker.picked
+	
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))
