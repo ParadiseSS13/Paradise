@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 		log_debug("[src] did not find a mob to apply its effects to.")
 		return FALSE
 	owner = quirky
+	owner.quirks += src
 	if(processes)
 		START_PROCESSING(SSprocessing, src)
 	if(trait_to_apply)
