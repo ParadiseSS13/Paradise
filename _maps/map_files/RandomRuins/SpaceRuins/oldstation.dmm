@@ -2376,7 +2376,9 @@
 "gL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/reagentgrinder{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3434,6 +3436,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "jz" = (
@@ -5223,6 +5226,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
+"ya" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/ancientstation)
 "yt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/showcase/machinery/oldpod{
@@ -9250,7 +9265,7 @@ ga
 vN
 jy
 jN
-aL
+ya
 aL
 dd
 az
