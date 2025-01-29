@@ -566,7 +566,7 @@
 	name = "exosuit medical beamgun"
 	desc = "Equipment for medical exosuits. A mounted medical nanite projector which will treat patients with a focused beam. Unlike its handheld counterpart, it is incapable of healing internal injuries."
 	icon_state = "mecha_medigun"
-	energy_drain = 10
+	energy_drain = 20
 	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 0
 	origin_tech = "combat=5;materials=6;powerstorage=6;biotech=6"
