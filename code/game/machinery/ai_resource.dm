@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		update_icon(UPDATE_ICON_STATE)
 		return
 	active = !active
-	to_chat(user, "<span class = 'notice'>You turn the [src] [active ? "On" : "Off"]</span>")
+	to_chat(user, "<span class = 'notice'>You turn [src] [active ? "on" : "off"].</span>")
 	if(active) // We're booting up
 		find_ai()
 		if(!assigned_ai) // No eligible AI found, abort
