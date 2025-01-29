@@ -109,13 +109,14 @@
 			I.forceMove(src)
 			gripped_item = I
 			return ITEM_INTERACT_COMPLETE
+
 		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	// Everything past this point requires being able to engineer.
 	if(!engineering_machine_interaction)
 		// Allow attack chain to continue into pre_attack()
-		return NONE
+		return
 
 	// Removing cells from APCs.
 	if(istype(target, /obj/machinery/power/apc))
@@ -159,8 +160,6 @@
 			"<span class='notice'>You remove [L] from [light].</span>"
 			)
 		return ITEM_INTERACT_COMPLETE
-
-	return NONE
 
 /obj/item/gripper/emag_act(mob/user)
 	emagged = !emagged
