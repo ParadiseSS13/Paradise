@@ -19,7 +19,7 @@
 
 	/// These roles 100% cannot be this antagonist
 	var/list/banned_jobs = list("Cyborg")
-	/// These roles can't be antagonists because mindshielding (this can be disabled via config)
+	/// These roles can't be antagonists because mindshielding or are command staff (this can be disabled via config)
 	var/list/protected_jobs = list(
 		"Security Officer",
 		"Warden",
@@ -33,7 +33,12 @@
 		"Nanotrasen Career Trainer",
 		"Nanotrasen Navy Officer",
 		"Special Operations Officer",
-		"Trans-Solar Federation General"
+		"Trans-Solar Federation General",
+		"Research Director",
+		"Head of Personnel",
+		"Chief Medical Officer",
+		"Chief Engineer",
+		"Quartermaster"
 	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
