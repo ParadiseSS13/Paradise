@@ -113,6 +113,8 @@
 				add_item(S, user)
 		else
 			add_item(used, user)
+
+		return ITEM_INTERACT_COMPLETE
 	else if(is_type_in_list(used, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!used.reagents)
 			return ITEM_INTERACT_COMPLETE
@@ -121,6 +123,7 @@
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [used.name] contains components unsuitable for cookery.</span>")
 				return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/storage))
 		var/obj/item/storage/S = used
 		if(!S.allow_quick_empty)
@@ -142,6 +145,7 @@
 			S.remove_from_storage(ingredient, src)
 			CHECK_TICK
 		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
@@ -150,11 +154,9 @@
 			return ITEM_INTERACT_COMPLETE
 		special_attack_grab(G, user)
 		return ITEM_INTERACT_COMPLETE
-	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
-		return ITEM_INTERACT_COMPLETE
 
-	return ..()
+	to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	if(operating)

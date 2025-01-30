@@ -30932,6 +30932,7 @@
 	c_tag = "Internal Affairs Office";
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "caH" = (
@@ -31572,9 +31573,6 @@
 /area/station/command/office/captain/bedroom)
 "cct" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "ccu" = (
@@ -42944,6 +42942,10 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/reception)
+"cNX" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/wood,
+/area/station/legal/courtroom)
 "cNY" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -44976,10 +44978,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
-"cVr" = (
-/obj/structure/sign/nosmoking_2,
-/turf/simulated/wall,
-/area/station/science/rnd)
 "cVs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57049,6 +57047,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cryo)
+"erJ" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/legal/magistrate)
 "erP" = (
 /obj/machinery/camera{
 	c_tag = "Secure Lab - Test Chamber";
@@ -60236,6 +60240,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/test_chamber)
+"geq" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "get" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel,
@@ -64365,6 +64375,7 @@
 	name = "Toxins Launcher Bay Door";
 	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "ixF" = (
@@ -72060,6 +72071,13 @@
 	icon_state = "vault"
 	},
 /area/station/command/bridge)
+"mXh" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "mXA" = (
 /turf/simulated/wall,
 /area/station/medical/sleeper)
@@ -82231,9 +82249,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
-"ssx" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/break_room)
 "ssy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -82358,6 +82373,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"svR" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "svX" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -82517,10 +82539,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "sAB" = (
@@ -83279,6 +83301,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
+"sTy" = (
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel/dark,
+/area/station/legal/courtroom/gallery)
 "sUn" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel/dark,
@@ -84884,6 +84910,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
+"tOx" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/research)
 "tOF" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -85740,12 +85770,12 @@
 /area/station/security/permabrig)
 "ugy" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "ugz" = (
@@ -86901,6 +86931,15 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"uND" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/research)
 "uNJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -88719,9 +88758,7 @@
 /area/station/medical/surgery/observation)
 "vPd" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -88731,6 +88768,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "vPo" = (
@@ -124752,7 +124791,7 @@ hdu
 hnH
 ojf
 lSc
-cPn
+mXh
 cRd
 cZt
 hHk
@@ -126798,7 +126837,7 @@ fBk
 fBk
 fBk
 fBk
-dau
+svR
 yid
 cPn
 dFm
@@ -128597,7 +128636,7 @@ aNa
 qJw
 vDT
 fBk
-dau
+uND
 yid
 cPn
 hkY
@@ -128621,7 +128660,7 @@ dBe
 wJr
 oKa
 kxJ
-ssx
+ykJ
 ykJ
 hOr
 iqc
@@ -129108,7 +129147,7 @@ tQM
 cSm
 cZt
 cTU
-cMm
+tOx
 cXb
 cZt
 dZb
@@ -129894,7 +129933,7 @@ cSt
 cSt
 dIi
 dsu
-cSt
+geq
 cSt
 cSt
 dvj
@@ -130392,7 +130431,7 @@ pGk
 xAc
 cSp
 cTQ
-cVr
+cTR
 cTR
 cTR
 cTR
@@ -138334,7 +138373,7 @@ cax
 mRD
 ocx
 sxI
-eYE
+cNX
 ejT
 eYE
 rgU
@@ -139870,7 +139909,7 @@ oMV
 iRk
 xPW
 caA
-cax
+sTy
 mlY
 qJc
 bsL
@@ -141416,7 +141455,7 @@ fjW
 xwN
 hTV
 hTV
-bXW
+erJ
 vjg
 bXW
 hTV
