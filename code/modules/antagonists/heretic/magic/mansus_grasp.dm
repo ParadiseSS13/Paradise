@@ -100,10 +100,14 @@
 	return
 
 /// Called when someone alt clicks with a grasp on something.
-/obj/item/melee/touch_attack/mansus_fist/proc/on_special_click(mob/source, atom/target) //QWERTODO: BLOCK THIS IF THEY HAVE ANTITELEPORT AND NO FOCUS SO YOU CAN PERMA RUST / LOCK
+/obj/item/melee/touch_attack/mansus_fist/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
+	if(source.get_int_organ(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor))
+		if(!HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
+			to_chat(source, "<span class='warning'>Some anchoring force interfears with your grasp. Perhaps a focus would stabilize it!</span>")
+			return FALSE
 	if(!source.Adjacent(target))
-		return
+		return FALSE
 	if(SEND_SIGNAL(source, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target) & COMPONENT_USE_HAND)
 		INVOKE_ASYNC(src, PROC_REF(handle_delete), source)
 	return COMSIG_MOB_CANCEL_CLICKON

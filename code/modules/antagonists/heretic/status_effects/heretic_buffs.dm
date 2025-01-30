@@ -39,7 +39,6 @@
 		E.fix_internal_bleeding()
 		E.fix_burn_wound()
 		E.mend_fracture()
-		//to_chat(drinker, "<span class='hierophant_warning'>The mansus has given you new limbs.</span>") qwertodo new limbs later
 	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 
 /datum/status_effect/marshal/tick()

@@ -38,12 +38,9 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-//	var/datum/objective/heretic_summon/summon_objective = new() qwertodo
-	//summon_objective.owner = our_heretic.owner
-	//our_heretic.objectives += summon_objective
+	our_heretic.add_antag_objective(/datum/objective/heretic_summon)
 
 	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
-	//our_heretic.owner.announce_objectives()
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp
 	name = "Grasp of Flesh"

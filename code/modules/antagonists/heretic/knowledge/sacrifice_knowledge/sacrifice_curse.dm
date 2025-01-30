@@ -19,5 +19,5 @@
 /datum/status_effect/heretic_curse/on_apply()
 	if(isnull(the_curser) || !iscarbon(owner))
 		return FALSE
-	message_admins(" QWERTODO: MAKE THIS CURSE DO SOMETHING THIS IS TOO MANY SIGNALS")
+	//qwertodo: this curse does nothing at this time. This should be changed.
 

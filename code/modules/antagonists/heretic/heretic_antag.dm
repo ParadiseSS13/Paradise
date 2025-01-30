@@ -575,14 +575,14 @@
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
-/datum/antagonist/heretic/roundend_report()
-	var/list/parts = list() //QWERTODO: Bring in line with other antagonists.
+///datum/antagonist/heretic/roundend_report()
+//	var/list/parts = list() //QWERTODO: Bring in line with other antagonists.
 
 	//var/succeeded = TRUE
 
-	parts += printplayer(owner)
-	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
-	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
+	//parts += printplayer(owner)
+//	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
+//	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
 //	if(length(objectives))
 //		var/count = 1
 //		for(var/datum/objective/objective as anything in get_all_objectives(include_team = FALSE))
@@ -613,18 +613,6 @@
 
 //	return parts.Join("<br>")
 
-///datum/antagonist/heretic/get_admin_commands() //qwertodo: antag panel
-//	. = ..()
-//
-//	switch(has_living_heart())
-//		if(HERETIC_NO_LIVING_HEART)
-//			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
-//		if(HERETIC_HAS_LIVING_HEART)
-//			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
-//			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
-//
-//	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
-//	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
 
 /**
  * Admin proc for giving a heretic a Living Heart easily.

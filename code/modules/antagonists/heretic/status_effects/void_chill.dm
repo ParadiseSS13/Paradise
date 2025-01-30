@@ -76,8 +76,6 @@
 
 ///Updates the movespeed of owner based on the amount of stacks of the debuff
 /datum/status_effect/void_chill/proc/update_movespeed(stacks)
-	///owner.add_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE) //qwertodo: slowdown from this
-	///owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/void_chill, update = TRUE, multiplicative_slowdown = (0.5 * stacks))
 	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:center'>[stacks]</span>")
 
 /datum/status_effect/void_chill/lasting

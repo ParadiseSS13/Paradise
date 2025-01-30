@@ -116,7 +116,7 @@
 				affected_door.disable_door_sparks()
 				affected_door.take_damage(rand(15, 30))
 
-			if(istype(thing_to_affect, /obj/structure/window) || istype(thing_to_affect, /obj/structure/grille) || istype(thing_to_affect, /obj/structure/door_assembly) || istype(thing_in_range, /obj/structure/firelock_frame))
+			if(istype(thing_to_affect, /obj/structure/window) || istype(thing_to_affect, /obj/structure/grille) || istype(thing_to_affect, /obj/structure/door_assembly) || istype(thing_to_affect, /obj/structure/firelock_frame))
 				var/obj/structure/affected_structure = thing_to_affect
 				affected_structure.take_damage(rand(10, 20))
 
