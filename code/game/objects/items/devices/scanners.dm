@@ -777,7 +777,6 @@ SLIME SCANNER
 	else// Sum mixtures then present
 		for(var/datum/gas_mixture/air as anything in airs)
 			total_moles += air.total_moles()
-			pressure += air.return_pressure()
 			volume += air.return_volume()
 			heat_capacity += air.heat_capacity()
 			thermal_energy += air.thermal_energy()
@@ -789,6 +788,7 @@ SLIME SCANNER
 			agent_b += air.agent_b()
 
 		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
+		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
 
 		if(total_moles)
 			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
