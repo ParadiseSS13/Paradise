@@ -832,6 +832,9 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Fore Starboard"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -13906,6 +13909,10 @@
 /area/station/service/kitchen)
 "aYb" = (
 /obj/machinery/atmospherics/unary/thermomachine/heater,
+/obj/machinery/camera{
+	c_tag = "Research Toxin Mixing";
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -25906,6 +25913,10 @@
 /obj/structure/sign/vacuum{
 	pixel_x = -32
 	},
+/obj/machinery/camera{
+	c_tag = "AI Transit Tube Access North";
+	network = list("SS13","Engineering")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -28333,7 +28344,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/machinery/camera{
-	c_tag = "AI Transit Tube Access";
+	c_tag = "AI Transit Tube Access South";
 	network = list("SS13","Engineering")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -35525,9 +35536,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Locker Room"
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -37817,6 +37825,10 @@
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
 /obj/machinery/alarm/directional/east,
+/obj/machinery/camera{
+	c_tag = "Locker Room East";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -38273,6 +38285,11 @@
 /area/station/public/toilet/lockerroom)
 "cyK" = (
 /obj/structure/closet/wardrobe/white,
+/obj/machinery/camera{
+	c_tag = "Locker Room West";
+	dir = 4;
+	pixel_y = -22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -41029,12 +41046,11 @@
 /area/station/public/fitness)
 "cGX" = (
 /obj/machinery/camera{
-	c_tag = "Rec Room Center";
-	dir = 4;
-	pixel_y = -22
+	c_tag = "Rec Room Port";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "neutralcorner"
 	},
 /area/station/public/fitness)
 "cGZ" = (
@@ -50921,13 +50937,10 @@
 /area/station/science/server)
 "dwj" = (
 /obj/machinery/alarm/directional/west,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/machinery/computer/rnd_network_controller/station{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "dwk" = (
@@ -53128,7 +53141,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Departure Lounge Security"
+	c_tag = "Departure Lounge Security North"
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
@@ -55031,6 +55044,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -62977,10 +62991,6 @@
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "hMD" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxin Mixing";
-	network = list("Research","SS13")
-	},
 /obj/machinery/power/apc/critical/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -65068,6 +65078,11 @@
 /area/station/service/kitchen)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
+/obj/machinery/camera{
+	c_tag = "Rec Room Center";
+	dir = 4;
+	pixel_y = -22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -68228,6 +68243,9 @@
 	},
 /area/station/public/locker)
 "kOD" = (
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
 /obj/machinery/camera{
 	c_tag = "Arrivals Aft Central";
 	dir = 1
@@ -81441,6 +81459,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Departure Lounge East";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -81526,10 +81548,13 @@
 	},
 /area/station/hallway/primary/central/se)
 "scA" = (
-/obj/machinery/firealarm/directional/west,
 /obj/structure/closet/secure_closet/security,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Departure Lounge Security South";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -90255,6 +90280,11 @@
 "wAP" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
+/obj/machinery/camera{
+	c_tag = "Turbine Entrance";
+	dir = 8;
+	network = list("Engineering","SS13")
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "wAW" = (
@@ -130065,7 +130095,7 @@ dGS
 aAr
 aAr
 anp
-kOD
+anY
 aoo
 aoo
 aoo
@@ -130579,7 +130609,7 @@ aaa
 dGS
 amM
 anT
-alx
+kOD
 aop
 hBD
 aop
@@ -147371,7 +147401,7 @@ cBZ
 iVg
 mYH
 dMH
-cGX
+cuM
 cJz
 jbW
 fRm
@@ -149435,7 +149465,7 @@ cMR
 cMR
 cMR
 cMR
-cWh
+cGX
 cWh
 cWh
 cXO

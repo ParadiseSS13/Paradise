@@ -22264,6 +22264,9 @@
 /area/station/service/kitchen)
 "bHS" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/camera{
+	c_tag = "Kitchen - Aft"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -54469,8 +54472,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/camera{
+	c_tag = "Xenobiology Lab - Space Bridge";
+	dir = 8;
+	network = list("Research","SS13","Containmentssss")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54979,7 +54984,7 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/camera{
-	c_tag = "Kitchen";
+	c_tag = "Kitchen - Fore";
 	dir = 4
 	},
 /obj/machinery/light{
@@ -70807,11 +70812,6 @@
 	},
 /area/station/aisat)
 "qSr" = (
-/obj/machinery/camera{
-	c_tag = "Prisoner Execution Chamber";
-	dir = 4;
-	network = list("Prison","SS13")
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -71680,6 +71680,13 @@
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
+"rmt" = (
+/obj/machinery/camera{
+	c_tag = "Bar - Aft";
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "rmz" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -122063,7 +122070,7 @@ sqp
 sqp
 sqp
 ueC
-bEv
+rmt
 bQI
 soT
 tRb

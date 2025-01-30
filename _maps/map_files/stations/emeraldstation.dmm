@@ -2057,6 +2057,14 @@
 "avB" = (
 /turf/simulated/wall/r_wall,
 /area/station/supply/miningdock)
+"avC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/camera{
+	c_tag = "Atmospherics East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "avK" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -34371,6 +34379,10 @@
 /obj/structure/sign/security{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Security Offices North";
+	dir = 6
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -34702,6 +34714,10 @@
 "gUv" = (
 /obj/effect/turf_decal/siding{
 	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Port Space Bridge";
+	dir = 8
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -48589,10 +48605,6 @@
 /area/station/hallway/secondary/entry/east)
 "jFq" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -65536,10 +65548,6 @@
 /area/station/hallway/primary/aft)
 "ndZ" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -70047,9 +70055,6 @@
 /area/station/public/sleep)
 "nWl" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Port Space Bridge"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -96950,6 +96955,10 @@
 /obj/effect/spawner/random/fungus/maybe,
 /obj/effect/turf_decal/siding{
 	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Aft Space Bridge";
+	dir = 1
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -143384,7 +143393,7 @@ tFw
 iHy
 mbm
 mBF
-mBF
+avC
 pPc
 vSM
 mBF
@@ -143641,7 +143650,7 @@ tFw
 gDT
 mel
 kvh
-hlq
+nJb
 jRZ
 fan
 hlq

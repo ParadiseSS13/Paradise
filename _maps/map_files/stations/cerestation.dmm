@@ -8291,6 +8291,11 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Virology East";
+	dir = 8;
+	network = list("SS13","QM")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -15120,11 +15125,6 @@
 	},
 /area/station/engineering/atmos)
 "bVY" = (
-/obj/machinery/camera{
-	c_tag = "Atmospheric Tanks 1";
-	dir = 1;
-	network = list("SS13","CE")
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28400,6 +28400,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Docking Asteroid Hall 1";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -28971,6 +28975,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"emh" = (
+/obj/structure/chair/sofa/corp{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Escape Wing South East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "emn" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -50144,10 +50158,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/camera{
-	c_tag = "Docking Asteroid Hall 16";
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -68926,6 +68936,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"oDg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/camera{
+	c_tag = "Docking Asteroid Hall 16";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "oDx" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool{
@@ -74192,6 +74213,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/west)
+"pSZ" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/obj/machinery/camera/motion{
+	c_tag = "AI Core Middle";
+	dir = 1;
+	start_active = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "pTh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -74304,6 +74338,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"pUR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Atmospheric Tanks 1";
+	dir = 1;
+	network = list("SS13","CE")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "pUV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81656,6 +81703,11 @@
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Virology North";
+	dir = 6;
+	network = list("SS13","CMO")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -88571,6 +88623,27 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
+"tBs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Research Asteroid Hallway 6"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/aft/east)
 "tBG" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
@@ -91359,6 +91432,11 @@
 	amount = 5
 	},
 /obj/structure/table/glass,
+/obj/machinery/camera{
+	c_tag = "Virology South";
+	dir = 8;
+	network = list("SS13","QM")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -104887,6 +104965,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -106078,10 +106157,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Docking Asteroid Hall 1";
-	dir = 6
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28;
@@ -136672,7 +136747,7 @@ ccW
 ccW
 ccW
 vep
-sej
+tBs
 ciG
 uJF
 vep
@@ -137150,7 +137225,7 @@ bQs
 bUZ
 bUV
 bVw
-bVW
+pUR
 bDR
 bDR
 bDR
@@ -142840,7 +142915,7 @@ cYB
 cYB
 cYB
 cYB
-olT
+ePh
 qyP
 hKz
 cYB
@@ -152843,7 +152918,7 @@ qnI
 wkP
 aXr
 mBh
-mBh
+oDg
 hJd
 xMv
 jLv
@@ -152978,7 +153053,7 @@ kDE
 agQ
 vTo
 aii
-afU
+pSZ
 vTo
 akt
 akZ
@@ -160320,7 +160395,7 @@ ceQ
 cfO
 cpF
 hcB
-hiI
+emh
 iTR
 aXn
 aXn
