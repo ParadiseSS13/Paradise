@@ -162,24 +162,6 @@
 		else
 			CRASH("Unknown status: [new_status]")
 
-//Prevents mouse from pulling things
-/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	if(istype(AM, /obj/item/food))
-		// This is stolen from mob/living/start_pulling
-		// because i can't call it from here ..()
-		// insted it will call upstream version of mouse/start_pulling
-		// Let me know if you know how to do it better
-		if(!(AM.can_be_pulled(src, state, force, show_message)))
-			return FALSE
-		if(incapacitated())
-			return
-		if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
-			return FALSE
-		return
-	if(show_message)
-		to_chat(src, span_warning("Ты слишком крохотный, чтобы тянуть что-то кроме еды."))
-	return
-
 // Вызывается, когда мышка кликает на еду, можно кушать только одну еду за раз.
 /mob/living/simple_animal/mouse/proc/consume(obj/item/food/F)
 	if(busy)
