@@ -7511,9 +7511,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/cmo,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -25060,8 +25060,6 @@
 /turf/simulated/wall,
 /area/station/security/detective)
 "dxJ" = (
-/obj/structure/table,
-/obj/item/food/fried_vox,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/maintenance/starboard)
@@ -37377,9 +37375,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore2)
 "gAX" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags{
 	pixel_x = 5;
@@ -37390,6 +37385,9 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/rxglasses,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -64596,6 +64594,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/food/fried_vox,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/maintenance/starboard)
 "mTP" = (
@@ -93294,6 +93294,12 @@
 	pixel_x = -24;
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump";
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -101220,6 +101226,12 @@
 	dir = 8;
 	id = "med2";
 	pixel_x = 24
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
