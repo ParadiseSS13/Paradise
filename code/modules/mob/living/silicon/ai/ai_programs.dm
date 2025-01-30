@@ -528,8 +528,7 @@
 	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(src, 'sound/items/syringeproj.ogg', 40)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
-	sleep(5)
-	nanofrost.Smoke()
+	addtimer(CALLBACK(nanofrost, TYPE_PROC_REF(/obj/effect/nanofrost_container, Smoke)), 5 SECONDS)
 
 /datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
