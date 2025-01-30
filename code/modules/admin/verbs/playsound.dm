@@ -157,11 +157,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					to_chat(src, "<span class='warning'>[e]: [stdout]</span>")
 					return
 
-				if (data["url"])
+				if(data["url"])
 					web_sound_url = data["url"]
 					var/title = "[data["title"]]"
 					var/webpage_url = title
-					if (data["webpage_url"])
+					if(data["webpage_url"])
 						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
 					music_extra_data["start"] = data["start_time"]
 					music_extra_data["end"] = data["end_time"]
