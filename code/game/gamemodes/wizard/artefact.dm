@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
-	victim.visible_message("<span class='warning'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
+	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
 	for(var/trait in plague_traits)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
