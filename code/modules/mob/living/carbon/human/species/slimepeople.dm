@@ -72,6 +72,8 @@
 	var/reagent_skin_coloring = FALSE
 	var/static_bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
 
+	plushie_type = /obj/item/toy/plushie/slimeplushie
+
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/regrow/grow = new()

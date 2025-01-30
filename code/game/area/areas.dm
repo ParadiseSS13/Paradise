@@ -61,8 +61,8 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
-	/// The air alarm to use for atmos_alert consoles
-	var/obj/machinery/alarm/master_air_alarm
+	/// The air alarms present in this area.
+	var/list/air_alarms = list()
 	/// The list of vents in our area.
 	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
 	/// The list of scrubbers in our area.

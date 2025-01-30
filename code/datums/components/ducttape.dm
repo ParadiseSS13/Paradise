@@ -12,7 +12,7 @@
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
 	x_offset = x
 	y_offset = y
-	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
+	RegisterSignal(parent, COMSIG_AFTER_ATTACK, PROC_REF(afterattack__legacy__attackchain))
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(pick_up))
 	I.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
@@ -44,7 +44,7 @@
 	I.remove_tape()
 	qdel(src)
 
-/datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)
+/datum/component/ducttape/proc/afterattack__legacy__attackchain(obj/item/I, atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!isturf(target))
@@ -71,7 +71,7 @@
 		else if(target_direction & SOUTH)
 			x_offset = rand(-12, 12)
 			y_offset = -16
-	if(!user.unEquip(I))
+	if(!user.drop_item_to_ground(I))
 		return
 	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
 	I.pixel_x = x_offset

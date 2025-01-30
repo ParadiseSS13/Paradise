@@ -77,8 +77,9 @@
 					qdel(src)
 
 
-/obj/machinery/power/terminal/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		dismantle(user, W)
+/obj/machinery/power/terminal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/wirecutters))
+		dismantle(user, used)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()

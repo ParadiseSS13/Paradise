@@ -4,21 +4,22 @@
  * All signals send the source datum of the signal as the first argument
  */
 
+///from base of atom/movable/Moved(): (/atom)
+#define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
+	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
-#define COMSIG_MOVABLE_CROSS "movable_cross"
-///from base of atom/movable/Crossed(): (/atom/movable)
-#define COMSIG_MOVABLE_CROSSED "movable_crossed"
-///when we cross over something (calling Crossed() on that atom)
-#define COMSIG_CROSSED_MOVABLE "crossed_movable"
+#define COMSIG_MOVABLE_CHECK_CROSS "movable_cross"
+	#define COMPONENT_BLOCK_CROSS (1<<0)
+///from base of atom/movable/Move(): (/atom/movable)
+#define COMSIG_MOVABLE_CHECK_CROSS_OVER "movable_cross_over"
 ///from base of atom/movable/Uncross(): (/atom/movable)
 #define COMSIG_MOVABLE_UNCROSS "movable_uncross"
 	#define COMPONENT_MOVABLE_BLOCK_UNCROSS (1<<0)
-///from base of atom/movable/Uncrossed(): (/atom/movable)
-#define COMSIG_MOVABLE_UNCROSSED "movable_uncrossed"
 ///from base of atom/movable/Bump(): (/atom)
 #define COMSIG_MOVABLE_BUMP "movable_bump"
+	#define COMPONENT_INTERCEPT_BUMPED (1<<0)
 ///from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT "movable_impact"
 	#define COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH (1<<0)				//if true, flip if the impact will push what it hits
@@ -41,7 +42,7 @@
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
 ///from base of atom/movable/shove_impact(): (mob/living/target, mob/living/attacker)
 #define COMSIG_MOVABLE_SHOVE_IMPACT "movable_shove_impact"
-///from base of atom/movable/onTransitZ(): (old_z, new_z)
+///from base of atom/movable/on_changed_z_level(): (turf/old_turf, turf/new_turf)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 
 /// Called just before something gets untilted
@@ -69,3 +70,19 @@
 /// Called when blocking a teleport
 #define COMSIG_ATOM_INTERCEPT_TELEPORTED "intercept_teleported"
 	#define COMPONENT_BLOCK_TELEPORT (1<<0)
+///from base of atom/movable/newtonian_move(): (inertia_direction, start_delay)
+#define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
+	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
+
+///from datum/component/drift/apply_initial_visuals(): ()
+#define COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT "movable_drift_visual_attempt"
+	#define DRIFT_VISUAL_FAILED (1<<0)
+///from datum/component/drift/allow_final_movement(): ()
+#define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
+	#define DRIFT_ALLOW_INPUT (1<<0)
+
+///called after the movable's glide size is updated: (old_glide_size)
+#define COMSIG_MOVABLE_UPDATED_GLIDE_SIZE "movable_glide_size"
+
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"

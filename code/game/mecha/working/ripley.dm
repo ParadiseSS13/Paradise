@@ -196,14 +196,40 @@
 	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
 
 /obj/mecha/working/ripley/mining
+	name = "APLU \"Miner\""
+
+/obj/mecha/working/ripley/mining/proc/prepare_equipment()
+	SHOULD_CALL_PARENT(FALSE)
+
+	// Diamond drill as a treat
+	var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new
+	D.attach(src)
+
+	// Add ore box to cargo
+	cargo.Add(new /obj/structure/ore_box(src))
+
+	// Attach hydraulic clamp
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
+	HC.attach(src)
+
+	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
+	scanner.attach(src)
+
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
+	prepare_equipment()
+
+/obj/mecha/working/ripley/mining/old
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/Initialize(mapload)
+/obj/mecha/working/ripley/mining/old/add_cell()
 	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+
+/obj/mecha/working/ripley/mining/old/prepare_equipment()
 	//Attach drill
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?

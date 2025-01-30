@@ -36,6 +36,10 @@
 	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
@@ -57,7 +61,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -112,7 +116,7 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
@@ -132,7 +136,7 @@
 
 /mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	if(locked || !open)
 		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
 		return FALSE
@@ -147,6 +151,7 @@
 		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
+	return TRUE
 
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()
@@ -261,7 +266,7 @@
 		return
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
@@ -269,7 +274,7 @@
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -353,7 +358,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
@@ -372,10 +377,10 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && on) //only if its online
+/mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = AM
+			var/mob/living/carbon/C = entered
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
@@ -390,5 +395,3 @@
 			if(!client)
 				speak("Honk!")
 			sensor_blink()
-			return
-	..()

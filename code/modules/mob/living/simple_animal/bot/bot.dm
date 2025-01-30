@@ -163,13 +163,13 @@
 			lost_target = FALSE
 		last_target_location = get_turf(target)
 		var/dist = get_dist(src, target)
-		walk_to(src, target, 1, 4)
+		GLOB.move_manager.move_to(src, target, 1, 4)
 		if(get_dist(src, target) >= dist)
 			frustration++
 		return
 
 	if(!lost_target)
-		walk_to(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		lost_target = TRUE
 		frustration = 0
 
@@ -395,7 +395,7 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked

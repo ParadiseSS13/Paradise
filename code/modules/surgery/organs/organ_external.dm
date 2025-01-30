@@ -166,12 +166,12 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-/obj/item/organ/external/attack(mob/M, mob/living/user)
+/obj/item/organ/external/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/C = M
 	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		replaced(C)
 		C.update_body()
 		C.updatehealth()
@@ -713,7 +713,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/external/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
@@ -749,12 +749,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
-		holder.unEquip(holder.handcuffed)
+		holder.drop_item_to_ground(holder.handcuffed)
 	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
-		holder.unEquip(holder.legcuffed)
+		holder.drop_item_to_ground(holder.legcuffed)
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(is_robotic())

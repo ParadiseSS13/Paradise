@@ -859,6 +859,13 @@
 					if(!(brain_type in GLOB.borg_brain_choices))
 						return
 					active_character.cyborg_brain_type = brain_type
+				if("pda_ringtone")
+					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", list("Reset Default Ringtone") + GLOB.pda_ringtone_choices, active_character.pda_ringtone)
+					if(!(ringtone in GLOB.pda_ringtone_choices))
+						if(ringtone == "Reset Default Ringtone")
+							active_character.pda_ringtone = null
+						return
+					active_character.pda_ringtone = ringtone
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -1006,6 +1013,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
+					parent.fit_viewport()
 					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")

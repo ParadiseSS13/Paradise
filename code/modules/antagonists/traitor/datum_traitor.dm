@@ -12,14 +12,15 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	wiki_page_name = "Traitor"
-	targeted_by_antag_message = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
-		Remain vigilant, they know who you are and what you can do."
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
 	var/give_uplink = TRUE
 	blurb_r = 200
 	blurb_a = 0.75
+
+	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
+	var/sending_backstab = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -43,7 +44,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /datum/antagonist/traitor/Destroy(force, ...)
 	// Remove all associated malf AI abilities.
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.clear_zeroth_law()
 		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
@@ -83,7 +84,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/select_organization()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		return
 	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
@@ -107,7 +108,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		forge_ai_objectives()
 	else
 		forge_human_objectives()
@@ -162,7 +163,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 		var/mob/living/silicon/ai/A = owner.current
@@ -210,7 +211,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Gives a traitor human their uplink, and uplink code.
  */
 /datum/antagonist/traitor/proc/give_uplink()
-	if(isAI(owner.current))
+	if(is_ai(owner.current))
 		return FALSE
 
 	var/mob/living/carbon/human/traitor_mob = owner.current
@@ -271,17 +272,34 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return message
 
 /datum/antagonist/traitor/custom_blurb()
-	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
-
+		return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)], \n[organization.intro_desc] BEGIN MISSION"
 /datum/antagonist/traitor/proc/reveal_delayed_objectives()
-	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
+
+	for(var/datum/objective/delayed/delayed_obj in get_antag_objectives(FALSE))
 		delayed_obj.reveal_objective()
 
 	if(!owner?.current)
 		return
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-	if(targeted_by_antag || prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
-		to_chat(owner.current, "<span class='userdanger'>[targeted_by_antag_message]</span>")
+
+	if(prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
+		queue_backstab()
+
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	delayed_objectives = FALSE
+
+/datum/antagonist/traitor/proc/queue_backstab()
+	// We do not want to send out two of these. As such, if the datum is already sending a backstab, abort.
+	if(sending_backstab)
+		return
+	sending_backstab = TRUE
+	addtimer(CALLBACK(src, PROC_REF(send_backstab)), rand(2 MINUTES, 5 MINUTES))
+
+/datum/antagonist/traitor/proc/send_backstab()
+	if(!owner.current)
+		return
+	add_antag_objective(/datum/objective/potentially_backstabbed)
+	var/list/messages = owner.prepare_announce_objectives()
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))

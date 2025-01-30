@@ -94,8 +94,7 @@
 		var/obj/item/flash/F = holder
 		F.set_light(0)
 
-	owner.unEquip(holder, 1)
-	holder.forceMove(src)
+	owner.transfer_item_to(holder, src, force = TRUE)
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
@@ -125,7 +124,7 @@
 			var/obj/item/offhand_arm_item = owner.get_active_hand()
 			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
 			return
-		else if(!owner.unEquip(arm_item))
+		else if(!owner.drop_item_to_ground(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
@@ -269,7 +268,7 @@
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
-	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
@@ -335,7 +334,7 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_surgical"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
@@ -416,7 +415,7 @@
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
@@ -801,7 +800,7 @@
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
 
-/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
 		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
@@ -837,3 +836,99 @@
 	if(emp_proof)
 		return
 	muscle_implant.emp_act(severity, owner)
+
+// Mantis blades
+
+/obj/item/melee/mantis_blade
+	name = "mantis blade"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action. \
+	When both blades are equipped, they enable the user to perform double attacks."
+	icon = 'icons/obj/weapons/melee.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	new_attack_chain = TRUE
+	var/double_attack = TRUE
+	var/double_attack_cd = 1.5 // seconds, so every second attack
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "lacerated", "ripped", "diced", "cut")
+
+/obj/item/melee/mantis_blade/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == ITEM_SLOT_LEFT_HAND)
+		transform = matrix(-1, 0, 0, 0, 1, 0)
+	else
+		transform = null
+
+// make double attack if blades in both hands and not on CD
+/obj/item/melee/mantis_blade/attack(mob/living/target, mob/living/user, params)
+	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
+	if(!istype(secondblade, /obj/item/melee/mantis_blade) || !double_attack)
+		return ..()
+
+	double_attack(target, user, params, secondblade)
+	return FINISH_ATTACK
+
+/obj/item/melee/mantis_blade/proc/double_attack(mob/living/target, mob/living/user, params, obj/item/melee/mantis_blade/secondblade)
+	// first attack
+	single_attack(target, user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+	// second attack
+	addtimer(CALLBACK(secondblade, PROC_REF(single_attack), target, user, params), 0.2 SECONDS) // not instant second attack
+
+/obj/item/melee/mantis_blade/proc/single_attack(mob/living/target, mob/living/user, params)
+	if(QDELETED(src))
+		return
+	double_attack = FALSE
+	attack(target, user, params)
+	addtimer(VARSET_CALLBACK(src, double_attack, TRUE), double_attack_cd SECONDS)
+
+/obj/item/melee/mantis_blade/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/forces_doors_open/mantis)
+
+/obj/item/melee/mantis_blade/syndicate
+	name = "'Naginata' mantis blade"
+	icon_state = "syndie_mantis"
+	item_state = "syndie_mantis"
+	force = 15
+	armour_penetration_percentage = 30
+
+/obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, non projectile
+
+/obj/item/melee/mantis_blade/nt
+	name = "'Scylla' mantis blade"
+	icon_state = "mantis"
+	item_state = "mantis"
+	force = 12
+
+/obj/item/melee/mantis_blade/nt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (5 / 3) SECONDS) // 0.666667 seconds for 60% uptime, non projectile
+
+//  Mantis blades implants
+/obj/item/organ/internal/cyberimp/arm/syndie_mantis
+	name = "'Naginata' mantis blade implants"
+	desc = "A powerful and concealable mantis blade with a monomolecular edge, produced by Cybersun Industries. Cuts through flesh and armor alike with ease."
+	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
+	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
+	icon_state = "syndie_mantis"
+	icon = 'icons/obj/weapons/melee.dmi'
+
+/obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/nt_mantis
+	name = "'Scylla' mantis blade implant"
+	desc = "A reverse-engineered mantis blade design produced by Nanotrasen. While still quite deadly, the loss of the monomolecular blade has drastically reduced its armor penetration capability."
+	origin_tech = "materials=5;combat=5;biotech=5;syndicate=4"
+	contents = newlist(/obj/item/melee/mantis_blade/nt)
+	icon_state = "mantis"
+	icon = 'icons/obj/weapons/melee.dmi'
+
+/obj/item/organ/internal/cyberimp/arm/nt_mantis/l
+	parent_organ = "l_arm"
+

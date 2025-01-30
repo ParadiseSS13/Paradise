@@ -220,25 +220,25 @@
 			return FALSE
 	add_fingerprint()
 
-/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/equipment_vendor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(panel_open)
-		return TRUE
-	if(istype(I, /obj/item/mining_voucher))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/mining_voucher))
 		if(!has_power())
-			return
-		redeem_voucher(I, user)
-		return
-	if(istype(I, /obj/item/card/id))
+			return ITEM_INTERACT_COMPLETE
+		redeem_voucher(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		if(!has_power())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 			C.forceMove(src)
 			inserted_id = C
 			ui_interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
@@ -354,7 +354,7 @@
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
 		EQUIPMENT("Whisky", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
-		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/cans/beer, 50),
+		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/bottle/beer, 50),
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
@@ -364,7 +364,7 @@
 		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/food/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
-		EQUIPMENT("Plushie", /obj/random/plushie, 750),
+		EQUIPMENT("Plushie", /obj/effect/spawner/random/plushies, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
@@ -446,30 +446,30 @@
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 	)
 
-/obj/machinery/mineral/equipment_vendor/explorer/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", I))
-		return
+/obj/machinery/mineral/equipment_vendor/explorer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", used))
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(istype(used, /obj/item/crowbar))
 			remove_id()
-			default_deconstruction_crowbar(user, I)
-		return TRUE
-	if(istype(I, /obj/item/mining_voucher))
+			default_deconstruction_crowbar(user, used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/mining_voucher))
 		if(!has_power())
-			return
-		redeem_voucher(I, user)
-		return
-	if(istype(I, /obj/item/card/id))
+			return ITEM_INTERACT_COMPLETE
+		redeem_voucher(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		if(!has_power())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 			C.forceMove(src)
 			inserted_id = C
 			ui_interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /**********************Mining Equipment Datum**************************/
@@ -501,16 +501,16 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+/obj/item/card/mining_point_card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id))
 		if(points)
-			var/obj/item/card/id/C = I
+			var/obj/item/card/id/C = used
 			C.mining_points += points
 			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
 			points = 0
 		else
 			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
-	..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()

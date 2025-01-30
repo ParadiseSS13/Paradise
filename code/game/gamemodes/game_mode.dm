@@ -81,6 +81,8 @@
 	var/list/datum/mind/abductors = list()
 	/// A list which contains the minds of all abductees
 	var/list/datum/mind/abductees = list()
+	/// A list which contains the all the abductor teams
+	var/list/datum/team/abductor/actual_abductor_teams = list()
 
 	/// A list of all the nuclear operatives' minds
 	var/list/datum/mind/syndicates = list()
@@ -247,7 +249,7 @@
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
-	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	if(SSredis.connected)
 		// Send our presence to required channels
 		var/list/presence_data = list()
@@ -317,7 +319,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 // Just the above proc but for alive players
-/// Gets all alive players for a specific role. Disables offstation roles by default
+/**
+ * DEPRECATED!
+ * Gets all alive players for a specific role. Disables offstation roles by default
+ */
 /datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
@@ -625,17 +630,6 @@
 	if(something_to_print)
 		print_command_report(trait_list_desc.Join("<br>"), "NAS Trurl Detected Divergencies", FALSE)
 
-
-/datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.join_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, "hudevent")
-
-/datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.leave_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, null)
-
 /// Gets the value of all end of round stats through auto_declare and returns them
 /datum/game_mode/proc/get_end_of_round_antagonist_statistics()
 	. = list()
@@ -654,6 +648,9 @@
 /datum/game_mode/proc/traitors_to_add()
 	return 0
 
+/**
+ * DEPRECATED!
+ */
 /datum/game_mode/proc/fill_antag_slots()
 	var/traitors_to_add = 0
 
@@ -662,7 +659,7 @@
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
 
-	if(!traitors_to_add)
+	if(traitors_to_add <= 0)
 		return
 
 	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
@@ -680,3 +677,9 @@
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
 		traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
+
+/datum/game_mode/proc/get_webhook_name()
+	return name
+
+/datum/game_mode/proc/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	return

@@ -30,7 +30,7 @@
 	else if(tank)
 		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
-/obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
+/obj/item/melee/powerfist/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
 		if(!user.is_holding(src))
 			to_chat(user, "<span class='warning'>You have to hold [src] in your hand!</span>")
@@ -79,7 +79,7 @@
 		if(tank)
 			to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 			return
-		if(!user.unEquip(thetank))
+		if(!user.unequip(thetank))
 			return
 		to_chat(user, "<span class='notice'>As you hook [thetank] up to [src], the fist locks into place around your arm.</span>")
 		tank = thetank
@@ -87,7 +87,7 @@
 		flags |= NODROP
 
 
-/obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
+/obj/item/melee/powerfist/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return

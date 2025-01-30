@@ -245,7 +245,7 @@
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<font color='lightblue'>cold</span>"
+	taste_description = "<span><font color='lightblue'>cold</font></span>"
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -360,7 +360,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
 
-/datum/reagent/consumbale/olivepaste
+/datum/reagent/consumable/olivepaste
 	name = "Olive Paste"
 	id = "olivepaste"
 	description = "A mushy pile of freshly ground olives."
@@ -635,7 +635,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/cheesewedge(T)
+		new /obj/item/food/sliced/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -925,7 +925,7 @@
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/food/breadslice(T)
+		new /obj/item/food/sliced/bread(T)
 
 /datum/reagent/soap
 	name = "Soap"

@@ -1,6 +1,4 @@
-# Updates the DB from 61 to 62 ~SpaghettiBit
-# Adds a subtype race to be stored on character saves
+# Updating the SQL from version 61 to version 12. -AffectedArc07
+# Adds a new bitflag column for toggles
 
-# Add species_subtype after species
-ALTER TABLE `characters`
-	ADD COLUMN `species_subtype` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'None' AFTER `species`;
+ALTER TABLE `player` ADD COLUMN `toggles_3` INT NULL DEFAULT NULL AFTER `toggles_2`;

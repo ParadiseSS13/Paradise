@@ -21,7 +21,7 @@
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(length(surgeries))
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)

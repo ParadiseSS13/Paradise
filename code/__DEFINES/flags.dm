@@ -45,6 +45,9 @@
 #define INFORM_ADMINS_ON_RELOCATE_2	(1<<5)
 #define BANG_PROTECT_2				(1<<6)
 #define BLOCKS_LIGHT_2				(1<<7) // Light sources placed in anything with that flag will not emit light through them.
+/// Whether a decal element's parent has already been initialized and thus has already had its decals attached.
+/// see https://github.com/tgstation/tgstation/pull/71658 for a detailed explanation of the flag.
+#define DECAL_INIT_UPDATE_EXPERIENCED_2 (1<<8)
 
 // A mob with OMNITONGUE has no restriction in the ability to speak
 // languages that they know. So even if they wouldn't normally be able to
@@ -146,6 +149,7 @@
 #define BLESSED_TILE	(1<<0)
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
+#define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

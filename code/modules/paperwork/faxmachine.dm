@@ -90,15 +90,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
-	if(istype(item,/obj/item/card/id) && !scan)
-		scan(item)
-	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
-		..()
+/obj/machinery/photocopier/faxmachine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id) && !scan)
+		scan(used)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo) || istype(used, /obj/item/paper_bundle))
+		. = ..()
 		SStgui.update_uis(src)
-	else if(istype(item, /obj/item/folder))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/folder))
 		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
-		return //early return so the parent proc doesn't suck up and items that a photocopier would take
+		return ITEM_INTERACT_COMPLETE //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 
@@ -416,7 +418,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
-			to_chat(C, msg)
+			to_chat(C, msg, MESSAGE_TYPE_ADMINPM)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(C, fax_sound)
 

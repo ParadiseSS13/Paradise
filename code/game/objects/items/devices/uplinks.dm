@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/show_examine_hotkeys()
 	return list()
 
-/obj/item/radio/uplink/attack_self(mob/user as mob)
+/obj/item/radio/uplink/attack_self__legacy__attackchain(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
@@ -456,7 +456,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	hidden_uplink = new(src)
 
-/obj/item/multitool/uplink/attack_self(mob/user as mob)
+/obj/item/multitool/uplink/attack_self__legacy__attackchain(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 

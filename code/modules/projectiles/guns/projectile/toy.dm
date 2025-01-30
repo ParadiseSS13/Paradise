@@ -134,7 +134,6 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=2"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"

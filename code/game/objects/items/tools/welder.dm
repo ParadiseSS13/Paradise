@@ -71,7 +71,7 @@
 	if(tool_enabled)
 		var/turf/T = get_turf(src)
 		if(T) // Implants for instance won't find a turf
-			T.hotspot_expose(2500, 5)
+			T.hotspot_expose(2500, 1)
 		if(prob(5))
 			remove_fuel(1)
 	if(refills_over_time)
@@ -86,7 +86,7 @@
 		return
 	remove_fuel(maximum_fuel)
 
-/obj/item/weldingtool/attack_self(mob/user)
+/obj/item/weldingtool/attack_self__legacy__attackchain(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")
 		toggle_welder()
@@ -145,7 +145,7 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/weldingtool/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!tool_enabled)
 		return
@@ -153,9 +153,13 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+/obj/item/weldingtool/attack__legacy__attackchain(mob/living/target, mob/living/user, def_zone)
+	if(cigarette_lighter_act(user, target))
+		return
+	if(tool_enabled && target.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+		log_game("[key_name(user)] set [key_name(target)] on fire")
+	return ..()
 
 /obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -323,6 +327,7 @@
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
+	belt_icon = "welder_brass"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 #undef GET_FUEL

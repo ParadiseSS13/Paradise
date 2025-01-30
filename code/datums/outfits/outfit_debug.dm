@@ -63,7 +63,7 @@
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-/obj/item/encryptionkey/syndicate/all_channels/attack_self(mob/user, pickupfireoverride)
+/obj/item/encryptionkey/syndicate/all_channels/attack_self__legacy__attackchain(mob/user, pickupfireoverride)
 	change_voice = !change_voice
 	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
 
@@ -157,7 +157,7 @@
 	. = ..()
 	. += "<span class='notice'><b>Alt-Click</b> to toggle mind-activation on spawning.</span>"
 
-/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
+/obj/item/debug/human_spawner/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!isturf(target))
 		return
@@ -167,7 +167,7 @@
 	if(activate_mind)
 		H.mind_initialize()
 
-/obj/item/debug/human_spawner/attack_self(mob/user)
+/obj/item/debug/human_spawner/attack_self__legacy__attackchain(mob/user)
 	..()
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.all_species
 	selected_species = GLOB.all_species[choice]
@@ -199,7 +199,7 @@
 	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
 	toolspeed = 0.01
 
-/obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
+/obj/item/scalpel/laser/manager/debug/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
 	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
@@ -318,7 +318,7 @@
 
 // put cool admin-only shit here :)
 /obj/item/storage/box/debug/misc_debug/populate_contents()
-	new /obj/item/badminBook(src)
+	new /obj/item/badmin_book(src)
 	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)

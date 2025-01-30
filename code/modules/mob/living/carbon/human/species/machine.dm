@@ -74,6 +74,7 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	plushie_type = /obj/item/toy/plushie/ipcplushie
 	allowed_species_subtypes = list(
 		1 = "None",
 		2 = "Vox",
@@ -130,7 +131,6 @@
 		H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 		H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/change_monitor/monitor = new()

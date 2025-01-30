@@ -293,7 +293,7 @@
 	icon_state ="scroll2"
 	var/used = FALSE
 
-/obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
+/obj/item/plasma_fist_scroll/attack_self__legacy__attackchain(mob/user as mob)
 	if(!ishuman(user))
 		return
 
@@ -313,7 +313,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
-/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/sleeping_carp_scroll/attack_self__legacy__attackchain(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
@@ -331,13 +331,13 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-/obj/item/CQC_manual
+/obj/item/cqc_manual
 	name = "old manual"
 	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
-/obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
+/obj/item/cqc_manual/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
@@ -382,7 +382,7 @@
 /obj/item/bostaff/update_icon_state()
 	icon_state = "[base_icon_state]0"
 
-/obj/item/bostaff/attack(mob/target, mob/living/user)
+/obj/item/bostaff/attack__legacy__attackchain(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")

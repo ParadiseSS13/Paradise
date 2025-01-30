@@ -22,6 +22,11 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
@@ -33,7 +38,7 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack_self(mob/user)
+/obj/item/reagent_containers/syringe/attack_self__legacy__attackchain(mob/user)
 	mode = !mode
 	update_icon()
 
@@ -41,14 +46,14 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/syringe/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/syringe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag))
 		..()
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
+/obj/item/reagent_containers/syringe/afterattack__legacy__attackchain(atom/target, mob/user , proximity)
 	if(!proximity)
 		return
 	if(!target.reagents)
@@ -181,7 +186,10 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+/obj/item/reagent_containers/syringe/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	var/mob/living/carbon/human/H = entered
 	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 

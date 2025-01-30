@@ -57,7 +57,7 @@
 			H.update_inv_r_hand()
 	return ..()
 
-/obj/item/thurible/attackby(obj/item/fire_source, mob/user, params)
+/obj/item/thurible/attackby__legacy__attackchain(obj/item/fire_source, mob/user, params)
 	. = ..()
 	if(fire_source.get_heat())
 		user.visible_message(
@@ -67,7 +67,7 @@
 		)
 		light(user)
 
-/obj/item/thurible/attack_self(mob/user)
+/obj/item/thurible/attack_self__legacy__attackchain(mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>You extinguish [src].</span>")
 		put_out(user)

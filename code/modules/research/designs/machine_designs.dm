@@ -292,14 +292,14 @@
 	build_path = /obj/item/circuitboard/cyborgrecharger
 	category = list("Research Machinery")
 
-/datum/design/destructive_analyzer
-	name = "Machine Board (Destructive Analyzer)"
-	desc = "The circuit board for a Destructive Analyzer."
-	id = "destructive_analyzer"
+/datum/design/scientific_analyzer
+	name = "Machine Board (Scientific Analyzer)"
+	desc = "The circuit board for a Scientific Analyzer."
+	id = "scientific_analyzer"
 	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/destructive_analyzer
+	build_path = /obj/item/circuitboard/scientific_analyzer
 	category = list("Research Machinery")
 
 /datum/design/mechfab
@@ -320,16 +320,6 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mech_recharger
-	category = list("Research Machinery")
-
-/datum/design/experimentor
-	name = "Machine Design (E.X.P.E.R.I-MENTOR Board)"
-	desc = "The circuit board for an E.X.P.E.R.I-MENTOR."
-	id = "experimentor"
-	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/experimentor
 	category = list("Research Machinery")
 
 /datum/design/protolathe
@@ -600,4 +590,14 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/bottler
+	category = list("Misc. Machinery")
+
+/datum/design/merch
+	name = "Machine Design (Nanotrasen Merch Board)"
+	desc = "The circuit board for an NT Merch vendor."
+	id = "merch"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")

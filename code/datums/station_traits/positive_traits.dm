@@ -200,7 +200,8 @@
 		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/nanotrasentrainer = /obj/item/organ/internal/heart/cybernetic/upgraded
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
@@ -212,7 +213,7 @@
 
 	var/cybernetic_type = job_to_cybernetic[job.type]
 	if(!cybernetic_type)
-		if(isAI(spawned))
+		if(is_ai(spawned))
 			var/mob/living/silicon/ai/ai = spawned
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return

@@ -40,7 +40,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
-	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
+	loot_drop = /obj/item/clothing/accessory/pandora_hope
 
 	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,
@@ -198,8 +198,9 @@
 	friendly_fire_check = TRUE
 
 
-//Pandora's loot: Hope //Hope I know what to make it do
-/obj/item/clothing/accessory/necklace/pandora_hope
+//Pandora's loot: Hope
+//This should probably be turned into a pin at some point
+/obj/item/clothing/accessory/pandora_hope
 	name = "Hope"
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
@@ -210,13 +211,13 @@
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
+/obj/item/clothing/accessory/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
 	if(isliving(S.loc))
 		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+/obj/item/clothing/accessory/pandora_hope/on_removed(mob/user)
 	if(isliving(has_suit.loc))
 		var/mob/living/M = has_suit.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)

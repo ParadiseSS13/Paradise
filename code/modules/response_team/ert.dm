@@ -308,12 +308,12 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 // -- AMBER TEAM --
 
 /datum/response_team/amber
-	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/amber
-	security_outfit = /datum/outfit/job/centcom/response_team/security/amber
-	medical_outfit = /datum/outfit/job/centcom/response_team/medic/amber
-	command_outfit = /datum/outfit/job/centcom/response_team/commander/amber
-	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/amber
-	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
+	engineering_outfit = /datum/outfit/job/response_team/engineer/amber
+	security_outfit = /datum/outfit/job/response_team/security/amber
+	medical_outfit = /datum/outfit/job/response_team/medic/amber
+	command_outfit = /datum/outfit/job/response_team/commander/amber
+	janitor_outfit = /datum/outfit/job/response_team/janitorial/amber
+	paranormal_outfit = /datum/outfit/job/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
 	if(silent)
@@ -323,12 +323,12 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 // -- RED TEAM --
 
 /datum/response_team/red
-	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/red
-	security_outfit = /datum/outfit/job/centcom/response_team/security/red
-	medical_outfit = /datum/outfit/job/centcom/response_team/medic/red
-	command_outfit = /datum/outfit/job/centcom/response_team/commander/red
-	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/red
-	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
+	engineering_outfit = /datum/outfit/job/response_team/engineer/red
+	security_outfit = /datum/outfit/job/response_team/security/red
+	medical_outfit = /datum/outfit/job/response_team/medic/red
+	command_outfit = /datum/outfit/job/response_team/commander/red
+	janitor_outfit = /datum/outfit/job/response_team/janitorial/red
+	paranormal_outfit = /datum/outfit/job/response_team/paranormal/red
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
@@ -339,12 +339,12 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 // -- GAMMA TEAM --
 
 /datum/response_team/gamma
-	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/gamma
-	security_outfit = /datum/outfit/job/centcom/response_team/security/gamma
-	medical_outfit = /datum/outfit/job/centcom/response_team/medic/gamma
-	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
-	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/gamma
-	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/gamma
+	engineering_outfit = /datum/outfit/job/response_team/engineer/gamma
+	security_outfit = /datum/outfit/job/response_team/security/gamma
+	medical_outfit = /datum/outfit/job/response_team/medic/gamma
+	command_outfit = /datum/outfit/job/response_team/commander/gamma
+	janitor_outfit = /datum/outfit/job/response_team/janitorial/gamma
+	paranormal_outfit = /datum/outfit/job/response_team/paranormal/gamma
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
-/datum/outfit/job/centcom/response_team
+/datum/outfit/job/response_team
 	name = "Response team"
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"

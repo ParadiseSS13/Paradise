@@ -282,7 +282,7 @@ Difficulty: Medium
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700, 50)
 		for(var/mob/living/L in T.contents)
 			if((L in hit_list) || L == source)
 				continue
@@ -422,7 +422,7 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /obj/effect/temp_visual/lava_warning

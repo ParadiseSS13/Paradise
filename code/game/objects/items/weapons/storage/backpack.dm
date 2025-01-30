@@ -22,7 +22,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		)
 
-/obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/backpack/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(Adjacent(user))
 		playsound(src.loc, "rustle", 50, TRUE, -5)
 		return ..()
@@ -50,7 +50,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Bluespace."
+	desc = "A bleeding-edge backpack that uses bluespace technology to create a localized dimensional pocket for storage."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -63,7 +63,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
 	allow_same_size = TRUE
 
-/obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/backpack/holding/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
 		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
@@ -521,13 +521,15 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/syndie/shotgunXLmags
+/obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
 	desc = "A large duffelbag, containing three types of extended drum magazines."
 
-/obj/item/storage/backpack/duffel/syndie/shotgunXLmags/populate_contents()
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
+/obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
@@ -564,15 +566,6 @@
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
 
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
-
-/obj/item/storage/backpack/duffel/syndie/bulldogbundle/populate_contents()
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/chameleon/thermal(src)
-
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."
 
@@ -602,7 +595,7 @@
 	new /obj/item/cautery(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgical_drapes(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
@@ -620,7 +613,7 @@
 	new /obj/item/cautery(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	if(prob(50))
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)

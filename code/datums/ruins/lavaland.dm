@@ -3,7 +3,6 @@
 	ci_exclude = /datum/map_template/ruin/lavaland
 
 /datum/map_template/ruin/lavaland/biodome
-	cost = 5
 	allow_duplicates = FALSE
 	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
@@ -36,7 +35,6 @@
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
-	cost = 20 // Not auto due to the nature of walkers
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
@@ -52,7 +50,6 @@
 	id = "althland-facility"
 	description = "A grim testament to the Althland Mining Company's ambitions, this facility lies in ruin, swallowed by the very planet it sought to exploit. \
 	Once a beacon of mining promise, it now stands as a stark reminder of the company's catastrophic demise."
-	cost = 5
 	suffix = "lavaland_surface_althland_facility.dmm"
 	allow_duplicates = FALSE
 
@@ -61,12 +58,10 @@
 	id = "althland-excavation"
 	description = "An abandoned mining pit, once operated by the late Althland Mining Corporation, stands as a testament to the extensive efforts of numerous labor groups who endeavored to exploit the ore-rich depths of the planet. \
 	Now, it lies abandoned, wholly reclaimed by the hostile environment, transforming into yet another relic of a lost company."
-	cost = 5
 	suffix = "lavaland_surface_althland_excavation.dmm"
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/sin
-	cost = 10
 	allow_duplicates = FALSE
 	ci_exclude = /datum/map_template/ruin/lavaland/sin // This is a parent holder, not a ruin itself
 
@@ -99,14 +94,12 @@
 	id = "sloth"
 	description = "..."
 	suffix = "lavaland_surface_sloth.dmm"
-	cost = 0
 
 /datum/map_template/ruin/lavaland/ratvar
 	name = "Dead God"
 	id = "ratvar"
 	description = "Ratvars final resting place."
 	suffix = "lavaland_surface_dead_ratvar.dmm"
-	cost = 0
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/hierophant
@@ -122,7 +115,6 @@
 	id = "blooddrunk"
 	description = "A strange arrangement of stone tiles and an insane, beastly miner contemplating them."
 	suffix = "lavaland_surface_blooddrunk1.dmm"
-	cost = 0
 	allow_duplicates = FALSE //will only spawn one variant of the ruin
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner/guardian
@@ -138,7 +130,6 @@
 	id = "ufo-crash"
 	description = "Turns out that keeping your abductees unconscious is really important. Who knew?"
 	suffix = "lavaland_surface_ufo_crash.dmm"
-	cost = 5
 
 /datum/map_template/ruin/lavaland/xeno_nest
 	name = "Xenomorph Nest"
@@ -146,21 +137,19 @@
 	description = "These xenomorphs got bored of horrifically slaughtering people on space stations, and have settled down on a nice lava filled hellscape to focus on what's really important in life. \
 	Quality memes."
 	suffix = "lavaland_surface_xeno_nest.dmm"
-	cost = 20
 
 /datum/map_template/ruin/lavaland/fountain
 	name = "Fountain Hall"
 	id = "fountain"
 	description = "The fountain has a warning on the side. DANGER: May have undeclared side effects that only become obvious when implemented."
 	suffix = "lavaland_surface_fountain_hall.dmm"
-	cost = 5
+
 
 /datum/map_template/ruin/lavaland/survivalcapsule
 	name = "Survival Capsule Ruins"
 	id = "survivalcapsule"
 	description = "What was once sanctuary to the common miner, is now their tomb."
 	suffix = "lavaland_surface_survivalpod.dmm"
-	cost = 5
 
 /datum/map_template/ruin/lavaland/pizza
 	name = "Ruined Pizza Party"
@@ -168,7 +157,6 @@
 	description = "Little Timmy's birthday pizza-bash took a turn for the worse when a bluespace anomaly passed by."
 	suffix = "lavaland_surface_pizzaparty.dmm"
 	allow_duplicates = FALSE
-	cost = 5
 
 /datum/map_template/ruin/lavaland/cultaltar
 	name = "Summoning Ritual"
@@ -176,7 +164,6 @@
 	description = "A place of vile worship, the scrawling of blood in the middle glowing eerily. A demonic laugh echoes throughout the caverns"
 	suffix = "lavaland_surface_cultaltar.dmm"
 	allow_duplicates = FALSE
-	cost = 10
 
 /datum/map_template/ruin/lavaland/hermit
 	name = "Makeshift Shelter"
@@ -192,21 +179,18 @@
 	description = "A heavily-damaged mining ripley, property of a very unfortunate miner. You might have to do a bit of work to fix this thing up."
 	suffix = "lavaland_surface_random_ripley.dmm"
 	allow_duplicates = FALSE
-	cost = 5
 
 /datum/map_template/ruin/lavaland/puzzle
 	name = "Ancient Puzzle"
 	id = "puzzle"
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
-	cost = 5
 
 /datum/map_template/ruin/lavaland/tumor
 	name = "Elite Tumor"
 	id = "tumor"
 	description = "The victor freed, the loser the next fighter. The ghosts, the endless spectators. And thus the cycle loops..."
 	suffix = "lavaland_surface_elite_tumor.dmm"
-	cost = 5
 	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/monster_nest
@@ -215,14 +199,12 @@
 	description = "A cave of several tunnels, housing the local fauna deep underground."
 	suffix = "lavaland_surface_monster_nest.dmm"
 	allow_duplicates = FALSE
-	cost = 5
 
 /datum/map_template/ruin/lavaland/watcher_grave
 	name = "Watchers' Grave"
 	id = "watcher-grave"
 	description = "A lonely cave where an orphaned child awaits a new parent."
 	suffix = "lavaland_surface_watcher_grave.dmm"
-	cost = 5
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/shuttlecrash
@@ -230,5 +212,4 @@
 	id = "shuttlecrash"
 	description = "A passenger shuttle crashsite of indeterminate origin."
 	suffix = "lavaland_surface_shuttlecrash.dmm"
-	cost = 5
 	allow_duplicates = FALSE

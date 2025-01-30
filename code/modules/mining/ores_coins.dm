@@ -17,10 +17,13 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
-	pixel_x = rand(0, 16) - 8
-	pixel_y = rand(0, 8) - 8
+/obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	scatter_atom()
+
+/obj/item/stack/ore/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-8, 8) + x_offset
+	pixel_y = rand(-8, 0) + y_offset
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -32,34 +35,6 @@
 	new refined_type(drop_location(), amount)
 	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
 	qdel(src)
-
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
-		return ..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		var/turf/simulated/floor/plating/asteroid/FA = F
-		FA.attempt_ore_pickup(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
-	return ..()
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -275,7 +250,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
@@ -305,7 +280,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(wires)
 		wires.Interact(user)
 
-/obj/item/gibtonite/attack_self(mob/user)
+/obj/item/gibtonite/attack_self__legacy__attackchain(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else
@@ -377,14 +352,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/cooldown = 0
 	var/credits = 10
 
-/obj/item/coin/New()
-	..()
+/obj/item/coin/Initialize(mapload)
+	. = ..()
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
-
-/obj/item/coin/Initialize(mapload)
-	. = ..()
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/coin/gold
@@ -422,7 +395,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
 		log_and_set_aflame(P.firer, P)
 
-/obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/coin/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!I.get_heat())
 		return ..()
 	log_and_set_aflame(user, I)
@@ -448,7 +421,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 	COOLDOWN_DECLARE(radiation_cooldown)
 
-/obj/item/coin/uranium/attack_self(mob/user)
+/obj/item/coin/uranium/attack_self__legacy__attackchain(mob/user)
 	..()
 	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
@@ -501,7 +474,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "syndicate coin"
 	credits = 160
 
-/obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/coin/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
@@ -548,7 +521,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		user.put_in_hands(ring)
 
 
-/obj/item/coin/attack_self(mob/user as mob)
+/obj/item/coin/attack_self__legacy__attackchain(mob/user as mob)
 	if(cooldown < world.time - 15)
 		var/coinflip = pick(sideslist)
 		cooldown = world.time

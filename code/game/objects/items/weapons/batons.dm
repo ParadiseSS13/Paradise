@@ -35,7 +35,7 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
-/obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
@@ -184,7 +184,7 @@
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
-/obj/item/melee/classic_baton/telescopic/attack_self(mob/user)
+/obj/item/melee/classic_baton/telescopic/attack_self__legacy__attackchain(mob/user)
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)

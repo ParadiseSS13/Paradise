@@ -1,4 +1,4 @@
-/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
 		add_collar(O, user)
 		return

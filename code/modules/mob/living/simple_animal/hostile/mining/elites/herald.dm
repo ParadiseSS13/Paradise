@@ -40,7 +40,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "begins to shudder as it becomes transparent..."
-	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
+	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
 
 
 	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
@@ -257,22 +257,21 @@
 
 //Herald's loot: Cloak of the Prophet
 
-/obj/item/clothing/accessory/necklace/herald_cloak
+/obj/item/clothing/neck/cloak/herald_cloak
 	name = "cloak of the prophet"
 	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
-	slot_flags = ITEM_SLOT_ACCESSORY
-	allow_duplicates = FALSE
-	actions_types = list(/datum/action/item_action/accessory/herald)
+	actions_types = list(/datum/action/item_action/herald)
 
-/obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
-	if(has_suit)
-		mirror_walk()
 
-/obj/item/clothing/accessory/necklace/herald_cloak/proc/mirror_walk()
+/obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)
+	if(slot == ITEM_SLOT_NECK)
+		return TRUE
+
+/obj/item/clothing/neck/cloak/herald_cloak/ui_action_click()
 	var/found_mirror = FALSE
 	var/list/mirrors_to_use = list()
 	var/list/areaindex = list()

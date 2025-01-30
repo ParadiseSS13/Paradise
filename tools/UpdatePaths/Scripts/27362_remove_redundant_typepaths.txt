@@ -1,0 +1,15 @@
+/obj/effect/forcefield/mime/advanced : /obj/effect/forcefield/mime/@SUBTYPES{@OLD}
+/obj/effect/spawner/away/lootdrop : /obj/effect/spawner/away_lootdrop/@SUBTYPES{@OLD}
+/obj/effect/spawner/random/janitor/supplies : /obj/effect/spawner/random/jani_supplies/@SUBTYPES{@OLD}
+/obj/effect/spawner/random/mod/maint : /obj/effect/spawner/random/mod_maint/@SUBTYPES{@OLD}
+/obj/item/clothing/head/beret/solgov/command : /obj/item/clothing/head/beret/command/@SUBTYPES{@OLD}
+/obj/item/clothing/head/space/prisoner_gulag : /obj/item/clothing/head/helmet/space/prisoner_gulag/@SUBTYPES{@OLD}
+/obj/item/clothing/suit/greatcoat/sec : /obj/item/clothing/suit/sec_greatcoat/@SUBTYPES{@OLD}
+/obj/item/clothing/under/misc/gimmick/rank/captain/suit : /obj/item/clothing/under/misc/gimmick_captain_suit/@SUBTYPES{@OLD}
+/obj/item/ectoplasm/revenant : /obj/item/ectoplasm/@SUBTYPES{@OLD}
+/obj/item/effect/snare : /obj/effect/snare/@SUBTYPES{@OLD}
+/obj/item/storage/hidden/implant : /obj/item/storage/hidden_implant/@SUBTYPES{@OLD}
+/obj/structure/closet/malf/suits : /obj/structure/closet/malf_suits/@SUBTYPES{@OLD}
+/obj/structure/closet/secure_closet/syndicate/depot : /obj/structure/closet/secure_closet/depot/@SUBTYPES{@OLD}
+/obj/structure/ladder/unusable : /obj/structure/ladder/@SUBTYPES{@OLD}
+/obj/structure/moth/cocoon : /obj/structure/moth_cocoon/@SUBTYPES{@OLD}

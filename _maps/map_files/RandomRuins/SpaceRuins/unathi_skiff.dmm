@@ -2,8 +2,6 @@
 "aZ" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -13,8 +11,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -42,13 +38,9 @@
 /area/ruin/space/unathi_breacher/engineering)
 "dK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -56,7 +48,7 @@
 /area/ruin/space/unathi_breacher/bar)
 "ec" = (
 /mob/living/simple_animal/hostile/drakehound_breacher,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "fJ" = (
@@ -66,21 +58,15 @@
 /area/ruin/space/unathi_breacher/hold)
 "fN" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "he" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -108,8 +94,6 @@
 "iF" = (
 /obj/effect/spawner/random/food_trash,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -121,8 +105,6 @@
 "jA" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -147,20 +129,14 @@
 /area/ruin/space/unathi_breacher/hold)
 "kb" = (
 /obj/structure/rack,
-/obj/item/stack/sheet/mineral/gold,
-/obj/item/stack/sheet/mineral/gold,
-/obj/item/stack/sheet/mineral/gold,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "kf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -168,6 +144,7 @@
 "kt" = (
 /obj/structure/table,
 /obj/item/screwdriver,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "li" = (
@@ -203,8 +180,8 @@
 /area/ruin/space/unathi_breacher/bar)
 "ny" = (
 /obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "nU" = (
 /obj/structure/shuttle/engine/large{
 	dir = 8
@@ -212,7 +189,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "oa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "ol" = (
@@ -248,8 +225,6 @@
 	name = "Lil' Fella"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/pod/dark,
@@ -258,8 +233,8 @@
 /obj/item/toy/plushie/voxplushie{
 	has_stuffing = 0
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "rv" = (
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/drakehound_breacher,
@@ -267,24 +242,18 @@
 /area/ruin/space/unathi_breacher/bar)
 "rx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "rI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "rJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -298,7 +267,7 @@
 "uN" = (
 /obj/item/stack/rods,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "vc" = (
@@ -320,8 +289,8 @@
 "xJ" = (
 /obj/item/stack/rods,
 /obj/item/stack/sheet/mineral/plastitanium,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "yi" = (
 /obj/machinery/door/poddoor,
 /obj/machinery/door/airlock/survival_pod{
@@ -334,8 +303,6 @@
 /area/ruin/space/unathi_breacher/bridge)
 "yy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -343,8 +310,6 @@
 "yB" = (
 /obj/item/cigbutt/roach,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -377,12 +342,9 @@
 "Aj" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/west,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -403,8 +365,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/drakehound_breacher,
@@ -415,8 +375,8 @@
 /area/ruin/space/unathi_breacher/bridge)
 "CC" = (
 /obj/item/stack/rods,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "CM" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/gold,
@@ -431,16 +391,12 @@
 /area/ruin/space/unathi_breacher/dorms)
 "Dp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
 "Eq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -451,15 +407,13 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Gb" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "GH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair/sofa/left,
@@ -470,7 +424,7 @@
 /area/ruin/space/unathi_breacher/hold)
 "Hr" = (
 /obj/item/cigbutt/roach,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Hz" = (
@@ -485,15 +439,12 @@
 "HK" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "Ik" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair/sofa/right,
@@ -522,7 +473,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "Mt" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "MI" = (
@@ -543,7 +494,7 @@
 /area/ruin/space/unathi_breacher/engineering)
 "OW" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "Pq" = (
@@ -553,7 +504,6 @@
 "Pr" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/pod/dark,
@@ -575,8 +525,8 @@
 /area/ruin/space/unathi_breacher/bridge)
 "Qh" = (
 /obj/item/stack/cable_coil/ten,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "QI" = (
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
@@ -584,12 +534,11 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "QK" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -600,8 +549,6 @@
 	locked = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/pod/dark,
@@ -614,8 +561,8 @@
 /obj/item/stack/rods,
 /obj/structure/table_frame,
 /mob/living/simple_animal/hostile/drakehound_breacher,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Sg" = (
 /obj/effect/turf_decal/siding{
 	dir = 6
@@ -644,7 +591,6 @@
 /area/ruin/space/unathi_breacher/hold)
 "UV" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
@@ -667,8 +613,6 @@
 "Wu" = (
 /obj/effect/spawner/random/food_trash,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -687,8 +631,6 @@
 /area/ruin/space/unathi_breacher/dorms)
 "Yf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -711,7 +653,7 @@
 /area/ruin/space/unathi_breacher/dorms)
 "ZY" = (
 /obj/effect/decal/remains/human,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
 

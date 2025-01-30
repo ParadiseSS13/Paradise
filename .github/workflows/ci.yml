@@ -54,7 +54,13 @@ jobs:
           python tools/ci/no_duplicate_definitions.py
           python -m tools.ci.check_icon_conflicts
           python -m tools.ci.check_icon_dupenames
+          python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
 
       - name: Run DreamChecker
         shell: bash
@@ -68,6 +74,10 @@ jobs:
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: 9.x
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh
@@ -95,8 +105,15 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation', '/datum/map/emeraldstation']
-        byondtype: ['STABLE']
+        maptype:
+          [
+            '/datum/map/boxstation',
+            '/datum/map/deltastation',
+            '/datum/map/metastation',
+            '/datum/map/cerestation',
+            '/datum/map/emeraldstation',
+          ]
+        byondtype: ['STABLE', 'BETA']
     services:
       mariadb:
         image: mariadb:latest

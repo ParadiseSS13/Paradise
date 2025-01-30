@@ -126,7 +126,7 @@
 			display_text = "All it's missing is <b>external plating</b>..."
 	. += "<span class='notice'>[display_text]</span>"
 
-/obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
+/obj/item/mod/construction/shell/attackby__legacy__attackchain(obj/item/part, mob/user, params)
 	. = ..()
 	switch(construction_step)
 		if(START_STEP)

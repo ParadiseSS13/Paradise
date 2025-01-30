@@ -27,7 +27,7 @@
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/instrument/attack_self(mob/user)
+/obj/item/instrument/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/instrument/ui_data(mob/user)

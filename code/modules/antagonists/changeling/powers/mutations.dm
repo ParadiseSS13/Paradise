@@ -27,7 +27,7 @@
 
 /datum/action/changeling/weapon/sting_action(mob/user)
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.drop_item())
+	if(user.get_active_hand() && !user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
@@ -97,15 +97,14 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
-	if(!user.unEquip(user.wear_suit))
-		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
-		return FALSE
-	if(!user.unEquip(user.head))
-		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
-		return FALSE
-
-	user.unEquip(user.head)
-	user.unEquip(user.wear_suit)
+	if(user.wear_suit)
+		if(!user.drop_item_to_ground(user.wear_suit))
+			to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
+			return FALSE
+	if(user.head)
+		if(!user.drop_item_to_ground(user.head))
+			to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
+			return FALSE
 
 	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
 	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
@@ -150,7 +149,7 @@
 /obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	parent_action = new_parent_action
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open, time_to_open = 10 SECONDS)
 
 /obj/item/melee/arm_blade/Destroy()
 	if(parent_action)
@@ -159,7 +158,7 @@
 		parent_action = null
 	return ..()
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/table))
@@ -380,10 +379,10 @@
 	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/changeling/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
 
 	..()
@@ -419,30 +418,12 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses = 6
-
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
-/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
-	. = ..()
-	if(!.)
-		return
-	if(remaining_uses < 1)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
-			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			H.unEquip(src, 1)
-		qdel(src)
-		return FALSE
-	else
-		remaining_uses--
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -517,7 +498,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT | HIDESHOES
 	cold_protection = 0
 	heat_protection = 0
 	sprite_sheets = null
@@ -576,9 +557,9 @@
 	// you've torn it up, get rid of it.
 	new /obj/effect/decal/cleanable/shreds(owner.loc)
 	// just unequip them since they qdel on drop
-	owner.unEquip(src, TRUE, TRUE)
+	owner.drop_item_to_ground(src, force = TRUE, silent = TRUE)
 	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
-		owner.unEquip(owner.head, TRUE, TRUE)
+		owner.drop_item_to_ground(owner.head, force = TRUE, silent = TRUE)
 
 	return TRUE
 

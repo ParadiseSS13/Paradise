@@ -26,7 +26,7 @@
 	name = "watermelon"
 	desc = "It's full of watery goodness."
 	icon_state = "watermelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
-	slice_path = /obj/item/food/watermelonslice
+	slice_path = /obj/item/food/sliced/watermelon
 	slices_num = 5
 	dried_type = null
 	w_class = WEIGHT_CLASS_NORMAL

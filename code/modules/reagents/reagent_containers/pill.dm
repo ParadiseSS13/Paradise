@@ -47,13 +47,13 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/reagent_containers/pill/attack(mob/living/carbon/C, mob/user)
+/obj/item/reagent_containers/pill/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	return apply(C, user)
 
-/obj/item/reagent_containers/pill/attack_self(mob/user)
+/obj/item/reagent_containers/pill/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
-/obj/item/reagent_containers/pill/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/pill/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_refillable())
 		return
 	if(target.reagents.holder_full())

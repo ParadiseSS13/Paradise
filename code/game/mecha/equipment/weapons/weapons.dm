@@ -232,11 +232,11 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
-				walk_away(thingy,chassis,15,2)
+				H.drop_item_to_ground(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						walk(thingy,0)
+						GLOB.move_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -305,7 +305,6 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	equip_cooldown = 2 SECONDS
 	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
@@ -316,6 +315,12 @@
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+	equip_cooldown = 2 SECONDS
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndie //Version used for Dark Gygax
+	name = "\improper LBX AC 20-r \"Scattershot .45\""
+	origin_tech = "combat=4;syndicate=2" //Crew is not going to get it normally anyways
+	projectile = /obj/item/projectile/bullet/midbullet
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	equip_cooldown = 1 SECONDS
