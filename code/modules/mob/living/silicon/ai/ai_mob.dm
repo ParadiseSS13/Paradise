@@ -1516,6 +1516,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		eyeobj.acceleration = !eyeobj.acceleration
 		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
 
+/mob/living/silicon/ai/proc/play_sound_remote(target, sound, volume)
+	playsound_local(src, sound, volume, FALSE, use_reverb = FALSE)
+	playsound(target, sound, volume, FALSE, use_reverb = FALSE)
+
 /mob/living/silicon/ai/handle_fire()
 	return
 

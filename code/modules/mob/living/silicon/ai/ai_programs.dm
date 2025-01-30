@@ -292,8 +292,7 @@
 		L.brightness_color = new_color
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
-	user.playsound_local(user, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/effects/spray.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
@@ -355,8 +354,7 @@
 		power_source.charge -= power_sent
 		break
 	AI.program_picker.nanites -= 20
-	user.playsound_local(user, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
@@ -407,8 +405,7 @@
 		var/damage_healed = AI.adapter_efficiency * (20 + (min(30, (10 * spell_level))))
 		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
 	AI.program_picker.nanites -= 75
-	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
@@ -480,7 +477,7 @@
 	var/mob/living/silicon/ai/AI = user
 	var/duration = (6 - spell_level) SECONDS
 	AI.program_picker.nanites -= 25
-	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
 	spawning_effect.duration = duration
@@ -529,8 +526,7 @@
 	log_game("[key_name(user)] used Nanofrost at [get_area(target)] ([target.x], [target.y], [target.z]).")
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
-	user.playsound_local(user, 'sound/items/syringeproj.ogg', 40, FALSE, use_reverb = FALSE)
-	playsound(src, 'sound/items/syringeproj.ogg', 40, TRUE)
+	AI.play_sound_remote(src, 'sound/items/syringeproj.ogg', 40)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	sleep(5)
 	nanofrost.Smoke()
@@ -631,8 +627,7 @@
 	target.emagged = FALSE
 	target.on = target.has_power()
 	AI.program_picker.nanites -= 5
-	user.playsound_local(user, 'sound/machines/ding.ogg', 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
@@ -668,8 +663,7 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 75
-	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
@@ -804,8 +798,7 @@
 	var/target = targets[1]
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
-	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/effects/bubbles2.ogg', 50, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 15)
 	var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
 	F.spread_amount = 2
@@ -863,8 +856,7 @@
 	AI.program_picker.nanites -= 10
 	var/H = new sign_type(get_turf(target), src)
 	addtimer(CALLBACK(src, PROC_REF(sign_timer_complete), H), (60 + 30 * spell_level) SECONDS, TIMER_UNIQUE)
-	user.playsound_local(user, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
-	playsound(target, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
+	AI.play_sound_remote(target, 'sound/machines/click.ogg', 20)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/holosign_displayer/proc/sign_timer_complete(obj/structure/holosign/H)
@@ -900,11 +892,9 @@
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
 	if(spell_level >= 10)
-		playsound(target, 'sound/items/airhorn.ogg', 100, 1)
-		user.playsound_local(user, 'sound/items/airhorn.ogg', 50, FALSE, use_reverb = FALSE)
+		AI.play_sound_remote(user, 'sound/items/airhorn.ogg', 50,)
 	else
-		playsound(target, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
-		user.playsound_local(user, 'sound/items/bikehorn.ogg', 50, FALSE, use_reverb = FALSE)
+		AI.play_sound_remote(user, 'sound/items/bikehorn.ogg', 50)
 
 /datum/spell/ai_spell/ranged/honk_subsystem/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15) SECONDS, 15 SECONDS)
