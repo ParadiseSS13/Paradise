@@ -854,8 +854,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	w_class = WEIGHT_CLASS_TINY
 	var/chosen_plague
 
+	new_attack_chain = TRUE
+
 //checks if they're a valid target before trying to raise
-/obj/item/plague_talisman/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+/obj/item/plague_talisman/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	if(!istype(victim) || !istype(necromancer))
 		return ..()
 

@@ -219,6 +219,8 @@
 	var/datum/spell/plague_claws/parent_spell
 	var/claw_disease
 
+	new_attack_chain = TRUE
+
 /obj/item/plague_claw/Initialize(mapload, new_parent_spell, disease)
 	. = ..()
 	if(new_parent_spell)
@@ -242,7 +244,7 @@
 /obj/item/plague_claw/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
 
-/obj/item/plague_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters, claw_disease)
+/obj/item/plague_claw/after_attack(atom/atom_target, mob/user, proximity_flag, click_parameters, claw_disease)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -265,6 +267,6 @@
 		var/datum/disease/plague = new claw_disease
 		target.ContractDisease(plague)
 
-/obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
+/obj/item/zombie_claw/activate_self(mob/user)
 	. = ..()
 	qdel(src)
