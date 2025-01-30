@@ -78,7 +78,7 @@
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
-
+	damtype = initial(damtype)
 	update_icon()
 	if(user)
 		show_off_message(user)

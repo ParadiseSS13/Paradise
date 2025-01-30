@@ -52,6 +52,7 @@
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
+	damtype = BURN
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
