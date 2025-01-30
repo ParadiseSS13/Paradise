@@ -284,7 +284,18 @@
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)
-	banned_jobs = list("Cyborg", "AI", "Chaplain")
+	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
 
 	team_size = 4
 	team_type = /datum/team/cult
+
+/datum/ruleset/team/cult/declare_completion()
+	if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
+		SSticker.mode_result = "cult win - cult win"
+		to_chat(world, "<span class='danger'><FONT size=3>The cult wins! It has succeeded in summoning [GET_CULT_DATA(entity_name, "their god")]!</FONT></span>")
+	else if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_FALLEN)
+		SSticker.mode_result = "cult draw - narsie died, nobody wins"
+		to_chat(world, "<span class='danger'><FONT size = 3>Nobody wins! [GET_CULT_DATA(entity_name, "the cult god")] was summoned, but banished!</FONT></span>")
+	else
+		SSticker.mode_result = "cult loss - staff stopped the cult"
+		to_chat(world, "<span class='warning'><FONT size = 3>The staff managed to stop the cult!</FONT></span>")

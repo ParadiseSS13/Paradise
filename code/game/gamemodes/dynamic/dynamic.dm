@@ -167,6 +167,11 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			implied_and_used += implied
 	return "[name] ([english_list(rulesets + implied_and_used, nothing_text = "Extended")])"
 
+/datum/game_mode/dynamic/declare_completion()
+	for(var/datum/ruleset/ruleset in ruleset)
+		ruleset.declare_completion()
+	. = ..()
+
 /proc/log_dynamic(text)
 	log_game("Dynamic: [text]")
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
