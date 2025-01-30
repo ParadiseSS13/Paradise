@@ -70,7 +70,7 @@
 	if(!turf_check(next, current))
 		to_chat(user, "<span class='warning'>[movable_parent] cannot go onto [next]!</span>")
 		return
-	if(!Process_Spacemove(direction) || !isturf(movable_parent.loc))
+	if(GLOB.move_manager.processing_on(user, SSspacedrift) || !isturf(movable_parent.loc))
 		return
 
 	step(movable_parent, direction)
@@ -116,7 +116,7 @@
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER //COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice>Going nice and slow at walk speed will prevent crashing into things.</span>"
+	examine_list += "<span class='notice'>Going nice and slow at walk speed will prevent crashing into things.</span>"
 
 /datum/component/riding/vehicle/scooter/skateboard/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
 	. = ..()

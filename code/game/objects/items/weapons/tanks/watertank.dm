@@ -6,7 +6,7 @@
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
@@ -32,13 +32,13 @@
 	toggle_mister(user)
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
 /obj/item/watertank/proc/toggle_mister(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(user.get_item_by_slot(SLOT_HUD_BACK) != src)
+	if(user.get_item_by_slot(ITEM_SLOT_BACK) != src)
 		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
 	on = !on
@@ -62,13 +62,13 @@
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_BACK)
+	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.unEquip(noz, 1)
+		M.drop_item_to_ground(noz, force = TRUE)
 	return
 
 /obj/item/watertank/attack_hand(mob/user)
@@ -84,18 +84,18 @@
 			if("r_hand")
 				if(H.r_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_r_hand(src)
 			if("l_hand")
 				if(H.l_hand)
 					return
-				if(!H.unEquip(src))
+				if(!H.unequip(src))
 					return
 				H.put_in_l_hand(src)
 	return
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
+/obj/item/watertank/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W == noz)
 		remove_noz()
 		return
@@ -138,7 +138,7 @@
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/reagent_containers/spray/mister/attack_self()
+/obj/item/reagent_containers/spray/mister/attack_self__legacy__attackchain()
 	return
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
@@ -152,7 +152,7 @@
 	if(loc != tank.loc)
 		loc = tank.loc
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/spray/mister/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -182,7 +182,7 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self__legacy__attackchain(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -255,7 +255,7 @@
 	if(tank && loc != tank.loc)
 		forceMove(tank)
 
-/obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
+/obj/item/extinguisher/mini/nozzle/attack_self__legacy__attackchain(mob/user)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
@@ -276,7 +276,7 @@
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/nozzle/afterattack__legacy__attackchain(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return
@@ -299,9 +299,8 @@
 			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src,'sound/items/syringeproj.ogg', 40, TRUE)
-			for(var/a in 1 to 6)
-				step_towards(A, target)
-				sleep(2)
+			A.throw_at(target, 6, 2, user)
+			sleep(2)
 			A.Smoke()
 			addtimer(VARSET_CALLBACK(src, nanofrost_cooldown, FALSE))
 		if(METAL_FOAM)
@@ -328,11 +327,16 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(amount = 6, only_cardinals = FALSE, source = loc, desired_direction = null, chemicals = null, blasting = TRUE)
+	S.set_up(amount = 6, only_cardinals = FALSE, source = loc)
 	S.start()
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 	qdel(src)
+
+/obj/effect/nanofrost_container/anomaly
+	name = "nanofrost anomaly"
+	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area."
+	icon_state = "frozen_smoke_anomaly"
 
 #undef EXTINGUISHER
 #undef NANOFROST

@@ -218,12 +218,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
-/obj/item/storage/box/PDAs
+/obj/item/storage/box/pdas
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
 	icon_state = "pda_box"
 
-/obj/item/storage/box/PDAs/populate_contents()
+/obj/item/storage/box/pdas/populate_contents()
 	var/newcart = pick(
 		/obj/item/cartridge/engineering,
 		/obj/item/cartridge/security,
@@ -324,7 +324,7 @@
 	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -712,6 +712,22 @@
 	/// What shell do we fill the box with
 	var/shell_type
 
+/obj/item/storage/fancy/shell/fancy_storage_examine(mob/user)
+	. = list()
+	if(!length(contents))
+		. += "There are no shells in the box."
+		return
+
+	var/list/shell_list = list() // Associated list of all shells in the box
+	for(var/obj/item/ammo_casing/shotgun/shell as anything in contents)
+		shell_list[shell.name] += 1
+
+	for(var/thing as anything in shell_list)
+		if(shell_list[thing] == 1)
+			. += "There is one [thing] in the box."
+		else
+			. += "There are [shell_list[thing]] [thing]s in the box."
+
 /obj/item/storage/fancy/shell/update_icon_state()
 	icon_state = "open"
 
@@ -778,7 +794,7 @@
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
 	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "hshell_box"
+	icon_state = "holybox"
 	shell_type = /obj/item/ammo_casing/shotgun/holy
 
 ////////////////
@@ -804,7 +820,7 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "This box feels slightly warm."
 	icon_state = "donk_box"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -1000,7 +1016,7 @@
 	else
 		icon_state = "[item_state]_closed"
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
@@ -1032,6 +1048,14 @@
 				qdel(src)
 				return
 	return ..()
+
+/obj/item/storage/box/papersack/pbj_lunch
+	name = "peanut butter and jelly lunch"
+	desc = "A paper sack filled with enough sandwiches to feed a department."
+
+/obj/item/storage/box/papersack/pbj_lunch/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/food/peanut_butter_jelly(src)
 
 /obj/item/storage/box/relay_kit
 	name = "telecommunications relay kit"
@@ -1126,7 +1150,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -1169,7 +1193,7 @@
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
 	return (BRUTELOSS)
 
-/obj/item/storage/box/hug/attack_self(mob/user)
+/obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)
@@ -1222,6 +1246,17 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
 
+/obj/item/storage/box/crewvend
+	name = "CrewVend 3000 Kit"
+	desc = "Contains everything you need to build your own vending machine!"
+
+/obj/item/storage/box/crewvend/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
+	board.set_type("CrewVend 3000")
+	new /obj/item/screwdriver(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."
@@ -1249,6 +1284,15 @@
 /obj/item/storage/box/coke_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/coke(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
+
+/obj/item/storage/box/tacticool_envirosuit
+	name = "tactical suit box"
+	desc = "A box with a special envirosuit usually supplied by black markets."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/tacticool_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/tacticool(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

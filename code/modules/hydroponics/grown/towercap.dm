@@ -19,7 +19,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
-	reagents_add = list("carbon" = 0.2)
+	reagents_add = list("plantmatter" = 0.225)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -52,7 +52,7 @@
 	/obj/item/food/grown/ambrosia/deus,
 	/obj/item/food/grown/wheat))
 
-/obj/item/grown/log/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/log/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
@@ -70,7 +70,7 @@
 		if(leaf.dry)
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
-			usr.unEquip(W)
+			user.unequip(leaf)
 			usr.put_in_active_hand(T)
 			qdel(leaf)
 			qdel(src)
@@ -133,6 +133,13 @@
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/bonfire/dense
 	density = TRUE
 
@@ -146,7 +153,7 @@
 	. = ..()
 	StartBurning()
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+/obj/structure/bonfire/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
 		R.use(1)
@@ -167,8 +174,7 @@
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
-			L.pixel_x += rand(1,4)
-			L.pixel_y += rand(1,4)
+			L.scatter_atom()
 		qdel(src)
 		return
 	..()
@@ -199,16 +205,18 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
+/obj/structure/bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(burning)
 		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
+		if(ishuman(entered))
+			var/mob/living/carbon/human/H = entered
 			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000,500,1)
+	current_location.hotspot_expose(1000, 10)
 	for(var/A in current_location)
 		if(A == src)
 			continue

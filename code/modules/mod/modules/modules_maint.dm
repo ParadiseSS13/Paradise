@@ -4,9 +4,11 @@
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
-		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
-		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
-		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you?"
+		This mechanical exoskeleton retracts to allow user entry and assists with booting up. \
+		It was removed from modern suits due to the springlock's tendency to \"snap\" back \
+		into place when exposed to specific chemical reactions, such as smoke from grenades. \
+		Despite the mention of humidity in older designs, this module only reacts to smoke. \
+		You know what it's like to have an entire exoskeleton snap into place around you?"
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
@@ -26,6 +28,7 @@
 	mod.activation_step_time *= activation_step_time_booster
 
 /obj/item/mod/module/springlock/on_suit_activation()
+	// only works with smoke
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed))
 	if(dont_let_you_come_back)
 		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
@@ -122,7 +125,7 @@
 	desc = "A high-power stamp, able to switch between accept and deny mode when used."
 	flags = NODROP
 
-/obj/item/stamp/mod/attack_self(mob/user, modifiers)
+/obj/item/stamp/mod/attack_self__legacy__attackchain(mob/user, modifiers)
 	. = ..()
 	if(icon_state == "stamp-ok")
 		icon_state = "stamp-deny"

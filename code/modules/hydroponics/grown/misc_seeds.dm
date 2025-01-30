@@ -1,7 +1,7 @@
 // Starthistle
 /obj/item/seeds/starthistle
 	name = "pack of starthistle seeds"
-	desc = "A robust species of weed that often springs up in-between the cracks of spaceship parking lots"
+	desc = "A robust species of weed that often springs up in-between the cracks of spaceship parking lots."
 	icon_state = "seed-starthistle"
 	species = "starthistle"
 	plantname = "Starthistle"
@@ -15,13 +15,15 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 
-/obj/item/seeds/starthistle/harvest(mob/user)
+/obj/item/seeds/starthistle/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/parent = loc
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc
 	var/seed_count = getYield()
 	for(var/i in 1 to seed_count)
 		var/obj/item/seeds/starthistle/harvestseeds = Copy()
 		harvestseeds.forceMove(output_loc)
+		if(bag && bag.can_be_inserted(harvestseeds))
+			bag.handle_item_insertion(harvestseeds, user, TRUE)
 
 	parent.update_tray(user, seed_count)
 
@@ -191,7 +193,7 @@
 	max_integrity = 40
 	wine_power = 0.8
 
-/obj/item/food/grown/cherry_bomb/attack_self(mob/living/user)
+/obj/item/food/grown/cherry_bomb/attack_self__legacy__attackchain(mob/living/user)
 	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")
 	message_admins("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x], [user.y], [user.z]) <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>(JMP)</a>")

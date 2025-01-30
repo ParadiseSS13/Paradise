@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	/// List of sensor names to cache lists used in the display TGUI
 	var/tmp/list/sensor_name_data_map = list()
 
-/obj/machinery/computer/general_air_control/Initialize()
+/obj/machinery/computer/general_air_control/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD // Do all our work in here
 

@@ -188,19 +188,20 @@
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	add_to_all_human_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
-
+	remove_from_all_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
 	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
 
-
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
+	add_to_all_human_data_huds()
 	if(stat == DEAD && gibbed)
 		for(var/atom/movable/AM in src)
 			AM.forceMove(loc)
@@ -219,7 +220,7 @@
 
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)
 
-/mob/living/simple_animal/hostile/morph/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/hostile/morph/attackby__legacy__attackchain(obj/item/O, mob/living/user)
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
 		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
 		ambush_attack(user, TRUE)
@@ -273,9 +274,11 @@
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
-		for(var/atom/movable/A in view(src))
+		for(var/atom/movable/A in oview(src))
 			if(mimic_spell.valid_target(A, src))
 				things += A
+		if(!length(things))
+			return
 		var/atom/movable/T = pick(things)
 		mimic_spell.take_form(new /datum/mimic_form(T, src), src)
 		prepare_ambush() // They cheat okay

@@ -50,6 +50,7 @@
 #define CANPUSH			(1<<3)
 #define PASSEMOTES		(1<<4) //Mob has holders inside of it that need to see emotes.
 #define GODMODE			(1<<5)
+#define TERMINATOR_FORM (1<<6)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -149,6 +150,7 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+#define EMP_WEAKENED 3
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.

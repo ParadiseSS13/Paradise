@@ -14,7 +14,7 @@
 
 /datum/design/ripley_peri
 	name = "Exosuit Board (APLU \"Ripley\" Peripherals Control module)"
-	desc = "Allows for the construction of a  \"Ripley\" Peripheral Control module."
+	desc = "Allows for the construction of a \"Ripley\" Peripheral Control module."
 	id = "ripley_peri"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER

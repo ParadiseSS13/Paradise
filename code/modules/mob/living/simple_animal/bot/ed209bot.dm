@@ -3,7 +3,7 @@
 
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
-	desc = "A security robot.  He looks less than thrilled."
+	desc = "A security robot. He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
 	density = TRUE
@@ -97,7 +97,7 @@
 	oldtarget_name = null
 	anchored = FALSE
 	currently_cuffing = FALSE
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 	set_weapon()
@@ -184,7 +184,7 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/ed209/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
@@ -216,7 +216,7 @@
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
@@ -260,7 +260,7 @@
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				if(find_new_target())
@@ -271,7 +271,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -395,7 +395,7 @@
 	return 0
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -560,7 +560,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = INTENT_HELP
-	baton.attack(C, src)
+	baton.attack__legacy__attackchain(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

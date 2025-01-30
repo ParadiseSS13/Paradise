@@ -90,7 +90,7 @@
 /datum/recipe/candy/candied_pineapple
 	reagents = list("sugar" = 2, "water" = 2)
 	items = list(
-		/obj/item/food/pineappleslice
+		/obj/item/food/sliced/pineapple
 	)
 	result = /obj/item/food/candy/candied_pineapple
 

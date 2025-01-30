@@ -97,8 +97,7 @@ function task-clean {
 function task-validate-build {
   $diff = git diff --text public/*
   if ($diff) {
-    Write-Output "Error: our build differs from the build committed into git."
-    Write-Output "Please rebuild tgui."
+    Write-Output "::error file=tgui/public/tgui.bundle.js,title=Rebuild tgui bundle::Our build differs from the build committed into git."
     exit 1
   }
   Write-Output "tgui: build is ok"

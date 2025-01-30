@@ -10,7 +10,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	severity = MINOR
-	/// A mapping of `num2text(SLOT_HUD_XYZ)` -> item path
+	/// A mapping of `num2text(ITEM_SLOT_XYZ)` -> item path
 	var/list/magic_fashion = list()
 
 
@@ -18,11 +18,11 @@
 	. = ..()
 
 	var/list/magic_fashion_slot_IDs = list(
-		SLOT_HUD_RIGHT_HAND,
-		SLOT_HUD_LEFT_HAND,
-		SLOT_HUD_HEAD,
-		SLOT_HUD_OUTER_SUIT,
-		SLOT_HUD_SHOES
+		ITEM_SLOT_LEFT_HAND,
+		ITEM_SLOT_RIGHT_HAND,
+		ITEM_SLOT_HEAD,
+		ITEM_SLOT_OUTER_SUIT,
+		ITEM_SLOT_SHOES
 	)
 	var/list/magic_fashion_items = list(
 		/obj/item/staff,
@@ -70,7 +70,7 @@
 			continue
 
 		switch(slot_ID) // Extra filtering for specific slots
-			if(SLOT_HUD_HEAD)
+			if(ITEM_SLOT_HEAD)
 				if(isplasmaman(H))
 					continue // We want them to spread the magical joy, not burn to death in agony
 
@@ -82,7 +82,7 @@
 	var/chosen_slot_ID = pick(eligible_slot_IDs)
 	var/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
 
-	H.unEquip(H.get_item_by_slot(chosen_slot_ID))
+	H.drop_item_to_ground(H.get_item_by_slot(chosen_slot_ID))
 	var/obj/item/magic_attire = new chosen_fashion
 	magic_attire.flags |= DROPDEL
 	H.equip_to_slot_or_del(magic_attire, chosen_slot_ID)
@@ -90,6 +90,8 @@
 /datum/disease/wizarditis/proc/teleport()
 	if(!is_teleport_allowed(affected_mob.z))
 		return
+	if(SEND_SIGNAL(affected_mob, COMSIG_MOVABLE_TELEPORTING, get_turf(affected_mob)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	var/list/possible_areas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in possible_areas)

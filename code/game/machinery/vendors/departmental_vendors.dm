@@ -7,7 +7,7 @@
 	category = VENDOR_TYPE_DEPARTMENTAL
 	req_one_access = list(ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
-					/obj/item/clothing/glasses/meson/engine/tray = 4,
+					/obj/item/clothing/glasses/meson/engine/atmos = 4,
 					/obj/item/multitool = 4,
 					/obj/item/geiger_counter = 5,
 					/obj/item/airlock_electronics = 10,
@@ -108,6 +108,7 @@
 					/obj/item/reagent_containers/condiment/saltshaker =5,
 					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
+					/obj/item/storage/box/papersack = 20,
 					/obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1,
 					/obj/item/kitchen/mould/worm = 1,

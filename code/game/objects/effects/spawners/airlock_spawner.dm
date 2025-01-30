@@ -38,7 +38,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
 	var/one_door_exterior //See above
 
-/obj/effect/spawner/airlock/Initialize()
+/obj/effect/spawner/airlock/Initialize(mapload)
 	..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps

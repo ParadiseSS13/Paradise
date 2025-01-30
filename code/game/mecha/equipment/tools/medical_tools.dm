@@ -109,7 +109,8 @@
 		return "[output] [temp]"
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(afilter.get("eject"))
 		go_out()
@@ -348,7 +349,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href,href_list)
 	if(afilter.get("toggle_mode"))
 		mode = !mode

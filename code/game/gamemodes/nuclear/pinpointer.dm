@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_PDA | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -55,7 +55,7 @@
 	else if(mode == MODE_NUKE)
 		workbomb()
 
-/obj/item/pinpointer/attack_self(mob/user)
+/obj/item/pinpointer/attack_self__legacy__attackchain(mob/user)
 	if(mode == PINPOINTER_MODE_DET)
 		return
 	cycle(user)
@@ -275,7 +275,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -396,7 +396,7 @@
 	///Var to track the linked detective gun
 	var/linked_gun_UID
 
-/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+/obj/item/pinpointer/crew/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/gun/energy/detective))
 		link_gun(I.UID())

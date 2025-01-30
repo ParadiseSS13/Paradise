@@ -12,10 +12,10 @@
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
-/obj/item/reagent_containers/patch/attack(mob/living/carbon/C, mob/user)
+/obj/item/reagent_containers/patch/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	return apply(C, user)
 
-/obj/item/reagent_containers/patch/attack_self(mob/user)
+/obj/item/reagent_containers/patch/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
 /obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/C, mob/user)

@@ -6,6 +6,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
+	/// What map was used last round?
+	var/datum/map/last_map
 	/// List of all areas that can be accessed via IC means
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
@@ -24,6 +26,11 @@ SUBSYSTEM_DEF(mapping)
 	/// A mapping of environment names to MILLA environment IDs.
 	var/list/environments
 
+	/// Ruin placement manager for space levels.
+	var/datum/ruin_placer/space/space_ruins_placer
+	/// Ruin placement manager for lavaland levels.
+	var/datum/ruin_placer/lavaland/lavaland_ruins_placer
+
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
@@ -40,11 +47,26 @@ SUBSYSTEM_DEF(mapping)
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
 		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
+	if(fexists("data/last_map.txt"))
+		var/list/lines = file2list("data/last_map.txt")
+		// Check its valid
+		try
+			last_map = text2path(lines[1])
+			last_map = new last_map
+		catch
+			last_map = new /datum/map/cerestation // Assume cerestation if non-existent
+		fdel("data/last_map.txt") // Remove to avoid the same map existing forever
+	else
+		last_map = new /datum/map/cerestation // Assume cerestation if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
 		var/F = file("data/next_map.txt")
 		F << next_map.type
+	if(map_datum) // Save which map was this round as the last map
+		var/F = file("data/last_map.txt")
+		F << map_datum.type
+
 
 /datum/controller/subsystem/mapping/Initialize()
 	environments = list()
@@ -66,7 +88,6 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load all Z level templates
 	preloadTemplates()
-	preloadTemplates(path = "code/modules/unit_tests/atmos/")
 
 	// Load the station
 	loadStation()
@@ -80,9 +101,14 @@ SUBSYSTEM_DEF(mapping)
 	else
 		log_startup_progress("Skipping space ruins...")
 
-	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY))
+	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
+#ifdef GAME_TESTS
+	preloadTemplates(path = "_maps/map_files/tests/")
+	empty_z_traits |= GAME_TEST_LEVEL
+#endif
 
+	// Makes a blank space level for the sake of randomness
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
@@ -91,7 +117,8 @@ SUBSYSTEM_DEF(mapping)
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
-		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		lavaland_ruins_placer = new()
+		lavaland_ruins_placer.place_ruins(list(level_name_to_num(MINING)))
 		if(lavaland_theme)
 			lavaland_theme.setup()
 		if(caves_theme)
@@ -194,6 +221,8 @@ SUBSYSTEM_DEF(mapping)
 				for(var/obj/structure/table/table in T)
 					if(locate(/obj/machinery) in T)
 						continue // Machinery on tables tend to take up all the visible space
+					if(table.flipped)
+						continue // Looks very silly
 					seeded_salvage_surfaces |= table
 
 	var/max_salvage_attempts = rand(10, 15)
@@ -201,8 +230,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/structure/closet/C = pick_n_take(seeded_salvage_closets)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(C)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	max_salvage_attempts = rand(10, 15)
@@ -210,8 +238,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/T = pick_n_take(seeded_salvage_surfaces)
 		var/salvage_item_type = pick(small_salvage_items)
 		var/obj/salvage_item = new salvage_item_type(T.loc)
-		salvage_item.pixel_x = rand(-5, 5)
-		salvage_item.pixel_y = rand(-5, 5)
+		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
@@ -233,10 +260,10 @@ SUBSYSTEM_DEF(mapping)
 	// Note that this budget is not split evenly accross all zlevels
 	log_startup_progress("Seeding ruins...")
 	var/seed_ruins_timer = start_watch()
-	var/space_z_levels = levels_by_trait(SPAWN_RUINS)
-	seedRuins(space_z_levels, rand(20, 30), /area/space, GLOB.space_ruins_templates)
+	space_ruins_placer = new()
+	space_ruins_placer.place_ruins(levels_by_trait(SPAWN_RUINS))
 	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
-	seed_space_salvage(space_z_levels)
+	seed_space_salvage(levels_by_trait(SPAWN_RUINS))
 
 // Loads in the station
 /datum/controller/subsystem/mapping/proc/loadStation()
@@ -281,90 +308,6 @@ SUBSYSTEM_DEF(mapping)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
-
-/datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
-	if(!z_levels || !length(z_levels))
-		WARNING("No Z levels provided - Not generating ruins")
-		return
-
-	for(var/zl in z_levels)
-		var/turf/T = locate(1, 1, zl)
-		if(!T)
-			WARNING("Z level [zl] does not exist - Not generating ruins")
-			return
-
-	var/list/ruins = potentialRuins.Copy()
-
-	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default)
-	var/list/ruins_availible = list()	//we can try these in the current pass
-	var/forced_z	//If set we won't pick z level and use this one instead.
-
-	//Set up the starting ruin list
-	for(var/key in ruins)
-		var/datum/map_template/ruin/R = ruins[key]
-		if(R.cost > budget) //Why would you do that
-			continue
-		if(R.always_place)
-			forced_ruins[R] = -1
-		if(R.unpickable)
-			continue
-		ruins_availible[R] = R.placement_weight
-
-	while(budget > 0 && (length(ruins_availible) || length(forced_ruins)))
-		var/datum/map_template/ruin/current_pick
-		var/forced = FALSE
-		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
-			for(var/ruin in forced_ruins)
-				current_pick = ruin
-				if(forced_ruins[ruin] > 0) //Load into designated z
-					forced_z = forced_ruins[ruin]
-				forced = TRUE
-				break
-		else //Otherwise just pick random one
-			current_pick = pickweight(ruins_availible)
-
-		var/placement_tries = PLACEMENT_TRIES
-		var/failed_to_place = TRUE
-		var/z_placed = 0
-		while(placement_tries > 0)
-			placement_tries--
-			z_placed = pick(z_levels)
-			if(!current_pick.try_to_place(forced_z ? forced_z : z_placed,whitelist))
-				continue
-			else
-				failed_to_place = FALSE
-				break
-
-		//That's done remove from priority even if it failed
-		if(forced)
-			//TODO : handle forced ruins with multiple variants
-			forced_ruins -= current_pick
-			forced = FALSE
-
-		if(failed_to_place)
-			for(var/datum/map_template/ruin/R in ruins_availible)
-				if(R.id == current_pick.id)
-					ruins_availible -= R
-			log_world("Failed to place [current_pick.name] ruin.")
-		else
-			budget -= current_pick.cost
-			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_availible)
-					if(R.id == current_pick.id)
-						ruins_availible -= R
-			if(current_pick.never_spawn_with)
-				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_availible)
-						if(istype(possible_exclusion,blacklisted_type))
-							ruins_availible -= possible_exclusion
-		forced_z = 0
-
-		//Update the availible list
-		for(var/datum/map_template/ruin/R in ruins_availible)
-			if(R.cost > budget)
-				ruins_availible -= R
-
-	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
 	for(var/area/station/maintenance/A in existing_station_areas)

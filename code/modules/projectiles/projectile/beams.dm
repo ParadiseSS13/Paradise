@@ -52,7 +52,7 @@
 	impact_light_color_override = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/laser/ai_turret/prehit(atom/target)
-	if(isAI(target))
+	if(is_ai(target))
 		damage = 0 //cheater cheater I don't want AI to die to stupid placement eater
 		nodamage = 1
 	if(isliving(target))

@@ -38,7 +38,7 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self__legacy__attackchain()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -98,6 +98,10 @@
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
+
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
 
 //Floors
 /turf/simulated/floor/pod
@@ -213,7 +217,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bed
 /obj/structure/bed/pod
@@ -279,7 +283,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	recalculate_atmos_connectivity()
 

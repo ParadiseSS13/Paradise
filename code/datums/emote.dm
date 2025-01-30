@@ -288,7 +288,7 @@
  * * user - The user of the emote.
  * * text - The text of the emote.
  */
-/datum/emote/proc/runechat_emote(mob/user, text)
+/proc/runechat_emote(atom/user, text)
 	var/runechat_text = text
 	if(length(text) > 100)
 		runechat_text = "[copytext(text, 1, 101)]..."
@@ -405,7 +405,7 @@
 		. = message_larva
 	else if(issilicon(user) && message_robot)
 		. = message_robot
-	else if(isAI(user) && message_AI)
+	else if(is_ai(user) && message_AI)
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey

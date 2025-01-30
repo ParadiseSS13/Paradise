@@ -6,7 +6,7 @@
 	icon_state = "hydro"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
 
@@ -42,7 +42,7 @@
 	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -63,7 +63,7 @@
 	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -149,7 +149,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	armour_penetration_flat = 20
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -199,16 +199,16 @@
 	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	extend = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
 
-/obj/item/scythe/tele/attack_self(mob/user)
+/obj/item/scythe/tele/attack_self__legacy__attackchain(mob/user)
 	extend = !extend
 	if(extend)
 		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
-		slot_flags = SLOT_FLAG_BACK	//won't fit on belt, but can be worn on belt when extended
+		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -217,7 +217,7 @@
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
-		slot_flags = SLOT_FLAG_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
+		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
@@ -342,8 +342,7 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"

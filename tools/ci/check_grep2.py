@@ -139,17 +139,24 @@ FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
 FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
 def check_datum_loops(idx, line):
     if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
-        return Failure(
+        return [(
             idx + 1,
             # yes this will concatenate the strings, don't look too hard
             "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
             "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
-        )
+        )]
 
 HREF_OLD_STYLE = re.compile(r"href[\s='\"\\]*\?")
 def check_href_styles(idx, line):
     if HREF_OLD_STYLE.search(line):
         return [(idx + 1, "BYOND requires internal href links to begin with \"byond://\"")]
+
+INITIALIZE_MISSING_MAPLOAD = re.compile(
+    r"^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)"
+)
+def check_initialize_missing_mapload(idx, line):
+    if INITIALIZE_MISSING_MAPLOAD.search(line):
+        return [(idx + 1, "Initialize override without 'mapload' argument.")]
 
 # TODO: This finds most cases except for e.g. `list(1, 2, 3 )`
 # Find a way to include this without breaking macro/tab-aligned versions such as `list(		\`
@@ -169,6 +176,17 @@ def check_manual_icon_updates(idx, line):
             target = "update_appearance"
         return [(idx + 1, f"{proc_result}() should not be called manually. Use {target}({proc_result.upper()}) instead.")]
 
+CONDITIONAL_ISTYPE_SRC = re.compile(r"if.+istype\(src,\s?\/[^turf]")
+def check_istype_src(idx, line):
+    if CONDITIONAL_ISTYPE_SRC.search(line):
+        return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
+
+CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
+def check_camel_case_type_names(idx, line):
+    if result := CAMEL_CASE_TYPE_NAMES.search(line):
+        type_result = result.group(0)
+        return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -182,7 +200,10 @@ CODE_CHECKS = [
     check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
+    check_initialize_missing_mapload,
     check_empty_list_whitespace,
+    check_istype_src,
+    check_camel_case_type_names,
 ]
 
 

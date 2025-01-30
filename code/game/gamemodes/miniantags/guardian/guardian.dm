@@ -185,7 +185,7 @@
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
 
 //Manifest, Recall, Communicate
@@ -279,11 +279,11 @@
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
-/obj/item/guardiancreator/attack_self(mob/living/user)
+/obj/item/guardiancreator/attack_self__legacy__attackchain(mob/living/user)
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)

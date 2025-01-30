@@ -68,7 +68,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)]
 		inv.update_icon()
 
 	if(wear_suit)

@@ -1,6 +1,6 @@
 /obj/structure/spider
 	name = "web"
-	desc = "it's stringy and sticky"
+	desc = "it's stringy and sticky."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "stickyweb1"
 	anchored = TRUE
@@ -39,20 +39,23 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
-		return TRUE
-	else if(isliving(mover))
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			return FALSE
-	else if(isprojectile(mover))
-		return prob(30)
-	return TRUE
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/spider/stickyweb/proc/on_atom_exit(datum/source, atom/exiter)
+	if(istype(exiter, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(exiter))
+		return
+	if(isliving(exiter) && prob(50))
+		to_chat(exiter, "<span class='danger'>You get stuck in [src] for a moment.</span>")
+		return COMPONENT_ATOM_BLOCK_EXIT
+	if(isprojectile(exiter) && prob(30))
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
-	desc = "They seem to pulse slightly with an inner life"
+	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = FALSE
@@ -232,7 +235,7 @@
 
 /obj/structure/spider/cocoon
 	name = "cocoon"
-	desc = "Something wrapped in silky spider web"
+	desc = "Something wrapped in silky spider web."
 	icon_state = "cocoon1"
 	max_integrity = 60
 

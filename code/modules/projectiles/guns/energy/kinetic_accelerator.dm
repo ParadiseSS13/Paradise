@@ -36,7 +36,7 @@
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
 				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
-/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
+/obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
 		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
@@ -77,7 +77,6 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/malf
@@ -272,13 +271,14 @@
 /obj/item/gun/energy/kinetic_accelerator/pistol
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
-	icon_state = "kineticgun_p"
+	icon_state = "kineticpistol"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
 	can_flashlight = FALSE
 	can_holster = TRUE
+	empty_state = "kineticpistol_empty"
 
 
 //Modkits
@@ -304,7 +304,7 @@
 	if(in_range(user, src))
 		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
 
-/obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
+/obj/item/borg/upgrade/modkit/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
 		var/obj/item/gun/energy/kinetic_accelerator/KA = A
 		if(KA.max_mod_capacity)
@@ -343,7 +343,7 @@
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
 			playsound(loc, usesound, 100, 1)
-			user.unEquip(src)
+			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else
@@ -537,7 +537,7 @@
 			R.damage_multiplier = modifier
 			R.burst()
 			return
-		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
+		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, RESONATOR_MODE_MANUAL, 100) //manual detonate mode and will NOT spread
 
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
@@ -656,5 +656,5 @@
 	name = "adjustable tracer bolts"
 	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
 
-/obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+/obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self__legacy__attackchain(mob/user)
+	bolt_color = tgui_input_color(user, "Please select a tracer color", "PKA Tracer Color", bolt_color)

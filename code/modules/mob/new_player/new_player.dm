@@ -112,6 +112,10 @@
 	if(!client)
 		return FALSE
 
+	if(usr != src)
+		message_admins("[key_name_admin(usr)] may have attempted to href exploit with [key_name_admin(src)]'s new_player mob.")
+		return
+
 	if(href_list["consent_signed"])
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
 			"ckey" = ckey
@@ -273,6 +277,8 @@
 		return FALSE
 	if(job.get_exp_restrictions(client))
 		return FALSE
+	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE))
+		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)
 		if(job.title == "Assistant")
@@ -394,8 +400,8 @@
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			if(A.announce_arrivals)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+			if(A.stat != DEAD && A.announce_arrivals)
 				ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -416,7 +422,7 @@
 						if(FEMALE)
 							target_gender = "female"
 					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -427,14 +433,14 @@
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

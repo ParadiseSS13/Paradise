@@ -1,17 +1,19 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	if(!loc && !(flags & ABSTRACT))
+		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		if(QDELETED(item))
 			continue
-		unEquip(item, silent = TRUE)
+		drop_item_to_ground(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
-	QDEL_LIST_CONTENTS(stomach_contents)
-	QDEL_LIST_CONTENTS(processing_patches)
+	QDEL_LAZYLIST(stomach_contents)
+	QDEL_LAZYLIST(processing_patches)
 	GLOB.carbon_list -= src
 	if(in_throw_mode)
 		toggle_throw_mode()
@@ -78,7 +80,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
+						M.show_message(text("<span class='warning'><b>[user] attacks [src]'s stomach wall with [I]!</b></span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -232,7 +234,10 @@
 		return
 	// If it has any of the highfive statuses, dap, handshake, etc
 	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
+	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
+		to_chat(M, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		return
+	else if(effect)
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
@@ -493,7 +498,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	var/ventcrawl_delay = 0 SECONDS
 #else
 	var/ventcrawl_delay = 4.5 SECONDS
@@ -534,10 +539,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	var/datum/pipeline/pipenet = starting_machine.returnPipenet(target_move)
+	pipenet.add_ventcrawler(src)
+	add_ventcrawl_images(pipenet)
+
+
+/mob/living/proc/add_ventcrawl_images(datum/pipeline/pipenet)
 	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
+	totalMembers |= pipenet.members
+	totalMembers |= pipenet.other_atmosmch
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.update_pipe_image()
@@ -546,6 +556,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	SEND_SIGNAL(src, COMSIG_LIVING_EXIT_VENTCRAWL)
+	remove_ventcrawl_images()
+
+/mob/living/proc/remove_ventcrawl_images()
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -566,9 +580,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			remove_ventcrawl()
 	else
 		if(is_ventcrawling(src))
+			var/obj/machinery/atmospherics/atmos_machine = loc
+			if(!atmos_machine.can_see_pipes())
+				return
 			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
+				remove_ventcrawl_images()
+			var/obj/machinery/atmospherics/current_pipe = loc
+			var/datum/pipeline/pipenet = current_pipe.returnPipenet(target_move)
+			add_ventcrawl_images(pipenet)
 
 
 //Throwing stuff
@@ -688,7 +707,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I, silent = TRUE)
+		drop_item_to_ground(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -717,25 +736,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
-	. = ..() //Sets the default return value to what the parent returns.
-	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+/mob/living/carbon/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	. = ..()
+
+	if(!. || !target) //We don't want to set anything to null if the parent returned 0.
 		return
 
-	if(I == back)
+	if(target == back)
 		back = null
 		update_inv_back()
-	else if(I == wear_mask)
+	else if(target == wear_mask)
 		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		update_inv_wear_mask()
-	else if(I == handcuffed)
+	else if(target == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
 			unbuckle()
 		update_handcuffed()
-	else if(I == legcuffed)
+	else if(target == legcuffed)
 		legcuffed = null
 		toggle_move_intent()
 		update_inv_legcuffed()
@@ -752,21 +772,36 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_OUTER_SUIT)
 			return wear_suit
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return r_hand
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
 	return null
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return ITEM_SLOT_BACK
+
+	// if(back && (looking_for in back))
+	// 	return ITEM_SLOT_BACKPACK
+
+	if(looking_for == wear_mask)
+		return ITEM_SLOT_MASK
+
+	if(looking_for == head)
+		return ITEM_SLOT_HEAD
+
+	return ..()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse()
@@ -901,7 +936,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
 		if(I.security_lock)
 			I.do_break()
-		unEquip(I)
+		drop_item_to_ground(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
 /mob/living/carbon/proc/cuff_resist(obj/item/restraints/restraints, break_cuffs)
@@ -944,6 +979,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/emp_act(severity)
 	..()
+	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
+		return
+	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
+		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
 	for(var/X in internal_organs)
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
@@ -1336,3 +1375,33 @@ so that different stomachs can handle things in different ways VB*/
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
 	return get_organ_slot("breathing_tube")
+
+/mob/living/carbon/proc/lazrevival(mob/living/carbon/M)
+	if(M.get_ghost()) // ghosted after the timer expires.
+		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
+		return
+
+	// If the ghost has re-entered the body, perform the revival!
+	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
+	M.adjustCloneLoss(50)
+	M.setOxyLoss(0)
+	M.adjustBruteLoss(rand(0, 15))
+	M.adjustToxLoss(rand(0, 15))
+	M.adjustFireLoss(rand(0, 15))
+	M.do_jitter_animation(200)
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/necrosis_prob = 15 * H.decaylevel
+		H.decaylevel = 0
+		for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+			if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
+				O.necrotize(FALSE)
+				if(O.status & ORGAN_DEAD)
+					O.germ_level = INFECTION_LEVEL_THREE
+		H.update_body()
+
+	M.grab_ghost()
+	M.update_revive()
+	add_attack_logs(M, M, "Revived with Lazarus Reagent")
+	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")

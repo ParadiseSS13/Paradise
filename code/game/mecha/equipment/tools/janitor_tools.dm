@@ -29,6 +29,10 @@
 	var/refill_cost = 10
 	/// What reagent to refill with
 	var/refill_reagent = "water"
+	/// Is the holosign deployer on?
+	var/holosign_enabled = TRUE
+	/// Internal holosign deployer
+	var/obj/item/holosign_creator/janitor/holosign_controller = new /obj/item/holosign_creator/janitor
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Initialize(mapload)
 	. = ..()
@@ -66,6 +70,8 @@
 			for(var/turf/current_target_turf in view(1, target))
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
+			if(holosign_enabled)
+				holosign_controller.afterattack__legacy__attackchain(target_turf, chassis.occupant, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -86,10 +92,11 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
+		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\] \[<a href='byond://?src=[UID()];toggle_holosign=1'>Holosigns [holosign_enabled? "Enabled" : "Disabled"]</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href, href_list)
 	if(afilter.get("toggle_mode"))
 		refill_enabled = !refill_enabled
@@ -98,6 +105,13 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 		update_equip_info()
+		return
+	if(afilter.get("toggle_holosign"))
+		holosign_enabled = !holosign_enabled
+		if(!holosign_enabled)
+			holosign_controller.attack_self__legacy__attackchain(chassis.occupant)
+		update_equip_info()
+		return
 
 #undef MOP_SOUND_CD
 
@@ -192,7 +206,8 @@
 		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[spray_controller.reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href,href_list)
 	if(afilter.get("toggle_mode"))
 		refill_enabled = !refill_enabled
@@ -205,8 +220,8 @@
 // Garbage Magnet
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
 	name = "\improper WA1E Garbage Magnet"
-	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
-	The complex technology prevents users from directly looking inside the bag."
+	desc = "An industrial vaccuum cleaner integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
+	The device's safety systems prevent users from directly looking inside the bag."
 	icon_state = "mecha_trash_magnet"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5
@@ -244,7 +259,8 @@
 		return "[output] \[<a href='byond://?src=[UID()];toggle_bagging=1'>[bagging? "Filling" : "Dumping"]</a>\] \[<a href='byond://?src=[UID()];toggle_extended=1'>Area [extended? "Extended" : "Focused"]</a>\] \[Cargo: [length(storage_controller.contents)]/[storage_controller.max_combined_w_class]</a>\]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	var/datum/topic_input/afilter = new (href,href_list)
 	if(afilter.get("toggle_bagging"))
 		bagging = !bagging

@@ -203,7 +203,7 @@
 
 /datum/design/laser_rifle_magazine
 	name = "Laser Rifle Projector Magazine"
-	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
+	desc = "A 20 round encased projector magazine for the IK Laser Rifle series."
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
@@ -273,7 +273,7 @@
 
 /datum/design/immolator
 	name = "Immolator Laser Gun Parts Kit"
-	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
+	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit."
 	id = "immolator"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
@@ -283,7 +283,7 @@
 
 /datum/design/reactive_armour
 	name = "Reactive Armor Shell"
-	desc = "A reactive armor shell, that can have an anomaly core inserted to make a reactive armor"
+	desc = "A reactive armor shell, that can have an anomaly core inserted to make a reactive armor."
 	id = "reactivearmor"
 	req_tech = list("combat" = 6, "materials" = 7, "engineering" = 5)
 	build_type = PROTOLATHE
@@ -399,3 +399,15 @@
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics
 	category = list("Weapons")
+
+/datum/design/nt_mantis
+	name = "'Scylla' mantis blade implant"
+	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
+	id = "mantis_blade_nt"
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
+	build_path = /obj/item/organ/internal/cyberimp/arm/nt_mantis
+	category = list("Medical", "Weapons")
+

@@ -284,6 +284,8 @@
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id))
 		return id.rank || if_no_job
@@ -292,6 +294,8 @@
 //gets assignment from ID, PDA, Wallet, etc.
 //This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	if(!wear_id)
 		return if_no_id
 	var/obj/item/card/id/id = wear_id.GetID()
@@ -331,6 +335,8 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(id_override = FALSE)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -656,14 +662,6 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
-
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
@@ -725,7 +723,7 @@
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/U = user
 		rank = "[U.modtype] [U.braintype]"
-	else if(isAI(user))
+	else if(is_ai(user))
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
@@ -777,13 +775,13 @@
 ///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
 /mob/living/carbon/human/tintcheck()
 	var/tinted = 0
-	if(istype(src.head, /obj/item/clothing/head))
+	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = src.head
 		tinted += HT.tint
-	if(istype(src.glasses, /obj/item/clothing/glasses))
+	if(istype(glasses, /obj/item/clothing/glasses))
 		var/obj/item/clothing/glasses/GT = src.glasses
 		tinted += GT.tint
-	if(istype(src.wear_mask, /obj/item/clothing/mask))
+	if(istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
 
@@ -813,7 +811,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, penetrate_everything = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -822,12 +820,6 @@
 			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
 		else
 			target_zone = user.zone_selected
-
-	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		. = FALSE
-
-	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
-		return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
@@ -838,8 +830,15 @@
 		. = FALSE
 		fail_msg = "That limb is robotic."
 
-	if(piercing)
+	// If there is flesh, inject.
+	if(penetrate_everything)
 		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
+		. = FALSE
+
+	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
+		. = FALSE
 
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
@@ -852,30 +851,34 @@
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
+///
+/**
+ * Gets the obscured ITEM_SLOTs on a human
+ *
+ * Returns:
+ * * A bitfield containing the ITEM_SLOTS bitflags that are obscured.
+ */
 /mob/living/carbon/human/proc/check_obscured_slots()
-	var/list/obscured = list()
+	var/obscured = NONE
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
-			obscured |= SLOT_HUD_GLOVES
+			obscured |= ITEM_SLOT_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			obscured |= SLOT_HUD_JUMPSUIT
+			obscured |= ITEM_SLOT_JUMPSUIT
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= SLOT_HUD_SHOES
+			obscured |= ITEM_SLOT_SHOES
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
-			obscured |= SLOT_HUD_WEAR_MASK
+			obscured |= ITEM_SLOT_MASK
 		if(head.flags_inv & HIDEEYES)
-			obscured |= SLOT_HUD_GLASSES
+			obscured |= ITEM_SLOT_EYES
 		if(head.flags_inv & HIDEEARS)
-			obscured |= SLOT_HUD_RIGHT_EAR
-			obscured |= SLOT_HUD_LEFT_EAR
+			obscured |= ITEM_SLOT_BOTH_EARS
 
-	if(length(obscured) > 0)
+	if(obscured)
 		return obscured
-	else
-		return null
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
@@ -885,9 +888,8 @@
 	return TRUE
 
 /mob/living/carbon/human/proc/get_visible_gender()
-	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((SLOT_HUD_JUMPSUIT in obscured) && skipface)
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_JUMPSUIT))
 		return PLURAL
 	return gender
 
@@ -927,7 +929,7 @@
 					H.UpdateAppearance()
 
 	//Replacing lost organs with the species default.
-	temp_holder = new /mob/living/carbon/human()
+	temp_holder = new /mob/living/carbon/human/fake()
 	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
 	if(H.dna.species.mutantears)
 		species_organs["ears"] = H.dna.species.mutantears
@@ -936,7 +938,7 @@
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
-				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
+				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
 										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
 				I = new organ(H) //Create the organ inside the player.
@@ -1115,7 +1117,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, SLOT_HUD_SHOES, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
+	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_NECK)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1451,7 +1453,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in get_both_hands(src))
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_to_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	rad_act(current_size * 3)
@@ -1785,10 +1787,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		organs_list[O.name] = O.serialize()
 
 	// Equipment
-	equip_list.len = SLOT_HUD_AMOUNT
-	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
-		var/obj/item/thing = get_item_by_slot(i)
-		if(thing != null)
+	equip_list.len = ITEM_SLOT_AMOUNT
+	for(var/i in 1 to ITEM_SLOT_AMOUNT)
+		var/obj/item/thing = get_item_by_slot(1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
+		if(!isnull(thing))
 			equip_list[i] = thing.serialize()
 
 	for(var/obj/item/bio_chip/implant in src)
@@ -1845,20 +1847,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[SLOT_HUD_JUMPSUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_JUMPSUIT], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_JUMPSUIT)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_JUMPSUIT)
 
-	if(islist(equip_list[SLOT_HUD_OUTER_SUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_OUTER_SUIT], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_OUTER_SUIT)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_OUTER_SUIT)
 
-	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
-		if(i == SLOT_HUD_JUMPSUIT || i == SLOT_HUD_OUTER_SUIT)
+	for(var/i in 1 to (ITEM_SLOT_AMOUNT))
+		if(i == ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT) || i == ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT))
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
-			equip_to_slot_if_possible(C, i)
+			equip_to_slot_if_possible(C, 1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
 	update_icons()
 
 	..()
@@ -2061,3 +2063,26 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ALPHA_VISIBLE
 	for(var/source in alpha_sources)
 		. = min(., alpha_sources[source])
+
+/*
+ * Returns wether or not the brain is below the threshold
+ */
+/mob/living/carbon/human/proc/check_brain_threshold(threshold_level)
+	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
+	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
+
+
+/mob/living/carbon/human/plushify(plushie_override, curse_time)
+	. = ..(dna.species.plushie_type, curse_time)
+
+/*
+ * Invokes a hallucination on the mob. Hallucination must be a path or a string of a path
+ */
+/mob/living/carbon/human/proc/invoke_hallucination(hallucination_to_make)
+	var/string_path = text2path(hallucination_to_make)
+	if(!ispath(hallucination_to_make))
+		if(!string_path)
+			return
+		hallucination_to_make = string_path
+	new hallucination_to_make(get_turf(src), src)
+

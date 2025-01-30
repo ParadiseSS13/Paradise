@@ -166,12 +166,12 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-/obj/item/organ/external/attack(mob/M, mob/living/user)
+/obj/item/organ/external/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/C = M
 	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		replaced(C)
 		C.update_body()
 		C.updatehealth()
@@ -357,26 +357,34 @@
 		return
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				// 44 total burn damage with 11 augmented limbs
 				receive_damage(0, 8)
-			if(2)
+			if(EMP_LIGHT)
 				// 22 total burn damage with 11 augmented limbs
 				receive_damage(0, 6)
+			if(EMP_WEAKENED)
+				// 11 total burn damage with 11 augmented limbs
+				receive_damage(0, 5)
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				// 5.9 burn damage, 64.9 damage with 11 limbs.
 				receive_damage(0, 5.9)
-			if(2)
+			if(EMP_LIGHT)
 				// 3.63 burn damage, 39.93 damage with 11 limbs.
 				receive_damage(0, 3.63)
+			if(EMP_WEAKENED)
+				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
+				receive_damage(0, 2)
 	else // Basic prosthetic limbs
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				receive_damage(0, 20)
-			if(2)
+			if(EMP_LIGHT)
 				receive_damage(0, 7)
+			if(EMP_WEAKENED)
+				receive_damage(0, 3)
 
 /*
 This function completely restores a damaged organ to perfect condition.
@@ -593,8 +601,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
-	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
-		disintegrate = DROPLIMB_SHARP //Lets not make sharp burn weapons delete brains.
 
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
@@ -707,7 +713,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/external/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
@@ -743,12 +749,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
-		holder.unEquip(holder.handcuffed)
+		holder.drop_item_to_ground(holder.handcuffed)
 	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
-		holder.unEquip(holder.legcuffed)
+		holder.drop_item_to_ground(holder.legcuffed)
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(is_robotic())

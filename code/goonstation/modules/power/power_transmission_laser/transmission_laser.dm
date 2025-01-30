@@ -1,4 +1,8 @@
-#define MINIMUM_POWER 1 MW
+// Without these brackets division breaks.
+#define MINIMUM_POWER (1 MW)
+#define DEFAULT_CAPACITY (2000 GJ)
+#define EYE_DAMAGE_THRESHOLD (5 MW)
+#define RAD_THRESHOLD (30 MW)
 
 /obj/machinery/power/transmission_laser
 	name = "power transmission laser"
@@ -7,7 +11,7 @@
 	icon = 'icons/goonstation/objects/pt_laser.dmi'
 	icon_state = "ptl"
 
-	max_integrity = 10000
+	max_integrity = 500
 
 	density = TRUE
 	anchored = TRUE
@@ -16,19 +20,19 @@
 	pixel_y = -64
 
 	// Variables go below here
-	/// How far we shoot the beam. If it isn't blocked it should go to the end of the screen.
+	/// How far we shoot the beam. If it isn't blocked it should go to the end of the z level.
 	var/range = 0
 	/// Amount of power we are outputting
 	var/output_level = 0
 	/// The total capacity of the laser
-	var/capacity = INFINITY
-	/// Our current charge
+	var/capacity = DEFAULT_CAPACITY
+	/// Our current stored energy
 	var/charge = 0
 	/// Are we trying to provide power to the laser
 	var/input_attempt = TRUE
-	/// Are we currently inputting
+	/// Are we currently inputting power into the laser
 	var/inputting = TRUE
-	/// The amount of charge coming in from the inputs last tick
+	/// The amount of energy coming in from the inputs last tick
 	var/input_available = 0
 	/// Have we been switched on?
 	var/turned_on = FALSE
@@ -36,74 +40,127 @@
 	var/firing = FALSE
 	/// We need to create a list of all lasers we are creating so we can delete them in the end
 	var/list/laser_effects = list()
-	/// An object blocking the beam
-	var/atom/blocker = null
 	/// Our max load we can set
 	var/max_grid_load = 0
-	/// Our current grid load
+	/// The load we place on the power grid we are connected to
 	var/current_grid_load = 0
-	/// Out power formatting multiplier used inside tgui to convert to things like mW gW to watts for ease of setting
+	/// Signifies which unit we are using for output power. Used both in TGUI for formatting purposes and output power calculations.
 	var/power_format_multi = 1
-	/// Same as above but for output
-	var/power_format_multi_output = 1
+	/// Signifies which unit we are using for input power. Used both in TGUI for formatting purposes and input power calculations.
+	var/power_format_multi_output = 1 MW
 
 	/// Are we selling the energy or just sending it into the ether
 	var/selling_energy = FALSE
 
 	/// How much energy have we sold in total (Joules)
 	var/total_energy = 0
-	/// How much energy do you have to sell in order to get an announcement
-	var/static/announcement_threshold = 1 MJ
 
-	/// How much credits we have earned in total
+	/// How many credits we have earned in total
 	var/total_earnings = 0
-	/// The amount of money we haven't sent to cargo yet
+	/// The amount of money we haven't sent yet
 	var/unsent_earnings = 0
 
 	/// Gives our power input when multiplied with power_format_multi. The multiplier signifies the units of power, and this is how many of them we are inputting.
 	var/input_number = 0
 	/// Gives our power output when multiplied with power_format_multi_output. The multiplier signifies the units of power, and this is how many of them we are outputting.
-	var/output_number = 0
+	var/output_number = 1
 	/// Our set input pulling
 	var/input_pulling = 0
-	/// Announcement configuration for updates
-	var/datum/announcer/announcer
-	/// Last direction the laser was pointing. So offset doesn't get handles when it doesn't need to
-	var/last_dir = NO_DIRECTION
+	/// Targetable areas in lavaland
+	var/list/targetable_areas = list(
+		/area/lavaland/surface/outdoors/outpost,
+		/area/lavaland/surface/outdoors/targetable,
+		/area/mine/outpost,
+		/area/shuttle/mining,
+		)
+	/// Megafauna being targeted
+	var/mob/living/simple_animal/hostile/megafauna/target
+	/// Overlay that goes over the mob that gets beamed
+	var/image/orbital_strike
 
+/obj/machinery/power/transmission_laser/north
+	pixel_x = -64
+	pixel_y = 0
+	dir = NORTH
+
+/obj/machinery/power/transmission_laser/east
+	pixel_x = 0
+	pixel_y = 0
+	dir = EAST
+
+/obj/machinery/power/transmission_laser/west
+	pixel_x = -64
+	pixel_y = 0
+	dir = WEST
+
+/obj/item/circuitboard/machine/transmission_laser
+	board_name = "Power Transmission Laser"
+	icon_state = "command"
+	build_path = /obj/machinery/power/transmission_laser
+	origin_tech = "engineering=2;combat=3;"
+	req_components = list(
+		/obj/item/stock_parts/capacitor = 3,
+		/obj/item/stock_parts/micro_laser = 3,
+		)
 
 /obj/machinery/power/transmission_laser/Initialize(mapload)
 	. = ..()
-	announcer = new(config_type = /datum/announcement_configuration/ptl)
-	find_blocker()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/transmission_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/micro_laser
+	component_parts += new /obj/item/stock_parts/capacitor
+	component_parts += new /obj/item/stock_parts/capacitor
+	component_parts += new /obj/item/stock_parts/capacitor
+	range = get_dist(get_front_turf(), get_edge_target_turf(get_front_turf(), dir))
 	if(!powernet)
 		connect_to_network()
 	handle_offset()
 	update_icon()
 
-/// Go in the direction we shoot the lasers until we find something dense that isn't a window or a transparent turf
-/obj/machinery/power/transmission_laser/proc/find_blocker()
-	var/old_range = range
-	var/turf/edge_turf = get_edge_target_turf(get_front_turf(), dir)
-	var/turf/current_turf = get_step(get_front_turf(), dir)
-	blocker = null
-	while(!blocker && current_turf != edge_turf)
-		if(current_turf?.density && current_turf?.opacity)
-			blocker = current_turf
-			break
-		for(var/atom/candidate in current_turf.contents)
-			if(candidate.density && !istype(candidate, /obj/structure/window))
-				blocker = candidate
-				break
-		current_turf = get_step(current_turf, dir)
-	// If we didn't find a blocker the end turf is the edge of the z level. If the blocker is a turf(wall) then we simply use it as the end turf. Otherwise we use the blocker's location.
-	var/turf/end_turf = (blocker ? ( isturf(blocker) ? blocker : get_turf(blocker)) : get_edge_target_turf(get_front_turf(), dir))
-	range = get_dist(get_front_turf(), end_turf)
+/obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/I)
+	if(firing)
+		to_chat(user,"<span class='info'>Turn the laser off first.</span>")
+		return
+	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
+		return TRUE
 
-	if(range > old_range || !length(laser_effects)) // Create new lasers if the new blocker is further away, or if we just turned on the laser
-		setup_lasers()
-	if(range < old_range) // Destroy lasers beyond the blocked point
-		shorten_beam()
+/obj/machinery/power/transmission_laser/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/power/transmission_laser/wrench_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(rotate())
+		return TRUE
+	to_chat(user, "<span class='info'>Target area blocked, please clear all objects and personnel.</span>")
+	return TRUE
+
+/// Rotates the laser if we have the space to do so.
+/obj/machinery/power/transmission_laser/proc/rotate()
+	var/new_dir = turn(dir, -90)
+
+	var/x_offset = (new_dir == WEST) ? -2 : 2
+	var/y_offset = (new_dir == SOUTH) ? -2 : 2
+	var/datum/component/multitile/tiles = GetComponent(/datum/component/multitile)
+	// Make sure the area we want to rotate to has enough free tiles
+	for(var/turf/tile in block(x, y, z, x + x_offset, y + y_offset))
+		if(tile?.density)
+			return FALSE
+		for(var/atom/thing as anything in tile.contents)
+			// If it's the machine or one of its multitile components fillers skip it
+			if(thing.UID() == UID() || (istype(thing, /obj/structure/filler/) && (thing in tiles.all_fillers)))
+				continue
+			if(thing?.density)
+				return FALSE
+
+	dir = new_dir
+	handle_offset()
+	return TRUE
 
 /obj/machinery/power/transmission_laser/proc/handle_offset()
 	switch(dir)
@@ -142,22 +199,8 @@
 
 /obj/machinery/power/transmission_laser/Destroy()
 	. = ..()
-	qdel(announcer)
-	blocker = null
 	if(length(laser_effects))
 		destroy_lasers()
-
-/obj/machinery/power/transmission_laser/proc/get_back_turf()
-	//this is weird as i believe byond sets the bottom left corner as the source corner like
-	// x-x-x
-	// x-x-x
-	// o-x-x
-	//which would mean finding the true back turf would require centering than taking a step in the inverse direction
-	var/turf/center = locate(x + 1, y + 1, z)
-	if(!center)///what
-		return
-	var/inverse_direction = turn(dir, 180)
-	return get_step(center, inverse_direction)
 
 /obj/machinery/power/transmission_laser/proc/get_front_turf()
 	//this is weird as i believe byond sets the bottom left corner as the source corner like
@@ -172,10 +215,9 @@
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.\s<span/>"
-	. += "<span class='notice'>Laser has generated [total_earnings] credits.\s<span/>"
-	. += "<span class='notice'>Laser has sold [total_energy] Joules\s<span/>"
-
+	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.</span>"
+	. += "<span class='notice'>Laser has generated [total_earnings] credits.</span>"
+	. += "<span class='notice'>Laser has sold [total_energy] Joules.</span>"
 
 /// Appearance changes are here
 /obj/machinery/power/transmission_laser/update_overlays()
@@ -207,32 +249,17 @@
 		return 0
 	return min(round((charge / abs(output_level)) * 6), 6)
 
-/obj/machinery/power/transmission_laser/proc/send_ptl_announcement()
-	// The message we send
-	var/message
-	var/flavor_text
-	if(announcement_threshold == 1 MJ)
-		message = "PTL account successfully made"
-		flavor_text = "From now on, you will receive regular updates on the power exported via the onboard PTL. Good luck [station_name()]!"
-		announcement_threshold = 100 MJ
-
-	message = "New milestone reached!\n[DisplayJoules(announcement_threshold)]\n[flavor_text]"
-
-	announcer.Announce(message)
-
-	announcement_threshold = min(announcement_threshold * 5, announcement_threshold + 200 GJ)
-
 /obj/machinery/power/transmission_laser/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/apc/attack_ghost(mob/user)
+/obj/machinery/power/transmission_laser/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/transmission_laser/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "goonstation_TDL")
+		ui = new(user, src, "goonstation_PTL")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
@@ -243,6 +270,7 @@
 	data["output"] = output_level
 	data["total_earnings"] = total_earnings
 	data["unsent_earnings"] = unsent_earnings
+	data["total_energy"] = total_energy
 	data["held_power"] = charge
 	data["selling_energy"] = selling_energy
 	data["max_capacity"] = capacity
@@ -251,6 +279,7 @@
 	data["accepting_power"] = turned_on
 	data["sucking_power"] = inputting
 	data["firing"] = firing
+	data["target"] = target ? target.internal_gps.gpstag : ""
 
 	data["power_format"] = power_format_multi
 	data["input_number"] = input_number
@@ -274,12 +303,16 @@
 			firing = !firing
 			if(!firing)
 				destroy_lasers()
+			else
+				setup_lasers()
 			update_icon()
+		if("target")
+			target(usr)
 
 		if("set_input")
 			input_number = clamp(params["set_input"], 0, 999) //multiplies our input by if input
 		if("set_output")
-			output_number = clamp(params["set_output"], 0, 999)
+			output_number = clamp(params["set_output"], 1, 999)
 
 		if("inputW")
 			power_format_multi = 1
@@ -299,24 +332,42 @@
 		if("outputGW")
 			power_format_multi_output = 1 GW
 
+/// Target a megafauna in the mining base or its immediate vicinity
+/obj/machinery/power/transmission_laser/proc/target(mob/user)
+	var/list/target_list = list()
+	for(var/monster_id in GLOB.alive_megafauna_list)
+		var/mob/living/simple_animal/hostile/megafauna/monster = locateUID(monster_id)
+		var/area/boss_loc = get_area(monster)
+		for(var/area_type in targetable_areas)
+			if(istype(boss_loc, area_type))
+				target_list[monster.internal_gps.gpstag] = monster
+	// Target CC to sell power
+	target_list["Collection Terminal"] = null
+
+	var/choose = tgui_input_list(user, "Select target", "Target", target_list)
+	if(!choose)
+		return
+	target = target_list[choose]
+	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(untarget))
+	if(firing && target)
+		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
+		target.add_overlay(orbital_strike)
+
+/// Stop targeting a mob once it dies
+/obj/machinery/power/transmission_laser/proc/untarget()
+	SIGNAL_HANDLER
+	target.cut_overlay(orbital_strike)
+	UnregisterSignal(target, COMSIG_MOB_DEATH)
+	target = null
+
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = get_surplus()
 	input_available = get_surplus()
 	if(stat & BROKEN)
 		return
 
-	if(total_energy >= announcement_threshold)
-		send_ptl_announcement()
-
-	var/last_disp = return_charge()
-	var/last_chrg = inputting
-	var/last_fire = firing
-
-	if(last_disp != return_charge() || last_chrg != inputting || last_fire != firing)
-		update_icon()
-
 	if(powernet && input_attempt && turned_on)
-		input_pulling = min(input_available, input_number * power_format_multi)
+		input_pulling = min(input_available, input_number * power_format_multi, capacity - charge )
 
 		if(inputting)
 			if(input_pulling > 0)
@@ -334,76 +385,109 @@
 		firing = FALSE
 		output_level = 0
 		destroy_lasers()
+		update_icon()
 		return
 
 	if(!firing)
 		return
 
 	output_level = min(charge, output_number * power_format_multi_output)
-	if(!length(laser_effects))
-		find_blocker() // We aren't registering turf changes or atoms in the beam path while the beam is off.
 
-	if(blocker && QDELETED(blocker))// Checking here in case the blocker was destroyed by means other than the laser
-		find_blocker()
+	if(firing)
+		if(!target)
+			sell_power(output_level * WATT_TICK_TO_JOULE)
+		else
+			if(!QDELETED(target)) // Just for safety.
+				target.loot = list() // disable loot drops form the target to prevent cheese
+				if(10 * output_level * target.damage_coeff[BURN] / (1 MW) > target.health) // If we would kill the target dust it.
+					target.health = 0 // We need this so can_die() won't prevent dusting
+					visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
+					target.dust()
+				else
+					target.adjustFireLoss(10 * output_level / (1 MW))
+			else
+				target = null
+		if(output_level > EYE_DAMAGE_THRESHOLD)
+			for(var/mob/living/carbon/someone in oview(min(output_level / EYE_DAMAGE_THRESHOLD, 8), get_front_turf()))// Flash targets that can see the exit of the emitter
+				var/turf/front = get_front_turf()
+				var/turf/step = get_step(get_front_turf(), dir)
+				var/d_x = someone.x - front.x
+				var/d_y = someone.y - front.y
+				if(someone.dir == dir || (((dir == NORTH || dir == SOUTH) && (SIGN(d_y) != SIGN(step.y - front.y))))  || ((dir == WEST || dir == EAST) && (SIGN(d_x) != SIGN(step.x - front.x))))// Make sure they are in front of it
+					continue
+				var/look_angle
+				var/angle_to_bore = arctan(-d_x, -d_y)
+				switch(someone.dir)
+					if(NORTH)
+						look_angle = 90
+					if(SOUTH)
+						look_angle = -90
+					if(EAST)
+						look_angle = 0
+					if(WEST)
+						look_angle = 180
+				// Takes the cosine of the difference in angle between where the mob is looking and the location of the bore in relation to the mob.
+				var/flashmod = max(cos(look_angle - angle_to_bore), 0)
+				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
+		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
+			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 50, RAD_DISTANCE_COEFFICIENT)
 
-	if(length(laser_effects))
-		for(var/obj/effect/transmission_beam as anything in laser_effects)
-			var/turf/beam_turf = get_turf(transmission_beam)
-			for(var/atom/beamed in beam_turf)
-				if(beamed)
-					beamed.ptl_beam_act(src)
-			// Make sure we beam the turf itself as well, in case it's a wall or something else that could be affected.
-			if(beam_turf)
-				beam_turf.ptl_beam_act(src)
-
-
-	if(!blocker)
-		sell_power(output_level * WATT_TICK_TO_JOULE)
 
 	charge -= output_level
 
 //// Selling defines are here
-#define MINIMUM_BAR 1
-#define PROCESS_CAP (20 - MINIMUM_BAR)
+// Minimum amount of money per cycle
+#define MINIMUM_BAR 0
+// Maximum amount of money per cycle - minimum amount of money per cycle
+#define PROCESS_CAP (6 - MINIMUM_BAR)
 
+// Higher number means approaching the limit slower
 #define A1_CURVE 20
+
+#define HIGH_CUT_RATIO 0.75
+#define MEDIUM_CUT_RATIO 0.25
 
 /obj/machinery/power/transmission_laser/proc/sell_power(joules)
 	var/mega_joules = joules / (1 MW)
+	SSticker.score.score_gigajoules_exported += joules / (1 GW)
 
 	var/generated_cash = (2 * mega_joules * PROCESS_CAP) / ((2 * mega_joules) + (PROCESS_CAP * A1_CURVE))
-	generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
-	generated_cash = round(generated_cash)
+	if(mega_joules) // so we can't divide by 0
+		generated_cash += (4 * mega_joules * MINIMUM_BAR) / (4 * mega_joules + MINIMUM_BAR)
 	if(generated_cash < 0)
 		return
 
 	total_energy += joules
 	total_earnings += generated_cash
-	generated_cash += unsent_earnings
-	unsent_earnings = generated_cash
+	unsent_earnings += generated_cash
 
 	var/datum/money_account/engineering_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_ENGINEERING)
 	var/datum/money_account/cargo_bank_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 
-	var/medium_cut = generated_cash * 0.25
-	var/high_cut = generated_cash * 0.75
+	if(unsent_earnings > 200)
+		var/medium_cut = round(unsent_earnings * MEDIUM_CUT_RATIO)
+		var/high_cut = round(unsent_earnings * HIGH_CUT_RATIO)
 
-	GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= medium_cut
+		GLOB.station_money_database.credit_account(cargo_bank_account, medium_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		unsent_earnings -= medium_cut
 
-	GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
-	unsent_earnings -= high_cut
+		GLOB.station_money_database.credit_account(engineering_bank_account, high_cut, "Transmission Laser Payout", "Central Command Supply Master", supress_log = FALSE)
+		unsent_earnings -= high_cut
 
 #undef A1_CURVE
 #undef PROCESS_CAP
 #undef MINIMUM_BAR
+#undef HIGH_CUT_RATIO
+#undef MEDIUM_CUT_RATIO
 
 // Beam related procs
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
+	if(target)
+		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
+		target.add_overlay(orbital_strike)
 	var/turf/last_step = get_step(get_front_turf(), dir)
-	// Create new lasers from the starting point to either the blocker or the edge of the map
-	for(var/num in 1 to range + 1)
+	for(var/num in 1 to range)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
 			var/obj/effect/transmission_beam/new_beam = new(last_step, src)
 			new_beam.host = src
@@ -413,20 +497,11 @@
 		last_step = get_step(last_step, dir)
 
 /obj/machinery/power/transmission_laser/proc/destroy_lasers()
+	if(target)
+		target.cut_overlay(orbital_strike)
 	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
 		laser_effects -= listed_beam
 		qdel(listed_beam)
-
-/obj/machinery/power/transmission_laser/proc/shorten_beam()
-	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
-		if(get_dist(get_front_turf(), listed_beam.loc) > range)
-			laser_effects -= listed_beam
-			qdel(listed_beam)
-
-/// Called after the blocker gets affected by the beam to check if it was destroyed
-/obj/machinery/power/transmission_laser/proc/check_blocker()
-	if(QDELETED(blocker))
-		find_blocker()
 
 // Beam
 /obj/effect/transmission_beam
@@ -440,67 +515,20 @@
 
 /obj/effect/transmission_beam/Initialize(mapload, obj/machinery/power/transmission_laser/creator)
 	. = ..()
-	var/turf/source_turf = get_turf(src)
-	if(source_turf)
-		RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
-		RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave))
-		RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 	update_appearance()
 
 /obj/effect/transmission_beam/Destroy(force)
 	. = ..()
-	var/turf/source_turf = get_turf(src)
-	host = null
-	if(source_turf)
-		UnregisterSignal(source_turf, COMSIG_TURF_CHANGE)
-		UnregisterSignal(source_turf, COMSIG_ATOM_ENTERED)
-		UnregisterSignal(source_turf, COMSIG_ATOM_EXITED)
 
 /obj/effect/transmission_beam/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, "ptl_beam", src)
-
-/// Apply beam effects to the atom and register it as being in the beam if it survives. If it can also block the beam make it block it.
-/obj/effect/transmission_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER //COMSIG_ATOM_ENTERED
-
-	if(istype(arrived, /obj/structure/window))
-		return
-	arrived.ptl_beam_act(host)
-	if(arrived?.density) // If it survived and can block the beam it should block it
-		host.blocker = arrived
-		host.range = get_dist(host.get_front_turf(), get_turf(host.blocker))
-		host.shorten_beam() // Remove the laser effects beyond the blocked part
-
-/// Remove the atoms from the list of the atoms in the beam. This is called every time something leaves our beam.
-/obj/effect/transmission_beam/proc/on_leave(datum/source, atom/movable/left, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER //COMSIG_ATOM_EXITED
-
-	if(istype(left, /obj/structure/window))
-		return
-	if(host.blocker && (host.blocker.UID() == left.UID()))
-		host.find_blocker()
-
-
-/// Register signals on the new turf and if it is dense make it the new blocker
-/obj/effect/transmission_beam/proc/on_turf_change()
-	SIGNAL_HANDLER //COMSIG_TURF_CHANGE
-
-	// We can't sleep here so we call a timer to wait for the new turf to form
-	addtimer(CALLBACK(src, PROC_REF(do_turf_change)), 0)
-
-/obj/effect/transmission_beam/proc/do_turf_change()
-	var/turf/source_turf = get_turf(src)
-	RegisterSignal(source_turf, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change), TRUE)
-	RegisterSignal(source_turf, COMSIG_ATOM_EXITED, PROC_REF(on_leave), TRUE)
-	RegisterSignal(source_turf, COMSIG_ATOM_ENTERED, PROC_REF(on_entered), TRUE)
-
-	source_turf.ptl_beam_act(host)
-
-	host.find_blocker()
 
 /// Explosions aren't supposed to make holes in a beam.
 /obj/effect/transmission_beam/ex_act(severity)
 	return
 
 #undef MINIMUM_POWER
+#undef DEFAULT_CAPACITY
+#undef EYE_DAMAGE_THRESHOLD
+#undef RAD_THRESHOLD

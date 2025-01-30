@@ -63,7 +63,7 @@
 /obj/machinery/disposal/Moved(atom/OldLoc, Dir)
 	. = ..()
 	eject()
-	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
+	var/ptype = istype(src, /obj/machinery/disposal/delivery_chute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
 	var/turf/T = OldLoc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
@@ -123,23 +123,23 @@
 		disposal.update()
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !user || I.flags & ABSTRACT)
-		return
+/obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(stat & BROKEN || !user || used.flags & ABSTRACT)
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent != INTENT_HELP)
 		return ..()
 
 	src.add_fingerprint(user)
 
-	if(istype(I, /obj/item/melee/energy/blade))
+	if(istype(used, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isstorage(I))
-		var/obj/item/storage/S = I
+	if(isstorage(used))
+		var/obj/item/storage/S = used
 		if(!S.removal_allowed_check(user))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
@@ -152,15 +152,15 @@
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
 			update()
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	// Borg using their gripper to throw stuff away.
-	if(istype(I, /obj/item/gripper/))
-		var/obj/item/gripper/gripper = I
+	if(istype(used, /obj/item/gripper))
+		var/obj/item/gripper/gripper = used
 		// Gripper is empty.
 		if(!gripper.gripped_item)
 			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
@@ -168,14 +168,14 @@
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 		)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// Someone has a mob in a grab.
-	var/obj/item/grab/G = I
+	var/obj/item/grab/G = used
 	if(istype(G))
 		// If there's not actually a mob in the grab, stop it. Get some help.
 		if(!ismob(G.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/GM = G.affecting
 		user.visible_message(
@@ -186,7 +186,7 @@
 
 		// Abort if the target manages to scurry away.
 		if(!do_after(user, 2 SECONDS, target = GM))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		GM.forceMove(src)
 		user.visible_message(
@@ -197,19 +197,21 @@
 		qdel(G)
 		update()
 		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!user.drop_item() || QDELETED(I))
-		return
+	if(!user.drop_item() || QDELETED(used))
+		return ITEM_INTERACT_COMPLETE
 
 	// If we're here, it's an item without any special interactions, drop it in the bin without any further delay.
-	I.forceMove(src)
+	used.forceMove(src)
 	user.visible_message(
-		"<span class='notice'>[user] places [I] into the disposal unit.</span>",
-		"<span class='notice'>You place [I] into the disposal unit.</span>",
+		"<span class='notice'>[user] places [used] into the disposal unit.</span>",
+		"<span class='notice'>You place [used] into the disposal unit.</span>",
 		"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 	)
 	update()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode != DISPOSALS_OFF) // It's on
@@ -273,7 +275,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || is_ai(user))
 		return
 
 	// Animals cannot put mobs other than themselves into disposals.
@@ -389,7 +391,7 @@
 /obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
 
-	data["isAI"] = isAI(user)
+	data["is_ai"] = is_ai(user)
 	data["flushing"] = flush
 	data["mode"] = mode
 	data["pressure"] = round(clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)
@@ -550,7 +552,7 @@
 	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
 		wrapcheck = 1
 
-	for(var/obj/item/smallDelivery/O in src)
+	for(var/obj/item/small_delivery/O in src)
 		wrapcheck = 1
 
 	if(wrapcheck == 1)
@@ -613,7 +615,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/disposal/CanPass(atom/movable/mover, border_dir)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))
@@ -704,11 +706,11 @@
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = TRUE			// set flag on holder
-		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
-			var/obj/structure/bigDelivery/T = AM
+		if(istype(AM, /obj/structure/big_delivery) && !hasmob)
+			var/obj/structure/big_delivery/T = AM
 			destinationTag = T.sortTag
-		if(istype(AM, /obj/item/smallDelivery) && !hasmob)
-			var/obj/item/smallDelivery/T = AM
+		if(istype(AM, /obj/item/small_delivery) && !hasmob)
+			var/obj/item/small_delivery/T = AM
 			destinationTag = T.sortTag
 		//Drones can mail themselves through maint.
 		if(isdrone(AM))
@@ -717,8 +719,8 @@
 		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
 			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
 			destinationTag = S.mail_destination
-		if(istype(AM, /obj/item/shippingPackage) && !hasmob)
-			var/obj/item/shippingPackage/sp = AM
+		if(istype(AM, /obj/item/shipping_package) && !hasmob)
+			var/obj/item/shipping_package/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
 				destinationTag = sp.sortTag
 
@@ -1050,7 +1052,7 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
@@ -1228,12 +1230,12 @@
 	if(mapping_fail)
 		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
-/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(..())
 		return
 
-	if(istype(I, /obj/item/destTagger))
-		var/obj/item/destTagger/O = I
+	if(istype(I, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/O = I
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 		if(O.currTag == 1)
@@ -1426,7 +1428,7 @@
 		D.linkedtrunk = src
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/trunk/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 
 	//Disposal bins or chutes
 	//Disposal constructors

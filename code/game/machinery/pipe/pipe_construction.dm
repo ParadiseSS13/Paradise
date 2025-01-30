@@ -157,8 +157,7 @@
 			connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 
 	update(make_from)
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //update the name and icon of the pipe item depending on the type
 
@@ -267,10 +266,10 @@
 		if(PIPE_SIMPLE_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
 
-		if(PIPE_CONNECTOR,  PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
+		if(PIPE_CONNECTOR,  PIPE_HEAT_EXCHANGE)
 			return dir|flip
 
-		if(PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER)
+		if(PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR)
 			return dir
 
 		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W)
@@ -336,12 +335,11 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -528,10 +526,11 @@
 		"<span class='notice'>You fasten [src].</span>",
 		"<span class='notice'>You hear a ratchet.</span>")
 	qdel(src)	// remove the pipe item
+	. |= RPD_TOOL_SUCCESS
 
 /obj/item/pipe_meter
 	name = "meter"
-	desc = "A meter that can be laid on pipes"
+	desc = "A meter that can be laid on pipes."
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
@@ -557,7 +556,7 @@
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
-	desc = "A sensor that can be hooked to a computer"
+	desc = "A sensor that can be hooked to a computer."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	item_state = "buildpipe"

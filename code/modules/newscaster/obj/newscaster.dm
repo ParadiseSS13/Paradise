@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.drop_item_to_ground(P))
 					photo = P
 					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
@@ -730,6 +730,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	eject_photo(user)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

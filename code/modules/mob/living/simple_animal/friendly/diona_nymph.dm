@@ -81,8 +81,9 @@
 	var/mob/living/simple_animal/diona/user = owner
 	user.steal_blood()
 
-/mob/living/simple_animal/diona/New()
-	..()
+/mob/living/simple_animal/diona/Initialize(mapload)
+	. = ..()
+
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
@@ -209,7 +210,7 @@
 	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	qdel(src)
 	return TRUE

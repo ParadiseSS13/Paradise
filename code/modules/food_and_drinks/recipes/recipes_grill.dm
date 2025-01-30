@@ -75,9 +75,9 @@
 
 /datum/recipe/grill/grilledcheese
 	items = list(
-		/obj/item/food/breadslice,
-		/obj/item/food/breadslice,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/bread,
+		/obj/item/food/sliced/bread,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/grilledcheese
 
@@ -112,8 +112,8 @@
 	items = list(
 		/obj/item/food/egg,
 		/obj/item/food/egg,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/omelette
 
@@ -124,7 +124,7 @@
 	)
 	result = /obj/item/food/wingfangchu
 
-/datum/recipe/grill/human/kebab
+/datum/recipe/grill/human_kebab
 	items = list(
 		/obj/item/stack/rods,
 		/obj/item/food/meat/human,
@@ -172,95 +172,95 @@
 	being_cooked.reagents.del_reagent("carpotoxin")
 	return being_cooked
 
-/datum/recipe/grill/sushi_Tamago
+/datum/recipe/grill/sushi_tamago
 	reagents = list("sake" = 5)
 	items = list(
 		/obj/item/food/egg,
 		/obj/item/food/boiledrice,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Tamago
+	result = /obj/item/food/sliced/sushi_tamago
 
-/datum/recipe/grill/sushi_Unagi
+/datum/recipe/grill/sushi_unagi
 	reagents = list("sake" = 5)
 	items = list(
 		/obj/item/fish/electric_eel,
 		/obj/item/food/boiledrice,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Unagi
+	result = /obj/item/food/sushi_unagi
 
-/datum/recipe/grill/sushi_Ebi
+/datum/recipe/grill/sushi_ebi
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/food/boiled_shrimp,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Ebi
+	result = /obj/item/food/sliced/sushi_ebi
 
-/datum/recipe/grill/sushi_Ikura
+/datum/recipe/grill/sushi_ikura
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/fish_eggs/salmon,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Ikura
+	result = /obj/item/food/sliced/sushi_ikura
 
-/datum/recipe/grill/sushi_Inari
+/datum/recipe/grill/sushi_inari
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/food/fried_tofu,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Inari
+	result = /obj/item/food/sliced/sushi_inari
 
-/datum/recipe/grill/sushi_Sake
+/datum/recipe/grill/sushi_sake
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/food/salmonmeat,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Sake
+	result = /obj/item/food/sliced/sushi_sake
 
-/datum/recipe/grill/sushi_SmokedSalmon
+/datum/recipe/grill/sushi_smoked_salmon
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/food/salmonsteak,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_SmokedSalmon
+	result = /obj/item/food/sliced/sushi_smoked_salmon
 
-/datum/recipe/grill/sushi_Masago
+/datum/recipe/grill/sushi_masago
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/fish_eggs/goldfish,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Masago
+	result = /obj/item/food/sliced/sushi_masago
 
-/datum/recipe/grill/sushi_Tobiko
+/datum/recipe/grill/sushi_tobiko
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/fish_eggs/shark,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Tobiko
+	result = /obj/item/food/sliced/sushi_tobiko
 
-/datum/recipe/grill/sushi_TobikoEgg
+/datum/recipe/grill/sushi_tobiko_egg
 	items = list(
-		/obj/item/food/sushi_Tobiko,
+		/obj/item/food/sliced/sushi_tobiko,
 		/obj/item/food/egg,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_TobikoEgg
+	result = /obj/item/food/sliced/sushi_tobiko_egg
 
-/datum/recipe/grill/sushi_Tai
+/datum/recipe/grill/sushi_tai
 	items = list(
 		/obj/item/food/boiledrice,
 		/obj/item/food/catfishmeat,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_Tai
+	result = /obj/item/food/sliced/sushi_tai
 
 /datum/recipe/grill/goliath
 	items = list(/obj/item/food/monstermeat/goliath)
