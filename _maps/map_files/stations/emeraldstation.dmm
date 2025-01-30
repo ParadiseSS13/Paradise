@@ -29604,6 +29604,9 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -35826,13 +35829,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
-"gHb" = (
-/obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/station/public/dorms)
 "gHf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -57354,18 +57350,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office)
-"kGm" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/public/dorms)
 "kGu" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -104611,7 +104595,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -163784,7 +163771,7 @@ eUn
 uIz
 eUn
 tfk
-eUn
+tlu
 xzA
 eEe
 vfx
@@ -163793,7 +163780,7 @@ eUn
 eUn
 eUn
 neS
-tlu
+eUn
 xjx
 tfk
 eUn
@@ -164292,7 +164279,7 @@ mbN
 iAy
 nXh
 uQI
-gHb
+nXh
 nXh
 iuw
 iUr
@@ -164536,7 +164523,7 @@ vAZ
 vAZ
 vAZ
 vAZ
-kGm
+dbV
 xoK
 nuI
 eOw
