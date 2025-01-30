@@ -176,8 +176,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 			dna.species.updatespeciescolor(src)
 		if(dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
-			dna.species.updatespeciessubtype(src)
-
+			var/datum/species/species_subtype = GLOB.all_species[dna.species.species_subtype]
+			if(isnull(species_subtype))
+				species_subtype = GLOB.all_species[dna.species.name]
+			if(dna.species.species_subtype != "None" && dna.species.species_subtype != species_subtype.name)
+				dna.species.updatespeciessubtype(src, new species_subtype.type(), TRUE, FALSE)
 	//CACHING: Generate an index key from visible bodyparts.
 	//0 = destroyed, 1 = normal, 2 = robotic, 3 = necrotic.
 	//Create a new, blank icon for our mob to use.

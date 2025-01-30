@@ -410,7 +410,15 @@
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
-/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H) // Handles changing icobase for species that can imitate/morph into other species
+/** Handles changing icobase for species that can imitate/morph into other species
+ * 	Arguments:
+ * 	- H: The human of which was are updating.
+ * 	- new_subtype: Our imitate species, by datum reference.
+ * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
+ * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
+ */
+///
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE)
 	return
 
 // Do species-specific reagent handling here

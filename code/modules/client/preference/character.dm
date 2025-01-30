@@ -837,76 +837,65 @@
 	//Icon-based species colour.
 	var/coloured_tail
 	if(current_species)
-		if(species_subtype != "None" && current_species.bodyflags & HAS_SPECIES_SUBTYPE  && istype(current_species, /datum/species/slime))
-			var/datum/species/subtype_species = GLOB.all_species[species_subtype]
-			if(subtype_species)
-				current_species.sprite_sheet_name = subtype_species.sprite_sheet_name
-				current_species.icobase = subtype_species.icobase
-				current_species.tail = subtype_species.tail
-				current_species.wing = subtype_species.wing
-				current_species.eyes = subtype_species.eyes
-				current_species.scream_verb = subtype_species.scream_verb
-				current_species.male_scream_sound = subtype_species.male_scream_sound
-				current_species.female_scream_sound = subtype_species.female_scream_sound
-				current_species.default_headacc = subtype_species.default_headacc
-				current_species.default_bodyacc = subtype_species.default_bodyacc
-				current_species.male_cough_sounds = subtype_species.male_cough_sounds
-				current_species.female_cough_sounds = subtype_species.female_cough_sounds
-				current_species.male_sneeze_sound = subtype_species.male_sneeze_sound
-				current_species.female_sneeze_sound = subtype_species.female_sneeze_sound
-				current_species.bodyflags = subtype_species.bodyflags
-				current_species.bodyflags |= HAS_SKIN_COLOR | NO_EYES | HAS_SPECIES_SUBTYPE
-		var/mob/living/carbon/human/H = new
+		var/mob/living/carbon/human/fake/H = new
 		H.dna.species = current_species
-		if(current_species.bodyflags & HAS_SPECIES_SUBTYPE)
-			H.dna.species.updatespeciessubtype(H)
-			icobase = H.dna.species.icobase
+		if(species_subtype != "None" && current_species.bodyflags & HAS_SPECIES_SUBTYPE)
+			var/datum/species/subtype_species = GLOB.all_species[species_subtype]
+			if(subtype_species) // Take certain attributes from our subtype to apply to our current species.
+				H.dna.species.updatespeciessubtype(H, subtype_species)
+				current_species = H.dna.species
 		else if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			var/mob/living/carbon/human/fake/H = new
-			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
-			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-		else
-			icobase = current_species.icobase
+		icobase = current_species.icobase
 		qdel(H)
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
 	preview_icon = new /icon(icobase, "torso_[g]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	var/head = "head"
-	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
-
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
-		if(organ_data[name] == "amputated") continue
-		if(organ_data[name] == "cyborg")
+		if(organ_data[name] == "amputated")
+			continue
+		var/icon/bodypart = new /icon(icobase, "[name]")
+		if(name == "head") // Head nonsense.
+			var/head = "head"
+			if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
+				var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
+				if(H.icon_state)
+					head = H.icon_state
+			bodypart = new /icon(icobase, "[head]_[g]") // head_state _ gender
+		if(name in list("chest", "groin")) // Groin and Chest nonsense
+			if(name == "chest")
+				name = "torso"
+			bodypart = new /icon(icobase, "[name]_[g]") // groin/torso _ gender
+		if(organ_data[name] == "cyborg") // Robotic limbs.
 			var/datum/robolimb/R
 			if(rlimb_data[name]) R = GLOB.all_robolimbs[rlimb_data[name]]
 			if(!R) R = GLOB.basic_robolimb
 			if(name == "chest")
 				name = "torso"
-			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+			if(length(R.sprite_sheets) && R.sprite_sheets[current_species.sprite_sheet_name]) // Species specific augmented limbs
+				R.icon = R.sprite_sheets[current_species.sprite_sheet_name]
+			bodypart.Blend(new /icon(R.icon, "[name]"), ICON_OVERLAY)
+			preview_icon.Blend(bodypart, ICON_OVERLAY)
 			continue
-		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
-
-	// Skin color
-	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-		preview_icon.Blend(s_colour, ICON_ADD)
-
-	// Skin tone
-	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
-		if(s_tone >= 0)
-			preview_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+		if(istype(current_species, /datum/species/slime) && current_species.species_subtype != "None") // Applies to limbs that are not robotic.
+			bodypart.GrayScale()
+			bodypart.Blend("[s_colour]DC", ICON_AND) //DC = 220 alpha.
 		else
-			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			// Skin color
+			if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
+				bodypart.Blend(s_colour, ICON_ADD)
+			// Skin tone
+			if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
+				if(s_tone >= 0)
+					bodypart.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+				else
+					bodypart.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+		preview_icon.Blend(bodypart, ICON_OVERLAY)
 
 	// Body accessory
 	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
@@ -1861,7 +1850,11 @@
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
 	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
-	character.species_subtype = species_subtype
+	var/datum/species/subtype = GLOB.all_species[species_subtype]
+	if(!isnull(subtype))
+		character.dna.species.updatespeciessubtype(character, new subtype.type(), TRUE, FALSE)
+	else
+		character.species_subtype = "None"
 	if(be_random_name)
 		real_name = random_name(gender, species)
 

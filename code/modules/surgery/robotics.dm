@@ -762,7 +762,6 @@
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
 	target.real_name = new_name
-	target.species_subtype = new_subtype
 	target.gender = new_gender
 	user.visible_message(
 		"<span class='notice'>[user] edits [old_name]'s identity parameters with [tool], changing their appearance; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
@@ -773,7 +772,10 @@
 	if(!isnull(target.dna))
 		for(var/obj/item/organ/external/limb in target.bodyparts) // Update robotic limbs to match new sub species
 			limb.set_company(limb.model, target.dna.species.sprite_sheet_name) // Update the limbs to properly use their new sprite sheet.
-		target.dna.species.updatespeciessubtype(src)
-	target.regenerate_icons()
+		var/datum/species/subtype = GLOB.all_species[new_subtype]
+		if(isnull(subtype))
+			subtype = GLOB.all_species[target.dna.species.name]
+		target.dna.species.updatespeciessubtype(src, new subtype.type())
+		target.regenerate_icons()
 
 	return SURGERY_STEP_CONTINUE

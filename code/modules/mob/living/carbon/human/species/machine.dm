@@ -89,48 +89,52 @@
 
 	var/static_bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
 
-/datum/species/slime/updatespeciessubtype(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-subtype and imitation
+/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE) //Handling species-subtype and imitation
 	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
-		var/new_icobase = 'icons/mob/human_races/r_machine.dmi' //Default IPC person.
-		if(H.species_subtype == species_subtype) // No update, no need to go further.
-			return
-		species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
-
-		var/datum/species/s = GLOB.all_species[species_subtype]
-		if(isnull(s))
-			s = GLOB.all_species[name] // Reset species fully to IPC again.
-
-		// Copy over new species variables to our current species.
-		new_icobase = s.icobase
-		tail = s.tail
-		wing = s.wing
-		default_headacc = s.default_headacc
-		default_bodyacc = s.default_bodyacc
-		bodyflags = s.bodyflags
-		if(species_subtype != "None") // Update our species display and reference to match the subtype. Used for species specific clothing and accessories.
-			sprite_sheet_name = species_subtype
-			bodyflags |= static_bodyflags
+		var/datum/species/temp_species = new type()
+		if(isnull(new_subtype) || temp_species.name == new_subtype.name) // Back to our original species.
+			H.species_subtype = "None"
+			temp_species.species_subtype = "None" // Update our species subtype to match the Mob's subtype.
+			var/datum/species/S = GLOB.all_species[temp_species.name]
+			new_subtype = new S.type() // Resets back to original. We use initial in the case the datum is var edited.
 		else
-			sprite_sheet_name = name // Resets sprite sheet back to IPC.
+			H.species_subtype = new_subtype.name
+			temp_species.species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
 
-		H.body_accessory = GLOB.body_accessory_by_name[default_bodyacc]
-		H.tail = tail
-		H.wing = wing
-		for(var/obj/item/organ/external/limb in H.bodyparts) // Update robotic limbs to match new sub species ico base in the case they have robotic limbs
-			limb.icobase = s.icobase // update their icobase for when we apply the slimfy effect
-			limb.dna.species = src // Update limb to match our newly modified species
-			limb.set_company(limb.model, sprite_sheet_name)
+		// Copy over new species variables to our temp holder.
+		temp_species.icobase = new_subtype.icobase
+		temp_species.tail = new_subtype.tail
+		temp_species.wing = new_subtype.wing
+		temp_species.default_headacc = new_subtype.default_headacc
+		temp_species.default_bodyacc = new_subtype.default_bodyacc
+		temp_species.bodyflags = new_subtype.bodyflags
+		temp_species.bodyflags |= static_bodyflags // Add our static bodyflags that slime must always have.
+		temp_species.sprite_sheet_name = new_subtype.sprite_sheet_name
+		temp_species.icon_template = new_subtype.icon_template
+		// Set our DNA to the temp holder.
+		H.dna.species = temp_species
+
+		for(var/obj/item/organ/external/limb in H.bodyparts)
+			if(istype(limb.dna.species, src)) // Only update the limb that is part of our original species
+				limb.icobase = temp_species.icobase // update their icobase for when we apply the slimfy effect
+				limb.dna.species = temp_species // Update limb to match our newly modified species
+			limb.set_company(limb.model, temp_species.sprite_sheet_name) // Robotic limbs always update to our new subtype.
 
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
 
-		var/obj/item/organ/external/head/head = H.get_organ("head")
-		head.h_style = "Bald"
-		head.f_style = "Shaved"
-		head.ha_style = "None"
-		H.s_tone = 0
-		H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
-		H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
+		if(reset_styles)
+			H.body_accessory = GLOB.body_accessory_by_name[temp_species.default_bodyacc]
+			H.tail = temp_species.tail
+			H.wing = temp_species.wing
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			head.h_style = "Bald"
+			head.f_style = "Shaved"
+			head.ha_style = "None"
+			H.s_tone = 0
+			H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+			H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+			H.change_head_accessory(GLOB.head_accessory_styles_list[temp_species.default_headacc])
+		H.change_icobase(temp_species.icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/change_monitor/monitor = new()
