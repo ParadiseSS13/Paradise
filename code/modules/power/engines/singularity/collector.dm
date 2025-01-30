@@ -19,21 +19,33 @@
 	var/stored_energy = 0
 	var/active = FALSE
 	var/locked = FALSE
-	var/drainratio = 1
-	var/powerproduction_drain = 0.001
+
+	/// Flat multiplier on plasma consumption.
+	var/drain_ratio = 1
+
+	/// Amount of plasma to consume per joule generated.
+	var/drain_per_joule = 0.0000006
+
+	/// Plasma consumption above this threshild in wats is doubled.
+	var/efficiency_threshold = 50000
 
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
 		return
-	if(!loaded_tank.air_contents.toxins())
+	if(loaded_tank.air_contents.toxins() <= 0)
 		investigate_log("<font color='red'>out of fuel</font>.", "singulo")
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
 	else
-		var/gasdrained = min(powerproduction_drain * drainratio, loaded_tank.air_contents.toxins())
-		loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
-
 		var/power_produced = RAD_COLLECTOR_OUTPUT
+
+		var/gas_drained = power_produced * drain_per_joule * drain_ratio
+		// Doubled usage above the efficiency threshold.
+		if(power_produced > efficiency_threshold)
+			gas_drained += (power_produced - efficiency_threshold) * drain_per_joule * drain_ratio
+
+		loaded_tank.air_contents.set_toxins(max(0, loaded_tank.air_contents.toxins() - gas_drained))
+
 		produce_direct_power(power_produced)
 		stored_energy -= power_produced
 
