@@ -154,11 +154,9 @@
 			return ITEM_INTERACT_COMPLETE
 		special_attack_grab(G, user)
 		return ITEM_INTERACT_COMPLETE
-	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
-		return ITEM_INTERACT_COMPLETE
 
-	return ..()
+	to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	if(operating)
