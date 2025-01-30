@@ -46,11 +46,15 @@ SUBSYSTEM_DEF(late_mapping)
 				continue
 			maintenance_turfs.Add(F)
 	
+	if(!length(maintenance_turfs))
+		log_debug("No valid turfs has been found for mice.")
+		return
+
 	// The ratio is based on turfs per mice. Using Boxstation as an example, it would average between 20 to 30 mice.
-	var/ratio = rand(125, 200)
-	var/mice_number = floor(length(maintenance_turfs) / ratio)
+	var/floor_tiles_per_one_mice = rand(125, 200)
+	var/mice_number = ceil(length(maintenance_turfs) / floor_tiles_per_one_mice)
 
 	for(var/i in 1 to mice_number)
 		new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
 
-	log_startup_progress("Spawned [mice_number] mice over in [stop_watch(watch)]s")
+	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")
