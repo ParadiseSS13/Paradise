@@ -476,7 +476,7 @@
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 							if(isnull(accessory)) // None
 								continue
-							if(active_character.species in accessory.allowed_species || subtype.name in accessory.allowed_species)
+							if((active_character.species in accessory.allowed_species) || (subtype.name in accessory.allowed_species))
 								possible_body_accessories += B
 					if(S.optional_body_accessory)
 						possible_body_accessories += "None" //the only null entry should be the "None" option
