@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(vis_overlays)
 		currentrun = vis_overlay_cache.Copy()
 	var/list/current_run = currentrun
 
-	while(current_run.len)
+	while(length(current_run))
 		var/key = current_run[current_run.len]
 		var/obj/effect/overlay/vis/overlay = current_run[key]
 		current_run.len--

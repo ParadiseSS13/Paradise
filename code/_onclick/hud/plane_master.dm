@@ -68,7 +68,7 @@
 	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/cogbar/backdrop(mob/mymob)
-	if(istype(mymob) && mymob.client && mymob.client.prefs)
+	if(istype(mymob) && mymob.client?.prefs)
 		alpha = (mymob.client.prefs.toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? 255 : 0
 
 /**
