@@ -132,9 +132,8 @@
 		H.dna.species = temp_species
 
 		for(var/obj/item/organ/external/limb in H.bodyparts)
-			if(istype(limb.dna.species, src)) // Only update the limb that is part of our original species
-				limb.icobase = temp_species.icobase // update their icobase for when we apply the slimfy effect
-				limb.dna.species = temp_species // Update limb to match our newly modified species
+			limb.icobase = temp_species.icobase // update their icobase for when we apply the slimfy effect
+			limb.dna.species = temp_species // Update limb to match our newly modified species
 			limb.set_company(limb.model, temp_species.sprite_sheet_name) // Robotic limbs always update to our new subtype.
 
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
