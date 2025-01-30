@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
+	alarms_listened_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = FALSE
 	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
-		if(!(cat in alarms_listend_for))
+		if(!(cat in alarms_listened_for))
 			continue
 		dat += "<b>[cat]</b><br>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
@@ -397,6 +397,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	power_state = ACTIVE_POWER_USE
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
+	/// Power draw for the bluespace miner module
 	var/bluespace_miner_power = 0
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
@@ -415,7 +416,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		qdel(src)
 		return
 	// Regenerate nanites for abilities only when powered.
-	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5*powered_ai.program_picker.bandwidth))
+	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5 * powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
@@ -879,7 +880,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	Bot.call_bot(src, waypoint)
 
 /mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
-	if(!(class in alarms_listend_for))
+	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
 		return
@@ -907,7 +908,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
-		if(!(class in alarms_listend_for))
+		if(!(class in alarms_listened_for))
 			return
 		if(origin.z != z)
 			return
@@ -1394,7 +1395,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/add_program_picker()
 	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
-	program_picker = new /datum/program_picker
+	program_picker = new /datum/program_picker()
 	program_action = new(program_picker)
 	AddSpell(program_action)
 

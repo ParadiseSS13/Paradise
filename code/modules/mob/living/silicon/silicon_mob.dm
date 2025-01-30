@@ -20,7 +20,7 @@
 	var/list/alarms_to_clear = list()
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0)
-	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power")
+	var/list/alarms_listened_for = list("Motion", "Fire", "Atmosphere", "Power")
 	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""

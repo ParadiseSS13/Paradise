@@ -61,7 +61,7 @@
 /datum/program_picker/proc/refund_purchases()
 	var/list/potential_losses = possible_programs
 	while(memory < 0)
-		if(!potential_losses)
+		if(!length(potential_losses))
 			return
 		var/datum/ai_program/program = pick_n_take(potential_losses)
 		if(!program.installed)
@@ -71,7 +71,7 @@
 /datum/program_picker/proc/refund_upgrades()
 	var/list/potential_losses = possible_programs
 	while(bandwidth < 0)
-		if(!potential_losses)
+		if(!length(potential_losses))
 			return
 		var/datum/ai_program/program = pick_n_take(potential_losses)
 		if(!program.upgrade_level)
@@ -207,13 +207,12 @@
 	if(!istype(user))
 		return
 	user.program_picker.bandwidth--
-	return
 
 /datum/ai_program/proc/downgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
 	upgrade_level--
-	if(!upgrade_level)
+	if(!upgrade_level <= 0)
 		uninstall(user)
 		return
 	user.program_picker.bandwidth++
@@ -250,7 +249,7 @@
 /datum/ai_program/rgb_lighting
 	program_name = "RGB Lighting"
 	program_id = "rgb_lighting"
-	description = "Recolor a light to a desired color"
+	description = "Recolor a light to a desired color. At significantly high efficiency, it can change the color of an entire room's lighting by targeting the APC."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/rgb_lighting
 	unlock_text = "RGB Lighting installation complete!"
@@ -274,7 +273,7 @@
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
 		return
 	// Color selection
-	var/color_picked = tgui_input_color(user,"Please select a light color.","RGB Lighting Color")
+	var/color_picked = tgui_input_color(user, "Please select a light color.", "RGB Lighting Color")
 	var/list/hsl = rgb2hsl(hex2num(copytext(color_picked, 2, 4)), hex2num(copytext(color_picked, 4, 6)), hex2num(copytext(color_picked, 6, 8)))
 	hsl[3] = max(hsl[3], 0.4)
 	var/list/rgb = hsl2rgb(arglist(hsl))
@@ -451,6 +450,7 @@
 	if(!istype(user))
 		return
 	user.adapter_efficiency = 0.5
+	user.universal_adapter = FALSE
 
 // Door Override - Repairs door wires if the AI wire is not cut
 /datum/ai_program/door_override
@@ -648,7 +648,7 @@
 	target.emagged = FALSE
 	target.on = target.has_power()
 	AI.program_picker.nanites -= 5
-	user.playsound_local(user, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
+	user.playsound_local(user, 'sound/machines/ding.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
 	if(!istype(C))
@@ -699,7 +699,7 @@
 		target.heal_overall_damage(damage_healed, damage_healed)
 		if(spell_level >= 5)
 			for(var/obj/item/organ/external/E in target.bodyparts)
-				if(prob(5*spell_level))
+				if(prob(5 * spell_level))
 					E.mend_fracture()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
@@ -794,7 +794,7 @@
 		if(current.level >= 8)
 			continue
 		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
-		to_chat(user, "<span class='notice'>Discovered innovations has led to an increase in the [current] field!</span>")
+		to_chat(user, "<span class='notice'>Discovered innovations have led to an increase in the field of [current]!</span>")
 		upgraded = TRUE
 
 /datum/spell/ai_spell/research_subsystem/on_purchase_upgrade()
@@ -874,7 +874,7 @@
 	var/sign_id = tgui_input_list(usr, "Select an holosgn!", "AI", sign_choices)
 	if(!sign_id)
 		return
-	var/sign_type = null
+	var/sign_type
 	switch(sign_id)
 		if("Engineering")
 			sign_type = /obj/structure/holosign/barrier/engineering
@@ -953,7 +953,7 @@
 	if(!istype(user))
 		return
 	user.enhanced_tracking = TRUE
-	user.alarms_listend_for += "Tracking"
+	user.alarms_listened_for += "Tracking"
 	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
 
 /datum/ai_program/enhanced_tracker/downgrade(mob/living/silicon/ai/user)
@@ -963,7 +963,7 @@
 /datum/ai_program/enhanced_tracker/uninstall(mob/living/silicon/ai/user)
 	..()
 	user.enhanced_tracking = FALSE
-	user.alarms_listend_for -= "Tracking"
+	user.alarms_listened_for -= "Tracking"
 	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay)
 
 /datum/spell/ai_spell/enhanced_tracker
@@ -984,7 +984,7 @@
 	user.tracked_mob = (isnull(user.track.humans[target_name]) ? user.track.others[target_name] : user.track.humans[target_name])
 
 /mob/living/silicon/ai/proc/raise_tracking_alert(area/A, mob/target)
-	var/closest_camera = null
+	var/obj/machinery/camera/closest_camera
 	for(var/obj/machinery/camera/C in A)
 		if(closest_camera == null)
 			closest_camera = C
@@ -992,7 +992,7 @@
 		if(get_dist(closest_camera, target) > get_dist(C, target))
 			closest_camera = C
 			continue
-	target.visible_message("<span class='warning'>A purple light flashes on [closest_camera]!</span>")
+	closest_camera.visible_message("<span class='warning'>A purple light flashes on [closest_camera]!</span>")
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)

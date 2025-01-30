@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/overheat_counter = 0
 	/// How efficient is this machine?
 	var/efficiency = 1
+	/// Milla controller
+	var/datum/milla_safe/ai_node_process/milla = new()
 
 /obj/machinery/ai_node/Initialize(mapload)
 	..()
@@ -36,7 +38,6 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/process()
 	..()
 	if(active)
-		var/datum/milla_safe/ai_node_process/milla = new()
 		milla.invoke_async(src)
 
 /obj/machinery/ai_node/Destroy()
@@ -106,7 +107,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/proc/find_ai()
 	if(!resource_key)
 		return
-	for(var/mob/living/silicon/ai/new_ai in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/new_ai as anything in GLOB.ai_list)
 		if(!assigned_ai) // Not found
 			assigned_ai = new_ai // Assign to the first AI in the list to start
 			continue
@@ -116,12 +117,12 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		if(resource_key == "bandwidth" && assigned_ai.program_picker.bandwidth > new_ai.program_picker.bandwidth)
 			assigned_ai = new_ai
 
-/obj/machinery/ai_node/proc/Overheat()
+/obj/machinery/ai_node/proc/overheat()
 	active = FALSE
 	if(assigned_ai)
 		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
 		assigned_ai = null
-	obj_integrity -= 34 // Overheat it three times and it breaks
+	obj_integrity -= (max_integrity / 3) // Overheat it three times and it breaks
 	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -154,7 +155,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		// Turn the node off due to temperature problems
 		node.overheat_counter++
 		if(node.overheat_counter >= 5)
-			node.Overheat()
+			node.overheat()
 		return
 	node.overheat_counter--
 
@@ -187,9 +188,9 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/network_node/examine_more(mob/user)
 	. = ..()
-	. += "I don't know but I've been told\
-	Captain's got a network node!\
-	Likes to press the on/off switch!\
+	. += "I don't know but I've been told \
+	Captain's got a network node! \
+	Likes to press the on/off switch! \
 	Dig that crazy corporate snitch!"
 
 /obj/machinery/ai_node/network_node/Initialize(mapload)
@@ -213,10 +214,10 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	circuit = /obj/item/circuitboard/ai_resource_console
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/ai_resource/attack_ai(mob/user as mob) // Bad AI, no access to stealing resources
+/obj/machinery/computer/ai_resource/attack_ai(mob/user) // Bad AI, no access to stealing resources
 	return
 
-/obj/machinery/computer/ai_resource/attack_hand(mob/user as mob)
+/obj/machinery/computer/ai_resource/attack_hand(mob/user)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -256,7 +257,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 			"bandwidth_max" = A.program_picker.total_bandwidth
 		)
 		data["ai_list"] += list(ai_data)
-	for(var/obj/machinery/ai_node/node in GLOB.ai_nodes)
+	for(var/obj/machinery/ai_node/node as anything in GLOB.ai_nodes)
 		var/list/node_data = list(
 			"name" = node.name,
 			"uid" = node.UID(),
