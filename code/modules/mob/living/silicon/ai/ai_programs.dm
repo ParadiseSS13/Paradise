@@ -294,10 +294,7 @@
 	AI.program_picker.nanites -= 5
 	user.playsound_local(user, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/spray.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
@@ -360,10 +357,7 @@
 	AI.program_picker.nanites -= 20
 	user.playsound_local(user, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
 	power_sent = min(10000, 2500 + (spell_level * 2500))
@@ -415,10 +409,7 @@
 	AI.program_picker.nanites -= 75
 	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "medbeam", icon = 'icons/effects/beam.dmi', time = 10)
+	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
@@ -490,10 +481,7 @@
 	var/duration = (6 - spell_level) SECONDS
 	AI.program_picker.nanites -= 25
 	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = duration)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
 	spawning_effect.duration = duration
 	QDEL_IN(spawning_effect, duration)
@@ -543,12 +531,7 @@
 	AI.program_picker.nanites -= 50
 	user.playsound_local(user, 'sound/items/syringeproj.ogg', 40, FALSE, use_reverb = FALSE)
 	playsound(src, 'sound/items/syringeproj.ogg', 40, TRUE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		sleep(5)
-		nanofrost.Smoke()
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	sleep(5)
 	nanofrost.Smoke()
 
@@ -650,10 +633,7 @@
 	AI.program_picker.nanites -= 5
 	user.playsound_local(user, 'sound/machines/ding.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/machines/ding.ogg',, 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
@@ -690,10 +670,7 @@
 	AI.program_picker.nanites -= 75
 	user.playsound_local(user, "sound/goonstation/misc/fuse.ogg", 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "medbeam", icon = 'icons/effects/beam.dmi', time = 10)
+	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
@@ -829,11 +806,8 @@
 	AI.program_picker.nanites -= 50
 	user.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/effects/bubbles2.ogg', 50, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 15)
 	var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 15)
 	F.spread_amount = 2
 
 /datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
@@ -891,10 +865,7 @@
 	addtimer(CALLBACK(src, PROC_REF(sign_timer_complete), H), (60 + 30 * spell_level) SECONDS, TIMER_UNIQUE)
 	user.playsound_local(user, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
 	playsound(target, 'sound/machines/click.ogg', 20, FALSE, use_reverb = FALSE)
-	var/obj/machinery/camera/C = find_nearest_camera(target)
-	if(!istype(C))
-		return
-	C.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/holosign_displayer/proc/sign_timer_complete(obj/structure/holosign/H)
 	playsound(H.loc, 'sound/machines/chime.ogg', 20, 1)
