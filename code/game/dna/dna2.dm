@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
-	return EncodeDNABlock(GetUIValue(block))
+	return ENCODE_DNA_BLOCK(GetUIValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get hex-encoded SE block.
 /datum/dna/proc/GetSEBlock(block)
-	return EncodeDNABlock(GetSEValue(block))
+	return ENCODE_DNA_BLOCK(GetSEValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -387,7 +387,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/ui_text_list = list()
 	uni_identity = ""
 	for(var/block in UI)
-		ui_text_list += EncodeDNABlock(block)
+		ui_text_list += ENCODE_DNA_BLOCK(block)
 	uni_identity = ui_text_list.Join("")
 	//testing("New UI: [uni_identity]")
 	dirtyUI = 0
@@ -397,7 +397,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/se_text_list = list()
 	struc_enzymes = ""
 	for(var/block in SE)
-		se_text_list += EncodeDNABlock(block)
+		se_text_list += ENCODE_DNA_BLOCK(block)
 	struc_enzymes = se_text_list.Join("")
 	//testing("Old SE: [oldse]")
 	//testing("New SE: [struc_enzymes]")
