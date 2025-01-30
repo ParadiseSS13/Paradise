@@ -39,7 +39,7 @@
 		if(!AC)
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror"
-			AC.flags = APPEARANCE_ALL_BODY | APPEARANCE_UPDATE_DNA
+			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
 		AC.ui_interact(user)
 
