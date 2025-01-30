@@ -1662,4 +1662,4 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!L.is_robotic())
 			I.GrayScale()
 			var/color = sanitize_hexcolor(skin_colour)
-			I.Blend("[color]DC", ICON_AND) //DC = 220 alpha.
+			I.Blend("[color]C8", ICON_AND) //DC = 220 alpha. C8 = 200
