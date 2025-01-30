@@ -21,8 +21,8 @@
 /area/space/nearstation)
 "af" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks/mapped{
-	dir = 10
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -582,9 +582,9 @@
 /area/ruin/ancientstation/thetacorridor)
 "bN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/stripes/line,
+/obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -749,6 +749,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/medical/bruise_pack,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "cn" = (
@@ -816,8 +819,7 @@
 /area/ruin/ancientstation)
 "cz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/station/dispenser,
-/obj/effect/turf_decal/loading_area,
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "cA" = (
@@ -876,8 +878,12 @@
 /area/ruin/ancientstation)
 "cI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "cJ" = (
@@ -1114,8 +1120,7 @@
 /area/ruin/ancientstation/hivebot)
 "dt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/station/dispenser,
-/obj/effect/turf_decal/loading_area,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "du" = (
@@ -1565,6 +1570,9 @@
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_y = 32
 	},
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "eH" = (
@@ -1851,10 +1859,7 @@
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area{
-	dir = 1
-	},
-/obj/structure/transit_tube/station/reverse/flipped,
+/obj/structure/transit_tube/station/reverse,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "fy" = (
@@ -3085,6 +3090,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/remains/human,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "iv" = (
@@ -4234,18 +4242,19 @@
 /area/ruin/ancientstation)
 "lO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/loading_area,
 /obj/structure/transit_tube/station/reverse/flipped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"lY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "mf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/station/dispenser{
-	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -4504,6 +4513,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
+"pe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -4968,8 +4984,8 @@
 /area/ruin/ancientstation/atmo)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks/mapped{
-	dir = 6
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -5135,10 +5151,13 @@
 /area/ruin/ancientstation/betanorth)
 "wq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks/mapped{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "wD" = (
@@ -5197,6 +5216,13 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"xG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "xP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5298,6 +5324,9 @@
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "zp" = (
@@ -5321,6 +5350,13 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"zD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "zJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5394,6 +5430,13 @@
 	icon_state = "brownfull"
 	},
 /area/ruin/ancientstation/comm)
+"AB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "AI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -5701,6 +5744,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"CW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "De" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/pod,
@@ -5837,6 +5888,11 @@
 	icon_state = "greencorner"
 	},
 /area/ruin/ancientstation/hydroponics)
+"EM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Fg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6057,6 +6113,7 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5
 	},
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "Il" = (
@@ -6320,6 +6377,11 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
+"Ln" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "Lr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -6427,6 +6489,13 @@
 	icon_state = "brownfull"
 	},
 /area/ruin/ancientstation/comm)
+"Mw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "My" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/spawner/random/fungus/maybe,
@@ -6477,6 +6546,13 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
+"Nb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Nh" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/white,
@@ -6776,6 +6852,13 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
+"Qo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "QG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6954,10 +7037,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "SK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/station/dispenser{
-	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
+/obj/structure/transit_tube/station/dispenser/reverse{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -7300,6 +7380,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
+"Wt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "WC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -7357,6 +7444,11 @@
 	icon_state = "bluefull"
 	},
 /area/ruin/ancientstation/comm)
+"XA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "XB" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/cable{
@@ -7947,8 +8039,8 @@ kH
 kH
 kH
 Hw
-Qi
-Qi
+XA
+Mw
 cw
 bf
 Iu
@@ -7995,9 +8087,9 @@ uQ
 kH
 aa
 bf
-Qi
+Ln
 mf
-Qi
+zD
 bf
 Qm
 be
@@ -9051,9 +9143,9 @@ aa
 aa
 aa
 az
-bC
+EM
 cz
-bC
+AB
 cU
 et
 dO
@@ -9099,8 +9191,8 @@ aa
 aa
 aa
 az
-bC
-bC
+Qo
+Wt
 cx
 cU
 bp
@@ -9963,8 +10055,8 @@ aa
 aa
 aa
 az
-bC
-bC
+lY
+xG
 cG
 dg
 Nj
@@ -9981,7 +10073,7 @@ Jz
 dg
 Eu
 iu
-bC
+Nb
 az
 aa
 aa
@@ -10011,9 +10103,9 @@ aa
 aa
 aa
 az
-bC
+EM
 lO
-bC
+AB
 dg
 eR
 dY
@@ -10029,7 +10121,7 @@ lL
 dg
 Ik
 SK
-bC
+pe
 az
 aa
 aa
@@ -10507,7 +10599,7 @@ aa
 aa
 aa
 dC
-fq
+CW
 dt
 af
 dC
