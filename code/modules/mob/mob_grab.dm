@@ -47,6 +47,7 @@
 	affecting.grabbed_by += src
 	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
 	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
+	RegisterSignal(assailant, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, PROC_REF(on_updated_glide_size))
 
 	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -74,12 +75,21 @@
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
-		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(assailant, list(
+			COMSIG_MOVABLE_MOVED,
+			COMSIG_MOVABLE_UPDATED_GLIDE_SIZE,
+		))
 		if(assailant.client)
 			assailant.client.screen -= hud
 		assailant = null
+
 	QDEL_NULL(hud)
 	return ..()
+
+/obj/item/grab/proc/on_updated_glide_size(mob/living/grabber, old_size)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UPDATED_GLIDE_SIZE
+	if(affecting && grabber == assailant && affecting != assailant)
+		affecting.set_glide_size(grabber.glide_size)
 
 /obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
 	SIGNAL_HANDLER
@@ -88,11 +98,8 @@
 	if(!assailant.Adjacent(old_turf))
 		qdel(src)
 		return
-	var/list/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
-	var/assailant_glide_speed = TICKS2DS(world.icon_size / assailant.glide_size)
-	if(state in grab_states_not_moving)
-		affecting.glide_for(assailant_glide_speed)
-	else if(get_turf(affecting) != old_turf)
+
+	if(get_turf(affecting) != old_turf)
 		var/possible_dest = list()
 		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
 		var/list/dest_1_sort = list() // just better dest to be picked first
@@ -131,7 +138,7 @@
 			if(get_turf(affecting) == dest)
 				success_move = TRUE
 				continue
-			if(affecting.Move(dest, get_dir(affecting, dest), assailant_glide_speed))
+			if(affecting.Move(dest, get_dir(affecting, dest), glide_size))
 				success_move = TRUE
 				break
 			continue

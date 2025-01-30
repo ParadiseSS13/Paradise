@@ -143,12 +143,13 @@
 			accessories = parts[5]
 
 		if(item)
-			if(istype(item, /obj/item/grab))
-				grab_items |= item
-			if(item.flags & ABSTRACT)
-				abstract_items |= item
 			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
 				continue
+			if(istype(item, /obj/item/grab))
+				grab_items |= item
+
+			if(item.flags & ABSTRACT)
+				abstract_items |= item
 			else
 				var/item_words = item.name
 				if(item.blood_DNA)
@@ -363,7 +364,7 @@
 
 		return (hudtype in have_hudtypes)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+	else if(isrobot(M) || is_ai(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
 
 	else if(isobserver(M))

@@ -723,7 +723,7 @@
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/U = user
 		rank = "[U.modtype] [U.braintype]"
-	else if(isAI(user))
+	else if(is_ai(user))
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
@@ -929,7 +929,7 @@
 					H.UpdateAppearance()
 
 	//Replacing lost organs with the species default.
-	temp_holder = new /mob/living/carbon/human()
+	temp_holder = new /mob/living/carbon/human/fake()
 	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
 	if(H.dna.species.mutantears)
 		species_organs["ears"] = H.dna.species.mutantears

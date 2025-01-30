@@ -47,18 +47,30 @@
 	if(!istype(M))
 		return ..()
 
-	if(!proximity_flag && !works_from_distance)
-		return
+	if(!proximity_flag)
+		if(!works_from_distance)
+			return
+		if(get_dist(src, M) > (user.client.maxview() + 2))
+			return
 
-	if(get_dist(src, M) <= (user.client.maxview() + 2))
-		if(M.component_parts)
-			M.exchange_parts(user, src)
-			if(works_from_distance)
-				user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+	if(M.component_parts)
+		M.exchange_parts(user, src)
+		if(works_from_distance)
+			user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	else
 		message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+
+/obj/item/storage/part_replacer/tier4/populate_contents()
+	for(var/amount in 1 to 30)
+		new /obj/item/stock_parts/capacitor/quadratic(src)
+		new /obj/item/stock_parts/manipulator/femto(src)
+		new /obj/item/stock_parts/matter_bin/bluespace(src)
+		new /obj/item/stock_parts/micro_laser/quadultra(src)
+		new /obj/item/stock_parts/scanning_module/triphasic(src)
+		new /obj/item/stock_parts/cell/bluespace(src)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
 
 ////////////////////////////////////////
 // 		Bluespace Part Replacer

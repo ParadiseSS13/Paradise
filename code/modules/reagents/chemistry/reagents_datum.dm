@@ -51,6 +51,8 @@
 	var/burn_duration = 30 SECONDS
 	/// How many firestacks will the reagent apply when it is burning? Currently only used for chemical flamethrowers
 	var/fire_stack_applications = 1
+	/// If we burn in a fire, what color do we have?
+	var/burn_color
 
 /datum/reagent/Destroy()
 	. = ..()

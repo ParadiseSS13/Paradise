@@ -85,13 +85,9 @@
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/pressure_overlay/pressure_overlay
 
-	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
-	var/list/milla_superconductivity = list(
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT)
-	var/list/milla_data = list()
+	var/list/milla_data = null
+
+	new_attack_chain = TRUE
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -116,7 +112,7 @@
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
+	visibility_changed()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
@@ -148,7 +144,7 @@
 			qdel(A)
 		return
 	REMOVE_FROM_SMOOTH_QUEUE(src)
-	visibilityChanged()
+	visibility_changed()
 	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	bound_air = null
@@ -478,31 +474,31 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/proc/visibilityChanged()
+/turf/proc/visibility_changed()
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		GLOB.cameranet.update_visibility(src)
 
-/turf/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/turf/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(can_lay_cable())
-		if(istype(I, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = I
+		if(istype(used, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = used
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
 					LC.attackby__legacy__attackchain(C, user)
-					return
+					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
-			return TRUE
-		else if(istype(I, /obj/item/rcl))
-			var/obj/item/rcl/R = I
+			return ITEM_INTERACT_COMPLETE
+		else if(istype(used, /obj/item/rcl))
+			var/obj/item/rcl/R = used
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby__legacy__attackchain(R, user)
-						return
+						return ITEM_INTERACT_COMPLETE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
 
-	return FALSE
+			return ITEM_INTERACT_COMPLETE
 
 /turf/proc/can_have_cabling()
 	return TRUE
@@ -603,6 +599,19 @@
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
+/turf/proc/rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust)
+
+/turf/proc/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust/heretic)
+	new /obj/effect/glowing_rune(src)
+
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()
 	var/list/datum/element/decals = list()
@@ -632,11 +641,11 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
-	if(air.lastread < SSair.times_fired)
+	if(air.lastread < SSair.milla_tick)
 		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(src, milla_tile)
 		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.times_fired
+		air.lastread = SSair.milla_tick
 		air.readonly = null
 		air.dirty = FALSE
 		air.synchronized = FALSE
@@ -669,7 +678,7 @@
 			return FALSE
 
 		// If it's old, delete it.
-		if(active_hotspot.death_timer < SSair.times_fired)
+		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
 			return FALSE
 		else
@@ -678,7 +687,7 @@
 	if(isnull(active_hotspot))
 		active_hotspot = new(src)
 
-	active_hotspot.death_timer = SSair.times_fired + 4
+	active_hotspot.death_timer = SSair.milla_tick + 4
 	if(air.hotspot_volume() > 0)
 		active_hotspot.temperature = air.hotspot_temperature()
 		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
@@ -690,7 +699,7 @@
 	return TRUE
 
 /turf/simulated/proc/update_wind()
-	if(wind_tick != SSair.times_fired)
+	if(wind_tick != SSair.milla_tick)
 		QDEL_NULL(wind_effect)
 		wind_tick = null
 		return FALSE

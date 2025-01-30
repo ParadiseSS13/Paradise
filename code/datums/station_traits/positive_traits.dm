@@ -213,7 +213,7 @@
 
 	var/cybernetic_type = job_to_cybernetic[job.type]
 	if(!cybernetic_type)
-		if(isAI(spawned))
+		if(is_ai(spawned))
 			var/mob/living/silicon/ai/ai = spawned
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return

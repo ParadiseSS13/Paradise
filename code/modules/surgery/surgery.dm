@@ -488,10 +488,27 @@
 /**
  * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.
  *
- * * surgery - A surgery in progress.
+ * Arguments:
+ * * surgery - The main surgery this is being invoked by.
+ * * with_tools - Whether to include the tool necessary for the step at the end of the step information.
+ * *
  */
-/datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
-	return name
+/datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
+	if(!with_tools)
+		return name
+
+	var/list/tools = list()
+	for(var/tool in allowed_tools)
+		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
+			tools |= tool
+	if(!length(tools))
+		// if nothing else, just pick the first in the list.
+		var/atom/tool = allowed_tools[1]
+		tools |= (ispath(tool)) ? tool::name : "[tool]"
+
+
+	return "[name] ([english_list(tools, and_text=" or ")])"
 
 /**
  * Spread some nasty germs to an organ.
