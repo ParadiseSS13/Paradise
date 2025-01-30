@@ -43,7 +43,7 @@
 	if(!istype(used, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
 		return ITEM_INTERACT_COMPLETE
-	
+
 	to_chat(user, "<span class='notice'>You cut open the present.</span>")
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.forceMove(loc)
