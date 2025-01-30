@@ -156,30 +156,15 @@
 	return TRUE
 
 /obj/machinery/economy/vending/coffee/do_vend(datum/data/vending_product/R, mob/user)
-	if(..())
+	var/obj/item/reagent_containers/drinks/vended = ..()
+	if(!istype(vended))
 		return
-	var/obj/item/reagent_containers/drinks/vended = new R.product_path()
 
 	if(istype(vended, /obj/item/reagent_containers/drinks/mug))
-		var/put_on_turf = TRUE
-		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
 		return
 
 	vended.reagents.trans_to(inserted_item, vended.reagents.total_volume)
-	if(vended.reagents.total_volume)
-		var/put_on_turf = TRUE
-		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
-	else
+	if(!vended.reagents.total_volume)
 		qdel(vended)
 
 

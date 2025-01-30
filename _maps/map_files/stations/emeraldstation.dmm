@@ -35356,6 +35356,16 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
+"haD" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "haF" = (
 /obj/structure/table/wood,
 /obj/item/stack/tape_roll,
@@ -36290,6 +36300,18 @@
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30;
+	pixel_y = 5
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30;
+	pixel_y = -13
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -173427,7 +173449,7 @@ upq
 jDu
 pXO
 snW
-tZY
+haD
 hjy
 jLZ
 ihH

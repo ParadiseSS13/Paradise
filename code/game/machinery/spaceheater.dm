@@ -134,7 +134,9 @@
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
 					cell.update_icon()
-					usr.put_in_hands(cell)
+					cell.forceMove(loc)
+					if(Adjacent(usr) && !issilicon(usr))
+						usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
 					cell = null
 					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")

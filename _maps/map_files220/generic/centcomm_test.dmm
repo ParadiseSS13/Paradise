@@ -985,7 +985,6 @@
 /obj/item/dnainjector/remoteview,
 /obj/item/dnainjector/stuttmut,
 /obj/item/dnainjector/telemut,
-/obj/item/dnainjector/tourmut,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "oj" = (
@@ -1518,7 +1517,6 @@
 /obj/item/dnainjector/antiremoteview,
 /obj/item/dnainjector/antistutt,
 /obj/item/dnainjector/antitele,
-/obj/item/dnainjector/antitour,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "xh" = (
