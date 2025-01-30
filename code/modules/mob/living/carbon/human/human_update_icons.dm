@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ("chest")
 		base_icon = chest.get_icon(skeleton)
-
+		var/slimify = istype(src.dna.species, /datum/species/slime) && species_subtype != "None"
 		for(var/obj/item/organ/external/part in bodyparts)
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
@@ -214,14 +214,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
 				if(!(part.icon_position & RIGHT))
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+				slimify_limb(part, temp2, slimify)
 				base_icon.Blend(temp2, ICON_OVERLAY)
 				if(part.icon_position & LEFT)
 					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
 				if(part.icon_position & RIGHT)
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+				slimify_limb(part, temp2, slimify)
 				base_icon.Blend(temp2, ICON_UNDERLAY)
 			else
+				slimify_limb(part, temp, slimify)
 				base_icon.Blend(temp, ICON_OVERLAY)
+
 
 		if(!skeleton)
 			if(isgolem(src))
@@ -241,10 +245,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
-
-		if(istype(src.dna.species, /datum/species/slime) && species_subtype != "None") // Used for a when slime morphs into another species. Makes them slightly transparent.
-			base_icon.GrayScale()
-			base_icon.Blend("[skin_colour]DC", ICON_AND) //DC = 220 alpha.
 
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		GLOB.human_icon_cache[icon_key] = new_base
@@ -1656,3 +1656,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				. += "[part.s_tone]"
 
 	. = "[.][!!husk][!!hulk][!!skeleton]"
+
+/mob/living/carbon/human/proc/slimify_limb(obj/item/organ/external/L, icon/I, slimify)
+	if(slimify) // Used for a when slime morphs into another species. Makes them slightly transparent.
+		if(!L.is_robotic())
+			I.GrayScale()
+			var/color = sanitize_hexcolor(skin_colour)
+			I.Blend("[color]DC", ICON_AND) //DC = 220 alpha.
