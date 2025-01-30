@@ -268,5 +268,4 @@
 		target.ContractDisease(plague)
 
 /obj/item/zombie_claw/activate_self(mob/user)
-	. = ..()
 	qdel(src)
