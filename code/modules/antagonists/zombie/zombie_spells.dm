@@ -267,5 +267,8 @@
 		var/datum/disease/plague = new claw_disease
 		target.ContractDisease(plague)
 
-/obj/item/zombie_claw/activate_self(mob/user)
+/obj/item/plague_claw/activate_self(mob/user)
+	if(..())
+		return
 	qdel(src)
+
