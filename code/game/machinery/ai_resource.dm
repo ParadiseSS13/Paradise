@@ -268,13 +268,13 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		data["nodes_list"] += list(node_data)
 	return data
 
-/obj/machinery/computer/ai_resource/ui_act(action, params)
+/obj/machinery/computer/ai_resource/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	. = FALSE
-	if(!is_authenticated(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+	if(!is_authenticated(ui.user))
+		to_chat(ui.user, "<span class='warning'>Access denied.</span>")
 		return
 	if(SSticker.current_state == GAME_STATE_FINISHED)
-		to_chat(usr, "<span class='warning'>Access denied, AIs are no longer your station's property.</span>")
+		to_chat(ui.user, "<span class='warning'>Access denied, AIs are no longer your station's property.</span>")
 		return
