@@ -87,6 +87,12 @@
 	/// Enable weather events initialized by SSweather. New weather events can still
 	/// be added during the round if this is disabled.
 	var/enable_default_weather_events = TRUE
+	/// Enables yt-dlp
+	/// You can install yt-dlp with "pip install yt-dlp" if you have pip installed
+	/// from https://github.com/yt-dlp/yt-dlp/releases
+	/// or your package manager
+	/// The code assumes yt-dlp is in your system PATH
+	var/enable_ytdlp = FALSE
 
 /datum/configuration_section/general_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -121,6 +127,7 @@
 	CONFIG_LOAD_BOOL(reactionary_explosions, data["reactionary_explosions"])
 	CONFIG_LOAD_BOOL(random_ai_lawset, data["random_ai_lawset"])
 	CONFIG_LOAD_BOOL(enable_default_weather_events, data["enable_default_weather_events"])
+	CONFIG_LOAD_BOOL(enable_ytdlp, data["enable_yt-dlp"])
 
 	// Numbers
 	CONFIG_LOAD_NUM(lobby_time, data["lobby_time"])
