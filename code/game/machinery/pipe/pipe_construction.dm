@@ -319,6 +319,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
+			if(label)
+				P.AddComponent(/datum/component/label, label)
 
 		if(PIPE_JUNCTION)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/P = new makes_type(loc)
@@ -326,6 +328,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
+			if(label)
+				P.AddComponent(/datum/component/label, label)
 
 		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE)
 			var/obj/machinery/atmospherics/trinary/P = new makes_type(loc)
@@ -334,6 +338,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
+			if(label)
+				P.AddComponent(/datum/component/label, label)
 
 		if(PIPE_CIRCULATOR) //circulator
 			var/obj/machinery/atmospherics/binary/circulator/P = new makes_type(loc)
@@ -342,12 +348,16 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
+			if(label)
+				P.AddComponent(/datum/component/label, label)
 
 		else
 			var/obj/machinery/atmospherics/P = new makes_type(loc)
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
+			if(label)
+				P.AddComponent(/datum/component/label, label)
 
 	user.visible_message( \
 		"<span class='notice'>[user] fastens [src].</span>",
@@ -363,6 +373,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	icon_state = "meter"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
+	var/label = null
 
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
@@ -389,6 +400,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	icon_state = "gsensor0"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
+	var/label = null
 
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
