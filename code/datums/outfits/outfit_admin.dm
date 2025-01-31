@@ -769,9 +769,9 @@
 		return
 
 	if(is_solgov_lieutenant)
-		H.real_name = "Lieutenant [pick(GLOB.last_names)]"
+		H.real_name = "Лейтенант [pick(GLOB.last_names)]"
 	else
-		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]"
+		H.real_name = "[pick("Капрал", "Сержант", "Старший Сержант", "Сержант 1-го Класса", "Мастер-Сержант", "Сержант-Майор")] [pick(GLOB.last_names)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = name
@@ -1457,7 +1457,7 @@
 		backpack_contents.Add(/obj/item/gun/throw/piecannon)
 		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
-	var/clown_rank = pick("Trickster First Class", "Master Clown", "Major Prankster")
+	var/clown_rank = pick("Приколист 1-го Класса", "Мастер-Пранкстер", "Майор Клоун")
 	var/clown_name = pick(GLOB.clown_names)
 	H.real_name = "[clown_rank] [clown_name]"
 

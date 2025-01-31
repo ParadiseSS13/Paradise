@@ -74,7 +74,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 /datum/code_revision/proc/get_testmerge_chatmessage(header = FALSE)
 	var/list/msg = list()
 	if(header)
-		msg += "<span class='notice'>The following PRs are currently testmerged:</span>"
+		msg += "<span class='notice'>Следующие ПРы на данный момент тестируются:</span>"
 
 	for(var/pr in GLOB.revision_info.testmerges)
 		var/datum/tgs_revision_information/test_merge/tm = pr
@@ -83,14 +83,14 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	return msg.Join("<br>")
 
 /client/verb/get_revision_info()
-	set name = "Get Revision Info"
+	set name = "Получить тех. информацию"
 	set category = "OOC"
-	set desc = "Retrieve technical information about the server"
+	set desc = "Получить техническую информацию о сервере"
 
 	var/list/msg = list()
-	msg += "<span class='notice'><b>Server Revision Info</b></span>"
+	msg += "<span class='notice'><b>Информация о сервере</b></span>"
 	// Round ID first
-	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
+	msg += "<b>Номер раунда:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
 	#ifdef PARADISE_PRODUCTION_HARDWARE
 	msg += "<b>Production-hardware specific compile:</b> Yes"
 	#else
@@ -113,12 +113,12 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 		msg += "<b>TGS Version</b>: [tgs_ver.deprefixed_parameter] (API: [api_ver.deprefixed_parameter])"
 
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
-		msg += "<b>Active Testmerges:</b>"
+		msg += "<b>Активные тестовые обновления:</b>"
 		msg += GLOB.revision_info.get_testmerge_chatmessage(FALSE)
 
 	// Show server BYOND version
-	msg += "<b>Server BYOND Version:</b> [world.byond_version].[world.byond_build]"
+	msg += "<b>Версия серверного BYOND:</b> [world.byond_version].[world.byond_build]"
 	// And the clients for good measure
-	msg += "<b>Client (your) BYOND Version:</b> [byond_version].[byond_build]"
+	msg += "<b>Версия клиентского (твоего) BYOND:</b> [byond_version].[byond_build]"
 
 	to_chat(usr, msg.Join("<br>"))

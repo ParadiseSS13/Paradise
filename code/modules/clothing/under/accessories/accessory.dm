@@ -156,7 +156,7 @@
 		return
 	if(!is_station_level(user.z))
 		return
-	GLOB.global_announcer.autosay("[H] has been rewarded [src] by [user]!", "Medal Announcer", channel, src)
+	GLOB.global_announcer.autosay("[user] награждает [H] [src]!", "Оповещение О Награждении", channel, src)
 	channel = null
 
 // GOLD (awarded by centcom)

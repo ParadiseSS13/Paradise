@@ -2,7 +2,7 @@
 //Command
 
 /area/station/command/bridge
-	name = "\improper Bridge"
+	name = "Мостик"
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -10,7 +10,7 @@
 	request_console_announces = TRUE
 
 /area/station/command/meeting_room
-	name = "\improper Heads of Staff Meeting Room"
+	name = "Конференц-Зал Командования"
 	icon_state = "meeting"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 	request_console_flags = RC_ASSIST | RC_INFO
@@ -18,7 +18,7 @@
 	request_console_announces = TRUE
 
 /area/station/command/office/captain
-	name = "\improper Captain's Office"
+	name = "Офис Капитана"
 	icon_state = "captainoffice"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	request_console_flags = RC_ASSIST | RC_INFO
@@ -26,72 +26,72 @@
 	request_console_announces = TRUE
 
 /area/station/command/office/captain/bedroom
-	name = "\improper Captain's Bedroom"
+	name = "Каюта Капитана"
 	icon_state = "captain"
 
 /area/station/command/office/hop
-	name = "\improper Head of Personnel's Quarters"
+	name = "Кабинет Главы Персонала"
 	icon_state = "hop"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Head of Personnel's Desk"
 	request_console_announces = TRUE
 
 /area/station/command/office/rd
-	name = "\improper Research Director's Quarters"
+	name = "Кабинет Директора Исследований"
 	icon_state = "rd"
 	request_console_flags = RC_ASSIST | RC_SUPPLY | RC_INFO
 	request_console_name = "Research Director's Desk"
 	request_console_announces = TRUE
 
 /area/station/command/office/ce
-	name = "\improper Chief Engineer's Quarters"
+	name = "Кабинет Главного Инженера"
 	icon_state = "ce"
 	request_console_flags = RC_ASSIST | RC_SUPPLY | RC_INFO
 	request_console_name = "Chief Engineer's Desk"
 	request_console_announces = TRUE
 
 /area/station/command/office/hos
-	name = "\improper Head of Security's Quarters"
+	name = "Кабинет Главы Службы Безопасности"
 	icon_state = "hos"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Head of Security's Desk"
 	request_console_announces = TRUE
 
 /area/station/command/office/cmo
-	name = "\improper Chief Medical Officer's Quarters"
+	name = "Кабинет Главного Врача"
 	icon_state = "CMO"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Chief Medical Officer's Desk"
 	request_console_announces = TRUE
 
 /area/station/command/office/ntrep
-	name = "\improper Nanotrasen Representative's Office"
+	name = "Кабинет Представителя НТ"
 	icon_state = "ntrep"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "NT Representative"
 	request_console_announces = TRUE
 
 /area/station/command/office/blueshield
-	name = "\improper Blueshield's Office"
+	name = "Кабинет Синего Щита"
 	icon_state = "blueshield"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Blueshield"
 	request_console_announces = TRUE
 
 /area/station/command/teleporter
-	name = "\improper Teleporter"
+	name = "Телепортерная"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/station/command/vault
-	name = "\improper Vault"
+	name = "Хранилище"
 	icon_state = "nuke_storage"
 
 /area/station/command/server
-	name = "\improper Messaging Server Room"
+	name = "Серверная Комната Обработки Сообщений"
 	icon_state = "server"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/command/customs
-	name = "Customs"
+	name = "Контрольно-Пропускной Пункт Командования"
 	icon_state = "checkpoint1"

@@ -70,7 +70,7 @@
       - head-branch: 'merge[-_]upstream'
 
 ':pencil: Перевод':
-  - base-branch: 'translate'
+  - head-branch: ['^translate', 'translate', '^translation', 'translation']
 
 ':wrench: Фикс':
   - head-branch: ['^fix', 'fix']

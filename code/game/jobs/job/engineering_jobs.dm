@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_ENGINEERING
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
@@ -35,7 +35,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/chief_engineer
-	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
+	important_information = "Эта роль требует, чтобы вы координировали работу отдела. От вас требуется знание Стандартных Рабочих Процедур (Инженерных), базовых должностных обязанностей и профессиональных действий."
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -66,7 +66,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	job_department_flags = DEP_FLAG_ENGINEERING
-	supervisors = "the chief engineer"
+	supervisors = "главным инженером"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(
@@ -111,7 +111,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	job_department_flags = DEP_FLAG_ENGINEERING
-	supervisors = "the chief engineer"
+	supervisors = "главным инженером"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(

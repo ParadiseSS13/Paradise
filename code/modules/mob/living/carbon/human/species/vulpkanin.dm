@@ -8,10 +8,10 @@
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blurb = "Vulpkanin are bipedal canid-like beings from the Vazzend binary system, having been forced from their homeworld by a cataclysmic event and scattered throughout the Orion Sector. \
-	While Vulpkanin are chiefly led by independent planetary governments, they also serve under a loose federation known as The Assembly.<br/><br/> \
-	Their religious systems traditionally pay tribute to an all-infusing universal will called 'Racht'. \
-	Vulpkanin groups are minor players in galactic affairs, as they are largely concerned with the restoration of their homeworld."
+	blurb = "Вульпканины - двуногие собакоподобные существа из системы Каппа Кита, подверженной клановым войнам за объединение вида под началом доминирующего. \
+	Ныне разобщённый и вечно воюющий друг с другом народ, вынужден бежать из своей системы, наводняя человеческое пространство неприрывающимся потоком.<br/><br/> \
+	Их религиозные системы традиционно отдают дань памяти всеобъемлющей энергии, называемой \"Рахт\". \
+	Группы Вульпканинов являются незначительными игроками в галактических делах и в основном занимаются восстановлением своей родной планеты Алтам."
 
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

@@ -1,5 +1,5 @@
 /obj/machinery/processor
-	name = "\improper Food Processor"
+	name = "\improper кухонный комбайн"
 	desc = "Used for turning ingredients into other ingredients."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"

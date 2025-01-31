@@ -98,7 +98,7 @@
 	request_console_name = "Cargo Bay"
 
 /area/station/medical/sleeper
-	request_console_name = "Medbay"
+	request_console_name = "Медицинский Отдел"
 
 /area/station/medical/virology
 	request_console_name = "Virology"

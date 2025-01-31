@@ -39,7 +39,7 @@
 		if(isnewplayer(player))
 			continue
 
-		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] ЯВИЛСЯ</b></font>")
 		SEND_SOUND(player, cry)
 
 	SSticker.mode?.cult_team?.successful_summon()

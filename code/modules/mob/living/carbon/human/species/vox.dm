@@ -10,10 +10,10 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
-	blurb = "The Vox are remnants of an ancient race, that originate from arkships. \
-	These bioengineered, reptilian, beaked, and quilled beings have a physiological caste system and follow 'The Inviolate' tenets.<br/><br/> \
-	Breathing pure nitrogen, they need specialized masks and tanks for survival outside their arkships. \
-	Their insular nature limits their involvement in broader galactic affairs, maintaining a distinct, yet isolated presence away from other species."
+	blurb = "Воксы - это остатки древней расы, которые берут своё начало от огромных космических кораблей, именуемых ковчегами. \
+	Эти биоинженерные, рептилоидные, клюворылые и перьевые существа имеют физиологическую кастовую систему и следуют принципам \"Незыблемости\".<br/><br/> \
+	Дышащие чистым азотом, они нуждаются в специальных масках и баллонах для выживания вне своих кораблей. \
+	Их замкнутый характер ограничивает их участие в более широких галактических делах, они сохраняют отчетливое, но изолированное присутствие вдали от других видов."
 
 	breathid = "n2"
 

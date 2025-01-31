@@ -49,7 +49,7 @@
 		to_chat(usr, span_warning("Вы должны подождать ещё [GLOB.configuration.ss220_misc.respawn_delay] минут чтобы возродиться!"))
 		return
 
-	if(alert("Вы уверен что хотите возродиться?", "Возрождение", "Да", "Нет") != "Да")
+	if(alert("Вы уверены что хотите возродиться?", "Возрождение", "Да", "Нет") != "Да")
 		return
 
 	log_game("[key_name(usr)] has respawned.")

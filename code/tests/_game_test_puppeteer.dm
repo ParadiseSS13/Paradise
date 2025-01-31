@@ -100,7 +100,7 @@
 	return puppet_chat_list[length(puppet_chat_list)]
 
 /datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
-	return findtextEx(get_last_chatlog(), snippet)
+	return findtextEx_char(get_last_chatlog(), snippet)
 
 /datum/test_puppeteer/proc/find_nearby(atom_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))

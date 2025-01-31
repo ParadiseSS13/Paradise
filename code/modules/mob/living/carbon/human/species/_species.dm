@@ -120,7 +120,7 @@
 	var/dangerous_existence = FALSE
 
 	//Death vars.
-	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
+	var/death_message = "цепенеет и расслабляется, взгляд становится пустым и безжизненным..."
 	var/list/suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their thumbs into their eye sockets!",

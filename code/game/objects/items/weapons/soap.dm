@@ -1,6 +1,6 @@
 /obj/item/soap
 	name = "soap"
-	desc = "A cheap bar of soap. Doesn't smell."
+	desc = "Дешёвый кусок мыла. Без запаха."
 	gender = PLURAL
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
