@@ -98,11 +98,9 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		pipename = make_from.name
 		color = make_from.pipe_color
 		makes_type = make_from.type
-		var/is_bent
+		var/is_bent = FALSE
 
-		if(make_from.initialize_directions in list(NORTH|SOUTH, WEST|EAST))
-			is_bent = FALSE
-		else
+		if(make_from.initialize_directions in list(NORTH|WEST, NORTH|EAST, SOUTH|WEST, SOUTH|EAST))
 			is_bent = TRUE
 
 		pipe_type = GLOB.pipe_path2type[makes_type] + is_bent
@@ -129,7 +127,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 	else
 		pipe_type = new_pipe_type
-		makes_type = GLOB.pipe_path2type[pipe_type]
+		makes_type = GLOB.pipe_path2type[num2text(pipe_type)]
 		dir = new_dir
 		if(pipe_type == PIPE_SUPPLY_STRAIGHT || pipe_type == PIPE_SUPPLY_BENT || pipe_type == PIPE_SUPPLY_MANIFOLD || pipe_type == PIPE_SUPPLY_MANIFOLD4W || pipe_type == PIPE_SUPPLY_CAP)
 			connect_types = list(CONNECT_TYPE_SUPPLY)
@@ -320,12 +318,14 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			P.initialize_directions_he = pipe_dir
 			if(pipename)
 				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_JUNCTION)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/P = new makes_type(loc)
-			P.initialize_directions_he = turn(pipe_dir, 180)
+			P.initialize_directions_he = dir
 			if(pipename)
 				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE)
 			var/obj/machinery/atmospherics/trinary/P = new makes_type(loc)
@@ -333,20 +333,21 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			dir = unflip(dir)
 			if(pipename)
 				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_CIRCULATOR) //circulator
 			var/obj/machinery/atmospherics/binary/circulator/P = new makes_type(loc)
-			P.on_construction(dir, pipe_dir, color)
 			if(flipped)
 				P.side = CIRCULATOR_SIDE_RIGHT
 			if(pipename)
 				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
 
 		else
 			var/obj/machinery/atmospherics/P = new makes_type(loc)
-			P.on_construction(dir, pipe_dir, color)
 			if(pipename)
 				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
 
 	user.visible_message( \
 		"<span class='notice'>[user] fastens [src].</span>",
