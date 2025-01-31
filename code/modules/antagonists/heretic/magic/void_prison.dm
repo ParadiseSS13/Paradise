@@ -84,6 +84,8 @@
 	icon_state = "voidball_effect"
 	layer = ABOVE_ALL_MOB_LAYER
 	vis_flags = VIS_INHERIT_ID
+	invisibility = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 ///Plays a opening animation
 /obj/effect/abstract/voidball/proc/animate_opening()

@@ -237,3 +237,224 @@
 
 	recent_examiner_refs -= mob_ref
 	heal_overall_damage(5)
+
+
+// What if we took a linked list... But made it a mob?
+/// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
+/mob/living/simple_animal/hostile/heretic_summon/armsy
+	name = "Terror of the night"
+	real_name = "Armsy"
+	desc = "An abomination made from dozens and dozens of severed and malformed limbs piled onto each other."
+	icon_state = "armsy_start"
+	icon_living = "armsy_start"
+	maxHealth = 200
+	health = 200
+	melee_damage_lower = 10
+	melee_damage_upper = 15
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	mob_size = MOB_SIZE_LARGE
+	sentience_type = SENTIENCE_BOSS
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	mob_biotypes = MOB_ORGANIC|MOB_EPIC
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	obj_damage = 200
+	ranged_cooldown_time = 5
+	ranged = TRUE
+	rapid = 1
+	actions_to_add = list(/datum/spell/worm_contract)
+	///Previous segment in the chain
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/backsy
+	///Next segment in the chain
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/front
+	///Your old location
+	var/oldloc
+	///Allow / disallow pulling
+	var/allow_pulling = FALSE
+	///How many arms do we have to eat to expand?
+	var/stacks_to_grow = 5
+	///Currently eaten arms
+	var/current_stacks = 0
+	///Does this follow other pieces?
+	var/follow = TRUE
+
+/*
+ * Arguments
+ * * spawn_bodyparts - whether we spawn additional armsy bodies until we reach length.
+ * * worm_length - the length of the worm we're creating. Below 3 doesn't work very well.
+ */
+/mob/living/simple_animal/hostile/heretic_summon/armsy/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 6)
+	. = ..()
+	if(worm_length < 3)
+		stack_trace("[type] created with invalid len ([worm_length]). Reverting to 3.")
+		worm_length = 3 //code breaks below 3, let's just not allow it.
+
+	oldloc = loc
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(update_chain_links))
+	if(!spawn_bodyparts)
+		return
+
+	allow_pulling = TRUE
+	// Sets the hp of the head to be exactly the (length * hp), so the head is de facto the hardest to destroy.
+	maxHealth = worm_length * maxHealth
+	health = maxHealth
+
+	// The previous link in the chain
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/prev = src
+	// The current link in the chain
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/current
+
+	for(var/i in 1 to worm_length)
+		current = new type(drop_location(), FALSE)
+		current.icon_state = "armsy_mid"
+		current.icon_living = "armsy_mid"
+		current.AIStatus = AI_OFF
+		current.front = prev
+		prev.backsy = current
+		prev = current
+
+	prev.icon_state = "armsy_end"
+	prev.icon_living = "armsy_end"
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustBruteLoss(amount, updating_health, forced, required_bodytype)
+	if(backsy)
+		return backsy.adjustBruteLoss(amount, updating_health, forced)
+
+	return ..()
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustFireLoss(amount, updating_health, forced, required_bodytype)
+	if(backsy)
+		return backsy.adjustFireLoss(amount, updating_health, forced)
+
+	return ..()
+
+// We are literally a vessel of otherworldly destruction, we bring our own gravity unto this plane
+/mob/living/simple_animal/hostile/heretic_summon/armsy/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
+
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/can_be_pulled()
+	return FALSE
+
+/// Updates every body in the chain to force move onto a single tile.
+/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/contract_next_chain_into_single_tile()
+	if(!backsy)
+		return
+
+	backsy.forceMove(loc)
+	backsy.contract_next_chain_into_single_tile()
+
+/*
+ * Recursively get the length of our chain.
+ */
+/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/get_length()
+	. = 1
+	if(backsy)
+		. += backsy.get_length()
+
+/// Updates the next mob in the chain to move to our last location. Fixes the chain if somehow broken.
+/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/update_chain_links()
+	SIGNAL_HANDLER
+
+	if(!follow)
+		return
+
+	if(backsy && backsy.loc != oldloc)
+		backsy.Move(oldloc)
+
+	// self fixing properties if somehow broken
+	if(front && loc != front.oldloc)
+		forceMove(front.oldloc)
+
+	oldloc = loc
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/Destroy()
+	if(front)
+		front.icon_state = "armsy_end"
+		front.icon_living = "armsy_end"
+		front.backsy = null
+		front = null
+	if(backsy)
+		QDEL_NULL(backsy) // chain destruction baby
+	return ..()
+
+/*
+ * Handle healing our chain.
+ *
+ * Eating arms off the ground heals us,
+ * and if we eat enough arms while above
+ * a certain health threshold,  we even gain back parts!
+ */
+/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/heal()
+	if(backsy)
+		backsy.heal()
+		return
+
+	adjustBruteLoss(-maxHealth * 0.5, FALSE)
+	adjustFireLoss(-maxHealth * 0.5, FALSE)
+
+	if(health < maxHealth * 0.8)
+		return
+
+	current_stacks++
+	if(current_stacks < stacks_to_grow)
+		return
+
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/prev = new type(drop_location(), FALSE)
+	icon_state = "armsy_mid"
+	icon_living = "armsy_mid"
+	backsy = prev
+	prev.icon_state = "armsy_end"
+	prev.icon_living = "armsy_end"
+	prev.front = src
+	prev.AIStatus = AI_OFF
+	current_stacks = 0
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/Shoot(atom/targeted_atom)
+	GiveTarget(targeted_atom)
+	AttackingTarget()
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/AttackingTarget()
+	if(istype(target, /obj/item/organ/external/arm))
+		playsound(src, 'sound/magic/demon_consume.ogg', 50, TRUE)
+		qdel(target)
+		heal()
+		return
+	if(target == backsy || target == front)
+		return
+	if(backsy)
+		backsy.GiveTarget(target)
+		backsy.AttackingTarget()
+	if(!Adjacent(target))
+		return
+	do_attack_animation(target)
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/carbon_target = target
+
+		var/list/parts_to_remove = list()
+		for(var/obj/item/organ/external/bodypart in carbon_target.bodyparts)
+			if(bodypart.body_part == ARM_LEFT || bodypart.body_part == ARM_RIGHT)
+				if(!(bodypart.limb_flags & CANNOT_DISMEMBER))
+					parts_to_remove += bodypart
+
+		if(parts_to_remove.len && prob(10))
+			var/obj/item/organ/external/lost_arm = pick(parts_to_remove)
+			lost_arm.droplimb(FALSE, DROPLIMB_SHARP)
+
+	return ..()
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/prime
+	name = "Lord of the Night"
+	real_name = "Master of Decay"
+	maxHealth = 400
+	health = 400
+	melee_damage_lower = 30
+	melee_damage_upper = 50
+
+/mob/living/simple_animal/hostile/heretic_summon/armsy/prime/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 9)
+	. = ..()
+	var/matrix/matrix_transformation = matrix()
+	matrix_transformation.Scale(1.4, 1.4)
+	transform = matrix_transformation
