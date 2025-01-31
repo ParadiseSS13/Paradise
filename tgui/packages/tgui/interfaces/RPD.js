@@ -28,7 +28,7 @@ export const RPD = (props, context) => {
   };
 
   return (
-    <Window width={550} height={415}>
+    <Window width={550} height={440}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
