@@ -313,10 +313,10 @@
 	operating = NONE
 	return TRUE
 
-/obj/machinery/door/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	return ..()
@@ -386,6 +386,7 @@
 					ae = electronics
 					electronics = null
 					ae.forceMove(loc)
+				ae.is_installed = FALSE
 
 				qdel(src)
 	else

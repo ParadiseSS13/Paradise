@@ -44,8 +44,7 @@
 			to_chat(user, "<span class='notice'>There's already a signaller attached!</span>")
 			return
 		var/obj/item/assembly/signaler/signal = I
-		user.unEquip(signal)
-		signal.forceMove(src)
+		user.transfer_item_to(signal, src)
 		attached_signaler = signal
 		if(signal.receiving)
 			RegisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED, PROC_REF(on_signal))
@@ -83,7 +82,7 @@
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
+			M.unequip(src)
 		M.put_in_hands(src)
 		anchored = FALSE
 

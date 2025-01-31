@@ -79,18 +79,18 @@
 	else
 		icon_state = "prize_counter-on"
 
-/obj/machinery/prize_counter/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/tickets))
-		var/obj/item/stack/tickets/T = O
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+/obj/machinery/prize_counter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/tickets))
+		var/obj/item/stack/tickets/T = used
+		if(user.drop_item_to_ground(T))
 			tickets += T.amount
 			SStgui.update_uis(src)
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

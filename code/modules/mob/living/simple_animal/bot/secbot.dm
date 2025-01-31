@@ -120,7 +120,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -315,7 +315,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(find_new_target())	// see if any criminals are in range
 				return
@@ -326,7 +326,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				playsound(loc, 'sound/machines/buzz-two.ogg', 25, FALSE)
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -441,7 +441,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)

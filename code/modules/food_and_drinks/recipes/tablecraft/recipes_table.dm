@@ -2,8 +2,8 @@
 	name = "Sandwich"
 	reqs = list(
 		/obj/item/food/meatsteak = 1,
-		/obj/item/food/breadslice = 2,
-		/obj/item/food/cheesewedge = 1,
+		/obj/item/food/sliced/bread = 2,
+		/obj/item/food/sliced/cheesewedge = 1,
 	)
 	result = list(/obj/item/food/sandwich)
 	category = CAT_FOOD
@@ -13,7 +13,7 @@
 	name = "Slime Jelly Sandwich"
 	reqs = list(
 		/datum/reagent/slimejelly = 5,
-		/obj/item/food/breadslice = 2,
+		/obj/item/food/sliced/bread = 2,
 	)
 	result = list(/obj/item/food/jellysandwich/slime)
 	category = CAT_FOOD
@@ -23,7 +23,7 @@
 	name = "Cherry Jelly Sandwich"
 	reqs = list(
 		/datum/reagent/consumable/cherryjelly = 5,
-		/obj/item/food/breadslice = 2,
+		/obj/item/food/sliced/bread = 2,
 	)
 	result = list(/obj/item/food/jellysandwich/cherry)
 	category = CAT_FOOD
@@ -62,7 +62,7 @@
 /datum/crafting_recipe/notasandwich
 	name = "not-a-sandwich"
 	reqs = list(
-		/obj/item/food/breadslice = 2,
+		/obj/item/food/sliced/bread = 2,
 		/obj/item/clothing/mask/fakemoustache = 1,
 	)
 	result = list(/obj/item/food/notasandwich)
@@ -76,7 +76,7 @@
 		/obj/item/food/boiled_shrimp = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_ebi)
+	result = list(/obj/item/food/sliced/sushi_ebi)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -99,7 +99,7 @@
 		/obj/item/fish_eggs/salmon = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_ikura)
+	result = list(/obj/item/food/sliced/sushi_ikura)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -122,7 +122,7 @@
 		/obj/item/food/fried_tofu = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_inari)
+	result = list(/obj/item/food/sliced/sushi_inari)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -145,7 +145,7 @@
 		/obj/item/food/salmonmeat = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_sake)
+	result = list(/obj/item/food/sliced/sushi_sake)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -168,7 +168,7 @@
 		/obj/item/food/salmonsteak = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_smoked_salmon)
+	result = list(/obj/item/food/sliced/sushi_smoked_salmon)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -191,7 +191,7 @@
 		/obj/item/fish_eggs/goldfish = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_masago)
+	result = list(/obj/item/food/sliced/sushi_masago)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -214,7 +214,7 @@
 		/obj/item/fish_eggs/shark = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_tobiko)
+	result = list(/obj/item/food/sliced/sushi_tobiko)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -233,18 +233,18 @@
 /datum/crafting_recipe/sushi_tobiko_egg
 	name = "Tobiko and Egg Sushi"
 	reqs = list(
-		/obj/item/food/sushi_tobiko = 1,
+		/obj/item/food/sliced/sushi_tobiko = 1,
 		/obj/item/food/egg = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_tobiko_egg)
+	result = list(/obj/item/food/sliced/sushi_tobiko_egg)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
 /datum/crafting_recipe/tobiko_egg_maki
 	name = "Tobiko and Egg Maki Roll"
 	reqs = list(
-		/obj/item/food/sushi_tobiko = 4,
+		/obj/item/food/sliced/sushi_tobiko = 4,
 		/obj/item/food/egg = 4,
 		/obj/item/stack/seaweed = 1,
 	)
@@ -260,7 +260,7 @@
 		/obj/item/food/catfishmeat = 1,
 		/obj/item/stack/seaweed = 1,
 	)
-	result = list(/obj/item/food/sushi_tai)
+	result = list(/obj/item/food/sliced/sushi_tai)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 

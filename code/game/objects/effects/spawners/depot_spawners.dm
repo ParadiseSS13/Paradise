@@ -65,115 +65,15 @@
 	)
 
 // Loot
-/obj/effect/spawner/random/syndicate/loot
-	spawn_inside = /obj/structure/closet/secure_closet/depot
-
-/obj/effect/spawner/random/syndicate/loot/common
-	name = "syndicate depot loot, common"
-	icon_state = "loot"
-	spawn_loot_chance = 50
-	// Loot schema: costumes, toys, useless gimmick items
-	loot = list(
-		/obj/item/clothing/mask/gas/syndicate,
-		/obj/item/clothing/shoes/magboots/syndie,
-		/obj/item/clothing/under/syndicate,
-		/obj/item/coin/antagtoken/syndicate,
-		/obj/item/deck/cards/syndicate,
-		/obj/item/soap/syndie,
-		/obj/item/storage/box/syndie_kit/space,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/storage/secure/briefcase/syndie,
-		/obj/item/storage/toolbox/syndicate,
-		/obj/item/suppressor,
-		/obj/item/toy/syndicateballoon,
-	)
-
-/obj/effect/spawner/random/syndicate/loot/stetchkin
+/obj/effect/spawner/random/syndicate/stetchkin
 	name = "syndicate depot loot, 20pct stetchkin"
 	icon_state = "stetchkin"
-	spawn_inside = null
 	spawn_loot_chance = 80
 	loot = list(
 		/obj/item/gun/projectile/automatic/pistol,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/food/syndicake,
 		/obj/item/wrench,
-	)
-
-/obj/effect/spawner/random/syndicate/loot/rare
-	name = "syndicate depot loot, rare"
-	icon_state = "doubleloot"
-	spawn_loot_chance = 50
-	// Basic stealth, utility and environmental gear.
-	loot = list(
-		/obj/item/ammo_box/magazine/m10mm,
-		/obj/item/clothing/gloves/color/black/thief,
-		/obj/item/clothing/shoes/chameleon/noslip,
-		/obj/item/clothing/suit/jacket/bomber/syndicate,
-		/obj/item/clothing/suit/storage/iaa/blackjacket/armored,
-		/obj/item/clothing/under/chameleon,
-		/obj/item/clothing/under/syndicate/silicon_cham,
-		/obj/item/flash/cameraflash,
-		/obj/item/gun/projectile/automatic/toy/pistol/riot,
-		/obj/item/lighter/zippo/gonzofist,
-		/obj/item/mod/control/pre_equipped/traitor,
-		/obj/item/mod/module/chameleon,
-		/obj/item/mod/module/holster/hidden,
-		/obj/item/mod/module/noslip,
-		/obj/item/mod/module/visor/night,
-		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
-		/obj/item/stack/sheet/mineral/gold{amount = 20},
-		/obj/item/stack/sheet/mineral/plasma{amount = 20},
-		/obj/item/stack/sheet/mineral/silver{amount = 20},
-		/obj/item/stack/sheet/mineral/uranium{amount = 20},
-		/obj/item/stamp/chameleon,
-		/obj/item/storage/backpack/duffel/syndie/med/surgery,
-		/obj/item/storage/backpack/satchel_flat,
-		/obj/item/storage/belt/military,
-		/obj/item/storage/box/syndie_kit/camera_bug,
-		/obj/item/storage/firstaid/tactical,
-	)
-
-/obj/effect/spawner/random/syndicate/loot/officer
-	name = "syndicate depot loot, officer"
-	spawn_loot_chance = 40
-	// Primarily utility items with occasional low damage weaponry.
-	loot = list(
-		/obj/item/borg/upgrade/selfrepair,
-		/obj/item/borg/upgrade/syndicate,
-		/obj/item/clothing/glasses/hud/security/chameleon,
-		/obj/item/clothing/glasses/thermal,
-		/obj/item/clothing/shoes/magboots/elite,
-		/obj/item/door_remote/omni/access_tuner,
-		/obj/item/encryptionkey/binary,
-		/obj/item/jammer,
-		/obj/item/mod/module/power_kick,
-		/obj/item/mod/module/stealth,
-		/obj/item/mod/module/visor/thermal,
-		/obj/item/pen/edagger,
-		/obj/item/pinpointer/advpinpointer,
-		/obj/item/stack/sheet/mineral/diamond{amount = 10},
-		/obj/item/stack/sheet/mineral/uranium{amount = 10},
-		/obj/item/storage/box/syndidonkpockets,
-		/obj/item/storage/box/syndie_kit/stechkin,
-	)
-
-/obj/effect/spawner/random/syndicate/loot/armory
-	name = "syndicate depot loot, armory"
-	spawn_inside = /obj/structure/closet/secure_closet/depot/armory
-	// Combat orientated items that could give the player an advantage if an antag messes with them.
-	loot = list(
-		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire,
-		/obj/item/chameleon,
-		/obj/item/clothing/gloves/fingerless/rapid,
-		/obj/item/cqc_manual,
-		/obj/item/gun/medbeam,
-		/obj/item/melee/energy/sword/saber,
-		/obj/item/reagent_containers/hypospray/autoinjector/stimulants,
-		/obj/item/shield/energy,
-		/obj/item/storage/box/syndie_kit/teleporter,
-		/obj/item/weaponcrafting/gunkit/universal_gun_kit,
-		/obj/item/mod/control/pre_equipped/traitor_elite
 	)
 
 // Layout-affecting spawns

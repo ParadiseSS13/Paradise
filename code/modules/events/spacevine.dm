@@ -82,13 +82,14 @@
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 
+/turf/simulated/floor/vines/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/vines/get_broken_states()
 	return list()
 
 //All of this shit is useless for vines
-
-/turf/simulated/floor/vines/attackby__legacy__attackchain()
-	return
 
 /turf/simulated/floor/vines/burn_tile()
 	return

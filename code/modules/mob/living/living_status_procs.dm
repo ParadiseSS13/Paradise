@@ -837,10 +837,6 @@ STATUS EFFECTS
 /mob/living/proc/CureNervous()
 	CureIfHasDisability(GLOB.nervousblock)
 
-// Tourettes
-/mob/living/proc/CureTourettes()
-	CureIfHasDisability(GLOB.twitchblock)
-
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna && dna.GetSEState(block))
 		dna.SetSEState(block, 0, 1) //Fix the gene

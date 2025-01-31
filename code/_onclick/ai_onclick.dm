@@ -15,7 +15,10 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
-	if(control_disabled || stat) return
+	if(control_disabled || stat) 
+		return
+	if(ismecha(loc)) 
+		return
 
 	if(ismob(A))
 		ai_actual_track(A, TRUE)
@@ -102,20 +105,20 @@
 		add_attack_logs(src, src, "[key_name_admin(src)] might be running a modified client! (failed can_see on AI click of [A]([ADMIN_COORDJMP(pixel_turf)]))", ATKLOG_ALL)
 		var/message = "[key_name(src)] might be running a modified client! (failed can_see on AI click of [A]([COORD(pixel_turf)]))"
 		log_admin(message)
-		GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
+		GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed check_turf_vis on AI click of [A]([COORD(pixel_turf)]))")
 		return FALSE
 
 	var/turf_visible
 	if(pixel_turf)
-		turf_visible = GLOB.cameranet.checkTurfVis(pixel_turf)
+		turf_visible = GLOB.cameranet.check_turf_vis(pixel_turf)
 		if(!turf_visible)
 			if((istype(loc, /obj/item/aicard) || ismecha(loc)) && (pixel_turf in range(client.view, loc)))
 				turf_visible = TRUE
 			else
 				if(pixel_turf.obscured)
-					log_admin("[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)])")
-					add_attack_logs(src, src, "[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([ADMIN_COORDJMP(pixel_turf)]))", ATKLOG_ALL)
-					GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
+					log_admin("[key_name_admin(src)] might be running a modified client! (failed check_turf_vis on AI click of [A]([COORD(pixel_turf)])")
+					add_attack_logs(src, src, "[key_name_admin(src)] might be running a modified client! (failed check_turf_vis on AI click of [A]([ADMIN_COORDJMP(pixel_turf)]))", ATKLOG_ALL)
+					GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed check_turf_vis on AI click of [A]([COORD(pixel_turf)]))")
 				return FALSE
 	return TRUE
 
@@ -184,7 +187,7 @@
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
-	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
+	return (GLOB.cameranet && GLOB.cameranet.check_turf_vis(T))
 
 
 // APC

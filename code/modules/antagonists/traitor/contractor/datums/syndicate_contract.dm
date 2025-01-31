@@ -362,7 +362,7 @@
 
 	if(M.back) //Lets not bork modsuits in funny ways.
 		var/obj/modsuit_safety = M.back
-		M.unEquip(modsuit_safety)
+		M.drop_item_to_ground(modsuit_safety)
 		stuff_to_transfer += modsuit_safety
 	// Regular items get removed in second
 	for(var/obj/item/I in M)
@@ -385,14 +385,14 @@
 			qdel(I)
 			continue
 
-		if(M.unEquip(I))
+		if(M.drop_item_to_ground(I))
 			stuff_to_transfer += I
 
 	// Remove accessories from the suit if present
 	if(length(H.w_uniform?.accessories))
 		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
 			H.w_uniform.detach_accessory(A, null)
-			H.unEquip(A)
+			H.drop_item_to_ground(A)
 			stuff_to_transfer += A
 
 	// Transfer it all (or drop it if not possible)
@@ -423,11 +423,10 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/food/breadslice/food = new(get_turf(M))
+	var/obj/item/food/sliced/bread/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
-	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"

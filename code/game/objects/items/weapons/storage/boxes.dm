@@ -1246,6 +1246,17 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
 
+/obj/item/storage/box/crewvend
+	name = "CrewVend 3000 Kit"
+	desc = "Contains everything you need to build your own vending machine!"
+
+/obj/item/storage/box/crewvend/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
+	board.set_type("CrewVend 3000")
+	new /obj/item/screwdriver(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."

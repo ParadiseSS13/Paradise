@@ -51,7 +51,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	if(human_user.get_item_by_slot(ITEM_SLOT_BACK) && !human_user.unEquip(human_user.get_item_by_slot(ITEM_SLOT_BACK)))
+	if(human_user.get_item_by_slot(ITEM_SLOT_BACK) && !human_user.drop_item_to_ground(human_user.get_item_by_slot(ITEM_SLOT_BACK)))
 		return
 	if(!human_user.equip_to_slot_if_possible(mod, ITEM_SLOT_BACK, disable_warning = TRUE))
 		return

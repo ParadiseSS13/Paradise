@@ -135,7 +135,7 @@
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
-	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	mask_type = /obj/item/clothing/mask/gas/sechailer/swat/hos
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
@@ -317,10 +317,10 @@
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
-/obj/machinery/suit_storage_unit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(shocked)
 		if(shock(user, 100))
-			return
+			return ITEM_INTERACT_COMPLETE
 	if(!is_operational())
 		if(user.a_intent != INTENT_HELP)
 			return ..()
@@ -328,18 +328,19 @@
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		wires.Interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(state_open)
-		if(store_item(I, user))
+		if(store_item(used, user))
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
-			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
+			to_chat(user, "<span class='notice'>You load [used] into the storage compartment.</span>")
 		else
-			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
-		return
+			to_chat(user, "<span class='warning'>You can't fit [used] into [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/I)
