@@ -81,8 +81,8 @@
 #define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
 	#define DRIFT_ALLOW_INPUT (1<<0)
 
-///called when the movable's glide size is updated: (new_glide_size)
-#define COMSIG_MOVABLE_UPDATE_GLIDE_SIZE "movable_glide_size"
+///called after the movable's glide size is updated: (old_glide_size)
+#define COMSIG_MOVABLE_UPDATED_GLIDE_SIZE "movable_glide_size"
 
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"

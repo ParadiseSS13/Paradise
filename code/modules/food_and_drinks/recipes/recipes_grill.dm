@@ -196,7 +196,7 @@
 		/obj/item/food/boiled_shrimp,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_ebi
+	result = /obj/item/food/sliced/sushi_ebi
 
 /datum/recipe/grill/sushi_ikura
 	items = list(
@@ -204,7 +204,7 @@
 		/obj/item/fish_eggs/salmon,
 		/obj/item/stack/seaweed
 	)
-	result = /obj/item/food/sushi_ikura
+	result = /obj/item/food/sliced/sushi_ikura
 
 /datum/recipe/grill/sushi_inari
 	items = list(

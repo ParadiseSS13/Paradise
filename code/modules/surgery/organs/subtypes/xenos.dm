@@ -25,8 +25,8 @@
 		for(var/powers_to_remove in alien_powers)
 			M.RemoveSpell(new powers_to_remove)
 	else
-		for(var/powers_to_add in human_powers)
-			M.AddSpell(new powers_to_add)
+		for(var/powers_to_remove in human_powers)
+			M.RemoveSpell(new powers_to_remove)
 	. = ..()
 
 /obj/item/organ/internal/alien/examine(mob/user)

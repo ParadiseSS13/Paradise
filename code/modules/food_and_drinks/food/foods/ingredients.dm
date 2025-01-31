@@ -126,9 +126,6 @@
 		return TRUE
 	return ..()
 
-/obj/item/food/sliced/cheesewedge/presliced
-	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
-
 /obj/item/food/weirdcheesewedge
 	name = "weird cheese"
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."

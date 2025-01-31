@@ -158,7 +158,7 @@
 		/obj/item/food/sliced/mushroom_pizza,
 		/obj/item/food/sliced/vegetable_pizza,
 		/obj/item/food/sliced/cheese_pizza,
-		/obj/item/food/garlic_pizza,
+		/obj/item/food/sliced/garlic_pizza,
 		/obj/item/food/sliced/donk_pocket_pizza,
 		/obj/item/food/sliced/dank_pizza,
 		/obj/item/food/sliced/mac_pizza,

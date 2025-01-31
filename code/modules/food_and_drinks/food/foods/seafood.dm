@@ -144,14 +144,14 @@
 	desc = "A large unsliced roll of Ebi Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ebi_maki"
-	slice_path = /obj/item/food/sushi_ebi
+	slice_path = /obj/item/food/sliced/sushi_ebi
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_ebi
+/obj/item/food/sliced/sushi_ebi
 	name = "ebi sushi"
 	desc = "A simple sushi consisting of cooked shrimp and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -166,14 +166,14 @@
 	desc = "A large unsliced roll of Ikura Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ikura_maki"
-	slice_path = /obj/item/food/sushi_ikura
+	slice_path = /obj/item/food/sliced/sushi_ikura
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_ikura
+/obj/item/food/sliced/sushi_ikura
 	name = "ikura sushi"
 	desc = "A simple sushi consisting of salmon roe."
 	icon = 'icons/obj/food/seafood.dmi'

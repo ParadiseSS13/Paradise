@@ -31,7 +31,6 @@
 	M.CureMute()
 	M.CureDeaf()
 	M.CureEpilepsy()
-	M.CureTourettes()
 	M.CureCoughing()
 	M.CureNervous()
 	M.SetEyeBlurry(0)

@@ -90,7 +90,7 @@
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
-	var/melee_can_hit = TRUE
+	var/mecha_melee_cooldown = FALSE
 
 	/// How many ion thrusters we got on this bad boy
 	var/thruster_count = 0
@@ -263,12 +263,12 @@
 	else
 		if(internal_damage & MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
+		if(mecha_melee_cooldown || !isatom(target))
 			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+		if(iswallturf(target) || isliving(target) || isobj(target))
+			target.mech_melee_attack(src)
+			mecha_melee_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)

@@ -279,11 +279,14 @@
 
 /obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
 	if(made_by_sliceable)
+		// we null reagent from subclass, because it will get reagents from parent sliceable
+		list_reagents = list()
 		return ..()
 	if(length(list_reagents))
 		return ..()
 
-	// We don't have any reagents, let's add someting
+	// We don't have any reagents, let's add something
+	log_debug("[src] was a sliced food, which was neither sliced and has no reagents.")
 	list_reagents = list("nutriment" = 5)
 
 	return ..()
@@ -291,11 +294,6 @@
 //MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
-
-/obj/item/food/sliceable/Initialize(mapload)
-	if(!ispath(slice_path, /obj/item/food/sliced))
-		CRASH("Invalid type assigned to slice_path: [slice_path]")
-	return ..()
 
 /obj/item/food/sliceable/examine(mob/user)
 	. = ..()
@@ -305,7 +303,7 @@
 	if(!Adjacent(user))
 		return
 	var/obj/item/I = user.get_active_hand()
-	if(!I)
+	if(!I || I == src) // dont try to slip inside itself
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")

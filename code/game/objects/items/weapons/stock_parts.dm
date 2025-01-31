@@ -50,7 +50,7 @@
 	if(!proximity_flag)
 		if(!works_from_distance)
 			return
-		if(get_dist(src, M) <= (user.client.maxview() + 2))
+		if(get_dist(src, M) > (user.client.maxview() + 2))
 			return
 
 	if(M.component_parts)
