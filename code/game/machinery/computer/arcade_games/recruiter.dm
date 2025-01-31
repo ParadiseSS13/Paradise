@@ -41,7 +41,7 @@
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
-						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent")
+						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent", "Smith")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
 								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
