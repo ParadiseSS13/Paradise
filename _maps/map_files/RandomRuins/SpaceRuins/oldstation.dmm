@@ -497,7 +497,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -535,7 +535,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bK" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -762,7 +762,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ct" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1214,7 +1214,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -1407,7 +1407,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1563,7 +1563,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3459,7 +3459,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jd" = (
@@ -3482,7 +3482,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jh" = (
@@ -3490,7 +3490,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ji" = (
@@ -3537,7 +3537,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "jp" = (

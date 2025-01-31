@@ -112,7 +112,7 @@
 /area/survivalpod)
 "u" = (
 /obj/structure/tubes,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "v" = (

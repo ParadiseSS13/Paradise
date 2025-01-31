@@ -23,6 +23,11 @@
 	var/datum/money_account_database/main_station/account_database
 	///Current money account the EFTPOS is depositing to
 	var/datum/money_account/linked_account
+	///Is this a portable unit that you can offer with *payme?
+	var/can_offer = TRUE
+
+	///The vendors that are linked to this EFTPOS.
+	var/list/linked_vendors = list()
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "EFTPOS #[rand(101, 999)]"
@@ -31,6 +36,16 @@
 	//linked account starts as service account by default
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
 	print_reference()
+	return ..()
+
+/obj/item/eftpos/Destroy()
+	account_database = null
+	linked_account = null
+	for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+		if(vendor.linked_pos == src)
+			vendor.linked_pos = null
+	linked_vendors.Cut()
+
 	return ..()
 
 /obj/item/eftpos/proc/reconnect_database()
@@ -80,6 +95,7 @@
 		)
 		data["available_accounts"] += list(account_data)
 
+	data["can_offer"] = can_offer
 
 	return data
 
@@ -135,6 +151,9 @@
 					transaction_paid = FALSE
 			else if(linked_account)
 				transaction_locked = TRUE
+				for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+					if(vendor.linked_pos == src)
+						SStgui.update_uis(vendor, TRUE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("reset")
@@ -148,43 +167,49 @@
 			else if(istype(I, /obj/item/card/emag))
 				access_code = 0
 				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+		if("offer")
+			if(can_offer)
+				offer(user)
 
+/obj/item/eftpos/proc/offer(mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
-	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
-
 	if(!transaction_locked || transaction_paid || !secured)
+		visible_message("<span class='notice'>[user] swipes a card through [src], but nothing happens.</span>")
 		return
 
+	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
+
 	if(!linked_account)
-		to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"EFTPOS is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	if(!D)
-		to_chat(user, "<span class='warning'>Your currently in use card is not connected to a money account.</span>")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Card is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	//if security level high enough, prompt for pin
 	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
-		attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 9999, min_value = 1000)
+		attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!attempt_pin || !Adjacent(user))
 			return
 	//given the credentials, can the associated account be accessed right now?
 	if(!GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
-		to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account, insufficient access.</span>")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Access denied.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	if(tgui_alert(user, "Are you sure you want to pay $[transaction_amount] to: [linked_account.account_name]", "Confirm transaction", list("Yes", "No")) != "Yes")
 		return
-	if(!Adjacent(user))
+	if(!Adjacent(user) && !(can_offer && get_dist(user, src) <= 2))
 		return
 	//attempt to charge account money
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
-		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
+		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Insufficient funds.\"</span>", "<span class='notice'>You hear something buzz.</span>")
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
 	playsound(src, transaction_sound, 50, TRUE)
-	visible_message("<span class='notice'>[src] chimes!</span>")
+	visible_message("[bicon(src)]<span class='notice'>[src] chimes as its display reads \"Transaction successful!\"</span>", "<span class='notice'>You hear something chime.</span>")
 	transaction_paid = TRUE
 	addtimer(VARSET_CALLBACK(src, transaction_paid, FALSE), 5 SECONDS)
 
@@ -232,6 +257,7 @@
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	transaction_sound = 'sound/machines/checkout.ogg'
 	attack_verb = list("bounced a check off", "checked-out", "tipped")
+	can_offer = FALSE
 
 /obj/item/eftpos/register/examine(mob/user)
 	. = ..()

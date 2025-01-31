@@ -51,6 +51,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"cl" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/tcommsat)
 "cM" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -207,7 +214,7 @@
 	},
 /area/ruin/space/tcommsat)
 "lq" = (
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "my" = (
@@ -481,6 +488,7 @@
 /area/ruin/space/tcommsat)
 "Go" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "GG" = (
@@ -585,9 +593,13 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "Nw" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	name = "green mold bread slice"
 	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"NC" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "NJ" = (
@@ -632,6 +644,7 @@
 	dir = 8
 	},
 /obj/structure/closet/firecloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "PZ" = (
@@ -1241,7 +1254,7 @@ Wc
 Is
 ot
 UK
-fS
+cl
 Wr
 kx
 Jr
@@ -2082,7 +2095,7 @@ Wc
 Wc
 Wc
 Is
-Wc
+NC
 Wr
 kx
 Jr
@@ -2862,7 +2875,7 @@ au
 Wc
 ot
 bc
-Wc
+NC
 Wr
 bc
 Wc
