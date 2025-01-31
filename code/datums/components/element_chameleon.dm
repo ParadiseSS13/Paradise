@@ -45,6 +45,9 @@
 		user.AddComponent(/datum/component/chameleon_system)
 		sys = user.GetComponent(/datum/component/chameleon_system)
 
+	if(sys.is_item_in_system(I))
+		return
+
 	sys.link_item(chameleon_item, chameleon_type_name, disguise_type, blacklist)
 	register_chameleon_system_signals(sys)
 
@@ -96,10 +99,13 @@
 	if(src.disguise_type != type)
 		return
 
+	if(!requested_item)
+		log_debug("[src] was requested to change to a null value")
+		return
+
 	update_item_appearance(requested_item)
 	chameleon_item.update_slot_icon()
-
-
+	// TODO Update appearance in hand
 	return TRUE
 
 /**

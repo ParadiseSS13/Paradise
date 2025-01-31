@@ -21,12 +21,16 @@
 	// This is where saved outfits exist
 	var/chameleon_memory[CHAMELEON_MEMORY_SLOTS]
 	// This list keeps track of all chameleon items in use by the user
+	var/list/system_items_UIDs = list()
 	var/list/system_items_names = list()
 	var/list/system_items_types = list()
 	// This is a global list shared between all systems (I hope it is); it stores paths to all appearances per type of chameleon item
 	var/static/list/items_disguises = list()
 	// This is a global list shared between all systems (I hope it is); it stores all outfits that the user can swap to
 	var/static/list/outfit_options
+
+	//UI
+	var/obj/item/current_ui_item
 
 
 /datum/component/chameleon_system/Initialize()
@@ -48,10 +52,12 @@
 
 	return ..()
 
-// core stuff
+//////////////////////////////
+// MARK: core stuff
+//////////////////////////////
 
 // Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
-/datum/component/chameleon_system/proc/link_item(var/item, name, type, blacklist)
+/datum/component/chameleon_system/proc/link_item(var/obj/item/item, name, type, blacklist)
 
 	if(!length(system_items_names))
 		change_all = new(system_owner)
@@ -67,15 +73,21 @@
 
 
 	// TODO TEST 2 IDENTICAL ITEMS
+	system_items_UIDs.Add(item.UID())
 	system_items_names.Add(name)
 	system_items_types.Add(type)
 
 
 
 // Called when item leaves mob inventory and hands, now we no longer control this item
-/datum/component/chameleon_system/proc/unlink_item(var/item, name, type, blacklist)
+/datum/component/chameleon_system/proc/is_item_in_system(var/obj/item/item)
+	return system_items_UIDs.Find(item.UID())
 
+
+
+/datum/component/chameleon_system/proc/unlink_item(var/obj/item/item, name, type, blacklist)
 	// TODO TEST 2 IDENTICAL ITEMS
+	system_items_UIDs.Remove(item.UID())
 	system_items_names.Remove(name)
 	system_items_types.Remove(type)
 
@@ -84,6 +96,7 @@
 		qdel(change_all)
 		change_one.Remove(system_owner)
 		qdel(change_one)
+
 
 
 // Adds new "type" of item and it's disguises options in global list
@@ -97,11 +110,13 @@
 			var/obj/item/I = V
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
-			var/chameleon_item_name = "[replacetext(initial(I.name), "\improper", "")]_[initial(I.icon_state)]"
+			var/chameleon_item_name = "[initial(I.name)]_[initial(I.icon_state)]"
 			if(isnull(items_disguises[chameleon_name][chameleon_item_name]))
 				items_disguises[chameleon_name][chameleon_item_name] = I
 
-// Change One
+//////////////////////////////
+// MARK: change one
+//////////////////////////////
 
 /datum/component/chameleon_system/proc/change_one_trigger()
 
@@ -116,15 +131,77 @@
 			index = i
 			break
 
-	var/obj/item/tranform_to = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", items_disguises[tranform_from]) // Redo TGUI to work with this
+	current_ui_item = locateUID(system_items_UIDs[index])
+	ui_interact(system_owner)
+	// var/obj/item/tranform_to = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", items_disguises[tranform_from]) // Redo TGUI to work with this
 
-	if(!tranform_to)
+	// if(!tranform_to)
+	// 	return
+	// // What the poin of first argument here?
+	// SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[index], items_disguises[tranform_from][tranform_to])
+
+//////////////////////////////
+// MARK: change one UI
+//////////////////////////////
+
+/datum/component/chameleon_system/ui_host()
+	return system_owner
+
+/datum/component/chameleon_system/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/component/chameleon_system/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_appearance"] = "[current_ui_item.name]_[current_ui_item.icon_state]"
+	return data
+
+/datum/component/chameleon_system/ui_static_data(mob/user, datum/tgui/ui = null)
+
+	// items_disguises[][]
+	var/index = system_items_UIDs.Find(current_ui_item.UID())
+	var/type = system_items_types[index]
+	var/name = system_items_names[index]
+
+	var/list/data = list()
+	var/list/chameleon_skins = list()
+	for(var/chameleon_type in items_disguises[name])
+		var/obj/item/chameleon_item = items_disguises[name][type]
+		chameleon_skins.Add(list(list(
+			"icon" = initial(chameleon_item.icon),
+			"icon_state" = initial(chameleon_item.icon_state),
+			"name" = initial(chameleon_item.name),
+		)))
+
+	data["chameleon_skins"] = chameleon_skins
+	return data
+
+/datum/component/chameleon_system/ui_interact(mob/user, datum/tgui/ui = null)
+	user = system_owner
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", "Change ["INSERT YOUR NAME HERE"] Appearance")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/component/chameleon_system/ui_act(action, list/params)
+	if(..())
 		return
-	// What the poin of first argument here?
-	SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[index], items_disguises[tranform_from][tranform_to])
+
+	switch(action)
+		if("change_appearance")
+			var/index = system_items_UIDs.Find(current_ui_item.UID())
+			var/type = system_items_types[index]
+			var/name = system_items_names[index]
+			var/tranform_from = name
+			var/tranform_to = params["new_appearance"]
+			SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, type, items_disguises[tranform_from][tranform_to])
+			// update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
 
 
-// Change ALL
+
+//////////////////////////////
+// MARK: Change ALL
+//////////////////////////////
 // Adds all otfits disguises in global list
 /datum/component/chameleon_system/proc/initialize_outfits()
 	outfit_options = list()
@@ -140,11 +217,39 @@
 	var/list/save_slot_names = get_memory_names()
 	var/outfits = save_slot_names + outfit_options
 	var/selected = tgui_input_list(system_owner, "Select outfit to change into", "Chameleon Outfit", outfits)
-	if(selected)
-		return TRUE
+	if(!selected)
+		return
 
+	var/selected_outfit =  outfits[selected]
+	var/datum/outfit/O = new selected_outfit ()
+	var/list/outfit_types = O.get_chameleon_disguise_info()
 
+	for(var/i in 1 to length(system_items_names))
+		for(var/T in outfit_types)
+			if(ispath(T, system_items_types[i]))
+				var/tranform_from = system_items_names[i]
+				var/obj/item/temp_item = T
+				var/tranform_to = "[initial(temp_item.name)]_[initial(temp_item.icon_state)]"
+				SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[i], items_disguises[tranform_from][tranform_to])
+
+	// Copy and paste, copy and paste) TODO read it and think
+	//hardsuit helmets/suit hoods
+	if(ispath(O.suit, /obj/item/clothing/suit/hooded))
+		//make sure they are actually wearing the suit, not just holding it, and that they have a chameleon hat
+		if(istype(system_owner.wear_suit, system_items_types["suit"]) && istype(system_owner.head, system_items_types["head"]))
+
+			var/tranform_from = system_items_names[system_items_types.Find("head")]
+			var/helmet_type
+			var/obj/item/clothing/suit/hooded/hooded = O.suit
+			helmet_type = initial(hooded.hoodtype)
+			var/tranform_to = helmet_type
+			if(helmet_type)
+				SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types["head"], items_disguises[tranform_from][tranform_to])
+
+	qdel(O)
 	return TRUE
+
+
 
 // scan related stuff
 
@@ -180,13 +285,13 @@
 	click_override = new(CALLBACK(src, PROC_REF(try_to_scan)))
 
 /datum/action/chameleon_system/scan/Destroy()
-	if (ready_to_scan == FALSE) // Check if the user has ended the scan mode before unequipping the glasses."
+	if(ready_to_scan == FALSE) // Check if the user has ended the scan mode before unequipping the glasses."
 		end_scan_mode()
 
 	. = ..()
 
 /datum/action/chameleon_system/scan/Trigger(left_click)
-	if (ready_to_scan)
+	if(ready_to_scan)
 		enter_scan_mode()
 	else
 		end_scan_mode()
@@ -245,33 +350,33 @@
 	// TODO ACTIAL CODE
 	var/datum/outfit/target_outfit = new()
 
-	if (target.back)
+	if(target.back)
 		target_outfit.back = target.back
-	if (target.wear_id)
+	if(target.wear_id)
 		target_outfit.id = target.wear_id
-	if (target.w_uniform)
+	if(target.w_uniform)
 		target_outfit.uniform= target.w_uniform
-	if (target.wear_suit)
+	if(target.wear_suit)
 		target_outfit.suit = target.wear_suit
-	if (target.wear_mask)
+	if(target.wear_mask)
 		target_outfit.mask = target.wear_mask
-	if (target.neck)
+	if(target.neck)
 		target_outfit.neck = target.neck
-	if (target.head)
+	if(target.head)
 		target_outfit.head = target.head
-	if (target.shoes)
+	if(target.shoes)
 		target_outfit.shoes = target.shoes
-	if (target.gloves)
+	if(target.gloves)
 		target_outfit.gloves = target.gloves
-	if (target.l_ear)
+	if(target.l_ear)
 		target_outfit.l_ear = target.l_ear
-	if (target.r_ear)
+	if(target.r_ear)
 		target_outfit.r_ear = target.r_ear
-	if (target.glasses)
+	if(target.glasses)
 		target_outfit.glasses = target.glasses
-	if (target.belt)
+	if(target.belt)
 		target_outfit.belt = target.belt
-	if (target.wear_pda)
+	if(target.wear_pda)
 		target_outfit.pda = target.wear_pda
 
 	// var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
