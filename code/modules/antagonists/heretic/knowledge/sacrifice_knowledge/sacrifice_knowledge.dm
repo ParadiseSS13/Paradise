@@ -499,7 +499,7 @@
 		return
 
 	// Teleport them to a random safe coordinate on the station z level.
-	var/turf/simulated/floor/safe_turf = find_safe_turf()
+	var/turf/simulated/floor/safe_turf = get_safe_random_station_turf_equal_weight()
 	if(!safe_turf)
 		safe_turf = sac_target.forceMove(pick(GLOB.latejoin))
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to arrivals.")

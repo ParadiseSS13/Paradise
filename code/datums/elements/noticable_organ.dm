@@ -36,7 +36,7 @@
 /datum/element/noticable_organ/proc/should_show_text(mob/living/carbon/examined)
 	//if(body_zone && (body_zone in examined.get_covered_body_zones()))
 	//	return FALSE
-	return TRUE //Qwertodo: Get this to depend on clothing
+	return TRUE //Qwertodo after tm: Get this to depend on clothing
 
 /datum/element/noticable_organ/proc/enable_description(obj/item/organ/target, mob/living/carbon/receiver)
 	SIGNAL_HANDLER // COMSIG_ORGAN_IMPLANTED

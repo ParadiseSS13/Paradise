@@ -54,58 +54,6 @@
 	owner.cure_blind(id)
 	owner.cut_overlay(mob_overlay)
 
-/datum/status_effect/corrosion_curse
-	id = "corrosion_curse"
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = null
-	tick_interval = 1 SECONDS
-
-/datum/status_effect/corrosion_curse/on_apply()
-	to_chat(owner, "<span class='userdanger'>Your body starts to break apart!</span>")
-	return TRUE
-
-/datum/status_effect/corrosion_curse/tick(seconds_between_ticks)
-	. = ..()
-	if(!ishuman(owner))
-		return
-	var/mob/living/carbon/human/human_owner = owner
-	var/chance = rand(0, 100)
-	switch(chance)
-		if(0 to 10)
-			human_owner.vomit()
-		if(20 to 30)
-			human_owner.Dizzy(10 SECONDS)
-			human_owner.Jitter(10 SECONDS)
-		if(30 to 40)
-			// Don't fully kill liver that's important
-			message_admins("do something here")
-		if(40 to 50)
-			// Don't fully kill heart that's important
-			//human_owner.adjustOrganLoss("heart", 10, 90)
-			message_admins("do something here")
-		if(50 to 60)
-			// You can fully kill the stomach that's not crucial
-			//human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 10)
-			message_admins("do something here")
-		if(60 to 70)
-			// Same with eyes
-			//human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 5)
-			message_admins("do something here")
-		if(70 to 80)
-			// And same with ears
-			//human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
-			message_admins("do something here")
-		if(80 to 90)
-			// But don't fully kill lungs that's usually important
-			//human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10, 90)
-			message_admins("do something here")
-		if(90 to 95)
-			// And definitely don't fully kil brains
-			//human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
-			message_admins("do something here")
-		if(95 to 100)
-			human_owner.Confused(12 SECONDS)
-
 /datum/status_effect/star_mark
 	id = "star_mark"
 	alert_type = /atom/movable/screen/alert/status_effect/star_mark

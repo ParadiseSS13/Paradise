@@ -66,6 +66,8 @@
 	)
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
+	/// A variable for admins to tweak to allow ascending.
+	var/admins_var_edit_this_to_allow_heretic_ascension = FALSE
 
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
@@ -752,9 +754,11 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	//qwertodo: hijack chance
+	if(admins_var_edit_this_to_allow_heretic_ascension)
+		return TRUE
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
+
 	for(var/datum/objective/must_be_done as anything in owner.get_all_objectives(include_team = FALSE))
 		if(!must_be_done.check_completion())
 			return FALSE

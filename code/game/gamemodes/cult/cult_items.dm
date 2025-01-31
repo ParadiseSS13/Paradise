@@ -164,11 +164,6 @@
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
 
-/obj/item/melee/cultblade/haunted/activate_self(mob/user) //qwertodo: REMOVE THIS HOLY SHIT THIS IS FOR TESTING
-	if(..())
-		return
-	bind_soul(user)
-
 /obj/item/melee/cultblade/haunted/examine(mob/user)
 	. = ..()
 
@@ -227,6 +222,7 @@
 	var/binding_implements = list(/obj/item/melee/cultblade/dagger, /obj/item/melee/sickly_blade/cursed)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, "<span class='notice'>You need to hold a ritual dagger to bind [src]!</span>")
+		binding = FALSE
 		return
 
 	user.visible_message("<span class='cult'>You begin slicing open your palm on top of [src]...</span>",\
@@ -242,6 +238,7 @@
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, "<span class='notice'>You need to hold a focus to bind [src]!</span>")
+		binding = FALSE
 		return
 
 	user.visible_message("<span class='cult'>You channel the Mansus through your focus, empowering the sealing runes...</span>", "<span class='cult'>[user] holds up their eldritch focus on top of [src] and begins concentrating...</span>")
@@ -263,6 +260,7 @@
 	var/binding_implements = list(/obj/item/storage/bible)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, "<span class='notice'>You need to wield a bible to bind [src]!</span>")
+		binding = FALSE
 		return
 
 	var/passage = "[pick(GLOB.first_names_male)] [rand(1,9)]:[rand(1,25)]" // Space Bibles will have Alejandro 9:21 passages, as part of the Very New Testament.
@@ -310,6 +308,7 @@
 		user.RemoveSpell(wielder_spell)
 
 	playsound(src ,'sound/hallucinations/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
+	rebuild_spells()
 	binding_filters_update()
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
@@ -349,13 +348,10 @@
 	// Set the sword's path for spell selection.
 	heretic_path = heretic_holder.heretic_path
 
-	// Copy the objectives to keep for roundend, remove the datum as neither us nor the heretic need it anymore
-	///var/list/copied_objectives = heretic_holder.objectives.Copy() //qwertodo:
 	trapped_entity.mind.remove_antag_datum(/datum/antagonist/heretic)
 
 	// Add the fallen antag datum, give them a heads-up of what's happening.
 	var/datum/antagonist/soultrapped_heretic/bozo = new()
-	//bozo.objectives |= copied_objectives //qwertodo:
 	trapped_entity.mind.add_antag_datum(bozo)
 
 	// Assigning the spells to give to the wielder and spirit.
@@ -364,26 +360,10 @@
 
 	var/list/path_spells = heretic_paths_to_haunted_sword_abilities[heretic_path]
 
-	var/list/wielder_spells = path_spells[WIELDER_SPELLS]
-	var/list/sword_spells = path_spells[SWORD_SPELLS]
-
 	name = "[path_spells[SWORD_PREFIX]] [name]"
 
 
-	// Creating the path spells.
-	// The sword is created bound - so we do not grant it the spells just yet, but we still create and store them.
-
-	if(sword_spells)
-		for(var/datum/spell/sword_spell as anything in sword_spells)
-			var/datum/spell/instanced_spell = new sword_spell(trapped_entity)
-			LAZYADD(path_sword_actions, instanced_spell)
-			instanced_spell.overlay_icon_state = "bg_cult_border" // for flavor, and also helps distinguish
-
-	if(wielder_spells)
-		for(var/datum/spell/wielder_spell as anything in wielder_spells)
-			var/datum/spell/instanced_spell = new wielder_spell(trapped_entity)
-			LAZYADD(path_wielder_actions, instanced_spell)
-			instanced_spell.overlay_icon_state = "bg_cult_border"
+	rebuild_spells()
 
 	binding_filters_update()
 
@@ -399,7 +379,31 @@
 	. = ..()
 	for(var/datum/spell/wielder_spell in path_wielder_actions)
 		user.RemoveSpell(wielder_spell)
+	rebuild_spells(wielder_only = TRUE)
 	binding_filters_update()
+
+/obj/item/melee/cultblade/haunted/proc/rebuild_spells(wielder_only = FALSE)
+	var/list/path_spells = heretic_paths_to_haunted_sword_abilities[heretic_path]
+	var/list/wielder_spells = path_spells[WIELDER_SPELLS]
+	var/list/sword_spells = path_spells[SWORD_SPELLS]
+	if(!wielder_only)
+		QDEL_LIST_CONTENTS(path_sword_actions)
+	QDEL_LIST_CONTENTS(path_wielder_actions)
+	// Creating the path spells.
+	// The sword is created bound - so we do not grant it the spells just yet, but we still create and store them.
+
+	if(sword_spells && !wielder_only)
+		for(var/datum/spell/sword_spell as anything in sword_spells)
+			var/datum/spell/instanced_spell = new sword_spell(trapped_entity)
+			LAZYADD(path_sword_actions, instanced_spell)
+			instanced_spell.overlay_icon_state = "bg_cult_border" // for flavor, and also helps distinguish
+
+	if(wielder_spells)
+		for(var/datum/spell/wielder_spell as anything in wielder_spells)
+			var/datum/spell/instanced_spell = new wielder_spell(trapped_entity)
+			LAZYADD(path_wielder_actions, instanced_spell)
+			instanced_spell.overlay_icon_state = "bg_cult_border"
+
 
 /obj/item/melee/cultblade/haunted/proc/binding_filters_update(mob/user)
 

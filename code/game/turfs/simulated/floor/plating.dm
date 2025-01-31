@@ -184,6 +184,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable

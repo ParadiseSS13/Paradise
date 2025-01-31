@@ -20,16 +20,18 @@
 	var/static/list/monster_types
 	/// A static list of heretic summons which we should not create
 	var/static/list/monster_types_blacklist = list(
-		///mob/living/basic/heretic_summon/armsy,
+		/mob/living/simple_animal/hostile/heretic_summon/armsy,
 		///mob/living/basic/heretic_summon/star_gazer,
-		/mob/living/simple_animal/bunny
+
 	)
+	/// How many minutes must you wait before respawning so this is actually maybe dealable by crew
+	var/death_cooldown = 2.5 MINUTES
 
 /obj/structure/lock_tear/Initialize(mapload, datum/mind/ascendant_mind)
 	. = ..()
 	transform *= 3
 	if(isnull(monster_types))
-		monster_types = subtypesof(/mob/living/basic/heretic_summon) - monster_types_blacklist
+		monster_types = subtypesof(/mob/living/simple_animal/hostile/heretic_summon) - monster_types_blacklist
 	if(!isnull(ascendant_mind))
 		ascendee = ascendant_mind
 		RegisterSignals(ascendant_mind.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(end_madness))
@@ -69,6 +71,26 @@
 /// Turn a ghost into an 'orrible beast
 /obj/structure/lock_tear/proc/ghost_to_monster(mob/dead/observer/user, should_ask = TRUE)
 	if(should_ask)
+		var/deathtime = world.time - user.timeofdeath
+		var/joinedasobserver = FALSE
+		if(isobserver(user))
+			var/mob/dead/observer/G = user
+			if(G.started_as_observer)
+				joinedasobserver = TRUE
+
+		var/deathtimeminutes = round(deathtime / 600)
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+		if(deathtime <= death_cooldown && !joinedasobserver)
+			to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+			to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+			return TRUE
 		var/ask = tgui_alert(user, "Become a monster?", "Ascended Rift", list("Yes", "No"))
 		if(ask != "Yes" || QDELETED(src) || QDELETED(user))
 			return FALSE
@@ -81,7 +103,6 @@
 		monster.faction = ascendee.current.faction
 		woohoo_free_antag.set_owner(ascendee)
 	var/datum/objective/kill_all_your_friends = new()
-	kill_all_your_friends.owner = monster.mind
 	kill_all_your_friends.explanation_text = "The station's crew must be culled."
 	kill_all_your_friends.completed = TRUE
 	woohoo_free_antag.add_antag_objective(kill_all_your_friends)

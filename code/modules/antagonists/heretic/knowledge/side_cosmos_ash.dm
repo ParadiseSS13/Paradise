@@ -4,31 +4,18 @@
 
 	route = PATH_SIDE
 
-	tier1 = /datum/heretic_knowledge/summon/fire_shark
+	tier1 = /datum/heretic_knowledge/dummy_cosmic_to_ash
 	tier2 = /datum/heretic_knowledge/spell/space_phase
 	tier3 = /datum/heretic_knowledge/eldritch_coin
 
 
-// Sidepaths for knowledge between Cosmos and Ash.
+// Sidepaths for knowledge between Ash and comsic.
 
-/datum/heretic_knowledge/summon/fire_shark
-	name = "Scorching Shark"
-	desc = "Allows you to transmute a pool of ash, a liver, and a sheet of plasma into a Fire Shark. \
-		Fire Sharks are fast and strong in groups, but die quickly. They are also highly resistant against fire attacks. \
-		Fire Sharks inject phlogiston into its victims and spawn plasma once they die."
-	gain_text = "The cradle of the nebula was cold, but not dead. Light and heat flits even through the deepest darkness, and is hunted by its own predators."
-
-	required_atoms = list(
-		/obj/effect/decal/cleanable/ash = 1,
-		/obj/item/organ/internal/liver = 1,
-		/obj/item/stack/sheet/mineral/plasma = 1,
-	)
-	//mob_to_summon = /mob/living/basic/heretic_summon/fire_shark
-	mob_to_summon = /mob/living/simple_animal/bunny
+/datum/heretic_knowledge/dummy_cosmic_to_ash
+	name = "Cosmic and Ash ways"
+	desc = "Research this to gain access to the other path"
+	gain_text = "Stars to stardust, to us, to Ash, back to stardust."
 	cost = 1
-
-
-	research_tree_icon_dir = EAST
 
 /datum/heretic_knowledge/spell/space_phase
 	name = "Space Phase"

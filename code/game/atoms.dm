@@ -1057,10 +1057,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_overide = null)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		if(type_overide)
+			type = type_overide
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
@@ -1453,7 +1455,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/datum/antagonist/heretic/heretic_data = IS_HERETIC(src)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
-/mob/living/basic/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
+/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
 	target.rust_heretic_act(4)
 
 /// Used with the spawner component to do something when a mob is spawned.

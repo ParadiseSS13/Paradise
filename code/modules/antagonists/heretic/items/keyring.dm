@@ -145,8 +145,13 @@
 	sex = card.sex
 	registered_name = card.registered_name
 	name = card.name
+	photo = card.photo
+	dat = card.dat
+	blood_type = card.blood_type
+	dna_hash = card.dna_hash
+	fingerprint_hash = card.fingerprint_hash
+	rank = card.rank
 	update_icon()
-	//Qwertodo: not done here
 
 ///Deletes and nulls our portal pair
 /obj/item/card/id/heretic/proc/clear_portals()

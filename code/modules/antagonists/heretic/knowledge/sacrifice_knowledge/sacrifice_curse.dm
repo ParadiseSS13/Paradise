@@ -19,5 +19,5 @@
 /datum/status_effect/heretic_curse/on_apply()
 	if(isnull(the_curser) || !iscarbon(owner))
 		return FALSE
-	//qwertodo: this curse does nothing at this time. This should be changed.
+	//qwertodo: this curse does nothing at this time. This should be changed, once I figure out what to do with it
 

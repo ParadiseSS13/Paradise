@@ -267,6 +267,8 @@ RESTRICT_TYPE(/datum/team/cult)
 		return FALSE
 	if(isanimal(mind.current))
 		return FALSE
+	if(IS_HERETIC(mind.current))
+		return FALSE
 	return TRUE
 
 /**

@@ -22,6 +22,7 @@
 /datum/spell/aoe/rust_conversion/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
+	targeting.use_turf_of_user = TRUE
 	return targeting
 
 /datum/spell/aoe/rust_conversion/cast(list/targets, mob/living/user = usr)

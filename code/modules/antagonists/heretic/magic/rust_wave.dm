@@ -78,7 +78,7 @@
 			pixel_x = -128
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
-/datum/spell/fireball/rust_wave //qwertodo make this work dipshit
+/datum/spell/fireball/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 

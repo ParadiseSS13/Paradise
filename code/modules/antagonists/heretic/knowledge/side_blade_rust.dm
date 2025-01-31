@@ -6,9 +6,17 @@
 
 	tier1 = /datum/heretic_knowledge/armor
 	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
-	tier3 = /datum/heretic_knowledge/spell/rust_charge
+	tier3 = /datum/heretic_knowledge/dummy_rust_to_blade
 
 // Sidepaths for knowledge between Rust and Blade.
+
+/datum/heretic_knowledge/dummy_rust_to_blade
+	name = "Rust and Blade ways"
+	desc = "Research this to gain access to the other path"
+	gain_text = "For what is rust, but the tale of a blade used well."
+	cost = 1
+
+
 /datum/heretic_knowledge/armor
 	name = "Armorer's Ritual"
 	desc = "Allows you to transmute a table and a gas mask to create Eldritch Armor. \
@@ -86,13 +94,5 @@
 	research_tree_icon_path = 'icons/obj/ammo.dmi'
 	research_tree_icon_state = "310_strip"
 
-
-/datum/heretic_knowledge/spell/rust_charge
-	name = "Rust Charge"
-	desc = "A charge that must be started on a rusted tile and will destroy any rusted objects you come into contact with, will deal high damage to others and rust around you during the charge."
-	gain_text = "The hills sparkled now, as I neared them my mind began to wander. I quickly regained my resolve and pushed forward, this last leg would be the most treacherous."
-
-	action_to_add = /datum/action/cooldown/mob_cooldown/charge/rust
-	cost = 1
 
 

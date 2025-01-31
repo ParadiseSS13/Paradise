@@ -276,7 +276,7 @@
  */
 /datum/heretic_knowledge/ultimate/rust_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
 	SIGNAL_HANDLER
-	//qwertodo: nerf this to the ground lmao
+	//qwertodo: nerf this to the ground if a problem during tm
 	var/turf/our_turf = get_turf(source)
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
