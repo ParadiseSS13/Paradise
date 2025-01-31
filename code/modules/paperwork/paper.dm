@@ -156,9 +156,15 @@
 		return ..()
 	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
-			"<span class='notice'>You show the paper to [H].</span>")
-		H.examinate(src)
+		user.visible_message("<span class='notice'>[user] begins to raise up \the [src] up to [H]'s face.</span>",
+				"<span class='notice'>You start to raise \the [src] up to [H]'s face.</span>")
+		if(do_after(user, 1 SECONDS, TRUE, src, allow_moving = FALSE, allow_moving_target = FALSE))
+			user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
+				"<span class='notice'>You show the paper to [H].</span>")
+			//show_content(H, forceshow = FALSE, view = FALSE)
+			to_chat(H, "<A href='byond://?src=[UID()];show_content=1'>Read \the [src]</A>")
+		else
+			to_chat(user, "<span class='notice'>I'm too far away from [H] to show them \the [src]!</span>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
@@ -392,6 +398,12 @@
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
+	if(href_list["show_content"])
+		var/dist = get_dist(src, usr)
+		if(dist < 2)
+			show_content(usr)
+		else
+			to_chat(usr, "<span class='notice'>I'm too far away from \the [src] to read it.</span>")
 
 /obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
