@@ -95,7 +95,8 @@
 
 /datum/test_puppeteer/proc/get_last_chatlog()
 	var/list/puppet_chat_list = get_chatlogs()
-	return puppet_chat_list[length(puppet_chat_list)]
+	if(length(puppet_chat_list))
+		return puppet_chat_list[length(puppet_chat_list)]
 
 /datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
 	return findtextEx(get_last_chatlog(), snippet)
@@ -109,7 +110,7 @@
 
 /datum/test_puppeteer/proc/get_chatlogs()
 	if(!(puppet.mind.key in GLOB.game_test_chats))
-		return FALSE
+		return list()
 	return GLOB.game_test_chats[puppet.mind.key]
 
 /datum/test_puppeteer/proc/find_nearby(atom_type)
