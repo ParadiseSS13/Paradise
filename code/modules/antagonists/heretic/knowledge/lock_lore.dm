@@ -209,7 +209,7 @@
 	. = ..()
 	// buffs
 	var/datum/spell/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
-	user.AddSpell(transform_spell)
+	user.owner.AddSpell(transform_spell)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/blade_upgrade/flesh/lock/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/flesh/lock)

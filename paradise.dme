@@ -1584,6 +1584,7 @@
 #include "code\modules\antagonists\heretic\heretic_knowledge.dm"
 #include "code\modules\antagonists\heretic\heretic_living_heart.dm"
 #include "code\modules\antagonists\heretic\heretic_monster.dm"
+#include "code\modules\antagonists\heretic\heretic_monsters.dm"
 #include "code\modules\antagonists\heretic\influences.dm"
 #include "code\modules\antagonists\heretic\knife_effect.dm"
 #include "code\modules\antagonists\heretic\soultrapped_heretic.dm"
