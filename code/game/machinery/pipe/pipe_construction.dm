@@ -380,7 +380,9 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
 		return TRUE
 
-	new /obj/machinery/atmospherics/meter(loc)
+	var/obj/machinery/atmospherics/meter/P = new (loc)
+	if(label)
+		P.AddComponent(/datum/component/label, label)
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
@@ -405,6 +407,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
 	AS.bolts = FALSE
+	if(label)
+		AS.AddComponent(/datum/component/label, label)
 	I.play_tool_sound(src, 50)
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
