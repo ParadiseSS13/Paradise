@@ -14,6 +14,7 @@
 	var/has_lid = FALSE // Used for containers where we want to put lids on and off
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
+	new_attack_chain = TRUE
 
 /obj/item/reagent_containers/proc/can_set_transfer_amount(mob/user)
 	if(!length(possible_transfer_amounts))
@@ -88,19 +89,21 @@
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/attack_self__legacy__attackchain(mob/user)
-	if(has_lid)
-		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-			add_lid()
-		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-			remove_lid()
+/obj/item/reagent_containers/activate_self(mob/user)
+	if(..() || !has_lid)
+		return
 
+	if(is_open_container())
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		add_lid()
+	else
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		remove_lid()
+/* Potentially redundant
 /obj/item/reagent_containers/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-
+*/
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
