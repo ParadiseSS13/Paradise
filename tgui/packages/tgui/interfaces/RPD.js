@@ -1,7 +1,8 @@
 import { useBackend } from '../backend';
-import { Tabs, Button, Box, Grid, Section, Stack, Icon } from '../components';
+import { Tabs, Button, Box, Grid, Section, Stack, Icon, Input } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
+import { TextInputModal } from './TextInputModal';
 
 export const RPD = (props, context) => {
   const { act, data } = useBackend(context);
@@ -70,6 +71,9 @@ const AtmosPipeContent = (props, context) => {
             </Tabs.Tab>
           ))}
         </Tabs>
+      </Stack.Item>
+      <Stack.Item>
+        <Input fluid placeholder="Enter pipe label" onInput={(e, value) => act('set_label', { set_label: value })} />
       </Stack.Item>
       <Stack.Item grow>
         <Stack fill>
