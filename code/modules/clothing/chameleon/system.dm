@@ -10,6 +10,7 @@
   */
 
 /datum/component/chameleon_system
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 	// Human who has this system
 	var/mob/living/carbon/human/system_owner
 	// Scan action form chameleon glasses
@@ -32,25 +33,40 @@
 	//UI
 	var/obj/item/current_ui_item
 
+/datum/component/chameleon_system/Initialize(datum/element/chameleon/element, obj/item/target)
+	var/existing_system = parent.GetComponent(/datum/component/chameleon_system)
+	if(!existing_system)
+		system_owner = parent
 
-/datum/component/chameleon_system/Initialize()
-	// dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
-	system_owner = parent
+		if(!outfit_options)
+			initialize_outfits() // init outfit_options should be run only once
 
-	if(!system_owner)
-		CRASH("Can't create hameleon system without a user")
+		for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
+			chameleon_memory[i] = list("name" = "Save slot №[i]", "outfit" = null)
 
-	if(!outfit_options)
-		initialize_outfits() // init outfit_options should be run only once
+		change_all = new(system_owner)
+		change_all.Grant(system_owner)
 
+		change_one = new(system_owner)
+		change_one.Grant(system_owner)
+		RegisterSignal(change_one, COMSIG_CLICK, PROC_REF(foo))
 
-	for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
-		chameleon_memory[i] = list("name" = "Save slot №[i]", "outfit" = null)
+	element.RegisterSignal(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, TYPE_PROC_REF(/datum/element/chameleon, change_item_disguise))
+	element.RegisterSignal(src, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST, TYPE_PROC_REF(/datum/element/chameleon, apply_disguise))
+	element.RegisterSignal(src, COMSIG_ATOM_EMP_ACT, TYPE_PROC_REF(/datum/element/chameleon, on_emp))
+	link_item(element)
 
+/datum/component/chameleon_system/proc/foo(...)
+	return
 
-/datum/component/chameleon_system/Destroy()
+/datum/component/chameleon_system/proc/unregister_chameleon_system_signals(listen_to)
+	// SIGNAL_HANDLER // COMSIG_DEACTIVATE_CHAMELEON_SYSTEM
+	UnregisterSignal(listen_to, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST)
+	UnregisterSignal(listen_to, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST)
+	UnregisterSignal(listen_to, COMSIG_ATOM_EMP_ACT)
 
-	return ..()
+// /datum/component/chameleon_system/Destroy()
+// 	return ..()
 
 //////////////////////////////
 // MARK: core stuff
@@ -58,32 +74,19 @@
 
 // Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
 /datum/component/chameleon_system/proc/link_item(obj/item/I, name, type, blacklist)
-
-	if(!length(system_items_names))
-		change_all = new(system_owner)
-		change_all.Grant(system_owner)
-
-		change_one = new(system_owner)
-		change_one.Grant(system_owner)
-
 	//if(!is_type_in_list(item, system_items))
 	if(!items_disguises[name])
 		// caled onece for every unique chameleon type item.
 		initialize_item_disguises(I, name, type, blacklist)
-
 
 	// TODO TEST 2 IDENTICAL ITEMS
 	system_items_UIDs.Add(I.UID())
 	system_items_names.Add(name)
 	system_items_types.Add(type)
 
-
-
 // Called when item leaves mob inventory and hands, now we no longer control this item
 /datum/component/chameleon_system/proc/is_item_in_system(obj/item/I)
 	return system_items_UIDs.Find(I.UID())
-
-
 
 /datum/component/chameleon_system/proc/unlink_item(obj/item/I, name, type, blacklist)
 	// TODO TEST 2 IDENTICAL ITEMS
@@ -412,7 +415,7 @@
 // MARK: change_all_action
 //////////////////////////////
 
-/datum/action/chameleon_system/change_all_action/
+/datum/action/chameleon_system/change_all_action
 	name = "Select Chameleon Outfit"
 	button_overlay_icon_state = "no_clothes"
 	//By default, this list is shared between all instances.

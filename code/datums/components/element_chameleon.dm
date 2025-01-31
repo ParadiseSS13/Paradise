@@ -10,80 +10,66 @@
 #define EMP_RANDOMISE_TIME 30 SECONDS
 
 /datum/element/chameleon
-	var/obj/item/chameleon_item
 	var/disguise_type
-	var/chameleon_type_name
-	var/list/blacklist
-	var/datum/chameleon_system/chameleon_system
+	var/disguise_name
+	var/list/disguise_blacklist = list()
 
-
-/datum/element/chameleon/Attach(obj/item/c_item ,type, name, datum_owner, blacklist)
+/datum/element/chameleon/Attach(obj/item/c_item, _disguise_type, _disguise_name, _disguise_blacklist)
 	. = ..()
 
 	if(!isitem(c_item))
-
 		return COMPONENT_INCOMPATIBLE
 
-	src.chameleon_item = locateUID(datum_owner)
-	src.disguise_type = type
-	src.chameleon_type_name = name
-	src.blacklist = blacklist
+	disguise_type = _disguise_type
+	disguise_name = _disguise_name
+	if(islist(_disguise_blacklist))
+		disguise_blacklist = _disguise_blacklist
 
-	RegisterSignal(c_item, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
+	// RegisterSignal(c_item, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
 	RegisterSignal(c_item, COMSIG_ITEM_PICKUP, PROC_REF(on_pickup))
-	RegisterSignal(c_item, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
+	// RegisterSignal(c_item, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
 
 
-/datum/element/chameleon/Detach(atom/movable/target)
-	// CRASH("I CAN BE Detach?")
-	return ..()
+// /datum/element/chameleon/Detach(atom/movable/target)
+// 	// CRASH("I CAN BE Detach?")
+// 	return ..()
 
-/datum/element/chameleon/proc/on_pickup(obj/item/I, mob/user)
+/datum/element/chameleon/proc/on_pickup(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
-	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
-	if(!sys)
-		user.AddComponent(/datum/component/chameleon_system)
-		sys = user.GetComponent(/datum/component/chameleon_system)
+	user.AddComponent(/datum/component/chameleon_system, src, source)
+// 	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
+// 	if(!sys)
+//
+// 		sys = user.GetComponent(/datum/component/chameleon_system)
 
-	if(sys.is_item_in_system(I))
-		return
+// 	if(sys.is_item_in_system(I))
+// 		return
 
-	sys.link_item(chameleon_item, chameleon_type_name, disguise_type, blacklist)
-	register_chameleon_system_signals(sys)
+// 	sys.link_item(chameleon_item, chameleon_type_name, disguise_type, blacklist)
+// 	register_chameleon_system_signals(sys)
 
 /datum/element/chameleon/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER // COMSIG_ITEM_EQUIPPED
+	// user.AddComponent(/datum/component/chameleon_system, src)
 
-	if(chameleon_type_name == "Glasses")
-		var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
-		if(slot == ITEM_SLOT_EYES)
-			sys.give_scan()
+	// if(chameleon_type_name == "Glasses")
+	// 	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
+	// 	if(slot == ITEM_SLOT_EYES)
+	// 		sys.give_scan()
 
-		if(slot != ITEM_SLOT_EYES && sys.scan)
-			sys.lose_scan()
-
-
+	// 	if(slot != ITEM_SLOT_EYES && sys.scan)
+	// 		sys.lose_scan()
+	return
 
 /datum/element/chameleon/proc/dropped(obj/item/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 
-	if(source.loc != user)
-		var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
-		sys.unlink_item(chameleon_item, chameleon_type_name, disguise_type,)
-		unregister_chameleon_system_signals(sys)
+	// if(source.loc != user)
+	// 	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
+	// 	sys.unlink_item(chameleon_item, chameleon_type_name, disguise_type,)
+	// 	unregister_chameleon_system_signals(sys)
 
 	return
-
-/datum/element/chameleon/proc/register_chameleon_system_signals(listen_to)
-	RegisterSignal(listen_to, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, PROC_REF(change_item_disguise))
-	RegisterSignal(listen_to, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST, PROC_REF(apply_disguise))
-	RegisterSignal(listen_to, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
-
-/datum/element/chameleon/proc/unregister_chameleon_system_signals(listen_to)
-	// SIGNAL_HANDLER // COMSIG_DEACTIVATE_CHAMELEON_SYSTEM
-	UnregisterSignal(listen_to, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST)
-	UnregisterSignal(listen_to, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST)
-	UnregisterSignal(listen_to, COMSIG_ATOM_EMP_ACT)
 
 /datum/element/chameleon/proc/on_emp(source, obj/item/unit)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMP_ACT
@@ -104,7 +90,7 @@
 		return
 
 	update_item_appearance(requested_item)
-	chameleon_item.update_slot_icon()
+	// chameleon_item.update_slot_icon()
 	// TODO Update appearance in hand
 	return TRUE
 
@@ -113,35 +99,35 @@
  */
 /datum/element/chameleon/proc/update_item_appearance(obj/item/requested_item)
 
-	if(!istype(chameleon_item,/obj/item))
-		return
+	// if(!istype(chameleon_item,/obj/item))
+	// 	return
 
-	chameleon_item.name = initial(requested_item.name)
-	chameleon_item.desc = initial(requested_item.desc)
-	chameleon_item.icon_state = initial(requested_item.icon_state)
+	// chameleon_item.name = initial(requested_item.name)
+	// chameleon_item.desc = initial(requested_item.desc)
+	// chameleon_item.icon_state = initial(requested_item.icon_state)
 
-	if(isitem(chameleon_item))
-		var/obj/item/I = chameleon_item
+	// if(isitem(chameleon_item))
+	// 	var/obj/item/I = chameleon_item
 
-		I.item_state = initial(requested_item.item_state)
-		I.item_color = initial(requested_item.item_color)
-		I.color = initial(requested_item.color)
+	// 	I.item_state = initial(requested_item.item_state)
+	// 	I.item_color = initial(requested_item.item_color)
+	// 	I.color = initial(requested_item.color)
 
-		I.icon_override = initial(requested_item.icon_override)
-		if(initial(requested_item.sprite_sheets))
-			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-			var/obj/item/P = new requested_item(null)
-			I.sprite_sheets = P.sprite_sheets
-			qdel(P)
+	// 	I.icon_override = initial(requested_item.icon_override)
+	// 	if(initial(requested_item.sprite_sheets))
+	// 		// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
+	// 		var/obj/item/P = new requested_item(null)
+	// 		I.sprite_sheets = P.sprite_sheets
+	// 		qdel(P)
 
-		if(isclothing(I) && isclothing(requested_item))
-			var/obj/item/clothing/CL = I
-			var/obj/item/clothing/PCL = requested_item
-			CL.flags_cover = initial(PCL.flags_cover)
-		I.update_appearance()
+	// 	if(isclothing(I) && isclothing(requested_item))
+	// 		var/obj/item/clothing/CL = I
+	// 		var/obj/item/clothing/PCL = requested_item
+	// 		CL.flags_cover = initial(PCL.flags_cover)
+	// 	I.update_appearance()
 
-	chameleon_item.icon = initial(requested_item.icon)
-
+	// chameleon_item.icon = initial(requested_item.icon)
+	return
 
 // Maybe insted just make
 /**
@@ -159,10 +145,28 @@
 
 #undef EMP_RANDOMISE_TIME
 
+/datum/element/chameleon/glasses/Attach(obj/item/c_item)
+	return ..(c_item, /obj/item/clothing/glasses, "Glasses")
 
-
-
-
+/datum/element/chameleon/under/Attach(obj/item/c_item)
+	return ..(c_item, /obj/item/clothing/under, "Jumpsuit", typecacheof(list(
+		/obj/item/clothing/under,
+		/obj/item/clothing/under/misc,
+		/obj/item/clothing/under/dress,
+		/obj/item/clothing/under/pants,
+		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/retro,
+		/obj/item/clothing/under/solgov,
+		/obj/item/clothing/under/suit,
+		/obj/item/clothing/under/costume,
+		/obj/item/clothing/under/rank,
+		/obj/item/clothing/under/rank/cargo,
+		/obj/item/clothing/under/rank/civilian,
+		/obj/item/clothing/under/rank/engineering,
+		/obj/item/clothing/under/rank/medical,
+		/obj/item/clothing/under/rank/rnd,
+		/obj/item/clothing/under/rank/security,
+	), only_root_path = TRUE))
 
 
 //////////////////////////////
@@ -186,4 +190,4 @@
 
 /obj/item/clothing/glasses/test_chameleon/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/chameleon, /obj/item/clothing/glasses, "Glasses", UID(), list())
+	AddElement(/datum/element/chameleon/glasses)

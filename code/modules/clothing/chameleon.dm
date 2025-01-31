@@ -253,28 +253,7 @@
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
 	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/clothing/under
-	chameleon_action.chameleon_name = "Jumpsuit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(
-		/obj/item/clothing/under,
-		/obj/item/clothing/under/misc,
-		/obj/item/clothing/under/dress,
-		/obj/item/clothing/under/pants,
-		/obj/item/clothing/under/color,
-		/obj/item/clothing/under/retro,
-		/obj/item/clothing/under/solgov,
-		/obj/item/clothing/under/suit,
-		/obj/item/clothing/under/costume,
-		/obj/item/clothing/under/rank,
-		/obj/item/clothing/under/rank/cargo,
-		/obj/item/clothing/under/rank/civilian,
-		/obj/item/clothing/under/rank/engineering,
-		/obj/item/clothing/under/rank/medical,
-		/obj/item/clothing/under/rank/rnd,
-		/obj/item/clothing/under/rank/security,
-		), only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
+	AddElement(/datum/element/chameleon/under)
 
 /obj/item/clothing/under/chameleon/Destroy()
 	QDEL_NULL(chameleon_action)
