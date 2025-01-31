@@ -376,33 +376,42 @@
 	addtimer(CALLBACK(src, PROC_REF(try_attach_to_owner)), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
 
 /obj/item/rod_of_asclepius/proc/try_attach_to_owner()
-	if(ishuman(owner) && !QDELETED(owner))
-		if(ishuman(loc))
-			var/mob/living/carbon/human/thief = loc
-			thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
-		if(owner.stat == DEAD)
-			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
-			return
-		flags |= NODROP // Readd the nodrop
-		var/mob/living/carbon/human/H = owner
-		var/limb_regrown = FALSE
-		if(usedHand == LEFT_HAND)
-			limb_regrown = H.regrow_external_limb_if_missing("l_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
-			H.drop_l_hand(TRUE)
-			H.put_in_l_hand(src, TRUE)
-		else
-			limb_regrown = H.regrow_external_limb_if_missing("r_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
-			H.drop_r_hand(TRUE)
-			H.put_in_r_hand(src, TRUE)
-		if(!limb_regrown)
-			to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
-		else
-			H.update_body() // Update the limb sprites
-			to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
-	else
+	if(!ishuman(owner) || QDELETED(owner))
 		deactivate()
+		return
+
+	var/mob/living/carbon/human/thief = loc
+
+	if(thief == owner) // stealing from yourself, huh?
+		return
+
+	if(ishuman(thief))
+		thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
+
+	if(owner.stat == DEAD)
+		qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
+		return
+
+	flags |= NODROP // Readd the nodrop
+	var/mob/living/carbon/human/H = owner
+	var/limb_regrown = FALSE
+
+	if(usedHand == LEFT_HAND)
+		limb_regrown = H.regrow_external_limb_if_missing("l_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
+		H.drop_l_hand(TRUE)
+		H.put_in_l_hand(src, TRUE)
+	else
+		limb_regrown = H.regrow_external_limb_if_missing("r_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
+		H.drop_r_hand(TRUE)
+		H.put_in_r_hand(src, TRUE)
+
+	if(!limb_regrown)
+		to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+	else
+		H.update_body() // Update the limb sprites
+		to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
 
 /obj/item/rod_of_asclepius/proc/activated(mob/living/carbon/new_owner)
 	owner = new_owner
