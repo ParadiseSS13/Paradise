@@ -12,6 +12,7 @@
 #include "atmos\test_ventcrawl.dm"
 #include "attack_chain\test_attack_chain_applicator.dm"
 #include "attack_chain\test_attack_chain_borgs.dm"
+#include "attack_chain\test_attack_chain_condiment.dm"
 #include "attack_chain\test_attack_chain_cult_dagger.dm"
 #include "attack_chain\test_attack_chain_machinery.dm"
 #include "attack_chain\test_attack_chain_stunbaton.dm"
