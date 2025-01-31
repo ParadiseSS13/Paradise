@@ -52,9 +52,9 @@
 	var/datum/test_puppeteer/puppet_target = target
 	if(istype(puppet_target))
 		puppet.ClickOn(puppet_target.puppet, params)
-		return
+	else
+		puppet.ClickOn(target, params)
 
-	puppet.ClickOn(target, params)
 	puppet.next_click = world.time
 	puppet.next_move = world.time
 
@@ -94,13 +94,23 @@
 	puppet.rejuvenate()
 
 /datum/test_puppeteer/proc/get_last_chatlog()
-	if(!(puppet.mind.key in GLOB.game_test_chats))
-		return FALSE
-	var/list/puppet_chat_list = GLOB.game_test_chats[puppet.mind.key]
+	var/list/puppet_chat_list = get_chatlogs()
 	return puppet_chat_list[length(puppet_chat_list)]
 
 /datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
 	return findtextEx(get_last_chatlog(), snippet)
+
+/datum/test_puppeteer/proc/any_chatlog_has_text(snippet)
+	for(var/chat_line in get_chatlogs())
+		if(findtextEx(chat_line, snippet))
+			return TRUE
+
+	return FALSE
+
+/datum/test_puppeteer/proc/get_chatlogs()
+	if(!(puppet.mind.key in GLOB.game_test_chats))
+		return FALSE
+	return GLOB.game_test_chats[puppet.mind.key]
 
 /datum/test_puppeteer/proc/find_nearby(atom_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))
