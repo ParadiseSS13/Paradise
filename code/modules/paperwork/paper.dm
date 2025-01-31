@@ -158,7 +158,7 @@
 	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
 			"<span class='notice'>You show the paper to [H].</span>")
-		to_chat(H, "<A href='byond://?src=[UID()];show_content=1'>Read \the [src]</A>")
+		to_chat(H, "<a href='byond://?src=[UID()];show_content=1'>Read \the [src]</a>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
