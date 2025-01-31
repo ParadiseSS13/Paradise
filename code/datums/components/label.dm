@@ -69,7 +69,7 @@
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
-	owner.investigate_log("Label with name: [label_name] has been applied to [owner] at [owner.x] [owner.y] [owner.z]", INVESTIGATE_RENAME)
+	owner.investigate_log("Label: \"[label_name]\" applied", INVESTIGATE_RENAME)
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()
