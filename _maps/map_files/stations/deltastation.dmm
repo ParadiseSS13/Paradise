@@ -64426,7 +64426,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/machinery/flasher{
-	id = "Cell 1";
+	id = "Cell 2";
 	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
@@ -69720,7 +69720,7 @@
 /area/station/security/armory/secure)
 "lEU" = (
 /obj/machinery/flasher{
-	id = "Cell 1";
+	id = "Cell 3";
 	pixel_y = 22
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -82225,7 +82225,7 @@
 /area/station/engineering/transmission_laser)
 "ssh" = (
 /obj/machinery/flasher{
-	id = "Cell 2";
+	id = "Cell 1";
 	pixel_y = -26
 	},
 /obj/structure/closet/secure_closet/brig/temp/cell_1,
@@ -87608,7 +87608,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/machinery/flasher{
-	id = "Cell 1";
+	id = "Cell 4";
 	pixel_y = 22
 	},
 /obj/structure/cable{
