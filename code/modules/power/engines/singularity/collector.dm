@@ -24,7 +24,7 @@
 	var/drain_ratio = 1
 
 	/// Amount of plasma to consume per joule generated.
-	var/drain_per_joule = 0.0000006
+	var/drain_per_joule = 0.00000007
 
 	/// Plasma consumption above this threshild in wats is doubled.
 	var/efficiency_threshold = 50000
@@ -120,7 +120,7 @@
 		// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 		// So joules = stored_energy * SSmachines.wait * 0.1
 		var/joules = stored_energy * SSmachines.wait * 0.1
-		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>. Remaining plasma: [round(loaded_tank.air_contents.toxins(), 0.001)] mol</span>"
 	else
 		. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"</span>"
 
