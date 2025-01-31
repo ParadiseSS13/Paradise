@@ -57,7 +57,7 @@
 //////////////////////////////
 
 // Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
-/datum/component/chameleon_system/proc/link_item(var/obj/item/item, name, type, blacklist)
+/datum/component/chameleon_system/proc/link_item(obj/item/I, name, type, blacklist)
 
 	if(!length(system_items_names))
 		change_all = new(system_owner)
@@ -69,25 +69,25 @@
 	//if(!is_type_in_list(item, system_items))
 	if(!items_disguises[name])
 		// caled onece for every unique chameleon type item.
-		initialize_item_disguises(item, name, type, blacklist)
+		initialize_item_disguises(I, name, type, blacklist)
 
 
 	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_UIDs.Add(item.UID())
+	system_items_UIDs.Add(I.UID())
 	system_items_names.Add(name)
 	system_items_types.Add(type)
 
 
 
 // Called when item leaves mob inventory and hands, now we no longer control this item
-/datum/component/chameleon_system/proc/is_item_in_system(var/obj/item/item)
-	return system_items_UIDs.Find(item.UID())
+/datum/component/chameleon_system/proc/is_item_in_system(obj/item/I)
+	return system_items_UIDs.Find(I.UID())
 
 
 
-/datum/component/chameleon_system/proc/unlink_item(var/obj/item/item, name, type, blacklist)
+/datum/component/chameleon_system/proc/unlink_item(obj/item/I, name, type, blacklist)
 	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_UIDs.Remove(item.UID())
+	system_items_UIDs.Remove(I.UID())
 	system_items_names.Remove(name)
 	system_items_types.Remove(type)
 
@@ -100,7 +100,7 @@
 
 
 // Adds new "type" of item and it's disguises options in global list
-/datum/component/chameleon_system/proc/initialize_item_disguises(obj/item, chameleon_name, chameleon_type, chameleon_blacklist)
+/datum/component/chameleon_system/proc/initialize_item_disguises(obj/item/item, chameleon_name, chameleon_type, chameleon_blacklist)
 
 	chameleon_blacklist |= typecacheof(item.type)
 	items_disguises[chameleon_name] = list()
@@ -263,7 +263,7 @@
 
 
 // Memory Helpers
-/datum/component/chameleon_system/proc/get_memory_names(var/item)
+/datum/component/chameleon_system/proc/get_memory_names(/obj/item/item)
 	var/list/save_slot_names = list()
 	for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
 		save_slot_names += chameleon_memory[i]["name"]
@@ -314,7 +314,8 @@
 
 	user.changeNext_click(5)
 
-	if(!ishuman(target)) // can scan only crew PunPun is human to :( ) // TODO FIX
+	// can scan only crew PunPun is human to :( ) // TODO FIX
+	if(!ishuman(target))
 		return
 
 	to_chat(user, "<span class='warning'>You have scaned [target.name].</span>")

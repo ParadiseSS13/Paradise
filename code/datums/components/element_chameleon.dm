@@ -56,7 +56,7 @@
 
 	if(chameleon_type_name == "Glasses")
 		var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
-		if(slot == ITEM_SLOT_EYES )
+		if(slot == ITEM_SLOT_EYES)
 			sys.give_scan()
 
 		if(slot != ITEM_SLOT_EYES && sys.scan)
