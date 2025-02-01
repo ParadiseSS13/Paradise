@@ -106,11 +106,11 @@
 		anchored = !anchored
 		to_chat(user, "<span class='hierophant'>[anchored ? "":"un"]anchored.</span>")
 		return ITEM_INTERACT_COMPLETE
-	if(istype(tool, /obj/item/reagent_containers/cup/beaker/eldritch))
+	if(istype(tool, /obj/item/reagent_containers/glass/beaker/eldritch))
 		if(current_mass < max_mass)
 			to_chat(user, "<span class='hierophant_warning'>We are not full enough!</span>")
 			return ITEM_INTERACT_COMPLETE
-		var/obj/item/reagent_containers/cup/beaker/eldritch/to_fill = tool
+		var/obj/item/reagent_containers/glass/beaker/eldritch/to_fill = tool
 		if(to_fill.reagents.total_volume >= to_fill.reagents.maximum_volume)
 			to_chat(user, "<span class='hierophant_warning'>Your flask is full!</span>")
 			return ITEM_INTERACT_COMPLETE
