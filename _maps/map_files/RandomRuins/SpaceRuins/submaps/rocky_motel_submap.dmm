@@ -446,7 +446,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "SN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "TR" = (

@@ -532,7 +532,7 @@ emp_act
 			bloody = TRUE
 			var/turf/location = loc
 			if(issimulatedturf(location))
-				add_splatter_floor(location, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+				add_splatter_floor(location, emittor_intertia = last_movement_dir)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
@@ -781,7 +781,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)

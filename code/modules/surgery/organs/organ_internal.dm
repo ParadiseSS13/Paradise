@@ -320,10 +320,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_to_ground(H.shoes))
-					walk_away(thingy,H,15,2)
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							GLOB.move_manager.stop_looping(thingy)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE

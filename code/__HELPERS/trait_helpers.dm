@@ -317,6 +317,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An object that should not be able to be possessed by a player.
 #define TRAIT_DO_NOT_POSSESS "do_not_possess"
 
+/// A general trait for tracking whether a zombie owned the organ or limb
+#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
@@ -439,6 +442,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
+
+//***** MOVABLE ATOM TRAITS *****//
+// Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
+#define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

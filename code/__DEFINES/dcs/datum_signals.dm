@@ -129,3 +129,8 @@
 /// /datum/component/label
 /// Called when a handlabeler is used on an item when off
 #define COMSIG_LABEL_REMOVE "label_remove"
+
+// /datum/ruleset
+
+/// from base of /datum/ruleset/proc/can_apply()
+#define COMSIG_RULESET_FAILED_SPECIES "failed_species"

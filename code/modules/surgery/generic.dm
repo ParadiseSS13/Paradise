@@ -180,6 +180,12 @@
 	failure_sound = 'sound/items/welder.ogg'
 	time = 2.4 SECONDS
 
+/datum/surgery_step/generic/cauterize/tool_check(mob/user, obj/item/tool)
+	if(tool.damtype != BURN)
+		to_chat(user, "<span class='warning'>[tool] is too cold to cauterize!</span>")
+		return FALSE
+	return TRUE
+
 /datum/surgery_step/generic/cauterize/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
