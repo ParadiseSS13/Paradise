@@ -418,30 +418,12 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses = 6
-
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
-/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
-	. = ..()
-	if(!.)
-		return
-	if(remaining_uses < 1)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			H.unequip(src, force = TRUE)
-		qdel(src)
-		return FALSE
-	else
-		remaining_uses--
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|

@@ -11,7 +11,7 @@
 	var/turf/turf_to_use = get_turf(user)
 	var/turf/left_turf
 	var/turf/right_turf
-	var/dir_to_use = get_dir(user, clicked_atom)
+	var/dir_to_use = user.dir
 	var/right_dir
 	var/left_dir
 	switch(dir_to_use)

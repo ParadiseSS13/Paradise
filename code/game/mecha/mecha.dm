@@ -90,7 +90,7 @@
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
-	var/melee_can_hit = TRUE
+	var/mecha_melee_cooldown = FALSE
 
 	/// How many ion thrusters we got on this bad boy
 	var/thruster_count = 0
@@ -263,12 +263,12 @@
 	else
 		if(internal_damage & MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
+		if(mecha_melee_cooldown || !isatom(target))
 			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+		if(iswallturf(target) || isliving(target) || isobj(target))
+			target.mech_melee_attack(src)
+			mecha_melee_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
@@ -1031,6 +1031,10 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
+	var/mob/camera/eye/hologram/hologram_eye = AI.remote_control
+	if(istype(hologram_eye))
+		hologram_eye.release_control()
+		qdel(hologram_eye)
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
@@ -1315,6 +1319,7 @@
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
+			AI.eyeobj?.set_loc(newloc)
 			qdel(AI.linked_core)
 	else
 		return

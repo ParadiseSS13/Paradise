@@ -240,6 +240,14 @@
 	layer = MASSIVE_OBJ_LAYER
 	blend_mode = BLEND_OVERLAY
 
+	// See comment on attempt_init.
+	initialized = TRUE
+
+// Wind has nothing it needs to initialize, and it's not surprising if it gets both created and qdeleted during an init freeze. Prevent that from causing an init sanity error.
+/obj/effect/wind/attempt_init(...)
+	initialized = TRUE
+	return
+
 #undef INDEX_NORTH
 #undef INDEX_EAST
 #undef INDEX_SOUTH

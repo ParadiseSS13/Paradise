@@ -705,6 +705,7 @@
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1,
+					/obj/item/storage/box/crewvend = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/chef = 2,
 					/obj/item/clothing/under/plasmaman/chef = 2)
 
@@ -724,6 +725,7 @@
 				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100,
+				/obj/item/storage/box/crewvend = 100,
 				/obj/item/clothing/head/helmet/space/plasmaman/chef = 60,
 				/obj/item/clothing/under/plasmaman/chef = 60)
 
@@ -751,6 +753,7 @@
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1,
+					/obj/item/storage/box/crewvend = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
 					/obj/item/clothing/under/plasmaman/enviroslacks = 2)
 
@@ -768,6 +771,7 @@
 				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100,
+				/obj/item/storage/box/crewvend = 100,
 				/obj/item/clothing/head/helmet/space/plasmaman/white = 60,
 				/obj/item/clothing/under/plasmaman/enviroslacks = 60)
 

@@ -21,6 +21,8 @@
 	var/comfort = 0
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
+	/// Will it set to the layer above the player or not? Use with Armrests.
+	var/uses_armrest = FALSE 
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -111,7 +113,7 @@
 	if(possible_dirs == 8) // We don't want chairs with corner dirs to sit over mobs, it is handled by armrests
 		layer = OBJ_LAYER
 		return
-	if(has_buckled_mobs() && dir == NORTH)
+	if(has_buckled_mobs() && dir == NORTH && !uses_armrest)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
@@ -247,6 +249,8 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	var/image/armrest
+	uses_armrest = TRUE
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
@@ -277,6 +281,34 @@
 
 /obj/structure/chair/office/dark
 	icon_state = "officechair_dark"
+
+/obj/structure/chair/office/proc/get_armrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
+/obj/structure/chair/office/Initialize(mapload)
+	armrest = get_armrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/office/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/office/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/office/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/office/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
+
+
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"

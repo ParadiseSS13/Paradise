@@ -145,38 +145,33 @@
 			turfs += T
 	return turfs
 
-
-//GLOBAL_VAR_INIT(debug_mob, 0)
-
-// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
-// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
-// being unable to hear people due to being in a box within a bag.
-
-/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = TRUE, sight_check = TRUE)
-	if(!recursion_limit)
-		return L
-	for(var/atom/A in O.contents)
-		if(ismob(A))
-			var/mob/M = A
-			if(client_check && !M.client)
-				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
+/// Recursively loops through the contents of this atom looking for mobs, optionally requiring them to have a client.
+/proc/collect_nested_mobs(atom/parent, list/mobs, recursion_limit = 3, client_check = TRUE)
+	var/list/next_layer = list(parent)
+	for(var/depth in 1 to recursion_limit)
+		var/list/layer = next_layer
+		next_layer = list()
+		for(var/thing in layer)
+			if(!ismob(thing))
 				continue
-			if(sight_check && !isInSight(A, O))
-				continue
-			L |= M
-			for(var/mob/dead/observer/ghost in M.observers)
-				L |= ghost
-			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-
-		if(isobj(A) || ismob(A))
-			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
-	return L
+			var/mob/this_mob = thing
+			if(!client_check || this_mob.client)
+				mobs += this_mob
+			for(var/mob/dead/observer/ghost in this_mob.observers)
+				if(!client_check || ghost.client)
+					mobs += ghost
+		if(!length(next_layer))
+			return
 
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
 /proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
+#ifdef GAME_TESTS
+	// kind of feels cleaner clobbering here than changing the loop?
+	include_clientless = TRUE
+#endif
 
 	var/turf/T = get_turf(source)
 	var/list/hear = list()
@@ -185,13 +180,8 @@
 		return hear
 
 	for(var/atom/A in hear(R, T))
-		if(ismob(A))
-			var/mob/M = A
-			if(M.client || include_clientless)
-				hear += M
-
 		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, TRUE, FALSE)
+			collect_nested_mobs(A, hear, 3, !include_clientless)
 
 	return hear
 

@@ -35,6 +35,7 @@
 /obj/machinery/computer/holodeck_control/Initialize(mapload)
 	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/machinery/computer/holodeck_control/Destroy()
 	emergency_shutdown()
@@ -42,9 +43,6 @@
 
 /obj/machinery/computer/holodeck_control/attack_ai(mob/user)
 	return attack_hand(user)
-
-/obj/machinery/computer/holodeck_control/attackby__legacy__attackchain(obj/item/D, mob/user)
-	return
 
 /obj/machinery/computer/holodeck_control/attack_ghost(mob/user)
 	ui_interact(user)
@@ -438,8 +436,9 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/readybutton/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/readybutton/attack_hand(mob/user)
 	if(user.stat || stat & (BROKEN))

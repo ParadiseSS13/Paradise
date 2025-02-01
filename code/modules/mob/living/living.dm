@@ -530,7 +530,6 @@
 	cure_nearsighted()
 	CureMute()
 	CureDeaf()
-	CureTourettes()
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()

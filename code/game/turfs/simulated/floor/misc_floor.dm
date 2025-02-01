@@ -309,7 +309,15 @@
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
 
+/turf/simulated/floor/backrooms_carpet
+	name = "backrooms carpet"
+	desc = "An old, musty carpet. It smells faintly mildewy."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "backrooms_carpet"
+	baseturf = /turf/simulated/floor/backrooms_carpet
+
 /turf/simulated/floor/plating/rust
+// Carpet used in the backrooms hallucination
 	//SDMM supports colors, this is simply for easier mapping
 	//and should be removed on initialize
 	color = COLOR_BROWN

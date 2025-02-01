@@ -598,6 +598,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+/// The amount of time after being turned off that the camera is too hot to turn back on.
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
@@ -608,11 +609,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
-	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+
+	COOLDOWN_DECLARE(video_cooldown)
 
 /obj/item/videocam/proc/camera_state(mob/living/carbon/user)
 	if(!on)
@@ -627,16 +629,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
 		if(on)
 			TV.feeds_on++
 		else
 			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
-	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
+	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
-	if(world.time < video_cooldown)
+	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return
 	camera_state(user)
