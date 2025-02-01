@@ -183,7 +183,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "by" = (
@@ -360,7 +360,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "db" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
@@ -466,7 +466,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "dH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
@@ -486,7 +486,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "dT" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "dX" = (
@@ -804,7 +804,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/spacehotelv1/kitchen)
 "gO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
@@ -2153,7 +2153,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "qX" = (
@@ -2241,7 +2241,7 @@
 /obj/effect/turf_decal/siding/wood/neutral/end{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "rD" = (
@@ -2609,7 +2609,7 @@
 /obj/effect/turf_decal/siding/wood/neutral/end{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "uD" = (
@@ -2638,7 +2638,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "uN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral/end,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
@@ -3033,7 +3033,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "xt" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3571,7 +3571,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/spacehotelv1/kitchen)
 "Bs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
@@ -3605,7 +3605,7 @@
 	},
 /area/ruin/space/spacehotelv1/centralhallway)
 "BJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -3729,7 +3729,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "CM" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
@@ -3958,14 +3958,14 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "EG" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "EV" = (
@@ -4129,7 +4129,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom1)
 "FS" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "FU" = (
@@ -4461,7 +4461,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
 "IA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 5
 	},
@@ -4496,7 +4496,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -4904,7 +4904,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 5
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "LQ" = (
@@ -5049,7 +5049,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "MX" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "MZ" = (
@@ -5330,7 +5330,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "OY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Pb" = (
@@ -5436,7 +5436,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "PO" = (
@@ -5682,7 +5682,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "Sx" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 5
 	},
@@ -5809,7 +5809,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "TH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt1)
@@ -6217,7 +6217,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "Wv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt1)
@@ -6335,7 +6335,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "XI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/forehallway)
 "XK" = (

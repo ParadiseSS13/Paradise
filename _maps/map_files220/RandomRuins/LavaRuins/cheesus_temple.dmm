@@ -142,7 +142,7 @@
 /turf/simulated/floor/plasteel/stairs/right,
 /area/ruin/powered/cheesus)
 "kG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "kJ" = (
@@ -318,7 +318,7 @@
 /area/ruin/powered/cheesus)
 "AH" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 13
 	},
 /obj/effect/spawner/random/dirt/maybe,

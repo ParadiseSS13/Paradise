@@ -976,7 +976,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
 "eG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/light_construct/small/north,
 /turf/simulated/floor/wood/oak,
@@ -1636,7 +1636,7 @@
 	},
 /area/awaymission/caves/build)
 "if" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
@@ -3692,7 +3692,7 @@
 	dir = 9
 	},
 /obj/effect/spawner/random/dirt/often,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
@@ -4167,7 +4167,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 10
 	},
@@ -7530,7 +7530,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "Pe" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
@@ -7690,7 +7690,7 @@
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 6
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9291,7 +9291,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "Yb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredalt"

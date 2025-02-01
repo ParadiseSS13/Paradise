@@ -157,7 +157,7 @@
 	},
 /area/syndicate_mothership/outside)
 "afs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "agt" = (
@@ -458,7 +458,7 @@
 /area/syndicate_mothership/elite_squad)
 "arH" = (
 /obj/structure/table/wood,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -640,7 +640,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "awS" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
@@ -978,7 +978,7 @@
 /obj/structure/light_fake{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -1343,7 +1343,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "aTF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -1527,7 +1527,7 @@
 /obj/effect/turf_decal/woodsiding/end{
 	dir = 8
 	},
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -1679,7 +1679,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "bfd" = (
@@ -1886,7 +1886,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "bkk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
@@ -2825,7 +2825,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/ss220/admin2)
 "bQj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellowaltstrip"
@@ -2865,7 +2865,7 @@
 	},
 /area/centcom/ss220/medbay)
 "bQR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 1
 	},
@@ -3383,7 +3383,7 @@
 /area/shuttle/syndicate)
 "bYr" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -4194,7 +4194,7 @@
 	},
 /area/syndicate_mothership)
 "cyD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4490,7 +4490,7 @@
 	dir = 8;
 	color = "#36454F"
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/admin2)
 "cMg" = (
@@ -5384,7 +5384,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/centcom/ss220/admin2)
 "dow" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecornersalt"
@@ -5700,7 +5700,7 @@
 /area/centcom/ss220/bar)
 "dwn" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -6016,7 +6016,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "dEp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 5
 	},
@@ -6865,7 +6865,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6903,7 +6903,7 @@
 	},
 /area/centcom/ss220/admin3)
 "eiJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
 	},
@@ -6920,7 +6920,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "ejk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "ejo" = (
@@ -7216,7 +7216,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "esf" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 8
 	},
@@ -7364,7 +7364,7 @@
 	},
 /area/centcom/ss220/court)
 "ewa" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
@@ -7560,7 +7560,7 @@
 	pixel_x = 32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "eBZ" = (
@@ -7622,7 +7622,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "eDP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/court)
 "eEg" = (
@@ -7997,7 +7997,7 @@
 /area/centcom/ss220/admin1)
 "eNV" = (
 /obj/structure/curtain/open/shower/security,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "eOh" = (
@@ -8020,7 +8020,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/bar)
 "eOK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -8287,7 +8287,7 @@
 	color = "#36454F";
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/admin2)
 "eVk" = (
@@ -9127,7 +9127,7 @@
 	anchored = 1;
 	layer = 5
 	},
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	layer = 5
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -9320,7 +9320,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
 "fxn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
 "fxv" = (
@@ -9423,7 +9423,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "fzb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "fzc" = (
@@ -9649,7 +9649,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/court)
 "fGn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowaltstrip"
 	},
@@ -10908,7 +10908,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
 	},
@@ -11031,7 +11031,7 @@
 	},
 /area/syndicate_mothership)
 "gFr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/button/windowtint/west{
 	id = "CC_Dip"
 	},
@@ -11983,7 +11983,7 @@
 	},
 /area/syndicate_mothership/control)
 "hdP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake{
 	dir = 4
 	},
@@ -12614,7 +12614,7 @@
 	},
 /area/centcom/ss220/command)
 "hwb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -12728,7 +12728,7 @@
 	},
 /area/centcom/ss220/medbay)
 "hBJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -12908,7 +12908,7 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/ss220/bar)
 "hGG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
@@ -14785,7 +14785,7 @@
 	},
 /area/centcom/ss220/park)
 "iFH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -14872,7 +14872,7 @@
 	},
 /area/centcom/ss220/admin3)
 "iJb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "iJr" = (
@@ -15016,7 +15016,7 @@
 /area/centcom/ss220/medbay)
 "iNh" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -15184,7 +15184,7 @@
 /area/shuttle/syndicate)
 "iSW" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/black,
@@ -15360,7 +15360,7 @@
 	},
 /area/centcom/ss220/jail)
 "iYp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/bar)
 "iYq" = (
@@ -15906,7 +15906,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/elite_squad)
 "jrH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
@@ -16134,7 +16134,7 @@
 	},
 /area/centcom/ss220/park)
 "jBg" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown";
 	dir = 1
@@ -16231,7 +16231,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/court)
 "jEZ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
@@ -16489,7 +16489,7 @@
 /area/syndicate_mothership/cargo)
 "jLd" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/black,
@@ -16622,7 +16622,7 @@
 /area/centcom/ss220/bar)
 "jNw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /obj/structure/light_fake,
@@ -17588,7 +17588,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "kwP" = (
@@ -17855,7 +17855,7 @@
 /area/centcom/ss220/admin1)
 "kEs" = (
 /obj/effect/decal/cleanable/blood,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "kEB" = (
@@ -19066,7 +19066,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "ljw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -19847,7 +19847,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
 "lEw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "lEI" = (
@@ -20238,7 +20238,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/admin2)
 "lPW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -20614,7 +20614,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/court)
 "mcw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
@@ -20634,7 +20634,7 @@
 /area/centcom/ss220/command)
 "mcR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "mcX" = (
@@ -20970,7 +20970,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/black{
 	dir = 1
 	},
@@ -21214,7 +21214,7 @@
 	},
 /area/centcom/ss220/admin3)
 "muB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "muV" = (
@@ -21239,7 +21239,7 @@
 	},
 /area/syndicate_mothership)
 "mvD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -21494,7 +21494,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "mGB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
 "mGP" = (
@@ -21866,7 +21866,7 @@
 	},
 /area/centcom/ss220/admin3)
 "mTP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
@@ -21883,7 +21883,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/small{
 	dir = 8
 	},
@@ -21927,7 +21927,7 @@
 /obj/structure/light_fake/spot{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "mVX" = (
@@ -22332,7 +22332,7 @@
 /area/syndicate_mothership/jail)
 "nhJ" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -22834,7 +22834,7 @@
 	},
 /area/syndicate_mothership)
 "nwK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -22991,7 +22991,7 @@
 	},
 /area/centcom/ss220/park)
 "nBZ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -23045,7 +23045,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/park)
 "nDq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
@@ -23173,7 +23173,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "nGF" = (
@@ -23902,7 +23902,7 @@
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/admin2)
 "odq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 9
 	},
@@ -23935,7 +23935,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "ofn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin1)
 "ofW" = (
@@ -24651,7 +24651,7 @@
 	pixel_x = 32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 6
 	},
@@ -25584,7 +25584,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/lone,
@@ -25684,7 +25684,7 @@
 /area/centcom/ss220/jail)
 "phM" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /obj/structure/light_fake,
@@ -26312,13 +26312,13 @@
 	dir = 1
 	},
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/jail)
 "pFo" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/court)
 "pFz" = (
@@ -26446,7 +26446,7 @@
 	},
 /area/syndicate_mothership/control)
 "pKm" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/curtain/black{
 	pixel_x = -32;
 	anchored = 1
@@ -26577,7 +26577,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "pNx" = (
@@ -27495,7 +27495,7 @@
 	},
 /area/centcom/ss220/medbay)
 "qqi" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"
@@ -29044,7 +29044,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "rkn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/bar)
 "rks" = (
@@ -29083,7 +29083,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "rlb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
 	},
@@ -30331,7 +30331,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rSG" = (
@@ -30553,7 +30553,7 @@
 	pixel_x = -32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rYm" = (
@@ -30612,7 +30612,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/general)
 "rZF" = (
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -31131,7 +31131,7 @@
 /area/shuttle/administration)
 "snm" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -31742,7 +31742,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "sJR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -31824,7 +31824,7 @@
 /area/centcom/ss220/supply)
 "sKW" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -32381,7 +32381,7 @@
 /area/centcom/ss220/evac)
 "taV" = (
 /obj/structure/light_fake,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
 "taW" = (
@@ -32433,7 +32433,7 @@
 	},
 /area/syndicate_mothership/jail)
 "tca" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
@@ -32718,7 +32718,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/general)
 "toq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
@@ -33262,7 +33262,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "tDK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/blue,
 /area/centcom/ss220/admin2)
 "tEp" = (
@@ -33351,7 +33351,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "tId" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake{
 	dir = 4
 	},
@@ -33523,7 +33523,7 @@
 	},
 /area/syndicate_mothership)
 "tMg" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "tMn" = (
@@ -33556,7 +33556,7 @@
 	},
 /area/centcom/ss220/admin1)
 "tNq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "tOi" = (
@@ -33706,7 +33706,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "tTm" = (
@@ -34401,7 +34401,7 @@
 	color = "#000000"
 	},
 /obj/effect/turf_decal/siding/wood/end,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "upU" = (
@@ -34423,7 +34423,7 @@
 	pixel_x = -32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "urd" = (
@@ -35111,7 +35111,7 @@
 	pixel_y = 32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "uOx" = (
@@ -35279,7 +35279,7 @@
 /obj/effect/turf_decal/woodsiding/end{
 	dir = 4
 	},
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -35930,7 +35930,7 @@
 	pixel_x = 28;
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown";
 	dir = 1
@@ -35989,7 +35989,7 @@
 /area/centcom/ss220/bar)
 "vpP" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -36138,7 +36138,7 @@
 	},
 /area/centcom/ss220/supply)
 "vsO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 1
 	},
@@ -36875,7 +36875,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/park)
 "vKj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecornersalt"
 	},
@@ -37495,7 +37495,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/miscellaneous/goldensiding{
 	dir = 10
 	},
@@ -38267,7 +38267,7 @@
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "wAa" = (
@@ -38704,7 +38704,7 @@
 /area/centcom/ss220/admin3)
 "wKe" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -38968,7 +38968,7 @@
 /area/centcom/ss220/admin1)
 "wRC" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 9
 	},
 /obj/structure/light_fake{
@@ -39489,7 +39489,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -39709,7 +39709,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "xny" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -40692,7 +40692,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "xSN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/spot{
 	dir = 8
 	},
@@ -40821,7 +40821,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "xWF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/command)
 "xWJ" = (

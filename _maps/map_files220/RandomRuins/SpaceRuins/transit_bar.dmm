@@ -134,7 +134,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "z" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/powered)
 "A" = (
