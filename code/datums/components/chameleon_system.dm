@@ -21,10 +21,7 @@
 	var/datum/action/chameleon_system/change_one/change_one
 	// This is where saved outfits exist
 	var/chameleon_memory[CHAMELEON_MEMORY_SLOTS]
-	// This list keeps track of all chameleon items in use by the user
-	var/list/system_items_UIDs = list()
-	var/list/system_items_names = list()
-	var/list/system_items_types = list()
+
 	// This is a global list shared between all systems (I hope it is); it stores paths to all appearances per type of chameleon item
 	var/static/list/items_disguises = list()
 	// This is a global list shared between all systems (I hope it is); it stores all outfits that the user can swap to
@@ -34,9 +31,14 @@
 	var/obj/item/current_ui_item
 
 /datum/component/chameleon_system/InheritComponent(datum/component/C, original, datum/component/chameleon_wearable/wearable)
+	// Because we're COMPONENT_DUPE_UNIQUE_PASSARGS, additional components added to the
+	// parent won't have their Initialize called, so we just link the new wearable
+	// because we got passed the new component's args.
 	link_wearable(wearable)
 
 /datum/component/chameleon_system/Initialize(datum/component/chameleon_wearable/wearable)
+	// Do "primary" component setup here; whenever a new wearable is picked up/equipped,
+	// all of this will be skipped.
 	system_owner = parent
 
 	if(!outfit_options)
@@ -55,67 +57,58 @@
 	link_wearable(wearable)
 
 /datum/component/chameleon_system/proc/link_wearable(datum/component/chameleon_wearable/wearable)
-	wearable.RegisterSignal(src, COMSIG_CHAMELEON_CHANGE_ONE_LISTING, TYPE_PROC_REF(/datum/component/chameleon_wearable, change_item_listing))
+	if(!items_disguises[wearable.disguise_name])
+		// caled onece for every unique chameleon type item.
+		initialize_item_disguises(wearable.parent, wearable.disguise_name, wearable.disguise_type, wearable.disguise_blacklist)
+
+	wearable.RegisterSignal(src, COMSIG_CHAMELEON_SYSTEM_GET_SUBSCRIBED, TYPE_PROC_REF(/datum/component/chameleon_wearable, get_subscribed))
+	// wearable.RegisterSignal(src, COMSIG_CHAMELEON_CHANGE_ONE_LISTING, TYPE_PROC_REF(/datum/component/chameleon_wearable, change_item_listing))
 	wearable.RegisterSignal(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, TYPE_PROC_REF(/datum/component/chameleon_wearable, change_item_disguise))
 	wearable.RegisterSignal(src, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST, TYPE_PROC_REF(/datum/component/chameleon_wearable, apply_disguise))
 	wearable.RegisterSignal(src, COMSIG_ATOM_EMP_ACT, TYPE_PROC_REF(/datum/component/chameleon_wearable, on_emp))
 
+	RegisterSignal(wearable.parent, COMSIG_ITEM_DROPPED, PROC_REF(refresh_action_buttons))
+	RegisterSignal(wearable.parent, COMSIG_PARENT_QDELETING, PROC_REF(refresh_action_buttons))
+
+/datum/component/chameleon_system/proc/refresh_action_buttons()
+	var/list/wearables = list()
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_SYSTEM_GET_SUBSCRIBED, wearables)
+	if(!length(wearables))
+		QDEL_NULL(change_all)
+		QDEL_NULL(change_one)
+
 /datum/component/chameleon_system/proc/generate_change_one_listing(...)
-	var/list/chameleon_items = list()
-	SEND_SIGNAL(src, COMSIG_CHAMELEON_CHANGE_ONE_LISTING, chameleon_items)
-	if(!length(chameleon_items))
+	var/list/wearables = list()
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_SYSTEM_GET_SUBSCRIBED, wearables)
+	if(!length(wearables))
 		return
 
-	var/choice = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items) // custom TGUI In future lol)
+	var/list/tgui_select_items = list()
+	for(var/datum/component/chameleon_wearable/wearable in wearables)
+		var/name = wearable.disguise_name
+		var/atom/item = wearable.parent
+		var/mob/held_by = item.loc
+		if(istype(held_by))
+			var/slot = held_by.get_slot_by_item(item)
+			var/slot_name = slot_worn_desc(slot)
+			if(slot_name)
+				name += " ([slot_name])"
+
+		tgui_select_items[name] = item
+
+	var/choice = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", wearables) // custom TGUI In future lol)
 	if(!choice)
 		return
 
-	var/atom/item = chameleon_items[choice]
+	var/atom/item = wearables[choice]
 	if(!item)
 		return
 
-/datum/component/chameleon_system/proc/unregister_chameleon_system_signals(listen_to)
-	// SIGNAL_HANDLER // COMSIG_DEACTIVATE_CHAMELEON_SYSTEM
-	UnregisterSignal(listen_to, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST)
-	UnregisterSignal(listen_to, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST)
-	UnregisterSignal(listen_to, COMSIG_ATOM_EMP_ACT)
 
-// /datum/component/chameleon_system/Destroy()
-// 	return ..()
 
 //////////////////////////////
 // MARK: core stuff
 //////////////////////////////
-
-// Called when iteam with chameleon component is pickid up by mob, now this item is trucked by system.
-/datum/component/chameleon_system/proc/link_item(obj/item/I, name, type, blacklist)
-	//if(!is_type_in_list(item, system_items))
-	if(!items_disguises[name])
-		// caled onece for every unique chameleon type item.
-		initialize_item_disguises(I, name, type, blacklist)
-
-	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_UIDs.Add(I.UID())
-	system_items_names.Add(name)
-	system_items_types.Add(type)
-
-// Called when item leaves mob inventory and hands, now we no longer control this item
-/datum/component/chameleon_system/proc/is_item_in_system(obj/item/I)
-	return system_items_UIDs.Find(I.UID())
-
-/datum/component/chameleon_system/proc/unlink_item(obj/item/I, name, type, blacklist)
-	// TODO TEST 2 IDENTICAL ITEMS
-	system_items_UIDs.Remove(I.UID())
-	system_items_names.Remove(name)
-	system_items_types.Remove(type)
-
-	if(!length(system_items_names))
-		change_all.Remove(system_owner)
-		qdel(change_all)
-		change_one.Remove(system_owner)
-		qdel(change_one)
-
-
 
 // Adds new "type" of item and it's disguises options in global list
 /datum/component/chameleon_system/proc/initialize_item_disguises(obj/item/item, chameleon_name, chameleon_type, chameleon_blacklist)
@@ -136,21 +129,21 @@
 // MARK: change one
 //////////////////////////////
 
-/datum/component/chameleon_system/proc/change_one_trigger()
+// /datum/component/chameleon_system/proc/change_one_trigger()
 
-	var/list/chameleon_items_on_user = system_items_names
-	var/obj/item/tranform_from = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
-	if(!tranform_from)
-		return
+// 	var/list/chameleon_items_on_user = system_items_names
+// 	var/obj/item/tranform_from = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items_on_user) // custom TGUI In future lol)
+// 	if(!tranform_from)
+// 		return
 
-	var/index
-	for(var/i in 1 to length(system_items_names))
-		if(system_items_names[i] == tranform_from)
-			index = i
-			break
+// 	var/index
+// 	for(var/i in 1 to length(system_items_names))
+// 		if(system_items_names[i] == tranform_from)
+// 			index = i
+// 			break
 
-	current_ui_item = locateUID(system_items_UIDs[index])
-	ui_interact(system_owner)
+// 	current_ui_item = locateUID(system_items_UIDs[index])
+// 	ui_interact(system_owner)
 	// var/obj/item/tranform_to = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", items_disguises[tranform_from]) // Redo TGUI to work with this
 
 	// if(!tranform_to)
@@ -176,21 +169,21 @@
 /datum/component/chameleon_system/ui_static_data(mob/user, datum/tgui/ui = null)
 
 	// items_disguises[][]
-	var/index = system_items_UIDs.Find(current_ui_item.UID())
-	var/type = system_items_types[index]
-	var/name = system_items_names[index]
+	// var/index = system_items_UIDs.Find(current_ui_item.UID())
+	// var/type = system_items_types[index]
+	// var/name = system_items_names[index]
 
 	var/list/data = list()
-	var/list/chameleon_skins = list()
-	for(var/chameleon_type in items_disguises[name])
-		var/obj/item/chameleon_item = items_disguises[name][type]
-		chameleon_skins.Add(list(list(
-			"icon" = initial(chameleon_item.icon),
-			"icon_state" = initial(chameleon_item.icon_state),
-			"name" = initial(chameleon_item.name),
-		)))
+	// var/list/chameleon_skins = list()
+	// for(var/chameleon_type in items_disguises[name])
+	// 	var/obj/item/chameleon_item = items_disguises[name][type]
+	// 	chameleon_skins.Add(list(list(
+	// 		"icon" = initial(chameleon_item.icon),
+	// 		"icon_state" = initial(chameleon_item.icon_state),
+	// 		"name" = initial(chameleon_item.name),
+	// 	)))
 
-	data["chameleon_skins"] = chameleon_skins
+	// data["chameleon_skins"] = chameleon_skins
 	return data
 
 /datum/component/chameleon_system/ui_interact(mob/user, datum/tgui/ui = null)
@@ -205,14 +198,14 @@
 	if(..())
 		return
 
-	switch(action)
-		if("change_appearance")
-			var/index = system_items_UIDs.Find(current_ui_item.UID())
-			var/type = system_items_types[index]
-			var/name = system_items_names[index]
-			var/tranform_from = name
-			var/tranform_to = params["new_appearance"]
-			SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, type, items_disguises[tranform_from][tranform_to])
+	// switch(action)
+	// 	if("change_appearance")
+	// 		var/index = system_items_UIDs.Find(current_ui_item.UID())
+	// 		var/type = system_items_types[index]
+	// 		var/name = system_items_names[index]
+	// 		var/tranform_from = name
+	// 		var/tranform_to = params["new_appearance"]
+	// 		SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, type, items_disguises[tranform_from][tranform_to])
 			// update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
 
 
@@ -242,27 +235,27 @@
 	var/datum/outfit/O = new selected_outfit ()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
-	for(var/i in 1 to length(system_items_names))
-		for(var/T in outfit_types)
-			if(ispath(T, system_items_types[i]))
-				var/tranform_from = system_items_names[i]
-				var/obj/item/temp_item = T
-				var/tranform_to = "[initial(temp_item.name)]_[initial(temp_item.icon_state)]"
-				SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[i], items_disguises[tranform_from][tranform_to])
+	// for(var/i in 1 to length(system_items_names))
+	// 	for(var/T in outfit_types)
+	// 		if(ispath(T, system_items_types[i]))
+	// 			var/tranform_from = system_items_names[i]
+	// 			var/obj/item/temp_item = T
+	// 			var/tranform_to = "[initial(temp_item.name)]_[initial(temp_item.icon_state)]"
+	// 			SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types[i], items_disguises[tranform_from][tranform_to])
 
-	// Copy and paste, copy and paste) TODO read it and think
-	//hardsuit helmets/suit hoods
-	if(ispath(O.suit, /obj/item/clothing/suit/hooded))
-		//make sure they are actually wearing the suit, not just holding it, and that they have a chameleon hat
-		if(istype(system_owner.wear_suit, system_items_types["suit"]) && istype(system_owner.head, system_items_types["head"]))
+	// // Copy and paste, copy and paste) TODO read it and think
+	// //hardsuit helmets/suit hoods
+	// if(ispath(O.suit, /obj/item/clothing/suit/hooded))
+	// 	//make sure they are actually wearing the suit, not just holding it, and that they have a chameleon hat
+	// 	if(istype(system_owner.wear_suit, system_items_types["suit"]) && istype(system_owner.head, system_items_types["head"]))
 
-			var/tranform_from = system_items_names[system_items_types.Find("head")]
-			var/helmet_type
-			var/obj/item/clothing/suit/hooded/hooded = O.suit
-			helmet_type = initial(hooded.hoodtype)
-			var/tranform_to = helmet_type
-			if(helmet_type)
-				SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types["head"], items_disguises[tranform_from][tranform_to])
+	// 		var/tranform_from = system_items_names[system_items_types.Find("head")]
+	// 		var/helmet_type
+	// 		var/obj/item/clothing/suit/hooded/hooded = O.suit
+	// 		helmet_type = initial(hooded.hoodtype)
+	// 		var/tranform_to = helmet_type
+	// 		if(helmet_type)
+	// 			SEND_SIGNAL(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, system_items_types["head"], items_disguises[tranform_from][tranform_to])
 
 	qdel(O)
 	return TRUE

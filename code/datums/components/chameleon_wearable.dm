@@ -32,19 +32,9 @@
 // 	// CRASH("I CAN BE Detach?")
 // 	return ..()
 
-/datum/component/chameleon_wearable/proc/change_item_listing(datum/source, list/items)
+/datum/component/chameleon_wearable/proc/get_subscribed(datum/source, list/items)
 	SIGNAL_HANDLER
-	var/name = disguise_name
-
-	var/atom/item = parent
-	var/mob/held_by = item.loc
-	if(istype(held_by))
-		var/slot = held_by.get_slot_by_item(item)
-		var/slot_name = slot_worn_desc(slot)
-		if(slot_name)
-			name += " ([slot_name])"
-
-	items[name] = item
+	items += src
 
 /datum/component/chameleon_wearable/proc/on_pickup(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
@@ -76,12 +66,13 @@
 /datum/component/chameleon_wearable/proc/dropped(obj/item/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 
-	// if(source.loc != user)
-	// 	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
-	// 	sys.unlink_item(chameleon_item, chameleon_type_name, disguise_type,)
-	// 	unregister_chameleon_system_signals(sys)
-
-	return
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_REFRESH_ACTIONS)
+	UnregisterSignal(src, list(
+		COMSIG_CHAMELEON_CHANGE_ONE_TRIGGER,
+		COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST,
+		COMSIG_CHAMELEON_FULL_CHANGE_REQUEST,
+		COMSIG_ATOM_EMP_ACT,
+	))
 
 /datum/component/chameleon_wearable/proc/on_emp(source, obj/item/unit)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMP_ACT

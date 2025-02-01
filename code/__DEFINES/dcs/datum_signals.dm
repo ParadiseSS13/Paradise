@@ -115,7 +115,9 @@
 #define COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST "chameleon_change_one"
 #define COMSIG_CHAMELEON_FULL_CHANGE_REQUEST "chameleon_change_all"
 #define COMSIG_CHAMELEON_CHANGE_ONE_TRIGGER "chameleon_change_one_trigger"
-#define COMSIG_CHAMELEON_CHANGE_ONE_LISTING "chameleon_change_one_listing"
+#define COMSIG_CHAMELEON_REFRESH_ACTIONS "chameleon_refresh_actions"
+// Called when the chameleon system needs a list of all the wearables subscribed to it.
+#define COMSIG_CHAMELEON_SYSTEM_GET_SUBSCRIBED "chameleon_get_subscribed"
 
 /// /datum/alarm_manager
 
