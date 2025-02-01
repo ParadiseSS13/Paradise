@@ -210,41 +210,41 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/process_atmos()
 	..()
 	sync_pressure_appearance()
-	var/datum/milla_safe/canister_process/milla = new()
-	milla.invoke_async(src)
-
-/datum/milla_safe/canister_process
-
-/datum/milla_safe/canister_process/on_run(obj/machinery/atmospherics/portable/canister/canister)
-	if(canister.stat & BROKEN)
+	if(stat & BROKEN)
 		return
 
-	if(canister.valve_open)
-		var/datum/gas_mixture/environment
-		if(canister.holding_tank)
-			environment = canister.holding_tank.air_contents
-		else
-			var/turf/T = get_turf(canister)
-			environment = get_turf_air(T)
+	if(valve_open)
+		var/datum/milla_safe/canister_release/milla = new()
+		milla.invoke_async(src)
 
-		var/env_pressure = environment.return_pressure()
-		var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure) / 2)
-		//Can not have a pressure delta that would cause environment pressure > tank pressure
-
-		var/transfer_moles = 0
-		if((canister.air_contents.temperature() > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta * environment.volume / (canister.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
-
-			//Actually transfer the gas
-			var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
-
-			environment.merge(removed)
-			canister.sync_pressure_appearance()
-
-	if(canister.air_contents.return_pressure() < 1)
-		canister.can_label = TRUE
+	if(air_contents.return_pressure() < 1)
+		can_label = TRUE
 	else
-		canister.can_label = FALSE
+		can_label = FALSE
+
+/datum/milla_safe/canister_release
+
+/datum/milla_safe/canister_release/on_run(obj/machinery/atmospherics/portable/canister/canister)
+	var/datum/gas_mixture/environment
+	if(canister.holding_tank)
+		environment = canister.holding_tank.air_contents
+	else
+		var/turf/T = get_turf(canister)
+		environment = get_turf_air(T)
+
+	var/env_pressure = environment.return_pressure()
+	var/pressure_delta = min(canister.release_pressure - env_pressure, (canister.air_contents.return_pressure() - env_pressure) / 2)
+	//Can not have a pressure delta that would cause environment pressure > tank pressure
+
+	var/transfer_moles = 0
+	if((canister.air_contents.temperature() > 0) && (pressure_delta > 0))
+		transfer_moles = pressure_delta * environment.volume / (canister.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+
+		//Actually transfer the gas
+		var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
+
+		environment.merge(removed)
+		canister.sync_pressure_appearance()
 
 /obj/machinery/atmospherics/portable/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

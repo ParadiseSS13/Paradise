@@ -114,8 +114,10 @@
 	usr.show_message(t, EMOTE_VISIBLE)
 
 /mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+#ifndef GAME_TESTS
 	if(!client)
 		return
+#endif
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related
@@ -793,10 +795,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD

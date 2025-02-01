@@ -423,11 +423,10 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/food/breadslice/food = new(get_turf(M))
+	var/obj/item/food/sliced/bread/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
-	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"

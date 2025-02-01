@@ -50,7 +50,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Bluespace."
+	desc = "A bleeding-edge backpack that uses bluespace technology to create a localized dimensional pocket for storage."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"

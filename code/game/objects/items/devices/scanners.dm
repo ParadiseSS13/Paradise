@@ -606,10 +606,13 @@ SLIME SCANNER
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
+	/// FALSE: Sum gas mixes then present. TRUE: Present each mix individually
+	var/show_detailed = FALSE
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click [src] to activate the barometer function.</span>"
+	. += "<span class='notice'>Alt-Shift-click [src] to toggle detailed reporting on or off.</span>"
 
 /obj/item/analyzer/attack_self__legacy__attackchain(mob/user as mob)
 
@@ -620,8 +623,12 @@ SLIME SCANNER
 	if(!isturf(location))
 		return
 
-	atmos_scan(user, location)
+	atmos_scan(user = user, target = location, detailed = show_detailed)
 	add_fingerprint(user)
+
+/obj/item/analyzer/AltShiftClick(mob/user)
+	show_detailed = !show_detailed
+	to_chat(user, "<span class='notice'>You toggle detailed reporting [show_detailed ? "on" : "off"]</span>")
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
@@ -691,25 +698,30 @@ SLIME SCANNER
 	if(!can_see(user, target, 1))
 		return
 	if(target.return_analyzable_air())
-		atmos_scan(user, target)
+		atmos_scan(user, target, detailed = show_detailed)
 	else
-		atmos_scan(user, get_turf(target))
+		atmos_scan(user, get_turf(target), detailed = show_detailed)
 
 /**
  * Outputs a message to the user describing the target's gasmixes.
  * Used in chat-based gas scans.
  */
-/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
-	var/datum/gas_mixture/air
+/proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE, detailed = FALSE)
+	var/datum/gas_mixture/gasmix
+	var/list/airs
 	var/list/milla = null
 	if(milla_turf_details && istype(target, /turf))
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		air = new()
-		air.copy_from_milla(milla)
+		gasmix = new()
+		gasmix.copy_from_milla(milla)
+		airs += gasmix
 	else
-		air = target.return_analyzable_air()
-		if(!air)
+		gasmix = target.return_analyzable_air()
+		if(!istype(gasmix, /list))
+			gasmix = list(gasmix)
+		airs += gasmix
+		if(!gasmix)
 			return FALSE
 
 	var/list/message = list()
@@ -719,35 +731,87 @@ SLIME SCANNER
 
 	if(!print)
 		return TRUE
+	var/total_moles = 0
+	var/pressure = 0
+	var/volume = 0
+	var/heat_capacity = 0
+	var/thermal_energy = 0
+	var/oxygen = 0
+	var/nitrogen = 0
+	var/toxins
+	var/carbon_dioxide = 0
+	var/sleeping_agent = 0
+	var/agent_b = 0
 
-	var/total_moles = air.total_moles()
-	var/pressure = air.return_pressure()
-	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-	var/heat_capacity = air.heat_capacity()
-	var/thermal_energy = air.thermal_energy()
+	if(detailed)// Present all mixtures one by one
+		for(var/datum/gas_mixture/air as anything in airs)
+			total_moles = air.total_moles()
+			pressure = air.return_pressure()
+			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
+			heat_capacity = air.heat_capacity()
+			thermal_energy = air.thermal_energy()
 
-	if(total_moles)
-		message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
-		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-			message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
-		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-			message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
-		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-			message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
-		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-			message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
-		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-			message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
-		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-			message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
-		message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
-		message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
-		message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
-		message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
-		message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
-	else
-		message += "<span class='notice'>[target] is empty!</span>"
-		message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+			if(total_moles)
+				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
+					message += "  <span class='oxygen'>Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)</span>"
+				if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
+					message += "  <span class='nitrogen'>Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)</span>"
+				if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
+					message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)</span>"
+				if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
+					message += "  <span class='plasma'>Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)</span>"
+				if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
+					message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)</span>"
+				if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
+					message += "  <span class='agent_b'>Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)</span>"
+				message += "<span class='notice'>Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)</span>"
+				message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+				message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+				message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+				message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+			else
+				message += "<span class='notice'>[target] is empty!</span>"
+				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
+
+	else// Sum mixtures then present
+		for(var/datum/gas_mixture/air as anything in airs)
+			total_moles += air.total_moles()
+			volume += air.return_volume()
+			heat_capacity += air.heat_capacity()
+			thermal_energy += air.thermal_energy()
+			oxygen += air.oxygen()
+			nitrogen += air.nitrogen()
+			toxins += air.toxins()
+			carbon_dioxide += air.carbon_dioxide()
+			sleeping_agent += air.sleeping_agent()
+			agent_b += air.agent_b()
+
+		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
+		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
+
+		if(total_moles)
+			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
+			if(oxygen && (milla_turf_details || oxygen / total_moles > 0.01))
+				message += "  <span class='oxygen'>Oxygen: [round(oxygen, 0.01)] moles ([round(oxygen / total_moles * 100, 0.01)] %)</span>"
+			if(nitrogen && (milla_turf_details || nitrogen / total_moles > 0.01))
+				message += "  <span class='nitrogen'>Nitrogen: [round(nitrogen, 0.01)] moles ([round(nitrogen / total_moles * 100, 0.01)] %)</span>"
+			if(carbon_dioxide && (milla_turf_details || carbon_dioxide / total_moles > 0.01))
+				message += "  <span class='carbon_dioxide'>Carbon Dioxide: [round(carbon_dioxide, 0.01)] moles ([round(carbon_dioxide / total_moles * 100, 0.01)] %)</span>"
+			if(toxins && (milla_turf_details || toxins / total_moles > 0.01))
+				message += "  <span class='plasma'>Plasma: [round(toxins, 0.01)] moles ([round(toxins / total_moles * 100, 0.01)] %)</span>"
+			if(sleeping_agent && (milla_turf_details || sleeping_agent / total_moles > 0.01))
+				message += "  <span class='sleeping_agent'>Nitrous Oxide: [round(sleeping_agent, 0.01)] moles ([round(sleeping_agent / total_moles * 100, 0.01)] %)</span>"
+			if(agent_b && (milla_turf_details || agent_b / total_moles > 0.01))
+				message += "  <span class='agent_b'>Agent B: [round(agent_b, 0.01)] moles ([round(agent_b / total_moles * 100, 0.01)] %)</span>"
+			message += "<span class='notice'>Temperature: [round(temperature-T0C)] &deg;C ([round(temperature)] K)</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>"
+			message += "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>"
+			message += "<span class='notice'>Heat Capacity: [DisplayJoules(heat_capacity)] / K</span>"
+			message += "<span class='notice'>Thermal Energy: [DisplayJoules(thermal_energy)]</span>"
+		else
+			message += "<span class='notice'>[target] is empty!</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
 	if(milla)
 		// Values from milla/src/lib.rs, +1 due to array indexing difference.

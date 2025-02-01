@@ -222,6 +222,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
+	alarm_area.air_alarms += src
 
 	if(!mapload)
 		GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -231,41 +232,18 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!building)
 		first_run()
 
-	if(!master_is_operating())
-		elect_master()
-
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
+	alarm_area.air_alarms -= src
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
-	if(alarm_area && alarm_area.master_air_alarm == src)
-		alarm_area.master_air_alarm = null
-		elect_master(exclude_self = 1)
 	alarm_area = null
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
-
-/obj/machinery/alarm/proc/master_is_operating()
-	if(!alarm_area)
-		alarm_area = get_area(src)
-	if(!alarm_area)
-		. = FALSE
-		CRASH("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()")
-	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
-
-
-/obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
-	for(var/obj/machinery/alarm/AA in alarm_area)
-		if(exclude_self && AA == src)
-			continue
-		if(!(AA.stat & (NOPOWER|BROKEN)))
-			alarm_area.master_air_alarm = AA
-			return 1
-	return 0
 
 /obj/machinery/alarm/process()
 	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2)
@@ -275,8 +253,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!istype(location))
 		return 0
 
-	var/datum/milla_safe/airalarm_heat_cool/milla = new()
-	milla.invoke_async(src)
+	if(thermostat_state)
+		var/datum/milla_safe/airalarm_heat_cool/milla = new()
+		milla.invoke_async(src)
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
@@ -342,8 +321,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/turf/location = get_turf(alarm)
 	var/datum/gas_mixture/environment = get_turf_air(location)
 
-	if(!alarm.thermostat_state)
-		return
 	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
@@ -1021,14 +998,14 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/alarm/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/alarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
@@ -1036,14 +1013,15 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					SStgui.update_uis(src)
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
+
+				return ITEM_INTERACT_COMPLETE
 
 		if(AIR_ALARM_UNWIRED)
-			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
+			if(iscoil(used))
+				var/obj/item/stack/cable_coil/coil = used
 				if(coil.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				playsound(get_turf(src), coil.usesound, 50, 1)
@@ -1053,15 +1031,15 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				wiresexposed = TRUE
 				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(AIR_ALARM_FRAME)
-			if(istype(I, /obj/item/airalarm_electronics))
-				to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-				playsound(get_turf(src), I.usesound, 50, 1)
-				qdel(I)
+			if(istype(used, /obj/item/airalarm_electronics))
+				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				qdel(used)
 				buildstage = 1
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)

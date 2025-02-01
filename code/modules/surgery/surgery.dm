@@ -500,15 +500,15 @@
 	var/list/tools = list()
 	for(var/tool in allowed_tools)
 		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
-		if(tool in GLOB.surgery_tool_behaviors)
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
 			tools |= tool
 	if(!length(tools))
 		// if nothing else, just pick the first in the list.
 		var/atom/tool = allowed_tools[1]
-		tools |= tool.name
+		tools |= (ispath(tool)) ? tool::name : "[tool]"
 
 
-	return "[name] ([english_list(tools, and_text="or")])"
+	return "[name] ([english_list(tools, and_text=" or ")])"
 
 /**
  * Spread some nasty germs to an organ.

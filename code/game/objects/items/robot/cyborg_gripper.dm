@@ -16,6 +16,7 @@
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
 	flags = ABSTRACT
+	new_attack_chain = TRUE
 	/// Set to TRUE to removal of cells/lights from machine objects containing them.
 	var/engineering_machine_interaction = FALSE
 	/// Defines what items the gripper can carry.
@@ -58,39 +59,46 @@
 	gripped_item = null
 	return TRUE
 
-/obj/item/gripper/attack_self__legacy__attackchain(mob/user)
+/obj/item/gripper/activate_self(mob/user)
+	. = ..()
 	if(!gripped_item)
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(gripped_item.new_attack_chain)
 		gripped_item.activate_self(user)
 	else
 		gripped_item.attack_self__legacy__attackchain(user)
+	return ITEM_INTERACT_COMPLETE
 
 // This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 /obj/item/gripper/forceMove(atom/destination)
 	return
-
-/obj/item/gripper/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity, params)
-	// Target is invalid or we are not adjacent.
-	if(!target || !proximity)
-		return
+	
+/obj/item/gripper/interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+	if(!target)
+		return ITEM_INTERACT_COMPLETE
 
 	// Does the gripper already have an item?
 	if(gripped_item)
 		// Pass the attack on to the target. This might delete/relocate gripped_item. If the attackby doesn't resolve or delete the target or gripped_item, afterattack.
-		if(!target.attackby__legacy__attackchain(gripped_item, user, params))
-			gripped_item?.afterattack__legacy__attackchain(target, user, 1, params)
+		// We also need to check if it's the old or new attack chain until the migration is complete.
+		if(new_attack_chain)
+			if(!target.item_interaction(user, gripped_item, modifiers))
+				gripped_item.melee_attack_chain(user, target, modifiers)
+		else
+			if(!target.attackby__legacy__attackchain(gripped_item, user, modifiers))
+				gripped_item?.afterattack__legacy__attackchain(target, user, 1, modifiers)
 		// Check to see if there is still an item in the gripper (stackable items trigger this).
 		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
-			return
+			return ITEM_INTERACT_COMPLETE
 		// If the gripper thinks it has something but it actually doesn't, we fix this.
 		if(gripped_item && !length(contents))
 			gripped_item = null
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	// Is the gripper interacting with an item?
 	if(isitem(target))
@@ -100,17 +108,14 @@
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
-		return
-
-	// Attack code will handle this.
-	if(ismob(target))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// Everything past this point requires being able to engineer.
 	if(!engineering_machine_interaction)
+		// Allow attack chain to continue into pre_attack()
 		return
 
 	// Removing cells from APCs.
@@ -128,7 +133,7 @@
 				"<span class='warning'>[user] removes the cell from [A]!</span>",
 				"<span class='warning'>You remove the cell from [A].</span>"
 				)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// Removing cells from cell chargers.
 	if(istype(target, /obj/machinery/cell_charger))
@@ -142,7 +147,7 @@
 			"<span class='notice'>[user] removes the cell from [cell_charger].</span>",
 			"<span class='notice'>You remove the cell from [cell_charger].</span>"
 			)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// Removing lights from fixtures.
 	if(istype(target, /obj/machinery/light))
@@ -154,19 +159,28 @@
 			"<span class='notice'>[user] removes [L] from [light].</span>",
 			"<span class='notice'>You remove [L] from [light].</span>"
 			)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/gripper/emag_act(mob/user)
 	emagged = !emagged
 	..()
 	return TRUE
 
-/obj/item/gripper/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user, params)
+/obj/item/gripper/pre_attack(atom/A, mob/living/user, params)
 	if(gripped_item)
-		return
+		gripped_item.attack(A, user)
+		return TRUE
+	
+	if(!ismob(A))
+		return ..()
 
+	// This is required to avoid hypersonic interaction speed.
+	user.changeNext_move(CLICK_CD_MELEE)
+	. = TRUE
+	var/mob/living/target = A
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
-	if(ishuman(M) && user.a_intent == INTENT_HELP && can_help_up)
-		var/mob/living/carbon/human/pickup_target = M
+	if(ishuman(target) && user.a_intent == INTENT_HELP && can_help_up)
+		var/mob/living/carbon/human/pickup_target = target
 		if(IS_HORIZONTAL(pickup_target))
 			// Same restorative effects as when a human tries to help someone up.
 			pickup_target.AdjustSleeping(-10 SECONDS)
@@ -185,7 +199,7 @@
 			return
 
 	if(user.a_intent == INTENT_HELP)
-		if(M == user)
+		if(target == user)
 			user.visible_message(
 				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>",
 				"<span class='notice'>You give yourself a hug to make yourself feel better.</span>"
@@ -194,35 +208,36 @@
 			return
 
 		// Checks if holder_type exists to prevent picking up animals like mice, because we're about to use the hands that borgs secretly have.
-		if(isanimal(M) && !M.holder_type)
+		if(isanimal(target) && !target.holder_type)
 			var/list/modifiers = params2list(params)
 			// This enables borgs to get the floating heart icon and mob emote from simple_animals that have petbonus == TRUE.
-			M.attack_hand(user, modifiers)
+			target.attack_hand(user, modifiers)
+			return
 
 		if(user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
-				"<span class='notice'>[user] playfully boops [M] on the head.</span>",
-				"<span class='notice'>You playfully boop [M] on the head.</span>"
+				"<span class='notice'>[user] playfully boops [target] on the head.</span>",
+				"<span class='notice'>You playfully boop [target] on the head.</span>"
 				)
-			user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
+			user.do_attack_animation(target, ATTACK_EFFECT_BOOP)
 			playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 			return
 
-		if(ishuman(M))
+		if(ishuman(target))
 			user.visible_message(
-				"<span class='notice'>[user] hugs [M] to make [M.p_them()] feel better.</span>",
-				"<span class='notice'>You hug [M] to make [M.p_them()] feel better.</span>"
+				"<span class='notice'>[user] hugs [target] to make [target.p_them()] feel better.</span>",
+				"<span class='notice'>You hug [target] to make [target.p_them()] feel better.</span>"
 				)
 		else
 			user.visible_message(
-				"<span class='notice'>[user] pets [M]!</span>",
-				"<span class='notice'>You pet [M]!</span>"
+				"<span class='notice'>[user] pets [target]!</span>",
+				"<span class='notice'>You pet [target]!</span>"
 				)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		return
 
 	if(user.a_intent == INTENT_HARM && !emagged)
-		if(M == user)
+		if(target == user)
 			user.visible_message(
 			"<span class='notice'>[user] gives [user.p_themselves()] a firm bear-hug to make [user.p_themselves()] feel better.</span>",
 			"<span class='notice'>You give yourself a firm bear-hug to make yourself feel better.</span>"
@@ -230,17 +245,17 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return
 
-		if(!ishuman(M) || user.zone_selected == BODY_ZONE_HEAD)
+		if(!ishuman(target) || user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
-				"<span class='warning'>[user] bops [M] on the head!</span>",
-				"<span class='warning'>You bop [M] on the head!</span>"
+				"<span class='warning'>[user] bops [target] on the head!</span>",
+				"<span class='warning'>You bop [target] on the head!</span>"
 				)
-			user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
+			user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
 		else
 			user.visible_message(
-				"<span class='warning'>[user] hugs [M] in a firm bear-hug! [M] looks uncomfortable...</span>",
-				"<span class='warning'>You hug [M] firmly to make [M.p_them()] feel better! [M] looks uncomfortable...</span>"
+				"<span class='warning'>[user] hugs [target] in a firm bear-hug! [target] looks uncomfortable...</span>",
+				"<span class='warning'>You hug [target] firmly to make [target.p_them()] feel better! [target] looks uncomfortable...</span>"
 				)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		return
@@ -249,36 +264,36 @@
 	if(!emagged)
 		return
 
-	if(M == user)
+	if(target == user)
 		user.visible_message(
 			"<span class='danger'>[user] punches [user.p_themselves()] in the face!.</span>",
 			"<span class='userdanger'>You punch yourself in the face!</span>"
 			)
-		user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
+		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 		user.adjustBruteLoss(15)
 		return
 
-	if(ishuman(M))
+	if(ishuman(target))
 		// Try to punch them in the face... Unless it fell off or something.
-		if(user.zone_selected == BODY_ZONE_HEAD && M.get_organ("head"))
+		if(user.zone_selected == BODY_ZONE_HEAD && target.get_organ("head"))
 			user.visible_message(
-				"<span class='danger'>[user] punches [M] squarely in the face!</span>",
-				"<span class='danger'>You punch [M] in the face!</span>"
+				"<span class='danger'>[user] punches [target] squarely in the face!</span>",
+				"<span class='danger'>You punch [target] in the face!</span>"
 				)
-			var/obj/item/organ/external/head/their_face = M.get_organ("head")
-			user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
+			var/obj/item/organ/external/head/their_face = target.get_organ("head")
+			user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 			their_face.receive_damage(15)
-			M.UpdateDamageIcon()
+			target.UpdateDamageIcon()
 			return
 
 	user.visible_message(
-		"<span class='danger'>[user] crushes [M] in [user.p_their()] grip!</span>",
-		"<span class='danger'>You crush [M] in your grip!</span>"
+		"<span class='danger'>[user] crushes [target] in [user.p_their()] grip!</span>",
+		"<span class='danger'>You crush [target] in your grip!</span>"
 		)
 	playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
-	M.adjustBruteLoss(15)
+	target.adjustBruteLoss(15)
 
 // MARK: Gripper Types
 
