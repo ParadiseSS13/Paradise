@@ -698,7 +698,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/plague_talisman
-		)
+	)
 
 /obj/item/storage/belt/plague_talisman/populate_contents()
 	for(var/count in 1 to storage_slots)
