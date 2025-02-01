@@ -34,6 +34,7 @@
 		"Nanotrasen Navy Officer",
 		"Special Operations Officer",
 		"Trans-Solar Federation General"
+        "Head of Personnel"
 	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
