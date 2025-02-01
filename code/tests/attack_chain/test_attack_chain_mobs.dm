@@ -74,6 +74,7 @@
 	corgi.razor_shave_delay = 0
 	player.click_on(corgi)
 	TEST_ASSERT(corgi.shaved, "corgi was not shaved")
+	player.put_away(razor)
 
 	victim.puppet.death()
 	player.spawn_obj_in_hand(/obj/item/kitchen/knife/butcher/meatcleaver)
