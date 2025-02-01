@@ -529,8 +529,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bF" = (
@@ -563,11 +563,6 @@
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation)
-"bK" = (
-/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -774,9 +769,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "ct" = (
-/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "cu" = (
@@ -1237,9 +1232,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "dK" = (
-/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
 /mob/living/simple_animal/hostile/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -3341,7 +3336,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jm" = (
@@ -3357,7 +3352,7 @@
 /area/ruin/ancientstation)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "jp" = (
@@ -5385,7 +5380,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "zR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "zT" = (
@@ -5643,7 +5638,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_x = 8;
-	pixel_y = 7
+	pixel_y = 14
 	},
 /obj/item/storage/fancy/matches,
 /turf/simulated/floor/plasteel,
@@ -5794,6 +5789,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"Dm" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/kirbyplants/large/dead,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/ancientstation/atmo)
 "DG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -7304,7 +7304,7 @@
 /area/ruin/ancientstation/betanorth)
 "VJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "VM" = (
@@ -8009,7 +8009,7 @@ aa
 aa
 aa
 uQ
-lE
+Dm
 er
 er
 er
@@ -9959,7 +9959,7 @@ Hn
 bb
 bm
 kD
-bK
+jg
 bC
 hm
 lN
