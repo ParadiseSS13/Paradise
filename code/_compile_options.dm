@@ -17,6 +17,10 @@
 #define MAP_TESTS
 #endif
 
+#if defined(CIBUILDING) && defined(LOCAL_GAME_TESTS)
+#error CIBUILDING and LOCAL_GAME_TESTS should not be enabled at the same time!
+#endif
+
 #if defined(GAME_TESTS) || defined(MAP_TESTS)
 #define TEST_RUNNER
 #endif
