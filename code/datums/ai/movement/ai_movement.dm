@@ -32,7 +32,7 @@
 	var/datum/ai_controller/controller = source.extra_info
 
 	var/can_move = TRUE
-	if((controller.ai_traits & AI_FLAG_STOP_MOVING_WHEN_PULLED) && pawn.pulledby) // Need to store more state. Annoying.
+	if((controller.ai_traits & AI_FLAG_STOP_MOVING_WHEN_PULLED) && pawn.pulledby)
 		can_move = FALSE
 
 	if(!isturf(pawn.loc)) // No moving if not on a turf

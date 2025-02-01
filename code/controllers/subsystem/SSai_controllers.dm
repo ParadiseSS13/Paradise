@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(ai_controllers)
 
 		if(!ai_controller.able_to_plan())
 			continue
-		ai_controller.select_behaviors(wait * 0.1)
+		ai_controller.select_behaviors(wait / (1 SECONDS))
 		if(!LAZYLEN(ai_controller.current_behaviors)) //Still no plan
 			COOLDOWN_START(ai_controller, failed_planning_cooldown, AI_FAILED_PLANNING_COOLDOWN)
 
@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(ai_controllers)
 ///Called when the max Z level was changed, updating our coverage.
 /datum/controller/subsystem/ai_controllers/proc/on_max_z_changed()
 	if(!islist(ai_controllers_by_zlevel))
-		ai_controllers_by_zlevel = new /list(world.maxz,0)
+		ai_controllers_by_zlevel = new /list(world.maxz, 0)
 	while(SSai_controllers.ai_controllers_by_zlevel.len < world.maxz)
 		SSai_controllers.ai_controllers_by_zlevel.len++
 		SSai_controllers.ai_controllers_by_zlevel[ai_controllers_by_zlevel.len] = list()

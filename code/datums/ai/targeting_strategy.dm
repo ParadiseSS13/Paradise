@@ -10,6 +10,6 @@
 /// Returns something the target might be hiding inside of.
 /datum/targeting_strategy/proc/find_hidden_mobs(mob/living/living_mob, atom/target)
 	var/atom/target_hiding_location
-	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
+	if(istype(target.loc, /obj/structure) || istype(target.loc, /obj/machinery))
 		target_hiding_location = target.loc
 	return target_hiding_location

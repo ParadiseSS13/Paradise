@@ -1134,9 +1134,14 @@
 /**
  * A backwards depth-limited breadth-first-search to see if the target is
  * logically "in" anything adjacent to us.
+ *
+ * Arguments:
+ * * ultimate_target - the specific item we're attempting to reach.
+ * * tool - if present, checked to see if the tool can reach the target via [/obj/item/var/reach].
+ * * view_only - if TRUE, only considers locations in atoms visible to us, as opposed to nested inventories.
  */
-/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	var/list/direct_access = DirectAccess()
+/atom/movable/proc/can_reach_nested_adjacent(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/list/direct_access = direct_access()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
 	var/list/closed = list()
@@ -1151,7 +1156,7 @@
 				continue
 
 			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
-				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
+				if(Adjacent(target) || (tool && check_tool_reach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
 			closed[target] = TRUE
@@ -1161,15 +1166,3 @@
 
 		checking = next
 	return FALSE
-
-/atom/movable/proc/DirectAccess()
-	return list(src, loc)
-
-/mob/DirectAccess(atom/target)
-	return ..() + contents
-
-/mob/living/DirectAccess(atom/target)
-	return ..() + get_all_contents()
-
-/atom/movable/proc/get_default_say_verb()
-	return atom_say_verb

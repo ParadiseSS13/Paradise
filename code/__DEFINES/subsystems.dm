@@ -50,29 +50,28 @@
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
 #define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 30
-#define INIT_ORDER_DBCORE 29
-#define INIT_ORDER_REDIS 28 // Make sure we dont miss any events
-#define INIT_ORDER_BLACKBOX 27
-#define INIT_ORDER_CLEANUP 26
-#define INIT_ORDER_INPUT 25
-#define INIT_ORDER_SOUNDS 24
-#define INIT_ORDER_INSTRUMENTS 23
-#define INIT_ORDER_RESEARCH 22 // SoonTM
-#define INIT_ORDER_STATION 21 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_EVENTS 20
-#define INIT_ORDER_JOBS 19
-#define INIT_ORDER_AI_MOVEMENT 18
-#define INIT_ORDER_AI_CONTROLLERS 17
-#define INIT_ORDER_TICKER 16
-#define INIT_ORDER_MAPPING 15
-#define INIT_ORDER_EARLY_ASSETS 14
-#define INIT_ORDER_SPATIAL_GRID 13
-#define INIT_ORDER_ATOMS 12
-#define INIT_ORDER_MACHINES 11
-#define INIT_ORDER_HOLIDAY 10
-#define INIT_ORDER_IDLENPCS 9
-#define INIT_ORDER_MOBS 8
+#define INIT_ORDER_GARBAGE 24
+#define INIT_ORDER_DBCORE 23
+#define INIT_ORDER_REDIS 22 // Make sure we dont miss any events
+#define INIT_ORDER_BLACKBOX 21
+#define INIT_ORDER_CLEANUP 20
+#define INIT_ORDER_INPUT 19
+#define INIT_ORDER_SOUNDS 18
+#define INIT_ORDER_INSTRUMENTS 17
+#define INIT_ORDER_RESEARCH 16 // SoonTM
+#define INIT_ORDER_STATION 15 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 14
+#define INIT_ORDER_JOBS 13
+#define INIT_ORDER_AI_MOVEMENT 12
+#define INIT_ORDER_AI_CONTROLLERS 11
+#define INIT_ORDER_TICKER 10
+#define INIT_ORDER_MAPPING 9
+#define INIT_ORDER_EARLY_ASSETS 8
+#define INIT_ORDER_ATOMS 7
+#define INIT_ORDER_MACHINES 5
+#define INIT_ORDER_HOLIDAY 4
+#define INIT_ORDER_IDLENPCS 3
+#define INIT_ORDER_MOBS 2
 #define INIT_ORDER_TIMER 1
 #define INIT_ORDER_DEFAULT 0
 #define INIT_ORDER_AIR -1
