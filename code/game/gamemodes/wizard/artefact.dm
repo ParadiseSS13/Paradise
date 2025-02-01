@@ -920,14 +920,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/picked_disease
 	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
 	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
-	var/minor_length = length(minor_diseases)
-	var/major_length = length(major_diseases)
 	if(prob(66))
-		picked_disease = minor_diseases[rand(1, minor_length)]
-		return(picked_disease)
+		picked_disease = pick(minor_diseases)
 	else
-		picked_disease = major_diseases[rand(1, major_length)]
-		return(picked_disease)
+		picked_disease = pick(major_diseases)
+	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
