@@ -177,8 +177,6 @@
 	if(dispel())
 		return
 	var/obj/item/plague_claw/claws = new /obj/item/plague_claw(user.loc, src, disease)
-	if(user.get_organ("l_hand") && user.get_organ("r_hand")) // Takes always takes both hand slots, but doesnt require both
-		claws.AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	if(user.put_in_hands(claws))
 		our_claws += claws
 	else
@@ -194,8 +192,8 @@
 
 /datum/spell/plague_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
-		return ..()
+	if(!L.get_active_hand() && !user.is_holding_item_of_type(/obj/item/plague_claw))
+		return TRUE
 
 /datum/spell/plague_claws/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -242,7 +240,7 @@
 	return ..()
 
 /obj/item/plague_claw/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have()] sharp, ichor-laden claws extending from [owner.p_their()] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
 
 /obj/item/plague_claw/after_attack(atom/atom_target, mob/user, proximity_flag, click_parameters, claw_disease)
 	. = ..()
@@ -251,6 +249,7 @@
 	if(!ishuman(atom_target) || ismachineperson(atom_target))
 		return
 	var/mob/living/carbon/human/target = atom_target
+	target.bleed_rate = max(5, target.bleed_rate + 1) // Very sharp, ouch!
 	try_virus_infect(target, user, claw_disease)
 
 /obj/item/plague_claw/proc/try_virus_infect(mob/living/carbon/human/target, mob/living/user)
@@ -262,13 +261,11 @@
 
 	// already have the disease, or have contracted it.
 	if(!target.HasDisease(claw_disease))
-		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
-		target.bleed_rate = max(5, target.bleed_rate + 1) // Them claws sharp! Good luck with whatever they were laced with
 		var/datum/disease/plague = new claw_disease
 		target.ContractDisease(plague)
 
 /obj/item/plague_claw/activate_self(mob/user)
 	if(..())
 		return
-	qdel(src)
+	qdel(src) // drops if "used" in hand
 
