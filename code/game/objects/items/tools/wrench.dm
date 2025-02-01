@@ -19,6 +19,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
+	new_attack_chain = TRUE
+
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
@@ -70,7 +72,10 @@
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/wrench/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/wrench/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")

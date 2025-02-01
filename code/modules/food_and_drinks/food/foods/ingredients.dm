@@ -41,88 +41,90 @@
 	name = "cheese wheel"
 	desc = "A big wheel of delicious Cheddar."
 	icon_state = "cheesewheel"
-	slice_path = /obj/item/food/cheesewedge
+	slice_path = /obj/item/food/sliced/cheesewedge
 	slices_num = 5
 	filling_color = "#FFF700"
-	list_reagents = list("nutriment" = 15, "vitamin" = 5, "cheese" = 20)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1)
 
-/obj/item/food/cheesewedge
+/obj/item/food/sliced/cheesewedge
 	name = "cheese wedge"
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1)
 
 /obj/item/food/sliceable/cheesewheel/smoked
 	name = "smoked cheese wheel"
 	desc = "A wheel of fancy imported-style smoked cheese."
 	icon_state = "cheesewheel-smoked"
-	slice_path = /obj/item/food/cheesewedge/smoked
+	slice_path = /obj/item/food/sliced/cheesewedge/smoked
 	slices_num = 4
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 15)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1, "smoke" = 2)
 
-/obj/item/food/cheesewedge/smoked
+/obj/item/food/sliced/cheesewedge/smoked
 	name = "smoked cheese wedge"
 	desc = "A wedge of fancy smoked cheese."
 	icon_state = "cheesewedge-smoked"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1, "smoke" = 2)
 
 /obj/item/food/sliceable/cheesewheel/edam
 	name = "edam cheese wheel"
 	desc = "A wheel of mild edam cheese."
 	icon_state = "cheesewheel-edam"
-	slice_path = /obj/item/food/cheesewedge/edam
+	slice_path = /obj/item/food/sliced/cheesewedge/edam
 	slices_num = 4
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 15)
+	list_reagents = list("nutriment" = 16, "vitamin" = 4, "cheese" = 20)
 	tastes = list("cheese" = 1, "salt" = 2, "almonds" = 2)
 
-/obj/item/food/cheesewedge/edam
+/obj/item/food/sliced/cheesewedge/edam
 	name = "edam cheese wedge"
 	desc = "A wedge of mild edam cheese. It's said to have a nutty flavor."
 	icon_state = "cheesewedge-edam"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "cheese" = 5)
 	tastes = list("cheese" = 1, "salt" = 2, "almonds" = 2)
 
 /obj/item/food/sliceable/cheesewheel/blue
 	name = "blue cheese wheel"
 	desc = "A wheel of pungent blue cheese. It's an acquired taste..."
 	icon_state = "cheesewheel-blue"
-	slice_path = /obj/item/food/cheesewedge/blue
-	slices_num = 5
-	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 10)
+	slice_path = /obj/item/food/sliced/cheesewedge/blue
+	slices_num = 4
+	list_reagents = list("nutriment" = 4, "vitamin" = 4, "cheese" = 12)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
-/obj/item/food/cheesewedge/blue
+/obj/item/food/sliced/cheesewedge/blue
 	name = "blue cheese wedge"
 	desc = "A wedge of pungent blue cheese. The flavor is... intense."
 	icon_state = "cheesewedge-blue"
 	bitesize = 2
+	list_reagents = list("nutriment" = 1, "vitamin" = 1, "cheese" = 3)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
 /obj/item/food/sliceable/cheesewheel/camembert
 	name = "camembert cheese wheel"
 	desc = "A miniature wheel of gooey camembert. Yum..."
 	icon_state = "cheesewheel-camembert"
-	slice_path = /obj/item/food/cheesewedge/camembert
+	slice_path = /obj/item/food/sliced/cheesewedge/camembert
 	slices_num = 2
-	list_reagents = list("nutriment" = 1, "vitamin" = 2, "cheese" = 6)
+	list_reagents = list("nutriment" = 4, "vitamin" = 4, "cheese" = 8)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
-/obj/item/food/cheesewedge/camembert
+/obj/item/food/sliced/cheesewedge/camembert
 	name = "camembert cheese slice"
 	desc = "A piece of camembert. It's soft and gooey."
 	icon_state = "cheesewedge-camembert"
 	bitesize = 2
+	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 4)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
-/obj/item/food/cheesewedge/checkpass(passflag)
+/obj/item/food/sliced/cheesewedge/checkpass(passflag)
 	if((passflag & PASSDOOR) && ismouse(pulledby))
 		return TRUE
 	return ..()
-
-/obj/item/food/cheesewedge/presliced
-	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
 
 /obj/item/food/weirdcheesewedge
 	name = "weird cheese"
@@ -151,14 +153,15 @@
 	list_reagents = list("plantmatter" = 3, "vitamin" = 1)
 	tastes = list("mushroom" = 1)
 
-/obj/item/food/watermelonslice
+/obj/item/food/sliced/watermelon
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FF3867"
+	list_reagents = list("plantmatter" = 1)
 	tastes = list("watermelon" = 1)
 
-/obj/item/food/tomatoslice
+/obj/item/food/sliced/tomato
 	name = "tomato slice"
 	desc = "A fresh slice of tomato."
 	icon_state = "tomatoslice"
@@ -166,11 +169,12 @@
 	list_reagents = list("plantmatter" = 2)
 	tastes = list("tomato" = 1)
 
-/obj/item/food/pineappleslice
+/obj/item/food/sliced/pineapple
 	name = "pineapple slices"
 	desc = "Rings of pineapple."
 	icon_state = "pineappleslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#e5b437"
+	list_reagents = list("plantmatter" = 1, "vitamin" = 1)
 	tastes = list("pineapple" = 1)
 
 
@@ -204,18 +208,18 @@
 	desc = "Some flattened dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flat dough"
-	slice_path = /obj/item/food/doughslice
+	slice_path = /obj/item/food/sliced/dough
 	slices_num = 3
 	list_reagents = list("nutriment" = 6)
 	tastes = list("dough" = 1)
 
 
-/obj/item/food/doughslice
+/obj/item/food/sliced/dough
 	name = "dough slice"
 	desc = "The building block of an impressive dish."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list("nutriment" = 2)
 	tastes = list("dough" = 1)
 
 

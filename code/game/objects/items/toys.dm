@@ -515,7 +515,7 @@
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in range(10, src))
-		if(!M.stat && !isAI(M))\
+		if(!M.stat && !is_ai(M))\
 			shake_camera(M, 3, 1)
 	qdel(src)
 
@@ -830,7 +830,7 @@
 /obj/item/toy/plushie/ipcplushie/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/food/breadslice))
+	if(istype(attacking, /obj/item/food/sliced/bread))
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
@@ -1378,7 +1378,7 @@
 	playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 	flick("bigred_press", src)
 	for(var/mob/M in range(10, src)) // Checks range
-		if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
+		if(!M.stat && !is_ai(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
 			sleep(8) // Short delay to match up with the explosion sound
 			shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 

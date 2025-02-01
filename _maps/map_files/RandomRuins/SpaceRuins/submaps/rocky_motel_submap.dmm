@@ -143,7 +143,6 @@
 /area/ruin/space/powered)
 "nz" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/jacket/fluff,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/suit/navy,
 /obj/item/clothing/under/pants/blackjeans,
@@ -447,7 +446,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "SN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "TR" = (

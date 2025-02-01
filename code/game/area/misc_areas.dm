@@ -50,6 +50,7 @@
 
 /area/game_test
 	name = "Game Test Area"
+	requires_power = FALSE
 
 //SYNDICATES
 
