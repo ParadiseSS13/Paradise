@@ -82,7 +82,6 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools")
 
-
 /datum/design/hammer
 	name = "Hammer"
 	id = "hammer"
