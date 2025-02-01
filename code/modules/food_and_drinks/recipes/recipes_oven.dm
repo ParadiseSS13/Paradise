@@ -16,9 +16,9 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/meatbread
 
@@ -30,9 +30,9 @@
 		/obj/item/food/meat/syntiflesh,
 		/obj/item/food/meat/syntiflesh,
 		/obj/item/food/meat/syntiflesh,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/meatbread
 
@@ -44,9 +44,9 @@
 		/obj/item/food/monstermeat/xenomeat,
 		/obj/item/food/monstermeat/xenomeat,
 		/obj/item/food/monstermeat/xenomeat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/xenomeatbread
 
@@ -241,8 +241,8 @@
 		/obj/item/food/dough,
 		/obj/item/food/dough,
 		/obj/item/food/dough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/cheesecake
 
@@ -444,15 +444,15 @@
 		/obj/item/food/tofu,
 		/obj/item/food/tofu,
 		/obj/item/food/tofu,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/tofubread
 
 /datum/recipe/oven/loadedbakedpotato
 	items = list(
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/potato
 	)
 	result = /obj/item/food/loadedbakedpotato
@@ -483,7 +483,7 @@
 /datum/recipe/oven/fortunecookie
 	reagents = list("sugar" = 5)
 	items = list(
-		/obj/item/food/doughslice,
+		/obj/item/food/sliced/dough,
 		/obj/item/paper,
 	)
 	result = /obj/item/food/fortunecookie
@@ -505,8 +505,8 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/margheritapizza
 
@@ -516,7 +516,7 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/tomato
 	)
 	result = /obj/item/food/sliceable/pizza/meatpizza
@@ -524,7 +524,7 @@
 /datum/recipe/oven/mushroompizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/mushroom,
@@ -537,7 +537,7 @@
 /datum/recipe/oven/vegetablepizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/eggplant,
 		/obj/item/food/grown/carrot,
 		/obj/item/food/grown/corn,
@@ -549,9 +549,9 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/pineappleslice,
-		/obj/item/food/pineappleslice,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/pineapple,
+		/obj/item/food/sliced/pineapple,
 		/obj/item/food/meat,
 	)
 	result = /obj/item/food/sliceable/pizza/hawaiianpizza
@@ -559,8 +559,8 @@
 /datum/recipe/oven/macncheesepizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/macncheese,
 	)
 	result = /obj/item/food/sliceable/pizza/macpizza
@@ -569,10 +569,10 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/cheesepizza
 
@@ -580,7 +580,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/sausage
 	)
 	result = /obj/item/food/sliceable/pizza/pepperonipizza
@@ -589,7 +589,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/donkpocket,
 		/obj/item/food/donkpocket
 	)
@@ -599,7 +599,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/cannabis,
 		/obj/item/food/grown/cannabis,
 		/obj/item/food/grown/cannabis,
@@ -611,7 +611,7 @@
 	reagents = list("capsaicin" = 5)
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/chili,
 		/obj/item/food/grown/chili
 	)
@@ -623,7 +623,7 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/pestopizza
 
@@ -633,7 +633,7 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/garlic,
 		/obj/item/food/grown/garlic,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/garlicpizza
 
@@ -662,8 +662,8 @@
 	items = list(
 		/obj/item/food/dough,
 		/obj/item/food/dough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/creamcheesebread
 
@@ -814,7 +814,7 @@
 /datum/recipe/oven/cracker
 	reagents = list("sodiumchloride" = 1)
 	items = list(
-		/obj/item/food/doughslice
+		/obj/item/food/sliced/dough
 	)
 	result = /obj/item/food/cracker
 
@@ -859,9 +859,9 @@
 	items = list(
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/dough

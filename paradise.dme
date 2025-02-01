@@ -978,6 +978,7 @@
 #include "code\game\machinery\tcomms\tcomms_core.dm"
 #include "code\game\machinery\tcomms\tcomms_presets.dm"
 #include "code\game\machinery\vendors\contraband_vendors.dm"
+#include "code\game\machinery\vendors\custom_vendors.dm"
 #include "code\game\machinery\vendors\departmental_vendors.dm"
 #include "code\game\machinery\vendors\generic_vendors.dm"
 #include "code\game\machinery\vendors\tilt_crits.dm"

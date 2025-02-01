@@ -218,7 +218,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/teleporter)
 "uD" = (
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/large/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead"
 	},

@@ -10,7 +10,6 @@ GLOBAL_VAR_INIT(fakeblock, 0)
 GLOBAL_VAR_INIT(coughblock, 0)
 GLOBAL_VAR_INIT(glassesblock, 0)
 GLOBAL_VAR_INIT(epilepsyblock, 0)
-GLOBAL_VAR_INIT(twitchblock, 0)
 GLOBAL_VAR_INIT(nervousblock, 0)
 GLOBAL_VAR_INIT(wingdingsblock, 0)
 GLOBAL_VAR_INIT(monkeyblock, DNA_SE_LENGTH) // Monkey block will always be the DNA_SE_LENGTH

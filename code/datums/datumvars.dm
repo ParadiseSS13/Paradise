@@ -261,6 +261,15 @@
 				font-family: "Courier New", monospace;
 				font-size: 8pt;
 			}
+			.var {
+				display: none;
+			}
+			.var.visible {
+				display: list-item;
+			}
+			.var.selected {
+				background-color: "#ffee88";
+			}
 		</style>
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
@@ -301,13 +310,15 @@
 					{
 						try{
 							var li = lis\[i\];
-							if(li.style.backgroundColor == "#ffee88")
+							if(li.className == "var visible" && li.style.backgroundColor == "#ffee88")
 							{
-								if((i-1) >= 0){
-									var li_new = lis\[i-1\];
-									li.style.backgroundColor = "white";
-									li_new.style.backgroundColor = "#ffee88";
-									return
+								for(var j = i-1; j >= 0; --j) {
+									var li_new = lis\[j\];
+									if(li_new.className == "var visible") {
+										li.style.backgroundColor = "white";
+										li_new.style.backgroundColor = "#ffee88";
+										return
+									}
 								}
 							}
 						}catch(err) {  }
@@ -321,13 +332,15 @@
 					{
 						try{
 							var li = lis\[i\];
-							if(li.style.backgroundColor == "#ffee88")
+							if(li.className == "var visible" && li.style.backgroundColor == "#ffee88")
 							{
-								if((i+1) < lis.length){
-									var li_new = lis\[i+1\];
-									li.style.backgroundColor = "white";
-									li_new.style.backgroundColor = "#ffee88";
-									return
+								for(var j = i+1; j < lis.length; ++j) {
+									var li_new = lis\[j\];
+									if(li_new.className == "var visible") {
+										li.style.backgroundColor = "white";
+										li_new.style.backgroundColor = "#ffee88";
+										return
+									}
 								}
 							}
 						}catch(err) {  }
@@ -335,38 +348,26 @@
 					return
 				}
 
-				//This part here resets everything to how it was at the start so the filter is applied to the complete list. Screw efficiency, it's client-side anyway and it only looks through 200 or so variables at maximum anyway (mobs).
-				if(complete_list != null && complete_list != ""){
-					var vars_ol1 = document.getElementById("vars");
-					vars_ol1.innerHTML = complete_list
-				}
 				document.cookie="[refid][cookieoffset]search="+encodeURIComponent(filter);
-				if(filter == ""){
-					return;
-				}else{
-					var vars_ol = document.getElementById('vars');
-					var lis = vars_ol.getElementsByTagName("li");
-					for(var i = 0; i < lis.length; ++i)
-					{
-						try{
-							var li = lis\[i\];
-							if(li.innerText.toLowerCase().indexOf(filter) == -1)
-							{
-								vars_ol.removeChild(li);
-								i--;
-							}
-						}catch(err) {   }
-					}
-				}
-				var lis_new = vars_ol.getElementsByTagName("li");
-				for(var j = 0; j < lis_new.length; ++j)
+				var vars_ol = document.getElementById('vars');
+				var lis = vars_ol.getElementsByTagName("li");
+				var first = true;
+				for(var i = 0; i < lis.length; ++i)
 				{
-					var li1 = lis\[j\];
-					if(j == 0){
-						li1.style.backgroundColor = "#ffee88";
-					}else{
-						li1.style.backgroundColor = "white";
-					}
+					try{
+						var li = lis\[i\];
+						li.style.backgroundColor = "white";
+						if(li.innerText.toLowerCase().indexOf(filter) == -1)
+						{
+							li.className = "var";
+						} else {
+							if(first) {
+								li.style.backgroundColor = "#ffee88";
+								first = false;
+							}
+							li.className = "var visible";
+						}
+					}catch(err) {   }
 				}
 			}
 			function selectTextField() {
@@ -481,15 +482,18 @@
 				name = debug_list[name] // name is really the index until this line
 			else
 				value = debug_list[name]
-			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
-			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
 	else
 		header = "<li>"
 
 	var/item
 	if(isnull(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+
+	else if(is_color_text(value))
+		item = "[VV_HTML_ENCODE(name)] = <span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
 
 	else if(istext(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
