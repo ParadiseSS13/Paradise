@@ -6612,16 +6612,16 @@
 	pixel_x = 24
 	},
 /obj/structure/table/glass/reinforced/plasma,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 7;
-	pixel_y = 15
-	},
-/obj/item/clothing/glasses/hud/skills,
 /obj/item/toy/plushie/lizardplushie{
 	name = "Calms-Thy-Panic";
 	pixel_x = -12;
 	pixel_y = 11
 	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = 7;
+	pixel_y = 15
+	},
+/obj/item/clothing/glasses/hud/skills,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "beD" = (
@@ -27219,10 +27219,10 @@
 	},
 /area/station/medical/virology)
 "dTa" = (
-/obj/item/kirbyplants,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -36122,19 +36122,8 @@
 	},
 /area/station/hallway/primary/fore/east)
 "gjk" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/filingcabinet/medical,
 /obj/machinery/light,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/machinery/requests_console/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "gjl" = (
@@ -58710,6 +58699,7 @@
 	},
 /area/station/supply/warehouse)
 "lwD" = (
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreen"
@@ -79833,7 +79823,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "qDS" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -83788,7 +83778,7 @@
 	},
 /area/station/medical/storage/secondary)
 "rFU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -95688,17 +95678,7 @@
 	},
 /area/station/maintenance/starboard)
 "uuN" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/wall,
 /area/station/medical/reception)
 "uuU" = (
@@ -104461,9 +104441,6 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "wxJ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -104473,13 +104450,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "viro_1"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large/plant7,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
