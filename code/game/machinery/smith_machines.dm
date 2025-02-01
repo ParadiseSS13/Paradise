@@ -16,6 +16,14 @@
 	var/point_upgrade = 1
 	/// List of ore yet to process.
 	var/list/obj/item/stack/ore/ore_buffer = list()
+	/// Whether the message to relevant supply consoles was sent already or not for an ore dump. If FALSE, another will be sent.
+	var/message_sent = TRUE
+	/// If TRUE, [/obj/machinery/mineral/smart_hopper/var/req_access_claim] is ignored and any ID may be used to claim points.
+	var/anyone_claim = FALSE
+	var/list/supply_consoles = list(
+		"Smith's Office",
+		"Quartermaster's Desk"
+	)
 
 /obj/machinery/mineral/smart_hopper/Initialize(mapload)
 	. = ..()
@@ -117,6 +125,36 @@
 	ore_buffer -= O
 	qdel(O)
 
+/obj/machinery/mineral/smart_hopper/proc/send_console_message()
+	if(!is_station_level(z))
+		return
+
+	var/list/msg = list("Now available in [get_area_name(src, TRUE) || "Unknown"]:")
+	var/mats_in_stock = list()
+	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
+	for(var/MAT in materials.materials)
+		var/datum/material/M = materials.materials[MAT]
+		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
+		if(mineral_amount)
+			mats_in_stock += M.id
+			msg.Add("[capitalize(M.name)]: [mineral_amount] sheets")
+
+	// No point sending a message if we're dry
+	if(!length(mats_in_stock))
+		return
+
+	// Notify
+	for(var/c in GLOB.allRequestConsoles)
+		var/obj/machinery/requests_console/C = c
+		if(!(C.department in supply_consoles))
+			continue
+		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
+			C.createMessage("Smart Hopper", "New Minerals Available!", msg, RQ_LOWPRIORITY)
+
+/obj/machinery/mineral/smart_hopper/proc/give_points(obj/item/stack/ore/ore_path, ore_amount)
+	if(initial(ore_path.refined_type))
+		points += initial(ore_path.points) * point_upgrade * ore_amount
+
 /obj/machinery/magma_crucible
 	name = "magma crucible"
 	desc = "A massive machine that smelts down raw ore into a fine slurry, then sorts it into respective tanks for storage and use."
@@ -133,7 +171,7 @@
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, null)
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/magma_crucible(null)
