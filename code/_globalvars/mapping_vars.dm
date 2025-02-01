@@ -41,6 +41,9 @@ GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 GLOBAL_LIST_EMPTY(roundstart_observer_start)
 
+// Away missions
+GLOBAL_LIST_EMPTY(awaydestinations)	// SS220 EDIT - ADDITION
+
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)
 GLOBAL_LIST_EMPTY(space_ruins_templates)

@@ -256,7 +256,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(ui.user)] has requested the nuclear codes from Centcomm")
-				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruction device have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
+				GLOB.major_announcement.Announce("[ui.user] запросил коды для запуска механизма ядерного самоуничтожения станции. В ближайшее время будет отправлено уведомление о подтверждении или отклонении данного запроса.", "ВНИМАНИЕ: Запрос кода самоуничтожения станции.", 'sound/AI/nuke_codes.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -355,13 +355,13 @@
 			if(params["classified"] != 1) // this uses 1/0 on the js side instead of "true" or "false"
 				GLOB.major_announcement.Announce(
 					params["text"],
-					new_title = "Central Command Report",
+					new_title = "Сообщение Центрального Командования",
 					new_subtitle = params["subtitle"],
 					new_sound = cc_announcement_sounds[params["beepsound"]]
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
+				GLOB.command_announcer.autosay("На всех коммуникационных консолях было распечатано конфиденциальное сообщение.")
 				print_command_report(params["text"], "Classified: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")

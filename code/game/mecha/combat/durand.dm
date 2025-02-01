@@ -1,5 +1,5 @@
 /obj/mecha/combat/durand
-	desc = "A heavily armored exosuit designed for front-line combat."
+	desc = "Тяжело бронированный экзокостюм, разработанный для боевых действий на передовой."
 	name = "Durand Mk. II"
 	icon_state = "durand"
 	initial_icon = "durand"
@@ -30,15 +30,15 @@
 
 /obj/mecha/combat/durand/examine_more(mob/user)
 	. = ..()
-	. += "<i>A durable heavyweight combat mech designed and produced by Defiance Arms. \
-	The Durand is an outdated design among Defiance's line of battlemechs and was initially created to fulfill the role of a combat spearhead, breaking into enemy combat formations. \
-	Supplanted by newer, more advanced models, these old machines found themselves on the open market and are popular among corporations, private security firms, and planetary militia.</i>"
+	. += "<i>Надежный тяжелый боевой робот, разработанный и произведенный Defiance Arms. \
+	Дюранд является устаревшей моделью среди боевых мехов Defiance Arms и изначально создавался для прорыва обороны противника. \
+	Вытесненные более новыми, более совершенными моделями, эти старые экзокостюмы оказались на открытом рынке и пользуются популярностью среди корпораций, частных охранных фирм и планетарной милиции.</i>"
 	. += ""
-	. += "<i>Able to bear a wide array of heavy weapons and defensive tools, Nanotrasen found a use for the Durand as a machine to counter biohazards and hostile alien lifeforms, using it to secure new research installations or to fend off hostile fauna and bioforms. \
-	As with all station-side mechs, Nanotrasen has purchased the license to produce the Durand in their facilities.</i>"
+	. += "<i>Дюранд способен нести широкий спектр тяжелого оружия и защитных инструментов, потому Nanotrasen использует его в качестве машины для противодействия биологическим опасностям, враждебным инопланетным формам жизни, а так же для защиты новых исследовательских станций или для отражения враждебной фауны и флоры. \
+	Как в случаях со всеми станционными мехами, Nanotrasen приобрела лицензию на производство Дюранда на своих предприятиях.</i>"
 
 /obj/mecha/combat/durand/old
-	desc = "A retired, third-generation combat exosuit designed by Defiance Arms. Originally developed to combat hostile alien lifeforms"
+	desc = "Списанный экзокостюм третьего поколения, разработанный компанией Defiance Arms для боевых действий. Изначально создан для борьбы с враждебными инопланетными формами жизни."
 	name = "Old Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
@@ -55,8 +55,8 @@
 /obj/mecha/combat/durand/old/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>A relic of a mech, once produced by Defiance Arms in the decade of 2470. \
-	It is now sought after by collectors and museums alike and has found its way into the hands of many a black market over the decades since its later versions replaced it.</i>"
+	. += "<i>Настоящая реликвия среди мехов, когда-то произведенная Defiance Arms в 2470-х годах. \
+	Сейчас его ищут как коллекционеры, так и музеи, и за десятилетия, прошедшие с тех пор, как его заменили более поздние версии, он попал в руки многих черных рынков.</i>"
 	. += ""
-	. += "<i>Built initially to break into and destroy Xenomorph infestations, bigger and better war machines exist. \
-	But many still uphold this version of the Durand as an unstoppable classic, and finding one intact and functional has become increasingly rare.</i>"
+	. += "<i>Созданные изначально для уничтожения нашествий ксеноморфов, существуют более крупные и эффективные боевые экзокостюмы. \
+	Но многие до сих пор считают эту версию Дюранда непреодолимой классикой, и найти такую ​​неповрежденную и функциональную модель становится все сложнее.</i>"

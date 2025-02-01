@@ -45,15 +45,15 @@
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
 			max_number = 12
-			vermstring = "mice"
+			vermstring = "мышей"
 		if(VERM_LIZARDS)
 			spawn_types = list(/mob/living/simple_animal/lizard)
 			max_number = 6
-			vermstring = "lizards"
+			vermstring = "ящериц"
 		if(VERM_SPIDERS)
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
-			vermstring = "spiders"
+			vermstring = "пауков"
 	var/amount_to_spawn = rand(2, max_number)
 	while(length(turfs) && amount_to_spawn > 0)
 		var/turf/simulated/floor/T = pick_n_take(turfs)
@@ -68,7 +68,7 @@
 
 
 /datum/event/infestation/announce(false_alarm)
-	var/vermin_chosen = vermstring || pick("spiders", "lizards", "mice")
+	var/vermin_chosen = vermstring || pick("пауков", "ящериц", "мышей")
 	if(!spawn_area_type)
 		if(false_alarm)
 			spawn_area_type = pick(spawn_areas)
@@ -76,7 +76,7 @@
 			log_debug("Infestation Event didn't provide an area to announce(), something is likely broken.")
 			kill()
 
-	GLOB.minor_announcement.Announce("Bioscans indicate that [vermin_chosen] have been breeding in \the [initial(spawn_area_type.name)]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	GLOB.minor_announcement.Announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: Неопознанные формы жизни.")
 	spawn_area_type = null
 
 #undef VERM_MICE

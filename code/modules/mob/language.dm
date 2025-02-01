@@ -472,22 +472,27 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-/datum/language/com_zvezhan
-	name = "Zvezhan"
-	desc = "The language of revolution across the stars, initially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia."
+// SS220 EDIT START - Zvezhan -> Neo-Russkiya
+/datum/language/com_srus
+	name = "Neo-Russkiya"
+	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
 	speech_verb = "articulates"
-	whisper_verb = "murmurs"
+	whisper_verb = "mutters"
 	exclaim_verbs = list("proclaims", "boasts", "accentuates")
-	colour = "com_zvezhan"
+	colour = "com_srus"
 	key = "?"
-	space_chance = 50
-	syllables = list("ai","bai","bian","che","chuang","e","fan","gan","huo","jian","jiao","ka","man","mu","nang","nuo","o","pang","pi",
-					"pou","qian","qiu","rao","re","sa","sai","sheng","song","sui","tui","tu","wai","xi","xiu","xu","yan","yi","yuan","zao",
-					"zei","zhang","zu","zun","a","be","ve","ge","de","ye","ka","el","em","pe","er","te","oo","kha","tse","sha","ă","â","ê",
-					"ô","ơ","u","ư","th","tr","nh","yoo","eu","ya","pra","pre","pri","pro","pru","cla","cle","clo","bre","bru","ri","ca","ce",
-					"po","kać","sza","sze","szo","dza","dze","dzo","tą","tę","cieć","sz","sia","sie","sio","siu","zna","zne","zno","lya","lyo",
-					"lyu","lye","vna","vne","vno","ayat'","shcha","shche","mne","mno","mni","kam","tam","lam","kap","kop","sup","rip","kong",
-					"tong","aan","aay","aam","klon","chorn")
+	space_chance = 65
+	english_names = 1
+	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+					"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+// SS220 EDIT END - Zvezhan -> Neo-Russkiya
 
 /datum/language/xenocommon
 	name = "Xenomorph"
