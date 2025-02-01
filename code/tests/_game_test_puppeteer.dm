@@ -51,12 +51,12 @@
 /datum/test_puppeteer/proc/use_item_in_hand()
 	var/obj/item/item = puppet.get_active_hand()
 	if(!item)
-		origin_test.Fail("could not find obj in [puppet] active hand", __FILE__, __LINE__)
 		return
 
 	item.activate_self(puppet)
 	puppet.next_click = world.time
 	puppet.next_move = world.time
+	return TRUE
 
 /datum/test_puppeteer/proc/click_on(target, params)
 	var/datum/test_puppeteer/puppet_target = target
