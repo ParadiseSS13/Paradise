@@ -85,12 +85,6 @@
 		reagents.reaction(T, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/effect/attacked_by(obj/item/attacker, mob/living/user)
-	if(istype(attacker, /obj/item/mop) || istype(attacker, /obj/item/soap))
-		return
-
-	return ..()
-
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
