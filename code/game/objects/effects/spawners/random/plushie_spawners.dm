@@ -53,13 +53,19 @@
 			/obj/item/toy/plushie/tuxedo_cat
 		),
 
-		list(// species plushie minus nian
-			/obj/item/toy/plushie/voxplushie,
-			/obj/item/toy/plushie/ipcplushie,
+		list(// Species plushies minus Nian.
+			/obj/item/toy/plushie/dionaplushie,
+			/obj/item/toy/plushie/draskplushie,
 			/obj/item/toy/plushie/greyplushie,
-			/obj/item/toy/plushie/nianplushie,
+			/obj/item/toy/plushie/humanplushie,
+			/obj/item/toy/plushie/kidanplushie,
+			/obj/item/toy/plushie/ipcplushie,
+			/obj/item/toy/plushie/plasmamanplushie,
+			/obj/item/toy/plushie/skrellplushie,
+			/obj/item/toy/plushie/voxplushie,
 			/obj/item/toy/plushie/abductor,
-			/obj/item/toy/plushie/abductor/agent
+			/obj/item/toy/plushie/abductor/agent,
+			/obj/item/toy/plushie/borgplushie/random
 		),
 
 		list (

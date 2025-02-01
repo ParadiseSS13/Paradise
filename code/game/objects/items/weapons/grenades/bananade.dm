@@ -61,7 +61,7 @@
 		return TRUE
 
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 	user.put_in_hands(G)
 	G.deliveryamt = deliveryamt
 	to_chat(user, "<span class='notice'>You lock the assembly shut, readying it for HONK.</span>")

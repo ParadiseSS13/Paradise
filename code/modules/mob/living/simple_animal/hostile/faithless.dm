@@ -30,5 +30,5 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1

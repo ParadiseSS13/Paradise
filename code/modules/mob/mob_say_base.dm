@@ -89,7 +89,7 @@
 		var/mob/other_mob = other
 		if(other_mob.universal_speak)
 			return TRUE
-		if(isAI(src) && ispAI(other_mob))
+		if(is_ai(src) && ispAI(other_mob))
 			return TRUE
 		if(istype(other_mob, src.type) || istype(src, other_mob.type))
 			return TRUE

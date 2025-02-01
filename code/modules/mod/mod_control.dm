@@ -87,8 +87,6 @@
 	var/emp_proof = FALSE
 	/// List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
-	/// Is the jetpack on so we should make ion effects?
-	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
 	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
@@ -241,13 +239,6 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-/obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active || !isturf(user.loc))
-		return
-	var/turf/T = get_step(src, REVERSE_DIR(direction))
-	if(!has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(T, direction)
-
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!wearer || old_loc != wearer || loc == wearer)
@@ -276,7 +267,7 @@
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src, force = TRUE))
 					return
 				M.put_in_active_hand(src)
 			else

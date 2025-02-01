@@ -11,7 +11,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 */
 /obj/item/borg/stun
 	name = "electrically-charged arm"
-	icon_state = "elecarm"
+	icon_state = "elecarm_active"
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user)

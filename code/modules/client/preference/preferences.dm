@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
-			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.f_style = "Shaved"
 
 
-			if(!(S.bodyflags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 

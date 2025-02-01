@@ -62,8 +62,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB.inventory_state) != UI_INTERACTIVE)
+/obj/item/gps/AltClick(mob/user, state)
+	if(ui_status(user, state) != UI_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
-/obj/item/gps/ui_act(action, list/params)
+/obj/item/gps/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			AltClick(usr, state)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
@@ -181,7 +181,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
-	flags = NODROP
+	tracking = FALSE
+
+/obj/item/gps/mod/ui_state()
+	return GLOB.deep_inventory_state
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

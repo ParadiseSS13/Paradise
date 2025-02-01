@@ -146,17 +146,17 @@
 	if(!anchored)
 		step(src, get_dir(M, src))
 
-/obj/machinery/power/emitter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/card/id) && !istype(I, /obj/item/pda))
+/obj/machinery/power/emitter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/card/id) && !istype(used, /obj/item/pda))
 		return ..()
 
 	if(emagged)
 		to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(active)
 		locked = !locked
@@ -164,6 +164,8 @@
 	else
 		locked = FALSE //just in case it somehow gets locked
 		to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

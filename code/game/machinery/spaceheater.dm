@@ -50,28 +50,25 @@
 		cell.emp_act(severity)
 	..(severity)
 
-/obj/machinery/space_heater/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
-		if(open)
-			if(cell)
-				to_chat(user, "There is already a power cell inside.")
-				return
-			else
-				// insert cell
-				var/obj/item/stock_parts/cell/C = user.get_active_hand()
-				if(istype(C))
-					if(user.drop_item())
-						cell = C
-						C.forceMove(src)
-						C.add_fingerprint(user)
-
-						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
-		else
-			to_chat(user, "The hatch must be open to insert a power cell.")
-			return
-
-	else
+/obj/machinery/space_heater/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
 		return ..()
+
+	if(!open)
+		to_chat(user, "The hatch must be open to insert a power cell.")
+		return ITEM_INTERACT_COMPLETE
+
+	if(cell)
+		to_chat(user, "There is already a power cell inside.")
+		return ITEM_INTERACT_COMPLETE
+	else
+		// insert cell
+		var/obj/item/stock_parts/cell/C = user.get_active_hand()
+		C.add_fingerprint(user)
+		user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>",\
+			"<span class='notice'>You insert the power cell into [src].</span>")
+
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -137,7 +134,9 @@
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
 					cell.update_icon()
-					usr.put_in_hands(cell)
+					cell.forceMove(loc)
+					if(Adjacent(usr) && !issilicon(usr))
+						usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
 					cell = null
 					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")

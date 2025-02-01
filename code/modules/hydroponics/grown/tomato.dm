@@ -19,7 +19,7 @@
 	name = "tomato"
 	desc = "I say to-mah-to, you say tom-mae-to."
 	icon_state = "tomato"
-	slice_path = /obj/item/food/tomatoslice
+	slice_path = /obj/item/food/sliced/tomato
 	slices_num = 4
 	splat_type = /obj/effect/decal/cleanable/tomato_smudge
 	filling_color = "#FF6347"
@@ -152,7 +152,7 @@
 			K.health = K.maxHealth
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
-				user.unEquip(src)
+				user.unequip(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
 			log_game("[key_name(user)] released a killer tomato at [COORD(T)]")
 			qdel(src)

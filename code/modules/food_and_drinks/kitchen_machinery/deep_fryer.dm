@@ -43,15 +43,15 @@
 	var/obj/item/food/deepfryholder/type = new(get_turf(src))
 	return type
 
-/obj/machinery/cooker/deepfryer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/ice))
-		var/ice_amount = I.reagents.get_reagent_amount("ice")
+/obj/machinery/cooker/deepfryer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks/ice))
+		var/ice_amount = used.reagents.get_reagent_amount("ice")
 		if(ice_amount)
-			I.reagents.remove_all(I.reagents.total_volume)
+			used.reagents.remove_all(used.reagents.total_volume)
 			add_attack_logs(user, src, "poured [ice_amount]u ice into")
 			user.visible_message(
-				"<span class='warning'>[user] pours [I] into [src], and it seems to fizz a bit.</span>",
-				"<span class='warning'>You pour [I] into [src], and it seems to fizz a bit.</span>",
+				"<span class='warning'>[user] pours [used] into [src], and it seems to fizz a bit.</span>",
+				"<span class='warning'>You pour [used] into [src], and it seems to fizz a bit.</span>",
 				"You hear a splash, and a sizzle."
 			)
 
@@ -59,7 +59,7 @@
 			addtimer(CALLBACK(src, PROC_REF(boil_leadup), user), 4 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(make_foam), ice_amount), 5 SECONDS)
 
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -189,7 +189,7 @@
 	output = /obj/item/food/carrotfries
 
 /datum/deepfryer_special/onionrings
-	input = /obj/item/food/onion_slice
+	input = /obj/item/food/sliced/onion_slice
 	output = /obj/item/food/onionrings
 
 /datum/deepfryer_special/fried_vox

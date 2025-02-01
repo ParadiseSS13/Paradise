@@ -82,12 +82,12 @@
 	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 																// in case revealed by T-scanner
 
-/obj/machinery/navbeacon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/navbeacon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = loc
 	if(T.intact)
-		return		// prevent intraction when T-scanner revealed
+		return ITEM_INTERACT_COMPLETE // prevent intraction when T-scanner revealed
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(open)
 			if(allowed(user))
 				locked = !locked
@@ -97,8 +97,10 @@
 			updateDialog()
 		else
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
 	open = !open

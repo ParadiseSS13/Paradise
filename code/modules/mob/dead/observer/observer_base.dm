@@ -255,7 +255,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
-		if(isAI(src))
+		if(is_ai(src))
 			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
@@ -290,7 +290,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
+/mob/dead/observer/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
@@ -656,7 +656,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /proc/ghost_follow_link(atom/target, atom/ghost)
 	if((!target) || (!ghost)) return
-	if(isAI(target)) // AI core/eye follow links
+	if(is_ai(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>core</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes

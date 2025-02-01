@@ -236,7 +236,7 @@
 	light_color = "#F42B9D"
 
 /obj/item/clockwork/component/vanguard_cogwheel
-	name = "vanguard_cogwheel"
+	name = "vanguard cogwheel"
 	desc = "A sturdy brass cog with a faintly glowing blue gem in its center."
 	icon_state = "vanguard_cogwheel"
 
