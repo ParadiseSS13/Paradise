@@ -9,15 +9,13 @@
 
 #define EMP_RANDOMISE_TIME 30 SECONDS
 
-/datum/element/chameleon
+/datum/component/chameleon_wearable
 	var/disguise_type
 	var/disguise_name
 	var/list/disguise_blacklist = list()
 
-/datum/element/chameleon/Attach(obj/item/c_item, _disguise_type, _disguise_name, _disguise_blacklist)
-	. = ..()
-
-	if(!isitem(c_item))
+/datum/component/chameleon_wearable/Initialize(_disguise_type, _disguise_name, _disguise_blacklist)
+	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	disguise_type = _disguise_type
@@ -26,15 +24,29 @@
 		disguise_blacklist = _disguise_blacklist
 
 	// RegisterSignal(c_item, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
-	RegisterSignal(c_item, COMSIG_ITEM_PICKUP, PROC_REF(on_pickup))
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_pickup))
 	// RegisterSignal(c_item, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
 
 
-// /datum/element/chameleon/Detach(atom/movable/target)
+// /datum/component/chameleon_wearable/Detach(atom/movable/target)
 // 	// CRASH("I CAN BE Detach?")
 // 	return ..()
 
-/datum/element/chameleon/proc/on_pickup(datum/source, mob/user)
+/datum/component/chameleon_wearable/proc/change_item_listing(datum/source, list/items)
+	SIGNAL_HANDLER
+	var/name = disguise_name
+
+	var/atom/item = parent
+	var/mob/held_by = item.loc
+	if(istype(held_by))
+		var/slot = held_by.get_slot_by_item(item)
+		var/slot_name = slot_worn_desc(slot)
+		if(slot_name)
+			name += " ([slot_name])"
+
+	items[name] = item
+
+/datum/component/chameleon_wearable/proc/on_pickup(datum/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
 	user.AddComponent(/datum/component/chameleon_system, src, source)
 // 	var/datum/component/chameleon_system/sys = user.GetComponent(/datum/component/chameleon_system)
@@ -48,7 +60,7 @@
 // 	sys.link_item(chameleon_item, chameleon_type_name, disguise_type, blacklist)
 // 	register_chameleon_system_signals(sys)
 
-/datum/element/chameleon/proc/equipped(datum/source, mob/user, slot)
+/datum/component/chameleon_wearable/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER // COMSIG_ITEM_EQUIPPED
 	// user.AddComponent(/datum/component/chameleon_system, src)
 
@@ -61,7 +73,7 @@
 	// 		sys.lose_scan()
 	return
 
-/datum/element/chameleon/proc/dropped(obj/item/source, mob/user)
+/datum/component/chameleon_wearable/proc/dropped(obj/item/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 
 	// if(source.loc != user)
@@ -71,7 +83,7 @@
 
 	return
 
-/datum/element/chameleon/proc/on_emp(source, obj/item/unit)
+/datum/component/chameleon_wearable/proc/on_emp(source, obj/item/unit)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMP_ACT
 	// TODO CODE
 	return
@@ -79,7 +91,7 @@
 /**
  * Changes singular chameleon item as per system REQUEST
  */
-/datum/element/chameleon/proc/change_item_disguise(source, type, obj/item/requested_item)
+/datum/component/chameleon_wearable/proc/change_item_disguise(source, type, obj/item/requested_item)
 	SIGNAL_HANDLER  // COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST
 
 	if(src.disguise_type != type)
@@ -97,7 +109,7 @@
 /**
  * Implementation
  */
-/datum/element/chameleon/proc/update_item_appearance(obj/item/requested_item)
+/datum/component/chameleon_wearable/proc/update_item_appearance(obj/item/requested_item)
 
 	// if(!istype(chameleon_item,/obj/item))
 	// 	return
@@ -133,7 +145,7 @@
 /**
  * Changes all chameleon item as per system REQUEST
  */
-/datum/element/chameleon/proc/apply_disguise(source, datum/outfit/requested_outfit)
+/datum/component/chameleon_wearable/proc/apply_disguise(source, datum/outfit/requested_outfit)
 	SIGNAL_HANDLER  // COMSIG_CHAMELEON_FULL_CHANGE_REQUEST
 
 	// requested_outfit
@@ -145,11 +157,11 @@
 
 #undef EMP_RANDOMISE_TIME
 
-/datum/element/chameleon/glasses/Attach(obj/item/c_item)
-	return ..(c_item, /obj/item/clothing/glasses, "Glasses")
+/datum/component/chameleon_wearable/glasses/Initialize()
+	return ..(/obj/item/clothing/glasses, "Glasses")
 
-/datum/element/chameleon/under/Attach(obj/item/c_item)
-	return ..(c_item, /obj/item/clothing/under, "Jumpsuit", typecacheof(list(
+/datum/component/chameleon_wearable/under/Initialize()
+	return ..(/obj/item/clothing/under, "Jumpsuit", typecacheof(list(
 		/obj/item/clothing/under,
 		/obj/item/clothing/under/misc,
 		/obj/item/clothing/under/dress,
@@ -190,4 +202,4 @@
 
 /obj/item/clothing/glasses/test_chameleon/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/chameleon/glasses)
+	AddComponent(/datum/component/chameleon_wearable/glasses)

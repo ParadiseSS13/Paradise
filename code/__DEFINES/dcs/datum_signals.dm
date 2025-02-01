@@ -114,7 +114,8 @@
 /// /datum/component/chameleon
 #define COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST "chameleon_change_one"
 #define COMSIG_CHAMELEON_FULL_CHANGE_REQUEST "chameleon_change_all"
-
+#define COMSIG_CHAMELEON_CHANGE_ONE_TRIGGER "chameleon_change_one_trigger"
+#define COMSIG_CHAMELEON_CHANGE_ONE_LISTING "chameleon_change_one_listing"
 
 /// /datum/alarm_manager
 

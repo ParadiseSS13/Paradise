@@ -10,7 +10,7 @@
   */
 
 /datum/component/chameleon_system
-	dupe_mode = COMPONENT_DUPE_UNIQUE
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	// Human who has this system
 	var/mob/living/carbon/human/system_owner
 	// Scan action form chameleon glasses
@@ -33,31 +33,46 @@
 	//UI
 	var/obj/item/current_ui_item
 
-/datum/component/chameleon_system/Initialize(datum/element/chameleon/element, obj/item/target)
-	var/existing_system = parent.GetComponent(/datum/component/chameleon_system)
-	if(!existing_system)
-		system_owner = parent
+/datum/component/chameleon_system/InheritComponent(datum/component/C, original, datum/component/chameleon_wearable/wearable)
+	link_wearable(wearable)
 
-		if(!outfit_options)
-			initialize_outfits() // init outfit_options should be run only once
+/datum/component/chameleon_system/Initialize(datum/component/chameleon_wearable/wearable)
+	system_owner = parent
 
-		for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
-			chameleon_memory[i] = list("name" = "Save slot №[i]", "outfit" = null)
+	if(!outfit_options)
+		initialize_outfits() // init outfit_options should be run only once
 
-		change_all = new(system_owner)
-		change_all.Grant(system_owner)
+	for(var/i in 1 to CHAMELEON_MEMORY_SLOTS)
+		chameleon_memory[i] = list("name" = "Save slot №[i]", "outfit" = null)
 
-		change_one = new(system_owner)
-		change_one.Grant(system_owner)
-		RegisterSignal(change_one, COMSIG_CLICK, PROC_REF(foo))
+	change_all = new(system_owner)
+	change_all.Grant(system_owner)
 
-	element.RegisterSignal(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, TYPE_PROC_REF(/datum/element/chameleon, change_item_disguise))
-	element.RegisterSignal(src, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST, TYPE_PROC_REF(/datum/element/chameleon, apply_disguise))
-	element.RegisterSignal(src, COMSIG_ATOM_EMP_ACT, TYPE_PROC_REF(/datum/element/chameleon, on_emp))
-	link_item(element)
+	change_one = new(system_owner)
+	change_one.Grant(system_owner)
+	RegisterSignal(system_owner, COMSIG_CHAMELEON_CHANGE_ONE_TRIGGER, PROC_REF(generate_change_one_listing))
 
-/datum/component/chameleon_system/proc/foo(...)
-	return
+	link_wearable(wearable)
+
+/datum/component/chameleon_system/proc/link_wearable(datum/component/chameleon_wearable/wearable)
+	wearable.RegisterSignal(src, COMSIG_CHAMELEON_CHANGE_ONE_LISTING, TYPE_PROC_REF(/datum/component/chameleon_wearable, change_item_listing))
+	wearable.RegisterSignal(src, COMSIG_CHAMELEON_SINGLE_CHANGE_REQUEST, TYPE_PROC_REF(/datum/component/chameleon_wearable, change_item_disguise))
+	wearable.RegisterSignal(src, COMSIG_CHAMELEON_FULL_CHANGE_REQUEST, TYPE_PROC_REF(/datum/component/chameleon_wearable, apply_disguise))
+	wearable.RegisterSignal(src, COMSIG_ATOM_EMP_ACT, TYPE_PROC_REF(/datum/component/chameleon_wearable, on_emp))
+
+/datum/component/chameleon_system/proc/generate_change_one_listing(...)
+	var/list/chameleon_items = list()
+	SEND_SIGNAL(src, COMSIG_CHAMELEON_CHANGE_ONE_LISTING, chameleon_items)
+	if(!length(chameleon_items))
+		return
+
+	var/choice = tgui_input_list(system_owner, "Select what item you want to change", "Chameleon Change", chameleon_items) // custom TGUI In future lol)
+	if(!choice)
+		return
+
+	var/atom/item = chameleon_items[choice]
+	if(!item)
+		return
 
 /datum/component/chameleon_system/proc/unregister_chameleon_system_signals(listen_to)
 	// SIGNAL_HANDLER // COMSIG_DEACTIVATE_CHAMELEON_SYSTEM
@@ -395,21 +410,12 @@
 	name = "Change Any Chameleon Part"
 	button_overlay_icon_state = "chameleon_outfit"
 
-	var/mob/living/carbon/human/system_owner
 	var/chameleon_type = null
 	var/chameleon_name = "Item"
 	var/emp_timer
 
-
-/datum/action/chameleon_system/change_one/New(mob/owner)
-	system_owner = owner
-	. = ..()
-
 /datum/action/chameleon_system/change_one/Trigger(left_click)
-	if(IsAvailable())
-		var/datum/component/chameleon_system/sys = system_owner.GetComponent(/datum/component/chameleon_system)
-		sys.change_one_trigger()
-
+	SEND_SIGNAL(usr, COMSIG_CHAMELEON_CHANGE_ONE_TRIGGER)
 
 //////////////////////////////
 // MARK: change_all_action

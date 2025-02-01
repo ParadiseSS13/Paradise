@@ -1521,3 +1521,52 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/living/proc/remove_recent_magic_block()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/proc/slot_worn_desc(slot_id)
+	switch(slot_id)
+		if(ITEM_SLOT_BACK)
+			return "on back"
+		if(ITEM_SLOT_MASK)
+			return "on face"
+		if(ITEM_SLOT_LEFT_HAND)
+			return "in left hand"
+		if(ITEM_SLOT_RIGHT_HAND)
+			return "in right hand"
+		if(ITEM_SLOT_BOTH_HANDS)
+			return "in hands"
+		if(ITEM_SLOT_BELT)
+			return "on belt"
+		if(ITEM_SLOT_ID)
+			return "in ID slot"
+		if(ITEM_SLOT_LEFT_EAR)
+			return "on left ear"
+		if(ITEM_SLOT_RIGHT_EAR)
+			return "on right ear"
+		if(ITEM_SLOT_BOTH_EARS)
+			return "on ears"
+		if(ITEM_SLOT_EYES)
+			return "on face"
+		if(ITEM_SLOT_GLOVES)
+			return "on hands"
+		if(ITEM_SLOT_HEAD)
+			return "on head"
+		if(ITEM_SLOT_SHOES)
+			return "on feet"
+		if(ITEM_SLOT_OUTER_SUIT)
+			return "worn"
+		if(ITEM_SLOT_JUMPSUIT)
+			return "worn"
+		if(ITEM_SLOT_LEFT_POCKET)
+			return "in left pocket"
+		if(ITEM_SLOT_RIGHT_POCKET)
+			return "in right pocket"
+		if(ITEM_SLOT_BOTH_POCKETS)
+			return "in pockets"
+		if(ITEM_SLOT_SUIT_STORE)
+			return "in suit storage"
+		if(ITEM_SLOT_IN_BACKPACK)
+			return "in backpack"
+		if(ITEM_SLOT_PDA)
+			return "in PDA slot"
+		if(ITEM_SLOT_NECK)
+			return "on neck"

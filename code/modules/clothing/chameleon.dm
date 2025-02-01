@@ -253,7 +253,7 @@
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/chameleon/under)
+	AddComponent(/datum/component/chameleon_wearable/under)
 
 /obj/item/clothing/under/chameleon/Destroy()
 	QDEL_NULL(chameleon_action)
