@@ -40,10 +40,6 @@
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
-	/// Are we a rusty wall or not?
-	var/rusted = FALSE
-	/// Have we got a rusty overlay?
-	var/rusted_overlay
 	/// Are we a explodable turf?
 	var/explodable = FALSE
 	/// Do we have a explodable overlay?
@@ -89,26 +85,12 @@
 	if(can_dismantle_with_welder)
 		. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
-/// Apply rust effects to the wall
-/turf/simulated/wall/proc/rust()
-	if(rusted)
-		return
-	rusted = TRUE
-	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-
-/turf/simulated/wall/update_name()
-	. = ..()
-	name = "[rusted ? "rusted " : ""][name]"
-
 /turf/simulated/wall/update_overlays()
 	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	QUEUE_SMOOTH(src)
-	if(rusted && !rusted_overlay)
-		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
-		. += rusted_overlay
 
 	if(explodable && !explodable_overlay)
 		explodable_overlay = icon('icons/turf/overlays.dmi', pick("explodable"), pick(NORTH, SOUTH, EAST, WEST))
@@ -342,31 +324,33 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(!isturf(user.loc))
-		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
+		return FINISH_ATTACK // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
 
-	if(rotting && try_rot(I, user, params))
-		return
+	if(rotting && try_rot(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_decon(I, user, params))
-		return
+	if(try_decon(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_destroy(I, user, params))
-		return
+	if(try_destroy(attacking, user, params))
+		return FINISH_ATTACK
 
-	if(try_wallmount(I, user, params))
-		return
+	if(try_wallmount(attacking, user, params))
+		return CONTINUE_ATTACK
+
 	// The cyborg gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	return ..()
+	if(istype(attacking, /obj/item/gripper))
+		return CONTINUE_ATTACK
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
-	. = TRUE
+	. = ..()
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return

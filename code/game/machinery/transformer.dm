@@ -313,17 +313,17 @@
 	domutcheck(H, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/machinery/transformer/gene_applier/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/disk/data))
+/obj/machinery/transformer/gene_applier/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			return FALSE
-		var/obj/item/disk/data/D = I
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/disk/data/D = used
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		template = D.buf.dna.Clone()
 		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
-		return TRUE
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()

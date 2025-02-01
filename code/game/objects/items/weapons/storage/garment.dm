@@ -255,7 +255,7 @@
 	new /obj/item/clothing/under/rank/security/warden/corporate(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
-	new /obj/item/clothing/mask/gas/sechailer/warden(src)
+	new /obj/item/clothing/mask/gas/sechailer/swat/warden(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/security/warden(src)
 	new /obj/item/clothing/under/plasmaman/security/warden(src)

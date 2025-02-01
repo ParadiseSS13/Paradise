@@ -54,21 +54,21 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = req_grind
 
-/obj/machinery/monkey_recycler/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		return
+/obj/machinery/monkey_recycler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
 		power_change()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, O))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/multitool))
+	if(istype(used, /obj/item/multitool))
 		if(!panel_open)
 			cycle_through++
 			switch(cycle_through)
@@ -87,14 +87,14 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					cycle_through = 0
 			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
 		else
-			var/obj/item/multitool/M = O
+			var/obj/item/multitool/M = used
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(stat != 0) //NOPOWER etc
-		return
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		var/grabbed = G.affecting
 		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)

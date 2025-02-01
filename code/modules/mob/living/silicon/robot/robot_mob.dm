@@ -1174,8 +1174,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 		else
-			sleep(6)
 			SetEmagged(TRUE)
+			sleep(6)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(hud_used)
 				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
@@ -1424,7 +1424,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	. = ..()
 	if(camera && last_camera_update + CAMERA_UPDATE_COOLDOWN < world.time)
 		last_camera_update = world.time
-		GLOB.cameranet.updatePortableCamera(camera, OldLoc)
+		GLOB.cameranet.update_portable_camera(camera, OldLoc)
 		SEND_SIGNAL(camera, COMSIG_CAMERA_MOVED, OldLoc)
 
 #undef CAMERA_UPDATE_COOLDOWN
@@ -1458,7 +1458,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "IC"
 
 	var/obj/item/W = get_active_hand()
-	if(W)
+	if(!W)
+		return
+	if(W.new_attack_chain)
+		W.activate_self(src)
+	else
 		W.attack_self__legacy__attackchain(src)
 
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)

@@ -28,7 +28,7 @@
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
@@ -146,7 +146,7 @@
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			user.unEquip(src)
+			user.drop_item_to_ground(src)
 			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
@@ -385,7 +385,7 @@
 //Putting heads on spears
 /obj/item/spear/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
-		if(user.unEquip(src) && user.drop_item())
+		if(user.unequip(src) && user.drop_item())
 			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
 			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
 			var/matrix/M = matrix()
@@ -864,7 +864,7 @@
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
 		return
-	if(!user.drop_l_hand() || !user.drop_r_hand())
+	if((user.l_hand && !user.drop_l_hand()) || (user.r_hand && !user.drop_r_hand()))
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
 	var/obj/item/W = new /obj/item/pyro_claws
@@ -1070,8 +1070,8 @@
 
 /obj/item/supermatter_halberd/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 

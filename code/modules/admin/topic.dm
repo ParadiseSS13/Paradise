@@ -40,7 +40,7 @@
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
-				log_admin("[key_name(usr)] has spawned a traitor.")
+				log_admin("[key_name(usr)] has spawned traitors.")
 				if(!makeTraitors())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("2")
@@ -70,6 +70,10 @@
 			if("8")
 				log_admin("[key_name(usr)] has spawned mindflayers.")
 				if(!makeMindflayers())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+			if("9")
+				log_admin("[key_name(usr)] has spawned event characters.")
+				if(!makeEventCharacters())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
@@ -149,10 +153,13 @@
 		var/mob/playermob
 
 		if("autopopulate" in href_list)
-			for(var/mob/M in GLOB.player_list)
+			for(var/mob/M in GLOB.mob_list)
 				if(M.ckey == banckey)
 					playermob = M
 					break
+				else if(M.last_known_ckey == banckey)
+					playermob = M
+					// ... but do not break, so we prefer current ckeys.
 
 		banreason = "(MANUAL BAN) "+banreason
 
@@ -162,7 +169,7 @@
 			if(bancid)
 				banreason = "[banreason] (CUSTOM CID)"
 		else
-			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
+			message_admins("Ban process: A mob matching [playermob.last_known_ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
 		if(job_ban)
 			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","supplydept","nonhumandept"))
@@ -440,7 +447,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
-		if(!M.ckey)	//sanity
+		if(!M.last_known_ckey)	//sanity
 			to_chat(usr, "<span class='warning'>This mob has no ckey</span>")
 			return
 		if(!SSjobs)
@@ -461,17 +468,17 @@
 //Regular jobs
 	//Command (Blue)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(GLOB.command_positions)]'><a href='byond://?src=[UID()];jobban3=commanddept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Command Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(GLOB.command_positions)]'><a href='byond://?src=[UID()];jobban3=commanddept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Command Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.command_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 6) //So things dont get squiiiiished!
@@ -482,17 +489,17 @@
 	//Security (Red)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(GLOB.security_positions)]'><a href='byond://?src=[UID()];jobban3=securitydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Security Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(GLOB.security_positions)]'><a href='byond://?src=[UID()];jobban3=securitydept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Security Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.security_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -503,17 +510,17 @@
 	//Engineering (Yellow)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(GLOB.engineering_positions)]'><a href='byond://?src=[UID()];jobban3=engineeringdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Engineering Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(GLOB.engineering_positions)]'><a href='byond://?src=[UID()];jobban3=engineeringdept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.engineering_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -524,17 +531,17 @@
 	//Medical (White)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(GLOB.medical_positions)]'><a href='byond://?src=[UID()];jobban3=medicaldept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Medical Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(GLOB.medical_positions)]'><a href='byond://?src=[UID()];jobban3=medicaldept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Medical Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.medical_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -545,17 +552,17 @@
 	//Science (Purple)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e79fff'><th colspan='[length(GLOB.science_positions)]'><a href='byond://?src=[UID()];jobban3=sciencedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Science Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='e79fff'><th colspan='[length(GLOB.science_positions)]'><a href='byond://?src=[UID()];jobban3=sciencedept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Science Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.science_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -566,17 +573,17 @@
 	//Service (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.service_positions)]'><a href='byond://?src=[UID()];jobban3=servicedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Service Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.service_positions)]'><a href='byond://?src=[UID()];jobban3=servicedept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Service Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.service_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -587,17 +594,17 @@
 	//Supply (Brown)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e2c59d'><th colspan='[length(GLOB.supply_positions)]'><a href='byond://?src=[UID()];jobban3=supplydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Supply Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='e2c59d'><th colspan='[length(GLOB.supply_positions)]'><a href='byond://?src=[UID()];jobban3=supplydept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Supply Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.supply_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -608,17 +615,17 @@
 	//Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.nonhuman_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -627,29 +634,29 @@
 
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>Drone</font></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>Drone</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Drone</a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Drone</a></td>"
 
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>pAI</font></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>pAI</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>pAI</a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>pAI</a></td>"
 
 		jobs += "</tr></table>"
 
 	//Antagonist (Orange)
 		var/isbanned_dept = jobban_isbanned(M, "Syndicate")
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='byond://?src=[UID()];jobban3=Syndicate;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Antagonist Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='byond://?src=[UID()];jobban3=Syndicate;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Antagonist Positions</a></th></tr><tr align='center'>"
 
 		counter = 0
 		for(var/role in GLOB.antag_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -664,9 +671,9 @@
 		counter = 0
 		for(var/role in GLOB.other_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -762,7 +769,7 @@
 
 		//Banning comes first
 		if(length(notbannedlist)) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			switch(alert("Temporary Ban of [M.ckey]?", null,"Yes","No", "Cancel"))
+			switch(alert("Temporary Ban of [M.last_known_ckey]?", null,"Yes","No", "Cancel"))
 				if("Yes")
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
@@ -780,7 +787,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 
 					// Reload their job ban holder (refresh this round)
@@ -803,7 +810,7 @@
 								msg = job
 							else
 								msg += ", [job]"
-						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 
 						// Reload their job ban holder (refresh this round)
@@ -908,7 +915,7 @@
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
-		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?", null,"Yes","No", "Cancel"))
+		switch(alert("Temporary Ban of [M.last_known_ckey] / [ban_ckey_param]?", null,"Yes","No", "Cancel"))
 			if("Yes")
 				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 				if(!mins)
@@ -921,15 +928,15 @@
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
-				add_note(M.ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
+				add_note(M.last_known_ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
-				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
+				log_admin("[key_name(usr)] has banned [M.last_known_ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.last_known_ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 
 				qdel(M.client)
 			if("No")
@@ -944,10 +951,10 @@
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
-				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
+				log_admin("[key_name(usr)] has banned [M.last_known_ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.last_known_ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
-				add_note(M.ckey, "Permanently banned - [reason]", null, usr.ckey, FALSE)
+				add_note(M.last_known_ckey, "Permanently banned - [reason]", null, usr.ckey, FALSE)
 
 				qdel(M.client)
 			if("Cancel")
@@ -1041,6 +1048,20 @@
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
 
+	else if(href_list["f_dynamic"])
+		if(!check_rights(R_ADMIN))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		var/dat = {"<!DOCTYPE html><b>Possible Rulesets:</b><hr>"}
+		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied)
+		dat += {"Budget: <a href='byond://?src=[UID()];f_dynamic2=budget'>[isnull(GLOB.dynamic_forced_rulesets["budget"]) ? "Random" : GLOB.dynamic_forced_rulesets["budget"]]</a><hr>"}
+		for(var/datum/ruleset/ruleset as anything in rulesets)
+			dat += {"[ruleset.name]: <a href='byond://?src=[UID()];f_dynamic2=[ruleset.type]'>[GLOB.dynamic_forced_rulesets[ruleset] || DYNAMIC_RULESET_NORMAL]</a><br>"}
+		usr << browse(dat, "window=f_dynamic")
+
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
@@ -1066,6 +1087,44 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>", 1)
 		Game() // updates the main game menu
 		.(href, list("f_secret"=1))
+
+	else if(href_list["f_dynamic2"])
+		if(!check_rights(R_ADMIN|R_SERVER))	return
+
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
+		if(href_list["f_dynamic2"] == "budget")
+			var/budget = input(usr, "Pick a budget for the dynamic gamemode (-1 to randomize)", "Gamemode Budget") as num|null
+			if(isnull(budget))
+				return
+			if(budget < 0)
+				GLOB.dynamic_forced_rulesets -= "budget"
+				log_admin("[key_name(usr)] set the ruleset budget to random.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the ruleset budget to random.</span>")
+			else
+				GLOB.dynamic_forced_rulesets["budget"] = budget
+				log_admin("[key_name(usr)] set the ruleset budget to [budget]")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the ruleset budget to [budget].</span>")
+			.(href, list("f_dynamic"=1))
+			return
+
+		var/datum/ruleset/ruleset = text2path(href_list["f_dynamic2"])
+		switch(GLOB.dynamic_forced_rulesets[ruleset])
+			if(DYNAMIC_RULESET_FORCED)
+				log_admin("[key_name(usr)] banned the [ruleset] ruleset.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] banned the [ruleset.name] ([ruleset.type]) ruleset.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_BANNED
+			if(DYNAMIC_RULESET_BANNED)
+				log_admin("[key_name(usr)] set the [ruleset] ruleset to normal.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] set the [ruleset.name] ([ruleset.type]) ruleset to normal.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_NORMAL
+			else // not set, and already at normal
+				log_admin("[key_name(usr)] forced the [ruleset] ruleset.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] forced the [ruleset.name] ([ruleset.type]) ruleset.</span>")
+				GLOB.dynamic_forced_rulesets[ruleset] = DYNAMIC_RULESET_FORCED
+		.(href, list("f_dynamic"=1))
 
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
@@ -1146,7 +1205,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1160,7 +1219,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			if(M.unEquip(I))
+			if(M.drop_item_to_ground(I))
 				I.loc = locker
 				I.layer = initial(I.layer)
 				I.plane = initial(I.plane)
@@ -1297,12 +1356,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1329,12 +1388,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1361,7 +1420,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1385,12 +1444,12 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1492,7 +1551,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -2212,7 +2271,7 @@
 				logmsg = "floor cluwne"
 			if("Shamebrero")
 				if(H.head)
-					H.unEquip(H.head, TRUE)
+					H.drop_item_to_ground(H.head, force = TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 				logmsg = "shamebrero"
@@ -2255,7 +2314,7 @@
 		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(isAI(M))
+		if(is_ai(M))
 			var/mob/living/silicon/ai/A = M
 			A.cryo_AI()
 		if(istype(M.loc, /obj/machinery/cryopod))
@@ -2963,7 +3022,7 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							H.unEquip(W)
+							H.drop_item_to_ground(W)
 							if(H.client)
 								H.client.screen -= W
 							if(W)
@@ -3615,7 +3674,7 @@
 			target = C.mob
 
 	. = ADMIN_FLW(target, "FLW")
-	if(isAI(target)) // AI core/eye follow links
+	if(is_ai(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"

@@ -1613,7 +1613,7 @@
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
+			H.unequip(P, force = TRUE)
 			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
@@ -1840,6 +1840,34 @@
 	icon_state = "colin_earle"
 	item_state = "colin_earle"
 	item_color = "colin_earle"
+
+// Paratoberfest/contributor rewards
+/obj/item/clothing/accessory/pin/reward // Default pin, DO NOT USE - Use the subtypes below
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "pin_coding"
+	item_state = "pin_coding"
+	item_color = "pin_coding"
+
+/obj/item/clothing/accessory/pin/reward/coding
+	name = "Coding Contribution Pin"
+	desc = "A commemorative pin to reward contributions of coding."
+	icon_state = "pin_coding"
+	item_state = "pin_coding"
+	item_color = "pin_coding"
+
+/obj/item/clothing/accessory/pin/reward/mapping
+	name = "Mapping Contribution Pin"
+	desc = "A commemorative pin to reward contributions of mapping."
+	icon_state = "pin_mapping"
+	item_state = "pin_mapping"
+	item_color = "pin_mapping"
+
+/obj/item/clothing/accessory/pin/reward/spriting
+	name = "Spriting Contribution Pin"
+	desc = "A commemorative pin to reward contributions of spriting."
+	icon_state = "pin_spriting"
+	item_state = "pin_spriting"
+	item_color = "pin_spriting"
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

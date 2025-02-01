@@ -158,7 +158,7 @@
 	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
 			"<span class='notice'>You show the paper to [H].</span>")
-		H.examinate(src)
+		to_chat(H, "<a href='byond://?src=[UID()];show_content=1'>Read \the [src]</a>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
@@ -392,6 +392,12 @@
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
+	if(href_list["show_content"])
+		var/dist = get_dist(src, usr)
+		if(dist < 2)
+			show_content(usr)
+		else
+			to_chat(usr, "<span class='notice'>I'm too far away from \the [src] to read it.</span>")
 
 /obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
@@ -415,38 +421,38 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_to_ground(P)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_r_hand(B)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_l_hand(B)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_hands(B)
 			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
+		forceMove(B)
 		P.loc = B
 		B.amount++
 		B.update_icon()
@@ -481,7 +487,7 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -489,7 +495,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 

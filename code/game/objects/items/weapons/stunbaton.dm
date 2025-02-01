@@ -130,7 +130,7 @@
 		if(C.maxcharge < hitcost)
 			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		I.forceMove(src)
 		cell = I
@@ -332,6 +332,9 @@
 /obj/item/melee/baton/loaded/borg_stun_arm
 	name = "electrically-charged arm"
 	desc = "A piece of scrap metal wired directly to your power cell."
+	icon = 'icons/mob/robot_items.dmi'
+	base_icon = "elecarm"
+	icon_state = "elecarm"
 	hitcost = 100
 
 /obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)

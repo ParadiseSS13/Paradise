@@ -146,13 +146,13 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random/syndicate/loot/common,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "aB" = (
-/obj/effect/spawner/random/syndicate/loot/common,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -342,7 +342,7 @@
 	},
 /area/syndicate_depot/core)
 "bc" = (
-/obj/effect/spawner/random/syndicate/loot/rare,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -350,7 +350,7 @@
 "bd" = (
 /obj/item/lighter/zippo/black,
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -367,7 +367,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random/syndicate/loot/rare,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -394,7 +394,7 @@
 /area/syndicate_depot/outer)
 "bl" = (
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -409,20 +409,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"bn" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/spawner/random/syndicate/loot/common,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "bo" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/random/syndicate/loot/common,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -532,7 +523,7 @@
 	},
 /area/syndicate_depot/core)
 "bE" = (
-/obj/effect/spawner/random/syndicate/loot/officer,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/officer/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -652,7 +643,7 @@
 /area/syndicate_depot/outer)
 "bU" = (
 /obj/structure/table,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -786,8 +777,8 @@
 	},
 /area/syndicate_depot/core)
 "cm" = (
-/obj/effect/spawner/random/syndicate/loot/armory,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -797,13 +788,13 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random/syndicate/loot/armory,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "co" = (
-/obj/effect/spawner/random/syndicate/loot/armory,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1100,7 +1091,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random/syndicate/loot/rare,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1142,6 +1133,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
+"Nh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
 "Te" = (
 /turf/simulated/mineral/random/high_chance,
 /area/syndicate_depot/outer)
@@ -1729,7 +1728,7 @@ aM
 at
 aD
 aD
-bn
+cW
 bu
 bz
 at
@@ -1933,7 +1932,7 @@ aD
 aD
 aD
 aD
-bo
+Nh
 aD
 bv
 at
@@ -2093,7 +2092,7 @@ aD
 aD
 aD
 aD
-bE
+aB
 at
 aD
 aD
@@ -2452,7 +2451,7 @@ cl
 cz
 aD
 cQ
-bE
+aD
 aD
 aD
 at
@@ -2488,11 +2487,11 @@ af
 at
 aw
 aD
-aB
+aD
 at
 aD
 aD
-bc
+aD
 bi
 aD
 aD
@@ -2547,7 +2546,7 @@ aD
 at
 aD
 aD
-bE
+aD
 bE
 cb
 cn
@@ -2558,7 +2557,7 @@ aD
 bC
 aD
 at
-bh
+aL
 aD
 at
 af
@@ -2609,7 +2608,7 @@ cV
 aD
 aD
 at
-bc
+aD
 aD
 at
 at
@@ -2746,7 +2745,7 @@ aD
 aD
 aE
 aD
-bc
+aD
 bc
 at
 aD
@@ -2757,12 +2756,12 @@ at
 aD
 cD
 aD
-bE
+aD
 at
 aL
 aD
 bc
-bc
+aD
 aD
 aD
 at
@@ -2894,7 +2893,7 @@ af
 af
 af
 at
-aB
+aD
 aD
 aK
 aR
@@ -2965,7 +2964,7 @@ aD
 cW
 aD
 aD
-aB
+aD
 at
 af
 af

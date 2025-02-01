@@ -106,7 +106,7 @@
 	if(!mod.active || mod.activating || !mod.get_charge())
 		to_chat(mod.wearer, "<span class='warning'>Module is unpowered!</span>")
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
 		if(mod.selected_module && !mod.selected_module.on_deactivation(display_message = FALSE))
@@ -148,8 +148,7 @@
 			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 
 		if(device)
-			mod.wearer.unEquip(device, 1)
-			device.forceMove(src)
+			mod.wearer.transfer_item_to(device, src, force = TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
@@ -158,7 +157,7 @@
 	else if(display_message)
 		to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 	//mod.wearer.update_clothing(mod.slot_flags)
-	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
 	mod.update_mod_overlays()
 	return TRUE
 
@@ -170,7 +169,7 @@
 	if(!check_power(use_power_cost))
 		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	//addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
