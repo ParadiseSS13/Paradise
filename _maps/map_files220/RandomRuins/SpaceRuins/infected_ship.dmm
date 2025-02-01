@@ -1652,7 +1652,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Yw" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "Yy" = (

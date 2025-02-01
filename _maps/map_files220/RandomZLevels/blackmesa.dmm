@@ -4360,7 +4360,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_server)
 "fpQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "fqj" = (
@@ -6581,7 +6581,7 @@
 /area/awaymission/black_mesa/cryo_room)
 "iiZ" = (
 /obj/structure/alien/xenoweeds,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/black_mesa)
 "ijb" = (
@@ -11915,7 +11915,7 @@
 /turf/simulated/floor/plasteel/stairs/right,
 /area/awaymission/black_mesa/resonant_chamber)
 "oDL" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/blue,
 /area/awaymission/black_mesa/high_security_servers)
 "oDR" = (
@@ -14884,7 +14884,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "sgC" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "sgF" = (
@@ -15560,7 +15560,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_hallway)
 "sYP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},

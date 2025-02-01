@@ -726,7 +726,7 @@
 /turf/simulated/floor/redgrid,
 /area/ruin/space/mech_transport)
 "ZI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "ZK" = (

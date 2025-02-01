@@ -640,7 +640,7 @@
 	},
 /area/awaymission/space_battle/prhallway1)
 "cd" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 5
@@ -3720,7 +3720,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "lP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/living)
 "lQ" = (
@@ -5537,7 +5537,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/living)
 "sd" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 6
@@ -5866,7 +5866,7 @@
 /obj/effect/decal/fakelattice{
 	density = 0
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/space,
 /area/space/nearstation)
 "to" = (
@@ -5972,7 +5972,7 @@
 	},
 /area/awaymission/space_battle/prhallway2)
 "tF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 10
@@ -6000,7 +6000,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/space_battle/kitchen)
 "tI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 6
@@ -6946,7 +6946,7 @@
 	},
 /area/awaymission/space_battle/syndicate/syndicate1)
 "wO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -9571,7 +9571,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "Fv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
@@ -9642,7 +9642,7 @@
 	},
 /area/awaymission/space_battle/hallway2)
 "FD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -9751,7 +9751,7 @@
 /area/awaymission/space_battle/hallway2)
 "FW" = (
 /obj/structure/table,
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -9868,7 +9868,7 @@
 	},
 /area/awaymission/space_battle/medbay)
 "Gr" = (
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10252,7 +10252,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway4)
 "Hz" = (
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 8
 	},
 /turf/space,
@@ -10436,7 +10436,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/bridge)
 "Ic" = (
-/obj/item/kirbyplants{
+/obj/item/kirbyplants/large{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -14585,7 +14585,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway7)
 "VH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 9
@@ -14687,7 +14687,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/bridge)
 "VY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 10

@@ -1837,7 +1837,7 @@
 /area/awaymission/bmp_ship/buffer)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
@@ -1957,7 +1957,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/north,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "fN" = (
@@ -2252,7 +2252,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "gI" = (
@@ -3371,7 +3371,7 @@
 /area/awaymission/bmp_ship/kitchen)
 "mA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/machinery/light_construct/small/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -3484,7 +3484,7 @@
 "nO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
@@ -6364,7 +6364,7 @@
 /area/awaymission/bmp_ship/fore)
 "Qk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -7006,7 +7006,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/south,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
@@ -7128,7 +7128,7 @@
 /area/awaymission/bmp_ship/fore)
 "YU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)

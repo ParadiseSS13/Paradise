@@ -908,7 +908,7 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "dt" = (
@@ -2475,7 +2475,7 @@
 	},
 /area/shuttle/vox)
 "iK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/ghost_bar/indoor)
 "iL" = (
@@ -2940,7 +2940,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "kj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
 	nitrogen = 103.984;
@@ -3453,7 +3453,7 @@
 	},
 /area/ghost_bar/outdoor/beach)
 "lQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "lR" = (
@@ -3470,7 +3470,7 @@
 	},
 /area/ninja/holding)
 "lT" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "lU" = (
@@ -3485,7 +3485,7 @@
 /area/admin)
 "lY" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
 	},
@@ -4824,7 +4824,7 @@
 	},
 /area/admin)
 "qW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/computer/cryopod{
 	pixel_y = 28
 	},
@@ -5645,7 +5645,7 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "tI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6651,7 +6651,7 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "xa" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6833,7 +6833,7 @@
 	},
 /area/ninja/holding)
 "xw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
@@ -7957,7 +7957,7 @@
 	},
 /area/ghost_bar/outdoor/beach)
 "Bv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/small{
 	dir = 8
 	},
@@ -8004,7 +8004,7 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -8232,7 +8232,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "Cn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
 "Co" = (
@@ -8457,7 +8457,7 @@
 /area/tdome/tdomeadmin)
 "CS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "CT" = (
@@ -9764,7 +9764,7 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/indoor/cave)
 "Hs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -10680,7 +10680,7 @@
 	},
 /area/admin)
 "KA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
 "KB" = (
@@ -10731,7 +10731,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "KI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "KJ" = (
@@ -11659,7 +11659,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Og" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "Oh" = (
@@ -12055,7 +12055,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ninja/holding)
 "Pv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/red,
 /area/ghost_bar/indoor)
 "Pw" = (
@@ -13031,7 +13031,7 @@
 	},
 /area/vox_base)
 "SR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "ST" = (
@@ -13281,7 +13281,7 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "TG" = (
@@ -14593,7 +14593,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Yb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/blue,
 /area/ghost_bar/indoor)
 "Yc" = (
@@ -14673,7 +14673,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
 "Yq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";

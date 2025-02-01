@@ -259,7 +259,7 @@
 /area/mine/laborcamp)
 "aN" = (
 /obj/machinery/light/directional/east,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2593,7 +2593,7 @@
 	dir = 8;
 	pixel_y = -24
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplecorners"
 	},
@@ -3425,7 +3425,7 @@
 /area/lavaland/surface/outdoors/legion)
 "ie" = (
 /obj/machinery/light/directional/east,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_x = 32
 	},
@@ -7061,7 +7061,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -7694,7 +7694,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "EO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowcorners"
@@ -10454,7 +10454,7 @@
 /area/lavaland/surface/outdoors/legion)
 "VV" = (
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{

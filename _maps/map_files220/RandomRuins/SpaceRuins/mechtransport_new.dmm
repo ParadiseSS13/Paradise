@@ -364,7 +364,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
@@ -1208,7 +1208,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Bh" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -1701,7 +1701,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "Jq" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2221,7 +2221,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "TR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,

@@ -1275,7 +1275,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "tI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1788,7 +1788,7 @@
 	},
 /area/shuttle/escape)
 "Bv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/light_fake/small{
 	dir = 8
 	},
@@ -1806,7 +1806,7 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3037,7 +3037,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "SR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "SU" = (

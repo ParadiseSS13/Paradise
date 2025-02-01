@@ -506,7 +506,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sierra/hall)
 "ee" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/sierra/rnd)
 "eg" = (
@@ -842,7 +842,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sierra/med)
 "gq" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -897,7 +897,7 @@
 	},
 /area/ruin/space/sierra/maint)
 "gI" = (
-/obj/item/kirbyplants/plant19,
+/obj/item/kirbyplants/large/alien/alien4,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sierra/rnd)
 "gJ" = (
@@ -5591,7 +5591,7 @@
 	},
 /area/ruin/space/sierra/rnd)
 "RD" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"

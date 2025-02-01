@@ -285,7 +285,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "cQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "cS" = (
@@ -638,7 +638,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "ge" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "gk" = (
@@ -1733,7 +1733,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wildwest/wildwest_refine)
 "pR" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mine/dnascramble,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1886,7 +1886,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "rp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "rs" = (
@@ -2922,7 +2922,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "BH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowfull"
@@ -3444,7 +3444,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "GQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mine/dnascramble,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
@@ -4854,7 +4854,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "Wa" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)

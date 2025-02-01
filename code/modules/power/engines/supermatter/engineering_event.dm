@@ -8,13 +8,14 @@
 /// Starts an event
 /datum/engi_event/proc/start_event()
 	on_start()
+	alert_engi()
+	if(duration)
+		addtimer(CALLBACK(src, PROC_REF(on_end)), duration)
 	return
 
 /// To be executed once an event has been started
 /datum/engi_event/proc/on_start()
-	alert_engi()
-	if(duration)
-		addtimer(CALLBACK(src, PROC_REF(on_end)), duration)
+	return
 
 /// Send an alert to engineering about the event
 /datum/engi_event/proc/alert_engi()
