@@ -9,6 +9,7 @@
 	light_power = 1
 	anchored = TRUE
 	density = TRUE
+	new_attack_chain = TRUE
 	///How much mass this currently holds
 	var/current_mass = 3
 	///Maximum amount of mass
