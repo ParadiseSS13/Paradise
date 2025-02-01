@@ -148,11 +148,6 @@
 	/// icon state for the overlay
 	var/effect_icon_state = "moon_insanity_overlay"
 
-/atom/movable/screen/alert/status_effect/moon_converted
-	name = "Moon Converted"
-	desc = "THEY LIE, THEY ALL LIE!!! SLAY THEM!!! BURN THEM!!! MAKE THEM SEE THE TRUTH!!!"
-	icon_state = "lastresort"
-
 /datum/status_effect/moon_converted/on_creation()
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
 	. = ..()
