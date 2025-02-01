@@ -190,7 +190,7 @@
 	if(!density)
 		return
 	autoclose = FALSE
-	. = ..()
+	return ..()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
