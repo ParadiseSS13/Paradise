@@ -193,7 +193,7 @@
 
 	if(ispath(ai_controller, /datum/ai_controller))
 		ai_controller = new ai_controller(src)
-	else if (!isnull(ai_controller))
+	else if(!isnull(ai_controller))
 		stack_trace("[src] expected an ai controller typepath or null for its AI controller, but was instead given [ai_controller].")
 
 	return INITIALIZE_HINT_NORMAL
