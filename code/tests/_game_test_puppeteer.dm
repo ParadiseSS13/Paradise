@@ -51,6 +51,7 @@
 /datum/test_puppeteer/proc/use_item_in_hand()
 	var/obj/item/item = puppet.get_active_hand()
 	if(!item)
+		origin_test.Fail("could not find obj in [puppet] active hand", __FILE__, __LINE__)
 		return
 
 	if(item.new_attack_chain)
