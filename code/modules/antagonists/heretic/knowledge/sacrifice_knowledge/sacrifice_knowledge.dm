@@ -405,14 +405,15 @@
 			return
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/internal/to_give = new organ_path
-		var/obj/item/organ/internal/to_eject = sac_target.get_int_organ(organ_path)
+		var/obj/item/organ/internal/to_eject = sac_target.get_int_organ(to_give.parent_type)
 		if(to_eject)
-			to_eject.remove(sac_target, TRUE)
+			to_eject.remove(sac_target)
 			to_eject.forceMove(get_turf(sac_target))
 		to_give.insert(sac_target)
 
 	new /obj/effect/gibspawner/generic(get_turf(sac_target))
 	sac_target.visible_message("<span class='boldwarning'>Several organs force themselves out of [sac_target]!</span>")
+	sac_target.set_heartattack(FALSE) //Otherwise you die if you try to do an organic heart, very funny, very bad
 
 /**
  * This proc is called from [proc/after_target_sleeps] when the [sac_target] should be waking up.)
