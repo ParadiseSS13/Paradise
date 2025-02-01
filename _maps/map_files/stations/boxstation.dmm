@@ -74285,6 +74285,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"qVd" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "qVo" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75165,6 +75171,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
+"rsA" = (
+/obj/effect/landmark/start/explorer,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "rtu" = (
 /obj/structure/rack{
 	dir = 1
@@ -110790,7 +110803,7 @@ wrU
 wrU
 kBW
 bKs
-bKs
+qVd
 vVK
 wrU
 bxd
@@ -111304,7 +111317,7 @@ blX
 wrU
 kBW
 gyA
-uAa
+rsA
 bDJ
 wrU
 kCk
