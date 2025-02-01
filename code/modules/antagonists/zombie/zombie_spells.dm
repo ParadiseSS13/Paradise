@@ -242,7 +242,7 @@
 	return ..()
 
 /obj/item/plague_claw/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have()] sharp, ichor-laden claws extending from [owner.p_their()] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
 
 /obj/item/plague_claw/after_attack(atom/atom_target, mob/user, proximity_flag, click_parameters, claw_disease)
 	. = ..()
