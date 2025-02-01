@@ -95,7 +95,7 @@
 	output_dir = turn(output_dir, -90)
 	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 
-/obj/machinery/mineral/ore_redemption/proc/process_ores(list/obj/item/stack/ore/L)
+/obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/L)
 	if(!linked_crucible)
 		return
 	for(var/ore in L)
@@ -144,7 +144,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
-	// POLTODO: Handle linking to adjacent magma crucible
+	// POLTODO: Handle smelting
 
 // POLTODO: UI for seeing current minerals as a bar graph
 
@@ -164,11 +164,11 @@
 /obj/machinery/power_hammer
 	name = "power hammer"
 	desc = "A heavy-duty pneumatic hammer designed to shape and mold molten metal."
-	icon = 'icons/obj/machines/smithing_machines.dmi'
+	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "power_hammer"
 	max_integrity = 200
-	pixel_x = -16	// 2x2
-	pixel_y = -16
+	pixel_x = 0	// 2x2
+	pixel_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
@@ -176,17 +176,17 @@
 /obj/machinery/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
-	icon = 'icons/obj/machines/smithing_machines.dmi'
+	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace"
 	max_integrity = 200
-	pixel_x = -16	// 2x2
-	pixel_y = -16
+	pixel_x = 0	// 2x2
+	pixel_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 
-/obj/machinery/assembler
-	name = "assembler"
+/obj/machinery/kinetic_assembler
+	name = "kinetic assembler"
 	desc = "A smart assembler that takes components and combines them at the strike of a hammer."
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"

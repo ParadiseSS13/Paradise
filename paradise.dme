@@ -900,6 +900,7 @@
 #include "code\game\machinery\shieldgen.dm"
 #include "code\game\machinery\Sleeper.dm"
 #include "code\game\machinery\slotmachine.dm"
+#include "code\game\machinery\smith_machines.dm"
 #include "code\game\machinery\snow_machine.dm"
 #include "code\game\machinery\spaceheater.dm"
 #include "code\game\machinery\status_display.dm"

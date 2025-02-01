@@ -22150,7 +22150,6 @@
 /area/station/public/locker)
 "bvr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -23425,6 +23424,7 @@
 	},
 /area/station/science/rnd)
 "bBf" = (
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -38269,7 +38269,7 @@
 /obj/item/hammer,
 /obj/item/hammer,
 /obj/item/hammer,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -52459,6 +52459,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
 	dir = 8
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "smithdesk";
+	name = "Smith's Desk Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "fIj" = (
@@ -53058,6 +53062,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "smithdesk";
+	name = "Smith's Desk Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
@@ -72619,6 +72627,19 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"qjo" = (
+/obj/machinery/door_control{
+	id = "smithdesk";
+	name = "Smith's Desk Shutters Control";
+	pixel_x = 24;
+	pixel_y = 23;
+	req_access = list(47)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/station/supply/smith_office)
 "qjs" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/effect/decal/cleanable/dirt,
@@ -112111,7 +112132,7 @@ bWU
 pnc
 cat
 cbR
-cqB
+qjo
 cvm
 cqB
 uro

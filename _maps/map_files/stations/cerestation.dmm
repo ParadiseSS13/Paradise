@@ -2386,14 +2386,21 @@
 /area/station/hallway/secondary/exit)
 "auJ" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable/orange{
-	icon_state = "0-2"
-	},
 /obj/structure/shelf/supply,
 /obj/item/hammer,
 /obj/item/hammer,
 /obj/item/hammer,
 /obj/item/storage/belt/utility,
+/obj/machinery/door_control{
+	id = "smithdesk";
+	name = "Smith's Desk Shutters Control";
+	pixel_x = 24;
+	pixel_y = 23;
+	req_access = list(47)
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -7558,6 +7565,9 @@
 	},
 /area/station/medical/surgery/secondary)
 "bkP" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -12931,6 +12941,15 @@
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
+"bMt" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "bMv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -32213,19 +32232,22 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "feO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "feQ" = (
@@ -32558,6 +32580,18 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
+"fjY" = (
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/station/supply/smith_office)
 "fkc" = (
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
@@ -40392,15 +40426,8 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -41472,13 +41499,8 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "hIQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/effect/landmark/start/smith,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "hIS" = (
@@ -44140,16 +44162,6 @@
 /area/station/maintenance/port)
 "iqv" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
 	name = "Smith's Desk";
 	dir = 4
@@ -44157,6 +44169,12 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "smithdesk";
+	name = "Smith's Desk Shutters"
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "iqy" = (
@@ -45245,15 +45263,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
-"iEY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "iFb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -47021,10 +47030,13 @@
 	},
 /area/station/service/kitchen)
 "jaz" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -52269,7 +52281,13 @@
 	},
 /area/station/supply/storage)
 "kmP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "kmZ" = (
@@ -67425,6 +67443,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "smithdesk";
+	name = "Smith's Desk Shutters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -69685,15 +69708,6 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
-"oMu" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
-	},
-/area/station/supply/smith_office)
 "oMF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -78668,6 +78682,10 @@
 /area/station/service/library)
 "qYR" = (
 /obj/structure/closet,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -85147,6 +85165,12 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/supply/smith_office)
 "sHB" = (
@@ -85393,9 +85417,7 @@
 	},
 /area/station/science/robotics)
 "sLy" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -93327,6 +93349,12 @@
 /obj/structure/chair/office/light,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"uFE" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/smith_office)
 "uFL" = (
 /obj/machinery/light{
 	dir = 1
@@ -93480,15 +93508,6 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "uHD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -94200,6 +94219,9 @@
 /area/station/maintenance/port2)
 "uQs" = (
 /obj/machinery/alarm/directional/east,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -97825,6 +97847,10 @@
 	},
 /area/station/science/toxins/launch)
 "vLl" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -157079,7 +157105,7 @@ vyi
 fZu
 phE
 auJ
-oMu
+uHD
 uHD
 kMQ
 phE
@@ -157336,8 +157362,8 @@ jxd
 gVo
 phE
 bkP
+uFE
 lAi
-iEY
 hle
 phE
 phE
@@ -157589,10 +157615,10 @@ sqG
 mTo
 sqG
 feO
-jxd
+bMt
 jaz
 sHw
-bkP
+fjY
 kmP
 hIQ
 sLy
