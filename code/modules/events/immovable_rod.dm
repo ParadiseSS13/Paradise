@@ -39,6 +39,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/New(atom/_start, atom/_end, delay)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 	start = _start
 	end = _end
 	loc = start

@@ -32,6 +32,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/datum/hallucination_manager/blind_rush = 1,
 		/datum/hallucination_manager/waves = 2,
 		/obj/effect/hallucination/blob = 10,
+		/obj/effect/hallucination/sniper = 10
 	)
 ))
 
@@ -51,6 +52,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/hallucination_icon_state
 	/// Hallucination override.
 	var/hallucination_override = FALSE
+	/// Hallucination color
+	var/hallucination_color
 	/// Hallucination layer.
 	var/hallucination_layer = MOB_LAYER
 	///Hallucination plane.
@@ -70,6 +73,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	target = hallucination_target
 	if(hallucination_icon && hallucination_icon_state)
 		var/image/I = image(hallucination_icon, hallucination_override ? src : get_turf(src), hallucination_icon_state)
+		if(hallucination_color)
+			I.color = hallucination_color
 		I.override = hallucination_override
 		I.layer = hallucination_layer
 		I.plane = hallucination_plane

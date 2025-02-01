@@ -47,7 +47,7 @@
 	affecting.grabbed_by += src
 	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
 	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
-	RegisterSignal(assailant, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_update_glide_size))
+	RegisterSignal(assailant, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, PROC_REF(on_updated_glide_size))
 
 	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -77,7 +77,7 @@
 	if(assailant)
 		UnregisterSignal(assailant, list(
 			COMSIG_MOVABLE_MOVED,
-			COMSIG_MOVABLE_UPDATE_GLIDE_SIZE,
+			COMSIG_MOVABLE_UPDATED_GLIDE_SIZE,
 		))
 		if(assailant.client)
 			assailant.client.screen -= hud
@@ -86,9 +86,10 @@
 	QDEL_NULL(hud)
 	return ..()
 
-/obj/item/grab/proc/on_update_glide_size(mob/living/grabber, new_size)
+/obj/item/grab/proc/on_updated_glide_size(mob/living/grabber, old_size)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UPDATED_GLIDE_SIZE
 	if(affecting && grabber == assailant && affecting != assailant)
-		affecting.set_glide_size(new_size)
+		affecting.set_glide_size(grabber.glide_size)
 
 /obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
 	SIGNAL_HANDLER
