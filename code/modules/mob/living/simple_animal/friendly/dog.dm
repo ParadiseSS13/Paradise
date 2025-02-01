@@ -207,6 +207,8 @@
 		update_corgi_fluff()
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
