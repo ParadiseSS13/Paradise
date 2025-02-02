@@ -285,17 +285,17 @@
 				var/datum/cachedbook/selectedbook = GLOB.library_catalog.get_book_by_id(params["bookid"])
 				if(!selectedbook)
 					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-					atom_say("Deletion Failed!")
+					atom_say("Удаление не удалось!")
 					return
 				if(selectedbook.ckey != params["user_ckey"])
 					message_admins("[params["user_ckey"]] attempted to delete a book that wasn't theirs, this shouldn't happen, please investigate.")
 					return
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-					atom_say("Deletion Successful!")
+					atom_say("Успешно удалено!")
 					return
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				atom_say("Deletion Failed!")
+				atom_say("Удаление не удалось!")
 
 
 		//rating acts
@@ -305,16 +305,16 @@
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-				atom_say("Rating Successful!")
+				atom_say("Оценка принята!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")
 			if(GLOB.library_catalog.flag_book_by_id(params["user_ckey"], params["bookid"], selected_report))
 				playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-				atom_say("Report Submitted!")
+				atom_say("Жалоба отправлена!")
 				return
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			atom_say("Report Submission Failed!")
+			atom_say("Отправка жалобы не удалась!")
 		if("set_report")
 			selected_report =  text2num(params["report_type"])
 		//Book Uploader
@@ -334,10 +334,10 @@
 				return
 			if(GLOB.library_catalog.upload_book(ui.user.ckey, user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
-				atom_say("Book Uploaded!")
+				atom_say("Книга загружена!")
 				return
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			atom_say("Book Upload Failed!")
+			atom_say("Загрузка книги не удалась!")
 			num_pages = getmaxpages()
 		if("reportlost")
 			inventoryRemove(text2num(params["libraryid"]))

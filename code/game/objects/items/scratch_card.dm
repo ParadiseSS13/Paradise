@@ -32,7 +32,7 @@
 /obj/item/scratch/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(winner && istype(O, /obj/machinery/economy/atm))
 		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
-		O.atom_say("Congratulations for winning the lottery!")
+		O.atom_say("Поздравляем с выигрышем в лотерею!")
 		var/obj/item/reward = new /obj/item/stack/spacecash/c1000
 		qdel(src)
 		user.put_in_hands(reward)

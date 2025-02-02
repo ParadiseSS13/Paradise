@@ -113,16 +113,16 @@
 	if(H in history)
 		return "Specimen already in database."
 	if(H.stat == DEAD)
-		atom_say("Specimen deceased - please provide fresh sample.")
+		atom_say("Образец утрачен - пожалуйста, предоставьте свежий образец.")
 		return "Specimen deceased."
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
-		atom_say("Experimental dissection not detected!")
+		atom_say("Экспериментальное вскрытие не обнаружено!")
 		return "No glands detected!"
 	if(H.mind != null && H.ckey != null)
 		history += H
 		abductee_minds += H.mind
-		atom_say("Processing specimen...")
+		atom_say("Образец обрабатывается...")
 		sleep(5)
 		switch(text2num(type))
 			if(1)
@@ -160,7 +160,7 @@
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			return "Experiment failed! No replacement organ detected."
 	else
-		atom_say("Brain activity nonexistent - disposing sample...")
+		atom_say("Мозговая активность отсутствует - утилизация образца...")
 		eject_abductee()
 		send_back(H)
 		return "Specimen braindead - disposed."

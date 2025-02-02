@@ -27,10 +27,10 @@
 	eyes = "moth_eyes_s"
 	butt_sprite = "nian"
 	siemens_coeff = 1.5
-	blurb = "Nians are large bipedal invertebrates that come from an unknown homeworld. \
-	Known for spendthrift behavior, the Nian civilization has been pressed to the fore of developed space in an effort to resolve material shortages in homeworld sectors.<br/><br/> \
-	Unlike most species in the galactic fold, Nian do not recognize the authority of the Trans-Solar Federation: \
-	having instead established close diplomatic relationships with their splinter faction, the USSP."
+	blurb = "Нианы - вид насекомоподобных двуногих, родом с неизвестной планеты. \
+	Известная своей расточительностью, цивилизация Ниан была вытеснена на передний план развитого космоса в попытке решить проблему нехватки материалов в секторах родного мира.<br/><br/> \
+	В отличие от большинства видов в галактике, Нианы не признают власть Транс-Солнечной Федерации, \
+	установив вместо этого тесные дипломатические отношения с Союзом Советских Социалистических Планет."
 
 	icon_skin_tones = list(
 		1 = "Default Biege",

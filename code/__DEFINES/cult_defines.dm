@@ -42,13 +42,13 @@
 #define DEFAULT_TOOLTIP "6:-29,5:-2"
 
 // Text
-#define CULT_CURSES list("A fuel technician just slit his own throat and begged for death.",                                           \
-			"The shuttle's navigation programming was replaced by a file containing two words, IT COMES.",                             \
-			"The shuttle's custodian tore out his guts and began painting strange shapes on the floor.",                               \
-			"A shuttle engineer began screaming 'DEATH IS NOT THE END' and ripped out wires until an arc flash seared off her flesh.", \
-			"A shuttle inspector started laughing madly over the radio and then threw herself into an engine turbine.",                \
-			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh.",                                      \
-			"Steve repeatedly touched a lightbulb until his hands fell off.")
+#define CULT_CURSES list("Заправщик шаттла только что перерезал себе горло и умолял о смерти.",\
+			"Навигационная программа шаттла была заменена файлом, содержащим два слова: «ОНО ИДЁТ».",\
+			"Уборщик шаттла вырвал свои кишки и начал рисовать странные фигуры на полу.",\
+			"Инженер шаттла кричала «СМЕРТЬ НЕ КОНЕЦ» и вырывала проводку, пока электрический разряд не испепелил её плоть.",\
+			"Инспектор шаттла начала безумно смеяться в рацию и бросилась в турбину двигателя.",\
+			"Диспетчер шаттла был найден мертвым, на его теле были вырезаны кровавые символы.",\
+			"Стив так долго держался за лампочку, что у него отнялись руки.")
 
 // Misc
 #define SOULS_TO_REVIVE 3

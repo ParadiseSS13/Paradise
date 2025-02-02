@@ -156,7 +156,7 @@
 		return
 	if(!is_station_level(user.z))
 		return
-	GLOB.global_announcer.autosay("[H] has been rewarded [src] by [user]!", "Medal Announcer", channel, src)
+	GLOB.global_announcer.autosay("[user] награждает [H] [src]!", "Оповещение О Награждении", channel, src)
 	channel = null
 
 // GOLD (awarded by centcom)
@@ -244,6 +244,10 @@
 
 /// Prize for the NT Recruiter emagged arcade
 /obj/item/clothing/accessory/medal/recruiter
+	name = "nanotrasen recruiter medal"
+	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
+
+/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
 	name = "nanotrasen recruiter medal"
 	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 

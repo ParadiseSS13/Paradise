@@ -6,7 +6,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill
 	name = "exosuit drill"
-	desc = "Equipment for engineering and combat exosuits. This is the drill that'll pierce the heavens!"
+	desc = "Бур для шахтёрских экзокостюмов. Этот бур пронзит небеса!"
 	icon_state = "mecha_drill"
 	equip_cooldown = 15
 	energy_drain = 10
@@ -26,12 +26,12 @@
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
 	if(is_ancient_rock(target))
-		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		visible_message("<span class='notice'>Этот камень, похоже, устойчив ко всем инструментам для добычи, кроме кирок!</span>")
 		return
 
-	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
-					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
-					"<span class='italics'>You hear drilling.</span>")
+	target.visible_message("<span class='warning'>[capitalize(chassis.declent_ru(NOMINATIVE))] начинает бурить [target.declent_ru(ACCUSATIVE)].</span>",
+					"<span class='userdanger'>[capitalize(chassis.declent_ru(NOMINATIVE))] начинает бурить [target.declent_ru(ACCUSATIVE)]...</span>",
+					"<span class='italics'>Вы слышите шум бурения.</span>")
 
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)
@@ -59,29 +59,29 @@
 
 /turf/simulated/wall/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(drill.do_after_mecha(src, 60 / drill.drill_level))
-		drill.log_message("Drilled through [src]")
+		drill.log_message("Бурение [declent_ru(GENITIVE)] завершено")
 		dismantle_wall(TRUE, FALSE)
 
 /turf/simulated/wall/r_wall/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(drill.drill_level >= DRILL_HARDENED)
 		if(drill.do_after_mecha(src, 120 / drill.drill_level))
-			drill.log_message("Drilled through [src]")
+			drill.log_message("Бурение [declent_ru(GENITIVE)] завершено")
 			dismantle_wall(TRUE, FALSE)
 	else
-		drill.occupant_message("<span class='danger'>[src] is too durable to drill through.</span>")
+		drill.occupant_message("<span class='danger'>Бур недостаточно мощный, чтобы пробить [declent_ru(ACCUSATIVE)]</span>")
 
 /turf/simulated/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
 		if(get_dir(drill.chassis, M) & drill.chassis.dir)
 			M.gets_drilled()
-	drill.log_message("Drilled through [src]")
+	drill.log_message("Бурение [declent_ru(GENITIVE)] завершено")
 	drill.move_ores()
 
 /turf/simulated/floor/plating/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/floor/plating/asteroid/M in range(1, drill.chassis))
 		if((get_dir(drill.chassis, M) & drill.chassis.dir) && !M.dug)
 			M.getDug()
-	drill.log_message("Drilled through [src]")
+	drill.log_message("Бурение [declent_ru(GENITIVE)] завершено")
 	drill.move_ores()
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/move_ores()
@@ -96,8 +96,8 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
-	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
-						"<span class='userdanger'>[chassis] is drilling you with [src]!</span>")
+	target.visible_message("<span class='danger'>[capitalize(chassis.declent_ru(NOMINATIVE))] бурит [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!</span>",
+						"<span class='userdanger'>[capitalize(chassis.declent_ru(NOMINATIVE))] бурит вас с помощью [declent_ru(GENITIVE)]!</span>")
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
@@ -125,7 +125,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"
-	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
+	desc = "Бур с алмазным наконечником для шахтёрских экзокостюмов. Улучшенная версия бура, который пронзит небеса!"
 	icon_state = "mecha_diamond_drill"
 	origin_tech = "materials=4;engineering=4"
 	equip_cooldown = 10
@@ -136,7 +136,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"
-	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
+	desc = "Автоматический сканер руд для шахтёрских экзокостюмов. Автоматически проверяет окружающие породы на наличие полезных минералов."
 	icon_state = "mecha_analyzer"
 	selectable = 0
 	equip_cooldown = 15
