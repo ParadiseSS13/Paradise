@@ -574,17 +574,17 @@
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
-		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-		if(removed.total_moles())
-			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
-			produced_joules *= (removed.heat_capacity() / removed.total_moles())
-			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
-
 		//Calculate how much gas to release
 		//Varies based on power and gas content
 		removed.set_toxins(removed.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
 		//Varies based on power, gas content, and heat
 		removed.set_oxygen(removed.oxygen() + max((((device_energy + removed.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
+
+		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
+		if(removed.total_moles() >= 1)
+			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			produced_joules *= (removed.heat_capacity() / removed.total_moles())
+			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
 
 		if(produces_gas)
 			env.merge(removed)
