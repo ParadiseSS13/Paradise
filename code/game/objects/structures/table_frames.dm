@@ -27,7 +27,7 @@
 	///What stacks can be used to make the table, and if it will result in a unique table
 	var/list/restrict_table_types = list() //ex: list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type), carpet will make poker table, wood will result in standard table_type. If the list is empty, any material can be used for its default table_type.
 
-/obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!try_make_table(I, user))
 		return ..()
 

@@ -39,7 +39,7 @@
 				else
 					switch(text2num(params["option"]))
 						if(1)		// Configure pAI device
-							pda.pai.attack_self(usr)
+							pda.pai.attack_self__legacy__attackchain(usr)
 						if(2)		// Eject pAI device
 							var/turf/T = get_turf(pda.loc)
 							if(T)

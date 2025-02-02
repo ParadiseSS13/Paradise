@@ -17,7 +17,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
+/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
 	return
 
 /obj/item/trash/raisins
@@ -131,17 +131,22 @@
 	icon_state = "popsicle_stick_s"
 	desc = "Still tastes sweet."
 
+/obj/item/trash/caviar
+	name = "caviar can"
+	icon_state = "caviar-empty"
+	desc = "There's none left."
+
 // Ammo casings
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
 	name = "arbitrary spent casing item"
 	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
 	icon_state = "gshell"
+	scatter_distance = 10
 
 /obj/item/trash/spentcasing/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 	transform = turn(transform, rand(0, 360))
 
 /obj/item/trash/spentcasing/shotgun

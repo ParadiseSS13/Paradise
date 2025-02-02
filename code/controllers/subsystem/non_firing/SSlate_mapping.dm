@@ -8,8 +8,6 @@ SUBSYSTEM_DEF(late_mapping)
 	flags = SS_NO_FIRE
 	/// List of all maze generators to process
 	var/list/obj/effect/mazegen/generator/maze_generators = list()
-	/// List of all bridge spawners to process
-	var/list/obj/effect/spawner/bridge/bridge_spawners = list()
 
 /datum/controller/subsystem/late_mapping/Initialize()
 	// Sort all the air machines we initialized during mapload by name all at once
@@ -28,3 +26,5 @@ SUBSYSTEM_DEF(late_mapping)
 		QDEL_LIST_CONTENTS(maze_generators)
 		var/duration = stop_watch(watch)
 		log_startup_progress("Generated [mgcount] mazes in [duration]s")
+
+	GLOB.spawn_pool_manager.process_pools()

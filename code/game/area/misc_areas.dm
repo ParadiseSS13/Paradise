@@ -48,6 +48,10 @@
 	icon_state = "space_notp"
 	tele_proof = TRUE
 
+/area/game_test
+	name = "Game Test Area"
+	requires_power = FALSE
+
 //SYNDICATES
 
 /area/syndicate_mothership

@@ -30,7 +30,7 @@
 	lighter_color = pick("r","c","y","g")
 	update_icon()
 
-/obj/item/lighter/attack_self(mob/living/user)
+/obj/item/lighter/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	if(!lit)
 		turn_on_lighter(user)
@@ -78,7 +78,7 @@
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
-
+	damtype = initial(damtype)
 	update_icon()
 	if(user)
 		show_off_message(user)
@@ -96,7 +96,7 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/target, mob/living/user)
+/obj/item/lighter/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return
 
@@ -135,7 +135,7 @@
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	return
 
 /obj/item/lighter/update_icon_state()
@@ -263,7 +263,7 @@
 	if(smoketime < 1)
 		matchburnout()
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 		return
 
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -315,7 +315,7 @@
 	else
 		return TRUE
 
-/obj/item/match/attack(mob/living/target, mob/living/user)
+/obj/item/match/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return
 

@@ -22,7 +22,7 @@
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
+/obj/item/gun/projectile/automatic/l6_saw/attack_self__legacy__attackchain(mob/user)
 	cover_open = !cover_open
 	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
@@ -32,7 +32,7 @@
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
-/obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
+/obj/item/gun/projectile/automatic/l6_saw/afterattack__legacy__attackchain(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
 		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
 	else
@@ -56,7 +56,7 @@
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/automatic/l6_saw/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -101,7 +101,7 @@
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		location.hotspot_expose(700, 50, 1)
+		location.hotspot_expose(700, 50)
 
 //magazines//
 

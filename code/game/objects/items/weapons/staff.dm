@@ -49,10 +49,10 @@
 		animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 		animate(user)
 
-/obj/item/staff/broom/attackby(obj/O, mob/user)
+/obj/item/staff/broom/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/staff/broom/horsebroom(get_turf(src))
-		user.unEquip(O)
+		user.unequip(O)
 		qdel(O)
 		qdel(src)
 		return
@@ -69,7 +69,7 @@
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
 
-/obj/item/staff/broom/horsebroom/attack_self(mob/user as mob)
+/obj/item/staff/broom/horsebroom/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	item_state = "horsebroom[HAS_TRAIT(src, TRAIT_WIELDED) ? 1 : 0]"
 

@@ -3,6 +3,7 @@
 	desc = "Yell at coding chat."
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = null
+	appearance_flags = LONG_GLIDE
 	max_integrity = 300
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 60, ACID = 60)
 	density = TRUE
@@ -192,7 +193,7 @@
 	add_occupant(M)
 	return ..()
 
-/obj/tgvehicle/attackby(obj/item/I, mob/user, params)
+/obj/tgvehicle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(user.drop_item())

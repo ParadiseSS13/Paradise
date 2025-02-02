@@ -36,7 +36,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space bears!
 
 /mob/living/simple_animal/hostile/bear/black
@@ -62,7 +62,7 @@
 	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/polar = 1)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
-/mob/living/simple_animal/hostile/bear/Hudson
+/mob/living/simple_animal/hostile/bear/hudson
 	name = "Hudson"
 	desc = "Feared outlaw, this guy is one bad news bear." //I'm sorry...
 	icon_state = "combat_bear"
@@ -70,7 +70,7 @@
 	icon_dead = "combat_bear_dead"
 	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/brown = 1)
 
-/mob/living/simple_animal/hostile/bear/Hudson/Initialize(mapload)
+/mob/living/simple_animal/hostile/bear/hudson/Initialize(mapload)
 	. = ..()
 	var/unbearable_pun = pick("He's unbearably cute.", "It looks like he is a bearer of bad news.", "Sadly, he is bearly able to comprehend puns.")
 	desc = "That's Hudson. " +  unbearable_pun // I am not sorry for this.

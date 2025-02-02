@@ -9,6 +9,7 @@
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 	density = FALSE
+	new_attack_chain = TRUE
 
 /obj/structure/curtain/open
 	icon_state = "open"
@@ -39,11 +40,10 @@
 		icon_state = "open"
 		layer = SHOWER_OPEN_LAYER
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/toy/crayon))
+/obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/toy/crayon))
 		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

@@ -33,16 +33,20 @@
 	var/preset_message
 	/// The index of the character in the message that will be drawn next.
 	var/preset_message_index = 0
+	/// Can this crayon be consumed or not
+	var/consumable = TRUE
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|OXYLOSS
 
-/obj/item/toy/crayon/New()
-	..()
+/obj/item/toy/crayon/Initialize(mapload)
+	. = ..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
-/obj/item/toy/crayon/attack_self(mob/living/user as mob)
+/obj/item/toy/crayon/activate_self(mob/user)
+	if(..())
+		return
 	update_window(user)
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
@@ -105,9 +109,12 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
-	if(!proximity) return
-	if(busy) return
+/obj/item/toy/crayon/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(busy)
+		return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(preset_message_index > 0)
@@ -137,8 +144,10 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
-	if(M == user)
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..() || !consumable)
+		return FINISH_ATTACK
+	if(target == user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(!H.check_has_mouth())
@@ -152,8 +161,6 @@
 		else
 			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 			qdel(src)
-	else
-		..()
 
 /obj/item/toy/crayon/examine(mob/user)
 	. = ..()
@@ -200,7 +207,8 @@
 	colour = COLOR_PURPLE
 	dye_color = DYE_PURPLE
 
-/obj/item/toy/crayon/random/New()
+/obj/item/toy/crayon/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
 	switch(icon_state)
 		if("crayonred")
@@ -227,7 +235,6 @@
 			name = "purple crayon"
 			colour = COLOR_PURPLE
 			dye_color = DYE_PURPLE
-	..()
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
@@ -255,9 +262,6 @@
 	dye_color = DYE_MIME
 	uses = 0
 
-/obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
-	update_window(user)
-
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
 	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
@@ -280,9 +284,6 @@
 	colour = "#FFF000"
 	dye_color = DYE_RAINBOW
 	uses = 0
-
-/obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
-	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
 	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
@@ -312,15 +313,16 @@
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
+	consumable = FALSE // To stop you from eating spraycans. It's TOO SILLY!
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	update_icon()
 
-/obj/item/toy/crayon/spraycan/attack(mob/M, mob/user)
-	return // To stop you from eating spraycans. It's TOO SILLY!
-
-/obj/item/toy/crayon/spraycan/attack_self(mob/living/user)
+/obj/item/toy/crayon/spraycan/activate_self(mob/user)
+	if(..())
+		return
 	var/choice = tgui_input_list(user, "Do you want to...", "Spraycan Options", list("Toggle Cap","Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
@@ -328,16 +330,16 @@
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
-			..()
+			update_window(user)
 		if("Change Color")
 			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
 			if(isnull(colour))
 				return
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(capped)
 		to_chat(user, "<span class='warning'>You cannot spray [target] while the cap is still on!</span>")
@@ -391,7 +393,7 @@
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"),
-		"Death Bot" = image('icons/mob/robots.dmi', "syndie-bloodhound-preview")
+		"Death Bot" = image('icons/mob/robots.dmi', "spidersyndi-preview")
 		)
 	selected_disguise = show_radial_menu(user, target, disguise_options, require_near = TRUE, radius = 42)
 
@@ -410,7 +412,7 @@
 	)
 	selected_disguise = disguise_spraypaint_items[selected_disguise][is_cardborg_head]
 	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
-	user.unEquip(target)
+	user.unequip(target)
 	user.put_in_hands(new selected_disguise())	// Spawn the desired cardborg item.
 	qdel(target)								// Get rid of the old one.
 

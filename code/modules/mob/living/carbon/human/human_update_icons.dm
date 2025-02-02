@@ -539,6 +539,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_w_uniform()
 	update_inv_wear_id()
 	update_inv_gloves()
+	update_inv_neck()
 	update_inv_glasses()
 	update_inv_ears()
 	update_inv_shoes()
@@ -611,7 +612,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					else if(A.sprite_sheets && A.sprite_sheets[dna.species.sprite_sheet_name])
 						standing.overlays += image("icon" = A.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[A.icon_state]")
 					else
-						standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+						standing.overlays += image("icon" = 'icons/mob/accessories.dmi', "icon_state" = "[tie_color]")
 			standing.alpha = w_uniform.alpha
 			standing.color = w_uniform.color
 			overlays_standing[UNIFORM_LAYER] = standing
@@ -635,7 +636,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
 		for(var/obj/item/thing in uniform_slots)												// whoever made this
 			if(thing)																			// you're a piece of fucking garbage
-				unEquip(thing)																	// why the fuck would you goddamn do this motherfucking shit
+				drop_item_to_ground(thing)														// why the fuck would you goddamn do this motherfucking shit
 				if(client)																		// INVENTORY CODE IN FUCKING ICON CODE
 					client.screen -= thing														// WHAT THE FUCKING FUCK BAY GODDAMNIT
 																								// **I FUCKING HATE YOU AAAAAAAAAA**
@@ -1059,6 +1060,33 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
+/mob/living/carbon/human/update_inv_neck()
+	remove_overlay(NECK_LAYER)
+	remove_overlay(SPECIAL_NECK_LAYER)
+
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_NECK)]
+		if(inv)
+			inv.update_icon()
+
+	if(neck)
+		var/mutable_appearance/new_neck
+		update_hud_neck(neck)
+
+		if(neck.icon_override)
+			new_neck = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
+		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.sprite_sheet_name])
+			new_neck = mutable_appearance(neck.sprite_sheets[dna.species.sprite_sheet_name], "[neck.icon_state]", layer = -NECK_LAYER)
+		else
+			new_neck = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+		var/obj/item/clothing/neck/tie/N = neck
+		if(istype(N) && N.under_suit)
+			new_neck.layer = -SPECIAL_NECK_LAYER
+			overlays_standing[SPECIAL_NECK_LAYER] = new_neck
+			apply_overlay(SPECIAL_NECK_LAYER)
+		else
+			overlays_standing[NECK_LAYER] = new_neck
+			apply_overlay(NECK_LAYER)
 
 /mob/living/carbon/human/update_inv_back()
 	..()
@@ -1228,6 +1256,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_hud_head(obj/item/worn_item)
 	worn_item.screen_loc = ui_head
+	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
+		client.screen += worn_item
+	update_observer_view(worn_item, TRUE)
+
+/mob/living/carbon/human/proc/update_hud_neck(obj/item/worn_item)
+	worn_item.screen_loc = ui_neck
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)

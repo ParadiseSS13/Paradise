@@ -184,7 +184,7 @@ emp_act
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone)	return 0
 	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
 		if(bp && isclothing(bp))
@@ -466,7 +466,7 @@ emp_act
 	return ..()
 
 //Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/human/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
 		return FALSE
 
@@ -532,7 +532,7 @@ emp_act
 			bloody = TRUE
 			var/turf/location = loc
 			if(issimulatedturf(location))
-				add_splatter_floor(location, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+				add_splatter_floor(location, emittor_intertia = last_movement_dir)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
@@ -781,7 +781,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
@@ -819,7 +819,7 @@ emp_act
 
 
 
-/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/human/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return ..()
@@ -842,7 +842,7 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
+	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) // hit mobs that are intentionally lying down to prevent combat crawling.
 
 /mob/living/carbon/human/canBeHandcuffed()
 	return has_left_hand() || has_right_hand()

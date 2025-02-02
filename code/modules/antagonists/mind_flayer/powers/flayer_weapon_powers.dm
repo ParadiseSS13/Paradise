@@ -38,7 +38,7 @@
 		create_new_weapon()
 	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
 
-	if(!user.drop_item() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
 		return FALSE
 
@@ -53,8 +53,7 @@
 	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_FLAYER_RETRACT_IMPLANTS
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
-	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)
-	INVOKE_ASYNC(weapon_ref, TYPE_PROC_REF(/atom/movable, forceMove), owner) // Just kinda shove it into the user
+	owner.transfer_item_to(weapon_ref, owner, force = TRUE, silent = TRUE)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
@@ -283,10 +282,10 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/gun/projectile/revolver/doublebarrel/flayer/attack_self(mob/living/user)
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/attack_self__legacy__attackchain(mob/living/user)
 	return FALSE // Not getting those shrapnel rounds out of there.
 
-/obj/item/gun/projectile/revolver/doublebarrel/flayer/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	return FALSE // No loading your gun
 
 /obj/item/gun/projectile/revolver/doublebarrel/flayer/sleight_of_handling(mob/living/carbon/human/user)

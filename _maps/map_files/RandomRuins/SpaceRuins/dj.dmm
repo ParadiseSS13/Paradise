@@ -5,8 +5,6 @@
 "ab" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -35,7 +33,6 @@
 /area/ruin/space/djstation)
 "aj" = (
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar,
@@ -51,17 +48,12 @@
 "am" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -70,12 +62,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/directional/east,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -89,18 +78,12 @@
 "as" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -108,8 +91,6 @@
 "at" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
@@ -118,8 +99,6 @@
 "au" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -130,18 +109,12 @@
 "ax" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -149,13 +122,9 @@
 "ay" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -169,13 +138,9 @@
 /area/ruin/space/djstation/solars)
 "aA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -186,8 +151,6 @@
 "aB" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -198,7 +161,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -209,12 +171,9 @@
 "aE" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -222,18 +181,12 @@
 "aF" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -241,12 +194,9 @@
 "aG" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -270,8 +220,6 @@
 "aK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -300,8 +248,6 @@
 "aN" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -309,13 +255,9 @@
 "aO" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -352,7 +294,6 @@
 "aV" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -410,8 +351,6 @@
 "bb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/light{
@@ -431,8 +370,6 @@
 	name = "Kitchen"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -441,7 +378,6 @@
 /area/ruin/space/djstation)
 "bd" = (
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar,
@@ -464,8 +400,6 @@
 "bg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -474,8 +408,6 @@
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/status_display/supply_display{
@@ -488,8 +420,6 @@
 /area/ruin/space/djstation)
 "bi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/status_display{
@@ -503,13 +433,9 @@
 /area/ruin/space/djstation)
 "bj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -537,7 +463,6 @@
 /area/ruin/space/djstation)
 "bn" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering,
@@ -572,17 +497,12 @@
 "br" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -590,8 +510,6 @@
 "bs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/gps/ruin{
@@ -607,6 +525,7 @@
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -628,8 +547,6 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/paper/djstation/diary_note,
@@ -639,8 +556,6 @@
 /area/ruin/space/djstation)
 "bx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -701,8 +616,6 @@
 /area/ruin/space/djstation)
 "bG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -710,7 +623,6 @@
 "bH" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/tracker,
@@ -718,8 +630,6 @@
 /area/ruin/space/djstation/solars)
 "bI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering{
@@ -741,20 +651,15 @@
 "bL" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "bM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -790,6 +695,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -826,13 +732,9 @@
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -849,19 +751,15 @@
 "bW" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "bX" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar,
@@ -872,8 +770,6 @@
 "bY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -903,8 +799,6 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -914,8 +808,6 @@
 	name = "Cabin"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -923,14 +815,9 @@
 "nL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -956,7 +843,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -967,8 +853,6 @@
 "sZ" = (
 /obj/machinery/tcomms/relay/ruskie,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -992,8 +876,6 @@
 /area/ruin/space/djstation)
 "uf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1025,7 +907,7 @@
 	},
 /area/ruin/space/djstation)
 "yr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
@@ -1035,8 +917,6 @@
 "CQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1050,8 +930,6 @@
 	pixel_x = -27
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1065,8 +943,6 @@
 /area/ruin/space/djstation)
 "FR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/table,
@@ -1082,13 +958,9 @@
 	dir = 9
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1128,13 +1000,9 @@
 "Sf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1153,34 +1021,24 @@
 /area/ruin/space/djstation)
 "UP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "VG" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "Zp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -1205,15 +1063,17 @@ aa
 aa
 aa
 aa
-bO
-bO
-bO
-bO
-bO
-bl
-bO
-bO
-bO
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1242,17 +1102,19 @@ aa
 aa
 aa
 aa
-bO
-bO
 aa
-ad
-aa
-ad
-aa
-ad
 aa
 bO
 bO
+bO
+bO
+bO
+bl
+bO
+bO
+bO
+aa
+aa
 aa
 aa
 aa
@@ -1280,17 +1142,19 @@ aa
 aa
 aa
 aa
-bl
 aa
-aa
-aj
+bO
+bO
 aa
 ad
 aa
-aj
+ad
 aa
+ad
 aa
 bO
+bO
+aa
 aa
 aa
 aa
@@ -1318,17 +1182,19 @@ aa
 aa
 aa
 aa
+aa
+bl
+aa
+aa
+aj
+aa
+ad
+aa
+aj
+aa
+aa
 bO
-ad
-bd
-ax
-az
-ad
-bd
-ax
-az
-ad
-bO
+aa
 aa
 aa
 aa
@@ -1345,6 +1211,47 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bO
+ad
+bd
+ax
+az
+ad
+bd
+ax
+az
+ad
+bO
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aQ
 aQ
 aQ
@@ -1375,8 +1282,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1413,46 +1322,50 @@ aa
 aa
 aa
 aa
-"}
-(7,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aP
-aP
-aQ
-aQ
-aa
-aa
-aa
-aa
-aa
-aa
-bO
-ad
-bd
-ax
-az
-ad
-bd
-ax
-az
-ad
-bO
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 "}
 (8,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aP
+aP
+aQ
+aQ
+aa
+aa
+aa
+aa
+aa
+aa
+bO
+ad
+bd
+ax
+az
+ad
+bd
+ax
+az
+ad
+bO
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(9,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1489,8 +1402,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1527,8 +1442,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1565,8 +1482,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1603,8 +1522,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1641,8 +1562,10 @@ aS
 ao
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1679,8 +1602,10 @@ bP
 aS
 aa
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1717,8 +1642,10 @@ bQ
 aS
 aa
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1755,8 +1682,10 @@ aY
 ao
 aa
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1793,8 +1722,10 @@ aS
 ao
 aa
 aa
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1831,8 +1762,10 @@ ao
 aa
 aa
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1869,8 +1802,10 @@ aS
 aS
 af
 aT
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+aa
 al
 ad
 ad
@@ -1907,8 +1842,10 @@ av
 bV
 av
 aT
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1945,8 +1882,10 @@ aS
 ao
 aS
 aT
+aa
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+aa
 aa
 aa
 aa
@@ -1983,8 +1922,10 @@ ao
 aa
 aa
 aa
+aa
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2021,8 +1962,10 @@ aS
 aa
 aa
 aa
+aa
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2059,8 +2002,10 @@ ao
 aa
 aa
 aa
+aa
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2097,8 +2042,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2135,8 +2082,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2173,8 +2122,10 @@ aa
 aa
 aa
 aa
+aa
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2211,43 +2162,6 @@ aa
 aa
 aa
 aa
-"}
-(28,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aP
-aP
-aQ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-ab
-ad
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 "}
 (29,1,1) = {"
@@ -2260,8 +2174,9 @@ aa
 aa
 aa
 aa
+aa
 aP
-aQ
+aP
 aQ
 aa
 aa
@@ -2275,6 +2190,7 @@ aa
 ad
 ab
 ad
+aa
 aa
 aa
 aa
@@ -2289,6 +2205,47 @@ aa
 aa
 "}
 (30,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aP
+aQ
+aQ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ad
+ab
+ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(31,1,1) = {"
+aa
 aa
 aa
 aa
@@ -2325,43 +2282,6 @@ aa
 aa
 aa
 aa
-"}
-(31,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aP
-aP
-aQ
-aQ
-aa
-aa
-aa
-aa
-aa
-aa
-bO
-ad
-bd
-aF
-az
-ad
-bd
-aF
-az
-ad
-bO
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 "}
 (32,1,1) = {"
@@ -2371,6 +2291,8 @@ aa
 aa
 aa
 aa
+aa
+aa
 aP
 aP
 aQ
@@ -2381,9 +2303,8 @@ aa
 aa
 aa
 aa
-aa
-bl
-aa
+bO
+ad
 bd
 aF
 az
@@ -2391,8 +2312,9 @@ ad
 bd
 aF
 az
-aa
+ad
 bO
+aa
 aa
 aa
 aa
@@ -2409,8 +2331,10 @@ aa
 aa
 aa
 aa
+aa
+aP
+aP
 aQ
-bO
 aQ
 aa
 aa
@@ -2419,8 +2343,7 @@ aa
 aa
 aa
 aa
-aa
-bO
+bl
 aa
 bd
 aF
@@ -2430,7 +2353,8 @@ bd
 aF
 az
 aa
-bl
+bO
+aa
 aa
 aa
 aa
@@ -2448,8 +2372,9 @@ aa
 aa
 aa
 aa
-aa
-aa
+aQ
+bO
+aQ
 aa
 aa
 aa
@@ -2459,7 +2384,7 @@ aa
 aa
 aa
 bO
-ad
+aa
 bd
 aF
 az
@@ -2467,8 +2392,9 @@ ad
 bd
 aF
 az
-ad
-bO
+aa
+bl
+aa
 aa
 aa
 aa
@@ -2496,17 +2422,19 @@ aa
 aa
 aa
 aa
+aa
 bO
-aa
-aa
-bX
-aa
 ad
-aa
-bX
-aa
-aa
+bd
+aF
+az
+ad
+bd
+aF
+az
+ad
 bO
+aa
 aa
 aa
 aa
@@ -2534,17 +2462,19 @@ aa
 aa
 aa
 aa
-aQ
+aa
 bO
+aa
+aa
+bX
 aa
 ad
 aa
-ad
+bX
 aa
-ad
 aa
 bO
-bO
+aa
 aa
 aa
 aa
@@ -2575,6 +2505,47 @@ aa
 aa
 aQ
 bO
+aa
+ad
+aa
+ad
+aa
+ad
+aa
+bO
+bO
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(38,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aQ
+bO
 bO
 bO
 bO
@@ -2582,6 +2553,47 @@ bO
 bO
 bO
 bl
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(39,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa

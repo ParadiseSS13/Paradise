@@ -216,6 +216,8 @@
 		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+	if(!.)
+		return
 	else
 		var/mob/living/L = target
 		L.Immobilize(2 SECONDS)
@@ -230,7 +232,7 @@
 	desc = "It still beats furiously, emitting an aura of fear."
 	color = COLOR_BLACK
 
-/obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/shadow/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	user.drop_item()
 	insert(user)

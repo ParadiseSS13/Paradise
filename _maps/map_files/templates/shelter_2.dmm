@@ -112,7 +112,7 @@
 /area/survivalpod)
 "u" = (
 /obj/structure/tubes,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "v" = (
@@ -176,7 +176,7 @@
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "C" = (

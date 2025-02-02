@@ -29,7 +29,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
-/mob/living/simple_animal/pet/cat/Runtime
+/mob/living/simple_animal/pet/cat/runtime
 	name = "Runtime"
 	desc = "GCAT."
 	icon_state = "cat"
@@ -42,35 +42,35 @@
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
 
-/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
+/mob/living/simple_animal/pet/cat/runtime/Initialize(mapload)
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/cat/Runtime/Destroy()
+/mob/living/simple_animal/pet/cat/runtime/Destroy()
 	SSpersistent_data.registered_atoms -= src
 	return ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/persistent_load()
+/mob/living/simple_animal/pet/cat/runtime/persistent_load()
 	read_memory()
 	deploy_the_cats()
 
-/mob/living/simple_animal/pet/cat/Runtime/persistent_save()
+/mob/living/simple_animal/pet/cat/runtime/persistent_save()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
 		return FALSE
 	write_memory(FALSE)
 
-/mob/living/simple_animal/pet/cat/Runtime/make_babies()
+/mob/living/simple_animal/pet/cat/runtime/make_babies()
 	var/mob/baby = ..()
 	if(baby)
 		children += baby
 		return baby
 
-/mob/living/simple_animal/pet/cat/Runtime/death()
+/mob/living/simple_animal/pet/cat/runtime/death()
 	if(can_die())
 		write_memory(TRUE)
 	return ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
+/mob/living/simple_animal/pet/cat/runtime/proc/read_memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	S["family"] 			>> family
 
@@ -78,7 +78,7 @@
 		family = list()
 	log_debug("Persistent data for [src] loaded (family: [family ? list2params(family) : "None"])")
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/write_memory(dead)
+/mob/living/simple_animal/pet/cat/runtime/proc/write_memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	family = list()
 	if(!dead)
@@ -92,7 +92,7 @@
 	S["family"]				<< family
 	log_debug("Persistent data for [src] saved (family: [family ? list2params(family) : "None"])")
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/deploy_the_cats()
+/mob/living/simple_animal/pet/cat/runtime/proc/deploy_the_cats()
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
@@ -157,7 +157,7 @@
 
 	turns_since_scan++
 	if(turns_since_scan > 5)
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
@@ -172,15 +172,15 @@
 				break
 	if(movement_target)
 		stop_automated_movement = TRUE
-		walk(src, movement_target, 0, 3)
+		GLOB.move_manager.move_to(src, movement_target, 0, 3)
 
-/mob/living/simple_animal/pet/cat/Proc
+/mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
 	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/cat/Var
+/mob/living/simple_animal/pet/cat/var_cat
 	name = "Var"
 	desc = "Maintenance Cat!"
 	gold_core_spawnable = NO_SPAWN
@@ -197,7 +197,7 @@
 	pass_flags = PASSMOB
 	collar_type = "kitten"
 
-/mob/living/simple_animal/pet/cat/Syndi
+/mob/living/simple_animal/pet/cat/syndi
 	name = "SyndiCat"
 	desc = "It's a SyndiCat droid."
 	icon_state = "Syndicat"
@@ -213,11 +213,11 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
-/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+/mob/living/simple_animal/pet/cat/syndi/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
-/mob/living/simple_animal/pet/cat/Syndi/npc_safe(mob/user)
+/mob/living/simple_animal/pet/cat/syndi/npc_safe(mob/user)
 	if(GAMEMODE_IS_NUCLEAR)
 		return TRUE
 	return FALSE
@@ -235,7 +235,7 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/sliced/birthday_cake = 3,
 		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"

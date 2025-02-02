@@ -165,6 +165,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
+	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		return
+
 	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
 	if(!procname)
 		return
@@ -202,57 +208,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	//this will protect us from a fair few errors ~Carn
 
 	while(argnum--)
-		var/class = null
-		// Make a list with each index containing one variable, to be given to the proc
-		if(src.holder && src.holder.marked_datum)
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","reference in range","reference in view", "mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
-			if(holder.marked_datum && class == "Marked datum ([holder.marked_datum.type])")
-				class = "Marked datum"
-		else
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","reference in range","reference in view","icon","file","client","mob's area","CANCEL")
-		switch(class)
-			if("CANCEL")
-				return null
+		var/list/value = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
+		var/class = value["class"]
+		if(!class)
+			return null
 
-			if("text")
-				lst += clean_input("Enter new text:","Text",null)
-
-			if("num")
-				lst += input("Enter new number:","Num",0) as num
-
-			if("type")
-				lst += input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
-
-			if("reference")
-				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
-
-			if("reference in range")
-				lst += input("Select reference in range:", "Reference in range", src) as mob|obj|turf|area in range(view)
-
-			if("reference in view")
-				lst += input("Select reference in view:", "Reference in view", src) as mob|obj|turf|area in view(view)
-
-			if("mob reference")
-				lst += input("Select reference:","Reference",usr) as mob in world
-
-			if("file")
-				lst += input("Pick file:","File") as file
-
-			if("icon")
-				lst += input("Pick icon:","Icon") as icon
-
-			if("client")
-				var/list/keys = list()
-				for(var/mob/M in world)
-					keys += M.client
-				lst += input("Please, select a player!", "Selection", null, null) as null|anything in keys
-
-			if("mob's area")
-				var/mob/temp = input("Select mob", "Selection", usr) as mob in world
-				lst += temp.loc
-
-			if("Marked datum")
-				lst += holder.marked_datum
+		lst += value["value"]
 	return lst
 
 /client/proc/Cell()

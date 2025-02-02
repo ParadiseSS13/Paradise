@@ -204,7 +204,7 @@
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
 		for(var/mob/living/silicon/S in orange(2,src))
-			if(isAI(S)) continue
+			if(is_ai(S)) continue
 			step_towards(S,src)
 		for(var/mob/living/carbon/human/machine/M in orange(2,src))
 			step_towards(M,src)
@@ -308,28 +308,13 @@
 		user.faction -= "carp"
 		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return TRUE
-
+/mob/living/carbon/human/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(istype(wear_suit, /obj/item/clothing/suit/hooded/carp_costume/dragon))
 		return TRUE
-	//Do we have a working jetpack?
-	var/obj/item/tank/jetpack/thrust
-	if(istype(back, /obj/item/tank/jetpack))
-		thrust = back
-	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
-		thrust = C.jetpack
-	else if(ismodcontrol(back))
-		var/obj/item/mod/control/C = back
-		thrust = locate(/obj/item/mod/module/jetpack) in C
-	if(thrust)
-		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
-			return TRUE
 	if(dna.species.spec_Process_Spacemove(src))
 		return TRUE
-	return FALSE
+
+	return ..()
 
 /obj/item/clothing/head/hooded/carp_hood/dragon
 	name = "space carp hood"
@@ -403,8 +388,10 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -415,8 +402,10 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
-
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/pimpcoat
 	name = "expensive coat"
@@ -468,9 +457,17 @@
 	armor = list(MELEE = 15, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 0, ACID = 50)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/captain
 	icon_state = "winterhood_captain"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/security
 	name = "security winter coat"
@@ -502,9 +499,17 @@
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_med"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
@@ -514,9 +519,17 @@
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/science
 	icon_state = "winterhood_sci"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
@@ -526,18 +539,34 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 20, ACID = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/engineering
 	icon_state = "winterhood_engi"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
 	name = "atmospherics winter coat"
 	icon_state = "wintercoat_atmos"
 	item_state = "coatatmos"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos
 	icon_state = "winterhood_atmos"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
@@ -545,9 +574,17 @@
 	item_state = "coathydro"
 	allowed = list(/obj/item/reagent_containers/spray, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/hatchet, /obj/item/storage/bag/plants)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/hydro
 	icon_state = "winterhood_hydro"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
@@ -555,9 +592,17 @@
 	item_state = "coatcargo"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/rcs, /obj/item/clipboard, /obj/item/envelope, /obj/item/storage/bag/mail, /obj/item/mail_scanner)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/cargo
 	icon_state = "winterhood_cargo"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/wintercoat/miner
 	name = "mining winter coat"
@@ -567,13 +612,21 @@
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/t_scanner/adv_mining_scanner, /obj/item/storage/bag/ore, /obj/item/gun/energy/kinetic_accelerator)
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
-	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
+	desc = "A high-tech ablative hood attached to an ablative trenchcoat. Dissipates energy attacks with ease, and has an integrated flashproof visor. Entirely ineffecitve against kinetic attacks."
 	icon_state = "ablativehood"
 	flash_protect = FLASH_PROTECTION_FLASH
 	flags = BLOCKHAIR
@@ -584,7 +637,8 @@
 
 /obj/item/clothing/suit/hooded/ablative
 	name = "ablative trenchcoat"
-	desc = "Experimental trenchcoat specially crafted to reflect and absorb laser and disabler shots. Don't expect it to do all that much against an axe or a shotgun, however."
+	desc = "A cutting-edge ablative armor system developed by Nanotrasen. Miniaturized shielding systems deflect incoming energy projectiles, while prototype heatsinks and dissipation materials blunt any energy weapon that makes impact. \
+		Unfortunately, if offers little to no protection against solid impacts."
 	icon_state = "ablativecoat"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "ablativecoat"
@@ -840,7 +894,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 //Basic jacket and subtypes
-/obj/item/clothing/suit/greatcoat/sec
+/obj/item/clothing/suit/sec_greatcoat
 	name = "security greatcoat"
 	desc = "A wool-lined coat made from rugged materials that altogether make up to be a comfortable coat.\ GLORY TO ARSTOSKHA!!"
 	icon_state = "secgreatcoat"
@@ -1151,7 +1205,7 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
-/obj/item/clothing/suit/toggle/attack_self()
+/obj/item/clothing/suit/toggle/attack_self__legacy__attackchain()
 	if(icon_state == initial(icon_state))
 		icon_state = icon_state + "_t"
 		item_state = icon_state + "_t"
@@ -1301,28 +1355,6 @@
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
 
-//Mantles!
-/obj/item/clothing/suit/mantle
-	name = "mantle"
-	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
-	icon_state = "mantle"
-	item_state = "mantle"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-
-/obj/item/clothing/suit/mantle/regal
-	name = "regal shawl"
-	desc = "A fancy shawl for nobility, made from high quality materials."
-	icon_state = "regal_mantle"
-	item_state = "regal_mantle"
-
-/obj/item/clothing/suit/mantle/old
-	name = "old wrap"
-	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
-	icon_state = "old_mantle"
-	item_state = "old_mantle"
-
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"
 	desc = "The hands float by themselves, so it's extra spooky."
@@ -1335,15 +1367,11 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
 
-/obj/item/clothing/suit/furcape
+/obj/item/clothing/neck/cloak/furcape
 	name = "fur cape"
 	desc = "A cape made from fur. You'll really be stylin' now."
 	icon_state = "furcape"
 	item_state = "furcape"
-	blood_overlay_type = "armor"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/hooded/abaya
 	name = "abaya"
@@ -1380,12 +1408,12 @@
 		return
 	var/abaya_type = options[choice]
 	var/obj/item/clothing/suit/hooded/abaya/abaya = new abaya_type(get_turf(src))
-	L.unEquip(src, silent = TRUE)
+	L.unequip(src)
 	L.put_in_active_hand(abaya)
 	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
 	qdel(src)
 
-/obj/item/clothing/suit/hooded/abaya/attack_self(mob/user)
+/obj/item/clothing/suit/hooded/abaya/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reskin_abaya(user)
 

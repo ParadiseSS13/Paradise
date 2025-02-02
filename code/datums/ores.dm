@@ -136,7 +136,7 @@
 	else
 		log_game("An explosion has triggered a gibtonite deposit reaction at [AREACOORD(source)].")
 
-	RegisterSignal(source, COMSIG_PARENT_ATTACKBY, PROC_REF(on_parent_attackby))
+	RegisterSignal(source, COMSIG_ATTACK_BY, PROC_REF(on_attackby))
 	detonate_start_time = world.time
 	explosion_callback = addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/ore/gibtonite, detonate), source), detonate_time, TIMER_STOPPABLE)
 
@@ -164,13 +164,13 @@
 
 	return MINERAL_PREVENT_DIG
 
-/datum/ore/gibtonite/proc/on_parent_attackby(turf/source, obj/item/attacker, mob/user)
-	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
+/datum/ore/gibtonite/proc/on_attackby(turf/source, obj/item/attacker, mob/user)
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(istype(attacker, /obj/item/mining_scanner) || istype(attacker, /obj/item/t_scanner/adv_mining_scanner) && stage == GIBTONITE_ACTIVE)
 		user.visible_message("<span class='notice'>[user] holds [attacker] to [src]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse(source)
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 
 /datum/ore/gibtonite/proc/detonate(turf/simulated/mineral/source)
 	if(stage == GIBTONITE_STABLE)

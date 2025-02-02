@@ -14,7 +14,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "dj" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ds" = (
@@ -68,18 +68,16 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "gE" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/ruin/space/derelict/teleporter)
+"hg" = (
+/mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
-"hg" = (
-/obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/template_noop,
-/area/space/nearstation)
 "ic" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -104,7 +102,6 @@
 "kg" = (
 /obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/item/flag/ussp,
@@ -115,8 +112,6 @@
 /area/ruin/space/derelict/teleporter)
 "kX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/sign/poster/contraband/communist_state{
@@ -141,7 +136,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "mY" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -151,8 +146,6 @@
 	name = "experimental teleporter access"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor/closed,
@@ -163,11 +156,9 @@
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -193,8 +184,6 @@
 /area/ruin/space/derelict/teleporter)
 "pD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -204,18 +193,14 @@
 /area/ruin/space/derelict/teleporter)
 "pZ" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/derelict/teleporter)
 "qQ" = (
-/obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
-	amount = 1
-	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "sY" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -233,7 +218,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/teleporter)
 "uD" = (
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/large/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead"
 	},
@@ -245,6 +230,7 @@
 /area/ruin/space/derelict/teleporter)
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -281,8 +267,10 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "vT" = (
-/obj/item/shard,
 /obj/structure/lattice,
+/obj/item/stack/cable_coil/cut{
+	amount = 1
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "vX" = (
@@ -331,7 +319,7 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "Av" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Dp" = (
@@ -350,19 +338,19 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "FQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HL" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Io" = (
@@ -395,11 +383,9 @@
 /area/ruin/space/derelict/teleporter)
 "Um" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -412,9 +398,8 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "Vu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -435,7 +420,7 @@
 /area/ruin/space/derelict/teleporter)
 "Wu" = (
 /obj/effect/spawner/window/shuttle,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Zl" = (
@@ -443,48 +428,75 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "ZI" = (
-/mob/living/simple_animal/hostile/carp,
+/obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "small"
+	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ZM" = (
-/obj/structure/lattice/catwalk,
+/obj/item/shard,
+/obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/space/derelict/teleporter)
+/area/space/nearstation)
 "ZN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/derelict/teleporter)
 
 (1,1,1) = {"
-gE
-vx
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-PS
-wj
-wj
-wj
-PS
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (2,1,1) = {"
-gE
+qQ
+qQ
+vx
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+PS
+wj
+wj
+wj
+PS
+qQ
+qQ
+"}
+(3,1,1) = {"
+qQ
+qQ
 vx
 vx
-gE
-ZI
-gE
-gE
-gE
-gE
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
 PS
 ds
 We
@@ -492,12 +504,14 @@ iQ
 gr
 ds
 PS
+qQ
 "}
-(3,1,1) = {"
-gE
-gE
+(4,1,1) = {"
+qQ
+qQ
+qQ
 vx
-hg
+ZI
 HC
 FQ
 Wu
@@ -510,12 +524,14 @@ mq
 sY
 vr
 ds
-"}
-(4,1,1) = {"
-gE
-gE
-gE
 qQ
+"}
+(5,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+vT
 vx
 HL
 ZN
@@ -528,12 +544,14 @@ bk
 gA
 fX
 wj
+qQ
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+qQ
 vx
 vx
-gE
-gE
+qQ
+qQ
 vx
 Av
 Vu
@@ -546,14 +564,16 @@ oy
 vE
 fX
 wj
-"}
-(6,1,1) = {"
-gE
-vx
 qQ
-dj
+"}
+(7,1,1) = {"
+qQ
+qQ
 vx
 vT
+dj
+vx
+ZM
 Av
 ZN
 pZ
@@ -564,11 +584,13 @@ Vc
 SQ
 fX
 wj
+qQ
 "}
-(7,1,1) = {"
-gE
-gE
-gE
+(8,1,1) = {"
+qQ
+qQ
+qQ
+qQ
 vx
 vx
 vx
@@ -582,17 +604,19 @@ NU
 vG
 dJ
 ds
+qQ
 "}
-(8,1,1) = {"
-gE
-gE
-gE
-gE
+(9,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
 vx
 vx
-gE
-gE
-gE
+qQ
+qQ
+qQ
 PS
 ds
 oK
@@ -600,148 +624,185 @@ DX
 uD
 ds
 PS
+qQ
 "}
-(9,1,1) = {"
-gE
-gE
-gE
-gE
+(10,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
 vx
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
 PS
 Io
 tF
 iS
 PS
-gE
+qQ
+qQ
 "}
-(10,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+(11,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 PS
 Dp
 PS
-gE
-gE
+qQ
+qQ
+qQ
 "}
-(11,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-ZI
-gE
-gE
-gE
-gE
-gE
+(12,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
+qQ
 ds
 tF
 ds
-gE
-gE
-"}
-(12,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-ZM
-ZM
-ZM
-gE
-gE
+qQ
+qQ
+qQ
 "}
 (13,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 gE
 gE
 gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
 "}
 (14,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (15,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-ZI
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}
 (16,1,1) = {"
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-gE
-ZI
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+"}
+(17,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+hg
+qQ
+"}
+(18,1,1) = {"
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
+qQ
 "}

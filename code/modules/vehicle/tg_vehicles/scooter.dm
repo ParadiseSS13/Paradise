@@ -80,8 +80,8 @@
 
 /obj/tgvehicle/scooter/skateboard/generate_actions()
 	. = ..()
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
 	set_density(TRUE)
@@ -176,7 +176,7 @@
 
 	if(location)
 		if(prob(33))
-			location.hotspot_expose(1000, 1000)
+			location.hotspot_expose(1000, 1)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)
@@ -275,7 +275,7 @@
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/scooter_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
 		return ..()
 	var/obj/item/stack/S = I
@@ -301,7 +301,7 @@
 /obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
 	return
 
-/obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
+/obj/tgvehicle/scooter/skateboard/improvised/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
 	var/obj/item/stack/S = I
@@ -351,7 +351,7 @@
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
-/obj/item/melee/skateboard/attack_self(mob/user)
+/obj/item/melee/skateboard/attack_self__legacy__attackchain(mob/user)
 	var/obj/tgvehicle/scooter/skateboard/S = new board_item_type(get_turf(user))//this probably has fucky interactions with telekinesis but for the record it wasn't my fault
 	S.buckle_mob(user)
 	qdel(src)

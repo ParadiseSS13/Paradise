@@ -3,7 +3,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "aU" = (
@@ -16,7 +16,7 @@
 /area/ruin/space/powered)
 "bM" = (
 /obj/effect/spawner/window/shuttle,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "cz" = (
@@ -25,19 +25,16 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "cB" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "cD" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -52,7 +49,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "ex" = (
@@ -65,7 +62,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "fo" = (
@@ -76,6 +73,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
 "fS" = (
@@ -95,7 +93,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "hk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/head/helmet/space/eva/clown,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
@@ -107,7 +105,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "hz" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "hC" = (
@@ -119,18 +117,12 @@
 /area/ruin/space/powered)
 "hD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -147,14 +139,14 @@
 /area/ruin/space/clown_mime_ruin)
 "ik" = (
 /obj/item/stack/sheet/wood,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "in" = (
 /obj/effect/mob_spawn/human/corpse/clown,
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "iK" = (
@@ -186,7 +178,7 @@
 /area/ruin/space/clown_mime_ruin)
 "lS" = (
 /obj/machinery/light,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "me" = (
@@ -198,7 +190,7 @@
 "mp" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "mG" = (
@@ -226,7 +218,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/clown_mime_ruin)
 "nL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "nN" = (
@@ -234,7 +226,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -246,19 +237,19 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "on" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "pj" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/wood,
 /obj/machinery/light{
 	dir = 1
@@ -314,21 +305,21 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "qV" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "qW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "rg" = (
@@ -344,7 +335,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "rR" = (
@@ -367,7 +358,7 @@
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "sZ" = (
@@ -395,12 +386,12 @@
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/ruin/space/powered)
 "ub" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "uE" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/effect/mob_spawn/human/corpse/mime{
 	name = "Mime Pilot"
 	},
@@ -408,7 +399,7 @@
 /area/ruin/space/powered)
 "vu" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "vz" = (
@@ -418,15 +409,15 @@
 /obj/effect/mob_spawn/human/corpse/clown{
 	name = "Clown Pilot"
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "wb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "wp" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "wL" = (
@@ -464,9 +455,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "xm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/clown,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "xB" = (
@@ -487,19 +478,18 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "zy" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/item/gun/energy/clown,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "zz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/largecrate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "zU" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -533,21 +523,20 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "Bb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "BE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "BW" = (
@@ -558,7 +547,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
 "Ca" = (
@@ -568,11 +557,11 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Cs" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "Dj" = (
-/obj/item/toy/AI,
+/obj/item/toy/ai,
 /obj/item/toy/plushie/lizardplushie,
 /obj/item/toy/plushie/voxplushie,
 /obj/item/toy/plushie/greyplushie,
@@ -600,10 +589,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "EQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -619,18 +606,16 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/clown_mime_ruin)
 "Fq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "FW" = (
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "Gq" = (
@@ -641,20 +626,20 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/clown_mime_ruin)
 "Gx" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "GS" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Ht" = (
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "HP" = (
@@ -674,7 +659,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "IU" = (
@@ -682,10 +667,8 @@
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
 "Ke" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -702,9 +685,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "LC" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mob_spawn/human/corpse/clown/officer,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "LF" = (
@@ -721,12 +704,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/clown_mime_ruin)
 "MI" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "MP" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "NL" = (
@@ -739,16 +722,23 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "Oz" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
 "OK" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"OZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/stack/sheet/wood,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Pt" = (
 /obj/structure/table/reinforced,
@@ -775,12 +765,12 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "TC" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
@@ -788,7 +778,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "UC" = (
@@ -802,7 +792,7 @@
 /area/ruin/space/powered)
 "Vh" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Vo" = (
@@ -812,18 +802,18 @@
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
 "Vq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "VH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/head/helmet/space/eva/mime,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "VL" = (
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Wh" = (
@@ -835,8 +825,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "Xi" = (
@@ -850,16 +840,14 @@
 /area/ruin/space/powered)
 "Xu" = (
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Yq" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random/blood/often,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -867,8 +855,8 @@
 "YN" = (
 /obj/effect/decal/cleanable/blood/slime,
 /obj/effect/mob_spawn/human/corpse/clown,
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 
@@ -881,12 +869,14 @@ qh
 qh
 qh
 qh
-BW
-BW
-BW
-BW
-BW
-BW
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 qh
 qh
 qh
@@ -901,6 +891,37 @@ qh
 qh
 "}
 (2,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+BW
+BW
+BW
+BW
+BW
+BW
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(3,1,1) = {"
+qh
 qh
 qh
 qh
@@ -927,8 +948,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+qh
 qh
 qh
 qh
@@ -955,8 +978,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+qh
 qh
 qh
 qh
@@ -983,8 +1008,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1011,36 +1038,40 @@ qh
 qh
 qh
 qh
-"}
-(6,1,1) = {"
-qh
-qh
-qh
-qh
-qh
-Fm
-nX
-nX
-nX
-nX
-kQ
-kQ
-nX
-nX
-nX
-nX
-Fm
-qh
-qh
-qh
-qh
-qh
-qh
-qh
-qh
 qh
 "}
 (7,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+Fm
+nX
+nX
+nX
+nX
+kQ
+kQ
+nX
+nX
+nX
+nX
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(8,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1056,7 +1087,7 @@ OK
 nX
 wP
 Bb
-TC
+OZ
 nX
 tN
 tN
@@ -1067,8 +1098,10 @@ tN
 tN
 tN
 tN
+qh
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1095,8 +1128,10 @@ Ab
 xB
 iK
 pB
+qh
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1123,8 +1158,10 @@ hC
 jW
 iK
 pB
+qh
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1151,8 +1188,10 @@ fN
 tg
 iK
 pB
+qh
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+qh
 tN
 tN
 tN
@@ -1179,8 +1218,10 @@ tN
 tN
 tN
 tN
+qh
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+qh
 Ca
 EY
 HP
@@ -1207,8 +1248,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+qh
 Ca
 EY
 bz
@@ -1235,8 +1278,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+qh
 Ca
 EY
 rY
@@ -1263,8 +1308,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+qh
 tN
 tN
 tN
@@ -1291,36 +1338,40 @@ qh
 qh
 qh
 qh
-"}
-(16,1,1) = {"
-qh
-qh
-qh
-qh
-qh
-nX
-qf
-qf
-nX
-nX
-gS
-gS
-nX
-nX
-wU
-wU
-nX
-qh
-qh
-qh
-qh
-qh
-qh
-qh
-qh
 qh
 "}
 (17,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+nX
+qf
+qf
+nX
+nX
+gS
+gS
+nX
+nX
+wU
+wU
+nX
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(18,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1347,8 +1398,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1375,8 +1428,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1403,8 +1458,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1431,8 +1488,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1459,8 +1518,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1487,8 +1548,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1515,8 +1578,10 @@ qh
 qh
 qh
 qh
+qh
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+qh
 qh
 qh
 qh
@@ -1543,33 +1608,6 @@ qh
 qh
 qh
 qh
-"}
-(25,1,1) = {"
-qh
-qh
-qh
-qh
-qh
-qh
-nX
-nF
-nF
-nF
-nX
-nX
-nF
-nF
-nF
-nX
-qh
-qh
-qh
-qh
-qh
-qh
-qh
-qh
-qh
 qh
 "}
 (26,1,1) = {"
@@ -1579,16 +1617,18 @@ qh
 qh
 qh
 qh
-Fm
-MF
-MF
-ex
+qh
+nX
+nF
+nF
+nF
 nX
 nX
-MF
-MF
-ex
-Fm
+nF
+nF
+nF
+nX
+qh
 qh
 qh
 qh
@@ -1607,16 +1647,18 @@ qh
 qh
 qh
 qh
+qh
 Fm
 MF
 MF
-MF
+ex
 nX
 nX
 MF
 MF
-MF
+ex
 Fm
+qh
 qh
 qh
 qh
@@ -1636,6 +1678,37 @@ qh
 qh
 qh
 qh
+Fm
+MF
+MF
+MF
+nX
+nX
+MF
+MF
+MF
+Fm
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(29,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 RY
 RY
 RY
@@ -1644,6 +1717,37 @@ qh
 RY
 RY
 RY
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+"}
+(30,1,1) = {"
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
+qh
 qh
 qh
 qh

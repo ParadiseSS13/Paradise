@@ -19,7 +19,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/balaclava/attack_self(mob/user)
+/obj/item/clothing/mask/balaclava/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/luchador

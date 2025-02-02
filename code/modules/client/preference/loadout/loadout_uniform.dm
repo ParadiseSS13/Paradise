@@ -190,6 +190,18 @@
 	display_name = "Kilt"
 	path = /obj/item/clothing/under/costume/kilt
 
+/datum/gear/uniform/suit/executive
+	display_name = "Executive Suit"
+	path = /obj/item/clothing/under/suit/really_black
+
+/datum/gear/uniform/suit/navyblue
+	display_name = "Navy Suit"
+	path = /obj/item/clothing/under/suit/navy
+
+/datum/gear/uniform/suit/checkered
+	display_name = "Checkered Suit"
+	path = /obj/item/clothing/under/suit/checkered
+
 /datum/gear/uniform/skirt
 	main_typepath = /datum/gear/uniform/skirt
 
@@ -345,6 +357,28 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/uniform/overalls
+	main_typepath = /datum/gear/uniform/overalls
+
+/datum/gear/uniform/overalls/job
+	main_typepath = /datum/gear/uniform/overalls/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/uniform/overalls/job/janitor
+	display_name = "Overalls, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/overalls
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/overalls/job/cargo
+	display_name = "Overalls, cargo tech"
+	path = /obj/item/clothing/under/rank/cargo/tech/overalls
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
+/datum/gear/uniform/overalls/job/expedition
+	display_name = "Overalls, expedition"
+	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
+	allowed_roles = list("Quartermaster", "Explorer")
+
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
 
@@ -356,12 +390,12 @@
 /datum/gear/uniform/sec/secorporate
 	display_name = "Security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/officer/corporate
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "Security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/security/officer/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/casual
 	display_name = "Security uniform, casual"

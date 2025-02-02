@@ -32,6 +32,8 @@
 	var/bridge_theme = LONG_BRIDGE_THEME_CULT
 	var/list/forwards_backwards
 	var/list/side_to_side
+	var/turf/forward_goal
+	var/turf/backward_goal
 
 /obj/effect/spawner/dynamic_bridge/Initialize(mapload)
 	. = ..()
@@ -49,6 +51,8 @@
 	forwards_backwards = list(NORTH, SOUTH)
 	side_to_side = list(EAST, WEST)
 	if(!attempt_bridge())
+		forward_goal = null
+		backward_goal = null
 		forwards_backwards = list(EAST, WEST)
 		side_to_side = list(NORTH, SOUTH)
 		attempt_bridge()
@@ -109,6 +113,55 @@
 
 	T.flags |= LAVA_BRIDGE
 
+/obj/structure/bridge_walkway
+	name = "floor"
+	icon = 'icons/turf/floors.dmi'
+	layer = ABOVE_OPEN_TURF_LAYER
+	anchored = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/structure/bridge_walkway/Destroy()
+	var/turf/T = get_turf(src)
+	if(T)
+		T.layer = PLATING_LAYER
+		T.clear_filters()
+
+	return ..()
+
+/obj/structure/bridge_walkway/cult
+	icon_state = "cult"
+
+/obj/structure/bridge_walkway/hiero
+	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	icon_state = "floor"
+
+/obj/structure/bridge_walkway/clockwork
+	name = "clockwork floor"
+	icon_state = "clockwork_floor"
+
+/obj/structure/bridge_walkway/clockwork/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_crossed)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+// Pretend to be a normal clockwork floor and duplicate its visual effect
+/obj/structure/bridge_walkway/clockwork/proc/on_crossed(atom/crosser)
+	var/counter = 0
+	for(var/obj/effect/temp_visual/ratvar/floor/floor in contents)
+		if(++counter == 3)
+			return
+
+	if(!. && isliving(crosser))
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
+
+/obj/structure/bridge_walkway/clockwork/proc/spawn_visual()
+	new /obj/effect/temp_visual/ratvar/floor(loc)
+
+/obj/structure/bridge_walkway/wood
+	icon_state = "wood"
+
 /obj/effect/spawner/dynamic_bridge/proc/make_walkway(turf/T)
 	for(var/obj/structure/spawner/S in T)
 		qdel(S)
@@ -119,14 +172,14 @@
 
 	switch(bridge_theme)
 		if(LONG_BRIDGE_THEME_CULT)
-			T.ChangeTurf(/turf/simulated/floor/engine/cult/lavaland_air)
+			new /obj/structure/bridge_walkway/cult(T)
 		if(LONG_BRIDGE_THEME_HIERO)
-			T.ChangeTurf(/turf/simulated/floor/indestructible/hierophant)
+			new /obj/structure/bridge_walkway/hiero(T)
 		if(LONG_BRIDGE_THEME_CLOCKWORK)
-			T.ChangeTurf(/turf/simulated/floor/clockwork/lavaland_air)
+			new /obj/structure/bridge_walkway/clockwork(T)
 		if(LONG_BRIDGE_THEME_STONE)
 			// Stone tiles are different sizes and shapes so these are
-			// "safe-looking" arrangements
+			// "safe-looking" arrangements.
 			switch(rand(1, 5))
 				if(1)
 					new /obj/structure/stone_tile/block(T)
@@ -146,9 +199,9 @@
 					var/obj/structure/stone_tile/block/B = new(T)
 					B.dir = NORTH
 		if(LONG_BRIDGE_THEME_WOOD)
-			T.ChangeTurf(/turf/simulated/floor/wood/lavaland_air)
+			var/obj/structure/bridge_walkway/wood/tile = new(T)
 			if(prob(20))
-				new /obj/effect/landmark/damageturf(T)
+				tile.icon_state = pick("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 		if(LONG_BRIDGE_THEME_CATWALK)
 			new /obj/structure/lattice/catwalk/mining(T)
 
@@ -165,8 +218,6 @@
 	var/walk_dir = forwards_backwards[1]
 	var/turf/forward_step = get_turf(src)
 	var/turf/backward_step = get_turf(src)
-	var/turf/forward_goal
-	var/turf/backward_goal
 	var/bad_passage = FALSE
 
 	while(count <= max_length && !(forward_goal && backward_goal) && !bad_passage)
