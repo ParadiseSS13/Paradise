@@ -67781,7 +67781,7 @@
 	name = "Smith's Desk Shutters Control";
 	pixel_x = 24;
 	pixel_y = 23;
-	req_access = list(47)
+	req_access = list(49)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)

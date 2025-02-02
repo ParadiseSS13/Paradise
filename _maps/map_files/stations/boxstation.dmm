@@ -22150,6 +22150,9 @@
 /area/station/public/locker)
 "bvr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -32913,12 +32916,10 @@
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "cnz" = (
-/obj/machinery/door/airlock/mining{
-	name = "Expedition Headquarters"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/smith,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "cnA" = (
@@ -33053,6 +33054,7 @@
 /area/station/medical/patients_rooms1)
 "cnX" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -51216,16 +51218,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/medical/medbay3)
-"feD" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
-/area/station/supply/smith_office)
 "feN" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
@@ -62646,7 +62638,6 @@
 	},
 /area/station/science/robotics)
 "kZX" = (
-/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -62654,10 +62645,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining{
-	name = "Expedition Headquarters"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/smith,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "laa" = (
@@ -66113,6 +66103,11 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/reception)
+"mOd" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/any/supply/smith,
+/turf/simulated/floor/plasteel,
+/area/station/supply/smith_office)
 "mOi" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/bananium,
@@ -72633,7 +72628,7 @@
 	name = "Smith's Desk Shutters Control";
 	pixel_x = 24;
 	pixel_y = 23;
-	req_access = list(47)
+	req_access = list(49)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112393,7 +112388,7 @@ gba
 fHU
 pnc
 coH
-feD
+cqB
 cFM
 pnc
 xQB
@@ -112650,7 +112645,7 @@ bOw
 bOw
 pnc
 pnc
-pnc
+mOd
 pnc
 pnc
 xyI

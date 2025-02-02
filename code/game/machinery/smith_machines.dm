@@ -192,6 +192,10 @@
 	max_integrity = 300
 	pixel_x = -32	// 3x3
 	pixel_y = -32
+	bound_width = 96
+	bound_x = -32
+	bound_height = 96
+	bound_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
@@ -288,6 +292,9 @@
 	max_integrity = 200
 	pixel_x = 0	// 2x2
 	pixel_y = -32
+	bound_height = 64
+	bound_width = 64
+	bound_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
@@ -321,6 +328,9 @@
 	max_integrity = 200
 	pixel_x = 0	// 2x2
 	pixel_y = -32
+	bound_height = 64
+	bound_width = 64
+	bound_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF

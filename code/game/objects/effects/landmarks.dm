@@ -319,7 +319,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	icon_state = "CargoTech"
 
 /obj/effect/landmark/start/smith
-	name = "Cargo Technician"
+	name = "Smith"
 	icon_state = "CargoTech"
 
 /obj/effect/landmark/start/chaplain
