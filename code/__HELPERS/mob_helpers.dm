@@ -418,7 +418,7 @@
 	if(progress)
 		progbar = new(user, delay, target)
 
-		if(!hidden && delay >= 10) // 1 second
+		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
 
 	var/endtime = world.time + delay
