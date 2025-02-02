@@ -216,7 +216,6 @@
 						"body_type" = body_type,
 						"age" = age,
 						"species" = species,
-						"species_subtype" = species_subtype,
 						"language" = language,
 						"h_colour" = h_colour,
 						"h_sec_colour" = h_sec_colour,
@@ -270,6 +269,7 @@
 						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
 						"pda_ringtone" = pda_ringtone,
+						"species_subtype" = species_subtype,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
