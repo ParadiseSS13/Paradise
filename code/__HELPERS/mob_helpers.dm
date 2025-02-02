@@ -347,7 +347,7 @@
 	if(progress)
 		progbar = new(user, time, target)
 
-		if(!hidden && time >= 10) // 1 second
+		if(!hidden && time >= 1 SECONDS)
 			cog = new(user)
 
 	var/endtime = world.time+time
