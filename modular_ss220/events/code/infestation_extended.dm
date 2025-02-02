@@ -40,7 +40,7 @@
 			kill()
 			return
 		for(var/turf/simulated/floor/F in A.contents)
-			if(turf_clear(F))
+			if(!is_blocked_turf(F))
 				turfs += F
 
 	var/list/spawn_types = list()

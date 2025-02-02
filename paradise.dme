@@ -135,6 +135,7 @@
 #include "code\__DEFINES\tgs.dm"
 #include "code\__DEFINES\tgui_defines.dm"
 #include "code\__DEFINES\tickets_defines.dm"
+#include "code\__DEFINES\time_defines.dm"
 #include "code\__DEFINES\tools_defines.dm"
 #include "code\__DEFINES\turfs.dm"
 #include "code\__DEFINES\typeids.dm"
