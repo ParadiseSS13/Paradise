@@ -62,6 +62,8 @@
 		update_observer_view(l_hand)
 
 /mob/living/carbon/update_inv_wear_mask()
+	if(!wear_mask)
+		return
 	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
