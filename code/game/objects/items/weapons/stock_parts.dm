@@ -24,6 +24,7 @@
 	max_combined_w_class = 100
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
+	new_attack_chain = TRUE
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
@@ -43,24 +44,31 @@
 		return FALSE
 	return ..()
 
-/obj/item/storage/part_replacer/afterattack__legacy__attackchain(obj/machinery/M, mob/user, proximity_flag, params)
-	if(!istype(M))
+/obj/item/storage/part_replacer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery))
 		return ..()
 
-	if(!proximity_flag)
-		if(!works_from_distance)
-			return
-		if(get_dist(src, M) > (user.client.maxview() + 2))
-			return
+	handle_machine_interaction(target, user)
+	return ITEM_INTERACT_COMPLETE
 
-	if(M.component_parts)
-		M.exchange_parts(user, src)
-		if(works_from_distance)
-			user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-	else
+/obj/item/storage/part_replacer/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery) || !works_from_distance)
+		return ..()
+
+	handle_machine_interaction(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/storage/part_replacer/proc/handle_machine_interaction(obj/machinery/target, mob/living/user)
+	if(get_dist(src, target) > (user.client.maxview() + 2))
 		message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-		to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+		to_chat(user, "<span class='notice'>ERROR: [target] is out of [src]'s range!</span>")
+		return
+
+	if(target.component_parts)
+		target.exchange_parts(user, src)
+		if(works_from_distance)
+			user.Beam(target, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 
 /obj/item/storage/part_replacer/tier4/populate_contents()
 	for(var/amount in 1 to 30)
