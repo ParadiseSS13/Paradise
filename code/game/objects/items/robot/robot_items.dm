@@ -16,7 +16,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/target, mob/living/silicon/robot/user, params)
-	if (..())
+	if(..())
 		return
 
 	if(ishuman(target))
