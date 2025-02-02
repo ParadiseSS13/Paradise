@@ -6,6 +6,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	/// Unique identifying name of this EFTPOS for transaction tracking in money accounts
 	var/machine_name = ""
 	/// Whether or not the EFTPOS is locked into a transaction
@@ -252,6 +253,7 @@
 	throw_range = 7
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list()
 	hitsound = 'sound/weapons/ringslam.ogg'
 	drop_sound = 'sound/items/handling/register_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
