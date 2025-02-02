@@ -2,6 +2,9 @@
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
+	// We probably shouldn't ever be setting this. LONG_GLIDE makes diagonal movement faster, because you move at full speed on both axes. However, we have manual changes scatterd around that undo this, and re-establish euclidian movement. Yes, that's exactly as silly as it sounds.
+	// Still, for the moment, we should at least make all mobs behave the same way that carbons do.
+	appearance_flags = LONG_GLIDE
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
