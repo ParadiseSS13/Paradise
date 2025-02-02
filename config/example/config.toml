@@ -383,12 +383,6 @@ revival_brain_life = 6000 # 10 minutes
 random_ai_lawset = true
 # Enable weather events initialized by SSweather. New weather events can still be added during the round if this is disabled.
 enable_default_weather_events = true
-# Enables yt-dlp
-# You can install yt-dlp with "pip install yt-dlp" if you have pip installed
-# from https://github.com/yt-dlp/yt-dlp/releases
-# or your package manager
-# The code assumes yt-dlp is in your system PATH
-enable_ytdlp = false
 
 
 ################################################################
@@ -819,6 +813,8 @@ regional_servers = [
 ]
 # Send a toast on server init completion. You probably dont need this on in production
 toast_on_init_complete = true
+# The URL for a ss13-yt-wrap server (https://github.com/Absolucy/ss13-yt-wrap) to use.
+#ytdlp_url = "http://ytdlpserverurlhere"
 
 
 ################################################################
