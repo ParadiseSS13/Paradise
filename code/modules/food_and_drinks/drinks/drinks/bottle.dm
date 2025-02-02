@@ -42,17 +42,26 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/attack__legacy__attackchain(mob/living/target, mob/living/user)
-
-	if(!target)
-		return
-
-	if(user.a_intent != INTENT_HARM || !is_glass)
+// There has to be a better way to do this but this will do for now.
+/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers) // If not mob, don't try to attack.
+	if(!isliving(target))
 		return ..()
 
+/obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
+	if(..()) // does this need a !target?
+		return FINISH_ATTACK
+
+	if(user.a_intent != INTENT_HARM || !is_glass) // No attack, return to the OG interact proc.
+		mob_act(A, user)
+		return FINISH_ATTACK
+
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
-		return
+		to_chat(user, "<span class='warning'>You don't want to harm [A]!</span>")
+		return FINISH_ATTACK
+
+/obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	force = 15 //Smashing bottles over someoen's head hurts.
 
