@@ -127,7 +127,8 @@
 	if(!isturf(movable_parent.loc))
 		qdel(src)
 		return
-	if(momentum_change)
+	// If we experience a momentum change that's not a result of changing Z levels, delay the drifting loop so we don't double-move.
+	if(momentum_change && !HAS_TRAIT(movable_parent, TRAIT_CURRENTLY_Z_MOVING))
 		drifting_loop.pause_for(movable_parent.inertia_move_delay)
 
 	if(!movable_parent.inertia_moving)
