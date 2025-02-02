@@ -151,7 +151,6 @@
 					body_type=:body_type,
 					age=:age,
 					species=:species,
-					species_subtype=:species_subtype,
 					language=:language,
 					hair_colour=:h_colour,
 					secondary_hair_colour=:h_sec_colour,
@@ -205,7 +204,8 @@
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
-					pda_ringtone=:pda_ringtone
+					pda_ringtone=:pda_ringtone,
+					species_subtype=:species_subtype
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
