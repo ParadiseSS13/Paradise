@@ -118,7 +118,7 @@ const GuideSection = () => {
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
-          <b>right click</b> on them to harvest them for&nbsp;
+          <b>click</b> on them to harvest them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
         </Stack.Item>
         <Stack.Item>

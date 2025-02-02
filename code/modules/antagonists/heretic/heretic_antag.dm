@@ -532,6 +532,10 @@
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
 		add_antag_objective(other_sac_objective)
+	if(prob(5))
+		add_antag_objective(/datum/objective/hijack)
+	else
+		add_antag_objective(/datum/objective/escape)
 
 /**
  * Add [target] as a sacrifice target for the heretic.
@@ -758,11 +762,14 @@
 		return TRUE
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
-
+	var/has_hijack = FALSE
 	for(var/datum/objective/must_be_done as anything in owner.get_all_objectives(include_team = FALSE))
+		if(istype(must_be_done, /datum/objective/hijack))
+			has_hijack = TRUE
+			continue
 		if(!must_be_done.check_completion())
 			return FALSE
-	return TRUE
+	return has_hijack
 
 /**
  * Helper to determine if a Heretic
