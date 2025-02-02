@@ -187,6 +187,8 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
+	/// Cult portals and unconcealed runes have a minor form of invisibility
+	var/see_cult = TRUE
 	var/current_photo_num = 1
 	var/digital = FALSE
 	/// Should camera light up the scene
@@ -291,6 +293,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				atoms.Add(A)
 				continue
 
+			// AI can't see unconcealed runes or cult portals
+			if(A.invisibility == INVISIBILITY_RUNES && see_cult)
+				atoms.Add(A)
+				continue
 			if(A.invisibility)
 				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
