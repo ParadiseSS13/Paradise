@@ -209,7 +209,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				if(C.prefs.toggles & SOUND_MIDI)
 					if(ckey in M.client.prefs.admin_sound_ckey_ignore)
 						C.tgui_panel?.stop_music()
-						return
+						continue
 					if(!stop_web_sounds)
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 						to_chat(M, "(<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
