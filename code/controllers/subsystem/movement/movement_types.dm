@@ -135,7 +135,10 @@
 	if(flags & MOVEMENT_LOOP_IGNORE_GLIDE)
 		return
 
-	moving.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, visual_delay))
+	var/glide_multiplier = visual_delay
+	if(IS_DIR_DIAGONAL(get_dir(old_loc, moving.loc)) && !(moving.appearance_flags & LONG_GLIDE))
+		glide_multiplier *= sqrt(2)
+	moving.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, glide_multiplier))
 
 ///Handles the actual move, overriden by children
 ///Returns FALSE if nothing happen, TRUE otherwise
