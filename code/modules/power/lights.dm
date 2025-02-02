@@ -278,7 +278,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#FFDDCC"
+	var/nightshift_light_color = "#e0f8ff"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -301,7 +301,7 @@
 	brightness_range = 4
 	brightness_color = "#ffebb0"
 	nightshift_light_range = 4
-	nightshift_light_color = "#ffce3d"
+	nightshift_light_color = "#ffefa0" // #a0a080
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -393,12 +393,12 @@
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
-			brightness_color = "#a0a080"
+			// brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
 		if("floor")
 			brightness_range = 6
-			brightness_color = "#a0a080"
+			// brightness_color = "#a0a080"
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
@@ -630,9 +630,12 @@
 				to_chat(user, "<span class='notice'>You insert [L].</span>")
 				switchcount = L.switchcount
 				rigged = L.rigged
-				brightness_range = L.brightness_range
-				brightness_power = L.brightness_power
-				brightness_color = L.brightness_color
+				if(L.brightness_range)
+					brightness_range = L.brightness_range
+				if(L.brightness_power)
+					brightness_power = L.brightness_power
+				if(L.brightness_color)
+					brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
 				update(TRUE, TRUE, FALSE)
@@ -764,7 +767,7 @@
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(2, 1, bulb_emergency_colour)
+	set_light((fitting == "tube" ? 3 : 2), 1, bulb_emergency_colour)
 	update_icon()
 	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
@@ -1028,7 +1031,6 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
-	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL
@@ -1048,7 +1050,6 @@
 	base_state = "lbulb"
 	item_state = "contvapour"
 	brightness_range = 5
-	brightness_color = "#a0a080"
 
 /obj/item/light/throw_impact(atom/hit_atom)
 	..()
