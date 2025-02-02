@@ -46,7 +46,6 @@
 
 	log_debug("Failed to locate area for infestation event!")
 	kill()
-	return
 
 /datum/event/infestation/proc/spawn_on_turfs(list/turfs)
 	var/list/spawn_types = list()
