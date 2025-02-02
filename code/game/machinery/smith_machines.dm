@@ -1,3 +1,9 @@
+#define BASE_POINT_MULT 0.60
+#define BASE_SHEET_MULT 0.60
+#define POINT_MULT_ADD_PER_RATING 0.10
+#define SHEET_MULT_ADD_PER_RATING 0.20
+#define OPERATION_SPEED_MULT_PER_RATING 0.25
+
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
 	desc = "An electronic deposit bin that accepts raw ores and delivers them to an adjacent magma crucible."
@@ -20,6 +26,7 @@
 	var/message_sent = TRUE
 	/// If TRUE, [/obj/machinery/mineral/smart_hopper/var/req_access_claim] is ignored and any ID may be used to claim points.
 	var/anyone_claim = FALSE
+	/// What consoles get alerted when this is filled
 	var/list/supply_consoles = list(
 		"Smith's Office",
 		"Quartermaster's Desk"
@@ -36,7 +43,18 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	// POLTODO: Handle linking to adjacent magma crucible
+	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
+	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
+		linked_crucible = crucible
+		return
+
+/obj/machinery/mineral/smart_hopper/RefreshParts()
+	var/P = BASE_POINT_MULT
+	for(var/obj/item/stock_parts/M in component_parts)
+		P += POINT_MULT_ADD_PER_RATING * M.rating
+	// Update our values
+	point_upgrade = P
+	SStgui.update_uis(src)
 
 /obj/machinery/mineral/smart_hopper/process()
 	if(panel_open || !has_power())
@@ -87,11 +105,23 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
+/obj/machinery/mineral/smart_hopper/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	if(panel_open)
+		var/obj/item/multitool/M = I
+		if(!istype(M.buffer, /obj/machinery/magma_crucible))
+			to_chat(usr, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
+			return
+		linked_crucible = M.buffer
+
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/mineral/smart_hopper/multitool_act(mob/user, obj/item/I)
+/obj/machinery/mineral/smart_hopper/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -100,8 +130,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	input_dir = turn(input_dir, -90)
-	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+	to_chat(user, "<span class='notice'>You change [src]'s input, moving the input to [dir2text(input_dir)].</span>")
 
 /obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/L)
 	if(!linked_crucible)
@@ -182,8 +211,14 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
-	// POLTODO: Handle smelting
 
+/obj/machinery/magma_crucible/RefreshParts()
+	var/S = BASE_SHEET_MULT
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		S += SHEET_MULT_ADD_PER_RATING * M.rating
+	// Update our values
+	sheet_per_ore = S
+	SStgui.update_uis(src)
 // POLTODO: UI for seeing current minerals as a bar graph
 
 /obj/machinery/casting_bench
@@ -196,8 +231,54 @@
 	resistance_flags = FIRE_PROOF
 	/// Linked magma crucible
 	var/obj/machinery/magma_crucible/linked_crucible
-	/// Input direction
-	var/input_dir = NORTH
+	/// How long does an operation take
+	var/operation_time = 10 SECONDS
+	/// How many sheets are smelted at once?
+	var/sheets = 10
+	/// Smelter files to know what to make
+	var/datum/research/files
+
+/obj/machinery/casting_bench/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/casting_bench(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+	files = new /datum/research/smelter(src)
+	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
+	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
+		linked_crucible = crucible
+		return
+
+/obj/machinery/casting_bench/RefreshParts()
+	var/O = 0
+	var/S = 0
+	for(var/obj/item/stock_parts/M in component_parts)
+		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
+		S += 5 * M.rating
+	// Update our values
+	operation_time = initial(operation_time) - O
+	sheets = initial(sheets) + S
+
+/obj/machinery/casting_bench/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	if(panel_open)
+		var/obj/item/multitool/M = I
+		if(!istype(M.buffer, /obj/machinery/magma_crucible))
+			to_chat(usr, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
+			return
+		linked_crucible = M.buffer
+
+/obj/machinery/casting_bench/attack_hand(mob/user)
+	. = ..()
+	//var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
+	// TODO: SMELTING
 
 /obj/machinery/power_hammer
 	name = "power hammer"
@@ -210,6 +291,27 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	/// How long does an operation take
+	var/operation_time = 10 SECONDS
+
+/obj/machinery/power_hammer/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/power_hammer(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/plasteel(null)
+	RefreshParts()
+
+/obj/machinery/power_hammer/RefreshParts()
+	var/S = 0
+	for(var/obj/item/stock_parts/M in component_parts)
+		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	// Update our values
+	operation_time = initial(operation_time) - S
 
 /obj/machinery/lava_furnace
 	name = "lava furnace"
@@ -222,6 +324,27 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	/// How long does an operation take
+	var/operation_time = 10 SECONDS
+
+/obj/machinery/lava_furnace/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/lava_furnace(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/assembly/igniter(null)
+	RefreshParts()
+
+/obj/machinery/lava_furnace/RefreshParts()
+	var/S = 0
+	for(var/obj/item/stock_parts/M in component_parts)
+		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	// Update our values
+	operation_time = initial(operation_time) - S
 
 /obj/machinery/kinetic_assembler
 	name = "kinetic assembler"
@@ -231,3 +354,31 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	/// How long does an operation take
+	var/operation_time = 10 SECONDS
+
+/obj/machinery/kinetic_assembler/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/kinetic_assembler(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/kinetic_assembler/RefreshParts()
+	var/S = 0
+	for(var/obj/item/stock_parts/M in component_parts)
+		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	// Update our values
+	operation_time = initial(operation_time) - S
+
+
+#undef BASE_POINT_MULT
+#undef BASE_SHEET_MULT
+#undef POINT_MULT_ADD_PER_RATING
+#undef SHEET_MULT_ADD_PER_RATING
+#undef OPERATION_SPEED_MULT_PER_RATING
