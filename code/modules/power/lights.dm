@@ -278,7 +278,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0f8ff"
+	var/nightshift_light_color = "#e0eeff"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
