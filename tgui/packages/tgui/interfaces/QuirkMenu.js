@@ -35,7 +35,7 @@ const Quirks = ({ context }) => {
         <Stack horizontal align="center">
           <ButtonCheckbox
             checked={alreadyChosen}
-            disabled={canPick && !alreadyChosen}
+            disabled={(canPick && !alreadyChosen) || (alreadyChosen && (quirk_balance - quirk.cost > 0))}
             onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', { path: quirk.path })}
             mr="10px"
           />
@@ -43,7 +43,7 @@ const Quirks = ({ context }) => {
             <Stack.Item mr="35px">
               {quirk.name}: {quirk.cost}
             </Stack.Item>
-            <Stack.Item style={{ flex: 2 }} mr="10px">
+            <Stack.Item mr="10px">
               {quirk.desc}
             </Stack.Item>
           </Stack>
