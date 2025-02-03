@@ -171,6 +171,9 @@
 	. = antag_cost * antag_amount
 	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
 
+/datum/ruleset/proc/declare_completion()
+	return
+
 /datum/ruleset/traitor
 	name = "Traitor"
 	ruleset_weight = 11
@@ -270,7 +273,7 @@
 	. = ..()
 
 /datum/ruleset/team/antagonist_possible(budget)
-	if(unique_team)
+	if(unique_team) // we're given our size at the start, no more please!
 		return FALSE
 	return ..()
 
