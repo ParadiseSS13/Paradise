@@ -59,8 +59,6 @@
 /obj/item/clothing/suit/hooded/proc/ToggleHood()
 	if(!suit_adjusted)
 		if(ishuman(loc))
-			if(!try_to_deploy())
-				return
 			var/mob/living/carbon/human/H = loc
 			if(H.wear_suit != src)
 				to_chat(H,"<span class='warning'>You must be wearing [src] to put up the hood!</span>")
@@ -75,8 +73,6 @@
 				for(var/X in actions)
 					var/datum/action/A = X
 					A.UpdateButtons()
-				on_hood_deploy()
-
 	else
 		if((hood?.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))
@@ -85,11 +81,6 @@
 			return
 		RemoveHood()
 
-/obj/item/clothing/suit/hooded/proc/try_to_deploy()
-	return TRUE
-
-/obj/item/clothing/suit/hooded/proc/on_hood_deploy()
-	return
 
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit

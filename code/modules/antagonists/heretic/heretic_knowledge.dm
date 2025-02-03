@@ -591,7 +591,7 @@
  * Checks if the passed human is a valid sacrifice for our ritual.
  */
 /datum/heretic_knowledge/ultimate/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
-	return (sacrifice.stat == DEAD) && !ismonkeybasic(sacrifice)
+	return (sacrifice.stat == DEAD) && !ismonkeybasic(sacrifice) && istype(sacrifice)
 
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)

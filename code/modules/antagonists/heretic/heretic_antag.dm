@@ -171,7 +171,7 @@
 		tiers[GLOB.heretic_research_tree[knowledge][HKT_DEPTH]]["nodes"] += list(knowledge_data)
 
 	for(var/datum/heretic_knowledge/knowledge as anything in get_researchable_knowledge())
-		var/list/knowledge_data = get_knowledge_data(knowledge,FALSE)
+		var/list/knowledge_data = get_knowledge_data(knowledge, FALSE)
 
 		// Final knowledge can't be learned until all objectives are complete.
 		if(ispath(knowledge, /datum/heretic_knowledge/ultimate))
@@ -337,7 +337,7 @@
 		return NONE
 
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
-	return  ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Attempt to draw a rune on [target_turf].
@@ -527,7 +527,7 @@
 	var/list/heads = SSticker.mode.get_all_heads()
 	for(var/datum/mind/head in heads)
 		if(ishuman(head.current))
-			num_heads ++
+			num_heads++
 
 	var/datum/objective/minor_sacrifice/sac_objective = new()
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
@@ -806,7 +806,7 @@
 /datum/objective/minor_sacrifice/New()
 	target_amount = rand(3, 4)
 	update_explanation_text()
-	. = ..()
+	return ..()
 
 /datum/objective/minor_sacrifice/update_explanation_text()
 	explanation_text = "Sacrifice at least [target_amount] crewmembers."
@@ -839,7 +839,7 @@
 
 /datum/objective/heretic_research/New()
 	gen_amount_goal()
-	. = ..()
+	return ..()
 
 /datum/objective/heretic_research/proc/gen_amount_goal()
 	if(!main_path_length)

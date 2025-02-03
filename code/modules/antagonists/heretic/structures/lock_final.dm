@@ -90,7 +90,7 @@
 		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
 		if(deathtime <= death_cooldown && !joinedasobserver)
 			to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-			to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+			to_chat(user, "<span class='warning'>You must wait [death_cooldown / 1 MINUTES] minutes to respawn!</span>")
 			return TRUE
 		var/ask = tgui_alert(user, "Become a monster?", "Ascended Rift", list("Yes", "No"))
 		if(ask != "Yes" || QDELETED(src) || QDELETED(user))

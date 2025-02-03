@@ -407,7 +407,7 @@
 
 /obj/item/projectile/curse_hand/on_range()
 	finale() //qwertodo low priority: this isn't working right?
-	. = ..()
+	return ..()
 
 /// The visual effect for the hand disappearing
 /obj/item/projectile/curse_hand/proc/finale()

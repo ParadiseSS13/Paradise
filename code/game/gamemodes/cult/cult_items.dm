@@ -24,6 +24,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 	new_attack_chain = TRUE
+	/// Can anyone use this cult tool? If true, anyone can use it. If false, only cult
 	var/free_use = FALSE
 
 /obj/item/melee/cultblade/Initialize(mapload)
@@ -181,7 +182,6 @@
 	button_overlay_icon_state = "spirit_sealed"
 
 /datum/action/item_action/haunted_blade/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
-	. = ..()
 	var/obj/item/melee/cultblade/haunted/blade = target
 	if(istype(blade))
 		button_overlay_icon_state = "spirit_[blade.bound ? "sealed" : "unsealed"]"
@@ -332,15 +332,9 @@
 	trapped_entity = new/mob/living/simple_animal/shade/sword/generic_item(src)
 	trapped_entity.name = soul_to_bind.name
 
-	message_admins("[trapped_mind]")
-	message_admins("[trapped_mind.current]")
-	message_admins("[trapped_mind.key]")
 	// Get the heretic's new body and antag datum.
 	trapped_entity.key = trapped_mind.key
 	trapped_entity.mind = trapped_mind
-	message_admins("[trapped_mind]")
-	message_admins("[trapped_mind.current]")
-	message_admins("[trapped_mind.key]")
 	var/datum/antagonist/heretic/heretic_holder = IS_HERETIC(trapped_entity)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")

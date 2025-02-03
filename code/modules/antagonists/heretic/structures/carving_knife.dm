@@ -45,7 +45,7 @@
 		return NONE
 
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), interacting_with, user)
-	return  ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /*
  * Begin trying to carve a rune. Go through a few checks, then call do_carve_rune if successful.
@@ -192,7 +192,7 @@
 /obj/structure/trap/Destroy()
 	qdel(spark_system)
 	spark_system = null
-	. = ..()
+	return ..()
 
 /obj/structure/trap/examine(mob/user)
 	. = ..()
@@ -250,7 +250,7 @@
 	max_integrity = 60
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
-	/// Reference to trap owner mob
+	/// UID of trap owner mob
 	var/owner
 
 /obj/structure/trap/eldritch/Initialize(mapload, atom/new_owner)

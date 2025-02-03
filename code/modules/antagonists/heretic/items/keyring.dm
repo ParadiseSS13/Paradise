@@ -96,6 +96,7 @@
 
 ///An ID card capable of shapeshifting to other IDs given by the Key Keepers Burden knowledge
 /obj/item/card/id/heretic
+	can_id_flash = FALSE
 	///List of IDs this card consumed
 	var/list/obj/item/card/id/fused_ids = list()
 	///The first portal in the portal pair, so we can clear it later
@@ -106,7 +107,6 @@
 	var/link
 	/// are our created portals inverted? (heretics get sent to a random airlock, crew get sent to the target)
 	var/inverted = FALSE
-	can_id_flash = FALSE
 
 /obj/item/card/id/heretic/examine(mob/user)
 	. = ..()

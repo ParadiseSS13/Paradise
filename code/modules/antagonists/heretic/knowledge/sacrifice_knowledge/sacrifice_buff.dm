@@ -26,7 +26,7 @@
 	var/healing_amount = heal_per_second
 
 	// In softcrit you're, strong enough to stay up.
-	if(owner.health <= 0 && owner.health >= -100)
+	if(owner.health <= HEALTH_THRESHOLD_CRIT && owner.health >= HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
 			to_chat(owner, "<span class='hierophant_warning'>Your body feels like giving up, but you fight on!</span>")
 		healing_amount *= 2
