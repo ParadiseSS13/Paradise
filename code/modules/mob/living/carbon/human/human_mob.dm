@@ -727,6 +727,45 @@
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
+/mob/living/carbon/human/proc/try_set_malf_status(mob/user)
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+	if(user.incapacitated())
+		return
+
+	var/targetpname = get_visible_name(TRUE)
+	if(targetpname == "Unknown")
+		to_chat(user, "<span class='warning'>Unable to set a status for unknown persons.</span>")
+		return
+
+	var/datum/data/record/found_record
+	outer:
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == targetpname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						found_record = R
+						break outer
+
+	if(!found_record)
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	var/static/list/possible_status = list(
+		MALF_STATUS_GREEN,
+		MALF_STATUS_RED,
+		MALF_STATUS_SKULL,
+	)
+
+	var/new_status = tgui_input_list(user, "What special status shall we give [targetname]?", "MALF Status", possible_status)
+	if(!new_status)
+		return
+
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+
+
+
 /mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)

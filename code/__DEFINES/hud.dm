@@ -28,6 +28,7 @@
 #define GLAND_HUD 			"23"//Gland indicators for abductors
 #define JANI_HUD			"24" // Sign overlay over cleanable decals
 #define PRESSURE_HUD		"25" // Pressure coloring for tiles
+#define MALF_AI_HUD			"26" // Malf status blips for borgs
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -44,6 +45,7 @@
 #define DATA_HUD_HYDROPONIC				7
 #define DATA_HUD_JANITOR				8
 #define DATA_HUD_PRESSURE				9
+#define DATA_HUD_MALF_AI				26
 //antag HUD defines
 #define ANTAG_HUD_CULT					10
 #define ANTAG_HUD_REV					11
@@ -74,6 +76,8 @@
 #define EXAMINE_HUD_MEDICAL_READ "medical_read"
 #define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
+#define EXAMINE_HUD_MALF_WRITE "malf_write"
+#define EXAMINE_HUD_MALF_READ "malf_read"
 
 /proc/ui_hand_position(i)
 	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)

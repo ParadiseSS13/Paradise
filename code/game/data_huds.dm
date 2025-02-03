@@ -60,6 +60,9 @@
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
 
+/datum/atom_hud/data/malf_ai
+	hud_icons = list(MALF_AI_HUD)
+
 /datum/atom_hud/data/pressure
 	hud_icons = list(PRESSURE_HUD)
 
@@ -508,6 +511,20 @@
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	Malf AI HUD
+~~~~~~~~~~~~~~~*/
+
+/mob/living/carbon/human/proc/malf_hud_set_status(mob/user, )
+	var/image/holder = hud_list[MALF_AI_HUD]
+	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
+	if(!SSticker)
+		return //wait till the game starts or the monkeys runtime
+	if(targetname)
+		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
+		if(R)
+			switch(R.fields[""])
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...
