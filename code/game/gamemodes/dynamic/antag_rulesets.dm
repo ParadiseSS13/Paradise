@@ -279,6 +279,7 @@
 
 /datum/ruleset/team/cult
 	name = "Cultist"
+	ruleset_cost = 2
 	ruleset_weight = 3
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist
