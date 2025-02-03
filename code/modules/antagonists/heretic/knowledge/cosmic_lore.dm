@@ -241,7 +241,7 @@
 	if(!.)
 		return FALSE
 
-	return sacrifice.reagents.has_reagent(/datum/reagent/bluespace)
+	return sacrifice.reagents.has_reagent("bluespace_dust")
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
