@@ -73,6 +73,13 @@
 	LAZYNULL(sac_targets)
 	return ..()
 
+
+/datum/antagonist/heretic/add_owner_to_gamemode()
+	SSticker.mode.heretics += owner
+
+/datum/antagonist/heretic/remove_owner_from_gamemode()
+	SSticker.mode.heretics -= owner
+
 /datum/antagonist/heretic/proc/get_icon_of_knowledge(datum/heretic_knowledge/knowledge)
 	//basic icon parameters
 	var/icon_path = 'icons/mob/actions/actions_ecult.dmi'

@@ -3469,11 +3469,6 @@
 	icon_state = "blue"
 	},
 /area/station/command/customs)
-"asz" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/harebell,
-/turf/simulated/floor/grass/jungle,
-/area/station/maintenance/fsmaint)
 "asA" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -78781,11 +78776,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
-"qLp" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
-/turf/simulated/floor/grass/jungle,
-/area/station/maintenance/fsmaint)
 "qLt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -141183,7 +141173,7 @@ mmC
 bNz
 eJM
 pjK
-qLp
+bHZ
 pjK
 eNt
 bfH
@@ -141694,7 +141684,7 @@ aZu
 eNt
 eNt
 bNz
-asz
+bHZ
 eJM
 bHZ
 pjK
