@@ -72,3 +72,22 @@
 	if(!(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))) //Mutations are permanent on non-wizards. Can still be removed by genetics fuckery but not mutadone.
 		dna.default_blocks.Add(GLOB.clumsyblock)
 		dna.default_blocks.Add(GLOB.comicblock)
+
+/// Like bananatouched, but intended to be used for funny one-off scenarios which aren't meant to permanently cripple someone's round.
+/mob/living/carbon/human/proc/bananatouched_harmless()
+	to_chat(src, "<font color='red' size='6'>HONK</font>")
+	Weaken(14 SECONDS)
+	Stuttering(30 SECONDS)
+	do_jitter_animation(30 SECONDS)
+
+	drop_item_to_ground(shoes, force = TRUE)
+	drop_item_to_ground(wear_mask, force = TRUE)
+	drop_item_to_ground(w_uniform, force = TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, ITEM_SLOT_SHOES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, ITEM_SLOT_MASK, TRUE, TRUE)
+
+	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
+	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
+	singlemutcheck(src, GLOB.clumsyblock, MUTCHK_FORCED)
+	singlemutcheck(src, GLOB.comicblock, MUTCHK_FORCED)
