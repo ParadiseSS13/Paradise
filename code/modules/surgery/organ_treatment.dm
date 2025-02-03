@@ -66,16 +66,13 @@
 
 	if(!organ_selected)
 		return SURGERY_BEGINSTEP_SKIP
+	if(organ_selected.repaired_by_operation)
+		to_chat(user, "<span class='warning'>[organ_selected] has already been patched up once before, further operations would just make it worse.</span>")
+		return SURGERY_BEGINSTEP_SKIP
 	if(organ_selected.damage == 0)
 		to_chat(user, "<span class='notice'>[organ_selected] is already in perfect condition!</span>")
 		return SURGERY_BEGINSTEP_SKIP
-	if(organ_selected.is_broken())
-		// Need a patch pack to bring it down from here
-		to_chat(user, "<span class='warning'>[organ_selected] is far too damaged, you'll need to treat it with restorative medicine first.</span>")
-		return SURGERY_BEGINSTEP_SKIP
-	if(organ_selected.repaired_by_operation)
-		to_chat(user, "<span class='warning'>[organ_selected] has already been patched up once before, there's nothing else you can do.</span>")
-		return SURGERY_BEGINSTEP_SKIP
+
 	if(organ_selected.is_dead())
 		// need mito to bring it back from the dead.
 		to_chat(user, "<span class='warning'>[organ_selected] has completely shut down, you can't fix it like this.</span>")
@@ -103,6 +100,9 @@
 
 	organ_selected.damage = 0
 	organ_selected.repaired_by_operation = TRUE
+	// a bit more fragile
+	organ_selected.min_broken_damage -= 10
+
 
 	user.visible_message(
 		"<span class='notice'>[user] surgically excises the most damaged parts of [target]'s [organ_selected.name].</span>",
@@ -185,8 +185,7 @@
 					"[user] starts treating damage to [target]'s [I.name] with [tool_name].",
 					"You start treating damage to [target]'s [I.name] with [tool_name]."
 				)
-
-			else if(I.damage < min_broken_damage && !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
+			else if(I.damage < I.min_broken_damage && !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
 				if(!(I.sterile))
 					spread_germs_to_organ(I, user, tool)
 				user.visible_message(
@@ -221,7 +220,7 @@
 		if(I)
 			I.surgeryize()
 		if(I && I.damage)
-			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste) && I.damage < min_broken_damage )
+			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste) && I.damage <= I.min_broken_damage )
 				user.visible_message(
 					"<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>",
 					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
