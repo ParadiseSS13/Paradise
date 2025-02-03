@@ -37,7 +37,8 @@
 	var/turf/simulated/our_turf = loc
 	var/datum/gas_mixture/G = our_turf.get_readonly_air()
 	var/turf_hotness = G.temperature()
-	if(turf_hotness > T0C)
+	var/turf_pressure = G.return_pressure()
+	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2)
 		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
 		return FALSE
 
@@ -207,7 +208,8 @@
 
 	var/datum/gas_mixture/G = loc.get_readonly_air()
 	var/turf_hotness = G.temperature()
-	if(turf_hotness > T0C)
+	var/turf_pressure = G.return_pressure()
+	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2)
 		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
 		return FALSE
 

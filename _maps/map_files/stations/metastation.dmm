@@ -20637,6 +20637,8 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/mut,
+/obj/item/seeds/poppy,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bBN" = (

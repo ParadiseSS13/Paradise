@@ -5474,6 +5474,7 @@
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/mut,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "aYc" = (

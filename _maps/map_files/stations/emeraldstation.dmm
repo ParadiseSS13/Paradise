@@ -47136,6 +47136,7 @@
 /obj/item/food/grown/grapes,
 /obj/item/food/grown/apple,
 /obj/item/grown/corncob,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenblue"

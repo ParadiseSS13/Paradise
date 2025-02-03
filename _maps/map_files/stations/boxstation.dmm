@@ -12922,6 +12922,8 @@
 /obj/item/seeds/wheat,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/tower,
+/obj/item/seeds/poppy,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aTB" = (
