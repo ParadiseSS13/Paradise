@@ -5,7 +5,7 @@ import { ButtonCheckbox } from '../components/Button';
 
 export const QuirkMenu = (props, context) => {
   return (
-    <Window width={625} height={540}>
+    <Window width={1125} height={600}>
       <Window.Content>
         <Stack fill horizontal>
           <Quirks context={context} />
