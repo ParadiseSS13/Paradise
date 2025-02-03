@@ -224,7 +224,10 @@
 					gear_leftovers += G
 
 	if(H.client && length(H.client.prefs.active_character.quirks))
-		for(var/quirk_name in H.client.prefs.active_character.quirks)
+		var/quirk_list = H.client.prefs.active_character.quirks
+		if(!islist(quirk_list))
+			quirk_list = json_decode(quirk_list)
+		for(var/quirk_name in quirk_list)
 			var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
 			quirk.apply_quirk_effects(H)
 			if(quirk.item_to_give)
