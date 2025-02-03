@@ -83,9 +83,9 @@
 	drop_item_to_ground(shoes, force = TRUE)
 	drop_item_to_ground(wear_mask, force = TRUE)
 	drop_item_to_ground(w_uniform, force = TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, ITEM_SLOT_SHOES, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, ITEM_SLOT_MASK, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes, ITEM_SLOT_SHOES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat, ITEM_SLOT_MASK, TRUE, TRUE)
 
 	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
