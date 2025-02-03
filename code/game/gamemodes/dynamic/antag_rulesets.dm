@@ -281,6 +281,7 @@
 	name = "Cultist"
 	ruleset_cost = 2
 	ruleset_weight = 3
+	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
