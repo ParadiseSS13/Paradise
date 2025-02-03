@@ -12,7 +12,7 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 30 SECONDS
+	base_cooldown = 45 SECONDS
 
 	invocation = "BR'NG F'RTH TH'M T' M'."
 	invocation_type = INVOCATION_WHISPER

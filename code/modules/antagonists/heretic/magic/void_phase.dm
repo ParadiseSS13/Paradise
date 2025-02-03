@@ -13,7 +13,7 @@
 
 	is_a_heretic_spell = TRUE
 	clothes_req = FALSE
-	base_cooldown = 25 SECONDS
+	base_cooldown = 40 SECONDS
 
 	invocation = "RE'L'TY PH'S'E."
 	invocation_type = INVOCATION_WHISPER
