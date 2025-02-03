@@ -295,9 +295,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
 	/// The runtime UID of the inlet injector
-	var/tmp/inlet_injector_uid
+	var/tmp/list/inlet_uids = list()
 	/// The runtime UID of the outlet vent
-	var/tmp/outlet_vent_uid
+	var/tmp/list/outlet_uids = list()
 
 	/// UI holder list of the inlet data
 	var/tmp/list/inlet_data = list()
@@ -316,24 +316,28 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(inlet_injector_autolink_id)
 		for(var/obj/machinery/atmospherics/unary/outlet_injector/OI as anything in GLOB.air_injectors)
 			if(OI.autolink_id == inlet_injector_autolink_id)
-				inlet_injector_uid = OI.UID() // OI!
+				inlet_uids += OI.UID() // OI!
 				// Setup some defaults
 				OI.on = TRUE
 				OI.volume_rate = inlet_setting
 				OI.update_icon()
+				inlet_data += list("[OI.UID()]" = list("name"= OI.name, "on" = OI.on, "rate" = OI.volume_rate, "uid" = OI.UID()))
+				refresh_inlets()
 				break
 
 	// Setup outlet
 	if(outlet_vent_autolink_id)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in GLOB.all_vent_pumps)
 			if(VP.autolink_id == outlet_vent_autolink_id)
-				outlet_vent_uid = VP.UID()
+				outlet_uids += VP.UID()
 				var/area/our_area = get_area(src)
 				our_area.vents -= VP
 				VP.on = TRUE
 				VP.releasing = FALSE
 				VP.internal_pressure_bound = outlet_setting
 				VP.update_icon()
+				outlet_data += list("[VP.UID()]" = list("name" =VP.name, "on" = VP.on, "rate" = VP.internal_pressure_bound, "uid" = VP.UID()))
+				refresh_outlets()
 				break
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
@@ -355,55 +359,69 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return TRUE
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
-	var/choice = tgui_alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
+	var/choice = tgui_alert(user, "Would you like to add an inlet, Remove the existing inlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
-		if("Add/Replace")
+		if("Add")
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/outlet_injector))
 				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not an injector.</span>")
 				return
 
-			inlet_injector_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			inlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			var/obj/machinery/atmospherics/unary/outlet_injector/OI = linked_datum
 			// Setup some defaults
 			OI.on = TRUE
 			OI.volume_rate = inlet_setting
 			OI.update_icon()
-			refresh_inlet()
-			to_chat(user, "<span class='notice'>Successfully set the inlet injector.</span>")
+			inlet_data += list("[linked_datum.UID()]" = list("name" = OI.name, "on" = OI.on, "rate" = OI.volume_rate, "uid" = OI.UID()))
+			refresh_inlets()
+			to_chat(user, "<span class='notice'>Successfully added an inlet injector.</span>")
+
+		if("Remove")
+			var/list/namelist = list()
+			for(var/uid in inlet_data)
+				namelist += inlet_data[uid]["name"]
+			choice = tgui_input_list(user, "Select an inlet to remove", "Inlet Selection", namelist)
+			for(var/uid in inlet_data)
+				if(choice == inlet_data[uid]["name"])
+					inlet_data -= uid
+					inlet_uids -= uid
 
 		if("Clear")
-			if(inlet_injector_uid)
-				// Lets be kind and turn it off first so its unwrenchable
-				var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
-				if(!QDELETED(OI))
-					OI.on = FALSE
-					OI.update_icon()
-				inlet_injector_uid = null
-				refresh_inlet()
+			if(inlet_uids)
+				var/obj/machinery/atmospherics/unary/outlet_injector/OI
+				for(var/uid in inlet_uids)
+					OI = locateUID(uid)
+					if(!QDELETED(OI))
+						OI.on = FALSE
+						OI.update_icon()
+
+				inlet_uids = list()
+				inlet_data = list()
+				refresh_inlets()
 				to_chat(user, "<span class='notice'>Successfully unlinked inlet injector.</span>")
 			else
 				to_chat(user, "<span class='warning'>Error - No injector linked!</span>")
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
-	var/choice = tgui_alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
+	var/choice = tgui_alert(user, "Would you like to add an outlet, Remove the existing outlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
 	switch(choice)
-		if("Add/Replace")
+		if("Add")
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/vent_pump))
 				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a vent pump.</span>")
 				return
 
-			outlet_vent_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			outlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			var/obj/machinery/atmospherics/unary/vent_pump/VP = linked_datum
 			// Setup some defaults
 			var/area/our_area = get_area(src)
@@ -412,87 +430,109 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			VP.releasing = FALSE
 			VP.internal_pressure_bound = outlet_setting
 			VP.update_icon()
-			refresh_outlet()
-			to_chat(user, "<span class='notice'>Successfully set the outlet vent</span>")
+			outlet_data += list("[linked_datum.UID()]" = list("name" = VP.name, "on" = VP.on, "rate" = VP.internal_pressure_bound, "uid" = VP.UID()))
+			refresh_outlets()
+			to_chat(user, "<span class='notice'>Successfully added the outlet vent</span>")
+
+		if("Remove")
+			var/list/namelist = list()
+			for(var/uid in outlet_data)
+				namelist += outlet_data[uid]["name"]
+			choice = tgui_input_list(user, "Select an outlet to remove", "outlet Selection", namelist)
+			for(var/uid in outlet_data)
+				if(choice == outlet_data[uid]["name"])
+					outlet_data -= uid
+					outlet_uids -= uid
 
 		if("Clear")
-			if(outlet_vent_uid)
-				// Lets be kind and turn it off first so its unwrenchable
-				var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
-				if(!QDELETED(VP))
-					VP.on = FALSE
-					VP.update_icon()
-				outlet_vent_uid = null
-				refresh_outlet()
+			if(length(outlet_uids))
+				var/obj/machinery/atmospherics/unary/vent_pump/VP
+				for(var/uid in outlet_uids)
+					VP = locateUID(uid)
+					if(!QDELETED(VP))
+						VP.on = FALSE
+						VP.update_icon()
+				outlet_uids = list()
+				outlet_data = list()
+				refresh_outlets()
 				to_chat(user, "<span class='notice'>Successfully unlinked outlet vent.</span>")
 			else
 				to_chat(user, "<span class='warning'>Error - No vent linked!</span>")
 
 
-/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_inlet()
-	var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
-	if(QDELETED(OI))
-		inlet_data = list()
-		return
+/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_inlets()
+	for(var/uid in inlet_uids)
+		var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(uid)
+		if(QDELETED(OI))
+			inlet_data -= uid
+			inlet_uids -= uid
+			return
+		inlet_data[uid]["name"] = OI.name
+		inlet_data[uid]["on"] = OI.on
+		inlet_data[uid]["rate"] = OI.volume_rate
 
-	inlet_data["on"] = OI.on
-	inlet_data["rate"] = OI.volume_rate
+/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_outlets()
+	for(var/uid in outlet_uids)
+		var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(uid)
+		if(QDELETED(VP))
+			outlet_data -= uid
+			outlet_uids -= uid
+			return
 
-/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_outlet()
-	var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
-	if(QDELETED(VP))
-		outlet_data = list()
-		return
-
-	outlet_data["on"] = VP.on
-	outlet_data["rate"] = VP.internal_pressure_bound
+		outlet_data[uid]["name"] = VP.name
+		outlet_data[uid]["on"] = VP.on
+		outlet_data[uid]["rate"] = VP.internal_pressure_bound
 
 /obj/machinery/computer/general_air_control/large_tank_control/refresh_all()
 	..()
-	refresh_inlet()
-	refresh_outlet()
+	refresh_inlets()
+	refresh_outlets()
 
 /obj/machinery/computer/general_air_control/large_tank_control/ui_data(mob/user)
 	. = ..()
-	.["inlet"] = inlet_data
-	.["outlet"] = outlet_data
+// This is done so we can use map() in tgui.
+	var/list/ui_inlet_data = list()
+	var/list/ui_outlet_data = list()
+	for(var/id in inlet_data)
+		ui_inlet_data.Add(list(inlet_data[id]))
+	for(var/id in outlet_data)
+		ui_outlet_data.Add(list(outlet_data[id]))
+
+	.["inlets"] = ui_inlet_data
+	.["outlets"] = ui_outlet_data
 
 /obj/machinery/computer/general_air_control/large_tank_control/ui_act(action, list/params)
 	if(..())
 		return
 
 	switch(action)
-		if("toggle_active")
-			switch(params["dev"])
-				if("inlet")
-					var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
-					if(!QDELETED(OI))
-						OI.on = !OI.on
-						OI.update_icon()
-						refresh_inlet()
-				if("outlet")
-					var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
-					if(!QDELETED(VP))
-						VP.on = !VP.on
-						VP.update_icon()
-						refresh_outlet()
+		if("toggle_inlet_active")
+			var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(params["dev"])
+			if(!QDELETED(OI))
+				OI.on = !OI.on
+				OI.update_icon()
+				refresh_inlets()
+		if("toggle_outlet_active")
+			var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(params["dev"])
+			if(!QDELETED(VP))
+				VP.on = !VP.on
+				VP.update_icon()
+				refresh_outlets()
 
-		if("set_pressure")
-			switch(params["dev"])
-				if("inlet")
-					var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
-					if(!QDELETED(OI))
-						var/new_value = clamp(text2num(params["val"]), 0, 50)
-						if(new_value)
-							OI.volume_rate = new_value
-							refresh_inlet()
-				if("outlet")
-					var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
-					if(!QDELETED(VP))
-						var/new_value = clamp(text2num(params["val"]), 0, (50 * ONE_ATMOSPHERE))
-						if(new_value)
-							VP.internal_pressure_bound = new_value
-							refresh_outlet()
+		if("set_inlet_volume_rate")
+			var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(params["dev"])
+			if(!QDELETED(OI))
+				var/new_value = clamp(text2num(params["val"]), 0, 50)
+				if(new_value)
+					OI.volume_rate = new_value
+					refresh_inlets()
+		if("set_outlet_pressure")
+			var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(params["dev"])
+			if(!QDELETED(VP))
+				var/new_value = clamp(text2num(params["val"]), 0, (50 * ONE_ATMOSPHERE))
+				if(new_value)
+					VP.internal_pressure_bound = new_value
+					refresh_outlets()
 
 	return TRUE
 
