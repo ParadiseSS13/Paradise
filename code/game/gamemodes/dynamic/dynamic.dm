@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
 /datum/game_mode/dynamic/proc/allocate_ruleset_budget()
-	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 5, "2" = 15, "3" = 3))) // more likely to be 2
+	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 8, "2" = 12, "3" = 3)))
 	antag_budget = num_players()
 	log_dynamic("Allocated gamemode budget: [ruleset_budget]")
 	var/list/possible_rulesets = list()
