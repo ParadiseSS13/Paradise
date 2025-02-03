@@ -3,13 +3,13 @@
 
 /datum/quirk/positive/skittish
 	name = "Skittish"
-	desc = "You can hide yourself in crates, and WILL jump into a locker or crate if you bump into one while running, as long as you have access."
+	desc = "You can hide yourself in crates by lying down, and WILL jump into a locker or crate if you bump into one while running, as long as you have access."
 	cost = 4
 	trait_to_apply = TRAIT_SKITTISH
 
 /datum/quirk/positive/freerunner
 	name = "Freerunner"
-	desc = "You can vault over tables faster than others."
+	desc = "You're practiced in vaulting over things."
 	cost = 4
 	trait_to_apply = TRAIT_FREERUNNER
 
@@ -43,6 +43,12 @@
 	desc = "You thought ahead and pre-packed a meal for the day."
 	cost = 1
 	item_to_give = /obj/item/storage/box/papersack/prepped_meal
+
+/datum/quirk/positive/glutton
+	name = "Glutton"
+	desc = "You can eat faster, and don't suffer any ill-effects from being overweight."
+	cost = 2
+	trait_to_apply = TRAIT_GLUTTON
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
