@@ -195,8 +195,9 @@
 
 	for(var/obj/item/organ/internal/I in organs)
 
-
-		if(I.is_damaged())
+		if(I.status & ORGAN_DEAD)
+			to_chat(user, "[I] has completely shut down, there's nothing [tool] can do.</span>")
+		else if(I.is_damaged())
 			if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
 				any_organs_damaged = TRUE
 				user.visible_message(
