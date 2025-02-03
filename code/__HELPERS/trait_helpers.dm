@@ -200,6 +200,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COLORBLIND		"colorblind"
 #define TRAIT_WINGDINGS			"wingdings"
 #define TRAIT_WATERBREATH		"waterbreathing"
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_NOFAT				"no_fatness"
 #define TRAIT_NOGERMS			"no_germs"
 #define TRAIT_NODECAY			"no_decay"
@@ -424,14 +425,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /*********************
 *    QUIRK TRAITS    *
 **********************/
-#define TRAIT_ALLERGIC "allergic"
 #define TRAIT_FRAIL "frail"
 #define TRAIT_ASTHMATIC "asthma"
 #define TRAIT_SKITTISH "skittish"
 #define TRAIT_FREERUNNER "freerunner"
 #define TRAIT_CRAFTY "crafty"
-#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
-#define TRAIT_LIGHT_STEP "light_step"
+#define TRAIT_GLUTTON "glutton"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
