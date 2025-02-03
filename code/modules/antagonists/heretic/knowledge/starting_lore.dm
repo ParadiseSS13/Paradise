@@ -304,6 +304,13 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return !invoker.feast_of_owls
 
 /datum/heretic_knowledge/feast_of_owls/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	var/has_hijack = FALSE
+	for(var/datum/objective/is_it_hijack as anything in user.mind.get_all_objectives(include_team = FALSE))
+		if(istype(is_it_hijack, /datum/objective/hijack))
+			has_hijack = TRUE
+	if(!has_hijack)
+		to_chat(user, "<span class='hierophant_warning'>You lack the ambition of hijacking to ascend, you have nothing to offer!</span>")
+		return FALSE
 	var/alert = tgui_alert(user,"Do you really want to forsake your ascension? This action cannot be reverted.", "Feast of Owls", list("Yes I'm sure", "No"), 30 SECONDS)
 	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
 		return FALSE
