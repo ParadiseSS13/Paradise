@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	return "[name] ([english_list(rulesets + implied_and_used, nothing_text = "Extended")])"
 
 /datum/game_mode/dynamic/declare_completion()
-	for(var/datum/ruleset/ruleset in ruleset)
+	for(var/datum/ruleset/ruleset in rulesets)
 		ruleset.declare_completion()
 	. = ..()
 
