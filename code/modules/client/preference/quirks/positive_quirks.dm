@@ -3,7 +3,7 @@
 
 /datum/quirk/positive/skittish
 	name = "Skittish"
-	desc = "You've learned how to hide yourself well, and can quickly scurry into closed closets by Ctrl+Shift+Clicking them, as long as you have access."
+	desc = "You can hide yourself in crates, and WILL jump into a locker or crate if you bump into one while running, as long as you have access."
 	cost = 4
 	trait_to_apply = TRAIT_SKITTISH
 
