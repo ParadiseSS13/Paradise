@@ -93,7 +93,6 @@
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
 	requires_bodypart = TRUE
-
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 // All these surgeries are necessary for slotting into proxy steps
@@ -118,7 +117,8 @@
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
+		/datum/surgery/intermediate/manipulate/repair_organ
 	)
 
 /datum/surgery_step/proxy/manipulate_organs/soft
@@ -128,7 +128,8 @@
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
-		/datum/surgery/intermediate/bleeding
+		/datum/surgery/intermediate/bleeding,
+		/datum/surgery/intermediate/manipulate/repair_organ
 	)
 
 // have to redefine all of these because xenos don't technically have bodyparts.
@@ -173,122 +174,6 @@
 
 	return organs
 
-
-/datum/surgery_step/internal/manipulate_organs/mend
-	name = "mend organs"
-	allowed_tools = list(
-		/obj/item/stack/medical/bruise_pack/advanced = 100,
-		/obj/item/stack/medical/bruise_pack = 20,
-		/obj/item/stack/nanopaste = 100
-	)
-
-	preop_sound = 'sound/surgery/organ1.ogg'
-
-/datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
-	var/tool_name = "[tool]"
-	if(istype(tool, /obj/item/stack/medical/bruise_pack))
-		tool_name = "the bandaid"
-	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-		tool_name = "regenerative membrane"
-	else if(istype(tool, /obj/item/stack/nanopaste))
-		tool_name = "[tool]" //what else do you call nanopaste medically?
-
-	return tool_name
-
-/datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/tool_name = get_tool_name(tool)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	if(!iscarbon(target))
-		to_chat(user, "They do not have organs to mend!")
-		// note that we want to return skip here so we can go "back" to the proxy step
-		return SURGERY_BEGINSTEP_SKIP
-
-	var/any_organs_damaged = FALSE
-
-	var/list/organs = get_organ_list(target_zone, target, affected)
-
-	for(var/obj/item/organ/internal/I in organs)
-		if(I && I.damage)
-			any_organs_damaged = TRUE
-			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
-				if(!(I.sterile))
-					spread_germs_to_organ(I, user, tool)
-				user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-				"You start treating damage to [target]'s [I.name] with [tool_name]." )
-			else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-				user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-				"You start treating damage to [target]'s [I.name] with [tool_name]." )
-
-		else
-			to_chat(user, "[I] does not appear to be damaged.")
-
-	if(!any_organs_damaged)
-		return SURGERY_BEGINSTEP_SKIP
-
-	if(affected)
-		affected.custom_pain("The pain in your [affected.name] is living hell!")
-
-	return ..()
-
-/datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/tool_name = get_tool_name(tool)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!iscarbon(target))
-		return SURGERY_STEP_INCOMPLETE
-
-	var/list/organs = get_organ_list(target_zone, target, affected)
-
-	for(var/obj/item/organ/internal/I in organs)
-		if(I)
-			I.surgeryize()
-		if(I && I.damage)
-			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
-				user.visible_message(
-					"<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>",
-					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
-					chat_message_type = MESSAGE_TYPE_COMBAT
-				)
-				I.damage = 0
-			else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-				user.visible_message(
-					"<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>",
-					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
-					chat_message_type = MESSAGE_TYPE_COMBAT
-				)
-				I.damage = 0
-	return SURGERY_STEP_CONTINUE
-
-/datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!iscarbon(target))
-		return SURGERY_STEP_INCOMPLETE
-
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, getting messy and tearing the inside of [target]'s [parse_zone(target_zone)] with [tool]!</span>",
-		"<span class='warning'>Your hand slips, getting messy and tearing the inside of [target]'s [parse_zone(target_zone)] with [tool]!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
-	)
-
-	var/dam_amt = 2
-
-	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-		target.adjustToxLoss(5)
-
-	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
-		dam_amt = 5
-		target.adjustToxLoss(10)
-		if(affected)
-			affected.receive_damage(5)
-
-	var/list/organs = get_organ_list(target_zone, target, affected)
-
-	for(var/obj/item/organ/internal/I in organs)
-		if(I && I.damage && !(I.tough))
-			I.receive_damage(dam_amt,0)
-
-	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/internal/manipulate_organs/extract
 	name = "extract organ"
@@ -642,6 +527,7 @@
 	return SURGERY_STEP_CONTINUE
 
 // FINISH
+// This needs to separately follow the proxy step, so there's an option to branch elsewhere.
 /datum/surgery_step/internal/manipulate_organs/finish
 	name = "finish manipulation"
 	allowed_tools = list(

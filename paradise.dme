@@ -2907,6 +2907,7 @@
 #include "code\modules\surgery\generic.dm"
 #include "code\modules\surgery\limb_augmentation.dm"
 #include "code\modules\surgery\limb_reattach.dm"
+#include "code\modules\surgery\organ_treatment.dm"
 #include "code\modules\surgery\organs_internal.dm"
 #include "code\modules\surgery\other.dm"
 #include "code\modules\surgery\plastic_surgery.dm"

@@ -204,6 +204,9 @@
 /obj/item/organ/proc/is_broken()
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
+/obj/item/organ/proc/is_dead()
+	return (status & ORGAN_DEAD)
+
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
 	var/datum/autopsy_data/W = autopsy_data[used_weapon]

@@ -39,6 +39,9 @@
 /// Return this from begin_step() to abort the step and not try the surgery.
 #define SURGERY_BEGINSTEP_ABORT (-1)
 
+/// Return this from begin_step() to proceed as usual.
+#define SURGERY_BEGINSTEP_CONTINUE (0)
+
 /// Return this from begin_step() to skip the current step entirely and proceed to the next one.
 /// Use this if you would end up leaving someone in an invalid state.
 #define SURGERY_BEGINSTEP_SKIP (1)

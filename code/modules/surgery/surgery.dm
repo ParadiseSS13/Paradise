@@ -449,6 +449,7 @@
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	SHOULD_CALL_PARENT(TRUE)
+	. = SURGERY_BEGINSTEP_CONTINUE
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
