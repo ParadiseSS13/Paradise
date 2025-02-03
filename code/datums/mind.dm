@@ -1509,7 +1509,7 @@
 				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(!isAI(current))
+				if(!is_ai(current))
 					return
 				var/mob/living/silicon/ai/ai = current
 				for(var/mob/living/silicon/robot/R in ai.connected_robots)
@@ -1521,7 +1521,7 @@
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/I in current)
-					current.unEquip(I, TRUE)
+					current.drop_item_to_ground(I, force = TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")

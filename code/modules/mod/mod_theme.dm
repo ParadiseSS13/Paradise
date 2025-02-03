@@ -553,7 +553,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 50, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
+	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 250, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 
 /datum/mod_theme/research
 	name = "'Minerva' research"

@@ -140,7 +140,7 @@
 /obj/effect/spawner/random/bluespace_tap/cultural_rare
 	name = "rare cultural artifacts"
 	loot = list(
-		/obj/vehicle/space/speedbike/red,
+		/obj/tgvehicle/speedbike/red,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy,
 		/obj/item/bedsheet/centcom,

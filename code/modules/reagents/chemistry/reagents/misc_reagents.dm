@@ -395,7 +395,7 @@
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
 			if(H.wear_mask)
-				H.unEquip(H.wear_mask)
+				H.drop_item_to_ground(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")

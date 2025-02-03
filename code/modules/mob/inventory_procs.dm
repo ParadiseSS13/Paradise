@@ -140,11 +140,11 @@
 
 //Drops the item in our left hand
 /mob/proc/drop_l_hand(force = FALSE)
-	return unEquip(l_hand, force) //All needed checks are in unEquip
+	return drop_item_to_ground(l_hand, force)
 
 //Drops the item in our right hand
 /mob/proc/drop_r_hand(force = FALSE)
-	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
+	return drop_item_to_ground(r_hand, force)
 
 //Drops the item in our active hand.
 /mob/proc/drop_item()
@@ -153,57 +153,103 @@
 	else
 		return drop_r_hand()
 
-//Here lie unEquip and before_item_take, already forgotten and not missed.
-
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
 		return TRUE
 	if((I.flags & NODROP) && !force)
 		return FALSE
 
-	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
-		return FALSE
-
 	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
-	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
-		return 1
+/**
+ * Unequip `target` and drop it at our current location.
+ *
+ * Returns `FALSE` if the unequip failed, and `target` if it succeeded. Returns
+ * `FALSE` if there is no target to drop. If the caller cares about handling the
+ * resultant dropped object, they are responsible for ensuring that the thing
+ * actually exists. This is to ensure that the return value is meaningful and that
+ * a nonexistant item being unequipped and returning null is not interpreted as
+ * a failure.
+ *
+ * However, if you don't care about the return value, feel free to pass in possibly
+ * nonexistant objects, such as when dropping anything in a slot for a spell/virus
+ * that replaces existing clothing.
+ */
+/mob/proc/drop_item_to_ground(obj/item/target, force = FALSE, silent = FALSE, drop_inventory = TRUE)
+	if(isnull(target))
+		return FALSE
 
-	if(!canUnEquip(I, force))
-		return 0
+	var/try_unequip = unequip_to(target, drop_location(), force, silent, drop_inventory, no_move = FALSE)
 
-	if(I == r_hand)
+	if(!try_unequip || !target)
+		return FALSE
+
+	return target
+
+/**
+ * Unequip `target` and relocate it to `destination`.
+ *
+ * Returns `FALSE` if the transfer failed for any reason, and `TRUE` if it succeeded.
+ */
+/mob/proc/transfer_item_to(obj/item/target, atom/destination, force = FALSE, silent = TRUE)
+	return unequip_to(target, destination, force, silent, no_move = FALSE)
+
+/**
+ * Unequip `target` without relocating it.
+ *
+ * Returns `FALSE` if the transfer failed for any reason, and `TRUE` if it succeeded.
+ *
+ * A destination cannot be specified; you must either `forceMove` or `qdel` it.
+ * If you intend to `qdel` it immediately, it is not necessary to call this;
+ * [/obj/item/proc/Destroy] will perform the necessary unequipping.
+ */
+/mob/proc/unequip(obj/item/target, force = FALSE, drop_inventory = TRUE)
+	return unequip_to(target, null, force, silent = TRUE, drop_inventory = drop_inventory, no_move = TRUE)
+
+/**
+ * Central proc for unequipping items. Cannot be called but can be overridden so
+ * long as default arg values are preserved. Use [/mob/proc/unequip],
+ * [/mob/proc/drop_item_to_ground], or [/mob/proc/transfer_item_to] instead.
+ *
+ * - `target`: The object to unequip.
+ * - `destination`: The location the object should be unequipped to, if applicable.
+ * - `force`: Override `NODROP` for things like wizarditis and admin undress.
+ * - `silent`: Whether the unequip should play a sound.
+ * - `drop_inventory`: Whether items in the dropped item's slots (such as uniform pockets) should be dropped.
+ * - `no_move`: Whether we should attempt to move the item to `destination` or expect the caller to.
+ */
+/mob/proc/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	PROTECTED_PROC(TRUE)
+
+	if((target.flags & NODROP) && !force)
+		return FALSE
+
+	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+		return FALSE
+
+	if(target == r_hand)
 		r_hand = null
 		update_inv_r_hand()
-	else if(I == l_hand)
+	else if(target == l_hand)
 		l_hand = null
 		update_inv_l_hand()
-	else if(I in tkgrabbed_objects)
-		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
-		unEquip(tkgrab, force)
+	else if(target in tkgrabbed_objects)
+		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[target]
+		unequip_to(tkgrab, destination, force, silent, drop_inventory, no_move)
 
-	if(I)
+	if(target)
 		if(client)
-			client.screen -= I
-		var/turf/drop_loc = drop_location()
-		if(drop_loc)
-			I.forceMove(drop_loc)
-		else
-			I.moveToNullspace()
-		I.dropped(src, silent)
-		if(I)
-			I.layer = initial(I.layer)
-			I.plane = initial(I.plane)
-	return 1
+			client.screen -= target
+		target.layer = initial(target.layer)
+		target.plane = initial(target.plane)
+		if(!no_move && !(target.flags & DROPDEL))
+			if(isnull(destination))
+				target.moveToNullspace()
+			else
+				target.forceMove(destination)
+		target.dropped(src, silent)
 
-
-//Attemps to remove an object on a mob.  Will not move it to another area or such, just removes from the mob.
-/mob/proc/remove_from_mob(obj/O)
-	unEquip(O)
-	O.screen_loc = null
-	return 1
-
+	return TRUE
 
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
@@ -258,7 +304,7 @@
 	var/list/items = list()
 	items |= get_equipped_items(TRUE)
 	for(var/I in items)
-		unEquip(I)
+		drop_item_to_ground(I)
 	drop_l_hand()
 	drop_r_hand()
 

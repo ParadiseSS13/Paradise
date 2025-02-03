@@ -224,7 +224,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_to_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -534,7 +534,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1	//Void puppies can navigate space.
 
 //LISA! SQUEEEEEEEEE~

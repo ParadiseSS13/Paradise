@@ -111,6 +111,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 	RegisterSignal(parent, COMSIG_CARBON_UPDATE_HANDCUFFED, PROC_REF(on_handcuff_user))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT, PROC_REF(check_unwielded))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -178,20 +179,20 @@
 	if(ismonkeybasic(user))
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too heavy and cumbersome for you to carry!</span>")
-			user.unEquip(parent, force = TRUE)
+			user.drop_item_to_ground(parent, force = TRUE)
 		else
 			to_chat(user, "<span class='notice'>[parent] too heavy for you to wield fully.</span>")
 		return
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
-			user.unEquip(parent, force = TRUE)
+			user.drop_item_to_ground(parent, force = TRUE)
 		else
 			to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	if(!user.has_both_hands())
 		if(require_twohands)
-			user.unEquip(parent, force = TRUE)
+			user.drop_item_to_ground(parent, force = TRUE)
 		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
 		return
 
@@ -285,7 +286,7 @@
 
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
-			user.unEquip(parent, force = TRUE)
+			user.drop_item_to_ground(parent, force = TRUE)
 
 		// Show message if requested
 		if(show_message)
@@ -306,6 +307,15 @@
 		qdel(offhand_item)
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
+
+/**
+ * Check if item is unwielded
+ *
+ * returns TRUE if unwielded
+ */
+/datum/component/two_handed/proc/check_unwielded()
+	SIGNAL_HANDLER // COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT
+	return wielded ? FALSE : TRUE;
 
 /**
  * on_attack triggers on attack with the parent item
@@ -393,7 +403,7 @@
 			INVOKE_ASYNC(src, PROC_REF(unwield), user)
 
 /datum/component/two_handed/proc/try_drop_item(mob/user)
-	if(user.unEquip(parent))
+	if(user.drop_item_to_ground(parent))
 		user.visible_message("<span class='notice'>[user] loses [user.p_their()] grip on [parent]!</span>")
 
 /**

@@ -1,6 +1,7 @@
-//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
+//handles setting last_known_ckey, lastKnownIP, and computer_id for use by the ban systems as well as checking for multikeying
 /mob/proc/update_Login_details()
 	//Multikey checks and logging
+	last_known_ckey = ckey
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access_in(client)
@@ -31,7 +32,6 @@
 
 /mob/Login()
 	GLOB.player_list |= src
-	last_known_ckey = ckey
 	update_Login_details()
 	world.update_status()
 
@@ -81,3 +81,4 @@
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

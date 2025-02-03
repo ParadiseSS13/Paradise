@@ -66,16 +66,20 @@
 	qdel(O)
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
-/obj/machinery/compost_bin/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/compost_bin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// TODO: This feels off, no where else do we have a blanket "print a
+	// message for any other kind of item interaction attempt" that's keyed to intent
+	// See if this can be made more sensible after everything's been migrated
+	// to the new attack chain
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(used, /obj/item/storage/bag/plants))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and it's contents are saturated with potassium!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/storage/bag/plants/PB = O
+		var/obj/item/storage/bag/plants/PB = used
 		for(var/obj/item/food/grown/G in PB.contents)
 			// if the plant contains either potassium, plantmatter and nutriment and the compost bin has space for any of those.
 			if((G.reagents.get_reagent_amount("potassium") && potassium <= potassium_capacity) || ((G.reagents.get_reagent_amount("plantmatter") || G.reagents.get_reagent_amount("nutriment")) && biomass <= biomass_capacity))
@@ -97,30 +101,30 @@
 
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/food/grown))
+	if(istype(used, /obj/item/food/grown))
 		if(biomass >= biomass_capacity && potassium >= potassium_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass, and its contents are saturated with potassium!</span>")
-			return
-		if(!user.unEquip(O))
-			return
+			return ITEM_INTERACT_COMPLETE
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
 
-		O.forceMove(src)
-		make_biomass(O)
-		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
+		used.forceMove(src)
+		make_biomass(used)
+		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
-		return TRUE
-	if(istype(O, /obj/item/reagent_containers))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/reagent_containers))
 		var/proportion = 0
-		var/obj/item/reagent_containers/B = O
+		var/obj/item/reagent_containers/B = used
 		if(B.reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>[B] is empty!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(potassium >= potassium_capacity && potash >= potash_capacity)
 			to_chat(user, "<span class='warning'>The contents of [src] are saturated with potassium and it cannot hold more potash!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		// Won't pour in more than the amount of potassium that can be accepted, even if the beaker is not filled with pure potassium.
 		proportion = min(min(B.reagents.total_volume, B.amount_per_transfer_from_this), potassium_capacity - potassium) / B.reagents.total_volume
 
@@ -156,9 +160,10 @@
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
 
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='warning'>You cannot put this in [src]!</span>")
+	return ITEM_INTERACT_COMPLETE
 
 //Compost compostable material if there is any
 /obj/machinery/compost_bin/process()

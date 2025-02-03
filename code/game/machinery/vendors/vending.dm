@@ -2,15 +2,100 @@
  *  Datum used to hold information about a product in a vending machine
  */
 /datum/data/vending_product
-	name = "generic"
+	name = "the idea of vending something"
+	/// Price to buy one
+	var/price = 0
+
+/datum/data/vending_product/proc/get_amount_full()
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/proc/get_amount_left()
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/proc/get_icon()
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/proc/get_icon_state()
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/proc/get_name()
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/proc/vend(turf/where)
+	CRASH("Abstract vending product used.")
+
+/datum/data/vending_product/from_path
+	name = "a magically-created vending product"
+
 	///Typepath of the product that is created when this record "sells"
-	var/product_path = null
+	var/atom/movable/product_path = null
 	///How many of this product we currently have
 	var/amount = 0
 	///How many we can store at maximum
 	var/max_amount = 0
-	/// Price to buy one
-	var/price = 0
+
+/datum/data/vending_product/from_path/get_amount_full()
+	return max_amount
+
+/datum/data/vending_product/from_path/get_amount_left()
+	return amount
+
+/datum/data/vending_product/from_path/get_icon()
+	return initial(product_path.icon)
+
+/datum/data/vending_product/from_path/get_icon_state()
+	return initial(product_path.icon_state)
+
+/datum/data/vending_product/from_path/get_name()
+	return initial(product_path.name)
+
+/datum/data/vending_product/from_path/vend(turf/where)
+	if(amount > 0)
+		amount--
+		return new product_path(where)
+	return null
+
+/datum/data/vending_product/physical
+	name = "a physical vending product"
+
+	/// The items available.
+	var/list/items = list()
+	/// What should they be called?
+	var/display_name
+	/// What icon should they use?
+	var/display_icon
+	/// What icon state should they use?
+	var/display_icon_state
+
+/datum/data/vending_product/physical/New(name, icon, icon_state)
+	display_name = name
+	display_icon = icon
+	display_icon_state = icon_state
+
+/datum/data/vending_product/physical/get_amount_full()
+	return 1
+
+/datum/data/vending_product/physical/get_amount_left()
+	return length(items)
+
+/datum/data/vending_product/physical/get_icon()
+	return display_icon
+
+/datum/data/vending_product/physical/get_icon_state()
+	return display_icon_state
+
+/datum/data/vending_product/physical/get_name()
+	return display_name
+
+/datum/data/vending_product/physical/vend(turf/where)
+	var/atom/movable/vended = items[length(items)]
+	items.len--
+	vended.forceMove(where)
+	return vended
+
+/datum/data/vending_product/physical/proc/on_deconstruct(turf/where)
+	while(length(items))
+		vend(where)
 
 /obj/machinery/economy/vending
 	name = "\improper Vendomat"
@@ -53,8 +138,6 @@
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 10
-	/// Item currently being bought
-	var/datum/data/vending_product/currently_vending
 
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
@@ -63,7 +146,9 @@
 
 	// List of vending_product items available.
 	var/list/product_records = list()
+	var/list/physical_product_records = list()
 	var/list/hidden_records = list()
+	var/list/physical_hidden_records = list()
 
 	/// Unimplemented list of ads that are meant to show up somewhere, but don't.
 	var/list/ads_list = list()
@@ -82,6 +167,8 @@
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister
+	/// Should we always be able to deconstruct this into components, even if it has no refill_canister?
+	var/always_deconstruct = FALSE
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
@@ -109,9 +196,6 @@
 	var/flickering = FALSE
 	/// do I look unpowered, even when powered?
 	var/force_no_power_icon_state = FALSE
-
-	///the money account that is tethered to this vendor
-	var/datum/money_account/vendor_account
 
 	/// If this vending machine can be tipped or not
 	var/tiltable = TRUE
@@ -149,6 +233,10 @@
 	var/build_inv = FALSE
 	if(!refill_canister)
 		build_inv = TRUE
+		if(always_deconstruct)
+			var/obj/item/circuitboard/vendor/V = new
+			V.set_type(replacetext(initial(name), "\improper", ""))
+			component_parts = list(V)
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
@@ -167,9 +255,6 @@
 		// The first time this machine says something will be at slogantime + this random value,
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
 		last_slogan = world.time + rand(0, slogan_delay)
-
-	if(account_database)
-		vendor_account = account_database.vendor_account
 
 	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
@@ -263,7 +348,7 @@
 			amount = 0
 
 		var/atom/temp = typepath
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
+		var/datum/data/vending_product/from_path/R = new /datum/data/vending_product/from_path()
 		R.name = initial(temp.name)
 		R.product_path = typepath
 		if(!start_empty)
@@ -296,7 +381,7 @@
   */
 /obj/machinery/economy/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
-	for(var/datum/data/vending_product/record as anything in recordlist)
+	for(var/datum/data/vending_product/from_path/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
 		if(diff)
 			productlist[record.product_path] -= diff
@@ -308,7 +393,7 @@
   * This is used when the machine is deconstructed, so the items aren't "lost"
   */
 /obj/machinery/economy/vending/proc/update_canister()
-	if(!component_parts)
+	if(isnull(refill_canister))
 		return
 
 	var/obj/item/vending_refill/R = locate() in component_parts
@@ -323,12 +408,14 @@
   */
 /obj/machinery/economy/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
-	for(var/datum/data/vending_product/record as anything in recordlist)
+	for(var/datum/data/vending_product/from_path/record in recordlist)
 		.[record.product_path] += record.amount
 
 /obj/machinery/economy/vending/deconstruct(disassembled = TRUE)
 	eject_item()
-	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
+	for(var/datum/data/vending_product/physical/R in physical_product_records + physical_hidden_records)
+		R.on_deconstruct(loc)
+	if(!component_parts) //the non constructable vendors drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/metal(loc, 3)
 		qdel(src)
 	else
@@ -338,25 +425,25 @@
 	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return COMPONENT_BLOCK_UNTILT
 
-/obj/machinery/economy/vending/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/economy/vending/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		return ..()
 
-	if(isspacecash(I))
-		insert_cash(I, user)
-		return
-	if(istype(I, /obj/item/coin))
+	if(isspacecash(used))
+		insert_cash(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/coin))
 		to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
-		return
-	if(refill_canister && istype(I, refill_canister))
+		return ITEM_INTERACT_COMPLETE
+	if(refill_canister && istype(used, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/vending_refill/canister = I
+		var/obj/item/vending_refill/canister = used
 		var/transferred = restock(canister)
 		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
 			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
@@ -364,13 +451,14 @@
 			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
 		else // Nothing transferred, parts are still left, nothing to restock!
 			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(item_slot_check(user, I))
-		insert_item(user, I)
-		return
-	. = ..()
-	if(tiltable && !tilted && I.force)
+	if(item_slot_check(user, used))
+		insert_item(user, used)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/economy/vending/attacked_by(obj/item/attacker, mob/living/user)
+	if(tiltable && !tilted && attacker.force)
 		if(resistance_flags & INDESTRUCTIBLE)
 			// no goodies, but also no tilts
 			return
@@ -400,16 +488,12 @@
 	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!</span>")
 
 	for(var/i in 1 to num_freebies)
-		for(var/datum/data/vending_product/R in shuffle(product_records))
+		for(var/datum/data/vending_product/R in shuffle(product_records + physical_product_records))
 
-			if(R.amount <= 0)
+			if(R.get_amount_left() <= 0)
 				continue
 
-			var/dump_path = R.product_path
-			if(!dump_path)
-				continue
-			new dump_path(get_turf(src))
-			R.amount--
+			R.vend(loc)
 			break
 
 /obj/machinery/economy/vending/HasProximity(atom/movable/AM)
@@ -605,6 +689,8 @@
 /obj/machinery/economy/vending/ui_data(mob/user)
 	var/list/data = list()
 
+	data["locked"] = locked()
+	data["chargesMoney"] = locked()
 	data["usermoney"] = 0
 	data["inserted_cash"] = cash_transaction
 	data["user"] = null
@@ -625,8 +711,8 @@
 				data["user"]["job"] = C.rank ? C.rank : "No Job"
 
 	data["stock"] = list()
-	for(var/datum/data/vending_product/R in product_records + hidden_records)
-		data["stock"][R.name] = R.amount
+	for(var/datum/data/vending_product/R in product_records + physical_product_records + hidden_records + physical_hidden_records)
+		data["stock"][R.get_name()] = R.get_amount_left()
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
@@ -638,30 +724,27 @@
 
 /obj/machinery/economy/vending/ui_static_data(mob/user)
 	var/list/data = list()
-	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
-	for(var/datum/data/vending_product/R in product_records)
-		var/obj/item = R.product_path
+	for(var/datum/data/vending_product/R in product_records + physical_product_records)
 		var/list/data_pr = list(
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
+			name = R.get_name(),
+			price = R.price,
+			icon = R.get_icon(),
+			icon_state = R.get_icon_state(),
+			max_amount = R.get_amount_full(),
 			is_hidden = FALSE,
 			inum = i++
 		)
 		data["product_records"] += list(data_pr)
 	data["hidden_records"] = list()
-	for(var/datum/data/vending_product/R in hidden_records)
-		var/obj/item = R.product_path
+	for(var/datum/data/vending_product/R in hidden_records + physical_hidden_records)
 		var/list/data_hr = list(
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
+			name = R.get_name(),
+			price = R.price,
+			icon = R.get_icon(),
+			icon_state = R.get_icon_state(),
+			max_amount = R.get_amount_full(),
 			is_hidden = TRUE,
 			inum = i++,
 			premium = TRUE
@@ -693,6 +776,27 @@
 		if("vend")
 			var/key = text2num(params["inum"])
 			try_vend(key, user)
+		if("rename")
+			if(!locked())
+				var/new_name = tgui_input_text(user, "Rename the vendor to what?", name)
+				if(!isnull(new_name))
+					name = new_name
+		if("change_appearance")
+			if(locked())
+				return
+			var/possible_icons = list()
+			var/icon_lookup = list()
+			var/buildable_vendors = /obj/item/circuitboard/vendor::station_vendors
+			for(var/vendor_name in buildable_vendors)
+				var/obj/machinery/economy/vending/vendor_type = buildable_vendors[vendor_name]
+				possible_icons[vendor_name] = image(icon = initial(vendor_type.icon), icon_state = initial(vendor_type.icon_state))
+				icon_lookup[vendor_name] = list(initial(vendor_type.icon), initial(vendor_type.icon_state))
+			var/choice = show_radial_menu(user, src, possible_icons, radius=48)
+			if(!choice || !(choice in icon_lookup) || user.stat || !in_range(user, src) || QDELETED(src))
+				return
+			icon = icon_lookup[choice][1]
+			icon_state = icon_lookup[choice][2]
+
 	if(.)
 		add_fingerprint(user)
 
@@ -704,44 +808,37 @@
 		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
 		return
 
-	var/list/display_records = product_records
+	var/list/display_records = product_records + physical_product_records
 	if(extended_inventory)
-		display_records = product_records + hidden_records
+		display_records = product_records + physical_product_records + hidden_records + physical_hidden_records
 	if(key < 1 || key > length(display_records))
 		log_debug("invalid inum passed to a [name] vendor.</span>")
 		return
-	var/datum/data/vending_product/R = display_records[key]
-	if(!istype(R))
+	var/datum/data/vending_product/currently_vending = display_records[key]
+	if(!istype(currently_vending))
 		log_debug("player attempted to access an unknown vending_product at a [name] vendor.</span>")
 		return
-	var/list/record_to_check = product_records
+	var/list/record_to_check = product_records + physical_product_records
 	if(extended_inventory)
-		record_to_check = product_records + hidden_records
-	if(!R.product_path)
-		log_debug("player attempted to access an unknown product record at a [name] vendor.</span>")
+		record_to_check = product_records + physical_product_records + hidden_records + physical_hidden_records
+	if(!extended_inventory && ((currently_vending in hidden_records) || (currently_vending in physical_hidden_records)))
+		// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
+		log_debug("player attempted to access a [name] vendor extended inventory when it was not allowed.</span>")
 		return
-	if(R in hidden_records)
-		if(!extended_inventory)
-			// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-			log_debug("player attempted to access a [name] vendor extended inventory when it was not allowed.</span>")
-			return
-	else if(!(R in record_to_check))
+	else if(!(currently_vending in record_to_check))
 		// Exploit prevention, stop the user
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
 		return
-	if(R.amount <= 0)
-		to_chat(user, "Sold out of [R.name].")
+	if(currently_vending.get_amount_left() <= 0)
+		to_chat(user, "Sold out of [currently_vending.get_name()].")
 		flick(icon_deny, src)
 		return
 
-	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
-
-	if(!ishuman(user) || R.price <= 0)
+	if(!ishuman(user) || currently_vending.price <= 0 || !locked())
 		// Either the purchaser is not human, or the item is free.
-		// Skip all payment logic.
-		vend(R, user)
+		// Skip all payment logic, and vend without a delay.
+		vend(currently_vending, user, FALSE)
 		add_fingerprint(user)
-		vend_ready = TRUE
 		. = TRUE
 		return
 
@@ -750,28 +847,26 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-	currently_vending = R
 	var/paid = FALSE
 
-	if(cash_transaction < currently_vending.price && GLOB.station_money_database.vendor_account?.suspended)
-		to_chat(user, "Vendor account offline. Unable to process transaction.")
+	var/datum/money_account/vendor_account = get_vendor_account()
+	if(cash_transaction < currently_vending.price && (isnull(vendor_account) || vendor_account.suspended))
+		to_chat(user, "<span class='warning'>Vendor account offline. Unable to process transaction.</span>")
 		flick(icon_deny, src)
-		vend_ready = TRUE
 		return
 
 	if(cash_transaction >= currently_vending.price)
-		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
+		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, vendor_account)
 	else if(istype(C, /obj/item/card))
 		// Because this uses H.get_idcard(TRUE), it will attempt to use:
 		// active hand, inactive hand, pda.id, and then wear_id ID in that order
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
+		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, vendor_account)
 	else if(user.can_advanced_admin_interact())
 		to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
 		paid = TRUE
 	else
 		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
-		vend_ready = TRUE
 		flick(icon_deny, src)
 		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 		return
@@ -781,23 +876,12 @@
 		. = TRUE
 	else
 		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
-		vend_ready = TRUE
 
-/obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user, has_delay = TRUE)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
 		flick(icon_deny, src)
-		vend_ready = TRUE
 		return
-
-	if(!R.amount)
-		to_chat(user, "<span class='warning'>The vending machine has ran out of that product.</span>")
-		vend_ready = TRUE
-		return
-
-	vend_ready = FALSE //One thing at a time!!
-
-	R.amount--
 
 	if(last_reply + vend_delay + 200 <= world.time && vend_reply)
 		speak(vend_reply)
@@ -807,33 +891,27 @@
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+	if(has_delay)
+		vend_ready = FALSE
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user, has_delay), vend_delay)
 
-/obj/machinery/economy/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/economy/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user, has_delay)
 	do_vend(R, user)
-	vend_ready = TRUE
-	currently_vending = null
+	if(has_delay)
+		vend_ready = TRUE
 
 //override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
-/obj/machinery/economy/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
-	if(!item_slot || !inserted_item)
-		var/put_on_turf = TRUE
-		var/obj/vended = new R.product_path()
-		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
-			vended.scatter_atom()
-		return TRUE
-	return FALSE
+/obj/machinery/economy/vending/proc/do_vend(datum/data/vending_product/R, mob/user, put_in_hands = TRUE)
+	var/vended = R.vend(loc)
+	if(put_in_hands && isliving(user) && istype(vended, /obj/item) && Adjacent(user))
+		user.put_in_hands(vended)
+	return vended
 
 /* Example override for do_vend proc:
 /obj/machinery/economy/vending/example/do_vend(datum/data/vending_product/R)
-	if(..())
+	var/obj/item/vended = ..()
+	if(!vended)
 		return
-	var/obj/item/vended = new R.product_path()
 	if(inserted_item.force == initial(inserted_item.force)
 		inserted_item.force += vended.force
 	inserted_item.damtype = vended.damtype
@@ -899,20 +977,15 @@
 	var/found_anything = TRUE
 	while(found_anything)
 		found_anything = FALSE
-		for(var/record in shuffle(product_records))
-			var/datum/data/vending_product/R = record
-			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+		for(var/datum/data/vending_product/record in shuffle(product_records))
+			if(record.get_amount_left() <= 0) //Try to use a record that actually has something to dump.
 				continue
-			var/dump_path = R.product_path
-			if(!dump_path)
-				continue
-			R.amount--
+			var/atom/movable/thing = record.vend()
 			// busting open a vendor will destroy some of the contents
 			if(found_anything && prob(80))
-				continue
+				qdel(thing)
 
-			var/obj/O = new dump_path(loc)
-			step(O, pick(GLOB.alldirs))
+			step(thing, pick(GLOB.alldirs))
 			found_anything = TRUE
 			dump_amount++
 			if(dump_amount >= 16)
@@ -929,15 +1002,11 @@
 	if(!target)
 		return 0
 
-	for(var/datum/data/vending_product/R in product_records)
-		if(R.amount <= 0) //Try to use a record that actually has something to dump.
-			continue
-		var/dump_path = R.product_path
-		if(!dump_path)
+	for(var/datum/data/vending_product/R in product_records + physical_product_records)
+		if(R.get_amount_left() <= 0) //Try to use a record that actually has something to dump.
 			continue
 
-		R.amount--
-		throw_item = new dump_path(loc)
+		throw_item = R.vend(loc)
 		break
 	if(!throw_item)
 		return
@@ -1007,6 +1076,12 @@
 	tilt(C, from_combat = TRUE)
 	mob_hurt = TRUE
 	return ..()
+
+/obj/machinery/economy/vending/proc/locked()
+	return TRUE
+
+/obj/machinery/economy/vending/proc/get_vendor_account()
+	return GLOB.station_money_database.vendor_account
 
 /*
  * Vending machine types

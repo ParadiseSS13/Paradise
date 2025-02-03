@@ -585,9 +585,10 @@
 	containername = "dna samplers crate"
 
 /datum/supply_packs/misc/station_goal/shield_sat
-	name = "Shield Generator Satellite"
-	cost = 250
+	name = "Shield Generator Satellites"
+	cost = 100
 	contains = list(
+					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield
