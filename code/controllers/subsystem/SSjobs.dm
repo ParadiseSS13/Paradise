@@ -99,6 +99,7 @@ SUBSYSTEM_DEF(jobs)
 		if(available)
 			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
+			player.mind.job_datum = job
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
 			// JOB OBJECTIVES OH SHIT

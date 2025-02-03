@@ -31,7 +31,11 @@
 
 	var/memory
 
-	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	/// Assigned role is what job you're assigned to when you join the station.
+	var/assigned_role
+	/// This is the the job datum you have
+	var/datum/job/job_datum
+
 	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to CC at will and shouldn't be antag targets
@@ -84,6 +88,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	job_datum = null
 	remove_all_antag_datums()
 	qdel(objective_holder)
 	current = null

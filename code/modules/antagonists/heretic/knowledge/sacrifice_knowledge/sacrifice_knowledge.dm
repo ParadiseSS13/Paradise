@@ -133,25 +133,25 @@
 	var/list/datum/mind/final_targets = list() //Qwertodo: Figure out how the fuck to make this work after roundstart. Look at  traitor objectives?
 
 	// First target, any command.
-	//for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-	//	if(head_mind.assigned_role?.job_flags & JOB_HEAD_OF_STAFF)
-	//		final_targets += head_mind
-	//		valid_targets -= head_mind
-	//		break
+	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
+		if(head_mind.assigned_role in GLOB.command_head_positions)
+			final_targets += head_mind
+			valid_targets -= head_mind
+			break
 
 	// Second target, any security
-	//for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-	//	if(sec_mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
-	//		final_targets += sec_mind
-	//		valid_targets -= sec_mind
-	//		break
+	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
+		if(sec_mind.assigned_role in GLOB.active_security_positions)
+			final_targets += sec_mind
+			valid_targets -= sec_mind
+			break
 
 	// Third target, someone in their department.
-	//for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-	//	if(department_mind.assigned_role?.departments_bitflags & user.mind.assigned_role?.departments_bitflags)
-	//		final_targets += department_mind
-	//		valid_targets -= department_mind
-	//		break
+	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
+		if(department_mind.job_datum.job_department_flags & user.mind.job_datum.job_department_flags)
+			final_targets += department_mind
+			valid_targets -= department_mind
+			break
 
 	// Now grab completely random targets until we'll full
 	var/target_sanity = 0
