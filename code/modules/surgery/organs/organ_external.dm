@@ -531,25 +531,31 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
-	var/frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	var/frail_multiplier = 1
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
 	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	if(GLOB.configuration.general.breakable_bones && brute_dam > adjusted_broken_damage && !is_robotic())
 		if(prob(damage_inflicted * frail_multiplier))
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	var/frail_multiplier = 1
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
-	var/frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
 	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > adjusted_broken_damage && prob(damage * frail_multiplier))
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
+	var/frail_multiplier = 1
 	if(is_robotic())
 		return
-	var/frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+	if(owner)
+		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
 	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	if(burn_dam >= adjusted_broken_damage && prob(damage * frail_multiplier * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
 		cause_burn_wound(update_health)
