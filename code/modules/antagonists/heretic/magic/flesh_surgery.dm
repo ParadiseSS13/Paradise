@@ -136,14 +136,14 @@
 	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
-			"<span class='bolddanger'>[caster] pulls [caster.p_their()] own [chosen_organ] out of [caster.p_their()] [chosen_organ.parent_organ]!!</span>",
-			"<span class='userdanger'>You pull your own [chosen_organ] out of your [chosen_organ.parent_organ]!!</span>",
+			"<span class='bolddanger'>[caster] pulls [caster.p_their()] own [chosen_organ.name] out of [caster.p_their()] [chosen_organ.parent_organ]!!</span>",
+			"<span class='userdanger'>You pull your own [chosen_organ.name] out of your [chosen_organ.parent_organ]!!</span>",
 		)
 
 	else
 		carbon_victim.visible_message(
-			"<span class='bolddanger'>[caster] pulls [carbon_victim]'s [chosen_organ] out of [carbon_victim.p_their()] [chosen_organ.parent_organ]!!</span>",
-			"<span class='userdanger'>[caster] pulls your [chosen_organ] out of your [chosen_organ.parent_organ]!!</span>",
+			"<span class='bolddanger'>[caster] pulls [carbon_victim]'s [chosen_organ.name] out of [carbon_victim.p_their()] [chosen_organ.parent_organ]!!</span>",
+			"<span class='userdanger'>[caster] pulls your [chosen_organ.name] out of your [chosen_organ.parent_organ]!!</span>",
 		)
 
 	chosen_organ.remove(carbon_victim)
