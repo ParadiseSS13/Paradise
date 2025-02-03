@@ -49,7 +49,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 
 /obj/machinery/r_n_d/scientific_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/gripper))
 		return ..()
 
 	if(default_deconstruction_screwdriver(user, "s_analyzer_t", "s_analyzer", used))

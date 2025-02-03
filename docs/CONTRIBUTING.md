@@ -211,6 +211,7 @@ PRs. People included in this role are:
 - [AffectedArc07](https://github.com/AffectedArc07)
 - [Charliminator](https://github.com/hal9000PR)
 - [DGamerL](https://github.com/DGamerL)
+- [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
 - [S34N](https://github.com/S34NW)
 - [SteelSlayer](https://github.com/SteelSlayer)

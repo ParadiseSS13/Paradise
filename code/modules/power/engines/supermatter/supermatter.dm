@@ -471,7 +471,7 @@
 		// Pass all the gas related code an empty gas container
 		removed = new()
 	damage_archived = damage
-	if(!removed || !removed.total_moles() || isspaceturf(T)) //we're in space or there is no gas to process
+	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
 		if(takes_damage)
 			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
 	else
@@ -567,24 +567,24 @@
 
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
-		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * crush_ratio ** 0.5) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
+		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
 		if(prob(50))
 			radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
-		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-		if(removed.total_moles())
-			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
-			produced_joules *= (removed.heat_capacity() / removed.total_moles())
-			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
-
 		//Calculate how much gas to release
 		//Varies based on power and gas content
 		removed.set_toxins(removed.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
 		//Varies based on power, gas content, and heat
 		removed.set_oxygen(removed.oxygen() + max((((device_energy + removed.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
+
+		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
+		if(removed.total_moles() >= 1)
+			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			produced_joules *= (removed.heat_capacity() / removed.total_moles())
+			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
 
 		if(produces_gas)
 			env.merge(removed)
