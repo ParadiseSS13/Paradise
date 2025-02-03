@@ -161,7 +161,7 @@
 	owner.adjustBruteLoss(-100)
 	owner.adjustFireLoss(-100)
 
-	to_chat(owner, "<span class='hypnophrase'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span></span>")
+	to_chat(owner, "<span class='userdanger'>THE MOON SHOWS YOU THE TRUTH AND THE LIARS WISH TO COVER IT, SLAY THEM ALL!!!</span></span>")
 	owner.Paralyse(7 SECONDS)
 	ADD_TRAIT(owner, TRAIT_MUTE, src.UID())
 	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_overlay))
