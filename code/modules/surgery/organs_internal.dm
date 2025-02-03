@@ -118,7 +118,8 @@
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/manipulate/repair_organ
+		/datum/surgery/intermediate/manipulate/repair_organ,
+		/datum/surgery/intermediate/manipulate/repair_organ/robotic,
 	)
 
 /datum/surgery_step/proxy/manipulate_organs/soft
@@ -130,6 +131,7 @@
 		/datum/surgery/intermediate/manipulate/clean,
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/manipulate/repair_organ
+		/datum/surgery/intermediate/manipulate/repair_organ/robotic,
 	)
 
 // have to redefine all of these because xenos don't technically have bodyparts.

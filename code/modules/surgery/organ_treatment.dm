@@ -78,16 +78,25 @@
 		to_chat(user, "<span class='warning'>[organ_selected] has completely shut down, you can't fix it like this.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	user.visible_message(
-		"<span class='notice'>[user] begins to patch up [target]'s [organ_selected.name].</span>",
-		"<span class='notice'>You start to patch up [target]'s [organ_selected.name].</span>"
-	)
+	if(!robotic)
+		user.visible_message(
+			"<span class='notice'>[user] begins to perform an incision on [target]'s [organ_selected.name] with [tool].</span>",
+			"<span class='notice'>You start to perform an incision on [target]'s [organ_selected.name] with [tool].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+		affected.custom_pain("Something's stabbing your [organ_selected.name]! It's almost too much to bear...")
+	else
+		user.visible_message(
+			"<span class='notice'>[user] begins to poke at [target]'s [organ_selected.name] with [tool].</span>",
+			"<span class='notice'>You start to unscrew [target]'s [organ_selected.name] with [tool].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 
 	. = ..()
 	if(!.)
 		return
 
-	affected.custom_pain("Something's stabbing your [organ_selected.name]! It's almost too much to bear...")
+
 
 	return SURGERY_BEGINSTEP_CONTINUE
 
@@ -103,12 +112,18 @@
 	// a bit more fragile
 	organ_selected.min_broken_damage -= 10
 
-
-	user.visible_message(
-		"<span class='notice'>[user] surgically excises the most damaged parts of [target]'s [organ_selected.name].</span>",
-		"<span class='notice'>You surgically excises the most damaged parts of [target]'s [organ_selected.name].</span>"
-	)
-
+	if(!robotic)
+		user.visible_message(
+			"<span class='notice'>[user] surgically excises the most damaged parts of [target]'s [organ_selected.name].</span>",
+			"<span class='notice'>You surgically excise the most damaged parts of [target]'s [organ_selected.name].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] removes a damaged component on [target]'s [organ_selected.name].</span>",
+			"<span class='notice'>You remove a damaged component from [target]'s [organ_selected.name].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 
 	return SURGERY_STEP_CONTINUE
 
@@ -126,7 +141,8 @@
 	var/error = pick("stabs", "jabs", "slices")
 	user.visible_message(
 		"<span class='danger'>[user] accidentally [error] [target]'s [organ_selected]!</span>",
-		"<span class='danger'>Your hand slips, accidentally [error] [target]'s [organ_selected]!</span>"
+		"<span class='danger'>Your hand slips, accidentally [error] [target]'s [organ_selected]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("You feel a sharp stabbing pain emanating from your [organ_selected]!")
 	return SURGERY_STEP_RETRY
@@ -140,6 +156,8 @@
 		TOOL_SCREWDRIVER = 100,
 		/obj/item/coin = 45,
 	)
+
+
 
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"
@@ -179,18 +197,21 @@
 
 
 		if(I.is_damaged())
-			any_organs_damaged = TRUE
 			if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
+				any_organs_damaged = TRUE
 				user.visible_message(
 					"[user] starts treating damage to [target]'s [I.name] with [tool_name].",
-					"You start treating damage to [target]'s [I.name] with [tool_name]."
+					"You start treating damage to [target]'s [I.name] with [tool_name].",
+					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
 			else if(I.damage < I.min_broken_damage && !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
+				any_organs_damaged = TRUE
 				if(!(I.sterile))
 					spread_germs_to_organ(I, user, tool)
 				user.visible_message(
 					"[user] starts treating damage to [target]'s [I.name] with [tool_name].",
-					"You start treating damage to [target]'s [I.name] with [tool_name]."
+					"You start treating damage to [target]'s [I.name] with [tool_name].",
+					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
 
 			else
@@ -220,7 +241,7 @@
 		if(I)
 			I.surgeryize()
 		if(I && I.damage)
-			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste) && I.damage <= I.min_broken_damage )
+			if(!I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste))
 				user.visible_message(
 					"<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>",
 					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
@@ -234,7 +255,7 @@
 					"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>",
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.heal_internal_damage(20, TRUE)
+				I.damage = 0  // nanopaste is expensive
 				healing_stack.use(1)
 	return SURGERY_STEP_CONTINUE
 
@@ -265,6 +286,6 @@
 
 	for(var/obj/item/organ/internal/I in organs)
 		if(I && I.damage && !(I.tough))
-			I.receive_damage(dam_amt,0)
+			I.receive_damage(dam_amt, 0)
 
 	return SURGERY_STEP_RETRY
