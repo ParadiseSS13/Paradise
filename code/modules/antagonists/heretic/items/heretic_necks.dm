@@ -163,4 +163,4 @@
 		add_attack_logs(user, target, "[target] was driven insane by [user]([src])")
 		log_game("[target] was driven insane by [user]")
 
-	. = ..()
+	return ..()

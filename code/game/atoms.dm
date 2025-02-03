@@ -1057,12 +1057,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_overide = null)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-		if(type_overide)
-			type = type_overide
+		if(type_override)
+			type = type_override
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)

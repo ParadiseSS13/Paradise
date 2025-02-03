@@ -191,10 +191,7 @@
 	if(!IS_HERETIC(user)) // Shouldn't be able to do this, but just in case
 		return
 
-	else
-		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
-
-	return
+	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
 
 
 /obj/effect/heretic_influence/attack_by(obj/item/attacking, mob/user, params)
@@ -222,7 +219,7 @@
 /obj/effect/heretic_influence/proc/drain_influence(mob/living/user, knowledge_to_gain)
 
 	being_drained = TRUE
-	to_chat(user, "<span class='notice'>You begin to drain the influcence</span>")
+	to_chat(user, "<span class='notice'>You begin to drain the influence...</span>")
 
 	if(!do_after(user, 10 SECONDS, target = src))
 		being_drained = FALSE

@@ -54,7 +54,4 @@
 	if(!should_show_text(A))
 		return
 
-	var/examine_text = infused_desc
-
-
-	examine_list += examine_text
+	examine_list += infused_desc

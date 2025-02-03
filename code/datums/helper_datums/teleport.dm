@@ -262,7 +262,7 @@
 		if(checked_area in SSmapping.existing_station_areas_types)
 			final_area_list += checked_area
 
-	if(!final_area_list.len) // Failsafe
+	if(!length(final_area_list)) // Failsafe
 		return get_safe_random_station_turf()
 
 	return get_safe_random_station_turf(final_area_list)

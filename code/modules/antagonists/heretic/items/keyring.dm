@@ -83,6 +83,8 @@
 		if(airlock_area.tele_proof)
 			continue
 		possible_destinations += ourlock
+	if(!length(possible_destinations))
+		return
 	return pick(possible_destinations)
 
 ///Asynchronous proc to unbolt, then open the passed door

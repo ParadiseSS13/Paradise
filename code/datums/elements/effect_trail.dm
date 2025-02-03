@@ -1,4 +1,3 @@
-\
 /*
  * An element used for making a trail of effects appear behind a movable atom when it moves.
  */
