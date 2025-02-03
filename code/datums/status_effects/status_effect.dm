@@ -136,6 +136,8 @@
 	. = null
 	if(QDELETED(src))
 		return
+	var/list/arguments = args.Copy()
+	arguments[1] = src
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
 	for(var/datum/status_effect/S in status_effects)
@@ -143,12 +145,10 @@
 			if(S.status_type == STATUS_EFFECT_REPLACE)
 				S.be_replaced()
 			else if(S.status_type == STATUS_EFFECT_REFRESH)
-				S.refresh()
+				S.refresh(arglist(arguments))
 				return
 			else
 				return
-	var/list/arguments = args.Copy()
-	arguments[1] = src
 	S1 = new effect(arguments)
 	return S1
 
