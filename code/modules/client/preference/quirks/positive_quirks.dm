@@ -32,12 +32,6 @@
 	user.physiology.alcohol_mod *= alcohol_modifier
 	. = ..()
 
-/datum/quirk/positive/light_step
-	name = "Light Step"
-	desc = "Your footsteps are quieter, and stepping on sharp objects hurts less."
-	cost = 3
-	trait_to_apply = TRAIT_LIGHT_STEP
-
 /datum/quirk/positive/meal_prepper
 	name = "Meal Prepper"
 	desc = "You thought ahead and pre-packed a meal for the day."
@@ -49,6 +43,13 @@
 	desc = "You can eat faster, and don't suffer any ill-effects from being overweight."
 	cost = 2
 	trait_to_apply = TRAIT_GLUTTON
+	organic_only = TRUE
+
+/datum/quirk/positive/improved_charging_cord
+	name = "Upgraded Charging Cable"
+	desc = "You got a new type of charging implant that can also connect to standard power cells."
+	cost = 2
+	machine_only = TRUE
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
