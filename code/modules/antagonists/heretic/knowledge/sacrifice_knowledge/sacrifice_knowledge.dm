@@ -151,6 +151,8 @@
 
 	// Third target, someone in their department.
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
+		if(!user.mind.job_datum)
+			break
 		if(department_mind.job_datum.job_department_flags & user.mind.job_datum.job_department_flags)
 			final_targets += department_mind
 			valid_targets -= department_mind
