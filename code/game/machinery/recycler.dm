@@ -83,7 +83,7 @@
 /obj/machinery/recycler/cmag_act(mob/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>The board is completely fried.</span>")
-		return
+		return FALSE
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		if(emergency_mode)
@@ -96,7 +96,7 @@
 /obj/machinery/recycler/emag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>The access panel is coated in yellow ooze...</span>")
-		return
+		return FALSE
 	if(!emagged)
 		emagged = TRUE
 		if(emergency_mode)
