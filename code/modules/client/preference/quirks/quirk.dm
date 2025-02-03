@@ -28,8 +28,6 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	owner = null
 	..()
 
-/datum/quirk/proc/build_quirks()
-
 /*
 * The proc for actually applying a quirk to a mob, most often during spawning.
 */
