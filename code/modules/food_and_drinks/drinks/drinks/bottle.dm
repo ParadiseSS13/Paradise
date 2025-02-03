@@ -401,8 +401,8 @@
 		hotspot.temperature = 1000
 		hotspot.recolor()
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.get_heat() && !active)
+/obj/item/reagent_containers/drinks/bottle/molotov/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat() && !active)
 		active = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/bombarea = get_area(bombturf)
@@ -425,7 +425,10 @@
 						A.fire_act()
 					qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/drinks/bottle/molotov/activate_self(mob/user)
+	if(..())
+		return
+
 	if(active)
 		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
