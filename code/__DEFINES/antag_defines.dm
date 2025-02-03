@@ -88,9 +88,7 @@ GLOBAL_LIST(contractors)
 
 /// Check if the given mob is a heretic monster.
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-/// Check if the given mob is a  lunatic
-#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
-/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
+/// Checks if the given mob is either a heretic, heretic monster.
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 /// CHecks if the given mob is in the mansus realm
 #define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))

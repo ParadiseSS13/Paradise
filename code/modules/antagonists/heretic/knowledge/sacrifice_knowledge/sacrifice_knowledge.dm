@@ -45,6 +45,9 @@
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(generate_targets), user, our_heretic), 10 SECONDS)
+
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_targets(mob/user, datum/antagonist/heretic/our_heretic)
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
 

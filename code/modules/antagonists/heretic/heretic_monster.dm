@@ -18,6 +18,11 @@
 	master = null
 	return ..()
 
+/datum/antagonist/heretic_monster/add_owner_to_gamemode()
+	SSticker.mode.heretics += owner
+
+/datum/antagonist/heretic_monster/remove_owner_from_gamemode()
+	SSticker.mode.heretics -= owner
 /*
  * Set our [master] var to a new mind.
  */
