@@ -223,16 +223,6 @@
 				else
 					gear_leftovers += G
 
-	if(H.client && length(H.client.prefs.active_character.quirks))
-		var/quirk_list = H.client.prefs.active_character.quirks
-		if(!islist(quirk_list))
-			quirk_list = json_decode(quirk_list)
-		for(var/quirk_name in quirk_list)
-			var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
-			quirk.apply_quirk_effects(H)
-			if(quirk.item_to_give)
-				equip_item(H, quirk.item_to_give, quirk.item_slot)
-
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -243,24 +233,30 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
+	var/list/leftover_items = list()
+	for(var/datum/quirk in H.quirks)
+		if(quirk.item_to_give)
+			leftover_items += quirk.item_to_give
 
-	if(length(gear_leftovers))
-		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G)))
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
-				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
-				continue
-			if(H.equip_to_appropriate_slot(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
-				continue
-			if(H.put_in_hands(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(G)
+	for(var/datum/gear/G in gear_leftovers)
+		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
+		
+	for(var/obj/item/item in leftover_items)
+		var/atom/placed_in = H.equip_or_collect(item)
+		if(istype(placed_in))
+			if(isturf(placed_in))
+				to_chat(H, "<span class='notice'>Placing [item] on [placed_in]!</span>")
+			else
+				to_chat(H, "<span class='notice'>Placing [item] in your [placed_in.name].</span>")
+			continue
+		if(H.equip_to_appropriate_slot(item))
+			to_chat(H, "<span class='notice'>Placing [item] in your inventory!</span>")
+			continue
+		if(H.put_in_hands(item))
+			to_chat(H, "<span class='notice'>Placing [item] in your hands!</span>")
+			continue
+		to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+		qdel(item)
 
 		gear_leftovers.Cut()
 
