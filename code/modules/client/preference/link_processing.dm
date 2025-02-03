@@ -262,6 +262,9 @@
 						active_character.organ_data = list()
 						active_character.rlimb_data = list()
 
+						//Reset quirks
+						active_character.quirks = list()
+						
 						if(!(NS.autohiss_basic_map))
 							active_character.autohiss_mode = AUTOHISS_OFF
 				if("speciesprefs")

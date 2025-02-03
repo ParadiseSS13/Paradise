@@ -110,7 +110,7 @@
 	var/runechat_color = "#FFFFFF"
 	/// The ringtone their PDA should start with
 	var/pda_ringtone
-	/// A list of the names of users selected quirks.
+	/// A list/JSON of the quirk datums to attach to the character
 	var/list/quirks = list()
 
 // Fuckery to prevent null characters
