@@ -1,7 +1,6 @@
 import { BooleanLike } from 'common/react';
-
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, DmIcon, Flex, Section, Stack, Tabs } from '../components';
+import { Box, Button, DmIcon, Flex, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 const hereticRed = {
@@ -69,91 +68,90 @@ const IntroductionSection = (props, context) => {
   const { ascended, can_change_objective } = data;
 
   return (
-    <Stack justify="space-evenly" height="100%" width="100%">
-      <Stack.Item grow>
-        <Section title="You are the Heretic!" fill fontSize="14px">
-          <Stack vertical>
-            <FlavorSection />
-            <Stack.Divider />
-            <GuideSection />
-            <Stack.Divider />
-            <InformationSection />
-            <Stack.Divider />
-          </Stack>
-        </Section>
-      </Stack.Item>
-    </Stack>
+    <Flex direction="column" height="100%">
+      <Section title="You are the Heretic!" fontSize="14px">
+        <Flex direction="column" gap={1}>
+          <FlavorSection />
+          <Box my={1}>
+            <hr />
+          </Box>
+          <GuideSection />
+          <Box my={1}>
+            <hr />
+          </Box>
+          <InformationSection />
+        </Flex>
+      </Section>
+    </Flex>
   );
 };
 
 const FlavorSection = () => {
   return (
-    <Stack.Item>
-      <Stack vertical textAlign="center" fontSize="14px">
-        <Stack.Item>
-          <i>
-            Another day at a meaningless job. You feel a&nbsp;
-            <span style={hereticBlue}>shimmer</span>
-            &nbsp;around you, as a realization of something&nbsp;
-            <span style={hereticRed}>strange</span>
-            &nbsp;in the air unfolds. You look inwards and discover something that will change your life.
-          </i>
-        </Stack.Item>
-        <Stack.Item>
+    <Flex.Item>
+      <Box textAlign="center" fontSize="14px">
+        <i>
+          Another day at a meaningless job. You feel a&nbsp;
+          <span style={hereticBlue}>shimmer</span>
+          &nbsp;around you, as a realization of something&nbsp;
+          <span style={hereticRed}>strange</span>
+          &nbsp;in the air unfolds. You look inwards and discover something that will change your life.
+        </i>
+        <Box mt={1}>
           <b>
             The <span style={hereticPurple}>Gates of Mansus</span>
             &nbsp;open up to your mind.
           </b>
-        </Stack.Item>
-      </Stack>
-    </Stack.Item>
+        </Box>
+      </Box>
+    </Flex.Item>
   );
 };
 
 const GuideSection = () => {
   return (
-    <Stack.Item>
-      <Stack vertical fontSize="12px">
-        <Stack.Item>
+    <Flex.Item>
+      <Flex direction="column" gap={1} fontSize="12px">
+        <Box>
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>
           &nbsp;around the station invisible to the normal eye and&nbsp;
           <b>click</b> on them to harvest them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. Tapping them makes them visible to all after a short time.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           - Use your&nbsp;
           <span style={hereticRed}>Living Heart action</span>
           &nbsp;to track down&nbsp;
           <span style={hereticRed}>sacrifice targets</span>, but be careful: Pulsing it will produce a heartbeat sound
           that nearby people may hear. This action is tied to your <b>heart</b> - if you lose it, you must complete a
           ritual to regain it.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           - Draw a&nbsp;
           <span style={hereticGreen}>transmutation rune</span> by using a drawing tool (a pen or crayon) on the floor
           while having&nbsp;
           <span style={hereticGreen}>Mansus Grasp</span>
           &nbsp;active in your other hand. This rune allows you to complete rituals and sacrifices.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           - Follow your <span style={hereticRed}>Living Heart</span> to find your targets. Bring them back to a&nbsp;
           <span style={hereticGreen}>transmutation rune</span> in critical or worse condition to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by
           the&nbsp;
           <span style={hereticRed}>Living Heart</span>.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           - Make yourself a <span style={hereticYellow}>focus</span> to be able to cast various advanced spells to
           assist you in acquiring harder and harder sacrifices.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           - Accomplish all of your objectives to be able to learn the <span style={hereticYellow}>final ritual</span>.
           Complete the ritual to become all powerful!
-        </Stack.Item>
-      </Stack>
-    </Stack.Item>
+        </Box>
+      </Flex>
+    </Flex.Item>
   );
 };
 
@@ -161,32 +159,27 @@ const InformationSection = (props, context) => {
   const { data } = useBackend<Info>(context);
   const { charges, total_sacrifices, ascended } = data;
   return (
-    <Stack.Item>
-      <Stack vertical fill>
+    <Flex.Item>
+      <Flex direction="column" gap={1}>
         {!!ascended && (
-          <Stack.Item>
-            <Stack align="center">
-              <Stack.Item>You have</Stack.Item>
-              <Stack.Item fontSize="24px">
-                <Box inline color="yellow">
-                  ASCENDED
-                </Box>
-                !
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
+          <Flex align="center" gap={1}>
+            <Box>You have</Box>
+            <Box fontSize="24px" color="yellow" inline>
+              ASCENDED!
+            </Box>
+          </Flex>
         )}
-        <Stack.Item>
+        <Box>
           You have <b>{charges || 0}</b>&nbsp;
           <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span>.
-        </Stack.Item>
-        <Stack.Item>
+        </Box>
+        <Box>
           You have made a total of&nbsp;
           <b>{total_sacrifices || 0}</b>&nbsp;
           <span style={hereticRed}>sacrifices</span>.
-        </Stack.Item>
-      </Stack>
-    </Stack.Item>
+        </Box>
+      </Flex>
+    </Flex.Item>
   );
 };
 
@@ -199,11 +192,11 @@ const KnowledgeTree = (props, context) => {
       <Box textAlign="center" fontSize="32px">
         <span style={hereticYellow}>DAWN</span>
       </Box>
-      <Stack vertical>
+      <Flex direction="column">
         {knowledge_tiers.length === 0
           ? 'None!'
           : knowledge_tiers.map((tier, i) => (
-              <Stack.Item key={i}>
+              <Flex.Item key={i}>
                 <Flex justify="center" align="center" backgroundColor="transparent" wrap="wrap">
                   {tier.nodes.map((node) => (
                     <Flex.Item key={node.name}>
@@ -255,9 +248,9 @@ const KnowledgeTree = (props, context) => {
                   ))}
                 </Flex>
                 <hr />
-              </Stack.Item>
+              </Flex.Item>
             ))}
-      </Stack>
+      </Flex>
     </Section>
   );
 };
@@ -267,22 +260,21 @@ const ResearchInfo = (props, context) => {
   const { charges } = data;
 
   return (
-    <Stack vertical fill>
-      <Stack.Item fontSize="20px" textAlign="center">
+    <Flex direction="column" height="100%">
+      <Box textAlign="center" fontSize="20px" mb={1}>
         You have <b>{charges || 0}</b>&nbsp;
         <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span> to spend.
-      </Stack.Item>
-      <Stack.Item grow>
+      </Box>
+      <Flex.Item grow>
         <KnowledgeTree />
-      </Stack.Item>
-    </Stack>
+      </Flex.Item>
+    </Flex>
   );
 };
 
 export const AntagInfoHeretic = (props, context) => {
   const { data } = useBackend<Info>(context);
   const { ascended } = data;
-
   const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
 
   return (
@@ -295,8 +287,8 @@ export const AntagInfoHeretic = (props, context) => {
             : 'radial-gradient(circle, rgba(9,9,24,1) 54%, rgba(10,10,31,1) 60%, rgba(21,11,46,1) 80%, rgba(24,14,47,1) 100%);',
         }}
       >
-        <Stack vertical fill>
-          <Stack.Item>
+        <Flex direction="column" height="100%">
+          <Flex.Item>
             <Tabs fluid>
               <Tabs.Tab icon="info" selected={currentTab === 0} onClick={() => setTab(0)}>
                 Information
@@ -309,9 +301,9 @@ export const AntagInfoHeretic = (props, context) => {
                 Research
               </Tabs.Tab>
             </Tabs>
-          </Stack.Item>
-          <Stack.Item grow>{(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}</Stack.Item>
-        </Stack>
+          </Flex.Item>
+          <Flex.Item grow>{currentTab === 0 ? <IntroductionSection /> : <ResearchInfo />}</Flex.Item>
+        </Flex>
       </Window.Content>
     </Window>
   );
