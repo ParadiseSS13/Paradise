@@ -55,5 +55,6 @@
 
 		qdel(spawner)
 
+	log_game("finished spawner [id] with [length(known_spawners)] remaining spawners and [available_points] points remaining.")
 
 	QDEL_LIST_CONTENTS(known_spawners)

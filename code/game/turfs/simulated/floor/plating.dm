@@ -113,6 +113,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
 		return

@@ -63,6 +63,7 @@
 "ap" = (
 /obj/item/restraints/handcuffs,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/bmp_ship/delta)
 "aq" = (
@@ -193,6 +194,7 @@
 "aP" = (
 /obj/item/stack/spacecash/c50,
 /obj/item/stack/spacecash/c100,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/bmp_ship/fore)
 "aQ" = (
@@ -211,6 +213,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/fore)
 "aT" = (
@@ -713,6 +716,7 @@
 /obj/structure/closet/secure_closet/freezer/meat{
 	opened = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2198,11 +2202,13 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/food/meat,
 /obj/item/food/hugemushroomslice,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/delta)
+"PE" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/bmp_ship/aft)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
@@ -4671,7 +4677,7 @@ cl
 cv
 eb
 ex
-dG
+PE
 dG
 dG
 fu

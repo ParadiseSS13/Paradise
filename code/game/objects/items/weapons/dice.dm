@@ -197,6 +197,13 @@
 				qdel(I)
 		if(5)
 			//Monkeying
+			if(ismachineperson(user))
+				playsound(get_turf(user), 'sound/machines/ding.ogg', 100, 1)
+				var/obj/fresh_toast = new /obj/item/food/toast(get_turf(user))
+				fresh_toast.desc += " It came out of [user]!"
+				to_chat(user, "<span class='userdanger'>Your internal structure is getting really toasty!</span>")
+				user.gib()
+				return
 			T.visible_message("<span class='userdanger'>[user] transforms into a monkey!</span>")
 			user.monkeyize()
 		if(6)

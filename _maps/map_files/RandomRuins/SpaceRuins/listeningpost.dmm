@@ -136,6 +136,10 @@
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/syndicate_listening_station/asteroid)
+"nk" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
 "oE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/floodlight,
@@ -323,6 +327,7 @@
 /obj/item/storage/box/tapes,
 /obj/item/taperecorder,
 /obj/item/clothing/glasses/regular,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "AT" = (
@@ -550,6 +555,7 @@
 /obj/item/clothing/shoes/slippers,
 /obj/item/clothing/under/misc/pj/red,
 /obj/item/clothing/suit/jacket/bomber/syndicate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
 "RN" = (
@@ -1541,7 +1547,7 @@ yn
 yn
 kJ
 KM
-Nd
+nk
 kJ
 PH
 le

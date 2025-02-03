@@ -147,12 +147,13 @@
 /obj/structure/bookcase/random
 	var/category = null
 	var/book_count = 5
-	icon_state = "random_bookcase"
+	icon_state = "random_bookshelf"
 	anchored = TRUE
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+	icon_state = "bookshelf" // to keep random_bookshelf icon for mappers
 
 /obj/structure/bookcase/random/proc/load_books()
 	var/list/books = GLOB.library_catalog.get_random_book(book_count)
@@ -198,15 +199,18 @@
 	ui_interact(user)
 
 
-/obj/machinery/bookbinder/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/paper))
-		select_paper(I)
-	if(istype(I, /obj/item/paper_bundle))
-		select_paper_stack(I)
-	if(istype(I, /obj/item/book))
-		select_book(I)
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
+/obj/machinery/bookbinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper))
+		select_paper(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/paper_bundle))
+		select_paper_stack(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/book))
+		select_book(used)
+		return ITEM_INTERACT_COMPLETE
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
