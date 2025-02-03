@@ -238,7 +238,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/codex_cicatrix/parse_required_item(atom/item_path, number_of_things)
 	if(item_path == /obj/item/pen || item_path == /obj/item/pen/blue || item_path == /obj/item/pen/red)
-		return "unique type of pen"
+		return "any type of pen that is not a basic, blue, or red pen"
 	return ..()
 
 /datum/heretic_knowledge/codex_cicatrix/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)

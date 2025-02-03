@@ -5,6 +5,7 @@
 /datum/status_effect/void_chill
 	id = "void_chill"
 	duration = 30 SECONDS
+	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/void_chill
 	status_type = STATUS_EFFECT_REFRESH //Custom code
 	on_remove_on_mob_delete = TRUE
@@ -34,8 +35,8 @@
 	REMOVE_TRAIT(owner, TRAIT_HYPOTHERMIC, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 
-/datum/status_effect/void_chill/tick(seconds_between_ticks)
-	owner.adjust_bodytemperature(-12 * stacks * seconds_between_ticks)
+/datum/status_effect/void_chill/tick()
+	owner.adjust_bodytemperature(-6 * stacks)
 
 /datum/status_effect/void_chill/refresh(mob/living/new_owner, new_stacks, forced = FALSE)
 	. = ..()

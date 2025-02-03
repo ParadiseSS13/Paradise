@@ -227,7 +227,7 @@
 	announcement_text = "%SPOOKY% A Star Gazer has arrived into the station, %NAME% has ascended! This station is the domain of the Cosmos! %SPOOKY%"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_cosmic.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
-	research_tree_icon_state = "comsicascend"
+	research_tree_icon_state = "cosmicascend"
 	/// A static list of command we can use with our mob.
 //	var/static/list/star_gazer_commands = list(
 //		/datum/pet_command/idle,
@@ -241,7 +241,7 @@
 	if(!.)
 		return FALSE
 
-	return sacrifice.reagents.has_reagent(/datum/reagent/bluespace)
+	return sacrifice.reagents.has_reagent("bluespace_dust")
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()

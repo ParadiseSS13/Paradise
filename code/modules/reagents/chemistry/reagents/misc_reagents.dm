@@ -873,6 +873,7 @@
 		M.Jitter(2 SECONDS)
 		current_cycle = 1
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 3 SECONDS)
+	return ..()
 
 /mob/living/proc/bluespace_shuffle()
 	do_teleport(src, get_turf(src), 5, sound_in = 'sound/effects/phasein.ogg')
