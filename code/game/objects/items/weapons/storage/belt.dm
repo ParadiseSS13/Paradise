@@ -304,6 +304,41 @@
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
+/obj/item/storage/belt/botany
+	name = "botanist belt"
+	desc = "Can hold various botanical supplies."
+	icon_state = "botanybelt"
+	item_state = "botany"
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/plant_analyzer,
+		/obj/item/cultivator,
+		/obj/item/hatchet,
+		/obj/item/reagent_containers/glass/bottle,
+//		/obj/item/reagent_containers/syringe,
+//		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/lighter/zippo,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/shovel/spade,
+		/obj/item/flashlight/pen,
+		/obj/item/seeds,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/weedspray,
+		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/reagent_containers/spray/pestspray
+		)
+
+/obj/item/storage/belt/botany/full/populate_contents()
+	new /obj/item/plant_analyzer(src)
+	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/hatchet(src)
+	new /obj/item/reagent_containers/spray/pestspray(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	update_icon()
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
