@@ -120,7 +120,7 @@
 		return FALSE
 
 	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(owner, "<span class='hierophant'>You're target is [get_distance_message(tracked_mob)]</span>")
+	to_chat(owner, "<span class='hierophant'>Your target is [get_distance_message(tracked_mob)]</span>")
 
 
 	// Let them know how to sacrifice people if they're able to be sac'd
