@@ -573,15 +573,16 @@
 	var/obj/item/gun/medbeam/mech/medigun
 	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_PLASMA = 3000, MAT_GOLD = 8000, MAT_DIAMOND = 2000)
 
-/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/attach(obj/mecha/M)
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Initialize(mapload)
+	. = ..()
 	medigun = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Destroy()
+	QDEL_NULL(medigun)
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/process()
 	if(..())
-		return
-	if(!chassis)
-		STOP_PROCESSING(SSobj, src)
 		return
 	medigun.process()
 
@@ -589,10 +590,9 @@
 	medigun.process_fire(target, loc)
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/detach()
-	if(medigun.current_target)
+	if(medigun)
 		medigun.LoseTarget()
 	STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(medigun)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/can_attach(obj/mecha/medical/M)
