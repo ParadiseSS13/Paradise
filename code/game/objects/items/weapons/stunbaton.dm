@@ -408,13 +408,11 @@
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
 
-/obj/item/melee/baton/flayerprod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	return
-
 /obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/melee/baton/flayerprod/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/baton/flayerprod/activate_self(mob/user)
+	if(..())
 	return
 
 /obj/item/melee/baton/flayerprod/play_hit_sound()
