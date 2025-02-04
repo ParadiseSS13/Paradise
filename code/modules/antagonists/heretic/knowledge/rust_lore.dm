@@ -198,18 +198,18 @@
 	//if(!GLOB.areas_by_type[ritual_location])
 		//ritual_location = null
 
-/datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	if(ritual_location)
-		var/area/our_area = get_area(loc)
+		var/area/our_area = get_area(our_turf)
 		if(!istype(our_area, ritual_location))
 			to_chat(user, "<span class='hierophant_warning'>The ritual has failed, it must be done in [initial(ritual_location.name)]!</span>")
 			return FALSE
 
 	return ..()
 
-/datum/heretic_knowledge/ultimate/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
-	trigger(loc)
+	trigger(our_turf)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions

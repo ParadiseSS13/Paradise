@@ -243,7 +243,7 @@
 
 	return sacrifice.reagents.has_reagent("bluespace_dust")
 
-/datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	var/datum/spell/touch/star_touch/star_touch_spell = locate() in user.actions
 	if(star_touch_spell)

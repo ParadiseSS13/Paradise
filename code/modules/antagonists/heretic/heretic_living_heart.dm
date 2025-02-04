@@ -52,7 +52,7 @@
  */
 /datum/action/track_target
 	name = "Living Heartbeat"
-	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
+	desc = "LMB: Chose one of your sacrifice targets to track."
 	check_flags = AB_CHECK_CONSCIOUS
 
 	button_overlay_icon = 'icons/obj/antags/eldritch.dmi'

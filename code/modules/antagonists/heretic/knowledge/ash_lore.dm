@@ -189,7 +189,7 @@
 		return TRUE
 	return FALSE
 
-/datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	var/datum/spell/fire_sworn/circle_spell = new(user.mind)
 	user.AddSpell(circle_spell)

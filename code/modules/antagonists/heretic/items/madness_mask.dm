@@ -53,7 +53,7 @@
 	if(IS_HERETIC_OR_MONSTER(local_user) && (flags & NODROP))
 		flags &= ~NODROP
 
-	for(var/mob/living/carbon/human/human_in_range in view(local_user)) //QWERTYTODO:WHAT THE FUCK THIS IS STUPID
+	for(var/mob/living/carbon/human/human_in_range in view(local_user))
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || HAS_TRAIT(human_in_range, TRAIT_BLIND))
 			continue
 

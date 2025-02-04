@@ -14,7 +14,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_animal.dmi'
 	research_tree_icon_state = "gaze"
 
-/datum/heretic_knowledge/reroll_targets/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/reroll_targets/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// Check first if they have a Living Heart. If it's missing, we should
@@ -26,7 +26,7 @@
 
 	return TRUE
 
-/datum/heretic_knowledge/reroll_targets/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/reroll_targets/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	for(var/mob/living/carbon/human/target as anything in heretic_datum.sac_targets)
 		heretic_datum.remove_sacrifice_target(target)

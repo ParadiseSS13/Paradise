@@ -29,13 +29,13 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "void_blade"
 
-/datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!isfloorturf(loc))
+/datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	if(!isfloorturf(our_turf))
 		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
-	var/turf/simulated/our_turf = loc
-	var/datum/gas_mixture/G = our_turf.get_readonly_air()
+	var/turf/simulated/our_simulated_turf = our_turf
+	var/datum/gas_mixture/G = our_simulated_turf.get_readonly_air()
 	var/turf_hotness = G.temperature()
 	var/turf_pressure = G.return_pressure()
 	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2)
@@ -201,12 +201,12 @@
 	///The storm where there are actual effects
 	var/datum/proximity_monitor/advanced/void_storm/heavy_storm
 
-/datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!isfloorturf(loc))
+/datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	if(!isfloorturf(our_turf))
 		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
 		return FALSE
 
-	var/datum/gas_mixture/G = loc.get_readonly_air()
+	var/datum/gas_mixture/G = our_turf.get_readonly_air()
 	var/turf_hotness = G.temperature()
 	var/turf_pressure = G.return_pressure()
 	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2)
@@ -215,7 +215,7 @@
 
 	return ..()
 
-/datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	user.add_traits(list(TRAIT_RESISTLOWPRESSURE, TRAIT_FLYING), type)
 

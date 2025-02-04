@@ -51,7 +51,7 @@
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
 
-/datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// First we have to check if the heretic has a Living Heart.
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
@@ -84,7 +84,7 @@
 	to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
 	return FALSE
 
-/datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// Force it to work if the sacrifice is a cultist, even if there's no targets.
 	var/mob/living/carbon/human/sac = selected_atoms[1]
@@ -95,7 +95,7 @@
 			to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
 			return FALSE
 
-	sacrifice_process(user, selected_atoms, loc)
+	sacrifice_process(user, selected_atoms, our_turf)
 	return TRUE
 
 
@@ -180,9 +180,9 @@
  * Arguments
  * * user - the mob doing the sacrifice (a heretic)
  * * selected_atoms - a list of all atoms chosen. Should be (at least) one human.
- * * loc - the turf the sacrifice is occurring on
+ * * our_turf - the turf the sacrifice is occurring on
  */
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms, turf/our_turf)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/mob/living/carbon/human/sacrifice = locate() in selected_atoms
@@ -207,7 +207,7 @@
 		feedback += " <i>graciously</i>"
 	if(cultist_datum)
 		heretic_datum.knowledge_points += 1
-		grant_reward(user, sacrifice, loc)
+		grant_reward(user, sacrifice, our_turf)
 		// easier to read
 		var/rewards_given = heretic_datum.rewards_given
 		// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
@@ -235,7 +235,7 @@
 	sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
 
 
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/our_turf)
 
 	// Visible and audible encouragement!
 	to_chat(user, "<span class='hierophant_warning'>A servant of the Sanguine Apostate!</span>")
@@ -264,15 +264,15 @@
 			do_layer = FALSE,
 		)
 
-	addtimer(CALLBACK(src, PROC_REF(deposit_reward), user, loc, null, rune), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(deposit_reward), user, our_turf, null, rune), 5 SECONDS)
 
 
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/deposit_reward(mob/user, turf/loc, loop = 0, obj/rune)
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/deposit_reward(mob/user, turf/our_turf, loop = 0, obj/rune)
 	if(loop > 5) // Max limit for retrying a reward
 		return
 	// Remove the outline, we don't need it anymore.
 	rune?.remove_filter("reward_outline")
-	playsound(loc, 'sound/magic/repulse.ogg', 75, TRUE)
+	playsound(our_turf, 'sound/magic/repulse.ogg', 75, TRUE)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	ASSERT(heretic_datum)
 	// This list will be almost identical to unlocked_heretic_items, with the same keys, the difference being the values will be 1 to 5.
@@ -283,12 +283,12 @@
 		rewards[possible_reward] = min(5 - (amount_already_awarded * 2), 1)
 
 	var/atom/reward = pickweight(rewards)
-	reward = new reward(loc)
+	reward = new reward(our_turf)
 
 	if(isliving(reward))
-		if(summon_ritual_mob(user, loc, reward) == FALSE)
+		if(summon_ritual_mob(user, our_turf, reward) == FALSE)
 			qdel(reward)
-			deposit_reward(user, loc, loop++, rune) // If no ghosts, try again until limit is hit
+			deposit_reward(user, our_turf, loop++, rune) // If no ghosts, try again until limit is hit
 		return
 
 	else if(isitem(reward))

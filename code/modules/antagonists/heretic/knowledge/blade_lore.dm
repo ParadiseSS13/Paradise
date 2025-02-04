@@ -227,9 +227,9 @@
 /datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/carbon/human/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	var/obj/item/held_item = user.get_active_hand()
+	var/obj/item/held_item = source.get_active_hand()
 	if(in_duelist_stance)
-		examine_list += "<span class='warning'>[user] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
+		examine_list += "<span class='warning'>[source] looks unnaturally poised[held_item?.force >= 15 ? " and ready to strike out":""].</span>"
 
 /datum/heretic_knowledge/duel_stance/proc/on_health_update(mob/living/source)
 	SIGNAL_HANDLER
@@ -379,7 +379,7 @@
 		return TRUE
 	return FALSE
 
-/datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade_final))
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 1 MINUTES)

@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return FALSE
 	return TRUE
 
-/datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
 	var/obj/item/organ/our_living_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
 	// For sanity's sake, check if they've got a living heart -
@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	to_chat(user, "<span class='hierophant'>The ritual failed, you need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
 	return FALSE
 
-/datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
 	var/obj/item/organ/internal/our_new_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
 
@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return "any type of pen that is not a basic, blue, or red pen"
 	return ..()
 
-/datum/heretic_knowledge/codex_cicatrix/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/codex_cicatrix/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/feast_of_owls/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !invoker.feast_of_owls
 
-/datum/heretic_knowledge/feast_of_owls/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/feast_of_owls/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/has_hijack = FALSE
 	for(var/datum/objective/is_it_hijack as anything in user.mind.get_all_objectives(include_team = FALSE))
 		if(istype(is_it_hijack, /datum/objective/hijack))
@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		to_chat(user, "<span class='hierophant_warning'>You lack the ambition of hijacking to ascend, you have nothing to offer!</span>")
 		return FALSE
 	var/alert = tgui_alert(user,"Do you really want to forsake your ascension? This action cannot be reverted.", "Feast of Owls", list("Yes I'm sure", "No"), 30 SECONDS)
-	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
+	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, our_turf) > 2)
 		return FALSE
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(QDELETED(heretic_datum) || heretic_datum.feast_of_owls)
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	user.Weaken(reward * 1 SECONDS)
 	for(var/i in 1 to reward)
 		user.emote("scream")
-		playsound(loc, 'sound/items/eatfood.ogg', 100, TRUE)
+		playsound(our_turf, 'sound/items/eatfood.ogg', 100, TRUE)
 		heretic_datum.knowledge_points++
 		to_chat(user, "<span class='danger'>You feel something invisible tearing away at your very essence!</span>")
 		user.do_jitter_animation()

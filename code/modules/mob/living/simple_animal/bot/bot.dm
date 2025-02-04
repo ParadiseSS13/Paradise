@@ -1189,3 +1189,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	"on" = on,
 	"UID" = UID(),
 	)
+
+/mob/living/simple_animal/bot/rust_heretic_act()
+	adjustBruteLoss(500)

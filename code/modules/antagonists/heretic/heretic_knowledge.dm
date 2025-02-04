@@ -101,11 +101,11 @@
  * * user - the mob doing the ritual
  * * atoms - a list of all atoms being checked in the ritual.
  * * selected_atoms - an empty list(!) instance passed in by the ritual. You can add atoms to it in this proc.
- * * loc - the turf the ritual's occuring on
+ * * our_turf - the turf the ritual's occuring on
  *
  * Returns: TRUE, if the ritual will continue, or FALSE, if the ritual is skipped / cancelled
  */
-/datum/heretic_knowledge/proc/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/proc/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	return TRUE
 
 /**
@@ -133,15 +133,15 @@
  * Arguments
  * * user - the mob who did the ritual
  * * selected_atoms - an list of atoms chosen as a part of this ritual.
- * * loc - the turf the ritual's occuring on
+ * * our_turf - the turf the ritual's occuring on
  *
  * Returns: TRUE, if the ritual should cleanup afterwards, or FALSE, to avoid calling cleanup after.
  */
-/datum/heretic_knowledge/proc/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/proc/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	if(!length(result_atoms))
 		return FALSE
 	for(var/result in result_atoms)
-		new result(loc)
+		new result(our_turf)
 	return TRUE
 
 /**
@@ -225,7 +225,7 @@
 	LAZYCLEARLIST(created_items)
 	return ..()
 
-/datum/heretic_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	for(var/ref as anything in created_items)
 		var/atom/real_thing = locateUID(ref)
 		if(QDELETED(real_thing))
@@ -237,9 +237,9 @@
 
 	return TRUE
 
-/datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	for(var/result in result_atoms)
-		var/atom/created_thing = new result(loc)
+		var/atom/created_thing = new result(our_turf)
 		LAZYADD(created_items,created_thing.UID())
 	return TRUE
 
@@ -387,22 +387,22 @@
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
-/datum/heretic_knowledge/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	return summon_ritual_mob(user, loc, mob_to_summon)
+/datum/heretic_knowledge/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
+	return summon_ritual_mob(user, our_turf, mob_to_summon)
 
 /**
  * Creates the ritual mob and grabs a ghost for it
  *
  * * user - the mob doing the summoning
- * * loc - where the summon is happening
+ * * our_turf - where the summon is happening
  * * mob_to_summon - either a mob instance or a mob typepath
  */
-/datum/heretic_knowledge/proc/summon_ritual_mob(mob/living/user, turf/loc, mob/living/mob_to_summon)
+/datum/heretic_knowledge/proc/summon_ritual_mob(mob/living/user, turf/our_turf, mob/living/mob_to_summon)
 	var/mob/living/simple_animal/summoned
 	if(issimple_animal(mob_to_summon))
 		summoned = mob_to_summon
 	else
-		summoned = new mob_to_summon(loc)
+		summoned = new mob_to_summon(our_turf)
 	summoned.AIStatus = AI_OFF
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
@@ -522,10 +522,10 @@
 /datum/heretic_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !was_completed
 
-/datum/heretic_knowledge/knowledge_ritual/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/knowledge_ritual/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	return !was_completed
 
-/datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
 	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
 	was_completed = TRUE
@@ -572,7 +572,7 @@
 
 	return TRUE
 
-/datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
 		return FALSE
@@ -593,7 +593,7 @@
 /datum/heretic_knowledge/ultimate/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	return (sacrifice.stat == DEAD) && !ismonkeybasic(sacrifice) && istype(sacrifice)
 
-/datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.ascended = TRUE
 

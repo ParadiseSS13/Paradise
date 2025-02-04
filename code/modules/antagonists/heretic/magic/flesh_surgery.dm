@@ -127,7 +127,7 @@
 	to_chat(caster, "<span class='notice'>You begin to extract [chosen_organ]...</span>")
 	playsound(victim, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	carbon_victim.add_atom_colour(COLOR_RED, TEMPORARY_COLOUR_PRIORITY)
-	if(!do_after(caster, time_it_takes, carbon_victim, extra_checks = list(CALLBACK(src, PROC_REF(extraction_checks), chosen_organ, hand, victim, caster))))
+	if(!do_after(caster, time_it_takes, target = carbon_victim, extra_checks = list(CALLBACK(src, PROC_REF(extraction_checks), chosen_organ, hand, victim, caster))))
 		to_chat(caster, "<span class='warning'>You were interupted!</span>")
 		carbon_victim.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_RED)
 		return FALSE

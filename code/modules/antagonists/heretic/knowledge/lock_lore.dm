@@ -184,7 +184,7 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "lockascend"
 
-/datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -204,7 +204,7 @@
 		return FALSE
 	return TRUE
 
-/datum/heretic_knowledge/ultimate/lock_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/lock_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	// buffs
 //	var/datum/spell/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
@@ -213,4 +213,4 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/heretic_knowledge/blade_upgrade/flesh/lock/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/flesh/lock)
 	blade_upgrade.chance += 30
-	new /obj/structure/lock_tear(loc, user.mind)
+	new /obj/structure/lock_tear(our_turf, user.mind)

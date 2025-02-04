@@ -127,7 +127,7 @@
 
 
 
-/datum/heretic_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -146,7 +146,7 @@
 	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, there is no valid body.</span>")
 	return FALSE
 
-/datum/heretic_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
@@ -289,7 +289,7 @@
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "fleshascend"
 
-/datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
 	var/datum/spell/shapeshift/shed_human_form/worm_spell = new(user.mind)
 	user.mind.AddSpell(worm_spell)

@@ -45,9 +45,9 @@
 
 	var/rusting_range = 8
 
-/datum/heretic_knowledge/entropy_pulse/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	for(var/turf/nearby_turf in view(rusting_range, loc))
-		if(get_dist(nearby_turf, loc) <= 1) //tiles on rune should always be rusted
+/datum/heretic_knowledge/entropy_pulse/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
+	for(var/turf/nearby_turf in view(rusting_range, our_turf))
+		if(get_dist(nearby_turf, our_turf) <= 1) //tiles on rune should always be rusted
 			nearby_turf.rust_heretic_act()
 		//we exclude closed turf to avoid exposing cultist bases
 		if(prob(10) || iswallturf(nearby_turf))
