@@ -161,7 +161,7 @@
 /datum/ruleset/traitor
 	name = "Traitor"
 	ruleset_weight = 11
-	antag_cost = 5
+	antag_cost = 7
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
 
