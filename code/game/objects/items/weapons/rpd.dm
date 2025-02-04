@@ -348,7 +348,7 @@
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
 
-		if(!(user in viewers(12, T))) // Checks if the user can see the target turf
+		if(!(user in hearers(12, T))) // Checks if user can hear the target turf, cause viewers doesnt work for it.
 			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			return
