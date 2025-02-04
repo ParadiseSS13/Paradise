@@ -142,6 +142,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/update_overlays()
 	. = ..()
+	var/datum/data/pda/utility/flashlight/A = find_program(/datum/data/pda/utility/flashlight)
+	if(A.fon)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-light-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-light-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-light")
+
+
 	if(id)
 		switch(icon_state)
 			if("pda-library")
@@ -413,15 +424,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
-	if(FL.fon)
-		switch(icon_state)
-			if("pda-library")
-				. += image('icons/obj/pda.dmi', "pda-light-library")
-			if("pda-syndi")
-				. += image('icons/obj/pda.dmi', "pda-light-syndi")
-			else
-				. += image('icons/obj/pda.dmi', "pda-light")
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/get_ID_assignment(if_no_id = "No id")
 	. = ..()
