@@ -42,17 +42,14 @@
 
 	qdel(src)
 
-// There has to be a better way to do this but this will do for now.
-/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers) // If not mob, don't try to attack.
-	if(!isliving(target))
-		return ..()
+// This should probably go inside of the pre_attack, but every way I tried it, it lost some sort of tap on machinery.
+/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers) // The requirements to start an attack.
+	if(user.a_intent == INTENT_HARM && isliving(target) && is_glass)
+		return NONE
+	return ..()
 
 /obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
-	if(..()) // does this need a !target?
-		return FINISH_ATTACK
-
-	if(user.a_intent != INTENT_HARM || !is_glass) // No attack, return to the OG interact proc.
-		mob_act(A, user)
+	if(..())
 		return FINISH_ATTACK
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
