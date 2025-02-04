@@ -314,7 +314,7 @@
 	return data
 
 /datum/ui_module/appearance_changer/proc/update_dna()
-	if(owner && (flags & APPEARANCE_UPDATE_DNA))
+	if(owner)
 		owner.update_dna()
 
 /datum/ui_module/appearance_changer/proc/can_change(flag)
