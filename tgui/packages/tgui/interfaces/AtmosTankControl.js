@@ -40,86 +40,80 @@ export const AtmosTankControl = (props, context) => {
             </LabeledList>
           </Section>
         ))}
-        {data.inlets && Object.keys(data.inlets).length > 0 ? <TankControlInjectorView /> : ''}
-        {data.vent_outlets && Object.keys(data.vent_outlets).length > 0 ? <TankControlVentView /> : ''}
+        {data.inlets && Object.keys(data.inlets).length > 0
+          ? data.inlets.map((inlet) => (
+              <Section title={'Inlet: ' + inlet.name} key={inlet}>
+                <LabeledList>
+                  <LabeledList.Item label="Power">
+                    <Button
+                      icon={inlet.on ? 'power-off' : 'power-off'}
+                      content={inlet.on ? 'On' : 'Off'}
+                      color={inlet.on ? null : 'red'}
+                      selected={inlet.on}
+                      onClick={() => act('toggle_inlet_active', { dev: inlet.uid })}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Rate">
+                    <NumberInput
+                      animated
+                      unit={'L/s'}
+                      width={6.1}
+                      lineHeight={1.5}
+                      step={1}
+                      minValue={0}
+                      maxValue={50}
+                      value={inlet.rate}
+                      onDrag={(e, value) =>
+                        act('set_inlet_volume_rate', {
+                          dev: inlet.uid,
+                          val: value,
+                        })
+                      }
+                    />
+                  </LabeledList.Item>
+                </LabeledList>
+              </Section>
+            ))
+          : ''}
+        {data.vent_outlets && Object.keys(data.vent_outlets).length > 0
+          ? data.vent_outlets.map((outlet) => (
+              <Section title={'Outlet: ' + outlet.name} key={outlet}>
+                <LabeledList>
+                  <LabeledList.Item label="Power">
+                    <Button
+                      icon={outlet.on ? 'power-off' : 'power-off'}
+                      content={outlet.on ? 'On' : 'Off'}
+                      color={outlet.on ? null : 'red'}
+                      selected={outlet.on}
+                      onClick={() => act('toggle_outlet_active', { dev: outlet.uid })}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Rate">
+                    <NumberInput
+                      animated
+                      unit={'kPa'}
+                      width={6.1}
+                      lineHeight={1.5}
+                      step={10}
+                      minValue={0}
+                      maxValue={5066}
+                      value={outlet.rate}
+                      onDrag={(e, value) =>
+                        act('set_outlet_pressure', {
+                          dev: outlet.uid,
+                          val: value,
+                        })
+                      }
+                    />
+                  </LabeledList.Item>
+                </LabeledList>
+              </Section>
+            ))
+          : ''}
         {data.scrubber_outlets && Object.keys(data.scrubber_outlets).length > 0 ? <TankControlScrubbersView /> : ''}
       </Window.Content>
     </Window>
   );
-};
-
-const TankControlInjectorView = (props, context) => {
-  const { act, data } = useBackend(context);
-  return data.inlets.map((inlet) => (
-    <Section title={'Inlet: ' + inlet.name} key={inlet}>
-      <LabeledList>
-        <LabeledList.Item label="Power">
-          <Button
-            icon={inlet.on ? 'power-off' : 'power-off'}
-            content={inlet.on ? 'On' : 'Off'}
-            color={inlet.on ? null : 'red'}
-            selected={inlet.on}
-            onClick={() => act('toggle_inlet_active', { dev: inlet.uid })}
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Rate">
-          <NumberInput
-            animated
-            unit={'L/s'}
-            width={6.1}
-            lineHeight={1.5}
-            step={1}
-            minValue={0}
-            maxValue={50}
-            value={inlet.rate}
-            onDrag={(e, value) =>
-              act('set_inlet_volume_rate', {
-                dev: inlet.uid,
-                val: value,
-              })
-            }
-          />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
-  ));
-};
-
-const TankControlVentView = (props, context) => {
-  const { act, data } = useBackend(context);
-  return data.vent_outlets.map((outlet) => (
-    <Section title={'Outlet: ' + outlet.name} key={outlet}>
-      <LabeledList>
-        <LabeledList.Item label="Power">
-          <Button
-            icon={outlet.on ? 'power-off' : 'power-off'}
-            content={outlet.on ? 'On' : 'Off'}
-            color={outlet.on ? null : 'red'}
-            selected={outlet.on}
-            onClick={() => act('toggle_outlet_active', { dev: outlet.uid })}
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Rate">
-          <NumberInput
-            animated
-            unit={'kPa'}
-            width={6.1}
-            lineHeight={1.5}
-            step={10}
-            minValue={0}
-            maxValue={5066}
-            value={outlet.rate}
-            onDrag={(e, value) =>
-              act('set_outlet_pressure', {
-                dev: outlet.uid,
-                val: value,
-              })
-            }
-          />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
-  ));
 };
 
 const TankControlScrubbersView = (props, context) => {
