@@ -165,10 +165,9 @@
 /obj/item/melee/baton/activate_self(mob/user)
 	. = ..()
 
-	// Sometimes the borg baton spawns without a cell for reasons beyond my ken. Given that they cannot replace it, that is VERY bad. This will fix and report that on the spot.
+	// Sometimes the borg baton spawns without linking to the cyborg's cell for reasons beyond my ken. That is VERY bad. This will fix it on the spot.
 	// They have to turn it on to use it, after all.
 	if(isrobot(loc) && !cell)
-		log_debug("[user] baton did not have a linked cell!")
 		link_new_cell()
 
 	if(cell?.charge >= hitcost)
@@ -190,8 +189,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params)
-	. = ..()
+/obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		// For those super edge cases where you clumsy baton yourself in quick succession.
 		if(baton_stun(user, user, skip_cooldown = TRUE))
@@ -199,41 +197,56 @@
 				"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 				"<span class='userdanger'>You accidentally hit yourself with [src]!</span>"
 				)
-		return
+		return TRUE
 
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
-		return FALSE
+		return TRUE
 
-	// Can't stunbaton borgs and AIs
-	if(issilicon(target))
-		return 
+	if(!ismob(A))
+		return ..()
 
-	if(!isliving(target))
-		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/mob/living/target = A
 
-	var/mob/living/L = target
 	if(user.a_intent == INTENT_HARM)
-		if(turned_on)
-			baton_stun(L, user, ignore_shield_check = TRUE)
-		return
+		// Harmbaton!
+		return ..()
 
 	if(!turned_on)
-		user.do_attack_animation(L)
-		L.visible_message(
-			"<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
-			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
+		user.do_attack_animation(target)
+		target.visible_message(
+			"<span class='warning'>[user] has prodded [target] with [src]. Luckily it was off.</span>",
+			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
 			)
-		return FALSE
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+		return TRUE
 
-	if(baton_stun(L, user))
-		user.do_attack_animation(L)
-	return FALSE
+	// Only human mobs can be stunned.
+	if(!ishuman(target))
+		user.do_attack_animation(target)
+		target.visible_message(
+			"<span class='warning'>[user] has prodded [target] with [src]. It doesn't seem to have an effect.</span>",
+			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
+		)
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+		return TRUE
+
+	if(baton_stun(target, user))
+		user.do_attack_animation(target)
+	return TRUE
+
+/obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(ishuman(target) && turned_on)
+		var/mob/living/carbon/human/H = target
+		baton_stun(H, user, ignore_shield_check = TRUE)
 
 /// returning false results in no baton attack animation, returning true results in an animation. If ignore_shield_check is true, the baton will not run check shields, and will hit if not on cooldown.
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
+
 	var/user_UID = user.UID()
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
