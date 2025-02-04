@@ -534,7 +534,7 @@
 				if(MALF_STATUS_SKULL)
 					holder.icon_state = "hud_malf_skull"
 					return
-	holder.icon_state = null
+	holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

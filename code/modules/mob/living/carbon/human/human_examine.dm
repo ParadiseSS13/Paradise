@@ -244,15 +244,16 @@
 		var/perpname = get_visible_name(TRUE)
 		var/malf = "None"
 
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in GLOB.data_core.security)
-					if(R.fields["id"] == E.fields["id"])
-						for(var/datum/data/record/A in GLOB.data_core.ai)
-							malf = A.fields["ai_status"]
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					for(var/datum/data/record/R in GLOB.data_core.security)
+						if(R.fields["id"] == E.fields["id"])
+							for(var/datum/data/record/A in GLOB.data_core.ai)
+								malf = A.fields["ai_target"]
 
-		var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=1'>\[[malf]\]</a>" : "\[[malf]\]"
-
+			var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=`'>\[[malf]\]</a>" : "\[[malf]\]"
+			msg += "<span class='deptradio'>Target Status:</span> [malf_status]\n"
 
 	return msg
 

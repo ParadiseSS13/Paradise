@@ -663,7 +663,7 @@
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
 	if(href_list["ai"])
-		try_set_malf_status()
+		try_set_malf_status(usr)
 
 	. = ..()
 
@@ -747,7 +747,8 @@
 			if(E.fields["name"] == targetname)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["id"] == E.fields["id"])
-						found_record = R
+						for(var/datum/data/record/A in GLOB.data_core.ai)
+							found_record = A
 						break outer
 
 	if(!found_record)
@@ -766,6 +767,8 @@
 
 	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
 		return
+
+	found_record.fields["ai_target"] = new_status
 
 	update_all_mob_malf_hud(new_status)
 

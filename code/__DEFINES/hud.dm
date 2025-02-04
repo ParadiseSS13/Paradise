@@ -76,10 +76,10 @@
 #define EXAMINE_HUD_MEDICAL_READ "medical_read"
 #define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
-#define EXAMINE_HUD_MALF_WRITE "malf_write"
-#define EXAMINE_HUD_MALF_READ "malf_read"
 
 // MALF Hud statuses
+#define EXAMINE_HUD_MALF_WRITE "malf_write"
+#define EXAMINE_HUD_MALF_READ "malf_read"
 #define MALF_STATUS_GREEN "POSITIVE"
 #define MALF_STATUS_RED "NEGATIVE"
 #define MALF_STATUS_SKULL "ELIMINATE"
