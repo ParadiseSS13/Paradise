@@ -929,7 +929,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
 		if(ask != "Yes")
 			return TRUE
-		var/has_do_not_possess = ""
+		var/has_do_not_possess
 		if(HAS_TRAIT(tothing, TRAIT_DO_NOT_POSSESS))
 			var/double_confirm = alert("[tothing] has TRAIT_DO_NOT_POSSSESS. Things could break if you possess it. Are you REALLY sure?", "Override TRAIT_DO_NOT_POSSESS?", "Yes, break stuff!", "No, play it safe.")
 			if(double_confirm != "Yes, break stuff!")

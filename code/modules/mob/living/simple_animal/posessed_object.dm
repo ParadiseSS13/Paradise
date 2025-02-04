@@ -82,7 +82,7 @@
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
 	if(was_shade)
-		var/response = tgui_alert(src, "Return to life as a shade? You will need help if you want to possess an object again.", "Are you sure you want to ghost?", list("Become shade", "Continue possessing"))
+		var/response = tgui_alert(src, "Are you sure you want to leave [possessed_item] and return to life as a shade? You will need help if you want to possess an object again.", "Really leave this item?", list("Become shade", "Continue possessing"))
 		if(response != "Become shade")
 			return
 		lay_down()
