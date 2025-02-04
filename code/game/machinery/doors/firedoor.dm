@@ -122,7 +122,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] opens [src].</span>",
 			"<span class='notice'>You open [src].</span>")
-		open(auto_close = FALSE)
+		open()
 
 /obj/machinery/door/firedoor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
@@ -187,6 +187,12 @@
 	welded = !welded
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/door/firedoor/emag_act(mob/user)
+	if(!density)
+		return
+	autoclose = FALSE
+	return ..()
+
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
@@ -245,15 +251,13 @@
 	adjust_light()
 	update_icon()
 
-/obj/machinery/door/firedoor/open(auto_close = TRUE)
+/obj/machinery/door/firedoor/open()
 	if(welded)
 		return
 	. = ..()
-	latetoggle(auto_close)
+	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
-	if(auto_close)
-		autoclose = TRUE
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
@@ -263,20 +267,20 @@
 	if(active_alarm)
 		. = ..()
 
-/obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || !hasPower() || !nextstate)
 		return
 	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	if(nextstate == FD_CLOSED)
 		INVOKE_ASYNC(src, PROC_REF(close))
 	nextstate = null
 
-/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
 	if(!magic && (operating || !hasPower()))
 		return
 	if(density)
-		open(auto_close)
+		open()
 	else
 		close()
 
