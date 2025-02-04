@@ -89,7 +89,7 @@
 		death()
 		return
 
-	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
+	var/response = tgui_alert(src, "End your possession of [possessed_item] and become a ghost? This will not stop you from respawning later.", "Really leave this item?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
 	lay_down()
