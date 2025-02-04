@@ -25,6 +25,7 @@
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
+	new_attack_chain = TRUE
 	/// Reference to whatever machine is held in the buffer
 	var/obj/machinery/buffer // TODO - Make this a soft ref to tie into whats below
 	/// Soft-ref for linked stuff. This should be used over the above var.
@@ -47,7 +48,8 @@
 	buffer = null
 	return ..()
 
-/obj/item/multitool/attack_self__legacy__attackchain(mob/user)
+/obj/item/multitool/activate_self(mob/user)
+	. = ..()
 	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
 		return
 	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)
@@ -63,7 +65,10 @@
 
 /obj/item/multitool/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!can_see(user, target, 1) || !istype(target, /obj/machinery/atmospherics/unary))
+	if(!istype(target, /obj/machinery/atmospherics/unary))
+		return
+	if(!(target in view(5, user)))
+		to_chat(user,"<span class='warning'>[target] out of multitool range. Please get within 5 meters and try again.<span>")
 		return
 	return target.multitool_act(user, src)
 
