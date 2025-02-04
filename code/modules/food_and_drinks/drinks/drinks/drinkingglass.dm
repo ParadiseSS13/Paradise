@@ -16,13 +16,13 @@
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/drinks/drinkingglass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(I, /obj/item/food/egg)) //breaking eggs
+	if(istype(used, /obj/item/food/egg)) //breaking eggs
 		var/obj/item/food/egg/egg = used
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 			else
-				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
+				to_chat(user, "<span class='notice'>You break [egg] in [src].</span>")
 				egg.reagents.trans_to(src, egg.reagents.total_volume)
 				qdel(egg)
 		return ITEM_INTERACT_COMPLETE

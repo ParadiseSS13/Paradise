@@ -71,7 +71,7 @@
 	if(!can_opened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return ITEM_INTERACT_COMPLETE
-	if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
+	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
 		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
 		crush(user)
 		return ITEM_INTERACT_COMPLETE
