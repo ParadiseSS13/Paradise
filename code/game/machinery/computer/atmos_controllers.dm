@@ -457,7 +457,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				to_chat(user, "<span class='notice'>Successfully added an outlet vent</span>")
 				return
 			if(istype(linked_datum, /obj/machinery/atmospherics/unary/vent_scrubber))
-				outlet_uids += linked_datum.UID()
 				outlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 				var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = linked_datum
 				// Setup some defaults
@@ -486,8 +485,12 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 		if("Remove")
 			var/list/namelist = list()
+
 			for(var/uid in outlet_vent_data)
 				namelist += outlet_vent_data[uid]["name"]
+			for(var/uid in outlet_scrubber_data)
+				namelist += outlet_scrubber_data[uid]["name"]
+
 			choice = tgui_input_list(user, "Select an outlet to remove", "outlet Selection", namelist)
 			for(var/uid in outlet_uids)
 				if((outlet_vent_data[uid] && choice == outlet_vent_data[uid]["name"]) || (outlet_scrubber_data[uid] && choice == outlet_scrubber_data[uid]["name"]))
@@ -530,8 +533,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_outlets()
 	var/obj/machinery/atmospherics/unary/outlet
 	for(var/uid in outlet_uids)
+		outlet = locateUID(uid)
 		if(istype(outlet, /obj/machinery/atmospherics/unary/vent_pump))
-			var/obj/machinery/atmospherics/unary/vent_pump/vent = locateUID(uid)
+			var/obj/machinery/atmospherics/unary/vent_pump/vent = outlet
 			if(QDELETED(vent))
 				outlet_scrubber_data -= uid
 				outlet_vent_data -= uid
@@ -541,7 +545,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_vent_data[uid]["on"] = vent.on
 			outlet_vent_data[uid]["rate"] = vent.internal_pressure_bound
 		if(istype(outlet, /obj/machinery/atmospherics/unary/vent_scrubber))
-			var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = locateUID(uid)
+			var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = outlet
 			if(QDELETED(scrubber))
 				outlet_scrubber_data -= uid
 				outlet_vent_data -= uid
@@ -637,7 +641,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					scrubber.widenet = !scrubber.widenet
 				if("scrubbing")
 					scrubber.scrubbing = !scrubber.scrubbing
-
+			refresh_outlets()
 			scrubber.update_icon(UPDATE_ICON_STATE)
 
 	return TRUE
