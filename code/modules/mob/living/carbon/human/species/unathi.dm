@@ -92,7 +92,7 @@
 	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
 		if(ismask(user.wear_mask))
 			var/obj/item/clothing/mask/worn_mask = user.wear_mask
-			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.worn_mask?.flags_cover & MASKCOVERSMOUTH) && !user.worn_mask?.up)
+			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (worn_mask.flags_cover & MASKCOVERSMOUTH) && !worn_mask.up)
 				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
 				return
 		var/obj/item/match/unathi/fire = new(user.loc, src)
