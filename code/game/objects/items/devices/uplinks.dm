@@ -457,6 +457,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	hidden_uplink = new(src)
 
 /obj/item/multitool/uplink/activate_self(mob/user as mob)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
