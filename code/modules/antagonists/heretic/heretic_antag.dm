@@ -537,7 +537,6 @@
 
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
-		other_sac_objective.owner = owner
 		add_antag_objective(other_sac_objective)
 	if(prob(5))
 		add_antag_objective(/datum/objective/hijack)
