@@ -156,7 +156,8 @@
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
 
-	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
+	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
 
 /datum/ruleset/traitor
 	name = "Traitor"
@@ -173,6 +174,22 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
+
+/datum/ruleset/traitor/autotraitor
+	name = "Autotraitor"
+	ruleset_weight = 2
+
+/datum/ruleset/traitor/autotraitor/ruleset_possible(ruleset_budget, rulesets)
+	if(length(rulesets))
+		return "autotot cant roll with other rulesets"
+	if(ruleset_budget != 1)
+		return "autotot cant roll with other rulesets (budget)"
+	return ..()
+
+/datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
+	. = ..()
+	latespawn_time = null
+	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
 
 /datum/ruleset/vampire
 	name = "Vampire"
