@@ -1253,7 +1253,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint
-	if(wear_mask)
+	if(istype(wear_mask))
 		. += wear_mask.tint
 
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
@@ -1272,7 +1272,7 @@ so that different stomachs can handle things in different ways VB*/
 	update_inv_wear_mask()
 
 /mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
-	if(C.tint || initial(C.tint))
+	if(istype(C) && (C.tint || initial(C.tint)))
 		update_tint()
 	update_inv_wear_mask()
 
