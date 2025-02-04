@@ -120,6 +120,8 @@
 	return INSERT_DONE
 
 /obj/machinery/economy/vending/custom/MouseDrop_T(atom/dragged, mob/user, params)
+	if(locked(user) == VENDOR_LOCKED)
+		return ..()
 	if(!istype(dragged, /obj/item/storage))
 		return ..()
 
