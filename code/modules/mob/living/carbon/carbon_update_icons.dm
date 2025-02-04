@@ -18,6 +18,7 @@
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed++
 		ntransform.Scale(resize)
+		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
