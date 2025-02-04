@@ -11,19 +11,9 @@
 	pda.update_shortcuts()
 	pda.set_light(fon ? f_lum : 0)
 	if(fon)
-		if(icon_state == "pda-library")
-			pda.overlays += image('icons/obj/pda.dmi', "pda-light-library")
-		if(icon_state == "pda-syndi")
-			pda.overlays += image('icons/obj/pda.dmi', "pda-light-syndi")
-		else
-			pda.overlays += image('icons/obj/pda.dmi', "pda-light")
+		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
 	else
-		if(icon_state == "pda-library")
-			pda.overlays -= image('icons/obj/pda.dmi', "pda-light-library")
-		if(icon_state == "pda-syndi")
-			pda.overlays -= image('icons/obj/pda.dmi', "pda-light-syndi")
-		else
-			pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
