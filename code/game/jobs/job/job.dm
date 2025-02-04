@@ -234,13 +234,13 @@
 
 	imprint_pda(H)
 	var/list/leftover_items = list()
-	for(var/datum/quirk in H.quirks)
+	for(var/datum/quirk/quirk in H.quirks)
 		if(quirk.item_to_give)
 			leftover_items += quirk.item_to_give
 
 	for(var/datum/gear/G in gear_leftovers)
 		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
-		
+
 	for(var/obj/item/item in leftover_items)
 		var/atom/placed_in = H.equip_or_collect(item)
 		if(istype(placed_in))
