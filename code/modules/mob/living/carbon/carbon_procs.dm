@@ -127,7 +127,7 @@
 				adjustBruteLoss(3)
 		else
 			if(T)
-				T.add_vomit_floor(type_overide = vomit_type_overide)
+				T.add_vomit_floor(type_override = vomit_type_overide)
 			adjust_nutrition(-lost_nutrition)
 			if(should_confuse)
 				adjustToxLoss(-3)
