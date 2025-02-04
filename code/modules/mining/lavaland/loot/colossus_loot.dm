@@ -167,7 +167,7 @@
 	. = ..()
 	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
 								/obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus,
-								/obj/item/projectile/moon_parade, /obj/item/projectile/magic/star_ball, /obj/item/projectile/magic/rust_wave)
+								/obj/item/projectile/moon_parade, /obj/item/projectile/magic/star_ball, /obj/item/projectile/magic/rust_wave/short)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())

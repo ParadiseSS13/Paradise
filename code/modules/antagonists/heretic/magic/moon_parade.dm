@@ -78,15 +78,16 @@
 
 	var/mob/living/victim = target
 	var/mob/living/caster = firer
-	if(caster == victim)
-		return
+	if(caster)
+		if(caster == victim)
+			return
 
-	if(!caster.mind)
-		return
+		if(!caster.mind)
+			return
 
-	var/datum/antagonist/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
-	if(monster?.master == caster.mind)
-		return
+		var/datum/antagonist/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
+		if(monster?.master == caster.mind)
+			return
 	if(!(victim in mobs_hit))
 		RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(clear_mob))
 		victim.AddComponent(/datum/component/leash, src, distance = 1)
