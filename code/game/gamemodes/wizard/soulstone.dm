@@ -87,7 +87,7 @@
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return FINISH_ATTACK
 
-	if(!ishuman(target)) //If target is not a human
+	if(!ishuman(target)) // If target is not a human
 		return ..()
 
 /obj/item/soulstone/attack(mob/living/target, mob/living/carbon/human/user)

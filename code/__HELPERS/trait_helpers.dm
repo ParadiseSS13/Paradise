@@ -314,7 +314,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
 
-///An object that should not be able to be possessed by a player.
+/// An object that should not be able to be possessed by a player.
 #define TRAIT_DO_NOT_POSSESS "do_not_possess"
 
 /// A general trait for tracking whether a zombie owned the organ or limb

@@ -55,11 +55,11 @@
 		/obj/item/toy/plushie/voxplushie
 	))
 
-	///Was this possession created from a shade?
+	/// Was this possession created from a shade?
 	var/was_shade = FALSE
-	///What type was the shade?
+	/// What type was the shade?
 	var/shade_type
-	///What name did the shade have?
+	/// What name did the shade have?
 	var/shade_name = "Broken Shade"
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
