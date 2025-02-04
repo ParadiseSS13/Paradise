@@ -139,11 +139,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		P.pda = src
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/update_overlays()
 	. = ..()
-	var/datum/data/pda/utility/flashlight/A = find_program(/datum/data/pda/utility/flashlight)
-	if(A.fon)
+	var/datum/data/pda/utility/flashlight/flash = find_program(/datum/data/pda/utility/flashlight)
+	if(flash.fon)
 		switch(icon_state)
 			if("pda-library")
 				. += image('icons/obj/pda.dmi', "pda-light-library")
