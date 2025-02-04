@@ -61,6 +61,12 @@
 		return
 	to_chat(user, "<span class='notice'>APC detected [get_dist(src, apc)] meter\s [dir2text(get_dir(src, apc))].</span>")
 
+/obj/item/multitool/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(!can_see(user, target, 1) || !istype(target, /obj/machinery/atmospherics/unary))
+		return
+	return target.multitool_act(user, src)
+
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
 	var/track_cooldown = 0

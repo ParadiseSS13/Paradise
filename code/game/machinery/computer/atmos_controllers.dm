@@ -388,6 +388,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			choice = tgui_input_list(user, "Select an inlet to remove", "Inlet Selection", namelist)
 			for(var/uid in inlet_data)
 				if(choice == inlet_data[uid]["name"])
+					var/obj/machinery/atmospherics/unary/outlet_injector/OI
+					if(!QDELETED(OI))
+						OI.on = FALSE
+						OI.update_icon()
 					inlet_data -= uid
 					inlet_uids -= uid
 
@@ -441,6 +445,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			choice = tgui_input_list(user, "Select an outlet to remove", "outlet Selection", namelist)
 			for(var/uid in outlet_data)
 				if(choice == outlet_data[uid]["name"])
+					var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(uid)
+					if(!QDELETED(VP))
+						VP.on = FALSE
+						VP.update_icon()
 					outlet_data -= uid
 					outlet_uids -= uid
 
