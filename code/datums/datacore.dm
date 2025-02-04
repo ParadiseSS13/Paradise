@@ -2,6 +2,7 @@
 	var/list/medical = list()
 	var/list/general = list()
 	var/list/security = list()
+	var/list/ai = list()
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
 
@@ -220,6 +221,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			S.fields["notes"] = "No notes found."
 		LAZYINITLIST(S.fields["comments"])
 		security += S
+
+		//Malf AI record
+		var/datum/data/record/A = new()
+		A.fields["ai_target"]	= "None"
+		ai += A
 
 		//Locked Record
 		var/datum/data/record/L = new()

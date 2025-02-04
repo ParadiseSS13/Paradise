@@ -240,6 +240,19 @@
 			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
+	if(hasHUD(user, EXAMINE_HUD_MALF_READ))
+		var/perpname = get_visible_name(TRUE)
+		var/malf = "None"
+
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						for(var/datum/data/record/A in GLOB.data_core.ai)
+							malf = A.fields["ai_status"]
+
+		var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=1'>\[[malf]\]</a>" : "\[[malf]\]"
+
 
 	return msg
 

@@ -516,7 +516,7 @@
 	Malf AI HUD
 ~~~~~~~~~~~~~~~*/
 
-/mob/living/carbon/human/proc/malf_hud_set_status(mob/user, )
+/mob/living/carbon/human/proc/malf_hud_set_status(new_status)
 	var/image/holder = hud_list[MALF_AI_HUD]
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
@@ -524,7 +524,17 @@
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)
-			switch(R.fields[""])
+			switch(new_status)
+				if(MALF_STATUS_GREEN)
+					holder.icon_state = "hud_malf_green"
+					return
+				if(MALF_STATUS_RED)
+					holder.icon_state = "hud_malf_red"
+					return
+				if(MALF_STATUS_SKULL)
+					holder.icon_state = "hud_malf_skull"
+					return
+	holder.icon_state = null
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

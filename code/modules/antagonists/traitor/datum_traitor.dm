@@ -168,6 +168,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 		var/mob/living/silicon/ai/A = owner.current
 		A.show_laws()
+		var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MALF_AI]
+		H.add_hud_to(A)
 	else
 		if(give_uplink)
 			give_uplink()
@@ -207,8 +209,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	killer.add_malf_picker()
 
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MALF_AI]
-	killer.add_hud_to(killer)
+
 
 /**
  * Gives a traitor human their uplink, and uplink code.
