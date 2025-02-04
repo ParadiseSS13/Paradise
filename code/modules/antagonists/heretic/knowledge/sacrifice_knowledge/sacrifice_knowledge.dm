@@ -112,6 +112,8 @@
 	for(var/datum/mind/possible_target as anything in SSticker.minds)
 		if(possible_target == user.mind)
 			continue
+		if(!possible_target.assigned_role)
+			continue
 		if(is_invalid_target(possible_target))
 			continue
 		if(possible_target in target_blacklist)

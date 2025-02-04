@@ -158,6 +158,14 @@
 							"Construct Shell" = /obj/structure/constructshell)
 	mansus_conversion_path = /obj/effect/heretic_rune/big
 
+/obj/structure/cult/functional/altar/get_choosable_items()
+	. = ..()
+
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[PROTEON_ORB_UNLOCKED])
+		return
+	. += "Summoning Orb"
+	.["Summoning Orb"] = /obj/item/proteon_orb
+
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(altar_icon_state, "altar")
@@ -185,6 +193,10 @@
 		// Both lines here are needed. If you do it without, youll get issues.
 		. += "Mirror Shield"
 		.["Mirror Shield"] = /obj/item/shield/mirror
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[CURSED_BLADE_UNLOCKED])
+		return
+	. += "Cursed Blade"
+	.["Cursed Blade"] = /obj/item/melee/sickly_blade/cursed
 
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
@@ -229,7 +241,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/wall/cult/artificer
 	)))
 
- //why is this a subtype of the dispenser type
+//why is this a subtype of the dispenser type
 /obj/structure/cult/functional/pylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
@@ -333,6 +345,14 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift, "Reality sunderer" = /obj/item/portal_amulet, "Blank Tarot Card" = /obj/item/blank_tarot_card)
 	mansus_conversion_path = /obj/item/codex_cicatrix
+
+/obj/structure/cult/functional/archives/get_choosable_items()
+	. = ..()
+
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[CRIMSON_MEDALLION_UNLOCKED])
+		return
+	. += "Crimson Medallion"
+	.["Crimson Medallion"] = /obj/item/clothing/neck/heretic_focus/crimson_medallion
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()

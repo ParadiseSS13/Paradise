@@ -216,6 +216,7 @@
 		binding = FALSE
 		return
 	playsound(user, 'sound/effects/pray_chaplain.ogg',60,TRUE)
+	rebind_blade(user)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_cultist_handle(mob/living/user, actiontype)
@@ -232,6 +233,7 @@
 		to_chat(user, "<span class='notice'>You were interrupted!</span>")
 		return
 	playsound(user, 'sound/weapons/bladeslice.ogg', 30, TRUE)
+	rebind_blade(user)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
@@ -246,6 +248,7 @@
 		binding = FALSE
 		to_chat(user, "<span class='notice'>You were interrupted!</span>")
 		return
+	rebind_blade(user)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_wizard_handle(mob/living/user, actiontype)
@@ -269,8 +272,9 @@
 		binding = FALSE
 		to_chat(user, "<span class='notice'>You were interrupted!</span>")
 		return
-
 	rebind_blade(user)
+	return TRUE
+
 
 /obj/item/melee/cultblade/haunted/proc/unbind_blade(mob/user)
 	var/holup = tgui_alert(user, "Are you sure you wish to unseal the spirit within?", "Sealed Evil In A Jar", list("I need the power!", "Maybe not..."))

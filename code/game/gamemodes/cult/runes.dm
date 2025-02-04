@@ -953,6 +953,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		summon_ghosts(user, T)
 
 	else if(choice == "Ascend as a Dark Spirit")
+		if(length(SSticker.mode.heretics))
+			to_chat(user, "<span class='hierophant'>The Mansus fogs your view into the spirit wrold...</span>")
+			fail_invoke()
+			log_game("Manifest rune failed - heretic blocked ghosting")
+			return list()
 		ghostify(user, T)
 
 
@@ -983,6 +988,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new_human.key = ghost_to_spawn.key
 	new_human.gender = ghost_to_spawn.gender
 	new_human.alpha = 150 //Makes them translucent
+	ADD_TRAIT(new_human, TRAIT_MUTE, UID())
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST, user) //ghosts can't summon more ghosts, also lets you see actual ghosts
 	for(var/obj/item/organ/external/current_organ in new_human.bodyparts)

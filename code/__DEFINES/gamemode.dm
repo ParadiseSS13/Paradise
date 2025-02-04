@@ -13,6 +13,7 @@
 #define TARGET_INVALID_CULTIST			12
 #define TARGET_INVALID_CULT_CONVERTABLE	13
 #define TARGET_CRYOING					14
+#define TARGET_INVALID_HERETIC			15
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))

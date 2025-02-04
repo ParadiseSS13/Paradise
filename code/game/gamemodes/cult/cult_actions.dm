@@ -30,6 +30,9 @@
 
 	if(user.holy_check())
 		return
+	if(user.AmountHereticSlurring())
+		to_chat(user, "<span class='hierophant_warning'>The Mansus blocks your call!</span>")
+		return
 
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You can't speak!</span>")

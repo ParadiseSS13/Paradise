@@ -330,6 +330,8 @@
 /mob/living/simple_animal/hostile/construct/harvester/heretic
 	name = "Rusted Harvester"
 	real_name = "Rusted Harvester"
+	maxHealth = 50
+	health = 50
 	desc = "A long, thin, decrepit construct originally built to herald Nar'Sie's rise, corrupted and rusted by the forces of the Mansus to spread its will instead."
 	playstyle_string = "You are a Rusted Harvester, built to serve the Sanguine Apostate, twisted to work the will of the Mansus. You are fragile and weak, but you rend cultists (only) apart on each attack. Follow your Master's orders!"
 	faction = list("heretic")
@@ -349,6 +351,16 @@
 	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
 	if(user == src)
 		return
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/AttackingTarget()
+	if(IS_CULTIST(target))
+		melee_damage_lower = min(melee_damage_lower + 5, 40)
+		melee_damage_upper = min(melee_damage_upper + 5, 40)
+	else
+		melee_damage_lower = initial(melee_damage_lower)
+		melee_damage_upper = initial(melee_damage_upper)
+
 	return ..()
 
 

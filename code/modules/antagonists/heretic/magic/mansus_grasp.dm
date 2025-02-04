@@ -78,6 +78,7 @@
 		carbon_hit.Stun(0.5 SECONDS)
 		carbon_hit.AdjustConfused(3 SECONDS)
 		carbon_hit.AdjustDizzy(3 SECONDS)
+		carbon_hit.HereticSlur(30 SECONDS) // This prevents a cultist from calling for help on their mindspeak for 30 seconds. You are on your own.
 
 		var/old_color = carbon_hit.color
 		carbon_hit.color = COLOR_CULT_RED
