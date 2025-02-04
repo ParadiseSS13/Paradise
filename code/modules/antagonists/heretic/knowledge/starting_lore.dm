@@ -62,7 +62,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(!where_to_put_our_heart)
 		var/static/list/backup_organs = list(
 			ORGAN_SLOT_LUNGS = /obj/item/organ/internal/lungs,
-			ORGAN_SLOT_LIVER = /obj/item/organ/internal/liver
+			ORGAN_SLOT_LIVER = /obj/item/organ/internal/liver,
+			ORGAN_SLOT_BRAIN = /obj/item/organ/internal/brain/mmi_holder/posibrain
 		)
 
 		for(var/backup_slot in backup_organs)
@@ -176,7 +177,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/living_heart/proc/is_valid_heart(obj/item/organ/new_heart)
 	if(QDELETED(new_heart))
 		return FALSE
-	if(new_heart.status & (ORGAN_ROBOT|ORGAN_DEAD))
+	if(new_heart.status & (ORGAN_ROBOT|ORGAN_DEAD) && !istype(new_heart, /obj/item/organ/internal/brain/mmi_holder/posibrain)) //posibrains are living enough I guess
 		return FALSE
 
 	return TRUE
