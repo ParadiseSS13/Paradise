@@ -237,7 +237,6 @@
 	possession.ckey = shade.ckey
 	if(shade.mind)
 		shade.mind.transfer_to(possession)
-	possession.del_on_death = FALSE
 	possession.cancel_camera()
 	SEND_SIGNAL(shade, COMSIG_TRANSFER_HELD_BODY, possession)
 	qdel(shade)
