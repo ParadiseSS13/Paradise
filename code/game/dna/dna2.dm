@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/head = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	/*// Body Accessory
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	head_traits_to_dna(character, H)
+	head_traits_to_dna(character, head)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
@@ -163,6 +163,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
+	if(head)
+		head.dna.UI = character.dna.UI
+	if(eyes_organ)
+		eyes_organ.dna.UI = character.dna.UI
 
 	UpdateUI()
 
