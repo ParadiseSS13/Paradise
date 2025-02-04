@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
 	add_pen(new default_pen(src))
+	update_icon(UPDATE_OVERLAYS)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -149,14 +150,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			. += image('icons/obj/pda.dmi', "pda-id")
 
-	if(!id)
-		if(icon_state == "pda-library")
-			. -= image('icons/obj/pda.dmi', "pda-id-library")
-		if(icon_state == "pda-syndi")
-			. -= image('icons/obj/pda.dmi', "pda-id-syndi")
-		else
-			. -= image('icons/obj/pda.dmi', "pda-id")
-
 	if(held_pen)
 		if(icon_state == "pda-library")
 			. += image('icons/obj/pda.dmi', "pda-pen-library")
@@ -164,14 +157,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 			return
 		else
 			. += image('icons/obj/pda.dmi', "pda-pen")
-
-	if(!held_pen)
-		if(icon_state == "pda-library")
-			. -= image('icons/obj/pda.dmi', "pda-pen-library")
-		if(icon_state == "pda-syndi")
-			return
-		else
-			. -= image('icons/obj/pda.dmi', "pda-pen")
 
 	if(length(notifying_programs))
 		if(icon_state == "pda-library")
@@ -245,6 +230,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			user.put_in_hands(held_pen)
 			clear_pen()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
