@@ -113,8 +113,9 @@
 		return TRUE
 
 	var/mob/living/carbon/human/human_user = user
-	var/obj/item/organ/external/their_poor_arm = human_user.get_active_hand()
-	if(prob(25))
+	var/dam_zone = pick("l_arm", "r_arm")
+	var/obj/item/organ/external/their_poor_arm = human_user.get_organ(dam_zone)
+	if(prob(25) && their_poor_arm)
 		to_chat(human_user, "<span class='userdanger'>An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!</span>")
 		their_poor_arm.droplimb()
 		qdel(their_poor_arm)

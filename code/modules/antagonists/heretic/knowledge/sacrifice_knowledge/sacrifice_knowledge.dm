@@ -331,6 +331,8 @@
 
 	sac_target.setBrainLoss(40)
 	sac_target.do_jitter_animation()
+	for(var/datum/disease/critical/heart_failure/HF in sac_target.viruses)
+		HF.cure()
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
