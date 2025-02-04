@@ -149,13 +149,29 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			. += image('icons/obj/pda.dmi', "pda-id")
 
-	if(pen)
+	if(!id)
+		if(icon_state == "pda-library")
+			. -= image('icons/obj/pda.dmi', "pda-id-library")
+		if(icon_state == "pda-syndi")
+			. -= image('icons/obj/pda.dmi', "pda-id-syndi")
+		else
+			. -= image('icons/obj/pda.dmi', "pda-id")
+
+	if(held_pen)
 		if(icon_state == "pda-library")
 			. += image('icons/obj/pda.dmi', "pda-pen-library")
 		if(icon_state == "pda-syndi")
 			return
 		else
 			. += image('icons/obj/pda.dmi', "pda-pen")
+
+	if(!held_pen)
+		if(icon_state == "pda-library")
+			. -= image('icons/obj/pda.dmi', "pda-pen-library")
+		if(icon_state == "pda-syndi")
+			return
+		else
+			. -= image('icons/obj/pda.dmi', "pda-pen")
 
 	if(length(notifying_programs))
 		if(icon_state == "pda-library")
