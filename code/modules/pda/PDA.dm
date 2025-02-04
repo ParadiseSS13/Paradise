@@ -139,7 +139,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		P.pda = src
-		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/update_overlays()
 	. = ..()
