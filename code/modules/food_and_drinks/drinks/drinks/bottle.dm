@@ -42,14 +42,17 @@
 
 	qdel(src)
 
-// This should probably go inside of the pre_attack, but every way I tried it, it lost some sort of tap on machinery.
-/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers) // The requirements to start an attack.
-	if(user.a_intent == INTENT_HARM && isliving(target) && is_glass)
+/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM && isliving(target)) // The requirements to start an attack.
 		return NONE
 	return ..()
 
 /obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
 	if(..())
+		return FINISH_ATTACK
+
+	if(!is_glass) // Harmless bottle, thus we feed.
+		mob_act(A, user)
 		return FINISH_ATTACK
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
