@@ -143,28 +143,31 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 	if(id)
-		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-id-library")
-		if(icon_state == "pda-syndi")
-			. += image('icons/obj/pda.dmi', "pda-id-syndi")
-		else
-			. += image('icons/obj/pda.dmi', "pda-id")
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-id-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-id-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-id")
 
 	if(held_pen)
-		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-pen-library")
-		if(icon_state == "pda-syndi")
-			return
-		else
-			. += image('icons/obj/pda.dmi', "pda-pen")
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-pen-library")
+			if("pda-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-pen")
+
 
 	if(length(notifying_programs))
-		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-dm-library")
-		if(icon_state == "pda-syndi")
-			. += image('icons/obj/pda.dmi', "pda-dm-syndi")
-		else
-			. += image('icons/obj/pda.dmi', "pda-dm")
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-dm-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-dm-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-dm")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
@@ -321,10 +324,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	P.forceMove(src)
 	held_pen = P
 	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/proc/clear_pen()
 	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
 	held_pen = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/attack__legacy__attackchain(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
@@ -408,6 +413,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
+	if(FL.fon)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-light-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-light-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-light")
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/get_ID_assignment(if_no_id = "No id")
 	. = ..()
