@@ -130,7 +130,7 @@
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/manipulate/repair_organ
+		/datum/surgery/intermediate/manipulate/repair_organ,
 		/datum/surgery/intermediate/manipulate/repair_organ/robotic,
 	)
 
