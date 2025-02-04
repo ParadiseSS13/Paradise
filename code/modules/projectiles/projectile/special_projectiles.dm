@@ -377,7 +377,7 @@
 	hitsound = 'sound/effects/curse/curse4.ogg'
 	layer = LARGE_MOB_LAYER
 	damage = 0
-	speed = 0.5
+	speed = 1.5
 	range = 16
 	forcedodge = -1
 	var/burn_damage = 10
