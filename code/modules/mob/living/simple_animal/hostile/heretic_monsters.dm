@@ -21,6 +21,8 @@
 	maxbodytemp = INFINITY
 	pressure_resistance = 100
 	del_on_death = TRUE
+	universal_speak = TRUE
+	universal_understand = TRUE
 	deathmessage = "implodes into itself."
 	loot = list(/obj/effect/gibspawner/human)
 	faction = list("heretic")
