@@ -146,7 +146,7 @@
 	return turfs
 
 /// Recursively loops through the contents of this atom looking for mobs, optionally requiring them to have a client.
-/proc/collect_nested_mobs(atom/parent, list/mobs, recursion_limit = 3, client_check = TRUE)
+/proc/collect_nested_mobs(atom/parent, list/mobs, recursion_limit = 3, client_check = TRUE, ai_eyes = AI_EYE_EXCLUDE)
 	var/list/next_layer = list(parent)
 	for(var/depth in 1 to recursion_limit)
 		var/list/layer = next_layer
@@ -156,7 +156,16 @@
 				continue
 			var/mob/this_mob = thing
 			if(!client_check || this_mob.client)
-				mobs += this_mob
+				if(is_ai(this_mob))
+					// AIs can get messages from their eye as well as themselves, so use |= to make sure they don't get double messages.
+					mobs |= this_mob
+				else
+					// Everything else can only be visited once, so use += for efficiency.
+					mobs += this_mob
+			else if(ai_eyes != AI_EYE_EXCLUDE && is_ai_eye(this_mob))
+				var/mob/camera/eye/ai/eye = this_mob
+				if((ai_eyes == AI_EYE_INCLUDE || eye.relay_speech) && eye.ai && (!client_check || eye.ai.client))
+					mobs |= eye.ai
 			for(var/mob/dead/observer/ghost in this_mob.observers)
 				if(!client_check || ghost.client)
 					mobs += ghost
@@ -166,7 +175,7 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
+/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE, ai_eyes = AI_EYE_EXCLUDE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 #ifdef GAME_TESTS
 	// kind of feels cleaner clobbering here than changing the loop?
@@ -181,7 +190,7 @@
 
 	for(var/atom/A in hear(R, T))
 		if(isobj(A) || ismob(A))
-			collect_nested_mobs(A, hear, 3, !include_clientless)
+			collect_nested_mobs(A, hear, 3, !include_clientless, ai_eyes)
 
 	return hear
 
