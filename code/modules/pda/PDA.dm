@@ -142,13 +142,28 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 	if(id)
-		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+		if(icon_state == "pda-library")
+			. += image('icons/obj/pda.dmi', "pda-id-library")
+		if(icon_state == "pda-syndi")
+			. += image('icons/obj/pda.dmi', "pda-id-syndi")
+		else
+			. += image('icons/obj/pda.dmi', "pda-id")
+
+	if(held_pen)
+		if(icon_state == "pda-library")
+			. += image('icons/obj/pda.dmi', "pda-pen-library")
+		if(icon_state == "pda-syndi")
+			return
+		else
+			. += image('icons/obj/pda.dmi', "pda-pen")
 
 	if(length(notifying_programs))
 		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-r-library")
+			. += image('icons/obj/pda.dmi', "pda-dm-library")
+		if(icon_state == "pda-syndi")
+			. += image('icons/obj/pda.dmi', "pda-dm-syndi")
 		else
-			. += image('icons/obj/pda.dmi', "pda-r")
+			. += image('icons/obj/pda.dmi', "pda-dm")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
