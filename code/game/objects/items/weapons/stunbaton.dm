@@ -26,6 +26,8 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	/// Are we a flayer prod?
+	var/is_flayer_prod = FALSE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -164,6 +166,8 @@
 
 /obj/item/melee/baton/activate_self(mob/user)
 	. = ..()
+	if(is_flayer_prod)
+		return
 
 	// Sometimes the borg baton spawns without linking to the cyborg's cell for reasons beyond my ken. That is VERY bad. This will fix it on the spot.
 	// They have to turn it on to use it, after all.
@@ -409,10 +413,6 @@
 	return
 
 /obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
-	return
-
-/obj/item/melee/baton/flayerprod/activate_self(mob/user)
-	if(..())
 	return
 
 /obj/item/melee/baton/flayerprod/play_hit_sound()
