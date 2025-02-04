@@ -475,10 +475,9 @@
 	do_layer = TRUE,
 )
 
-	var/og_layer
+	var/og_layer = layer
 	if(do_layer)
 		// Layering above to stand out!
-		og_layer = layer
 		layer = ABOVE_MOB_LAYER
 
 	// Slowly floats up, then slowly goes down.

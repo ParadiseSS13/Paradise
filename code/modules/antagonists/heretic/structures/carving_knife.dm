@@ -29,6 +29,9 @@
 
 /obj/item/melee/rune_carver/examine(mob/user)
 	. = ..()
+	for(var/rune_ref as anything in current_runes)
+		if(!locateUID(rune_ref))
+			current_runes -= rune_ref
 	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
 		return
 
@@ -318,7 +321,7 @@
 	var/mob/living/carbon/carbon_victim = victim
 	carbon_victim.apply_damage(80, STAMINA)
 	carbon_victim.Silence(20 SECONDS)
-	carbon_victim.Stuttering(1 MINUTES)
+	carbon_victim.HereticSlur(1 MINUTES)
 	carbon_victim.Confused(5 SECONDS)
 	carbon_victim.Jitter(20 SECONDS)
 	carbon_victim.Dizzy(40 SECONDS)
