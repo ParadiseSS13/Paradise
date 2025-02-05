@@ -502,7 +502,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "bZ" = (
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/turf/simulated/floor/plating/asteroid/snow/mansus,
 /area/centcom/heretic_sacrifice/void)
 "ca" = (
 /turf/simulated/floor/holofloor{
@@ -7161,7 +7161,7 @@
 /obj/machinery/light/floor{
 	invisibility = 100
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/turf/simulated/floor/plating/asteroid/snow/mansus,
 /area/centcom/heretic_sacrifice/void)
 "xO" = (
 /obj/structure/rack,
@@ -12107,7 +12107,7 @@
 /area/shuttle/escape)
 "Pc" = (
 /obj/item/snowball,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/turf/simulated/floor/plating/asteroid/snow/mansus,
 /area/centcom/heretic_sacrifice/void)
 "Pd" = (
 /obj/machinery/status_display,
@@ -15000,7 +15000,7 @@
 /area/centcom/specops)
 "Zk" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/turf/simulated/floor/plating/asteroid/snow/mansus,
 /area/centcom/heretic_sacrifice/void)
 "Zl" = (
 /obj/item/kirbyplants/large,

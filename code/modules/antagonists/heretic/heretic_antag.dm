@@ -80,6 +80,11 @@
 /datum/antagonist/heretic/remove_owner_from_gamemode()
 	SSticker.mode.heretics -= owner
 
+/datum/antagonist/heretic/add_antag_hud(mob/living/antag_mob)
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		antag_hud_name = "heretichijack"
+	return ..()
+
 /datum/antagonist/heretic/proc/get_icon_of_knowledge(datum/heretic_knowledge/knowledge)
 	//basic icon parameters
 	var/icon_path = 'icons/mob/actions/actions_ecult.dmi'

@@ -250,3 +250,10 @@
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/mansus
+	temperature = 293.15
+	slowdown = 0
+	environment_type = "snow"
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
