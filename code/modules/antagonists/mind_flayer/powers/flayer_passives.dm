@@ -272,6 +272,7 @@
 		return // TODO, add a refund proc?
 	user_eyes.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 	for(var/datum/action/action in user_eyes.actions)
+		action.button_background_icon = "bg_flayer"
 		action.Grant(owner)
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
