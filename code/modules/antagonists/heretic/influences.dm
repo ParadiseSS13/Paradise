@@ -81,7 +81,6 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
-	new_attack_chain = TRUE
 
 /obj/effect/visible_heretic_influence/Initialize(mapload)
 	. = ..()
@@ -165,7 +164,6 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_LEVEL_TWO
 	hud_possible = list(HERETIC_HUD)
-	new_attack_chain = TRUE
 	/// Whether we're currently being drained or not.
 	var/being_drained = FALSE
 
@@ -195,13 +193,11 @@
 	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
 
 
-/obj/effect/heretic_influence/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return FINISH_ATTACK
-
+/obj/effect/heretic_influence/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	// Using a codex will give you two knowledge points for draining.
-	if(drain_influence_with_codex(user, attacking))
+	if(drain_influence_with_codex(user, I))
 		return TRUE
+	return ..()
 
 /obj/effect/heretic_influence/proc/drain_influence_with_codex(mob/user, obj/item/codex_cicatrix/codex)
 	if(!istype(codex) || being_drained)
