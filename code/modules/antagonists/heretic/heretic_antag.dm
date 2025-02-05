@@ -204,12 +204,22 @@
 		if("research")
 			var/datum/heretic_knowledge/researched_path = text2path(params["path"])
 			if(!ispath(researched_path, /datum/heretic_knowledge))
+				if(isnull(researched_path))
+					CRASH("Heretic attempted to learn a non-existant path! (Got: [params["path"]])")
 				CRASH("Heretic attempted to learn non-heretic_knowledge path! (Got: [researched_path])")
 
+
+			if(!(researched_path in get_researchable_knowledge()))
+				log_and_message_admins("attempted to href exploit to skip heretic progression! ([researched_path])")
+				return FALSE
+
+			if(ispath(researched_path, /datum/heretic_knowledge/ultimate) && !can_ascend())
+				log_and_message_admins("attempted to href exploit to get the ascend ritual! ([researched_path])")
+				return FALSE
 			if(initial(researched_path.cost) > knowledge_points)
-				return TRUE
+				return FALSE
 			if(!gain_knowledge(researched_path))
-				return TRUE
+				return FALSE
 
 			log_heretic_knowledge("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
 			knowledge_points -= initial(researched_path.cost)

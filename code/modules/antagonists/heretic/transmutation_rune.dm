@@ -56,7 +56,7 @@
 		is_in_use = FALSE
 		return
 
-	var/chosen = tgui_input_list(user, "Chose a ritual to attempt.", "Chose a Ritual", rituals)
+	var/chosen = tgui_input_list(user, "Choose a ritual to attempt.", "Choose a Ritual", rituals)
 	if(!chosen || !istype(rituals[chosen], /datum/heretic_knowledge) || QDELETED(src) || QDELETED(user) || QDELETED(heretic_datum))
 		is_in_use = FALSE
 		return
