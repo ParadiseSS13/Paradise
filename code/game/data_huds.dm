@@ -526,12 +526,15 @@
 		if(R)
 			switch(new_status)
 				if(MALF_STATUS_GREEN)
+					to_chat(world, "DEBUG: Selecting green")
 					holder.icon_state = "hud_malf_green"
 					return
 				if(MALF_STATUS_RED)
+					to_chat(world, "DEBUG: Selecting red")
 					holder.icon_state = "hud_malf_red"
 					return
 				if(MALF_STATUS_SKULL)
+					to_chat(world, "DEBUG: Selecting skull")
 					holder.icon_state = "hud_malf_skull"
 					return
 	holder.icon_state = ""
