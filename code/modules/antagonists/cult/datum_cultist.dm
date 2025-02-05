@@ -54,10 +54,10 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	return ..()
 
 /datum/antagonist/cultist/add_owner_to_gamemode()
-	get_team() |= owner
+	SSticker.mode.cult_team |= owner
 
 /datum/antagonist/cultist/remove_owner_from_gamemode()
-	get_team() -= owner
+	SSticker.mode.cult_team -= owner
 
 
 /datum/antagonist/cultist/greet()
