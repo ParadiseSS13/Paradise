@@ -20,6 +20,9 @@
 
 	cast_range = 6
 
+/datum/spell/pointed/blood_siphon/valid_target(target, user)
+	if(!isliving(target))
+		return
 
 /datum/spell/pointed/blood_siphon/cast(list/targets, mob/user)
 	. = ..()
