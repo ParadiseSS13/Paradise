@@ -53,6 +53,10 @@
 		/datum/spell/fireball/rust_wave/short,
 	)
 
+/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/leeching_walk)
+
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/setDir(newdir)
 	. = ..()
 	if(newdir == NORTH)
@@ -64,17 +68,6 @@
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/effects/footstep/rustystep1.ogg', 100, TRUE)
-
-/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/Life(seconds, times_fired)
-	if(stat == DEAD)
-		return ..()
-
-	var/turf/our_turf = get_turf(src)
-	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
-		adjustBruteLoss(-1.5)
-		adjustFireLoss(-1.5)
-
-	return ..()
 
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit
 	name = "Ash Man"
