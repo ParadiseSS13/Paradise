@@ -26,6 +26,8 @@
 /datum/spell/bloodcrawl/space_crawl/valid_target(turf/target, user)
 	if(isspaceturf(get_turf(user))) //qwertodo: make this work on basalt / asteroid turf, if we get a planet map
 		return TRUE
+	if(istype(get_turf(user), /turf/simulated/floor/transparent))
+		return TRUE
 	to_chat(user, "<span class='warning'>You must stand on a space or misc turf!</span>")
 	return FALSE
 
