@@ -252,7 +252,7 @@
  */
 /datum/heretic_knowledge/limited_amount/starting
 	abstract_parent_type = /datum/heretic_knowledge/limited_amount/starting
-	limit = 2
+	limit = 3
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 

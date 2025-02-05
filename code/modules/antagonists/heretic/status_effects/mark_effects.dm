@@ -47,7 +47,7 @@
  */
 /datum/status_effect/eldritch/proc/on_effect()
 	SHOULD_CALL_PARENT(TRUE)
-
+	
 	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 

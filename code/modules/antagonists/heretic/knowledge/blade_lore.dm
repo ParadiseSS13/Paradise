@@ -28,7 +28,7 @@
 		list(/obj/item/stack/sheet/mineral/silver, /obj/item/stack/sheet/mineral/titanium) = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/dark)
-	limit = 4 // It's the blade path, it's a given
+	limit = 5 // It's the blade path, it's a given
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
 

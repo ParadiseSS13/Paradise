@@ -7379,12 +7379,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
-"zd" = (
-/obj/machinery/light/floor{
-	invisibility = 100
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/centcom/heretic_sacrifice/void)
 "zg" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -12111,6 +12105,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Pc" = (
+/obj/item/snowball,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/centcom/heretic_sacrifice/void)
 "Pd" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -13654,9 +13652,6 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
-"UN" = (
-/turf/simulated/floor/plating/ice/smooth,
-/area/centcom/heretic_sacrifice/void)
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
@@ -55300,9 +55295,9 @@ aN
 aN
 HK
 ku
-UN
-UN
-UN
+bZ
+bZ
+bZ
 bZ
 bZ
 bZ
@@ -55557,10 +55552,10 @@ aN
 aN
 HK
 ku
-UN
-UN
-UN
-UN
+bZ
+bZ
+bZ
+bZ
 yY
 Fv
 bZ
@@ -55817,12 +55812,12 @@ ku
 bZ
 bZ
 bZ
-UN
+bZ
 dQ
 Xi
-UN
 bZ
 bZ
+Pc
 bZ
 ku
 HK
@@ -56077,10 +56072,10 @@ bZ
 bZ
 dQ
 bW
-UN
-UN
-UN
-UN
+bZ
+bZ
+bZ
+bZ
 ku
 HK
 SR
@@ -56335,9 +56330,9 @@ bZ
 ad
 Ph
 bZ
-UN
-zd
-UN
+bZ
+xN
+bZ
 ku
 HK
 SR

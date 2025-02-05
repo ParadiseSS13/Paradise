@@ -769,8 +769,10 @@
 		return FALSE // We sold our ambition for immediate power :/
 	var/has_hijack = FALSE
 	for(var/datum/objective/must_be_done as anything in owner.get_all_objectives(include_team = FALSE))
-		if(istype(must_be_done, /datum/objective/hijack))
+		if(istype(must_be_done, /datum/objective/hijack) || SSticker.cult_tried_summon)
 			has_hijack = TRUE
+			continue
+		if(istype(must_be_done, /datum/objective/escape))
 			continue
 		if(!must_be_done.check_completion())
 			return FALSE

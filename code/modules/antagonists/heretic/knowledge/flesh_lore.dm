@@ -32,7 +32,7 @@
 		/obj/effect/decal/cleanable/blood = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
-	limit = 3 // Bumped up so they can arm up their ghouls too.
+	limit = 4 // Bumped up so they can arm up their ghouls too.
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
 
