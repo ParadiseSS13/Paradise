@@ -1017,3 +1017,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	return cig
+
+/// Changes the speech verb when wearing this item if a value is returned
+/obj/item/proc/change_speech_verb()
+	return

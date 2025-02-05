@@ -613,10 +613,6 @@
 		var/datum/action/A = X
 		A.UpdateButtons()
 
-// Changes the speech verb when wearing a mask if a value is returned
-/obj/item/clothing/mask/proc/change_speech_verb()
-	return
-
 //////////////////////////////
 // MARK: SHOES
 //////////////////////////////
