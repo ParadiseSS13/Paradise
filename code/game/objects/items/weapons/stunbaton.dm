@@ -164,7 +164,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/activate_self(mob/user)
-	. = ..()
+	if(..())
+		return FINISH_ATTACK
 
 	// Sometimes the borg baton spawns without linking to the cyborg's cell for reasons beyond my ken. That is VERY bad. This will fix it on the spot.
 	// They have to turn it on to use it, after all.
