@@ -193,7 +193,7 @@
 	return ..()
 
 /obj/machinery/computer/nonfunctional
-	name = "broken computer"
+	name = "derelict computer"
 	desc = "A computer long since rendered non-functional due to lack of maintenance. \
 		It is spitting out error messages."
 	circuit = /obj/item/circuitboard/nonfunctional
