@@ -570,7 +570,7 @@
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
 
-/obj/structure/computerframe/Initialize()
+/obj/structure/computerframe/Initialize(mapload)
 	. = ..()
 	overlays += "comp_frame_1"
 
