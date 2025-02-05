@@ -148,6 +148,7 @@
 		cell = used
 		to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
