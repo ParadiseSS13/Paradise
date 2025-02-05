@@ -43,6 +43,9 @@
 /datum/atom_hud/data/human/security/advanced
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
+/datum/atom_hud/data/human/malf_ai
+	hud_icons = list(MALF_AI_HUD)
+
 /datum/atom_hud/data/diagnostic
 
 /datum/atom_hud/data/diagnostic/basic
@@ -59,9 +62,6 @@
 
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
-
-/datum/atom_hud/data/malf_ai
-	hud_icons = list(MALF_AI_HUD)
 
 /datum/atom_hud/data/pressure
 	hud_icons = list(PRESSURE_HUD)

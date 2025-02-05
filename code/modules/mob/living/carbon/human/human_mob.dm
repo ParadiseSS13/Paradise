@@ -747,9 +747,8 @@
 			if(E.fields["name"] == targetname)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["id"] == E.fields["id"])
-						for(var/datum/data/record/A in GLOB.data_core.ai)
-							found_record = A
-						break outer
+						found_record = E
+					break outer
 
 	if(!found_record)
 		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")

@@ -168,6 +168,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
+		G.fields["ai_target"]	= "None" // for malf hud
+
 		// Do some ID card checking stuff here to save on resources
 		var/card_photo
 		if(istype(H.wear_id, /obj/item/card/id))
@@ -221,11 +223,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			S.fields["notes"] = "No notes found."
 		LAZYINITLIST(S.fields["comments"])
 		security += S
-
-		//Malf AI record
-		var/datum/data/record/A = new()
-		A.fields["ai_target"]	= "None"
-		ai += A
 
 		//Locked Record
 		var/datum/data/record/L = new()
