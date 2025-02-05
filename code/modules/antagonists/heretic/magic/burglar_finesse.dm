@@ -52,6 +52,6 @@
 	var/item = pick(storage_item.contents)
 	if(isnull(item))
 		return FALSE
-	to_chat(cast_on, "<span class='warning'>Your [storage_item] feels lighter...</span>")
+	to_chat(cast_on, "<span class='warning'>Your [storage_item.name] feels lighter...</span>")
 	to_chat(user, "<span class='notice'>With a blink, you pull [item] out of [cast_on][p_s()] [storage_item.name].</span>")
 	user.put_in_active_hand(item)
