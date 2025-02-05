@@ -54,10 +54,10 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	return ..()
 
 /datum/antagonist/cultist/add_owner_to_gamemode()
-	SSticker.mode.cult_team |= owner
+	return
 
 /datum/antagonist/cultist/remove_owner_from_gamemode()
-	SSticker.mode.cult_team -= owner
+	return
 
 /datum/antagonist/cultist/greet()
 	return "<span class='cultlarge'>You catch a glimpse of the Realm of [GET_CULT_DATA(entity_name, "this is a bug at this point")], [GET_CULT_DATA(entity_title3, "I dont know what else to write")]. \
