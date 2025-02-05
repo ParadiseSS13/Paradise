@@ -1253,8 +1253,9 @@ so that different stomachs can handle things in different ways VB*/
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint
-	if(istype(wear_mask))
-		. += wear_mask.tint
+	if(ismask(wear_mask))
+		var/obj/item/clothing/mask/worn_mask = wear_mask
+		. += worn_mask.tint
 
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
 	if(E)

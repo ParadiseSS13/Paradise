@@ -10,7 +10,9 @@
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
-		/obj/item/projectile))
+		/obj/item/projectile,
+		/obj/structure/railing // uhhhh they're highly radiation resistant, or some shit (stops stupid exploits)
+	))
 	var/list/processing_list = list(location)
 	. = list()
 	while(length(processing_list))
