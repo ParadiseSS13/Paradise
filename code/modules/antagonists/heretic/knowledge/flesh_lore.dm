@@ -223,7 +223,7 @@
 	required_atoms = list(
 		/obj/item/organ/internal/eyes = 1,
 		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/organ/external/arm = 1,
+		list(/obj/item/organ/external/arm, /obj/item/robot_parts/l_arm) = 1,
 	)
 	banned_atom_types = list(
 		/obj/item/organ/external/arm/right
@@ -258,7 +258,7 @@
 
 	required_atoms = list(
 		/obj/item/organ/internal/eyes = 1,
-		/obj/item/organ/external/arm = 1,
+		list(/obj/item/organ/external/arm, /obj/item/robot_parts/l_arm, /obj/item/robot_parts/r_arm) = 1,
 		/obj/item/organ/internal/lungs = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,

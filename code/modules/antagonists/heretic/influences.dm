@@ -99,6 +99,14 @@
 /obj/effect/visible_heretic_influence/proc/show_presence()
 	invisibility = 0
 	animate(src, alpha = 255, time = 15 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(fade_presence)), 15 SECONDS)
+
+/*
+ * Makes the influence fade out over 20 minutes.
+ */
+/obj/effect/visible_heretic_influence/proc/fade_presence()
+	animate(src, alpha = 0, time = 20 MINUTES)
+	QDEL_IN(src, 20 MINUTES)
 
 /obj/effect/visible_heretic_influence/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
