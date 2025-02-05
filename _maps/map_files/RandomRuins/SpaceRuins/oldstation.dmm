@@ -336,12 +336,7 @@
 /area/ruin/ancientstation)
 "bc" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
-	amount = 20
-	},
-/obj/item/stack/sheet/metal{
-	amount = 20
-	},
+/obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "bd" = (
