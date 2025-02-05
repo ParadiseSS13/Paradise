@@ -167,6 +167,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if("pda-library")
 				. += image('icons/obj/pda.dmi', "pda-pen-library")
 			if("pda-syndi")
+				continue
 			else
 				. += image('icons/obj/pda.dmi', "pda-pen")
 
