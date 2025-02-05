@@ -26,8 +26,6 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
-	/// Are we a flayer prod?
-	var/is_flayer_prod = FALSE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -167,8 +165,6 @@
 
 /obj/item/melee/baton/activate_self(mob/user)
 	. = ..()
-	if(is_flayer_prod)
-		return
 
 	// Sometimes the borg baton spawns without linking to the cyborg's cell for reasons beyond my ken. That is VERY bad. This will fix it on the spot.
 	// They have to turn it on to use it, after all.
@@ -195,6 +191,9 @@
 		thrown_baton_stun(hit_mob)
 
 /obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		// For those super edge cases where you clumsy baton yourself in quick succession.
 		if(baton_stun(user, user, skip_cooldown = TRUE))
@@ -202,21 +201,21 @@
 				"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 				"<span class='userdanger'>You accidentally hit yourself with [src]!</span>"
 				)
-		return TRUE
+		return FINISH_ATTACK
 
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
-		return TRUE
+		return FINISH_ATTACK
 
 	if(!ismob(A))
-		return ..()
+		return
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/target = A
 
 	if(user.a_intent == INTENT_HARM)
 		// Harmbaton!
-		return ..()
+		return
 
 	if(!turned_on)
 		user.do_attack_animation(target)
@@ -225,7 +224,7 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
 			)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return TRUE
+		return FINISH_ATTACK
 
 	// Only human mobs can be stunned.
 	if(!ishuman(target))
@@ -235,11 +234,11 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
 		)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return TRUE
+		return FINISH_ATTACK
 
 	if(baton_stun(target, user))
 		user.do_attack_animation(target)
-	return TRUE
+	return FINISH_ATTACK
 
 /obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -408,6 +407,7 @@
 
 /obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
 	link_new_cell()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
 /obj/item/melee/baton/flayerprod/update_icon_state()

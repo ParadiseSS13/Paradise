@@ -8,12 +8,14 @@
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
 /obj/item/melee/baton/cattleprod/teleprod/pre_attack(atom/A, mob/living/user, params)
-	..()
+	if(..())
+		return FINISH_ATTACK
+
 	if(!turned_on)
-		return TRUE
+		return FINISH_ATTACK
 
 	if(!ismob(A))
-		return ..()
+		return
 	
 	var/mob/living/carbon/M
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
