@@ -35356,16 +35356,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"haD" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 30;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
-	},
-/area/station/security/brig)
 "haF" = (
 /obj/structure/table/wood,
 /obj/item/stack/tape_roll,
@@ -173449,7 +173439,7 @@ upq
 jDu
 pXO
 snW
-haD
+tZY
 hjy
 jLZ
 ihH
