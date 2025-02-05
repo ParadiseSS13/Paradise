@@ -276,9 +276,6 @@
 #define is_ai_eye(A)		(istype((A), /mob/camera/eye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
-#define isSpirit(A)		(istype((A), /mob/spirit))
-#define ismask(A)		(istype((A), /mob/spirit/mask))
-
 #define isobserver(A)	(istype((A), /mob/dead/observer))
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
