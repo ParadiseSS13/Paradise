@@ -267,4 +267,4 @@
 
 	var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	sleep(1 SECONDS)
-	heretic_monster.set_owner(user.mind) //qwertodo: sleep / timer before doing this
+	heretic_monster.set_owner(user.mind)
