@@ -1,5 +1,8 @@
 // For any /obj/tgvehicle's that can be ridden
 
+/// For making timers not accidentally skip an extra tick.
+#define EPSILON (world.tick_lag * 0.1)
+
 /datum/component/riding/vehicle/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = (RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS), potion_boost = FALSE)
 	if(!istgvehicle(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -75,7 +78,12 @@
 
 	step(movable_parent, direction)
 	last_move_diagonal = ((direction & (direction - 1)) && (movable_parent.loc == next))
-	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal ? 2 : 1) * vehicle_move_delay)
+	if(last_move_diagonal)
+		movable_parent.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay, 1) * 0.5)
+		COOLDOWN_START(src, vehicle_move_cooldown, 2 * vehicle_move_delay - EPSILON)
+	else
+		movable_parent.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay, 1))
+		COOLDOWN_START(src, vehicle_move_cooldown, vehicle_move_delay - EPSILON)
 
 	if(QDELETED(src))
 		return
@@ -187,3 +195,5 @@
 		override_allow_spacemove = TRUE
 		return
 	override_allow_spacemove = FALSE
+
+#undef EPSILON

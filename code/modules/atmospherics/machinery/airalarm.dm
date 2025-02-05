@@ -998,14 +998,14 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/alarm/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/alarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
@@ -1013,14 +1013,15 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					SStgui.update_uis(src)
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
+
+				return ITEM_INTERACT_COMPLETE
 
 		if(AIR_ALARM_UNWIRED)
-			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
+			if(iscoil(used))
+				var/obj/item/stack/cable_coil/coil = used
 				if(coil.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				playsound(get_turf(src), coil.usesound, 50, 1)
@@ -1030,15 +1031,15 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				wiresexposed = TRUE
 				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(AIR_ALARM_FRAME)
-			if(istype(I, /obj/item/airalarm_electronics))
-				to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-				playsound(get_turf(src), I.usesound, 50, 1)
-				qdel(I)
+			if(istype(used, /obj/item/airalarm_electronics))
+				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				qdel(used)
 				buildstage = 1
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
