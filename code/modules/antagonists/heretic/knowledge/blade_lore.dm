@@ -390,7 +390,7 @@
 		self_message = "<span class='warning'>You throw off the stun!</span>",
 		examine_message = "<span class='hierophant_warning'>%EFFECT_OWNER_THEYRE standing stalwartly.</span>",
 	)
-	var/datum/spell/fireball/furious_steel/steel_spell = locate() in user.actions
+	var/datum/spell/fireball/furious_steel/steel_spell = locate() in user.mob_spell_list
 	steel_spell?.cooldown_handler.recharge_duration *= 0.5
 
 	var/mob/living/carbon/human/heretic = user

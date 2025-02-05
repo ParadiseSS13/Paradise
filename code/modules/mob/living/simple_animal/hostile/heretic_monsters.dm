@@ -453,3 +453,82 @@
 	var/matrix/matrix_transformation = matrix()
 	matrix_transformation.Scale(1.4, 1.4)
 	transform = matrix_transformation
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer
+	name = "\improper Star Gazer"
+	desc = "A creature that has been tasked to watch over the stars."
+	icon = 'icons/mob/96x96eldritch_mobs.dmi'
+	icon_state = "star_gazer"
+	icon_living = "star_gazer"
+	pixel_x = -32
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	mob_size = MOB_SIZE_LARGE
+	sentience_type = SENTIENCE_BOSS
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	mob_biotypes = MOB_ORGANIC|MOB_EPIC
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	layer = LARGE_MOB_LAYER
+	speed = -0.5
+	maxHealth = 6000
+	health = 6000
+	initial_traits = list(TRAIT_FLYING)
+	obj_damage = 400
+	armour_penetration_flat = 20
+	melee_damage_lower = 40
+	melee_damage_upper = 40
+	attacktext = "ravages"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	speak_emote = list("says as spacetime ripples out the words") //shut up its a big cosmic entity it gets a flavourful say verb
+	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 0, STAMINA = 0, OXY = 0)
+	death_sound = 'sound/magic/cosmic_expansion.ogg'
+	loot = list(/obj/effect/temp_visual/cosmic_domain)
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/death(gibbed)
+	. = ..()
+	explosion(loc, 3, 6, 12)
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	RegisterSignal(src, COMSIG_MOVABLE_TELEPORTING, PROC_REF(on_teleport))
+	set_light(4, l_color = "#dcaa5b")
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/ex_act(severity, target)
+	switch(severity)
+		if(1)
+			adjustBruteLoss(250)
+
+		if(2)
+			adjustBruteLoss(100)
+
+		if(3)
+			adjustBruteLoss(50)
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_CLAW
+	..()
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/AttackingTarget()
+	. = ..()
+	if(!. || !isliving(target))
+		return
+	var/mob/living/living_target = target
+	living_target.apply_status_effect(/datum/status_effect/star_mark)
+	living_target.apply_damage(damage = 5, damagetype = BURN)
+	for(var/mob/living/nearby_mob in range(1, src))
+		if(living_target == nearby_mob || !IS_HERETIC(living_target))
+			continue
+		nearby_mob.apply_status_effect(/datum/status_effect/star_mark)
+		nearby_mob.apply_damage(10)
+		to_chat(nearby_mob, "<span class='userdanger'>\The [src] [attacktext] you!</span>")
+		do_attack_animation(nearby_mob, ATTACK_EFFECT_CLAW)
+
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/proc/on_teleport() // Nope, can't bait it off station
+	SIGNAL_HANDLER
+	return COMPONENT_BLOCK_TELEPORT

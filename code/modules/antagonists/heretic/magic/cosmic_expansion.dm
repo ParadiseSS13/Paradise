@@ -37,7 +37,7 @@
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, user)
 	if(ascended)
-		for(var/turf/cast_turf as anything in get_turfs(get_turf(user)))
+		for(var/turf/cast_turf as anything in RANGE_TURFS(7, user))
 			new /obj/effect/forcefield/cosmic_field(cast_turf)
 	return ..()
 

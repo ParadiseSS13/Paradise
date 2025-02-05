@@ -22,7 +22,7 @@
 	var/static/list/monster_types_blacklist = list(
 		/mob/living/simple_animal/hostile/heretic_summon/armsy,
 		/mob/living/simple_animal/hostile/heretic_summon/armsy/prime,
-		///mob/living/basic/heretic_summon/star_gazer,
+		/mob/living/simple_animal/hostile/heretic_summon/star_gazer,
 
 	)
 	/// How many minutes must you wait before respawning so this is actually maybe dealable by crew

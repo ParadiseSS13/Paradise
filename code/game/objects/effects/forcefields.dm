@@ -80,6 +80,7 @@
 	anchored = TRUE
 	density = FALSE
 	lifetime = 30 SECONDS
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/// Flags for what antimagic can just ignore our forcefields
 	var/antimagic_flags = MAGIC_RESISTANCE
 

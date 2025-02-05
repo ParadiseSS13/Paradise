@@ -212,7 +212,7 @@
 	trigger(our_turf)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
+	var/datum/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.mob_spell_list
 	rust_spread_spell?.base_cooldown /= 2
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)

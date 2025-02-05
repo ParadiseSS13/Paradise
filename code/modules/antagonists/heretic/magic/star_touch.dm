@@ -22,8 +22,8 @@
 	antimagic_flags = MAGIC_RESISTANCE
 
 	hand_path = /obj/item/melee/touch_attack/star_touch
-	/// Stores the weakref for the Star Gazer after ascending
-	var/atom/star_gazer
+	/// Stores the UID for the Star Gazer after ascending
+	var/star_gazer
 
 /obj/item/melee/touch_attack/star_touch/after_attack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
@@ -50,16 +50,16 @@
 			target_turfs += get_ranged_target_turf(loc, direction, i)
 	return target_turfs
 
-/// To set the star gazer
-///datum/spell/touch/star_touch/proc/set_star_gazer(mob/living/basic/heretic_summon/star_gazer/star_gazer_mob)
-	//star_gazer = WEAKREF(star_gazer_mob)
 
-/// To obtain the star gazer if there is one
-///datum/spell/touch/star_touch/proc/get_star_gazer()
-//	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_resolved = star_gazer?.resolve()
-//	if(star_gazer_resolved)
-//		return star_gazer_resolved
-//	return FALSE
+/datum/spell/touch/star_touch/proc/set_star_gazer(mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob)
+	star_gazer = star_gazer_mob.UID()
+
+// To obtain the star gazer if there is one
+/datum/spell/touch/star_touch/proc/get_star_gazer()
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_resolved = locateUID(star_gazer)
+	if(star_gazer_resolved)
+		return star_gazer_resolved
+	return FALSE
 
 /obj/item/melee/touch_attack/star_touch
 	name = "Star Touch"
@@ -85,24 +85,19 @@
 	new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(target))
 	qdel(src)
 
-///obj/item/melee/touch_attack/star_touch/activate_self(mob/user)
-//	if(..())
-//		return
-//	var/datum/spell/touch/star_touch/star_touch_spell = spell_which_made_us?.resolve()
-//	var/mob/living/basic/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
-//	if(!star_gazer_mob)
-//		balloon_alert(user, "no linked star gazer!")
-//		return ..()
-//	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
-//	do_teleport(
-//		user,
-//		get_turf(star_gazer_mob),
-//		no_effects = TRUE,
-//		channel = TELEPORT_CHANNEL_MAGIC,
-//		asoundin = 'sound/magic/cosmic_energy.ogg',
-//		asoundout = 'sound/magic/cosmic_energy.ogg',
-//	)
-//	remove_hand_with_no_refund(user)
+/obj/item/melee/touch_attack/star_touch/activate_self(mob/user)
+	if(..())
+		return
+	var/datum/spell/touch/star_touch/star_touch_spell = attached_spell
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = star_touch_spell?.get_star_gazer()
+	if(!star_gazer_mob)
+		to_chat(user, "<span class='hierophant_warning'>You have no stargazer linked to this spell</span>")
+		return ..()
+	new /obj/effect/temp_visual/cosmic_explosion(get_turf(user))
+	playsound(user, 'sound/magic/cosmic_energy.ogg', 100, TRUE)
+	playsound(star_gazer_mob, 'sound/magic/cosmic_energy.ogg', 100, TRUE)
+	user.forceMove(get_turf(star_gazer_mob))
+	qdel(src)
 
 /obj/effect/ebeam/cosmic
 	name = "cosmic beam"
@@ -194,8 +189,8 @@
 
 /// What to add when the beam connects to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_hit(mob/living/target)
-	//if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
-	target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	if(!istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
+		target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
 
 /// What to process when the beam is connected to a target
 /datum/status_effect/cosmic_beam/proc/on_beam_tick(mob/living/target)
@@ -204,5 +199,5 @@
 
 /// What to remove when the beam disconnects from a target
 /datum/status_effect/cosmic_beam/proc/on_beam_release(mob/living/target)
-	//if(!istype(target, /mob/living/basic/heretic_summon/star_gazer))
-	target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	if(!istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
+		target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)

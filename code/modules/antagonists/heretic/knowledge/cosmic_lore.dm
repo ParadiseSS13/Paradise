@@ -228,13 +228,6 @@
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_cosmic.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "cosmicascend"
-	/// A static list of command we can use with our mob.
-//	var/static/list/star_gazer_commands = list(
-//		/datum/pet_command/idle,
-//		/datum/pet_command/free,
-//		/datum/pet_command/follow,
-//		/datum/pet_command/attack/star_gazer
-//	)
 
 /datum/heretic_knowledge/ultimate/cosmic_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()
@@ -245,9 +238,14 @@
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	. = ..()
-	var/datum/spell/touch/star_touch/star_touch_spell = locate() in user.actions
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/simple_animal/hostile/heretic_summon/star_gazer(our_turf)
+	star_gazer_mob.maxHealth = INFINITY
+	star_gazer_mob.health = INFINITY
+	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
+	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list("heretic"), current_owner = user)
+	var/datum/spell/touch/star_touch/star_touch_spell = locate() in user.mob_spell_list
 	if(star_touch_spell)
-		//star_touch_spell.set_star_gazer(star_gazer_mob)
+		star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -257,5 +255,16 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/datum/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/datum/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.mob_spell_list
 	cosmic_expansion_spell?.ascended = TRUE
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a star gazer?", ROLE_HERETIC, TRUE, 10 SECONDS, min_hours = 200, source = star_gazer_mob)
+	var/mob/chosen_one
+	if(length(candidates))
+		chosen_one = pick(candidates)
+	if(!chosen_one)
+		return
+	star_gazer_mob.key = chosen_one.key
+
+	var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	sleep(1 SECONDS)
+	heretic_monster.set_owner(user.mind) //qwertodo: sleep / timer before doing this
