@@ -33,15 +33,15 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/scratch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(winner && istype(target, /obj/machinery/economy/atm))
-		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
-		target.atom_say("Congratulations for winning the lottery!")
-		var/obj/item/reward = new /obj/item/stack/spacecash/c1000
-		qdel(src)
-		user.put_in_hands(reward)
-		return ITEM_INTERACT_COMPLETE
-
-	return ..()
+	if(!winner || !istype(target, /obj/machinery/economy/atm))
+		return ..()
+	
+	playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
+	target.atom_say("Congratulations for winning the lottery!")
+	var/obj/item/reward = new /obj/item/stack/spacecash/c1000
+	qdel(src)
+	user.put_in_hands(reward)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/storage/box/scratch_cards
 	name = "scratch cards box"
