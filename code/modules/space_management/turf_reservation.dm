@@ -1,5 +1,17 @@
-//Yes, they can only be rectangular.
-//Yes, I'm sorry.
+/*
+ * Turf reservations are used to reserve specific areas of the reserved z-levels for various purposes, typically for late-loading maps.
+ * It ensures that reserved turfs are properly managed and can be released when no longer needed.
+ * Reservations are not automatically released, so they must be manually released when no longer needed.
+ *
+ * Usage:
+ * - To create a new reservation, call the `request_turf_block_reservation(width, height)` method from the mapping subsystem.
+ * - This will return a new instance of /datum/turf_reservation if the reservation is successful.
+ *
+ * Releasing:
+ * - Call the `Release` method on the /datum/turf_reservation instance to release the reserved turfs and cordon turfs.
+ * - This will return the used turfs to the mapping subsystem to allow for reuse of the turfs.
+ */
+
 /datum/turf_reservation
 	/// All turfs that we've reserved
 	var/list/reserved_turfs = list()
@@ -25,12 +37,6 @@
 	/// The turf type the reservation is initially made with
 	var/turf_type = /turf/space
 
-	/// Do we override baseturfs with turf_type?
-	// var/turf_type_is_baseturf = TRUE
-
-	// ///Distance away from the cordon where we can put a "sort-cordon" and run some extra code (see make_repel). 0 makes nothing happen
-	// var/pre_cordon_distance = 0
-
 /datum/turf_reservation/New()
 	LAZYADD(SSmapping.turf_reservations, src)
 
@@ -53,15 +59,7 @@
 
 	var/release_turfs = reserved_copy + cordon_copy
 
-	for(var/turf/reserved_turf as anything in release_turfs)
-
-		// immediately disconnect from atmos
-		reserved_turf.blocks_air = TRUE
-		// CALCULATE_ADJACENT_TURFS(reserved_turf, KILL_EXCITED)
-
-	// Makes the linter happy, even tho we don't await this
 	SSmapping.unreserve_turfs(release_turfs)
-	// INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, unreserve_turfs), release_turfs)
 
 /// Attempts to calaculate and store a list of turfs around the reservation for cordoning. Returns whether a valid cordon was calculated
 /datum/turf_reservation/proc/calculate_cordon_turfs(turf/bottom_left, turf/top_right)
@@ -78,24 +76,13 @@
 			return FALSE
 	cordon_turfs |= possible_turfs
 
-	// if(pre_cordon_distance)
-	// 	var/turf/offset_turf = locate(bottom_left.x + pre_cordon_distance, bottom_left.y + pre_cordon_distance, bottom_left.z)
-	// 	var/list/to_add = CORNER_OUTLINE(offset_turf, width - pre_cordon_distance * 2, height - pre_cordon_distance * 2) //we step-by-stop move inwards from the outer cordon
-	// 	for(var/turf/turf_being_added as anything in to_add)
-	// 		pre_cordon_turfs |= turf_being_added //add one by one so we can filter out duplicates
-
 	return TRUE
 
 /// Actually generates the cordon around the reservation, and marking the cordon turfs as reserved
 /datum/turf_reservation/proc/generate_cordon()
 	for(var/turf/cordon_turf as anything in cordon_turfs)
 		var/area/cordon/cordon_area = GLOB.all_unique_areas[/area/cordon] || new /area/cordon
-		// var/area/old_area = cordon_turf.loc
 
-		// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, cordon_turf.z, list())
-		// LISTASSERTLEN(cordon_area.turfs_by_zlevel, cordon_turf.z, list())
-		// old_area.turfs_to_uncontain_by_zlevel[cordon_turf.z] += cordon_turf
-		// cordon_area.turfs_by_zlevel[cordon_turf.z] += cordon_turf
 		cordon_area.contents += cordon_turf
 
 		// Its no longer unused, but its also not "used"
@@ -104,10 +91,6 @@
 		SSmapping.unused_turfs["[cordon_turf.z]"] -= cordon_turf
 		// still gets linked to us though
 		SSmapping.used_turfs[cordon_turf] = src
-
-	// //swap the area with the pre-cordoning area
-	// for(var/turf/pre_cordon_turf as anything in pre_cordon_turfs)
-	// 	make_repel(pre_cordon_turf)
 
 /// Internal proc which handles reserving the area for the reservation.
 /datum/turf_reservation/proc/_reserve_area(width, height, zlevel)
@@ -168,6 +151,3 @@
 	generate_cordon()
 	return TRUE
 
-// /datum/turf_reservation/proc/post_load()
-// 	for(var/turf/T as anything in reserved_turfs)
-// 		T.blocks_air = initial(T.blocks_air) // Experimental atmos on this z-level

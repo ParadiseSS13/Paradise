@@ -409,7 +409,6 @@ SUBSYSTEM_DEF(mapping)
 	for(var/turf/T as anything in block)
 		// No need to empty() these, because they just got created and are already /turf/space.
 		T.turf_flags |= UNUSED_RESERVATION_TURF
-		T.blocks_air = TRUE
 		CHECK_TICK
 
 	// Gotta create these suckers if we've not done so already
@@ -439,16 +438,9 @@ SUBSYSTEM_DEF(mapping)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
 			if(!(reserving_turf in unused_turfs["[reserving_turf.z]"]))
 				unused_turfs["[reserving_turf.z]"].Insert(1, reserving_turf)
-			// var/area/old_area = reserving_turf.loc
-			// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
-			// old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
 			reserving_turf.turf_flags = UNUSED_RESERVATION_TURF
-			// reservation turfs are not allowed to interact with atmos at all
-			reserving_turf.blocks_air = TRUE
 
 			world_contents += reserving_turf
-			// LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
-			// world_turf_contents_by_z[reserving_turf.z] += reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
