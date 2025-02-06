@@ -1109,7 +1109,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/kinetic_assembler
 	board_name = "Kinetic Assembler"
 	icon_state = "supply"
-	build_path = /obj/machinery/kinetic_assembler
+	build_path = /obj/machinery/smithing/kinetic_assembler
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=4"
 	req_components = list(
