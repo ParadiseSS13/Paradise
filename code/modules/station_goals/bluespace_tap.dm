@@ -349,7 +349,7 @@
 	* Prob treats values less than 0 as 0.
 	*/
 
-	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW)) + (emagged * 5))
+	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW) + (emagged * 5)))
 		var/area/our_area = get_area(src)
 		if((!spawning || !length(active_nether_portals)))
 			GLOB.major_announcement.Announce("Произошел непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружено внепространственное вторжение! Ожидаемое местоположение: [our_area.name]. [emagged ? "ОПАСНОСТЬ: Аварийное отключение не удалось! Пожалуйста, перейдите к ручному отключению." : auto_shutdown ? "Начато аварийное отключение." : "Automatic shutdown disabled."]", "ВНИМАНИЕ: Обнаружена неисправность Блюспейс-сборщика!", 'sound/AI/harvester.ogg')

@@ -2990,7 +2990,7 @@
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower all APCs")
 					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
 				else
-					power_failure()
+					power_failure(TRUE, 100)
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Short out APCs")
 					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] has shorted APCs</span>", 1)
 			if("quickpower")

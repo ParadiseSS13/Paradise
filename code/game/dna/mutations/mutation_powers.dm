@@ -384,14 +384,22 @@
 	. = ..()
 	if(!.)
 		return
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
-			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
-			can_eat = FALSE
-	return can_eat
+
+	if(!iscarbon(user))
+		return TRUE
+
+	var/mob/living/carbon/C = user
+	if(!(C.head?.flags_cover & HEADCOVERSMOUTH))
+		if(!ismask(C.wear_mask))
+			return TRUE
+
+		var/obj/item/clothing/mask/worn_mask = C.wear_mask
+		if(!(worn_mask.flags_cover & MASKCOVERSMOUTH) || worn_mask.up)
+			return TRUE
+
+	if(show_message)
+		to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+	return FALSE
 
 /datum/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))

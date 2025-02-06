@@ -7,6 +7,8 @@
 	layer = MOB_LAYER - 0.1
 	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
+	light_power = 0.5
+	light_color = "#f3ffbb"
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE

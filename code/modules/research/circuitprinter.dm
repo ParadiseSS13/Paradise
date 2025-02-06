@@ -83,7 +83,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.is_open_container())
-		return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 	return ..()
 

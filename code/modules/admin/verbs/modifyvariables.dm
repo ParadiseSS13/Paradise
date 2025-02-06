@@ -607,8 +607,7 @@ GLOBAL_PROTECT(VVmaint_only)
 
 /client/proc/prompt_for_atom_click(prompt = "Click something!")
 	to_chat(src, "<span class='notice big'>[prompt]</span>")
-	var/datum/click_intercept/pick_atom/picker = new()
-	click_intercept = picker
+	var/datum/click_intercept/pick_atom/picker = new(src)
 	while(isnull(picker.picked))
 		if(isnull(src) || click_intercept != picker)
 			return null
