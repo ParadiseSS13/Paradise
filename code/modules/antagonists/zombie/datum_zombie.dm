@@ -17,7 +17,12 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 
 /datum/antagonist/zombie/on_gain()
 	. = ..()
-	owner.AddSpell(new /datum/spell/zombie_claws)
+	if(HAS_TRAIT(owner.TRAIT_PLAGUE_ZOMBIE))
+		var/datum/spell/zombie_claws/plague_claws/plague_claws = new /datum/spell/zombie_claws/plague_claws
+		owner.AddSpell(plague_claws)
+		plague_claws.disease = chosen_plague
+	else
+		owner.AddSpell(new /datum/spell/zombie_claws)
 	claw_attack = new /datum/unarmed_attack/claws()
 
 /datum/antagonist/zombie/Destroy(force, ...)
@@ -25,7 +30,10 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	return ..()
 
 /datum/antagonist/zombie/detach_from_owner()
-	owner.RemoveSpell(/datum/spell/zombie_claws)
+	if(HAS_TRAIT(TRAIT_PLAGUE_ZOMBIE))
+		owner.RemoveSpell(new /datum/spell/zombie_claws/plague_claws)
+	else
+		owner.RemoveSpell(new /datum/spell/zombie_claws)
 	return ..()
 
 /datum/antagonist/zombie/add_owner_to_gamemode()
@@ -55,7 +63,8 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		L.remove_language(lang.name)
 	L.add_language("Zombie")
 	L.default_language = GLOB.all_languages["Zombie"]
-	L.extinguish_light() // zombies prefer darkness
+	if(!HAS_TRAIT(owner.TRAIT_PLAGUE_ZOMBIE)) // Lets not extinguish wizard's lights
+		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
 
@@ -92,3 +101,14 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 
 /datum/antagonist/zombie/give_objectives()
 	add_antag_objective(/datum/objective/zombie)
+
+//choose what disease this zombie will get
+/datum/antagonist/zombie/proc/pick_disease()
+	var/picked_disease
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
+	if(prob(66))
+		picked_disease = pick(minor_diseases)
+	else
+		picked_disease = pick(major_diseases)
+	return picked_disease

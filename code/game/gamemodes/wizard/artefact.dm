@@ -886,20 +886,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 		You have been bestowed the following plague: <br> \
 		[plague.name]!</span>"
 
-	var/static/list/plague_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH, TRAIT_I_WANT_BRAINS, TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
 	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
+	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 	for(var/trait in plague_traits)
-		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
-	victim.AddComponent(/datum/component/zombie_regen)
+	ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT) // Cant have the user or zombie getting infected by their own plagues
-	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
-	var/datum/spell/plague_claws/plague_claws = new /datum/spell/plague_claws
-	victim.AddSpell(plague_claws)
-	plague_claws.disease = chosen_plague
+	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie
+	plague_virus.stage = 8
+	target.ContractDisease(plague_virus)
+
+
 
 	//time to rot
 	if(!istype(victim))
@@ -914,17 +914,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.update_hands_hud()
 	victim.update_body()
 	qdel(src)
-
-//choose what disease this zombie will get
-/obj/item/plague_talisman/proc/pick_disease()
-	var/picked_disease
-	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
-	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
-	if(prob(66))
-		picked_disease = pick(minor_diseases)
-	else
-		picked_disease = pick(major_diseases)
-	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3

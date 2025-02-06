@@ -20,6 +20,10 @@
 	/// Cooldown until the virus can advance to the next stage
 	COOLDOWN_DECLARE(stage_timer)
 
+/datum/disease/zombie/contract()
+	if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+		bypasses_immunity = TRUE
+
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
 		// adminbus for immediate zombie
@@ -119,7 +123,7 @@
 		affected_mob.med_hud_set_status()
 		affected_mob.update_hands_hud()
 		H.update_body()
-	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
+	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie && !HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE)))
 		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 	return TRUE
 
@@ -152,3 +156,4 @@
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
 	return ..()
+
