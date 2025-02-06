@@ -658,7 +658,7 @@
 
 /datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
-	if(moving.loc != moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
+	if(moving.loc == moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
 		update_slope()
 
 /datum/move_loop/has_target/move_towards/handle_no_target()

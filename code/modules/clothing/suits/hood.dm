@@ -6,6 +6,7 @@
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 	/// If this variable is true, the hood can not be removed if the hood is nodrop
 	var/respects_nodrop = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()

@@ -62,8 +62,9 @@
 		update_observer_view(l_hand)
 
 /mob/living/carbon/update_inv_wear_mask()
-	if(istype(wear_mask, /obj/item/clothing/mask))
-		update_hud_wear_mask(wear_mask)
+	if(!wear_mask)
+		return
+	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)])
