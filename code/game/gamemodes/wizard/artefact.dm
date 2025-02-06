@@ -899,8 +899,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	plague_virus.stage = 8
 	target.ContractDisease(plague_virus)
 
-
-
 	//time to rot
 	if(!istype(victim))
 		return FALSE
