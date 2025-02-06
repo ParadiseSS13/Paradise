@@ -43,7 +43,7 @@
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		if(!all_active_items[i]) // Since CYBORG_EMPTY_MODULE is 0 this has to be a ! check.
 			return i
-	return 0
+	return FALSE
 
 /mob/living/silicon/robot/proc/activate_item(obj/item/O)
 	if(!(locate(O) in module.modules) && !(O in module.emag_modules))
@@ -124,7 +124,7 @@
 //get_selected_module() - Returns the slot number of the currently selected item.  Returns 0 if no items are selected.
 /mob/living/silicon/robot/proc/get_selected_module()
 	if(!selected_item)
-		return 0
+		return FALSE
 	return all_active_items.Find(selected_item)
 
 /*
@@ -199,7 +199,7 @@
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		if(istype(all_active_items[i], to_check.type))
 			return i
-	return 0
+	return FALSE
 
 /mob/living/silicon/robot/proc/update_module_icon()
 	if(!hands)
