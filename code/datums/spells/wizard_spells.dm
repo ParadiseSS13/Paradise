@@ -349,6 +349,8 @@
 	var/projectile_amount = 1
 	/// How many projectiles we have yet to fire, based on projectile_amount
 	var/current_amount = 0
+	/// Do we care if we are on a turf?
+	var/cares_about_turf = TRUE
 
 /datum/spell/fireball/apprentice
 	centcom_cancast = FALSE
@@ -367,17 +369,18 @@
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
 	var/turf/T = get_turf(user)
-	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
-	if(!isturf(U) || !isturf(T))
+	var/turf/U = get_step(get_turf(user), user.dir) // Get the tile infront of the move, based on their direction
+	if((!isturf(U) && cares_about_turf) || (!isturf(T) && cares_about_turf))
 		return FALSE
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/item/projectile/magic/fireball/FB = new fireball_type(get_turf(user))
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
 	FB.preparePixelProjectile(target, user)
 	FB.fire()
-	user.newtonian_move(get_dir(U, T))
+	if(cares_about_turf)
+		user.newtonian_move(get_dir(U, T))
 	if(should_recharge_after_cast)
 		should_recharge_after_cast = FALSE
 		remove_ranged_ability(user)

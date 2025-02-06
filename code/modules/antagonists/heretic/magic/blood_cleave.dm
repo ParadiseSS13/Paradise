@@ -6,6 +6,7 @@
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "cleave"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	is_a_heretic_spell = TRUE
@@ -22,9 +23,18 @@
 	var/cleave_radius = 1
 
 
+/datum/spell/pointed/cleave/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
+	C.use_turf_of_user = TRUE
+	C.allowed_type = /mob/living/carbon/human
+	C.range = cast_range
+	C.try_auto_target = FALSE
+	return C
+
 /datum/spell/pointed/cleave/cast(list/targets, mob/user)
 	. = ..()
-	for(var/mob/living/carbon/human/victim in range(cleave_radius, user))
+	for(var/mob/living/carbon/human/victim in range(cleave_radius, targets[1]))
 		if(victim == user || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(antimagic_flags))

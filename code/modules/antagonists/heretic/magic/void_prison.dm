@@ -22,6 +22,16 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
+
+/datum/spell/pointed/void_prison/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
+	C.use_turf_of_user = TRUE
+	C.allowed_type = /mob/living
+	C.range = cast_range
+	C.try_auto_target = FALSE
+	return C
+
 /datum/spell/pointed/void_prison/valid_target(target, user)
 	if(!ismob(target))
 		return FALSE

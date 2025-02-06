@@ -80,7 +80,7 @@
 	anchored = TRUE
 	density = FALSE
 	lifetime = 30 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_ICYOVERLAY_LAYER // Very low layer above turfs. Ensures you can click runes, but also means it can eat bullets if you missclick.
 	/// Flags for what antimagic can just ignore our forcefields
 	var/antimagic_flags = MAGIC_RESISTANCE
 

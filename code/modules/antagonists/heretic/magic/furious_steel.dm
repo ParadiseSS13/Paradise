@@ -23,6 +23,7 @@
 	selection_deactivated_message = "You conceal the blades of furious silver."
 	fireball_type = /obj/item/projectile/magic/floating_blade
 	projectile_amount = 3
+	cares_about_turf = FALSE
 
 	///Effect of the projectile that surrounds us while the spell is active
 	var/projectile_effect = /obj/effect/floating_blade
@@ -155,7 +156,7 @@
 	action_icon_state = "cursed_steel"
 	what_icon_state = "cursed_steel"
 
-	base_cooldown  = 40 SECONDS
+	base_cooldown = 40 SECONDS
 	invocation = "IA!"
 	invocation_type = INVOCATION_SHOUT
 	clothes_req = FALSE

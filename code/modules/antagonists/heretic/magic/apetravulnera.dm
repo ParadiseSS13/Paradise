@@ -19,6 +19,16 @@
 
 	cast_range = 4
 
+/datum/spell/pointed/apetra_vulnera/create_new_targeting()
+	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
+	C.use_turf_of_user = TRUE
+	C.allowed_type = /mob/living/carbon/human
+	C.range = cast_range
+	C.try_auto_target = FALSE
+	return C
+
+
 /datum/spell/pointed/apetra_vulnera/valid_target(target, user)
 	return ..() && ishuman(target)
 

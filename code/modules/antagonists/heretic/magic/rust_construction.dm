@@ -25,6 +25,7 @@
 	T.click_radius = 0
 	T.range = cast_range
 	T.allowed_type = /turf/simulated
+	T.use_turf_of_user = TRUE
 	return T
 
 /datum/spell/pointed/rust_construction/valid_target(target, user)
