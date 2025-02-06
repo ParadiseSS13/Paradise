@@ -9902,7 +9902,6 @@
 /area/station/public/locker)
 "aVM" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -11429,7 +11428,6 @@
 	dir = 4
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "baZ" = (
@@ -17732,7 +17730,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -28026,7 +28023,6 @@
 /area/station/service/chapel/office)
 "ceV" = (
 /obj/effect/decal/cleanable/insectguts,
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
@@ -38279,7 +38275,6 @@
 /area/station/service/chapel)
 "cWA" = (
 /obj/machinery/economy/atm/directional/south,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "cWB" = (
@@ -41850,7 +41845,6 @@
 /area/station/maintenance/aft2)
 "dYe" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -42076,7 +42070,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "ecw" = (
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43941,7 +43934,6 @@
 "eVn" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -51252,7 +51244,6 @@
 /area/station/hallway/secondary/entry/south)
 "ibV" = (
 /obj/machinery/economy/atm/directional/south,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -52446,7 +52437,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
 "iCa" = (
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -66169,7 +66159,6 @@
 /area/station/maintenance/asmaint)
 "oPi" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "oPO" = (
@@ -72894,7 +72883,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "rKT" = (
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74541,7 +74529,6 @@
 /area/station/medical/storage)
 "syT" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -77073,7 +77060,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -85620,7 +85606,6 @@
 "xKg" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -86238,7 +86223,6 @@
 /area/station/security/permabrig)
 "xYE" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "xYR" = (

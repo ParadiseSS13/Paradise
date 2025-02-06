@@ -6310,7 +6310,6 @@
 	dir = 8
 	},
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner";
 	dir = 4
@@ -6944,7 +6943,6 @@
 	dir = 4
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "bhy" = (
@@ -21087,7 +21085,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -29444,7 +29441,6 @@
 	dir = 1
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -31678,7 +31674,6 @@
 	dir = 8
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -46523,7 +46518,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -53656,7 +53650,6 @@
 /area/station/maintenance/disposal/northeast)
 "kEV" = (
 /obj/machinery/economy/atm/directional/south,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -53925,7 +53918,6 @@
 	},
 /area/station/command/vault)
 "kJa" = (
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -56298,7 +56290,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -56339,7 +56330,6 @@
 /area/station/hallway/primary/fore/north)
 "lnd" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59513,7 +59503,6 @@
 	dir = 4
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -63248,7 +63237,6 @@
 /area/station/public/locker)
 "nbh" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -77662,7 +77650,6 @@
 	dir = 4
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -81342,7 +81329,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -85596,7 +85582,6 @@
 	dir = 5
 	},
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -88635,7 +88620,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"

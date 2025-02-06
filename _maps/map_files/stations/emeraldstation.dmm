@@ -2772,7 +2772,6 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "aEd" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "aEe" = (
@@ -12536,7 +12535,6 @@
 /area/station/medical/storage)
 "cxV" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -13002,7 +13000,6 @@
 /area/station/engineering/equipmentstorage)
 "cCX" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purplecorner"
@@ -15942,7 +15939,6 @@
 /area/station/medical/medbay2)
 "diP" = (
 /obj/machinery/economy/atm/directional/south,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -18143,7 +18139,6 @@
 /area/station/medical/morgue)
 "dEs" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -25073,7 +25068,6 @@
 /area/station/engineering/atmos/distribution)
 "far" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "faw" = (
@@ -27519,7 +27513,6 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "fwU" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "fxi" = (
@@ -34016,7 +34009,6 @@
 /area/station/maintenance/asmaint)
 "gMw" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -58324,7 +58316,6 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "lCc" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -61897,7 +61888,6 @@
 /obj/effect/turf_decal/siding{
 	dir = 5
 	},
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -63986,7 +63976,6 @@
 /area/station/engineering/atmos/transit)
 "mOO" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -66991,7 +66980,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -69259,7 +69247,6 @@
 /area/station/hallway/secondary/entry)
 "nNK" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -70501,7 +70488,6 @@
 /area/station/engineering/gravitygenerator)
 "nZL" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "nZP" = (
@@ -82734,7 +82720,6 @@
 /area/station/medical/cloning)
 "qvu" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "qvB" = (
@@ -86927,7 +86912,6 @@
 /area/station/command/office/hop)
 "rkR" = (
 /obj/machinery/economy/atm/directional/south,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "rkW" = (
@@ -89665,7 +89649,6 @@
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "rMy" = (
@@ -93637,7 +93620,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -96272,7 +96254,6 @@
 /area/station/legal/courtroom)
 "tbi" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -98806,7 +98787,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -104265,7 +104245,6 @@
 /area/station/maintenance/storage)
 "uFt" = (
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "uFx" = (
@@ -120194,7 +120173,6 @@
 	c_tag = "Research Lobby";
 	network = list("Research","SS13")
 	},
-/obj/effect/turf_decal/delivery/green/hollow,
 /obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -120919,7 +120897,6 @@
 "xYQ" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/economy/atm/directional/north,
-/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
