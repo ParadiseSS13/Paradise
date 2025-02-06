@@ -1380,6 +1380,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "hP" = (
 /obj/structure/table,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8290,10 +8291,10 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Xp" = (
 /obj/structure/table,
-/obj/item/kitchen/rollingpin,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

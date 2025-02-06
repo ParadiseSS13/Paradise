@@ -22588,6 +22588,9 @@
 /obj/item/shovel/spade{
 	pixel_y = -6
 	},
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "eBb" = (

@@ -2362,8 +2362,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "gK" = (
-/obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2502,6 +2503,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/cooking/bowl,
+/obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5096,14 +5098,6 @@
 /obj/structure/sign/poster/official/nanomichi_ad,
 /turf/simulated/wall,
 /area/ruin/ancientstation/betanorth)
-"vV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/clothing/head/chefhat,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/ancientstation/kitchen)
 "vY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5900,6 +5894,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"EH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "EK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -9704,7 +9705,7 @@ fS
 gs
 zp
 kx
-vV
+gL
 gG
 gG
 hY
@@ -9847,7 +9848,7 @@ fd
 rC
 BU
 gs
-gL
+EH
 gG
 Tm
 gG

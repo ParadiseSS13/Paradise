@@ -15607,6 +15607,9 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
 /obj/structure/shelf/service,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

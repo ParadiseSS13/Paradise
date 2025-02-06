@@ -311,15 +311,6 @@
 		PCWJ_ADD_REAGENT("blackpepper", 5),
 	)
 
-/datum/cooking/recipe/syntiburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/burger/plain
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_ITEM(/obj/item/food/meat/patty),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
-	)
-
 /datum/cooking/recipe/tofuburger
 	cooking_container = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/tofu
