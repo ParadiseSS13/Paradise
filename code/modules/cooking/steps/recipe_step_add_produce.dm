@@ -2,6 +2,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 
 /// A cooking step that involves using grown foods.
 /datum/cooking/recipe_step/add_produce
+	max_quality_award = 20
 	var/obj/produce_type
 	var/base_potency
 	var/exact_path
