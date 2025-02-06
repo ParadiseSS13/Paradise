@@ -149,6 +149,7 @@ const GuideSection = () => {
         <Box>
           - Accomplish all of your objectives to be able to learn the <span style={hereticYellow}>final ritual</span>.
           Complete the ritual to become all powerful!
+          <span style={hereticRed}> You can only do this ritual with&nbsp; hijack or if a cult tries to summon</span>.
         </Box>
       </Flex>
     </Flex.Item>
