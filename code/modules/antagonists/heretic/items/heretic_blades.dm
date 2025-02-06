@@ -18,7 +18,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration_percentage = 35
 	attack_verb = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	needs_permit = TRUE
 	new_attack_chain = TRUE
 	var/after_use_message = ""
 
@@ -51,6 +50,11 @@
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
 	var/turf/safe_turf = find_safe_turf()
+	var/turf/blade_turf = get_turf(user)
+	var/area/our_area = get_area(blade_turf)
+	if(!is_teleport_allowed(blade_turf.z) || our_area.tele_proof)
+		to_chat(user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+		return
 	if(check_usability(user))
 		if(do_teleport(user, safe_turf))
 			to_chat(user, "<span class='warning'>As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]</span>")
@@ -184,7 +188,7 @@
 	after_use_message = "The Stewards hear your call..."
 	tool_behaviour = TOOL_CROWBAR
 	usesound = 'sound/items/crowbar.ogg' //Maybe something else?
-	toolspeed = 1.3
+	toolspeed = 0.5
 
 // Path of Moon's blade
 /obj/item/melee/sickly_blade/moon

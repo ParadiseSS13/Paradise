@@ -332,6 +332,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
 
+/// Items with this trait will not have their worn icon overlayed.
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
+
 /// A general trait for tracking whether a zombie owned the organ or limb
 #define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
 //****** OBJ TRAITS *****//

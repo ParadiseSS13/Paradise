@@ -21,7 +21,7 @@
 		/obj/item/melee/rune_carver,
 		/obj/item/melee/sickly_blade,
 		/obj/item/organ, // Organs are also often used in rituals.
-		/obj/item/reagent_containers/glass/beaker/eldritch,
+		/obj/item/reagent_containers/drinks/bottle/eldritch,
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
 	)
 	//Vars used for the shield component

@@ -42,6 +42,7 @@
 	armor = list(MELEE = 30, BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	actions_types = list(/datum/action/item_action/toggle)
 	pockets = /obj/item/storage/internal/void_cloak
+	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	/// Are we invisible?
 	var/cloak_invisible = FALSE
 
@@ -67,19 +68,19 @@
 		/obj/item/melee/rune_carver,
 		/obj/item/melee/sickly_blade,
 		/obj/item/organ, // Organs are also often used in rituals.
-		/obj/item/reagent_containers/glass/beaker/eldritch,
+		/obj/item/reagent_containers/drinks/bottle/eldritch,
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
 	)
 
 /obj/item/clothing/suit/storage/void_cloak/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_OUTER_SUIT)
-		RegisterSignal(user, COMSIG_ITEM_EQUIPPED, PROC_REF(hide_item))
-		RegisterSignal(user, COMSIG_ITEM_DROPPED, PROC_REF(show_item))
+		RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item))
+		RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item))
 
 /obj/item/clothing/suit/storage/void_cloak/dropped(mob/user)
 	. = ..()
-	UnregisterSignal(user, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(user, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_MOB_UNEQUIPPED_ITEM))
 
 /obj/item/clothing/suit/storage/void_cloak/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -95,16 +96,19 @@
 		C.update_inv_wear_suit()
 
 
-/obj/item/clothing/suit/storage/void_cloak/proc/hide_item(atom/movable/source, mob/equipper, slot)
+/obj/item/clothing/suit/storage/void_cloak/proc/hide_item(atom/movable/source, obj/item/item, slot)
 	SIGNAL_HANDLER
 	if(slot & ITEM_SLOT_SUIT_STORE)
-		ADD_TRAIT(source, TRAIT_SKIP_EXAMINE, UID())
-		ADD_TRAIT(source, TRAIT_NO_STRIP, UID())
+		ADD_TRAIT(item, TRAIT_SKIP_EXAMINE, UID())
+		ADD_TRAIT(item, TRAIT_NO_STRIP, UID())
+		ADD_TRAIT(item, TRAIT_NO_WORN_ICON, UID())
 
-/obj/item/clothing/suit/storage/void_cloak/proc/show_item(atom/movable/source, mob/equipper, slot)
+
+/obj/item/clothing/suit/storage/void_cloak/proc/show_item(atom/movable/source, obj/item/item)
 	SIGNAL_HANDLER
-	REMOVE_TRAIT(source, TRAIT_NO_STRIP, UID())
-	REMOVE_TRAIT(source, TRAIT_SKIP_EXAMINE, UID())
+	REMOVE_TRAIT(item, TRAIT_NO_STRIP, UID())
+	REMOVE_TRAIT(item, TRAIT_SKIP_EXAMINE, UID())
+	REMOVE_TRAIT(item, TRAIT_NO_WORN_ICON, UID())
 
 /obj/item/clothing/suit/storage/void_cloak/examine(mob/user)
 	. = ..()

@@ -233,7 +233,7 @@
 
 	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
-
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, target, force, destination)
 	if(target == r_hand)
 		r_hand = null
 		update_inv_r_hand()
