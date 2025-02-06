@@ -163,6 +163,9 @@
 		do_sparks(5, 0, loc)
 	qdel(src)
 
+/obj/effect/portal/newtonian_move(direction, instant, start_delay)
+	return TRUE
+
 #define UNSTABLE_TIME_DELAY 2 SECONDS
 
 /obj/effect/portal/hand_tele

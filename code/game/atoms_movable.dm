@@ -418,9 +418,18 @@
 	return TRUE
 
 /// Called when src is being moved to a target turf because another movable (puller) is moving around.
-/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
+/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, puller_glide_size)
 	moving_from_pull = puller
-	Move(target_turf, get_dir(src, target_turf), glide_size_override)
+	var/new_glide_size = puller_glide_size
+	var/pull_dir = get_dir(src, target_turf)
+	// Adjust diagonal pulls for LONG_GLIDE differences.
+	if(IS_DIR_DIAGONAL(pull_dir))
+		if((puller.appearance_flags & LONG_GLIDE) && !(appearance_flags & LONG_GLIDE))
+			new_glide_size *= sqrt(2)
+		if(!(puller.appearance_flags & LONG_GLIDE) && (appearance_flags & LONG_GLIDE))
+			new_glide_size /= sqrt(2)
+	set_glide_size(new_glide_size)
+	Move(target_turf, pull_dir)
 	moving_from_pull = null
 
 // Make sure you know what you're doing if you call this
@@ -743,8 +752,12 @@
 
 /// This proc is recursive, and calls itself to constantly set the glide size of an atom/movable
 /atom/movable/proc/set_glide_size(target = 8)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
+	if(glide_size == target)
+		return
+
+	var/old_value = glide_size
 	glide_size = target
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, old_value)
 
 	for(var/mob/buckled_mob as anything in buckled_mobs)
 		buckled_mob.set_glide_size(target)

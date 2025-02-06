@@ -58,7 +58,7 @@ jobs:
           python -m tools.maplint.source --github
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.2.0
+        uses: actions/setup-dotnet@v4.3.0
         with:
           dotnet-version: 9.x
 
@@ -75,7 +75,7 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.2.0
+        uses: actions/setup-dotnet@v4.3.0
         with:
           dotnet-version: 9.x
       - name: Run OD

@@ -781,7 +781,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
@@ -842,7 +842,7 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD)) // hit mobs that are intentionally lying down to prevent combat crawling.
+	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) // hit mobs that are intentionally lying down to prevent combat crawling.
 
 /mob/living/carbon/human/canBeHandcuffed()
 	return has_left_hand() || has_right_hand()

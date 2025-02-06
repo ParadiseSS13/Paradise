@@ -22,7 +22,7 @@
 /datum/component/riding/vehicle/speedbike
 	vehicle_move_delay = 1
 	override_allow_spacemove = TRUE
-	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER
 
 /datum/component/riding/vehicle/speedbike/handle_specials()
 	. = ..()
@@ -36,3 +36,6 @@
 	set_vehicle_dir_offsets(SOUTH, -16, -16)
 	set_vehicle_dir_offsets(EAST, -18, 0)
 	set_vehicle_dir_offsets(WEST, -18, 0)
+
+/datum/component/riding/vehicle/speedbike/on_rider_try_pull(mob/living/rider_pulling, atom/movable/target, force)
+	return

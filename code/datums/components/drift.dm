@@ -90,7 +90,7 @@
 	RegisterSignal(movable_parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
 	// We will use glide size to intuit how long to delay our loop's next move for
 	// This way you can't ride two movements at once while drifting, since that'd be dumb as fuck
-	RegisterSignal(movable_parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(handle_glidesize_update))
+	RegisterSignal(movable_parent, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, PROC_REF(handle_glidesize_update))
 	// If you stop pulling something mid drift, I want it to retain that momentum
 	RegisterSignal(movable_parent, COMSIG_ATOM_NO_LONGER_PULLING, PROC_REF(stopped_pulling))
 
@@ -99,7 +99,7 @@
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
 	ignore_next_glide = FALSE
-	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
+	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
 
 /datum/component/drift/proc/before_move(datum/source)
 	SIGNAL_HANDLER
@@ -147,7 +147,7 @@
 /// We're going to take the passed in glide size
 /// and use it to manually delay our loop for that period
 /// to allow the other movement to complete
-/datum/component/drift/proc/handle_glidesize_update(datum/source, glide_size)
+/datum/component/drift/proc/handle_glidesize_update(datum/source, old_glide_size)
 	SIGNAL_HANDLER
 	// If we aren't drifting, or this is us, fuck off
 	var/atom/movable/movable_parent = parent
@@ -158,7 +158,7 @@
 	if(ignore_next_glide)
 		ignore_next_glide = FALSE
 		return
-	var/glide_delay = round(world.icon_size / glide_size, 1) * world.tick_lag
+	var/glide_delay = round(world.icon_size / movable_parent.glide_size, 1) * world.tick_lag
 	drifting_loop.pause_for(glide_delay)
 	delayed = TRUE
 

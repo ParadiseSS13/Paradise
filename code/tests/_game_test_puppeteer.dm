@@ -48,14 +48,25 @@
 
 	origin_test.Fail("could not spawn obj [obj_type] near [src]")
 
-/datum/test_puppeteer/proc/click_on(target, params)
-	var/datum/test_puppeteer/puppet_target = target
-	sleep(max(puppet.next_click, puppet.next_move) - world.time + 1)
-	if(istype(puppet_target))
-		puppet.ClickOn(puppet_target.puppet, params)
+/datum/test_puppeteer/proc/use_item_in_hand()
+	var/obj/item/item = puppet.get_active_hand()
+	if(!item)
 		return
 
-	puppet.ClickOn(target, params)
+	item.activate_self(puppet)
+	puppet.next_click = world.time
+	puppet.next_move = world.time
+	return TRUE
+
+/datum/test_puppeteer/proc/click_on(target, params)
+	var/datum/test_puppeteer/puppet_target = target
+	if(istype(puppet_target))
+		puppet.ClickOn(puppet_target.puppet, params)
+	else
+		puppet.ClickOn(target, params)
+
+	puppet.next_click = world.time
+	puppet.next_move = world.time
 
 /datum/test_puppeteer/proc/spawn_mob_nearby(mob_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))
@@ -65,12 +76,13 @@
 
 /datum/test_puppeteer/proc/change_turf_nearby(turf_type, direction = -1)
 	var/turf/T
+	var/turf/center = get_turf(puppet)
 	if(direction >= 0)
 		T = get_step(puppet, direction)
 	else
 		// just check for any contents, not blocked_turf which includes turf density
 		// (which we don't really care about)
-		for(var/turf/nearby in RANGE_TURFS(1, puppet))
+		for(var/turf/nearby in RANGE_TURFS(1, center))
 			if(!length(nearby.contents))
 				T = nearby
 
@@ -91,9 +103,50 @@
 /datum/test_puppeteer/proc/rejuvenate()
 	puppet.rejuvenate()
 
+/datum/test_puppeteer/proc/get_last_chatlog()
+	var/list/puppet_chat_list = get_chatlogs()
+	if(length(puppet_chat_list))
+		return puppet_chat_list[length(puppet_chat_list)]
+
 /datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
+	return findtextEx(get_last_chatlog(), snippet)
+
+/datum/test_puppeteer/proc/any_chatlog_has_text(snippet)
+	for(var/chat_line in get_chatlogs())
+		if(findtextEx(chat_line, snippet))
+			return TRUE
+
+	return FALSE
+
+/datum/test_puppeteer/proc/get_chatlogs()
 	if(!(puppet.mind.key in GLOB.game_test_chats))
-		return FALSE
-	var/list/puppet_chat_list = GLOB.game_test_chats[puppet.mind.key]
-	var/last_chat_html = puppet_chat_list[length(puppet_chat_list)]
-	return findtextEx(last_chat_html, snippet)
+		return list()
+	return GLOB.game_test_chats[puppet.mind.key]
+
+/datum/test_puppeteer/proc/find_nearby(atom_type)
+	for(var/turf/T in RANGE_TURFS(1, puppet))
+		for(var/atom/A in T.contents)
+			if(istype(A, atom_type))
+				return A
+
+// No we don't technically need to put these things into an actual backpack and
+// so forth, we could just leave them lying around and teleport them to the
+// player but this keeps things realistic and may surface issues we wouldn't
+// think to test for.
+/datum/test_puppeteer/proc/put_away(obj/object)
+	if(!puppet.back)
+		puppet.equip_to_appropriate_slot(new/obj/item/storage/backpack)
+
+	var/obj/item/storage/backpack = puppet.back
+	backpack.handle_item_insertion(object, puppet)
+
+/datum/test_puppeteer/proc/retrieve(obj/object)
+	if(!puppet.back)
+		return
+
+	var/obj/item/storage/backpack = puppet.back
+	if(!(object in backpack.contents))
+		return
+
+	backpack.remove_item_from_storage(object)
+	puppet.put_in_active_hand(object)

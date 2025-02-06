@@ -26,6 +26,9 @@
 	///Is this a portable unit that you can offer with *payme?
 	var/can_offer = TRUE
 
+	///The vendors that are linked to this EFTPOS.
+	var/list/linked_vendors = list()
+
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "EFTPOS #[rand(101, 999)]"
 	access_code = rand(1000, 9999)
@@ -33,6 +36,16 @@
 	//linked account starts as service account by default
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
 	print_reference()
+	return ..()
+
+/obj/item/eftpos/Destroy()
+	account_database = null
+	linked_account = null
+	for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+		if(vendor.linked_pos == src)
+			vendor.linked_pos = null
+	linked_vendors.Cut()
+
 	return ..()
 
 /obj/item/eftpos/proc/reconnect_database()
@@ -138,6 +151,9 @@
 					transaction_paid = FALSE
 			else if(linked_account)
 				transaction_locked = TRUE
+				for(var/obj/machinery/economy/vending/custom/vendor in linked_vendors)
+					if(vendor.linked_pos == src)
+						SStgui.update_uis(vendor, TRUE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("reset")
@@ -146,11 +162,11 @@
 			if(istype(I, /obj/item/card))
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
-					access_code = 0
-					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+					access_code = 1000
+					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 			else if(istype(I, /obj/item/card/emag))
-				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+				access_code = 1000
+				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 		if("offer")
 			if(can_offer)
 				offer(user)

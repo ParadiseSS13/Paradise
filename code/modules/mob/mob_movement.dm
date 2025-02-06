@@ -21,7 +21,7 @@
 	return (!mover.density || !density || horizontal)
 
 /mob/proc/projectile_hit_check(obj/item/projectile/P)
-	return !(P.always_hit_living_nondense && (stat != DEAD)) && !density
+	return !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) && !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -142,8 +142,16 @@
 		if(!isalienhunter(mob)) // i hate grab code
 			add_delay += 7
 
-	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
-	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
+	var/diagonal_factor = 1
+	if(IS_DIR_DIAGONAL(direct))
+		// For some reason, LONG_GLIDE mobs need to slow down here, but other mobs need to speed up.
+		// I'd expect one or the other to change, not both.
+		// If you can figure out why, please update this comment.
+		if(mob.appearance_flags & LONG_GLIDE)
+			diagonal_factor = sqrt(2)
+		else
+			diagonal_factor = 1 / sqrt(2)
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * diagonal_factor)) // set it now in case of pulled objects
 
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
@@ -179,22 +187,28 @@
 
 	. = ..()
 
+	var/new_glide_size = 0
+	// Only adjust for diagonal movement if the move was *actually* diagonal
 	if(mob.loc == new_loc)
+		// Similar to the glide size calculation above, LONG_GLIDE mobs need to slow down and other mobs speed up.
+		// Unline before, we also want to calculate the new movement delay, which is increased for LONG_GLIDE mobs, and unchanged for other mobs.
 		mob.last_movement = world.time
-		if(IS_DIR_DIAGONAL(direct))
-			// only incur the extra delay if the move was *actually* diagonal
-			// There would be a bit of visual jank if we try to walk diagonally next to a wall
-			// and the move ends up being cardinal, rather than diagonal,
-			// but that's better than it being jank on every *successful* diagonal move.
+		if(IS_DIR_DIAGONAL(direct) && (mob.appearance_flags & LONG_GLIDE))
 			add_delay *= sqrt(2)
 
-	var/after_glide = 0
-	if(visual_delay)
-		after_glide = visual_delay
-	else
-		after_glide = DELAY_TO_GLIDE_SIZE(add_delay)
+		if(visual_delay)
+			new_glide_size = visual_delay
+		else
+			new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay)
 
-	mob.set_glide_size(after_glide)
+		if(IS_DIR_DIAGONAL(direct) && !(mob.appearance_flags & LONG_GLIDE))
+			new_glide_size *= sqrt(2)
+
+		mob.set_glide_size(new_glide_size)
+	else if(visual_delay)
+		mob.set_glide_size(visual_delay)
+	else
+		mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay))
 
 	move_delay += add_delay
 
