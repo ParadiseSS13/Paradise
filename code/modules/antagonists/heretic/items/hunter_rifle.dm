@@ -21,7 +21,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 3.2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
+	AddComponent(/datum/component/scope, range_modifier = 3.2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND, trait_to_add = TRAIT_THERMAL_VISION)
 
 /obj/item/ammo_box/magazine/internal/boltaction/lionhunter
 	name = "lionhunter rifle internal magazine"

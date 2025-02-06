@@ -61,7 +61,8 @@
 		The Lionhunter's Rifle is a long ranged ballistic weapon with three shots. \
 		These shots function as normal, albeit weak high-caliber munitions when fired from \
 		close range or at inanimate objects. You can aim the rifle at distant foes, \
-		causing the shot to mark your victim with your grasp and teleport you directly to them."
+		causing the shot to mark your victim with your grasp and teleport you directly to them. \
+		Grants thermal vision when scoped in."
 	gain_text = "I met an old man in an antique shop who wielded a very unusual weapon. \
 		I could not purchase it at the time, but they showed me how they made it ages ago."
 

@@ -70,6 +70,7 @@
 		/obj/item/organ, // Organs are also often used in rituals.
 		/obj/item/reagent_containers/drinks/bottle/eldritch,
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
+		/obj/item/ammo_box/lionhunter,
 	)
 
 /obj/item/clothing/suit/storage/void_cloak/equipped(mob/user, slot)
