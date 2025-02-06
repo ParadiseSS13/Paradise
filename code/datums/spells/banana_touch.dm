@@ -104,5 +104,5 @@
 
 	// Re-equips the internal tank if present
 	equip_to_appropriate_slot(internal_tank)
-	src.internal = internal_tank
+	internal = internal_tank
 
