@@ -40,6 +40,10 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"t" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "T" = (
 /obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plating,
@@ -301,7 +305,7 @@ c
 c
 d
 d
-d
+t
 d
 d
 d

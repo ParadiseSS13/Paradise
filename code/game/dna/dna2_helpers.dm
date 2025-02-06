@@ -217,6 +217,7 @@
 	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
 		head_organ.h_style = GLOB.hair_styles_full_list[hair]
 
+	// dna is taken from the head, not from the mob
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 

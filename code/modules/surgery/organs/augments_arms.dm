@@ -892,7 +892,7 @@
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
-	force = 20
+	force = 15
 	armour_penetration_percentage = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
@@ -903,7 +903,7 @@
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
 	item_state = "mantis"
-	force = 18
+	force = 12
 
 /obj/item/melee/mantis_blade/nt/Initialize(mapload)
 	. = ..()

@@ -40,7 +40,7 @@
 	else
 		// hand this off to the turf instead (for building plating, catwalks, etc)
 		var/turf/T = get_turf(src)
-		return T.attack_by(C, user, params)
+		return T.item_interaction(user, C, params)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

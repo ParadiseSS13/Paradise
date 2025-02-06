@@ -66,6 +66,7 @@ export const Vending = (props, context) => {
     inserted_item_name,
     panel_open,
     speaker,
+    locked,
   } = data;
   let inventory;
 
@@ -83,6 +84,24 @@ export const Vending = (props, context) => {
     >
       <Window.Content scrollable>
         <Stack fill vertical>
+          {!locked && (
+            <Stack.Item>
+              <Section title="Configuration">
+                <Stack horizontal>
+                  <Stack.Item>
+                    <Button icon="pen-to-square" content="Rename Vendor" onClick={() => act('rename', {})} />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      icon="pen-to-square"
+                      content="Change Vendor Appearance"
+                      onClick={() => act('change_appearance', {})}
+                    />
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            </Stack.Item>
+          )}
           {!!chargesMoney && (
             <Stack.Item>
               <Section

@@ -1174,8 +1174,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 		else
-			sleep(6)
 			SetEmagged(TRUE)
+			sleep(6)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(hud_used)
 				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.

@@ -90,6 +90,7 @@
 /area/ruin/space/abandtele)
 "w" = (
 /obj/structure/closet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "x" = (
@@ -106,6 +107,7 @@
 /obj/item/weldingtool,
 /obj/item/wrench,
 /obj/item/circuitboard/teleporter,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "z" = (
