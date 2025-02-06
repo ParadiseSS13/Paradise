@@ -4,10 +4,10 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	language = "Psionic Communication"
 
-	blurb = "The Grey, known for their psionic abilities and unique appearance, hail from beyond the Milky Way and have an undisclosed homeworld. \
-	They rely heavily on cloning technology and are governed by a technocratic council of scientists.<br/><br/> \
-	Focused on technological advancement and the study of the universe, the Grey lack religious or spiritual beliefs. \
-	Their objective perspective and advanced knowledge often position them to focus on their own projects rather than the disputes of other species."
+	blurb = "Серые, известны своими псионическими способностями и уникальной внешностью, родом из пределов Млечного Пути, с неизвестным происхождением. \
+	Они в значительной степени полагаются на технологию клонирования и управляются технократическим советом ученых.<br/><br/> \
+	Сосредоточившись на технологическом прогрессе и изучении вселенной, Серые не имеют религиозных или духовных убеждений. \
+	Их объективный взгляд и обширные знания часто позволяют им сосредоточиться на собственных проектах, а не на разногласиях с другими видами."
 
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"

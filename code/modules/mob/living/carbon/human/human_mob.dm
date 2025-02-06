@@ -1338,7 +1338,7 @@
 		if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
-			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
+			eyes_icon = new(dna.species.eyes_icon, dna.species.eyes) // SS220 EDIT
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon

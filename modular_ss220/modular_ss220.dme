@@ -1,0 +1,121 @@
+#include "_modpack.dm"
+#include "_modpacks.dm"
+
+// #include "example/_example.dme"
+
+// --- MAINTENANCE --- //
+#include "_rust_utils/_rust_utils.dme"
+#include "_defines220/_defines220.dme"
+#include "_span/_span.dme"
+#include "_signals220/_signals220.dme"
+#include "_misc/_misc.dme"
+#include "maps220/_maps220.dme"
+
+// --- ICONS --- //
+#include "aesthetics/_aesthetics.dme"
+#ifdef MODPACK_CHAT_BADGES
+#include "chat_badges/_chat_badges.dme"
+#endif
+#include "hairs/_hairs.dme"
+
+// --- OBJECTS --- //
+#include "awaymission_gun/_awaymission_gun.dme"
+#include "barsigns/_barsigns.dme"
+#include "clothing/_clothing.dme"
+#include "devices/_devices.dme"
+#include "food_and_drinks/_food_and_drinks.dme"
+#include "gateway/_gateway.dme"
+#include "hydroponics/hydroponics.dme"
+#include "objects/_objects.dme"
+#include "sechailer/sechailer.dme"
+#include "spy_spider/_spy_spider.dme"
+#include "unique_objects/_unique_objects.dme"
+#include "vending/vending.dme"
+#include "wire_splicing/wiresplicing.dme"
+#include "silicons/_silicons.dme"
+#include "windows_airbag/_windows_airbag.dme"
+#include "clumsy_table/_clumsy_table.dme"
+#include "pt_monitor/_pt_monitor.dme"
+
+// --- MISC --- //
+#include "administration/_administration.dme"
+#include "aesthetics_sounds/_aesthetics_sounds.dme"
+#include "agent_id_tgui/_agent_id_tgui.dme"
+#include "ai_integration/_ai_integration.dme"
+#include "antagonists/_antagonists_vox_raiders.dme"
+#include "antagonists/_antagonists.dme"
+#include "autolathe_tgui/_autolathe_tgui.dme"
+#include "balance/_balance.dme"
+#include "bureaucracy/_bureaucracy.dme"
+#include "camera_nanomap/camera.dme"
+#include "cinematics/_cinematics.dme"
+#include "closet_picklocking/_closet_picklocking.dme"
+#include "crawl_speed/_crawl_speed.dme"
+#include "credits/_credits.dme"
+#include "cyrillic_fixes/_cyrillic_fixes.dme"
+#include "debug/_debug.dme"
+#include "detective_rework/detective_rework.dme"
+#include "discord_link/_discord_link.dme"
+#include "donor/_donor.dme"
+#include "emotes/_emotes.dme"
+#include "events/_events.dme"
+#include "gunhud/_gunhud.dme"
+#include "instruments/_instruments.dme"
+#include "jobs/_jobs.dme"
+#include "jukebox/_jukebox.dme"
+#include "keybindings/_keybindings.dme"
+#include "loadout/_loadout.dme"
+#include "logs/_logs.dme"
+#include "mecha_skins/mecha_skins.dme"
+#include "mobs/_mobs.dme"
+#include "mod/_mods.dme"
+#include "outfits/_outfits.dme"
+#include "phrases/_phrases.dme"
+#include "pixel_shift/_pixel_shift.dme"
+#include "preferences/_preferences.dme"
+#include "queue/_queue.dme"
+#include "redis220/_redis220.dme"
+#include "robolimbs/_robolimbs.dme"
+#include "screentip_change/_screentip_change.dme"
+#include "shuttles/_shuttles.dme"
+#include "sm_space_drop/sm_space_drop.dme"
+#include "smart_equip_targeted/_smart_equip_targeted.dme"
+#include "species_whitelist/_species_whitelist.dme"
+#include "species/_species.dme"
+#include "speech_filter/_speech_filter.dme"
+#include "station_traits/_station_traits.dme"
+#include "text_to_speech/_tts.dme"
+#include "title_screen/_title_screen.dme"
+#include "translations/_translations.dme"
+#include "uplink_items/_uplink_items.dme"
+#include "verbs/_verbs.dme"
+#include "whitelist/_whitelist.dme"
+#include "world_view_bigger/_world_view_bigger.dme"
+
+// --- PRIME --- //
+// #define MODPACK_MAIN_ONLY
+// Чтобы отключить модпаки прайма, нужно добавиту строку выше в code/__DEFINES/_ss220.dm.
+// Изначально они включены. Сделано так, по двум причинам.
+// 1. Добавить новый дефайн на мейне на хосте куда проще, чем на прайме.
+// 2. Так модпаки прайма будут включены в тестах и линтере.
+#ifndef MODPACK_MAIN_ONLY
+#include "security_redalert_accesses/_security_redalert_accesses.dme"
+#include "prime_only/_prime.dme"
+#endif
+
+// --- UNUSED MODS --- //
+
+ /*------------------------------------------------------------------
+	Почему UNUSED MODS стоит хранить?
+	Потому что никто не проверяет использование тех или иных файлов
+	в коде, и мод просто исчезнет из поля зрения, когда находясь здесь
+	он всегда напоминает о своём существовании. Небольшая библиотека,
+	если так вообще можно выразиться.
+ ---------------------------------------------------------------------*/
+
+// #include "crit_rework/_crit_rework.dme"
+
+// --- TESTING --- //
+#ifdef GAME_TESTS
+#include "unit_tests/_unit_tests.dme"
+#endif

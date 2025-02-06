@@ -12,11 +12,11 @@
 	max_age = 130
 	language = "Bubblish"
 
-	blurb = "Slime People are gelatinous and translucent beings hailing from the tropical world of Xarxis 5 and surrounding Xarxis Republic. \
-	Relatively recent entrants to the galactic scene, the Xarxis Republic, and slime people by extension, were discovered in the mid-2400s by a TSF survery fleet..<br/><br/> \
-	Today, the Xarxis Republic is a member state of the Trans-Solar Federation, having become an Associate State following first contact, and later moving through several stages of integration.  \
-	While a great deal of Slime People prefer the comforts and traditions of their home system and the Federation, a number have decided to take their chances in the wider sector, in \
-	search of adventure, profit, and freedom among the stars."
+	blurb = "Слаймомены - желеподобные и полупрозрачные существа из обширных океанов Ксарксиса 5. \
+	Они появились на галактической арене сравнительно недавно и были обнаружены во время исследовательской компании ТСФ.<br/><br/> \
+	Слаймомены традиционно действуют кочующими группами и племенами, которые мигрируют в соответствии с эллиптической орбитой мира и миграционными паттернами. \
+	Многие Слаймомены предпочитают комфорт и традиции родной планеты, но многие решили попытать счастья среди звезд, пытаясь \
+	найти лучшую жизнь для себя и своего вида."
 
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime

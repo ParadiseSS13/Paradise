@@ -33,13 +33,13 @@
 	icon_state = GET_CULT_DATA(entity_icon_state, initial(icon_state))
 	name = GET_CULT_DATA(entity_name, initial(name))
 
-	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+	var/sound/cry = sound('modular_ss220/aesthetics_sounds/sound/narsie/narsie_risen.ogg') //SS220 EDIT
 
 	for(var/mob/living/player in GLOB.player_list)
 		if(isnewplayer(player))
 			continue
 
-		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] ЯВИЛСЯ</b></font>")
 		SEND_SOUND(player, cry)
 
 	SSticker.mode?.cult_team?.successful_summon()
