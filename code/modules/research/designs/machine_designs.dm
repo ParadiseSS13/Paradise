@@ -462,14 +462,14 @@
 	build_path = /obj/item/circuitboard/grill
 	category = list("Misc. Machinery")
 
-/datum/design/candy_maker
-	name = "Machine Board (Candy Maker)"
-	desc = "The circuit board for a Candy Maker."
-	id = "candymaker"
+/datum/design/ice_cream_mixer
+	name = "Machine Board (Ice Cream Mixer)"
+	desc = "The circuit board for an Ice Cream Mixer."
+	id = "ice_cream_mixer"
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/candy_maker
+	build_path = /obj/item/circuitboard/cooking/ice_cream_mixer
 	category = list("Misc. Machinery")
 
 /datum/design/deepfryer

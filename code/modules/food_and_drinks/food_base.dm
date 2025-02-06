@@ -51,6 +51,14 @@
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
+	/// Variables affected by cooking
+	var/food_descriptor
+	var/food_quality = 1
+	var/food_tier
+	var/bite_descriptor
+
+	var/recommends_implement
+
 /obj/item/food/Initialize(mapload)
 	. = ..()
 
@@ -71,6 +79,7 @@
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
 	last_ant_time = world.time
+	get_food_tier()
 
 /obj/item/food/Destroy()
 	ant_location = null
@@ -127,6 +136,12 @@
 
 /obj/item/food/examine(mob/user)
 	. = ..()
+	#ifdef PCWJ_DEBUG
+	. += "<span class='notice'>\nThe food's level of quality is [food_quality]</span>" //Visual number should only be visible when debugging
+	#endif
+
+	. += food_descriptor
+
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
@@ -135,6 +150,46 @@
 				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
 			else
 				. += "<span class='notice'>[src] was bitten multiple times!</span>"
+
+/obj/item/food/proc/get_food_tier()
+	if(food_quality < -9)
+		food_tier = PCWJ_QUALITY_GARBAGE
+		food_descriptor = "It looks gross. Someone cooked this poorly."
+		bite_descriptor = "Eating this makes you regret every decision that led you to this moment."
+	else if(food_quality >= 100)
+		food_tier = PCWJ_QUALITY_ELDRITCH
+		food_descriptor = "What cruel twist of fate it must be, for this unparalleled artistic masterpiece can only be truly appreciated through its destruction. Does this dish's transient form belie the true nature of all things? You see the totality of existence reflected through \the [src]."
+		bite_descriptor = "Eating this is like reliving the happiest moments of your life. You've never tasted food better than this!"
+	else
+		switch(food_quality)
+			if(-9 to 0)
+				food_tier = PCWJ_QUALITY_GROSS
+				food_descriptor = "It looks pretty unappetizing."
+				bite_descriptor = "Your stomach turns as you chew. This tastes pretty bad."
+			if(0 to 2)
+				food_tier = PCWJ_QUALITY_MEH
+				food_descriptor = "It looks edible, at least."
+				bite_descriptor = "It tastes okay. Could be worse, but it certainly isn't great."
+			if(2 to 4)
+				food_tier = PCWJ_QUALITY_NORMAL
+				food_descriptor = "It looks adequately made."
+				bite_descriptor = "It's food, alright."
+			if(4 to 6)
+				food_tier = PCWJ_QUALITY_GOOD
+				food_descriptor = "It looks pretty good."
+				bite_descriptor = "This ain't half bad!"
+			if(6 to 8)
+				food_tier = PCWJ_QUALITY_VERY_GOOD
+				food_descriptor = "This food looks very tasty."
+				bite_descriptor = "So tasty!"
+			if(8 to 10)
+				food_tier = PCWJ_QUALITY_CUISINE
+				food_descriptor = "There's a special spark in this cooking; a measure of love and care unseen by the casual chef."
+				bite_descriptor = "You can taste the attention to detail like a fine spice on top of the excellently prepared dish."
+			if(71 to 99)
+				food_tier = PCWJ_QUALITY_LEGENDARY
+				food_descriptor = "The quality of this food is legendary. Words fail to describe it further. It must be eaten!"
+				bite_descriptor = "The taste is unreal. The texture, the flavor... could food get any better than this?"
 
 /obj/item/food/ex_act()
 	if(reagents)

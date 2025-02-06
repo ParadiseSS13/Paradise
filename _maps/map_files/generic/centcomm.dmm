@@ -4518,7 +4518,8 @@
 	},
 /area/centcom/gamma)
 "oX" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6493,7 +6494,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "vV" = (
-/obj/machinery/kitchen_machine/candy_maker/upgraded,
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7301,7 +7302,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "zB" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8220,7 +8221,7 @@
 	},
 /area/tdome/tdomeadmin)
 "Dk" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

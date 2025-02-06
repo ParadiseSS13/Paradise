@@ -48,6 +48,7 @@
 	list_reagents = list("nutriment" = 6, "tomatojuice" = 10, "vitamin" = 4)
 	tastes = list("pasta" = 1, "tomato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+	recommends_implement = /obj/item/kitchen/utensil/fork
 
 /obj/item/food/meatballspaghetti
 	name = "spaghetti & meatballs"

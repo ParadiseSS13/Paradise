@@ -88,8 +88,17 @@
 				slices_lost = rand(1, min(1, round(slices_num / 2)))
 
 			var/reagents_per_slice = reagents.total_volume/slices_num
+			var/food_quality = 1
+			if(seed)
+				var/datum/plant_gene/core/C = seed.get_gene(/datum/plant_gene/core/potency)
+				if(C)
+					food_quality = C.value / 10
 			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
+				var/obj/item/food/food_slice = slice
+				if(istype(food_slice))
+					food_slice.food_quality = food_quality
+					food_slice.get_food_tier()
 				reagents.trans_to(slice, reagents_per_slice)
 				slice.scatter_atom()
 			qdel(src)
