@@ -3076,6 +3076,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3823,6 +3824,13 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/wood,
+/area/ruin/unpowered/syndicate_space_base/service)
+"wm" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "wn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11458,7 +11466,7 @@ gW
 oM
 oM
 mk
-hP
+wm
 MT
 Cw
 fY

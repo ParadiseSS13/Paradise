@@ -2501,6 +2501,7 @@
 "hc" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4565,6 +4566,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/oven,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "qd" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/computerframe{
@@ -4831,6 +4840,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"sY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/grill_grate,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -5173,6 +5190,13 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
+"wJ" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/stack/sheet/wood{
+	amount = 25
+	},
+/turf/simulated/floor/grass,
+/area/ruin/ancientstation/hydroponics)
 "xj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -7315,6 +7339,7 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9631,7 +9656,7 @@ fO
 gs
 gt
 gG
-VR
+sY
 gG
 gG
 ia
@@ -9670,7 +9695,7 @@ bq
 bC
 bC
 cB
-cZ
+wJ
 dw
 XV
 Kn
@@ -9727,7 +9752,7 @@ fR
 gs
 gK
 gG
-VR
+pW
 VM
 gG
 hZ
