@@ -225,7 +225,7 @@
 /obj/item/storage/bag/ore/cyborg/Destroy()
 	UnregisterSignal(src, COMSIG_CYBORG_ITEM_ACTIVATED)
 	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
-	. = ..()
+	return ..()
 
 /// miners, your messiah has arrived
 /obj/item/storage/bag/ore/holding

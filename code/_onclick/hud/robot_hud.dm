@@ -26,7 +26,7 @@
 	name = "module"
 	icon_state = "inv"
 	/// If it's slot 1, 2, or 3
-	var/module_number = 1
+	var/module_number = CYBORG_MODULE_ONE
 	/// Where the string for the deactivated icon state is stored
 	var/deactivated_icon_string
 	/// Where the string for the activated icon state is stored
