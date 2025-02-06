@@ -112,7 +112,7 @@
 
 	if(!can_be_healed(user, target, target_zone))
 		to_chat(user, "<span class='notice'>It doesn't look like [target] has any more [damage_name_pretty].</span>")
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_STEP_CONTINUE
 
 	var/brute_healed = brute_damage_healed
 	var/burn_healed = burn_damage_healed
