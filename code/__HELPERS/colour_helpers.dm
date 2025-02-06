@@ -46,7 +46,7 @@
 	RGB[3] = clamp(RGB[3]+value,0,255)
 	return rgb(RGB[1],RGB[2],RGB[3])
 
-//PACS related code
+//Advanced Color Shifting related code
 
 /proc/color_transition_filter(new_color, saturation_behavior = SATURATION_MULTIPLY)
 	if(islist(new_color))
