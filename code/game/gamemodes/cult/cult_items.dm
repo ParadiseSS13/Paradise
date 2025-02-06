@@ -437,6 +437,40 @@
 	animate(filter, alpha = 110, time = 1.5 SECONDS, loop = -1)
 	animate(alpha = 40, time = 2.5 SECONDS)
 
+/obj/item/melee/cultblade/haunted/proc/handle_haunted_movement()
+	if(!isliving(loc))
+		return TRUE
+	var/mob/loccer = loc
+	var/resist_chance = 20
+	var/fail_text = "You struggle, but [loccer] keeps [loccer.p_their()] grip on you!"
+	var/particle_to_spawn = null
+	if(IS_CULTIST(loccer))
+		resist_chance = 5 // your mastahs
+		fail_text = "You struggle, but [loccer]'s grip is unnaturally hard to resist!"
+		particle_to_spawn = /obj/effect/temp_visual/cult/sparks
+	if(IS_HERETIC_OR_MONSTER(loccer))
+		resist_chance = 10
+		fail_text = "You struggle, but [loccer] deftly handles the grip movement."
+		particle_to_spawn = /obj/effect/temp_visual/revenant
+	if(HAS_MIND_TRAIT(loccer, TRAIT_HOLY))
+		resist_chance = 6
+		fail_text = "You struggle, but [loccer]'s holy grip holds tight against your thrashing."
+		particle_to_spawn = null
+	if(iswizard(loccer))
+		resist_chance = 3 // magic master
+		fail_text = "You struggle, but [loccer]'s handle on magic easily neutralizes your movement."
+		particle_to_spawn = /obj/effect/particle_effect/sparks
+
+	new particle_to_spawn(get_turf(loccer))
+
+	if(prob(resist_chance))
+		return TRUE
+		// flung by later code
+	else
+		to_chat(trapped_entity, "<span class='warning'>[fail_text]</span>")
+		return FALSE
+
+
 #undef WIELDER_SPELLS
 #undef SWORD_SPELLS
 #undef SWORD_PREFIX
@@ -977,7 +1011,7 @@
 			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
 			if(S)
 				S.trigger()
-			else
+			else if(!IS_HERETIC(L))
 				L.KnockDown(10 SECONDS)
 				L.apply_damage(60, STAMINA)
 				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)

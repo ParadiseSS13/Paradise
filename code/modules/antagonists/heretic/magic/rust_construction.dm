@@ -60,11 +60,11 @@
 		// which we need to re-rust
 		living_owner?.do_rust_heretic_act(cast_on)
 		playsound(cast_on, 'sound/effects/bang.ogg', 50, vary = TRUE)
-		return
+		return TRUE
 
 	var/turf/simulated/wall/new_wall = cast_on.ChangeTurf(/turf/simulated/wall)
 	if(!istype(new_wall))
-		return
+		return TRUE
 
 	playsound(new_wall, 'sound/effects/constructform.ogg', 50, TRUE)
 	new_wall.rust_heretic_act()

@@ -485,21 +485,21 @@
 			to_chat(user, "<span class='warning'>An eldritch force intervenes as you touch [target], absorbing most of the effects!</span>")
 			to_chat(target, "<span class='warning'>As [user] touches you with vile magicks, the Mansus absorbs most of the effects!</span>")
 			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
-
-		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-		L.Silence(6 SECONDS)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.KnockDown(10 SECONDS)
-			C.apply_damage(60, STAMINA)
-			C.flash_eyes(1, TRUE)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
-		to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
+		else
+			L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+			L.Silence(6 SECONDS)
+			if(issilicon(target))
+				var/mob/living/silicon/S = L
+				S.emp_act(EMP_HEAVY)
+			else if(iscarbon(target))
+				var/mob/living/carbon/C = L
+				C.KnockDown(10 SECONDS)
+				C.apply_damage(60, STAMINA)
+				C.flash_eyes(1, TRUE)
+				C.Stuttering(16 SECONDS)
+				C.CultSlur(20 SECONDS)
+				C.Jitter(16 SECONDS)
+			to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
 	user.do_attack_animation(target)
 	uses--
 	..()

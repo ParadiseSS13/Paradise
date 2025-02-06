@@ -470,7 +470,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_EPIC
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	layer = LARGE_MOB_LAYER
-	speed = -0.5
+	speed = 0
 	maxHealth = 6000
 	health = 6000
 	initial_traits = list(TRAIT_FLYING)
