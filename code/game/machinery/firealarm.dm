@@ -24,6 +24,7 @@ FIRE ALARM
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	resistance_flags = FIRE_PROOF
+	cares_about_temperature = TRUE
 
 	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
@@ -107,7 +108,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/machinery/firealarm/temperature_expose(temperature, volume)
 	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
