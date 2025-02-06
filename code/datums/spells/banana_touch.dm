@@ -80,9 +80,29 @@
 	Stuttering(30 SECONDS)
 	do_jitter_animation(30 SECONDS)
 
+	var/obj/item/tank/internal_tank = src.internal
+	var/obj/item/clothing/mask/gas/clown_hat/clown_mask = new()
+	var/obj/item/clothing/under/rank/civilian/clown/clown_suit = new()
+	var/obj/item/clothing/shoes/clown_shoes/clown_shoes = new()
+	clown_mask.flags |= DROPDEL
+	clown_suit.flags |= DROPDEL
+	clown_shoes.flags |= DROPDEL
+
 	drop_item_to_ground(shoes, force = TRUE)
 	drop_item_to_ground(wear_mask, force = TRUE)
 	drop_item_to_ground(w_uniform, force = TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes, ITEM_SLOT_SHOES, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat, ITEM_SLOT_MASK, TRUE, TRUE)
+	if(isplasmaman(src))
+		drop_item_to_ground(head, force = TRUE)
+		var/obj/item/clothing/head/helmet/space/plasmaman/clown/clown_helmet = new()
+		clown_suit = new /obj/item/clothing/under/plasmaman/clown
+		clown_helmet.flags |= DROPDEL
+		clown_suit.flags |= DROPDEL
+		equip_to_slot_if_possible(clown_helmet, ITEM_SLOT_HEAD, TRUE, TRUE)
+	equip_to_slot_if_possible(clown_suit, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(clown_shoes, ITEM_SLOT_SHOES, TRUE, TRUE)
+	equip_to_slot_if_possible(clown_mask, ITEM_SLOT_MASK, TRUE, TRUE)
+
+	// Re-equips the internal tank if present
+	equip_to_appropriate_slot(internal_tank)
+	src.internal = internal_tank
+
