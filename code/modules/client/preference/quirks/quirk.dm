@@ -1,8 +1,10 @@
 GLOBAL_LIST_EMPTY(quirk_datums)
 /datum/quirk
+	/// Name of the quirk. It's important that the basetypes don't have a name, and that any quirks you want people to see to have one.
 	var/name
+	/// The (somewhat) IC explanation of what this quirk does, to be shown in the TGUI menu.
 	var/desc = "Uh oh sisters! No description!"
-	var/quirk_type = QUIRK_NEUTRAL
+	/// A positive or negative number, good quirks should be 1 to 4, bad quirks should be -1 to -4
 	var/cost = 0
 	/// The mob that this quirk gets applied to.
 	var/mob/living/carbon/human/owner
@@ -20,8 +22,10 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/item_to_give
 	/// If there's an item to give, what slot should it be equipped to roundstart?
 	var/item_slot = ITEM_SLOT_IN_BACKPACK
-	/// If there's text that the user needs to be shown when they're given the quirk.
-	var/spawn_text
+	/// If this quirk adds an organ
+	var/organ_to_give
+	/// What organ should be removed (if any) before adding the initial organ
+	var/organ_to_remove
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()

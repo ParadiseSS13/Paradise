@@ -125,7 +125,6 @@
 			"name" = quirk.name,
 			"desc" = quirk.desc,
 			"cost" = quirk.cost,
-			"type" = quirk.quirk_type,
 			"path" = quirk.type
 		)
 		GLOB.quirk_datums[quirk.name] = quirk // This will let us get the datum of a quirk with just the name later.

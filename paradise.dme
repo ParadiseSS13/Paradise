@@ -106,7 +106,6 @@
 #include "code\__DEFINES\preferences_defines.dm"
 #include "code\__DEFINES\procpath.dm"
 #include "code\__DEFINES\qdel_defines.dm"
-#include "code\__DEFINES\quirk_defines.dm"
 #include "code\__DEFINES\radiation_defines.dm"
 #include "code\__DEFINES\radio_defines.dm"
 #include "code\__DEFINES\reagents_defines.dm"
