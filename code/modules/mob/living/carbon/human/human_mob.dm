@@ -256,7 +256,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_FRAIL))
 		limb_loss_chance *= 2
-		
+
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)
 		var/obj/item/organ/external/BP = get_organ(X)
@@ -1129,10 +1129,15 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
-
+	var/list/quirk_organs
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
-
+		var/balance_check = 0
+		for(var/datum/quirk/quirk in quirks)
+			balance_check += quirk.cost
+			quirk.apply_quirk_effects(src)
+		if(balance_check > 0)
+			message_admins("[src] managed to spawn in with a positive quirk balance. Look into a possible TGUI exploit (or bug).")
 	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
 	if(keep_missing_bodyparts)
 		for(var/organ_name as anything in bodyparts_by_name)
