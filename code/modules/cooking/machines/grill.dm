@@ -75,7 +75,7 @@
 			if(!stored_wood)
 				surface.turn_off()
 			else
-				stored_wood -= 0.2
+				stored_wood = max(0, stored_wood - 0.05)
 
 /obj/machinery/cooking/grill/RefreshParts()
 	. = ..()
