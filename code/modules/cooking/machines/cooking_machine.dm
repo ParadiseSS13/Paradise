@@ -145,6 +145,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 	var/input = clickpos_to_surface(modifiers)
 	var/datum/cooking_surface/burner = surfaces[input]
+	if(!burner)
+		return
+
 	var/obj/item/reagent_containers/cooking/container = burner.placed_item
 	if(!(istype(container)))
 		return
