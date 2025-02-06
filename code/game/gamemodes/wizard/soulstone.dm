@@ -87,30 +87,56 @@
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return FINISH_ATTACK
 
-	if(!ishuman(target)) // If target is not a human
-		return ..()
-
 /obj/item/soulstone/attack(mob/living/target, mob/living/carbon/human/user)
+	user.do_attack_animation(target)
+
+	if(istype(target, /mob/living/simple_animal/possessed_object))
+		var/mob/living/simple_animal/possessed_object/possession = target
+		if(!possession.was_shade)
+			to_chat(user, "<span class='warning'>The spirit in [target] refuses, as it isn't strong enough to survive leaving the item!</span>")
+			to_chat(possession, "<span class='warning'>[user] asks you to leave [target], but you refuse, knowing you won't survive leaving the item.</span>")
+			return FINISH_ATTACK
+
+		if(isnull(target.client))
+			to_chat(user, "<span class='warning'>The spirit in [target] doesn't reac to your request. It seems dormant.</span>")
+			return FINISH_ATTACK
+
+		var/client/player_client = target.client
+		to_chat(target, "<span class='notice'>You ask the spirit to leave [target] so you can capture it in [src].</span>")
+
+		to_chat(target, "<span class='warning'>[user] asks you to leave [target] so [user.p_they()] can put you in [src]. Click the button in the top right of the game window to release your hold and become a shade.</span>")
+		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
+
+		var/atom/movable/screen/alert/ghost/soulstone/alert = target.throw_alert("[src.UID()]_soulstone_ghost", /atom/movable/screen/alert/ghost/soulstone)
+		if(player_client.prefs && player_client.prefs.UI_style)
+			alert.icon = ui_style2icon(player_client.prefs.UI_style)
+
+		return FINISH_ATTACK
+
+	if(!ishuman(target))
+		to_chat(user, "<span class='warning'>This being has no soul!</span>")
+		return FINISH_ATTACK
+
 	if(!target.mind)
 		to_chat(user, "<span class='warning'>This being has no soul!</span>")
-		return ..()
+		return FINISH_ATTACK
 
 	if(jobban_isbanned(target, ROLE_CULTIST) || jobban_isbanned(target, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
-		return ..()
+		return FINISH_ATTACK
 
 	if(IS_CULTIST(user) && IS_CULTIST(target))
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
-		return ..()
+		return FINISH_ATTACK
 
 	if((target.mind.offstation_role && target.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(target, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
-		return ..()
+		return FINISH_ATTACK
 
 	if(optional)
 		if(!target.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
-			return
+			return FINISH_ATTACK
 
 		to_chat(user, "<span class='warning'>You attempt to channel [target]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
 
@@ -123,7 +149,7 @@
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
-		var/atom/movable/screen/alert/notify_soulstone/alert = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/alert = player_mob.throw_alert("[src.UID()]_soulstone_absorb", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			alert.icon = ui_style2icon(player_client.prefs.UI_style)
 
@@ -145,13 +171,13 @@
 
 		if(!opt_in)
 			to_chat(user, "<span class='warning'>The soul resists your attempts at capturing it!</span>")
-			return
+			return FINISH_ATTACK
 
 		opt_in = FALSE
 
 	add_attack_logs(user, target, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", target, user)
-	return
+	return FINISH_ATTACK
 
 /obj/item/soulstone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))

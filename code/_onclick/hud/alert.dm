@@ -637,6 +637,10 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/ghost/cryo
 	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
 
+/atom/movable/screen/alert/ghost/soulstone
+	timeout = 30 SECONDS
+	desc = "Someone wants you to leave this object so they can put you in a soulstone. Click to release your hold and become a shade."
+
 /atom/movable/screen/alert/ghost/xeno
 	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
 
@@ -782,8 +786,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!..())
 		return
 	if(stone)
-		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
-		impossible for you to get back into the game as your regular character.", "Respawn", list("No", "Yes")) ==  "Yes")
+		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will absorb your corpse and place you at their mercy.", "Enter [stone]?", list("No", "Yes")) ==  "Yes")
 			stone?.opt_in = TRUE
 
 /atom/movable/screen/alert/notify_soulstone/Destroy()
