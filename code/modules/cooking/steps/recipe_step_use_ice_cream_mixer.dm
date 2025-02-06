@@ -23,7 +23,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_ice_cream_mixer)
 	return 5
 
 /datum/cooking/recipe_step/use_ice_cream_mixer/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
-	return list(target = used_item.UID())
+	var/list/result = list(target = used_item.UID())
+	var/obj/machinery/cooking/ice_cream_mixer/mixer = used_item
+	if(istype(mixer))
+		result["rating"] = mixer.quality_mod
+
+	return result
 
 /datum/cooking/recipe_step/use_ice_cream_mixer/get_pda_formatted_desc()
 	return "Mix in an ice cream mixer for [DisplayTimeText(time)]."

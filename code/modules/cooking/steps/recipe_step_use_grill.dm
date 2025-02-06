@@ -33,6 +33,9 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_grill)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 	if(istype(container))
 		step_data["cooker_data"] = container.cooker_data.Copy()
+	var/obj/machinery/cooking/grill/grill = used_item
+	if(istype(grill))
+		step_data["rating"] = grill.quality_mod
 
 	return step_data
 

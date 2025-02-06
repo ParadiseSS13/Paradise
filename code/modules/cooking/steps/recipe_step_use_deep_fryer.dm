@@ -23,7 +23,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_deep_fryer)
 	return 5
 
 /datum/cooking/recipe_step/use_deep_fryer/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
-	return list(target = used_item.UID())
+	var/list/result = list(target = used_item.UID())
+	var/obj/machinery/cooking/deepfryer/deepfryer = used_item
+	if(istype(deepfryer))
+		result["rating"] = deepfryer.quality_mod
+
+	return result
 
 /datum/cooking/recipe_step/use_deep_fryer/get_pda_formatted_desc()
 	return "Deep-fry for [DisplayTimeText(time)]."

@@ -125,16 +125,15 @@
 		if(length(completed_recipes) == 1)
 			recipe_to_complete = completed_recipes[1]
 		else if(length(completed_recipes) > 1)
-			var/list/names = list()
+			var/list/types = list()
 			for(var/datum/cooking/recipe/recipe in completed_recipes)
-				names += recipe.name
-			log_debug("More than one valid recipe completion at the same step, this shouldn't happen. Valid recipes: [jointext(names, ", ")]")
+				types += "[recipe.type]"
+			log_debug("More than one valid recipe completion at the same step, this shouldn't happen. Valid recipes: [jointext(types, ", ")]")
 			recipe_to_complete = completed_recipes[1]
 
 	if(recipe_to_complete)
 		var/result = recipe_to_complete.create_product(src)
 		if(!container)
-			log_debug("failure to create result for recipe tracker")
 			return PCWJ_COMPLETE
 
 		if(user && user.Adjacent(container))

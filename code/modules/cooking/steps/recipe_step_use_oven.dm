@@ -33,6 +33,9 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_oven)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 	if(istype(container))
 		step_data["cooker_data"] = container.cooker_data.Copy()
+	var/obj/machinery/cooking/oven/oven = used_item
+	if(istype(oven))
+		step_data["rating"] = oven.quality_mod
 
 	return step_data
 
