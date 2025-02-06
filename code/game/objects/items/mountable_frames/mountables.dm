@@ -4,7 +4,7 @@
 		/turf/simulated/wall
 	)
 	var/allow_floor_mounting = FALSE
-
+	new_attack_chain = TRUE
 
 /obj/item/mounted/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
 	if(is_type_in_list(A, buildon_types))
