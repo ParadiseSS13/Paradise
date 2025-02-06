@@ -878,26 +878,23 @@ GLOBAL_LIST_EMPTY(multiverse)
 //raises the victim into a special zombies and binds them to wiz
 /obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
-	chosen_plague = pick_disease()
-
-	var/datum/disease/plague = chosen_plague
-
+	var/datum/disease/chosen_plague = pick_disease()
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
 		You have been bestowed the following plague: <br> \
-		[plague.name]!</span>"
+		[chosen_plague.name]!</span>"
 
 
-	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
 	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 	for(var/trait in plague_traits)
-	ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
+		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT) // Cant have the user or zombie getting infected by their own plagues
+	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
-	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie
-	plague_virus.stage = 8
-	target.ContractDisease(plague_virus)
+	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie/plague_zombie(chosen_plague)
+	victim.ContractDisease(plague_virus)
 
 	//time to rot
 	if(!istype(victim))
@@ -912,6 +909,17 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.update_hands_hud()
 	victim.update_body()
 	qdel(src)
+
+//choose what disease this zombie will get
+/obj/item/plague_talisman/proc/pick_disease()
+	var/picked_disease
+	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
+	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
+	if(prob(66))
+		picked_disease = pick(minor_diseases)
+	else
+		picked_disease = pick(major_diseases)
+	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3

@@ -12,3 +12,5 @@
 
 	name = "Necromancy-risen Plague Zombie"
 	master_hud_name = "wizard"
+
+

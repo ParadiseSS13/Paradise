@@ -19,10 +19,8 @@
 	var/cure_stage = 0
 	/// Cooldown until the virus can advance to the next stage
 	COOLDOWN_DECLARE(stage_timer)
-
-/datum/disease/zombie/contract()
-	if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
-		bypasses_immunity = TRUE
+	/// What disease are we passing along to datum/antagonist/zombie
+	var/plague_disease
 
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
@@ -124,7 +122,8 @@
 		affected_mob.update_hands_hud()
 		H.update_body()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie && !HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE)))
-		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+		var/datum/antagonist/zombie/plague = new/datum/antagonist/zombie(plague_disease)
+		affected_mob.mind.add_antag_datum(plague)
 	return TRUE
 
 
@@ -132,7 +131,7 @@
 	if(has_cure && prob(cure_chance))
 		stage = max(stage - 1, 0)
 
-	if(stage <= 0 && has_cure)
+	if(stage <= 0 && has_cure && bypasses_immunity != TRUE)
 		cure()
 		return FALSE
 	return TRUE
@@ -157,3 +156,10 @@
 	affected_mob.med_hud_set_status()
 	return ..()
 
+/datum/disease/zombie/plague_zombie
+	bypasses_immunity = TRUE
+	stage = 8
+
+/datum/disease/zombie/plague_zombie/New(chosen_disease)
+	plague_disease = chosen_disease
+	to_chat(world, "DEBUG: disease/zombie/New() has been given [plague_disease]")
