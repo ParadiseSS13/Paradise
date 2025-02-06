@@ -7,7 +7,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/apple_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly
 	steps = list(
@@ -17,7 +17,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherryapple_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/cherry
 	steps = list(
@@ -27,7 +27,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/apple_slime_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/slime
 	steps = list(
@@ -46,7 +46,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_blumpkin_berry_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly
 	steps = list(
@@ -56,7 +56,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_blumpkin
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/cherry
 	steps = list(
@@ -66,7 +66,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_blumpkin_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/slime
 	steps = list(
@@ -86,7 +86,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_bungo_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly
 	steps = list(
@@ -97,7 +97,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_bungo_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/cherry
 	steps = list(
@@ -108,7 +108,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_bungo_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/slime
 	steps = list(
@@ -128,7 +128,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly
 	steps = list(
@@ -138,7 +138,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/cherry
 	steps = list(
@@ -148,7 +148,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/slime
 	steps = list(
@@ -178,7 +178,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_choco_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly
 	steps = list(
@@ -188,7 +188,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_choco_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/cherry
 	steps = list(
@@ -198,7 +198,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_chocolate_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/slime
 	steps = list(
@@ -237,7 +237,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/cherryjelly
 	steps = list(
@@ -247,7 +247,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slimejelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/slimejelly
 	steps = list(
@@ -266,7 +266,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly
 	steps = list(
@@ -276,7 +276,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/cherry
 	steps = list(
@@ -286,7 +286,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/slime
 	steps = list(
@@ -315,7 +315,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/pink_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly
 	steps = list(
@@ -325,7 +325,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/pink_cherry_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/cherry
 	steps = list(
@@ -335,7 +335,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/pink_slime_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/slime
 	steps = list(
@@ -354,7 +354,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/jelly
+/datum/cooking/recipe/jelly_spaceman_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly
 	steps = list(
@@ -364,7 +364,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_spaceman_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/cherry
 	steps = list(
@@ -374,7 +374,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
+/datum/cooking/recipe/slime_spaceman_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/slime
 	steps = list(
@@ -384,7 +384,7 @@
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
 
-/datum/cooking/recipe/banana
+/datum/cooking/recipe/deepfryer_friedbanana
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/friedbanana
 	steps = list(

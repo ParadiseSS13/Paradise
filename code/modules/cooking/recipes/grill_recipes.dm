@@ -196,76 +196,6 @@
 		PCWJ_USE_GRILL(J_MED, 20 SECONDS),
 	)
 
-/datum/cooking/recipe/sushi_ebi
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_ebi
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/boiled_shrimp),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_ikura
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_ikura
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/fish_eggs/salmon),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_inari
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_inari
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/fried_tofu),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_masago
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_masago
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/fish_eggs/goldfish),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_sake
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_sake
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_smoked_salmon
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_smoked_salmon
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_tai
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_tai
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/catfishmeat),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
 /datum/cooking/recipe/sushi_tamago
 	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/sliced/sushi_tamago
@@ -274,26 +204,6 @@
 		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
 		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
 		PCWJ_ADD_REAGENT("sake", 5),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_tobiko
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_tobiko
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/fish_eggs/shark),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/sushi_tobiko_egg
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/sliced/sushi_tobiko_egg
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/sushi_tobiko),
-		PCWJ_ADD_ITEM(/obj/item/food/egg),
-		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 

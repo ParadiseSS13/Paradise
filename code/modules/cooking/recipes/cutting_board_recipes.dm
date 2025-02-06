@@ -336,14 +336,6 @@
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/xenomeat),
 	)
 
-/datum/cooking/recipe/baseballburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/burger/baseball
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_ITEM(/obj/item/melee/baseball_bat),
-	)
-
 /datum/cooking/recipe/cherrysandwich
 	cooking_container = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/jellysandwich/cherry
@@ -353,48 +345,13 @@
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 	)
 
-/datum/cooking/recipe/jellyburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/burger/jelly/cherry
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_REAGENT("cherryjelly", 5),
-	)
-
-/datum/cooking/recipe/notasandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/notasandwich
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/clothing/mask/fakemoustache),
-	)
-
-/datum/cooking/recipe/sandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/sandwich
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-	)
-
-/datum/cooking/recipe/slimeburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/burger/jelly/slime
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_REAGENT("slimejelly", 5),
-	)
-
 /datum/cooking/recipe/slimesandwich
 	cooking_container = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/jellysandwich/slime
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
 /datum/cooking/recipe/twobread

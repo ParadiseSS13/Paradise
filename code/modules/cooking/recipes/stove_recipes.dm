@@ -492,16 +492,6 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
-/datum/cooking/recipe/cherrysandwich
-	cooking_container = /obj/item/reagent_containers/cooking/pot
-	product_type = /obj/item/food/jellysandwich/cherry
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_REAGENT("cherryjelly", 5),
-		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
-	)
-
 /datum/cooking/recipe/cubancarp
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cubancarp
@@ -664,25 +654,6 @@
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidereggs),
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
 		PCWJ_ADD_REAGENT("soysauce", 5),
-		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
-	)
-
-/datum/cooking/recipe/slimesandwich
-	cooking_container = /obj/item/reagent_containers/cooking/pot
-	product_type = /obj/item/food/jellysandwich/slime
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_REAGENT("slimejelly", 5),
-		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
-	)
-
-/datum/cooking/recipe/slimetoast
-	cooking_container = /obj/item/reagent_containers/cooking/pot
-	product_type = /obj/item/food/jelliedtoast/slime
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_REAGENT("slimejelly", 5),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 

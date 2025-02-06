@@ -205,7 +205,7 @@
 		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
 	)
 
-/datum/cooking/recipe/cherry
+/datum/cooking/recipe/cherry_snowcone
 	cooking_container = /obj/item/reagent_containers/cooking/icecream_bowl
 	product_type = /obj/item/food/frozen/snowcone/cherry
 	steps = list(
@@ -234,7 +234,7 @@
 		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
 	)
 
-/datum/cooking/recipe/fruitsalad
+/datum/cooking/recipe/fruitsalad_snowcone
 	cooking_container = /obj/item/reagent_containers/cooking/icecream_bowl
 	product_type = /obj/item/food/frozen/snowcone/fruitsalad
 	steps = list(

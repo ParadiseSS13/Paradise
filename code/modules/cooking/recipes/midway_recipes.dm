@@ -20,6 +20,15 @@
 		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/cooked_meatball
+	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/meatball
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_meatball, qmod = 0.5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1, optional = TRUE, base = 1),
+		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
+	)
+
 /datum/cooking/recipe/taco
 	cooking_container = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/taco
