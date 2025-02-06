@@ -80,8 +80,9 @@
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
 	/// Active storage container
-	var/obj/item/storage/s_active = null //Carbon
-	var/obj/item/clothing/mask/wear_mask = null //Carbon
+	var/obj/item/storage/s_active
+	/// The currently worn mask
+	var/obj/item/wear_mask
 
 	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
