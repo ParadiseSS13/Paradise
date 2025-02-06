@@ -317,6 +317,9 @@
 	// Heretic spells are of the forbidden school, otherwise we don't care
 	if(!spell.is_a_heretic_spell)
 		return FALSE
+	if(istype(source.loc, /obj/effect/dummy/slaughter) && !istype(spell, /datum/spell/bloodcrawl/space_crawl))
+		to_chat(source, "<span class='hierophant_warning'>You cannot cast spells space phased!</span>")
+		return FALSE
 
 	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))

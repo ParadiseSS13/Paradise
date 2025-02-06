@@ -297,6 +297,7 @@
 
 	playsound(src ,'sound/spookoween/insane_low_laugh.ogg', 200, TRUE) //quiet
 	binding_filters_update()
+	AddElement(/datum/element/heretic_focus)
 
 /obj/item/melee/cultblade/haunted/proc/rebind_blade(mob/user)
 	visible_message("<span class='danger'>[user] has bound [src]!</span>")
@@ -314,6 +315,7 @@
 	playsound(src ,'sound/hallucinations/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
 	rebuild_spells()
 	binding_filters_update()
+	RemoveElement(/datum/element/heretic_focus)
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
 	. = ..()

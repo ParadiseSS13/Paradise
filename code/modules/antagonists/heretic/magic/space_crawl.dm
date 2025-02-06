@@ -7,7 +7,7 @@
  */
 /datum/spell/bloodcrawl/space_crawl
 	name = "Space Phase"
-	desc = "Allows you to phase in and out of existence while in space or misc tiles."
+	desc = "Allows you to phase in and out of existence while in space or glass tiles."
 
 
 
@@ -28,7 +28,7 @@
 		return TRUE
 	if(istype(get_turf(user), /turf/simulated/floor/transparent))
 		return TRUE
-	to_chat(user, "<span class='warning'>You must stand on a space or misc turf!</span>")
+	to_chat(user, "<span class='warning'>You must stand on a space or glass turf!</span>")
 	return FALSE
 
 /datum/spell/bloodcrawl/space_crawl/rise_message(atom/A)
