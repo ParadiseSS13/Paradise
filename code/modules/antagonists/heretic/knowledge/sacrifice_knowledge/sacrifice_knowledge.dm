@@ -559,11 +559,11 @@
  * Gives the sacrifice target some after effects upon ariving back to reality.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, "<span class='hierophant_warning'>The fight is over, but at great cost. You have been returned to the station in one piece.</span>")
+	to_chat(sac_target, "<span class='userdanger'>The fight is over, but at great cost. You have been returned to the station in one piece.</span>")
 	if(IS_HERETIC(sac_target))
-		to_chat(sac_target, "<span class='hierophant_warning'>You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...</span>")
+		to_chat(sac_target, "<span class='userdanger'>You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...</span>")
 	else
-		to_chat(sac_target, "<span class='hierophant_warning'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span>")
+		to_chat(sac_target, "<span class='userdanger'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span>")
 
 	// Oh god where are we?
 	sac_target.AdjustConfused(60 SECONDS)
