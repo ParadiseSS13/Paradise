@@ -95,7 +95,7 @@
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1, vomit_type_overide = null)
 	. = TRUE
 
-	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
+	if(stat == DEAD || (ismachineperson(src) && !locate(/obj/item/organ/internal/appendix/corrupt) in internal_organs)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
 	if(should_confuse)

@@ -86,7 +86,7 @@
 	if(istype(owner, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
 		return FALSE
 	var/mob/living/spell_caster_resolved = locateUID(spell_caster)
-	var/datum/antagonist/heretic_monster/monster = owner.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
+	var/datum/antagonist/mindslave/heretic_monster/monster = owner.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 	if(spell_caster_resolved && monster)
 		if(monster.master?.current == spell_caster_resolved)
 			return FALSE

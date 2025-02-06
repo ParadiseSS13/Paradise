@@ -432,11 +432,10 @@
 
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
 
-	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	summoned.mind.add_antag_datum(new /datum/antagonist/mindslave/heretic_monster(user.mind))
 
 	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
 	summon_objective?.num_summoned++
-	heretic_monster.set_owner(user.mind) //qwertodo: sleep / timer before doing this
 	if(mind_spell)
 		addtimer(CALLBACK(src, PROC_REF(add_mind_spell), summoned), 1 SECONDS)
 	return TRUE

@@ -23,18 +23,33 @@
 	. = ..()
 	if(!(slot & ITEM_SLOT_NECK))
 		return
-
+	var/team_color = COLOR_PINK
 	if(IS_CULTIST(user))
 		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
 		magic_holder.magic_enhanced = TRUE
+		team_color = COLOR_PURPLE //I was going to keep it cult red, then remebered the red cross exists
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
 		for(var/datum/spell/spell_action in user.mob_spell_list)
 			spell_action.cooldown_handler.recharge_duration *= 0.5
 			active = TRUE
+			team_color = COLOR_GREEN
+	else
+		team_color = pick(COLOR_PURPLE, COLOR_GREEN)
 
 	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
 	to_chat(user, "<span class='alert'>Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing.</span>")
-	// AOE healing here
+	component = user.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 3, \
+		brute_heal = 0.4, \
+		burn_heal = 0.4, \
+		blood_heal = 0.8, \
+		suffocation_heal = 1, \
+		simple_heal = 0.3, \
+		requires_visibility = FALSE, \
+		limit_to_trait = TRAIT_MANSUS_TOUCHED, \
+		healing_color = team_color, \
+	)
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/dropped(mob/living/user)
 	. = ..()

@@ -986,12 +986,20 @@
 
 /mob/living/carbon/human/heal_and_revive(heal_to = 75, revive_message)
 	// We can't heal them if they're missing a heart
-	if(!get_int_organ_datum(ORGAN_DATUM_HEART) && can_heartattack())
+	if(!get_int_organ_datum(ORGAN_DATUM_HEART) && can_heartattack() && !ismachineperson(src))
 		return FALSE
 
 	// We can't heal them if they're missing their lungs
-	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_int_organ_datum(ORGAN_DATUM_LUNGS))
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_int_organ_datum(ORGAN_DATUM_LUNGS) && !ismachineperson(src))
 		return FALSE
+
+	if(ismachineperson(src))
+		var/ipc_brute_to_heal = heal_to - getBruteLoss()
+		var/ipc_burn_to_heal = heal_to - getFireLoss()
+		if(ipc_brute_to_heal < 0)
+			adjustBruteLoss(ipc_brute_to_heal, updating_health = FALSE, robotic = TRUE)
+		if(ipc_burn_to_heal < 0)
+			adjustFireLoss(ipc_burn_to_heal, updating_health = FALSE, robotic = TRUE)
 
 	. = ..()
 	if(.) // if revived successfully
@@ -1001,7 +1009,7 @@
 	return .
 
 /mob/living/carbon/can_be_revived()
-	if(!get_int_organ(/obj/item/organ/internal/brain) && (!IS_CHANGELING(src)) || HAS_TRAIT(src, TRAIT_HUSK) && !ismachineperson(src))
+	if(!get_int_organ(/obj/item/organ/internal/brain) && (!IS_CHANGELING(src)) || HAS_TRAIT(src, TRAIT_HUSK))
 		return FALSE
 	return ..()
 

@@ -98,15 +98,9 @@
 	var/monster_type = pick(monster_types)
 	var/mob/living/monster = new monster_type(loc)
 	monster.key = user.key
-	var/datum/antagonist/heretic_monster/woohoo_free_antag = new(src)
-	monster.mind.add_antag_datum(woohoo_free_antag)
 	if(ascendee)
+		monster.mind.add_antag_datum(new /datum/antagonist/mindslave/heretic_monster(ascendee))
 		monster.faction = ascendee.current.faction
-		woohoo_free_antag.set_owner(ascendee)
-	var/datum/objective/kill_all_your_friends = new()
-	kill_all_your_friends.explanation_text = "The station's crew must be culled."
-	kill_all_your_friends.completed = TRUE
-	woohoo_free_antag.add_antag_objective(kill_all_your_friends)
 
 /obj/structure/lock_tear/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE

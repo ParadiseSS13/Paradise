@@ -465,6 +465,7 @@
 /datum/reagent/helgrasp/heretic
 	name = "Grasp of the Mansus"
 	id = "mansusgrasp"
+	process_flags = ORGANIC | SYNTHETIC
 	description = "The Hand of the Mansus is at your neck."
 	toxin_damage = 0
 

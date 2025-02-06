@@ -20,10 +20,9 @@
 
 	job_rank = ROLE_HERETIC
 	special_role = SPECIAL_ROLE_HERETIC
-	antag_hud_name = "heretic"
+	antag_hud_name = "hudheretic"
 	clown_gain_text = "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	antag_hud_type = ANTAG_HUD_HERETIC
-	antag_hud_name = "heretic"
 
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
@@ -82,7 +81,7 @@
 
 /datum/antagonist/heretic/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-		antag_hud_name = "heretichijack"
+		antag_hud_name = "hudheretichijack"
 	return ..()
 
 /datum/antagonist/heretic/proc/get_icon_of_knowledge(datum/heretic_knowledge/knowledge)

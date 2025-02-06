@@ -889,6 +889,13 @@
 		step_towards(src,S)
 
 /mob/living/narsie_act()
+	if(IS_HERETIC(src))
+		var/datum/antagonist/heretic/are_you_ascended = IS_HERETIC(src)
+		if(are_you_ascended.ascended && stat != DEAD)
+			to_chat(src, "<span class='userdanger'>You feel the crushing presense of [GET_CULT_DATA(entity_name, "Nar'sie")] pushing down on you. You won't last long!</span>")
+			adjustBruteLoss(40) //Note: Heretics take half damage, this is 20 brute.
+			adjustBrainLoss(5)
+			return
 	if(client)
 		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE, create_smoke = TRUE)
 	spawn_dust()

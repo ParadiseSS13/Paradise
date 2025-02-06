@@ -335,6 +335,7 @@
 	desc = "A long, thin, decrepit construct originally built to herald Nar'Sie's rise, corrupted and rusted by the forces of the Mansus to spread its will instead."
 	playstyle_string = "You are a Rusted Harvester, built to serve the Sanguine Apostate, twisted to work the will of the Mansus. You are fragile and weak, but you rend cultists (only) apart on each attack. Follow your Master's orders!"
 	faction = list("heretic")
+	construct_type = "rusted_harvester"
 	construct_spells = list(
 		/datum/spell/aoe/rust_conversion,
 		/datum/spell/pointed/rust_construction,

@@ -265,6 +265,5 @@
 		return
 	star_gazer_mob.key = chosen_one.key
 
-	var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	sleep(1 SECONDS)
-	heretic_monster.set_owner(user.mind)
+	star_gazer_mob.mind.add_antag_datum(new /datum/antagonist/mindslave/heretic_monster(user.mind))
+

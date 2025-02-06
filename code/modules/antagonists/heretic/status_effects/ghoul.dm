@@ -56,8 +56,7 @@
 	human_target.faction |= "heretic"
 
 	if(human_target.mind)
-		var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-		heretic_monster.set_owner(master_mind)
+		human_target.mind.add_antag_datum(new /datum/antagonist/mindslave/heretic_monster(master_mind))
 		human_target.mind.remove_antag_datum(/datum/antagonist/cultist)
 	return TRUE
 
@@ -87,7 +86,7 @@
 	REMOVE_TRAIT(human_target, TRAIT_FAKEDEATH, UID(src))
 	human_target.cure_husk(MAGIC_TRAIT)
 	human_target.faction -= "heretic"
-	human_target.mind?.remove_antag_datum(/datum/antagonist/heretic_monster)
+	human_target.mind?.remove_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 
 	UnregisterSignal(human_target, COMSIG_MOB_DEATH)
 	if(!QDELETED(src))

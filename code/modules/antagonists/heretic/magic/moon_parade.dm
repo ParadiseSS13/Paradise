@@ -58,7 +58,7 @@
 	if(!caster.mind)
 		return
 
-	var/datum/antagonist/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
+	var/datum/antagonist/mindslave/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 	if(monster?.master == caster.mind)
 		return
 
@@ -85,7 +85,7 @@
 		if(!caster.mind)
 			return
 
-		var/datum/antagonist/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/heretic_monster)
+		var/datum/antagonist/mindslave/heretic_monster/monster = victim.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster)
 		if(monster?.master == caster.mind)
 			return
 	if(!(victim in mobs_hit))
