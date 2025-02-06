@@ -10,7 +10,8 @@
 	. = ..()
 	if(is_type_in_list(target, buildon_types))
 		if(try_build(target, user))
-			return do_build(target, user)
+			do_build(target, user)
+			return ITEM_INTERACT_COMPLETE
 	..()
 
 /obj/item/mounted/proc/try_build(turf/on_wall, mob/user) //checks
