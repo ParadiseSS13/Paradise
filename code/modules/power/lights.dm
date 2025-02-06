@@ -282,6 +282,8 @@
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
+	var/override_color
+
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/fire_mode = FALSE // if true, the light swaps over to emergency colour
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
@@ -527,18 +529,21 @@
 	var/BR = brightness_range
 	var/PO = brightness_power
 	var/CO = brightness_color
-	if(color)
-		CO = color
-	if(emergency_mode)
-		CO = bulb_emergency_colour
-	else if(nightshift_enabled)
-		BR = nightshift_light_range
-		PO = nightshift_light_power
-		if(!color)
-			CO = nightshift_light_color
+	if(!override_color)
+		if(color)
+			CO = color
+		if(emergency_mode)
+			CO = bulb_emergency_colour
+		else if(nightshift_enabled)
+			BR = nightshift_light_range
+			PO = nightshift_light_power
+			if(!color)
+				CO = nightshift_light_color
+	else
+		CO = override_color
+
 	if(light && (BR == light.light_range) && (PO == light.light_power) && (CO == light.light_color))
 		return // Nothing's changed here
-
 	switchcount++
 	if(trigger && (status == LIGHT_OK))
 		if(rigged)
@@ -612,9 +617,10 @@
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
 		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-		color = add_atom_colour(color_transition_filter(new_color, SATURATION_MULTIPLY), ADMIN_COLOUR_PRIORITY)
+		color = add_atom_colour(color_transition_filter(new_color, SATURATION_OVERRIDE), ADMIN_COLOUR_PRIORITY)
 		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
 		brightness_color = new_color
+		override_color = new_color
 		update(TRUE, TRUE, FALSE)
 		return ITEM_INTERACT_COMPLETE
 
