@@ -424,6 +424,7 @@
 						SplashReagents(A)
 						A.fire_act()
 					qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/drinks/bottle/molotov/activate_self(mob/user)
 	if(..())

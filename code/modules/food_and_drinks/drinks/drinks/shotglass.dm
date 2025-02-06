@@ -99,7 +99,8 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.get_heat())
 		fire_act()
-	return ..() // check if this actually needs eggs
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)
 	..()
