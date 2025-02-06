@@ -43,21 +43,21 @@
 	qdel(src)
 
 /obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(user.a_intent == INTENT_HARM && isliving(target)) // The requirements to start an attack.
-		return NONE
-	return ..()
+	if(user.a_intent != INTENT_HARM)
+		return ..()
 
 /obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(!is_glass) // Harmless bottle, thus we feed.
-		mob_act(A, user)
-		return FINISH_ATTACK
+	if(isliving(A))
+		if(!is_glass)
+			mob_act(A, user)
+			return FINISH_ATTACK
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [A]!</span>")
-		return FINISH_ATTACK
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to harm [A]!</span>")
+			return FINISH_ATTACK
 
 /obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)
 	if(..())
