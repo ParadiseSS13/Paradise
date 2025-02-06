@@ -80,7 +80,7 @@
 	Stuttering(30 SECONDS)
 	do_jitter_animation(30 SECONDS)
 
-	var/obj/item/tank/internal_tank = src.internal
+	var/obj/item/tank/internal_tank = internal
 	var/obj/item/clothing/mask/gas/clown_hat/clown_mask = new()
 	var/obj/item/clothing/under/rank/civilian/clown/clown_suit = new()
 	var/obj/item/clothing/shoes/clown_shoes/clown_shoes = new()
