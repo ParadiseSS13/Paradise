@@ -88,7 +88,8 @@
 		return FINISH_ATTACK
 
 /obj/item/soulstone/attack(mob/living/target, mob/living/carbon/human/user)
-	user.do_attack_animation(target)
+	if(!..())
+		return FINISH_ATTACK
 
 	if(istype(target, /mob/living/simple_animal/possessed_object))
 		var/mob/living/simple_animal/possessed_object/possession = target
