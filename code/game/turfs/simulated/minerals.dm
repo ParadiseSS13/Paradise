@@ -190,6 +190,22 @@
 		var/new_ore_type = pickweight(mineralSpawnChanceList)
 		set_ore(new_ore_type)
 
+/turf/simulated/mineral/random/space
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 20,
+		/datum/ore/silver = 12,
+		/datum/ore/titanium = 11,
+		/datum/ore/gold = 10,
+		/datum/ore/uranium = 5,
+		/datum/ore/gibtonite = 4,
+		/datum/ore/bluespace = 1,
+		/datum/ore/diamond = 1,
+		/datum/ore/platinum = 3,
+		/datum/ore/palladium = 3,
+		/datum/ore/iridium = 3
+	)
+
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"

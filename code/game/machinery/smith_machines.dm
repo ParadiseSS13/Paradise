@@ -91,17 +91,17 @@
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/ID = used
 		if(!points)
-			to_chat(usr, "<span class='warning'>There are no points to claim.</span>");
+			to_chat(user, "<span class='warning'>There are no points to claim.</span>");
 			return ITEM_INTERACT_COMPLETE
 		if(anyone_claim || (req_access_claim in ID.access))
 			ID.mining_points += points
 			ID.total_mining_points += points
-			to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
+			to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
 			points = 0
 			SStgui.update_uis(src)
 		else
-			to_chat(usr, "<span class='warning'>Required access not found.</span>")
-		add_fingerprint(usr)
+			to_chat(user, "<span class='warning'>Required access not found.</span>")
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -113,7 +113,7 @@
 	if(panel_open)
 		var/obj/item/multitool/M = I
 		if(!istype(M.buffer, /obj/machinery/magma_crucible))
-			to_chat(usr, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
+			to_chat(user, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
 			return
 		linked_crucible = M.buffer
 
@@ -275,7 +275,7 @@
 	if(panel_open)
 		var/obj/item/multitool/M = I
 		if(!istype(M.buffer, /obj/machinery/magma_crucible))
-			to_chat(usr, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
+			to_chat(user, "<span class='notice'>You cannot link [src] to [M.buffer]!</span>")
 			return
 		linked_crucible = M.buffer
 
@@ -284,9 +284,9 @@
 	//var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
 	// TODO: SMELTING
 
-/obj/machinery/power_hammer
-	name = "power hammer"
-	desc = "A heavy-duty pneumatic hammer designed to shape and mold molten metal."
+/obj/machinery/smithing
+	name = "smithing machine"
+	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "power_hammer"
 	max_integrity = 200
@@ -298,10 +298,93 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
-	/// How long does an operation take
-	var/operation_time = 10 SECONDS
+	/// How many loops per operation
+	var/operation_time = 10
+	/// Is this active
+	var/operating = FALSE
+	/// Cooldown on harming
+	var/special_attack_cooldown = 10 SECONDS
+	/// Are we on harm cooldown
+	var/special_attack_on_cooldown = FALSE
+	/// Store the worked component
+	var/obj/smithed_item/component/working_component
+	/// The noise the machine makes when operating
+	var/operation_sound
 
-/obj/machinery/power_hammer/Initialize(mapload)
+/obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Putting [G.affecting] in [src] might hurt them!</span>")
+			return ITEM_INTERACT_COMPLETE
+		special_attack_grab(G, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(operating)
+		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(used, /obj/smithed_item/component))
+		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	working_component = used
+	operate(operation_time, user)
+	update_icon(UPDATE_ICON_STATE)
+	return ..()
+
+/obj/machinery/smithing/proc/operate(loops, mob/living/user)
+	operating = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	for(var/i=1 to loops)
+		if(stat & (NOPOWER|BROKEN))
+			return FALSE
+		use_power(500)
+		playsound(src, operation_sound, 50, TRUE)
+		sleep(1 SECONDS)
+	playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
+	operating = FALSE
+
+/obj/machinery/smithing/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(special_attack_on_cooldown)
+		return FALSE
+	if(!istype(G))
+		return FALSE
+	if(!iscarbon(G.affecting))
+		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		return FALSE
+	if(G.state < GRAB_AGGRESSIVE)
+		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	var/result = special_attack(user, G.affecting)
+	user.changeNext_move(CLICK_CD_MELEE)
+	special_attack_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown)
+	if(result && !isnull(G) && !QDELETED(G))
+		qdel(G)
+
+	return TRUE
+
+/obj/machinery/smithing/proc/special_attack(mob/user, mob/living/target)
+	return
+
+/obj/machinery/smithing/AltClick(mob/user)
+	. = ..()
+	if(!working_component)
+		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
+		return
+	user.put_in_hands(working_component)
+	working_component = null
+
+/obj/machinery/smithing/power_hammer
+	name = "power hammer"
+	desc = "A heavy-duty pneumatic hammer designed to shape and mold molten metal."
+	icon = 'icons/obj/machines/large_smithing_machines.dmi'
+	icon_state = "power_hammer"
+	operation_sound = 'sound/magic/fellowship_armory.ogg'
+
+/obj/machinery/smithing/power_hammer/Initialize(mapload)
 	. = ..()
 	// Stock parts
 	component_parts = list()
@@ -313,31 +396,47 @@
 	component_parts += new /obj/item/stack/sheet/plasteel(null)
 	RefreshParts()
 
-/obj/machinery/power_hammer/RefreshParts()
+/obj/machinery/smithing/power_hammer/RefreshParts()
 	var/S = 0
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
 	operation_time = initial(operation_time) - S
 
-/obj/machinery/lava_furnace
+/obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
+	if(!working_component.hot)
+		to_chat(user, "<span class='notice'>[working_component] is too cold to properly shape.</span>")
+		return
+	if(working_component.hammer_time <= 0)
+		to_chat(user, "<span class='notice'>[working_component] is already fully shaped.</span>")
+		return
+	..()
+	working_component.powerhammer()
+	do_sparks(5, TRUE, src)
+
+/obj/machinery/smithing/power_hammer/special_attack(mob/user, mob/living/target)
+	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
+	if(!istype(head))
+		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		return FALSE
+	target.visible_message("<span class='danger'>[user] hammers [target]'s head with [src]!</span>", \
+					"<span class='userdanger'>[user] hammers your head with [src]! Did somebody get the license plate on that car?</span>")
+	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armour_penetration_percentage = 50)
+	target.apply_damage(40, BRUTE, BODY_ZONE_HEAD, armor)
+	target.Weaken(4 SECONDS)
+	target.emote("scream")
+	playsound(src, operation_sound, 50, TRUE)
+	add_attack_logs(user, target, "Hammered with [src]")
+	return TRUE
+
+/obj/machinery/smithing/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace"
-	max_integrity = 200
-	pixel_x = 0	// 2x2
-	pixel_y = -32
-	bound_height = 64
-	bound_width = 64
-	bound_y = -32
-	anchored = TRUE
-	density = TRUE
-	resistance_flags = FIRE_PROOF
-	/// How long does an operation take
-	var/operation_time = 10 SECONDS
+	operation_sound = 'sound/surgery/cautery1.ogg'
 
-/obj/machinery/lava_furnace/Initialize(mapload)
+/obj/machinery/smithing/lava_furnace/Initialize(mapload)
 	. = ..()
 	// Stock parts
 	component_parts = list()
@@ -349,25 +448,67 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
 
-/obj/machinery/lava_furnace/RefreshParts()
+/obj/machinery/smithing/lava_furnace/RefreshParts()
 	var/S = 0
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
 	operation_time = initial(operation_time) - S
 
-/obj/machinery/kinetic_assembler
+/obj/machinery/smithing/lava_furnace/operate(loops, mob/living/user)
+	if(working_component.hot)
+		to_chat(user, "<span class='notice'>[working_component] is already well heated.</span>")
+		return
+	if(working_component.hammer_time <= 0)
+		to_chat(user, "<span class='notice'>[working_component] is already fully shaped.</span>")
+		return
+	..()
+	working_component.heat_up()
+
+/obj/machinery/smithing/lava_furnace/special_attack(mob/user, mob/living/target)
+	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
+	if(!istype(head))
+		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		return FALSE
+	target.visible_message("<span class='danger'>[user] pushes [target]'s head into [src]!</span>", \
+					"<span class='userdanger'>[user] pushes your head into [src]! The heat is agonizing!</span>")
+	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armour_penetration_percentage = 50)
+	target.apply_damage(40, BURN, BODY_ZONE_HEAD, armor)
+	target.adjust_fire_stacks(5)
+	target.IgniteMob()
+	target.emote("scream")
+	playsound(src, operation_sound, 50, TRUE)
+	add_attack_logs(user, target, "Burned with [src]")
+	return TRUE
+
+#define PART_PRIMARY 1
+#define PART_SECONDARY 2
+#define PART_TRIM 3
+
+/obj/machinery/smithing/kinetic_assembler
 	name = "kinetic assembler"
 	desc = "A smart assembler that takes components and combines them at the strike of a hammer."
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"
-	anchored = TRUE
-	density = TRUE
-	resistance_flags = FIRE_PROOF
-	/// How long does an operation take
-	var/operation_time = 10 SECONDS
+	max_integrity = 100
+	pixel_x = 0	// 1x1
+	pixel_y = 0
+	bound_height = 32
+	bound_width = 32
+	bound_y = 0
+	operation_time = 10 SECONDS
+	operating = FALSE
+	operation_sound = 'sound/items/welder.ogg'
+	/// Primary component
+	var/obj/smithed_item/component/primary
+	/// Secondary component
+	var/obj/smithed_item/component/secondary
+	/// Trim component
+	var/obj/smithed_item/component/trim
+	/// Finished product
+	var/obj/smithed_item/finished_product
 
-/obj/machinery/kinetic_assembler/Initialize(mapload)
+/obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
 	// Stock parts
 	component_parts = list()
@@ -379,14 +520,101 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/kinetic_assembler/RefreshParts()
+/obj/machinery/smithing/kinetic_assembler/RefreshParts()
 	var/S = 0
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
 	operation_time = initial(operation_time) - S
 
+/obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(operating)
+		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		return ITEM_INTERACT_COMPLETE
 
+	if(!istype(used, /obj/smithed_item/component))
+		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/smithed_item/component/comp = used
+	if(comp.part_type == PART_PRIMARY)
+		if(primary)
+			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
+			primary.forceMove(src.loc)
+			primary = null
+		to_chat(user, "<span class='notice'>You insert [comp] into the primary component slot of [src].</span>")
+		comp.forceMove(src)
+		primary = comp
+		return ITEM_INTERACT_COMPLETE
+
+	if(comp.part_type == PART_SECONDARY)
+		if(secondary)
+			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
+			secondary.forceMove(src.loc)
+			secondary = null
+		to_chat(user, "<span class='notice'>You insert [comp] into the secondary component slot of [src].</span>")
+		comp.forceMove(src)
+		secondary = comp
+		return ITEM_INTERACT_COMPLETE
+
+	if(comp.part_type == PART_TRIM)
+		if(trim)
+			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
+			trim.forceMove(src.loc)
+			trim = null
+		to_chat(user, "<span class='notice'>You insert [comp] into the trim component slot of [src].</span>")
+		comp.forceMove(src)
+		trim = comp
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/smithing/kinetic_assembler/attack_hand(mob/user)
+	. = ..()
+	if(!primary)
+		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
+		return FINISH_ATTACK
+
+	if(!secondary)
+		to_chat(user, "<span class='warning'>[src] lacks a secondary component!</span>")
+		return FINISH_ATTACK
+
+	if(!trim)
+		to_chat(user, "<span class='warning'>[src] lacks a trim component!</span>")
+		return FINISH_ATTACK
+
+	if(primary.finished_product != secondary.finished_product)
+		to_chat(user, "<span class='warning'>[primary] does not match [secondary]!</span>")
+		return FINISH_ATTACK
+
+	operate()
+
+/obj/machinery/smithing/kinetic_assembler/operate()
+	..()
+	finished_product = new primary.finished_product(src)
+	var/quality_list = list(primary.quality, secondary.quality, trim.quality)
+	var/datum/smith_quality/lowest = quality_list[0]
+	for(var/datum/smith_quality/quality in quality_list)
+		if(quality.stat_mult < lowest.stat_mult)
+			lowest = quality
+	finished_product.quality = lowest
+	finished_product.material = trim.material
+	qdel(primary)
+	qdel(secondary)
+	qdel(trim)
+
+/obj/machinery/smithing/kinetic_assembler/hammer_act(mob/user, obj/item/i)
+	if(operating)
+		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		return
+	if(!finished_product)
+		to_chat(user, "<span class='warning'>There is no finished product ready!</span>")
+		return
+	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
+	finished_product.forceMove(src.loc)
+	finished_product = null
+
+#undef PART_PRIMARY
+#undef PART_SECONDARY
+#undef PART_TRIM
 #undef BASE_POINT_MULT
 #undef BASE_SHEET_MULT
 #undef POINT_MULT_ADD_PER_RATING

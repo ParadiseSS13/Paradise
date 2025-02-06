@@ -41,6 +41,11 @@
 
 // Materials
 
+#define MAJOR_MATERIAL_BUFF 1.2
+#define MINOR_MATERIAL_BUFF 1.1
+#define MINOR_MATERIAL_DEBUFF 0.9
+#define MAJOR_MATERIAL_DEBUFF 0.8
+
 /datum/smith_material
 	var/name = "Boring Debug"
 	/// Brute armor multiplier
@@ -51,8 +56,8 @@
 	var/laser_armor_mult = 1.0
 	/// Explosive armor multiplier
 	var/explosive_armor_mult = 1.0
-	/// Movement speed multiplier
-	var/movement_speed_mult = 1.0
+	/// Movement speed modifier
+	var/movement_speed_mod = 0
 	/// Heat insulation multiplier
 	var/heat_insulation_mult = 1.0
 	/// Electrical insulation multiplier
@@ -75,3 +80,194 @@
 	var/fire_rate_multiplier = 1.0
 	/// Multiplier for tool uses and lense uses.
 	var/durability_mult = 1.0
+
+/datum/smith_material/metal
+	name = "metal"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_DEBUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -0.5
+	radiation_armor_mult = MINOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_DEBUFF
+	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
+	durability_mult = MINOR_MATERIAL_BUFF
+
+/datum/smith_material/silver
+	name = "silver"
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	heat_insulation_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	power_draw_mult = MINOR_MATERIAL_DEBUFF
+	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
+
+/datum/smith_material/gold
+	name = "gold"
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -0.5
+	heat_insulation_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
+	radiation_armor_mult = MAJOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	size_mod = 1
+	fire_rate_multiplier = MINOR_MATERIAL_BUFF
+	durability_mult = MINOR_MATERIAL_DEBUFF
+
+/datum/smith_material/plasma
+	name = "plasma"
+	burn_armor_mult = MAJOR_MATERIAL_DEBUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
+	durability_mult = MINOR_MATERIAL_DEBUFF
+
+/datum/smith_material/titanium
+	name = "titanium"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_DEBUFF
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	heat_insulation_mult = MINOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	projectile_speed_mult = MINOR_MATERIAL_BUFF
+	power_draw_mult = MINOR_MATERIAL_DEBUFF
+	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
+
+/datum/smith_material/uranium
+	name = "uranium"
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -0.5
+	siemens_coeff_mult = MINOR_MATERIAL_BUFF
+	radiation_armor_mult = MAJOR_MATERIAL_DEBUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	size_mod = 1
+	projectile_speed_mult = MINOR_MATERIAL_BUFF
+	power_draw_mult = MINOR_MATERIAL_DEBUFF
+	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
+	durability_mult = MINOR_MATERIAL_BUFF
+	/// Radioactive, woah
+	var/radiation_amount = 15
+
+/datum/smith_material/diamond
+	name = "diamond"
+	brute_armor_mult = MAJOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MAJOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	durability_mult = MAJOR_MATERIAL_BUFF
+
+/datum/smith_material/bluespace
+	name = "bluespace"
+	laser_armor_mult = MAJOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = 0.5
+	heat_insulation_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MINOR_MATERIAL_BUFF
+	radiation_armor_mult = MINOR_MATERIAL_DEBUFF
+	tool_speed_mult = MAJOR_MATERIAL_BUFF
+	power_draw_mult = MAJOR_MATERIAL_BUFF
+	projectile_damage_multiplier = MAJOR_MATERIAL_BUFF
+
+/datum/smith_material/plasteel
+	name = "plasteel"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -1.0
+	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	size_mod = 2
+	power_draw_mult = MAJOR_MATERIAL_BUFF
+	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
+	fire_rate_multiplier = MINOR_MATERIAL_BUFF
+	durability_mult = MAJOR_MATERIAL_BUFF
+
+/datum/smith_material/plastitanium
+	name = "plastitanium"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MAJOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -0.5
+	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
+	radiation_armor_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	size_mod = 1
+	projectile_speed_mult = MINOR_MATERIAL_BUFF
+	power_draw_mult = MAJOR_MATERIAL_BUFF
+	fire_rate_multiplier = MINOR_MATERIAL_BUFF
+	durability_mult = MAJOR_MATERIAL_BUFF
+
+/datum/smith_material/iridium
+	name = "iridium"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	movement_speed_mod = -0.5
+	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
+	radiation_armor_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	size_mod = -1
+	projectile_speed_mult = MINOR_MATERIAL_BUFF
+	power_draw_mult = MINOR_MATERIAL_BUFF
+	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
+	durability_mult = MINOR_MATERIAL_BUFF
+
+/datum/smith_material/palladium
+	name = "palladium"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MINOR_MATERIAL_DEBUFF
+	explosive_armor_mult = MINOR_MATERIAL_DEBUFF
+	heat_insulation_mult = MINOR_MATERIAL_BUFF
+	siemens_coeff_mult = MINOR_MATERIAL_BUFF
+	radiation_armor_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	size_mod = -1
+	power_draw_mult = MINOR_MATERIAL_DEBUFF
+	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
+	durability_mult = MINOR_MATERIAL_BUFF
+
+/datum/smith_material/platinum
+	name = "platinum"
+	brute_armor_mult = MINOR_MATERIAL_BUFF
+	burn_armor_mult = MINOR_MATERIAL_BUFF
+	laser_armor_mult = MINOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_DEBUFF
+	movement_speed_mod = 0.5
+	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
+	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	size_mod = -1
+	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
+	power_draw_mult = MINOR_MATERIAL_BUFF
+	durability_mult = MINOR_MATERIAL_BUFF
+
+/datum/smith_material/brass
+	name = "brass"
+	brute_armor_mult = MINOR_MATERIAL_DEBUFF
+	burn_armor_mult = MINOR_MATERIAL_DEBUFF
+	laser_armor_mult = MAJOR_MATERIAL_BUFF
+	explosive_armor_mult = MINOR_MATERIAL_DEBUFF
+	movement_speed_mod = 0.5
+	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
+	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
+	radiation_armor_mult = MINOR_MATERIAL_BUFF
+	tool_speed_mult = MINOR_MATERIAL_BUFF
+	tool_precision_mult = MINOR_MATERIAL_BUFF
+	projectile_speed_mult = MINOR_MATERIAL_DEBUFF
+	power_draw_mult = MAJOR_MATERIAL_DEBUFF
+	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
+	durability_mult = MINOR_MATERIAL_DEBUFF
+
+#undef MAJOR_MATERIAL_BUFF
+#undef MINOR_MATERIAL_BUFF
+#undef MINOR_MATERIAL_DEBUFF
+#undef MAJOR_MATERIAL_DEBUFF

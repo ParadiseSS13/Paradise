@@ -43,6 +43,18 @@
 	drop_type = /obj/item/stack/ore/diamond
 	scan_icon_state = "rock_Diamond"
 
+/datum/ore/platinum
+	drop_type = /obj/item/stack/ore/platinum
+	scan_icon_state = "rock_Platinum"
+
+/datum/ore/palladium
+	drop_type = /obj/item/stack/ore/palladium
+	scan_icon_state = "rock_Palladium"
+
+/datum/ore/iridium
+	drop_type = /obj/item/stack/ore/iridium
+	scan_icon_state = "rock_Iridium"
+
 /datum/ore/gold
 	drop_type = /obj/item/stack/ore/gold
 	spread_chance = 5

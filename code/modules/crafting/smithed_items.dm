@@ -38,6 +38,16 @@
 	/// Radiation armor
 	var/radiation_armor = 0
 
+/obj/smithed_item/insert/Initialize(mapload)
+	. = ..()
+	brute_armor = initial(brute_armor) * quality.stat_mult
+	burn_armor = initial(burn_armor) * quality.stat_mult
+	laser_armor = initial(laser_armor) * quality.stat_mult
+	movement_speed_mod = initial(movement_speed_mod) * quality.stat_mult
+	heat_insulation = initial(heat_insulation) * quality.stat_mult
+	siemens_coeff = initial(siemens_coeff) * quality.stat_mult
+	radiation_armor = initial(radiation_armor) * quality.stat_mult
+
 /obj/smithed_item/insert/ballistic
 	name = "ballistic plate"
 	desc = "A reinforced plate designed to stop small-caliber bullets and kinetic impacts."
@@ -143,6 +153,13 @@
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
 
+/obj/smithed_item/tool_bit/Initialize(mapload)
+	. = ..()
+	durability = initial(durability) * material.durability_mult
+	size_mod = initial(size_mod) + material.size_mod
+	speed_mod = initial(speed_mod) * quality.stat_mult
+	precision_mod = initial(precision_mod) * quality.stat_mult
+
 /obj/smithed_item/tool_bit/proc/break_bit()
 	qdel(src)
 
@@ -198,6 +215,14 @@
 	var/durability = 40
 	/// The weapon the lense is attached to
 	var/obj/item/gun/energy/attached_gun
+
+/obj/smithed_item/lense/Initialize(mapload)
+	. = ..()
+	durability = initial(durability) * material.durability_mult
+	power_mult = ((initial(power_mult) - 1) * quality.stat_mult) + 1
+	damage_mult = ((initial(damage_mult) - 1) * quality.stat_mult) + 1
+	laser_speed_mult = ((initial(laser_speed_mult) - 1) * quality.stat_mult) + 1
+	fire_rate_mult = ((initial(fire_rate_mult) - 1) * quality.stat_mult) + 1
 
 /obj/smithed_item/lense/proc/break_lense()
 	qdel(src)
@@ -286,7 +311,7 @@
 	. = ..()
 	if(!quality)
 		return
-	hammer_time = ROUND_UP(initial(hammertime) * quality.work_mult)
+	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 	for(var/material in material_cost)
 		material = ROUND_UP(initial(material) * quality.material_mult)
 
@@ -596,71 +621,85 @@
 	name = "metal trim"
 	desc = "Smithed component of any smithing item. Made of metal."
 	material_cost = list(MAT_METAL = 10000)
+	material = /datum/smith_material/metal
 
 /obj/smithed_item/component/trim/silver
 	name = "silver trim"
 	desc = "Smithed component of any smithing item. Made of silver."
 	material_cost = list(MAT_SILVER = 10000)
+	material = /datum/smith_material/silver
 
 /obj/smithed_item/component/trim/gold
 	name = "gold trim"
 	desc = "Smithed component of any smithing item. Made of gold."
 	material_cost = list(MAT_GOLD = 10000)
+	material = /datum/smith_material/gold
 
 /obj/smithed_item/component/trim/plasma
 	name = "plasma trim"
 	desc = "Smithed component of any smithing item. Made of solid plasma."
 	material_cost = list(MAT_PLASMA = 10000)
+	material = /datum/smith_material/plasma
 
 /obj/smithed_item/component/trim/titanium
 	name = "titanium trim"
 	desc = "Smithed component of any smithing item. Made of titanium."
 	material_cost = list(MAT_TITANIUM = 10000)
+	material = /datum/smith_material/titanium
 
 /obj/smithed_item/component/trim/uranium
 	name = "uranium trim"
 	desc = "Smithed component of any smithing item. Made of uranium."
 	material_cost = list(MAT_URANIUM = 10000)
+	material = /datum/smith_material/uranium
 
 /obj/smithed_item/component/trim/diamond
 	name = "diamond trim"
 	desc = "Smithed component of any smithing item. Made of diamond."
 	material_cost = list(MAT_DIAMOND = 10000)
+	material = /datum/smith_material/diamond
 
 /obj/smithed_item/component/trim/bluespace
 	name = "bluespace trim"
 	desc = "Smithed component of any smithing item. Made of bluespace crystals."
 	material_cost = list(MAT_BLUESPACE = 10000)
+	material = /datum/smith_material/bluespace
 
 /obj/smithed_item/component/trim/plasteel
 	name = "plasteel trim"
 	desc = "Smithed component of any smithing item. Made of plasteel."
 	material_cost = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
+	material = /datum/smith_material/plasteel
 
 /obj/smithed_item/component/trim/plastitanium
 	name = "plastitanium trim"
 	desc = "Smithed component of any smithing item. Made of plastitanium."
 	material_cost = list(MAT_TITANIUM = 10000, MAT_PLASMA = 10000)
+	material = /datum/smith_material/plastitanium
 
 /obj/smithed_item/component/trim/iridium
 	name = "iridium trim"
 	desc = "Smithed component of any smithing item. Made of iridium."
 	material_cost = list(MAT_IRIDIUM = 10000)
+	material = /datum/smith_material/iridium
 
 /obj/smithed_item/component/trim/palladium
 	name = "palladium trim"
 	desc = "Smithed component of any smithing item. Made of palladium."
 	material_cost = list(MAT_PALLADIUM = 10000)
+	material = /datum/smith_material/palladium
 
 /obj/smithed_item/component/trim/platinum
 	name = "platinum trim"
 	desc = "Smithed component of any smithing item. Made of platinum."
 	material_cost = list(MAT_PLATINUM = 10000)
+	material = /datum/smith_material/platinum
 
 /obj/smithed_item/component/trim/brass
 	name = "brass trim"
 	desc = "Smithed component of any smithing item. Made of brass."
 	material_cost = list(MAT_BRASS = 10000)
+	material = /datum/smith_material/brass
 
 #undef PART_PRIMARY
 #undef PART_SECONDARY

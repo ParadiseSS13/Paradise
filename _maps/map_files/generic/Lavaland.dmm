@@ -140,7 +140,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aC" = (
-/obj/machinery/kinetic_assembler,
+/obj/machinery/smithing/kinetic_assembler,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -4635,7 +4635,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "pf" = (
-/obj/machinery/lava_furnace{
+/obj/machinery/smithing/lava_furnace{
 	pixel_y = -32;
 	pixel_x = 0
 	},
@@ -8798,7 +8798,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
 "NX" = (
-/obj/machinery/power_hammer{
+/obj/machinery/smithing/power_hammer{
 	pixel_x = 0;
 	pixel_y = -32
 	},

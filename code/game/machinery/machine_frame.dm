@@ -1089,7 +1089,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/power_hammer
 	board_name = "Power Hammer"
 	icon_state = "supply"
-	build_path = /obj/machinery/power_hammer
+	build_path = /obj/machinery/smithing/power_hammer
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=4"
 	req_components = list(
@@ -1099,7 +1099,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/lava_furnace
 	board_name = "Lava Furnace"
 	icon_state = "supply"
-	build_path = /obj/machinery/lava_furnace
+	build_path = /obj/machinery/smithing/lava_furnace
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=4"
 	req_components = list(
