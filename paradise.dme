@@ -2014,7 +2014,6 @@
 #include "code\modules\food_and_drinks\food\foods\soups.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\cereal_maker.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\cooker.dm"
-#include "code\modules\food_and_drinks\kitchen_machinery\deep_fryer.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\gibber.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\icecream_vat.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\kitchen_machine.dm"

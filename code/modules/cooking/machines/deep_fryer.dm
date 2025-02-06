@@ -18,15 +18,18 @@
 /obj/machinery/cooking/deepfryer/Initialize(mapload)
 	. = ..()
 
+	InitializeParts()
+
+	for(var/i in 1 to 2)
+		surfaces += new/datum/cooking_surface/deepfryer_basin(src)
+
+/obj/machinery/cooking/deepfryer/proc/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/stove(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-
-	for(var/i in 1 to 2)
-		surfaces += new/datum/cooking_surface/deepfryer_basin(src)
-
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
 /obj/machinery/cooking/deepfryer/examine(mob/user)
@@ -88,3 +91,12 @@
 /obj/machinery/cooking/deepfryer/AltShiftClick(mob/user, modifiers)
 	// No temperature changing on the deep fryer.
 	return
+
+/obj/machinery/cooking/deepfryer/upgraded/InitializeParts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()

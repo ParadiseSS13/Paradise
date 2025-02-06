@@ -498,11 +498,12 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/deepfryer
 	board_name = "Deep Fryer"
 	icon_state = "service"
-	build_path = /obj/machinery/cooker/deepfryer
+	build_path = /obj/machinery/cooking/deepfryer
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 5)
 
 /obj/item/circuitboard/gibber

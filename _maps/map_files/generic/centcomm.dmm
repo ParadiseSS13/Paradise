@@ -2298,7 +2298,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "ia" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
