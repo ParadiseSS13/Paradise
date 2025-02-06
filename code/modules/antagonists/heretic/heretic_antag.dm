@@ -196,9 +196,6 @@
 		ui = new(user, src, "AntagInfoHeretic", name)
 		ui.open()
 
-/datum/antagonist/heretic/proc/do_the_thing()
-	ui_interact(owner.current)
-
 /datum/antagonist/heretic/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
