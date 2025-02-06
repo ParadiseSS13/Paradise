@@ -7,6 +7,7 @@
 	brightness_power = 0.7
 	nightshift_light_power = 0.5
 	brightness_color = "#FFF7F2"
+	nightshift_light_color = "#FFDDCC"
 
 /obj/machinery/light/small
 	icon = 'icons/obj/lighting.dmi'
