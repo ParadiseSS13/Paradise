@@ -83,9 +83,6 @@
 	if(brute_damage_healed == 0 && burn_damage_healed == 0)
 		stack_trace("A healing surgery was given no healing values.")
 		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected.is_broken())
-		return FALSE
 
 	return (brute_damage_healed && target.get_damage_amount(BRUTE) || burn_damage_healed && target.get_damage_amount(BURN))
 
