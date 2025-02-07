@@ -755,6 +755,7 @@
 		return
 
 	var/static/list/possible_status = list(
+		MALF_STATUS_NONE,
 		MALF_STATUS_GREEN,
 		MALF_STATUS_RED,
 		MALF_STATUS_SKULL,

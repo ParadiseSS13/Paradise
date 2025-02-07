@@ -76,8 +76,6 @@
 	// Add directly to laws to avoid log-spam
 	if(change_zeroth)
 		S.sync_zeroth(zeroth_law, zeroth_law_borg)
-		var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MALF_AI]
-		A.add_hud_to(usr)
 
 	if(full_sync || length(ion_laws))
 		S.laws.clear_ion_laws()
@@ -99,8 +97,6 @@
 	if(!is_special_character(src) || !mind.is_original_mob(src))
 		if(zeroth_law_borg)
 			laws.set_zeroth_law(zeroth_law_borg.law)
-			var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MALF_AI]
-			A.add_hud_to(usr)
 		else if(zeroth_law)
 			laws.set_zeroth_law(zeroth_law.law)
 		else
