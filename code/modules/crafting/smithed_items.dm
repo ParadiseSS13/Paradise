@@ -7,6 +7,7 @@
 	var/obj/item/selected_product
 	/// Possible products of the item
 	var/possible_products = list()
+	new_attack_chain = TRUE
 
 /obj/item/smithing_cast/Initialize(mapload)
 	. = ..()

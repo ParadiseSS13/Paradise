@@ -409,7 +409,7 @@
 	var/amount = 1
 	var/datum/material/M
 	for(var/MAT in product.materials)
-		M = materials[MAT]
+		M = materials.materials[MAT]
 		var/stored = M.amount / MINERAL_MATERIAL_AMOUNT
 		if(istype(cast, /obj/item/smithing_cast/sheet))
 			var/obj/item/smithing_cast/sheet/sheet_cast = cast
