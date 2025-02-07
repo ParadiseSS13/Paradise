@@ -27,7 +27,7 @@
 
 /obj/item/smithing_cast/sheet
 	name = "sheet cast"
-	icon_state = "trim_cast"
+	icon_state = "sheet_cast"
 	desc = "A cast for forging molten minerals into workable sheets."
 	/// How many sheets are we smelting at any given operation?
 	var/sheet_number = 1
