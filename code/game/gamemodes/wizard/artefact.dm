@@ -891,7 +891,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.ForceContractDisease(plague_virus)
 	plague_virus.stage = 8
 
-	 // Wiz and minions should contract their own diseases
+	// Wiz and minions should contract their own diseases
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
