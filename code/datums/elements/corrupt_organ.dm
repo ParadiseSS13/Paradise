@@ -38,7 +38,7 @@
 	for(var/mob/living/target in range(1, origin_turf))
 		var/armor = target.run_armor_check(attack_flag = BOMB)
 		target.apply_damage(30, damagetype = BURN, blocked = armor, spread_damage = TRUE)
-	qdel(organ)
+	QDEL_IN(organ, 1 SECOND)
 
 /obj/effect/temp_visual/curse_blast
 	icon = 'icons/effects/64x64.dmi'
