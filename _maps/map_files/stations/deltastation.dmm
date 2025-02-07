@@ -16862,11 +16862,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -18034,7 +18036,6 @@
 	},
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -18045,6 +18046,7 @@
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/machinery/light,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -58405,7 +58407,6 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -70351,20 +70352,6 @@
 /obj/item/toy/russian_revolver,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
-"mdk" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/supply/smith_office)
 "mej" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -76378,22 +76365,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"psn" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/supply/smith_office)
 "psH" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/machinery/light{
@@ -136594,7 +136565,7 @@ bbf
 bcD
 bfx
 txD
-mdk
+oeE
 bia
 bjG
 blB
@@ -137622,7 +137593,7 @@ beh
 beh
 beh
 bfB
-psn
+oeE
 bie
 bjJ
 blF

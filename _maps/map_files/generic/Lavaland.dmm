@@ -7815,28 +7815,13 @@
 	},
 /area/mine/outpost/hallway/west)
 "Hj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_x = 32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/item/kirbyplants/large,
-/obj/structure/sign/kiddieplaque/remembrance/mining{
-	pixel_x = 32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

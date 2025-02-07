@@ -5210,11 +5210,6 @@
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
-"bbE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/station/supply/smith_office)
 "bbI" = (
 /obj/structure/table,
 /obj/item/folder,
@@ -11616,9 +11611,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "cna" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11629,13 +11621,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "cni" = (
@@ -13491,9 +13476,6 @@
 	},
 /area/station/maintenance/apmaint)
 "cGZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -13508,13 +13490,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -34918,10 +34893,6 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
-"gVP" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
 /area/station/supply/smith_office)
 "gWb" = (
 /obj/structure/cable{
@@ -65866,7 +65837,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
 /obj/machinery/door/firedoor,
-/turf/simulated/wall,
+/turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "nfM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -109514,11 +109485,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/security/main)
-"vGO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/station/maintenance/assembly_line)
 "vGW" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -147172,8 +147138,8 @@ ioA
 bFq
 xgV
 uVq
-bbE
-gVP
+xvG
+bcs
 bcs
 bcs
 ofB
@@ -147940,11 +147906,11 @@ vLH
 hEb
 ioA
 ioA
-lLw
+ioA
 ioA
 xpg
 lLw
-vGO
+jwE
 ioA
 jwE
 thk

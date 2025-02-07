@@ -9740,10 +9740,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/public/locker)
-"aVo" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/supply/smith_office)
 "aVp" = (
 /obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel{
@@ -107279,11 +107275,11 @@ aOB
 bmw
 aNX
 aOB
-aVo
-aVo
-aVo
-aVo
-aVo
+lOz
+lOz
+lOz
+lOz
+lOz
 lOz
 ufI
 bos

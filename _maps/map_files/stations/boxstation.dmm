@@ -33144,9 +33144,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -52440,23 +52437,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
-"fHU" = (
-/obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/classic/normal{
-	name = "Smith Desk";
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "smithdesk";
-	name = "Smith's Desk Shutters"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "fIj" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -112385,7 +112365,7 @@ pnc
 pnc
 pnc
 gba
-fHU
+gba
 pnc
 coH
 cqB
