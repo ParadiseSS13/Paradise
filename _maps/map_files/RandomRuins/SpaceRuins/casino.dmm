@@ -214,7 +214,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "fT" = (
-/obj/item/kirbyplants/plant1,
+/obj/item/kirbyplants/medium/medium2,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "fV" = (
@@ -432,7 +432,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "kC" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "kH" = (

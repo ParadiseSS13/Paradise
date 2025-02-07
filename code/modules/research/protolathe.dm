@@ -91,7 +91,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.is_open_container())
-		return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 	return ..()
 

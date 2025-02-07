@@ -77,6 +77,7 @@
 			loaded_tank = used
 			used.forceMove(src)
 			update_icons()
+			return ITEM_INTERACT_COMPLETE
 	else if(used.tool_behaviour == TOOL_CROWBAR)
 		if(loaded_tank && !locked)
 			eject()

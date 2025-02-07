@@ -101,7 +101,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "az" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -112,7 +112,7 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aC" = (

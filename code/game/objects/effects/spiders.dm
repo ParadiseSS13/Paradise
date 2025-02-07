@@ -111,8 +111,8 @@
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	// Release possible ref if a walk is still being processed
-	walk_to(src, 0)
+	// Cancel our movement.
+	GLOB.move_manager.stop_looping(src)
 	entry_vent = null
 	if(amount_grown < 100)
 		new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
@@ -175,7 +175,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				GLOB.move_manager.home_onto(src, entry_vent, 1, 10)
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -214,7 +214,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	walk_to(src, pick(available_turfs))
+	GLOB.move_manager.home_onto(src, pick(available_turfs), 1, 10)
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
