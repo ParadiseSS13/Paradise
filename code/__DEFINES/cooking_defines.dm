@@ -30,15 +30,15 @@
 
 // Burn times for cooking things on a stove.
 // Anything put on a stove for this long becomes a burned mess.
-#define PCWJ_BURN_TIME_LOW 15 MINUTES
-#define PCWJ_BURN_TIME_MEDIUM 10 MINUTES
-#define PCWJ_BURN_TIME_HIGH 5 MINUTES
+#define PCWJ_BURN_TIME_LOW 3 MINUTES
+#define PCWJ_BURN_TIME_MEDIUM 2 MINUTES
+#define PCWJ_BURN_TIME_HIGH 1 MINUTES
 
 // Ignite times for reagents interacting with a stove.
 // The stove will catch fire if left on too long with flammable reagents in any of its holders.
-#define PCWJ_IGNITE_TIME_LOW 20 MINUTES
-#define PCWJ_IGNITE_TIME_MEDIUM 15 MINUTES
-#define PCWJ_IGNITE_TIME_HIGH 10 MINUTES
+#define PCWJ_IGNITE_TIME_LOW 6 MINUTES
+#define PCWJ_IGNITE_TIME_MEDIUM 4 MINUTES
+#define PCWJ_IGNITE_TIME_HIGH 2 MINUTES
 
 //Food Quality Tiers
 #define PCWJ_QUALITY_GARBAGE -2

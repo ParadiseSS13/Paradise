@@ -69,6 +69,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/proc/surface_item_interaction(mob/living/user, obj/item/used, datum/cooking_surface/surface)
 	if(surface.placed_item)
 		surface.placed_item.item_interaction(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 	for(var/allowed_container_type in allowed_containers)
 		if(istype(used, allowed_container_type))
@@ -156,7 +157,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	burner.kill_timers()
 
 /obj/machinery/cooking/proc/ignite()
-	resistance_flags |= ON_FIRE
 	new /obj/effect/fire(loc, T0C + 300, (roll("2d10+15") SECONDS), 1)
 
 	// Chance of spreading
