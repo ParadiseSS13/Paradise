@@ -46,7 +46,7 @@
 		range = 3, \
 		brute_heal = 0.4, \
 		burn_heal = 0.4, \
-		blood_heal = 0.8, \
+		blood_heal = 0.4, \
 		suffocation_heal = 1, \
 		simple_heal = 0.3, \
 		requires_visibility = FALSE, \
