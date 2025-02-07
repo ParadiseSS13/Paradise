@@ -80,7 +80,8 @@
 /obj/item/reagent_containers/drinks/cans/item_interaction(mob/living/user, obj/item/used, list/modifiers) // This doesn't belong here.
 	if(istype(used, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
-		var/obj/can = crush(user)
+		// Automatic crushed can pickup seems to be broken until storage is migrated.
+		crush(user)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/drinks/cans/throw_impact(atom/A)
