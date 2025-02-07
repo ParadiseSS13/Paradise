@@ -38,6 +38,9 @@
 
 	ADD_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
 	to_chat(user, "<span class='alert'>Your heart takes on a strange yet soothing irregular rhythm, and your blood feels significantly less viscous than it used to be. You're not sure if that's a good thing.</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user
+		human_user.physiology.bleed_mod *= 3
 	component = user.AddComponent( \
 		/datum/component/aura_healing, \
 		range = 3, \
@@ -66,6 +69,9 @@
 			active = FALSE
 	QDEL_NULL(component)
 	REMOVE_TRAIT(user, TRAIT_MANSUS_TOUCHED, UID(src))
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user
+		human_user.physiology.bleed_mod /= 3
 
 	// If boosted enable is set, to prevent false dropped() calls from repeatedly nuking the max spells.
 	var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions

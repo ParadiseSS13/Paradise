@@ -312,6 +312,7 @@
 	floor_tile = /obj/item/stack/tile/fakespace
 	smoothing_flags = NONE
 	plane = PLANE_SPACE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
 	. = ..()

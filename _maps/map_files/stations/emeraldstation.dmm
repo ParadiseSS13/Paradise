@@ -20053,13 +20053,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
-"eaY" = (
-/obj/structure/table,
-/obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "ebg" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -34551,7 +34544,6 @@
 /area/station/command/office/ntrep)
 "gTg" = (
 /obj/structure/table,
-/obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -170599,7 +170591,7 @@ eTO
 pmI
 xhr
 mIj
-eaY
+gLW
 eTx
 xnS
 vHR

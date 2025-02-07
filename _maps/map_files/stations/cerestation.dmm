@@ -41204,8 +41204,6 @@
 /area/station/maintenance/port2)
 "hGA" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hGE" = (

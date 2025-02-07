@@ -82962,8 +82962,6 @@
 /area/station/science/toxins/mixing)
 "vMJ" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
