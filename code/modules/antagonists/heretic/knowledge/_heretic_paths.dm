@@ -194,6 +194,10 @@ GLOBAL_LIST(heretic_research_tree)
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_ROUTE] = PATH_SIDE
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_DEPTH] = heretic_research_tree[/datum/heretic_knowledge/rifle][HKT_DEPTH]
 
+	heretic_research_tree[/datum/heretic_knowledge/rust_regen][HKT_NEXT] += /datum/heretic_knowledge/entropy_pulse
+	heretic_research_tree[/datum/heretic_knowledge/entropy_pulse][HKT_ROUTE] = PATH_SIDE
+	heretic_research_tree[/datum/heretic_knowledge/entropy_pulse][HKT_DEPTH] = heretic_research_tree[/datum/heretic_knowledge/rust_regen][HKT_DEPTH]
+
 	//and we're done
 	QDEL_LIST_ASSOC_VAL(paths)
 	return heretic_research_tree

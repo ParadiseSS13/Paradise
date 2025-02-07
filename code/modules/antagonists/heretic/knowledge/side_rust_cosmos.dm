@@ -5,11 +5,16 @@
 	route = PATH_SIDE
 
 	tier1 = /datum/heretic_knowledge/essence
-	tier2 = /datum/heretic_knowledge/entropy_pulse
+	tier2 = /datum/heretic_knowledge/dummy_rust_to_cosmos
 	tier3 = /datum/heretic_knowledge/summon/rusty
 
-
 // Sidepaths for knowledge between Rust and Cosmos.
+
+/datum/heretic_knowledge/dummy_rust_to_cosmos
+	name = "Cosmic and Rust ways"
+	desc = "Research this to gain access to the other path"
+	gain_text = "Rust is but the stardust of metal."
+	cost = 1
 
 /datum/heretic_knowledge/essence
 	name = "Priest's Ritual"

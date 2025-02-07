@@ -51,7 +51,7 @@
 	need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
 	need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-10, updating = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-15)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc

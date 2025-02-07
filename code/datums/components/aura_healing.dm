@@ -119,7 +119,7 @@
 		if(iscarbon(candidate))
 			candidate.adjustToxLoss(-toxin_heal, updating_health = FALSE)
 			candidate.adjustOxyLoss(-suffocation_heal, updating_health = FALSE)
-			candidate.adjustStaminaLoss(-stamina_heal, updating = FALSE)
+			candidate.adjustStaminaLoss(-stamina_heal)
 			if(ishuman(candidate))
 				var/mob/living/carbon/human/i_wish_roboheal_was_global = candidate
 				i_wish_roboheal_was_global.adjustBruteLoss(-brute_heal, updating_health = FALSE, robotic = TRUE)

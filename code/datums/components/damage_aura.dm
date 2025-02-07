@@ -92,7 +92,7 @@
 /// What effect the damage aura has if it has an owner.
 /datum/component/damage_aura/proc/owner_effect(mob/living/owner_mob)
 	var/need_mob_update = FALSE
-	need_mob_update += owner_mob.adjustStaminaLoss(-20, updating = FALSE)
+	need_mob_update += owner_mob.adjustStaminaLoss(-20)
 	need_mob_update += owner_mob.adjustBruteLoss(-1, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustFireLoss(-1, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustToxLoss(-1, updating_health = FALSE)
@@ -135,7 +135,7 @@
 		if(iscarbon(candidate))
 			candidate.adjustToxLoss(toxin_damage, updating_health = FALSE)
 			candidate.adjustOxyLoss(suffocation_damage, updating_health = FALSE)
-			candidate.adjustStaminaLoss(stamina_damage, updating = FALSE)
+			candidate.adjustStaminaLoss(stamina_damage)
 
 		else if(isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate
