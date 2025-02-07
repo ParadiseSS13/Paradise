@@ -49,6 +49,8 @@
 	var/proteon_dead_state = "shade_dead"
 	//Rusted Harvester Construct
 	var/rusted_harvester_name = "Rusted Harvester"
+	var/rusted_harvester_icon_state = "harvester"
+	var/rusted_harvester_dead_state = "shade_dead"
 	//Shade Spirit
 	var/shade_name = "Shade"
 	var/shade_icon_state = "shade2"
@@ -243,8 +245,8 @@
 			return wraith_icon_state
 		if("proteon")
 			return proteon_icon_state
-		if("rusted_harevester")
-			return harvester_icon_state //no unique icon state
+		if("rusted_harvester")
+			return rusted_harvester_icon_state
 		if("shade")
 			return shade_icon_state
 		if("forge")

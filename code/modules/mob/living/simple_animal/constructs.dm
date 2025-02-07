@@ -318,6 +318,13 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
+/mob/living/simple_animal/hostile/construct/harvester/Initialize(mapload)
+	. = ..()
+	// Don't give the cult overlay to a rusted harvester, and only give it to the narsi harvester
+	if(construct_type == "harvester" && icon_state == "harvester")
+		add_overlay("glow_harvester_cult")
+
+
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
@@ -345,7 +352,20 @@
 	. = ..()
 	AddElement(/datum/element/leeching_walk)
 	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, UID())
+	add_overlay("glow_rusted_harvester_heretic")
 	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
+	AddComponent(/datum/component/damage_aura,\
+		range = 3,\
+		brute_damage = 0.3,\
+		burn_damage = 0.3,\
+		toxin_damage = 0.3,\
+		stamina_damage = 1.5,\
+		simple_damage = 1.2,\
+		immune_factions = list("heretic"),\
+		damage_message = "<span class='userdanger'>Your body wilts and withers as it comes near [src]'s aura.</span>",\
+		message_probability = 7,\
+		current_owner = src,\
+	)
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
@@ -367,14 +387,6 @@
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds, times_fired)
 	. = ..()
-
-	for(var/mob/living/living_victims in range(3, src))
-		if(IS_HERETIC_OR_MONSTER(living_victims))
-			continue
-		living_victims.adjustBruteLoss(0.5, FALSE)
-		living_victims.adjustFireLoss(0.5, FALSE)
-		living_victims.adjustToxLoss(0.5, FALSE)
-		living_victims.apply_damage(4, STAMINA)
 	var/turf/adjacent = get_step(src, pick(GLOB.alldirs))
 	// 90% chance to be directional, otherwise what we're on top of
 	var/turf/simulated/land = (issimulatedturf(adjacent) && prob(90)) ? adjacent : get_turf(src)
