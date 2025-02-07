@@ -3,6 +3,7 @@
 #define POINT_MULT_ADD_PER_RATING 0.10
 #define SHEET_MULT_ADD_PER_RATING 0.20
 #define OPERATION_SPEED_MULT_PER_RATING 0.25
+#define EFFICIENCY_MULT_ADD_PER_RATING 0.05
 
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
@@ -225,65 +226,6 @@
 	SStgui.update_uis(src)
 // POLTODO: UI for seeing current minerals as a bar graph
 
-/obj/machinery/casting_bench
-	name = "casting bench"
-	desc = "A table with a large basin for pouring molten metal. It has a slot for a mold."
-	icon = 'icons/obj/machines/smithing_machines.dmi'
-	icon_state = "casting_bench"
-	anchored = TRUE
-	density = TRUE
-	resistance_flags = FIRE_PROOF
-	/// Linked magma crucible
-	var/obj/machinery/magma_crucible/linked_crucible
-	/// How long does an operation take
-	var/operation_time = 10 SECONDS
-	/// How many sheets are smelted at once?
-	var/sheets = 10
-	/// Smelter files to know what to make
-	var/datum/research/files
-
-/obj/machinery/casting_bench/Initialize(mapload)
-	. = ..()
-	// Stock parts
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/casting_bench(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-	files = new /datum/research/smelter(src)
-	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
-	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
-		linked_crucible = crucible
-		return
-
-/obj/machinery/casting_bench/RefreshParts()
-	var/O = 0
-	var/S = 0
-	for(var/obj/item/stock_parts/M in component_parts)
-		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
-		S += 5 * M.rating
-	// Update our values
-	operation_time = initial(operation_time) - O
-	sheets = initial(sheets) + S
-
-/obj/machinery/casting_bench/multitool_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!I.multitool_check_buffer(user))
-		return
-	if(panel_open)
-		var/obj/item/multitool/M = I
-		if(!istype(M.buffer, /obj/machinery/magma_crucible))
-			to_chat(user, "<span class='notice'>You cannot link [src] to [M.buffer]!</span>")
-			return
-		linked_crucible = M.buffer
-
-/obj/machinery/casting_bench/attack_hand(mob/user)
-	. = ..()
-	//var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
-	// TODO: SMELTING
-
 /obj/machinery/smithing
 	name = "smithing machine"
 	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
@@ -307,7 +249,7 @@
 	/// Are we on harm cooldown
 	var/special_attack_on_cooldown = FALSE
 	/// Store the worked component
-	var/obj/smithed_item/component/working_component
+	var/obj/item/smithed_item/component/working_component
 	/// The noise the machine makes when operating
 	var/operation_sound
 
@@ -324,7 +266,7 @@
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(used, /obj/smithed_item/component))
+	if(!istype(used, /obj/item/smithed_item/component))
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
 		return ITEM_INTERACT_COMPLETE
 
@@ -369,13 +311,121 @@
 /obj/machinery/smithing/proc/special_attack(mob/user, mob/living/target)
 	return
 
-/obj/machinery/smithing/AltClick(mob/user)
+/obj/machinery/smithing/AltClick(mob/living/user)
 	. = ..()
 	if(!working_component)
 		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
 		return
 	user.put_in_hands(working_component)
 	working_component = null
+
+
+/obj/machinery/smithing/casting_basin
+	name = "casting basin"
+	desc = "A table with a large basin for pouring molten metal. It has a slot for a mold."
+	icon = 'icons/obj/machines/smithing_machines.dmi'
+	icon_state = "casting_bench"
+	max_integrity = 100
+	pixel_x = 0	// 1x1
+	pixel_y = 0
+	bound_height = 32
+	bound_width = 32
+	bound_y = 0
+	operation_time = 10 SECONDS
+	operating = FALSE
+	/// Linked magma crucible
+	var/obj/machinery/magma_crucible/linked_crucible
+	/// Operational Efficiency
+	var/efficiency = 1
+	/// Inserted cast
+	var/obj/item/smithing_cast/cast
+
+/obj/machinery/smithing/casting_basin/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/casting_basin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
+	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
+		linked_crucible = crucible
+		return
+
+/obj/machinery/smithing/casting_basin/RefreshParts()
+	var/O = 0
+	var/E = 0
+	for(var/obj/item/stock_parts/M in component_parts)
+		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
+		E += EFFICIENCY_MULT_ADD_PER_RATING * M.rating
+	// Update our values
+	operation_time = initial(operation_time) - O
+	efficiency = initial(efficiency) - E
+
+/obj/machinery/smithing/casting_basin/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	if(panel_open)
+		var/obj/item/multitool/M = I
+		if(!istype(M.buffer, /obj/machinery/magma_crucible))
+			to_chat(user, "<span class='notice'>You cannot link [src] to [M.buffer]!</span>")
+			return
+		linked_crucible = M.buffer
+
+/obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/smithing_cast))
+		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s cast slot.</span>")
+		return
+
+	if(cast)
+		to_chat(user, "<span class='warning'>[src] already has a cast inserted.</span>")
+		return
+
+	used.forceMove(src)
+	cast = used
+
+/obj/machinery/smithing/casting_basin/AltClick(mob/living/user)
+	if(!cast)
+		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
+		return
+
+	user.put_in_hands(cast)
+	cast = null
+
+/obj/machinery/smithing/casting_basin/attack_hand(mob/user)
+	. = ..()
+	if(!cast)
+		to_chat(user, "<span class='warning'>There is no cast inserted!</span>")
+		return
+	if(!linked_crucible)
+		to_chat(user, "<span class='warning'>There is no linked magma crucible!</span>")
+		return
+	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
+	var/obj/item/product = cast.selected_product
+	var/amount = 1
+	var/datum/material/M
+	for(var/mat in product.materials)
+		M = materials[mat]
+		var/stored = M.amount / MINERAL_MATERIAL_AMOUNT
+		if(istype(cast, /obj/item/smithing_cast/sheet))
+			var/obj/item/smithing_cast/sheet/sheet_cast = cast
+			amount = min(sheet_cast.sheet_number, stored, MAX_STACK_SIZE)
+	if(istype(cast, /obj/item/smithing_cast/component))
+		var /obj/item/smithing_cast/component/comp_cast = cast
+		product.materials = product.materials * comp_cast.quality.material_mult
+	materials.use_amount(product.materials, multiplier = amount)
+	sleep(operation_time)
+	if(istype(cast, /obj/item/smithing_cast/sheet))
+		var/obj/item/stack/new_stack = new product(src.loc)
+		new_stack.amount = amount
+	else
+		new product(src.loc)
+
+	// TODO: SMELTING
 
 /obj/machinery/smithing/power_hammer
 	name = "power hammer"
@@ -500,13 +550,13 @@
 	operating = FALSE
 	operation_sound = 'sound/items/welder.ogg'
 	/// Primary component
-	var/obj/smithed_item/component/primary
+	var/obj/item/smithed_item/component/primary
 	/// Secondary component
-	var/obj/smithed_item/component/secondary
+	var/obj/item/smithed_item/component/secondary
 	/// Trim component
-	var/obj/smithed_item/component/trim
+	var/obj/item/smithed_item/component/trim
 	/// Finished product
-	var/obj/smithed_item/finished_product
+	var/obj/item/smithed_item/finished_product
 
 /obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
@@ -532,11 +582,11 @@
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(used, /obj/smithed_item/component))
+	if(!istype(used, /obj/item/smithed_item/component))
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	var/obj/smithed_item/component/comp = used
+	var/obj/item/smithed_item/component/comp = used
 	if(comp.part_type == PART_PRIMARY)
 		if(primary)
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
@@ -620,3 +670,4 @@
 #undef POINT_MULT_ADD_PER_RATING
 #undef SHEET_MULT_ADD_PER_RATING
 #undef OPERATION_SPEED_MULT_PER_RATING
+#undef EFFICIENCY_MULT_ADD_PER_RATING

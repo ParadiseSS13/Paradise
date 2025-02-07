@@ -5855,9 +5855,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ww" = (
-/obj/machinery/casting_bench,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/box,
+/obj/machinery/smithing/casting_basin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6847,6 +6847,10 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/structure/shelf/supply,
+/obj/item/storage/backpack/duffel,
+/obj/item/storage/backpack/duffel,
+/obj/item/storage/backpack/duffel,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8493,8 +8497,8 @@
 	},
 /area/mine/outpost/airlock)
 "LQ" = (
-/obj/machinery/casting_bench,
 /obj/effect/turf_decal/box,
+/obj/machinery/smithing/casting_basin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8923,9 +8927,9 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "OK" = (
-/obj/structure/shelf/supply,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/economy/vending/smith,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

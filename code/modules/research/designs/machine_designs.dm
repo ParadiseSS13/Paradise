@@ -532,14 +532,14 @@
 	build_path = /obj/item/circuitboard/magma_crucible
 	category = list ("Misc. Machinery")
 
-/datum/design/casting_bench
+/datum/design/casting_basin
 	name = "Machine Design (Casting Bench)"
 	desc = "The circuit board for a Casting Bench."
 	id = "casting_bench"
 	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/casting_bench
+	build_path = /obj/item/circuitboard/casting_basin
 	category = list ("Misc. Machinery")
 
 /datum/design/power_hammer

@@ -1074,10 +1074,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/assembly/igniter = 1)
 
-/obj/item/circuitboard/casting_bench
-	board_name = "Magma Crucible"
+/obj/item/circuitboard/casting_basin
+	board_name = "Casting Basin"
 	icon_state = "supply"
-	build_path = /obj/machinery/casting_bench
+	build_path = /obj/machinery/smithing/casting_basin
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=4"
 	req_components = list(
