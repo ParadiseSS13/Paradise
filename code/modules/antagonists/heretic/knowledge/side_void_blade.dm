@@ -93,23 +93,34 @@
 /// Callback for the ghoul status effect - what effects are applied to the ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/apply_to_risen(mob/living/risen)
 	LAZYADD(created_items, risen.UID())
-	//risen.AddComponent(/datum/component/mutant_hands, mutant_hand_path = /obj/item/mutant_hand/shattered_risen)
+	risen.put_in_active_hand(new/obj/item/shattered_risen)
 
 /// Callback for the ghoul status effect - cleaning up effects after the ghoul status is removed.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/remove_from_risen(mob/living/risen)
 	LAZYREMOVE(created_items, risen.UID())
-	//qdel(risen.GetComponent(/datum/component/mutant_hands))
+	for(var/obj/item/shattered_risen/bone_shards in risen)
+		qdel(bone_shards)
 
 #undef RISEN_MAX_HEALTH
 
 /// The "hand" "weapon" used by shattered risen
-/obj/item/mutant_hand/shattered_risen
+/obj/item/shattered_risen
 	name = "bone-shards"
 	desc = "What once appeared to be a normal human fist, now holds a maulled nest of sharp bone-shards."
+	icon = 'icons/effects/vampire_effects.dmi'
+	icon_state = "vamp_claws"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	flags = ABSTRACT | NODROP | DROPDEL
 	color = "#001aff"
 	hitsound = "shatter"
 	force = 16
 	sharp = TRUE
+
+/obj/item/shattered_risen/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /datum/heretic_knowledge/rune_carver
 	name = "Carving Knife"

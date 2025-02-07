@@ -8,13 +8,17 @@
 	master_hud_name = "heretic"
 
 /datum/antagonist/mindslave/heretic_monster/farewell()
-	if(master)
-		to_chat(master, "<span class='warning'>The essence of [owner], your servant, fades from your mind.</span>")
 	if(owner.current)
-		to_chat(owner.current, "<span class='deconversion_message'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
-		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
+		to_chat(owner.current, "<span class='warning'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
+		owner.current.visible_message("<span class='warning'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
 
 	return ..()
+
+/datum/antagonist/mindslave/heretic_monster/Destroy(force, ...)
+	if(master.current)
+		to_chat(master.current, "<span class='warning'>The essence of [owner], your servant, fades from your mind.</span>")
+	return ..()
+
 
 /datum/antagonist/mindslave/heretic_monster/add_owner_to_gamemode()
 	SSticker.mode.heretics += owner
