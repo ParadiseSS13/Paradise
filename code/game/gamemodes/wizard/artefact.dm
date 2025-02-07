@@ -878,7 +878,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 //raises the victim into a special zombies and binds them to wiz
 /obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
-	var/datum/disease/chosen_plague = pick_disease()
+	var/datum/disease/chosen_plague = pick_disease() //what disease to give them
 
 	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
@@ -886,18 +886,23 @@ GLOBAL_LIST_EMPTY(multiverse)
 	for(var/trait in plague_traits)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
 
-
-	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie(chosen_plague, TRUE)
+	var/datum/disease/zombie/wizard/plague_virus = new /datum/disease/zombie/wizard(chosen_plague, TRUE)
 	victim.ForceContractDisease(plague_virus)
-	plague_virus.stage = 8
+	for(var/datum/disease/zombie/wizard/zomb in victim.viruses)
+		zomb.stage = 8 // immediate zombie!
 
 	// Wiz and minions should contract their own diseases
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
-	qdel(src)
+	qdel(src) // talismans are single use
 
 	sleep(50) // so that mindslave comes after the zombie antag
+
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
+		You have been bestowed the following plague: <br> \
+		[chosen_plague.name]!</span>"
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 
 	// Cant very well have your new minions dead for so long
 	victim.heal_overall_damage(1000, 1000)
@@ -906,10 +911,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.update_hands_hud()
 	victim.update_body()
 
-	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
-		You have been bestowed the following plague: <br> \
-		[chosen_plague.name]!</span>"
-	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()

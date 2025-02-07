@@ -26,12 +26,13 @@
 
 /datum/disease/zombie/New(chosen_plague, plague_zomb)
 	if(plague_zomb == TRUE)
+		to_chat(world, "The New() proc is still working")
 		bypasses_immunity = TRUE
 		plague_disease = chosen_plague
 		instant_zombie = TRUE
 
 /datum/disease/zombie/stage_act()
-	if(stage == 8 || instant_zombie)
+	if(stage == 8)
 		// adminbus for immediate zombie
 		var/mob/living/carbon/human/H = affected_mob
 		if(!istype(H))
@@ -39,10 +40,6 @@
 		for(var/obj/item/organ/limb as anything in H.bodyparts)
 			if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 				limb.necrotize(TRUE, TRUE)
-
-	//make sure sure we get all our proper datums and components
-	if(instant_zombie)
-		stage = 7
 
 	if(!..())
 		return FALSE
@@ -174,4 +171,7 @@
 	affected_mob.med_hud_set_status()
 	return ..()
 
-
+/datum/disease/zombie/wizard
+		spread_flags = NON_CONTAGIOUS
+		spread_text = "Non Contagious"
+		cure_text = "Anti-magic"
