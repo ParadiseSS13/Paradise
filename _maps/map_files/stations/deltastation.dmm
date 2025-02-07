@@ -16416,10 +16416,6 @@
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
-"bgS" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/supply/smith_office)
 "bgT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -137336,7 +137332,7 @@ ubV
 ubV
 ubV
 mga
-bgS
+oeE
 bid
 bjI
 bnh

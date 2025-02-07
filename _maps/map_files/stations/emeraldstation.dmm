@@ -59061,10 +59061,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"lLw" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/assembly_line)
 "lLE" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -147909,7 +147905,7 @@ ioA
 ioA
 ioA
 xpg
-lLw
+ioA
 jwE
 ioA
 jwE
