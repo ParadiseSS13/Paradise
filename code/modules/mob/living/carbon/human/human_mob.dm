@@ -1001,6 +1001,9 @@
 		if(ipc_burn_to_heal < 0)
 			adjustFireLoss(ipc_burn_to_heal, updating_health = FALSE, robotic = TRUE)
 
+	if(blood_volume < BLOOD_VOLUME_STABLE + 50)
+		blood_volume = BLOOD_VOLUME_STABLE + 50
+	
 	. = ..()
 	if(.) // if revived successfully
 		set_heartattack(FALSE)

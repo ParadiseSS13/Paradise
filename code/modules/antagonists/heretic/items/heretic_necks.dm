@@ -148,7 +148,7 @@
 // Cosmetic-only version
 /obj/item/clothing/neck/fake_heretic_amulet
 	name = "religious icon"
-	desc = "A strange medallion, which makes its wearer look like they're part of some cult."
+	desc = "A strange plastic medallion, which makes its wearer look like they're part of some cult."
 	icon_state = "eldritch_necklace"
 	w_class = WEIGHT_CLASS_SMALL
 
