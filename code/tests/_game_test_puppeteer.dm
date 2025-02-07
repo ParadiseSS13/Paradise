@@ -105,6 +105,9 @@
 /datum/test_puppeteer/proc/set_intent(new_intent)
 	puppet.a_intent_change(new_intent)
 
+/datum/test_puppeteer/proc/set_zone(new_zone)
+	puppet.zone_selected = new_zone
+
 /datum/test_puppeteer/proc/rejuvenate()
 	puppet.rejuvenate()
 
