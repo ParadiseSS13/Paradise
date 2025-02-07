@@ -296,7 +296,7 @@
 	if(!iscarbon(G.affecting))
 		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
 		return FALSE
-	if(G.state < GRAB_AGGRESSIVE)
+	if(G.state < GRAB_NECK)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return FALSE
 	var/result = special_attack(user, G.affecting)
