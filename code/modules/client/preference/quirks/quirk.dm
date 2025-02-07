@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/item_slot = ITEM_SLOT_IN_BACKPACK
 	/// If this quirk adds an organ
 	var/organ_to_give
-	/// What organ should be removed (if any) before adding the initial organ
+	/// What organ should be removed (if any). Must be the string name of the organ as found in the has_organ var from the species datum. 
 	var/organ_to_remove
 
 /datum/quirk/Destroy(force, ...)
