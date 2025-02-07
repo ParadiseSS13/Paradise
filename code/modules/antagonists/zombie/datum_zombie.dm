@@ -11,17 +11,20 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
 	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH)
 	var/datum/unarmed_attack/claws/claw_attack
+	var/chosen_disease
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)
 // ability to find nearby brains to eat (like cling/vamp ability to track people around them)
+/datum/antagonist/zombie/New(chosen_plague)
+	chosen_disease = chosen_plague
 
-/datum/antagonist/zombie/on_gain(chosen_plague)
+/datum/antagonist/zombie/on_gain()
 	. = ..()
-	to_chat(world,"DEBUG: the var in datum_zombie.dm comes up with [chosen_plague]")
 	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
 		var/datum/spell/zombie_claws/plague_claws/plague_claws = new /datum/spell/zombie_claws/plague_claws
-		plague_claws.disease = chosen_plague
+		plague_claws.disease = chosen_disease
 		owner.AddSpell(plague_claws)
+
 	else
 		owner.AddSpell(new /datum/spell/zombie_claws)
 	claw_attack = new /datum/unarmed_attack/claws()
@@ -72,6 +75,8 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		REMOVE_TRAIT(L, TRAIT_GOTTAGOSLOW, ZOMBIE_TRAIT) // Not as numerous, and must keep up to protect wiz
 
 	if(!L.HasDisease(/datum/disease/zombie))
 		var/datum/disease/zombie/zomb = new /datum/disease/zombie()
@@ -105,4 +110,15 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	return ..()
 
 /datum/antagonist/zombie/give_objectives()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
 	add_antag_objective(/datum/objective/zombie)
+
+/datum/antagonist/zombie/get_antag_objectives()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
+
+/datum/antagonist/zombie/add_antag_objective()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
+

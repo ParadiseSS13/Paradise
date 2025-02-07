@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
 	messages.Add(finalize_antag())
-	if(wiki_page_name)
+	if(wiki_page_name) // Prevent plague zombies double-box info
 		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
 
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))

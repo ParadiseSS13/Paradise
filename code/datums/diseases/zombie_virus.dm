@@ -21,9 +21,17 @@
 	COOLDOWN_DECLARE(stage_timer)
 	/// What disease are we passing along to datum/antagonist/zombie
 	var/plague_disease
+	/// Activate the immediate zombie rot loop
+	var/instant_zombie
+
+/datum/disease/zombie/New(chosen_plague, plague_zomb)
+	if(plague_zomb == TRUE)
+		bypasses_immunity = TRUE
+		plague_disease = chosen_plague
+		instant_zombie = TRUE
 
 /datum/disease/zombie/stage_act()
-	if(stage == 8)
+	if(stage == 8 || instant_zombie)
 		// adminbus for immediate zombie
 		var/mob/living/carbon/human/H = affected_mob
 		if(!istype(H))
@@ -31,6 +39,10 @@
 		for(var/obj/item/organ/limb as anything in H.bodyparts)
 			if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 				limb.necrotize(TRUE, TRUE)
+
+	//make sure sure we get all our proper datums and components
+	if(instant_zombie)
+		stage = 7
 
 	if(!..())
 		return FALSE
@@ -121,9 +133,15 @@
 		affected_mob.med_hud_set_status()
 		affected_mob.update_hands_hud()
 		H.update_body()
-	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie && !HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE)))
-		var/datum/antagonist/zombie/plague = new/datum/antagonist/zombie(plague_disease)
-		affected_mob.mind.add_antag_datum(plague)
+	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
+		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+			var/datum/antagonist/zombie/plague = new/datum/antagonist/zombie(plague_disease)
+			plague.silent = TRUE //to prevent the second box from appearing
+			plague.wiki_page_name = null
+			affected_mob.mind.add_antag_datum(plague)
+		else
+			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+
 	return TRUE
 
 
@@ -131,7 +149,7 @@
 	if(has_cure && prob(cure_chance))
 		stage = max(stage - 1, 0)
 
-	if(stage <= 0 && has_cure && bypasses_immunity != TRUE)
+	if(stage <= 0 && has_cure)
 		cure()
 		return FALSE
 	return TRUE
@@ -156,10 +174,4 @@
 	affected_mob.med_hud_set_status()
 	return ..()
 
-/datum/disease/zombie/plague_zombie
-	bypasses_immunity = TRUE
-	stage = 8
 
-/datum/disease/zombie/plague_zombie/New(chosen_disease)
-	plague_disease = chosen_disease
-	to_chat(world, "DEBUG: disease/zombie/New() has been given [plague_disease]")

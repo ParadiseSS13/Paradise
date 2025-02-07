@@ -879,36 +879,37 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 
 	var/datum/disease/chosen_plague = pick_disease()
-	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
-		You have been bestowed the following plague: <br> \
-		[chosen_plague.name]!</span>"
 
-
-	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
 	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
 	for(var/trait in plague_traits)
 		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
-	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT) // Cant have the user or zombie getting infected by their own plagues
+
+
+	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie(chosen_plague, TRUE)
+	victim.ForceContractDisease(plague_virus)
+	plague_virus.stage = 8
+
+	 // Wiz and minions should contract their own diseases
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 
-	var/datum/disease/zombie/plague_virus = new /datum/disease/zombie/plague_zombie(chosen_plague)
-	victim.ContractDisease(plague_virus)
+	qdel(src)
 
-	//time to rot
-	if(!istype(victim))
-		return FALSE
-	for(var/obj/item/organ/limb as anything in victim.bodyparts)
-		if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
-			limb.necrotize(TRUE, TRUE)
+	sleep(50) // so that mindslave comes after the zombie antag
 
-	victim.heal_overall_damage(1000, 1000) // Cant very well have your new minions dead for so long if already hurt
+	// Cant very well have your new minions dead for so long
+	victim.heal_overall_damage(1000, 1000)
 	victim.med_hud_set_health()
 	victim.med_hud_set_status()
 	victim.update_hands_hud()
 	victim.update_body()
-	qdel(src)
+
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
+		You have been bestowed the following plague: <br> \
+		[chosen_plague.name]!</span>"
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()
