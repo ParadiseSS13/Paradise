@@ -26,7 +26,6 @@
 
 /datum/disease/zombie/New(chosen_plague, plague_zomb)
 	if(plague_zomb == TRUE)
-		to_chat(world, "The New() proc is still working")
 		bypasses_immunity = TRUE
 		plague_disease = chosen_plague
 		instant_zombie = TRUE
