@@ -463,6 +463,7 @@
 	return ..()
 
 /datum/status_effect/regenerative_core/on_apply()
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	if(ishuman(owner))
@@ -471,7 +472,6 @@
 		if(regen_type_applied == "Legion")
 			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 				for(var/obj/item/organ/external/E in H.bodyparts)
-					ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 					owner.remove_CC()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
