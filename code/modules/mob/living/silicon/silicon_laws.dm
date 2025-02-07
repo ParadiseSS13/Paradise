@@ -11,6 +11,8 @@
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	laws_sanity_check()
 	laws.set_zeroth_law(law, law_borg)
+	var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MALF_AI]
+	A.add_hud_to(usr)
 	if(!isnull(usr) && law)
 		log_and_message_admins("has given [src] the zeroth laws: [law]/[law_borg ? law_borg : "N/A"]")
 
@@ -67,6 +69,8 @@
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	laws_sanity_check()
 	laws.clear_zeroth_laws()
+	var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MALF_AI]
+	A.remove_hud_from(usr)
 	if(!silent && !isnull(usr))
 		log_and_message_admins("cleared the zeroth law of [src]")
 
