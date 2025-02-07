@@ -85,7 +85,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "q" = (
-/obj/structure/cult/functional/pylon,
+/obj/structure/cult/pylon,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "r" = (
