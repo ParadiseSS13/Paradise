@@ -64,7 +64,7 @@
 
 /datum/quirk/asthma
 	name = "Asthma"
-	desc = "You have trouble catching your breath, and can have violent coughing fits when exerting yourself."
+	desc = "You have trouble catching your breath, and can have violent coughing fits when exerting yourself. IPCs cannot take this."
 	cost = -3
 	organic_only = TRUE
 	trait_to_apply = TRAIT_ASTHMATIC
@@ -98,3 +98,11 @@
 			owner.adjustOxyLoss(10)
 
 #undef ASTHMA_ATTACK_THRESHOLD
+
+/datum/quirk/no_apc_charging
+	name = "High Internal Resistance"
+	desc = "The station's outlets operate at a higher voltage than your chassis can handle, so you can only safely charge from recharging stations. Only IPCs can take this."
+	cost = -2
+	machine_only = TRUE
+	trait_to_apply = TRAIT_NO_APC_CHARGING
+	organ_to_remove = "charger" // This feels like such a dumb way to do this but I can't think of a smarter solution

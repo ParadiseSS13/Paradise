@@ -35,18 +35,12 @@
 	cost = 1
 	item_to_give = /obj/item/storage/box/papersack/prepped_meal
 
-/datum/quirk/glutton
+/datum/quirk/glutton // TODO test
 	name = "Glutton"
-	desc = "You can eat faster, and don't suffer any ill-effects from being overweight."
+	desc = "You can eat faster, and don't suffer any ill-effects from being overweight. IPCs cannot take this."
 	cost = 2
 	trait_to_apply = TRAIT_GLUTTON
 	organic_only = TRUE
-
-/datum/quirk/improved_charging_cord
-	name = "Upgraded Charging Cable"
-	desc = "You got a new type of charging implant that can also connect to standard power cells."
-	cost = 2
-	machine_only = TRUE
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"

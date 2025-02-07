@@ -436,6 +436,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FREERUNNER "freerunner"
 #define TRAIT_CRAFTY "crafty"
 #define TRAIT_GLUTTON "glutton"
+#define TRAIT_NO_APC_CHARGING "no_apc_charging"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.

@@ -443,6 +443,7 @@
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
 	drawing_power = TRUE
+	var/can_safely_charge = HAS_TRAIT(H, TRAIT_NO_APC_CHARGING) ? FALSE : TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
@@ -452,6 +453,8 @@
 			break
 		A.charging = APC_IS_CHARGING
 		if(A.cell.charge >= 500)
+			if(!can_safely_charge)
+				H.adjust_bodytemperature(60) // Don't overcharge your batteries
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
@@ -465,6 +468,13 @@
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
 	drawing_power = FALSE
+	if(!can_safely_charge)
+		if(H.bodytemperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+			H.fire_stacks += 10
+			H.IgniteMob()
+			var/datum/organ/battery/microbattery = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
+			microbattery.linked_organ.receive_damage(H.bodytemperature / 50)
+			H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='warning'>Something inside you combusts!</span>")
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"
