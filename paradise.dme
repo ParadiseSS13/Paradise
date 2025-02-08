@@ -79,7 +79,6 @@
 #include "code\__DEFINES\keybindings_defines.dm"
 #include "code\__DEFINES\language_defines.dm"
 #include "code\__DEFINES\layers.dm"
-#include "code\__DEFINES\lazy_templates.dm"
 #include "code\__DEFINES\library.dm"
 #include "code\__DEFINES\lighting_defines.dm"
 #include "code\__DEFINES\logs.dm"
