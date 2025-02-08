@@ -118,3 +118,9 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
+
+/obj/item/soap/ds
+	desc = "Most expensive bar of soap issues only to professional cleaning teams. It almost feels like glass?"
+	icon_state = "soapds"
+	cleanspeed = 5
+
