@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
-#ifdef GAME_TESTS
+#ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
@@ -26,7 +26,11 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	GLOB.configuration.load_configuration() // Load up the base config.toml
 	// Load up overrides for this specific instance, based on port
 	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
-	GLOB.configuration.load_overrides()
+	GLOB.configuration.load_overrides("config/overrides_[world.port].toml")
+
+	#ifdef TEST_CONFIG_OVERRIDE
+	GLOB.configuration.load_overrides("config/tests/config_[TEST_CONFIG_OVERRIDE].toml")
+	#endif
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -51,8 +55,8 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	if(TgsAvailable())
 		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
 
-	#ifdef GAME_TESTS
-	log_world("Unit Tests Are Enabled!")
+	#ifdef TEST_RUNNER
+	log_world("Test runner enabled.")
 	#endif
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
@@ -69,7 +73,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	Master.Initialize(10, FALSE, TRUE)
 
 
-	#ifdef GAME_TESTS
+	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
@@ -144,7 +148,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
-	#ifdef GAME_TESTS
+	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
 	#endif
