@@ -37,7 +37,7 @@
 
 	// While we can have a portal that lasts forever, I can't imagine needing a temporary one for more than 500 seconds
 	lifetime = tgui_input_number(user, "Select how long you want the portal to remain open for in seconds, -1 means forever.", "Portal Duration", 5, max_value = 500, min_value = -1) SECONDS || 5 SECONDS
-	to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime/10] seconds</span>")
+	to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime / 10] seconds</span>")
 
 /datum/buildmode_mode/portal/handle_click(mob/user, params, obj/loc)
 	var/list/pa = params2list(params)
@@ -82,9 +82,9 @@
 		bmportal = new /obj/effect/portal/advanced(destination, origin, null, lifetime)
 		bmportal.icon = portal_icon
 		bmportal.icon_state = portal_icon_state
-		message_admins("[key_name_admin(user)] Created a two-way portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime/10] seconds")
+		message_admins("[key_name_admin(user)] Created a two-way portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime / 10] seconds")
 	else
 		bmportal = new /obj/effect/portal/advanced(origin, destination, null, lifetime)
 		bmportal.icon = portal_icon
 		bmportal.icon_state = portal_icon_state
-		message_admins("[key_name_admin(user)] Created a portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime/10] seconds")
+		message_admins("[key_name_admin(user)] Created a portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime / 10] seconds")
