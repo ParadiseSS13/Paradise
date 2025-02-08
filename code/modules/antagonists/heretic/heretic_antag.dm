@@ -600,43 +600,59 @@
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
-///datum/antagonist/heretic/roundend_report()
-//	var/list/parts = list() //QWERTODO: Bring in line with other antagonists.
+/datum/game_mode/proc/auto_declare_completion_heretic()
+	if(!length(heretics))
+		return
 
-	//var/succeeded = TRUE
+	var/list/text = list("<font size='2'><b>The heretics were:</b></font>")
+	for(var/datum/mind/heretic in heretics)
 
-	//parts += printplayer(owner)
-//	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
-//	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
-//	if(length(objectives))
-//		var/count = 1
-//		for(var/datum/objective/objective as anything in get_all_objectives(include_team = FALSE))
-//			if(!objective.check_completion())
-//				succeeded = FALSE
-//			parts += "<b>Objective #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
-///			count++
-//	if(feast_of_owls)
-//		parts += "<span class='greentext'>Ascension Forsaken</span>"
-//	if(ascended)
-//		parts += "<span class='greentext>THE HERETIC ASCENDED!</span>"
+		text += "<br>[heretic.get_display_key()] was [heretic.name] ("
+		if(heretic.current)
+			if(heretic.current.stat == DEAD)
+				text += "died"
+			else
+				text += "survived"
+		else
+			text += "body destroyed"
+		text += ")"
+		var/datum/antagonist/heretic/our_heretic = heretic.has_antag_datum(/datum/antagonist/heretic)
+		text += "<br><b>Sacrifices Made:</b> [our_heretic.total_sacrifices]"
+		text += "<br>The heretic's sacrifice targets were: [english_list(our_heretic.all_sac_targets, nothing_text = "No one")]."
+		var/traitorwin = TRUE
+		var/list/all_objectives = heretic.get_all_objectives()
 
-//	else
-//		if(succeeded)
-//			parts += "<span class='greentext'>The heretic was successful, but did not ascend!</span>"
-//		else
-//			parts += "<span class='redtext'>The heretic has failed.</span>"
+		if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
+			var/count = 1
+			for(var/datum/objective/objective in all_objectives)
+				if(objective.check_completion())
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
+				else
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					traitorwin = FALSE
+				count++
+		if(our_heretic.feast_of_owls)
+			text += "<br><span class='greentext'>Ascension Forsaken</span>"
+		if(our_heretic.ascended)
+			text += "<br><span class='hierophant_warning'>THE HERETIC ASCENDED!</span>"
 
-//	parts += "<b>Knowledge Researched:</b> "
+		else
+			if(traitorwin)
+				text += "<br><span class='hierophant'>The heretic was successful!</span>"
+			else
+				text += "<br><span class='redtext'>The heretic has failed.</span>"
 
-//	var/list/string_of_knowledge = list()
+		text += "<br><b>Knowledge Researched:</b> "
 
-//	for(var/knowledge_index in researched_knowledge)
-//		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-//		string_of_knowledge += knowledge.name
+		var/list/string_of_knowledge = list()
 
-//	parts += english_list(string_of_knowledge)
+		for(var/knowledge_index in our_heretic.researched_knowledge)
+			var/datum/heretic_knowledge/knowledge = our_heretic.researched_knowledge[knowledge_index]
+			string_of_knowledge += knowledge.name
 
-//	return parts.Join("<br>")
+		text += english_list(string_of_knowledge)
+
+	return text.Join("")
 
 
 /**
