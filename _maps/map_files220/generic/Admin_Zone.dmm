@@ -1527,9 +1527,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/medical3{
-	req_access = null
-	},
+/obj/structure/closet/secure_closet/medical_ghostbar,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
