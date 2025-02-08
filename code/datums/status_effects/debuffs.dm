@@ -926,10 +926,9 @@
 	// I would consider breaking this up into steps matching the disgust levels
 	// But disgust is used so rarely it wouldn't save a significant amount of time, and it makes the code just way worse
 	// We're in the same state as the last time we processed, so don't bother
-	if(old_disgust == strength)
+	if(prob(90))
 		return
-
-	old_disgust = strength
+	
 	switch(strength)
 		if(0 to DISGUST_LEVEL_GROSS)
 			owner.clear_alert("disgust")
