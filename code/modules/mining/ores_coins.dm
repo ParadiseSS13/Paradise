@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		if(cmineral != "tranquillite")
 			playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
 			blind_sound = "<span class='notice'>You hear the clattering of loose change.</span>"
-		if(do_after(user, 15, target = src))
+		if(do_after(user, 15, target = src, allow_moving = TRUE))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								blind_sound)

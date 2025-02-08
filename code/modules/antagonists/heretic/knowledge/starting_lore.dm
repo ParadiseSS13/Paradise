@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/feast_of_owls
 	name = "Feast of Owls"
-	desc = "Allows you to undergo a ritual that gives you 5 knowledge points but locks you out of ascension. This can only be done once and cannot be reverted."
+	desc = "Allows you to undergo a ritual that gives you 5 knowledge points but locks you out of ascension. This can only be done once and cannot be reverted. You can only do this with hijack, or at least 6 cultists around"
 	gain_text = "Under the soft glow of unreason there is a beast that stalks the night. I shall bring it forth and let it enter my presence. It will feast upon my amibitions and leave knowledge in its wake."
 	is_starting_knowledge = TRUE
 	required_atoms = list()
@@ -309,8 +309,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	for(var/datum/objective/is_it_hijack as anything in user.mind.get_all_objectives(include_team = FALSE))
 		if(istype(is_it_hijack, /datum/objective/hijack))
 			has_hijack = TRUE
-	if(!has_hijack)
-		to_chat(user, "<span class='hierophant_warning'>You lack the ambition of hijacking to ascend, you have nothing to offer!</span>")
+	var/cult_players = 0
+	var/datum/team/cult/cult_team = SSticker.mode.cult_team
+	if(cult_team)
+		cult_players = cult_team.get_cultists()
+	if(!has_hijack && cult_players < 6)
+		to_chat(user, "<span class='hierophant_warning'>You lack the ambition of hijacking to ascend, or there is not enough cultists!</span>")
 		return FALSE
 	var/alert = tgui_alert(user,"Do you really want to forsake your ascension? This action cannot be reverted.", "Feast of Owls", list("Yes I'm sure", "No"), 30 SECONDS)
 	if(alert != "Yes I'm sure" || QDELETED(user) || QDELETED(src) || get_dist(user, our_turf) > 2)
