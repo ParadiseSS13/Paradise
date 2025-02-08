@@ -162,11 +162,11 @@
 			if(istype(I, /obj/item/card))
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
-					access_code = 0
-					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+					access_code = 1000
+					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 			else if(istype(I, /obj/item/card/emag))
-				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+				access_code = 1000
+				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 		if("offer")
 			if(can_offer)
 				offer(user)

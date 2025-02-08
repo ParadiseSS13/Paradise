@@ -368,6 +368,30 @@
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 
+/obj/item/storage/belt/federation_webbing
+	name = "\improper Federation combat webbing"
+	desc = "A tactical chest rig used by soldiers and marines of the Trans-Solar Federation. It's covered in pouches and attachment points."
+	icon_state = "federationwebbing"
+	item_state = "federationwebbing"
+	storage_slots = 15
+	max_combined_w_class = 25
+	use_item_overlays = FALSE
+	layer_over_suit = TRUE
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rcd_ammo,
+		/obj/item/ammo_box,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/kitchen/knife
+	)
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."

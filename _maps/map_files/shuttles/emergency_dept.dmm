@@ -289,7 +289,7 @@
 	},
 /area/shuttle/escape)
 "aT" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "aU" = (
@@ -1112,7 +1112,7 @@
 	},
 /area/shuttle/escape)
 "PW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
