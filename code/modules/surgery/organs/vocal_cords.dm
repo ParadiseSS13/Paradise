@@ -152,6 +152,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
 	if(IS_CULTIST(owner))
 		spans += "narsiesmall"
+	if(IS_HERETIC(owner))
+		spans = "hierophant_warning"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
@@ -192,6 +194,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
 	if(IS_CULTIST(owner))
+		power_multiplier *= 2
+
+	//Similarly, heretics are used to using the mansus, however they will also give themselfs away!
+	if(IS_HERETIC(owner))
 		power_multiplier *= 2
 
 	//It's magic, they are a wizard.
