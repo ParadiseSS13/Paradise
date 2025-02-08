@@ -192,7 +192,7 @@
 
 /datum/ruleset/heretic
 	name = "Heretic"
-	ruleset_weight = 11
+	ruleset_weight = 10
 	antag_cost = 10
 	antagonist_type = /datum/antagonist/heretic
 
