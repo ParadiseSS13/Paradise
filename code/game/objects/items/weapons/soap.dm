@@ -76,7 +76,7 @@
 
 /obj/item/soap/homemade
 	desc = "A homemade bar of soap. Smells of... well...."
-	icon_state = "soapgibs"
+	icon_state = "soaphome"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
 /obj/item/soap/ducttape
