@@ -152,7 +152,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 			else
 				. += image('icons/obj/pda.dmi', "pda-light")
 
-
 	if(id)
 		switch(icon_state)
 			if("pda-library")
