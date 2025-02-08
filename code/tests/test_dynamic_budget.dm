@@ -12,4 +12,4 @@
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(30), 30, "Midpop budget incorrect.")
 
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(31), 31, "Highpop budget incorrect.")
-	TEST_ASSERT_EQUAL(dynamic.calculate_budget(100),1001, "Highpop budget incorrect.")
+	TEST_ASSERT_EQUAL(dynamic.calculate_budget(100), 100, "Highpop budget incorrect.")
