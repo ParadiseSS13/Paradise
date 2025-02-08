@@ -44,6 +44,7 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
@@ -194,13 +195,12 @@
 /datum/ruleset/traitor/autotraitor
 	name = "Autotraitor"
 	ruleset_weight = 2
-
-/datum/ruleset/traitor/autotraitor/ruleset_possible(ruleset_budget, rulesets)
-	if(length(rulesets))
-		return "autotot cant roll with other rulesets"
-	if(ruleset_budget != 1)
-		return "autotot cant roll with other rulesets (budget)"
-	return ..()
+	banned_mutual_rulesets = list(
+		/datum/ruleset/traitor,
+		/datum/ruleset/vampire,
+		/datum/ruleset/changeling,
+		/datum/ruleset/team/cult
+	)
 
 /datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
 	. = ..()
@@ -303,6 +303,7 @@
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)
