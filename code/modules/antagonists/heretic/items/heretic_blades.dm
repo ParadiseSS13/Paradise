@@ -54,6 +54,7 @@
 	var/area/our_area = get_area(blade_turf)
 	if(!is_teleport_allowed(blade_turf.z) || our_area.tele_proof)
 		to_chat(user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+		qdel(src)
 		return
 	if(check_usability(user))
 		if(do_teleport(user, safe_turf))
