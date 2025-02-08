@@ -534,6 +534,9 @@
 				if(MALF_STATUS_RED)
 					holder.icon_state = "hud_malf_red"
 					return
+				if(MALF_STATUS_TERTIARY)
+					holder.icon_state = "hud_malf_tertiary"
+					return
 				if(MALF_STATUS_SKULL)
 					holder.icon_state = "hud_malf_skull"
 					return
