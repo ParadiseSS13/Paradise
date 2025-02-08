@@ -27,8 +27,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
 /// Calculates the dynamic budget based on the number of players in the round
-/datum/game_mode/dynamic/proc/calculate_budget()
-	var/players = num_players()
+/datum/game_mode/dynamic/proc/calculate_budget(var/players)
 	switch(players)
 		if(0 to 4)
 			// Flat budget of 7
@@ -47,7 +46,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 /datum/game_mode/dynamic/proc/allocate_ruleset_budget()
 	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 8, "2" = 12, "3" = 3)))
-	antag_budget = calculate_budget()
+	antag_budget = calculate_budget(num_players())
 	log_dynamic("Allocated gamemode budget: [ruleset_budget]")
 	var/list/possible_rulesets = list()
 	for(var/datum/ruleset/ruleset as anything in subtypesof(/datum/ruleset))

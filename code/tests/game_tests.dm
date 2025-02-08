@@ -21,6 +21,7 @@
 #include "test_components.dm"
 #include "test_config_sanity.dm"
 #include "test_crafting_lists.dm"
+#include "test_dynamic_budget.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
 #include "test_init_sanity.dm"
