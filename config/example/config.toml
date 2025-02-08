@@ -261,7 +261,7 @@ antag_account_age_restrictions = false
 gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
 	{ gamemode = "changeling", probability = 0 },
-	{ gamemode = "cult", probability = 3 },
+	{ gamemode = "cult", probability = 0 },
 	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },

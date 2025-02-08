@@ -42,7 +42,10 @@
 	/// If true, the species blacklist is now a species whitelist
 	var/banned_species_only = FALSE
 
-	// var/list/banned_mutual_rulesets = list() // UNIMPLEMENTED: could be used to prevent nukies rolling while theres cultists, or wizards, etc
+	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
+	var/list/banned_mutual_rulesets = list(
+		/datum/ruleset/team/cult,
+	)
 
 	/* This stuff changes, all stuff above is static */
 	/// How many antagonists to spawn
@@ -56,11 +59,17 @@
 	stack_trace("[src] ([type]) was destroyed.")
 	return ..()
 
-/datum/ruleset/proc/ruleset_possible(ruleset_budget, rulesets)
+/datum/ruleset/proc/ruleset_possible(ruleset_budget, rulesets, antag_budget)
 	if(ruleset_budget < ruleset_cost)
 		return RULESET_FAILURE_BUDGET
+	if(antag_budget < antag_cost)
+		return RULESET_FAILURE_ANTAG_BUDGET
 	if(!length(SSticker.mode.get_players_for_role(antagonist_type::job_rank))) // this specifically needs to be job_rank not special_rank
 		return RULESET_FAILURE_NO_PLAYERS
+	if(length(banned_mutual_rulesets) && length(rulesets))
+		for(var/datum/ruleset/ruleset in rulesets)
+			if(ruleset.type in banned_mutual_rulesets)
+				return RULESET_FAILURE_MUTUAL_RULESET
 
 /datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= antag_cost
@@ -148,8 +157,8 @@
 
 /datum/ruleset/proc/latespawn(datum/game_mode/dynamic/dynamic)
 	// latespawning is only used by traitors at this point, so we're just going to be naive and allocate all budget when this proc is called.
-	var/late_antag_amount = floor(dynamic.budget_overflow / antag_cost)
-	dynamic.budget_overflow -= (late_antag_amount * antag_cost)
+	var/late_antag_amount = floor(dynamic.antag_budget / antag_cost)
+	dynamic.antag_budget -= (late_antag_amount * antag_cost)
 
 	var/list/datum/mind/possible_antags = get_latejoin_players()
 	for(var/i in 1 to late_antag_amount)
@@ -157,6 +166,13 @@
 		antag.add_antag_datum(antagonist_type)
 
 	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+
+/datum/ruleset/proc/automatic_deduct(budget)
+	. = antag_cost * antag_amount
+	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
+
+/datum/ruleset/proc/declare_completion()
+	return
 
 /datum/ruleset/traitor
 	name = "Traitor"
@@ -205,6 +221,7 @@
 
 // This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
 /datum/ruleset/implied
+	name = "BASE IMPLIED RULESET"
 	// These 3 variables should never change
 	ruleset_cost = 0
 	ruleset_weight = 0
@@ -234,3 +251,56 @@
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE
+
+/datum/ruleset/team
+	name = "BASE TEAM RULESET"
+	ruleset_weight = 0
+	/// Whether there should only be one of this kind of team. This could be used for blood-brothers if false.
+	var/unique_team = TRUE
+	/// How many players on a team.
+	var/team_size = 1
+	/// Team datum to create.
+	var/datum/team/team_type
+
+/datum/ruleset/team/roundstart_post_setup(datum/game_mode/dynamic)
+	if(unique_team)
+		new team_type(pre_antags)
+		return
+	stack_trace("Undefined behavior for dynamic non-unique teams!")
+
+/datum/ruleset/team/automatic_deduct(budget)
+	antag_amount = team_size
+	. = ..()
+
+/datum/ruleset/team/antagonist_possible(budget)
+	if(unique_team) // we're given our size at the start, no more please!
+		return FALSE
+	return ..()
+
+/datum/ruleset/team/cult
+	name = "Cultist"
+	ruleset_cost = 1
+	ruleset_weight = 3
+	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
+	antag_cost = 30
+	antagonist_type = /datum/antagonist/cultist
+	banned_mutual_rulesets = list(
+		/datum/ruleset/traitor,
+		/datum/ruleset/vampire,
+		/datum/ruleset/changeling
+	)
+	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
+
+	team_size = 4
+	team_type = /datum/team/cult
+
+/datum/ruleset/team/cult/declare_completion()
+	if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
+		SSticker.mode_result = "cult win - cult win"
+		to_chat(world, "<span class='danger'><FONT size=3>The cult wins! It has succeeded in summoning [GET_CULT_DATA(entity_name, "their god")]!</FONT></span>")
+	else if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_FALLEN)
+		SSticker.mode_result = "cult draw - narsie died, nobody wins"
+		to_chat(world, "<span class='danger'><FONT size = 3>Nobody wins! [GET_CULT_DATA(entity_name, "the cult god")] was summoned, but banished!</FONT></span>")
+	else
+		SSticker.mode_result = "cult loss - staff stopped the cult"
+		to_chat(world, "<span class='warning'><FONT size = 3>The staff managed to stop the cult!</FONT></span>")
