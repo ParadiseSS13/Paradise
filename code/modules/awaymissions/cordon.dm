@@ -12,8 +12,8 @@
 	blocks_air = TRUE
 	baseturf = /turf/cordon
 
-// /turf/cordon/rust_heretic_act()
-// 	return FALSE
+/turf/cordon/rust_heretic_act()
+	return FALSE
 
 /turf/cordon/acid_act(acidpwr, acid_volume, acid_id)
 	return FALSE

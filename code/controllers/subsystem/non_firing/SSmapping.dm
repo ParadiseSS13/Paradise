@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(mapping)
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
 	// Add a reserved z-level
-	// add_reservation_zlevel() // CURRENTLY DISABLED, AS NOTHING USES IT. IF YOU WANT TO ADD LAZYLOADING TO ANYTHING, MAKE SURE TO REIMPLEMENT THIS
+	add_reservation_zlevel()
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
@@ -453,7 +453,6 @@ SUBSYSTEM_DEF(mapping)
 
 /**
  * Lazy loads a template on a lazy-loaded z-level
- * If you want to use this as non-debug, make sure to uncomment add_reservation_zlevel in /datum/controller/subsystem/mapping/Initialize()
  */
 /datum/controller/subsystem/mapping/proc/lazy_load_template(datum/map_template/template)
 	RETURN_TYPE(/datum/turf_reservation)

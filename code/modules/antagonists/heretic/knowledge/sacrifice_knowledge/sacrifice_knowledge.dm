@@ -51,6 +51,25 @@
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
 
+
+#ifndef UNIT_TESTS // This is a decently hefty thing to generate while unit testing, so we should skip it.
+	if(!heretic_level_generated)
+		heretic_level_generated = TRUE
+		log_game("Loading heretic lazytemplate for heretic sacrifices...")
+		INVOKE_ASYNC(src, PROC_REF(generate_heretic_z_level))
+#endif
+
+/// Generate the sacrifice z-level.
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_heretic_z_level()
+	var/datum/map_template/template = GLOB.map_templates["The Mansus"]
+	var/datum/turf_reservation/reserve = SSmapping.lazy_load_template(template)
+	if(!reserve)
+		log_game("The heretic sacrifice template failed to load.")
+		message_admins("The heretic sacrifice lazy template failed to load. Heretic sacrifices won't be teleported to the shadow realm. \
+			If you want, you can spawn an /obj/effect/landmark/heretic somewhere to stop that from happening.")
+		CRASH("Failed to lazy load heretic sacrifice template!")
+
+
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	// First we have to check if the heretic has a Living Heart.
