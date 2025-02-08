@@ -44,7 +44,7 @@
 	var/mob/living/cast_on = firer
 	var/pins_hit = 0
 	for(var/mob/living/nearby_mob in range(star_mark_range, target))
-		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
+		if(cast_on == nearby_mob)
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)
 		pins_hit++
