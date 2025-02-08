@@ -169,7 +169,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 			else
 				. += image('icons/obj/pda.dmi', "pda-pen")
 
-
 	if(length(notifying_programs))
 		switch(icon_state)
 			if("pda-library")
