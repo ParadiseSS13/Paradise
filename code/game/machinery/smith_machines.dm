@@ -77,7 +77,6 @@
 		message_sent = FALSE
 		process_ores(ore_buffer)
 	else if(!message_sent)
-		SStgui.update_uis(src)
 		send_console_message()
 		message_sent = TRUE
 
@@ -99,7 +98,6 @@
 			ID.total_mining_points += points
 			to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
 			points = 0
-			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>Required access not found.</span>")
 		add_fingerprint(user)
@@ -140,6 +138,8 @@
 		transfer_ore(ore)
 
 /obj/machinery/mineral/smart_hopper/proc/transfer_ore(obj/item/stack/ore/O)
+	if(!linked_crucible)
+		return
 	// Insert materials
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
