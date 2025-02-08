@@ -289,7 +289,7 @@
 /datum/ruleset/team/cult
 	name = "Cultist"
 	ruleset_cost = 1
-	ruleset_weight = 3
+	ruleset_weight = 4
 	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist
