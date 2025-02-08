@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
 /// Calculates the dynamic budget based on the number of players in the round
-/datum/game_mode/dynamic/proc/calculate_budget(var/players)
+/datum/game_mode/dynamic/proc/calculate_budget(players)
 	switch(players)
 		if(0 to 4)
 			// Flat budget of 7
