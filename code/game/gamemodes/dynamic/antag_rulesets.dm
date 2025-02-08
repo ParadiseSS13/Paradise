@@ -224,7 +224,7 @@
 	if(length(rulesets))
 		return ..()
 	// We're the first ruleset, but we can afford another ruleset
-	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost))
+	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost) || (ruleset_budget >= /datum/ruleset/heretic::ruleset_cost))
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
@@ -289,7 +289,7 @@
 /datum/ruleset/team/cult
 	name = "Cultist"
 	ruleset_cost = 1
-	ruleset_weight = 4
+	ruleset_weight = 3
 	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist
