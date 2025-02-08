@@ -120,7 +120,7 @@
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
 
 /obj/item/soap/ds
-	desc = "Most expensive bar of soap issues only to professional cleaning teams. It almost feels like glass?"
+	desc = "A very intimidating, jet-black bar of soap with a skull embossed on the top. Whatever this thing is made of, it can clean any mess in the blink of an eye."
 	icon_state = "soapds"
 	cleanspeed = 5
 
