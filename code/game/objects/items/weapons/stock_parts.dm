@@ -283,9 +283,3 @@
 	rating = 4
 	materials = list(MAT_METAL=80)
 
-/obj/item/research//Makes testing much less of a pain -Sieve
-	name = "research"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "capacitor"
-	desc = "A debug item for research."
-	origin_tech = "materials=8;programming=8;magnets=8;powerstorage=8;bluespace=8;combat=8;biotech=8;syndicate=8;engineering=8;plasmatech=8;abductor=8"

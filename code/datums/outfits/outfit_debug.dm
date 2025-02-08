@@ -272,6 +272,12 @@
 /obj/item/storage/box/debug/debugtools
 	name = "debug tools"
 
+/obj/item/paper/debug_research
+	name = "debug reseach notes"
+	desc = "Your brain is melting just from looking at this endless knowledge."
+	info = "<b>Information written here is beyond your understanding</b>"
+	origin_tech = "materials=10;engineering=10;plasmatech=10;powerstorage=10;bluespace=10;biotech=10;combat=10;magnets=10;programming=10;toxins=10;syndicate=10;abductor=10"
+
 /obj/item/storage/box/debug/debugtools/populate_contents()
 	new /obj/item/card/emag(src)
 	new /obj/item/rcd/combat/admin(src)
@@ -284,6 +290,7 @@
 	new /obj/item/storage/box/debug/misc_debug(src)
 	new /obj/item/storage/box/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
+	new /obj/item/paper/debug_research(src)
 
 /obj/item/storage/box/debug/material
 	name = "box of materials"
