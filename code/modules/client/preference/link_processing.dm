@@ -7,6 +7,7 @@
 	if(isnull(subtype)) // Set the subtype to be the same as Species in the case we don't have one, saves alot of headaches when we're checking for valid markings etc.
 		subtype = S
 	else
+		S = new S.type()
 		S.bodyflags |= subtype.bodyflags
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
