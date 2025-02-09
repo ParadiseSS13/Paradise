@@ -1,7 +1,7 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
 
 #define MAX_TRANSIT_REQUEST_RETRIES 10
-/// How many turfs to allow before we stop blocking transit requests
+/// How many turfs to allow before we start blocking transit requests
 #define MAX_TRANSIT_TILE_COUNT (150 ** 2)
 /// How many turfs to allow before we start freeing up existing "soft reserved" transit docks
 /// If we're under load we want to allow for cycling, but if not we want to preserve already generated docks for use
@@ -107,10 +107,12 @@ SUBSYSTEM_DEF(shuttle)
 	if(!SSmapping.clearing_reserved_turfs)
 		while(transit_requesters.len)
 			var/requester = popleft(transit_requesters)
-			var/success = null
+			var/success = FALSE
 			// Do not try and generate any transit if we're using more then our max already
 			if(transit_utilized < MAX_TRANSIT_TILE_COUNT)
 				success = generate_transit_dock(requester)
+			else
+				log_debug("Transit request for '[requester]' failed, too many turfs in use.")
 			if(!success) // BACK OF THE QUEUE
 				transit_request_failures[requester]++
 				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
@@ -508,11 +510,6 @@ SUBSYSTEM_DEF(shuttle)
 			transit_width += M.height
 			transit_height += M.width
 
-/*
-	to_chat(world, "The attempted transit dock will be [transit_width] width, and \)
-		[transit_height] in height. The travel dir is [travel_dir]."
-*/
-
 	var/transit_path = /turf/space/transit
 	switch(travel_dir)
 		if(NORTH)
@@ -591,3 +588,4 @@ SUBSYSTEM_DEF(shuttle)
 #undef MAX_TRANSIT_REQUEST_RETRIES
 #undef MAX_TRANSIT_TILE_COUNT
 #undef SOFT_TRANSIT_RESERVATION_THRESHOLD
+
