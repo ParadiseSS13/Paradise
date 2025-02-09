@@ -41,6 +41,8 @@
 	var/datum/looping_sound/moon_parade/soundloop
 	// A list of the people we hit
 	var/list/mobs_hit = list()
+	/// Have we been disabled by hitting an antimagic person
+	var/disabled = FALSE
 
 /obj/item/projectile/moon_parade/Initialize(mapload)
 	. = ..()
@@ -65,6 +67,7 @@
 	// Anti-magic destroys the projectile for consistency and counterplay
 	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		visible_message("<span class='warning'>The parade hits [victim] and a sudden wave of clarity comes over you!</span>")
+		disabled = TRUE
 		qdel(src)
 		return
 
@@ -74,6 +77,8 @@
 	. = ..()
 	if(!isliving(target))
 		qdel(src)
+		return
+	if(disabled)
 		return
 
 	var/mob/living/victim = target
