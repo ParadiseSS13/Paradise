@@ -270,7 +270,8 @@
 
 /datum/ruleset/team/automatic_deduct(budget)
 	antag_amount = team_size
-	. = ..()
+	. = antag_cost
+	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
 
 /datum/ruleset/team/antagonist_possible(budget)
 	if(unique_team) // we're given our size at the start, no more please!
