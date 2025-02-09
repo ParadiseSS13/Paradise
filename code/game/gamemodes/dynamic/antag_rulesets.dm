@@ -193,7 +193,7 @@
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
-	antag_cost = 10
+	antag_cost = 8
 	antagonist_type = /datum/antagonist/vampire
 
 	banned_jobs = list("Cyborg", "AI", "Chaplain")
@@ -203,7 +203,7 @@
 /datum/ruleset/changeling
 	name = "Changeling"
 	ruleset_weight = 9
-	antag_cost = 10
+	antag_cost = 8
 	antagonist_type = /datum/antagonist/changeling
 
 	banned_jobs = list("Cyborg", "AI")
