@@ -7,9 +7,12 @@ SUBSYSTEM_DEF(shuttle)
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
-	var/list/mobile = list()
-	var/list/stationary = list()
-	var/list/transit = list()
+	/// A list of all the mobile docking ports.
+	var/list/mobile_docking_ports = list()
+	/// A list of all the stationary docking ports.
+	var/list/stationary_docking_ports = list()
+	/// A list of all the transit docking ports.
+	var/list/transit_docking_ports = list()
 
 	//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
@@ -53,7 +56,7 @@ SUBSYSTEM_DEF(shuttle)
 	initial_move()
 
 /datum/controller/subsystem/shuttle/get_stat_details()
-	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
+	return "M:[length(mobile_docking_ports)] S:[length(stationary_docking_ports)] T:[length(transit_docking_ports)]"
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
@@ -61,22 +64,22 @@ SUBSYSTEM_DEF(shuttle)
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
-	for(var/thing in mobile)
+	for(var/thing in mobile_docking_ports)
 		if(thing)
 			var/obj/docking_port/mobile/P = thing
 			P.check()
 			continue
 		CHECK_TICK
-		mobile.Remove(thing)
+		mobile_docking_ports.Remove(thing)
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	for(var/obj/docking_port/mobile/M in mobile)
+	for(var/obj/docking_port/mobile/M in mobile_docking_ports)
 		if(M.id == id)
 			return M
 	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
-	for(var/obj/docking_port/stationary/S in stationary)
+	for(var/obj/docking_port/stationary/S in stationary_docking_ports)
 		if(S.id == id)
 			return S
 	WARNING("couldn't find dock with id: [id]")
@@ -244,14 +247,14 @@ SUBSYSTEM_DEF(shuttle)
 	return 0	//dock successful
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
-	for(var/obj/docking_port/mobile/M in mobile)
+	for(var/obj/docking_port/mobile/M in mobile_docking_ports)
 		if(!M.roundstart_move)
 			continue
 		M.dockRoundstart()
 
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
-	var/list/stationary_cache = stationary
+	var/list/stationary_cache = stationary_docking_ports
 	for(var/i in 1 to length(stationary_cache))
 		var/obj/docking_port/port = stationary_cache[i]
 		if(!port || port.z != z)

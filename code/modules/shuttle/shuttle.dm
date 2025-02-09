@@ -171,11 +171,11 @@
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 		return FALSE
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary_docking_ports += src
 	if(!id)
-		id = "[length(SSshuttle.stationary)]"
+		id = "[length(SSshuttle.stationary_docking_ports)]"
 	if(name == "dock")
-		name = "dock[length(SSshuttle.stationary)]"
+		name = "dock[length(SSshuttle.stationary_docking_ports)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -197,7 +197,7 @@
 
 	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
-	SSshuttle.transit += src
+	SSshuttle.transit_docking_ports += src
 	return 1
 
 /obj/docking_port/mobile
@@ -259,18 +259,18 @@
 	if(!SSshuttle)
 		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
-	SSshuttle.mobile += src
+	SSshuttle.mobile_docking_ports += src
 
 	if(!id)
-		id = "[length(SSshuttle.mobile)]"
+		id = "[length(SSshuttle.mobile_docking_ports)]"
 	if(name == "shuttle")
-		name = "shuttle[length(SSshuttle.mobile)]"
+		name = "shuttle[length(SSshuttle.mobile_docking_ports)]"
 
 	return 1
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		SSshuttle.mobile -= src
+		SSshuttle.mobile_docking_ports -= src
 		areaInstance = null
 		destination = null
 		previous = null
@@ -848,7 +848,7 @@
 		// find close shuttle that is ok to mess with
 		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
-		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
+		for(var/obj/docking_port/mobile/D in SSshuttle.mobile_docking_ports)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
 				M = D
 				shuttleId = M.id
@@ -859,7 +859,7 @@
 	if(M && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
 			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
@@ -890,7 +890,7 @@
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
 			if(!options.Find(S.id))
 				continue
 			if(!M.check_dock(S))

@@ -487,7 +487,7 @@
 
 			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
 				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
@@ -505,7 +505,7 @@
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
