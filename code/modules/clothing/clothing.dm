@@ -769,6 +769,10 @@
 	var/max_suit_w = WEIGHT_CLASS_BULKY
 	///How long to break out of the suits
 	var/breakouttime
+	/// How many inserts can you put into the suit
+	var/insert_max = 1
+	/// Currently applied inserts
+	var/list/inserts = list()
 
 
 /obj/item/clothing/suit/Initialize(mapload)
@@ -874,6 +878,34 @@
 /obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
 	return FALSE
 
+/obj/item/clothing/suit/AltClick(mob/user) // Take out an insert
+	. = ..()
+	if(!inserts)
+		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
+		return
+	var/obj/item/smithed_item/insert/old_insert
+	if((inserts) == 1)
+		old_insert = inserts[0]
+	else
+		old_insert = tgui_input_list(user, "Select an insert", src, inserts)
+	if(!istype(old_insert, /obj/item/smithed_item/insert))
+		return
+	old_insert.on_detached()
+	user.put_in_hands(old_insert)
+
+/obj/item/clothing/suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	..()
+	var/obj/item/smithed_item/insert/new_insert = used
+	if(!istype(new_insert))
+		return ITEM_INTERACT_COMPLETE
+	if(length(inserts) == insert_max)
+		to_chat(user, "<span class='notice'>Your suit has no slots to add an insert.</span>")
+		return ITEM_INTERACT_COMPLETE
+	new_insert.forceMove(src)
+	inserts += new_insert
+	new_insert.on_attached(user, src)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/clothing/suit/proc/resist_restraints(mob/living/carbon/user, break_restraints)
 	var/effective_breakout_time = breakouttime
 	if(break_restraints)
@@ -950,6 +982,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+	insert_max = 0 // No inserts for space suits
 
 //////////////////////////////
 // MARK: UNDER CLOTHES

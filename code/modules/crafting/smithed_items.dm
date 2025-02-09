@@ -138,7 +138,13 @@
 		return
 	name = "[quality.name] [material.name] " + name
 
-// Insets
+/obj/item/smithed_item/proc/on_attached(mob/user, obj/item/target)
+	return
+
+/obj/item/smithed_item/proc/on_detached(mob/user)
+	return
+
+// Inserts
 
 /obj/item/smithed_item/insert
 	name = "debug insert"
@@ -150,6 +156,8 @@
 	var/burn_armor = 0
 	/// Laser armor
 	var/laser_armor = 0
+	/// Explosive armor
+	var/explosive_armor = 0
 	/// Movement speed
 	var/movement_speed_mod = 0
 	/// Heat insulation
@@ -158,22 +166,44 @@
 	var/siemens_coeff = 0.0
 	/// Radiation armor
 	var/radiation_armor = 0
+	/// The suit the insert is attached to
+	var/obj/item/clothing/suit/attached_suit
 
 /obj/item/smithed_item/insert/Initialize(mapload)
 	. = ..()
-	brute_armor = initial(brute_armor) * quality.stat_mult
-	burn_armor = initial(burn_armor) * quality.stat_mult
-	laser_armor = initial(laser_armor) * quality.stat_mult
-	movement_speed_mod = initial(movement_speed_mod) * quality.stat_mult
-	heat_insulation = initial(heat_insulation) * quality.stat_mult
-	siemens_coeff = initial(siemens_coeff) * quality.stat_mult
-	radiation_armor = initial(radiation_armor) * quality.stat_mult
+	brute_armor = initial(brute_armor) * quality.stat_mult * material.brute_armor_mult
+	burn_armor = initial(burn_armor) * quality.stat_mult * material.burn_armor_mult
+	laser_armor = initial(laser_armor) * quality.stat_mult * material.laser_armor_mult
+	explosive_armor = initial(explosive_armor) * quality.stat_mult * material.explosive_armor_mult
+	movement_speed_mod = initial(movement_speed_mod) * quality.stat_mult * material.movement_speed_mod
+	heat_insulation = initial(heat_insulation) * quality.stat_mult * material.heat_insulation_mult
+	siemens_coeff = initial(siemens_coeff) * quality.stat_mult * material.siemens_coeff_mult
+	radiation_armor = initial(radiation_armor) * quality.stat_mult * material.radiation_armor_mult
+	armor = list(MELEE = brute_armor, BULLET = brute_armor, LASER = laser_armor, ENERGY = burn_armor, BOMB = explosive_armor, RAD = radiation_armor, FIRE = heat_insulation, ACID = 0)
+
+/obj/item/smithed_item/insert/on_attached(mob/user, obj/item/clothing/suit/target)
+	if(!istype(target))
+		return
+	attached_suit = target
+	attached_suit.armor.attachArmor(armor)
+	attached_suit.slowdown -= movement_speed_mod
+	attached_suit.siemens_coefficient -= siemens_coeff
+	attached_suit.min_cold_protection_temperature -= heat_insulation
+	attached_suit.max_heat_protection_temperature += heat_insulation
+
+/obj/item/smithed_item/insert/on_detached(mob/user)
+	attached_suit.armor.detachArmor(armor)
+	attached_suit.slowdown += movement_speed_mod
+	attached_suit.siemens_coefficient += siemens_coeff
+	attached_suit.min_cold_protection_temperature += heat_insulation
+	attached_suit.max_heat_protection_temperature -= heat_insulation
 
 /obj/item/smithed_item/insert/ballistic
 	name = "ballistic plate"
 	desc = "A reinforced plate designed to stop small-caliber bullets and kinetic impacts."
 	brute_armor = 10
-	heat_insulation = 10
+	explosive_armor = 10
+	heat_insulation = -10
 
 /obj/item/smithed_item/insert/thermal
 	name = "thermal plate"
@@ -214,6 +244,7 @@
 	brute_armor = 10
 	burn_armor = 10
 	laser_armor = 10
+	explosive_armor = 10
 	radiation_armor = 10
 	movement_speed_mod = -0.5
 
@@ -224,6 +255,7 @@
 	burn_armor = 10
 	radiation_armor = 10
 	heat_insulation = 10
+	explosive_armor = 10
 	siemens_coeff = 0.4
 	movement_speed_mod = -0.5
 
@@ -233,6 +265,7 @@
 	brute_armor = 20
 	burn_armor = 10
 	laser_armor = 10
+	explosive_armor = 10
 	heat_insulation = 10
 	siemens_coeff = -0.4
 	movement_speed_mod = -1
@@ -278,10 +311,20 @@
 	. = ..()
 	durability = initial(durability) * material.durability_mult
 	size_mod = initial(size_mod) + material.size_mod
-	speed_mod = initial(speed_mod) * quality.stat_mult
-	precision_mod = initial(precision_mod) * quality.stat_mult
+	speed_mod = initial(speed_mod) * quality.stat_mult * material.tool_speed_mult
+	precision_mod = initial(precision_mod) * quality.stat_mult * material.tool_precision_mult
+
+/obj/item/smithed_item/tool_bit/on_attached(mob/user, obj/item/clothing/suit/target)
+	if(!istype(target))
+		return
+	attached_tool = target
+	attached_tool.toolspeed = toolspeed * speed_mod
+
+/obj/item/smithed_item/tool_bit/on_detached()
+	attached_tool.toolspeed = toolspeed / speed_mod
 
 /obj/item/smithed_item/tool_bit/proc/break_bit()
+	on_detached()
 	qdel(src)
 
 /obj/item/smithed_item/tool_bit/speed
@@ -340,61 +383,82 @@
 /obj/item/smithed_item/lense/Initialize(mapload)
 	. = ..()
 	durability = initial(durability) * material.durability_mult
-	power_mult = ((initial(power_mult) - 1) * quality.stat_mult) + 1
-	damage_mult = ((initial(damage_mult) - 1) * quality.stat_mult) + 1
-	laser_speed_mult = ((initial(laser_speed_mult) - 1) * quality.stat_mult) + 1
-	fire_rate_mult = ((initial(fire_rate_mult) - 1) * quality.stat_mult) + 1
+	power_mult = initial(power_mult) * quality.stat_mult * material.power_draw_mult
+	damage_mult = initial(damage_mult) * quality.stat_mult * material.projectile_damage_multiplier
+	laser_speed_mult = initial(laser_speed_mult) * quality.stat_mult * material.projectile_speed_mult
+	fire_rate_mult = initial(fire_rate_mult) * quality.stat_mult * material.fire_rate_multiplier
+
+/obj/item/smithed_item/lense/on_attached(mob/user, obj/item/gun/energy/target)
+	if(!istype(target))
+		return
+	attached_gun = target
+	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
+	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.e_cost = casing.e_cost * power_mult
+		var/obj/item/projectile/e_bullet = casing.projectile_type
+		e_bullet.damage = e_bullet.damage * damage_mult
+		e_bullet.speed = e_bullet.speed / laser_speed_mult
+
+
+/obj/item/smithed_item/lense/on_detached()
+	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
+	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.e_cost = casing.e_cost / power_mult
+		var/obj/item/projectile/e_bullet = casing.projectile_type
+		e_bullet.damage = e_bullet.damage / damage_mult
+		e_bullet.speed = e_bullet.speed * laser_speed_mult
 
 /obj/item/smithed_item/lense/proc/break_lense()
+	on_detached()
 	qdel(src)
 
 /obj/item/smithed_item/lense/accelerator
 	name = "accelerator lense"
 	desc = "A lense that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
-	laser_speed_mult = 1.1
-	damage_mult = 0.9
+	laser_speed_mult = 0.1
+	damage_mult = -0.1
 
 /obj/item/smithed_item/lense/speed
 	name = "speed lense"
 	desc = "A lense that cools the capacitors more efficiently, allowing for greater fire rate."
-	fire_rate_mult = 1.15
-	damage_mult = 0.9
+	fire_rate_mult = 0.15
+	damage_mult = -0.1
 	durability = 30
 
 /obj/item/smithed_item/lense/amplifier
 	name = "amplifier lense"
 	desc = "A lense that increases the frequency of emitted beams, increasing their potency."
-	power_mult = 1.1
-	damage_mult = 1.1
+	power_mult = 0.1
+	damage_mult = 0.1
 
 /obj/item/smithed_item/lense/efficiency
 	name = "efficiency lense"
 	desc = "A lense that optimizes the number of shots an energy weapon can take before running dry."
-	power_mult = 0.8
-	damage_mult = 0.9
+	power_mult = -0.2
+	damage_mult = -0.1
 	durability = 80
 
 /obj/item/smithed_item/lense/rapid
 	name = "rapid lense"
 	desc = "An advanced lense that bypasses the heat capacitor entirely, allowing for unprecedented fire rates of low-power emissions."
-	fire_rate_mult = 1.5
-	laser_speed_mult = 0.9
-	damage_mult = 0.8
+	fire_rate_mult = 0.5
+	laser_speed_mult = -0.1
+	damage_mult = -0.2
 	durability = 60
 
 /obj/item/smithed_item/lense/densifier
 	name = "densifier lense"
 	desc = "An advanced lense that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
-	fire_rate_mult = 0.7
-	laser_speed_mult = 0.7
-	damage_mult = 1.4
+	fire_rate_mult = -0.3
+	laser_speed_mult = -0.3
+	damage_mult = 0.4
 	durability = 30
 
 /obj/item/smithed_item/lense/velocity
 	name = "velocity lense"
 	desc = "An advanced lense that forces energy emissions from the barrel as fast as possible, accelerating them to ludicrous speed."
-	laser_speed_mult = 1.5
-	damage_mult = 0.8
+	laser_speed_mult = 0.5
+	damage_mult = -0.2
 	durability = 30
 
 /obj/item/smithed_item/lense/admin
@@ -403,8 +467,8 @@
 	laser_speed_mult = 3
 	damage_mult = 3
 	fire_rate_mult = 3
-	power_mult = 0.5
-	durability = 300
+	power_mult = -0.5
+	durability = 3000
 
 // Components
 

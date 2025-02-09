@@ -34,6 +34,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
+	/// Current lense
+	var/obj/item/smithed_item/lense/current_lense
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -66,6 +68,27 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
+
+/obj/item/gun/energy/AltClick(mob/user) // Take out a lense
+	. = ..()
+	if(!current_lense)
+		to_chat(user, "<span class='notice'>Your [src] has no lense to remove.</span>")
+		return
+	current_lense.on_detached()
+	user.put_in_hands(current_lense)
+
+/obj/item/gun/energy/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	..()
+	var/obj/item/smithed_item/lense/new_lense = used
+	if(!istype(new_lense))
+		return ITEM_INTERACT_COMPLETE
+	if(current_lense)
+		to_chat(user, "<span class='notice'>Your [src] already has a lense.</span>")
+		return ITEM_INTERACT_COMPLETE
+	new_lense.forceMove(src)
+	current_lense = new_lense
+	new_lense.on_attached(user, src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
