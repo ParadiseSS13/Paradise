@@ -87,6 +87,8 @@
 	human_target.cure_husk(MAGIC_TRAIT)
 	human_target.faction -= "heretic"
 	human_target.mind?.remove_antag_datum(/datum/antagonist/mindslave/heretic_monster)
+	var/datum/antagonist/heretic/whoetic = master_mind.has_antag_datum(/datum/antagonist/heretic)
+	LAZYREMOVE(whoetic.list_of_our_monsters,owner.UID())
 
 	UnregisterSignal(human_target, COMSIG_MOB_DEATH)
 	if(!QDELETED(src))

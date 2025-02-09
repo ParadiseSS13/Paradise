@@ -48,10 +48,11 @@
 		need_mob_update += we_should_make_robotic_a_general_argument.adjustBruteLoss(-3, updating_health = FALSE, robotic = TRUE)
 		need_mob_update += we_should_make_robotic_a_general_argument.adjustFireLoss(-3, updating_health = FALSE, robotic = TRUE)
 	need_mob_update += source.adjustBruteLoss(-3, updating_health = FALSE)
-	need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
-	need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
-	need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-15)
+	if(iscarbon(source)) //Avoids double simple mob healing
+		need_mob_update += source.adjustFireLoss(-3, updating_health = FALSE)
+		need_mob_update += source.adjustToxLoss(-3, updating_health = FALSE)
+		need_mob_update += source.adjustOxyLoss(-1.5, updating_health = FALSE)
+		need_mob_update += source.adjustStaminaLoss(-15)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc

@@ -390,6 +390,18 @@
 /datum/heretic_knowledge/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	return summon_ritual_mob(user, our_turf, mob_to_summon)
 
+/datum/heretic_knowledge/summon/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	var/datum/antagonist/heretic/howetic = IS_HERETIC(user)
+	for(var/uid_finder as anything in howetic.list_of_our_monsters)
+		var/atom/real_thing = locateUID(uid_finder)
+		if(QDELETED(real_thing))
+			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
+	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
+		to_chat(user, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
+		return FALSE
+
+	return TRUE
+
 /**
  * Creates the ritual mob and grabs a ghost for it
  *
@@ -436,6 +448,8 @@
 
 	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
 	summon_objective?.num_summoned++
+	var/datum/antagonist/heretic/whoetic = IS_HERETIC(user)
+	LAZYADD(whoetic.list_of_our_monsters,summoned.UID())
 	if(mind_spell)
 		addtimer(CALLBACK(src, PROC_REF(add_mind_spell), summoned), 1 SECONDS)
 	return TRUE
@@ -595,6 +609,7 @@
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.ascended = TRUE
+	heretic_datum.monster_limit = 99 // You've ascended, have fun.
 
 	// Show the cool red gradiant in our UI
 	heretic_datum.update_static_data(user)

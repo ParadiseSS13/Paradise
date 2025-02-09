@@ -95,13 +95,21 @@
 
 /datum/heretic_knowledge/spell/fire_blast
 	name = "Volcano Blast"
-	desc = "Grants you Volcano Blast, a spell that - after a short charge - fires off a beam of energy \
+	desc = "This makes you fire immune and heat immune, and grants you Volcano Blast, a spell that - after a short charge - fires off a beam of energy \
 		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
 		the beam will continue to another target."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
 	action_to_add = /datum/spell/charge_up/bounce/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
+
+/datum/heretic_knowledge/spell/fire_blast/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, type)
+	return ..()
+
+/datum/heretic_knowledge/spell/fire_blast/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, type)
+	return ..()
 
 
 /datum/heretic_knowledge/mad_mask

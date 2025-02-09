@@ -89,7 +89,7 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.health > HEALTH_THRESHOLD_CRIT)
+		if(sacrifice.health > HEALTH_THRESHOLD_CRIT && sacrifice.stat != DEAD)
 			atoms -= sacrifice
 		// Otherwise if it's neither a target nor a cultist, remove it
 		else if(!(sacrifice in heretic_datum.sac_targets) && !IS_CULTIST(sacrifice))

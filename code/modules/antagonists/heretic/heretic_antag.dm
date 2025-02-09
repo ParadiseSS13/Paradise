@@ -56,6 +56,10 @@
 	var/feast_of_owls = FALSE
 	/// Our research menu
 	var/datum/action/heretic_menu/our_menu
+	/// A list of all the monsters the heretic has active.
+	var/list/list_of_our_monsters = list()
+	/// What is the limit of monsters we can have as a heretic?
+	var/monster_limit = 2
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
 	var/list/unlocked_heretic_items = list(

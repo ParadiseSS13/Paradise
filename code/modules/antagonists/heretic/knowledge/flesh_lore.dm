@@ -58,9 +58,11 @@
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
+	our_heretic.monster_limit = 4 // Flesh path uniquely gets a 4 monster limit.
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+	our_heretic.monster_limit = 2
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -78,6 +80,15 @@
 
 	if(!IS_VALID_GHOUL_MOB(target))
 		to_chat(source, "<span class='hierophant_warning'>The ritual has failed, the target not valid.</span>")
+		return COMPONENT_BLOCK_HAND_USE
+
+	var/datum/antagonist/heretic/howetic = IS_HERETIC(source)
+	for(var/uid_finder as anything in howetic.list_of_our_monsters)
+		var/atom/real_thing = locateUID(uid_finder)
+		if(QDELETED(real_thing))
+			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
+	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
+		to_chat(source, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
 		return COMPONENT_BLOCK_HAND_USE
 
 	target.grab_ghost()
@@ -100,6 +111,8 @@
 		CALLBACK(src, PROC_REF(apply_to_ghoul)),
 		CALLBACK(src, PROC_REF(remove_from_ghoul)),
 	)
+	var/datum/antagonist/heretic/whoetic = IS_HERETIC(user)
+	LAZYADD(whoetic.list_of_our_monsters,victim.UID())
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/apply_to_ghoul(mob/living/ghoul)
@@ -131,6 +144,15 @@
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	. = ..()
 	if(!.)
+		return FALSE
+
+	var/datum/antagonist/heretic/howetic = IS_HERETIC(user)
+	for(var/uid_finder as anything in howetic.list_of_our_monsters)
+		var/atom/real_thing = locateUID(uid_finder)
+		if(QDELETED(real_thing))
+			LAZYREMOVE(howetic.list_of_our_monsters, uid_finder)
+	if(LAZYLEN(howetic.list_of_our_monsters) >= howetic.monster_limit)
+		to_chat(user, "<span class='hierophant'>The ritual failed, you are at your limit of [howetic.monster_limit] monsters!</span>")
 		return FALSE
 
 	for(var/mob/living/carbon/human/body in atoms)
@@ -182,6 +204,8 @@
 		CALLBACK(src, PROC_REF(apply_to_ghoul)),
 		CALLBACK(src, PROC_REF(remove_from_ghoul)),
 	)
+	var/datum/antagonist/heretic/whoetic = IS_HERETIC(user)
+	LAZYADD(whoetic.list_of_our_monsters,victim.UID())
 
 /// Callback for the ghoul status effect - Tracks all of our ghouls and applies effects
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/apply_to_ghoul(mob/living/ghoul)
