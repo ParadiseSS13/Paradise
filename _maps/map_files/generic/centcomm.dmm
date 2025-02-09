@@ -1826,14 +1826,7 @@
 	opacity = 0;
 	req_access = list(150)
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit";
-	name = "SIT shuttle";
-	width = 11
-	},
+/obj/docking_port/mobile/sit,
 /obj/structure/fans/tiny,
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_sit_1";
@@ -1930,7 +1923,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 8;
 	height = 15;
@@ -3895,14 +3888,7 @@
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	width = 5
-	},
+/obj/docking_port/mobile/ferry,
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
@@ -5690,14 +5676,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "tY" = (
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_sol";
-	name = "sol trade shuttle";
-	width = 9
-	},
+/obj/docking_port/mobile/trade_sol,
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
@@ -10847,15 +10826,7 @@
 	pixel_y = 2;
 	req_access = list(150)
 	},
-/obj/docking_port/mobile{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate";
-	name = "syndicate infiltrator";
-	width = 18
-	},
+/obj/docking_port/mobile/nuke_ops,
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
 	dheight = 9;
@@ -13459,14 +13430,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 11;
-	id = "specops";
-	name = "ert shuttle";
-	width = 5
-	},
+/obj/docking_port/mobile/specops,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	dir = 8;

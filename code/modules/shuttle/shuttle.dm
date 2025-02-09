@@ -49,11 +49,11 @@
 
 //returns a list(x0,y0, x1,y1) where points 0 and 1 are bounding corners of the projected rectangle
 /obj/docking_port/proc/return_coords(_x, _y, _dir)
-	if(!_dir)
+	if(_dir == null)
 		_dir = dir
-	if(!_x)
+	if(_x == null)
 		_x = x
-	if(!_y)
+	if(_y == null)
 		_y = y
 
 	//byond's sin and cos functions are inaccurate. This is faster and perfectly accurate
@@ -75,7 +75,7 @@
 		_y + (-dwidth*sin) + (-dheight*cos),
 		_x + (-dwidth+width-1)*cos - (-dheight+height-1)*sin,
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
-		)
+	)
 
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
@@ -828,6 +828,7 @@
 	rebuildable = TRUE
 	width = 9
 	uses_lockdown = TRUE
+	port_direction = EAST
 
 /obj/docking_port/mobile/mining
 	dir = 8
@@ -838,6 +839,65 @@
 	rebuildable = TRUE
 	width = 7
 	uses_lockdown = TRUE
+	port_direction = EAST
+
+/obj/docking_port/mobile/specops
+	dir = 8
+	dwidth = 2
+	height = 11
+	id = "specops"
+	name = "ert shuttle"
+	width = 5
+
+/obj/docking_port/mobile/sit
+	dir = 8
+	dwidth = 3
+	height = 5
+	id = "sit"
+	name = "SIT shuttle"
+	width = 11
+
+/obj/docking_port/mobile/stt
+	dir = 4
+	dwidth = 7
+	height = 5
+	id = "sst"
+	name = "SST shuttle"
+	width = 11
+
+/obj/docking_port/mobile/admin
+	dir = 2
+	dwidth = 8
+	height = 15
+	id = "admin"
+	name = "administration shuttle"
+	timid = TRUE
+	width = 18
+
+/obj/docking_port/mobile/ferry
+	dir = 8
+	dwidth = 2
+	height = 12
+	id = "ferry"
+	name = "ferry shuttle"
+	width = 5
+
+/obj/docking_port/mobile/trade_sol
+	dir = 8
+	dwidth = 4
+	height = 11
+	id = "trade_sol"
+	name = "sol trade shuttle"
+	width = 9
+
+/obj/docking_port/mobile/nuke_ops
+	dheight = 9
+	dir = 2
+	dwidth = 5
+	height = 22
+	id = "syndicate"
+	name = "syndicate infiltrator"
+	width = 18
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
