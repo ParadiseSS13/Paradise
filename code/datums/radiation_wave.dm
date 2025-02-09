@@ -24,22 +24,11 @@
 	/// Whether or not this radiation wave can create contaminated objects
 	var/can_contaminate
 
-/datum/radiation_wave/New(atom/_source, dir, _intensity = 0, _range_modifier = RAD_DISTANCE_COEFFICIENT, _can_contaminate = TRUE, _source_radius = 0)
+/datum/radiation_wave/New(atom/_source, _intensity = 0)
 
 	source = "[_source] \[[_source.UID()]\]"
-
 	master_turf = get_turf(_source)
-
-	move_dir = dir
-	__dirs = list()
-	__dirs += turn(dir, 90)
-	__dirs += turn(dir, -90)
-
 	intensity = _intensity
-	remaining_contam = intensity
-	range_modifier = _range_modifier
-	can_contaminate = _can_contaminate
-	source_radius = _source_radius
 	START_PROCESSING(SSradiation, src)
 
 /datum/radiation_wave/Destroy()
@@ -54,8 +43,8 @@
 	if(weight_sum * intensity < RAD_BACKGROUND_RADIATION)
 		qdel(src)
 		return
-	/// We start iteration from the left(in relation to the direction of travel) side of the current wave step
-	master_turf = get_step(master_turf, move_dir | __dirs[1])
+	/// We start iteration from the top left corner of the current wave step
+	master_turf = get_step(master_turf, NORTHWEST)
 	if(!master_turf)
 		qdel(src)
 		return
@@ -66,17 +55,24 @@
 	var/weight_left
 	var/weight_center
 	var/weight_right
-	for(var/i = 1, i <= (2 * steps + 1), i++)
-		// Get weights for rear, right rear and left rear tiles if they were part of the previous step
-		weight_left = i > 2 ? weights[i - 2] : 0
-		weight_center = (i > 1 && i < (2 * steps + 1)) ? weights[i - 1] : 0
-		weight_right = (i < (2 * steps)) ? weights[i] : 0
+	var/index
+	var/walk_dir = EAST
+	for(var/i = 0, i < 8 * steps, i++)
+		index = (i % (2 * steps + 1)) + 1
+		// Get weights for rear, right rear and left rear tiles if they were part of the previous step, where rear means towards the center
+		weight_left = index > 2 ? weights[index - 2] : 0
+		weight_center = (index > 1 && index < (2 * steps)) ? weights[index - 1] : 0
+		weight_right = index <  (2 * steps + 1) ? weights[index] : 0
 		// The weight of the current tile the average of the weights of the tiles we checked for earlier
 		// And is reduced by irradiating things and getting blocked
-		new_weights += radiate(current_turf, ((steps * 2 - 1) / (steps * 2 + 1)) * (weight_left + weight_center + weight_right) / (1 + (i > 1 && i < (2 * steps + 1) && (steps > 1)) + (i > 2 && i < (2 * steps))))
+		new_weights += radiate(current_turf, ((steps * 2 - 1) / (steps * 2 + 1)) * (weight_left + weight_center + weight_right) / (1 + ((index > 1) && index < (2 * steps + 1)) && (steps > 1)) + (index > 2 && index < (2 * steps)))
 		weight_sum += new_weights[i]
-		// Advance to the next turf in line
-		current_turf = get_step(current_turf, __dirs[2])
+		// turn when we reach a corner
+		if(index == (2 * steps + 1))
+			walk_dir = turn(dir, 90)
+		// Advance to next turf and calculate the index on the edge
+		current_turf = get_step(current_turf, walk_dir)
+
 	weights = new_weights
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms)
