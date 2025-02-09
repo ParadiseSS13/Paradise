@@ -277,7 +277,7 @@
 	width = 22
 	height = 11
 	dir = 4
-	travelDir = 0
+	port_direction = WEST
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 
@@ -605,11 +605,13 @@
 	dwidth = 1
 	width = 3
 	height = 4
+	port_direction = SOUTH
 
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
+	preferred_direction = dir
 
 /obj/docking_port/mobile/pod/cancel()
 	return

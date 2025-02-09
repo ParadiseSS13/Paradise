@@ -148,7 +148,7 @@
 	CCport.dwidth = 9
 	var/obj/docking_port/stationary/CCtransit = SSshuttle.getDock("emergency_transit")
 	CCtransit.setDir(2)
-	// CCtransit.forceMove(locate(113, 68, 1))
+	SSshuttle.emergency.port_direction = NORTH
 	CCtransit.height = 50
 	CCtransit.dheight = 0
 	CCtransit.width = 19

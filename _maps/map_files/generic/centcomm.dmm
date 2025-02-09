@@ -1972,14 +1972,7 @@
 	opacity = 0;
 	req_access = list(150)
 	},
-/obj/docking_port/mobile{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "sst";
-	name = "SST shuttle";
-	width = 11
-	},
+/obj/docking_port/mobile/sst,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	dir = 4;

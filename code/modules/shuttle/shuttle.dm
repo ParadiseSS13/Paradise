@@ -219,7 +219,6 @@
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	var/roundstart_move				//id of port to send shuttle to at roundstart
-	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
 	/// The speed factor for this shuttle. Higher means faster.
@@ -848,6 +847,7 @@
 	id = "specops"
 	name = "ert shuttle"
 	width = 5
+	preferred_direction = EAST
 
 /obj/docking_port/mobile/sit
 	dir = 8
@@ -856,14 +856,18 @@
 	id = "sit"
 	name = "SIT shuttle"
 	width = 11
+	preferred_direction = SOUTH
+	port_direction = WEST
 
-/obj/docking_port/mobile/stt
+/obj/docking_port/mobile/sst
 	dir = 4
 	dwidth = 7
 	height = 5
 	id = "sst"
 	name = "SST shuttle"
 	width = 11
+	preferred_direction = SOUTH
+	port_direction = EAST
 
 /obj/docking_port/mobile/admin
 	dir = 2
@@ -881,6 +885,7 @@
 	id = "ferry"
 	name = "ferry shuttle"
 	width = 5
+	preferred_direction = EAST
 
 /obj/docking_port/mobile/trade_sol
 	dir = 8
@@ -889,6 +894,7 @@
 	id = "trade_sol"
 	name = "sol trade shuttle"
 	width = 9
+	preferred_direction = EAST
 
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
