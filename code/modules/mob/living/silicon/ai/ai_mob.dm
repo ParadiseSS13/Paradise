@@ -1162,7 +1162,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					if("drone")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "drone0"))
 					if("boxbot")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "boxbot"))
+						holo_icon = getHologramIcon(icon('modular_ss220/mobs/icons/mob/pai.dmi', "boxbot"))// SS220 EDIT - updated boxbot sprite
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
