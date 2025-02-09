@@ -17,6 +17,8 @@
 	var/move_dir
 	/// The directions to the side of the wave, stored for easy looping
 	var/list/__dirs
+	/// Weights of the current tiles from left to right relative to the direction of travel
+	var/list/weights = list(1)
 	/// Whether or not this radiation wave can create contaminated objects
 	var/can_contaminate
 
@@ -44,19 +46,18 @@
 	..()
 
 /datum/radiation_wave/process()
-	master_turf = get_step(master_turf, move_dir)
+	master_turf = get_step(master_turf, move_dir | __dirs[1])
 	if(!master_turf)
 		qdel(src)
 		return
 	steps++
+	var/list/new_weights = list()
+	for(var/i in range 1 to 2 * steps)
+		var/weight1 = i > 2 ? weights[i - 2] : 0
+		var/weight2 = (i > 1 && i < (2 * steps + 1)) ? 0 : weights[i - 1]
+		var/weight3 = (i < (2 * steps)) ? 0 : weights[i]
+		new_weights[i] = (weight1 + weight2 + weight3) / (1 + (i > 1 && i < (2 * steps + 1)) + (i > 2 && i < (2 * steps)))
 	var/list/atoms = get_rad_atoms()
-
-	var/strength
-	if(steps > source_radius + 1)
-		strength = INVERSE_SQUARE(intensity, max(range_modifier * (steps - source_radius), 1), 1)
-	else
-		strength = intensity
-
 	if(strength < RAD_BACKGROUND_RADIATION)
 		qdel(src)
 		return
