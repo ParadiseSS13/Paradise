@@ -1,4 +1,12 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
+
+#define MAX_TRANSIT_REQUEST_RETRIES 10
+/// How many turfs to allow before we stop blocking transit requests
+#define MAX_TRANSIT_TILE_COUNT (150 ** 2)
+/// How many turfs to allow before we start freeing up existing "soft reserved" transit docks
+/// If we're under load we want to allow for cycling, but if not we want to preserve already generated docks for use
+#define SOFT_TRANSIT_RESERVATION_THRESHOLD (100 ** 2)
+
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 10
@@ -44,6 +52,13 @@ SUBSYSTEM_DEF(shuttle)
 	/// Have we locked in the emergency shuttle, to prevent people from breaking things / wasting player money?
 	var/emergency_locked_in = FALSE
 
+	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
+	var/list/transit_requesters = list()
+	/// An associative list of the mobile docking ports that have failed a transit request, with the amount of times they've actually failed that transit request, up to MAX_TRANSIT_REQUEST_RETRIES
+	var/list/transit_request_failures = list()
+	/// How many turfs our shuttles are currently utilizing in reservation space
+	var/transit_utilized = 0
+
 /datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
@@ -65,12 +80,46 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
 	for(var/thing in mobile_docking_ports)
-		if(thing)
-			var/obj/docking_port/mobile/P = thing
-			P.check()
+		if(!thing)
+			mobile_docking_ports.Remove(thing)
 			continue
-		CHECK_TICK
-		mobile_docking_ports.Remove(thing)
+		var/obj/docking_port/mobile/port = thing
+		port.check()
+	for(var/obj/docking_port/stationary/transit/T as anything in transit_docking_ports)
+		if(!T.owner)
+			qdel(T, force=TRUE)
+		// This next one removes transit docks/zones that aren't
+		// immediately being used. This will mean that the zone creation
+		// code will be running a lot.
+
+		// If we're below the soft reservation threshold, don't clear the old space
+		// We're better off holding onto it for now
+		if(transit_utilized < SOFT_TRANSIT_RESERVATION_THRESHOLD)
+			continue
+		var/obj/docking_port/mobile/owner = T.owner
+		if(owner)
+			var/idle = owner.mode == SHUTTLE_IDLE
+			// var/not_centcom_evac = owner.launch_status == NOLAUNCH
+			var/not_in_use = (!T.get_docked())
+			if(idle && not_in_use)
+				qdel(T, force=TRUE)
+
+	if(!SSmapping.clearing_reserved_turfs)
+		while(transit_requesters.len)
+			var/requester = popleft(transit_requesters)
+			var/success = null
+			// Do not try and generate any transit if we're using more then our max already
+			if(transit_utilized < MAX_TRANSIT_TILE_COUNT)
+				success = generate_transit_dock(requester)
+			if(!success) // BACK OF THE QUEUE
+				transit_request_failures[requester]++
+				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
+					transit_requesters += requester
+				else
+					var/obj/docking_port/mobile/M = requester
+					M.transit_failure()
+			if(MC_TICK_CHECK)
+				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
 	for(var/obj/docking_port/mobile/M in mobile_docking_ports)
@@ -427,5 +476,119 @@ SUBSYSTEM_DEF(shuttle)
 
 	custom_escape_shuttle_loading = FALSE
 	return loaded_shuttle
+
+/datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
+	if(!istype(M))
+		CRASH("[M] is not a mobile docking port")
+
+	if(M.assigned_transit)
+		return
+	transit_requesters |= M
+
+/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
+	// First, determine the size of the needed zone
+	// Because of shuttle rotation, the "width" of the shuttle is not
+	// always x.
+	var/travel_dir = M.preferred_direction
+	// Remember, the direction is the direction we appear to be
+	// coming from
+	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
+	var/dock_dir = angle2dir(dock_angle)
+
+	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
+	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
+
+	// Shuttles travelling on their side have their dimensions swapped
+	// from our perspective
+	switch(dock_dir)
+		if(NORTH, SOUTH)
+			transit_width += M.width
+			transit_height += M.height
+		if(EAST, WEST)
+			transit_width += M.height
+			transit_height += M.width
+
+/*
+	to_chat(world, "The attempted transit dock will be [transit_width] width, and \)
+		[transit_height] in height. The travel dir is [travel_dir]."
+*/
+
+	var/transit_path = /turf/space/transit
+	switch(travel_dir)
+		if(NORTH)
+			transit_path = /turf/space/transit/north
+		if(SOUTH)
+			transit_path = /turf/space/transit/south
+		if(EAST)
+			transit_path = /turf/space/transit/east
+		if(WEST)
+			transit_path = /turf/space/transit/west
+
+	var/datum/turf_reservation/proposal = SSmapping.request_turf_block_reservation(
+		transit_width,
+		transit_height,
+		reservation_type = /datum/turf_reservation/transit,
+		turf_type_override = transit_path,
+	)
+
+	if(!istype(proposal))
+		return FALSE
+
+	var/turf/bottomleft = proposal.bottom_left_turf
+	// Then create a transit docking port in the middle
+	var/coords = M.return_coords(0, 0, dock_dir)
+	/*  0------2
+	*   |      |
+	*   |      |
+	*   |  x   |
+	*   3------1
+	*/
+
+	var/x0 = coords[1]
+	var/y0 = coords[2]
+	var/x1 = coords[3]
+	var/y1 = coords[4]
+	// Then we want the point closest to -infinity,-infinity
+	var/x2 = min(x0, x1)
+	var/y2 = min(y0, y1)
+
+	// Then invert the numbers
+	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
+	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
+
+	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
+	if(!midpoint)
+		qdel(proposal)
+		return FALSE
+
+	// var/area/old_area = midpoint.loc
+	// LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, bottomleft.z, list())
+	// old_area.turfs_to_uncontain_by_zlevel[bottomleft.z] += proposal.reserved_turfs
+
+	var/area/shuttle/transit/new_area = new()
+	new_area.parallax_move_direction = travel_dir
+	new_area.contents = proposal.reserved_turfs
+	// LISTASSERTLEN(new_area.turfs_by_zlevel, bottomleft.z, list())
+	// new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
+
+	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
+	new_transit_dock.reserved_area = proposal
+	new_transit_dock.name = "Transit for [M.id]/[M.name]"
+	new_transit_dock.owner = M
+	new_transit_dock.assigned_area = new_area
+
+	// Add 180, because ports point inwards, rather than outwards
+	new_transit_dock.setDir(angle2dir(dock_angle))
+
+	// Proposals use 2 extra hidden tiles of space, from the cordons that surround them
+	transit_utilized += (proposal.width + 2) * (proposal.height + 2)
+	M.assigned_transit = new_transit_dock
+	RegisterSignal(proposal, COMSIG_PARENT_QDELETING, PROC_REF(transit_space_clearing))
+	return new_transit_dock
+
+/// Gotta manage our space brother
+/datum/controller/subsystem/shuttle/proc/transit_space_clearing(datum/turf_reservation/source)
+	SIGNAL_HANDLER
+	transit_utilized -= (source.width + 2) * (source.height + 2)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

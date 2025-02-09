@@ -190,6 +190,12 @@
 	name = "In transit"
 	turf_type = /turf/space/transit
 	lock_shuttle_doors = TRUE
+	/// The turf reservation returned by the transit area request
+	var/datum/turf_reservation/reserved_area
+	/// The area created during the transit area reservation
+	var/area/shuttle/transit/assigned_area
+	/// The mobile port that owns this transit port
+	var/obj/docking_port/mobile/owner
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())
@@ -223,12 +229,18 @@
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
+	var/obj/docking_port/stationary/transit/assigned_transit
 	/// Does this shuttle use the lockdown system?
 	var/uses_lockdown = FALSE
 	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
 	var/lockeddown = FALSE
 	/// Is this a shuttle that completely destroys whatever dares to get in it's way?
 	var/lance_docking = FALSE
+
+	/// The direction the shuttle prefers to travel in, ie what direction the animation will cause it to appear to be traveling in
+	var/preferred_direction = NORTH
+	/// relative direction of the docking port from the front of the shuttle. NORTH is towards front, EAST would be starboard side, WEST port, etc.
+	var/port_direction = NORTH
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -575,9 +587,8 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
-	if(T && check_dock(T))
-		return T
+	if(assigned_transit && check_dock(assigned_transit))
+		return assigned_transit
 
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
@@ -698,6 +709,9 @@
 /obj/docking_port/mobile/proc/check()
 	check_effects()
 
+	if(mode == SHUTTLE_IGNITING)
+		check_transit_zone()
+
 	var/timeLeft = timeLeft(1)
 
 	if(timeLeft <= 0)
@@ -711,6 +725,9 @@
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
+				if(!check_transit_zone())
+					setTimer(20)
+					return
 				mode = SHUTTLE_CALL
 				setTimer(callTime)
 				enterTransit()
@@ -791,6 +808,16 @@
 		else
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
+
+/obj/docking_port/mobile/proc/transit_failure()
+	message_admins("Shuttle [src] repeatedly failed to create transit zone.")
+
+/obj/docking_port/mobile/proc/check_transit_zone()
+	if(assigned_transit)
+		return TRUE
+	SSshuttle.request_transit_dock(src)
+	return FALSE
+
 
 /obj/docking_port/mobile/labour
 	dir = 8

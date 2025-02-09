@@ -478,6 +478,15 @@
 				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
+				return
+
+			if(time_left <= 10 SECONDS)
+				var/failure = !check_transit_zone()
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
+					if(is_station_level(M.z)) //Will not launch from the mine/planet
+						failure |= !M.check_transit_zone()
+				if(failure)
+					setTimer(10 SECONDS)
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
@@ -575,6 +584,18 @@
 /obj/docking_port/mobile/emergency/proc/create_lance_ripples(list/L2, obj/docking_port/stationary/S1)
 	for(var/turf/T in L2)
 		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
+
+/obj/docking_port/mobile/emergency/transit_failure()
+	..()
+	message_admins("Moving emergency shuttle directly to centcom dock to prevent deadlock.")
+
+	mode = SHUTTLE_ESCAPE
+	// launch_status = ENDGAME_LAUNCHED
+	setTimer(60 SECONDS)
+	GLOB.major_announcement.Announce(
+		"The emergency shuttle is preparing for direct jump. Estimate [timeLeft(1 MINUTES)] minutes until the shuttle docks at Central Command.",
+		"Emergency Shuttle Transit Failure",
+	)
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod

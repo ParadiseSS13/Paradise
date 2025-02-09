@@ -129,3 +129,10 @@
 	name = "Free Golem Ship"
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
+
+/area/shuttle/transit
+	name = "Hyperspace"
+	desc = "Weeeeee"
+	// static_lighting = FALSE
+	// base_lighting_alpha = 255
+	there_can_be_many = TRUE
