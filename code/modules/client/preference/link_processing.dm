@@ -203,8 +203,13 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
-						S = NS
+						S = new NS.type()
+						active_character.species_subtype = "None"
 						active_character.age = clamp(active_character.age, S.min_age, S.max_age)
+						NS = GLOB.all_species[active_character.species_subtype] // Changing species resets subtype.
+						if(isnull(NS))
+							NS = GLOB.all_species[active_character.species]
+						subtype = new NS.type()
 						reset_styles(S)
 				if("species_subtype")
 					if(S.bodyflags & HAS_SPECIES_SUBTYPE)
@@ -215,7 +220,7 @@
 						var/datum/species/NS = GLOB.all_species[active_character.species_subtype]
 						if(isnull(NS))
 							NS = GLOB.all_species[active_character.species]
-						subtype = NS
+						subtype = new NS.type()
 						reset_styles(subtype, S)
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
