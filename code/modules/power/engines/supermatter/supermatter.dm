@@ -91,6 +91,8 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
+/// Modifiers for delamination power surge
+#define SM_APC_BREAK_CHANCE 25
 
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
@@ -405,10 +407,23 @@
 			var/obj/singularity/energy_ball/E = new(T)
 			E.energy = 200 //Gets us about 9 balls
 
-	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
+	//Dear mappers, balance the sm max explosion radius to 8, 17, 19
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
+	// Short power to all SMES
+	for(var/obj/machinery/power/smes/power_storage in GLOB.machines)
+		power_storage.charge = 0
+	// Short and depower APCs. A more severe version of the shortout event
+	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", 'sound/AI/power_short.ogg')
+	var/affected_apc_count = 0
+	for(var/obj/machinery/power/apc/apc in GLOB.machines)
+		if(prob(25))
+			apc.cell.charge = 0
+			apc.apc_short()
+			affected_apc_count++
+	log_and_message_admins("Supermatter delamination power surge has shorted out and depowered [affected_apc_count] APCs.")
+
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
