@@ -414,9 +414,11 @@
 			if(HERETIC_NO_LIVING_HEART)
 				. += " | <br>Give <a href='byond://?src=[UID()];heretic=heart'>Living heart</a>"
 			if(HERETIC_HAS_LIVING_HEART)
-				. += " | <a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
+				. += " | <br><a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
 				. += " | <a href='byond://?src=[UID()];heretic=RemoveTarget'><b>Remove A Target</b></a>"
+				. += " | <br> Targets are / have been: [english_list(wheretic.all_sac_targets, nothing_text = "No one")]"
 		. += " | <br>Give <a href='byond://?src=[UID()];heretic=focus'>focus</a>|<a href='byond://?src=[UID()];heretic=knowledge'> or adjust knowledge points.</a>."
+
 	else
 		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
 

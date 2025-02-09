@@ -189,7 +189,14 @@
 /obj/item/card/id/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
 	if(card == src)
 		return //no self vore
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	if(human_user.wear_id == card)
+		to_chat(user, "<span class='warning'>Take the card off first!</span>")
+		return
 	fused_ids[card.name] = card
+	card.forceMove(get_turf(user))
 	card.moveToNullspace()
 	playsound(drop_location(), 'sound/items/eatfood.ogg', rand(10,30), TRUE)
 	access += card.access
