@@ -750,7 +750,9 @@ SLIME SCANNER
 			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
 			heat_capacity = air.heat_capacity()
 			thermal_energy = air.thermal_energy()
-
+			if(!total_moles)
+				message += "<span class='notice'>[target] is empty!</span>"
+				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 			if(total_moles)
 				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
@@ -775,17 +777,20 @@ SLIME SCANNER
 				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
 	else// Sum mixtures then present
+		if(!total_moles)
+			message += "<span class='notice'>[target] is empty!</span>"
+			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 		for(var/datum/gas_mixture/air as anything in airs)
-			total_moles += air.total_moles()
-			volume += air.return_volume()
-			heat_capacity += air.heat_capacity()
-			thermal_energy += air.thermal_energy()
-			oxygen += air.oxygen()
-			nitrogen += air.nitrogen()
-			toxins += air.toxins()
-			carbon_dioxide += air.carbon_dioxide()
-			sleeping_agent += air.sleeping_agent()
-			agent_b += air.agent_b()
+			total_moles += air?.total_moles()
+			volume += air?.return_volume()
+			heat_capacity += air?.heat_capacity()
+			thermal_energy += air?.thermal_energy()
+			oxygen += air?.oxygen()
+			nitrogen += air?.nitrogen()
+			toxins += air?.toxins()
+			carbon_dioxide += air?.carbon_dioxide()
+			sleeping_agent += air?.sleeping_agent()
+			agent_b += air?.agent_b()
 
 		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
 		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
