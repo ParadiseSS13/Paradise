@@ -442,6 +442,10 @@
 /obj/item/melee/cultblade/haunted/proc/handle_haunted_movement()
 	if(!isliving(loc))
 		return TRUE
+	if(bound)
+		to_chat(trapped_entity, "<span class='warning'>You are bound, and unable to move! Try to get someone to unbind you!</span>")
+		return FALSE
+
 	var/mob/loccer = loc
 	var/resist_chance = 20
 	var/fail_text = "You struggle, but [loccer] keeps [loccer.p_their()] grip on you!"
