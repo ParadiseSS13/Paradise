@@ -27264,6 +27264,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},

@@ -41960,7 +41960,7 @@
 	name = "Cargo Desk";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -61550,7 +61550,7 @@
 	name = "Cargo Desk"
 	},
 /obj/item/paper/crumpled,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "nht" = (
@@ -61654,7 +61654,7 @@
 	pixel_y = 7;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "niC" = (
@@ -65084,7 +65084,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "peo" = (
@@ -69631,7 +69631,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "rvu" = (
@@ -72142,7 +72142,9 @@
 	},
 /area/station/maintenance/starboard)
 "sLT" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/sortjunction{
+	sort_type_txt = "9"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

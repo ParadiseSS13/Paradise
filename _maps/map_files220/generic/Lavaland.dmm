@@ -7916,6 +7916,13 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
+"Gx" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "Gz" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -26503,7 +26510,7 @@ aj
 aj
 te
 bq
-xo
+Gx
 ee
 xX
 FH
