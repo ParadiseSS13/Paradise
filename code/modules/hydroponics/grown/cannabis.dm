@@ -89,7 +89,7 @@
 	seed = /obj/item/seeds/cannabis
 	icon = 'icons/goonstation/objects/hydroponics.dmi'
 	name = "cannabis leaf"
-	desc = "Recently legalized in most galaxies."
+	desc = "A common marijuana leaf. Its legality varies heavily across Sector polities."
 	icon_state = "cannabis"
 	filling_color = "#00FF00"
 	bitesize_mod = 2
