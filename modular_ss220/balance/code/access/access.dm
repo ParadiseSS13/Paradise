@@ -41,3 +41,7 @@
 /datum/job/roboticist/New()
 	. = ..()
 	access |= list(ACCESS_TOX)
+
+/datum/job/qm/New()
+	. = ..()
+	access |= list(ACCESS_EVA)
