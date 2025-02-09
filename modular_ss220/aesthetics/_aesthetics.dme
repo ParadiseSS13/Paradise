@@ -37,6 +37,7 @@
 #include "railings\code\railings.dm"
 #include "rollerbed\code\rollerbed.dm"
 #include "safe\code\safe.dm"
+#include "satchels\code\satchels.dm"
 #include "satellite\code\satellite.dm"
 #include "sheets\code\sheets.dm"
 #include "shutters\code\shutters.dm"
