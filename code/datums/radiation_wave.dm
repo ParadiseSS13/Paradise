@@ -11,7 +11,7 @@
 	var/remaining_contam
 	/// Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
 	var/range_modifier
-	/// The distance from the source point the wave can cover without losing any strength.
+	/// The distance from the source point the wave can cover without losing any weight.
 	var/source_radius
 	/// The direction of movement
 	var/move_dir
@@ -19,6 +19,8 @@
 	var/list/__dirs
 	/// Weights of the current tiles from left to right relative to the direction of travel
 	var/list/weights = list(1)
+	/// Sum of all weights
+	var/weight_sum = 1
 	/// Whether or not this radiation wave can create contaminated objects
 	var/can_contaminate
 
@@ -45,46 +47,37 @@
 	STOP_PROCESSING(SSradiation, src)
 	..()
 
+
+/// Deals with wave propagation. Radiation waves always expand in a 90 degree cone
 /datum/radiation_wave/process()
+	// If the wave is too weak to do anything
+	if(weight_sum * intensity < RAD_BACKGROUND_RADIATION)
+		qdel(src)
+		return
+	/// We start iteration from the left(in relation to the direction of travel) side of the current wave step
 	master_turf = get_step(master_turf, move_dir | __dirs[1])
 	if(!master_turf)
 		qdel(src)
 		return
 	steps++
 	var/list/new_weights = list()
-	for(var/i in range 1 to 2 * steps)
-		var/weight1 = i > 2 ? weights[i - 2] : 0
-		var/weight2 = (i > 1 && i < (2 * steps + 1)) ? 0 : weights[i - 1]
-		var/weight3 = (i < (2 * steps)) ? 0 : weights[i]
-		new_weights[i] = (weight1 + weight2 + weight3) / (1 + (i > 1 && i < (2 * steps + 1)) + (i > 2 && i < (2 * steps)))
-	var/list/atoms = get_rad_atoms()
-	if(strength < RAD_BACKGROUND_RADIATION)
-		qdel(src)
-		return
-	radiate(atoms, strength)
-	check_obstructions(atoms) // reduce our overall strength if there are radiation insulators
-
-/datum/radiation_wave/proc/get_rad_atoms()
-	var/list/atoms = list()
-	var/distance = steps
-	var/cmove_dir = move_dir
-	var/cmaster_turf = master_turf
-
-	if(cmove_dir == NORTH || cmove_dir == SOUTH)
-		distance-- //otherwise corners overlap
-
-	atoms += get_rad_contents(cmaster_turf)
-
-	var/turf/place
-	for(var/dir in __dirs) //There should be just 2 dirs in here, left and right of the direction of movement
-		place = cmaster_turf
-		for(var/i in 1 to distance)
-			place = get_step(place, dir)
-			if(!place)
-				break
-			atoms += get_rad_contents(place)
-
-	return atoms
+	var/turf/current_turf = master_turf
+	weight_sum = 0
+	var/weight_left
+	var/weight_center
+	var/weight_right
+	for(var/i = 1, i <= (2 * steps + 1), i++)
+		// Get weights for rear, right rear and left rear tiles if they were part of the previous step
+		weight_left = i > 2 ? weights[i - 2] : 0
+		weight_center = (i > 1 && i < (2 * steps + 1)) ? weights[i - 1] : 0
+		weight_right = (i < (2 * steps)) ? weights[i] : 0
+		// The weight of the current tile the average of the weights of the tiles we checked for earlier
+		// And is reduced by irradiating things and getting blocked
+		new_weights += radiate(current_turf, ((steps * 2 - 1) / (steps * 2 + 1)) * (weight_left + weight_center + weight_right) / (1 + (i > 1 && i < (2 * steps + 1) && (steps > 1)) + (i > 2 && i < (2 * steps))))
+		weight_sum += new_weights[i]
+		// Advance to the next turf in line
+		current_turf = get_step(current_turf, __dirs[2])
+	weights = new_weights
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms)
 	var/width = steps
@@ -102,41 +95,13 @@
 		if(thing.rad_insulation != RAD_NO_INSULATION)
 			intensity *= (1 - ((1 - thing.rad_insulation) / width))
 
-/datum/radiation_wave/proc/radiate(list/atoms, strength)
-	var/can_contam = strength >= RAD_MINIMUM_CONTAMINATION
-	var/contamination_strength = (strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
-	contamination_strength = max(contamination_strength, RAD_BACKGROUND_RADIATION)
-	// It'll never reach 100% chance but the further out it gets the more likely it'll contaminate
-	var/contamination_chance = 100 - (90 / (1 + steps * 0.1))
-	for(var/k in atoms)
+/// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
+/datum/radiation_wave/proc/radiate(turf/current_turf, weight)
+	var/list/turf_atoms = get_rad_contents(current_turf)
+	for(var/k in turf_atoms)
 		var/atom/thing = k
 		if(QDELETED(thing))
 			continue
-		thing.rad_act(strength)
-
-		// This list should only be for types which don't get contaminated but you want to look in their contents
-		// If you don't want to look in their contents and you don't want to rad_act them:
-		// modify the ignored_things list in __HELPERS/radiation.dm instead
-		var/static/list/blacklisted = typecacheof(list(
-			/turf,
-			/obj/structure/cable,
-			/obj/machinery/atmospherics,
-			/obj/item/ammo_casing,
-			/obj/item/bio_chip,
-			/obj/singularity,
-			))
-		if(!can_contaminate || !can_contam || blacklisted[thing.type])
-			continue
-		if(thing.flags_2 & RAD_NO_CONTAMINATE_2 || SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
-			continue
-
-		if(contamination_strength > remaining_contam)
-			contamination_strength = remaining_contam
-		if(!prob(contamination_chance))
-			continue
-		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
-			continue
-		remaining_contam -= contamination_strength
-		if(remaining_contam < RAD_BACKGROUND_RADIATION)
-			can_contaminate = FALSE
-		thing.AddComponent(/datum/component/radioactive, contamination_strength, source)
+		weight = weight * thing.rad_act(weight * intensity)
+	// return the resulting weight if the radiation on the tile would end up greater than background
+	return (((weight * intensity) > RAD_BACKGROUND_RADIATION) ? weight : 0)

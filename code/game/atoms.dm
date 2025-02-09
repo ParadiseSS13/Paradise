@@ -601,7 +601,9 @@
  * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
  */
 /atom/proc/rad_act(amount)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	return rad_insulation
 
 /atom/proc/fart_act(mob/living/M)
 	return FALSE

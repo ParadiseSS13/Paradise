@@ -63,6 +63,8 @@
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
 ///from base of atom/rad_act(intensity)
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"
+///from base of turf/irradiate(/datum/radiation_wave)
+#define COMSIG_TURF_IRRADIATE
 ///from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
 ///from base of atom/set_light(): (l_range, l_power, l_color)

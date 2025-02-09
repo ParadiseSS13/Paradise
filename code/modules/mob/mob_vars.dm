@@ -6,6 +6,7 @@
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	rad_insulation = RAD_MOB_INSULATION
 
 	/// Is this mob alive, unconscious or dead?
 	var/stat = CONSCIOUS // TODO: Move to /mob/living

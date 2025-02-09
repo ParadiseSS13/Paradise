@@ -39,6 +39,7 @@ Ask ninjanomnom if they're around
 #define RAD_MOB_GORILLIZE_PROB 0.1					// Chance of gorillization per tick when over threshold
 
 #define RAD_NO_INSULATION 1.0						// For things that shouldn't become irradiated for whatever reason
+#define RAD_MOB_INSULATION 0.98						// For mobs
 #define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have
 #define RAD_LIGHT_INSULATION 0.8
 #define RAD_MEDIUM_INSULATION  0.7					// What common walls have
