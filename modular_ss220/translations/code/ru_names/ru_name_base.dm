@@ -21,14 +21,20 @@ GLOBAL_LIST_EMPTY(ru_names)
 		GLOB.ru_names = rustg_read_toml_file("[PATH_TO_TRANSLATE_DATA]/ru_names.toml")
 	if(GLOB.ru_names[formatted_name])
 		var/base = override_base || "[prefix][name][suffix]"
+		var/nominative_form = GLOB.ru_names[formatted_name]["nominative"] || name
+		var/genitive_form = GLOB.ru_names[formatted_name]["genitive"] || nominative_form
+		var/dative_form = GLOB.ru_names[formatted_name]["dative"] || nominative_form
+		var/accusative_form = GLOB.ru_names[formatted_name]["accusative"] || nominative_form
+		var/instrumental_form = GLOB.ru_names[formatted_name]["instrumental"] || nominative_form
+		var/prepositional_form = GLOB.ru_names[formatted_name]["prepositional"] || nominative_form
 		. = ru_names_list(
 			base,
-			"[prefix][GLOB.ru_names[formatted_name]["nominative"] || name][suffix]",
-			"[prefix][GLOB.ru_names[formatted_name]["genitive"] || name][suffix]",
-			"[prefix][GLOB.ru_names[formatted_name]["dative"] || name][suffix]",
-			"[prefix][GLOB.ru_names[formatted_name]["accusative"] || name][suffix]",
-			"[prefix][GLOB.ru_names[formatted_name]["instrumental"] || name][suffix]",
-			"[prefix][GLOB.ru_names[formatted_name]["prepositional"] || name][suffix]",
+			"[prefix][nominative_form][suffix]",
+			"[prefix][genitive_form][suffix]",
+			"[prefix][dative_form][suffix]",
+			"[prefix][accusative_form][suffix]",
+			"[prefix][instrumental_form][suffix]",
+			"[prefix][prepositional_form][suffix]",
 			gender = "[GLOB.ru_names[formatted_name]["gender"] || null]",)
 
 /atom/Initialize(mapload, ...)
@@ -58,7 +64,7 @@ GLOBAL_LIST_EMPTY(ru_names)
 * Процедура выбора правильного падежа для любого предмета, если у него указан словарь «ru_names», примерно такой:
 * RU_NAMES_LIST_INIT("jaws of life", "челюсти жизни", "челюстей жизни", "челюстям жизни", "челюсти жизни", "челюстями жизни", "челюстях жизни")
 */
-/datum/proc/declent_ru(declent)
+/datum/proc/declent_ru(declent = NOMINATIVE)
 	CRASH("Unimplemented proc/declent_ru() was used")
 
 /proc/get_declented_value(list/declented_list, declent, backup_value)
