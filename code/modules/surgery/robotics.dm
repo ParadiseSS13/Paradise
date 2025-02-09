@@ -750,13 +750,32 @@
 	else if(!target.Adjacent(user))
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
+
+	var/new_subtype = tgui_input_list(user, "Choose a species look-alike for this machine", "Select Subtype", target.dna.species.allowed_species_subtypes)
+	if(isnull(new_subtype))
+		to_chat(user, "<span class='warning'>You must choose a subtype! Please try again.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	else if(!target.Adjacent(user))
+		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
+		return SURGERY_STEP_INCOMPLETE
+
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
 	target.real_name = new_name
 	target.gender = new_gender
 	user.visible_message(
-		"<span class='notice'>[user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
-		"<span class='notice'>You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
+		"<span class='notice'>[user] edits [old_name]'s identity parameters with [tool], changing their appearance; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
+		"<span class='notice'>You alter [old_name]'s identity parameters with [tool], changing their appearance; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
+
+	if(!isnull(target.dna))
+		for(var/obj/item/organ/external/limb in target.bodyparts) // Update robotic limbs to match new sub species
+			limb.set_company(limb.model, target.dna.species.sprite_sheet_name) // Update the limbs to properly use their new sprite sheet.
+		var/datum/species/subtype = GLOB.all_species[new_subtype]
+		if(isnull(subtype))
+			subtype = GLOB.all_species[target.dna.species.name]
+		target.dna.species.updatespeciessubtype(src, new subtype.type())
+		target.regenerate_icons()
+
 	return SURGERY_STEP_CONTINUE

@@ -3,6 +3,11 @@
 		return
 
 	var/datum/species/S = GLOB.all_species[active_character.species]
+	var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
+	if(isnull(subtype)) // Set the subtype to be the same as Species in the case we don't have one, saves alot of headaches when we're checking for valid markings etc.
+		subtype = S
+	else
+		S.bodyflags |= subtype.bodyflags
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -197,73 +202,20 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
-						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						var/datum/robolimb/robohead
-						if(NS.bodyflags & ALL_RPARTS)
-							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
-							robohead = GLOB.all_robolimbs[head_model]
-						//grab one of the valid hair styles for the newly chosen species
-						active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
-
-						//grab one of the valid facial hair styles for the newly chosen species
-						active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
-
-						if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-							active_character.ha_style = random_head_accessory(active_character.species)
-						else
-							active_character.ha_style = "None" // No Vulp ears on Unathi
-							active_character.hacc_colour = rand_hex_color()
-
-						if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-							active_character.m_styles["head"] = random_marking_style("head", active_character.species, robohead, null, active_character.alt_head)
-						else
-							active_character.m_styles["head"] = "None"
-							active_character.m_colours["head"] = "#000000"
-
-						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-							active_character.m_styles["body"] = random_marking_style("body", active_character.species)
-						else
-							active_character.m_styles["body"] = "None"
-							active_character.m_colours["body"] = "#000000"
-
-						if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-							active_character.m_styles["tail"] = random_marking_style("tail", active_character.species, null, active_character.body_accessory)
-						else
-							active_character.m_styles["tail"] = "None"
-							active_character.m_colours["tail"] = "#000000"
-
-						// Don't wear another species' underwear!
-						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
-
-						SA = GLOB.undershirt_list[active_character.undershirt]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
-
-						SA = GLOB.socks_list[active_character.socks]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.body_type, active_character.species)
-
-						//reset skin tone and colour
-						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-							random_skin_tone(active_character.species)
-						else
-							active_character.s_tone = 0
-
-						if(!(NS.bodyflags & HAS_SKIN_COLOR))
-							active_character.s_colour = "#000000"
-
-						active_character.alt_head = "None" //No alt heads on species that don't have them.
-						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
-
-						//Reset prosthetics.
-						active_character.organ_data = list()
-						active_character.rlimb_data = list()
-
-						if(!(NS.autohiss_basic_map))
-							active_character.autohiss_mode = AUTOHISS_OFF
+						S = NS
+						active_character.age = clamp(active_character.age, S.min_age, S.max_age)
+						reset_styles(S)
+				if("species_subtype")
+					if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+						var/new_subtype = tgui_input_list(user, "Choose your character's species subtype:", "Character Preference", S.allowed_species_subtypes)
+						if(isnull(new_subtype) || active_character.species_subtype == new_subtype)
+							return
+						active_character.species_subtype = new_subtype
+						var/datum/species/NS = GLOB.all_species[active_character.species_subtype]
+						if(isnull(NS))
+							NS = GLOB.all_species[active_character.species]
+						subtype = NS
+						reset_styles(subtype, S)
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -335,7 +287,7 @@
 																							But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 									valid_hairstyles += hairstyle
 						else //If the user is not a species who can have robotic heads, use the default handling.
-							if(active_character.species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
+							if((active_character.species in SA.species_allowed) || (subtype.name in SA.species_allowed)) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
@@ -387,7 +339,7 @@
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in GLOB.head_accessory_styles_list)
 							var/datum/sprite_accessory/H = GLOB.head_accessory_styles_list[head_accessory_style]
-							if(!(active_character.species in H.species_allowed))
+							if(!(active_character.species in H.species_allowed) && !(subtype.name in H.species_allowed))
 								continue
 
 							valid_head_accessory_styles += head_accessory_style
@@ -404,7 +356,7 @@
 						var/list/valid_alt_heads = list()
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
-							if(!(active_character.species in head.species_allowed))
+							if(!(active_character.species in head.species_allowed) && !(subtype.name in head.species_allowed))
 								continue
 
 							valid_alt_heads += alternate_head
@@ -423,7 +375,7 @@
 						var/list/valid_markings = list()
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(M.marking_location != "head")
 								continue
@@ -468,7 +420,7 @@
 						var/list/valid_markings = list()
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(M.marking_location != "body")
 								continue
@@ -493,7 +445,7 @@
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
 								continue
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(!active_character.body_accessory)
 								if(M.tails_allowed)
@@ -524,7 +476,7 @@
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 							if(isnull(accessory)) // None
 								continue
-							if(active_character.species in accessory.allowed_species)
+							if((active_character.species in accessory.allowed_species) || (subtype.name in accessory.allowed_species))
 								possible_body_accessories += B
 					if(S.optional_body_accessory)
 						possible_body_accessories += "None" //the only null entry should be the "None" option
@@ -590,7 +542,7 @@
 							continue
 						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
@@ -602,7 +554,7 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
@@ -619,7 +571,7 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
@@ -1307,3 +1259,74 @@
 
 	ShowChoices(user)
 	return TRUE
+
+/// Reset the styles what is available to the NS (new species) parameter. Parent Species is for subtype changing.
+/datum/preferences/proc/reset_styles(datum/species/NS, datum/species/parent_species)
+	var/datum/robolimb/robohead
+	if(!isnull(parent_species))
+		NS.bodyflags |= parent_species.bodyflags
+	if(NS.bodyflags & ALL_RPARTS)
+		var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
+		robohead = GLOB.all_robolimbs[head_model]
+	//grab one of the valid hair styles for the newly chosen species
+	active_character.h_style = random_hair_style(active_character.gender, NS, robohead)
+
+	//grab one of the valid facial hair styles for the newly chosen species
+	active_character.f_style = random_facial_hair_style(active_character.gender, NS, robohead)
+
+	if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
+		active_character.ha_style = random_head_accessory(NS)
+	else
+		active_character.ha_style = "None" // No Vulp ears on Unathi
+		active_character.hacc_colour = rand_hex_color()
+
+	if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
+		active_character.m_styles["head"] = random_marking_style("head", NS, robohead, null, active_character.alt_head)
+	else
+		active_character.m_styles["head"] = "None"
+		active_character.m_colours["head"] = "#000000"
+
+	if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
+		active_character.m_styles["body"] = random_marking_style("body", NS)
+	else
+		active_character.m_styles["body"] = "None"
+		active_character.m_colours["body"] = "#000000"
+
+	if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+		active_character.m_styles["tail"] = random_marking_style("tail", NS, null, active_character.body_accessory)
+	else
+		active_character.m_styles["tail"] = "None"
+		active_character.m_colours["tail"] = "#000000"
+
+	// Don't wear another species' underwear!
+	var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
+	if(!SA || !(NS in SA.species_allowed))
+		active_character.underwear = random_underwear(active_character.body_type, NS)
+
+	SA = GLOB.undershirt_list[active_character.undershirt]
+	if(!SA || !(NS in SA.species_allowed))
+		active_character.undershirt = random_undershirt(active_character.body_type, NS)
+
+	SA = GLOB.socks_list[active_character.socks]
+	if(!SA || !(NS in SA.species_allowed))
+		active_character.socks = random_socks(active_character.body_type, NS)
+
+	//reset skin tone and colour
+	if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+		random_skin_tone(NS)
+	else
+		active_character.s_tone = 0
+
+	if(!(NS.bodyflags & HAS_SKIN_COLOR))
+		active_character.s_colour = "#000000"
+
+	active_character.alt_head = "None" //No alt heads on species that don't have them.
+	active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
+	active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
+
+	//Reset prosthetics.
+	active_character.organ_data = list()
+	active_character.rlimb_data = list()
+
+	if(!(NS.autohiss_basic_map))
+		active_character.autohiss_mode = AUTOHISS_OFF
