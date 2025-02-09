@@ -588,3 +588,6 @@ SUBSYSTEM_DEF(shuttle)
 	transit_utilized -= (source.width + 2) * (source.height + 2)
 
 #undef CALL_SHUTTLE_REASON_LENGTH
+#undef MAX_TRANSIT_REQUEST_RETRIES
+#undef MAX_TRANSIT_TILE_COUNT
+#undef SOFT_TRANSIT_RESERVATION_THRESHOLD
