@@ -15,6 +15,7 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ah" = (
@@ -26,6 +27,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Emergency Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "am" = (
@@ -789,6 +791,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Emergency Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "FM" = (
@@ -798,6 +801,13 @@
 /area/shuttle/escape)
 "Rk" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"SW" = (
+/obj/machinery/door/airlock/external{
+	name = "Emergency Recovery Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -878,7 +888,7 @@ bp
 bp
 bp
 bp
-bq
+SW
 "}
 (6,1,1) = {"
 ac
@@ -894,7 +904,7 @@ bq
 ab
 bp
 bp
-bq
+SW
 "}
 (7,1,1) = {"
 ac

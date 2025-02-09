@@ -161,6 +161,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aJ" = (
@@ -240,6 +241,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aU" = (
