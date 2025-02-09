@@ -626,7 +626,7 @@
 	items = list(
 		/obj/item/food/grown/cherries,
 		/obj/item/food/grown/banana,
-		/obj/item/food/doughslice)
+		/obj/item/food/sliced/dough)
 	result = /obj/item/food/sundae
 
 // Bun-Bun
@@ -784,7 +784,7 @@
 	bitesize = 2
 	tastes = list("сырое мясо" = 1, "сырое тесто" = 1)
 
-/obj/item/food/doughslice/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/food/sliced/dough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food/rawcutlet))
 		new /obj/item/food/pelmeni(src)
 		to_chat(user, "Вы сделали немного пельменей.")
