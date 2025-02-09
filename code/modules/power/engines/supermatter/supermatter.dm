@@ -40,7 +40,7 @@
 #define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define DAMAGE_HARDCAP 0.002
+#define DAMAGE_HARDCAP 0.004
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
 
@@ -137,7 +137,7 @@
 	var/damage_penalty_point = 550
 
 	///A scaling value that affects the severity of explosions.
-	var/explosion_power = 35
+	var/explosion_power = 15
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
 	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
@@ -473,7 +473,7 @@
 	damage_archived = damage
 	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
 		if(takes_damage)
-			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
+			damage += min(((power + 2000) * 0.002) * DAMAGE_INCREASE_MULTIPLIER, DAMAGE_HARDCAP * explosion_point) // always does at least some damage
 	else
 		if(takes_damage)
 			//causing damage
@@ -492,22 +492,14 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
+				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
 
-			//Check for holes in the SM inner chamber
+			//Check for holes in the SM inner chamber.
 			var/turf/here = get_turf(src)
 			for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
 				if(!isspaceturf(neighbor))
 					continue
-				var/integrity = get_integrity()
-				if(integrity < 10)
-					damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 25)
-					damage += clamp((power * 0.0009) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 45)
-					damage += clamp((power * 0.005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 75)
-					damage += clamp((power * 0.002) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
 				break
 			//caps damage rate
 
@@ -532,7 +524,7 @@
 		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
-		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
+		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
 
 		if(combined_gas > POWERLOSS_INHIBITION_MOLE_THRESHOLD && co2comp > POWERLOSS_INHIBITION_GAS_THRESHOLD)
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
@@ -1018,7 +1010,7 @@
 	icon_state = "darkmatter_shard"
 	anchored = FALSE
 	gasefficency = 0.125
-	explosion_power = 12
+	explosion_power = 9
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
 
