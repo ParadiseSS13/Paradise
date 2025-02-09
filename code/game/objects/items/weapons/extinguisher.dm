@@ -23,7 +23,7 @@
 	var/has_safety = TRUE
 	/// If `TRUE`, the extinguisher will not fire.
 	var/safety_active = TRUE
-	/// `FALSE` by default, turfs picked from a spray are random, set to `TRUE` to make it always have at least one water effect per row.
+	/// When `FALSE`, turfs picked from a spray are random. When `TRUE`, it always has at least one water effect per row.
 	var/precision = FALSE
 	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
@@ -46,7 +46,8 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The safety is [safety_active ? "on" : "off"].</span>"
+	if(has_safety)
+		. += "<span class='notice'>The safety is [safety_active ? "on" : "off"].</span>"
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
