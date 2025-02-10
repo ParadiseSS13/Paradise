@@ -532,33 +532,23 @@ SUBSYSTEM_DEF(shuttle)
 		return FALSE
 
 	var/turf/bottomleft = proposal.bottom_left_turf
-	// Then create a transit docking port in the middle
-	var/coords = M.return_coords(0, 0, dock_dir)
-	/*  0------2
-	*   |      |
-	*   |      |
-	*   |  x   |
-	*   3------1
-	*/
+	var/list/coords = M.return_coords(0, 0, dock_dir)
 
-	var/x0 = coords[1]
-	var/y0 = coords[2]
-	var/x1 = coords[3]
-	var/y1 = coords[4]
 	// Then we want the point closest to -infinity,-infinity
-	var/x2 = min(x0, x1)
-	var/y2 = min(y0, y1)
+	var/min_x = min(coords[1], coords[3]) // x0, x1
+	var/min_y = min(coords[2], coords[4]) // y0, y1
 
-	// Then invert the numbers
-	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
-	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
+	// Then find where to place the dock
+	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(min_x)
+	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(min_y)
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
 		qdel(proposal)
 		return FALSE
 
-	// var/area/shuttle/transit/new_area = new() // our shuttle system currently doesnt support changing areas of shuttles
+	// our shuttle system currently doesnt support changing areas of shuttles
+	// var/area/shuttle/transit/new_area = new()
 	// new_area.parallax_move_direction = travel_dir
 	// new_area.contents = proposal.reserved_turfs
 

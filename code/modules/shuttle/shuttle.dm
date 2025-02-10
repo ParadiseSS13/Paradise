@@ -588,7 +588,10 @@
 /obj/docking_port/mobile/proc/findTransitDock()
 	if(assigned_transit && check_dock(assigned_transit))
 		return assigned_transit
-
+	stack_trace("[name] ([id])'s findTransitDock() was called, but there was no assigned transit dock, reverting to emergency fallback.")
+	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
+	if(T && check_dock(T))
+		return T
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	var/obj/docking_port/stationary/D

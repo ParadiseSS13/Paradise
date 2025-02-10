@@ -130,9 +130,9 @@
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
 
-/area/shuttle/transit
-	name = "Hyperspace"
-	desc = "Weeeeee"
-	// static_lighting = FALSE
-	// base_lighting_alpha = 255
-	there_can_be_many = TRUE
+/// Currently disabled as our shuttle system does not support TG-shuttle areas yet
+// /area/shuttle/transit
+// 	name = "Hyperspace"
+// 	desc = "Weeeeee"
+// 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+// 	there_can_be_many = TRUE
