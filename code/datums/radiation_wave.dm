@@ -3,28 +3,20 @@
 /datum/radiation_wave
 	/// The thing that spawned this radiation wave
 	var/source
-	/// The center of the wave
+	/// The top left corner of the wave, from which we begin iteration on a step
 	var/turf/master_turf
 	/// How far we've moved
 	var/steps = 0
-	/// How strong it was originaly
+	/// The strength at the origin. Multiplied by the weight of a tile to determine the strength of radiation there.
 	var/intensity
-	/// How much contaminated material it still has
-	var/remaining_contam
-	/// Higher than 1 makes it drop off faster, 0.5 makes it drop off half etc
-	var/range_modifier
-	/// The distance from the source point the wave can cover without losing any weight.
-	var/source_radius
 	/// The direction of movement
 	var/move_dir
 	/// The directions to the side of the wave, stored for easy looping
 	var/list/__dirs
-	/// Weights of the current tiles from left to right relative to the direction of travel
+	/// Weights of the current tiles in the step going clockwise from the top left corner. Starts as one tile with a weight of 1
 	var/list/weights = list(1)
 	/// Sum of all weights
 	var/weight_sum = 1
-	/// Whether or not this radiation wave can create contaminated objects
-	var/can_contaminate
 
 /datum/radiation_wave/New(atom/_source, _intensity = 0)
 

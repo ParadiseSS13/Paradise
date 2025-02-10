@@ -31,25 +31,100 @@
 				continue
 		processing_list += thing.contents
 
-/proc/radiation_pulse(atom/source, intensity, range_modifier, log = FALSE, can_contaminate = TRUE, source_radius = 0)
-	if(!SSradiation.can_fire)
-		return
-	new /datum/radiation_wave(source, intensity)
+/proc/get_rad_contamination_contents(atom/location, atom/source)
+	var/static/list/ignored_things = typecacheof(list(
+		/mob/camera,
+		/obj/effect,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+		/obj/item/projectile,
+	))
+	var/list/processing_list = list(location) + location.contents
+	. = list()
+	while(length(processing_list))
+		var/atom/thing = processing_list[1]
+		processing_list -= thing
+		if(thing && source && thing.UID() == source.UID())
+			continue
+		if(ignored_things[thing.type])
+			continue
+		if(thing.flags_2 & RAD_NO_CONTAMINATE_2)
+			continue
+		if(ishuman(thing) || ishuman(thing.loc))
+			var/mob/living/carbon/human/H = ishuman(thing) ? thing : thing.loc
+			var/obj/item/clothing/Cl = null
+			var/passed = TRUE
+			// Check if we hold the contamination source, have it in our pockets or in our belts or if it's inside us
+			if(H.UID() == location.UID())
+				// If it's in our hands check if it can permeate our gloves
+				if((source && (H.r_hand && H.r_hand.UID() == source.UID()) || (H.l_hand && H.l_hand.UID() == source.UID())))
+					if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
+						Cl = H.wear_suit
+						passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+					if(passed && isobj(H.gloves))
+						Cl = H.gloves
+						passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
 
-	var/list/things = get_rad_contents(source) //copypasta because I don't want to put special code in waves to handle their origin
+				// If it's in our pockets check against our jumpsuit only
+				else if((source && (H.l_store && H.l_store.UID() == source.UID()) || (H.r_store && H.r_store.UID() == source.UID())))
+					if(isobj(H.w_uniform))
+						Cl = H.w_uniform
+						passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+
+			// If it's on our belt check against both our outer layer and jumpsuit
+			if(location.loc.UID() == H.UID() && istype(location, /obj/item/storage/belt))
+				if(isobj(H.wear_suit))
+					Cl = H.wear_suit
+					passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+				if(passed && isobj(H.w_uniform))
+					Cl = H.w_uniform
+					passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+
+			// If on the floor check if it can permeate our shoes
+			if(istype(location, /turf/))
+				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&FEET)
+					Cl = H.wear_suit
+					passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+
+				if(passed && isobj(H.shoes))
+					Cl = H.shoes
+					passed = prob((Cl.permeability_coefficient*100) - 1) && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2)
+
+			// If it permeated contaminate both ourselves and the clothing, otherwise only the clothing, if it can be contaminated
+			if(Cl && !(Cl.flags_2 & RAD_NO_CONTAMINATE_2))
+				. += Cl
+			if(!passed)
+				continue
+		. += thing
+
+/proc/radiation_pulse(atom/source, intensity, log = FALSE)
+	if(!SSradiation.can_fire || intensity < RAD_BACKGROUND_RADIATION)
+		return
+	var/datum/radiation_wave/wave = new /datum/radiation_wave(source, intensity)
+
+	var/turf/start_turf = source
+
+	// Find the turf where we are
+	while(!istype(start_turf, /turf))
+		start_turf = start_turf.loc
+
+	var/list/things = get_rad_contents(start_turf) // Radiate the waves origin frist
+
 	for(var/k in 1 to length(things))
 		var/atom/thing = things[k]
-		if(!thing)
+		if(!thing || thing.UID() == source.UID())
 			continue
-		thing.rad_act(intensity)
+		wave.weight_sum = wave.weight_sum * thing.rad_act(intensity)
+	// We can do this because we are on one tile so we have one weight
+	wave.weights[1] = wave.weight_sum
 
 	var/static/last_huge_pulse = 0
-	if(intensity > 3000 && world.time > last_huge_pulse + 200)
+	if(intensity > 12000 && world.time > last_huge_pulse + 200)
 		last_huge_pulse = world.time
 		log = TRUE
 	if(log)
 		var/turf/_source_T = isturf(source) ? source : get_turf(source)
-		log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
+		log_game("Radiation pulse with intensity: [intensity] in [loc_name(_source_T)] ")
 	return TRUE
 
 /proc/get_rad_contamination(atom/location)
@@ -62,3 +137,10 @@
 		if(radiation && rad_strength < radiation.strength)
 			rad_strength = radiation.strength
 	return rad_strength
+
+/// Contaminate things that share our immediate location
+/proc/contaminate_adjacent(atom/source, intensity)
+	var/list/contamination_contents = get_rad_contamination_contents(source.loc, source)
+	for(var/atom/target in contamination_contents)
+		if(!(SEND_SIGNAL(target, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
+			target.AddComponent(/datum/component/radioactive, intensity, source)
