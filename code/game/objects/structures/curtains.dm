@@ -98,7 +98,7 @@
 		return
 	// TODO: turn back into assembly item
 	new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
-	playsound(loc, 'sound/effects/salute.ogg' , 75, 1)
+	playsound(loc, 'sound/effects/salute.ogg' , 75, TRUE)
 	qdel(src)
 
 /obj/structure/curtain/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
