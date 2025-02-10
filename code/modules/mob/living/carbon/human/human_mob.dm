@@ -758,8 +758,7 @@
 		MALF_STATUS_NONE,
 		MALF_STATUS_GREEN,
 		MALF_STATUS_RED,
-		MALF_STATUS_TERTIARY,
-		MALF_STATUS_SKULL,
+		MALF_STATUS_AVOID,
 	)
 
 	var/new_status = tgui_input_list(user, "What status shall we give [targetname]?", "MALF Status", possible_status)

@@ -240,8 +240,6 @@
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 
-
-
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
 	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
@@ -521,6 +519,10 @@
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
 		return //wait till the game starts or the monkeys runtime
+	to_chat(world,"DEBIG: Found newstatus of: [new_status]")
+	if(!new_status)
+		new_status = find_record("ai_target", targetname, GLOB.data_core.general)
+		to_chat(world, " DEBUG: found record for [targetname]: [new_status]")
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)
@@ -529,16 +531,13 @@
 					holder.icon_state = ""
 					return
 				if(MALF_STATUS_GREEN)
-					holder.icon_state = "hud_malf_green"
+					holder.icon_state = "malf_hud_green"
 					return
 				if(MALF_STATUS_RED)
-					holder.icon_state = "hud_malf_red"
+					holder.icon_state = "malf_hud_red"
 					return
-				if(MALF_STATUS_TERTIARY)
-					holder.icon_state = "hud_malf_tertiary"
-					return
-				if(MALF_STATUS_SKULL)
-					holder.icon_state = "hud_malf_skull"
+				if(MALF_STATUS_AVOID)
+					holder.icon_state = "malf_hud_avoid"
 					return
 	holder.icon_state = ""
 

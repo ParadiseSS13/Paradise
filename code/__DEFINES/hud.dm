@@ -81,10 +81,9 @@
 #define EXAMINE_HUD_MALF_WRITE "malf_write"
 #define EXAMINE_HUD_MALF_READ "malf_read"
 #define MALF_STATUS_NONE "NULL"
-#define MALF_STATUS_GREEN "POSITIVE"
-#define MALF_STATUS_RED "NEGATIVE"
-#define MALF_STATUS_TERTIARY "TERTIARY"
-#define MALF_STATUS_SKULL "ELIMINATE"
+#define MALF_STATUS_GREEN "ASSIST"
+#define MALF_STATUS_RED "ELIMINATE"
+#define MALF_STATUS_AVOID "AVOID"
 
 /proc/ui_hand_position(i)
 	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
