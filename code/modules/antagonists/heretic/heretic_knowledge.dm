@@ -261,6 +261,15 @@
 	our_heretic.heretic_path = GLOB.heretic_research_tree[type][HKT_ROUTE]
 	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path)
 
+
+/datum/heretic_knowledge/limited_amount/starting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	var/datum/status_effect/broken_blade/BB = user.has_status_effect(/datum/status_effect/broken_blade)
+	var/datum/antagonist/heretic/ascend_check = IS_HERETIC(user)
+	if(!BB || ascend_check.ascended)
+		return TRUE
+	to_chat(user, "<span class='hierophant_warning'>The ritual has failed, you are unable to loan a blade from the mansus for another [round((BB.duration - world.time)/10, 1)] seconds!</span>")
+	return FALSE
+
 /**
  * A knowledge subtype for heretic knowledge
  * that applies a mark on use.

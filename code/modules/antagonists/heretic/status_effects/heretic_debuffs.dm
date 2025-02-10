@@ -255,3 +255,21 @@
 /obj/effect/temp_visual/curse/Initialize(mapload)
 	. = ..()
 	deltimer(timerid)
+
+/datum/status_effect/broken_blade
+	id = "broken_blade"
+	duration = 150 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/broken_blade
+	status_type = STATUS_EFFECT_REPLACE
+	show_duration = TRUE
+
+/datum/status_effect/broken_blade/on_creation(mob/living/new_owner, new_icon_state)
+	. = ..()
+	linked_alert.icon_state = new_icon_state
+
+/atom/movable/screen/alert/status_effect/broken_blade
+	name = "Broken Blade"
+	desc = "You have broken one of the blades of the Mansus. They will not loan you another for a while."
+	icon = 'icons/obj/weapons/khopesh.dmi'
+	icon_state = "eldritch_blade"
+

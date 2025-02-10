@@ -57,11 +57,13 @@
 		playsound(src, "shatter", 70, TRUE)
 		qdel(src)
 		return
-	if(check_usability(user))
-		if(do_teleport(user, safe_turf))
-			to_chat(user, "<span class='warning'>As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]</span>")
+	if(check_usability(user) || isliving(user))
+		var/mob/living/living_user = user
+		living_user.apply_status_effect(/datum/status_effect/broken_blade, icon_state)
+		if(do_teleport(living_user, safe_turf))
+			to_chat(living_user, "<span class='warning'>As you shatter [src], you feel a gust of energy flow through your body. [after_use_message]</span>")
 		else
-			to_chat(user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
+			to_chat(living_user, "<span class='warning'>You shatter [src], but your plea goes unanswered.</span>")
 	else
 		to_chat(user,"<span class='warning'>You shatter [src].</span>")
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
