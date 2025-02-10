@@ -2023,6 +2023,10 @@
 "ave" = (
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"avi" = (
+/obj/structure/sign/poster/official/random,
+/turf/simulated/wall,
+/area/station/public/dorms)
 "avk" = (
 /obj/item/cigbutt/roach,
 /turf/simulated/floor/plating,
@@ -15260,6 +15264,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/hallway/spacebridge/security/south)
+"dbV" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "dbY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
@@ -22640,6 +22650,7 @@
 /area/station/service/bar)
 "eBG" = (
 /obj/structure/chair/sofa,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "eBM" = (
@@ -27688,6 +27699,9 @@
 /obj/item/kirbyplants/large,
 /obj/machinery/status_display{
 	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -53512,18 +53526,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office)
-"kGm" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/public/dorms)
 "kGu" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -62078,6 +62080,10 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/assistant,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -97196,9 +97202,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "tlu" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -97419,9 +97423,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 28
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -103996,6 +104000,13 @@
 	icon_state = "cult"
 	},
 /area/station/legal/lawoffice)
+"uDE" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "uDO" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -150019,7 +150030,7 @@ giS
 giS
 onz
 rpb
-eUn
+tlu
 eUn
 eUn
 qDZ
@@ -150263,7 +150274,7 @@ vIv
 uJr
 nXW
 tyb
-bvA
+dbV
 njj
 kgg
 kgg
@@ -154402,7 +154413,7 @@ bQA
 vAZ
 vAZ
 vAZ
-vAZ
+avi
 vAZ
 obO
 rxd
@@ -154647,7 +154658,7 @@ eUn
 uIz
 eUn
 tfk
-eUn
+tlu
 xzA
 eEe
 vfx
@@ -154656,7 +154667,7 @@ eUn
 eUn
 eUn
 neS
-tlu
+eUn
 xjx
 tfk
 eUn
@@ -155399,7 +155410,7 @@ vAZ
 vAZ
 vAZ
 vAZ
-kGm
+dbV
 xoK
 nuI
 eOw
@@ -158744,7 +158755,7 @@ rjc
 vAZ
 xCR
 urb
-sRm
+uDE
 tZO
 tZO
 xYm
