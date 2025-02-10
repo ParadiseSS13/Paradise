@@ -468,13 +468,14 @@
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
 	drawing_power = FALSE
-	if(!can_safely_charge)
-		if(H.bodytemperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-			H.fire_stacks += 10
-			H.IgniteMob()
-			var/datum/organ/battery/microbattery = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
-			microbattery.linked_organ.receive_damage(H.bodytemperature / 50)
-			H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='warning'>Something inside you combusts!</span>")
+	if(can_safely_charge)
+		return
+	if(H.bodytemperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+		H.fire_stacks += 10
+		H.IgniteMob()
+		var/datum/organ/battery/microbattery = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
+		microbattery.linked_organ.receive_damage(H.bodytemperature / 50)
+		H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='warning'>Something inside you combusts!</span>")
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"
