@@ -96,7 +96,7 @@
 /mob/camera/eye/set_loc(T)
 	if(user)
 		T = get_turf(T)
-		..(T)
+		loc = T
 		update_visibility()
 		refresh_visible_icon()
 
