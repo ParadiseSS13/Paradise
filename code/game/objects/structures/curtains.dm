@@ -184,11 +184,11 @@
 		return
 	if(assembled)
 		WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-		if(I.use_tool(src,user,50,volume = I.tool_volume))
+		if(I.use_tool(src,user, 5 SECONDS, volume = I.tool_volume))
 			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc,1)
+			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc, 1)
 			new_assembly.assembled = TRUE
-			var/obj/item/stack/sheet/cloth/dropped_cloth = new /obj/item/stack/sheet/cloth(loc,2)
+			var/obj/item/stack/sheet/cloth/dropped_cloth = new /obj/item/stack/sheet/cloth(loc, 2)
 			qdel(src)
 			return
 		return
