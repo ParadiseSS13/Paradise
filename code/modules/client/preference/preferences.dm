@@ -207,6 +207,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
 			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
+			if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+				dat += "<b>Species Sub-Type:</b> <a href='byond://?_src_=prefs;preference=species_subtype;task=input'>[active_character.species_subtype]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
