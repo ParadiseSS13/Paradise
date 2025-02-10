@@ -19,8 +19,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette
 	name = "cigarette"
 	desc = "A roll of tobacco and nicotine."
-	icon_state = "cigoff"
-	item_state = "cigoff"
+	icon = 'icons/obj/clothing/smoking.dmi'
+	icon_state = "cig_off"
+	item_state = "cig_off"
 	throw_speed = 0.5
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
@@ -30,13 +31,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	/// Is the cigarette lit?
 	var/lit = FALSE
 	/// Lit cigarette sprite.
-	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
+	var/icon_on = "cig_on"  //Note - these are in smoking.dmi not in cigarette.dmi
 	/// Unlit cigarette sprite.
-	var/icon_off = "cigoff"
+	var/icon_off = "cig_off"
 	/// Do we require special items to be lit?
 	var/list/fancy_lighters = list()
 	/// What trash item the cigarette makes when it burns out.
-	var/type_butt = /obj/item/cigbutt
+	var/butt_type = /obj/item/cigbutt
 	/// How long does the cigarette last before going out? Decrements by 1 every cycle.
 	var/smoketime = 150 // 300 seconds.
 	/// The cigarette's total reagent capacity.
@@ -284,7 +285,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
 	set_light(0)
-	var/obj/item/butt = new type_butt(T)
+	var/obj/item/butt = new butt_type(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
@@ -314,16 +315,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "candy cigarette"
 	desc = "A stick of candy imitating a real cigarette. The words 'do not expose to heat' are written in very small letters around the base."
 
-/obj/item/clothing/mask/cigarette/candy/pre_attack(atom/A, mob/living/user, params)
-	if(!ishuman(target))
-		return . = ..()
+/obj/item/clothing/mask/cigarette/candy/interact_with_atom(atom/A, mob/living/user, list/modifiers)
+	if(..())
+		return
 
+	if(!ishuman(A))
+		return
+
+	var/mob/living/carbon/human/target = A
 	if(target != user)
-		user.visible_message("<span_class = 'notice'>You begin to feed [target] [src].</span>"
+		user.visible_message(
+			"<span_class = 'notice'>You begin to feed [target] [src].</span>",
 			"<span_class = 'warning'>[user] begins to feed [target] [src]!</span>"
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
-			return COMPONENT_CANCEL_ATTACK_CHAIN
+			return ITEM_INTERACT_COMPLETE
 	
 	else
 		to_chat(user, "<span_class = 'notice'>You eat [src].</span>")
@@ -332,17 +338,24 @@ LIGHTERS ARE IN LIGHTERS.DM
 	target.adjust_nutrition(5)
 	target.reagents.add_reagent("sugar", 5)
 
-	return COMPONENT_CANCEL_ATTACK_CHAIN
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/cigarette/syndicate
 	name = "suspicious cigarette"
 	desc = "An evil-looking cigarette. It smells of donk pockets."
+	icon_state = "syndie_cig_off"
+	icon_off = "syndie_cig_off"
+	icon_on = "sindie_cig_on"
+	butt_type = /obj/item/cigbutt/syndie
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	name = "medical marijuana cigarette"
-	desc = "A cigarette containing cannabis that has been cultivated to maximise CBD content and minimise THC. For use as a medical product."
-	list_reagents = list("thc" = 20, "cbd" = 40)
+	desc = "A cigarette containing cannabis that has been engineered to only contain CBD, for medical use. The lack of THC makes it legal under Space Law."
+	icon_state = "medical_weed_cig_off"
+	icon_off = "medical_weed_cig_off"
+	icon_on = "medical_weed_cig_on"
+	list_reagents = list("cbd" = 60)
 
 /obj/item/clothing/mask/cigarette/robustgold
 	name = "\improper Robust Gold cigarette"
@@ -355,12 +368,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
 	desc = "A roll of dried plant matter wrapped in thin paper."
-	icon_state = "spliffoff"
-	icon_on = "spliffon"
-	icon_off = "spliffoff"
-	type_butt = /obj/item/cigbutt/roach
+	icon_state = "spliff_off"
+	icon_off = "spliff_off"
+	icon_on = "spliff_on"
+	butt_type = /obj/item/cigbutt/roach
 	throw_speed = 0.5
-	item_state = "spliffoff"
+	item_state = "spliff_off"
 	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
@@ -372,11 +385,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/cigbutt
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "cigbutt"
+	icon = 'icons/obj/clothing/smoking.dmi'
+	icon_state = "cig_butt"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 	scatter_distance = 10
+
+/obj/item/cigbutt/syndie
+	name = "suspicious cigarette butt"
+	desc = "A manky old cigarette butt with an evil look about it."
+	icon = 'icons/obj/clothing/smoking.dmi'
+	icon_state = "syndie_cig_butt"
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
@@ -441,46 +460,62 @@ LIGHTERS ARE IN LIGHTERS.DM
 //////////////////////////////
 /obj/item/clothing/mask/cigarette/cigar
 	name = "\improper Nano Cigar"
-	desc = "A huge, brown roll of dried and fermented tobacco, manufactured by Nanotrasen's Robust Tobacco subsidiary. \
-	Don't let the advertising fool you, this thing is a bargain basement, bottom-of-the-barrel product and the smoking experience it offers is little better than an oversized Robust cigarette. \
-	It still makes you look like a mafia boss, however."
-	icon_state = "cigaroff"
-	item_state = "cigaroff"
-	icon_on = "cigaron"
-	icon_off = "cigaroff"
+	desc = "A huge, brown roll of dried and fermented tobacco, manufactured by Nanotrasen's Robust Tobacco subsidiary."
+	icon_state = "cigar_off"
+	item_state = "cigar_off"
+	icon_on = "cigar_on"
+	icon_off = "cigar_off"
 	throw_speed = 0.5
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
-	type_butt = /obj/item/cigbutt/cigarbutt
+	butt_type = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
 	chem_volume = 120
 	list_reagents = list("nicotine" = 120)
 
+/obj/item/clothing/mask/cigarette/cigar/examine_more(mob/user)
+	. = ..()
+	. += "	Don't let the advertising fool you, this thing is a bargain basement, bottom-of-the-barrel product and the smoking experience it offers is little better than an oversized Robust cigarette."
+	. += ""
+	. += "It still makes you look like a mafia boss, however."
+
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "\improper Cohiba Robusto Cigar"
-	desc = "A premium brand of cigar widely exported and enjoyed across the Orion Sector. \
-	Lovingly machine rolled using carefully selected strains of tobacco grown in massive hydroponics warehouses in orbit around the death world of Venus, Sol. \
-	It goes through a range of carefully selected flavours as it is smoked, providing a novel and enjoyable experience throughout. There's little more that you could want from a cigar"
-	icon_state = "cigar2off"
-	icon_on = "cigar2on"
-	icon_off = "cigar2off"
+	desc = "A premium brand of cigar widely exported and enjoyed across the Orion Sector. There's little more that you could want from a cigar"
+
+	icon_state = "gold_cigar_off"
+	icon_on = "gold_cigar_on"
+	icon_off = "gold_cigar_off"
+
+/obj/item/clothing/mask/cigarette/cigar/cohiba/examine_more(mob/user)
+	..()
+	. = list()
+	. += "Lovingly machine rolled using carefully selected strains of tobacco grown in massive hydroponics warehouses in orbit around the death world of Venus, Sol. \
+	It goes through a range of carefully selected flavours as it is smoked, providing a novel and enjoyable experience throughout."
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "\improper Premium Havanian Cigar"
-	desc = "One of a handful of brands made using tobacco grown in Cuba on Earth, the core of the Trans-Solar Federation. \
-	Each of these hand-rolled cigars is carefully put together by master cigar rollers using various strains of tobacco that has been cultivated for hundreds of years to ensure \
-	the best consistency and flavour possible. Due to a mixture of limited manufacturing capacity, high quality, brand prestige, and export taxes, \
-	these cigars are too expensive for all but the most wealthy to smoke with any degree of regularity. Only fit for the best of the best."
-	icon_state = "cigar2off"
-	icon_on = "cigar2on"
-	icon_off = "cigar2off"
+	desc = "A luxury cigar only fit for the best of the best."
+	icon_state = "gold_cigar_off"
+	icon_on = "gold_cigar_on"
+	icon_off = "gold_cigar_off"
 	smoketime = 450
 	chem_volume = 180
 	list_reagents = list("nicotine" = 180)
 
+/obj/item/clothing/mask/cigarette/cigar/havana/examine_more(mob/user)
+	..()
+	. = list()
+	. += "One of a handful of brands made using tobacco grown in Cuba on Earth, the core of the Trans-Solar Federation. \
+	Each of these hand-rolled cigars is carefully put together by master cigar rollers using various strains of tobacco that has been cultivated for hundreds of years to ensure \
+	the best consistency and flavour possible."
+	. += ""
+	. += "Due to a mixture of limited manufacturing capacity, high quality, brand prestige, and export taxes, \
+	these cigars are too expensive for all but the most wealthy to smoke with any degree of regularity."
+
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
 	desc = "A manky old cigar butt."
-	icon_state = "cigarbutt"
+	icon_state = "cigar_butt"
 
 //////////////////////////////
 // MARK: HOLO-CIGAR
@@ -488,7 +523,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
 	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
-	icon_state = "holocigaroff"
+	icon_state = "holo_cigar_on"
 	/// Is the holo-cigar lit?
 	var/enabled = FALSE
 	/// Tracks if this is the first cycle smoking the cigar.
@@ -500,7 +535,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/update_icon_state()
 	. = ..()
-	icon_state = "holocigar[enabled ? "on" : "off"]"
+	icon_state = "holo_cigar_[enabled ? "on" : "off"]"
 
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
 	. = ..()
@@ -556,10 +591,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe
 	name = "smoking pipe"
 	desc = "A pipe, for smoking. Probably made of meershaum or something."
-	icon_state = "pipeoff"
-	item_state = "pipeoff"
-	icon_on = "pipeon"  //Note - these are in masks.dmi
-	icon_off = "pipeoff"
+	icon_state = "pipe_off"
+	item_state = "pipe_off"
+	icon_on = "pipe_on"  //Note - these are in masks.dmi
+	icon_off = "pipe_off"
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	smoketime = 500
 	chem_volume = 200
@@ -626,10 +661,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters."
-	icon_state = "cobpipeoff"
-	item_state = "cobpipeoff"
-	icon_on = "cobpipeon"  //Note - these are in masks.dmi
-	icon_off = "cobpipeoff"
+	icon_state = "cob_pipe_off"
+	item_state = "cob_pipe_off"
+	icon_on = "cob_pipe_on" 
+	icon_off = "cob_pipe_off"
 	smoketime = 0 //there is nothing to smoke initially
 	chem_volume = 160
 	list_reagents = list()

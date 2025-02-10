@@ -7561,14 +7561,25 @@
 	id = "ADMINLOCKDOWN";
 	name = "Lockdown"
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 11;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AL" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes/syndicate,
-/obj/item/reagent_containers/drinks/cans/adminbooze,
-/obj/item/reagent_containers/drinks/cans/badminbrew,
-/obj/item/reagent_containers/drinks/cans/madminmalt,
+/obj/item/reagent_containers/drinks/cans/adminbooze{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/drinks/cans/madminmalt{
+	pixel_y = 8;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/drinks/cans/badminbrew{
+	pixel_x = -9;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AM" = (
