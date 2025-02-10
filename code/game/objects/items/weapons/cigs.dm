@@ -99,7 +99,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		// If the target has no cig, try to give them the cig.
 		var/mob/living/carbon/M = target
 		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
-			user.unEquip(src, TRUE)
+			user.drop_item_to_ground(src, force = TRUE)
 			M.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
 			if(target != user)
 				user.visible_message(
@@ -208,7 +208,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
 		e.start()
 		if(ismob(M))
-			M.unEquip(src, TRUE)
+			M.drop_item_to_ground(src, force = TRUE)
 		qdel(src)
 		return
 
@@ -218,7 +218,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 		e.start()
 		if(ismob(M))
-			M.unEquip(src, TRUE)
+			M.drop_item_to_ground(src, force = TRUE)
 		qdel(src)
 		return
 
@@ -290,7 +290,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-		M.unEquip(src, TRUE)		//Force the un-equip so the overlays update
+		M.drop_item_to_ground(src, force = TRUE)		//Force the un-equip so the overlays update
+		butt.slot_flags |= ITEM_SLOT_MASK // Temporarily allow it to go on masks
+		M.equip_to_slot_if_possible(butt, ITEM_SLOT_MASK)
+		butt.slot_flags &= ~ITEM_SLOT_MASK
+
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
@@ -441,8 +445,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 		return
 
-	user.unEquip(plant, TRUE)
-	user.unEquip(src, TRUE)
+	user.unequip(plant, TRUE)
+	user.unequip(src, TRUE)
 	var/obj/item/clothing/mask/cigarette/rollie/custom/custom_rollie = new (get_turf(user))
 	custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
 	plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)

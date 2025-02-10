@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -409,7 +409,7 @@
 			to_chat(user, "The headset can't hold another key!")
 			return
 
-		if(!user.unEquip(key))
+		if(!user.drop_item_to_ground(key))
 			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 

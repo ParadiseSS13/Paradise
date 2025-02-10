@@ -7,6 +7,8 @@
 	layer = MOB_LAYER - 0.1
 	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
+	light_power = 0.5
+	light_color = "#f3ffbb"
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE
@@ -163,13 +165,13 @@
 			lost_target = FALSE
 		last_target_location = get_turf(target)
 		var/dist = get_dist(src, target)
-		walk_to(src, target, 1, 4)
+		GLOB.move_manager.move_to(src, target, 1, 4)
 		if(get_dist(src, target) >= dist)
 			frustration++
 		return
 
 	if(!lost_target)
-		walk_to(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		lost_target = TRUE
 		frustration = 0
 

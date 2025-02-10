@@ -175,7 +175,7 @@
 /obj/item/food/grown/shell/attack_self__legacy__attackchain(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
-	user.unEquip(src)
+	user.unequip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)

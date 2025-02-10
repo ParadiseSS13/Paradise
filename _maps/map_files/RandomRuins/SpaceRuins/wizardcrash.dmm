@@ -315,6 +315,7 @@
 /area/ruin/space/powered)
 "bk" = (
 /obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -396,6 +397,7 @@
 /area/ruin/space/powered)
 "bz" = (
 /mob/living/simple_animal/hostile/mimic/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bA" = (
@@ -488,6 +490,10 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"EZ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "YM" = (
 /obj/structure/table/wood,
 /obj/item/blank_tarot_card,
@@ -577,7 +583,7 @@ aa
 bH
 ae
 aY
-aS
+EZ
 bl
 bq
 ae
