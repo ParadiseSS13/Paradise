@@ -30,12 +30,11 @@
 		return ..()
 
 /obj/item/nuke_core/process()
+	contaminate_adjacent(src, 100)
 	if(cooldown < world.time - 6 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
 		radiation_pulse(src, 1600)
-		contaminate_adjacent(src, 200)
-
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

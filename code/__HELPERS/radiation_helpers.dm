@@ -41,7 +41,8 @@
 	))
 	var/list/processing_list = list(location)
 	// We want to select which clothes and items we contaminate depending on where on the human we are. We assume we are in some form of storage or on the floor otherwise.
-	if(!ishuman(location))
+	// If the source is a human(like a uranium golem) we just attempt to contaminate all our contents
+	if(!ishuman(location) || ishuman(source))
 		processing_list += location.contents
 	. = list()
 	for(var/atom/thing in processing_list)
@@ -53,47 +54,33 @@
 			continue
 		if(ishuman(thing) || ishuman(thing.loc))
 			var/mob/living/carbon/human/target_mob = ishuman(thing) ? thing : thing.loc
-			var/obj/item/clothing/garment
 			var/passed = TRUE
+			var/zone
+			var/pocket = FALSE
 			// Check if we hold the contamination source, have it in our pockets or in our belts or if it's inside us
 			if(target_mob.UID() == location.UID())
 				// If it's in our hands check if it can permeate our gloves
 				if((source && (target_mob.r_hand && target_mob.r_hand.UID() == source.UID()) || (target_mob.l_hand && target_mob.l_hand.UID() == source.UID())))
-					if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&HANDS)
-						garment = target_mob.wear_suit
-						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-					if(passed && isobj(target_mob.gloves))
-						garment = target_mob.gloves
-						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+					zone = HANDS
 
 				// If it's in our pockets check against our jumpsuit only
-				else if((source && (target_mob.l_store && target_mob.l_store.UID() == source.UID()) || (target_mob.r_store && target_mob.r_store.UID() == source.UID())))
-					if(isobj(target_mob.w_uniform))
-						garment = target_mob.w_uniform
-						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+				else if(target_mob.l_store?.UID() == source?.UID() || target_mob?.r_store.UID() == source?.UID())
+					zone = LOWER_TORSO
+					pocket = TRUE
 
 			// If it's on our belt check against both our outer layer and jumpsuit
 			if(location.loc.UID() == target_mob.UID() && istype(location, /obj/item/storage/belt))
-				if(isobj(target_mob.wear_suit))
-					garment = target_mob.wear_suit
-					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-				if(passed && isobj(target_mob.w_uniform))
-					garment = target_mob.w_uniform
-					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+				zone = LOWER_TORSO
 
 			// If on the floor check if it can permeate our shoes
 			if(istype(location, /turf/))
-				if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&FEET)
-					garment = target_mob.wear_suit
-					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+				zone = FEET
 
-				if(passed && isobj(target_mob.shoes))
-					garment = target_mob.shoes
-					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-
-			// If it permeated contaminate both ourselves and the clothing, otherwise only the clothing, unless it can't be contaminated
-			if(garment && !(garment.flags_2 & RAD_NO_CONTAMINATE_2))
-				. += garment
+			// zone being unchanged here means the item is inside the mob
+			var/list/results = target_mob.rad_contaminate_zone(zone, pocket)
+			passed = results[1]
+			results -= results[1]
+			. += results
 			if(!passed)
 				continue
 		. += thing
@@ -117,9 +104,22 @@
 			continue
 		if(thing.flags_2 & RAD_NO_CONTAMINATE_2)
 			continue
-		/// If it's a human contaminate their clothes as well
+		/// If it's a human check for rad protection on all areas
 		if(ishuman(thing))
-			processing_list += thing.contents
+			var/mob/living/carbon/human/target_mob = thing
+			var/zone = 0
+			var/list/results = list()
+			var/list/contaminate = list()
+			var/passed = TRUE
+			for(var/i = 0, i < 10, i++)
+				zone = (1<<zone)
+				results = target_mob.rad_contaminate_zone(zone)
+				passed = results[1]
+				results -= results[1]
+				contaminate += results
+			. += contaminate
+			if(!passed)
+				continue
 		. += thing
 
 
@@ -180,22 +180,6 @@
 
 /// Contaminate something that is hitting, picking up or otherwise touching the source(single instance)
 /proc/contaminate_touch(atom/target, atom/source, intensity)
-	if(ishuman(target))
-		var/obj/item/clothing/garment
-		var/mob/living/carbon/human/target_mob = target
-		var/passed = TRUE
-		if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&HANDS)
-			garment = target_mob.wear_suit
-			passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-		if(passed && isobj(target_mob.gloves))
-			garment = target_mob.gloves
-			passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-
-		if(garment && !(garment.flags_2 & RAD_NO_CONTAMINATE_2))
-			garment.AddComponent(/datum/component/radioactive, intensity, source)
-		if(passed)
-			target_mob.AddComponent(/datum/component/radioactive, intensity, source)
+	if(target.flags_2 & RAD_NO_CONTAMINATE_2)
 		return
-
 	target.AddComponent(/datum/component/radioactive, intensity, source)
-

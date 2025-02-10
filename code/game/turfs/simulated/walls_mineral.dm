@@ -84,6 +84,7 @@
 			active = FALSE
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
+	contaminate_touch(user, src, 100)
 	radiate()
 	..()
 

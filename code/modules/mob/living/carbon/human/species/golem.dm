@@ -343,6 +343,7 @@
 	special_names = list("Oxide", "Rod", "Meltdown")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
+	contaminate_adjacent(H, 40)
 	radiation_pulse(H, 80)
 	..()
 

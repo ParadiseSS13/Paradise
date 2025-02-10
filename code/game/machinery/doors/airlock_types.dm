@@ -170,6 +170,13 @@
 /obj/machinery/door/airlock/uranium/proc/radiate()
 	radiation_pulse(get_turf(src), 600)
 
+/obj/machinery/door/airlock/uranium/attack_hand(mob/user)
+	. = ..()
+	contaminate_touch(user, src, 100)
+
+/obj/machinery/door/airlock/uranium/Bumped(atom/movable/AM)
+	. = ..()
+	contaminate_touch(AM, src, 100)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
