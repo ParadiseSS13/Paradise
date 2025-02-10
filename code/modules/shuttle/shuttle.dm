@@ -915,6 +915,8 @@
 	id = "freegolem"
 	name = "Free Golem Ship"
 	width = 16
+	preferred_direction = WEST
+	port_direction = SOUTH
 
 /obj/docking_port/mobile/whiteship
 	dir = 8
@@ -923,6 +925,8 @@
 	dwidth = 6
 	height = 19
 	width = 12
+	preferred_direction = WEST
+	port_direction = SOUTH
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
