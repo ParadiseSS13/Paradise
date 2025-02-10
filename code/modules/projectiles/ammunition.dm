@@ -266,12 +266,6 @@
 		var/value = max(materials_per * num_ammo, 500) //Enforce a minimum of 500 units even if empty.
 		materials[M] = value
 
-/obj/item/ammo_box/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user) && !length(stored_ammo))
-		qdel(src)
-		return TRUE
-	return FALSE
-
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
 	return length(stored_ammo)
