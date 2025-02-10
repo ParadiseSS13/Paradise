@@ -217,7 +217,7 @@
 /atom/movable/proc/set_loc(T, teleported=0)
 	var/old_loc = loc
 	loc = T
-	Moved(old_loc, get_dir(old_loc, loc))
+	Moved(old_loc, get_dir(old_loc, loc), null, null, FALSE)
 
 
 /**
