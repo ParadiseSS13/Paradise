@@ -50,7 +50,7 @@
 		return
 	var/on_wall = get_turf(target)
 	to_chat(user, "You begin attaching [src] to the [on_wall].")
-	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 30, target = on_wall))
 		return
 	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(on_wall)
