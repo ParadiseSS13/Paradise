@@ -64,7 +64,7 @@
 
 /obj/item/mounted/curtain/curtain_fixture/activate_self(mob/user)
 	. = ..()
-	to_chat(user, "You begin attaching [src] to the ceiling.")
+	to_chat(user, "<span class='notice'>You begin attaching [src] to the ceiling.</span>")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 30, target = get_turf(user)))
 		return
