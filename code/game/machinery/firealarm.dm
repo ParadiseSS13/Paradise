@@ -137,7 +137,7 @@ FIRE ALARM
 			return ITEM_INTERACT_COMPLETE
 
 		buildstage = FIRE_ALARM_READY
-		playsound(get_turf(src), used.usesound, 50, 1)
+		playsound(get_turf(src), used.usesound, 50, TRUE)
 		to_chat(user, "<span class='notice'>You wire [src]!</span>")
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
