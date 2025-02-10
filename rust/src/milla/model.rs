@@ -68,6 +68,23 @@ impl GasSet {
         self.values[GAS_AGENT_B] = value;
         self.dirty.store(true, Relaxed);
     }
+	pub(crate) fn hydrogen(&self) -> f32 {
+        self.values[GAS_HYDROGEN]
+    }
+
+    pub(crate) fn set_hydrogen(&mut self, value: f32) {
+        self.values[GAS_HYDROGEN] = value;
+        self.dirty.store(true, Relaxed);
+    }
+
+    pub(crate) fn water_vapor(&self) -> f32 {
+        self.values[GAS_WATER_VAPOR]
+    }
+
+    pub(crate) fn set_water_vapor(&mut self, value: f32) {
+        self.values[GAS_WATER_VAPOR] = value;
+        self.dirty.store(true, Relaxed);
+    }
     pub(crate) fn set_dirty(&mut self) {
         self.dirty.store(true, Relaxed);
     }

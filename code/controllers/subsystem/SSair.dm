@@ -692,6 +692,12 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
 
+/obj/effect/overlay/turf/hydrogen
+	icon_state = "hydrogen"
+
+/obj/effect/overlay/turf/water_vapor
+	icon_state = "water_vapor"
+
 /datum/controller/subsystem/air/proc/setup_overlays()
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
