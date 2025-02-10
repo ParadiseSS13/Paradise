@@ -58,7 +58,7 @@
 	new_curtain.fingerprintshidden = src.fingerprintshidden
 	new_curtain.fingerprintslast = src.fingerprintslast
 
-	user.visible_message("[user] attaches the [src] to the [on_wall].", \
+	user.visible_message("<span class='notice'>[user] attaches the [src] to the [on_wall].</span>", \
 		"You attach the [src] to the [on_wall].")
 	qdel(src)
 
