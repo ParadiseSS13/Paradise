@@ -935,11 +935,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
-"ajD" = (
-/mob/living/simple_animal/mouse,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fore)
 "ajE" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -12523,7 +12518,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -15538,10 +15532,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"bmA" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "bmB" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -15769,11 +15759,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard)
-"bng" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard2)
 "bnh" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/light/directional/north,
@@ -27438,13 +27423,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/maintenance/starboard)
-"cbb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "cbc" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
@@ -30341,11 +30319,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"clJ" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "clK" = (
 /obj/structure/closet,
 /obj/item/extinguisher,
@@ -37672,10 +37645,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
-"cOU" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "cOV" = (
 /obj/machinery/button/windowtint/south{
 	id = "CHAP2"
@@ -38015,7 +37984,6 @@
 "cQt" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small/directional/south,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cQu" = (
@@ -40301,10 +40269,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"dbH" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft)
 "dbI" = (
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
@@ -47343,10 +47307,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"gof" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "goq" = (
 /obj/structure/closet/secure_closet/hos,
 /obj/item/cartridge/detective,
@@ -48647,11 +48607,6 @@
 	icon_state = "white"
 	},
 /area/station/science/robotics)
-"gWz" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "gWE" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
@@ -50875,10 +50830,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
-"hYD" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "hYL" = (
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
@@ -51627,10 +51578,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"isf" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "isB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
@@ -68497,7 +68444,6 @@
 	},
 /area/station/security/interrogation)
 "qRm" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
@@ -69623,7 +69569,6 @@
 /area/station/security/armory)
 "ruY" = (
 /obj/machinery/light/small/directional/east,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "ruZ" = (
@@ -76863,7 +76808,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -79539,10 +79483,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
 /area/station/science/misc_lab)
-"wLB" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "wLY" = (
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
@@ -82515,10 +82455,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/atmos/distribution)
-"yiP" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fore)
 "yiU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -95340,7 +95276,7 @@ qCK
 aOB
 aOB
 adY
-bmA
+adY
 aOB
 aLF
 aML
@@ -99003,7 +98939,7 @@ cpD
 crG
 bZP
 clK
-gof
+crG
 crG
 bZP
 aaa
@@ -100778,7 +100714,7 @@ cdT
 cdT
 cdT
 cdT
-cOU
+bTY
 xOy
 aSM
 aSM
@@ -101501,7 +101437,7 @@ awh
 hka
 aKd
 adY
-bmA
+adY
 aOB
 bmK
 bgA
@@ -102110,7 +102046,7 @@ chy
 xxL
 eJG
 czw
-dbH
+chy
 bZU
 abq
 aaa
@@ -114587,7 +114523,7 @@ tNe
 tNe
 tNe
 aDY
-wLB
+alW
 cnV
 nVQ
 whf
@@ -115699,7 +115635,7 @@ rJq
 cwG
 cwG
 cwG
-bng
+kqi
 nUa
 kvG
 cwW
@@ -115892,7 +115828,7 @@ nSs
 acL
 aWv
 aFj
-yiP
+fpy
 bne
 ajg
 iGR
@@ -117756,7 +117692,7 @@ cwG
 cte
 aYL
 nUa
-bng
+kqi
 cmB
 cmB
 qub
@@ -118544,7 +118480,7 @@ flh
 xHr
 emj
 emj
-hYD
+emj
 cKJ
 cPc
 emj
@@ -120023,7 +119959,7 @@ aBI
 bNY
 aBI
 apL
-isf
+avA
 eiI
 aLl
 bdt
@@ -120758,7 +120694,7 @@ aaa
 aaa
 aaa
 ahH
-ajD
+oTt
 azu
 oWE
 air
@@ -120783,7 +120719,7 @@ gip
 tmM
 blB
 wYm
-cbb
+blB
 beF
 juq
 apV
@@ -121288,7 +121224,7 @@ air
 oWE
 iAS
 oyN
-gWz
+cxr
 hgU
 aLl
 fpk
@@ -122376,7 +122312,7 @@ cfL
 ciu
 ciH
 aRQ
-clJ
+aRQ
 biB
 bul
 clB
