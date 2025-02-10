@@ -275,7 +275,7 @@
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
-		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
+		atom_say("Внимание: обнаружен электромагнитный импульс. Встроенное экранирование предотвращает все возможные повреждения оборудования.")
 		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
 		next_emp_message = world.time + 5 SECONDS
 

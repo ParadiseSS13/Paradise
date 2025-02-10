@@ -118,10 +118,10 @@
 		return
 
 	if(!check_hub_connection())
-		atom_say("Error: Unable to detect hub.")
+		atom_say("Ошибка: Хаб не обнаружен.")
 		return
 	if(calibrating)
-		atom_say("Error: Calibration in progress. Stand by.")
+		atom_say("Ошибка: Выполняется калибровка. Ожидайте.")
 		return
 
 	. = TRUE
@@ -140,7 +140,7 @@
 			if(!advanced_beacon_locking)
 				var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
 				if(!isturf(tmpTarget))
-					atom_say("No valid targets available.")
+					atom_say("Отсутствуют доступные пункты назначения.")
 					return
 				target = tmpTarget
 			else
@@ -151,13 +151,13 @@
 				gate_helper()
 		if("calibrate")
 			if(!target)
-				atom_say("Error: No target set to calibrate to.")
+				atom_say("Ошибка: Отсутствует пункт назначения для калибровки.")
 				return
 			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-				atom_say("Hub is already calibrated.")
+				atom_say("Хаб уже откалиброван.")
 				return
 
-			atom_say("Processing hub calibration to target...")
+			atom_say("Калибровка хаба до пункта назначения...")
 			calibrating = TRUE
 			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 		if("advanced_beacon_locking")
@@ -179,9 +179,9 @@
 	calibrating = FALSE
 	if(check_hub_connection())
 		power_station.teleporter_hub.calibrated = TRUE
-		atom_say("Calibration complete.")
+		atom_say("Калибровка завершена.")
 	else
-		atom_say("Error: Unable to detect hub.")
+		atom_say("Ошибка: Хаб не обнаружен.")
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
