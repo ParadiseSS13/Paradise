@@ -434,7 +434,7 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
-	var/rad_per_cycle = 30
+	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())

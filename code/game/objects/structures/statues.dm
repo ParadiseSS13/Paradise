@@ -87,7 +87,7 @@
 	if(!active)
 		if(world.time > last_event + 1.5 SECONDS)
 			active = TRUE
-			radiation_pulse(src, 30)
+			radiation_pulse(src, 120)
 			last_event = world.time
 			active = FALSE
 

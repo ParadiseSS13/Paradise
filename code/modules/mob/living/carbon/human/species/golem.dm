@@ -343,7 +343,7 @@
 	special_names = list("Oxide", "Rod", "Meltdown")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 20)
+	radiation_pulse(H, 80)
 	..()
 
 //Ventcrawler

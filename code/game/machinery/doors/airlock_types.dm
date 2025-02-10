@@ -168,7 +168,7 @@
 	..()
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
+	radiation_pulse(get_turf(src), 600)
 
 
 /obj/machinery/door/airlock/uranium/glass

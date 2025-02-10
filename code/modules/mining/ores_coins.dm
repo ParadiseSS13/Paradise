@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	..()
 	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
-	radiation_pulse(src, 50)
+	radiation_pulse(src, 200)
 	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 
 /obj/item/coin/clown
