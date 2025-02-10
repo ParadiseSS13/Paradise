@@ -66,7 +66,7 @@
 	. = ..()
 	to_chat(user, "<span class='notice'>You begin attaching [src] to the ceiling.</span>")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
-	if(!do_after(user, 30, target = get_turf(user)))
+	if(!do_after(user, 3 SECONDS, target = get_turf(user)))
 		return
 	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(get_turf(user))
 	new_curtain.fingerprints = src.fingerprints
