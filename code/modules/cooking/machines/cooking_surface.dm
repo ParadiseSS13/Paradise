@@ -31,7 +31,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 	var/result = stop_watch(cook_stopwatch) SECONDS
 	#ifdef PCWJ_DEBUG
-	log_debug("cook_stopwatch=[cook_stopwatch] result=[result]")
+	log_debug("cook_stopwatch=[cook_stopwatch] result=[result] cooktime_cd=[cooktime_cd]")
 	#endif
 
 	container.set_cooker_data(src, result)
@@ -66,7 +66,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	parent.update_appearance(UPDATE_ICON)
 	return on
 
-/datum/cooking_surface/proc/cook_checkin()
+/datum/cooking_surface/proc/set_burn_ignite_callbacks()
 	if(placed_item)
 		var/burn_time = PCWJ_BURN_TIME_LOW
 		var/fire_time = PCWJ_IGNITE_TIME_LOW
@@ -89,7 +89,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 /datum/cooking_surface/proc/turn_on(mob/user)
 	on = TRUE
-	cook_checkin()
+	set_burn_ignite_callbacks()
 	reset_cooktime()
 	if(timer)
 		timer_act(user)
@@ -97,7 +97,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 /datum/cooking_surface/proc/turn_off(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
 	on = FALSE
-	kill_timers()
+	unset_callbacks()
 	cook_stopwatch = null
 	parent.update_appearance(UPDATE_ICON)
 
@@ -111,7 +111,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	if(istype(container) && container.handle_ignition())
 		parent.ignite()
 
-/datum/cooking_surface/proc/kill_timers()
+/datum/cooking_surface/proc/unset_callbacks()
 	COOLDOWN_RESET(src, cooktime_cd)
 	deltimer(burn_callback)
 	deltimer(fire_callback)

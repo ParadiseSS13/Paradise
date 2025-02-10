@@ -88,6 +88,15 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	update_appearance(UPDATE_ICON)
 	return ITEM_INTERACT_COMPLETE
 
+/obj/machinery/cooking/ShiftClick(mob/user, modifiers)
+	var/surface_idx = clickpos_to_surface(modifiers)
+	if(!surface_idx)
+		return ..()
+
+	var/datum/cooking_surface/burner = surfaces[surface_idx]
+	if(burner.placed_item)
+		return burner.placed_item.ShiftClick(user, modifiers)
+
 /// Ask the user to set the a cooking surfaces's temperature.
 /obj/machinery/cooking/AltShiftClick(mob/user, modifiers)
 	if(user.stat || user.restrained() || (!in_range(src, user)))
@@ -154,7 +163,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return
 
 	container.do_empty(user)
-	burner.kill_timers()
+	burner.unset_callbacks()
 
 /obj/machinery/cooking/proc/ignite()
 	new /obj/effect/fire(loc, T0C + 300, (roll("2d10+15") SECONDS), 1)

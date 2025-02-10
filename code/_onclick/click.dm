@@ -82,7 +82,7 @@
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		ShiftClickOn(A, modifiers)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A, modifiers)
@@ -351,10 +351,10 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(atom/A)
-	A.ShiftClick(src)
+/mob/proc/ShiftClickOn(atom/A, modifiers)
+	A.ShiftClick(src, modifiers)
 	return
-/atom/proc/ShiftClick(mob/user)
+/atom/proc/ShiftClick(mob/user, modifiers)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
