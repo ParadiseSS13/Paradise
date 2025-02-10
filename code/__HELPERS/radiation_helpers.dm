@@ -108,18 +108,21 @@
 		if(ishuman(thing))
 			var/mob/living/carbon/human/target_mob = thing
 			var/zone = 0
-			var/list/results = list()
 			var/list/contaminate = list()
+			var/list/results = list()
 			var/passed = TRUE
 			for(var/i = 0, i < 10, i++)
-				zone = (1<<zone)
+				zone = (1<<i)
 				results = target_mob.rad_contaminate_zone(zone)
-				passed = results[1]
+				passed = results[1] || passed
 				results -= results[1]
-				contaminate += results
-			. += contaminate
+				contaminate |= results
+			. |= contaminate
 			if(!passed)
 				continue
+			for(var/atom/human_content in target_mob.contents)
+				if(!istype(human_content, /obj/item/clothing))
+					. |= human_content
 		. += thing
 
 

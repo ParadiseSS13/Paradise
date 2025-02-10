@@ -857,11 +857,15 @@ emp_act
 	var/passed = TRUE
 	// items in our pocket are treated uniquely as they are outside of the mob but also under most of its clothing
 	if(pocket)
-		garments = list(src.w_uniform)
+		garments = list(w_uniform)
 	else
 		for(var/obj/item/clothing/garment in contents)
 			if(garment.body_parts_covered&zone_flag)
 				garments += garment
+	// If we have a suit push it to the start of the list
+	if(wear_suit)
+		garments -= wear_suit
+		garments = list(w_uniform) + garments
 
 	while(length(garments) && passed)
 		var/obj/item/clothing/garment = garments[1]
