@@ -110,7 +110,7 @@
 
 		var/obj/structure/curtain/new_curtain = new /obj/structure/curtain/(loc, 1)
 		new_curtain.assembled = TRUE
-		playsound(loc, used.drop_sound, 75, 1) // Play a generic cloth sound.
+		playsound(loc, used.drop_sound, 75, TRUE) // Play a generic cloth sound.
 		qdel(src)
 
 		return ITEM_INTERACT_COMPLETE
