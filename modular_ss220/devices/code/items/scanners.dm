@@ -1,9 +1,15 @@
+/obj/item/t_scanner
+	icon = 'modular_ss220/devices/icons/device.dmi'
+
+//исключаем изменение шахтерского сканера
+/obj/item/t_scanner/adv_mining_scanner
+	icon = 'icons/obj/device.dmi'
+
 // debug
 /obj/item/t_scanner/mod
 	name = "Модификация T-ray сканера"
 	desc = "Предмодифицированный сканер, который не должен был попасть в ваши руки. Отнесите его в ближайший научный отдел \
 	\nдля изучения кодерами."
-	icon = 'modular_ss220/devices/icons/device.dmi'
 	icon_state = "t-ray0"
 	origin_tech = "magnets=3;engineering=3"
 	var/scan_range = 3
@@ -47,7 +53,6 @@
 /obj/item/t_scanner/mod/security
 	name = "Специализированный био T-ray сканер"
 	desc = "Специализированный вариант T-ray сканера, используемый для обнаружения биологических объектов. Устройство уязвимо для ЭМИ излучения."
-	icon = 'modular_ss220/devices/icons/device.dmi'
 	lefthand_file = 'modular_ss220/devices/icons/inhands/items_lefthand.dmi'
 	righthand_file = 'modular_ss220/devices/icons/inhands/items_righthand.dmi'
 	item_state = "sb_t-ray"
