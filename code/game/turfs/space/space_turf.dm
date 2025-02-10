@@ -117,6 +117,8 @@
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 			return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
 	if((!(A) || !(src in A.locs)))

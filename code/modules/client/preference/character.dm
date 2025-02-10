@@ -37,6 +37,8 @@
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
+	/// Used for DNA species to allow select species to imitate / morph into different species.
+	var/species_subtype = "None"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
 	/// If a spawned cyborg should have an MMI, a positronic, or a robobrain. MMI by default
@@ -202,7 +204,8 @@
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
-					pda_ringtone=:pda_ringtone
+					pda_ringtone=:pda_ringtone,
+					species_subtype=:species_subtype
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -266,6 +269,7 @@
 						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
 						"pda_ringtone" = pda_ringtone,
+						"species_subtype" = species_subtype,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -306,7 +310,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, species_subtype)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -333,7 +337,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :species_subtype)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -397,7 +401,8 @@
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
-		"pda_ringtone" = pda_ringtone
+		"pda_ringtone" = pda_ringtone,
+		"species_subtype" = species_subtype
 	))
 
 	if(!query.warn_execute())
@@ -422,7 +427,6 @@
 	age = text2num(query.item[5])
 	species = query.item[6]
 	language = query.item[7]
-
 	h_colour = query.item[8]
 	h_sec_colour = query.item[9]
 	f_colour = query.item[10]
@@ -493,7 +497,7 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
-
+	species_subtype = query.item[62]
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	if(!SP)
@@ -506,6 +510,9 @@
 		SP = GLOB.all_species["Human"]
 		species = "Human"
 		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
+
+	if(isnull(species_subtype))
+		species_subtype = "None"
 
 	if(isnull(language))
 		language = "None"
@@ -830,53 +837,65 @@
 	//Icon-based species colour.
 	var/coloured_tail
 	if(current_species)
-		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			var/mob/living/carbon/human/fake/H = new
-			H.dna.species = current_species
+		var/mob/living/carbon/human/fake/H = new
+		H.dna.species = current_species
+		if(species_subtype != "None" && current_species.bodyflags & HAS_SPECIES_SUBTYPE)
+			var/datum/species/subtype_species = GLOB.all_species[species_subtype]
+			if(subtype_species) // Take certain attributes from our subtype to apply to our current species.
+				H.dna.species.updatespeciessubtype(H, subtype_species)
+				current_species = H.dna.species
+		else if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
-			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-
-			qdel(H)
-		else
-			icobase = current_species.icobase
+		icobase = current_species.icobase
+		qdel(H)
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
 	preview_icon = new /icon(icobase, "torso_[g]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	var/head = "head"
-	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
-
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
-		if(organ_data[name] == "amputated") continue
-		if(organ_data[name] == "cyborg")
+		if(organ_data[name] == "amputated")
+			continue
+		var/icon/bodypart = new /icon(icobase, "[name]")
+		if(name == "head") // Head nonsense.
+			var/head = "head"
+			if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
+				var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
+				if(H.icon_state)
+					head = H.icon_state
+			bodypart = new /icon(icobase, "[head]_[g]") // head_state _ gender
+		if(name in list("chest", "groin")) // Groin and Chest nonsense
+			if(name == "chest")
+				name = "torso"
+			bodypart = new /icon(icobase, "[name]_[g]") // groin/torso _ gender
+		if(organ_data[name] == "cyborg") // Robotic limbs.
 			var/datum/robolimb/R
 			if(rlimb_data[name]) R = GLOB.all_robolimbs[rlimb_data[name]]
 			if(!R) R = GLOB.basic_robolimb
 			if(name == "chest")
 				name = "torso"
-			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+			if(length(R.sprite_sheets) && R.sprite_sheets[current_species.sprite_sheet_name]) // Species specific augmented limbs
+				R.icon = R.sprite_sheets[current_species.sprite_sheet_name]
+			bodypart.Blend(new /icon(R.icon, "[name]"), ICON_OVERLAY)
+			preview_icon.Blend(bodypart, ICON_OVERLAY)
 			continue
-		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
-
-	// Skin color
-	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-		preview_icon.Blend(s_colour, ICON_ADD)
-
-	// Skin tone
-	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
-		if(s_tone >= 0)
-			preview_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+		if(istype(current_species, /datum/species/slime) && current_species.species_subtype != "None") // Applies to limbs that are not robotic.
+			bodypart.GrayScale()
+			bodypart.Blend("[s_colour]DC", ICON_AND) //DC = 220 alpha.
 		else
-			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			// Skin color
+			if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
+				bodypart.Blend(s_colour, ICON_ADD)
+			// Skin tone
+			if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
+				if(s_tone >= 0)
+					bodypart.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+				else
+					bodypart.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+		preview_icon.Blend(bodypart, ICON_OVERLAY)
 
 	// Body accessory
 	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
@@ -1831,6 +1850,11 @@
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
 	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
+	var/datum/species/subtype = GLOB.all_species[species_subtype]
+	if(!isnull(subtype))
+		character.dna.species.updatespeciessubtype(character, new subtype.type(), TRUE, FALSE)
+	else
+		character.species_subtype = "None"
 	if(be_random_name)
 		real_name = random_name(gender, species)
 

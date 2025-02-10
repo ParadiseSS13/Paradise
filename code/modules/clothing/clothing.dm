@@ -104,10 +104,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.name in species_restricted))
+				if(!(H.dna.species.sprite_sheet_name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.name in species_restricted)
+				if(H.dna.species.sprite_sheet_name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
@@ -300,7 +300,7 @@
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return
 
@@ -319,7 +319,7 @@
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	// If they walk away after the menu is already open.
-	if(!user.Adjacent(src))
+	if(!Adjacent(user) && !user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 		// If your hands get lopped off or cuffed after the menu is open.
@@ -608,10 +608,6 @@
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
 	update_action_buttons()
-
-// Changes the speech verb when wearing a mask if a value is returned
-/obj/item/clothing/mask/proc/change_speech_verb()
-	return
 
 //////////////////////////////
 // MARK: SHOES

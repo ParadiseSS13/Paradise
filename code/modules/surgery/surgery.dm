@@ -49,6 +49,14 @@
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 
+/**
+ * Create a new surgery.
+ *
+ * Arguments:
+ * * surgery_target - The atom the target is being performed on.
+ * * surgery_location - The body zone that the surgery is being performed on.
+ * * surgery_bodypart - The body part that the surgery is being performed on.
+ */
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -500,15 +508,15 @@
 	var/list/tools = list()
 	for(var/tool in allowed_tools)
 		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
-		if(tool in GLOB.surgery_tool_behaviors)
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
 			tools |= tool
 	if(!length(tools))
 		// if nothing else, just pick the first in the list.
 		var/atom/tool = allowed_tools[1]
-		tools |= tool.name
+		tools |= (ispath(tool)) ? tool::name : "[tool]"
 
 
-	return "[name] ([english_list(tools, and_text="or")])"
+	return "[name] ([english_list(tools, and_text=" or ")])"
 
 /**
  * Spread some nasty germs to an organ.

@@ -58,6 +58,9 @@
 	))
 
 /datum/component/scope/process()
+	if(!tracker)
+		STOP_PROCESSING(SSprojectiles, src)
+		return
 	var/mob/user_mob = tracker.owner
 	var/client/user_client = user_mob.client
 	if(!user_client)

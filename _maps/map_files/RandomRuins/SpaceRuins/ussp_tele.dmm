@@ -218,7 +218,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/teleporter)
 "uD" = (
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/large/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead"
 	},
@@ -230,6 +230,7 @@
 /area/ruin/space/derelict/teleporter)
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"

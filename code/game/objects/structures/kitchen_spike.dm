@@ -171,7 +171,6 @@
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
 	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()

@@ -57,16 +57,18 @@
 /obj/item/door_remote/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
+		return ITEM_INTERACT_COMPLETE
 	if(istype(target, /obj/machinery/door/window))
 		access_windoor(target, user)
-	return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/door_remote/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
+		return ITEM_INTERACT_COMPLETE
 	if(istype(target, /obj/machinery/door/window))
 		access_windoor(target, user)
-	return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/door_remote/proc/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
@@ -194,14 +196,12 @@
 	var/range
 
 /obj/item/door_remote/omni/access_tuner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!hack(target, user))	// if the hack is successful, calls the parent proc and does the door stuff
-		return ITEM_INTERACT_COMPLETE
-	return ..()
+	if(hack(target, user))	// if the hack is successful, calls the parent proc and does the door stuff
+		return ..()
 
 /obj/item/door_remote/omni/access_tuner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!hack(target, user))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
+	if(hack(target, user))
+		return ..()
 
 /obj/item/door_remote/omni/access_tuner/proc/hack(atom/target, mob/user)
 	if(!istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/window))
@@ -262,12 +262,11 @@
 	cooldown = world.time + JANGLE_COOLDOWN
 
 /obj/item/door_remote/janikeyring/interact_with_atom(obj/machinery/door/target, mob/living/user, list/modifiers)
-	if(!unlock(target, user))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
+	if(unlock(target, user))
+		return ..()
 
 /obj/item/door_remote/janikeyring/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers) // THOSE AINT MAGICAL REMOTE KEYS
-	return ITEM_INTERACT_COMPLETE
+	return NONE
 
 
 /obj/item/door_remote/janikeyring/proc/unlock(obj/machinery/door/target, mob/living/user)
