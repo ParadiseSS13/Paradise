@@ -67550,6 +67550,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants/small,
+/obj/item/kirbyplants/small,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "kto" = (
@@ -70592,6 +70594,14 @@
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
+"mhP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/kirbyplants/medium,
+/obj/item/kirbyplants/medium,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "mhU" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -119904,7 +119914,7 @@ cuV
 cAB
 cAB
 ktl
-cAB
+mhP
 eyz
 cDJ
 bQr
