@@ -413,12 +413,13 @@
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 	// Short power to all SMES
 	for(var/obj/machinery/power/smes/power_storage in GLOB.machines)
-		power_storage.charge = 0
+		if(power_storage.z == z)
+			power_storage.charge = 0
 	// Short and depower APCs. A more severe version of the shortout event
 	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", 'sound/AI/power_short.ogg')
 	var/affected_apc_count = 0
 	for(var/obj/machinery/power/apc/apc in GLOB.machines)
-		if(prob(25))
+		if(prob(25) && (apc.z == z))
 			apc.cell.charge = 0
 			apc.apc_short()
 			affected_apc_count++
