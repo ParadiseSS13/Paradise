@@ -26,8 +26,8 @@
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
 		if(ishuman(thing))
-			var/mob/living/carbon/human/H = thing
-			if(H.get_rad_protection() >= 0.99) // I would do exactly equal to 1, but you will never hit anything between 1 and .975, and byond seems to output 0.99999
+			var/mob/living/carbon/human/target_mob = thing
+			if(target_mob.get_rad_protection() >= 0.99) // I would do exactly equal to 1, but you will never hit anything between 1 and .975, and byond seems to output 0.99999
 				continue
 		processing_list += thing.contents
 
@@ -52,43 +52,43 @@
 		if(thing.flags_2 & RAD_NO_CONTAMINATE_2)
 			continue
 		if(ishuman(thing) || ishuman(thing.loc))
-			var/mob/living/carbon/human/H = ishuman(thing) ? thing : thing.loc
+			var/mob/living/carbon/human/target_mob = ishuman(thing) ? thing : thing.loc
 			var/obj/item/clothing/garment
 			var/passed = TRUE
 			// Check if we hold the contamination source, have it in our pockets or in our belts or if it's inside us
-			if(H.UID() == location.UID())
+			if(target_mob.UID() == location.UID())
 				// If it's in our hands check if it can permeate our gloves
-				if((source && (H.r_hand && H.r_hand.UID() == source.UID()) || (H.l_hand && H.l_hand.UID() == source.UID())))
-					if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
-						garment = H.wear_suit
+				if((source && (target_mob.r_hand && target_mob.r_hand.UID() == source.UID()) || (target_mob.l_hand && target_mob.l_hand.UID() == source.UID())))
+					if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&HANDS)
+						garment = target_mob.wear_suit
 						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-					if(passed && isobj(H.gloves))
-						garment = H.gloves
+					if(passed && isobj(target_mob.gloves))
+						garment = target_mob.gloves
 						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
 				// If it's in our pockets check against our jumpsuit only
-				else if((source && (H.l_store && H.l_store.UID() == source.UID()) || (H.r_store && H.r_store.UID() == source.UID())))
-					if(isobj(H.w_uniform))
-						garment = H.w_uniform
+				else if((source && (target_mob.l_store && target_mob.l_store.UID() == source.UID()) || (target_mob.r_store && target_mob.r_store.UID() == source.UID())))
+					if(isobj(target_mob.w_uniform))
+						garment = target_mob.w_uniform
 						passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
 			// If it's on our belt check against both our outer layer and jumpsuit
-			if(location.loc.UID() == H.UID() && istype(location, /obj/item/storage/belt))
-				if(isobj(H.wear_suit))
-					garment = H.wear_suit
+			if(location.loc.UID() == target_mob.UID() && istype(location, /obj/item/storage/belt))
+				if(isobj(target_mob.wear_suit))
+					garment = target_mob.wear_suit
 					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-				if(passed && isobj(H.w_uniform))
-					garment = H.w_uniform
+				if(passed && isobj(target_mob.w_uniform))
+					garment = target_mob.w_uniform
 					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
 			// If on the floor check if it can permeate our shoes
 			if(istype(location, /turf/))
-				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&FEET)
-					garment = H.wear_suit
+				if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&FEET)
+					garment = target_mob.wear_suit
 					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
-				if(passed && isobj(H.shoes))
-					garment = H.shoes
+				if(passed && isobj(target_mob.shoes))
+					garment = target_mob.shoes
 					passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
 			// If it permeated contaminate both ourselves and the clothing, otherwise only the clothing, unless it can't be contaminated
@@ -98,13 +98,13 @@
 				continue
 		. += thing
 
-/proc/get_rad_contamination_target(/atom/location)
-		var/static/list/ignored_things = typecacheof(list(
+/proc/get_rad_contamination_target(atom/location, atom/source)
+	var/static/list/ignored_things = typecacheof(list(
 		/mob/camera,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
-		/obj/item/projectile,
+		/obj/item/projectile
 	))
 	var/list/processing_list = list(location) + location.contents
 	. = list()
@@ -173,23 +173,29 @@
 
 /// Contaminate the contents of a target area. This is more aggressive than contaminate adjacent and does not check against individual clothes on a human(single instance)
 /proc/contaminate_target(atom/target, atom/source, intensity)
-	var/list/contamination_contents = get_rad_contamination_target(target)
+	var/list/contamination_contents = get_rad_contamination_target(target, source)
 	for(var/atom/thing in contamination_contents)
 		if(!(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
 			thing.AddComponent(/datum/component/radioactive, intensity, source)
 
 /// Contaminate something that is hitting, picking up or otherwise touching the source(single instance)
-proc/contaminate_touch(atom/target, atom/source, intensity)
+/proc/contaminate_touch(atom/target, atom/source, intensity)
 	if(ishuman(target))
 		var/obj/item/clothing/garment
-		if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
-			garment = H.wear_suit
+		var/mob/living/carbon/human/target_mob = target
+		var/passed = TRUE
+		if(isobj(target_mob.wear_suit) && target_mob.wear_suit.body_parts_covered&HANDS)
+			garment = target_mob.wear_suit
 			passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
-		if(passed && isobj(H.gloves))
-			garment = H.gloves
+		if(passed && isobj(target_mob.gloves))
+			garment = target_mob.gloves
 			passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 
 		if(garment && !(garment.flags_2 & RAD_NO_CONTAMINATE_2))
-			garment.AddCompenent(/datum/component/radioactive, intensity, source)
+			garment.AddComponent(/datum/component/radioactive, intensity, source)
 		if(passed)
+			target_mob.AddComponent(/datum/component/radioactive, intensity, source)
+		return
+
+	target.AddComponent(/datum/component/radioactive, intensity, source)
 
