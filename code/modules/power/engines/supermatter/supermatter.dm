@@ -568,8 +568,8 @@
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
 		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
-		if(prob(50))
-			radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
+
+		radiation_pulse(src, 4 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -832,7 +832,7 @@
 		Consume(used)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		radiation_pulse(src, 150, 4)
+		radiation_pulse(src, 600, 4)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
 
@@ -887,7 +887,7 @@
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	radiation_pulse(src, 3000, 2, TRUE)
+	radiation_pulse(src, 12000, 2, TRUE)
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
 		if(L in view())

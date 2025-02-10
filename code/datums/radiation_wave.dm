@@ -1,3 +1,5 @@
+#define WRAP_INDEX(index, length)((index - 1) % length + 1)
+
 /datum/radiation_wave
 	/// The thing that spawned this radiation wave
 	var/source
@@ -56,22 +58,28 @@
 	var/weight_center
 	var/weight_right
 	var/index
+	var/offset
 	var/walk_dir = EAST
+	var/ratio = steps > 1 ? ((steps - 1) * 8) / (steps * 8) : (1 / 8)
+	var/weight_length = length(weights)
+	// Iterate around the periphery of a square for each step
 	for(var/i = 0, i < 8 * steps, i++)
-		index = (i % (2 * steps + 1)) + 1
-		// Get weights for rear, right rear and left rear tiles if they were part of the previous step, where rear means towards the center
-		weight_left = index > 2 ? weights[index - 2] : 0
-		weight_center = (index > 1 && index < (2 * steps)) ? weights[index - 1] : 0
-		weight_right = index <  (2 * steps + 1) ? weights[index] : 0
+		// our index along the edge we are on, each corner starts a new edge.
+		index = (i % (2 * steps)) + 1
+		// Get weights for rear, right rear and left rear tiles if they were part of the previous step, where rear means towards the center and left and right are along the edge we are on
+		weight_left = index > 2 ? weights[WRAP_INDEX((index + offset - 2), weight_length)] : 0
+		weight_center = index > 1 ? weights[WRAP_INDEX((index + offset - 1), weight_length)] : 0
+		weight_right = index < (2 * steps) ? weights[WRAP_INDEX((index + offset), weight_length)] : 0
 		// The weight of the current tile the average of the weights of the tiles we checked for earlier
 		// And is reduced by irradiating things and getting blocked
-		new_weights += radiate(current_turf, ((steps * 2 - 1) / (steps * 2 + 1)) * (weight_left + weight_center + weight_right) / (1 + ((index > 1) && index < (2 * steps + 1)) && (steps > 1)) + (index > 2 && index < (2 * steps)))
-		weight_sum += new_weights[i]
-		// turn when we reach a corner
-		if(index == (2 * steps + 1))
-			walk_dir = turn(dir, 90)
-		// Advance to next turf and calculate the index on the edge
+		new_weights += radiate(current_turf, (ratio) * (weight_left + weight_center + weight_right) / ((1 + (index > 1 && index < (2 * steps + 1) && steps > 1) + (index > 2 && index < (2 * steps)))))
+		weight_sum += new_weights[i + 1]
+		// Advance to next turf
 		current_turf = get_step(current_turf, walk_dir)
+		// If we reached a corner turn to the right
+		if(index == (2 * steps))
+			walk_dir = turn(walk_dir, -90)
+			offset += 2 * (steps - 1)
 
 	weights = new_weights
 
