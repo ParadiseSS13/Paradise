@@ -905,6 +905,22 @@
 	name = "syndicate infiltrator"
 	width = 18
 
+/obj/docking_port/mobile/free_golem
+	dir = 8
+	dwidth = 8
+	height = 20
+	id = "freegolem"
+	name = "Free Golem Ship"
+	width = 16
+
+/obj/docking_port/mobile/whiteship
+	dir = 8
+	id = "whiteship"
+	name = "NEV Cherub"
+	dwidth = 6
+	height = 19
+	width = 12
+
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
