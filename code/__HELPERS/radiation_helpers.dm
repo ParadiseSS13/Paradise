@@ -21,7 +21,7 @@
 		if(ignored_things[thing.type])
 			continue
 		/// 1 means no rad insulation, which means perfectly permeable, so no interaction with it directly, but the contents might be relevant.
-		if(!(thing.rad_insulation >= 1))
+		if(thing.rad_insulation < 1)
 			. += thing
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
