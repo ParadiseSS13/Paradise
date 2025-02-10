@@ -49,7 +49,7 @@
 	if(!istype(target,/obj/structure/window) && !istype(target,/turf/simulated/wall/))
 		return
 	var/on_wall = get_turf(target)
-	to_chat(user, "You begin attaching [src] to the [on_wall].")
+	to_chat(user, "<span class='notice'>You begin attaching [src] to the [on_wall].</span>")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 3 SECONDS, target = on_wall))
 		return
