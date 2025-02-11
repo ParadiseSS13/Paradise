@@ -1,5 +1,5 @@
-/obj/item/tool/retractor/@SUBTYPES : /obj/item/tool/retractor/@SUBTYPES
-obj/item/tool/hemostat//@SUBTYPES : /obj/item/tool/hemostat/@SUBTYPES
+/obj/item/retractor/@SUBTYPES : /obj/item/tool/retractor/@SUBTYPES
+/obj/item/hemostat/@SUBTYPES : /obj/item/tool/hemostat/@SUBTYPES
 /obj/item/cautery/@SUBTYPES : /obj/item/tool/cautery/@SUBTYPES
 /obj/item/surgicaldrill/@SUBTYPES : /obj/item/tool/surgicaldrill/@SUBTYPES
 /obj/item/scalpel/@SUBTYPES : /obj/item/tool/scalpel/@SUBTYPES
@@ -7,9 +7,9 @@ obj/item/tool/hemostat//@SUBTYPES : /obj/item/tool/hemostat/@SUBTYPES
 /obj/item/bonegel/@SUBTYPES : /obj/item/tool/bonegel/@SUBTYPES
 /obj/item/fix_o_vein/@SUBTYPES : /obj/item/tool/fix_o_vein/@SUBTYPES
 /obj/item/bonesetter/@SUBTYPES : /obj/item/tool/bonesetter/@SUBTYPES
-/obj/item/tool/wrench/@SUBTYPES : /obj/item/tool/wrench/@SUBTYPES
+/obj/item/wrench/@SUBTYPES : /obj/item/tool/wrench/@SUBTYPES
 /obj/item/weldingtool/@SUBTYPES : /obj/item/tool/weldingtool/@SUBTYPES
 /obj/item/wirecutters/@SUBTYPES : /obj/item/tool/wirecutters/@SUBTYPES
-/obj/item/tool/screwdriver/@SUBTYPES : /obj/item/tool/screwdriver/@SUBTYPES
-/obj/item/tool/crowbar/@SUBTYPES : /obj/item/tool/crowbar/@SUBTYPES
-/obj/item/tool/multitool/@SUBTYPES : /obj/item/tool/multitool/@SUBTYPES
+/obj/item/screwdriver/@SUBTYPES : /obj/item/tool/screwdriver/@SUBTYPES
+/obj/item/crowbar/@SUBTYPES : /obj/item/tool/crowbar/@SUBTYPES
+/obj/item/multitool/@SUBTYPES : /obj/item/tool/multitool/@SUBTYPES
