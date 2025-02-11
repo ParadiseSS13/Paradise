@@ -57,7 +57,7 @@
 		playsound(src, "shatter", 70, TRUE)
 		qdel(src)
 		return
-	if(check_usability(user) || isliving(user))
+	if(check_usability(user) && isliving(user))
 		var/mob/living/living_user = user
 		living_user.apply_status_effect(/datum/status_effect/broken_blade, icon_state)
 		if(do_teleport(living_user, safe_turf))
