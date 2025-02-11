@@ -37,6 +37,14 @@
 	// but only if the delay between the beginning and the end is not too small
 	if(delay >= MIN_TOOL_SOUND_DELAY)
 		play_tool_sound(target, volume)
+
+	// If it has a bit, wear and tear
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.durability--
+		if(bit.durability == 0)
+			attached_bits -= bit
+			bit.break_bit()
+
 	return TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.

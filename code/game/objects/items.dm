@@ -173,6 +173,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	var/tip_timer = 0
 
+	// Smithing vars
+	/// List of attached tool bits
+	var/list/attached_bits = list()
+	/// Maximum number of bits
+	var/max_bits = 1
+	/// Can this item equip bits?
+	var/can_have_bits = FALSE
+
 	///////////////////////////
 	// MARK: item hover FX
 	///////////////////////////
@@ -435,6 +443,29 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			user.transfer_fingerprints_to(src)
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
+	else if(istype(I, /obj/item/smithed_item/tool_bit) && can_have_bits)
+		if(length(attached_bits) >= max_bits)
+			to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
+			return
+		var/obj/item/smithed_item/tool_bit/bit = I
+		bit.forceMove(src)
+		attached_bits += bit
+		bit.on_attached(user, src)
+
+/obj/item/AltClick(mob/user)
+	. = ..()
+	if(!attached_bits)
+		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
+		return
+	var/obj/item/smithed_item/tool_bit/old_bit
+	if(length(attached_bits) == 1)
+		old_bit = attached_bits[0]
+	else
+		attached_bits = tgui_input_list(user, "Select a tool bit", src, attached_bits)
+	if(!istype(old_bit, /obj/item/smithed_item/tool_bit))
+		return
+	old_bit.on_detached()
+	user.put_in_hands(old_bit)
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)

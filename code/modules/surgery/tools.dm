@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_RETRACTOR
+	can_have_bits = TRUE
 
 /obj/item/retractor/Initialize(mapload)
 	. = ..()
@@ -33,6 +34,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 	tool_behaviour = TOOL_HEMOSTAT
+	can_have_bits = TRUE
 
 /obj/item/hemostat/Initialize(mapload)
 	. = ..()
@@ -56,6 +58,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
+	can_have_bits = TRUE
 
 /obj/item/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
@@ -103,6 +106,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
+	can_have_bits = TRUE
 
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
@@ -140,6 +144,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	tool_behaviour = TOOL_SCALPEL
+	can_have_bits = TRUE
 
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
@@ -242,6 +247,7 @@
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	tool_behaviour = TOOL_SAW
+	can_have_bits = TRUE
 
 /obj/item/circular_saw/Initialize(mapload)
 	. = ..()
@@ -266,6 +272,7 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONEGEL
+	can_have_bits = TRUE
 
 /obj/item/bonegel/Initialize(mapload)
 	. = ..()
@@ -286,6 +293,7 @@
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
+	can_have_bits = TRUE
 
 /obj/item/fix_o_vein/Initialize(mapload)
 	. = ..()
@@ -309,6 +317,7 @@
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONESET
+	can_have_bits = TRUE
 
 /obj/item/bonesetter/Initialize(mapload)
 	. = ..()

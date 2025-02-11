@@ -22,6 +22,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
+	can_have_bits = TRUE
 
 	new_attack_chain = TRUE
 

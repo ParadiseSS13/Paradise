@@ -197,6 +197,7 @@
 	attached_suit.siemens_coefficient += siemens_coeff
 	attached_suit.min_cold_protection_temperature += heat_insulation
 	attached_suit.max_heat_protection_temperature -= heat_insulation
+	attached_suit = null
 
 /obj/item/smithed_item/insert/ballistic
 	name = "ballistic plate"
@@ -318,10 +319,13 @@
 	if(!istype(target))
 		return
 	attached_tool = target
+	attached_tool.w_class += size_mod
 	attached_tool.toolspeed = toolspeed * speed_mod
 
 /obj/item/smithed_item/tool_bit/on_detached()
 	attached_tool.toolspeed = toolspeed / speed_mod
+	attached_tool.w_class -= size_mod
+	attached_tool = null
 
 /obj/item/smithed_item/tool_bit/proc/break_bit()
 	on_detached()
@@ -407,6 +411,7 @@
 		var/obj/item/projectile/e_bullet = casing.projectile_type
 		e_bullet.damage = e_bullet.damage / damage_mult
 		e_bullet.speed = e_bullet.speed * laser_speed_mult
+	attached_gun = null
 
 /obj/item/smithed_item/lense/proc/break_lense()
 	on_detached()

@@ -231,6 +231,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
+	can_have_bits = TRUE
 	/// No ammo warning
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
 	/// The spark system used to create sparks when the user interacts with the RCD.

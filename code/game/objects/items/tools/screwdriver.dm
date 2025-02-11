@@ -21,6 +21,7 @@
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	tool_behaviour = TOOL_SCREWDRIVER
+	can_have_bits = TRUE
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
 	new_attack_chain = TRUE

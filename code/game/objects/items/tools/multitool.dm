@@ -23,6 +23,7 @@
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
+	can_have_bits = TRUE
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	/// Reference to whatever machine is held in the buffer
