@@ -4,6 +4,8 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 #define GAS_A_B	(1 << 5)
+#define GAS_H	(1 << 6)
+#define GAS_H2O	(1 << 7)
 
 //ATMOS
 //stuff you should probably leave well alone!
