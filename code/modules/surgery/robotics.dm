@@ -770,12 +770,12 @@
 		)
 
 	if(!isnull(target.dna))
-		for(var/obj/item/organ/external/limb in target.bodyparts) // Update robotic limbs to match new sub species
-			limb.set_company(limb.model, target.dna.species.sprite_sheet_name) // Update the limbs to properly use their new sprite sheet.
 		var/datum/species/subtype = GLOB.all_species[new_subtype]
 		if(isnull(subtype))
 			subtype = GLOB.all_species[target.dna.species.name]
-		target.dna.species.updatespeciessubtype(src, new subtype.type())
+		target.dna.species.updatespeciessubtype(target, new subtype.type())
+		for(var/obj/item/organ/external/limb in target.bodyparts) // Update robotic limbs to match new sub species
+			limb.set_company(limb.model, target.dna.species.sprite_sheet_name) // Update the limbs to properly use their new sprite sheet.
 		target.regenerate_icons()
 
 	return SURGERY_STEP_CONTINUE
