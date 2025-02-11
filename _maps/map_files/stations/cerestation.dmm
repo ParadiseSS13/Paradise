@@ -2238,6 +2238,10 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
+"arI" = (
+/obj/effect/spawner/airlock/long,
+/turf/simulated/wall,
+/area/station/maintenance/disposal/east)
 "arO" = (
 /obj/effect/decal/remains/human,
 /obj/effect/landmark/spawner/xeno,
@@ -19365,10 +19369,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/supply/storage)
-"cHb" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall,
-/area/station/maintenance/disposal/east)
 "cHj" = (
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/stalkybush,
@@ -172245,9 +172245,9 @@ idp
 bcO
 iRF
 dQj
-rNK
-rNK
-rNK
+lzH
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -172501,9 +172501,9 @@ lvP
 tus
 dQj
 dQj
-cHb
-lzH
-lzH
+dQj
+arI
+qJG
 lzH
 rNK
 rNK
@@ -172759,7 +172759,7 @@ gvP
 lzf
 raQ
 lzf
-qJG
+lzf
 qJG
 lzH
 rNK
@@ -173016,8 +173016,8 @@ oeg
 dQj
 dQj
 dQj
-lzH
-lzH
+dQj
+qJG
 lzH
 rNK
 rNK
@@ -173273,9 +173273,9 @@ vyn
 sPB
 pVT
 dQj
-rNK
-rNK
-rNK
+lzH
+lzH
+lzH
 rNK
 rNK
 rNK
