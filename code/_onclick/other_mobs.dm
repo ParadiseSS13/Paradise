@@ -28,12 +28,6 @@
 	A.attack_hand(src)
 
 /atom/proc/attack_hand(mob/user as mob)
-	if(radioactivity_alpha)
-		user.contaminate_atom(src, radioactivity_alpha, ALPHA_RAD, HANDS)
-	if(radioactivity_beta)
-		user.contaminate_atom(src, radioactivity_beta, BETA_RAD, HANDS)
-	if(radioactivity_gamma)
-		user.contaminate_atom(src, radioactivity_gamma, GAMMA_RAD, HANDS)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 

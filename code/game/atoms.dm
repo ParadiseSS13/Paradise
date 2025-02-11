@@ -67,13 +67,6 @@
 	/// Radiation insulation for gamma emissions
 	var/rad_insulation_gamma = RAD_NO_INSULATION
 
-	/// Inherent alpha emissions
-	var/radioactivity_alpha = 0
-	/// Inherent beta emissions
-	var/radioactivity_beta = 0
-	/// Inherent gamma emissions
-	var/radioactivity_gamma = 0
-
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
@@ -328,12 +321,6 @@
 	// will clobber any movement which occurred in the intervening time. If we
 	// want to get rid of this we need to move bumping in its entirety to signal
 	// handlers, which is scarier.
-	if(radioactivity_alpha)
-		user.contaminate_atom(src, radioactivity_alpha, ALPHA_RAD, HANDS)
-	if(radioactivity_beta)
-		user.contaminate_atom(src, radioactivity_beta, BETA_RAD, HANDS)
-	if(radioactivity_gamma)
-		user.contaminate_atom(src, radioactivity_gamma, GAMMA_RAD, HANDS)
 	set waitfor = FALSE
 	return
 

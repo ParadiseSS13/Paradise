@@ -159,24 +159,14 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
 	var/last_event = 0
-	radioactivity_beta = 100
 
-/obj/machinery/door/airlock/uranium/process()
-	if(world.time > last_event + 20)
-		if(prob(50))
-			radiate()
-		last_event = world.time
-	..()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
+	AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 6)
+	. = ..()
 
-/obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 600, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/attack_hand(mob/user)
 	. = ..()
-
-/obj/machinery/door/airlock/uranium/Bumped(atom/movable/AM)
-	. = ..()
-	AM.contaminate_atom(src, radioactivity_beta, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
