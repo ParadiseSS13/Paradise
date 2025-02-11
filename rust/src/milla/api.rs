@@ -249,6 +249,8 @@ fn milla_set_tile_airtight(
         None,
         None,
         None,
+		None,
+		None,
     )?;
     Ok(ByondValue::null())
 }
