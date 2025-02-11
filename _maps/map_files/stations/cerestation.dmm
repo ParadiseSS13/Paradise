@@ -14082,9 +14082,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "bTS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/computer/operating,
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -14096,15 +14093,6 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment/corner,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -27714,21 +27702,6 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/cargocom)
-"dZg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/station/maintenance/starboard)
 "dZz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/nonfunctional,
@@ -163281,7 +163254,7 @@ kro
 kro
 kro
 kro
-dZg
+itf
 vHH
 fOY
 vHH
