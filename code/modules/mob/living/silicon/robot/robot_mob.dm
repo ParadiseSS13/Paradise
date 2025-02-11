@@ -1222,7 +1222,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
 			var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-			A.add_hud_to(user)
+			A.add_hud_to(src)
 		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
