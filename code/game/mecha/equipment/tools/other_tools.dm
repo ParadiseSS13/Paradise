@@ -438,7 +438,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		radiation_pulse(get_turf(src), rad_per_cycle)
+		radiation_pulse(get_turf(src), rad_per_cycle, BETA_RAD)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"

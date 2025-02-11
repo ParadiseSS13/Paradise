@@ -43,7 +43,7 @@
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, rad_damage)
+	radiation_pulse(src, rad_damage, BETA_RAD)
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))
 		T.MakeSlippery(TURF_WET_ICE)
 		for(var/mob/living/carbon/L in T)

@@ -254,7 +254,7 @@
 	return TRUE
 
 /datum/mutation/disability/radioactive/on_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 80)
+	radiation_pulse(H, 80, ALPHA_RAD)
 
 /datum/mutation/disability/radioactive/on_draw_underlays(mob/M, g)
 	return "rads_s"

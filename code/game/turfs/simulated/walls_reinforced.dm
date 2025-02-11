@@ -8,7 +8,7 @@
 	opacity = TRUE
 	density = TRUE
 	explosion_block = 2
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD_HEAVY_INSULATION
 	damage_cap = 600
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel

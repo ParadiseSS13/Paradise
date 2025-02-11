@@ -61,7 +61,9 @@
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
 	/// Radiation insulation types
-	var/rad_insulation = RAD_NO_INSULATION
+	var/rad_insulation_alpha = RAD_HEAVY_INSULATION
+	var/rad_insulation_beta = RAD_NO_INSULATION
+	var/rad_insulation_gamma = RAD_NO_INSULATION
 
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
@@ -600,10 +602,16 @@
  *
  * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
  */
-/atom/proc/rad_act(amount)
+/atom/proc/rad_act(amount, emission_type)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
-	return rad_insulation
+	switch(emission_type)
+		if(ALPHA_RAD)
+			return rad_insulation_alpha
+		if(BETA_RAD)
+			return rad_insulation_beta
+		if(GAMMA_RAD)
+			return rad_insulation_gamma
 
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
@@ -996,6 +1004,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/clean_radiation(clean_factor = 2)
 	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
 	if(!QDELETED(healthy_green_glow))
+		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
 		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
 		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
 			healthy_green_glow.RemoveComponent()

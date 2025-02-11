@@ -30,11 +30,11 @@
 		return ..()
 
 /obj/item/nuke_core/process()
-	contaminate_adjacent(src, 100)
+	contaminate_adjacent(src, 100, BETA_RAD)
 	if(cooldown < world.time - 6 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
-		radiation_pulse(src, 1600)
+		radiation_pulse(src, 1600, BETA_RAD)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -202,13 +202,13 @@
 	else
 		if(issilicon(user))
 			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
-			radiation_pulse(user, 2000)
+			radiation_pulse(user, 2000, GAMMA_RAD)
 			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 			user.dust()
 			qdel(src)
 			return
 		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
-		radiation_pulse(user, 400)
+		radiation_pulse(user, 400, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		qdel(I)
 		qdel(src)
@@ -231,7 +231,7 @@
 		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
 		"<span class='hear'>Everything suddenly goes silent.</span>")
 	victim.dust()
-	radiation_pulse(src, 2000)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
@@ -244,7 +244,7 @@
 	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
-	radiation_pulse(user, 2000)
+	radiation_pulse(user, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.dust()
 
@@ -306,7 +306,7 @@
 		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
 				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
 				"<span class='italics'>Everything suddenly goes silent.</span>")
-		radiation_pulse(user, 2000)
+		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
@@ -401,6 +401,6 @@
 		user.dust()
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"
-	radiation_pulse(src, 2000)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)

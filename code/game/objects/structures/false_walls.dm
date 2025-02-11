@@ -14,7 +14,7 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 	layer = TURF_LAYER
 
 	var/mineral = /obj/item/stack/sheet/metal
@@ -222,7 +222,7 @@
 	..()
 
 /obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
-	contaminate_touch(user, src, 100)
+	contaminate_touch(user, src, 100, ALPHA_RAD)
 	radiate()
 	..()
 
@@ -230,7 +230,7 @@
 	if(!active)
 		if(world.time > last_event + 1.5 SECONDS)
 			active = TRUE
-			radiation_pulse(src, 600)
+			radiation_pulse(src, 600, ALPHA_RAD)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time

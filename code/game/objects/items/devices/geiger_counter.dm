@@ -109,7 +109,7 @@
 	loop.last_radiation = radiation_count
 	loop.start()
 
-/obj/item/geiger_counter/rad_act(amount)
+/obj/item/geiger_counter/rad_act(amount, emission_type)
 	. = ..()
 	if(amount <= RAD_BACKGROUND_RADIATION || !scanning)
 		return

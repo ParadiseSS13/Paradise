@@ -423,10 +423,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/uranium/attack_self__legacy__attackchain(mob/user)
 	..()
-	contaminate_touch(user, src, 50)
+	contaminate_touch(user, src, 50, ALPHA_RAD)
 	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
-	radiation_pulse(src, 200)
+	radiation_pulse(src, 200, ALPHA_RAD)
 	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 
 /obj/item/coin/clown

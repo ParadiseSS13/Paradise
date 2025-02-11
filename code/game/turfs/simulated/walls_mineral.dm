@@ -77,14 +77,14 @@
 	if(!active)
 		if(world.time > last_event + 1.5 SECONDS)
 			active = TRUE
-			radiation_pulse(src, 160)
+			radiation_pulse(src, 160, ALPHA_RAD)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = FALSE
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
-	contaminate_touch(user, src, 100)
+	contaminate_touch(user, src, 100, ALPHA_RAD)
 	radiate()
 	..()
 

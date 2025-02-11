@@ -38,13 +38,15 @@ Ask ninjanomnom if they're around
 #define RAD_MOB_GORILLIZE 1500						// How much stored radiation to check for gorillization
 #define RAD_MOB_GORILLIZE_PROB 0.1					// Chance of gorillization per tick when over threshold
 
-#define RAD_NO_INSULATION 1.0						// For things that shouldn't become irradiated for whatever reason
-#define RAD_MOB_INSULATION 0.98						// For mobs
+#define RAD_NO_INSULATION 1.0						// Default value for gamma insulation
+#define RAD_MOB_INSULATION 0.98						// Default value for mobs
+#define RAD_POWER_PRODUCTION 0.95	 				// For things that are activated by gamma radiation
 #define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have
 #define RAD_LIGHT_INSULATION 0.8
 #define RAD_MEDIUM_INSULATION  0.7					// What common walls have
 #define RAD_HEAVY_INSULATION 0.6					// What reinforced walls have
 #define RAD_EXTREME_INSULATION 0.5					// What rad collectors have
+#define RAD_NEAR_FULL_INSULATION 0.01				// default value for alpha insulation
 #define RAD_FULL_INSULATION 0						// Unused
 
 // WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
@@ -57,3 +59,7 @@ Ask ninjanomnom if they're around
 
 #define RAD_GEIGER_MEASURE_SMOOTHING 5
 #define RAD_GEIGER_GRACE_PERIOD 2
+
+#define ALPHA_RAD 1
+#define BETA_RAD 2
+#define GAMMA_RAD 3

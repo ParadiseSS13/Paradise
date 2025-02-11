@@ -14,7 +14,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	max_integrity = 350
 	integrity_failure = 80
-	rad_insulation = RAD_EXTREME_INSULATION
+	rad_insulation_beta = RAD_EXTREME_INSULATION
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = FALSE
@@ -132,9 +132,9 @@
 	else
 		update_icons()
 
-/obj/machinery/power/rad_collector/rad_act(amount)
+/obj/machinery/power/rad_collector/rad_act(amount, emission_type)
 	. = ..()
-	if(loaded_tank && active && amount > RAD_COLLECTOR_EFFICIENCY)
+	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > RAD_COLLECTOR_EFFICIENCY)
 		stored_energy += (amount - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
 
 

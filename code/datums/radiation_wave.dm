@@ -17,12 +17,15 @@
 	var/list/weights = list(1)
 	/// Sum of all weights
 	var/weight_sum = 1
+	/// The type of particle emitted
+	var/emission_type = ALPHA_RAD
 
-/datum/radiation_wave/New(atom/_source, _intensity = 0)
+/datum/radiation_wave/New(atom/_source, _intensity = 0, _emission_type = ALPHA_RAD)
 
 	source = "[_source] \[[_source.UID()]\]"
 	master_turf = get_turf(_source)
 	intensity = _intensity
+	emission_type = _emission_type
 	START_PROCESSING(SSradiation, src)
 
 /datum/radiation_wave/Destroy()
@@ -74,22 +77,6 @@
 			offset += 2 * (steps - 1)
 
 	weights = new_weights
-
-/datum/radiation_wave/proc/check_obstructions(list/atoms)
-	var/width = steps
-	var/cmove_dir = move_dir
-	if(cmove_dir == NORTH || cmove_dir == SOUTH)
-		width--
-	width = 1 + (2 * width)
-
-	for(var/k in 1 to length(atoms))
-		var/atom/thing = atoms[k]
-		if(!thing)
-			continue
-		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, width) & COMPONENT_RAD_WAVE_HANDLED)
-			continue
-		if(thing.rad_insulation != RAD_NO_INSULATION)
-			intensity *= (1 - ((1 - thing.rad_insulation) / width))
 
 /// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
 /datum/radiation_wave/proc/radiate(turf/current_turf, weight)

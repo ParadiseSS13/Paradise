@@ -3,7 +3,7 @@
   * Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
   * The ignore list makes those objects never return at all
   */
-/proc/get_rad_contents(atom/location)
+/proc/get_rad_contents(atom/location, emission_type)
 	var/static/list/ignored_things = typecacheof(list(
 		/mob/dead,
 		/mob/camera,
@@ -15,13 +15,22 @@
 	))
 	var/list/processing_list = list(location)
 	. = list()
+	var/insulation = 1
 	while(length(processing_list))
 		var/atom/thing = processing_list[1]
 		processing_list -= thing
 		if(ignored_things[thing.type])
 			continue
+		switch(emission_type)
+			if(ALPHA_RAD)
+				insulation = thing.rad_insulation_alpha
+			if(BETA_RAD)
+				insulation = thing.rad_insulation_beta
+			if(GAMMA_RAD)
+				insulation = thing.rad_insulation_gamma
+
 		/// 1 means no rad insulation, which means perfectly permeable, so no interaction with it directly, but the contents might be relevant.
-		if(thing.rad_insulation < 1)
+		if(insulation < 1)
 			. += thing
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
@@ -126,10 +135,10 @@
 		. += thing
 
 
-/proc/radiation_pulse(atom/source, intensity, log = FALSE)
+/proc/radiation_pulse(atom/source, intensity, emission_type = ALPHA_RAD, log = FALSE)
 	if(!SSradiation.can_fire || intensity < RAD_BACKGROUND_RADIATION)
 		return
-	var/datum/radiation_wave/wave = new /datum/radiation_wave(source, intensity)
+	var/datum/radiation_wave/wave = new /datum/radiation_wave(source, intensity, emission_type)
 
 	var/turf/start_turf = source
 
@@ -168,21 +177,21 @@
 	return rad_strength
 
 /// Contaminate things that share our immediate location(periodic)
-/proc/contaminate_adjacent(atom/source, intensity)
+/proc/contaminate_adjacent(atom/source, intensity, emission_type)
 	var/list/contamination_contents = get_rad_contamination_adjacent(source.loc, source)
 	for(var/atom/thing in contamination_contents)
 		if(!(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
-			thing.AddComponent(/datum/component/radioactive, intensity, source)
+			thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
 
 /// Contaminate the contents of a target area. This is more aggressive than contaminate adjacent and does not check against individual clothes on a human(single instance)
-/proc/contaminate_target(atom/target, atom/source, intensity)
+/proc/contaminate_target(atom/target, atom/source, intensity, emission_type)
 	var/list/contamination_contents = get_rad_contamination_target(target, source)
 	for(var/atom/thing in contamination_contents)
 		if(!(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
-			thing.AddComponent(/datum/component/radioactive, intensity, source)
+			thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
 
 /// Contaminate something that is hitting, picking up or otherwise touching the source(single instance)
-/proc/contaminate_touch(atom/target, atom/source, intensity)
+/proc/contaminate_touch(atom/target, atom/source, intensity, emission_type)
 	if(target.flags_2 & RAD_NO_CONTAMINATE_2)
 		return
-	target.AddComponent(/datum/component/radioactive, intensity, source)
+	target.AddComponent(/datum/component/radioactive, intensity, source, emission_type)

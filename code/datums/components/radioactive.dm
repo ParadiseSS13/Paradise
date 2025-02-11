@@ -11,14 +11,16 @@
 	var/hl3_release_date
 	var/strength
 	var/can_contaminate
+	var/emission_type = ALPHA_RAD
 
-/datum/component/radioactive/Initialize(_strength = 0, _source, _half_life = RAD_HALF_LIFE, _can_contaminate = TRUE)
+/datum/component/radioactive/Initialize(_strength = 0, _source,  _emission_type = ALPHA_RAD, _half_life = RAD_HALF_LIFE, _can_contaminate = TRUE)
 	if(!istype(parent, /atom))
 		return COMPONENT_INCOMPATIBLE
 	strength = _strength
 	source = _source
 	hl3_release_date = _half_life
 	can_contaminate = _can_contaminate
+	emission_type = emission_type
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
 	RegisterSignal(parent, COMSIG_ADMIN_DECONTAMINATE, PROC_REF(admin_decontaminate))
 	if(isitem(parent))
@@ -44,7 +46,7 @@
 /datum/component/radioactive/process()
 	if(!prob(50))
 		return
-	radiation_pulse(parent, strength)
+	radiation_pulse(parent, strength, emission_type)
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date
@@ -95,7 +97,7 @@
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER
 
-	radiation_pulse(parent, strength / 20)
+	radiation_pulse(parent, strength / 20, emission_type)
 	target.rad_act(strength / 2)
 	if(!hl3_release_date)
 		return
