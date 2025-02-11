@@ -9,6 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffffd0"
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
@@ -127,6 +128,7 @@
 	flags = CONDUCT
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -137,6 +139,7 @@
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+	light_color = "#AAFFAA"
 
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
@@ -153,6 +156,7 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
+	light_color = "#f7ff57"
 
 // FLARES
 

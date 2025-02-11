@@ -14,14 +14,15 @@
 
 #ifdef LOCAL_GAME_TESTS
 #define GAME_TESTS
-#endif
-
-#ifdef CIBUILDING
-#define GAME_TESTS
+#define MAP_TESTS
 #endif
 
 #if defined(CIBUILDING) && defined(LOCAL_GAME_TESTS)
 #error CIBUILDING and LOCAL_GAME_TESTS should not be enabled at the same time!
+#endif
+
+#if defined(GAME_TESTS) || defined(MAP_TESTS)
+#define TEST_RUNNER
 #endif
 
 /***** All toggles for the GC ref finder *****/
