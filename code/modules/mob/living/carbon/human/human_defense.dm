@@ -879,3 +879,14 @@ emp_act
 		contaminate += garment
 
 	return list(passed) + contaminate
+
+/// Tries to contaminate a human
+/mob/living/carbon/human/contaminate_atom(atom/source, intensity, emission_type, zone = null)
+	if(!zone)
+		zone = hit_zone_to_clothes_zone(ran_zone())
+	var/list/to_contaminate = rad_contaminate_zone(zone)
+	if(to_contaminate[1])
+		to_contaminate += src
+	to_contaminate -= to_contaminate[1]
+	for(var/atom/thing in to_contaminate)
+		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
