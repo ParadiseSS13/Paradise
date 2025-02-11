@@ -581,7 +581,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // The default action is attack_self().
 // Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	attack_self__legacy__attackchain(user)
+	if(new_attack_chain)
+		activate_self(user)
+	else
+		attack_self__legacy__attackchain(user)
 
 /obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
@@ -1017,3 +1020,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	return cig
+
+/// Changes the speech verb when wearing this item if a value is returned
+/obj/item/proc/change_speech_verb()
+	return

@@ -418,9 +418,18 @@
 	return TRUE
 
 /// Called when src is being moved to a target turf because another movable (puller) is moving around.
-/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
+/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, puller_glide_size)
 	moving_from_pull = puller
-	Move(target_turf, get_dir(src, target_turf), glide_size_override)
+	var/new_glide_size = puller_glide_size
+	var/pull_dir = get_dir(src, target_turf)
+	// Adjust diagonal pulls for LONG_GLIDE differences.
+	if(IS_DIR_DIAGONAL(pull_dir))
+		if((puller.appearance_flags & LONG_GLIDE) && !(appearance_flags & LONG_GLIDE))
+			new_glide_size *= sqrt(2)
+		if(!(puller.appearance_flags & LONG_GLIDE) && (appearance_flags & LONG_GLIDE))
+			new_glide_size /= sqrt(2)
+	set_glide_size(new_glide_size)
+	Move(target_turf, pull_dir)
 	moving_from_pull = null
 
 // Make sure you know what you're doing if you call this

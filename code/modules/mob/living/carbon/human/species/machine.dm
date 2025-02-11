@@ -24,7 +24,7 @@
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
@@ -75,8 +75,65 @@
 		"is blocking their ventilation port!")
 
 	plushie_type = /obj/item/toy/plushie/ipcplushie
+	allowed_species_subtypes = list(
+		1 = "None",
+		2 = "Vox",
+		3 = "Unathi",
+		4 = "Tajaran",
+		5 = "Nian",
+		6 = "Vulpkanin",
+		7 = "Kidan",
+		8 = "Grey",
+		9 = "Drask"
+	)
 
+	var/static_bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
 
+/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE) //Handling species-subtype and imitation
+	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
+		var/datum/species/temp_species = new type()
+		if(isnull(new_subtype) || temp_species.name == new_subtype.name) // Back to our original species.
+			H.species_subtype = "None"
+			temp_species.species_subtype = "None" // Update our species subtype to match the Mob's subtype.
+			var/datum/species/S = GLOB.all_species[temp_species.name]
+			new_subtype = new S.type() // Resets back to original. We use initial in the case the datum is var edited.
+		else
+			H.species_subtype = new_subtype.name
+			temp_species.species_subtype = H.species_subtype // Update our species subtype to match the Mob's subtype.
+
+		// Copy over new species variables to our temp holder.
+		temp_species.icobase = new_subtype.icobase
+		temp_species.tail = new_subtype.tail
+		temp_species.wing = new_subtype.wing
+		temp_species.default_headacc = new_subtype.default_headacc
+		temp_species.default_bodyacc = new_subtype.default_bodyacc
+		temp_species.bodyflags = new_subtype.bodyflags
+		temp_species.bodyflags |= static_bodyflags // Add our static bodyflags that slime must always have.
+		temp_species.sprite_sheet_name = new_subtype.sprite_sheet_name
+		temp_species.icon_template = new_subtype.icon_template
+		// Set our DNA to the temp holder.
+		H.dna.species = temp_species
+
+		for(var/obj/item/organ/external/limb in H.bodyparts)
+			limb.icobase = temp_species.icobase // update their icobase for when we apply the slimfy effect
+			limb.dna.species = temp_species // Update limb to match our newly modified species
+			limb.set_company(limb.model, temp_species.sprite_sheet_name) // Robotic limbs always update to our new subtype.
+
+		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
+
+		if(reset_styles)
+			H.body_accessory = GLOB.body_accessory_by_name[temp_species.default_bodyacc]
+			H.tail = temp_species.tail
+			H.wing = temp_species.wing
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			head.h_style = "Bald"
+			head.f_style = "Shaved"
+			head.ha_style = "None"
+			H.s_tone = 0
+			H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
+			H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
+			H.change_head_accessory(GLOB.head_accessory_styles_list[temp_species.default_headacc])
+		H.change_icobase(temp_species.icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/change_monitor/monitor = new()
@@ -165,7 +222,7 @@
 		var/list/hair = list()
 		for(var/i in GLOB.hair_styles_public_list)
 			var/datum/sprite_accessory/hair/tmp_hair = GLOB.hair_styles_public_list[i]
-			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
+			if((head_organ.dna.species.sprite_sheet_name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 				hair += i
 
 

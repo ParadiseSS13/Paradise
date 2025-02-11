@@ -230,7 +230,7 @@
 
 /obj/item/mail_scanner
 	name = "mail scanner"
-	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
+	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
 	force = 0
 	throwforce = 0
 	icon = 'icons/obj/device.dmi'
@@ -295,5 +295,5 @@
 		saved = null
 		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
 		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
-		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
 		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)
