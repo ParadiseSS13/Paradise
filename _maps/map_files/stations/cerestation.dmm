@@ -11291,12 +11291,9 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
 "bEN" = (
-/obj/structure/railing/cap/normal{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/airlock/long/square,
+/turf/simulated/wall/r_wall,
+/area/station/turret_protected/aisat/interior)
 "bES" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -13265,15 +13262,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/public/quantum/cargo)
-"bOg" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "bOh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -29653,10 +29641,10 @@
 /area/station/hallway/spacebridge/cargocom)
 "evn" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/railing{
+/obj/structure/cable,
+/obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/cable,
 /turf/space,
 /area/station/hallway/spacebridge/cargocom)
 "evC" = (
@@ -32633,6 +32621,16 @@
 "flr" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/electrical_shop)
+"flu" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/space,
+/area/space/nearstation)
 "flL" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -38546,6 +38544,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"gVR" = (
+/obj/structure/railing,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "gVS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/red,
@@ -46161,15 +46164,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"iRq" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/aisat/interior)
 "iRr" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -51682,16 +51676,6 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
-"kgJ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/space,
-/area/station/hallway/spacebridge/cargocom)
 "kgP" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable/orange,
@@ -60396,13 +60380,21 @@
 	},
 /area/station/maintenance/port)
 "mqC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Satellie Antechamber";
 	dir = 10;
 	network = list("SS13","MiniSat")
+	},
+/obj/structure/table/reinforced,
+/obj/item/crowbar/red,
+/obj/item/screwdriver,
+/obj/item/stack/cable_coil{
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63162,6 +63154,15 @@
 	icon_state = "neutral"
 	},
 /area/station/public/locker)
+"naU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "nbh" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -79603,8 +79604,7 @@
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
 "rrb" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "rrc" = (
 /obj/machinery/door/airlock/maintenance{
@@ -86626,13 +86626,13 @@
 	},
 /area/station/hallway/primary/fore/north)
 "tda" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/obj/structure/sign/securearea{
-	pixel_y = 32
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "ailockdown";
+	layer = 2.6;
+	name = "AI Asteroid Lockdown"
 	},
-/turf/space,
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "tdk" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -88399,15 +88399,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "tzW" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
+/obj/machinery/light,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/item/screwdriver,
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
-	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -102455,12 +102451,8 @@
 /area/station/maintenance/asmaint)
 "wUp" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+	dir = 10
 	},
-/obj/structure/table/reinforced,
-/obj/item/stack/cable_coil,
-/obj/item/crowbar/red,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -102520,9 +102512,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/evidence)
 "wUY" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -107270,6 +107259,14 @@
 "yfZ" = (
 /turf/simulated/wall,
 /area/station/medical/storage/secondary)
+"ygb" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/aisat/interior)
 "yge" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft Asteroid Maintenance"
@@ -151368,8 +151365,8 @@ eQs
 eQs
 eQs
 ahF
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -151622,11 +151619,11 @@ vAa
 bll
 bll
 tzW
-iRq
-eQs
-eQs
+mmW
+mmW
+mmW
 bEN
-rNK
+flu
 rNK
 rNK
 rNK
@@ -151879,11 +151876,11 @@ bll
 bll
 bll
 wUp
-mmW
-mmW
+rrb
+rrb
 rrb
 tda
-rNK
+gVR
 rNK
 rNK
 rNK
@@ -152137,9 +152134,9 @@ gcR
 bvO
 wUY
 lIR
-bOg
+lIR
+naU
 jQN
-kgJ
 evn
 sRU
 sRU
@@ -152396,7 +152393,7 @@ mqC
 mmW
 mmW
 mmW
-wqc
+cXJ
 wqc
 wqc
 cXJ
@@ -152649,7 +152646,7 @@ bcr
 bkj
 dce
 bvT
-aQG
+ygb
 bll
 cXU
 mBR
@@ -153424,7 +153421,7 @@ tKi
 tKi
 tKi
 tKi
-wqc
+cXJ
 wqc
 wqc
 cXJ
