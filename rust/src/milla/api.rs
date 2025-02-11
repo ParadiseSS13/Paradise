@@ -140,6 +140,8 @@ fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corn
             conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?,
             conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?,
             conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?,
+			conversion::bounded_byond_to_option_f32(data[13], 0.0, f32::INFINITY)?,
+			conversion::bounded_byond_to_option_f32(data[14], 0.0, f32::INFINITY)?,
             None,
             Some(0.0),
             Some(0.0),
