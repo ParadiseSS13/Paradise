@@ -7,7 +7,7 @@
 	duration = 30 SECONDS
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/void_chill
-	status_type = STATUS_EFFECT_REFRESH //Custom code
+	status_type = STATUS_EFFECT_REFRESH
 	on_remove_on_mob_delete = TRUE
 	///Current amount of stacks we have
 	var/stacks
