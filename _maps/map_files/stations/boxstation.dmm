@@ -73162,6 +73162,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"qyP" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "qzh" = (
 /obj/structure/chair/sofa/right,
 /obj/effect/landmark/start/psychiatrist,
@@ -123694,7 +123698,7 @@ aaa
 nOO
 wza
 dnW
-dnW
+qyP
 dpf
 iUc
 iUc
