@@ -57343,7 +57343,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "eyG" = (
@@ -69650,7 +69649,6 @@
 	},
 /area/station/medical/reception)
 "lBJ" = (
-/obj/item/kirbyplants/large,
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83152,13 +83150,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
-"sQr" = (
-/mob/living/simple_animal/mouse,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "sQw" = (
 /obj/structure/weightmachine/stacklifter,
 /turf/simulated/floor/plasteel{
@@ -89304,10 +89295,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"wce" = (
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "wcu" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
@@ -113501,7 +113488,7 @@ cWl
 unt
 lxh
 cHA
-sQr
+ddg
 sZp
 nCh
 cHA
@@ -147865,7 +147852,7 @@ aaa
 aaa
 ygH
 coI
-wce
+aQx
 aQx
 mtL
 aKU
