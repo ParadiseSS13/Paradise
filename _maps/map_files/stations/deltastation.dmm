@@ -67707,12 +67707,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
-"kyA" = (
-/obj/structure/sign/vacuum{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/aisat)
 "kyC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -81374,6 +81368,9 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
+	},
+/obj/structure/sign/vacuum{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -105747,7 +105744,7 @@ oUR
 saq
 bLU
 hwa
-kyA
+nmp
 nmp
 riq
 nmp
@@ -107030,7 +107027,7 @@ aaa
 aaa
 abj
 hZe
-abj
+acF
 adh
 wts
 qbl
