@@ -77527,8 +77527,10 @@
 	},
 /area/station/service/hydroponics)
 "tTu" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "tTK" = (
