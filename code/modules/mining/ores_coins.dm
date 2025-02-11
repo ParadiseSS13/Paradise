@@ -419,14 +419,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
+	radioactivity_alpha = 50
 	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/coin/uranium/attack_self__legacy__attackchain(mob/user)
 	..()
-	user.contaminate_atom(src, 50, ALPHA_RAD)
+	user.contaminate_atom(src, radioactivity_alpha, ALPHA_RAD, HANDS)
 	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
-	radiation_pulse(src, 200, ALPHA_RAD)
+	radiation_pulse(src, 2 * radioactivity_alpha, ALPHA_RAD)
 	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 
 /obj/item/coin/clown

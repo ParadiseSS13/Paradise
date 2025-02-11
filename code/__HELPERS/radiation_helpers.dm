@@ -5,13 +5,10 @@
   */
 /proc/get_rad_contents(atom/location, emission_type)
 	var/static/list/ignored_things = typecacheof(list(
-		/mob/dead,
-		/mob/camera,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
 		/obj/item/projectile,
-		/obj/structure/railing // uhhhh they're highly radiation resistant, or some shit (stops stupid exploits)
 	))
 	var/list/processing_list = list(location)
 	. = list()
@@ -42,7 +39,6 @@
 
 /proc/get_rad_contamination_adjacent(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
-		/mob/camera,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
@@ -89,14 +85,13 @@
 			var/list/results = target_mob.rad_contaminate_zone(zone, pocket)
 			passed = results[1]
 			results -= results[1]
-			. += results
+			. |= results
 			if(!passed)
 				continue
 		. += thing
 
 /proc/get_rad_contamination_target(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
-		/mob/camera,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
@@ -182,7 +177,7 @@
 	for(var/atom/thing in contamination_contents)
 		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
 
-/// Contaminate the contents of a target area. This is more aggressive than contaminate adjacent and does not check against individual clothes on a human(single instance)
+/// Contaminate the contents of a target(single instance)
 /proc/contaminate_target(atom/target, atom/source, intensity, emission_type)
 	var/list/contamination_contents = get_rad_contamination_target(target, source)
 	for(var/atom/thing in contamination_contents)

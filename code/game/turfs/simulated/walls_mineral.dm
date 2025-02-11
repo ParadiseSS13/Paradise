@@ -72,6 +72,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
+	radioactivity_beta = 100
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)
@@ -84,7 +85,6 @@
 			active = FALSE
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
-	contaminate_atom(user, src, 100, ALPHA_RAD)
 	radiate()
 	..()
 

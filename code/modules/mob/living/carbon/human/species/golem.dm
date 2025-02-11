@@ -342,9 +342,17 @@
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown")
 
+/datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	H.radioactivity_alpha = 40
+
+/datum/species/golem/uranium/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.radioactivity_alpha = 0
+
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	contaminate_adjacent(H, 40, ALPHA_RAD)
-	radiation_pulse(H, 80, ALPHA_RAD)
+	contaminate_adjacent(H, H.radioactivity_alpha, ALPHA_RAD)
+	radiation_pulse(H, 2 * H.radioactivity_alpha, ALPHA_RAD)
 	..()
 
 //Ventcrawler

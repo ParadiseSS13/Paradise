@@ -63,6 +63,7 @@
 		toggle(user)
 
 /obj/structure/falsewall/attack_hand(mob/user)
+	. = ..()
 	toggle(user)
 
 /obj/structure/falsewall/proc/toggle(mob/user)
@@ -216,13 +217,13 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
+	radioactivity_beta = 100
 
 /obj/structure/falsewall/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
 /obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
-	user.contaminate_atom(src, 100, ALPHA_RAD)
 	radiate()
 	..()
 
@@ -230,7 +231,7 @@
 	if(!active)
 		if(world.time > last_event + 1.5 SECONDS)
 			active = TRUE
-			radiation_pulse(src, 600, ALPHA_RAD)
+			radiation_pulse(src, 6 * radioactivity_beta, ALPHA_RAD)
 			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time

@@ -159,6 +159,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
 	var/last_event = 0
+	radioactivity_beta = 100
 
 /obj/machinery/door/airlock/uranium/process()
 	if(world.time > last_event + 20)
@@ -172,11 +173,10 @@
 
 /obj/machinery/door/airlock/uranium/attack_hand(mob/user)
 	. = ..()
-	user.contaminate_atom(src, 100, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/Bumped(atom/movable/AM)
 	. = ..()
-	AM.contaminate_atom(src, 100, ALPHA_RAD)
+	AM.contaminate_atom(src, radioactivity_beta, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE

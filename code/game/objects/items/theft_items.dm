@@ -15,6 +15,7 @@
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
 	new_attack_chain = TRUE
+	radioactivity_beta = 100
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
@@ -32,14 +33,14 @@
 
 /obj/item/nuke_core/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	target.contaminate_atom(src, 100, BETA_RAD)
+	target.contaminate_atom(src, radioactivity_beta, BETA_RAD)
 
 /obj/item/nuke_core/process()
-	contaminate_adjacent(src, 100, BETA_RAD)
+	contaminate_adjacent(src, radioactivity_beta, BETA_RAD)
 	if(cooldown < world.time - 6 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
-		radiation_pulse(src, 1600, BETA_RAD)
+		radiation_pulse(src, 16 * radioactivity_beta, BETA_RAD)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -191,7 +192,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/item/nuke_core/supermatter_sliver/attack_by(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
