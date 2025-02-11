@@ -35400,8 +35400,18 @@
 	},
 /area/station/public/construction)
 "cxB" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	autolink_id = "aisat_vent"
+	},
+/obj/machinery/airlock_controller/air_cycler{
+	pixel_y = 25;
+	vent_link_id = "aisat_vent";
+	ext_door_link_id = "aisat_door_ext";
+	int_door_link_id = "aisat_door_int";
+	ext_button_link_id = "aisat_btn_ext";
+	int_button_link_id = "aisat_btn_int"
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "cxD" = (
@@ -50547,14 +50557,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
-"ePB" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "ePN" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -52641,6 +52643,9 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"fRs" = (
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "fRJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -54341,6 +54346,11 @@
 "gML" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
+	},
+/obj/machinery/access_button{
+	autolink_id = "aisat_btn_int";
+	pixel_x = -25;
+	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
@@ -65965,6 +65975,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"mRn" = (
+/obj/structure/lattice,
+/obj/machinery/access_button{
+	autolink_id = "aisat_btn_ext";
+	pixel_x = 25;
+	pixel_y = 25
+	},
+/turf/space,
+/area/space/nearstation)
 "mRs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -77687,6 +77706,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"sWj" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "aisat_door_ext";
+	locked = 1;
+	name = "MiniSat External Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "sWO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -79884,6 +79913,10 @@
 	icon_state = "cult"
 	},
 /area/station/maintenance/fsmaint)
+"uey" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
 "ueT" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -81786,6 +81819,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"vna" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "aisat_door_int";
+	locked = 1;
+	name = "MiniSat External Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "vnr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/disposalpipe/segment{
@@ -123127,7 +123173,7 @@ aab
 aab
 gCu
 aab
-aab
+mRn
 aab
 aab
 iUc
@@ -123384,8 +123430,8 @@ aab
 aaa
 nOO
 dmB
-dnW
-ePB
+sWj
+dmB
 dpf
 iUc
 rTy
@@ -123898,7 +123944,7 @@ aab
 vHd
 saB
 jmM
-dnW
+vna
 wza
 dnZ
 wtW
@@ -127631,9 +127677,9 @@ aaa
 aaa
 aaa
 awl
-avq
-avq
-awl
+fRs
+fRs
+aMr
 auq
 avw
 auq
@@ -127888,8 +127934,8 @@ aaa
 aab
 aaa
 aaa
-doE
-doE
+uey
+uey
 aaa
 aaa
 aaa
