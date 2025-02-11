@@ -77,18 +77,17 @@
 	current_lense.on_detached()
 	user.put_in_hands(current_lense)
 
-/obj/item/gun/energy/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
-	var/obj/item/smithed_item/lense/new_lense = used
+	var/obj/item/smithed_item/lense/new_lense = I
 	if(!istype(new_lense))
-		return ITEM_INTERACT_COMPLETE
+		return 
 	if(current_lense)
 		to_chat(user, "<span class='notice'>Your [src] already has a lense.</span>")
-		return ITEM_INTERACT_COMPLETE
+		return 
 	new_lense.forceMove(src)
 	current_lense = new_lense
 	new_lense.on_attached(user, src)
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot

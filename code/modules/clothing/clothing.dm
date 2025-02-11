@@ -893,18 +893,17 @@
 	old_insert.on_detached()
 	user.put_in_hands(old_insert)
 
-/obj/item/clothing/suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
-	var/obj/item/smithed_item/insert/new_insert = used
+	var/obj/item/smithed_item/insert/new_insert = I
 	if(!istype(new_insert))
-		return ITEM_INTERACT_COMPLETE
+		return
 	if(length(inserts) == insert_max)
 		to_chat(user, "<span class='notice'>Your suit has no slots to add an insert.</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 	new_insert.forceMove(src)
 	inserts += new_insert
 	new_insert.on_attached(user, src)
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/proc/resist_restraints(mob/living/carbon/user, break_restraints)
 	var/effective_breakout_time = breakouttime
