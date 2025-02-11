@@ -76103,7 +76103,7 @@
 /area/station/science/lobby)
 "pgS" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/science/minisat,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "pht" = (
