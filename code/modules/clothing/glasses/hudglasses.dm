@@ -172,13 +172,6 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/item/clothing/glasses/hud/malf_ai
-	name = "malf ai debug glasses"
-	desc = "a debug set of glasses for seeing malf AI markers. This should not show up normally and should be removed before the final PR"
-	icon_state = "hydroponichud"
-	hud_types = DATA_HUD_MALF_AI
-	examine_extensions = list(EXAMINE_HUD_MALF_READ,EXAMINE_HUD_MALF_WRITE)
-
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
