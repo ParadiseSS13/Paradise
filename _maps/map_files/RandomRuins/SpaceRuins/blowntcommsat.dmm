@@ -423,7 +423,7 @@
 /area/ruin/space/tcommsat)
 "AV" = (
 /obj/structure/table,
-/obj/item/hemostat,
+/obj/item/tool/hemostat,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Bq" = (
@@ -460,7 +460,7 @@
 /area/space/nearstation)
 "DH" = (
 /obj/structure/table,
-/obj/item/circular_saw,
+/obj/item/tool/circular_saw,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ef" = (
@@ -514,7 +514,7 @@
 /area/ruin/space/tcommsat)
 "If" = (
 /obj/structure/table,
-/obj/item/scalpel/laser/laser2,
+/obj/item/tool/scalpel/laser/laser2,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Is" = (
@@ -650,7 +650,7 @@
 "PZ" = (
 /obj/structure/closet,
 /obj/item/stock_parts/cell/high,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Qd" = (

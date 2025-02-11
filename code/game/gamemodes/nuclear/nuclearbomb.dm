@@ -243,7 +243,7 @@ GLOBAL_VAR(bomb_set)
 
 	return ..()
 
-/obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -282,7 +282,7 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_MOBILE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/tool/I)
 	if(!anchored)
 		return
 	if(removal_stage != NUKE_SEALANT_OPEN)
@@ -297,7 +297,7 @@ GLOBAL_VAR(bomb_set)
 	removal_stage = NUKE_UNWRENCHED
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/nuclearbomb/multitool_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/multitool_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -305,11 +305,11 @@ GLOBAL_VAR(bomb_set)
 		return
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
+	if(auth || (istype(I, /obj/item/tool/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "<span class='notice'>You unscrew the control panel of [src].</span>")
@@ -331,7 +331,7 @@ GLOBAL_VAR(bomb_set)
 		flick(sprite_prefix + "nuclearbombc", src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -339,7 +339,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

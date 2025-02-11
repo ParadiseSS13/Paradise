@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			P.forceMove(src)
 			return ITEM_INTERACT_COMPLETE
 
-/turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
+/turf/simulated/floor/crowbar_act(mob/user, obj/item/tool/I)
 	if(!intact)
 		return
 	. = TRUE

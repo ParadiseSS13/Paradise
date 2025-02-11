@@ -142,7 +142,7 @@
 
 	return TRUE
 
-/obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/tool/I)
 	if(!isnull(linked_pos) && linked_pos.transaction_locked)
 		user.visible_message("<span class='notice'>[user] tries to pry [src] apart, but fails.</span>", "<span class='notice'>The lock on [src] resists your efforts to pry it apart.</span>")
 		return TRUE

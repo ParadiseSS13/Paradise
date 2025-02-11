@@ -249,7 +249,7 @@
 			set_sign(new /datum/barsign/hiddensigns/signbroken)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
-/obj/machinery/barsign/welder_act(mob/living/user, obj/item/I)
+/obj/machinery/barsign/welder_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE
@@ -272,7 +272,7 @@
 		add_fingerprint(user)
 	stat &= ~MAINT
 
-/obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE
@@ -291,7 +291,7 @@
 		I.play_tool_sound(user, I.tool_volume)
 		add_fingerprint(user)
 
-/obj/machinery/barsign/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/barsign/wrench_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(build_stage != BARSIGN_FRAME)
@@ -306,7 +306,7 @@
 		I.play_tool_sound(user, I.tool_volume)
 		deconstruct(TRUE)
 
-/obj/machinery/barsign/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/barsign/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return FALSE
 	if(build_stage != BARSIGN_CIRCUIT && build_stage != BARSIGN_COMPLETE)
@@ -352,7 +352,7 @@
 		add_fingerprint(user)
 	I.play_tool_sound(user, I.tool_volume)
 
-/obj/machinery/barsign/wirecutter_act(mob/living/user, obj/item/I)
+/obj/machinery/barsign/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(build_stage != BARSIGN_WIRED)

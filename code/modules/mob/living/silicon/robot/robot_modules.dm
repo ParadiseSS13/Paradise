@@ -332,21 +332,21 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/scalpel/laser/laser1,
-		/obj/item/hemostat,
-		/obj/item/retractor,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/bonesetter,
-		/obj/item/bonegel,
-		/obj/item/fix_o_vein,
+		/obj/item/tool/scalpel/laser/laser1,
+		/obj/item/tool/hemostat,
+		/obj/item/tool/retractor,
+		/obj/item/tool/circular_saw,
+		/obj/item/tool/surgicaldrill,
+		/obj/item/tool/bonesetter,
+		/obj/item/tool/bonegel,
+		/obj/item/tool/fix_o_vein,
 		/obj/item/extinguisher/mini,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/dropper,
@@ -452,12 +452,12 @@
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
-		/obj/item/screwdriver/cyborg,
-		/obj/item/wrench/cyborg,
-		/obj/item/crowbar/cyborg,
-		/obj/item/wirecutters/cyborg,
-		/obj/item/multitool/cyborg,
+		/obj/item/tool/weldingtool/largetank/cyborg,
+		/obj/item/tool/screwdriver/cyborg,
+		/obj/item/tool/wrench/cyborg,
+		/obj/item/tool/crowbar/cyborg,
+		/obj/item/tool/wirecutters/cyborg,
+		/obj/item/tool/multitool/cyborg,
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
@@ -478,7 +478,7 @@
 	emag_modules = list(/obj/item/melee/baton/loaded/borg_stun_arm, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/tool/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
@@ -505,7 +505,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
@@ -530,7 +530,7 @@
 	module_type = "Janitor"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/soap/nanotrasen,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
@@ -621,7 +621,7 @@
 	module_type = "Service"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
 		/obj/item/pen/multi,
@@ -700,11 +700,11 @@
 	custom_removals = list("KA modkits")
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,
 		/obj/item/shovel,
-		/obj/item/weldingtool/mini,
+		/obj/item/tool/weldingtool/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
@@ -713,7 +713,7 @@
 	)
 	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
 	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
-	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
+	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/tool/weldingtool/mini)
 
 /obj/item/robot_module/miner/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/mining/G = locate(/obj/item/gripper/mining) in modules
@@ -748,7 +748,7 @@
 	module_type = "Standard"
 	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	basic_modules = list(
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
 		/obj/item/reagent_containers/spray/alien/smoke,
@@ -768,12 +768,12 @@
 	name = "drone module"
 	module_type = "Engineer"
 	basic_modules = list(
-		/obj/item/weldingtool/largetank/cyborg,
-		/obj/item/screwdriver/cyborg,
-		/obj/item/wrench/cyborg,
-		/obj/item/crowbar/cyborg,
-		/obj/item/wirecutters/cyborg/drone,
-		/obj/item/multitool/cyborg/drone,
+		/obj/item/tool/weldingtool/largetank/cyborg,
+		/obj/item/tool/screwdriver/cyborg,
+		/obj/item/tool/wrench/cyborg,
+		/obj/item/tool/crowbar/cyborg,
+		/obj/item/tool/wirecutters/cyborg/drone,
+		/obj/item/tool/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
@@ -795,7 +795,7 @@
 	)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/cleaner/drone,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/tool/weldingtool/largetank/cyborg,
 		/obj/item/lightreplacer/cyborg
 	)
 
@@ -824,7 +824,7 @@
 		/obj/item/gun/energy/printer,
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/pinpointer/operative,
 	)
 
@@ -841,16 +841,16 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo/syndicate,
-		/obj/item/scalpel/laser/laser1,
-		/obj/item/hemostat,
-		/obj/item/retractor,
+		/obj/item/tool/scalpel/laser/laser1,
+		/obj/item/tool/hemostat,
+		/obj/item/tool/retractor,
 		/obj/item/melee/energy/sword/cyborg/saw, //Energy saw -- primary weapon
-		/obj/item/surgicaldrill,
-		/obj/item/bonesetter,
-		/obj/item/bonegel,
-		/obj/item/fix_o_vein,
+		/obj/item/tool/surgicaldrill,
+		/obj/item/tool/bonesetter,
+		/obj/item/tool/bonegel,
+		/obj/item/tool/fix_o_vein,
 		/obj/item/card/emag,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/pinpointer/operative,
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg/syndicate,
 		/obj/item/stack/medical/ointment/advanced/cyborg/syndicate,
@@ -881,12 +881,12 @@
 		/obj/item/rcd/borg/syndicate,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
-		/obj/item/screwdriver/cyborg,
-		/obj/item/wrench/cyborg,
-		/obj/item/crowbar/cyborg,
-		/obj/item/wirecutters/cyborg,
-		/obj/item/multitool/cyborg,
+		/obj/item/tool/weldingtool/largetank/cyborg,
+		/obj/item/tool/screwdriver/cyborg,
+		/obj/item/tool/wrench/cyborg,
+		/obj/item/tool/crowbar/cyborg,
+		/obj/item/tool/wirecutters/cyborg,
+		/obj/item/tool/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/gripper/engineering,
@@ -901,7 +901,7 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/tool/weldingtool/largetank/cyborg)
 
 /obj/item/robot_module/syndicate_saboteur/emag_act(mob/user)
 	. = ..()
@@ -920,7 +920,7 @@
 	module_actions = list(/datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
 		// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
 		// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
@@ -944,7 +944,7 @@
 	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
@@ -965,7 +965,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
-		/obj/item/crowbar/cyborg/red,
+		/obj/item/tool/crowbar/cyborg/red,
 	)
 	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 

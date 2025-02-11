@@ -129,11 +129,11 @@
 		/obj/item/clothing/gloves/combat,
 		/obj/item/blank_tarot_card,
 		/obj/item/storage/box/syndie_kit/space,
-		/obj/item/wrench/brass,
-		/obj/item/crowbar/brass,
-		/obj/item/screwdriver/brass,
-		/obj/item/weldingtool/experimental/brass,
-		/obj/item/wirecutters/brass
+		/obj/item/tool/wrench/brass,
+		/obj/item/tool/crowbar/brass,
+		/obj/item/tool/screwdriver/brass,
+		/obj/item/tool/weldingtool/experimental/brass,
+		/obj/item/tool/wirecutters/brass
 	)
 
 // Rare cultural pool

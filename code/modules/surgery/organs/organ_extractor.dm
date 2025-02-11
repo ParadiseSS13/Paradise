@@ -18,11 +18,11 @@
 		. += "<span class='notice'>You can <b>Screwdriver</b> [src] to try to adjust [storedorgan]'s configuration.</span>"
 		. += "<span class='notice'>You can <b>Wrench</b> [src] to eject [storedorgan]!</span>"
 
-/obj/item/organ_extractor/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/organ_extractor/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(storedorgan)
 		return storedorgan.screwdriver_act(user, I)
 
-/obj/item/organ_extractor/wrench_act(mob/living/user, obj/item/I)
+/obj/item/organ_extractor/wrench_act(mob/living/user, obj/item/tool/I)
 	if(storedorgan)
 		to_chat(user, "<span class='warning'>You unwrench the jar, and [storedorgan] falls onto the floor!</span>")
 		storedorgan.forceMove(get_turf(user))

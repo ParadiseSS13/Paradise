@@ -133,7 +133,7 @@
 
 	return ..()
 
-/obj/item/clothing/mask/muzzle/safety/shock/screwdriver_act(mob/user, obj/item/I)
+/obj/item/clothing/mask/muzzle/safety/shock/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!trigger)
 		return
 	. = TRUE

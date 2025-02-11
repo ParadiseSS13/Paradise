@@ -44,8 +44,8 @@
 	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
-	new /obj/item/crowbar/small(src)
-	new /obj/item/weldingtool/mini(src)
+	new /obj/item/tool/crowbar/small(src)
+	new /obj/item/tool/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
 	if(prob(50))
 		new /obj/item/flashlight(src)
@@ -64,12 +64,12 @@
 	item_state = "toolbox_blue"
 
 /obj/item/storage/toolbox/mechanical/populate_contents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool(src)
+	new /obj/item/tool/crowbar(src)
 	new /obj/item/analyzer(src)
-	new /obj/item/wirecutters(src)
+	new /obj/item/tool/wirecutters(src)
 
 /obj/item/storage/toolbox/mechanical/greytide
 	flags = NODROP
@@ -86,10 +86,10 @@
 
 /obj/item/storage/toolbox/electrical/populate_contents()
 	var/pickedcolor = pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE)
-	new /obj/item/screwdriver(src)
-	new /obj/item/wirecutters(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/wirecutters(src)
 	new /obj/item/t_scanner(src)
-	new /obj/item/crowbar(src)
+	new /obj/item/tool/crowbar(src)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
 	if(prob(5))
@@ -107,12 +107,12 @@
 	throwforce = 18
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
-	new /obj/item/screwdriver/nuke(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/small(src)
-	new /obj/item/wirecutters(src, "red")
-	new /obj/item/multitool/red(src)
+	new /obj/item/tool/screwdriver/nuke(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool/largetank(src)
+	new /obj/item/tool/crowbar/small(src)
+	new /obj/item/tool/wirecutters(src, "red")
+	new /obj/item/tool/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)
 
 /obj/item/storage/toolbox/fakesyndi
@@ -128,13 +128,13 @@
 
 /obj/item/storage/toolbox/drone/populate_contents()
 	var/pickedcolor = pick(pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE))
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool(src)
+	new /obj/item/tool/crowbar(src)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/wirecutters(src)
+	new /obj/item/tool/multitool(src)
 
 /obj/item/storage/toolbox/artistic
 	name = "artistic toolbox"
@@ -147,7 +147,7 @@
 
 /obj/item/storage/toolbox/artistic/populate_contents()
 	new /obj/item/storage/fancy/crayons(src)
-	new /obj/item/crowbar(src)
+	new /obj/item/tool/crowbar(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil/yellow(src)
 	new /obj/item/stack/cable_coil/blue(src)

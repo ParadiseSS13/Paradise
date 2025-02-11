@@ -373,7 +373,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Nh" = (
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/structure/rack,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)

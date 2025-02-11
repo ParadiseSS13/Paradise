@@ -625,7 +625,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /////////////////////////////////////////
 /////////// ENGINEERING TOOLS ///////////
 /////////////////////////////////////////
-/obj/item/screwdriver/abductor
+/obj/item/tool/screwdriver/abductor
 	name = "alien screwdriver"
 	desc = "An ultrasonic screwdriver."
 	icon = 'icons/obj/abductor.dmi'
@@ -635,7 +635,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	random_color = FALSE
 
-/obj/item/wrench/abductor
+/obj/item/tool/wrench/abductor
 	name = "alien wrench"
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
@@ -645,7 +645,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
-/obj/item/weldingtool/abductor
+/obj/item/tool/weldingtool/abductor
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
@@ -659,7 +659,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
-/obj/item/crowbar/abductor
+/obj/item/tool/crowbar/abductor
 	name = "alien crowbar"
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
@@ -670,7 +670,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
-/obj/item/wirecutters/abductor
+/obj/item/tool/wirecutters/abductor
 	name = "alien wirecutters"
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
@@ -680,11 +680,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
 
-/obj/item/wirecutters/abductor/Initialize(mapload)
+/obj/item/tool/wirecutters/abductor/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
-/obj/item/multitool/abductor
+/obj/item/tool/multitool/abductor
 	name = "alien multitool"
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
@@ -694,11 +694,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 
-/obj/item/multitool/abductor/Initialize(mapload)
+/obj/item/tool/multitool/abductor/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
-/obj/item/storage/belt/military/abductor
+/obj/item/tool/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
 	icon = 'icons/obj/abductor.dmi'
@@ -706,74 +706,74 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "security"
 
 /obj/item/storage/belt/military/abductor/full/populate_contents()
-	new /obj/item/screwdriver/abductor(src)
-	new /obj/item/wrench/abductor(src)
-	new /obj/item/weldingtool/abductor(src)
-	new /obj/item/crowbar/abductor(src)
-	new /obj/item/wirecutters/abductor(src)
-	new /obj/item/multitool/abductor(src)
+	new /obj/item/tool/screwdriver/abductor(src)
+	new /obj/item/tool/wrench/abductor(src)
+	new /obj/item/tool/weldingtool/abductor(src)
+	new /obj/item/tool/crowbar/abductor(src)
+	new /obj/item/tool/wirecutters/abductor(src)
+	new /obj/item/tool/multitool/abductor(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
 
 /////////////////////////////////////////
 /////////// MEDICAL TOOLS ///////////////
 /////////////////////////////////////////
-/obj/item/scalpel/alien
+/obj/item/tool/scalpel/alien
 	name = "alien scalpel"
 	desc = "It's a gleaming sharp knife made out of silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/hemostat/alien
+/obj/item/tool/hemostat/alien
 	name = "alien hemostat"
 	desc = "You've never seen this before."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/retractor/alien
+/obj/item/tool/retractor/alien
 	name = "alien retractor"
 	desc = "You're not sure if you want the veil pulled back."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/circular_saw/alien
+/obj/item/tool/circular_saw/alien
 	name = "alien saw"
 	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/surgicaldrill/alien
+/obj/item/tool/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/cautery/alien
+/obj/item/tool/cautery/alien
 	name = "alien cautery"
 	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/bonegel/alien
+/obj/item/tool/bonegel/alien
 	name = "alien bone gel"
 	desc = "It smells like duct tape."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/fix_o_vein/alien
+/obj/item/tool/fix_o_vein/alien
 	name = "alien FixOVein"
 	desc = "Bloodless aliens would totally know how to stop internal bleeding... Right?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/bonesetter/alien
+/obj/item/tool/bonesetter/alien
 	name = "alien bone setter"
 	desc = "You're not sure you want to know whether or not aliens have bones."
 	icon = 'icons/obj/abductor.dmi'

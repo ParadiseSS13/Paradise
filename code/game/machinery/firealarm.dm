@@ -151,7 +151,7 @@ FIRE ALARM
 
 	return ..()
 
-/obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/firealarm/crowbar_act(mob/user, obj/item/tool/I)
 	if(buildstage != FIRE_ALARM_UNWIRED)
 		return
 	. = TRUE
@@ -165,7 +165,7 @@ FIRE ALARM
 	update_icon()
 	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
 
-/obj/machinery/firealarm/multitool_act(mob/user, obj/item/I)
+/obj/machinery/firealarm/multitool_act(mob/user, obj/item/tool/I)
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
@@ -180,7 +180,7 @@ FIRE ALARM
 	else
 		user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
 
-/obj/machinery/firealarm/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/firealarm/screwdriver_act(mob/user, obj/item/tool/I)
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
@@ -193,7 +193,7 @@ FIRE ALARM
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 
-/obj/machinery/firealarm/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/firealarm/wirecutter_act(mob/user, obj/item/tool/I)
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
@@ -209,7 +209,7 @@ FIRE ALARM
 	buildstage = FIRE_ALARM_UNWIRED
 
 
-/obj/machinery/firealarm/wrench_act(mob/user, obj/item/I)
+/obj/machinery/firealarm/wrench_act(mob/user, obj/item/tool/I)
 	if(buildstage != FIRE_ALARM_FRAME)
 		return
 	. = TRUE

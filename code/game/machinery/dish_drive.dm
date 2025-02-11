@@ -54,11 +54,11 @@
 	playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 	flick("synthesizer_beam", src)
 
-/obj/machinery/dish_drive/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/dish_drive/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		return TRUE
 
-/obj/machinery/dish_drive/wrench_act(mob/user, obj/item/I)
+/obj/machinery/dish_drive/wrench_act(mob/user, obj/item/tool/I)
 	if(default_unfasten_wrench(user, I))
 		return TRUE
 

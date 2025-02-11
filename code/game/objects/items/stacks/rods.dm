@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	max_amount = 50
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	toolspeed = 1
+	usespeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	var/amount = get_amount()
 	icon_state = "rods-[clamp(amount, 1, 5)]"
 
-/obj/item/stack/rods/welder_act(mob/user, obj/item/I)
+/obj/item/stack/rods/welder_act(mob/user, obj/item/tool/I)
 	if(get_amount() < 2)
 		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
 		return

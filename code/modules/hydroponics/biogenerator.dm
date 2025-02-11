@@ -91,7 +91,7 @@
 	else
 		icon_state = "biogen-work"
 
-/obj/machinery/biogenerator/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/biogenerator/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", I))
 		return FALSE
 	if(container)
@@ -99,7 +99,7 @@
 		container = null
 	return TRUE
 
-/obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/tool/I)
 	return default_deconstruction_crowbar(user, I)
 
 /obj/machinery/biogenerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)

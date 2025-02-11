@@ -142,20 +142,20 @@
 
 	return ..()
 
-/obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/power/compressor/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/compressor/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
-/obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	if(panel_open)
 		M.set_multitool_buffer(user, src)
 
@@ -416,9 +416,9 @@
 	. = ..()
 	ui_interact(user)
 
-/obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/tool/I)
 	. = ..()
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	compressor = M.buffer
 	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
 

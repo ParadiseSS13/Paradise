@@ -16,7 +16,7 @@
 /area/ruin/space/clockwork_monastery)
 "bt" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/weldingtool/experimental/brass,
+/obj/item/tool/weldingtool/experimental/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "bW" = (
@@ -384,13 +384,13 @@
 	pixel_x = 4;
 	pixel_y = 7
 	},
-/obj/item/wirecutters/brass,
+/obj/item/tool/wirecutters/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "GF" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/crowbar/brass,
-/obj/item/wrench/brass,
+/obj/item/tool/crowbar/brass,
+/obj/item/tool/wrench/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Ht" = (
@@ -429,7 +429,7 @@
 "IL" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/belt/utility,
-/obj/item/screwdriver/brass,
+/obj/item/tool/screwdriver/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Jm" = (

@@ -254,7 +254,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/machinery/syndicatebomb/doomsday/ex_act(severity)
 	return // No.
 
-/obj/machinery/syndicatebomb/doomsday/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/doomsday/screwdriver_act(mob/user, obj/item/tool/I)
 	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
 
 /obj/machinery/syndicatebomb/doomsday/Initialize(mapload)

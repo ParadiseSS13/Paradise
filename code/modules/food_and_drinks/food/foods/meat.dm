@@ -16,7 +16,7 @@
 	ingredient_name_plural = "slabs of meat"
 
 /obj/item/food/meat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
+	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/tool/scalpel))
 		new /obj/item/food/rawcutlet(src)
 		new /obj/item/food/rawcutlet(src)
 		new /obj/item/food/rawcutlet(src)
@@ -100,7 +100,7 @@
 	list_reagents = list("protein" = 1)
 
 /obj/item/food/rawcutlet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
+	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/tool/scalpel))
 		user.visible_message( \
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \

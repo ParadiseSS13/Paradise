@@ -254,7 +254,7 @@
 	else
 		cell.use(power_consumption_rate)
 
-/obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!cell)
 		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
 		return

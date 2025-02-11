@@ -99,12 +99,12 @@
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	can_hold = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/flashlight,
 		/obj/item/stack/cable_coil,
 		/obj/item/t_scanner,
@@ -118,35 +118,35 @@
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/wirecutters(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
 	..()
-	new /obj/item/multitool(src)
+	new /obj/item/tool/multitool(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/atmostech/populate_contents()
-	new /obj/item/screwdriver(src)
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/brass/populate_contents()
-	new /obj/item/wrench/brass(src)
-	new /obj/item/crowbar/brass(src)
-	new /obj/item/screwdriver/brass(src)
-	new /obj/item/weldingtool/experimental/brass(src)
-	new /obj/item/wirecutters/brass(src)
+	new /obj/item/tool/wrench/brass(src)
+	new /obj/item/tool/crowbar/brass(src)
+	new /obj/item/tool/screwdriver/brass(src)
+	new /obj/item/tool/weldingtool/experimental/brass(src)
+	new /obj/item/tool/wirecutters/brass(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/chief
@@ -157,10 +157,10 @@
 	storable = TRUE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
-	new /obj/item/screwdriver/power(src)
-	new /obj/item/crowbar/power(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
-	new /obj/item/multitool(src)
+	new /obj/item/tool/screwdriver/power(src)
+	new /obj/item/tool/crowbar/power(src)
+	new /obj/item/tool/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/tool/multitool(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
@@ -174,12 +174,12 @@
 	item_state = "assault"
 
 /obj/item/storage/belt/utility/syndi_researcher/populate_contents()
-	new /obj/item/screwdriver(src, "red")
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/wirecutters(src, "red")
-	new /obj/item/multitool/red(src)
+	new /obj/item/tool/screwdriver(src, "red")
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool/largetank(src)
+	new /obj/item/tool/crowbar/red(src)
+	new /obj/item/tool/wirecutters(src, "red")
+	new /obj/item/tool/multitool/red(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
 
@@ -189,12 +189,12 @@
 	item_state = "assault"
 
 /obj/item/storage/belt/utility/expedition/populate_contents()
-	new /obj/item/screwdriver(src, "blue")
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/hugetank(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/screwdriver(src, "blue")
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool/hugetank(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/wirecutters(src)
+	new /obj/item/tool/multitool(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_BLUE)
 	update_icon()
 
@@ -230,7 +230,7 @@
 		/obj/item/reagent_containers/hypospray/cmo,
 		/obj/item/reagent_containers/hypospray/safety,
 		/obj/item/sensor_device,
-		/obj/item/wrench/medical,
+		/obj/item/tool/wrench/medical,
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/geiger_counter,
@@ -246,27 +246,27 @@
 	storage_slots = 9
 	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/scalpel,
-		/obj/item/hemostat,
-		/obj/item/retractor,
-		/obj/item/circular_saw,
-		/obj/item/bonegel,
-		/obj/item/bonesetter,
-		/obj/item/fix_o_vein,
-		/obj/item/surgicaldrill,
-		/obj/item/cautery,
+		/obj/item/tool/scalpel,
+		/obj/item/tool/hemostat,
+		/obj/item/tool/retractor,
+		/obj/item/tool/circular_saw,
+		/obj/item/tool/bonegel,
+		/obj/item/tool/bonesetter,
+		/obj/item/tool/fix_o_vein,
+		/obj/item/tool/surgicaldrill,
+		/obj/item/tool/cautery,
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
-	new /obj/item/scalpel(src)
-	new /obj/item/hemostat(src)
-	new /obj/item/retractor(src)
-	new /obj/item/circular_saw(src)
-	new /obj/item/bonegel(src)
-	new /obj/item/bonesetter(src)
-	new /obj/item/fix_o_vein(src)
-	new /obj/item/surgicaldrill(src)
-	new /obj/item/cautery(src)
+	new /obj/item/tool/scalpel(src)
+	new /obj/item/tool/hemostat(src)
+	new /obj/item/tool/retractor(src)
+	new /obj/item/tool/circular_saw(src)
+	new /obj/item/tool/bonegel(src)
+	new /obj/item/tool/bonesetter(src)
+	new /obj/item/tool/fix_o_vein(src)
+	new /obj/item/tool/surgicaldrill(src)
+	new /obj/item/tool/cautery(src)
 	update_icon()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
@@ -297,8 +297,8 @@
 		/obj/item/shovel/spade,
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/reagent_containers/spray/pestspray
@@ -378,12 +378,12 @@
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/rcd,
 		/obj/item/rcd_ammo,
 		/obj/item/ammo_box,
@@ -430,12 +430,12 @@
 	resistance_flags = FIRE_PROOF
 	use_item_overlays = TRUE // Will show the tools on the sprite
 	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/rpd/bluespace
 	)
 
@@ -451,13 +451,13 @@
 	storable = TRUE
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
-	new /obj/item/screwdriver(src, "red")
-	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/small(src)
-	new /obj/item/wirecutters(src, "red")
+	new /obj/item/tool/screwdriver(src, "red")
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/weldingtool/largetank(src)
+	new /obj/item/tool/crowbar/small(src)
+	new /obj/item/tool/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
-	new /obj/item/multitool/ai_detect(src)
+	new /obj/item/tool/multitool/ai_detect(src)
 	update_icon()
 
 /obj/item/storage/belt/grenade
@@ -510,12 +510,12 @@
 	item_state = "assault"
 	storage_slots = 6
 	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/ammo_box,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -870,12 +870,12 @@
 	can_hold = list()
 	large = TRUE
 	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/handheld_defibrillator
 		)
 
@@ -955,12 +955,12 @@
 	can_hold = list()
 
 /obj/item/storage/belt/bluespace/admin/populate_contents()
-	new /obj/item/crowbar(src)
-	new /obj/item/screwdriver(src)
-	new /obj/item/weldingtool/hugetank(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/wrench(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/weldingtool/hugetank(src)
+	new /obj/item/tool/wirecutters(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/multitool(src)
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/restraints/handcuffs(src)
@@ -982,12 +982,12 @@
 	can_hold = list()
 
 /obj/item/storage/belt/bluespace/sandbox/populate_contents()
-	new /obj/item/crowbar(src)
-	new /obj/item/screwdriver(src)
-	new /obj/item/weldingtool/hugetank(src)
-	new /obj/item/wirecutters(src)
-	new /obj/item/wrench(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/screwdriver(src)
+	new /obj/item/tool/weldingtool/hugetank(src)
+	new /obj/item/tool/wirecutters(src)
+	new /obj/item/tool/wrench(src)
+	new /obj/item/tool/multitool(src)
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/analyzer(src)
@@ -1004,12 +1004,12 @@
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	can_hold = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
+		/obj/item/tool/crowbar,
+		/obj/item/tool/screwdriver,
+		/obj/item/tool/weldingtool,
+		/obj/item/tool/wirecutters,
+		/obj/item/tool/wrench,
+		/obj/item/tool/multitool,
 		/obj/item/flashlight,
 		/obj/item/stack/cable_coil,
 		/obj/item/analyzer,

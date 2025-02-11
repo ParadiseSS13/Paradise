@@ -213,7 +213,7 @@
 
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/disposal/screwdriver_act(mob/user, obj/item/tool/I)
 	if(mode != DISPOSALS_OFF) // It's on
 		to_chat(user, "<span class='warning'>You need to turn the disposal unit off first!</span>")
 		return
@@ -237,7 +237,7 @@
 	)
 	update()
 
-/obj/machinery/disposal/welder_act(mob/user, obj/item/I)
+/obj/machinery/disposal/welder_act(mob/user, obj/item/tool/I)
 	if(mode != DISPOSALS_UNSCREWED)
 		to_chat(user, "<span class='warning'>You need to unscrew the disposal unit first!</span>")
 		return
@@ -1060,7 +1060,7 @@
 
 	add_fingerprint(user)
 
-/obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
+/obj/structure/disposalpipe/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
@@ -1488,7 +1488,7 @@
 	update()
 	return
 
-/obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/I)
+/obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/tool/I)
 	if(I.use_tool(src, user, 0, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You remove [src]!</span>")
 		I.play_tool_sound(src, I.tool_volume)
@@ -1556,7 +1556,7 @@
 			mob_to_immobilize.Immobilize(1 SECONDS)
 		AM.throw_at(target, 3, 1)
 
-/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/tool/I)
 	add_fingerprint(user)
 
 	if(!mode)
@@ -1567,7 +1567,7 @@
 	mode = !mode
 	return TRUE
 
-/obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
+/obj/structure/disposaloutlet/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

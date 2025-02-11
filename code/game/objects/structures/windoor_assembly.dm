@@ -122,7 +122,7 @@
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
 
-				if(do_after(user, 40 * P.toolspeed, target = src))
+				if(do_after(user, 40 * P.usespeed, target = src))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					playsound(loc, P.usesound, 100, 1)
@@ -139,7 +139,7 @@
 			else if(iscoil(W) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.usespeed, target = src))
 					if(!src || !anchored || state != EMPTY_ASSEMBLY)
 						return
 					var/obj/item/stack/cable_coil/CC = W
@@ -163,7 +163,7 @@
 				W.forceMove(src)
 				var/obj/item/airlock_electronics/new_electronics = W
 
-				if(do_after(user, 40 * new_electronics.toolspeed, target = src) && !new_electronics.is_installed)
+				if(do_after(user, 40 * new_electronics.usespeed, target = src) && !new_electronics.is_installed)
 					if(!src || electronics)
 						new_electronics.forceMove(loc)
 						return
@@ -185,7 +185,7 @@
 	//Update to reflect changes(if applicable)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
+/obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/tool/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != WIRED_ASSEMBLY)
 		return
 	. = TRUE
@@ -240,7 +240,7 @@
 		qdel(src)
 		windoor.close()
 
-/obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/tool/I)
 	if(state != WIRED_ASSEMBLY || !electronics)
 		return
 	. = TRUE
@@ -257,7 +257,7 @@
 	ae.forceMove(loc)
 	ae.is_installed = FALSE
 
-/obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/tool/I)
 	if(state != WIRED_ASSEMBLY)
 		return
 	. = TRUE
@@ -275,7 +275,7 @@
 		name = "anchored windoor assembly"
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
+/obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/tool/I)
 	if(state != EMPTY_ASSEMBLY)
 		return
 	. = TRUE
@@ -313,7 +313,7 @@
 			name = "windoor assembly"
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
+/obj/structure/windoor_assembly/welder_act(mob/user, obj/item/tool/I)
 	if(state != EMPTY_ASSEMBLY)
 		return
 	. = TRUE
@@ -330,7 +330,7 @@
 		qdel(src)
 
 
-/obj/structure/windoor_assembly/multitool_act(mob/user, obj/item/I)
+/obj/structure/windoor_assembly/multitool_act(mob/user, obj/item/tool/I)
 	if(state != WIRED_ASSEMBLY)
 		return
 	. = TRUE

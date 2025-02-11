@@ -66,7 +66,7 @@
 	else
 		return ..()
 
-/obj/item/storage/briefcase/false_bottomed/screwdriver_act(mob/user, obj/item/I)
+/obj/item/storage/briefcase/false_bottomed/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!bottom_open && busy_hunting)
 		return
 	. = TRUE

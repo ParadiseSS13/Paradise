@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	update_icon(UPDATE_OVERLAYS)
 	GLOB.crematoriums -= src
 
-/obj/structure/crematorium/welder_act(mob/user, obj/item/I)
+/obj/structure/crematorium/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM) // if you want to damage it with a welder you should be able to
 		return
 	if(!broken)

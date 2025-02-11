@@ -71,8 +71,8 @@
 
 /obj/structure/closet/cardboard/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/wirecutters))
-			var/obj/item/wirecutters/WC = W
+		if(istype(W, /obj/item/tool/wirecutters))
+			var/obj/item/tool/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)

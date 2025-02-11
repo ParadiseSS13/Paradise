@@ -70,7 +70,7 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
-		if(do_after(user, 40 * coil.toolspeed, target = src))
+		if(do_after(user, 40 * coil.usespeed, target = src))
 			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			coil.use(1)
@@ -81,7 +81,7 @@
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.usespeed, target = src))
 			var/obj/item/airlock_electronics/new_electronics = W
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS || new_electronics.is_installed)
 				return
@@ -102,7 +102,7 @@
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-							if(do_after(user, 40 * S.toolspeed, target = src))
+							if(do_after(user, 40 * S.usespeed, target = src))
 								if(S.get_amount() < 1 || glass)
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
@@ -120,7 +120,7 @@
 		return ..()
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/crowbar_act(mob/user, obj/item/tool/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
@@ -142,7 +142,7 @@
 		ae.is_installed = FALSE
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/tool/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
@@ -177,7 +177,7 @@
 	qdel(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/tool/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	. = TRUE
@@ -191,7 +191,7 @@
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/wrench_act(mob/user, obj/item/tool/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	. = TRUE
@@ -206,7 +206,7 @@
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
 	anchored = !anchored
 
-/obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -234,7 +234,7 @@
 		deconstruct(TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/multitool_act(mob/user, obj/item/I)
+/obj/structure/door_assembly/multitool_act(mob/user, obj/item/tool/I)
 	if(noglass)
 		return
 	. = TRUE

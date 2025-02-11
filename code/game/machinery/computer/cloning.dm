@@ -51,7 +51,7 @@
 	if(!ismultitool(used))
 		return ..()
 
-	var/obj/item/multitool/M = used
+	var/obj/item/tool/multitool/M = used
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
 		return ITEM_INTERACT_COMPLETE

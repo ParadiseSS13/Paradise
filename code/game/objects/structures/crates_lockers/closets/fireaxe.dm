@@ -31,10 +31,10 @@
 
 /obj/structure/closet/fireaxecabinet/attackby__legacy__attackchain(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
-		if(istype(O, /obj/item/multitool))
+		if(istype(O, /obj/item/tool/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.usespeed, target = src))
 				locked = FALSE
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon(UPDATE_ICON_STATE)
@@ -82,14 +82,14 @@
 	else
 		if(smashed)
 			return
-		if(istype(O, /obj/item/multitool))
+		if(istype(O, /obj/item/tool/multitool))
 			if(localopened)
 				operate_panel()
 				return
 			else
 				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-				if(do_after(user, 20 * O.toolspeed, target = src))
+				if(do_after(user, 20 * O.usespeed, target = src))
 					locked = TRUE
 					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
 				return
@@ -170,5 +170,5 @@
 /obj/structure/closet/fireaxecabinet/close()
 	return
 
-/obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
+/obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/tool/I) //A bastion of sanity in a sea of madness
 	return

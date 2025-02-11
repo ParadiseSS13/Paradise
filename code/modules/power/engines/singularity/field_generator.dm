@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		if(FG_WELDED)
 			to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 
-/obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
+/obj/machinery/field/generator/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(state == FG_UNSECURED)
 		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")

@@ -137,7 +137,7 @@
 	..()
 	return
 
-/obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
+/obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!a_left || !a_right)
 		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
 		return

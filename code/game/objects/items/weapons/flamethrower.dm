@@ -18,7 +18,7 @@
 	var/status = FALSE
 	var/lit = FALSE	//on or off
 	var/operating = FALSE//cooldown
-	var/obj/item/weldingtool/weldtool = null
+	var/obj/item/tool/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
 	var/obj/item/tank/internals/plasma/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
@@ -172,7 +172,7 @@
 	else
 		return ..()
 
-/obj/item/flamethrower/wrench_act(mob/user, obj/item/I)
+/obj/item/flamethrower/wrench_act(mob/user, obj/item/tool/I)
 	if(status)
 		return
 	. = TRUE
@@ -191,7 +191,7 @@
 	new /obj/item/stack/rods(T)
 	qdel(src)
 
-/obj/item/flamethrower/screwdriver_act(mob/user, obj/item/I)
+/obj/item/flamethrower/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!igniter || lit)
 		return
 	. = TRUE
@@ -243,7 +243,7 @@
 
 /obj/item/flamethrower/CheckParts(list/parts_list)
 	..()
-	weldtool = locate(/obj/item/weldingtool) in contents
+	weldtool = locate(/obj/item/tool/weldingtool) in contents
 	igniter = locate(/obj/item/assembly/igniter) in contents
 	igniter.secured = FALSE
 	status = TRUE
@@ -288,7 +288,7 @@
 	. = ..()
 	if(create_full)
 		if(!weldtool)
-			weldtool = new /obj/item/weldingtool(src)
+			weldtool = new /obj/item/tool/weldingtool(src)
 		if(!igniter)
 			igniter = new igniter_type(src)
 		igniter.secured = FALSE

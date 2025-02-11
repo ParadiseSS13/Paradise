@@ -10,7 +10,7 @@
 	anchored = TRUE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
@@ -76,7 +76,7 @@
 			start_spike(G.affecting, user)
 	return ..()
 
-/obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(has_buckled_mobs())
 		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")

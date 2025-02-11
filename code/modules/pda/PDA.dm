@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
 
-/obj/item/pda/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/pda/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 

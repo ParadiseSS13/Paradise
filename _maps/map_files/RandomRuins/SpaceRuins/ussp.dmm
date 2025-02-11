@@ -1437,7 +1437,7 @@
 /area/ruin/space/derelict/arrival)
 "dM" = (
 /obj/structure/rack,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1840,9 +1840,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "eO" = (
-/obj/item/scalpel{
-	pixel_y = 12
-	},
+/obj/item/tool/scalpel,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2205,9 +2203,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fI" = (
-/obj/item/circular_saw{
-	pixel_y = 10
-	},
+/obj/item/tool/circular_saw,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
@@ -2671,7 +2667,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "gX" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -5478,7 +5474,7 @@
 /area/ruin/space/derelict/arrival)
 "oH" = (
 /obj/structure/lattice,
-/obj/item/retractor,
+/obj/item/tool/retractor,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "oI" = (
@@ -5808,7 +5804,7 @@
 "pF" = (
 /obj/structure/rack,
 /obj/item/rack_parts,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -5817,7 +5813,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pH" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/hemostat,
+/obj/item/tool/hemostat,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6780,7 +6776,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rY" = (
-/obj/item/cautery,
+/obj/item/tool/cautery,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "rZ" = (

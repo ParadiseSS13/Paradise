@@ -94,7 +94,7 @@
 	else
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 
-/obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
@@ -103,7 +103,7 @@
 	reagents.reaction(loc)
 	reagents.clear_reagents()
 
-/obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchored && !isinspace())
 		if(!I.use_tool(src, user, I.tool_volume))

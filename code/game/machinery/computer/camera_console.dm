@@ -204,7 +204,7 @@
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
-/obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
+/obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -272,7 +272,7 @@
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-/obj/machinery/computer/security/telescreen/entertainment/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/security/telescreen/entertainment/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0 SECONDS))
 		return
@@ -293,11 +293,11 @@
 	icon_screen_on = "detective_tv"
 	density = TRUE
 
-/obj/machinery/computer/security/telescreen/entertainment/television/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/security/telescreen/entertainment/television/wrench_act(mob/living/user, obj/item/tool/I)
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		return TRUE
 
-/obj/machinery/computer/security/telescreen/entertainment/television/multitool_act(mob/user, obj/item/I)
+/obj/machinery/computer/security/telescreen/entertainment/television/multitool_act(mob/user, obj/item/tool/I)
 	return
 
 /obj/machinery/computer/security/telescreen/entertainment/television/on_deconstruction()

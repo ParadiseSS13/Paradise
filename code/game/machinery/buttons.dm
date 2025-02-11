@@ -42,7 +42,7 @@
 	if(user.can_advanced_admin_interact())
 		attack_hand(user)
 
-/obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
+/obj/machinery/driver_button/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 
 	if(!I.tool_use_check(user, 0))
@@ -105,7 +105,7 @@
 	icon_state = "launcherbtt"
 	active = FALSE
 
-/obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
+/obj/machinery/driver_button/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

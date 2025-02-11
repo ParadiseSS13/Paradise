@@ -24,7 +24,7 @@
 	else
 		return ..()
 
-/obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return

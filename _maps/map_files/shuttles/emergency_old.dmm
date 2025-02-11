@@ -174,7 +174,7 @@
 	pixel_y = 3
 	},
 /obj/item/extinguisher,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/machinery/light/spot{
 	dir = 8
 	},

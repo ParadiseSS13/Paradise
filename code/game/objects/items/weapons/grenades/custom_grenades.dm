@@ -264,7 +264,7 @@
 
 /obj/item/storage/box/syndie_kit/remotegrenade/populate_contents()
 	new /obj/item/grenade/chem_grenade/explosion/remote(src)
-	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+	new /obj/item/tool/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
 
 /obj/item/storage/box/syndie_kit/remoteemp
@@ -272,7 +272,7 @@
 
 /obj/item/storage/box/syndie_kit/remoteemp/populate_contents()
 	new /obj/item/grenade/chem_grenade/emp/remote(src)
-	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+	new /obj/item/tool/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
 
 /obj/item/storage/box/syndie_kit/remotelube
@@ -280,5 +280,5 @@
 
 /obj/item/storage/box/syndie_kit/remotelube/populate_contents()
 	new /obj/item/grenade/chem_grenade/lube(src)
-	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+	new /obj/item/tool/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)

@@ -35,7 +35,7 @@
 	reagents.add_reagent(reagent_id, tank_volume)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/reagent_dispensers/wrench_act(mob/user, obj/item/I)
+/obj/structure/reagent_dispensers/wrench_act(mob/user, obj/item/tool/I)
 	if(!can_be_unwrenched)
 		return
 	. = TRUE
@@ -191,7 +191,7 @@
 	else
 		return ..()
 
-/obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
+/obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!reagents.has_reagent("fuel"))
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")

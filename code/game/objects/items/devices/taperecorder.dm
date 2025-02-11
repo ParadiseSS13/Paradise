@@ -340,13 +340,13 @@
 	if(is_pen(I))
 		rename_interactive(user, I)
 
-/obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/tape/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = ..()
 	if(ruined)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
-		if(do_after(user, 120 * I.toolspeed, target = src))
+		if(do_after(user, 120 * I.usespeed, target = src))
 			to_chat(user, "<span class='notice'>You wind the tape back in!</span>")
 			ruined = FALSE
 			update_icon(UPDATE_OVERLAYS)

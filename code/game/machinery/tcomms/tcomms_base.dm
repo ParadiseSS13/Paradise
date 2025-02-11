@@ -458,7 +458,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   *
   * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
   */
-/obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
@@ -467,6 +467,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   *
   * Handles the crowbar action for all tcomms machines, so they can be deconstructed
   */
-/obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/tcomms/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)

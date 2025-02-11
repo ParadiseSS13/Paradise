@@ -107,7 +107,7 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"

@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/tool/I)
 	if(enabled || raised)
 		to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
 		return
@@ -372,7 +372,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TRUE
 	return ..()
 
-/obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!(stat & BROKEN) || syndicate) // No disasembling active turrets or syndicate ones
 		return
@@ -986,7 +986,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(build_step != 6 && build_step != 5)
 		return
 
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	I.play_tool_sound(src)
 	return TRUE
 
-/obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
+/obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(build_step == 2)
 		if(!I.use_tool(src, user, 20, 5, volume = I.tool_volume))

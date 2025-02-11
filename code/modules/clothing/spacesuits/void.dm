@@ -22,7 +22,7 @@
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_VOID_SUIT
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/multitool)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/tool/multitool)
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',

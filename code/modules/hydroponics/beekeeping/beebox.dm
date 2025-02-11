@@ -193,7 +193,7 @@
 		return
 	return ..()
 
-/obj/structure/beebox/crowbar_act(mob/user, obj/item/I)
+/obj/structure/beebox/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0))
 		return
@@ -202,7 +202,7 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 
-/obj/structure/beebox/wrench_act(mob/user, obj/item/I)
+/obj/structure/beebox/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 

@@ -113,6 +113,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// For flags that define what areas an item cover
 	var/flags_cover = 0
 
+	/// How loud are we when we use our item?
+	var/tool_volume = 50
+
+	/// How fast is the item used?
+	var/use_speed = 1
+
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
 	var/hit_reaction_chance = 0
 
@@ -141,15 +147,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
 	/// How fast something has to be going to embed
 	var/embedded_ignore_throwspeed_threshold = FALSE
-
-	/// What kind of tool are we?
-	var/tool_behaviour = NONE
-	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
-	var/tool_enabled = TRUE
-	/// How loud are we when we use our tool?
-	var/tool_volume = 50
-	/// If this item is a tool, the speed multiplier. Smaller numbers are faster.
-	var/toolspeed = 1
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -1024,3 +1021,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Changes the speech verb when wearing this item if a value is returned
 /obj/item/proc/change_speech_verb()
 	return
+
+/// Plays a sound when used.
+/obj/item/tool/proc/play_sound(atom/target, volume = tool_volume)
+	if(target && usesound && volume)
+		var/played_sound = usesound
+
+		if(islist(usesound))
+			played_sound = pick(usesound)
+
+		playsound(target, played_sound, volume, 1)

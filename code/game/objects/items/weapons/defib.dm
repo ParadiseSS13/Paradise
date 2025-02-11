@@ -115,7 +115,7 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!cell)
 		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
 		return
@@ -264,7 +264,7 @@
 	. += ""
 	. += "Whilst the ACD is currently too expensive for mass-market deployment, Nanotrasen hopes that later developments in its manufacturing capabilities will enable it to economically launch this product commercially."
 
-/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/tool/I)
 	return // The cell is too strong roundstart and we dont want the adv defib to become useless
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)

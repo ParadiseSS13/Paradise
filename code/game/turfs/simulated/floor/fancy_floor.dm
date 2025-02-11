@@ -6,13 +6,13 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
+/turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	remove_tile(user, FALSE, TRUE)
 
-/turf/simulated/floor/wood/crowbar_act(mob/user, obj/item/I)
+/turf/simulated/floor/wood/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

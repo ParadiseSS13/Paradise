@@ -266,7 +266,7 @@
 
 	return ..()
 
-/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(default_deconstruction_crowbar(user, I))
@@ -282,7 +282,7 @@
 	return ..()
 
 
-/obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
+/obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -296,11 +296,11 @@
 		hackedcheck = FALSE
 	SStgui.update_uis(src)
 
-/obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
 		return TRUE
 
-/obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
+/obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
@@ -585,7 +585,7 @@
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+/obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!isrobot(loc) && cell)
 		cell.update_icon()
 		cell.loc = get_turf(src)

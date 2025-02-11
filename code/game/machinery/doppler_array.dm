@@ -43,7 +43,7 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
+/obj/machinery/doppler_array/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return

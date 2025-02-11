@@ -193,7 +193,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	// Disassembling the terminal
-	if(istype(used, /obj/item/wirecutters) && terminal && panel_open)
+	if(istype(used, /obj/item/tool/wirecutters) && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
@@ -202,7 +202,7 @@
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
 		playsound(src.loc, used.usesound, 50, TRUE)
 
-		if(do_after(user, 5 SECONDS * used.toolspeed, target = src))
+		if(do_after(user, 5 SECONDS * used.usespeed, target = src))
 			if(terminal && panel_open)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) // Animate the electrocution if uncautious and unlucky
 					do_sparks(5, TRUE, src)

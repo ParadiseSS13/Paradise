@@ -213,28 +213,28 @@
 		L.laser_act(src, user)
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
 
-/obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/camera/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
-/obj/machinery/camera/multitool_act(mob/user, obj/item/I)
+/obj/machinery/camera/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
-/obj/machinery/camera/welder_act(mob/user, obj/item/I)
+/obj/machinery/camera/welder_act(mob/user, obj/item/tool/I)
 	if(!panel_open || !wires.CanDeconstruct())
 		return
 	. = TRUE

@@ -241,14 +241,14 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
 	remove_id()
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return TRUE
 
@@ -275,7 +275,7 @@
 			new /obj/item/resonator(drop_location)
 		if("Minebot Kit")
 			new /obj/item/mining_drone_cube(drop_location)
-			new /obj/item/weldingtool/hugetank(drop_location)
+			new /obj/item/tool/weldingtool/hugetank(drop_location)
 			new /obj/item/clothing/head/welding(drop_location)
 		if("Extraction and Rescue Kit")
 			new /obj/item/extraction_pack(drop_location)
@@ -450,7 +450,7 @@
 	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", used))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		if(istype(used, /obj/item/crowbar))
+		if(istype(used, /obj/item/tool/crowbar))
 			remove_id()
 			default_deconstruction_crowbar(user, used)
 		return ITEM_INTERACT_COMPLETE

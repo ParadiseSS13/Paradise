@@ -447,20 +447,20 @@
 		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
 		return
 
-	if(istype(W, /obj/item/hemostat) && paicard)
+	if(istype(W, /obj/item/tool/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 			return
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-		if(do_after(user, 30 * W.toolspeed, target = src))
+		if(do_after(user, 30 * W.usespeed, target = src))
 			if(paicard)
 				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 				ejectpai(user)
 				return
 	return ..()
 
-/mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(locked)
@@ -473,7 +473,7 @@
 	return TRUE
 
 
-/mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
+/mob/living/simple_animal/bot/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(user == src) // No self-repair dummy

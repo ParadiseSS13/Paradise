@@ -195,17 +195,10 @@
 /area/ruin/space/unpowered)
 "zy" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 8
-	},
-/obj/item/hemostat{
-	pixel_y = -17
-	},
-/obj/item/retractor{
-	pixel_x = -5;
-	pixel_y = -15
-	},
+/obj/item/tool/circular_saw,
+/obj/item/tool/scalpel,
+/obj/item/tool/hemostat,
+/obj/item/tool/retractor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)

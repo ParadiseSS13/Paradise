@@ -91,7 +91,7 @@
 		return FALSE
 	return ..()
 
-/obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!anchored && !isinspace())
 		I.play_tool_sound(src, I.tool_volume)
 		user.visible_message(

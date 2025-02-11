@@ -52,7 +52,7 @@
 			if(LIGHT_CONSTRUCT_COMPLETED)
 				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
 
-/obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	switch(stage)
 		if(LIGHT_CONSTRUCT_EMPTY_FRAME)
@@ -67,7 +67,7 @@
 		if(LIGHT_CONSTRUCT_COMPLETED)
 			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
 
-/obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
+/obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -79,7 +79,7 @@
 	new /obj/item/stack/cable_coil(get_turf(loc), 1, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
-/obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
 	. = TRUE
@@ -143,7 +143,7 @@
 	construct_type = /obj/machinery/light/clockwork/built
 	fixture_type = "clockwork_tube"
 
-/obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	switch(stage)
 		if(1)
@@ -687,7 +687,7 @@
 
 	return ..()
 
-/obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/light/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(status != LIGHT_EMPTY)
 		return
 

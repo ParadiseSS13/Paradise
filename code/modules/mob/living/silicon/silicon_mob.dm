@@ -248,7 +248,7 @@
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
 
-/mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(user == src) //No self-repair dummy

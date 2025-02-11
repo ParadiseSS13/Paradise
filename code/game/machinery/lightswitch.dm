@@ -85,7 +85,7 @@
 	power_change()
 	..(severity)
 
-/obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
+/obj/machinery/light_switch/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 
 	if(!I.tool_use_check(user, 0))

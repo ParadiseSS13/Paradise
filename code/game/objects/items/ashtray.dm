@@ -58,7 +58,7 @@
 	empty_tray()
 	return ..()
 
-/obj/item/ashtray/wrench_act(mob/user, obj/item/I)
+/obj/item/ashtray/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return

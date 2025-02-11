@@ -227,7 +227,7 @@
  * * tool - The tool (or item) being used in this surgery step.
  * Returns TRUE if the tool can be used, or FALSE otherwise
  */
-/datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
+/datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool/tool)
 
 	var/success = FALSE
 	if(accept_hand)
@@ -238,7 +238,7 @@
 		if(tool && tool_check(user, tool))
 			success = TRUE
 	else if(tool)
-		if(istype(tool, /obj/item/scalpel/laser/manager/debug))
+		if(istype(tool, /obj/item/tool/scalpel/laser/manager/debug))
 			// ok this is a meme but only use it if we'd actually be replacing a tool
 			for(var/key in allowed_tools)
 				if(!ispath(key) && (key in GLOB.surgery_tool_behaviors))
@@ -323,7 +323,7 @@
  *
  * Returns TRUE if the surgery should proceed to the next step, or FALSE otherwise.
  */
-/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool/tool, datum/surgery/surgery, try_to_fail = FALSE)
 
 	surgery.step_in_progress = TRUE
 
@@ -348,7 +348,7 @@
 	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
 
 	if(tool)
-		speed_mod = tool.toolspeed
+		speed_mod = tool.usespeed
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1
@@ -589,7 +589,7 @@
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
 
-/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool/tool, datum/surgery/surgery)
 	if(!preop_sound || (islist(preop_sound) && !length(preop_sound)) || ismachineperson(target))
 		return
 	var/sound_file_use

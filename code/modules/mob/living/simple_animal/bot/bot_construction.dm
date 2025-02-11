@@ -128,7 +128,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.usespeed, target = src))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -176,12 +176,12 @@
 				user.unequip(src, force = TRUE)
 				qdel(src)
 
-/obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(build_step != 8)
 		return
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-	if(do_after(user, 40 * I.toolspeed, target = src))
+	if(do_after(user, 40 * I.usespeed, target = src))
 		build_step++
 		update_appearance(UPDATE_NAME)
 		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
@@ -514,7 +514,7 @@
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-/obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(build_step != 0 && build_step != 2 && build_step != 3)
 		return
 
@@ -596,7 +596,7 @@
 		qdel(I)
 		qdel(src)
 
-/obj/item/griefsky_assembly/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/griefsky_assembly/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!build_step && !toy_step)
 		return
 

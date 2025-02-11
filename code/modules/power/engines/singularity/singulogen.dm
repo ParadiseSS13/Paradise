@@ -21,7 +21,7 @@
 		transfer_fingerprints_to(S)
 		if(src) qdel(src)
 
-/obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/wrench/W)
+/obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/tool/wrench/W)
 	. = TRUE
 	anchored = !anchored
 	if(!W.use_tool(src, user, 2 SECONDS, 0, 50))

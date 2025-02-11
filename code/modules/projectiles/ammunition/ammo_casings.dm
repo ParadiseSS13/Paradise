@@ -429,7 +429,7 @@
 		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
 
-/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(modified)
 		return
 

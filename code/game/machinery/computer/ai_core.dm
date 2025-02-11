@@ -125,7 +125,7 @@
 
 	return ..()
 
-/obj/structure/ai_core/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
 	. = TRUE
@@ -152,7 +152,7 @@
 				brain = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/ai_core/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
 		return
 	. = TRUE
@@ -193,7 +193,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/structure/ai_core/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(state != CABLED_CORE)
 		return
 	. = TRUE
@@ -208,7 +208,7 @@
 		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 		A.amount = 5
 
-/obj/structure/ai_core/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/ai_core/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 20)
 
@@ -241,7 +241,7 @@
 	new /obj/item/stack/sheet/plasteel(loc, 4)
 	qdel(src)
 
-/obj/structure/ai_core/welder_act(mob/user, obj/item/I)
+/obj/structure/ai_core/welder_act(mob/user, obj/item/tool/I)
 	if(state)
 		return
 	. = TRUE

@@ -135,7 +135,7 @@
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
 
-/obj/machinery/door/firedoor/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/door/firedoor/screwdriver_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		return
 	if(operating || !welded)
@@ -147,7 +147,7 @@
 						"<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
 	boltslocked = !boltslocked
 
-/obj/machinery/door/firedoor/wrench_act(mob/user, obj/item/I)
+/obj/machinery/door/firedoor/wrench_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		return
 	if(operating || !welded)
@@ -166,7 +166,7 @@
 							"<span class='notice'>You undo [src]'s floor bolts.</span>")
 	deconstruct(TRUE)
 
-/obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
+/obj/machinery/door/firedoor/welder_act(mob/user, obj/item/tool/I)
 	if(!density)
 		return
 	. = TRUE
@@ -417,7 +417,7 @@
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									"<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 60 * C.toolspeed, target = src))
+				if(do_after(user, 60 * C.usespeed, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
@@ -435,7 +435,7 @@
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									"<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 60 * B.toolspeed, target = src))
+				if(do_after(user, 60 * B.usespeed, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
@@ -450,7 +450,7 @@
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									"<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 40 * C.toolspeed, target = src))
+				if(!do_after(user, 40 * C.usespeed, target = src))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
@@ -464,7 +464,7 @@
 				return
 	return ..()
 
-/obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
+/obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/tool/I)
 	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))
 		return
 	. = TRUE
@@ -503,7 +503,7 @@
 		constructionStep = CONSTRUCTION_NOCIRCUIT
 	update_icon()
 
-/obj/structure/firelock_frame/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/firelock_frame/wirecutter_act(mob/user, obj/item/tool/I)
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 		return
 	. = TRUE
@@ -523,7 +523,7 @@
 	constructionStep = CONSTRUCTION_GUTTED
 	update_icon()
 
-/obj/structure/firelock_frame/wrench_act(mob/user, obj/item/I)
+/obj/structure/firelock_frame/wrench_act(mob/user, obj/item/tool/I)
 	if(constructionStep != CONSTRUCTION_PANEL_OPEN)
 		return
 	. = TRUE
@@ -551,7 +551,7 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
-/obj/structure/firelock_frame/welder_act(mob/user, obj/item/I)
+/obj/structure/firelock_frame/welder_act(mob/user, obj/item/tool/I)
 	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 		return
 	. = TRUE

@@ -82,7 +82,7 @@
 
 /obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
 	SIGNAL_HANDLER // COMSIG_TOOL_ATTACK
-	var/obj/item/I = tool
+	var/obj/item/tool/I = tool
 	if(!istype(I))
 		return
 
@@ -311,7 +311,7 @@
 
 	return ..()
 
-/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -323,7 +323,7 @@
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
 
-/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
@@ -332,7 +332,7 @@
 		return
 	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
-/obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -343,7 +343,7 @@
 		return
 	interact(user)
 
-/obj/machinery/autolathe/multitool_act(mob/user, obj/item/I)
+/obj/machinery/autolathe/multitool_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))

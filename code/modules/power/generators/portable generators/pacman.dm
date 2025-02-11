@@ -207,13 +207,13 @@
 
 	return ..()
 
-/obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(active || !panel_open)
 		return
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(active)
 		return
 	. = TRUE
@@ -225,7 +225,7 @@
 	else
 		to_chat(user, "<span class='notice'>You close the access panel.</span>")
 
-/obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/tool/I)
 	if(active)
 		return
 	. = TRUE

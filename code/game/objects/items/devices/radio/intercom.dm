@@ -159,14 +159,14 @@
 		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 			return
-		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
+		if(do_after(user, 10 * coil.usespeed, target = src) && buildstage == 1)
 			coil.use(5)
 			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 			buildstage = 2
 		return 1
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
+		if(do_after(user, 10 * W.usespeed, target = src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1
@@ -179,7 +179,7 @@
 	if(broadcasting)
 		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) ///Allows us to track who spams all these on if they do.
 
-/obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
+/obj/item/radio/intercom/crowbar_act(mob/user, obj/item/tool/I)
 	if(buildstage != 1)
 		return
 	. = TRUE
@@ -192,7 +192,7 @@
 	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
 	buildstage = 0
 
-/obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
+/obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/tool/I)
 	if(buildstage != 2)
 		return ..()
 	. = TRUE
@@ -210,7 +210,7 @@
 	for(var/i, i<= 5, i++)
 		wires.on_cut(i, 1)
 
-/obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
+/obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
 		return ..()
 	. = TRUE
@@ -224,7 +224,7 @@
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_operating_status(FALSE)
 
-/obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
+/obj/item/radio/intercom/welder_act(mob/user, obj/item/tool/I)
 	if(buildstage != 0)
 		return
 	. = TRUE

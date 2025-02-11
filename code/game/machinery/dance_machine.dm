@@ -58,7 +58,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/machinery/disco/wrench_act(mob/user, obj/item/I)
+/obj/machinery/disco/wrench_act(mob/user, obj/item/tool/I)
 	if(active)
 		return
 	. = TRUE

@@ -32,9 +32,9 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/crowbar(src)
+	new /obj/item/tool/crowbar(src)
 
 /obj/structure/closet/walllocker/emerglocker/north
 	pixel_y = 32

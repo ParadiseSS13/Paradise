@@ -275,7 +275,7 @@
 	return // return TRUE to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(istype(W, /obj/item/tool/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
@@ -675,7 +675,7 @@
 			M.dropped()
 		return
 
-	if(istype(I, /obj/item/wirecutters))
+	if(istype(I, /obj/item/tool/wirecutters))
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)

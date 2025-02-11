@@ -195,19 +195,19 @@
 	name = "staff hazard vest"
 	desc = "A high-visibilty vest used in work zones. Designed to easily identify station staff from visitors."
 	icon_state = "hazard_staff"
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/rcs, /obj/item/dest_tagger)
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/tool/screwdriver, /obj/item/radio, /obj/item/tool/wrench, /obj/item/tool/weldingtool, /obj/item/tool/crowbar, /obj/item/tool/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/rcs, /obj/item/dest_tagger)
 
 /obj/item/clothing/suit/storage/hazardvest/qm
 	name = "warehouse supervisor hazard vest"
 	desc = "A high-visibilty vest used in work zones. Designed to easily identify the supply supervisor."
 	icon_state = "hazard_qm"
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcs, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster)
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/tool/screwdriver, /obj/item/radio, /obj/item/tool/wrench, /obj/item/tool/weldingtool, /obj/item/tool/crowbar, /obj/item/tool/wirecutters, /obj/item/rcs, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster)
 
 /obj/item/clothing/suit/storage/hazardvest/ce
 	name = "foreman hazard vest"
 	desc = "A high-visibility vest used in work zones. Designed to easily identify the engineering supervisor."
 	icon_state = "hazard_ce"
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/tool/screwdriver, /obj/item/radio, /obj/item/tool/wrench, /obj/item/tool/weldingtool, /obj/item/tool/crowbar, /obj/item/tool/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/iaa
@@ -348,7 +348,7 @@
 	desc = "A sterile blue surgical apron."
 	icon_state = "surgical"
 	item_state = "surgical"
-	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
+	allowed = list(/obj/item/tool/scalpel, /obj/item/surgical_drapes, /obj/item/tool/cautery, /obj/item/tool/hemostat, /obj/item/tool/retractor)
 
 //NT Career Trainer
 /obj/item/clothing/suit/storage/nct

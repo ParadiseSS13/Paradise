@@ -8,7 +8,7 @@
 	products = list(/obj/item/assembly/prox_sensor = 4,
 					/obj/item/assembly/igniter = 4,
 					/obj/item/assembly/signaler = 4,
-					/obj/item/wirecutters = 2,
+					/obj/item/tool/wirecutters = 2,
 					/obj/item/cartridge/signal = 4)
 
 	contraband = list(/obj/item/flashlight = 4,
@@ -19,7 +19,7 @@
 	prices = list(/obj/item/assembly/prox_sensor = 20,
 				/obj/item/assembly/igniter = 20,
 				/obj/item/assembly/signaler = 30,
-				/obj/item/wirecutters = 50,
+				/obj/item/tool/wirecutters = 50,
 				/obj/item/cartridge/signal = 75,
 				/obj/item/flashlight = 40,
 				/obj/item/assembly/timer = 20,
@@ -1110,31 +1110,31 @@
 	category = VENDOR_TYPE_SUPPLIES
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
-	products = list(/obj/item/crowbar = 5,
-					/obj/item/screwdriver = 5,
-					/obj/item/weldingtool = 3,
-					/obj/item/wirecutters = 5,
-					/obj/item/wrench = 5,
+	products = list(/obj/item/tool/crowbar = 5,
+					/obj/item/tool/screwdriver = 5,
+					/obj/item/tool/weldingtool = 3,
+					/obj/item/tool/wirecutters = 5,
+					/obj/tool/item/wrench = 5,
 					/obj/item/analyzer = 5,
 					/obj/item/t_scanner = 5,
 					/obj/item/stack/cable_coil/random = 10,
 					/obj/item/clothing/gloves/color/yellow = 1,
-					/obj/item/crowbar/large = 1)
+					/obj/item/tool/crowbar/large = 1)
 
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2,
-					/obj/item/weldingtool/hugetank = 2)
+					/obj/item/tool/weldingtool/hugetank = 2)
 
-	prices = list(/obj/item/crowbar = 75,
-				/obj/item/screwdriver = 50,
-				/obj/item/weldingtool = 100,
-				/obj/item/wirecutters = 50,
-				/obj/item/wrench = 75,
+	prices = list(/obj/item/tool/crowbar = 75,
+				/obj/item/tool/screwdriver = 50,
+				/obj/item/tool/weldingtool = 100,
+				/obj/item/tool/wirecutters = 50,
+				/obj/item/tool/wrench = 75,
 				/obj/item/analyzer = 25,
 				/obj/item/t_scanner = 25,
 				/obj/item/stack/cable_coil/random = 20,
 				/obj/item/clothing/gloves/color/yellow = 250,
-				/obj/item/weldingtool/hugetank = 120,
-				/obj/item/crowbar/large = 150)
+				/obj/item/tool/weldingtool/hugetank = 120,
+				/obj/item/tool/crowbar/large = 150)
 
 	refill_canister = /obj/item/vending_refill/youtool
 

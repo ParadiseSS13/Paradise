@@ -790,12 +790,12 @@
 	if(moveable && default_unfasten_wrench(user, used, time = 20))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/scalpel/supermatter))
+	if(istype(used, /obj/item/tool/scalpel/supermatter))
 		if(!ishuman(user))
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/human/H = user
-		var/obj/item/scalpel/supermatter/scalpel = used
+		var/obj/item/tool/scalpel/supermatter/scalpel = used
 
 		if(!scalpel.uses_left)
 			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
@@ -807,7 +807,7 @@
 			if(!scalpel.uses_left)
 				to_chat(H, "<span class='boldwarning'>A tiny piece falls off of [scalpel]'s blade, rendering it useless!</span>")
 
-			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
+			var/obj/item/tool/retractor/supermatter/tongs = H.is_in_hands(/obj/item/tool/retractor/supermatter)
 
 			if(tongs && !tongs.sliver)
 				tongs.sliver = sliver
@@ -822,7 +822,7 @@
 		carve_sliver(user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/retractor/supermatter))
+	if(istype(used, /obj/item/tool/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[used] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [used], silence fills the room...</span>",\

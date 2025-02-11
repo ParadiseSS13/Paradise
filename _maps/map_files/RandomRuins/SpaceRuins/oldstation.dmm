@@ -746,8 +746,8 @@
 /area/ruin/ancientstation/thetacorridor)
 "cn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/wrench,
-/obj/item/wirecutters,
+/obj/item/tool/wrench,
+/obj/item/tool/wirecutters,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
@@ -3639,7 +3639,7 @@
 "kd" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/flashlight/flare/glowstick/random,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -3691,7 +3691,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/flashlight/flare/glowstick/random,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -4126,7 +4126,7 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/fyellow/old,
 /obj/item/clothing/gloves/color/fyellow/old,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;

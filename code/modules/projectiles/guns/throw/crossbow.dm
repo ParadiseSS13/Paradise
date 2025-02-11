@@ -111,7 +111,7 @@
 	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
 	process_chamber()
 
-/obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
+/obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/tool/I)
 	. = ..()
 	if(!cell)
 		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")

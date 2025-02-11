@@ -338,7 +338,7 @@
 /obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
 	return rotate()
 
-/obj/item/pipe/wrench_act(mob/user, obj/item/I)
+/obj/item/pipe/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -536,7 +536,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
+/obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
 		return TRUE
@@ -562,7 +562,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
+/obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/tool/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
 	AS.bolts = FALSE
 	I.play_tool_sound(src, 50)

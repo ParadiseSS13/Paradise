@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `customuseritems` (
 -- Dumping data for table paradise_gamedb.customuseritems: 0 rows
 /*!40000 ALTER TABLE `customuseritems` DISABLE KEYS */;
 INSERT INTO `customuseritems` (`id`, `cuiCKey`, `cuiRealName`, `cuiPath`, `cuiItemName`, `cuiDescription`, `cuiReason`, `cuiPropAdjust`, `cuiJobMask`) VALUES
-	(1, 'AffectedArc07', 'Character Name', '/obj/item/multitool', NULL, NULL, NULL, NULL, '*');
+	(1, 'AffectedArc07', 'Character Name', '/obj/item/tool/multitool', NULL, NULL, NULL, NULL, '*');
 /*!40000 ALTER TABLE `customuseritems` ENABLE KEYS */;
 
 -- Dumping structure for table paradise_gamedb.death

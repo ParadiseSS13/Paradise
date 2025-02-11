@@ -115,7 +115,7 @@
 
 	return ..()
 
-/obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/I)
+/obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE

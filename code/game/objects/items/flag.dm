@@ -270,7 +270,7 @@
 	else
 		return ..()
 
-/obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/I)
+/obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!boobytrap || user != trapper)
 		return
 	. = TRUE

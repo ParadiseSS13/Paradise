@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!cell)
 		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
 		return
@@ -337,7 +337,7 @@
 	icon_state = "elecarm"
 	hitcost = 100
 
-/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/tool/I)
 	return FALSE
 
 /obj/item/melee/baton/flayerprod
@@ -367,7 +367,7 @@
 /obj/item/melee/baton/flayerprod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	return
 
-/obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/tool/I)
 	return
 
 /obj/item/melee/baton/flayerprod/attack_self__legacy__attackchain(mob/user)

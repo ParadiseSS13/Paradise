@@ -17,7 +17,7 @@
 		if(PLASTIC_FLAPS_DETACHED)
 			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
 
-/obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -36,7 +36,7 @@
 		anchored = TRUE
 		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
-/obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
+/obj/structure/plasticflaps/welder_act(mob/user, obj/item/tool/I)
 	if(state != PLASTIC_FLAPS_DETACHED)
 		return
 	. = TRUE

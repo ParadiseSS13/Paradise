@@ -102,7 +102,7 @@
 
 	return ..()
 
-/obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/tool/I)
 	open = !open
 	user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 	update_icon(UPDATE_ICON_STATE)

@@ -275,7 +275,7 @@
 		. = FALSE
 	target.pass_flags = pass_flags_cache
 
-/obj/structure/table/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/table/screwdriver_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
@@ -288,7 +288,7 @@
 		deconstruct(TRUE)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
-/obj/structure/table/wrench_act(mob/user, obj/item/I)
+/obj/structure/table/wrench_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
@@ -586,7 +586,7 @@
 	else
 		return ..()
 
-/obj/structure/table/glass/reinforced/welder_act(mob/user, obj/item/I)
+/obj/structure/table/glass/reinforced/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -786,7 +786,7 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+/obj/structure/table/reinforced/welder_act(mob/user, obj/item/tool/I)
 	if(!I.tool_use_check(user, 0))
 		return
 	. = TRUE
@@ -954,7 +954,7 @@
 			W.Move(loc)
 	return
 
-/obj/structure/rack/wrench_act(mob/user, obj/item/I)
+/obj/structure/rack/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
@@ -1018,7 +1018,7 @@
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

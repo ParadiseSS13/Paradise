@@ -120,7 +120,7 @@
 
 		return FINISH_ATTACK
 
-/turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
+/turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/tool/I)
 	if(I.tool_enabled)
 		ignite(2500) //The number's big enough
 		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\

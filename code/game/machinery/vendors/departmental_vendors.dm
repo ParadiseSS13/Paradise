@@ -8,7 +8,7 @@
 	req_one_access = list(ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
 					/obj/item/clothing/glasses/meson/engine/atmos = 4,
-					/obj/item/multitool = 4,
+					/obj/item/tool/multitool = 4,
 					/obj/item/geiger_counter = 5,
 					/obj/item/airlock_electronics = 10,
 					/obj/item/firelock_electronics = 10,
@@ -36,15 +36,15 @@
 					/obj/item/storage/belt/utility = 4,
 					/obj/item/clothing/glasses/meson/engine = 4,
 					/obj/item/clothing/gloves/color/yellow = 4,
-					/obj/item/screwdriver = 12,
-					/obj/item/crowbar = 12,
-					/obj/item/wirecutters = 12,
-					/obj/item/multitool = 12,
-					/obj/item/wrench = 12,
+					/obj/item/tool/screwdriver = 12,
+					/obj/item/tool/crowbar = 12,
+					/obj/item/tool/wirecutters = 12,
+					/obj/item/tool/multitool = 12,
+					/obj/item/tool/wrench = 12,
 					/obj/item/t_scanner = 12,
 					/obj/item/stack/cable_coil = 8,
 					/obj/item/stock_parts/cell = 8,
-					/obj/item/weldingtool = 8,
+					/obj/item/tool/weldingtool = 8,
 					/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,
 					/obj/item/clothing/suit/fire = 4,
@@ -70,12 +70,12 @@
 					/obj/item/assembly/prox_sensor = 3,
 					/obj/item/assembly/signaler = 3,
 					/obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2,
-					/obj/item/circular_saw = 2,
+					/obj/item/tool/scalpel = 2,
+					/obj/item/tool/circular_saw = 2,
 					/obj/item/tank/internals/anesthetic = 2,
 					/obj/item/clothing/mask/breath/medical = 5,
-					/obj/item/screwdriver = 5,
-					/obj/item/crowbar = 5)
+					/obj/item/tool/screwdriver = 5,
+					/obj/item/tool/crowbar = 5)
 
 	refill_canister = /obj/item/vending_refill/robotics
 
@@ -307,7 +307,7 @@
 	products = list(/obj/item/assembly/prox_sensor = 8,
 					/obj/item/assembly/igniter = 8,
 					/obj/item/assembly/signaler = 8,
-					/obj/item/wirecutters = 1,
+					/obj/item/tool/wirecutters = 1,
 					/obj/item/assembly/timer = 8)
 
 	contraband = list(/obj/item/flashlight = 5,

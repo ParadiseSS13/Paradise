@@ -119,17 +119,17 @@
 		change_power_mode(IDLE_POWER_USE)
 	return
 
-/obj/machinery/atmospherics/unary/thermomachine/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/thermomachine/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/atmospherics/unary/thermomachine/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/thermomachine/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
 		on = FALSE
 		update_icon()
 		return TRUE
 
-/obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")

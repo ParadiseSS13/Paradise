@@ -116,7 +116,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
+/mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(user == src) //No self-repair dummy

@@ -50,6 +50,8 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define istool(A) (istype(A, /obj/item/tool))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define isairlock(A) (istype(A, /obj/machinery/door))
@@ -82,7 +84,7 @@
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
-	/obj/item/screwdriver,
+	/obj/item/tool/screwdriver,
 	/obj/item/reagent_containers/syringe,
 	/obj/item/kitchen/utensil/fork)))
 

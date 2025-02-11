@@ -165,7 +165,7 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/power/teg/multitool_act(mob/user, obj/item/I)
+/obj/machinery/power/teg/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -185,7 +185,7 @@
 	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
 	update_appearance(UPDATE_DESC)
 
-/obj/machinery/power/teg/wrench_act(mob/user, obj/item/I)
+/obj/machinery/power/teg/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return

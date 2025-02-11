@@ -221,7 +221,7 @@
 	anchored = FALSE
 	max_integrity = 100
 
-/obj/structure/decorative_structures/wrench_act(mob/user, obj/item/I)
+/obj/structure/decorative_structures/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	add_fingerprint(user)
 	if(!I.tool_use_check(user, 0))

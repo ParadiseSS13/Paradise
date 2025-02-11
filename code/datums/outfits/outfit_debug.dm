@@ -194,12 +194,12 @@
 	scan_time = 1 SECONDS
 	scan_cd = 0 SECONDS
 
-/obj/item/scalpel/laser/manager/debug
+/obj/item/tool/scalpel/laser/manager/debug
 	name = "AVD-CNED IMS"
 	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
 	toolspeed = 0.01
 
-/obj/item/scalpel/laser/manager/debug/attack_self__legacy__attackchain(mob/user)
+/obj/item/tool/scalpel/laser/manager/debug/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
 	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
@@ -208,9 +208,9 @@
 /obj/item/organ/internal/cyberimp/arm/surgery/debug
 	name = "AVD-CNED surgical toolset implant"
 	contents = newlist(
-		/obj/item/scalpel/laser/manager/debug,
-		/obj/item/hemostat/alien, // its needed specifically for some surgeries
-		/obj/item/circular_saw/alien,
+		/obj/item/tool/scalpel/laser/manager/debug,
+		/obj/item/tool/hemostat/alien, // its needed specifically for some surgeries
+		/obj/item/tool/circular_saw/alien,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/gun/medbeam,
 		/obj/item/handheld_defibrillator,
@@ -327,11 +327,11 @@
 /obj/item/storage/box/debug/misc_debug/populate_contents()
 	new /obj/item/badmin_book(src)
 	new /obj/item/reagent_containers/drinks/bottle/vodka/badminka(src)
-	new /obj/item/crowbar/power(src) // >admin only lol
+	new /obj/item/tool/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)
 	new /obj/item/clothing/suit/advanced_protective_suit(src)
-	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
+	new /obj/item/tool/multitool/ai_detect/admin(src) // for giggles and shits
 	new /obj/item/adminfu_scroll(src)
 	new /obj/item/teleporter/admin(src)
 	new /obj/item/storage/belt/bluespace/admin(src) // god i love storage nesting

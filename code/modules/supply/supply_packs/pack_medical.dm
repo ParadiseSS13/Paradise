@@ -144,17 +144,17 @@
 
 /datum/supply_packs/medical/surgery
 	name = "Surgery Crate"
-	contains = list(/obj/item/cautery,
-					/obj/item/surgicaldrill,
+	contains = list(/obj/item/tool/cautery,
+					/obj/item/tool/surgicaldrill,
 					/obj/item/clothing/mask/breath/medical,
 					/obj/item/tank/internals/anesthetic,
-					/obj/item/fix_o_vein,
-					/obj/item/hemostat,
-					/obj/item/scalpel,
-					/obj/item/bonegel,
-					/obj/item/retractor,
-					/obj/item/bonesetter,
-					/obj/item/circular_saw,
+					/obj/item/tool/fix_o_vein,
+					/obj/item/tool/hemostat,
+					/obj/item/tool/scalpel,
+					/obj/item/tool/bonegel,
+					/obj/item/tool/retractor,
+					/obj/item/tool/bonesetter,
+					/obj/item/tool/circular_saw,
 					/obj/item/surgical_drapes)
 	cost = 400
 	containertype = /obj/structure/closet/crate/secure

@@ -18,7 +18,7 @@
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								"<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
+			if(do_after(user, 40 * W.usespeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
@@ -27,7 +27,7 @@
 			return
 	return ..()
 
-/obj/structure/statue/welder_act(mob/user, obj/item/I)
+/obj/structure/statue/welder_act(mob/user, obj/item/tool/I)
 	if(anchored)
 		return
 	. = TRUE
@@ -131,7 +131,7 @@
 		return
 	return ..()
 
-/obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
+/obj/structure/statue/plasma/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return

@@ -186,8 +186,8 @@
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/retractor/supermatter))
-		var/obj/item/retractor/supermatter/tongs = I
+	if(istype(I, /obj/item/tool/retractor/supermatter))
+		var/obj/item/tool/retractor/supermatter/tongs = I
 		if(tongs.sliver)
 			to_chat(user, "<span class='warning'>[tongs] are already holding a supermatter sliver!</span>")
 			return FALSE
@@ -196,7 +196,7 @@
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
+	else if(istype(I, /obj/item/tool/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
 		return
 	else
 		if(issilicon(user))
@@ -256,7 +256,7 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/I, mob/user)
+/obj/item/nuke_core_container/supermatter/load(obj/item/tool/retractor/supermatter/I, mob/user)
 	if(!istype(I) || !I.sliver || sliver)
 		return
 	I.sliver.forceMove(src)
@@ -276,7 +276,7 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
-/obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
+/obj/item/nuke_core_container/supermatter/unload(obj/item/tool/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
 		return
 	sliver.forceMove(I)
@@ -287,7 +287,7 @@
 	icon_state = "core_container_cracked_empty"
 	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
 
-/obj/item/nuke_core_container/supermatter/attackby__legacy__attackchain(obj/item/retractor/supermatter/tongs, mob/user)
+/obj/item/nuke_core_container/supermatter/attackby__legacy__attackchain(obj/item/tool/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
 		if(cracked)
 			//lets take that shard out
@@ -326,7 +326,7 @@
 	name = "broken supermatter bin"
 	cracked = TRUE
 
-/obj/item/scalpel/supermatter
+/obj/item/tool/scalpel/supermatter
 	name = "supermatter scalpel"
 	desc = "A scalpel with a fragile tip of condensed hyper-noblium gas, searingly cold to the touch, that can safely shave a sliver off a supermatter crystal."
 	icon = 'icons/obj/nuke_tools.dmi'
@@ -336,11 +336,11 @@
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/uses_left
 
-/obj/item/scalpel/supermatter/Initialize(mapload)
+/obj/item/tool/scalpel/supermatter/Initialize(mapload)
 	. = ..()
 	uses_left = rand(2, 4)
 
-/obj/item/retractor/supermatter
+/obj/item/tool/retractor/supermatter
 	name = "supermatter extraction tongs"
 	desc = "A pair of tongs made from condensed hyper-noblium gas, searingly cold to the touch, that can safely grip a supermatter sliver."
 	icon = 'icons/obj/nuke_tools.dmi'
@@ -352,18 +352,18 @@
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
-/obj/item/retractor/supermatter/Destroy()
+/obj/item/tool/retractor/supermatter/Destroy()
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/retractor/supermatter/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
+/obj/item/tool/retractor/supermatter/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
 	. = ..()
 	if(!sliver)
 		return
 	if(proximity && ismovable(O) && O != sliver)
 		Consume(O, user)
 
-/obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
+/obj/item/tool/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
 		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
@@ -372,7 +372,7 @@
 		item_state = "supermatter_tongs"
 	return ..()
 
-/obj/item/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
+/obj/item/tool/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
 	if(ismob(AM))
 		if(!isliving(AM))
 			return

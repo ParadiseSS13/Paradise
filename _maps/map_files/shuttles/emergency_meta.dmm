@@ -450,10 +450,10 @@
 /area/shuttle/escape)
 "bx" = (
 /obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/wrench,
-/obj/item/weldingtool,
-/obj/item/wirecutters,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
+/obj/item/tool/weldingtool,
+/obj/item/tool/wirecutters,
 /obj/item/stack/cable_coil,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -647,16 +647,10 @@
 /area/shuttle/escape)
 "bU" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/retractor{
-	pixel_x = 4
-	},
-/obj/item/hemostat{
-	pixel_x = -4
-	},
+/obj/item/tool/scalpel,
+/obj/item/tool/circular_saw,
+/obj/item/tool/retractor,
+/obj/item/tool/hemostat,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
 /obj/item/radio/intercom{
@@ -721,8 +715,8 @@
 	pixel_x = -6;
 	pixel_y = -2
 	},
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/radio,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{

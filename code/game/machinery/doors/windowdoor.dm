@@ -321,7 +321,7 @@
 	add_fingerprint(user)
 	return ..()
 
-/obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/door/window/screwdriver_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
@@ -334,7 +334,7 @@
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
 
 
-/obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/door/window/crowbar_act(mob/user, obj/item/tool/I)
 	if(operating)
 		return
 	if(flags & NODECONSTRUCT)
@@ -478,7 +478,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/door/window/clockwork/crowbar_act(mob/user, obj/item/tool/I)
 	if(operating)
 		return
 	if(flags & NODECONSTRUCT)
@@ -488,7 +488,7 @@
 		return
 	try_to_crowbar(user, I)
 
-/obj/machinery/door/window/clockwork/welder_act(mob/user, obj/item/I)
+/obj/machinery/door/window/clockwork/welder_act(mob/user, obj/item/tool/I)
 	if(operating)
 		return
 	if(flags & NODECONSTRUCT)

@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='warning'>You need to screw the beacon to the floor first!</span>")
 		return
 
-/obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(active)
 		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")

@@ -29,7 +29,7 @@
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
 
-/turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
+/turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/tool/I)
 	if(!broken && !burnt)
 		return
 	if(!I.tool_use_check(user, 0))
@@ -42,7 +42,7 @@
 		broken = FALSE
 		update_icon()
 
-/turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/I)
+/turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/tool/I)
 	if(!I || !user)
 		return
 	var/obj/item/stack/R
@@ -64,7 +64,7 @@
 	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
 	playsound(src, I.usesound, 80, TRUE)
 
-	if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
+	if(do_after(user, 3 SECONDS * I.usespeed, target = src))
 		if(R.get_amount() < 2 || !transparent_floor)
 			return
 	else

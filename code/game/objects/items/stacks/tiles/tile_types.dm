@@ -21,7 +21,7 @@
 	. = ..()
 	scatter_atom()
 
-/obj/item/stack/tile/welder_act(mob/user, obj/item/I)
+/obj/item/stack/tile/welder_act(mob/user, obj/item/tool/I)
 	if(get_amount() < 4)
 		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
 		return

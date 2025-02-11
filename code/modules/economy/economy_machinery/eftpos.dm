@@ -306,7 +306,7 @@
 /obj/item/eftpos/register/scan_card(obj/item/card/id/C, mob/user)
 	..(C, user, anchored)
 
-/obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
+/obj/item/eftpos/register/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(anchored)
 		WRENCH_ATTEMPT_UNANCHOR_MESSAGE

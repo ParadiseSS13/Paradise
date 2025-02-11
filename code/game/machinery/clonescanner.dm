@@ -186,19 +186,19 @@
 	return
 
 
-/obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
+/obj/machinery/clonescanner/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.set_multitool_buffer(user, src)
 
 /obj/machinery/clonescanner/force_eject_occupant(mob/target)
 	remove_mob()
 
-/obj/machinery/clonescanner/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/clonescanner/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -206,7 +206,7 @@
 		return
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE

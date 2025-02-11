@@ -88,10 +88,10 @@
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
 	ruined = initial(selected.ruined)
 
-/obj/structure/sign/poster/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/sign/poster/screwdriver_act(mob/user, obj/item/tool/I)
 	return
 
-/obj/structure/sign/poster/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/sign/poster/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -81,7 +81,7 @@
 		. += "[icon_state]-[min(length(contents), 5)]"
 
 
-/obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/bookcase/screwdriver_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
@@ -93,7 +93,7 @@
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	deconstruct(TRUE)
 
-/obj/structure/bookcase/wrench_act(mob/user, obj/item/I)
+/obj/structure/bookcase/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 
 	default_unfasten_wrench(user, I, 0)

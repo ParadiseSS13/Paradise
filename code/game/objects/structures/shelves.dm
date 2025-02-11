@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 /obj/structure/shelf/update_overlays()
 	return list(shelf_overlay)
 
-/obj/structure/shelf/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/shelf/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
-/obj/structure/gunrack/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/gunrack/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE

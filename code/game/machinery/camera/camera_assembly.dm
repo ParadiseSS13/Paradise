@@ -60,7 +60,7 @@
 	else
 		return ..()
 
-/obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
+/obj/item/camera_assembly/crowbar_act(mob/user, obj/item/tool/I)
 	if(!length(upgrades))
 		return
 	. = TRUE
@@ -73,7 +73,7 @@
 		U.loc = get_turf(src)
 		upgrades -= U
 
-/obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
+/obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/tool/I)
 	if(state != ASSEMBLY_WIRED)
 		return
 	. = TRUE
@@ -118,7 +118,7 @@
 				break
 
 
-/obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/I)
+/obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/tool/I)
 	if(state != ASSEMBLY_WIRED)
 		return
 	. = TRUE
@@ -129,7 +129,7 @@
 	state = ASSEMBLY_WELDED
 	return
 
-/obj/item/camera_assembly/wrench_act(mob/user, obj/item/I)
+/obj/item/camera_assembly/wrench_act(mob/user, obj/item/tool/I)
 	if(state != ASSEMBLY_UNBUILT && state != ASSEMBLY_WRENCHED)
 		return
 	. = TRUE
@@ -149,7 +149,7 @@
 	else
 		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
 
-/obj/item/camera_assembly/welder_act(mob/user, obj/item/I)
+/obj/item/camera_assembly/welder_act(mob/user, obj/item/tool/I)
 	if(state == ASSEMBLY_UNBUILT)
 		return
 	. = TRUE

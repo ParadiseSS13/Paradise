@@ -53,7 +53,7 @@
 		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
 
 
-/obj/structure/railing/welder_act(mob/living/user, obj/item/I)
+/obj/structure/railing/welder_act(mob/living/user, obj/item/tool/I)
 	if(user.intent != INTENT_HELP)
 		return
 	if(obj_integrity >= max_integrity)
@@ -66,7 +66,7 @@
 		obj_integrity = max_integrity
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
-/obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/railing/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(anchored)
 		return
 	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
@@ -81,7 +81,7 @@
 	return ..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
-/obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/railing/wrench_act(mob/living/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")

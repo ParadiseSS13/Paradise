@@ -63,7 +63,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	set_light(0)
 
-/obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
+/obj/item/powersink/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

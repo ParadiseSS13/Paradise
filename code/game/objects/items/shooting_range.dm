@@ -30,7 +30,7 @@
 	// the stake now, we have to push the target.
 
 
-/obj/item/target/welder_act(mob/user, obj/item/I)
+/obj/item/target/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -53,7 +53,7 @@
 		broken = TRUE
 		GLOB.mirrors -= src
 
-/obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/mirror/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

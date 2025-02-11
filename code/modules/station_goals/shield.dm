@@ -191,7 +191,7 @@
 		notice = "Throwing simulated meteors ([G.thrown]/100)..."
 		notice_color = "white"
 		return
-	
+
 	var/total_meteors = length(G.defended) + length(G.collisions)
 	if(total_meteors == 0)
 		notice = "No simulation yet."
@@ -250,7 +250,7 @@
 /obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/satellite/multitool_act(mob/living/user, obj/item/tool/I)
 	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 
 /obj/machinery/satellite/meteor_shield

@@ -741,16 +741,16 @@ be migrating 28 types. This is a lot! A migration of this size is not recommende
 for new contributors. On the other hand, let us examine migrating wirecutters:
 
 ```
-$ tools\bootstrap\python .\tools\migrate_attack_chain.py /obj/item/wirecutters
-Migration Plan for Path /obj/item/wirecutters
+$ tools\bootstrap\python .\tools\migrate_attack_chain.py tters
+Migration Plan for Path tters
 Required Additional Migrations:
-        /obj/item/wirecutters
-        /obj/item/wirecutters/power
+        tters
+        tters/power
 Toggle `new_attack_chain = TRUE` on:
-        /obj/item/wirecutters
+        tters
 ```
 
-If we wanted to migrate `/obj/item/wirecutters`, we only need to migrate that
+If we wanted to migrate `tters`, we only need to migrate that
 type and one other, the power wirecutters. This is a much more manageable
 migration for novice contributors.
 
@@ -767,14 +767,14 @@ provides a high-level overview of how complete a migration is. These checks will
   no longer call legacy attack chain procs.
 
 Let's look at our wirecutters example again. If we were simply to set
-`new_attack_chain = TRUE` on `/obj/item/wirecutters` without making any other
+`new_attack_chain = TRUE` on `tters` without making any other
 code changes, the CI check will return something like this:
 
 ```
 check_legacy_attack_chain started
-new_attack_chain on /obj/item/wirecutters still has legacy procs:
+new_attack_chain on tters still has legacy procs:
         attack__legacy__attackchain
-new_attack_chain on /obj/item/wirecutters/power still has legacy procs:
+new_attack_chain on tters/power still has legacy procs:
         attack_self__legacy__attackchain
 check_legacy_attack_chain tests completed in 5.06s
 ```

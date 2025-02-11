@@ -257,7 +257,7 @@
 			attempt_repair(user, attacking_item, INSTALL_ELECTRONICS)
 			return
 
-/obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
+/obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/tool/screwdriver)
 	if(broken == SCREWDRIVER_OPEN)
 		if(overheated)
 			to_chat(user,  "<span class='warning'>[src] is still too hot for the screws to be safely removed from it.</span>")
@@ -271,13 +271,13 @@
 		attempt_repair(user, screwdriver, FALSE)
 		return TRUE
 
-/obj/item/gun/medbeam/damaged/crowbar_act(mob/living/user, obj/item/crowbar)
+/obj/item/gun/medbeam/damaged/crowbar_act(mob/living/user, obj/item/tool/crowbar)
 	if(broken == REMOVE_OLD_PARTS)
 		to_chat(user, "<span class='notice'>You start prying out the old electronics and lens from [src].</span>")
 		attempt_repair(user, crowbar, WELD_SHELL)
 		return TRUE
 
-/obj/item/gun/medbeam/damaged/welder_act(mob/living/user, obj/item/welder)
+/obj/item/gun/medbeam/damaged/welder_act(mob/living/user, obj/item/tool/welder)
 	. = ..()
 	if(broken == WELD_SHELL)
 		if(!welder.tool_start_check(src, user, 1))
@@ -287,7 +287,7 @@
 		attempt_repair(user, welder, INSTALL_LENS)
 		return TRUE
 
-/obj/item/gun/medbeam/damaged/multitool_act(mob/living/user, obj/item/multitool)
+/obj/item/gun/medbeam/damaged/multitool_act(mob/living/user, obj/item/tool/multitool)
 	if(broken == MULTITOOL_ELECTRONICS)
 		if(user.electrocute_act(rand(1, 10), src))
 			do_sparks(6, FALSE, user)

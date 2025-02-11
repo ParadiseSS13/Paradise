@@ -10,7 +10,7 @@
 	opacity = FALSE
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/fluff/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!deconstructible)
 		return FALSE
 

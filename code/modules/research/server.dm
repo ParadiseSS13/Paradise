@@ -42,14 +42,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
 
-/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/tool/I)
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
 	return TRUE
 

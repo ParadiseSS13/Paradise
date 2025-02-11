@@ -32,8 +32,8 @@
 /obj/structure/lattice/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	if(istype(C, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = C
+	if(istype(C, /obj/item/tool/wirecutters))
+		var/obj/item/tool/wirecutters/W = C
 		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
 		deconstruct()

@@ -54,7 +54,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
 
-/obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
+/obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -81,7 +81,7 @@
 
 	organ_datums = list(/datum/organ/lungs/advanced_cyber)
 
-/obj/item/organ/internal/lungs/cybernetic/upgraded/multitool_act(mob/user, obj/item/I)
+/obj/item/organ/internal/lungs/cybernetic/upgraded/multitool_act(mob/user, obj/item/tool/I)
 	. = ..()
 	var/datum/organ/lungs/lungs = organ_datums[ORGAN_DATUM_LUNGS]
 	lungs.make_advanced()

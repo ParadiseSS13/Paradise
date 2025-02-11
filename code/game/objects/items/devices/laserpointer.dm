@@ -56,7 +56,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!diode)
 		return
 

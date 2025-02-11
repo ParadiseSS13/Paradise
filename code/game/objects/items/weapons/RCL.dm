@@ -43,7 +43,7 @@
 	else
 		..()
 
-/obj/item/rcl/screwdriver_act(mob/user, obj/item/I)
+/obj/item/rcl/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!loaded)
 		return
 	. = TRUE

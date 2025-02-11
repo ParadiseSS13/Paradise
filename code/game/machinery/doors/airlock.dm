@@ -1038,7 +1038,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	return ..()
 
-/obj/machinery/door/airlock/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!headbutt_shock_check(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -1050,7 +1050,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
 	update_icon()
 
-/obj/machinery/door/airlock/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/crowbar_act(mob/user, obj/item/tool/I)
 	if(!headbutt_shock_check(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		try_to_crowbar(user, I)
 
-/obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!headbutt_shock_check(user))
 		return
 
@@ -1108,7 +1108,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	interact_with_panel(user)
 
-/obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/multitool_act(mob/user, obj/item/tool/I)
 	if(!headbutt_shock_check(user))
 		return
 	. = TRUE
@@ -1116,7 +1116,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	interact_with_panel(user)
 
-/obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
+/obj/machinery/door/airlock/welder_act(mob/user, obj/item/tool/I) //This is god awful but I don't care
 	if(!headbutt_shock_check(user))
 		return
 	. = TRUE
@@ -1688,7 +1688,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 /obj/machinery/door/airlock/wrench_act(mob/living/user, obj/item/tool)
-	if(!istype(tool, /obj/item/wrench/bolter))
+	if(!istype(tool, /obj/item/tool/wrench/bolter))
 		return
 	if(!locked)
 		return TRUE

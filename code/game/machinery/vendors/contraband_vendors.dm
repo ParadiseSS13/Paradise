@@ -184,7 +184,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 
 /obj/machinery/economy/vending/toyliberationstation/secured
 
-/obj/machinery/economy/vending/toyliberationstation/secured/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/toyliberationstation/secured/crowbar_act(mob/user, obj/item/tool/I)
 	if(tilted)
 		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
 		return
@@ -192,7 +192,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 		return
 	to_chat(user, "<span class='warning'>You are unable to remove the electronics from the vendor!</span>")
 
-/obj/machinery/economy/vending/toyliberationstation/secured/wrench_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/toyliberationstation/secured/wrench_act(mob/user, obj/item/tool/I)
 	if(tilted)
 		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
 		return

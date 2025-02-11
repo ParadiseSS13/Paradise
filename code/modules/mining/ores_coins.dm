@@ -25,7 +25,7 @@
 	pixel_x = rand(-8, 8) + x_offset
 	pixel_y = rand(-8, 0) + y_offset
 
-/obj/item/stack/ore/welder_act(mob/user, obj/item/I)
+/obj/item/stack/ore/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!refined_type)
 		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(istype(I, /obj/item/tool/wirecutters) || istype(I, /obj/item/tool/multitool) || istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/tool/multitool))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
 			return
 
-	else if(istype(W,/obj/item/wirecutters))
+	else if(istype(W,/obj/item/tool/wirecutters))
 		if(!string_attached)
 			..()
 			return
@@ -502,7 +502,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
 	else ..()
 
-/obj/item/coin/wirecutter_act(mob/user, obj/item/I)
+/obj/item/coin/wirecutter_act(mob/user, obj/item/tool/I)
 	if(string_attached)
 		return
 	. = TRUE

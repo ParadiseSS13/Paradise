@@ -86,7 +86,7 @@
 	else
 		return ..()
 
-/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
+/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/tool/I)
 	if(has_extinguisher)
 		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
 		return

@@ -137,16 +137,16 @@
 // wrench: (un)anchor
 // weldingtool: convert to real pipe
 
-/obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
 	var/turf/T = get_turf(src)
-	
+
 	if(T.intact)
 		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
 		return
-	
+
 	if(ispipe)
 		anchored = !anchored
 		level = anchored ? 1 : 2
@@ -213,7 +213,7 @@
 					to_chat(user, "<span class='warning'>There is already a [nicetype] at that location.</span>")
 					return
 
-	if(istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/tool/weldingtool))
 		if(anchored)
 			if(I.tool_use_check(user, 0))
 				to_chat(user, "<span class='notice'>You begin welding the [nicetype] in place.</span>")

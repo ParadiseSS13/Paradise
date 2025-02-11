@@ -247,7 +247,7 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

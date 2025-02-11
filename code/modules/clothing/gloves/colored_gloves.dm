@@ -61,7 +61,7 @@
 	pickpocket = 1
 
 /obj/item/clothing/gloves/color/black/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(istype(W, /obj/item/tool/wirecutters))
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
 			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
 			if(get_dist(user, src) > 1)

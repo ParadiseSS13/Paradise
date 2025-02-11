@@ -211,7 +211,7 @@
 		QDEL_NULL(realappearence)
 	return ..()
 
-/turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
+/turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -276,7 +276,7 @@
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the catwalk
 
-/turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/I)
+/turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

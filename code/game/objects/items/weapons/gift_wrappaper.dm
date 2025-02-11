@@ -42,7 +42,7 @@
 /obj/effect/spresent/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
-	if(!istype(W, /obj/item/wirecutters))
+	if(!istype(W, /obj/item/tool/wirecutters))
 		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
 		return
 

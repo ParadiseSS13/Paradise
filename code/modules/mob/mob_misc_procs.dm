@@ -508,7 +508,7 @@
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
-	var/obj/item/multitool/P
+	var/obj/item/tool/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
 	else if(is_ai(user))

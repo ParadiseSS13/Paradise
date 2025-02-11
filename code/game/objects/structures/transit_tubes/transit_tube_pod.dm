@@ -62,7 +62,7 @@
 		M.forceMove(location)
 	update_appearance()
 
-/obj/structure/transit_tube_pod/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_pod/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = ..()
 	if(moving)
 		return
@@ -72,14 +72,14 @@
 		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
 		empty_pod()
 
-/obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	var/obj/structure/transit_tube_construction/pod/P = new(get_turf(src))
 	P.dir = dir
 	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
 
-/obj/structure/transit_tube_pod/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_pod/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
 

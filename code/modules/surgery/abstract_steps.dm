@@ -42,7 +42,7 @@
 	/// If we're using one of these tools and there's a tool conflict with the original surgery,
 	/// just ignore any branches and continue with the original surgery.
 	var/list/overriding_tools = list(
-		/obj/item/scalpel/laser/manager  // IMS
+		/obj/item/tool/scalpel/laser/manager  // IMS
 	)
 
 	/// Whether or not we should add ourselves as a step after we run a branch. This doesn't apply to failures, those will always add ourselves after.
@@ -147,7 +147,7 @@
 
 		for(var/allowed in next_surgery_step.allowed_tools)
 			// debug IMS stuff, check it here so it forces the next surgery if it's being used
-			if(istype(tool, /obj/item/scalpel/laser/manager/debug))
+			if(istype(tool, /obj/item/tool/scalpel/laser/manager/debug))
 				if(!ispath(allowed) && (allowed in GLOB.surgery_tool_behaviors))
 					next_surgery = surgery
 					next_surgery_step.allowed_tools[tool.type] = 100

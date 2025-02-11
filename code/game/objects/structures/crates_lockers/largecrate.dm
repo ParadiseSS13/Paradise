@@ -35,7 +35,7 @@
 	else
 		return ..()
 
-/obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(manifest)
 		manifest.forceMove(loc)
@@ -62,7 +62,7 @@
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/dog/corgi/lisa(loc)
@@ -72,7 +72,7 @@
 	name = "cow crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cow/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/cow/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/cow(loc)
@@ -82,7 +82,7 @@
 	name = "goat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/goat/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/goat/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/hostile/retaliate/goat(loc)
@@ -92,7 +92,7 @@
 	name = "chicken crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	var/num = rand(4, 6)
@@ -104,7 +104,7 @@
 	name = "cat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cat/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/cat/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /mob/living/simple_animal/pet/cat(loc)
@@ -113,7 +113,7 @@
 /obj/structure/largecrate/secway
 	name = "secway crate"
 
-/obj/structure/largecrate/secway/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/largecrate/secway/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	new /obj/vehicle/secway(loc)

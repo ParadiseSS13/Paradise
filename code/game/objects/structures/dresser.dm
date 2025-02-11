@@ -54,7 +54,7 @@
 		H.update_body()
 
 
-/obj/structure/dresser/crowbar_act(mob/user, obj/item/I)
+/obj/structure/dresser/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0))
 		return
@@ -63,7 +63,7 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 
-/obj/structure/dresser/wrench_act(mob/user, obj/item/I)
+/obj/structure/dresser/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 

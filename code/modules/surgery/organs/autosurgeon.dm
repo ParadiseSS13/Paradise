@@ -62,7 +62,7 @@
 	else
 		return ..()
 
-/obj/item/autosurgeon/organ/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/autosurgeon/organ/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(..())
 		return TRUE
 	if(!storedorgan)

@@ -124,11 +124,11 @@
 	else
 		icon_state = "borgcharger0"
 
-/obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE

@@ -111,7 +111,7 @@
 			flash()
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/portable/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/flasher/portable/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -121,7 +121,7 @@
 	if(!disable)
 		user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
 
-/obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
+/obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

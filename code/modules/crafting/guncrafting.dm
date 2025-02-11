@@ -164,7 +164,7 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/tool/I)
 	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
 	user.unequip(src)
 	user.put_in_hands(C)

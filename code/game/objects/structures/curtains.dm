@@ -45,7 +45,7 @@
 		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
 		return ITEM_INTERACT_COMPLETE
 
-/obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/curtain/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
@@ -62,7 +62,7 @@
 
 
 
-/obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/curtain/wirecutter_act(mob/user, obj/item/tool/I)
 	if(anchored)
 		return
 	. = TRUE

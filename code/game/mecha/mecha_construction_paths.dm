@@ -134,7 +134,7 @@
 			"desc" = "The wiring is adjusted."),
 		//11
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//12
@@ -382,7 +382,7 @@
 			"desc" = "The wiring is adjusted."),
 		//17
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//18
@@ -655,7 +655,7 @@
 			"desc" = "The wiring is adjusted."),
 		//12
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//13
@@ -1062,7 +1062,7 @@
 			"desc" = "The wiring is adjusted."),
 		//17
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//18
@@ -1317,7 +1317,7 @@
 		//8
 		list(
 			"key" = TOOL_SCREWDRIVER,
-			"backkey" = /obj/item/wirecutters,
+			"backkey" = /obj/item/tool/wirecutters,
 			"desc" = "The bluespace crystal is connected."),
 		//9
 		list(
@@ -1381,7 +1381,7 @@
 			"desc" = "The wiring is adjusted."),
 		//21
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//22
@@ -1675,7 +1675,7 @@
 			"desc" = "The wiring is adjusted."),
 		//11
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//12
@@ -1905,7 +1905,7 @@
 			"desc" = "The wiring is adjusted."),
 		//13
 		list(
-			"key" = /obj/item/wirecutters,
+			"key" = /obj/item/tool/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
 		//14

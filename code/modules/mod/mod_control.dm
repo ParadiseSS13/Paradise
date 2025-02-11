@@ -275,7 +275,7 @@
 
 			add_fingerprint(M)
 
-/obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
+/obj/item/mod/control/wrench_act(mob/living/user, obj/item/tool/wrench)
 	if(..())
 		return TRUE
 	if(seconds_electrified && get_charge() && shock(user))
@@ -294,7 +294,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
+/obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/tool/screwdriver)
 	if(..())
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
@@ -310,7 +310,7 @@
 		open = !open
 	return TRUE
 
-/obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
+/obj/item/mod/control/crowbar_act(mob/living/user, obj/item/tool/crowbar)
 	. = ..()
 	if(!open)
 		to_chat(user, "<span class='warning'>Open the cover first!</span>")
@@ -367,7 +367,7 @@
 		attacking_core.install(src)
 		update_charge_alert()
 		return TRUE
-	else if(istype(attacking_item, /obj/item/multitool) && open)
+	else if(istype(attacking_item, /obj/item/tool/multitool) && open)
 		if(seconds_electrified && get_charge() && shock(user))
 			return TRUE
 		wires.Interact(user)

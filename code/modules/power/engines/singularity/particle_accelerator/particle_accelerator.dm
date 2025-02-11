@@ -176,7 +176,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
 
-/obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
@@ -192,7 +192,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	update_state()
 	update_icon()
 
-/obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
@@ -201,7 +201,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
 
-/obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
@@ -254,7 +254,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
@@ -271,7 +271,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		update_state()
 	update_icon()
 
-/obj/machinery/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/wirecutter_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
@@ -280,7 +280,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
 
-/obj/machinery/particle_accelerator/wrench_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/wrench_act(mob/user, obj/item/tool/I)
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE

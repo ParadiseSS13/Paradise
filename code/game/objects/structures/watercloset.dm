@@ -140,7 +140,7 @@
 		new_total_weight += I.w_class
 	w_items = new_total_weight
 
-/obj/structure/toilet/crowbar_act(mob/user, obj/item/I)
+/obj/structure/toilet/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -152,7 +152,7 @@
 		update_icon()
 		return
 
-/obj/structure/toilet/wrench_act(mob/user, obj/item/I)
+/obj/structure/toilet/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -251,7 +251,7 @@
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
-/obj/structure/urinal/wrench_act(mob/user, obj/item/I)
+/obj/structure/urinal/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -353,7 +353,7 @@
 
 	return ..()
 
-/obj/machinery/shower/wrench_act(mob/user, obj/item/I)
+/obj/machinery/shower/wrench_act(mob/user, obj/item/tool/I)
 	..()
 	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with [I].</span>")
 	if(I.use_tool(src, user, 50))
@@ -369,7 +369,7 @@
 	handle_mist()
 	return TRUE
 
-/obj/machinery/shower/welder_act(mob/user, obj/item/I)
+/obj/machinery/shower/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(on)
 		to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
@@ -568,7 +568,7 @@
 	if(wateract)
 		O.water_act(20, COLD_WATER_TEMPERATURE, src)
 
-/obj/structure/sink/wrench_act(mob/user, obj/item/I)
+/obj/structure/sink/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

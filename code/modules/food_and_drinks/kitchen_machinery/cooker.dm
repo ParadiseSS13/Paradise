@@ -244,13 +244,13 @@
 		turnoff(I)
 		//qdel(I)
 
-/obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/cooker/crowbar_act(mob/user, obj/item/tool/I)
 	if(!upgradeable)
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/cooker/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/cooker/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!upgradeable)
 		return
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))

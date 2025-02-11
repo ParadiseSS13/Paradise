@@ -143,7 +143,7 @@
 /area/ruin/space/unathi_breacher/engineering)
 "kt" = (
 /obj/structure/table,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
@@ -217,7 +217,7 @@
 /area/ruin/space/unathi_breacher/bar)
 "qp" = (
 /obj/structure/table,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "ri" = (
@@ -429,9 +429,9 @@
 /area/ruin/space/unathi_breacher/engineering)
 "Hz" = (
 /obj/structure/shelf,
-/obj/item/weldingtool/largetank,
-/obj/item/weldingtool/largetank,
-/obj/item/weldingtool/largetank,
+/obj/item/tool/weldingtool/largetank,
+/obj/item/tool/weldingtool/largetank,
+/obj/item/tool/weldingtool/largetank,
 /obj/item/reagent_containers/glass/bottle/thermite,
 /obj/item/reagent_containers/glass/bottle/thermite,
 /turf/simulated/floor/mineral/plastitanium/red,

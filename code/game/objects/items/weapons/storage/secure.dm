@@ -50,20 +50,20 @@
 
 	return ..()
 
-/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
-	if(I.use_tool(src, user, 2 SECONDS * I.toolspeed, volume = 10))
+/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/tool/I)
+	if(I.use_tool(src, user, 2 SECONDS * I.usespeed, volume = 10))
 		panel_open = !panel_open
 		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the service panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the service panel.</span>")
 	return TRUE
 
-/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
+/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	to_chat(user, "<span class='notice'>You start fiddling with the internal memory mechanisms.</span>")
-	if(do_after_once(user, 10 SECONDS * I.toolspeed, target = src))
+	if(do_after_once(user, 10 SECONDS * I.usespeed, target = src))
 		if(prob(40))
 			to_chat(user, "<span class='notice'>The screen dims, the internal memory seems to be reset.</span>")
 			code = null

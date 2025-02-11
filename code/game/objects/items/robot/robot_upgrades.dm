@@ -464,15 +464,15 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_replace = list(
-		/obj/item/weldingtool = /obj/item/weldingtool/abductor,
-		/obj/item/wrench = /obj/item/wrench/abductor,
-		/obj/item/screwdriver = /obj/item/screwdriver/abductor,
-		/obj/item/crowbar = /obj/item/crowbar/abductor,
-		/obj/item/wirecutters = /obj/item/wirecutters/abductor,
-		/obj/item/multitool = /obj/item/multitool/abductor
+		/obj/item/tool/weldingtool = /obj/item/tool/weldingtool/abductor,
+		/obj/item/tool/wrench = /obj/item/tool/wrench/abductor,
+		/obj/item/tool/screwdriver = /obj/item/tool/screwdriver/abductor,
+		/obj/item/tool/crowbar = /obj/item/tool/crowbar/abductor,
+		/obj/item/tool/wirecutters = /obj/item/tool/wirecutters/abductor,
+		/obj/item/tool/multitool = /obj/item/tool/multitool/abductor
 	)
 	special_rechargables = list(
-		/obj/item/weldingtool/abductor
+		/obj/item/tool/weldingtool/abductor
 	)
 
 /obj/item/borg/upgrade/abductor_medi
@@ -483,14 +483,14 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(
-		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
-		/obj/item/hemostat = /obj/item/hemostat/alien,
-		/obj/item/retractor = /obj/item/retractor/alien,
-		/obj/item/bonegel = /obj/item/bonegel/alien,
-		/obj/item/fix_o_vein = /obj/item/fix_o_vein/alien,
-		/obj/item/bonesetter = /obj/item/bonesetter/alien,
-		/obj/item/circular_saw = /obj/item/circular_saw/alien,
-		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
+		/obj/item/tool/scalpel/laser/laser1 = /obj/item/tool/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
+		/obj/item/tool/hemostat = /obj/item/tool/hemostat/alien,
+		/obj/item/tool/retractor = /obj/item/tool/retractor/alien,
+		/obj/item/tool/bonegel = /obj/item/tool/bonegel/alien,
+		/obj/item/tool/fix_o_vein = /obj/item/tool/fix_o_vein/alien,
+		/obj/item/tool/bonesetter = /obj/item/tool/bonesetter/alien,
+		/obj/item/tool/circular_saw = /obj/item/tool/circular_saw/alien,
+		/obj/item/tool/surgicaldrill = /obj/item/tool/surgicaldrill/alien,
 		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
 

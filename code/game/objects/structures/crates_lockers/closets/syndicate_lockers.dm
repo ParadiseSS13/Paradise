@@ -13,7 +13,7 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/storage/belt/military(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/tool/crowbar/red(src)
 	new /obj/item/clothing/glasses/night(src)
 
 /obj/structure/closet/syndicate/suits

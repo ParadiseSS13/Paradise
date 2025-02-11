@@ -134,7 +134,7 @@
 "aI" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -687,7 +687,7 @@
 	pixel_x = 3;
 	pixel_y = -5
 	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/machinery/door_control{
 	id = "escape_cargo_shutters";
 	name = "Warehouse Door Control";
@@ -843,8 +843,8 @@
 /area/shuttle/escape)
 "dv" = (
 /obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/flashlight,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -871,10 +871,7 @@
 "dy" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/multitool{
-	pixel_x = 7;
-	pixel_y = -4
-	},
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "dz" = (
@@ -1355,7 +1352,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/table/reinforced,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)

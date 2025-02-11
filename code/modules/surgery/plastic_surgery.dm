@@ -12,7 +12,7 @@
 
 /datum/surgery_step/reshape_face
 	name = "reshape face"
-	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, /obj/item/wirecutters = 35)
+	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, /obj/item/tool/wirecutters = 35)
 	time = 6.4 SECONDS
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'

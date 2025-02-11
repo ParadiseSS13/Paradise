@@ -14,7 +14,7 @@
 	QDEL_NULL(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
+/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/tool/I)
 	if(status)
 		return
 	. = TRUE
@@ -29,7 +29,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
+/obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/tool/I)
 	status = !status
 	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 	add_fingerprint(user)

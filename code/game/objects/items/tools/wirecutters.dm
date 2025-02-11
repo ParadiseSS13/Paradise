@@ -1,4 +1,4 @@
-/obj/item/wirecutters
+/obj/item/tool/wirecutters
 	name = "wirecutters"
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
@@ -25,7 +25,7 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/wirecutters/New(loc, param_color = null)
+/obj/item/tool/wirecutters/New(loc, param_color = null)
 	..()
 	if(random_color)
 		if(!param_color)
@@ -33,7 +33,7 @@
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
-/obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/tool/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/mob = target
 	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [mob]'s restraints with [src]!</span>")
@@ -43,12 +43,12 @@
 		mob.update_handcuffed()
 		return ITEM_INTERACT_COMPLETE
 
-/obj/item/wirecutters/suicide_act(mob/user)
+/obj/item/tool/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/wirecutters/proc/is_robotic_suicide(mob/user)
+/obj/item/tool/wirecutters/proc/is_robotic_suicide(mob/user)
 	if(!ishuman(user))
 		return FALSE
 
@@ -59,7 +59,7 @@
 
 	return chest.is_robotic()
 
-/obj/item/wirecutters/security
+/obj/item/tool/wirecutters/security
 	name = "security wirecutters"
 	desc = "A pair of wirecutters with a tactical grip and robust build."
 	icon_state = "cutters_sec"
@@ -70,7 +70,7 @@
 	toolspeed = 0.75
 	random_color = FALSE
 
-/obj/item/wirecutters/security/suicide_act(mob/living/user)
+/obj/item/tool/wirecutters/security/suicide_act(mob/living/user)
 
 	if(!user)
 		return
@@ -91,7 +91,7 @@
 	user.dust()
 	return OBLITERATION
 
-/obj/item/wirecutters/brass
+/obj/item/tool/wirecutters/brass
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
@@ -100,18 +100,18 @@
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/wirecutters/cyborg
+/obj/item/tool/wirecutters/cyborg
 	name = "wirecutters"
 	desc = "This cuts wires."
 	toolspeed = 0.5
 
-/obj/item/wirecutters/cyborg/drone
+/obj/item/tool/wirecutters/cyborg/drone
 
-/obj/item/wirecutters/cyborg/drone/Initialize(mapload)
+/obj/item/tool/wirecutters/cyborg/drone/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
-/obj/item/wirecutters/power
+/obj/item/tool/wirecutters/power
 	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
 	icon_state = "jaws_cutter"
@@ -124,7 +124,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
-/obj/item/wirecutters/power/suicide_act(mob/user)
+/obj/item/tool/wirecutters/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
 
 	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
@@ -147,12 +147,12 @@
 
 	return OXYLOSS
 
-/obj/item/wirecutters/power/activate_self(mob/user)
+/obj/item/tool/wirecutters/power/activate_self(mob/user)
 	if(..())
 		return
 
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
+	var/obj/item/tool/crowbar/power/pryjaws = new /obj/item/tool/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(pryjaws)

@@ -242,7 +242,7 @@
 		return ..()
 
 
-/obj/structure/window/crowbar_act(mob/user, obj/item/I)
+/obj/structure/window/crowbar_act(mob/user, obj/item/tool/I)
 	if(!reinf)
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
@@ -261,7 +261,7 @@
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
 
-/obj/structure/window/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/window/screwdriver_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
@@ -296,7 +296,7 @@
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
-/obj/structure/window/wrench_act(mob/user, obj/item/I)
+/obj/structure/window/wrench_act(mob/user, obj/item/tool/I)
 	if(flags & NODECONSTRUCT)
 		return
 	if(anchored)
@@ -314,7 +314,7 @@
 	to_chat(user, "<span class='notice'>You successfully disassemble [src].</span>")
 	qdel(src)
 
-/obj/structure/window/welder_act(mob/user, obj/item/I)
+/obj/structure/window/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE
@@ -581,7 +581,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/I)
+/obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

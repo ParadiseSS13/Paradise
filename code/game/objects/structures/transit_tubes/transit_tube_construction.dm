@@ -40,7 +40,7 @@
 	flipped = !flipped
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_construction/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(!isfloorturf(T) && !isspaceturf(T))
@@ -64,7 +64,7 @@
 	qdel(src)
 	. |= RPD_TOOL_SUCCESS
 
-/obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		user.visible_message("<span class='notice'>[user] disassembles [src].</span>")
@@ -88,7 +88,7 @@
 	base_icon_state = "transit_pod"
 	icon_state = "transit_pod"
 
-/obj/structure/transit_tube_construction/pod/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_construction/pod/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	for(var/obj/turf_contents in T)

@@ -176,13 +176,13 @@
 
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
+/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
 		connected_recycler = M.buffer
 		connected_recycler.connected += src

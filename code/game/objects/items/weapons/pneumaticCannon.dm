@@ -64,7 +64,7 @@
 	I.forceMove(src)
 	return TRUE
 
-/obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/I)
+/obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/tool/I)
 	adjust_setting(user)
 	return TRUE
 
@@ -88,7 +88,7 @@
 		return
 	load_item(W, user)
 
-/obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/tool/I)
 	remove_tank(user)
 	return TRUE
 

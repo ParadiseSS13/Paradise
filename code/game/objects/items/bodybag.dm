@@ -36,14 +36,14 @@
 		if(t)
 			add_overlay("bodybag_label")
 		return
-	if(istype(I, /obj/item/wirecutters))
+	if(istype(I, /obj/item/tool/wirecutters))
 		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
 		name = initial(name)
 		cut_overlays()
 		return
 	return ..()
 
-/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
+/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/tool/I)
 	return // Can't weld a body bag shut
 
 /obj/structure/closet/body_bag/close()

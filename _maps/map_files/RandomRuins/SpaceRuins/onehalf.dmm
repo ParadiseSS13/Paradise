@@ -937,8 +937,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cL" = (
-/obj/item/crowbar,
-/obj/item/multitool,
+/obj/item/tool/crowbar,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/abandonedbridge)
 "cN" = (

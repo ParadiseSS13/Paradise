@@ -98,7 +98,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/crowbar_act(mob/user, obj/item/I)
+/mob/living/simple_animal/hostile/mining_drone/crowbar_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE
@@ -106,7 +106,7 @@
 		return
 	I.melee_attack_chain(user, stored_gun)
 
-/mob/living/simple_animal/hostile/mining_drone/welder_act(mob/user, obj/item/I)
+/mob/living/simple_animal/hostile/mining_drone/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE

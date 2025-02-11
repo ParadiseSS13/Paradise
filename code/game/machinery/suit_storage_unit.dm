@@ -343,7 +343,7 @@
 
 	return ..()
 
-/obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -358,7 +358,7 @@
 	dump_contents() // probably still a good idea for just incase?
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, I.tool_volume))
 		return

@@ -34,7 +34,7 @@ see the reference on it.
 ### Objects and Inheritance
 An object is defined the following way:
 ```dm
-/obj/item/multitool
+/obj/item/tool/multitool
 ```
 
 Here we can see a `multitool` being defined. A `multitool` is an `item` which is
@@ -266,13 +266,13 @@ exclude the `""` here. This will give you the following match:
 This might seem like a lot (and it is) but you don't have to go through them all
 to find the item itself. Using some deduction we can find the result we need. Or
 find it via another result we found. Here we can see that there are some matches
-with `obj/item/multitool` for example:
+with `obj/item/tool/multitool` for example:
 
 ![image](./images/quickstart_search_toolhelpers.png)
 
 We know that we are looking for a multitool and that a multitool is an item so
 it looks like this is what we want to find. When hovering over the `multitool`
-part of `obj/item/multitool` and holding the `Ctrl` key you will see the
+part of `obj/item/tool/multitool` and holding the `Ctrl` key you will see the
 definition of the object.
 
 ![image](./images/quickstart_ctrl_key.png)
@@ -386,7 +386,7 @@ This one really depends on the context. But let us take the following example.
 You cannot link machinery using a multitool. Something it should do.
 
 ```dm
-/obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
+/obj/item/tool/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
 	if(ismachinery(M))
 		to_chat(user, "<span class='warning'>That's not a machine!</span>")
 		return

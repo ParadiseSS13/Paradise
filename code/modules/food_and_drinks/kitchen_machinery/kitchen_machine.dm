@@ -87,7 +87,7 @@
 	if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(used, /obj/item/reagent_containers/spray/cleaner) || istype(used, /obj/item/soap) || istype(used, /obj/item/reagent_containers/glass/rag)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-			if(do_after(user, 20 * used.toolspeed, target = src))
+			if(do_after(user, 20 * used.usespeed, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = NO_DIRT
 				update_icon(UPDATE_ICON_STATE)
@@ -158,7 +158,7 @@
 	to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/tool/I)
 	if(operating)
 		return
 

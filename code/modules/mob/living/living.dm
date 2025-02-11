@@ -352,7 +352,7 @@
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
-/mob/living/welder_act(mob/user, obj/item/I)
+/mob/living/welder_act(mob/user, obj/item/tool/I)
 	if(!I.tool_use_check(user, 0, TRUE))
 		return
 	if(IgniteMob())

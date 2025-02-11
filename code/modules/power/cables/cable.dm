@@ -112,7 +112,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	add_fingerprint(user)
 
-/obj/structure/cable/multitool_act(mob/user, obj/item/I)
+/obj/structure/cable/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(T.intact)
@@ -125,7 +125,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		to_chat(user, "<span class='warning'>The cable is not powered.</span>")
 	shock(user, 5, 0.2)
 
-/obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/cable/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)

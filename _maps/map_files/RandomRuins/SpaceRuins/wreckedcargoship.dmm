@@ -1298,10 +1298,7 @@
 	pixel_x = 7;
 	pixel_y = 7
 	},
-/obj/item/weldingtool/largetank{
-	pixel_x = -3;
-	pixel_y = 5
-	},
+/obj/item/tool/weldingtool/largetank,
 /obj/item/storage/belt/utility{
 	pixel_y = -5;
 	pixel_x = 5

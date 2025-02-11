@@ -1047,7 +1047,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/alarm/crowbar_act(mob/user, obj/item/tool/I)
 	if(buildstage != AIR_ALARM_UNWIRED)
 		return
 	. = TRUE
@@ -1063,7 +1063,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	buildstage = AIR_ALARM_FRAME
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
+/obj/machinery/alarm/multitool_act(mob/user, obj/item/tool/I)
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
@@ -1072,7 +1072,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(wiresexposed)
 		attack_hand(user)
 
-/obj/machinery/alarm/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/alarm/screwdriver_act(mob/user, obj/item/tool/I)
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
@@ -1085,7 +1085,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 
-/obj/machinery/alarm/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/alarm/wirecutter_act(mob/user, obj/item/tool/I)
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
@@ -1100,7 +1100,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(wiresexposed)
 		wires.Interact(user)
 
-/obj/machinery/alarm/wrench_act(mob/user, obj/item/I)
+/obj/machinery/alarm/wrench_act(mob/user, obj/item/tool/I)
 	if(buildstage != AIR_ALARM_FRAME)
 		return
 	. = TRUE

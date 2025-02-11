@@ -36,7 +36,7 @@
 	if(obj_integrity <= 0 && istype(depotarea))
 		overload(TRUE)
 
-/obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -46,7 +46,7 @@
 	else
 		radiation_pulse(get_turf(src), 500, 2)
 
-/obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
+/obj/structure/fusionreactor/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

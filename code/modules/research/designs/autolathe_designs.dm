@@ -15,7 +15,7 @@
 	id = "crowbar"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 300)
-	build_path = /obj/item/crowbar
+	build_path = /obj/item/tool/crowbar
 	category = list("initial","Tools")
 
 /datum/design/flashlight
@@ -39,7 +39,7 @@
 	id = "multitool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
-	build_path = /obj/item/multitool
+	build_path = /obj/item/tool/multitool
 	category = list("initial","Tools")
 
 /datum/design/analyzer
@@ -63,7 +63,7 @@
 	id = "welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
-	build_path = /obj/item/weldingtool
+	build_path = /obj/item/tool/weldingtool
 	category = list("initial","Tools")
 
 /datum/design/mini_weldingtool
@@ -71,7 +71,7 @@
 	id = "mini_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	build_path = /obj/item/weldingtool/mini
+	build_path = /obj/item/tool/weldingtool/mini
 	category = list("initial","Tools")
 
 /datum/design/screwdriver
@@ -79,7 +79,7 @@
 	id = "screwdriver"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 350)
-	build_path = /obj/item/screwdriver
+	build_path = /obj/item/tool/screwdriver
 	category = list("initial","Tools")
 
 /datum/design/wirecutters
@@ -87,7 +87,7 @@
 	id = "wirecutters"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 370)
-	build_path = /obj/item/wirecutters
+	build_path = /obj/item/tool/wirecutters
 	category = list("initial","Tools")
 
 /datum/design/wrench
@@ -95,7 +95,7 @@
 	id = "wrench"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 600)
-	build_path = /obj/item/wrench
+	build_path = /obj/item/tool/wrench
 	category = list("initial","Tools")
 
 /datum/design/welding_helmet
@@ -357,7 +357,7 @@
 	id = "scalpel"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
-	build_path = /obj/item/scalpel
+	build_path = /obj/item/tool/scalpel
 	category = list("initial", "Medical")
 
 /datum/design/circular_saw
@@ -365,7 +365,7 @@
 	id = "circular_saw"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
-	build_path = /obj/item/circular_saw
+	build_path = /obj/item/tool/circular_saw
 	category = list("initial", "Medical")
 
 /datum/design/surgicaldrill
@@ -373,7 +373,7 @@
 	id = "surgicaldrill"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
-	build_path = /obj/item/surgicaldrill
+	build_path = /obj/item/tool/surgicaldrill
 	category = list("initial", "Medical")
 
 /datum/design/retractor
@@ -381,7 +381,7 @@
 	id = "retractor"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000)
-	build_path = /obj/item/retractor
+	build_path = /obj/item/tool/retractor
 	category = list("initial", "Medical")
 
 /datum/design/cautery
@@ -389,7 +389,7 @@
 	id = "cautery"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 750)
-	build_path = /obj/item/cautery
+	build_path = /obj/item/tool/cautery
 	category = list("initial", "Medical")
 
 /datum/design/hemostat
@@ -397,7 +397,7 @@
 	id = "hemostat"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
-	build_path = /obj/item/hemostat
+	build_path = /obj/item/tool/hemostat
 	category = list("initial", "Medical")
 
 /datum/design/bonesetter
@@ -405,7 +405,7 @@
 	id = "bonesetter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
-	build_path = /obj/item/bonesetter
+	build_path = /obj/item/tool/bonesetter
 	category = list("initial", "Medical")
 
 /datum/design/fixovein
@@ -413,7 +413,7 @@
 	id = "fixovein"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/fix_o_vein
+	build_path = /obj/item/tool/fix_o_vein
 	category = list("initial", "Medical")
 
 /datum/design/bonegel
@@ -421,7 +421,7 @@
 	id = "bonegel"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
-	build_path = /obj/item/bonegel
+	build_path = /obj/item/tool/bonegel
 	category = list("initial", "Medical")
 
 /datum/design/beaker
@@ -701,7 +701,7 @@
 	id = "large_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
-	build_path = /obj/item/weldingtool/largetank
+	build_path = /obj/item/tool/weldingtool/largetank
 	category = list("initial", "Tools")
 
 /datum/design/rcd

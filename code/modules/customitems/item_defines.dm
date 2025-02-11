@@ -166,7 +166,7 @@
 	return BRUTELOSS
 
 /// Zomgponies: Griffin Rowley
-/obj/item/crowbar/fluff/zelda_creedy_1
+/obj/item/tool/crowbar/fluff/zelda_creedy_1
 	name = "Zelda's Crowbar"
 	desc = "A pink crowbar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
 	icon = 'icons/obj/custom_items.dmi'

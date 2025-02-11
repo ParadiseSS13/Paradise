@@ -44,12 +44,12 @@
 	new /obj/item/stack/sheet/wood(loc, 10)
 	return ..()
 
-/obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/tool/I)
 	// there are no screws either
 	to_chat(user, "<span class='warning'>[src] has no screws!</span>")
 	return TRUE
 
-/obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/tool/I)
 	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 

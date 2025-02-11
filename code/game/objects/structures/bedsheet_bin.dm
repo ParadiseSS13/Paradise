@@ -321,7 +321,7 @@ LINEN BINS
 	extinguish()
 	update_icon()
 
-/obj/structure/bedsheetbin/wrench_act(mob/user, obj/item/I)
+/obj/structure/bedsheetbin/wrench_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE

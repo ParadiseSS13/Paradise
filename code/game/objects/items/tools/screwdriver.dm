@@ -1,5 +1,5 @@
 //Screwdriver
-/obj/item/screwdriver
+/obj/item/tool/screwdriver
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/tools.dmi'
@@ -25,12 +25,12 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/screwdriver/Initialize(mapload)
+/obj/item/tool/screwdriver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
 
-/obj/item/screwdriver/nuke
+/obj/item/tool/screwdriver/nuke
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
@@ -38,11 +38,11 @@
 	toolspeed = 0.5
 	random_color = FALSE
 
-/obj/item/screwdriver/suicide_act(mob/user)
+/obj/item/tool/screwdriver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/New(loc, param_color = null)
+/obj/item/tool/screwdriver/New(loc, param_color = null)
 	..()
 	if(random_color)
 		if(!param_color)
@@ -53,7 +53,7 @@
 	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
+/obj/item/tool/screwdriver/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
 	if(!istype(target) || user.a_intent == INTENT_HELP)
 		return
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
@@ -63,7 +63,7 @@
 	eyestab(target, user)
 	return COMPONENT_SKIP_ATTACK
 
-/obj/item/screwdriver/brass
+/obj/item/tool/screwdriver/brass
 	name = "brass screwdriver"
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
@@ -72,7 +72,7 @@
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/screwdriver/cargo
+/obj/item/tool/screwdriver/cargo
 	name = "cargo screwdriver"
 	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
 	icon_state = "screwdriver_cargo"
@@ -80,7 +80,7 @@
 	toolspeed = 0.75
 	random_color = FALSE
 
-/obj/item/screwdriver/cargo/suicide_act(mob/living/user)
+/obj/item/tool/screwdriver/cargo/suicide_act(mob/living/user)
 
 	if(!user)
 		return
@@ -95,7 +95,7 @@
 
 	return BRUTELOSS
 
-/obj/item/screwdriver/power
+/obj/item/tool/screwdriver/power
 	name = "hand drill"
 	desc = "A simple hand drill with a screwdriver bit attached."
 	icon_state = "drill_screw"
@@ -114,25 +114,25 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
-/obj/item/screwdriver/power/Initialize(mapload)
+/obj/item/tool/screwdriver/power/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/screwdriver/power/suicide_act(mob/user)
+/obj/item/tool/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/power/activate_self(mob/user)
+/obj/item/tool/screwdriver/power/activate_self(mob/user)
 	if(..())
 		return
 
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
-	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
+	var/obj/item/tool/wrench/power/b_drill = new /obj/item/tool/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
-/obj/item/screwdriver/cyborg
+/obj/item/tool/screwdriver/cyborg
 	name = "powered screwdriver"
 	desc = "An electrical screwdriver, designed to be both precise and quick."
 	usesound = 'sound/items/drill_use.ogg'

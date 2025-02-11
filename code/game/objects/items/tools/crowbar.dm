@@ -1,4 +1,4 @@
-/obj/item/crowbar
+/obj/item/tool/crowbar
 	name = "crowbar"
 	desc = "This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/tools.dmi'
@@ -21,13 +21,13 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
-/obj/item/crowbar/red
+/obj/item/tool/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
 	belt_icon = "crowbar_red"
 	force = 8
 
-/obj/item/crowbar/brass
+/obj/item/tool/crowbar/brass
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
@@ -36,7 +36,7 @@
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/crowbar/small
+/obj/item/tool/crowbar/small
 	name = "miniature titanium crowbar"
 	desc = "A tiny, lightweight titanium crowbar. It fits handily in your pocket."
 	force = 3
@@ -48,7 +48,7 @@
 	origin_tech = "materials=2"
 	toolspeed = 1.25
 
-/obj/item/crowbar/large
+/obj/item/tool/crowbar/large
 	name = "large crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
 	force = 12
@@ -60,7 +60,7 @@
 	item_state = "crowbar_large"
 	toolspeed = 0.5
 
-/obj/item/crowbar/engineering
+/obj/item/tool/crowbar/engineering
 	name = "engineering crowbar"
 	desc = "It's a big crowbar, perfect for fending off those assistants trying to get at your gloves."
 	force = 12
@@ -73,7 +73,7 @@
 	belt_icon = "crowbar_eng"
 	toolspeed = 0.5
 
-/obj/item/crowbar/engineering/suicide_act(mob/living/user)
+/obj/item/tool/crowbar/engineering/suicide_act(mob/living/user)
 
 	if(!user)
 		return
@@ -96,19 +96,19 @@
 	user.dust()
 	return OBLITERATION
 
-/obj/item/crowbar/cyborg
+/obj/item/tool/crowbar/cyborg
 	name = "hydraulic crowbar"
 	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 10
 	toolspeed = 0.5
 
-/obj/item/crowbar/cyborg/red
+/obj/item/tool/crowbar/cyborg/red
 	name = "emergency hydraulic crowbar"
 	desc = "A hydraulic prying tool, compact but powerful. Supplied to non-construction cyborgs primarily to allow them to pry open airlocks during power outages."
 	icon_state = "crowbar_red"
 
-/obj/item/crowbar/power
+/obj/item/tool/crowbar/power
 	name = "jaws of life"
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
 	flags = CONDUCT
@@ -123,18 +123,18 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
-/obj/item/crowbar/power/Initialize(mapload)
+/obj/item/tool/crowbar/power/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/crowbar/power/suicide_act(mob/user)
+/obj/item/tool/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/crowbar/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/tool/crowbar/power/attack_self__legacy__attackchain(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
+	var/obj/item/tool/wirecutters/power/cutjaws = new /obj/item/tool/wirecutters/power
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
 	qdel(src)
 	user.put_in_active_hand(cutjaws)

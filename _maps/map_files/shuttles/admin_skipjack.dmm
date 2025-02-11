@@ -445,7 +445,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/circular_saw,
+/obj/item/tool/circular_saw,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "zD" = (
@@ -465,7 +465,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/scalpel,
+/obj/item/tool/scalpel,
 /obj/item/stack/cable_coil,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,

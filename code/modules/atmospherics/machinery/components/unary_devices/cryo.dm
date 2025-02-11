@@ -337,12 +337,12 @@
 
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
 
-/obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant || on)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE

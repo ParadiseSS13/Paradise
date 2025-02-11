@@ -35,11 +35,11 @@
 		E += C.rating
 	efficiency = E
 
-/obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/telepad/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
 
-/obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
+/obj/machinery/telepad/multitool_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -47,10 +47,10 @@
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.set_multitool_buffer(user, src)
 
-/obj/machinery/telepad/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/telepad/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
@@ -65,20 +65,20 @@
 	active_power_consumption = 500
 	var/stage = 0
 
-/obj/machinery/telepad_cargo/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/telepad_cargo/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(stage != 1)
 		return
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/telepad_cargo/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/telepad_cargo/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")
 	stage = !stage
 
-/obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/I)
+/obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
 

@@ -77,7 +77,7 @@
 		return
 	if(!hasPower() && !(resistance_flags & INDESTRUCTIBLE))
 		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.usespeed, target = src))
 			if(!hasPower())
 				open()
 			else

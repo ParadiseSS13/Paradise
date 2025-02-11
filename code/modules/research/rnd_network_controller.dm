@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	return ..()
 
 
-/obj/machinery/computer/rnd_network_controller/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/computer/rnd_network_controller/screwdriver_act(mob/user, obj/item/tool/I)
 	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its network's RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", list("Yes", "No"))
 	if(areyousure != "Yes")
 		return TRUE // Dont attack the console, pretend we did something

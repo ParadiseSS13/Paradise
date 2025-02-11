@@ -85,7 +85,7 @@
 		var/mob/M = loc
 		M.drop_item_to_ground(src)
 
-/obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/grenade/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!modifiable_timer)
 		return
 

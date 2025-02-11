@@ -200,25 +200,25 @@
 
 	return ..()
 
-/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!ismultitool(I))
 		return
 
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
-/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(welded)
 		return
 	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
-	if(do_after(user, 20 * I.toolspeed, target = src))
+	if(do_after(user, 20 * I.usespeed, target = src))
 		I.play_tool_sound(src)
 		user.visible_message("<span class='notice'>[user] screws the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screw the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
 		open = !open
 	return TRUE
 
-/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

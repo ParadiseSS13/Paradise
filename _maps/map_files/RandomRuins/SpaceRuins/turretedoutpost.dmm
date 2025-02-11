@@ -175,7 +175,7 @@
 /area/ruin/space/unpowered)
 "G" = (
 /obj/structure/rack,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
 	dir = 8;

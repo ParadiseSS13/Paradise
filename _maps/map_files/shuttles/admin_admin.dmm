@@ -77,7 +77,7 @@
 /area/shuttle/administration)
 "ao" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -456,15 +456,15 @@
 /area/shuttle/administration)
 "bx" = (
 /obj/structure/table,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/surgicaldrill,
-/obj/item/circular_saw,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/fix_o_vein,
+/obj/item/tool/bonegel,
+/obj/item/tool/bonesetter,
+/obj/item/tool/hemostat,
+/obj/item/tool/cautery,
+/obj/item/tool/surgicaldrill,
+/obj/item/tool/circular_saw,
+/obj/item/tool/scalpel,
+/obj/item/tool/retractor,
+/obj/item/tool/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "by" = (

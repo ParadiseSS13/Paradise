@@ -680,7 +680,7 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

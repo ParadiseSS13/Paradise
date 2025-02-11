@@ -33,7 +33,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
-/obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
+/obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -224,8 +224,8 @@
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools."
 	icon_state = "toolkit_engineering"
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
-	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
-		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	contents = newlist(/obj/item/tool/screwdriver/cyborg, /obj/item/tool/wrench/cyborg, /obj/item/tool/weldingtool/largetank/cyborg,
+		/obj/item/tool/crowbar/cyborg, /obj/item/tool/wirecutters/cyborg, /obj/item/tool/multitool/cyborg)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "utilitybelt")
 
@@ -244,7 +244,7 @@
 	desc = "An alien toolset, designed to be installed on subject's arm."
 	icon_state = "toolkit_engineering"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
-	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
+	contents = newlist(/obj/item/tool/screwdriver/abductor, /obj/item/tool/wirecutters/abductor, /obj/item/tool/crowbar/abductor, /obj/item/tool/wrench/abductor, /obj/item/tool/weldingtool/abductor, /obj/item/tool/multitool/abductor)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
@@ -268,7 +268,7 @@
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
-	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
+	contents = newlist(/obj/item/tool/retractor/alien, /obj/item/tool/hemostat/alien, /obj/item/tool/cautery/alien, /obj/item/tool/bonesetter/alien, /obj/item/tool/scalpel/alien, /obj/item/tool/circular_saw/alien, /obj/item/tool/bonegel/alien, /obj/item/tool/fix_o_vein/alien, /obj/item/tool/surgicaldrill/alien)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
@@ -334,7 +334,7 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_surgical"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
+	contents = newlist(/obj/item/tool/retractor/augment, /obj/item/tool/hemostat/augment, /obj/item/tool/cautery/augment, /obj/item/tool/bonesetter/augment, /obj/item/tool/scalpel/augment, /obj/item/tool/circular_saw/augment, /obj/item/tool/bonegel/augment, /obj/item/tool/fix_o_vein/augment, /obj/item/tool/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")

@@ -205,7 +205,7 @@
 
 	..()
 
-/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
 

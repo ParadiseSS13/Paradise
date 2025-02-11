@@ -183,7 +183,7 @@
 /area/ruin/space/telecomms/powercontrol)
 "dD" = (
 /obj/structure/closet/crate,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/machinery/camera/tracking_head/dvorak{
 	dir = 1
 	},

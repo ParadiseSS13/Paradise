@@ -990,7 +990,7 @@
 	linked_pinpointer_UID = null
 	tracking_target_UID = null
 
-/obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
+/obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))

@@ -123,7 +123,7 @@
 	update_icon()
 	return
 
-/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!open || !cell)
 		return
 	. = TRUE
@@ -136,7 +136,7 @@
 					"<span class='notice'>You pry the powercell out of [src].</span>")
 	update_controls()
 
-/mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!open)
 		return
 	. = TRUE
@@ -144,7 +144,7 @@
 		return
 	attack_hand(user)
 
-/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = ..()
 	if(!.)
 		return
@@ -153,7 +153,7 @@
 	update_controls()
 	update_icon()
 
-/mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(health >= maxHealth)
 		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
@@ -167,7 +167,7 @@
 		"<span class='notice'>You repair [src]!</span>"
 	)
 
-/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(!open)
 		return
 	. = TRUE

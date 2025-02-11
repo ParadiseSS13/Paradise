@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 	return ..()
 
-/obj/machinery/conveyor/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/conveyor/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	to_chat(user,"<span class='notice'>You remove [src].</span>")
 	qdel(src)
 
-/obj/machinery/conveyor/wrench_act(mob/user, obj/item/I)
+/obj/machinery/conveyor/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 		S.update_icon()
 		CHECK_TICK
 
-/obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -370,7 +370,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	to_chat(user,"<span class='notice'>You detach [src].</span>")
 	qdel(src)
 
-/obj/machinery/conveyor_switch/multitool_act(mob/user, obj/item/I)
+/obj/machinery/conveyor_switch/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -49,7 +49,7 @@
 		return
 	. += "<span class='notice'>The AI recovery beacon is active.</span>"
 
-/obj/structure/mecha_wreckage/crowbar_act(mob/user, obj/item/I)
+/obj/structure/mecha_wreckage/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -61,7 +61,7 @@
 		return
 	to_chat(user, "<span class='notice'>You don't see anything that can be pried with [I]!</span>")
 
-/obj/structure/mecha_wreckage/welder_act(mob/user, obj/item/I)
+/obj/structure/mecha_wreckage/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -78,7 +78,7 @@
 		welder_salvage -= type
 	salvage_num--
 
-/obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

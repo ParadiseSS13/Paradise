@@ -370,14 +370,14 @@
 	update()
 	return
 
-/obj/machinery/disposal/delivery_chute/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/disposal/delivery_chute/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	can_deconstruct = !can_deconstruct
 	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
 
-/obj/machinery/disposal/delivery_chute/welder_act(mob/user, obj/item/I)
+/obj/machinery/disposal/delivery_chute/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!can_deconstruct)
 		return

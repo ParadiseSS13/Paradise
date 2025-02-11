@@ -312,7 +312,7 @@
 	doorOpen = 'sound/machines/airlock_ext_open.ogg'
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
-/obj/machinery/door/airlock/external_no_weld/welder_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/external_no_weld/welder_act(mob/user, obj/item/tool/I)
 	return
 
 //////////////////////////////////
@@ -460,7 +460,7 @@
 
 	return ..()
 
-/obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/tool/I)
 	if(shock_user(user, 75))
 		return
 	if(operating || !density)
@@ -570,7 +570,7 @@
 			L.throw_at(throwtarget, 5, 1)
 		return FALSE
 
-/obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/tool/I)
 	return
 
 /obj/machinery/door/airlock/cult/cult_conceal()

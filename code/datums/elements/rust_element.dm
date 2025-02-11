@@ -50,7 +50,7 @@
 	return COMPONENT_CANCEL_TOOLACT
 
 /// We call this from secondary_tool_act because we sleep with do_after
-/datum/element/rust/proc/handle_tool_use(atom/source, obj/item/item, mob/user)
+/datum/element/rust/proc/handle_tool_use(atom/source, obj/item/tool/item, mob/user)
 	switch(item.tool_behaviour)
 		if(TOOL_WELDER)
 			if(!item.tool_start_check(source, user, amount=1))

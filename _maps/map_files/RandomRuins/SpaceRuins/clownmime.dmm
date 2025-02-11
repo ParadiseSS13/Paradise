@@ -287,7 +287,7 @@
 "qp" = (
 /obj/item/stock_parts/cell/high,
 /obj/item/stack/cable_coil,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/structure/closet/crate/engineering,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)

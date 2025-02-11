@@ -358,18 +358,18 @@
 	return ..()
 
 
-/obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/sleeper/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
 		return TRUE
 
-/obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
+/obj/machinery/sleeper/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -572,7 +572,7 @@
 	possible_chems = list("epinephrine", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "mannitol")
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/tool/I)
 	to_chat(user, "<span class='warning'>You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!</span>")
 	return FALSE
 

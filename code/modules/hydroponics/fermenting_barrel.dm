@@ -66,7 +66,7 @@
 		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0))
 		return
@@ -75,7 +75,7 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 
-/obj/structure/fermenting_barrel/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/fermenting_barrel/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 

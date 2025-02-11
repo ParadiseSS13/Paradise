@@ -125,7 +125,7 @@
 	account_database.charge_account(account_database.vendor_account, amount, "Slot Machine Payout", "DonkBook Betting", TRUE, FALSE)
 	account_database.credit_account(user_account, amount, "Slot Machine Winnings Deposit", "DonkBook Betting", FALSE)
 
-/obj/machinery/economy/slot_machine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/economy/slot_machine/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

@@ -187,7 +187,7 @@
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
 
-/obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(stationary)
 		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")

@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/item/circular_saw,
+/obj/item/tool/circular_saw,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
@@ -67,7 +67,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/bmp_ship/delta)
 "aq" = (
-/obj/item/scalpel,
+/obj/item/tool/scalpel,
 /obj/structure/closet/crate,
 /obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plating/airless,
@@ -169,7 +169,7 @@
 /turf/simulated/mineral/random,
 /area/ruin/powered)
 "aL" = (
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
@@ -444,13 +444,13 @@
 /area/ruin/unpowered/bmp_ship/fore)
 "bT" = (
 /obj/structure/table,
-/obj/item/screwdriver,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/item/paper{
 	info = "The next person who takes one of my screwdrivers gets stabbed with one. They are MINE. - Love, Madsen";
 	name = "scribbled note"
 	},
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -736,7 +736,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/aft)
 "cR" = (
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -875,7 +875,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/aft)
 "dp" = (
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/aft)
 "dq" = (
@@ -1465,7 +1465,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "fg" = (
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "fh" = (

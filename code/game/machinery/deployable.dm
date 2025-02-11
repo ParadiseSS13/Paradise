@@ -40,7 +40,7 @@
 	if(stacktype)
 		new stacktype(get_turf(src), drop_amount)
 
-/obj/structure/barricade/welder_act(mob/user, obj/item/I)
+/obj/structure/barricade/welder_act(mob/user, obj/item/tool/I)
 	if(bar_material != METAL)
 		return
 	if(obj_integrity >= max_integrity)
@@ -111,7 +111,7 @@
 			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
 	return ..()
 
-/obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -502,7 +502,7 @@
 /obj/structure/barricade/foam/CanPass(atom/movable/mover, border_dir)
 	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
 
-/obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)
+/obj/structure/barricade/foam/welder_act(mob/user, obj/item/tool/I)
 	return FALSE
 
 #undef SINGLE

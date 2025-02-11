@@ -22,7 +22,7 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	/// Will it set to the layer above the player or not? Use with Armrests.
-	var/uses_armrest = FALSE 
+	var/uses_armrest = FALSE
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -54,7 +54,7 @@
 		return
 	return ..()
 
-/obj/structure/chair/wrench_act(mob/user, obj/item/I)
+/obj/structure/chair/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")

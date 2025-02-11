@@ -347,14 +347,14 @@
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
 /obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(istype(W, /obj/item/tool/wirecutters))
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
 			aggressiveness = 5
 			return
 	. = ..()
 
-/obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/tool/I)
 	switch(aggressiveness)
 		if(1)
 			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")

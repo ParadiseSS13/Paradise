@@ -746,7 +746,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
 	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
 	reference = "AID"
-	item = /obj/item/multitool/ai_detect
+	item = /obj/item/tool/multitool/ai_detect
 	cost = 5
 
 /datum/uplink_item/device_tools/jammer

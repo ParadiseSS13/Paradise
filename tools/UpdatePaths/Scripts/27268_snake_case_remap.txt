@@ -175,7 +175,7 @@
 /datum/SDQL_parser/@SUBTYPES : /datum/sdql_parser/@SUBTYPES{@OLD}
 /datum/design/RPED/@SUBTYPES : /datum/design/rped/@SUBTYPES{@OLD}
 /datum/holiday/UFO/@SUBTYPES : /datum/holiday/ufo/@SUBTYPES{@OLD}
-/obj/item/FixOVein/@SUBTYPES : /obj/item/fix_o_vein/@SUBTYPES{@OLD}
+/obj/item/FixOVein/@SUBTYPES : /obj/item/tool/fix_o_vein/@SUBTYPES{@OLD}
 /obj/item/aiModule/@SUBTYPES : /obj/item/ai_module/@SUBTYPES{@OLD}
 /mob/camera/aiEye/@SUBTYPES : /mob/camera/ai_eye/@SUBTYPES{@OLD}
 /datum/AI_Module/@SUBTYPES : /datum/ai_module/@SUBTYPES{@OLD}

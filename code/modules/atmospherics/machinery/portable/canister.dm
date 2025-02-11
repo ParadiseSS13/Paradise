@@ -492,7 +492,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	canister_color["prim"] = "whiters"
 	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 
-/obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/tool/I)
 	if(!(stat & BROKEN))
 		return
 

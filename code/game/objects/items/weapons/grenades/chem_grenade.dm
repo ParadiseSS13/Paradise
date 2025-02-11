@@ -178,7 +178,7 @@
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == READY && istype(I, /obj/item/wirecutters))
+	else if(stage == READY && istype(I, /obj/item/tool/wirecutters))
 		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
@@ -198,7 +198,7 @@
 			beakers = list()
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(stage == WIRED)
 		if(!length(beakers))
 			to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
@@ -399,7 +399,7 @@
 	origin_tech = "combat=3;engineering=4"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)
+/obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

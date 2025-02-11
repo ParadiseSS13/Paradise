@@ -86,7 +86,7 @@ emp_act
 
 	return (..(P , def_zone))
 
-/mob/living/carbon/human/welder_act(mob/user, obj/item/I)
+/mob/living/carbon/human/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(!I.tool_use_check(user, 1))

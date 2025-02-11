@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 	return ..()
 
-/obj/machinery/atmospherics/meter/wrench_act(mob/living/user, obj/item/wrench/W)
+/obj/machinery/atmospherics/meter/wrench_act(mob/living/user, obj/item/tool/wrench/W)
 	// don't call parent here, we're kind of different
 	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
 	if(!W.use_tool(src, user, volume = W.tool_volume))
@@ -108,10 +108,10 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		deconstruct()
 
 
-/obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!ismultitool(I))
 		return
 
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")

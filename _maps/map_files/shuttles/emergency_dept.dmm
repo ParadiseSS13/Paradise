@@ -925,7 +925,7 @@
 /obj/item/clothing/head/welding{
 	layer = 8
 	},
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"

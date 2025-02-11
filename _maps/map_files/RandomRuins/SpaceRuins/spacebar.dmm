@@ -227,9 +227,9 @@
 "aY" = (
 /obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
-/obj/item/scalpel,
+/obj/item/tool/scalpel,
 /obj/structure/table,
-/obj/item/wirecutters,
+/obj/item/tool/wirecutters,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aZ" = (
@@ -380,7 +380,7 @@
 /obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/item/toy/plushie/carpplushie/gold,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
@@ -581,7 +581,7 @@
 /area/ruin/space/powered/bar)
 "wL" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/crowbar/small,
+/obj/item/tool/crowbar/small,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
@@ -692,7 +692,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

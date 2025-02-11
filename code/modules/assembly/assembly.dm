@@ -140,7 +140,7 @@
 
 	return ..()
 
-/obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
+/obj/item/assembly/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

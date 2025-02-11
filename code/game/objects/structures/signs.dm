@@ -36,7 +36,7 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-/obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/sign/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!removable)
 		return
 	. = TRUE
@@ -60,7 +60,7 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!isturf(user.loc)) // Why does this use user? This should just be loc.
 		return
 	. = TRUE // These return values gotta be true or we stab the sign

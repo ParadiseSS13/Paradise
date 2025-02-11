@@ -14,7 +14,7 @@
 			update_icon()
 
 
-/obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
@@ -69,7 +69,7 @@
 			opened = APC_OPENED
 			update_icon()
 
-/obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -98,7 +98,7 @@
 		update_icon()
 
 
-/obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
+/obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -107,14 +107,14 @@
 	else if(terminal && opened)
 		terminal.dismantle(user, I)
 
-/obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
 
-/obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
+/obj/machinery/power/apc/welder_act(mob/user, obj/item/tool/I)
 	if(!opened || has_electronics() || terminal)
 		return
 	. = TRUE

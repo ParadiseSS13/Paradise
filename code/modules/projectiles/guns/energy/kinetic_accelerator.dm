@@ -43,7 +43,7 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
+/obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!max_mod_capacity)
 		return

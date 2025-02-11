@@ -8,15 +8,15 @@
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 38 // Items listed add up to 19, x2 to be sure
 	can_hold = list(
-		/obj/item/scalpel,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/retractor,
-		/obj/item/fix_o_vein,
-		/obj/item/surgicaldrill,
-		/obj/item/circular_saw,
-		/obj/item/bonegel,
-		/obj/item/bonesetter,
+		/obj/item/tool/scalpel,
+		/obj/item/tool/cautery,
+		/obj/item/tool/hemostat,
+		/obj/item/tool/retractor,
+		/obj/item/tool/fix_o_vein,
+		/obj/item/tool/surgicaldrill,
+		/obj/item/tool/circular_saw,
+		/obj/item/tool/bonegel,
+		/obj/item/tool/bonesetter,
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/stack/medical/ointment,
 		/obj/item/surgical_drapes
@@ -24,15 +24,15 @@
 
 /obj/item/storage/surgical_tray/Initialize(mapload)
 	. = ..()
-	new /obj/item/scalpel(src)
-	new /obj/item/cautery(src)
-	new /obj/item/hemostat(src)
-	new /obj/item/retractor(src)
-	new /obj/item/fix_o_vein(src)
-	new /obj/item/surgicaldrill(src)
-	new /obj/item/circular_saw(src)
-	new /obj/item/bonegel(src)
-	new /obj/item/bonesetter(src)
+	new /obj/item/tool/scalpel(src)
+	new /obj/item/tool/cautery(src)
+	new /obj/item/tool/hemostat(src)
+	new /obj/item/tool/retractor(src)
+	new /obj/item/tool/fix_o_vein(src)
+	new /obj/item/tool/surgicaldrill(src)
+	new /obj/item/tool/circular_saw(src)
+	new /obj/item/tool/bonegel(src)
+	new /obj/item/tool/bonesetter(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 

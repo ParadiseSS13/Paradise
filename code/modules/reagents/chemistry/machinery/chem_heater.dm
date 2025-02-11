@@ -81,15 +81,15 @@
 
 	return ..()
 
-/obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
+/obj/machinery/chem_heater/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "mixer0b", "mixer[beaker ? "1" : "0"]b", I)
 
-/obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE

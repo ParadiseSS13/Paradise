@@ -151,7 +151,7 @@
 		return FALSE
 
 	// TODO: Migrate all of this to the proper objects so it's not clogging up a core proc and called at irrelevant times
-	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(target) && target != user)
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || istool(src)) && user.a_intent == INTENT_HELP && on_operable_surface(target) && target != user)
 		to_chat(user, "<span class='notice'>You don't want to harm the person you're trying to help!</span>")
 		return FALSE
 

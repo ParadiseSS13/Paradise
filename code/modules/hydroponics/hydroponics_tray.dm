@@ -129,7 +129,7 @@
 
 	return ..()
 
-/obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/tool/I)
 
 	if(using_irrigation)
 		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
@@ -874,7 +874,7 @@
 			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, used.usesound, 50, 1)
-		if(!do_after(user, 25 * used.toolspeed, target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 25 * used.usespeed, target = src) || (!myseed && !weedlevel))
 			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, used.usesound, 50, 1)
@@ -898,7 +898,7 @@
 	else
 		return ..()
 
-/obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -909,7 +909,7 @@
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_state()
 
-/obj/machinery/hydroponics/wrench_act(mob/user, obj/item/I)
+/obj/machinery/hydroponics/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return

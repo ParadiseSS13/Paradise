@@ -68,7 +68,7 @@
 		emagged = TRUE //Set the emag var to true.
 		return TRUE
 
-/obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
+/obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

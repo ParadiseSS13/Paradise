@@ -10,7 +10,7 @@
 
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant)
 		if(stat & BROKEN)
 			return ..()

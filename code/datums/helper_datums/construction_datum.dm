@@ -59,8 +59,8 @@
 			return 0
 		else
 			S.use(5)
-	else if(isitem(used_atom))
-		var/obj/item/I = used_atom
+	else if(istype(used_atom, /obj/item/tool))
+		var/obj/item/tool/I = used_atom
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
 			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
 				return 0
@@ -104,8 +104,8 @@
 				to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
 				return 0
 		// TOOLS
-		if(isitem(used_atom))
-			var/obj/item/I = used_atom
+		if(istool(used_atom))
+			var/obj/item/tool/I = used_atom
 			if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
 				if(!I.use(amount))
 					return 0
@@ -121,8 +121,8 @@
 /datum/construction/proc/do_tool_or_atom_check(used_atom, thing_to_check) //Checks if an atom is either a required thing; or if it's a required tool
 	if(istype(used_atom, thing_to_check))
 		return TRUE
-	else if(isitem(used_atom))
-		var/obj/item/I = used_atom
+	else if(istool(used_atom))
+		var/obj/item/tool/I = used_atom
 		if(I.tool_behaviour == thing_to_check)
 			return TRUE
 

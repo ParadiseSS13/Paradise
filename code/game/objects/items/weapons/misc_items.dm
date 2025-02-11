@@ -98,7 +98,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/crutches/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")

@@ -205,7 +205,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	density = TRUE
 	pixel_y = -32
 
-/obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
+/obj/item/gps/computer/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
 						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
@@ -301,7 +301,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-/obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/fans/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
 						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")

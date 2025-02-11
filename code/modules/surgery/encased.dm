@@ -68,7 +68,7 @@
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
 	allowed_tools = list(
-		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/tool/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
 		TOOL_CROWBAR = 90
 	)
@@ -119,7 +119,7 @@
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
 	allowed_tools = list(
-		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/tool/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
 		TOOL_CROWBAR = 90
 	)
@@ -173,8 +173,8 @@
 
 	preop_sound = list(
 		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
-		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
-		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+		/obj/item/tool/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/tool/screwdriver = 'sound/items/screwdriver.ogg'
 	)
 
 	time = 2.4 SECONDS

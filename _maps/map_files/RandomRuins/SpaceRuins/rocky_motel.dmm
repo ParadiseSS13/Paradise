@@ -369,7 +369,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered)
 "OA" = (
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/structure/rack,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)

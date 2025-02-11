@@ -452,11 +452,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
 		hidden_uplink.uses = 2500
 
-/obj/item/multitool/uplink/New()
+/obj/item/tool/multitool/uplink/New()
 	..()
 	hidden_uplink = new(src)
 
-/obj/item/multitool/uplink/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/tool/multitool/uplink/attack_self__legacy__attackchain(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 

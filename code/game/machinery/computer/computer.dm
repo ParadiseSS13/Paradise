@@ -177,7 +177,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/computer/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return

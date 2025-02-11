@@ -126,7 +126,7 @@
 		deconstruct(FALSE)
 		to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 
-/obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return TRUE
@@ -145,7 +145,7 @@
 	ChangeToWall()
 	return TRUE
 
-/obj/structure/falsewall/welder_act(mob/user, obj/item/I)
+/obj/structure/falsewall/welder_act(mob/user, obj/item/tool/I)
 	if(!density)
 		return
 	. = TRUE

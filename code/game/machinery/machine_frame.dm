@@ -98,7 +98,7 @@
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
+					if(do_after(user, 20 * C.usespeed, target = src))
 						if(state == MACHINE_FRAME_EMPTY && C.get_amount() >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = MACHINE_FRAME_WIRED
@@ -198,7 +198,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/structure/machine_frame/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/machine_frame/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(state != MACHINE_FRAME_WIRED)
 		return
 
@@ -210,7 +210,7 @@
 	new /obj/item/stack/cable_coil(loc, 5)
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/structure/machine_frame/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/machine_frame/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(state != MACHINE_FRAME_CIRCUITBOARD)
 		return
 
@@ -232,7 +232,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
 
-/obj/structure/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/machine_frame/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(state != MACHINE_FRAME_CIRCUITBOARD)
 		return
 	. = TRUE
@@ -324,7 +324,7 @@ to destroy them and players will be able to make replacements.
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
 		"SyndiMed Plus" =						/obj/machinery/economy/vending/wallmed/syndicate)
 
-/obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
+/obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -614,7 +614,7 @@ to destroy them and players will be able to make replacements.
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
 
-/obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -681,7 +681,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
+/obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

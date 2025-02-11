@@ -20,7 +20,7 @@
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
-/obj/item/hemostat/alien,
+/obj/item/tool/hemostat/alien,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "i" = (
@@ -37,7 +37,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/machinery/optable/abductor,
-/obj/item/cautery/alien,
+/obj/item/tool/cautery/alien,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
@@ -46,12 +46,12 @@
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "n" = (
-/obj/item/scalpel/alien,
+/obj/item/tool/scalpel/alien,
 /obj/item/surgical_drapes,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "o" = (
-/obj/item/retractor/alien,
+/obj/item/tool/retractor/alien,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "p" = (
@@ -60,8 +60,8 @@
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/structure/table/abductor,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
+/obj/item/tool/surgicaldrill/alien,
+/obj/item/tool/circular_saw/alien,
 /turf/simulated/floor/plating/abductor/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "r" = (

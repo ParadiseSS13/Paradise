@@ -29,7 +29,7 @@
 	. = ..()
 	. += "<span class='warning'>You can <b>Alt-Click</b> [src] to activate it.</span>"
 
-/obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
+/obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	var/obj/structure/chair/C = new /obj/structure/chair(loc)
 	I.play_tool_sound(src, 50)

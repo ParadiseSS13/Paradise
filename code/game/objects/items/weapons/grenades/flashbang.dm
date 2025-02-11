@@ -30,7 +30,7 @@
 		bang(T, src, range)
 	qdel(src)
 
-/obj/item/grenade/flashbang/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/grenade/flashbang/screwdriver_act(mob/living/user, obj/item/tool/I)
 	switch(det_time)
 		if(0.1 SECONDS)
 			det_time = 3 SECONDS

@@ -75,7 +75,7 @@
 	item_state = "void"
 	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making it difficult to move around in."
 	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/tool/multitool)
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
@@ -382,7 +382,7 @@
 	new /obj/item/stock_parts/capacitor(src)
 	new /obj/item/stack/cable_coil/ten(src)
 	new /obj/item/stack/sheet/metal/ten(src)
-	new /obj/item/screwdriver(src)
+	new /obj/item/tool/screwdriver(src)
 
 /obj/structure/closet/crate/secure/oldstation/research
 	name = "research crate"
@@ -419,15 +419,15 @@
 	icon_closed = "medicalsecurecrate"
 
 /obj/structure/closet/crate/secure/oldstation/surgery/populate_contents()
-	new /obj/item/circular_saw(src)
-	new /obj/item/retractor(src)
-	new /obj/item/hemostat(src)
-	new /obj/item/scalpel(src)
-	new /obj/item/cautery(src)
-	new /obj/item/fix_o_vein(src)
-	new /obj/item/surgicaldrill(src)
-	new /obj/item/bonegel(src)
-	new /obj/item/bonesetter(src)
+	new /obj/item/tool/circular_saw(src)
+	new /obj/item/tool/retractor(src)
+	new /obj/item/tool/hemostat(src)
+	new /obj/item/tool/scalpel(src)
+	new /obj/item/tool/cautery(src)
+	new /obj/item/tool/fix_o_vein(src)
+	new /obj/item/tool/surgicaldrill(src)
+	new /obj/item/tool/bonegel(src)
+	new /obj/item/tool/bonesetter(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 //////////////////////////////

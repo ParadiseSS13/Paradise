@@ -107,7 +107,7 @@
 
 	return ..()
 
-/obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(open)
 		to_chat(user, "<span class='warning'>The screws can't reach while its open.</span>")
 		return TRUE
@@ -126,7 +126,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/machinery/floodlight/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/floodlight/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!unlocked)
 		to_chat(user, "<span class='notice'>The cover is screwed tightly down.</span>")
 		return TRUE
@@ -142,7 +142,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/machinery/floodlight/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/floodlight/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

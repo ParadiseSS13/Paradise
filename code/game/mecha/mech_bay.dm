@@ -90,16 +90,16 @@
 		MC += C.rating
 	max_charge = MC * 25
 
-/obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
 		return TRUE
 
-/obj/machinery/mech_bay_recharge_port/wrench_act(mob/user, obj/item/I)
+/obj/machinery/mech_bay_recharge_port/wrench_act(mob/user, obj/item/tool/I)
 	if(default_change_direction_wrench(user, I))
 		recharging_turf = get_step(loc, dir)
 		return TRUE
 
-/obj/machinery/mech_bay_recharge_port/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/mech_bay_recharge_port/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 

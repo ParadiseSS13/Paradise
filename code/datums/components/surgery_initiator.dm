@@ -115,7 +115,7 @@
 		var/datum/surgery_step/current_step = current_surgery.get_surgery_step()
 		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery) == SURGERY_INITIATE_SUCCESS)
 			return
-		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
+		if(istype(parent, /obj/item/tool/scalpel/laser/manager/debug))
 			return
 		if(attempt_cancel_surgery(current_surgery, target, user))
 			return
@@ -226,14 +226,17 @@
 			// borgs need to be able to finish surgeries with just the laser scalpel, no special checks here.
 			close_tool = parent
 		else
-			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
+			close_tool = locate(/obj/item/tool/crowbar) in user.get_all_slots()
 			if(!close_tool)
 				to_chat(user, "<span class='warning'>You need a prying tool in an inactive slot to stop the surgery!</span>")
 				return TRUE
 
 	else if(other_hand)
+		var/obj/item/tool/tool = other_hand
+		if(!istype(tool))
+			return FALSE
 		for(var/key in chosen_close_step.allowed_tools)
-			if(ispath(key) && istype(other_hand, key) || other_hand.tool_behaviour == key)
+			if(ispath(key) && istype(other_hand, key) || tool.tool_behaviour == key)
 				close_tool = other_hand
 				break
 

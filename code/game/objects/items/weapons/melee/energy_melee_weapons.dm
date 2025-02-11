@@ -282,7 +282,7 @@
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)
-	else if(istype(W, /obj/item/multitool))
+	else if(istype(W, /obj/item/tool/multitool))
 		if(!hacked)
 			hacked = TRUE
 			item_color = "rainbow"
@@ -337,7 +337,6 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
-	tool_behaviour = TOOL_SAW
 
 //////////////////////////////
 // MARK: CUTLASS

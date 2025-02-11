@@ -5466,10 +5466,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/item/crowbar/red,
-/obj/item/crowbar/red,
-/obj/item/crowbar/red,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
+/obj/item/tool/crowbar/red,
+/obj/item/tool/crowbar/red,
+/obj/item/tool/crowbar/red,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "vN" = (
@@ -7047,7 +7047,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "EQ" = (
@@ -8631,7 +8631,7 @@
 /area/mine/laborcamp)
 "PM" = (
 /obj/structure/rack,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/item/storage/bag/trash,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)

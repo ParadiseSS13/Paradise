@@ -400,7 +400,7 @@
 					egg_list.Add(parent2.egg_item)
 	egg_count++
 
-/obj/machinery/fishtank/welder_act(mob/user, obj/item/I)
+/obj/machinery/fishtank/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -709,7 +709,7 @@
 
 	return ..()
 
-/obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
+/obj/machinery/fishtank/wrench_act(mob/user, obj/item/tool/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	. = TRUE
 	if(water_level)
 		to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")

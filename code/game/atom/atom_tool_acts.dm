@@ -58,7 +58,7 @@
  *
  * In other words, use sparingly. It's harder to use (correctly) than [item_interaction].
  */
-/atom/proc/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+/atom/proc/tool_act(mob/living/user, obj/item/tool/tool, list/modifiers)
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
 

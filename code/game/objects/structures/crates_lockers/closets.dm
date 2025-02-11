@@ -321,7 +321,7 @@
 /obj/structure/closet/proc/closed_item_click(mob/user)
 	attack_hand(user)
 
-/obj/structure/closet/welder_act(mob/user, obj/item/I)
+/obj/structure/closet/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!opened && user.loc == src)
 		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")

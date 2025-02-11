@@ -39,7 +39,7 @@
 	else
 		icon_state = "coin_press"
 
-/obj/machinery/mineral/mint/wrench_act(mob/user, obj/item/I)
+/obj/machinery/mineral/mint/wrench_act(mob/user, obj/item/tool/I)
 	default_unfasten_wrench(user, I, time = 4 SECONDS)
 	return TRUE
 

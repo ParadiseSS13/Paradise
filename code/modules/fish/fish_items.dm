@@ -134,7 +134,7 @@
 	force = 3
 
 /obj/item/fish/shark/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
-	if(istype(O, /obj/item/wirecutters))
+	if(istype(O, /obj/item/tool/wirecutters))
 		to_chat(user, "You rip out the teeth of \the [src.name]!")
 		new /obj/item/fish/toothless_shark(get_turf(src))
 		new /obj/item/shard/shark_teeth(get_turf(src))

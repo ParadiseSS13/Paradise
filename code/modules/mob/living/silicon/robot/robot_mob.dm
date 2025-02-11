@@ -1028,7 +1028,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		return ..()
 
-/mob/living/silicon/robot/wirecutter_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!opened)
 		return
 	. = TRUE
@@ -1037,7 +1037,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(wiresexposed)
 		wires.Interact(user)
 
-/mob/living/silicon/robot/multitool_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/multitool_act(mob/user, obj/item/tool/I)
 	if(!opened)
 		return
 	. = TRUE
@@ -1046,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(wiresexposed)
 		wires.Interact(user)
 
-/mob/living/silicon/robot/screwdriver_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!opened)
 		return
 	. = TRUE
@@ -1064,7 +1064,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "Unable to locate a radio.")
 		update_icons()
 
-/mob/living/silicon/robot/crowbar_act(mob/user, obj/item/I)
+/mob/living/silicon/robot/crowbar_act(mob/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE

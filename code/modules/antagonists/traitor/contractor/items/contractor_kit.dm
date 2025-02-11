@@ -26,7 +26,7 @@
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
-		/obj/item/multitool/ai_detect,
+		/obj/item/tool/multitool/ai_detect,
 		/obj/item/encryptionkey/syndicate,
 		/obj/item/jammer,
 		/obj/item/clothing/under/syndicate/silicon_cham,
@@ -59,7 +59,7 @@
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo(src)
 	new /obj/item/handheld_mirror(src)
-	
+
 /obj/item/paper/contractor_guide
 	name = "contractor guide"
 

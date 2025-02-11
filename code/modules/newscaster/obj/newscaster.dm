@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
+/obj/machinery/newscaster/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
-/obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
+/obj/machinery/newscaster/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

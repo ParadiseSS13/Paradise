@@ -71,14 +71,14 @@
 
 	return ..()
 
-/obj/machinery/economy/arcade/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/economy/arcade/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!anchored)
 		return FALSE
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon()
 	return TRUE
 
-/obj/machinery/economy/arcade/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/economy/arcade/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!component_parts || !panel_open)
 		return FALSE
 	default_deconstruction_crowbar(user, I)

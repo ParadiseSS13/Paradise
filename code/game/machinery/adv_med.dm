@@ -99,15 +99,15 @@
 
 	return ..()
 
-/obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
 		return TRUE
 
-/obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
+/obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -121,7 +121,7 @@
 
 	return ..()
 
-/obj/structure/noticeboard/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/noticeboard/wrench_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE

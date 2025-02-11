@@ -85,8 +85,8 @@
 	return ..()
 
 
-/obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)
-	var/obj/item/multitool/M = I
+/obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/tool/I)
+	var/obj/item/tool/multitool/M = I
 	if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 		linked_pad_uid = M.buffer.UID()
 		M.buffer = null

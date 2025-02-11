@@ -1,4 +1,4 @@
-/obj/item/retractor
+/obj/item/tool/retractor
 	name = "retractor"
 	desc = "A sterilized tissue retractor used for holding open incisions."
 	icon = 'icons/obj/surgery.dmi'
@@ -11,16 +11,16 @@
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_RETRACTOR
 
-/obj/item/retractor/Initialize(mapload)
+/obj/item/tool/retractor/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/retractor/augment
+/obj/item/tool/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
 
-/obj/item/hemostat
+/obj/item/tool/hemostat
 	name = "hemostat"
 	desc = "A sterilized steel surgical clamp for sealing exposed blood vessels during surgery."
 	icon = 'icons/obj/surgery.dmi'
@@ -34,15 +34,15 @@
 	attack_verb = list("attacked", "pinched")
 	tool_behaviour = TOOL_HEMOSTAT
 
-/obj/item/hemostat/Initialize(mapload)
+/obj/item/tool/hemostat/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/hemostat/augment
+/obj/item/tool/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
 	toolspeed = 0.5
 
-/obj/item/cautery
+/obj/item/tool/cautery
 	name = "cautery"
 	desc = "A unipolar electrocauter used to sear surgical incisions shut."
 	icon = 'icons/obj/surgery.dmi'
@@ -57,11 +57,11 @@
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 
-/obj/item/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/tool/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
-/obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+/obj/item/tool/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
 		return !isnull(cig)
@@ -79,15 +79,15 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/cautery/Initialize(mapload)
+/obj/item/tool/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/cautery/augment
+/obj/item/tool/cautery/augment
 	desc = "A heated element that cauterizes wounds."
 	toolspeed = 0.5
 
-/obj/item/surgicaldrill
+/obj/item/tool/surgicaldrill
 	name = "surgical drill"
 	desc = "A sterilized drill used to create holes in bone and teeth."
 	icon = 'icons/obj/surgery.dmi'
@@ -104,23 +104,23 @@
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
 
-/obj/item/surgicaldrill/Initialize(mapload)
+/obj/item/tool/surgicaldrill/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/surgicaldrill/suicide_act(mob/user)
+/obj/item/tool/surgicaldrill/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>",
 						"<span class='suicide'>[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS
 
-/obj/item/surgicaldrill/augment
+/obj/item/tool/surgicaldrill/augment
 	desc = "Effectively a small power drill contained within your arm, edges dulled to prevent tissue damage. May or may not pierce the heavens."
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
 
-/obj/item/scalpel
+/obj/item/tool/scalpel
 	name = "scalpel"
 	desc = "A sterilized stainless steel cutting implement for making precise surgical incisions."
 	icon = 'icons/obj/surgery.dmi'
@@ -141,20 +141,20 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	tool_behaviour = TOOL_SCALPEL
 
-/obj/item/scalpel/Initialize(mapload)
+/obj/item/tool/scalpel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/surgery_initiator)
 
 
-/obj/item/scalpel/suicide_act(mob/user)
+/obj/item/tool/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>"))
 	return BRUTELOSS
 
 
-/obj/item/scalpel/augment
+/obj/item/tool/scalpel/augment
 	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
 	toolspeed = 0.5
 
@@ -162,18 +162,18 @@
  * Researchable Scalpels
  */
 /// parent type
-/obj/item/scalpel/laser
+/obj/item/tool/scalpel/laser
 	name = "laser scalpel"
 	desc = "A low-power laser emitter for creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
+/obj/item/tool/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
-/obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+/obj/item/tool/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
 		return !isnull(cig)
@@ -192,37 +192,37 @@
 	return TRUE
 
 /// lasers also count as catuarys
-/obj/item/scalpel/laser/laser1
+/obj/item/tool/scalpel/laser/laser1
 	name = "laser scalpel"
 	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
-/obj/item/scalpel/laser/laser2
+/obj/item/tool/scalpel/laser/laser2
 	name = "laser scalpel"
 	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
 
-/obj/item/scalpel/laser/laser3
+/obj/item/tool/scalpel/laser/laser3
 	name = "laser scalpel"
 	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
 
 /// super tool! Retractor/hemostat
-/obj/item/scalpel/laser/manager
+/obj/item/tool/scalpel/laser/manager
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 
-/obj/item/scalpel/laser/manager/Initialize(mapload)
+/obj/item/tool/scalpel/laser/manager/Initialize(mapload)
 	. = ..()
 	// this one can automatically retry its steps, too!
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/circular_saw
+/obj/item/tool/circular_saw
 	name = "circular saw"
 	desc = "A sterilized medical saw for use in cutting through bone."
 	icon = 'icons/obj/surgery.dmi'
@@ -243,18 +243,18 @@
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	tool_behaviour = TOOL_SAW
 
-/obj/item/circular_saw/Initialize(mapload)
+/obj/item/tool/circular_saw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/circular_saw/augment
+/obj/item/tool/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
 
 //misc, formerly from code/defines/weapons.dm
-/obj/item/bonegel
+/obj/item/tool/bonegel
 	name = "bone gel"
 	desc = "A large bottle of fast-setting medical adhesive. There's more than enough inside to last the shift."
 	icon = 'icons/obj/surgery.dmi'
@@ -267,14 +267,14 @@
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONEGEL
 
-/obj/item/bonegel/Initialize(mapload)
+/obj/item/tool/bonegel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/bonegel/augment
+/obj/item/tool/bonegel/augment
 	toolspeed = 0.5
 
-/obj/item/fix_o_vein
+/obj/item/tool/fix_o_vein
 	name = "FixOVein"
 	desc = "An advanced medical device which uses an array of manipulators to reconnect and repair ruptured blood vessels."
 	icon = 'icons/obj/surgery.dmi'
@@ -287,14 +287,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
 
-/obj/item/fix_o_vein/Initialize(mapload)
+/obj/item/tool/fix_o_vein/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/fix_o_vein/augment
+/obj/item/tool/fix_o_vein/augment
 	toolspeed = 0.5
 
-/obj/item/bonesetter
+/obj/item/tool/bonesetter
 	name = "bone setter"
 	desc = "A stainless steel medical clamp used to reconnect fractured bones."
 	icon = 'icons/obj/surgery.dmi'
@@ -310,11 +310,11 @@
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONESET
 
-/obj/item/bonesetter/Initialize(mapload)
+/obj/item/tool/bonesetter/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/bonesetter/augment
+/obj/item/tool/bonesetter/augment
 	toolspeed = 0.5
 
 /obj/item/surgical_drapes

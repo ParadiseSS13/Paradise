@@ -625,7 +625,7 @@
 "afz" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -2160,7 +2160,7 @@
 "aoS" = (
 /obj/structure/table,
 /obj/effect/spawner/random/engineering/toolbox,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aoT" = (
@@ -2298,7 +2298,7 @@
 /area/station/security/checkpoint/secondary)
 "apm" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/restraints/handcuffs,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2699,7 +2699,7 @@
 /obj/machinery/barsign{
 	pixel_y = 32
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/wirerod,
 /obj/item/clothing/under/misc/waiter,
 /obj/item/clothing/accessory/waistcoat,
@@ -4026,7 +4026,7 @@
 "aua" = (
 /obj/structure/rack,
 /obj/item/flashlight,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aub" = (
@@ -4562,11 +4562,8 @@
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/multitool{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "avL" = (
@@ -5768,7 +5765,7 @@
 /area/station/maintenance/fore)
 "azf" = (
 /obj/structure/rack,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /obj/item/assembly/voice,
 /obj/item/clothing/head/welding,
 /obj/effect/decal/cleanable/dirt,
@@ -8619,8 +8616,8 @@
 /area/station/maintenance/abandoned_garden)
 "aHv" = (
 /obj/structure/table,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -9551,7 +9548,7 @@
 /area/station/service/bar)
 "aKp" = (
 /obj/structure/table/wood,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/cable_coil/random{
@@ -9767,7 +9764,7 @@
 "aLb" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -9944,7 +9941,7 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aLw" = (
@@ -10055,7 +10052,7 @@
 	},
 /area/station/service/bar)
 "aLT" = (
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
@@ -12868,9 +12865,9 @@
 "aUO" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/item/pen/red,
-/obj/item/screwdriver/cargo,
+/obj/item/tool/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -15137,7 +15134,7 @@
 /area/station/service/hydroponics)
 "bcj" = (
 /obj/structure/table/glass,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/suit/apron,
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -15606,7 +15603,7 @@
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/structure/shelf/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -21115,7 +21112,7 @@
 "bvZ" = (
 /obj/structure/table/glass,
 /obj/item/shovel/spade,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/cultivator,
 /obj/item/seeds/wheat,
 /obj/item/seeds/potato,
@@ -21390,8 +21387,8 @@
 /area/station/engineering/break_room)
 "bxb" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/crowbar,
+/obj/item/tool/wrench,
+/obj/item/tool/crowbar,
 /obj/item/analyzer,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Front Desk";
@@ -21437,7 +21434,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -21792,8 +21789,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/wrench,
-/obj/item/crowbar,
+/obj/item/tool/wrench,
+/obj/item/tool/crowbar,
 /obj/item/stack/sheet/glass/fifty,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -21818,7 +21815,7 @@
 	dir = 1
 	},
 /obj/item/stack/sheet/plasteel,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -22299,7 +22296,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/item/crowbar/engineering,
+/obj/item/tool/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bzP" = (
@@ -23903,8 +23900,8 @@
 /area/station/hallway/primary/central/nw)
 "bDS" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/gps,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -24514,12 +24511,12 @@
 /area/station/command/bridge)
 "bFL" = (
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/light/small,
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = -3
 	},
-/obj/item/multitool/command,
+/obj/item/tool/multitool/command,
 /obj/structure/shelf/command,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -24637,8 +24634,8 @@
 /area/station/security/processing)
 "bGq" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/mmi,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -24705,7 +24702,7 @@
 "bGx" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/plasteel,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light_switch{
 	dir = 1;
@@ -25378,7 +25375,7 @@
 /area/station/command/office/ce)
 "bIu" = (
 /obj/structure/rack,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
@@ -25914,7 +25911,7 @@
 "bKa" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -26748,7 +26745,7 @@
 	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bME" = (
@@ -26985,7 +26982,7 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
@@ -27318,7 +27315,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bOr" = (
@@ -27348,8 +27345,8 @@
 /area/station/engineering/tech_storage)
 "bOu" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/crowbar,
+/obj/item/tool/wrench,
+/obj/item/tool/crowbar,
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -27375,8 +27372,8 @@
 /obj/machinery/light,
 /obj/item/assembly/timer,
 /obj/item/assembly/timer,
-/obj/item/multitool,
-/obj/item/multitool,
+/obj/item/tool/multitool,
+/obj/item/tool/multitool,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
@@ -27703,7 +27700,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/trash,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/item/seeds/bamboo,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -32970,8 +32967,8 @@
 /area/station/maintenance/port)
 "cip" = (
 /obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -33475,7 +33472,7 @@
 /area/station/engineering/control)
 "cjQ" = (
 /obj/structure/rack,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/stack/cable_coil/yellow,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/turf_decal/delivery/hollow,
@@ -33491,7 +33488,7 @@
 "cjS" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -34020,8 +34017,8 @@
 "clW" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -34256,7 +34253,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cmS" = (
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/stack/cable_coil/random,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34542,10 +34539,7 @@
 	pixel_y = -2;
 	pixel_x = -6
 	},
-/obj/item/multitool{
-	pixel_y = -5;
-	pixel_x = 5
-	},
+/obj/item/tool/multitool,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
@@ -34963,7 +34957,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "cpg" = (
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cph" = (
@@ -35670,7 +35664,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cqS" = (
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cqT" = (
@@ -36191,8 +36185,8 @@
 /area/station/engineering/equipmentstorage)
 "csA" = (
 /obj/structure/rack,
-/obj/item/crowbar/red,
-/obj/item/wrench,
+/obj/item/tool/crowbar/red,
+/obj/item/tool/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 5
@@ -36566,7 +36560,7 @@
 "ctR" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/cable_coil/random,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "ctS" = (
@@ -37022,9 +37016,9 @@
 /area/station/engineering/equipmentstorage)
 "cuU" = (
 /obj/structure/rack,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/stack/cable_coil/yellow,
-/obj/item/wirecutters,
+/obj/item/tool/wirecutters,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -37214,7 +37208,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cvv" = (
@@ -37488,7 +37482,7 @@
 	},
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = 32
 	},
@@ -37884,7 +37878,7 @@
 /area/station/engineering/control)
 "cxH" = (
 /obj/item/clothing/gloves/color/black,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/shelf/engineering,
@@ -37910,7 +37904,7 @@
 "cxL" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /obj/item/clothing/head/welding,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -38469,7 +38463,7 @@
 	dir = 1
 	},
 /obj/item/clothing/gloves/color/black,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -39083,7 +39077,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -39808,7 +39802,7 @@
 "cDB" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /obj/item/clothing/head/welding,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -40568,7 +40562,7 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -42340,8 +42334,8 @@
 /area/station/maintenance/port)
 "cLC" = (
 /obj/item/clothing/gloves/color/black,
-/obj/item/wrench,
-/obj/item/crowbar/red,
+/obj/item/tool/wrench,
+/obj/item/tool/crowbar/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -46236,7 +46230,7 @@
 	},
 /area/station/hallway/primary/aft/north)
 "daR" = (
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -46542,7 +46536,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -47560,7 +47554,7 @@
 "dfX" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dfZ" = (
@@ -48146,8 +48140,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/crowbar/red,
-/obj/item/wrench,
+/obj/item/tool/crowbar/red,
+/obj/item/tool/wrench,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49646,7 +49640,7 @@
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/electrical,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50484,8 +50478,8 @@
 /area/station/maintenance/abandonedbar)
 "dtM" = (
 /obj/structure/table,
-/obj/item/wrench,
-/obj/item/crowbar,
+/obj/item/tool/wrench,
+/obj/item/tool/crowbar,
 /obj/item/clothing/mask/gas,
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -50623,7 +50617,7 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/hud/diagnostic{
 	pixel_x = 2;
@@ -52052,8 +52046,8 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/item/storage/toolbox/electrical,
-/obj/item/screwdriver,
-/obj/item/multitool,
+/obj/item/tool/screwdriver,
+/obj/item/tool/multitool,
 /obj/item/clothing/head/welding,
 /obj/machinery/newscaster/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
@@ -52274,7 +52268,7 @@
 /area/station/maintenance/theatre)
 "dDI" = (
 /obj/structure/table/wood,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/storage/briefcase,
 /obj/item/storage/secure/briefcase,
 /turf/simulated/floor/plating,
@@ -54626,7 +54620,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/alarm/directional/west,
 /obj/item/stack/cable_coil/random,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/item/clothing/suit/fire/firefighter,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -54928,7 +54922,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
 "dSD" = (
@@ -55065,7 +55059,7 @@
 "dTf" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/reagent_containers/drinks/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -55714,8 +55708,8 @@
 "dWv" = (
 /obj/structure/table,
 /obj/machinery/light,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/clothing/mask/gas,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -58412,7 +58406,7 @@
 "feI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /obj/item/clothing/head/welding,
 /obj/machinery/newscaster/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
@@ -59387,7 +59381,7 @@
 /area/station/maintenance/abandonedbar)
 "fIp" = (
 /obj/structure/table/wood,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/detective,
 /obj/item/camera/detective,
@@ -61322,7 +61316,7 @@
 "gLD" = (
 /obj/structure/table/glass,
 /obj/machinery/recharger,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -63797,7 +63791,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
-/obj/item/crowbar/large,
+/obj/item/tool/crowbar/large,
 /obj/item/bedsheet/orange,
 /obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel{
@@ -64142,7 +64136,7 @@
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
 /obj/item/storage/bag/plants/seed_sorting_tray,
-/obj/item/wirecutters,
+/obj/item/tool/wirecutters,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
@@ -64380,7 +64374,7 @@
 /area/station/security/execution)
 "ixk" = (
 /obj/structure/table/glass,
-/obj/item/wrench/medical,
+/obj/item/tool/wrench/medical,
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -66759,7 +66753,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/rack,
 /obj/item/stack/cable_coil,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 1
@@ -67447,7 +67441,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "kpk" = (
-/obj/item/hemostat,
+/obj/item/tool/hemostat,
 /obj/machinery/newscaster/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -68745,7 +68739,7 @@
 /obj/structure/closet/crate/hydroponics,
 /obj/item/cultivator,
 /obj/item/hatchet,
-/obj/item/wirecutters,
+/obj/item/tool/wirecutters,
 /obj/item/shovel/spade,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -70007,7 +70001,7 @@
 	network = list("Research","SS13")
 	},
 /obj/item/storage/toolbox/mechanical,
-/obj/item/weldingtool/research,
+/obj/item/tool/weldingtool/research,
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
 "lPg" = (
@@ -70588,7 +70582,7 @@
 /area/station/hallway/primary/fore/north)
 "mhG" = (
 /obj/structure/rack,
-/obj/item/screwdriver,
+/obj/item/tool/screwdriver,
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
@@ -74920,7 +74914,7 @@
 /area/station/medical/medbay)
 "oBi" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/small{
 	dir = 8
@@ -75486,8 +75480,8 @@
 "oRx" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
-/obj/item/wrench,
+/obj/item/tool/multitool,
+/obj/item/tool/wrench,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -77382,8 +77376,8 @@
 /area/station/hallway/primary/port/west)
 "pSX" = (
 /obj/structure/rack,
-/obj/item/multitool,
-/obj/item/wrench,
+/obj/item/tool/multitool,
+/obj/item/tool/wrench,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -77666,7 +77660,7 @@
 "qaf" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/item/retractor,
+/obj/item/tool/retractor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -77906,7 +77900,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "qjO" = (
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/storage/bag/trash,
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bottle/ammonia,
@@ -79603,8 +79597,8 @@
 /area/station/command/office/ce)
 "reD" = (
 /obj/structure/table/glass,
-/obj/item/wrench/medical,
-/obj/item/crowbar,
+/obj/item/tool/wrench/medical,
+/obj/item/tool/crowbar,
 /obj/item/storage/toolbox/emergency,
 /obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
@@ -80451,7 +80445,7 @@
 /area/station/medical/psych)
 "rzH" = (
 /obj/structure/rack,
-/obj/item/wrench/medical,
+/obj/item/tool/wrench/medical,
 /obj/item/storage/box/bodybags,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/effect/decal/cleanable/dirt,
@@ -83101,7 +83095,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/scalpel,
+/obj/item/tool/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -85721,7 +85715,7 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/machinery/newscaster/directional/north,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
@@ -88312,7 +88306,7 @@
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /obj/item/flashlight/lamp,
-/obj/item/wirecutters/security,
+/obj/item/tool/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92342,8 +92336,8 @@
 /area/station/maintenance/fsmaint)
 "xGQ" = (
 /obj/structure/rack,
-/obj/item/wrench,
-/obj/item/weldingtool,
+/obj/item/tool/wrench,
+/obj/item/tool/weldingtool,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
@@ -92522,7 +92516,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/clothing/glasses/welding,
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{

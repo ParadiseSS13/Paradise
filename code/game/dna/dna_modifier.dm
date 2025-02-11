@@ -234,7 +234,7 @@
 
 	return ..()
 
-/obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
@@ -246,7 +246,7 @@
 		thing.forceMove(loc)
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/tool/I)
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE

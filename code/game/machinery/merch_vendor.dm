@@ -41,7 +41,7 @@
 
 	return ..()
 
-/obj/machinery/economy/merch/wrench_act(mob/user, obj/item/I)
+/obj/machinery/economy/merch/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return

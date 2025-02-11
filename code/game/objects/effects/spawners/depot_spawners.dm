@@ -73,7 +73,7 @@
 		/obj/item/gun/projectile/automatic/pistol,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/food/syndicake,
-		/obj/item/wrench,
+		/obj/item/tool/wrench,
 	)
 
 // Layout-affecting spawns

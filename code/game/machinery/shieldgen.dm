@@ -241,7 +241,7 @@
 	if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = used
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
-		if(do_after(user, 30 * coil.toolspeed, target = src))
+		if(do_after(user, 30 * coil.usespeed, target = src))
 			if(!src || !coil)
 				return ITEM_INTERACT_COMPLETE
 			coil.use(1)
@@ -263,7 +263,7 @@
 
 	return ..()
 
-/obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -273,7 +273,7 @@
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 
-/obj/machinery/shieldgen/wrench_act(mob/user, obj/item/I)
+/obj/machinery/shieldgen/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(locked)
 		to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
@@ -443,7 +443,7 @@
 	add_fingerprint(user)
 	return ..()
 
-/obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/I)
+/obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(activated)
 		to_chat(user, "<span class='warning'>Turn off the field generator first.</span>")

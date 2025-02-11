@@ -48,7 +48,7 @@
 	if(overcharged)
 		add_overlay("overcharge")
 
-/obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/flash/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!can_overcharge)
 		return
 

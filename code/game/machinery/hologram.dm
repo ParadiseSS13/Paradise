@@ -150,23 +150,23 @@ GLOBAL_LIST_EMPTY(holopads)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 
-/obj/machinery/hologram/holopad/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/hologram/holopad/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	public_mode = !public_mode
 	to_chat(user, "<span class='notice'>You [public_mode ? "enable" : "disable"] the holopad's public mode setting.</span>")
 
-/obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
 
 
-/obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
+/obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 

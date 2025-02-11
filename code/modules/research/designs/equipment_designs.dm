@@ -8,7 +8,7 @@
 	req_tech = list("materials" = 4, "engineering" = 5, "bluespace" = 3, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 1500, MAT_URANIUM = 200)
-	build_path = /obj/item/weldingtool/experimental
+	build_path = /obj/item/tool/weldingtool/experimental
 	category = list("Equipment")
 
 /datum/design/health_hud
@@ -189,7 +189,7 @@
 	req_tech = list("materials" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
-	build_path = /obj/item/screwdriver/power
+	build_path = /obj/item/tool/screwdriver/power
 	category = list("Equipment")
 
 /datum/design/jawsoflife
@@ -197,7 +197,7 @@
 	desc = "A small, compact Jaws of Life with an interchangable pry jaws and cutting jaws."
 	id = "jawsoflife"
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
-	build_path = /obj/item/crowbar/power
+	build_path = /obj/item/tool/crowbar/power
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	category = list("Equipment")
@@ -207,7 +207,7 @@
 	desc = "A lightweight and portable version of the Crowbar that fits into smaller storages."
 	id = "minicrowbar"
 	req_tech = list("engineering" = 4, "materials" = 3)
-	build_path = /obj/item/crowbar/small
+	build_path = /obj/item/tool/crowbar/small
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 250)
 	category = list("Equipment")
@@ -216,7 +216,7 @@
 	desc = "An advanced wrench obtained through Abductor technology."
 	id = "alien_wrench"
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
-	build_path = /obj/item/wrench/abductor
+	build_path = /obj/item/tool/wrench/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -226,7 +226,7 @@
 	desc = "Advanced wirecutters obtained through Abductor technology."
 	id = "alien_wirecutters"
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
-	build_path = /obj/item/wirecutters/abductor
+	build_path = /obj/item/tool/wirecutters/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -236,7 +236,7 @@
 	desc = "An advanced screwdriver obtained through Abductor technology."
 	id = "alien_screwdriver"
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
-	build_path = /obj/item/screwdriver/abductor
+	build_path = /obj/item/tool/screwdriver/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -246,7 +246,7 @@
 	desc = "An advanced crowbar obtained through Abductor technology."
 	id = "alien_crowbar"
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
-	build_path = /obj/item/crowbar/abductor
+	build_path = /obj/item/tool/crowbar/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -256,7 +256,7 @@
 	desc = "An advanced welding tool obtained through Abductor technology."
 	id = "alien_welder"
 	req_tech = list("engineering" = 5, "plasmatech" = 5, "abductor" = 4)
-	build_path = /obj/item/weldingtool/abductor
+	build_path = /obj/item/tool/weldingtool/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -266,7 +266,7 @@
 	desc = "An advanced multitool obtained through Abductor technology."
 	id = "alien_multitool"
 	req_tech = list("engineering" = 5, "programming" = 5, "abductor" = 4)
-	build_path = /obj/item/multitool/abductor
+	build_path = /obj/item/tool/multitool/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
@@ -298,5 +298,5 @@
 	req_tech = list("materials" = 6, "engineering" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
-	build_path = /obj/item/wrench/bolter
+	build_path = /obj/item/tool/wrench/bolter
 	category = list("Equipment")

@@ -68,7 +68,7 @@
 							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbine,
 							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
 
-/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -513,7 +513,7 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
-/obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
+/obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	var/catastasis // Why is it called this
 	var/opposite_catastasis
@@ -626,7 +626,7 @@
 	..()
 	. += "comp_frame_[state]"
 
-/obj/structure/computerframe/welder_act(mob/user, obj/item/I)
+/obj/structure/computerframe/welder_act(mob/user, obj/item/tool/I)
 	if(state != STATE_EMPTY)
 		return
 	. = TRUE
@@ -637,11 +637,11 @@
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 
-/obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/computerframe/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 2 SECONDS)
 
-/obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user))
 		return
@@ -662,7 +662,7 @@
 	I.play_tool_sound(src)
 	update_icon()
 
-/obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user))
 		return
@@ -689,7 +689,7 @@
 				SC.can_order_contraband = C.contraband_enabled
 			qdel(src)
 
-/obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user))
 		return
@@ -717,7 +717,7 @@
 				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
 				return
 
-			B.play_tool_sound(src)
+			B.play_sound(src)
 			to_chat(user, "<span class='notice'>You place [B] inside [src].</span>")
 			name += " ([B.board_name])"
 			state = STATE_CIRCUIT
@@ -736,9 +736,9 @@
 				to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return
 
-			C.play_tool_sound(src)
+			C.play_sound(src)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-			if(!do_after(user, 2 SECONDS * C.toolspeed, target = src))
+			if(!do_after(user, 2 SECONDS * C.usespeed, target = src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
@@ -758,9 +758,9 @@
 				to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
 				return
 
-			G.play_tool_sound(src)
+			G.play_sound(src)
 			to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-			if(!do_after(user, 2 SECONDS * G.toolspeed, target = src))
+			if(!do_after(user, 2 SECONDS * G.usespeed, target = src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")

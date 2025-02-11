@@ -79,6 +79,6 @@
 
 	return 1
 
-/obj/structure/spirit_board/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/spirit_board/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 4 SECONDS)

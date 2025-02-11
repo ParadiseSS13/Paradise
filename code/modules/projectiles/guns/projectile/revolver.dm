@@ -255,7 +255,7 @@
 		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 			item_state = icon_state
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
+	if(istype(A, /obj/item/tool/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
 		item_state = icon_state
 	else

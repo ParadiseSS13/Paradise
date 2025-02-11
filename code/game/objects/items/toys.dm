@@ -633,7 +633,7 @@
 				to_chat(user, "<span class='warning'>You already murdered it!</span>")
 				return FINISH_ATTACK
 			user.visible_message("<span class='warning'>[user] tears out the stuffing from [src]!</span>", "<span class='notice'>You rip a bunch of the stuffing from [src]. Murderer.</span>")
-			attacking.play_tool_sound(src)
+			attacking.play_sound(src)
 			has_stuffing = FALSE
 		else
 			to_chat(user, "<span class='notice'>You remove the grenade from [src].</span>")
@@ -1111,11 +1111,11 @@
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
 		return ..()
-	
+
 	if(!plushie_module_selected)
 		to_chat(user, "<span class='warning'>[src] is already in standard mode!</span>")
 		return ITEM_INTERACT_COMPLETE
-	
+
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
 	to_chat(user, "<span class='notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
@@ -1212,7 +1212,7 @@
 	rare_hug_sound = 'sound/voice/plas_rattle.ogg'
 	rare_hug_word = "Rattle!"
 
-/obj/item/toy/plushie/plasmamanplushie/welder_act(mob/user, obj/item/I)
+/obj/item/toy/plushie/plasmamanplushie/welder_act(mob/user, obj/item/tool/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
 		bakoom()
 	return TRUE

@@ -74,7 +74,7 @@
 	make_new_table(new_table_type)
 	return TRUE
 
-/obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
+/obj/structure/table_frame/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

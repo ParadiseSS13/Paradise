@@ -72,7 +72,7 @@
 		return
 	return ..()
 
-/obj/structure/reflector/wrench_act(mob/user, obj/item/I)
+/obj/structure/reflector/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(anchored)
 		to_chat(user, "Unweld [src] first!")
@@ -89,7 +89,7 @@
 		new build_stack_type(loc, build_stack_amount)
 	qdel(src)
 
-/obj/structure/reflector/welder_act(mob/user, obj/item/I)
+/obj/structure/reflector/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

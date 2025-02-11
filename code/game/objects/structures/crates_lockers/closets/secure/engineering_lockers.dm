@@ -18,7 +18,7 @@
 	new /obj/item/radio/headset/heads/ce(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/multitool(src)
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
@@ -49,9 +49,9 @@
 	new /obj/item/apc_electronics(src)
 	new /obj/item/apc_electronics(src)
 	new /obj/item/apc_electronics(src)
-	new /obj/item/multitool(src)
-	new /obj/item/multitool(src)
-	new /obj/item/multitool(src)
+	new /obj/item/tool/multitool(src)
+	new /obj/item/tool/multitool(src)
+	new /obj/item/tool/multitool(src)
 	new /obj/item/clothing/head/beret/eng
 
 
@@ -65,9 +65,9 @@
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/head/welding(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/tool/weldingtool/largetank(src)
+	new /obj/item/tool/weldingtool/largetank(src)
+	new /obj/item/tool/weldingtool/largetank(src)
 
 
 /obj/structure/closet/secure_closet/engineering_personal

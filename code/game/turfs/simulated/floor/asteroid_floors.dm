@@ -81,7 +81,7 @@
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		playsound(src, used.usesound, 50, TRUE)
-		if(do_after(user, 40 * used.toolspeed, target = src))
+		if(do_after(user, 40 * used.usespeed, target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
@@ -101,10 +101,10 @@
 			ChangeTurf(Z.turf_type, keep_icon = FALSE)
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
-/turf/simulated/floor/plating/asteroid/screwdriver_act(mob/user, obj/item/I)
+/turf/simulated/floor/plating/asteroid/screwdriver_act(mob/user, obj/item/tool/I)
 	return
 
-/turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
+/turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/tool/I)
 	return
 
 /turf/simulated/floor/plating/asteroid/basalt

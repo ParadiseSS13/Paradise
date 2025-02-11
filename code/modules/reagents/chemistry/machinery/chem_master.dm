@@ -160,13 +160,13 @@
 	else
 		return ..()
 
-/obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/chem_master/crowbar_act(mob/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
 		if(beaker)
@@ -178,7 +178,7 @@
 			loaded_pill_bottle = null
 		return TRUE
 
-/obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
+/obj/machinery/chem_master/wrench_act(mob/user, obj/item/tool/I)
 	if(panel_open)
 		return
 	return default_unfasten_wrench(user, I, 4 SECONDS)

@@ -429,11 +429,11 @@
 		use_power(5000)
 	return
 
-/obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
 
@@ -569,11 +569,11 @@
 	else
 		set_light(0)
 
-/obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
 
@@ -655,17 +655,17 @@
 
 	return ..()
 
-/obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
+/obj/machinery/teleport/station/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
 			if(length(linked_stations) < efficiency)
@@ -677,12 +677,12 @@
 		return
 	M.set_multitool_buffer(user, src)
 
-/obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return TRUE
 
-/obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

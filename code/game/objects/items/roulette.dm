@@ -32,7 +32,7 @@
 	icon_state = colors[chosen_number]
 	spinning = FALSE
 
-/obj/structure/roulette/wrench_act(mob/user, obj/item/I)
+/obj/structure/roulette/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
 		return

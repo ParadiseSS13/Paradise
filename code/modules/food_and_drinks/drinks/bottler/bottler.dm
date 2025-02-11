@@ -84,7 +84,7 @@
 		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
+/obj/machinery/bottler/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 0)
 

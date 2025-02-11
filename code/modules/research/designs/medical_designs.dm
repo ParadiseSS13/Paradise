@@ -182,7 +182,7 @@
 	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
-	build_path = /obj/item/scalpel/laser/laser1
+	build_path = /obj/item/tool/scalpel/laser/laser1
 	category = list("Medical")
 
 /datum/design/scalpel_laser2
@@ -192,7 +192,7 @@
 	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
-	build_path = /obj/item/scalpel/laser/laser2
+	build_path = /obj/item/tool/scalpel/laser/laser2
 	category = list("Medical")
 
 /datum/design/scalpel_laser3
@@ -202,7 +202,7 @@
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
-	build_path = /obj/item/scalpel/laser/laser3
+	build_path = /obj/item/tool/scalpel/laser/laser3
 	category = list("Medical")
 
 /datum/design/scalpel_manager
@@ -212,7 +212,7 @@
 	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/scalpel/laser/manager
+	build_path = /obj/item/tool/scalpel/laser/manager
 	category = list("Medical")
 
 /datum/design/alienscalpel
@@ -220,7 +220,7 @@
 	desc = "An advanced scalpel obtained through Abductor technology."
 	id = "alien_scalpel"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/scalpel/alien
+	build_path = /obj/item/tool/scalpel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -230,7 +230,7 @@
 	desc = "An advanced hemostat obtained through Abductor technology."
 	id = "alien_hemostat"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/hemostat/alien
+	build_path = /obj/item/tool/hemostat/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -240,7 +240,7 @@
 	desc = "An advanced retractor obtained through Abductor technology."
 	id = "alien_retractor"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/retractor/alien
+	build_path = /obj/item/tool/retractor/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -250,7 +250,7 @@
 	desc = "An advanced surgical saw obtained through Abductor technology."
 	id = "alien_saw"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/circular_saw/alien
+	build_path = /obj/item/tool/circular_saw/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -260,7 +260,7 @@
 	desc = "An advanced drill obtained through Abductor technology."
 	id = "alien_drill"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/surgicaldrill/alien
+	build_path = /obj/item/tool/surgicaldrill/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -270,7 +270,7 @@
 	desc = "An advanced cautery obtained through Abductor technology."
 	id = "alien_cautery"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/cautery/alien
+	build_path = /obj/item/tool/cautery/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -280,7 +280,7 @@
 	desc = "Advanced bone gel obtained through Abductor technology."
 	id = "alien_bonegel"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/bonegel/alien
+	build_path = /obj/item/tool/bonegel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -290,7 +290,7 @@
 	desc = "An advanced bone setter obtained through Abductor technology."
 	id = "alien_bonesetter"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/bonesetter/alien
+	build_path = /obj/item/tool/bonesetter/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -300,7 +300,7 @@
 	desc = "An advanced FixOVein obtained through Abductor technology."
 	id = "alien_fixovein"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/fix_o_vein/alien
+	build_path = /obj/item/tool/fix_o_vein/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")

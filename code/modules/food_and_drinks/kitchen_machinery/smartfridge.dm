@@ -153,25 +153,25 @@
 			fill_level = 3
 
 // Interactions
-/obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/tool/I)
 	. = default_unfasten_wrench(user, I, time = 4 SECONDS)
 
-/obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = default_deconstruction_crowbar(user, I)
 
-/obj/machinery/smartfridge/wirecutter_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(panel_open)
 		attack_hand(user)
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/multitool_act(mob/living/user, obj/item/tool/I)
 	if(panel_open)
 		attack_hand(user)
 		return TRUE
@@ -581,10 +581,10 @@
 		/obj/item/reagent_containers/condiment,
 	))
 
-/obj/machinery/smartfridge/foodcart/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/foodcart/screwdriver_act(mob/living/user, obj/item/tool/I)
 	return
 
-/obj/machinery/smartfridge/foodcart/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/foodcart/crowbar_act(mob/living/user, obj/item/tool/I)
 	return
 
 /obj/machinery/smartfridge/foodcart/exchange_parts()
@@ -945,7 +945,7 @@
 /obj/machinery/smartfridge/drying_rack/RefreshParts()
 	return
 
-/obj/machinery/smartfridge/drying_rack/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/drying_rack/screwdriver_act(mob/living/user, obj/item/tool/I)
 	return
 
 /obj/machinery/smartfridge/drying_rack/exchange_parts()
@@ -954,7 +954,7 @@
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 	return
 
-/obj/machinery/smartfridge/drying_rack/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/smartfridge/drying_rack/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = default_deconstruction_crowbar(user, I, TRUE)
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)

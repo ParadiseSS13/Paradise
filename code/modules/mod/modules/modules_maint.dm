@@ -37,7 +37,7 @@
 /obj/item/mod/module/springlock/on_suit_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
 
-/obj/item/mod/module/springlock/multitool_act(mob/living/user, obj/item/I)
+/obj/item/mod/module/springlock/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!nineteen_eighty_seven_edition)
 		return
 	. = TRUE

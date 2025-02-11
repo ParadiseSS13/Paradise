@@ -50,7 +50,7 @@
 /obj/structure/bed/proc/handle_rotation()
 	return
 
-/obj/structure/bed/wrench_act(mob/user, obj/item/I)
+/obj/structure/bed/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")

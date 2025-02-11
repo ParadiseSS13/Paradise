@@ -99,7 +99,7 @@
 		if(prob(60) || !length(to_darken.light_sources))
 			continue
 		if(iswelder(to_darken) && length(to_darken.light_sources))
-			var/obj/item/weldingtool/welder_to_darken = to_darken
+			var/obj/item/tool/weldingtool/welder_to_darken = to_darken
 			welder_to_darken.remove_fuel(welder_to_darken.reagents.get_reagent_amount("fuel"))
 			welder_to_darken.visible_message("<span class='notice'>The shadows swarm around and overwhelm the flame of [welder_to_darken].</span>")
 			return

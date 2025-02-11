@@ -424,7 +424,7 @@
 
 	return ..()
 
-/obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
+/obj/item/radio/headset/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return

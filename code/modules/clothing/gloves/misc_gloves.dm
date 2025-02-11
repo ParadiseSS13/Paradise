@@ -177,7 +177,7 @@
 	else
 		return ..()
 
-/obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
+/obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -77,7 +77,7 @@
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
 		to_chat(src, "<span class='danger'>You require a welding tool to repair your damaged shield!</span>")
 
-/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/welder_act(mob/living/user, obj/item/tool/I)
 	if(health >= maxHealth && shield_health >= MARAUDER_SHIELD_MAX)
 		to_chat(user, "<span class='notice'>[src] has no damage to repair.</span>")
 		return

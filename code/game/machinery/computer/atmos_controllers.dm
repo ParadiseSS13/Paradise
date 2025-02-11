@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
-/obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/tool/I)
 	if(bolts)
 		to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 		return
@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
 #define ONOFF_TOGGLE(flag) "\[[(output & flag) ? "YES" : "NO"]]"
-/obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/tool/I)
 	while(Adjacent(user))
 
 		var/list/options = list(
@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					if(!ismultitool(I)) // Should never happen
 						return
 
-					var/obj/item/multitool/M = I
+					var/obj/item/tool/multitool/M = I
 					M.buffer_uid = UID()
 					to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 		else
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	data["sensors"] = sensor_name_data_map // We can make this super cheap by sending our existing data
 	return data
 
-/obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!ismultitool(I)) // Should never happen
 		return
 
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return TRUE
 
 // This is its own proc so it can be modified in child types
-/obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
+/obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/tool/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add or remove a sensor/meter", "Configuration", list("Add", "Remove", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
@@ -336,7 +336,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				VP.update_icon()
 				break
 
-/obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!ismultitool(I)) // Should never happen
 		return
 
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	return TRUE
 
-/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
+/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/tool/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				to_chat(user, "<span class='warning'>Error - No injector linked!</span>")
 
 
-/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
+/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/tool/multitool/M)
 	var/choice = tgui_alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", list("Add/Replace", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return

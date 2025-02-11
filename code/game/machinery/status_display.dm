@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 
 		SD.update()
 
-/obj/machinery/status_display/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/status_display/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0 SECONDS))
 		return

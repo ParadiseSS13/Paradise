@@ -43,16 +43,16 @@
 		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
 	return ..()
 
-/obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
 		turn_on_or_off(FALSE)
 		return TRUE
 
-/obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/snow_machine/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return

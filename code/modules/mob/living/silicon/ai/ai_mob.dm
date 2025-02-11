@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
-	var/obj/item/multitool/aiMulti = null
+	var/obj/item/tool/multitool/aiMulti = null
 	var/custom_sprite = FALSE //For our custom sprites
 	var/custom_hologram = FALSE //For our custom holograms
 
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-	
+
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
@@ -1252,7 +1252,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		C.Togglelight(1)
 		lit_cameras |= C
 
-/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
+/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(anchored)
 		user.visible_message("<span class='notice'>[user] starts to unbolt [src] from the plating...</span>")
@@ -1455,7 +1455,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
-	
+
 	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms

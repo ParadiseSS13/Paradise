@@ -73,7 +73,7 @@
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
 		if(O.sharp)
-			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
+			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/tool/scalpel))
 				inaccurate = FALSE
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))

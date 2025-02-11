@@ -513,7 +513,7 @@
 		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
 		// ALSO DEAR GOD DO NOT MAKE IT MORE LIKELY FOR THEM TO CRIT OR NOT
 
-/obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/tool/I)
 	if(!component_parts)
 		return
 	. = TRUE
@@ -522,7 +522,7 @@
 		return
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
@@ -531,7 +531,7 @@
 		return
 	wires.Interact(user)
 
-/obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
@@ -550,7 +550,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
-/obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
@@ -558,7 +558,7 @@
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
 
-/obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
+/obj/machinery/economy/vending/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(tilted)
 		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")

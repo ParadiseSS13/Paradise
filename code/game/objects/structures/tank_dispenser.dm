@@ -105,7 +105,7 @@
 		return
 	return ..()
 
-/obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/dispenser/wrench_act(mob/living/user, obj/item/tool/I)
 	I.play_tool_sound(src, 50)
 	if(anchored)
 		to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")

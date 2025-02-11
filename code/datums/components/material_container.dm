@@ -67,7 +67,7 @@
 		return
 	// Allow tools to be inserted on harm and help intent since they might be used for construction
 	// otherwise user needs to be on help intent
-	if(!((I.tool_behaviour && user.a_intent == INTENT_HARM) || user.a_intent == INTENT_HELP))
+	if(!((istool(src) && user.a_intent == INTENT_HARM) || user.a_intent == INTENT_HELP))
 		return
 	if(I.flags & ABSTRACT)
 		return

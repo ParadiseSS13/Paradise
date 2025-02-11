@@ -836,7 +836,7 @@
 		return ..()
 
 
-/obj/mecha/crowbar_act(mob/user, obj/item/I)
+/obj/mecha/crowbar_act(mob/user, obj/item/tool/I)
 	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
@@ -862,7 +862,7 @@
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
-/obj/mecha/screwdriver_act(mob/user, obj/item/I)
+/obj/mecha/screwdriver_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		return
 	if(!(state == MECHA_OPEN_HATCH && cell) && !(state == MECHA_BATTERY_UNSCREW && cell))
@@ -883,7 +883,7 @@
 		state = MECHA_OPEN_HATCH
 		to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 
-/obj/mecha/wrench_act(mob/user, obj/item/I)
+/obj/mecha/wrench_act(mob/user, obj/item/tool/I)
 	if(state != MECHA_MAINT_ON && state != MECHA_BOLTS_UP)
 		return
 	. = TRUE
@@ -896,7 +896,7 @@
 		state = MECHA_MAINT_ON
 		to_chat(user, "You tighten the securing bolts.")
 
-/obj/mecha/welder_act(mob/user, obj/item/I)
+/obj/mecha/welder_act(mob/user, obj/item/tool/I)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE

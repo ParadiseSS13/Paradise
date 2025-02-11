@@ -866,7 +866,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/toolbox/emergency,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/box/tapes,
 /turf/simulated/floor/plasteel{

@@ -394,11 +394,11 @@
 /datum/crafting_recipe/flamethrower
 	name = "Flamethrower"
 	result = list(/obj/item/flamethrower)
-	reqs = list(/obj/item/weldingtool = 1,
+	reqs = list(/obj/item/tool/weldingtool = 1,
 				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/rods = 1)
 	parts = list(/obj/item/assembly/igniter = 1,
-				/obj/item/weldingtool = 1)
+				/obj/item/tool/weldingtool = 1)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 10
 	category = CAT_WEAPONRY
@@ -485,7 +485,7 @@
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = list(/obj/item/chainsaw)
-	reqs = list(/obj/item/circular_saw = 1,
+	reqs = list(/obj/item/tool/circular_saw = 1,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/stack/sheet/plasteel = 1)
 	tools = list(TOOL_WELDER)

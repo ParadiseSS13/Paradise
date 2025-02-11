@@ -283,7 +283,7 @@
 		/obj/item/storage/backpack/duffel/syndie/med/surgery, // 10TC
 		/obj/item/storage/belt/military/traitor, // 10TC
 		/obj/item/storage/box/syndie_kit/space, // 20TC
-		/obj/item/multitool/ai_detect, // 5TC
+		/obj/item/tool/multitool/ai_detect, // 5TC
 		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/deck/cards/syndicate, // 2TC
 		/obj/item/storage/secure/briefcase/syndie, // 5TC
@@ -506,7 +506,7 @@
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/nuke/populate_contents()
-	new /obj/item/screwdriver/nuke(src)
+	new /obj/item/tool/screwdriver/nuke(src)
 	new /obj/item/nuke_core_container(src)
 	new /obj/item/paper/guides/antag/nuke_instructions(src)
 
@@ -516,8 +516,8 @@
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/supermatter/populate_contents()
-	new /obj/item/scalpel/supermatter(src)
-	new /obj/item/retractor/supermatter(src)
+	new /obj/item/tool/scalpel/supermatter(src)
+	new /obj/item/tool/retractor/supermatter(src)
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 

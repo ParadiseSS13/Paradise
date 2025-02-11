@@ -44,7 +44,7 @@
 			return
 	return ..()
 
-/obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
+/obj/item/melee/powerfist/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -57,7 +57,7 @@
 			fisto_setting = 1
 	to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
 
-/obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/I)
+/obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!tank)
 		return
 	. = TRUE

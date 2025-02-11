@@ -11,7 +11,7 @@
 /obj/tgvehicle/scooter/proc/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter)
 
-/obj/tgvehicle/scooter/wrench_act(mob/living/user, obj/item/I)
+/obj/tgvehicle/scooter/wrench_act(mob/living/user, obj/item/tool/I)
 	..()
 	to_chat(user, "<span class='notice'>You begin to remove the handlebars...</span>")
 	if(!I.use_tool(src, user, 40, volume = 50))
@@ -290,15 +290,15 @@
 	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
 	qdel(src)
 
-/obj/item/scooter_frame/wrench_act(mob/living/user, obj/item/I)
+/obj/item/scooter_frame/wrench_act(mob/living/user, obj/item/tool/I)
 	..()
 	to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
 	new /obj/item/stack/rods(drop_location(), 10)
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	qdel(src)
 	return TRUE
 
-/obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
+/obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/tool/I)
 	return
 
 /obj/tgvehicle/scooter/skateboard/improvised/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -319,7 +319,7 @@
 		skaterskoot.buckle_mob(skaterboy)
 	qdel(src)
 
-/obj/tgvehicle/scooter/skateboard/improvised/screwdriver_act(mob/living/user, obj/item/I)
+/obj/tgvehicle/scooter/skateboard/improvised/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = ..()
 	if(.)
 		return

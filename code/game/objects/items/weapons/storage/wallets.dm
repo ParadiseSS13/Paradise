@@ -29,10 +29,10 @@
 		/obj/item/pen,
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/screwdriver,
+		/obj/item/tool/screwdriver,
 		/obj/item/stamp)
 	cant_hold = list(
-		/obj/item/screwdriver/power
+		/obj/item/tool/screwdriver/power
 	)
 	slot_flags = ITEM_SLOT_ID
 

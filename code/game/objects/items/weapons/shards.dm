@@ -66,7 +66,7 @@
 			if(affecting.receive_damage(force * 0.5))
 				H.UpdateDamageIcon()
 
-/obj/item/shard/welder_act(mob/user, obj/item/I)
+/obj/item/shard/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return

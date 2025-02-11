@@ -14,7 +14,7 @@
 	/// This is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
 	var/drive_range = 50
 
-/obj/machinery/mass_driver/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/mass_driver/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
@@ -26,7 +26,7 @@
 	F.update_icon()
 	qdel(src)
 
-/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/I)
+/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -89,7 +89,7 @@
 			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to anchor [src] on the floor.</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 0))
+				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = TRUE
 					build++
@@ -98,7 +98,7 @@
 			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to de-anchor [src] from the floor.</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 1))
+				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 1))
 					build--
 					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
@@ -108,7 +108,7 @@
 				var/obj/item/stack/cable_coil/C = used
 				to_chat(user, "<span class='notice'>You start adding cables to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, TRUE)
-				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
+				if(do_after(user, 20 * C.usespeed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
@@ -116,7 +116,7 @@
 		if(3) // Wired
 			if(iswirecutter(used))
 				to_chat(user, "<span class='notice'>You begin to remove the wiring from [src].</span>")
-				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 3))
+				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc, 2)
 					playsound(get_turf(src), used.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
@@ -127,7 +127,7 @@
 				var/obj/item/stack/rods/R = used
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (build == 3))
+				if(do_after(user, 20 * R.usespeed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
@@ -136,14 +136,14 @@
 			if(iscrowbar(used))
 				to_chat(user, "<span class='notice'>You begin to pry off the grille from [src]...</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 3 SECONDS * used.toolspeed, target = src) && (build == 4))
+				if(do_after(user, 3 SECONDS * used.usespeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
-/obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(build != 4)
 		return
 
@@ -154,7 +154,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
+/obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/tool/I)
 	if(build != 0 && build != 1 && build != 2)
 		return
 

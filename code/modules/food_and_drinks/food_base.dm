@@ -329,7 +329,7 @@
 
 	var/inaccurate = TRUE
 	if(I.sharp)
-		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/tool/scalpel))
 			inaccurate = FALSE
 	else
 		return TRUE

@@ -47,7 +47,7 @@
 		return
 	return ..()
 
-/obj/item/candle/welder_act(mob/user, obj/item/I)
+/obj/item/candle/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")

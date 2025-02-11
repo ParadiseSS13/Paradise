@@ -103,9 +103,9 @@
 "y" = (
 /obj/structure/closet/crate,
 /obj/item/aicard,
-/obj/item/multitool,
-/obj/item/weldingtool,
-/obj/item/wrench,
+/obj/item/tool/multitool,
+/obj/item/tool/weldingtool,
+/obj/item/tool/wrench,
 /obj/item/circuitboard/teleporter,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,

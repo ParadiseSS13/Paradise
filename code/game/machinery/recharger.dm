@@ -69,11 +69,11 @@
 
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/recharger/crowbar_act(mob/user, obj/item/tool/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/recharger/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
@@ -90,7 +90,7 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 
-/obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
+/obj/machinery/recharger/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchor_toggleable)	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
 		return

@@ -146,14 +146,14 @@
 	name = "make cavity space"
 	allowed_tools = list(
 		TOOL_DRILL = 100,
-		/obj/item/screwdriver/power = 90,
+		/obj/item/tool/screwdriver/power = 90,
 		/obj/item/pen = 90,
 		/obj/item/stack/rods = 60
 	)
 
 	preop_sound = list(
 		TOOL_DRILL = 'sound/items/drill_hit.ogg',
-		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/tool/screwdriver/power = 'sound/items/drill_hit.ogg',
 		/obj/item/pen = 'sound/surgery/organ2.ogg',
 		/obj/item/stack/rods = 'sound/surgery/organ2.ogg'
 	)
@@ -182,7 +182,7 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	allowed_tools = list(
-		/obj/item/scalpel/laser = 100,
+		/obj/item/tool/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
@@ -218,7 +218,7 @@
 	name = "seal cavity"
 	allowed_tools = list(
 		TOOL_WELDER = 100,
-		/obj/item/scalpel/laser = 60,
+		/obj/item/tool/scalpel/laser = 60,
 		TOOL_CAUTERY = 50,
 		/obj/item/lighter = 30,
 	)
@@ -293,7 +293,7 @@
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand!</span>")
 		return FALSE
 
-	if(istype(tool, /obj/item/cautery))
+	if(istype(tool, /obj/item/tool/cautery))
 		// Pass it to the next step
 		return FALSE
 

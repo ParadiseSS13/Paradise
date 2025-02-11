@@ -1033,12 +1033,8 @@
 /area/ruin/space/deepstorage)
 "et" = (
 /obj/structure/table/tray,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/circular_saw{
-	pixel_y = 5
-	},
+/obj/item/tool/scalpel,
+/obj/item/tool/circular_saw,
 /obj/item/lighter{
 	pixel_y = 1;
 	pixel_x = 8
@@ -4941,9 +4937,7 @@
 /area/ruin/space/deepstorage)
 "DR" = (
 /obj/structure/table/glass,
-/obj/item/scalpel{
-	pixel_y = 5
-	},
+/obj/item/tool/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"
@@ -5629,7 +5623,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner";

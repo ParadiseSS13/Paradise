@@ -1059,7 +1059,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},

@@ -117,7 +117,7 @@
 
 	return ..()
 
-/obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
+/obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(defib)
 		to_chat(user, "<span class='warning'>[defib] is blocking access to the bolts!</span>")

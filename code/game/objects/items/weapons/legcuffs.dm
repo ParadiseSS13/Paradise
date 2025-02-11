@@ -90,7 +90,7 @@
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
 	..()
 
-/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!IED && !sig)
 		return
 

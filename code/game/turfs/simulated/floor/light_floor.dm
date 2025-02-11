@@ -48,7 +48,7 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
+/turf/simulated/floor/light/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!can_modify_colour)
 		return

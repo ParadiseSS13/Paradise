@@ -133,7 +133,7 @@
 	else
 		icon_state = "juicer0"
 
-/obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchored || beaker)
 		return
@@ -143,7 +143,7 @@
 		return
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchored || beaker)
 		return
@@ -151,7 +151,7 @@
 		return
 	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
 
-/obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
+/obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

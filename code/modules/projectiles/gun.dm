@@ -388,7 +388,7 @@
 	else
 		return ..()
 
-/obj/item/gun/screwdriver_act(mob/user, obj/item/I)
+/obj/item/gun/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(gun_light || bayonet)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))

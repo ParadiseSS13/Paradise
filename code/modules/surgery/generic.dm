@@ -64,7 +64,7 @@
 
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
-		/obj/item/scalpel/laser = 100,
+		/obj/item/tool/scalpel/laser = 100,
 		/obj/item/stack/cable_coil = 90,
 		/obj/item/stack/sheet/sinew = 90,
 		/obj/item/assembly/mousetrap = 25
@@ -109,9 +109,9 @@
 
 	allowed_tools = list(
 		TOOL_RETRACTOR = 100,
-		/obj/item/scalpel/laser/manager = 100,
-		/obj/item/retractor = 100,
-		/obj/item/crowbar = 90,
+		/obj/item/tool/scalpel/laser/manager = 100,
+		/obj/item/tool/retractor = 100,
+		/obj/item/tool/crowbar = 90,
 		/obj/item/kitchen/utensil/fork = 60
 	)
 
@@ -167,7 +167,7 @@
 	name = "cauterize incision"
 
 	allowed_tools = list(
-		/obj/item/scalpel/laser = 100,
+		/obj/item/tool/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,
@@ -237,18 +237,18 @@
 	name = "drill bone"
 	allowed_tools = list(
 		TOOL_DRILL = 100,
-		/obj/item/screwdriver/power = 80,
+		/obj/item/tool/screwdriver/power = 80,
 		/obj/item/pickaxe/drill = 60,
 		/obj/item/mecha_parts/mecha_equipment/drill = 60,
-		/obj/item/screwdriver = 20
+		/obj/item/tool/screwdriver = 20
 	)
 
 	preop_sound = list(
 		TOOL_DRILL = 'sound/items/drill_hit.ogg',
-		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/tool/screwdriver/power = 'sound/items/drill_hit.ogg',
 		/obj/item/pickaxe/drill = 'sound/weapons/drill.ogg',
 		/obj/item/mecha_parts/mecha_equipment/drill = 'sound/weapons/drill.ogg',
-		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
+		/obj/item/tool/screwdriver = 'sound/items/screwdriver.ogg'
 	)
 
 	time = 3 SECONDS

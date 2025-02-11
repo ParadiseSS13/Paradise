@@ -40,7 +40,7 @@
 		return
 	return ..()
 
-/obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	//This is basically bomb assembly code inverted. apparently it works.
+/obj/item/onetankbomb/wrench_act(mob/user, obj/item/tool/I)	//This is basically bomb assembly code inverted. apparently it works.
 	if(status)
 		return
 	. = TRUE
@@ -55,7 +55,7 @@
 	bombtank = null
 	qdel(src)
 
-/obj/item/onetankbomb/welder_act(mob/user, obj/item/I)
+/obj/item/onetankbomb/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return

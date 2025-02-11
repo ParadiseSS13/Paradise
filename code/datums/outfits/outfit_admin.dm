@@ -95,7 +95,7 @@
 		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/crowbar/red = 1,
+		/obj/item/tool/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
 		/obj/item/food/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
@@ -1147,7 +1147,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id/syndicate
 	l_pocket = /obj/item/kitchen/knife
-	r_pocket = /obj/item/scalpel
+	r_pocket = /obj/item/tool/scalpel
 	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,

@@ -147,11 +147,11 @@
 		else
 			. += create_tube_overlay(direction ^ (EAST|WEST), WEST)
 
-/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
 
-/obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/tool/I)
 	var/obj/structure/transit_tube_construction/construction = new uninstalled_type(get_turf(src))
 	if(!istype(construction))
 		CRASH("expected [construction] to be a transit_tube construction")

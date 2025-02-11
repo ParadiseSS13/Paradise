@@ -90,15 +90,15 @@
 
 	return ..()
 
-/obj/machinery/cell_charger/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/cell_charger/crowbar_act(mob/user, obj/item/tool/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/cell_charger/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/cell_charger/screwdriver_act(mob/user, obj/item/tool/I)
 	if(anchored && !charging && default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		return TRUE
 
-/obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
+/obj/machinery/cell_charger/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the cell first!</span>")

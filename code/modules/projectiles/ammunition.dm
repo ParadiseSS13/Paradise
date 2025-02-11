@@ -74,7 +74,7 @@
 	else
 		..()
 
-/obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!BB)
 		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")

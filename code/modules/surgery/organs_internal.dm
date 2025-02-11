@@ -294,7 +294,7 @@
 	name = "extract organ"
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
-		/obj/item/wirecutters = 70,
+		/obj/item/tool/wirecutters = 70,
 		/obj/item/kitchen/utensil/fork = 70
 	)
 
@@ -641,7 +641,7 @@
 /datum/surgery_step/internal/manipulate_organs/finish
 	name = "finish manipulation"
 	allowed_tools = list(
-		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/tool/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
 		TOOL_CROWBAR = 90
 	)
@@ -799,9 +799,9 @@
 	name = "retract carapace"
 
 	allowed_tools = list(
-		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/tool/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
-		/obj/item/crowbar = 90,
+		/obj/item/tool/crowbar = 90,
 		/obj/item/kitchen/utensil/fork = 60
 	)
 
@@ -850,7 +850,7 @@
 	name = "seal carapace"
 
 	allowed_tools = list(
-		/obj/item/scalpel/laser = 100,
+		/obj/item/tool/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
 		/obj/item/clothing/mask/cigarette = 90,
 		/obj/item/lighter = 60,

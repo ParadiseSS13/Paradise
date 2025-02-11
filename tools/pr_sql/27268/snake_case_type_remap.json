@@ -229,7 +229,7 @@
 		"replace": "/mob/living/simple_animal/pet/dog/fox/syndifox"
 	},
 	{ "original": "/obj/item/CQC_manual", "replace": "/obj/item/cqc_manual" },
-	{ "original": "/obj/item/FixOVein", "replace": "/obj/item/fix_o_vein" },
+	{ "original": "/obj/item/FixOVein", "replace": "/obj/item/tool/fix_o_vein" },
 	{ "original": "/obj/item/aiModule", "replace": "/obj/item/ai_module" },
 	{ "original": "/obj/item/aiModule/oneCrewMember", "replace": "/obj/item/ai_module/one_crew_member" },
 	{ "original": "/obj/item/aiModule/protectStation", "replace": "/obj/item/ai_module/protect_station" },

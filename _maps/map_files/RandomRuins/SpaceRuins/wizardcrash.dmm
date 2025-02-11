@@ -402,8 +402,8 @@
 /area/ruin/space/powered)
 "bA" = (
 /obj/structure/table,
-/obj/item/wrench,
-/obj/item/weldingtool,
+/obj/item/tool/wrench,
+/obj/item/tool/weldingtool,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bB" = (

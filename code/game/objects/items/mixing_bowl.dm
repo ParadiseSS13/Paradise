@@ -18,7 +18,7 @@
 	if(dirty)
 		if(istype(I, /obj/item/soap))
 			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
+			if(do_after(user, 20 * I.usespeed, target = src))
 				clean()
 				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
 			return 1

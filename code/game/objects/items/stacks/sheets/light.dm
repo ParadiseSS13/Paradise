@@ -15,7 +15,7 @@
 
 /obj/item/stack/light_w/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/wirecutters))
+	if(istype(I, /obj/item/tool/wirecutters))
 		var/obj/item/stack/cable_coil/CC = new(user.loc)
 		CC.amount = 5
 		new/obj/item/stack/sheet/glass(user.loc)

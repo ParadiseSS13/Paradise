@@ -256,7 +256,7 @@
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)
 
-/obj/machinery/icemachine/wrench_act(mob/user, obj/item/I)
+/obj/machinery/icemachine/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 30)
 

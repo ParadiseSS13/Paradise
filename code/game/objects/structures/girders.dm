@@ -312,7 +312,7 @@
 	else
 		return ..()
 
-/obj/structure/girder/crowbar_act(mob/user, obj/item/I)
+/obj/structure/girder/crowbar_act(mob/user, obj/item/tool/I)
 	if(!can_displace || state != GIRDER_NORMAL)
 		return
 	. = TRUE
@@ -326,7 +326,7 @@
 	transfer_fingerprints_to(D)
 	qdel(src)
 
-/obj/structure/girder/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/girder/screwdriver_act(mob/user, obj/item/tool/I)
 	if(state != GIRDER_DISPLACED && state != GIRDER_REINF && state != GIRDER_REINF_STRUTS)
 		return
 	. = TRUE

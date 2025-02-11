@@ -6,16 +6,16 @@
 /obj/effect/spawner/random/engineering/tools
 	name = "Tool spawner"
 	loot = list(
-		/obj/item/wrench = 2,
-		/obj/item/wirecutters = 2,
-		/obj/item/screwdriver = 2,
-		/obj/item/crowbar = 2,
-		/obj/item/weldingtool = 2,
+		/obj/item/tool/wrench = 2,
+		/obj/item/tool/wirecutters = 2,
+		/obj/item/tool/screwdriver = 2,
+		/obj/item/tool/crowbar = 2,
+		/obj/item/tool/weldingtool = 2,
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/analyzer = 2,
 		/obj/item/t_scanner = 2,
 		/obj/item/geiger_counter = 2,
-		/obj/item/multitool = 1,
+		/obj/item/tool/multitool = 1,
 	)
 
 /obj/effect/spawner/random/engineering/materials

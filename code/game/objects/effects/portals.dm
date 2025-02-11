@@ -93,7 +93,7 @@
 	if(target)
 		O.forceMove(get_turf(target))
 
-/obj/effect/portal/multitool_act(mob/user, obj/item/I)
+/obj/effect/portal/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -67,7 +67,7 @@
 								"<span class='notice'>You begin to cut the cables...</span>")
 
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			if(do_after(user, 50*W.toolspeed, target = src))
+			if(do_after(user, 50*W.usespeed, target = src))
 				if(!master || master.can_terminal_dismantle())
 					if(prob(50) && electrocute_mob(user, powernet, src, 1, TRUE))
 						do_sparks(5, TRUE, master)
@@ -78,7 +78,7 @@
 
 
 /obj/machinery/power/terminal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/wirecutters))
+	if(istype(used, /obj/item/tool/wirecutters))
 		dismantle(user, used)
 		return ITEM_INTERACT_COMPLETE
 	else

@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(default_deconstruction_crowbar(user, used))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/multitool))
+	if(istype(used, /obj/item/tool/multitool))
 		if(!panel_open)
 			cycle_through++
 			switch(cycle_through)
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					cycle_through = 0
 			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
 		else
-			var/obj/item/multitool/M = used
+			var/obj/item/tool/multitool/M = used
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
 		return ITEM_INTERACT_COMPLETE

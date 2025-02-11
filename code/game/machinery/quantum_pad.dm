@@ -91,20 +91,20 @@
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 100)
 
-/obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
+/obj/machinery/quantumpad/multitool_act(mob/user, obj/item/tool/I)
 	if(!preset_target)
 		. = TRUE
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 		if(!I.multitool_check_buffer(user))
 			return
-		var/obj/item/multitool/M = I
+		var/obj/item/tool/multitool/M = I
 		if(panel_open)
 			M.set_multitool_buffer(user, src)
 		else
@@ -113,7 +113,7 @@
 	else
 		to_chat(user, "<span class='notice'>[src]'s target cannot be modified!</span>")
 
-/obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

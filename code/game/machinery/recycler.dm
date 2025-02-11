@@ -60,11 +60,11 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/recycler/crowbar_act(mob/user, obj/item/tool/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/recycler/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/recycler/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -76,7 +76,7 @@
 	if(panel_open)
 		. += "grinder-oOpen"
 
-/obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
+/obj/machinery/recycler/wrench_act(mob/user, obj/item/tool/I)
 	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		return TRUE
 

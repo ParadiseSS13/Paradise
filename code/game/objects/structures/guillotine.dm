@@ -183,7 +183,7 @@
 	else
 		return ..()
 
-/obj/structure/guillotine/wrench_act(mob/user, obj/item/I)
+/obj/structure/guillotine/wrench_act(mob/user, obj/item/tool/I)
 	if(current_action)
 		return
 	. = TRUE
@@ -203,7 +203,7 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	dir = SOUTH
 
-/obj/structure/guillotine/welder_act(mob/user, obj/item/I)
+/obj/structure/guillotine/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

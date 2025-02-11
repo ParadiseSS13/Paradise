@@ -59,7 +59,7 @@
 			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * used.toolspeed, target = src))
+			if(do_after(user, 30 * used.usespeed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, used.usesound, 80, 1)
@@ -87,7 +87,7 @@
 			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
-		if(do_after(user, 3 SECONDS * used.toolspeed, target = src))
+		if(do_after(user, 3 SECONDS * used.usespeed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(used, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
@@ -115,7 +115,7 @@
 
 	return ..()
 
-/turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
+/turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!I.tool_use_check(user, 0))
 		return
 	. = TRUE
@@ -128,7 +128,7 @@
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
 	unfastened = !unfastened
 
-/turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
+/turf/simulated/floor/plating/welder_act(mob/user, obj/item/tool/I)
 	if(!broken && !burnt && !unfastened)
 		return
 	. = ..()
@@ -207,7 +207,7 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/tool/wrench/W)
 	if(!user)
 		return
 	. = TRUE

@@ -57,7 +57,7 @@
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
 
-/obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/tool/I)
 	if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
 		return TRUE

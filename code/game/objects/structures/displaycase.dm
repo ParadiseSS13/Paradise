@@ -164,7 +164,7 @@
 	else
 		return ..()
 
-/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I)
+/obj/structure/displaycase/crowbar_act(mob/user, obj/item/tool/I)
 	if((alert && !open) || !openable)
 		return
 	if(open && !showpiece && user.a_intent == INTENT_HELP) // The user can display a crowbar if they're on that intent specifically. Otherwise they'll either take it apart, or close it if the alarm's off
@@ -196,7 +196,7 @@
 		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 		toggle_lock()
 
-/obj/structure/displaycase/welder_act(mob/user, obj/item/I)
+/obj/structure/displaycase/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(default_welder_repair(user, I))
 		broken = FALSE
@@ -265,7 +265,7 @@
 	else
 		return ..()
 
-/obj/structure/displaycase_chassis/crowbar_act(mob/user, obj/item/I)
+/obj/structure/displaycase_chassis/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -276,7 +276,7 @@
 			electronics.is_installed = FALSE
 			electronics = null
 
-/obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
+/obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

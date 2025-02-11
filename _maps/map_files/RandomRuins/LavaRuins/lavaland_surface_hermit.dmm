@@ -122,7 +122,7 @@
 /area/ruin/powered)
 "C" = (
 /obj/structure/tubes,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)

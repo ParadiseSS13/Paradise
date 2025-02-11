@@ -582,25 +582,25 @@
 
 	return ..()
 
-/obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/clonepod/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/clonepod/multitool_act(mob/user, obj/item/I)
+/obj/machinery/clonepod/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.set_multitool_buffer(user, src)
 
-/obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, null, null, I)
 	update_icon()
 
-/obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
+/obj/machinery/clonepod/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

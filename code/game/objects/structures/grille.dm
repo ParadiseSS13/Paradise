@@ -125,7 +125,7 @@
 		R.use(1)
 		qdel(src)
 
-/obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/grille/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(shock(user, 100))
 		return
@@ -133,7 +133,7 @@
 		return
 	deconstruct()
 
-/obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/grille/screwdriver_act(mob/user, obj/item/tool/I)
 	if(!(anchored || issimulatedturf(loc) || locate(/obj/structure/lattice) in get_turf(src)))
 		return
 	. = TRUE

@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 //		REPAIRS		//
 // Step 1
-/obj/machinery/gravity_generator/main/welder_act(mob/user, obj/item/I)
+/obj/machinery/gravity_generator/main/welder_act(mob/user, obj/item/tool/I)
 	if(construction_state != GRAV_NEEDS_WELDING)
 		return
 	. = TRUE
@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	return ..()
 
 // Step 3
-/obj/machinery/gravity_generator/main/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/gravity_generator/main/wrench_act(mob/living/user, obj/item/tool/I)
 	if(construction_state != GRAV_NEEDS_WRENCH)
 		return
 	. = TRUE
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	update_icon()
 
 // Step 4
-/obj/machinery/gravity_generator/main/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/gravity_generator/main/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!(stat & BROKEN)) // Not actually broken
 		return
 	if(construction_state != GRAV_NEEDS_SCREWDRIVER)

@@ -94,7 +94,7 @@
 	else
 		icon_state = "table2-idle"
 
-/obj/machinery/optable/wrench_act(mob/user, obj/item/I)
+/obj/machinery/optable/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return

@@ -570,7 +570,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	. = ..()
 	. += "<span class='notice'>You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.</span>"
 
-/obj/item/radio/screwdriver_act(mob/user, obj/item/I)
+/obj/item/radio/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -583,13 +583,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	updateDialog()
 
-/obj/item/radio/wirecutter_act(mob/user, obj/item/I)
+/obj/item/radio/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	interact(user)
 
-/obj/item/radio/multitool_act(mob/user, obj/item/I)
+/obj/item/radio/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -689,7 +689,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	return ..()
 
-/obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
+/obj/item/radio/borg/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -798,7 +798,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	GLOB.deadsay_radio_systems.Remove(src)
 	return ..()
 
-/obj/item/radio/headset/deadsay/screwdriver_act(mob/user, obj/item/I)
+/obj/item/radio/headset/deadsay/screwdriver_act(mob/user, obj/item/tool/I)
 	return
 
 /obj/item/radio/headset/deadsay/attempt_send_deadsay_message(mob/subject, message)

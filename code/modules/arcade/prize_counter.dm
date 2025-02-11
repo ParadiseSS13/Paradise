@@ -94,7 +94,7 @@
 
 	return ..()
 
-/obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open || !component_parts)
 		return
 	. = TRUE
@@ -102,7 +102,7 @@
 		print_tickets()
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(!anchored)
 		return
 	. = TRUE
@@ -112,7 +112,7 @@
 	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/prize_counter/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/prize_counter/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE

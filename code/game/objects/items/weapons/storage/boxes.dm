@@ -118,7 +118,7 @@
 /obj/item/storage/box/survival_syndi/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-	new /obj/item/crowbar/small(src)
+	new /obj/item/tool/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -1096,7 +1096,7 @@
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/small(src)
+	new /obj/item/tool/crowbar/small(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
@@ -1108,7 +1108,7 @@
 
 /obj/item/storage/box/deathsquad/populate_contents()
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/small(src)
+	new /obj/item/tool/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
@@ -1125,7 +1125,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/tool/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
@@ -1244,7 +1244,7 @@
 	new /obj/item/stack/sheet/glass(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/matter_bin(src)
-	new /obj/item/screwdriver(src)
+	new /obj/item/tool/screwdriver(src)
 
 /obj/item/storage/box/crewvend
 	name = "CrewVend 3000 Kit"
@@ -1255,7 +1255,7 @@
 	new /obj/item/stack/cable_coil/five(src)
 	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
 	board.set_type("CrewVend 3000")
-	new /obj/item/screwdriver(src)
+	new /obj/item/tool/screwdriver(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"

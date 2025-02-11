@@ -109,7 +109,7 @@
 
 	return ..()
 
-/obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
+/obj/item/mmi/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

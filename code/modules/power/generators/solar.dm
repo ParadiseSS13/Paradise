@@ -51,7 +51,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/power/solar/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -238,7 +238,7 @@
 	else
 		return ..()
 
-/obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
+/obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!tracker)
 		return
 	. = TRUE
@@ -248,7 +248,7 @@
 	tracker = FALSE
 	user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
 
-/obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
+/obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!anchored && isturf(loc))
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = TRUE
@@ -434,7 +434,7 @@
 				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
 
-/obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

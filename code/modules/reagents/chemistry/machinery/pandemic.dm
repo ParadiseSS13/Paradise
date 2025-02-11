@@ -406,7 +406,7 @@
 	else
 		return ..()
 
-/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/tool/I)
 	if(beaker)
 		eject_beaker()
 		return TRUE

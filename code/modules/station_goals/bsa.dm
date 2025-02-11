@@ -32,11 +32,11 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/tool/I)
 	default_unfasten_wrench(user, I, 1 SECONDS)
 	return TRUE
 
-/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
+/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/tool/multitool/M)
 	M.buffer = src
 	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
 	return TRUE
@@ -58,7 +58,7 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/tool/multitool/M)
 	. = TRUE
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")

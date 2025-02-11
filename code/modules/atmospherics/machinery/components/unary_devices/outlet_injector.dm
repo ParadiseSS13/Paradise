@@ -72,10 +72,10 @@ GLOBAL_LIST_EMPTY(air_injectors)
 
 	return TRUE
 
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/living/user, obj/item/tool/I)
 	if(!ismultitool(I))
 		return
 
-	var/obj/item/multitool/M = I
+	var/obj/item/tool/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")

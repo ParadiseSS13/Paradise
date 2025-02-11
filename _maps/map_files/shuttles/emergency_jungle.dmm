@@ -378,10 +378,7 @@
 /area/shuttle/escape)
 "bI" = (
 /obj/structure/table,
-/obj/item/weldingtool/largetank{
-	pixel_x = 4;
-	pixel_y = -4
-	},
+/obj/item/tool/weldingtool/largetank,
 /obj/item/clothing/glasses/welding{
 	pixel_y = 10
 	},
@@ -455,8 +452,8 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/radio,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)

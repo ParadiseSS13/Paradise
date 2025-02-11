@@ -87,7 +87,7 @@
 /area/ruin/powered)
 "r" = (
 /obj/structure/tubes,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/dark,

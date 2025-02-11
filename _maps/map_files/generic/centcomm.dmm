@@ -358,8 +358,8 @@
 /area/holodeck/source_meetinghall)
 "bw" = (
 /obj/structure/table/abductor,
-/obj/item/retractor/alien,
-/obj/item/hemostat/alien,
+/obj/item/tool/retractor/alien,
+/obj/item/tool/hemostat/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "bz" = (
@@ -507,8 +507,8 @@
 "cf" = (
 /obj/structure/table/abductor,
 /obj/item/paper/abductor,
-/obj/item/scalpel/alien,
-/obj/item/cautery/alien,
+/obj/item/tool/scalpel/alien,
+/obj/item/tool/cautery/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cg" = (
@@ -574,11 +574,11 @@
 /area/ninja/holding)
 "cp" = (
 /obj/structure/table/abductor,
-/obj/item/bonegel/alien,
-/obj/item/bonesetter/alien,
-/obj/item/fix_o_vein/alien,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
+/obj/item/tool/bonegel/alien,
+/obj/item/tool/bonesetter/alien,
+/obj/item/tool/fix_o_vein/alien,
+/obj/item/tool/surgicaldrill/alien,
+/obj/item/tool/circular_saw/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cq" = (
@@ -834,11 +834,11 @@
 /area/centcom/specops)
 "do" = (
 /obj/structure/table/abductor,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
-/obj/item/fix_o_vein/alien,
-/obj/item/bonesetter/alien,
-/obj/item/bonegel/alien,
+/obj/item/tool/surgicaldrill/alien,
+/obj/item/tool/circular_saw/alien,
+/obj/item/tool/fix_o_vein/alien,
+/obj/item/tool/bonesetter/alien,
+/obj/item/tool/bonegel/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "dp" = (
@@ -1851,7 +1851,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal,
 /obj/item/clothing/glasses/welding,
-/obj/item/weldingtool,
+/obj/item/tool/weldingtool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "gW" = (
@@ -2698,9 +2698,7 @@
 /area/shuttle/syndicate)
 "jx" = (
 /obj/structure/table,
-/obj/item/screwdriver{
-	pixel_y = 9
-	},
+/obj/item/tool/screwdriver,
 /obj/item/assembly/voice{
 	pixel_y = 3
 	},
@@ -2708,7 +2706,7 @@
 /area/shuttle/syndicate)
 "jy" = (
 /obj/structure/table,
-/obj/item/wrench,
+/obj/item/tool/wrench,
 /obj/item/assembly/infra,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -3154,11 +3152,8 @@
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 5
 	},
-/obj/item/multitool{
-	pixel_x = -7;
-	pixel_y = -1
-	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kT" = (
@@ -3350,10 +3345,8 @@
 /area/shuttle/syndicate)
 "lC" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/surgicaldrill{
-	pixel_y = 5
-	},
+/obj/item/tool/circular_saw,
+/obj/item/tool/surgicaldrill,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lD" = (
@@ -3775,7 +3768,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "mG" = (
@@ -4088,7 +4081,7 @@
 "nx" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ny" = (
@@ -5762,8 +5755,8 @@
 /area/shuttle/syndicate)
 "tz" = (
 /obj/structure/table,
-/obj/item/weldingtool/largetank,
-/obj/item/multitool,
+/obj/item/tool/weldingtool/largetank,
+/obj/item/tool/multitool,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
@@ -5859,7 +5852,7 @@
 "tU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tV" = (
@@ -5978,8 +5971,8 @@
 "ul" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake,
-/obj/item/circular_saw,
-/obj/item/surgicaldrill,
+/obj/item/tool/circular_saw,
+/obj/item/tool/surgicaldrill,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6643,9 +6636,7 @@
 /area/admin)
 "wz" = (
 /obj/structure/table,
-/obj/item/scalpel/laser/manager/debug{
-	pixel_y = -5
-	},
+/obj/item/tool/scalpel/laser/manager/debug,
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = 5;
 	pixel_y = 5
@@ -7453,17 +7444,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "An" = (
-/obj/item/circular_saw,
-/obj/item/hemostat{
-	pixel_x = -4
-	},
+/obj/item/tool/circular_saw,
+/obj/item/tool/hemostat,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
 /obj/structure/table/reinforced,
-/obj/item/scalpel/laser/manager,
-/obj/item/surgicaldrill,
-/obj/item/bonegel,
-/obj/item/fix_o_vein,
+/obj/item/tool/scalpel/laser/manager,
+/obj/item/tool/surgicaldrill,
+/obj/item/tool/bonegel,
+/obj/item/tool/fix_o_vein,
 /obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -8900,7 +8889,7 @@
 /area/holodeck/source_thunderdomecourt)
 "FG" = (
 /obj/structure/table/reinforced,
-/obj/item/scalpel,
+/obj/item/tool/scalpel,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "FH" = (
@@ -11241,7 +11230,7 @@
 /area/shuttle/administration)
 "Nx" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
+/obj/item/tool/multitool,
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -12311,10 +12300,7 @@
 /area/shuttle/escape)
 "Rf" = (
 /obj/structure/table,
-/obj/item/weldingtool/largetank{
-	pixel_x = 4;
-	pixel_y = -4
-	},
+/obj/item/tool/weldingtool/largetank,
 /obj/item/clothing/glasses/welding{
 	pixel_y = 10
 	},
@@ -13013,15 +12999,15 @@
 /area/centcom/control)
 "TZ" = (
 /obj/structure/table,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/surgicaldrill,
-/obj/item/circular_saw,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/fix_o_vein,
+/obj/item/tool/bonegel,
+/obj/item/tool/bonesetter,
+/obj/item/tool/hemostat,
+/obj/item/tool/cautery,
+/obj/item/tool/surgicaldrill,
+/obj/item/tool/circular_saw,
+/obj/item/tool/scalpel,
+/obj/item/tool/retractor,
+/obj/item/tool/fix_o_vein,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "Ua" = (
@@ -13880,7 +13866,7 @@
 /area/centcom/control)
 "WZ" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar/red,
+/obj/item/tool/crowbar/red,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/mask/gas,
 /obj/effect/landmark/spawner/commando_manual,
@@ -14115,8 +14101,8 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/tool/crowbar,
+/obj/item/tool/wrench,
 /obj/item/radio,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"

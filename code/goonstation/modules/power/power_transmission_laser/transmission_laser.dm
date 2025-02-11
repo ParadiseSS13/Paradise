@@ -119,20 +119,20 @@
 	handle_offset()
 	update_icon()
 
-/obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(firing)
 		to_chat(user,"<span class='info'>Turn the laser off first.</span>")
 		return
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
-/obj/machinery/power/transmission_laser/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/power/transmission_laser/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
-/obj/machinery/power/transmission_laser/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/power/transmission_laser/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	if(rotate())

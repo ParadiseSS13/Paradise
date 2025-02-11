@@ -75,7 +75,7 @@
 /obj/structure/clockwork/wall_gear/emp_act(severity)
 	return
 
-/obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
@@ -87,7 +87,7 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 
-/obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/I)
+/obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

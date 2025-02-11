@@ -211,11 +211,11 @@
 	pixel_y = 3
 	},
 /obj/item/extinguisher,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/item/multitool/ai_detect,
+/obj/item/tool/multitool/ai_detect,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aT" = (

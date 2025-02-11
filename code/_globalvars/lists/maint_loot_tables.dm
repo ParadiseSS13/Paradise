@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		/obj/effect/spawner/random/mod_maint,
 		/obj/item/clothing/glasses/meson,
 		/obj/item/clothing/head/welding,
-		/obj/item/crowbar/red,
+		/obj/item/tool/crowbar/red,
 		/obj/item/storage/belt/utility,
 	) = 45,
 
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		/obj/item/gun/syringe/syndicate,
 		/obj/item/melee/knuckleduster/syndie,
 		/obj/item/mod/construction/broken_core,
-		/obj/item/multitool/ai_detect,
+		/obj/item/tool/multitool/ai_detect,
 		/obj/item/seeds/ambrosia/cruciatus,
 		/obj/item/soap/syndie,
 		/obj/item/stamp/chameleon,

@@ -333,7 +333,7 @@
 /area/ruin/space/unpowered)
 "aU" = (
 /obj/structure/rack,
-/obj/item/crowbar,
+/obj/item/tool/crowbar,
 /obj/item/shield/riot,
 /obj/machinery/light{
 	dir = 1
@@ -459,13 +459,13 @@
 /area/ruin/space/unpowered)
 "bj" = (
 /obj/structure/table/reinforced,
-/obj/item/surgicaldrill,
-/obj/item/hemostat,
-/obj/item/scalpel,
+/obj/item/tool/surgicaldrill,
+/obj/item/tool/hemostat,
+/obj/item/tool/scalpel,
 /obj/item/surgical_drapes,
-/obj/item/retractor,
-/obj/item/cautery,
-/obj/item/circular_saw,
+/obj/item/tool/retractor,
+/obj/item/tool/cautery,
+/obj/item/tool/circular_saw,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -528,7 +528,7 @@
 	pixel_x = 3;
 	pixel_y = -4
 	},
-/obj/item/wirecutters,
+/obj/item/tool/wirecutters,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "br" = (

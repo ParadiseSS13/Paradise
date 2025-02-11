@@ -133,7 +133,7 @@
 
 	return ..()
 
-/obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/tool/I)
 	if(!can_unanchor)
 		return
 	. = TRUE
@@ -154,7 +154,7 @@
 		else
 			to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
 
-/obj/machinery/syndicatebomb/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -162,7 +162,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
 
-/obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/tool/I)
 	if(!open_panel)
 		return
 	. = TRUE
@@ -170,7 +170,7 @@
 		return
 	wires.Interact(user)
 
-/obj/machinery/syndicatebomb/multitool_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/multitool_act(mob/user, obj/item/tool/I)
 	if(!open_panel)
 		return
 	. = TRUE
@@ -178,7 +178,7 @@
 		return
 	wires.Interact(user)
 
-/obj/machinery/syndicatebomb/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -194,7 +194,7 @@
 	else
 		to_chat(user, "<span class='warning'>The cover is screwed on, it won't pry off!</span>")
 
-/obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(payload || !wires.is_all_cut() || !open_panel)
 		return
@@ -545,7 +545,7 @@
 	else
 		return ..()
 
-/obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/I)
+/obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -617,7 +617,7 @@
 	else
 		return ..()
 
-/obj/item/bombcore/toxins/crowbar_act(mob/user, obj/item/I)
+/obj/item/bombcore/toxins/crowbar_act(mob/user, obj/item/tool/I)
 	if(!ttv)
 		return
 	. = TRUE

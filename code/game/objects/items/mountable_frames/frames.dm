@@ -2,7 +2,7 @@
 	name = "mountable frame"
 	desc = "Place it on a wall."
 	origin_tech = "materials=1;engineering=1"
-	toolspeed = 1
+	usespeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 	///amount of metal sheets returned upon the frame being wrenched
@@ -14,7 +14,7 @@
 	///The requirements for this frame to be placed, uses bit flags
 	var/mount_requirements = 0
 
-/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/I)
+/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/tool/I)
 	var/turf/user_turf = get_turf(user)
 	if(metal_sheets_refunded)
 		new /obj/item/stack/sheet/metal(user_turf, metal_sheets_refunded)

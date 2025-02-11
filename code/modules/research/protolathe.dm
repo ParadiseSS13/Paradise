@@ -95,7 +95,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	return ..()
 
-/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/tool/I)
 	if(!panel_open)
 		return
 	. = TRUE
