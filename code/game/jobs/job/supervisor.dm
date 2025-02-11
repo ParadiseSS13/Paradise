@@ -122,7 +122,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	bio_chips = list()
+	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"
