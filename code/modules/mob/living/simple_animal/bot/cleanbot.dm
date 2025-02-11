@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
-	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
+	clear_ignore_list()
 	target = null
 	oldloc = null
 	area_locked = null
@@ -155,8 +155,8 @@
 		target = null
 
 	if(target)
-		if(!path || !length(path)) //No path, need a new one
-			//Try to produce a path to the target, and ignore airlocks to which it has access.
+		if(!length(path)) //No path, need a new one
+			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
 				ignore_job -= target.UID()
@@ -164,11 +164,12 @@
 				target = null
 				path = list()
 				return
-			mode = BOT_MOVING
+			set_mode(BOT_MOVING)
+
 		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -184,7 +185,7 @@
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
-	mode = BOT_CLEANING
+	set_mode(BOT_CLEANING)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
@@ -193,7 +194,7 @@
 		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()

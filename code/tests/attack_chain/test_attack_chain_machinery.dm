@@ -158,3 +158,14 @@
 	player.retrieve(screwdriver)
 	player.click_on(firealarm_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You close the panel")
+	player.put_away(screwdriver)
+
+	var/obj/protolathe = teleport_to_first(player, /obj/machinery/r_n_d/protolathe)
+	var/obj/item/reagent_containers/bottle = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/bottle/ammonia)
+	player.click_on(protolathe)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to Protolathe.")
+
+	var/obj/imprinter = teleport_to_first(player, /obj/machinery/r_n_d/circuit_imprinter)
+	bottle.amount_per_transfer_from_this = 5
+	player.click_on(imprinter)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 5 units of the solution to Circuit Imprinter.")

@@ -186,6 +186,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
+
 /datum/design/painter
 	name = "Modular Painter"
 	id = "mod_painter"
@@ -193,6 +194,14 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
+
+/datum/design/eftpos
+	name = "EFTPOS"
+	id = "eftpos"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
+	build_path = /obj/item/eftpos
+	category = list("initial","Miscellaneous")
 
 /datum/design/metal
 	name = "Metal"

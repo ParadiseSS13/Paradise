@@ -199,6 +199,10 @@
 	failed_ambush()
 	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
 
+/mob/living/simple_animal/hostile/morph/add_ventcrawl()
+	. = ..()
+	on_move()
+
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
 	add_to_all_human_data_huds()
