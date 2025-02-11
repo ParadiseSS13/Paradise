@@ -35,7 +35,6 @@
 "aag" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
 "aah" = (
@@ -5887,7 +5886,6 @@
 "avE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/random,
-/mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "avF" = (
@@ -10098,7 +10096,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_2)
 "aJW" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -10107,11 +10104,6 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
-"aJY" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aJZ" = (
@@ -11121,10 +11113,6 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
-"aNi" = (
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aNj" = (
@@ -12254,10 +12242,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
-"aRg" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
 "aRh" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -21821,11 +21805,6 @@
 /obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
-"buj" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "buk" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
@@ -25807,10 +25786,6 @@
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/port)
-"bKH" = (
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bKI" = (
 /obj/structure/cable{
@@ -32451,7 +32426,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "clF" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -33633,7 +33607,6 @@
 /area/station/command/office/ntrep)
 "cqK" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -34885,12 +34858,6 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"cvl" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "cvm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/suit_storage_unit/expedition,
@@ -44097,7 +44064,6 @@
 /area/station/maintenance/turbine)
 "dev" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "dew" = (
@@ -45625,10 +45591,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"dkv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "dky" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway North-East"
@@ -49233,10 +49195,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
-"egi" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "egq" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/power/apc/directional/east,
@@ -53660,7 +53618,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "gsl" = (
@@ -71961,22 +71918,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/break_room)
-"pUR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint2)
 "pUU" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/carpet,
@@ -80364,7 +80305,6 @@
 	},
 /area/station/maintenance/asmaint)
 "uql" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -101858,7 +101798,7 @@ nxX
 aGn
 aPW
 aQb
-aRg
+aHS
 aHl
 aGn
 rPS
@@ -103391,7 +103331,7 @@ bat
 aDA
 aEH
 aEJ
-aJY
+aHl
 aIK
 aGn
 aHS
@@ -103423,7 +103363,7 @@ blM
 bvq
 cho
 bwZ
-cvl
+pcH
 bCr
 pwm
 cwA
@@ -106994,7 +106934,7 @@ aaa
 aaa
 loS
 dEG
-aRg
+aHS
 vbm
 aJX
 jQt
@@ -108053,7 +107993,7 @@ bnK
 bnK
 cJV
 blQ
-bKH
+bnK
 bxb
 bIX
 bQf
@@ -111127,7 +111067,7 @@ bkg
 blX
 blQ
 bsR
-buj
+svp
 bvw
 bDJ
 blQ
@@ -111674,7 +111614,7 @@ bBf
 wrU
 nIY
 cqs
-egi
+coL
 xxQ
 omB
 coL
@@ -131409,7 +131349,7 @@ aGX
 aQI
 aGY
 aGX
-aNi
+aGY
 aGY
 aGX
 aGX
@@ -132253,7 +132193,7 @@ bGG
 qZN
 oyY
 oyY
-pUR
+upd
 bGG
 qZN
 dQM
@@ -137415,7 +137355,7 @@ cNq
 cga
 ePu
 ePu
-dkv
+csL
 isD
 csL
 jPw

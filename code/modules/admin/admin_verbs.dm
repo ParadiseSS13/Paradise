@@ -159,6 +159,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
+	/client/proc/map_template_load_lazy,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,

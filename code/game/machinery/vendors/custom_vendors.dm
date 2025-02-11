@@ -1,3 +1,7 @@
+#define INSERT_FAIL 0
+#define INSERT_DONE 1
+#define INSERT_NEEDS_INPUT 2
+
 /obj/machinery/economy/vending/custom
 	name = "\improper CrewVend 3000"
 	refill_canister = null
@@ -17,6 +21,9 @@
 	return linked_pos?.linked_account || ..()
 
 /obj/machinery/economy/vending/custom/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(used, /obj/item/eftpos))
 		visible_message("<span class='notice'>[src] beeps as [user] links it to [used].</span>", "<span class='notice'>You hear something beep.</span>")
 		if(!isnull(linked_pos))
@@ -30,9 +37,25 @@
 		return ITEM_INTERACT_COMPLETE
 	else if(locked())
 		return ..()
-	if(!user.canUnEquip(used, FALSE))
+
+	try_add_stock(user, used)
+	return ITEM_INTERACT_COMPLETE
+
+/// Tries to add something to the vendor. can_wait returns INSERT_NEEDS_INPUT if it would wait for user input, quiet suppresses success messages, and bag is used when the item is being transferred from a storage item.
+/obj/machinery/economy/vending/custom/proc/try_add_stock(mob/living/user, obj/item/used, can_wait = TRUE, quiet = FALSE, obj/item/storage/bag = null)
+	if(isnull(bag) && !user.canUnEquip(used, FALSE))
 		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return INSERT_FAIL
+	else if(bag)
+		if(!Adjacent(user))
+			to_chat(user, "<span class='warning'>You can't reach [src] from here!</span>")
+			return INSERT_FAIL
+		if(!user.is_holding(bag))
+			to_chat(user, "<span class='warning'>\The [bag] isn't in your hand anymore!</span>")
+			return INSERT_FAIL
+		if(used.loc != bag)
+			to_chat(user, "<span class='warning'>\The [used] isn't in [bag] anymore!</span>")
+			return INSERT_FAIL
 
 	for(var/datum/data/vending_product/physical/record in physical_product_records)
 		if(record.get_amount_left() == 0)
@@ -42,33 +65,82 @@
 			var/obj/item/existing = record.items[1]
 			if(existing.should_stack_with(used))
 				record.items += used
-				user.unequip(used)
+				if(isnull(bag))
+					user.unequip(used)
+				else
+					bag.remove_from_storage(used)
 				used.moveToNullspace()
-				user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice>'You put [used] into [src].</span>")
-				return ITEM_INTERACT_COMPLETE
+				if(!quiet)
+					user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice>'You put [used] into [src].</span>")
+				return INSERT_DONE
+
+	if(!can_wait)
+		return INSERT_NEEDS_INPUT
 
 	var/price = tgui_input_number(user, "How much do you want to sell [used] for?")
 	if(!isnum(price))
-		return ITEM_INTERACT_COMPLETE
+		return INSERT_FAIL
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>You can't reach [src] from here!</span>")
-		return ITEM_INTERACT_COMPLETE
-	if(!user.is_holding(used))
-		to_chat(user, "<span class='warning'>\The [used] isn't in your hand anymore!</span>")
-		return ITEM_INTERACT_COMPLETE
-	if(!user.canUnEquip(used, FALSE))
-		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return INSERT_FAIL
+	if(isnull(bag))
+		if(!user.is_holding(used))
+			to_chat(user, "<span class='warning'>\The [used] isn't in your hand anymore!</span>")
+			return INSERT_FAIL
+		if(!user.canUnEquip(used, FALSE))
+			to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
+			return INSERT_FAIL
+	else
+		if(!user.is_holding(bag))
+			to_chat(user, "<span class='warning'>\The [bag] isn't in your hand anymore!</span>")
+			return INSERT_FAIL
+		if(used.loc != bag)
+			to_chat(user, "<span class='warning'>\The [used] isn't in [bag] anymore!</span>")
+			return INSERT_FAIL
 
 	var/datum/data/vending_product/physical/record = new(used.name, used.icon, used.icon_state)
 	record.items += used
 	record.price = price
 	physical_product_records += record
 	SStgui.update_uis(src, TRUE)
-	user.unequip(used)
+	if(isnull(bag))
+		user.unequip(used)
+	else
+		bag.remove_from_storage(used)
 	used.moveToNullspace()
-	user.visible_message("[user] puts [used] into [src].", "You put [used] into [src].")
-	return ITEM_INTERACT_COMPLETE
+	if(!quiet)
+		user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice'>You put [used] into [src].</span>")
+	return INSERT_DONE
+
+/obj/machinery/economy/vending/custom/MouseDrop_T(atom/dragged, mob/user, params)
+	if(!istype(dragged, /obj/item/storage))
+		return ..()
+
+	var/obj/item/storage/bag = dragged
+	var/inserted = FALSE
+	for(var/obj/item/thing in bag.contents.Copy())
+		var/result = try_add_stock(user, thing, can_wait = FALSE, quiet = TRUE, bag = bag)
+		if(result == INSERT_FAIL)
+			break
+		if(result == INSERT_DONE)
+			inserted = TRUE
+			continue
+
+		// result == INSERT_NEEDS_INPUT
+		if(inserted)
+			user.visible_message("<span class='notice'>[user] transfers some things from [bag] into [src].</span>", "<span class='notice'>You transfer some things from [bag] into [src].</span>")
+			// We've reported on our insertions so far, don't repeat it.
+			inserted = FALSE
+
+		// Try again, this time expecting it to wait.
+		result = try_add_stock(user, thing, bag = bag)
+		if(result == INSERT_FAIL)
+			break
+
+	if(inserted)
+		user.visible_message("<span class='notice'>[user] transfers everything from [bag] into [src].</span>", "<span class='notice'>You transfer everything from [bag] into [src].</span>")
+
+	return TRUE
 
 /obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/I)
 	if(!isnull(linked_pos) && linked_pos.transaction_locked)
@@ -82,3 +154,7 @@
 		physical_product_records -= R
 		physical_hidden_records -= R
 		SStgui.update_uis(src, TRUE)
+
+#undef INSERT_FAIL
+#undef INSERT_DONE
+#undef INSERT_NEEDS_INPUT
