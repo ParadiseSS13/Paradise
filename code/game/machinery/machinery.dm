@@ -322,7 +322,7 @@
 	return FALSE
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/tool/I)
-	if(I.tool_behaviour != TOOL_SCREWDRIVER)
+	if(!isscrewdriver(I))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
