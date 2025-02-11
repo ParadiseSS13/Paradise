@@ -211,6 +211,11 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
+/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return A == rcd.loc
+
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -343,11 +348,10 @@
 /obj/item/rcd/suicide_act(mob/living/user)
 	user.Immobilize(10 SECONDS) // You cannot move.
 	flags |= NODROP				// You cannot drop. You commit to die.
-	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
-		if(!act.try_act(suicide_tile, src, user))
+		if(!act.try_act(user, src, user))
 			flags &= ~NODROP
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
@@ -358,7 +362,7 @@
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!interact_with_atom(suicide_tile, user, TRUE))
+	if(!interact_with_atom(get_turf(src), user, TRUE))
 		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")

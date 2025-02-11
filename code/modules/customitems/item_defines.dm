@@ -64,7 +64,7 @@
 		return
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
-	if(!(target.dna.species.name in temp_tatt.species_allowed))
+	if(!(target.dna.species.sprite_sheet_name in temp_tatt.species_allowed))
 		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 

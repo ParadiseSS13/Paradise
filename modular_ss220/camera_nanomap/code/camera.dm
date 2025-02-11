@@ -3,10 +3,12 @@
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet)
 	. = ..()
+#if !defined(MAP_TESTS) && !defined(GAME_TESTS)
 	if(z == level_name_to_num(MAIN_STATION))
 		nanomap_png = "[SSmapping.map_datum.technical_name]_nanomap_z1.png"
 	else if(z == level_name_to_num(MINING))
 		nanomap_png = "[MINING]_nanomap_z1.png"
+#endif
 
 /obj/machinery/computer/security
 	var/list/z_levels = list() // Assoc list, "z_level":"nanomap.png"

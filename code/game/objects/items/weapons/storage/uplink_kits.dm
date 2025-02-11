@@ -195,7 +195,7 @@
 /// 80TC + modules + laser gun
 /obj/item/storage/box/syndie_kit/bundle/metroid
 	name = "Modsuit Bundle"
-	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
+	desc = "Don the equipment of an interstellar bounty hunter and blast your way through the station!"
 	items = list(
 		/obj/item/mod/control/pre_equipped/traitor_elite, // 45TC
 		/obj/item/mod/module/visor/thermal, // 15TC

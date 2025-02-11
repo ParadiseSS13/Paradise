@@ -207,6 +207,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Возраст:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
 			dat += "<b>Тело:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Случайно)</a><br>"
 			dat += "<b>Раса:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
+			if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+				dat += "<b>Подтип расы:</b> <a href='byond://?_src_=prefs;preference=species_subtype;task=input'>[active_character.species_subtype]</a><br>"
 			dat += "<b>Пол:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Тип тела:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"

@@ -10907,7 +10907,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aWJ" = (
-/mob/living/simple_animal/mouse/rat,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
@@ -35601,14 +35600,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
-"cRv" = (
-/obj/effect/spawner/random/blood/maybe,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/station/maintenance/old_kitchen)
 "cRy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -35663,7 +35654,6 @@
 /area/station/maintenance/port)
 "cRI" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -48628,7 +48618,6 @@
 /area/station/maintenance/fsmaint)
 "ekU" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -51603,10 +51592,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/public/vacant_store)
-"fhp" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/wood/oak,
-/area/station/maintenance/electrical_shop)
 "fhy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -52686,7 +52671,6 @@
 "fyS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/south,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "greenblue"
 	},
@@ -52982,11 +52966,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
-"fEd" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating,
-/area/station/maintenance/old_kitchen)
 "fEi" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/plantgenes,
@@ -54751,11 +54730,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/fitness)
-"giU" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard2)
 "giY" = (
 /obj/structure/table,
 /obj/machinery/computer/med_data/laptop{
@@ -57296,13 +57270,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"gZU" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/maintenance/fore)
 "haa" = (
 /obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
@@ -57436,7 +57403,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard2)
 "hcm" = (
@@ -57486,14 +57452,6 @@
 	icon_state = "dark_large"
 	},
 /area/station/security/interrogation)
-"hcY" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/maintenance/starboard2)
 "hda" = (
 /obj/effect/turf_decal/stripes/white/line{
 	color = "lightblue"
@@ -59491,19 +59449,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/lobby)
-"hJM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard2)
 "hKc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance,
@@ -61632,10 +61577,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
-"irV" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/wood/oak,
-/area/station/maintenance/abandonedbar)
 "isc" = (
 /obj/structure/statue/delta/se,
 /obj/effect/turf_decal/siding/yellow/end{
@@ -65353,7 +65294,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_garden)
 "jym" = (
@@ -67305,10 +67245,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/medical/psych)
-"kcd" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plating,
-/area/station/maintenance/old_kitchen)
 "kcj" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -68235,15 +68171,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/service/library)
-"ksQ" = (
-/obj/machinery/door_control/shutter/west{
-	id = "restaurant";
-	name = "Restaurant Shutters control"
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plating,
-/area/station/maintenance/old_kitchen)
 "ksS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -74538,7 +74465,6 @@
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/west,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -75927,17 +75853,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
-"mTK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/station/maintenance/starboard2)
 "mTQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76577,13 +76492,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/hallway)
-"ndH" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
-	},
-/area/station/maintenance/old_kitchen)
 "ndS" = (
 /obj/structure/shelf/security,
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -77338,10 +77246,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
-"noV" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating,
-/area/station/maintenance/old_kitchen)
 "noW" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/engine,
@@ -84469,7 +84373,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -84961,23 +84864,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/library)
-"pCj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/aft)
 "pCm" = (
 /obj/structure/displaycase/labcage,
 /obj/effect/turf_decal/delivery,
@@ -88336,7 +88222,6 @@
 /area/station/hallway/primary/central)
 "qFp" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -88487,12 +88372,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
-"qHN" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood/oak,
-/area/station/maintenance/old_kitchen)
 "qHO" = (
 /obj/structure/bed{
 	dir = 1
@@ -92731,7 +92610,6 @@
 "rXZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/nightshifted/south,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "rYh" = (
@@ -94315,11 +94193,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/mechanic)
-"swI" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/abandonedbar)
 "swM" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
@@ -96309,7 +96182,6 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "tcZ" = (
@@ -97130,7 +97002,6 @@
 /area/station/maintenance/fsmaint)
 "toU" = (
 /obj/item/storage/box/donkpockets,
-/mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -97241,11 +97112,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/virology_maint)
-"tqO" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plating,
-/area/station/maintenance/old_kitchen)
 "tqS" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -102611,7 +102477,6 @@
 	dir = 4
 	},
 /obj/structure/sink/kitchen/north,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -103144,7 +103009,6 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "vmP" = (
@@ -103864,10 +103728,6 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
-"vBV" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "vCf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -104340,7 +104200,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -108221,7 +108080,6 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -109291,10 +109149,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay2)
-"xnq" = (
-/mob/living/simple_animal/mouse/rat,
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/abandonedbar)
 "xnx" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -110505,7 +110359,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -110975,7 +110828,6 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/mob/living/simple_animal/mouse/rat,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/old_kitchen)
@@ -129328,7 +129180,7 @@ rkv
 dsr
 cLz
 rQi
-swI
+dnH
 dcX
 yeh
 dYu
@@ -129337,7 +129189,7 @@ lTi
 lTi
 dYt
 dnH
-swI
+dnH
 dcX
 dkr
 dbz
@@ -130360,7 +130212,7 @@ uai
 lTi
 mAs
 dcX
-swI
+dnH
 yeh
 dks
 dcX
@@ -131650,7 +131502,7 @@ dja
 iFl
 lTi
 dmQ
-irV
+lTi
 dcX
 drf
 irt
@@ -131898,7 +131750,7 @@ doX
 xsz
 cLz
 dan
-xnq
+dcX
 dcW
 dcX
 dcX
@@ -140023,7 +139875,7 @@ abj
 apG
 aqy
 arr
-fhp
+ars
 atg
 auk
 apG
@@ -140293,7 +140145,7 @@ asq
 aVK
 nQL
 azb
-gZU
+ayX
 oDU
 aCl
 aCl
@@ -146194,7 +146046,7 @@ aqQ
 aoo
 azb
 hoG
-vBV
+aor
 tGN
 oOi
 fwQ
@@ -152990,7 +152842,7 @@ raz
 klA
 duk
 jDc
-pCj
+dDk
 nHK
 dEo
 abj
@@ -157120,7 +156972,7 @@ pnl
 rzk
 lCR
 dqP
-mTK
+dqP
 wWV
 dfQ
 hkN
@@ -160467,7 +160319,7 @@ jyi
 tpc
 jyJ
 wGh
-hJM
+kwD
 vzp
 wwk
 dpt
@@ -163035,7 +162887,7 @@ bws
 qVD
 prg
 cqI
-giU
+cqI
 cqI
 xaX
 tNU
@@ -164324,7 +164176,7 @@ bgs
 adA
 mfI
 eAb
-hcY
+mfI
 eAb
 bws
 aaa
@@ -165568,7 +165420,7 @@ tyW
 lja
 uVh
 pKe
-qHN
+czX
 uRC
 kAm
 rad
@@ -165578,7 +165430,7 @@ niP
 sIu
 wOg
 pAx
-cRv
+wOg
 gAT
 sIu
 rMZ
@@ -166081,12 +165933,12 @@ qpB
 bfK
 aXM
 kAm
-noV
+uYi
 nwu
 wPb
 qno
 lHO
-ksQ
+pfl
 kAm
 txG
 sIu
@@ -166607,7 +166459,7 @@ sIu
 vdF
 fZf
 fzE
-ndH
+fzE
 fzE
 jEH
 uDO
@@ -167885,7 +167737,7 @@ maL
 gPu
 pgX
 rtS
-fEd
+qno
 xRG
 kAm
 wZj
@@ -167894,7 +167746,7 @@ ipf
 qvA
 fzE
 uYi
-tqO
+qno
 wIZ
 qPD
 abj
@@ -168142,7 +167994,7 @@ maL
 maL
 ddo
 kue
-kcd
+uYi
 jQi
 azo
 iHc
