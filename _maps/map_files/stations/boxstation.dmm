@@ -49677,15 +49677,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "eqt" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "aisat_door_int";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
+	},
+/obj/machinery/door/airlock/external/glass{
+	name = "MiniSat External Access";
+	locked = 1;
+	id_tag = "aisat_door_int"
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
@@ -82141,13 +82141,13 @@
 	},
 /area/station/security/prisonershuttle)
 "vtG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "aisat_door_ext";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/obj/machinery/door/airlock/external/glass{
+	name = "MiniSat External Access";
+	locked = 1;
+	id_tag = "aisat_door_ext"
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "vue" = (
