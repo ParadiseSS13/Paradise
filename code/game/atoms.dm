@@ -61,7 +61,7 @@
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
 	/// Radiation insulation types
-	var/rad_insulation_alpha = RAD_HEAVY_INSULATION
+	var/rad_insulation_alpha = RAD_NEAR_FULL_INSULATION
 	var/rad_insulation_beta = RAD_NO_INSULATION
 	var/rad_insulation_gamma = RAD_NO_INSULATION
 
@@ -612,6 +612,13 @@
 			return rad_insulation_beta
 		if(GAMMA_RAD)
 			return rad_insulation_gamma
+
+/// Attempt to contaminate a single atom
+/atom/proc/contaminate_atom(atom/source, intensity, emission_type)
+	if(flags_2 & RAD_NO_CONTAMINATE_2 || (SEND_SIGNAL(src, COMSIG_ATOM_RAD_CONTAMINATING) & COMPONENT_BLOCK_CONTAMINATION))
+		return
+	AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+
 
 /atom/proc/fart_act(mob/living/M)
 	return FALSE

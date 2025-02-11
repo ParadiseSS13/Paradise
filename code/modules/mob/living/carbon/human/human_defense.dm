@@ -847,7 +847,7 @@ emp_act
 /mob/living/carbon/human/canBeHandcuffed()
 	return has_left_hand() || has_right_hand()
 
-/// Returns a list. The first element is whether we penetrated all clothing, the rest are the clothes that got contaminated
+/// Returns a list. The first element is whether we penetrated all clothing for the zone, the rest are the clothes that got contaminated
 /mob/living/carbon/human/proc/rad_contaminate_zone(zone_flag, pocket = FALSE)
 	// This is for items inside of the mob
 	if(!zone_flag)
@@ -859,13 +859,16 @@ emp_act
 	if(pocket)
 		garments = list(w_uniform)
 	else
+		// the suit is worn on top of all other stuff so it needs to be checked first
+		if(wear_suit)
+			garments = list(wear_suit)
 		for(var/obj/item/clothing/garment in contents)
 			if(garment.body_parts_covered&zone_flag)
-				garments += garment
+				garments |= garment
 	// If we have a suit push it to the start of the list
 	if(wear_suit)
 		garments -= wear_suit
-		garments = list(w_uniform) + garments
+		garments = list(wear_suit) + garments
 
 	while(length(garments) && passed)
 		var/obj/item/clothing/garment = garments[1]

@@ -11,9 +11,10 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
+	flags_2 = RAD_NO_CONTAMINATE_2 //This is made from radioactive material so cannot really be contaminated
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
+	new_attack_chain = TRUE
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
@@ -23,11 +24,15 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nuke_core/attackby__legacy__attackchain(obj/item/nuke_core_container/container, mob/user)
+/obj/item/nuke_core/attack_by(obj/item/nuke_core_container/container, mob/user)
 	if(istype(container))
 		container.load(src, user)
 	else
 		return ..()
+
+/obj/item/nuke_core/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	target.contaminate_atom(src, 100, BETA_RAD)
 
 /obj/item/nuke_core/process()
 	contaminate_adjacent(src, 100, BETA_RAD)

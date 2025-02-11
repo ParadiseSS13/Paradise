@@ -59,7 +59,7 @@
 			continue
 		if(ignored_things[thing.type])
 			continue
-		if(thing.flags_2 & RAD_NO_CONTAMINATE_2)
+		if((SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING) & COMPONENT_BLOCK_CONTAMINATION) || thing.flags_2 & RAD_NO_CONTAMINATE_2)
 			continue
 		if(ishuman(thing) || ishuman(thing.loc))
 			var/mob/living/carbon/human/target_mob = ishuman(thing) ? thing : thing.loc
@@ -107,11 +107,11 @@
 	while(length(processing_list))
 		var/atom/thing = processing_list[1]
 		processing_list -= thing
-		if(thing && source && thing.UID() == source.UID())
+		if(thing?.UID() == source?.UID())
 			continue
 		if(ignored_things[thing.type])
 			continue
-		if(thing.flags_2 & RAD_NO_CONTAMINATE_2)
+		if((SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING) & COMPONENT_BLOCK_CONTAMINATION) || thing.flags_2 & RAD_NO_CONTAMINATE_2)
 			continue
 		/// If it's a human check for rad protection on all areas
 		if(ishuman(thing))
@@ -180,18 +180,10 @@
 /proc/contaminate_adjacent(atom/source, intensity, emission_type)
 	var/list/contamination_contents = get_rad_contamination_adjacent(source.loc, source)
 	for(var/atom/thing in contamination_contents)
-		if(!(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
-			thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
 
 /// Contaminate the contents of a target area. This is more aggressive than contaminate adjacent and does not check against individual clothes on a human(single instance)
 /proc/contaminate_target(atom/target, atom/source, intensity, emission_type)
 	var/list/contamination_contents = get_rad_contamination_target(target, source)
 	for(var/atom/thing in contamination_contents)
-		if(!(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, intensity) & COMPONENT_BLOCK_CONTAMINATION))
-			thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
-
-/// Contaminate something that is hitting, picking up or otherwise touching the source(single instance)
-/proc/contaminate_touch(atom/target, atom/source, intensity, emission_type)
-	if(target.flags_2 & RAD_NO_CONTAMINATE_2)
-		return
-	target.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)

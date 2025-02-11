@@ -172,11 +172,11 @@
 
 /obj/machinery/door/airlock/uranium/attack_hand(mob/user)
 	. = ..()
-	contaminate_touch(user, src, 100, ALPHA_RAD)
+	user.contaminate_atom(src, 100, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/Bumped(atom/movable/AM)
 	. = ..()
-	contaminate_touch(AM, src, 100, ALPHA_RAD)
+	AM.contaminate_atom(src, 100, ALPHA_RAD)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
