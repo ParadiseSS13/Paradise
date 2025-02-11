@@ -21,3 +21,33 @@
 
 /obj/item/mod/module/insignia/red/chaplain
 	color = "#f0a00c"
+
+// holster tweak for bulky lasers
+/obj/item/mod/module/holster
+	var/static/list/overridebulky = list(
+		/obj/item/gun/energy/gun,
+		/obj/item/gun/energy/gun/advtaser,
+		/obj/item/gun/energy/gun/nuclear,
+		/obj/item/gun/energy/immolator,
+		/obj/item/gun/energy/immolator/multi,
+		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser/retro,
+		/obj/item/gun/energy/laser/retro/old,
+		/obj/item/gun/energy/xray,
+	)
+
+/obj/item/mod/module/holster/on_use()
+	if(holstered)
+		return ..()
+	var/obj/item/gun/holding = mod.wearer.get_active_hand()
+	if(!holding)
+		to_chat(mod.wearer, span_warning("Nothing to holster!"))
+		return
+	for(var/type in overridebulky)
+		if(holding.type == type)
+			holstered = holding
+			mod.wearer.visible_message(span_warning("[mod.wearer] holsters [holstered]"), span_notice("You holster [holstered]"))
+			mod.wearer.unequip(mod.wearer.get_active_hand())
+			holstered.forceMove(src)
+			return
+	return ..()
