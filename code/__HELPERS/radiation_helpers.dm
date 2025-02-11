@@ -16,7 +16,7 @@
 	while(length(processing_list))
 		var/atom/thing = processing_list[1]
 		processing_list -= thing
-		if(ignored_things[thing.type])
+		if(!thing || ignored_things[thing.type])
 			continue
 		switch(emission_type)
 			if(ALPHA_RAD)

@@ -39,6 +39,14 @@
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 	/// How well this window resists superconductivity.
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
+	/// How much we get activated by gamma radiation
+	var/rad_conversion_amount = 0
+
+
+/obj/structure/window/rad_act(amount, emission_type)
+	. = ..()
+	if(emission_type == GAMMA_RAD)
+		AddComponent(/datum/component/radioactive, amount * (1 - rad_insulation_gamma) * rad_conversion_amount, src, BETA_RAD)
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -640,7 +648,9 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_conversion_amount = 0.2
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -655,9 +665,12 @@
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_conversion_amount = 0.4
+
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -696,6 +709,9 @@
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_conversion_amount = 0.4
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -711,10 +727,12 @@
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation_beta = RAD_HEAVY_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_conversion_amount = 0.8
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -789,6 +807,9 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS //used in shuttles, same reason as above
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_conversion_amount = 1.2
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
