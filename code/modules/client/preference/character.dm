@@ -853,6 +853,8 @@
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
+		else
+			icobase = current_species.icobase
 		will_slimify = (istype(current_species, /datum/species/slime) && current_species.species_subtype != "None")
 		qdel(H)
 	else
