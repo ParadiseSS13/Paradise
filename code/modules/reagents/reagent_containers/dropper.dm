@@ -18,15 +18,7 @@
 	else
 		icon_state = "[initial(icon_state)]1"
 
-/obj/item/reagent_containers/dropper/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isliving(target))
-		mob_act(target, user)
-		return ITEM_INTERACT_COMPLETE
-	if(normal_act(target, user))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
-
-/obj/item/reagent_containers/dropper/proc/mob_act(mob/target, mob/living/user)
+/obj/item/reagent_containers/dropper/mob_act(mob/target, mob/living/user)
 	var/to_transfer = 0
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -70,7 +62,8 @@
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 
-/obj/item/reagent_containers/dropper/proc/normal_act(atom/target, mob/living/user)
+/obj/item/reagent_containers/dropper/normal_act(atom/target, mob/living/user)
+	. = FALSE
 	var/to_transfer = 0
 	if(!target.reagents)
 		return
@@ -86,6 +79,7 @@
 
 		to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
+		return TRUE
 
 	else
 		if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
@@ -99,6 +93,7 @@
 		to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
 		to_chat(user, "<span class='notice'>You fill [src] with [to_transfer] units of the solution.</span>")
+		return TRUE
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"

@@ -14,15 +14,7 @@
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/drinks/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isliving(target))
-		mob_act(target, user)
-		return ITEM_INTERACT_COMPLETE
-	if(normal_act(target, user))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
-
-/obj/item/reagent_containers/drinks/proc/mob_act(mob/target, mob/living/user)
+/obj/item/reagent_containers/drinks/mob_act(mob/target, mob/living/user)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return
@@ -57,7 +49,7 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/drinks/proc/normal_act(obj/target, mob/living/user) // The 2 if checks are forced true to preserve tapping behaviour.
+/obj/item/reagent_containers/drinks/normal_act(obj/target, mob/living/user) // The 2 if checks are forced true to preserve tapping behaviour.
 	if(chugging)
 		return TRUE
 

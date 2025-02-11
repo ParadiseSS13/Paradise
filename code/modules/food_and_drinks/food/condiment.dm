@@ -39,15 +39,7 @@
 	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/condiment/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isliving(target))
-		mob_act(target, user)
-		return ITEM_INTERACT_COMPLETE
-	if(normal_act(target, user)) // This is a bit jank, in order to preserve tapping behaviour on specific machines.
-		return ITEM_INTERACT_COMPLETE
-	return ..()
-
-/obj/item/reagent_containers/condiment/proc/mob_act(mob/target, mob/living/user)
+/obj/item/reagent_containers/condiment/mob_act(mob/target, mob/living/user)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return
@@ -70,7 +62,7 @@
 	reagents.trans_to(target, 10)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
-/obj/item/reagent_containers/condiment/proc/normal_act(atom/target, mob/living/user) // Proc is true if any of the if checks go through. Preserves tapping behaviour on certain machinery.
+/obj/item/reagent_containers/condiment/normal_act(atom/target, mob/living/user) // Proc is true if any of the if checks go through. Preserves tapping behaviour on certain machinery.
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 		. = TRUE
 		if(!target.reagents.total_volume)

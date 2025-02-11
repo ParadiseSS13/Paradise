@@ -16,6 +16,21 @@
 	var/temperature_max = 10000
 	new_attack_chain = TRUE
 
+/obj/item/reagent_containers/dropper/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isliving(target))
+		mob_act(target, user)
+		return ITEM_INTERACT_COMPLETE
+	if(normal_act(target, user))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+// Overriden inside its subtypes. Might add the basic container shit here (eg, beaker/bucket behaviour)
+/obj/item/reagent_containers/proc/mob_act(mob/target, mob/living/user)
+	return
+
+/obj/item/reagent_containers/proc/normal_act(atom/traget, mob/living/user)
+	return
+
 /obj/item/reagent_containers/proc/can_set_transfer_amount(mob/user)
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
