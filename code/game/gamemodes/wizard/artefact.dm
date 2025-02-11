@@ -915,12 +915,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()
 	var/picked_disease
-	var/list/major_diseases = list(/datum/disease/beesease,/datum/disease/berserker,/datum/disease/cold9,/datum/disease/brainrot,/datum/disease/fluspanish,/datum/disease/kingstons_advanced,/datum/disease/dna_retrovirus,/datum/disease/tuberculosis)
-	var/list/minor_diseases = list(/datum/disease/anxiety,/datum/disease/appendicitis,/datum/disease/cold,/datum/disease/flu,/datum/disease/magnitis,/datum/disease/pierrot_throat,/datum/disease/wizarditis,/datum/disease/lycan)
-	if(prob(66))
-		picked_disease = pick(minor_diseases)
-	else
-		picked_disease = pick(major_diseases)
+	var/list/possible_diseases = list(
+		/datum/disease/beesease/wizard_variant,
+		/datum/disease/berserker/wizard_variant,
+		/datum/disease/cold9/wizard_variant,
+		/datum/disease/brainrot/wizard_variant,
+		/datum/disease/fluspanish/wizard_variant,
+		/datum/disease/kingstons_advanced/wizard_variant,
+		/datum/disease/dna_retrovirus/wizard_variant,
+		/datum/disease/tuberculosis/wizard_variant,
+		/datum/disease/anxiety/wizard_variant,
+		/datum/disease/wizarditis/wizard_variant,
+		/datum/disease/appendicitis
+		)
+	picked_disease = pick(possible_diseases)
 	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard

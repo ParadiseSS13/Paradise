@@ -26,7 +26,6 @@
 
 /datum/disease/zombie/New(chosen_plague, plague_zomb)
 	if(plague_zomb == TRUE)
-		bypasses_immunity = TRUE
 		plague_disease = chosen_plague
 		instant_zombie = TRUE
 
