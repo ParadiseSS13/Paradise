@@ -52643,9 +52643,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"fRs" = (
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "fRJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79913,10 +79910,6 @@
 	icon_state = "cult"
 	},
 /area/station/maintenance/fsmaint)
-"uey" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "ueT" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -127677,9 +127670,9 @@ aaa
 aaa
 aaa
 awl
-fRs
-fRs
-aMr
+avq
+avq
+awl
 auq
 avw
 auq
@@ -127934,8 +127927,8 @@ aaa
 aab
 aaa
 aaa
-uey
-uey
+doE
+doE
 aaa
 aaa
 aaa
