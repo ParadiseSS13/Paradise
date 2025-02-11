@@ -55972,11 +55972,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lfY" = (
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable,
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88565,15 +88565,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable,
-/turf/simulated/floor/plating/airless,
-/area/station/aisat/breakroom)
-"rEn" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/breakroom)
@@ -167603,8 +167594,8 @@ eGH
 aTO
 rZL
 gFd
-rEn
-rEn
+rEk
+rEk
 jRR
 rTJ
 aZS
