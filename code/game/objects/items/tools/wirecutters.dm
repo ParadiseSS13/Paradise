@@ -18,7 +18,7 @@
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = TRUE
-	toolspeed = 1
+	use_speed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
@@ -67,7 +67,7 @@
 	item_state = "cutters_red" //shh
 	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
 	force = 9 //same as seclites
-	toolspeed = 0.75
+	use_speed = 0.75
 	random_color = FALSE
 
 /obj/item/tool/wirecutters/security/suicide_act(mob/living/user)
@@ -96,14 +96,14 @@
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
 	belt_icon = "wirecutters_brass"
-	toolspeed = 0.5
+	use_speed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/tool/wirecutters/cyborg
 	name = "wirecutters"
 	desc = "This cuts wires."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/wirecutters/cyborg/drone
 
@@ -120,14 +120,14 @@
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
-	toolspeed = 0.25
+	use_speed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
 /obj/item/tool/wirecutters/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
 
-	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
+	if(!use_tool(user, user, 3 SECONDS, volume = use_volume))
 		return SHAME
 
 	if(!ishuman(user))

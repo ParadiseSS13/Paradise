@@ -330,14 +330,14 @@
 		return
 	if(opened)
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 			return
 	else
 		var/adjective = welded ? "open" : "shut"
 		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
-		if(I.use_tool(src, user, 15, volume = I.tool_volume))
+		if(I.use_tool(src, user, 15, volume = I.use_volume))
 			if(opened)
 				to_chat(user, "<span class='notice'>Keep [src] shut while doing that!</span>")
 				return

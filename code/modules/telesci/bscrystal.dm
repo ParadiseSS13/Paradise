@@ -11,7 +11,7 @@
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
-	usespeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	dynamic_icon_state = TRUE
 

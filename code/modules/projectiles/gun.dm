@@ -391,7 +391,7 @@
 /obj/item/gun/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(gun_light || bayonet)
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 0, volume = I.use_volume))
 			return
 		if(gun_light && can_flashlight)
 			for(var/obj/item/flashlight/seclite/S in src)

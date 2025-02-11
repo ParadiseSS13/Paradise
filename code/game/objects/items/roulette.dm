@@ -34,7 +34,7 @@
 
 /obj/structure/roulette/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.use_volume))
 		return
 	deconstruct()
 

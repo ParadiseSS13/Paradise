@@ -32,7 +32,7 @@
 
 /obj/item/target/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!use_tool(src, user, 0, volume = I.tool_volume))
+	if(!use_tool(src, user, 0, volume = I.use_volume))
 		return
 	overlays.Cut()
 	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")

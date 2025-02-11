@@ -146,7 +146,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
 	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(I.use_tool(src, user, 30, volume = I.use_volume))
 		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
 		cistern = !cistern
 		update_icon()
@@ -173,14 +173,14 @@
 			stash_goods(I, user)
 		if("Disconnect")
 			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(I.use_tool(src, user, 40, volume = I.use_volume))
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
 				anchored = FALSE
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(I.use_tool(src, user, 40, volume = I.use_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
@@ -257,7 +257,7 @@
 		return
 	if(anchored)
 		user.visible_message("<span class='notice'>[user] begins disconnecting [src]...</span>", "<span class='notice'>You begin to disconnect [src]...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
@@ -266,7 +266,7 @@
 			pixel_y = 0
 	else
 		user.visible_message("<span class='notice'>[user] begins connecting [src]...</span>", "<span class='notice'>You begin to connect [src]...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
@@ -377,7 +377,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>", "<span class='notice'>You begin slicing [src] free...</span>", "<span class='warning'>You hear welding.</span>")
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 40, volume = I.use_volume))
 		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
 		transfer_prints_to(S, TRUE)
@@ -595,14 +595,14 @@
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
 		if("Disconnect")
 			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(I.use_tool(src, user, 40, volume = I.use_volume))
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
 				anchored = FALSE
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(I.use_tool(src, user, 40, volume = I.use_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")

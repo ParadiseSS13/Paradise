@@ -18,7 +18,7 @@
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								"<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.usespeed, target = src))
+			if(do_after(user, 40 * W.use_speed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
@@ -34,7 +34,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 40, volume = I.use_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 
@@ -133,7 +133,7 @@
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\

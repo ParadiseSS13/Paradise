@@ -885,7 +885,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 1
 				return ITEM_INTERACT_COMPLETE
 
-			else if(used.tool_behaviour == TOOL_CROWBAR && !anchored)
+			else if(iscrowbar(used) && !anchored)
 				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
@@ -977,7 +977,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ITEM_INTERACT_COMPLETE
 
 		if(7)
-			if(used.tool_behaviour == TOOL_CROWBAR)
+			if(iscrowbar(used))
 				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
@@ -997,13 +997,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		build_step = 5
 		to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
 
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	return TRUE
 
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(build_step == 2)
-		if(!I.use_tool(src, user, 20, 5, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 20, 5, volume = I.use_volume))
 			return
 		if(build_step != 2)
 			return
@@ -1011,7 +1011,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, "<span class='notice'>You remove the turret's interior metal armor.</span>")
 		new /obj/item/stack/sheet/metal(drop_location(), 2)
 	else if(build_step == 7)
-		if(!I.use_tool(src, user, 50, amount = 5, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, amount = 5, volume = I.use_volume))
 			return
 		if(build_step != 7)
 			return

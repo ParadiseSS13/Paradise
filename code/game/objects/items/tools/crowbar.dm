@@ -16,7 +16,7 @@
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
-	toolspeed = 1
+	use_speed = 1
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
@@ -33,7 +33,7 @@
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
 	belt_icon = "crowbar_brass"
-	toolspeed = 0.5
+	use_speed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/tool/crowbar/small
@@ -46,7 +46,7 @@
 	icon_state = "crowbar_titanium"
 	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
-	toolspeed = 1.25
+	use_speed = 1.25
 
 /obj/item/tool/crowbar/large
 	name = "large crowbar"
@@ -58,7 +58,7 @@
 	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_large"
 	item_state = "crowbar_large"
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/crowbar/engineering
 	name = "engineering crowbar"
@@ -71,7 +71,7 @@
 	icon_state = "crowbar_eng"
 	item_state = "crowbar_eng"
 	belt_icon = "crowbar_eng"
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/crowbar/engineering/suicide_act(mob/living/user)
 
@@ -101,7 +101,7 @@
 	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 10
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/crowbar/cyborg/red
 	name = "emergency hydraulic crowbar"
@@ -119,7 +119,7 @@
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
-	toolspeed = 0.25
+	use_speed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 

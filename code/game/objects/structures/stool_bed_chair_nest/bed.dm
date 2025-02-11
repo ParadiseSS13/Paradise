@@ -55,7 +55,7 @@
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	deconstruct(TRUE)
 

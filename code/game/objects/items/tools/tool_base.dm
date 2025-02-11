@@ -6,6 +6,4 @@
 	var/tool_behaviour = NONE
 	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
 	var/tool_enabled = TRUE
-	/// Speed multiplier of the tool
-	var/toolspeed = 1
 

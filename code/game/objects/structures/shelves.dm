@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
-	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.use_volume))
 		return
 
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
-	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.use_volume))
 		return
 
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")

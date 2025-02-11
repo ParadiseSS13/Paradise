@@ -174,7 +174,7 @@
 /obj/proc/hear_message(mob/M, text)
 	return
 
-/obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+/obj/proc/default_welder_repair(mob/user, obj/item/tool/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 		return
@@ -184,13 +184,13 @@
 		return
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	if(I.use_tool(src, user, time, volume = I.use_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = max_integrity
 		update_icon()
 	return TRUE
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/tool/I, time = 20)
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
 		return FALSE
@@ -200,7 +200,7 @@
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		if(I.use_tool(src, user, time, volume = I.tool_volume))
+		if(I.use_tool(src, user, time, volume = I.use_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
 		return TRUE

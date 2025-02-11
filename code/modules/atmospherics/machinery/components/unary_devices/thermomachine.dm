@@ -134,7 +134,7 @@
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)

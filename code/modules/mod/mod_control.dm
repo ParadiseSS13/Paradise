@@ -284,7 +284,7 @@
 		if(!core)
 			to_chat(user, "<span class='warning'>There is no core!</span>")
 			return TRUE
-		wrench.play_tool_sound(src, 100)
+		wrench.play_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
 			return TRUE
 		if(!core)
@@ -302,7 +302,7 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	to_chat(user, "<span class='notice'>[open ? "Closing" : "Opening"] cover...</span>")
-	screwdriver.play_tool_sound(src, 100)
+	screwdriver.play_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
@@ -336,7 +336,7 @@
 			return FALSE
 		uninstall(module_to_remove)
 		module_to_remove.forceMove(drop_location())
-		crowbar.play_tool_sound(src, 100)
+		crowbar.play_sound(src, 100)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVED, user)
 		return TRUE
 	to_chat(user, "<span class='warning'>No modules!</span>")

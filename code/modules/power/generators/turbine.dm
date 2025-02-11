@@ -151,7 +151,7 @@
 		return TRUE
 
 /obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/tool/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return

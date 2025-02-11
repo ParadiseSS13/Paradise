@@ -137,7 +137,7 @@
 	if(!can_unanchor)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!anchored)
 		if(!isturf(loc) || isspaceturf(loc))
@@ -156,7 +156,7 @@
 
 /obj/machinery/syndicatebomb/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	open_panel = !open_panel
 	update_icon(UPDATE_ICON_STATE)
@@ -166,7 +166,7 @@
 	if(!open_panel)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	wires.Interact(user)
 
@@ -174,13 +174,13 @@
 	if(!open_panel)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	wires.Interact(user)
 
 /obj/machinery/syndicatebomb/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(open_panel && wires.is_all_cut())
 		if(payload)
@@ -201,7 +201,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		new /obj/item/stack/sheet/plasteel(drop_location(), 3)
 		qdel(src)
@@ -547,7 +547,7 @@
 
 /obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(length(beakers) == 0)
 		return
@@ -621,7 +621,7 @@
 	if(!ttv)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	ttv.forceMove(get_turf(src))
 	ttv = null

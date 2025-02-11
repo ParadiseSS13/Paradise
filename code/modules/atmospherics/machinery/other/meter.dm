@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 /obj/machinery/atmospherics/meter/wrench_act(mob/living/user, obj/item/tool/wrench/W)
 	// don't call parent here, we're kind of different
 	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
-	if(!W.use_tool(src, user, volume = W.tool_volume))
+	if(!W.use_tool(src, user, volume = W.use_volume))
 		return
 
 	user.visible_message(

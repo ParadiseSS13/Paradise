@@ -75,7 +75,7 @@
 	. = ..()
 	if(!is_open)
 		return
-	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
+	if(!hidden && isscrewdriver(I) && I.w_class == WEIGHT_CLASS_TINY)
 		if(istype(I, /obj/item/disk/nuclear))
 			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
 			return
@@ -99,7 +99,7 @@
 	add_fingerprint(user)
 
 /obj/item/crutches/screwdriver_act(mob/living/user, obj/item/tool/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
 	is_open = !is_open

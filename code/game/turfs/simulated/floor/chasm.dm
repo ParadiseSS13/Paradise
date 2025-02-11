@@ -73,11 +73,11 @@
 
 			if(isrobot(user))
 				for(var/obj/item/thing in user.get_all_slots())
-					if(thing.tool_behaviour == TOOL_SCREWDRIVER)
+					if(isscrewdriver(thing))
 						inactive = thing
 						break
 
-			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
+			if(!inactive || !isscrewdriver(inactive))
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
 				return ITEM_INTERACT_COMPLETE
 			var/obj/item/stack/rods/R = used

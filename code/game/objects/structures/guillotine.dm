@@ -190,7 +190,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	current_action = GUILLOTINE_ACTION_WRENCH
-	if(!I.use_tool(src, user, GUILLOTINE_WRENCH_DELAY, volume = I.tool_volume))
+	if(!I.use_tool(src, user, GUILLOTINE_WRENCH_DELAY, volume = I.use_volume))
 		current_action = 0
 		return
 	if(has_buckled_mobs())
@@ -208,7 +208,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 40, volume = I.use_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		var/turf/T = get_turf(src)
 		if(blade_sharpness == GUILLOTINE_BLADE_MAX_SHARP)

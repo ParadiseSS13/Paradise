@@ -252,7 +252,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		if(!welded)
 			welded = TRUE
 			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\

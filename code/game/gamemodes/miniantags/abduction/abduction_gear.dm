@@ -632,7 +632,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "screwdriver"
 	belt_icon = null
 	usesound = 'sound/items/pshoom.ogg'
-	toolspeed = 0.1
+	use_speed = 0.1
 	random_color = FALSE
 
 /obj/item/tool/wrench/abductor
@@ -642,7 +642,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "wrench"
 	belt_icon = null
 	usesound = 'sound/effects/empulse.ogg'
-	toolspeed = 0.1
+	use_speed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
 /obj/item/tool/weldingtool/abductor
@@ -651,7 +651,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	belt_icon = null
-	toolspeed = 0.1
+	use_speed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
@@ -666,7 +666,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "crowbar"
 	belt_icon = null
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
-	toolspeed = 0.1
+	use_speed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
@@ -676,7 +676,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
 	belt_icon = null
-	toolspeed = 0.1
+	use_speed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
 
@@ -690,7 +690,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	belt_icon = null
-	toolspeed = 0.1
+	use_speed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 
@@ -722,63 +722,63 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "It's a gleaming sharp knife made out of silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/hemostat/alien
 	name = "alien hemostat"
 	desc = "You've never seen this before."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/retractor/alien
 	name = "alien retractor"
 	desc = "You're not sure if you want the veil pulled back."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/circular_saw/alien
 	name = "alien saw"
 	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/cautery/alien
 	name = "alien cautery"
 	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/bonegel/alien
 	name = "alien bone gel"
 	desc = "It smells like duct tape."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/fix_o_vein/alien
 	name = "alien FixOVein"
 	desc = "Bloodless aliens would totally know how to stop internal bleeding... Right?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /obj/item/tool/bonesetter/alien
 	name = "alien bone setter"
 	desc = "You're not sure you want to know whether or not aliens have bones."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
+	use_speed = 0.25
 
 /////////////////////////////////////////
 //////////// JANITORIAL TOOLS ///////////

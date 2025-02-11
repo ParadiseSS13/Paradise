@@ -1196,7 +1196,6 @@
 #include "code\game\objects\items\tools\multitool.dm"
 #include "code\game\objects\items\tools\screwdriver.dm"
 #include "code\game\objects\items\tools\tool_base.dm"
-#include "code\game\objects\items\tools\tool_base.dm"
 #include "code\game\objects\items\tools\tool_behaviour.dm"
 #include "code\game\objects\items\tools\welder.dm"
 #include "code\game\objects\items\tools\wirecutters.dm"

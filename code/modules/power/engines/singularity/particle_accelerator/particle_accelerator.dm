@@ -180,7 +180,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
@@ -196,7 +196,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
@@ -205,7 +205,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
 		anchored = TRUE
@@ -258,7 +258,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
@@ -275,7 +275,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
@@ -284,7 +284,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
 		anchored = TRUE

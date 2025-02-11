@@ -116,7 +116,7 @@
 			W.forceMove(src)
 		return TRUE
 
-/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
+/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(opened)
 		return
 	if(!rigged)
@@ -439,7 +439,7 @@
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
 
-/obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
+/obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

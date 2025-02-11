@@ -24,7 +24,7 @@
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
 			to_chat(user, "<span class='notice'>You start trying to remove the APC electronics...</span>" )
-			if(I.use_tool(src, user, 50, volume = I.tool_volume))
+			if(I.use_tool(src, user, 50, volume = I.use_volume))
 				if(has_electronics())
 					electronics_state = APC_ELECTRONICS_NONE
 					if(stat & BROKEN)
@@ -71,7 +71,7 @@
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	else if(opened)
 		if(cell && !(stat & MAINT))
@@ -100,7 +100,7 @@
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
@@ -109,7 +109,7 @@
 
 /obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
@@ -121,7 +121,7 @@
 	if(!I.tool_use_check(user, 3))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, amount = 3, volume = I.use_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\

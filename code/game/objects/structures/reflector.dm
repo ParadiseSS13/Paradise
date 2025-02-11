@@ -80,7 +80,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 80, volume = I.use_volume))
 		return
 	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -95,13 +95,13 @@
 		return
 	if(anchored)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.use_volume))
 			return
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		anchored = FALSE
 	else
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.use_volume))
 			return
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 		anchored = TRUE

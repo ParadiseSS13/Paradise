@@ -206,7 +206,7 @@
 
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/direction = tgui_input_list(user, "Which direction?", "Select direction", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
@@ -277,7 +277,7 @@
 	if(!I.use_tool(src, user, 0 SECONDS))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.use_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct()
 

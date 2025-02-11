@@ -30,7 +30,7 @@
 	if(!refined_type)
 		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
 		return
-	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, 15, volume = I.use_volume))
 		return
 	new refined_type(drop_location(), amount)
 	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(string_attached)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/typelist = list("iron" = /obj/item/clothing/gloves/ring,
 						"silver" = /obj/item/clothing/gloves/ring/silver,

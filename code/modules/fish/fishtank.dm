@@ -717,5 +717,5 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now disassembling [src].</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		deconstruct(TRUE)

@@ -241,7 +241,7 @@
 	if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = used
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
-		if(do_after(user, 30 * coil.usespeed, target = src))
+		if(do_after(user, 30 * coil.use_speed, target = src))
 			if(!src || !coil)
 				return ITEM_INTERACT_COMPLETE
 			coil.use(1)
@@ -265,7 +265,7 @@
 
 /obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	is_open = !is_open
 	if(is_open)
@@ -278,7 +278,7 @@
 	if(locked)
 		to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
@@ -448,7 +448,7 @@
 	if(activated)
 		to_chat(user, "<span class='warning'>Turn off the field generator first.</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	anchored = !anchored
 	to_chat(user, anchored ? "You secure the external reinforcing bolts to the floor." : "You undo the external reinforcing bolts.")

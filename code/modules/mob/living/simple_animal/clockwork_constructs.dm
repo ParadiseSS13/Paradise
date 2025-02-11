@@ -58,7 +58,7 @@
 			damage_shield()
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg', 40, 1)
 
-	if((I.tool_behaviour == TOOL_WELDER) && (user.a_intent == INTENT_HELP))
+	if(iswelder(I) && (user.a_intent == INTENT_HELP))
 		welder_act(user, I)
 		return
 	. = ..()

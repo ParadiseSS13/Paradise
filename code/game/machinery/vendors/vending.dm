@@ -527,7 +527,7 @@
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	wires.Interact(user)
 
@@ -536,7 +536,7 @@
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!anchored)
 		return

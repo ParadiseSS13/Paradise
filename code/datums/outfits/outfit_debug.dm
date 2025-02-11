@@ -197,12 +197,12 @@
 /obj/item/tool/scalpel/laser/manager/debug
 	name = "AVD-CNED IMS"
 	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
-	toolspeed = 0.01
+	use_speed = 0.01
 
 /obj/item/tool/scalpel/laser/manager/debug/attack_self__legacy__attackchain(mob/user)
 	. = ..()
-	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
-	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
+	use_speed = use_speed == 0.5 ? 0.01 : 0.5
+	to_chat(user, "[src] is now set to use_speed [use_speed]")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
 /obj/item/organ/internal/cyberimp/arm/surgery/debug

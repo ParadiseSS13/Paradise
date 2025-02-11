@@ -111,7 +111,7 @@ emp_act
 	var/surgery_time = 0
 	if(user == src)
 		surgery_time = 10
-	if(!I.use_tool(src, user, surgery_time, amount = 1, volume = I.tool_volume))
+	if(!I.use_tool(src, user, surgery_time, amount = 1, volume = I.use_volume))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0

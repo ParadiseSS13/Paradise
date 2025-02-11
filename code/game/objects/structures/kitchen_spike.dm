@@ -14,7 +14,7 @@
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.use_volume))
 		return TRUE
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	deconstruct(TRUE)
@@ -81,7 +81,7 @@
 	if(has_buckled_mobs())
 		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 	deconstruct(TRUE)

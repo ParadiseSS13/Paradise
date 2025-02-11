@@ -160,7 +160,7 @@
 		density = anchored
 		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the trunk.</span>" : "<span class='notice'>You detach the [nicetype] from the trunk.</span>")
 
-	I.play_tool_sound(src, I.tool_volume)
+	I.play_sound(src, I.use_volume)
 	update()
 	. |= RPD_TOOL_SUCCESS
 
@@ -217,7 +217,7 @@
 		if(anchored)
 			if(I.tool_use_check(user, 0))
 				to_chat(user, "<span class='notice'>You begin welding the [nicetype] in place.</span>")
-				if(I.use_tool(src, user, 20, volume = I.tool_volume))
+				if(I.use_tool(src, user, 20, volume = I.use_volume))
 					to_chat(user, "<span class='notice'>You have welded the [nicetype] in place!</span>")
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe

@@ -192,7 +192,7 @@
 		user.visible_message("<span class='notice'>[user] unsecures [src]'s reinforcing bolts from the floor.</span>",
 			"<span class='notice'>You undo the external reinforcing bolts.</span>",
 			"<span class='notice'>You hear a ratchet.</span>")
-	playsound(src, I.usesound, I.tool_volume, TRUE)
+	playsound(src, I.usesound, I.use_volume, TRUE)
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
@@ -221,7 +221,7 @@
 	else if(state == EMITTER_WELDED)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 20, volume = I.use_volume))
 		return
 
 	if(state == EMITTER_NEEDS_WELDER)

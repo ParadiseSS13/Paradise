@@ -60,13 +60,13 @@
 	installed.dir = dir
 	user.visible_message("<span class='notice'>[user] installs [src].</span>")
 
-	I.play_tool_sound(src, I.tool_volume)
+	I.play_sound(src, I.use_volume)
 	qdel(src)
 	. |= RPD_TOOL_SUCCESS
 
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.use_volume))
 		user.visible_message("<span class='notice'>[user] disassembles [src].</span>")
 		qdel(src)
 

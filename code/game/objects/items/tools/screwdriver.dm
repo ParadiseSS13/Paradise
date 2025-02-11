@@ -16,7 +16,7 @@
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
-	toolspeed = 1
+	use_speed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
@@ -35,7 +35,7 @@
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
 	belt_icon = "screwdriver_nuke"
-	toolspeed = 0.5
+	use_speed = 0.5
 	random_color = FALSE
 
 /obj/item/tool/screwdriver/suicide_act(mob/user)
@@ -68,7 +68,7 @@
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
 	belt_icon = "screwdriver_brass"
-	toolspeed = 0.5
+	use_speed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -77,7 +77,7 @@
 	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
 	icon_state = "screwdriver_cargo"
 	belt_icon = "screwdriver_cargo"
-	toolspeed = 0.75
+	use_speed = 0.75
 	random_color = FALSE
 
 /obj/item/tool/screwdriver/cargo/suicide_act(mob/living/user)
@@ -110,7 +110,7 @@
 	attack_verb = list("drilled", "screwed", "jabbed","whacked")
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.25
+	use_speed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
@@ -136,4 +136,4 @@
 	name = "powered screwdriver"
 	desc = "An electrical screwdriver, designed to be both precise and quick."
 	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.5
+	use_speed = 0.5

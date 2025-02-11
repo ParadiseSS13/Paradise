@@ -328,7 +328,7 @@
 	if(density || operating)
 		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
@@ -345,7 +345,7 @@
 	if(panel_open && !density && !operating)
 		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
 							"You start to remove electronics from the [name]...")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
 				switch(base_state)
@@ -499,7 +499,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, volume = I.use_volume))
 		return
 	if(!panel_open && operating && !loc)
 		return

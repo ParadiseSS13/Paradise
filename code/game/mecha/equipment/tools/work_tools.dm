@@ -206,7 +206,7 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = MECH_RCD_MODE_DECONSTRUCT
 	var/can_rwall = 0
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()

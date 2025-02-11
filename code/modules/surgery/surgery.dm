@@ -348,7 +348,7 @@
 	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
 
 	if(tool)
-		speed_mod = tool.usespeed
+		speed_mod = tool.use_speed
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1

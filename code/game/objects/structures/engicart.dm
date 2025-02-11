@@ -93,7 +93,7 @@
 
 /obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!anchored && !isinspace())
-		I.play_tool_sound(src, I.tool_volume)
+		I.play_sound(src, I.use_volume)
 		user.visible_message(
 			"[user] tightens [src]'s casters.",
 			"<span class='notice'>You have tightened [src]'s casters.</span>",
@@ -101,7 +101,7 @@
 		)
 		anchored = TRUE
 	else if(anchored)
-		I.play_tool_sound(src, I.tool_volume)
+		I.play_sound(src, I.use_volume)
 		user.visible_message(
 			"[user] loosens [src]'s casters.",
 			"<span class='notice'> You have loosened [src]'s casters.</span>",

@@ -34,7 +34,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	if(I.use_tool(src, user, volume = I.tool_volume))
+	if(I.use_tool(src, user, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
 		overlays -= current_overlay
 		current_overlay = null
@@ -64,7 +64,7 @@
 	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
 	playsound(src, I.usesound, 80, TRUE)
 
-	if(do_after(user, 3 SECONDS * I.usespeed, target = src))
+	if(do_after(user, 3 SECONDS * I.use_speed, target = src))
 		if(R.get_amount() < 2 || !transparent_floor)
 			return
 	else
@@ -123,7 +123,7 @@
 
 /turf/simulated/floor/transparent/glass/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
+	if(!thing || !iscrowbar(thing))
 		return
 	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
 

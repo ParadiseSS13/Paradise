@@ -95,7 +95,7 @@
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(can_multitool_to_remove)
 		qdel(src)

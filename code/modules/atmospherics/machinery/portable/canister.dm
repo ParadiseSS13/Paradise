@@ -501,7 +501,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		return
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
 		new /obj/item/stack/sheet/metal(drop_location(), 3)
 		qdel(src)

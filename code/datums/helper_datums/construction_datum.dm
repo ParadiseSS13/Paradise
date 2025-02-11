@@ -62,7 +62,7 @@
 	else if(istype(used_atom, /obj/item/tool))
 		var/obj/item/tool/I = used_atom
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+			if(!I.use_tool(holder, user, 0, volume = I.use_volume))
 				return 0
 	return 1
 

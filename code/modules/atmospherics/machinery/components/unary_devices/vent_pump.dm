@@ -212,8 +212,8 @@
 	if(welded)
 		return
 	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
-	if(do_after(user, 20 * I.usespeed, target = src))
-		I.play_tool_sound(src)
+	if(do_after(user, 20 * I.use_speed, target = src))
+		I.play_sound(src)
 		user.visible_message("<span class='notice'>[user] screws the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screw the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
 		open = !open
 	return TRUE
@@ -223,7 +223,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		if(!welded)
 			welded = TRUE
 			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\

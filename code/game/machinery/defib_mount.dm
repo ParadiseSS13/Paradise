@@ -122,7 +122,7 @@
 	if(defib)
 		to_chat(user, "<span class='warning'>[defib] is blocking access to the bolts!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))

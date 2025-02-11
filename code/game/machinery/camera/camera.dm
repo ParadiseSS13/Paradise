@@ -215,7 +215,7 @@
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
@@ -241,7 +241,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 100, volume = I.tool_volume))
+	if(I.use_tool(src, user, 100, volume = I.use_volume))
 		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
 						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
 		deconstruct(TRUE)

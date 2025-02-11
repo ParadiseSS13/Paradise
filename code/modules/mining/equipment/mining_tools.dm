@@ -18,7 +18,7 @@
 	sharp = TRUE
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
-	toolspeed = 1
+	use_speed = 1
 
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
@@ -49,7 +49,7 @@
 	icon_state = "bone_pickaxe"
 	item_state = "bone_pickaxe"
 	origin_tech = "materials=1;engineering=2"
-	toolspeed = 0.7
+	use_speed = 0.7
 	force = 16
 	materials = list()
 
@@ -59,7 +59,7 @@
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
 	origin_tech = "materials=3;engineering=4"
-	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
+	use_speed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
 	force = 17
 	materials = list(MAT_METAL = 1900, MAT_SILVER = 100)
 
@@ -69,7 +69,7 @@
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
 	origin_tech = "materials=4;engineering=4"
-	toolspeed = 0.4
+	use_speed = 0.4
 	force = 18
 	materials = list(MAT_METAL = 1900, MAT_GOLD = 100)
 
@@ -79,7 +79,7 @@
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
 	origin_tech = "materials=5;engineering=4"
-	toolspeed = 0.3
+	use_speed = 0.3
 	force = 19
 	materials = list(MAT_METAL = 1900, MAT_DIAMOND = 100)
 
@@ -89,7 +89,7 @@
 	icon_state = "handdrill"
 	item_state = "jackhammer"
 	digsound = list('sound/weapons/drill.ogg')
-	toolspeed = 0.6 //available from roundstart, faster than a pickaxe.
+	use_speed = 0.6 //available from roundstart, faster than a pickaxe.
 	hitsound = 'sound/weapons/drill.ogg'
 	usesound = 'sound/weapons/drill.ogg'
 	origin_tech = "materials=2;powerstorage=2;engineering=3"
@@ -104,13 +104,13 @@
 	desc = "Yours is the drill that will pierce the heavens!"
 	icon_state = "diamonddrill"
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
-	toolspeed = 0.2
+	use_speed = 0.2
 
 /// This is the BORG version!
 /obj/item/pickaxe/drill/cyborg/diamond
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
-	toolspeed = 0.2
+	use_speed = 0.2
 
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
@@ -121,7 +121,7 @@
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
-	toolspeed = 0.1 //the epitome of powertools. extremely fast mining, laughs at puny walls
+	use_speed = 0.1 //the epitome of powertools. extremely fast mining, laughs at puny walls
 	force = 20 //This thing breaks rwalls, it should be able to hit harder than a DIY bone pickaxe.
 
 /obj/item/shovel
@@ -139,7 +139,7 @@
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	usesound = 'sound/effects/shovel_dig.ogg'
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/shovel/spade
 	name = "spade"

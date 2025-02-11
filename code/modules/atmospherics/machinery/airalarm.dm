@@ -1054,7 +1054,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!I.tool_start_check(src, user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 20, volume = I.use_volume))
 		return
 	if(buildstage != AIR_ALARM_UNWIRED)
 		return
@@ -1067,7 +1067,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(wiresexposed)
 		attack_hand(user)
@@ -1076,7 +1076,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	wiresexposed = !wiresexposed
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
@@ -1089,7 +1089,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(loc)
@@ -1104,7 +1104,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(buildstage != AIR_ALARM_FRAME)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	new /obj/item/mounted/frame/alarm_frame(loc)
 	WRENCH_UNANCHOR_WALL_MESSAGE
@@ -1184,7 +1184,7 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef AALARM_PRESET_HUMAN

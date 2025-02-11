@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	b_stat = !b_stat
@@ -585,13 +585,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	interact(user)
 
 /obj/item/radio/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	interact(user)
 
@@ -708,7 +708,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 		recalculateChannels()
 		to_chat(user, "You pop out the encryption key in the radio!")
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 
 	else
 		to_chat(user, "This radio doesn't have any encryption keys!")

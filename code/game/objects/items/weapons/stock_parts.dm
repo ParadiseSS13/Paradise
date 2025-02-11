@@ -22,7 +22,7 @@
 	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/rped.ogg'
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
@@ -87,7 +87,7 @@
 	primary_sound = 'sound/items/pshoom.ogg'
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/storage/part_replacer/bluespace/tier4/populate_contents()
 	for(var/amount in 1 to 30)
@@ -116,7 +116,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/rating = 1
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 //Rank 1

@@ -45,15 +45,17 @@
 		return FINISH_ATTACK
 
 	if(d_state == RWALL_COVER && istype(attacking, /obj/item/gun/energy/plasmacutter))
+		var/obj/item/gun/energy/plasmacutter/cutter = attacking
 		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
-		if(attacking.use_tool(src, user, 40, volume = attacking.tool_volume) && d_state == RWALL_COVER)
+		if(cutter.plasmawelder.use_tool(src, user, 40, volume = attacking.use_volume) && d_state == RWALL_COVER)
 			d_state = RWALL_CUT_COVER
 			update_icon()
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 		return FINISH_ATTACK
 	else if(d_state == RWALL_SUPPORT_RODS && istype(attacking, /obj/item/gun/energy/plasmacutter))
+		var/obj/item/gun/energy/plasmacutter/cutter = attacking
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
-		if(attacking.use_tool(src, user, 70, volume = attacking.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+		if(cutter.plasmawelder.use_tool(src, user, 70, volume = attacking.use_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
 			update_icon()
 		return FINISH_ATTACK
@@ -63,7 +65,7 @@
 		if(istype(attacking, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/metal/MS = attacking
 			to_chat(user, "<span class='notice'>You begin patching-up the wall with [MS]...</span>")
-			if(do_after(user, max(20 * d_state, 100) * MS.usespeed, target = src) && d_state)
+			if(do_after(user, max(20 * d_state, 100) * MS.use_speed, target = src) && d_state)
 				if(!MS.use(1))
 					to_chat(user, "<span class='warning'>You don't have enough [MS.name] for that!</span>")
 					return FINISH_ATTACK
@@ -74,7 +76,7 @@
 			return FINISH_ATTACK
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/tool/I)
-	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.use_volume))
 		thermitemelt(user)
 		return TRUE
 	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))
@@ -84,16 +86,16 @@
 		return
 	if(d_state == RWALL_COVER)
 		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
-		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_COVER)
+		if(I.use_tool(src, user, 60, volume = I.use_volume) && d_state == RWALL_COVER)
 			d_state = RWALL_CUT_COVER
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 	else if(d_state == RWALL_SUPPORT_RODS)
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
-		if(I.use_tool(src, user, 100, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+		if(I.use_tool(src, user, 100, volume = I.use_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
 	else if(d_state == RWALL_CUT_COVER)
 		to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
-		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_CUT_COVER)
+		if(I.use_tool(src, user, 60, volume = I.use_volume) && d_state == RWALL_CUT_COVER)
 			to_chat(user, "<span class='notice'>The metal cover has been welded securely to the frame.</span>")
 			d_state = RWALL_COVER
 	update_icon()
@@ -107,13 +109,13 @@
 	switch(d_state)
 		if(RWALL_CUT_COVER)
 			to_chat(user, "<span class='notice'>You struggle to pry off the cover...</span>")
-			if(!I.use_tool(src, user, 100, volume = I.tool_volume) || d_state != RWALL_CUT_COVER)
+			if(!I.use_tool(src, user, 100, volume = I.use_volume) || d_state != RWALL_CUT_COVER)
 				return
 			d_state = RWALL_BOLTS
 			to_chat(user, "<span class='notice'>You pry off the cover.</span>")
 		if(RWALL_SHEATH)
 			to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
-			if(!I.use_tool(src, user, 100, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 100, volume = I.use_volume))
 				return
 			if(dismantle_wall())
 				to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
@@ -121,7 +123,7 @@
 		if(RWALL_BOLTS)
 			to_chat(user, "<span class='notice'>You start to pry the cover back into place...</span>")
 			playsound(src, I.usesound, 100, 1)
-			if(!I.use_tool(src, user, 20, volume = I.tool_volume) || d_state != RWALL_BOLTS)
+			if(!I.use_tool(src, user, 20, volume = I.use_volume) || d_state != RWALL_BOLTS)
 				return
 			d_state = RWALL_CUT_COVER
 			to_chat(user, "<span class='notice'>The metal cover has been pried back into place.</span>")
@@ -138,7 +140,7 @@
 		to_chat(user, "<span class='notice'>You begin unsecuring the support lines...</span>")
 	else
 		to_chat(user, "<span class='notice'>You begin securing the support lines...</span>")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_SUPPORT_LINES)
 		d_state = RWALL_COVER
@@ -152,7 +154,7 @@
 	if(d_state != RWALL_INTACT && d_state != RWALL_SUPPORT_LINES)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(d_state == RWALL_INTACT)
 		d_state = RWALL_SUPPORT_LINES
@@ -173,7 +175,7 @@
 		to_chat(user, "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame...</span>")
 	else
 		to_chat(user, "<span class='notice'>You start tightening the bolts which secure the support rods to their frame...</span>")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_BOLTS)
 		d_state = RWALL_SUPPORT_RODS
@@ -190,7 +192,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall...</span>")
 
-		if(do_after(user, 800 * I.usespeed, target = src)) // Diamond drill has 0.25 toolspeed, so 200
+		if(do_after(user, 800 * I.use_speed, target = src)) // Diamond drill has 0.25 use_speed, so 200
 			to_chat(user, "<span class='notice'>Your drill tears through the last of the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
@@ -198,21 +200,21 @@
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrate the wall...</span>")
 
-		if(do_after(user, 1000 * I.usespeed, target = src)) // Jackhammer has 0.1 toolspeed, so 100
+		if(do_after(user, 1000 * I.use_speed, target = src)) // Jackhammer has 0.1 use_speed, so 100
 			to_chat(user, "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
 
 	if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
-		if(do_after(user, 50 * I.usespeed, target = src)) // claws has 0.5 toolspeed, so 2.5 seconds
+		if(do_after(user, 50 * I.use_speed, target = src)) // claws has 0.5 use_speed, so 2.5 seconds
 			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
 
 	if(istype(I, /obj/item/zombie_claw))
 		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
-		if(do_after(user, 2 MINUTES * I.usespeed, target = src))
+		if(do_after(user, 2 MINUTES * I.use_speed, target = src))
 			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE

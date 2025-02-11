@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	max_amount = 50
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	usespeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 		return
 
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	var/obj/item/stack/sheet/metal/new_item = new(drop_location())

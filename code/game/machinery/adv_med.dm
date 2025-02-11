@@ -109,7 +109,7 @@
 
 /obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(occupant)
 		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")

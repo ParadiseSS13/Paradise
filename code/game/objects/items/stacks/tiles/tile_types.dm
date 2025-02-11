@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		to_chat(user, "<span class='warning'>You can not reform this!</span>")
 		return
 	if(mineralType == "metal")

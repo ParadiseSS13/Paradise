@@ -590,7 +590,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/pizzabox/pizza_bomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/pizzabox/pizza_bomb/attackby__legacy__attackchain(obj/item/tool/I, mob/user, params)
 	if(!open)
 		return
 	. = TRUE

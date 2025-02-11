@@ -12,7 +12,7 @@
 
 	var/turf/plating = player.change_turf_nearby(/turf/simulated/floor/plating)
 	var/obj/item/stack/rods/rods = player.spawn_obj_in_hand(/obj/item/stack/rods/fifty)
-	rods.usespeed = 0 // Don't want to try waiting this out in a test
+	rods.use_speed = 0 // Don't want to try waiting this out in a test
 	player.click_on(plating)
 	var/turf/engine = get_turf(plating)
 	TEST_ASSERT(istype(engine, /turf/simulated/floor/engine), "Did not find plating converted to engine floor")

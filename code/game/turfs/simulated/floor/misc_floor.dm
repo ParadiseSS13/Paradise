@@ -216,7 +216,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
-	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 70, volume = I.use_volume))
 		return
 	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
 	make_plating()
@@ -278,7 +278,7 @@
 
 /turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	pry_tile(I, user, TRUE)
 

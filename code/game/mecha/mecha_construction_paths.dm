@@ -41,9 +41,11 @@
 		else
 			S.use(STANDARD_STACK_AMOUNT)
 	else if(isitem(used_atom))
-		var/obj/item/I = used_atom
+		var/obj/item/tool/I = used_atom
+		if(!istype(used_atom))
+			return 0
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+			if(!I.use_tool(holder, user, 0, volume = I.use_volume))
 				return 0
 	return 1
 

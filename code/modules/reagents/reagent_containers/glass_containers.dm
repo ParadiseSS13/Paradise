@@ -211,7 +211,7 @@
 		assembly.hear_message(M, msg)
 
 /obj/item/reagent_containers/glass/beaker/screwdriver_act(mob/living/user, obj/item/tool/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(assembly)
 		to_chat(user, "<span class='notice'>You detach [assembly] from [src]</span>")

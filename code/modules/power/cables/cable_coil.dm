@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
-	var/toolspeed = 1
+	use_speed = 1
 
 /obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()

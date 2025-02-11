@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	amount = 50
 
 /obj/item/stack/sheet/mineral/plasma/welder_act(mob/user, obj/item/tool/I)
-	if(I.use_tool(src, user, volume = I.tool_volume))
+	if(I.use_tool(src, user, volume = I.use_volume))
 		log_and_set_aflame(user, I)
 	return TRUE
 

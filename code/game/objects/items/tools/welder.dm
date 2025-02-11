@@ -20,7 +20,7 @@
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
-	toolspeed = 1
+	use_speed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
@@ -259,7 +259,7 @@
 /obj/item/tool/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
 	desc = "An advanced welder designed to be used in robotic systems."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/weldingtool/research
 	name = "research welding tool"
@@ -268,7 +268,7 @@
 	item_state = "welder_research"
 	belt_icon = "welder_research"
 	maximum_fuel = 40
-	toolspeed = 0.75
+	use_speed = 0.75
 	light_intensity = 1
 
 /obj/item/tool/weldingtool/research/suicide_act(mob/living/user)
@@ -318,7 +318,7 @@
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"
 	light_intensity = 1
-	toolspeed = 0.5
+	use_speed = 0.5
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 

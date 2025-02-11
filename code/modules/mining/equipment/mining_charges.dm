@@ -43,7 +43,7 @@
 	if(iscarbon(AM))
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].</span>")
-	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
+	if(!do_after(user, (2.5 SECONDS) * use_speed, target = AM))
 		return
 	if(!user.unequip(src))
 		return

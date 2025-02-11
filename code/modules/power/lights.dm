@@ -57,7 +57,7 @@
 	switch(stage)
 		if(LIGHT_CONSTRUCT_EMPTY_FRAME)
 			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
-			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 30, volume = I.use_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -70,7 +70,7 @@
 /obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	. = TRUE
 
@@ -83,7 +83,7 @@
 	if(stage != LIGHT_CONSTRUCT_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	stage = LIGHT_CONSTRUCT_COMPLETED
@@ -148,7 +148,7 @@
 	switch(stage)
 		if(1)
 			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
-			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 30, volume = I.use_volume))
 				return
 			new /obj/item/stack/tile/brass(get_turf(loc), sheets_refunded)
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -691,7 +691,7 @@
 	if(status != LIGHT_EMPTY)
 		return
 
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 	deconstruct()

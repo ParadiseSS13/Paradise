@@ -120,20 +120,20 @@
 	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
 		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
-				if(SI.tool_behaviour) //filters for tool behaviours
+				if(istool(SI)) //filters for tool behaviours
 					possible_tools += SI
-		if(I.tool_behaviour)
+		if(istool(I))
 			possible_tools += I
 
 	possible_tools |= contents["toolsother"] // this add contents to possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in R.tools)
-			for(var/obj/item/I in possible_tools)
+			for(var/obj/item/tool/I in possible_tools)
 				if(A == I.tool_behaviour)
 					tools_used += I
 					continue main_loop
 			return FALSE
-	for(var/obj/item/T in tools_used)
+	for(var/obj/item/tool/T in tools_used)
 		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE

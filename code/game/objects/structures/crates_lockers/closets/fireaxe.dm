@@ -34,7 +34,7 @@
 		if(istype(O, /obj/item/tool/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-			if(do_after(user, 20 * O.usespeed, target = src))
+			if(do_after(user, 20 * O.use_speed, target = src))
 				locked = FALSE
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon(UPDATE_ICON_STATE)
@@ -89,7 +89,7 @@
 			else
 				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
 				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-				if(do_after(user, 20 * O.usespeed, target = src))
+				if(do_after(user, 20 * O.use_speed, target = src))
 					locked = TRUE
 					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
 				return

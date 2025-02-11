@@ -448,7 +448,7 @@
 
 		recalculateChannels()
 		to_chat(user, "You pop out the encryption keys in the headset!")
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 	else
 		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 

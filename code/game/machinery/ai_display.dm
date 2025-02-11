@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	if(!I.use_tool(src, user, 0 SECONDS))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.use_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct()
 

@@ -92,7 +92,7 @@
 		return
 
 	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 30, volume = I.use_volume))
 		return
 
 	WRENCH_UNANCHOR_WALL_MESSAGE

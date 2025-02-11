@@ -141,7 +141,7 @@
 	if(operating || !welded)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
 						"<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
@@ -160,7 +160,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] starts undoing [src]'s bolts...</span>", \
 						"<span class='notice'>You start unfastening [src]'s floor bolts...</span>")
-	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || boltslocked)
+	if(!I.use_tool(src, user, 50, volume = I.use_volume) || boltslocked)
 		return
 	user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
 							"<span class='notice'>You undo [src]'s floor bolts.</span>")
@@ -176,7 +176,7 @@
 		WELDER_ATTEMPT_UNWELD_MESSAGE
 	else
 		WELDER_ATTEMPT_WELD_MESSAGE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, volume = I.use_volume))
 		return
 	if(!density) //In case someone opens it while it's getting welded
 		return
@@ -372,7 +372,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/firelock_frame
@@ -417,7 +417,7 @@
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									"<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 60 * C.usespeed, target = src))
+				if(do_after(user, 60 * C.use_speed, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
@@ -435,7 +435,7 @@
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									"<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 60 * B.usespeed, target = src))
+				if(do_after(user, 60 * B.use_speed, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
@@ -450,7 +450,7 @@
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									"<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 40 * C.usespeed, target = src))
+				if(!do_after(user, 40 * C.use_speed, target = src))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
@@ -473,7 +473,7 @@
 	if(constructionStep == CONSTRUCTION_WIRES_EXPOSED)
 		user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \
 							"<span class='notice'>You begin prying the cover plate back onto [src]...</span>")
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, volume = I.use_volume))
 			return
 		if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 			return
@@ -483,7 +483,7 @@
 	else if(constructionStep == CONSTRUCTION_PANEL_OPEN)
 		user.visible_message("<span class='notice'>[user] starts prying something out from [src]...</span>", \
 							"<span class='notice'>You begin prying out the wire cover...</span>")
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, volume = I.use_volume))
 			return
 		if(constructionStep != CONSTRUCTION_PANEL_OPEN)
 			return
@@ -493,7 +493,7 @@
 	else if(constructionStep == CONSTRUCTION_GUTTED)
 		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", \
 							"<span class='notice'>You begin prying out the circuit board from [src]...</span>")
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, volume = I.use_volume))
 			return
 		if(constructionStep != CONSTRUCTION_GUTTED)
 			return
@@ -512,7 +512,7 @@
 
 	user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
 						"<span class='notice'>You begin removing [src]'s wires...</span>")
-	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 50, volume = I.use_volume))
 		return
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 		return
@@ -534,7 +534,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
 						"<span class='notice'>You begin bolting [src]...</span>")
-	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 50, volume = I.use_volume))
 		return
 	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
 		return
@@ -558,7 +558,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(!I.use_tool(src, user, 40, amount = 1, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, amount = 1, volume = I.use_volume))
 		return
 	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 		return

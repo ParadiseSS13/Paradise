@@ -50,7 +50,7 @@
 	if(!length(modkits))
 		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)

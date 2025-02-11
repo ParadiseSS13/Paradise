@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.use_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)

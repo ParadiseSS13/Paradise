@@ -9,7 +9,7 @@
 	materials = list(MAT_PLASMA=500)
 
 /obj/item/stack/tile/mineral/plasma/welder_act(mob/user, obj/item/tool/I)
-	if(I.use_tool(src, user, volume = I.tool_volume))
+	if(I.use_tool(src, user, volume = I.use_volume))
 		atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
 		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
 							"<span class='warning'>You set the plasma tiles on fire!</span>")

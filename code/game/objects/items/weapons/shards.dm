@@ -68,7 +68,7 @@
 
 /obj/item/shard/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	new welded_type(user.loc)
 	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack.</span>")

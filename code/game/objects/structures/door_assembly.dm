@@ -70,7 +70,7 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
-		if(do_after(user, 40 * coil.usespeed, target = src))
+		if(do_after(user, 40 * coil.use_speed, target = src))
 			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			coil.use(1)
@@ -81,7 +81,7 @@
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
-		if(do_after(user, 40 * W.usespeed, target = src))
+		if(do_after(user, 40 * W.use_speed, target = src))
 			var/obj/item/airlock_electronics/new_electronics = W
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS || new_electronics.is_installed)
 				return
@@ -102,7 +102,7 @@
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-							if(do_after(user, 40 * S.usespeed, target = src))
+							if(do_after(user, 40 * S.use_speed, target = src))
 								if(S.get_amount() < 1 || glass)
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
@@ -127,7 +127,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is removing the electronics from the airlock assembly...", "You start to remove electronics from the airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
@@ -151,7 +151,7 @@
 	user.visible_message("[user] is finishing the airlock...", \
 							"<span class='notice'>You start finishing the airlock...</span>")
 	. = TRUE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, "<span class='notice'>You finish the airlock.</span>")
 	var/obj/machinery/door/airlock/door
@@ -184,7 +184,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is cutting the wires from the airlock assembly...", "You start to cut the wires from airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
@@ -201,7 +201,7 @@
 		user.visible_message("[user] is unsecuring the airlock assembly from the floor...", "You start to unsecure the airlock assembly from the floor...")
 	else
 		user.visible_message("[user] is securing the airlock assembly to the floor...", "You start to secure the airlock assembly to the floor...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
 	anchored = !anchored
@@ -214,7 +214,7 @@
 		user.visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
 			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 40, volume = I.use_volume))
 			return
 		to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
 		if(reinforced_glass)
@@ -228,7 +228,7 @@
 		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 			"<span class='notice'>You start to disassemble [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 40, volume = I.use_volume))
 			return
 		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
 		deconstruct(TRUE)
@@ -248,7 +248,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is configuring the windows in the airlock assembly...", "You start to configure the windows in the airlock assembly...")
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.use_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 
 	polarized_glass = !polarized_glass

@@ -51,7 +51,7 @@
 
 /obj/structure/mecha_wreckage/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(length(crowbar_salvage))
 		var/obj/S = pick(crowbar_salvage)
@@ -80,7 +80,7 @@
 
 /obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(wires_removed)
 		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")

@@ -52,7 +52,7 @@
 	. = TRUE
 	if(!can_modify_colour)
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)

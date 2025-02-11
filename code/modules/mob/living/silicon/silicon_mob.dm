@@ -260,7 +260,7 @@
 	else if(!getBruteLoss(TRUE))
 		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
 		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	adjustBruteLoss(-30)
 	add_fingerprint(user)

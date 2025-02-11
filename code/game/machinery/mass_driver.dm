@@ -16,7 +16,7 @@
 
 /obj/machinery/mass_driver/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 30, volume = I.use_volume))
 		return
 
 	var/obj/machinery/mass_driver_frame/F = new (get_turf(src))
@@ -28,7 +28,7 @@
 
 /obj/machinery/mass_driver/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	var/new_tag = clean_input("Enter a new ID tag", "ID Tag", id_tag, user)
@@ -89,7 +89,7 @@
 			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to anchor [src] on the floor.</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 0))
+				if(do_after(user, 1 SECONDS * used.use_speed, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = TRUE
 					build++
@@ -98,7 +98,7 @@
 			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to de-anchor [src] from the floor.</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 1))
+				if(do_after(user, 1 SECONDS * used.use_speed, target = src) && (build == 1))
 					build--
 					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
@@ -108,7 +108,7 @@
 				var/obj/item/stack/cable_coil/C = used
 				to_chat(user, "<span class='notice'>You start adding cables to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, TRUE)
-				if(do_after(user, 20 * C.usespeed, target = src) && (C.get_amount() >= 2) && (build == 2))
+				if(do_after(user, 20 * C.use_speed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
@@ -116,7 +116,7 @@
 		if(3) // Wired
 			if(iswirecutter(used))
 				to_chat(user, "<span class='notice'>You begin to remove the wiring from [src].</span>")
-				if(do_after(user, 1 SECONDS * used.usespeed, target = src) && (build == 3))
+				if(do_after(user, 1 SECONDS * used.use_speed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc, 2)
 					playsound(get_turf(src), used.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
@@ -127,7 +127,7 @@
 				var/obj/item/stack/rods/R = used
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.usespeed, target = src) && (R.get_amount() >= 2) && (build == 3))
+				if(do_after(user, 20 * R.use_speed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
@@ -136,7 +136,7 @@
 			if(iscrowbar(used))
 				to_chat(user, "<span class='notice'>You begin to pry off the grille from [src]...</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				if(do_after(user, 3 SECONDS * used.usespeed, target = src) && (build == 4))
+				if(do_after(user, 3 SECONDS * used.use_speed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return ITEM_INTERACT_COMPLETE
@@ -148,7 +148,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	var/obj/machinery/mass_driver/M = new(get_turf(src))
 	M.dir = dir
 	qdel(src)
@@ -165,20 +165,20 @@
 
 	if(build == 0) //can deconstruct
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		if(I.use_tool(src, user, 30, volume = I.use_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			new /obj/item/stack/sheet/plasteel(drop_location(),3)
 			qdel(src)
 
 	else if(build == 1) //wrenched but not welded down
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 1)
+		if(I.use_tool(src, user, 40, volume = I.use_volume) && build == 1)
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			build = 2
 
 	else if(build == 2) //welded down
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
+		if(I.use_tool(src, user, 40, volume = I.use_volume) && build == 2)
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = 1
 

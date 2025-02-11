@@ -58,7 +58,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 30, volume = I.use_volume))
 		return
 	if(broken)
 		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")

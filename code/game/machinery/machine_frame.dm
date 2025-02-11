@@ -98,7 +98,7 @@
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.usespeed, target = src))
+					if(do_after(user, 20 * C.use_speed, target = src))
 						if(state == MACHINE_FRAME_EMPTY && C.get_amount() >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = MACHINE_FRAME_WIRED
@@ -111,7 +111,7 @@
 				return
 
 			if(iswrench(P))
-				P.play_tool_sound(src)
+				P.play_sound(src)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
 				return
@@ -203,7 +203,7 @@
 		return
 
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove the cables.</span>")
 	state = MACHINE_FRAME_EMPTY
@@ -215,7 +215,7 @@
 		return
 
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	state = MACHINE_FRAME_WIRED
 	circuit.forceMove(loc)
@@ -244,7 +244,7 @@
 			break
 	if(!component_check)
 		return TRUE
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	var/obj/machinery/new_machine = new circuit.build_path(loc)
 	new_machine.on_construction()
 	for(var/obj/O in new_machine.component_parts)
@@ -326,7 +326,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
 	if(!choice)
@@ -616,7 +616,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
 	if(!choice)
@@ -683,7 +683,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/new_name = "ChemMaster"
 	var/new_path = /obj/machinery/chem_master

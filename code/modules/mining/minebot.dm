@@ -119,7 +119,7 @@
 		to_chat(user, "<span class='notice'>[src] is moving around too much to repair!</span>")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
+	if(I.use_tool(src, user, 15, 1, volume = I.use_volume) && health != maxHealth)
 		adjustBruteLoss(-20)
 		WELDER_REPAIR_SUCCESS_MESSAGE
 	return

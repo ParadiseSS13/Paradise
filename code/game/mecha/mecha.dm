@@ -840,7 +840,7 @@
 	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(state == MECHA_BOLTS_UP)
 		state = MECHA_OPEN_HATCH
@@ -851,14 +851,14 @@
 	else if(ishuman(occupant))
 		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.use_volume))
 			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
 			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.use_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
@@ -868,7 +868,7 @@
 	if(!(state == MECHA_OPEN_HATCH && cell) && !(state == MECHA_BATTERY_UNSCREW && cell))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
@@ -887,7 +887,7 @@
 	if(state != MECHA_MAINT_ON && state != MECHA_BOLTS_UP)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(state == MECHA_MAINT_ON)
 		state = MECHA_BOLTS_UP
@@ -913,7 +913,7 @@
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
-	if(I.use_tool(src, user, 15, volume = I.tool_volume))
+	if(I.use_tool(src, user, 15, volume = I.use_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
 			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")

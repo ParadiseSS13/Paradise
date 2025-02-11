@@ -51,12 +51,12 @@
 		return
 	if(anchored)
 		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+		if(I.use_tool(src, user, 50, volume = I.use_volume) && anchored)
 			anchored = FALSE
 			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
 		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+		if(I.use_tool(src, user, 50, volume = I.use_volume) && !anchored)
 			anchored = TRUE
 			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
@@ -69,7 +69,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct()
 

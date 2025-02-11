@@ -312,7 +312,7 @@
 		WRENCH_ATTEMPT_UNANCHOR_MESSAGE
 	else
 		WRENCH_ATTEMPT_ANCHOR_MESSAGE
-	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.use_volume))
 		return
 	anchored = !anchored
 	if(anchored)

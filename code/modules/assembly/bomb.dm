@@ -44,7 +44,7 @@
 	if(status)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 	bombassembly.forceMove(user.loc)
@@ -57,7 +57,7 @@
 
 /obj/item/onetankbomb/welder_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	if(!status)
 		status = TRUE

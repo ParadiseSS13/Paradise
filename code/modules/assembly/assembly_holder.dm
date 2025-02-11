@@ -142,7 +142,7 @@
 		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	a_left.toggle_secure()
 	a_right.toggle_secure()

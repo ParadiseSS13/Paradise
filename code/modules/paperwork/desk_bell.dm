@@ -93,7 +93,7 @@
 	. = TRUE
 	if(broken_ringer)
 		visible_message("<span class='notice'>[user] begins repairing [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>")
-		tool.play_tool_sound(src)
+		tool.play_sound(src)
 		if(tool.use_tool(src, user, 5 SECONDS))
 			user.visible_message("<span class='notice'>[user] repairs [src].</span>", "<span class='notice'>You repair [src].</span>")
 			playsound(user, 'sound/items/change_drill.ogg', 50, vary = TRUE)
@@ -107,7 +107,7 @@
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !in_inventory)
 		visible_message("<span class='notice'>[user] begins taking apart [src]...</span>", "<span class='notice'>You begin taking apart [src]...</span>")
-		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
+		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.use_volume))
 			visible_message("<span class='notice'>[user] takes apart [src].</span>", "<span class='notice'>You take apart [src].</span>")
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
@@ -116,18 +116,18 @@
 	if(!in_inventory)
 		if(!anchored)
 			user.visible_message("[user] begins securing [src]...", "You begin securing [src]...")
-			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
+			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.use_volume))
 				return
 			anchored = TRUE
 		else
 			user.visible_message("[user] begins unsecuring [src]...", "You begin unsecuring [src]...")
-			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
+			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.use_volume))
 				return
 			anchored = FALSE
 		return
 
 	if(attached_signaler)  // in inventory
-		if(!tool.use_tool(src, user, 0.5 SECONDS, volume = tool.tool_volume))
+		if(!tool.use_tool(src, user, 0.5 SECONDS, volume = tool.use_volume))
 			return TRUE
 		to_chat(user, "<span class='notice'>You remove [attached_signaler].</span>")
 		user.put_in_hands(attached_signaler)

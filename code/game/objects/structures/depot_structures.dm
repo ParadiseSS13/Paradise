@@ -38,7 +38,7 @@
 
 /obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
 	if(prob(50))
@@ -48,7 +48,7 @@
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>[src] is too well secured to the floor.</span>")
 

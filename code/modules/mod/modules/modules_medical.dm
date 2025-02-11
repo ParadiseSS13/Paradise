@@ -59,7 +59,7 @@
 	flags = NODROP
 	force = 0
 	w_class = WEIGHT_CLASS_BULKY
-	toolspeed = 1
+	use_speed = 1
 	var/defib_cooldown = 5 SECONDS
 	var/safety = TRUE
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
@@ -68,7 +68,7 @@
 
 /obj/item/mod_defib/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, combat = !safety, heart_attack_chance = safety ? 0 : 100, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
+	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = use_speed, combat = !safety, heart_attack_chance = safety ? 0 : 100, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
 
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
@@ -112,7 +112,7 @@
 	name = "combat defibrillator gauntlets"
 	icon_state = "syndiegauntlets0"
 	safety = FALSE
-	toolspeed = 2
+	use_speed = 2
 	defib_cooldown = 2.5 SECONDS
 
 /obj/item/mod/module/monitor

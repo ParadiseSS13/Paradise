@@ -130,14 +130,14 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		if(FG_UNSECURED)
 			if(isinspace()) return
 			state = FG_SECURED
-			W.play_tool_sound(W, 75)
+			W.play_sound(W, 75)
 			user.visible_message("[user.name] secures [name] to the floor.", \
 				"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 				"<span class='italics'>You hear ratchet.</span>")
 			anchored = TRUE
 		if(FG_SECURED)
 			state = FG_UNSECURED
-			W.play_tool_sound(W, 75)
+			W.play_sound(W, 75)
 			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 				"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 				"<span class='italics'>You hear ratchet.</span>")
@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 	else if(state == FG_WELDED)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		if(state == FG_SECURED)
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			state = FG_WELDED

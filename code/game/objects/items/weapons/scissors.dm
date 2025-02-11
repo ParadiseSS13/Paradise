@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
-	toolspeed = 1
+	use_speed = 1
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"
@@ -16,7 +16,7 @@
 	icon_state = "bscissor"
 	item_state = "scissor"
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
-	toolspeed = 0.75
+	use_speed = 0.75
 
 /obj/item/scissors/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)
@@ -37,7 +37,7 @@
 		var/h_new_style = tgui_input_list(user, "Select a hair style", "Grooming", H.generate_valid_hairstyles())
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
-		if(do_after(user, 50 * toolspeed, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
+		if(do_after(user, 50 * use_speed, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
 				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")
 				return

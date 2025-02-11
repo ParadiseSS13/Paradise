@@ -85,7 +85,7 @@
 			return TRUE
 	return FALSE
 
-/obj/structure/fence/wirecutter_act(mob/living/user, obj/item/W)
+/obj/structure/fence/wirecutter_act(mob/living/user, obj/item/tool/W)
 	. = TRUE
 	if(shock(user, 100))
 		return
@@ -95,7 +95,7 @@
 	if(!cuttable)
 		user.visible_message("<span class='warning'>[user] starts dismantling [src] with [W].</span>",\
 		"<span class='warning'>You start dismantling [src] with [W].</span>")
-		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.tool_volume))
+		if(W.use_tool(src, user, FULL_CUT_TIME, volume = W.use_volume))
 			user.visible_message("<span class='notice'>[user] completely dismantles [src].</span>",\
 			"<span class='notice'>You completely dismantle [src].</span>")
 			qdel(src)
@@ -103,7 +103,7 @@
 	var/current_stage = hole_size
 	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
 	"<span class='warning'>You start cutting through [src] with [W].</span>")
-	if(W.use_tool(src, user, CUT_TIME * W.usespeed, volume = W.tool_volume))
+	if(W.use_tool(src, user, CUT_TIME * W.use_speed, volume = W.use_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
@@ -132,7 +132,7 @@
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 3 SECONDS * C.usespeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+		if(do_after(user, 3 SECONDS * C.use_speed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE
 			obj_integrity = max_integrity

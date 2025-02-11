@@ -6,7 +6,7 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(ACCESS_ENGINE)
-	usespeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
 	var/list/selected_accesses = list()

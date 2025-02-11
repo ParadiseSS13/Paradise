@@ -15,7 +15,7 @@
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	toolspeed = 0.25
+	use_speed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
@@ -246,7 +246,7 @@
 
 /obj/item/dualsaber/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!hacked)
 		hacked = TRUE
@@ -776,7 +776,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
-	toolspeed = 0.5
+	use_speed = 0.5
 	var/lifetime = 60 SECONDS
 	var/next_spark_time
 
@@ -1060,7 +1060,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 15
-	toolspeed = 0.25
+	use_speed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = FIRE_PROOF
@@ -1125,7 +1125,7 @@
 
 	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
-	if(do_after(user, 5 SECONDS * toolspeed, target = A))
+	if(do_after(user, 5 SECONDS * use_speed, target = A))
 		new /obj/effect/temp_visual/obliteration(A, A)
 		playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
 

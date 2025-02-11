@@ -331,7 +331,7 @@
 	desc = "A scalpel with a fragile tip of condensed hyper-noblium gas, searingly cold to the touch, that can safely shave a sliver off a supermatter crystal."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
-	toolspeed = 0.5
+	use_speed = 0.5
 	damtype = BURN
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/uses_left
@@ -348,7 +348,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "supermatter_tongs"
-	toolspeed = 0.75
+	use_speed = 0.75
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 

@@ -401,7 +401,7 @@
 
 /obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	switch(unit_spread)
 		if(0 to 24)

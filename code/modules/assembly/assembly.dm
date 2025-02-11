@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 10
 	origin_tech = "magnets=1;engineering=1"
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 	pickup_sound =  'sound/items/handling/component_pickup.ogg'
@@ -142,7 +142,7 @@
 
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(toggle_secure())
 		to_chat(user, "<span class='notice'>[src] is ready!</span>")

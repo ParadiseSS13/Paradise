@@ -59,7 +59,7 @@
 			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * used.usespeed, target = src))
+			if(do_after(user, 30 * used.use_speed, target = src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, used.usesound, 80, 1)
@@ -87,7 +87,7 @@
 			to_chat(user, "<span class='warning'>You need two sheets to build a [used.name] floor!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin swapping the plating for [used]...</span>")
-		if(do_after(user, 3 SECONDS * used.usespeed, target = src))
+		if(do_after(user, 3 SECONDS * used.use_speed, target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(used, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
@@ -123,7 +123,7 @@
 		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 20, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
 	unfastened = !unfastened
@@ -138,12 +138,12 @@
 		return
 	if(unfastened)
 		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
+		if(!I.use_tool(src, user, 50, volume = I.use_volume * 2)) //extra loud to let people know something's going down
 			return
 		new /obj/item/stack/tile/plasteel(get_turf(src))
 		remove_plating(user)
 		return
-	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
+	if(I.use_tool(src, user, volume = I.use_volume)) //If we got this far, something needs fixing
 		to_chat(user, "<span class='notice'>You fix some dents on the broken plating.</span>")
 		overlays -= current_overlay
 		current_overlay = null

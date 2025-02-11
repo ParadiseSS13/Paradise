@@ -87,10 +87,11 @@
 				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 		if(3)
-			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
-				build_step++
-				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
+			if(iswelder(W))
+				if(W.use_tool(src, user, volume = W.use_volume))
+					build_step++
+					update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+					to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
 			switch(lasercolor)
 				if("b")
@@ -128,7 +129,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.usespeed, target = src))
+				if(do_after(user, 40 * W.use_speed, target = src))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -179,9 +180,9 @@
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/tool/I)
 	if(build_step != 8)
 		return
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-	if(do_after(user, 40 * I.usespeed, target = src))
+	if(do_after(user, 40 * I.use_speed, target = src))
 		build_step++
 		update_appearance(UPDATE_NAME)
 		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
@@ -461,7 +462,7 @@
 
 /obj/item/secbot_assembly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
-	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
+	if(iswelder(I) && I.use_tool(src, user, volume = I.use_volume))
 		if(!build_step)
 			build_step++
 			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
@@ -533,7 +534,7 @@
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
 
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	return TRUE
 
@@ -608,7 +609,7 @@
 		new /obj/item/toy/sword(get_turf(src))
 		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
 		toy_step--
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	return TRUE
 
 //Honkbot Assembly

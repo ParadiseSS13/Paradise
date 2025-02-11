@@ -46,7 +46,7 @@
 
 /obj/item/melee/powerfist/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	switch(fisto_setting)
 		if(1)
@@ -61,7 +61,7 @@
 	if(!tank)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	updateTank(tank, 1, user)
 

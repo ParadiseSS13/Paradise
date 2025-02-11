@@ -103,7 +103,7 @@
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool/tool, datum/surgery/surgery)
 	. = ..()
 	if(tool && tool.tool_behaviour)
-		tool.play_tool_sound(user, 30)
+		tool.play_sound(user, 30)
 
 /datum/surgery_step/robotics/external
 	name = "external robotics surgery"
@@ -210,7 +210,7 @@
 		"<span class='notice'>You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	tool.play_tool_sound(target)
+	tool.play_sound(target)
 	affected.open = ORGAN_CLOSED
 	return SURGERY_STEP_CONTINUE
 

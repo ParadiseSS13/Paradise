@@ -340,7 +340,7 @@
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	if(!isturf(loc))
@@ -542,7 +542,7 @@
 		return TRUE
 
 	new /obj/machinery/atmospherics/meter(loc)
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 	return TRUE
@@ -565,7 +565,7 @@
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/tool/I)
 	var/obj/machinery/atmospherics/air_sensor/AS = new /obj/machinery/atmospherics/air_sensor(loc)
 	AS.bolts = FALSE
-	I.play_tool_sound(src, 50)
+	I.play_sound(src, 50)
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
 	return TRUE

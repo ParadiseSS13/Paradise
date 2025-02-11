@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(construction_state != GRAV_NEEDS_WELDING)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, null, 1, I.tool_volume))
+	if(!I.use_tool(src, user, null, 1, I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
 	construction_state = GRAV_NEEDS_PLASTEEL
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(construction_state != GRAV_NEEDS_WRENCH)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
 	construction_state = GRAV_NEEDS_SCREWDRIVER
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(construction_state != GRAV_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
 	set_fix()

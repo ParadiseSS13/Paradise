@@ -219,7 +219,7 @@
 		return
 
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	if(length(contents) > 0)
@@ -251,7 +251,7 @@
 		return
 
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = deconstructs_to
@@ -1069,7 +1069,7 @@
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 30, volume = I.use_volume))
 		return
 	WELDER_SLICING_SUCCESS_MESSAGE
 	var/obj/structure/disposalconstruct/C = new (get_turf(src))
@@ -1489,9 +1489,9 @@
 	return
 
 /obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/tool/I)
-	if(I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(I.use_tool(src, user, 0, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You remove [src]!</span>")
-		I.play_tool_sound(src, I.tool_volume)
+		I.play_sound(src, I.use_volume)
 		qdel(src)
 		return TRUE
 
@@ -1563,7 +1563,7 @@
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
 	else if(mode)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	mode = !mode
 	return TRUE
 
@@ -1572,7 +1572,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = PIPE_DISPOSALS_OUTLET

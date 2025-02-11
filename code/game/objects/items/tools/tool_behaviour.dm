@@ -2,16 +2,16 @@
  * Called when a mob tries to use the item as a tool.
  * Handles most checks.
 */
-/obj/item/tool/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
+/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	target.add_fingerprint(user)
 	if(!tool_start_check(target, user, amount) && !delay)
 		return
-	delay *= toolspeed
+	delay *= use_speed
 
 	// Play tool sound at the beginning of tool usage.
-	play_tool_sound(target, volume)
+	play_sound(target, volume)
 
 	if(delay)
 		// Create a callback with checks that would be called every tick by do_after.
@@ -36,20 +36,20 @@
 	// Play tool sound at the end of tool usage,
 	// but only if the delay between the beginning and the end is not too small
 	if(delay >= MIN_TOOL_SOUND_DELAY)
-		play_tool_sound(target, volume)
+		play_sound(target, volume)
 	return TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.
 // Only ever used by welding tools and stacks, so it's not added on any other use_tool checks.
-/obj/item/tool/proc/tool_start_check(atom/target, mob/living/user, amount=0)
+/obj/item/proc/tool_start_check(atom/target, mob/living/user, amount=0)
 	return tool_use_check(user, amount)
 
 // A check called by tool_start_check once, and by use_tool on every tick of delay.
-/obj/item/tool/proc/tool_use_check(mob/living/user, amount, silent = FALSE)
+/obj/item/proc/tool_use_check(mob/living/user, amount, silent = FALSE)
 	return !amount
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
-/obj/item/tool/proc/tool_check_callback(mob/living/user, atom/target, amount, datum/callback/extra_checks)
+/obj/item/proc/tool_check_callback(mob/living/user, atom/target, amount, datum/callback/extra_checks)
 	if(!tool_use_check(user, amount))
 		return TRUE
 	if(extra_checks && !extra_checks.Invoke())

@@ -51,7 +51,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 40, volume = I.use_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
 		update_icon()
@@ -116,7 +116,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] starts ripping [src] down!</span>", "<span class='notice'>You struggle to pull [src] apart...</span>", "<span class='warning'>You hear wood splintering...</span>")
-	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 6 SECONDS, volume = I.use_volume))
 		return
 	new /obj/item/stack/sheet/wood(get_turf(src), 5)
 	qdel(src)

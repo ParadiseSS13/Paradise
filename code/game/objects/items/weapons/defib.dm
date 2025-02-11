@@ -291,7 +291,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
-	toolspeed = 1
+	use_speed = 1
 	base_icon_state = "defibpaddles"
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
@@ -404,7 +404,7 @@
 	var/revivecost = 1000
 	var/safety = TRUE
 	flags = NODROP
-	toolspeed = 1
+	use_speed = 1
 
 /obj/item/borg_defib/Initialize(mapload)
 	. = ..()

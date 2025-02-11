@@ -64,7 +64,7 @@
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	user.visible_message("<span class='notice'>[user] begins to take the glass off the solar tracker.</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		user.visible_message("<span class='notice'>[user] takes the glass off the tracker.</span>")
 		deconstruct(TRUE)
 

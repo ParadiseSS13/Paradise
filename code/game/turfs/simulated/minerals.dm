@@ -23,7 +23,7 @@
 	var/last_act = 0
 
 	var/defer_change = 0
-	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by use_speed
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
 
@@ -85,14 +85,14 @@
 		if(!isturf(T))
 			return FINISH_ATTACK
 
-		if(last_act + (mine_time * P.usespeed) > world.time) // Prevents message spam
+		if(last_act + (mine_time * P.use_speed) > world.time) // Prevents message spam
 			return FINISH_ATTACK
 
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
-		if(do_after(user, mine_time * P.usespeed, target = src))
+		if(do_after(user, mine_time * P.use_speed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)

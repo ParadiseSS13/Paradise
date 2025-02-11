@@ -68,7 +68,7 @@
 		return
 
 	if(length(contents))
-		I.play_tool_sound(src)
+		I.play_sound(src)
 		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
 		empty_pod()
 

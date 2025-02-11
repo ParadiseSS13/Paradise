@@ -97,7 +97,7 @@
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-	if(!I.use_tool(src, user, 3 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 	reagents.reaction(loc)
@@ -106,7 +106,7 @@
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	if(!anchored && !isinspace())
-		if(!I.use_tool(src, user, I.tool_volume))
+		if(!I.use_tool(src, user, I.use_volume))
 			return
 		user.visible_message( \
 			"[user] tightens [src]'s casters.", \
@@ -115,7 +115,7 @@
 		anchored = TRUE
 		return
 	if(anchored)
-		if(!I.use_tool(src, user, I.tool_volume))
+		if(!I.use_tool(src, user, I.use_volume))
 			return
 		user.visible_message( \
 			"[user] loosens [src]'s casters.", \

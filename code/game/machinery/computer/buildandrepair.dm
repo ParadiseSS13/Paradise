@@ -70,7 +70,7 @@
 
 /obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", monitor_names_paths)
 	if(!choice)
@@ -633,7 +633,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 
@@ -659,7 +659,7 @@
 	else
 		return
 
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	update_icon()
 
 /obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/tool/I)
@@ -671,16 +671,16 @@
 		if(STATE_CIRCUIT)
 			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 			state = STATE_NOWIRES
-			I.play_tool_sound(src)
+			I.play_sound(src)
 			update_icon()
 		if(STATE_NOWIRES)
 			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 			state = STATE_CIRCUIT
-			I.play_tool_sound(src)
+			I.play_sound(src)
 			update_icon()
 		if(STATE_GLASS)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-			I.play_tool_sound(src)
+			I.play_sound(src)
 			var/obj/machinery/computer/B = new circuit.build_path(loc)
 			B.setDir(dir)
 			if(istype(circuit, /obj/item/circuitboard/supplycomp))
@@ -699,7 +699,7 @@
 		var/obj/item/stack/cable_coil/C = new(drop_location())
 		C.amount = 5
 		state = STATE_NOWIRES
-		I.play_tool_sound(src)
+		I.play_sound(src)
 		update_icon()
 
 /obj/structure/computerframe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -738,7 +738,7 @@
 
 			C.play_sound(src)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-			if(!do_after(user, 2 SECONDS * C.usespeed, target = src))
+			if(!do_after(user, 2 SECONDS * C.use_speed, target = src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
@@ -760,7 +760,7 @@
 
 			G.play_sound(src)
 			to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-			if(!do_after(user, 2 SECONDS * G.usespeed, target = src))
+			if(!do_after(user, 2 SECONDS * G.use_speed, target = src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")

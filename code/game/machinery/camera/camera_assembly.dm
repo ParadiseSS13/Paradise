@@ -64,7 +64,7 @@
 	if(!length(upgrades))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
@@ -77,7 +77,7 @@
 	if(state != ASSEMBLY_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	state = HEY_IM_WORKING_HERE
 	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
@@ -122,7 +122,7 @@
 	if(state != ASSEMBLY_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	new/obj/item/stack/cable_coil(get_turf(src), 2)
 	WIRECUTTER_SNIP_MESSAGE
@@ -133,7 +133,7 @@
 	if(state != ASSEMBLY_UNBUILT && state != ASSEMBLY_WRENCHED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(state == ASSEMBLY_UNBUILT && isturf(loc))
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
@@ -157,12 +157,12 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(state == ASSEMBLY_WRENCHED)
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, volume = I.use_volume))
 			return
 		to_chat(user, "<span class='notice'>You weld [src] into place.</span>")
 		state = ASSEMBLY_WELDED
 	else if(state == ASSEMBLY_WELDED)
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 50, volume = I.use_volume))
 			return
 		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 		state = ASSEMBLY_WRENCHED

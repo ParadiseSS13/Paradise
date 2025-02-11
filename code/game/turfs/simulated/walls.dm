@@ -351,11 +351,11 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/tool/I)
 	. = ..()
-	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.use_volume))
 		thermitemelt(user)
 		return
 	if(rotting)
-		if(I.use_tool(src, user, volume = I.tool_volume))
+		if(I.use_tool(src, user, volume = I.use_volume))
 			for(var/obj/effect/overlay/wall_rot/WR in src)
 				qdel(WR)
 			rotting = FALSE
@@ -385,7 +385,7 @@
 			to_chat(user, "<span class='warning'>[src] doesn't need repairing.</span>")
 			return
 
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	if(I.use_tool(src, user, time, volume = I.use_volume))
 		if(repairing)
 			WELDER_REPAIR_SUCCESS_MESSAGE
 			dent_decals?.Cut() // I feel like this isn't needed but it can't hurt to keep it in anyway
@@ -407,7 +407,7 @@
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, I.usesound, 100, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.usespeed : 60 * I.usespeed, target = src))
+		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.use_speed : 60 * I.use_speed, target = src))
 			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
@@ -421,7 +421,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
-		if(do_after(user, isdiamond ? 480 * I.usespeed : 240 * I.usespeed, target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
+		if(do_after(user, isdiamond ? 480 * I.use_speed : 240 * I.use_speed, target = src)) // Diamond pickaxe has 0.25 use_speed, so 120/60
 			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
@@ -430,7 +430,7 @@
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 
-		if(do_after(user, isdiamond ? 600 * I.usespeed : 300 * I.usespeed, target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+		if(do_after(user, isdiamond ? 600 * I.use_speed : 300 * I.use_speed, target = src)) // Jackhammer has 0.1 use_speed, so 60/30
 			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
@@ -439,7 +439,7 @@
 	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
-		if(do_after(user, isdiamond ? 60 * I.usespeed : 30 * I.usespeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+		if(do_after(user, isdiamond ? 60 * I.use_speed : 30 * I.use_speed, target = src)) // claws has 0.5 use_speed, so 3/1.5 seconds
 			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
@@ -447,7 +447,7 @@
 
 	else if(istype(I, /obj/item/zombie_claw))
 		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
-		if(do_after(user, isdiamond ? 2 MINUTES * I.usespeed : 1 MINUTES * I.usespeed, target = src)) // 120/60 seconds by default
+		if(do_after(user, isdiamond ? 2 MINUTES * I.use_speed : 1 MINUTES * I.use_speed, target = src)) // 120/60 seconds by default
 			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] claws through [src]!</span>","<span class='warning'>You hear the grinding of metal and bone.</span>")
@@ -472,7 +472,7 @@
 				"<span class='notice'>You start drilling a hole in [src].</span>",
 				"<span class='notice'>You hear a drill.</span>")
 
-			if(do_after(user, 80 * P.usespeed, target = src))
+			if(do_after(user, 80 * P.use_speed, target = src))
 				user.visible_message(
 					"<span class='notice'>[user] drills a hole in [src] and pushes [P] into the void.</span>",
 					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",

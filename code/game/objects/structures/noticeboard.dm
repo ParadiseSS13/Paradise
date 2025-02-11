@@ -127,7 +127,7 @@
 	. = TRUE
 	if(!(flags & NODECONSTRUCT))
 		WRENCH_UNANCHOR_WALL_MESSAGE
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 		deconstruct(TRUE)
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)

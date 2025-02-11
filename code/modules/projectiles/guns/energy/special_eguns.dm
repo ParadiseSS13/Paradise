@@ -246,7 +246,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
-	toolspeed = 1
+	use_speed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
@@ -254,6 +254,8 @@
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
+	/// Built in welder
+	var/obj/item/tool/weldingtool/experimental/plasmawelder = new /obj/item/tool/weldingtool/experimental
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
@@ -993,7 +995,7 @@
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/tool/I)
 	. = TRUE
 	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
-	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.use_volume))
 		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
 		return
 	if(!overcharged)

@@ -81,7 +81,7 @@
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		playsound(src, used.usesound, 50, TRUE)
-		if(do_after(user, 40 * used.usespeed, target = src))
+		if(do_after(user, 40 * used.use_speed, target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")

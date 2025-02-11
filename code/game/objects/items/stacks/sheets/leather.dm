@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 /obj/item/stack/sheet/animalhide/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
-		if(do_after(user, 50 * W.usespeed, target = src))
+		if(do_after(user, 50 * W.use_speed, target = src))
 			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)

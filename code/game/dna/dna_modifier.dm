@@ -238,7 +238,7 @@
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(flags & NODECONSTRUCT)//We need to check for this early or the contents could be moved before it checks for the flag normally
 		return

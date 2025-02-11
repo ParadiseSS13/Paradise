@@ -141,7 +141,7 @@
 	if(!cell)
 		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
 		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 
 	user.put_in_hands(cell)

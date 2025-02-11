@@ -874,7 +874,7 @@
 			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, used.usesound, 50, 1)
-		if(!do_after(user, 25 * used.usespeed, target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 25 * used.use_speed, target = src) || (!myseed && !weedlevel))
 			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, used.usesound, 50, 1)
@@ -900,7 +900,7 @@
 
 /obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	else if(wrenchable)
 		using_irrigation = !using_irrigation

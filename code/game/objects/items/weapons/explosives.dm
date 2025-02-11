@@ -7,7 +7,7 @@
 	det_time = 10
 	display_timer = FALSE
 	origin_tech = "syndicate=1"
-	toolspeed = 1
+	use_speed = 1
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/assembly/nadeassembly = null
@@ -84,7 +84,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
-	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
+	if(do_after(user, 1.5 SECONDS * use_speed, target = AM))
 		if(!user.unequip(src))
 			return
 

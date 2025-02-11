@@ -176,7 +176,7 @@
 		if(showpiece)
 			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
 			return
-		if(!I.use_tool(src, user, 15, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 15, volume = I.use_volume))
 			return
 		if(!broken)
 			new /obj/item/stack/sheet/glass(drop_location(), 10)
@@ -191,7 +191,7 @@
 		return
 	if(!alert)
 		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 20, volume = I.use_volume))
 			return
 		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 		toggle_lock()
@@ -270,7 +270,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(electronics)
-		if(I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(I.use_tool(src, user, 0, volume = I.use_volume))
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 			new /obj/item/airlock_electronics(drop_location(), 1)
 			electronics.is_installed = FALSE
@@ -284,7 +284,7 @@
 		to_chat(user, "<span class='notice'>Remove the airlock electronics first.</span>")
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 30, volume = I.use_volume))
 		return
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	new /obj/item/stack/sheet/wood(drop_location(), 5)

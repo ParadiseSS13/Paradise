@@ -284,7 +284,7 @@
 
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!hackedcheck)
 		to_chat(user, hack_message)

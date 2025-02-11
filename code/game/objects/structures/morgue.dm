@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		to_chat(user, "<span class='notice'>[src] needs a new igniter before you weld the paneling closed.</span>")
 		return TRUE
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.use_volume))
 		return TRUE
 	WELDER_REPAIR_SUCCESS_MESSAGE
 	icon_state = initial(icon_state)

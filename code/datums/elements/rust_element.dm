@@ -57,7 +57,7 @@
 				return
 			to_chat(user, "<span class='notice'>You start burning off the rust...</span>")
 
-			if(!item.use_tool(source, user, 5 SECONDS, volume = item.tool_volume))
+			if(!item.use_tool(source, user, 5 SECONDS, volume = item.use_volume))
 				return
 			to_chat(user, "<span class='notice'>You burn off the rust!</span>")
 			Detach(source)

@@ -149,7 +149,7 @@
 	if(!density)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	dismantle(user, TRUE)
 

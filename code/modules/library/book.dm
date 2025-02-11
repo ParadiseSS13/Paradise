@@ -298,7 +298,7 @@
 	current_page = min(current_page, length(pages)) //if page_number is somehow at a value it shouldn't be we fix it here aswell
 	return TRUE //we want to make sure whatever is calling this proc knows the operation was succesful
 
-/obj/item/book/proc/carve_book(mob/user, obj/item/I)
+/obj/item/book/proc/carve_book(mob/user, obj/item/tool/I)
 	if(carved)
 		to_chat(user, "<span class='warning'>[title] has already been carved out!</span>")
 		return
@@ -306,7 +306,7 @@
 		to_chat(user, "<span class='warning'>You can't carve [title] using that!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(I.use_tool(src, user, 30, volume = I.use_volume))
 		user.visible_message("<span class='warning'>[user] appears to carve out the pages inside of [title]!</span>",\
 				"<span class='danger'>You carve out [title]!</span>")
 		carved = TRUE

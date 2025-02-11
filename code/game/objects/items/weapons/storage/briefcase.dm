@@ -70,7 +70,7 @@
 	if(!bottom_open && busy_hunting)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!bottom_open)
 		to_chat(user, "<span class='notice'>You begin to hunt around the rim of [src]...</span>")

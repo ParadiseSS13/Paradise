@@ -23,14 +23,14 @@
 		return
 	if(state == PLASTIC_FLAPS_NORMAL)
 		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
+		if(!I.use_tool(src, user, 180, volume = I.use_volume) || state != PLASTIC_FLAPS_NORMAL)
 			return
 		state = PLASTIC_FLAPS_DETACHED
 		anchored = FALSE
 		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else if(state == PLASTIC_FLAPS_DETACHED)
 		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
+		if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != PLASTIC_FLAPS_DETACHED)
 			return
 		state = PLASTIC_FLAPS_NORMAL
 		anchored = TRUE
@@ -43,7 +43,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 120, volume = I.tool_volume))
+	if(I.use_tool(src, user, 120, volume = I.use_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		var/obj/item/stack/sheet/plastic/five/P = new(drop_location())
 		P.add_fingerprint(user)

@@ -18,7 +18,7 @@
 /obj/item/tool/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
 	w_class = WEIGHT_CLASS_TINY
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/hemostat
 	name = "hemostat"
@@ -40,7 +40,7 @@
 
 /obj/item/tool/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/cautery
 	name = "cautery"
@@ -85,7 +85,7 @@
 
 /obj/item/tool/cautery/augment
 	desc = "A heated element that cauterizes wounds."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/surgicaldrill
 	name = "surgical drill"
@@ -118,7 +118,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/scalpel
 	name = "scalpel"
@@ -156,7 +156,7 @@
 
 /obj/item/tool/scalpel/augment
 	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /*
  * Researchable Scalpels
@@ -196,26 +196,26 @@
 	name = "laser scalpel"
 	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser1_on"
-	toolspeed = 0.8
+	use_speed = 0.8
 
 /obj/item/tool/scalpel/laser/laser2
 	name = "laser scalpel"
 	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
-	toolspeed = 0.6
+	use_speed = 0.6
 
 /obj/item/tool/scalpel/laser/laser3
 	name = "laser scalpel"
 	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
-	toolspeed = 0.4
+	use_speed = 0.4
 
 /// super tool! Retractor/hemostat
 /obj/item/tool/scalpel/laser/manager
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
-	toolspeed = 0.2
+	use_speed = 0.2
 
 /obj/item/tool/scalpel/laser/manager/Initialize(mapload)
 	. = ..()
@@ -251,7 +251,7 @@
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
-	toolspeed = 0.5
+	use_speed = 0.5
 
 //misc, formerly from code/defines/weapons.dm
 /obj/item/tool/bonegel
@@ -272,7 +272,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/tool/bonegel/augment
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/fix_o_vein
 	name = "FixOVein"
@@ -292,7 +292,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/tool/fix_o_vein/augment
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/bonesetter
 	name = "bone setter"
@@ -315,7 +315,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/tool/bonesetter/augment
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"

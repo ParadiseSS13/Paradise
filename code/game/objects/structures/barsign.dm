@@ -264,7 +264,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	turn_off()
 	stat |= MAINT
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	if(I.use_tool(src, user, time, volume = I.use_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = max_integrity
 		stat &= ~BROKEN
@@ -288,7 +288,7 @@
 		else
 			panel_open = FALSE
 			to_chat(user, "<span class='notice'>You close the maintenance panel of [src].</span>")
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 		add_fingerprint(user)
 
 /obj/machinery/barsign/wrench_act(mob/living/user, obj/item/tool/I)
@@ -303,7 +303,7 @@
 		return
 	if(!(flags & NODECONSTRUCT))
 		WRENCH_UNANCHOR_WALL_MESSAGE
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 		deconstruct(TRUE)
 
 /obj/machinery/barsign/crowbar_act(mob/living/user, obj/item/tool/I)
@@ -350,7 +350,7 @@
 		build_stage = BARSIGN_WIRED
 		update_icon()
 		add_fingerprint(user)
-	I.play_tool_sound(user, I.tool_volume)
+	I.play_sound(user, I.use_volume)
 
 /obj/machinery/barsign/wirecutter_act(mob/living/user, obj/item/tool/I)
 	if(user.a_intent != INTENT_HELP)
@@ -371,7 +371,7 @@
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
 		power_state = NO_POWER_USE
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 		add_fingerprint(user)
 
 /obj/machinery/barsign/emag_act(mob/user)

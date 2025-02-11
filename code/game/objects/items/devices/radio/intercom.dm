@@ -159,14 +159,14 @@
 		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 			return
-		if(do_after(user, 10 * coil.usespeed, target = src) && buildstage == 1)
+		if(do_after(user, 10 * coil.use_speed, target = src) && buildstage == 1)
 			coil.use(5)
 			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 			buildstage = 2
 		return 1
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.usespeed, target = src) && buildstage == 0)
+		if(do_after(user, 10 * W.use_speed, target = src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1
@@ -186,7 +186,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
-	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
+	if(!I.use_tool(src, user, 10, volume = I.use_volume) || buildstage != 1)
 		return
 	new /obj/item/intercom_electronics(get_turf(src))
 	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
@@ -198,7 +198,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
+	if(!I.use_tool(src, user, 10, volume = I.use_volume) || buildstage != 2)
 		return
 	update_icon(UPDATE_ICON_STATE)
 	on = TRUE
@@ -214,7 +214,7 @@
 	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
 		return ..()
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
@@ -231,7 +231,7 @@
 	if(!I.tool_use_check(user, 3))
 		return
 	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
-	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, 10, amount = 3, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
 		new /obj/item/mounted/frame/intercom(get_turf(src))
 		qdel(src)
@@ -284,7 +284,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked

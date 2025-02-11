@@ -588,7 +588,7 @@
 
 /obj/machinery/clonepod/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
@@ -602,7 +602,7 @@
 
 /obj/machinery/clonepod/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE

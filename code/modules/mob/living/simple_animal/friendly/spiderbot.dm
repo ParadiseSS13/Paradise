@@ -125,7 +125,7 @@
 		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	adjustHealth(-5)
 	add_fingerprint(user)

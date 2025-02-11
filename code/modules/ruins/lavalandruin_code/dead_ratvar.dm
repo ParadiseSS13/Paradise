@@ -83,7 +83,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(I.use_tool(src, user, 30, volume = I.use_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 

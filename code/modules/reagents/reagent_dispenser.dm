@@ -196,7 +196,7 @@
 	if(!reagents.has_reagent("fuel"))
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 		return
-	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
+	if(I.tool_enabled && I.use_tool(src, user, volume = I.use_volume)) //check it's enabled first to prevent duplicate messages when refuelling
 		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
 		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")

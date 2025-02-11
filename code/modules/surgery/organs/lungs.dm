@@ -56,12 +56,12 @@
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	var/possible = list("default" = /datum/organ/lungs, "vox" = /datum/organ/lungs/vox, "plasmamen" = /datum/organ/lungs/plasmamen)
 	var/chosen = input(user, "Select lung type", "What kind of lung settings?") as null|anything in possible
-	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	species_state = chosen
 	to_chat(user, "<span class='notice'>You configure [src] to [chosen] settings.</span>")

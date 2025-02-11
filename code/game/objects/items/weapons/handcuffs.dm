@@ -291,7 +291,7 @@
 			return
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 3.5 SECONDS * M.usespeed, target = src))
+		if(do_after(user, 3.5 SECONDS * M.use_speed, target = src))
 			if(!M.use(6) || !user.unequip(src))
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))

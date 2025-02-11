@@ -249,7 +249,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(removal_stage == NUKE_COVER_OFF)
 		user.visible_message("<span class='notice'>[user] starts forcing open the bolt covers on [src].</span>", "<span class='notice'>You start forcing open the anchoring bolt covers with [I]...</span>")
-		if(!I.use_tool(src, user, 15, volume = I.tool_volume) || removal_stage != NUKE_COVER_OFF)
+		if(!I.use_tool(src, user, 15, volume = I.use_volume) || removal_stage != NUKE_COVER_OFF)
 			return
 		user.visible_message("<span class='notice'>[user] forces open the bolt covers on [src].</span>", "<span class='notice'>You force open the bolt covers.</span>")
 		removal_stage = NUKE_COVER_OPEN
@@ -258,7 +258,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "<span class='notice'>This is where you'd take off the plate to access the internal core, but this training bomb doesn't have one.</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer core plate...</span>")
-		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
+		if(!I.use_tool(src, user, 4 SECONDS, volume = I.use_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
 			return
 		user.visible_message("<span class='notice'>[user] finishes removing [src]'s outer core plate.</span>", "<span class='notice'>You finish removing [src]'s outer core plate.</span>")
 		new /obj/item/stack/sheet/metal(loc, 5)
@@ -266,7 +266,7 @@ GLOBAL_VAR(bomb_set)
 
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
 		user.visible_message("<span class='notice'>[user] starts removing [src]'s inner core plate...</span>", "<span class='notice'>You start removing [src]'s inner core plate...</span>")
-		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
+		if(!I.use_tool(src, user, 8 SECONDS, volume = I.use_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes removing [src]'s inner core plate.</span>", "<span class='notice'>You remove [src]'s inner core plate. You can see the core's green glow!</span>")
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
@@ -275,7 +275,7 @@ GLOBAL_VAR(bomb_set)
 			START_PROCESSING(SSobj, core)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("<span class='notice'>[user] begins lifting [src] off of the anchors.</span>", "<span class='notice'>You begin lifting the device off the anchors...</span>")
-		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
+		if(!I.use_tool(src, user, 8 SECONDS, volume = I.use_volume) || removal_stage != NUKE_UNWRENCHED)
 			return
 		user.visible_message("<span class='notice'>[user] crowbars [src] off of the anchors. It can now be moved.</span>", "<span class='notice'>You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!</span>")
 		anchored = FALSE
@@ -291,7 +291,7 @@ GLOBAL_VAR(bomb_set)
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] begins unwrenching the anchoring bolts on [src].</span>", "<span class='notice'>You begin unwrenching the anchoring bolts...</span>")
-	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || removal_stage != NUKE_SEALANT_OPEN)
+	if(!I.use_tool(src, user, 50, volume = I.use_volume) || removal_stage != NUKE_SEALANT_OPEN)
 		return
 	user.visible_message("<span class='notice'>[user] unwrenches the anchoring bolts on [src].</span>", "<span class='notice'>You unwrench the anchoring bolts.</span>")
 	removal_stage = NUKE_UNWRENCHED
@@ -301,13 +301,13 @@ GLOBAL_VAR(bomb_set)
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(auth || (istype(I, /obj/item/tool/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
@@ -335,7 +335,7 @@ GLOBAL_VAR(bomb_set)
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	attack_hand(user)
 
@@ -350,21 +350,21 @@ GLOBAL_VAR(bomb_set)
 		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
 		"<span class='notice'>You start cutting loose the anchoring bolt covers with [I]...</span>",\
 		"<span class='warning'>You hear welding.</span>")
-		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_INTACT)
+		if(!I.use_tool(src, user, 40, 5, volume = I.use_volume) || removal_stage != NUKE_INTACT)
 			return
 		visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
 		"<span class='notice'>You cut through the bolt cover.</span>")
 		removal_stage = NUKE_COVER_OFF
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
 		user.visible_message("<span class='notice'>[user] starts welding [src]'s inner core plate...</span>", "<span class='notice'>You start welding [src]'s inner core plate...</span>")
-		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
+		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.use_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes welding [src]'s inner core plate...</span>", "<span class='notice'>You finish welding [src]'s inner core plate...</span>")
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
 
 	else if(removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		user.visible_message("<span class='notice'>[user] starts unwelding [src]'s inner core plate...</span>", "<span class='notice'>You start unwelding [src]'s inner core plate...</span>")
-		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_EXPOSED)
+		if(!I.use_tool(src, user, 4 SECONDS, 5, volume = I.use_volume) || removal_stage != NUKE_CORE_PANEL_EXPOSED)
 			return
 		user.visible_message("<span class='notice'>[user] finishes unwelding [src]'s inner core plate...</span>", "<span class='notice'>You finish unwelding [src]'s inner core plate...</span>")
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
@@ -372,7 +372,7 @@ GLOBAL_VAR(bomb_set)
 		visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You start cutting apart the anchoring system's sealant with [I]...</span>",\
 		"<span class='warning'>You hear welding.</span>")
-		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
+		if(!I.use_tool(src, user, 40, 5, volume = I.use_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span>")

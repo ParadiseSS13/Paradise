@@ -1056,7 +1056,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		wiresexposed = !wiresexposed
 		to_chat(user, "<span class='notice'>The wires have been [wiresexposed ? "exposed" : "unexposed"]</span>")
 		update_icons()
-		I.play_tool_sound(user, I.tool_volume)
+		I.play_sound(user, I.use_volume)
 	else //radio check
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
@@ -1074,14 +1074,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(locked)
 			to_chat(user, "The cover is locked and cannot be opened.")
 			return
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 0, volume = I.use_volume))
 			return
 		to_chat(user, "You open the cover.")
 		opened = TRUE
 		update_icons()
 		return
 	else if(cell)
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 0, volume = I.use_volume))
 			return
 		to_chat(user, "You close the cover.")
 		opened = FALSE
@@ -1093,7 +1093,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "[src] has no brain to remove.")
 			return
 		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
-		if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		if(I.use_tool(src, user, 30, volume = I.use_volume))
 			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
 			spill_upgrades()
 			deconstruct()
@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(C.is_missing()) // Somebody else removed it during the input
 		return
 
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/obj/item/robot_parts/robot_component/thing = C.wrapped
 	to_chat(user, "You remove \the [thing].")

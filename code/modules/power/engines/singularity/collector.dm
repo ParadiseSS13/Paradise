@@ -57,7 +57,7 @@
 		if(can_wrench.anchored && !anchored)
 			to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
 			return
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	anchored = !anchored
 	user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the [name].", "You [anchored ? "secure" : "undo"] the external bolts.", "You hear a ratchet")
 	if(anchored)
@@ -78,7 +78,7 @@
 			used.forceMove(src)
 			update_icons()
 			return ITEM_INTERACT_COMPLETE
-	else if(used.tool_behaviour == TOOL_CROWBAR)
+	else if(iscrowbar(used))
 		if(loaded_tank && !locked)
 			eject()
 			return ITEM_INTERACT_COMPLETE

@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		return
 
 	. = TRUE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, volume = I.use_volume))
 		return
 
 	user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")

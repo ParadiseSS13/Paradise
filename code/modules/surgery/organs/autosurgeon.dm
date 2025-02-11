@@ -71,7 +71,7 @@
 		storedorgan.forceMove(user.drop_location())
 
 		to_chat(user, "<span class='notice'>You remove [storedorgan] from [src].</span>")
-		I.play_tool_sound(src)
+		I.play_sound(src)
 		storedorgan = null
 		if(uses != INFINITE)
 			uses--

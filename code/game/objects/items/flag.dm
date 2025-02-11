@@ -274,7 +274,7 @@
 	if(!boobytrap || user != trapper)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove [boobytrap] from [src].</span>")
 	boobytrap.forceMove(get_turf(src))

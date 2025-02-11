@@ -22,7 +22,7 @@
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
-	toolspeed = 1
+	use_speed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	/// Reference to whatever machine is held in the buffer
@@ -120,7 +120,7 @@
 	icon_state = "multitool_syndi"
 	item_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
-	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
+	use_speed = 0.95 // dangerously fast... not like multitools use speed anyways
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
@@ -130,7 +130,7 @@
 	icon_state = "multitool_command"
 	item_state = "multitool_command"
 	belt_icon = "multitool_command"
-	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
+	use_speed = 0.95 //command those wires / that fireaxe cabinet!
 	var/list/victims = list()
 
 /obj/item/tool/multitool/command/suicide_act(mob/living/user)
@@ -179,7 +179,7 @@
 /obj/item/tool/multitool/cyborg
 	name = "multitool"
 	desc = "Optimised and stripped-down version of a regular multitool."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/multitool/cyborg/drone
 

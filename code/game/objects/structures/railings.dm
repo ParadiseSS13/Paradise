@@ -62,7 +62,7 @@
 	if(!I.tool_start_check(user, amount = 0))
 		return
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-	if(I.use_tool(src, user, 4 SECONDS, I.tool_volume))
+	if(I.use_tool(src, user, 4 SECONDS, I.use_volume))
 		obj_integrity = max_integrity
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
@@ -70,7 +70,7 @@
 	if(anchored)
 		return
 	to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-	I.play_tool_sound(src, 100)
+	I.play_sound(src, 100)
 	deconstruct()
 	return TRUE
 

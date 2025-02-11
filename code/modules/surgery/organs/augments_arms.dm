@@ -35,7 +35,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(parent_organ == "r_arm")
 		parent_organ = "l_arm"

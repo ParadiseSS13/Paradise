@@ -15,7 +15,7 @@
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	toolspeed = 1
+	use_speed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
@@ -24,7 +24,7 @@
 /obj/item/tool/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
-	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
+	if(!use_tool(user, user, 3 SECONDS, volume = use_volume))
 		return SHAME
 
 	if(!ishuman(user))
@@ -47,14 +47,14 @@
 /obj/item/tool/wrench/cyborg
 	name = "automatic wrench"
 	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
-	toolspeed = 0.5
+	use_speed = 0.5
 
 /obj/item/tool/wrench/brass
 	name = "brass wrench"
 	desc = "A brass wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
 	belt_icon = "wrench_brass"
-	toolspeed = 0.5
+	use_speed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/tool/wrench/power
@@ -69,7 +69,7 @@
 	force = 8
 	throwforce = 8
 	attack_verb = list("drilled", "screwed", "jabbed")
-	toolspeed = 0.25
+	use_speed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/tool/wrench/power/activate_self(mob/user)
@@ -94,7 +94,7 @@
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
 	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
-	toolspeed = 0.75
+	use_speed = 0.75
 
 /obj/item/tool/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -148,4 +148,4 @@
 	icon_state = "bolter_wrench"
 	origin_tech = "materials=5;engineering=4"
 	w_class = WEIGHT_CLASS_NORMAL
-	toolspeed = 2.5
+	use_speed = 2.5

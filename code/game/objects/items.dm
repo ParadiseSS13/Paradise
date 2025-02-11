@@ -114,7 +114,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/flags_cover = 0
 
 	/// How loud are we when we use our item?
-	var/tool_volume = 50
+	var/use_volume = 50
 
 	/// How fast is the item used?
 	var/use_speed = 1
@@ -1023,7 +1023,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return
 
 /// Plays a sound when used.
-/obj/item/tool/proc/play_sound(atom/target, volume = tool_volume)
+/obj/item/proc/play_sound(atom/target, volume = use_volume)
 	if(target && usesound && volume)
 		var/played_sound = usesound
 

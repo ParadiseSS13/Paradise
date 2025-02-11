@@ -57,7 +57,7 @@
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
 		deconstruct(TRUE)
 
@@ -242,7 +242,7 @@
 	if(!tracker)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, I.tool_volume))
+	if(!I.use_tool(src, user, I.use_volume))
 		return
 	new /obj/item/tracker_electronics(loc)
 	tracker = FALSE
@@ -250,12 +250,12 @@
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/tool/I)
 	if(!anchored && isturf(loc))
-		if(I.use_tool(src, user, I.tool_volume))
+		if(I.use_tool(src, user, I.use_volume))
 			anchored = TRUE
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			return TRUE
 	else
-		if(I.use_tool(src, user, I.tool_volume))
+		if(I.use_tool(src, user, I.use_volume))
 			anchored = FALSE
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			return TRUE
@@ -438,7 +438,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 20, volume = I.use_volume))
 		return
 	var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
 	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)

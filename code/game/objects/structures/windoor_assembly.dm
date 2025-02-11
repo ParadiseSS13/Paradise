@@ -122,7 +122,7 @@
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
 
-				if(do_after(user, 40 * P.usespeed, target = src))
+				if(do_after(user, 40 * P.use_speed, target = src))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					playsound(loc, P.usesound, 100, 1)
@@ -139,7 +139,7 @@
 			else if(iscoil(W) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
-				if(do_after(user, 40 * W.usespeed, target = src))
+				if(do_after(user, 40 * W.use_speed, target = src))
 					if(!src || !anchored || state != EMPTY_ASSEMBLY)
 						return
 					var/obj/item/stack/cable_coil/CC = W
@@ -163,7 +163,7 @@
 				W.forceMove(src)
 				var/obj/item/airlock_electronics/new_electronics = W
 
-				if(do_after(user, 40 * new_electronics.usespeed, target = src) && !new_electronics.is_installed)
+				if(do_after(user, 40 * new_electronics.use_speed, target = src) && !new_electronics.is_installed)
 					if(!src || electronics)
 						new_electronics.forceMove(loc)
 						return
@@ -197,7 +197,7 @@
 	user << browse(null, "window=windoor_access")
 	user.visible_message("[user] pries the windoor into the frame.", "You start prying the windoor into the frame...")
 
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, volume = I.use_volume))
 		return
 	if(loc && electronics)
 		for(var/obj/machinery/door/window/WD in loc)
@@ -247,7 +247,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] removes the electronics from the windoor assembly.", "You start to uninstall the electronics from the windoor assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 40, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	name = "wired windoor assembly"
@@ -264,7 +264,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] cuts the wires from the windoor assembly.", "You start to cut the wires from windoor assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != WIRED_ASSEMBLY)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || state != WIRED_ASSEMBLY)
 		return
 	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
@@ -288,7 +288,7 @@
 				return
 		user.visible_message("[user] secures the windoor assembly to the floor.", "You start to secure the windoor assembly to the floor...")
 
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || state != EMPTY_ASSEMBLY)
+		if(!I.use_tool(src, user, 40, volume = I.use_volume) || anchored || state != EMPTY_ASSEMBLY)
 			return
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
@@ -303,7 +303,7 @@
 
 	else	//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 		user.visible_message("[user] unsecures the windoor assembly from the floor.", "You start to unsecure the windoor assembly from the floor...")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != EMPTY_ASSEMBLY)
+		if(!I.use_tool(src, user, 40, volume = I.use_volume) || !anchored || state != EMPTY_ASSEMBLY)
 			return
 		to_chat(user, "<span class='notice'>You unsecure the windoor assembly.</span>")
 		anchored = FALSE
@@ -320,7 +320,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume) && state == EMPTY_ASSEMBLY)
+	if(I.use_tool(src, user, 40, volume = I.use_volume) && state == EMPTY_ASSEMBLY)
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
 		RG.add_fingerprint(user)
@@ -340,7 +340,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is configuring the glass panel in the windoor assembly...", "You start to configure the glass panel in the airlock assembly...")
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || !electronics)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.use_volume) || !electronics)
 		return
 
 	polarized_glass = !polarized_glass

@@ -284,7 +284,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume) && deconstruction_ready)
+	if(I.use_tool(src, user, 20, volume = I.use_volume) && deconstruction_ready)
 		deconstruct(TRUE)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
@@ -297,7 +297,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume) && deconstruction_ready)
+	if(I.use_tool(src, user, 40, volume = I.use_volume) && deconstruction_ready)
 		deconstruct(TRUE, 1)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
@@ -591,7 +591,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
 		deconstruction_ready = !deconstruction_ready
 
@@ -791,7 +791,7 @@
 		return
 	. = TRUE
 	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, 50, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
 		deconstruction_ready = !deconstruction_ready
 
@@ -959,7 +959,7 @@
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	deconstruct(TRUE)
 
@@ -1020,7 +1020,7 @@
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	new /obj/item/stack/sheet/metal(user.loc)
 	qdel(src)

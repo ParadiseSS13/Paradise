@@ -372,7 +372,7 @@
 
 /obj/machinery/disposal/delivery_chute/screwdriver_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	can_deconstruct = !can_deconstruct
 	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
@@ -387,7 +387,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/structure/disposalconstruct/C = new (loc)
 		C.ptype = deconstructs_to

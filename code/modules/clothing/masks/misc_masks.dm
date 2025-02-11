@@ -137,7 +137,7 @@
 	if(!trigger)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
 	trigger.forceMove(get_turf(user))

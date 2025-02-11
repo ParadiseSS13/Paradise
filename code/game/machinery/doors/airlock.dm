@@ -1044,7 +1044,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
@@ -1060,7 +1060,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
 			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
@@ -1072,7 +1072,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			update_icon()
 	else if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
 			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
@@ -1099,7 +1099,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
 			return
 		to_chat(user, "<span class='notice'>You start cutting through the outer grille.</span>")
-		if(I.use_tool(src, user, 10, volume = I.tool_volume))
+		if(I.use_tool(src, user, 10, volume = I.use_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL)
 				return
 			user.visible_message("<span class='notice'>[user] cut through \the [src]'s outer grille.</span>",
@@ -1112,7 +1112,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!headbutt_shock_check(user))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	interact_with_panel(user)
 
@@ -1126,7 +1126,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
 				to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
-				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 40, volume = I.use_volume))
 					return
 				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
@@ -1135,7 +1135,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				new /obj/item/stack/sheet/metal(get_turf(user), 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
-				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 40, volume = I.use_volume))
 					return
 				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
@@ -1143,7 +1143,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
-				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 40, volume = I.use_volume))
 					return
 				user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 
-			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 40, volume = I.use_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
@@ -1170,7 +1170,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
 				"<span class='notice'>You begin repairing the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 40, volume = I.use_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
 				user.visible_message("<span class='notice'>[user.name] has repaired [src].</span>", \
@@ -1180,7 +1180,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
 	update_icon()
 
-/obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
+/obj/machinery/door/airlock/proc/weld_checks(obj/item/tool/I, mob/user)
 	return !operating && density && user && I && I.tool_use_check() && user.loc
 
 /obj/machinery/door/airlock/proc/headbutt_shock_check(mob/user)
@@ -1190,7 +1190,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	return TRUE
 
-/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)
+/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/tool/I)
 	if(operating)
 		return
 	var/beingcrowbarred = FALSE
@@ -1199,7 +1199,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							"<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 40, volume = I.use_volume))
 			deconstruct(TRUE, user)
 		return
 	if(welded)

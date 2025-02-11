@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/screwdriver_act(mob/living/user, obj/item/tool/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 
 	start_program(find_program(/datum/data/pda/app/main_menu))

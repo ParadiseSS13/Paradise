@@ -129,7 +129,7 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	deconstruct()
 
@@ -139,7 +139,7 @@
 	. = TRUE
 	if(shock(user, 90))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	anchored = !anchored
 	var/support = locate(/obj/structure/lattice) in get_turf(src)

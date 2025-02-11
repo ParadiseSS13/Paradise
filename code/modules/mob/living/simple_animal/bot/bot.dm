@@ -453,7 +453,7 @@
 			return
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-		if(do_after(user, 30 * W.usespeed, target = src))
+		if(do_after(user, 30 * W.use_speed, target = src))
 			if(paicard)
 				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 				ejectpai(user)
@@ -468,7 +468,7 @@
 		return TRUE // Must be true or we attempt to stab the bot
 
 	open = !open
-	I.play_tool_sound(src)
+	I.play_sound(src)
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 	return TRUE
 
@@ -485,7 +485,7 @@
 	if(!open)
 		to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 	adjustBruteLoss(-10)
 	add_fingerprint(user)

@@ -129,7 +129,7 @@
 	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	switch(state)
 		if(CIRCUIT_CORE)
@@ -156,7 +156,7 @@
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	switch(state)
 		if(SCREWED_CORE)
@@ -197,7 +197,7 @@
 	if(state != CABLED_CORE)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(brain)
 		to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
@@ -248,7 +248,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 20, volume = I.use_volume))
 		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)
 		qdel(src)

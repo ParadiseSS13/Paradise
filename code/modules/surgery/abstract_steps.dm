@@ -77,6 +77,9 @@
 	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/tool/surgery_tool
+	if(istool(tool))
+		surgery_tool = tool
 
 	var/list/starting_tools = list()
 
@@ -112,7 +115,7 @@
 
 
 		for(var/allowed in first_step.allowed_tools)
-			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
+			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && surgery_tool.tool_behaviour == allowed))
 				next_surgery = S
 			if((allowed in starting_tools) && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
@@ -162,7 +165,7 @@
 				else
 					CRASH("[src] has a tool conflict ([allowed]) with the next step [next_surgery_step] in the surgery it was called from ([surgery])")
 
-			if(tool && istype(tool) && (ispath(allowed) && istype(tool, allowed) || tool.tool_behaviour == allowed))
+			if(tool && istype(tool) && (ispath(allowed) && istype(tool, allowed) || surgery_tool.tool_behaviour == allowed))
 				next_surgery = surgery
 
 		// Check if we might allow this under the any item rule if it doesn't fit into any other category. We don't want to accidentally miss a tool conflict.

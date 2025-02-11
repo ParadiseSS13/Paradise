@@ -112,7 +112,7 @@
 		to_chat(user, "<span class='warning'>The screws can't reach while its open.</span>")
 		return TRUE
 
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 
 	if(open)
@@ -131,7 +131,7 @@
 		to_chat(user, "<span class='notice'>The cover is screwed tightly down.</span>")
 		return TRUE
 
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 
 	if(open)

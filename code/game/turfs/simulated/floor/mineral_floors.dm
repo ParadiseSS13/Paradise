@@ -46,7 +46,7 @@
 		return FINISH_ATTACK
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/tool/I)
-	if(I.use_tool(src, user, volume = I.tool_volume))
+	if(I.use_tool(src, user, volume = I.use_volume))
 		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")

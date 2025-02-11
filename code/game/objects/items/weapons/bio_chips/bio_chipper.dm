@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=2;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	usespeed = 1
+	use_speed = 1
 	var/obj/item/bio_chip/imp
 	var/obj/item/bio_chip/implant_type
 
@@ -29,7 +29,7 @@
 			M.visible_message("<span class='warning'>[user] is attempting to bio-chip [M].</span>")
 
 		var/turf/T = get_turf(M)
-		if(T && (M == user || do_after(user, 50 * usespeed, target = M)))
+		if(T && (M == user || do_after(user, 50 * use_speed, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
 					if(M == user)

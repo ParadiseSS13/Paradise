@@ -466,7 +466,7 @@
 	if(operating || !density)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	welded = !welded
 	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\

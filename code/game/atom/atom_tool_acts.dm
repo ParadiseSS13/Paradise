@@ -65,6 +65,9 @@
 	if(SEND_SIGNAL(src, COMSIG_TOOL_ATTACK, tool, user) & COMPONENT_CANCEL_TOOLACT)
 		return FALSE
 
+	if(!istype(tool, /obj/item/tool))
+		return NONE
+
 	var/tool_type = tool.tool_behaviour
 	if(!tool_type)
 		return NONE

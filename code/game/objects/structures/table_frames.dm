@@ -76,10 +76,10 @@
 
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+	if(I.use_tool(src, user, 30, volume = I.use_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		for(var/i = 1, i <= framestackamount, i++)
 			new framestack(get_turf(src))

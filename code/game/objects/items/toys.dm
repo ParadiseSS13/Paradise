@@ -1213,7 +1213,7 @@
 	rare_hug_word = "Rattle!"
 
 /obj/item/toy/plushie/plasmamanplushie/welder_act(mob/user, obj/item/tool/I)
-	if(I.use_tool(src, user, volume = I.tool_volume))
+	if(I.use_tool(src, user, volume = I.use_volume))
 		bakoom()
 	return TRUE
 

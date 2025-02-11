@@ -40,7 +40,7 @@
 	if(!removable)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	to_chat(user, "You unfasten the sign with [I].")
 	var/obj/item/sign/S = new(src.loc)

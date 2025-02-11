@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	if(!(stat & BROKEN))
 		var/obj/item/conveyor_construct/C = new(loc)
@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor/wrench_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	set_rotation(user)
 	update_move_direction()
@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	var/obj/item/conveyor_switch_construct/C = new(loc, id)
 	transfer_fingerprints_to(C)
@@ -372,7 +372,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor_switch/multitool_act(mob/user, obj/item/tool/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	ui_interact(user)
 

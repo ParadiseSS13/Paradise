@@ -16,7 +16,7 @@
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
-	usespeed = 1
+	use_speed = 1
 	usesound = 'sound/weapons/flash.ogg'
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
@@ -126,7 +126,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(get_turf(src), usesound, 25, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * usespeed, target = C))
+	if(!do_after(user, 50 * use_speed, target = C))
 		teleporting = FALSE
 		return
 

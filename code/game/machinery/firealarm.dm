@@ -158,7 +158,7 @@ FIRE ALARM
 	if(!I.tool_use_check(user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume) || buildstage != FIRE_ALARM_UNWIRED)
+	if(!I.use_tool(src, user, 20, volume = I.use_volume) || buildstage != FIRE_ALARM_UNWIRED)
 		return
 	new /obj/item/firealarm_electronics(drop_location())
 	buildstage = FIRE_ALARM_FRAME
@@ -172,7 +172,7 @@ FIRE ALARM
 	if(!wiresexposed)
 		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	detecting = !detecting
 	if(detecting)
@@ -184,7 +184,7 @@ FIRE ALARM
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	wiresexposed = !wiresexposed
 	if(wiresexposed)
@@ -200,7 +200,7 @@ FIRE ALARM
 	if(!wiresexposed)
 		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	update_icon()
 	WIRECUTTER_SNIP_MESSAGE
@@ -213,7 +213,7 @@ FIRE ALARM
 	if(buildstage != FIRE_ALARM_FRAME)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.use_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/firealarm(get_turf(user))
@@ -355,7 +355,7 @@ Just a object used in constructing fire alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
+	use_speed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef FIRE_ALARM_FRAME

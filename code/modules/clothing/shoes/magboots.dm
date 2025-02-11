@@ -263,7 +263,7 @@
 		to_chat(user, "<span class='warning'>Turn off the boots first!</span>")
 		return
 
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, volume = I.use_volume))
 		return
 
 	user.put_in_hands(cell)

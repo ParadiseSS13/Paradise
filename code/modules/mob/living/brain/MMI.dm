@@ -118,7 +118,7 @@
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
 							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
+	if(!I.use_tool(src, user, 40, volume = I.use_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
