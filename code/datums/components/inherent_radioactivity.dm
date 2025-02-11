@@ -11,13 +11,12 @@
 	radioactivity_beta = _radioactivity_beta
 	radioactivity_gamma = _radioactivity_gamma
 	contaminate_cd = _contaminate_cd
-	RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP), PROC_REF(try_contaminate))
-	RegisterSignal(parent, list(COMSIG_MOVABLE_IMPACT), PROC_REF(impact_contaminate))
+	RegisterSignal(parent, list(COMSIG_MOVABLE_IMPACT, COMSIG_ATOM_HITBY), PROC_REF(impact_contaminate))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(try_contaminate_hand))
 	if(isitem(parent))
 		RegisterSignal(parent, list(COMSIG_ATTACK, COMSIG_ATTACK_OBJ), PROC_REF(impact_contaminate))
 
-/datum/component/inherent_radioactivity/proc/try_contaminate(atom/source, atom/target)
+/datum/component/inherent_radioactivity/proc/impact_contaminate(atom/source, atom/target)
 	SIGNAL_HANDLER
 	if(contaminate_cd <= 0 || COOLDOWN_FINISHED(src, contaminate_cooldown))
 		if(radioactivity_alpha)
@@ -28,22 +27,6 @@
 			target.contaminate_atom(source, radioactivity_gamma, GAMMA_RAD)
 		if(contaminate_cd > 0)
 			COOLDOWN_START(src, contaminate_cooldown, contaminate_cd SECONDS)
-
-/datum/component/inherent_radioactivity/proc/impact_contaminate(atom/source, atom/target, zone)
-	SIGNAL_HANDLER
-	if(ishuman(target))
-		zone = hit_zone_to_clothes_zone(zone)
-		if(contaminate_cd <= 0 || COOLDOWN_FINISHED(src, contaminate_cooldown))
-			if(radioactivity_alpha)
-				target.contaminate_atom(source, radioactivity_alpha, ALPHA_RAD, zone)
-			if(radioactivity_beta)
-				target.contaminate_atom(source, radioactivity_beta, BETA_RAD, zone)
-			if(radioactivity_gamma)
-				target.contaminate_atom(source, radioactivity_gamma, GAMMA_RAD, zone)
-			if(contaminate_cd > 0)
-				COOLDOWN_START(src, contaminate_cooldown, contaminate_cd SECONDS)
-		return
-	try_contaminate(source, target)
 
 /datum/component/inherent_radioactivity/proc/try_contaminate_hand(atom/source, atom/target)
 	SIGNAL_HANDLER
