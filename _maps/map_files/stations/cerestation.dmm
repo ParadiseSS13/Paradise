@@ -26262,6 +26262,11 @@
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server)
+"dCf" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "dCt" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -151878,7 +151883,7 @@ bll
 wUp
 rrb
 rrb
-rrb
+dCf
 tda
 gVR
 rNK
