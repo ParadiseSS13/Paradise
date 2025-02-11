@@ -104,7 +104,7 @@ pub(crate) const SPECIFIC_HEAT_CARBON_DIOXIDE: f32 = 30.0;
 pub(crate) const SPECIFIC_HEAT_NITROGEN: f32 = 20.0;
 
 // The specific heat of hydrogen, in joules per kelvin-mole.
-pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 30;
+pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 30.0;
 
 // The specific heat of toxins, in joules per kelvin-mole.
 pub(crate) const SPECIFIC_HEAT_TOXINS: f32 = 200.0;
