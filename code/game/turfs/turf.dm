@@ -34,7 +34,9 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0
+	flags = 0 // TODO, someday move all off the flags here to turf_flags
+
+	var/turf_flags = NONE
 
 	var/image/obscured	//camerachunks
 
@@ -282,8 +284,9 @@
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-
+	var/carryover_turf_flags = turf_flags & (RESERVATION_TURF|UNUSED_RESERVATION_TURF)
 	var/turf/W = new path(src)
+	W.turf_flags |= carryover_turf_flags
 	if(old_comp_lookup)
 		LAZYOR(W.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
