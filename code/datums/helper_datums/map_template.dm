@@ -51,6 +51,9 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
+	var/datum/milla_safe/freeze_z_level/milla_freeze = new()
+	milla_freeze.invoke_async(T.z)
+	UNTIL(milla_freeze.done)
 	try
 		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
 		if(!bounds)

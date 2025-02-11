@@ -13,6 +13,8 @@
 	#define STATION_CONTACT "Station Contact"
 	// A level dedicated to admin use
 	#define ADMIN_LEVEL "Admin Level"
+	// For Z-levels dedicated to auto-spawning stuff in
+	#define Z_FLAG_RESERVED "Reserved"
 	// A level that can be navigated to by the crew without admin intervention or the emergency shuttle.
 	#define REACHABLE_BY_CREW "Reachable"
 	// For away missions - used by some consoles

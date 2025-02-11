@@ -23680,13 +23680,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
-"deS" = (
-/mob/living/simple_animal/mouse/brown,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port2)
 "deW" = (
 /obj/item/radio/intercom{
 	pixel_y = 28;
@@ -36695,7 +36688,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "gtH" = (
@@ -37994,12 +37986,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard)
-"gLX" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fsmaint)
 "gLY" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -38318,15 +38304,6 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
-"gRw" = (
-/mob/living/simple_animal/mouse/white,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "gRz" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -38677,10 +38654,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
-"gWv" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "gWO" = (
 /obj/structure/closet/wardrobe/white,
 /obj/item/clothing/shoes/jackboots,
@@ -41553,7 +41526,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -46749,13 +46721,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
-"iXy" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/starboard)
 "iXK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
@@ -53375,14 +53340,6 @@
 	icon_state = "green"
 	},
 /area/station/public/quantum/service)
-"kAu" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
-	},
-/area/station/maintenance/fore)
 "kAv" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -55289,10 +55246,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
 /area/station/hallway/primary/port/south)
-"laM" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore2)
 "lbf" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -63036,10 +62989,6 @@
 	icon_state = "escape"
 	},
 /area/station/maintenance/port2)
-"mXW" = (
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "mYa" = (
 /obj/machinery/flasher{
 	id = "Cell 2";
@@ -63563,7 +63512,6 @@
 /area/station/maintenance/fore)
 "neD" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
@@ -66293,11 +66241,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
-"nQU" = (
-/mob/living/simple_animal/mouse/brown,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore2)
 "nQW" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -68447,7 +68390,6 @@
 /area/station/science/test_chamber)
 "ove" = (
 /obj/effect/spawner/random/dirt/frequent,
-/mob/living/simple_animal/mouse/gray,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -70374,15 +70316,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
-"oUR" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/apmaint)
 "oVb" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -72855,12 +72788,6 @@
 	icon_state = "bluered"
 	},
 /area/station/hallway/secondary/entry/west)
-"pAV" = (
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "pBh" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -76500,13 +76427,6 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass,
 /area/station/hallway/spacebridge/scidock)
-"qvA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fore)
 "qvJ" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -82122,10 +82042,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
-"rVL" = (
-/mob/living/simple_animal/mouse/gray,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/apmaint)
 "rVZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door_control{
@@ -86417,11 +86333,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/break_room)
-"sXA" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port2)
 "sXG" = (
 /obj/machinery/light{
 	dir = 8
@@ -106811,7 +106722,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "xUz" = (
-/mob/living/simple_animal/mouse/gray,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -107077,12 +106987,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"xXN" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "xXS" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -119343,7 +119247,7 @@ aXn
 lVV
 qcE
 tiE
-gWv
+jee
 kZy
 lVV
 aXn
@@ -121394,7 +121298,7 @@ aXn
 aXn
 hvI
 eTI
-pAV
+eCI
 pXy
 dHZ
 wzC
@@ -121718,7 +121622,7 @@ wms
 adg
 fZa
 fdG
-oUR
+qlW
 sKh
 sKh
 wIq
@@ -128637,7 +128541,7 @@ ueB
 rXS
 lSc
 reB
-deS
+reB
 kZd
 iaF
 aXn
@@ -130818,7 +130722,7 @@ wDs
 wDs
 wDs
 bDo
-nQU
+vXM
 vrQ
 wDs
 afd
@@ -132477,7 +132381,7 @@ rNK
 lzH
 rNK
 cKa
-sXA
+dQZ
 dQZ
 qpx
 shL
@@ -132656,7 +132560,7 @@ wDs
 wDs
 uEX
 tbe
-laM
+vrQ
 bJW
 tbe
 wDs
@@ -132794,7 +132698,7 @@ koR
 koR
 dHN
 xPU
-rVL
+wsR
 wsR
 cWF
 wIq
@@ -138549,7 +138453,7 @@ vPt
 vPt
 vPt
 vPt
-laM
+vrQ
 aGg
 bbc
 bbc
@@ -143670,7 +143574,7 @@ fFd
 gKc
 cdz
 rTz
-qvA
+bjF
 bjF
 bjF
 bjF
@@ -144710,7 +144614,7 @@ bkp
 bkp
 mEg
 scz
-kAu
+scz
 vnu
 qIa
 qaI
@@ -147665,7 +147569,7 @@ plQ
 plQ
 plQ
 rlz
-mXW
+imG
 ggK
 xON
 mJk
@@ -159718,7 +159622,7 @@ xyF
 sVv
 yfZ
 gFg
-gRw
+xAV
 tvJ
 aZN
 aZM
@@ -161502,7 +161406,7 @@ bCq
 bkH
 qhP
 fqw
-iXy
+bLj
 gSQ
 bLj
 bLj
@@ -165567,7 +165471,7 @@ hqL
 cpC
 cpC
 cpC
-gLX
+cpC
 rNW
 gGH
 pMv
@@ -165612,7 +165516,7 @@ vHH
 wyL
 gSQ
 gSQ
-xXN
+gFg
 gFg
 gSQ
 gSQ
