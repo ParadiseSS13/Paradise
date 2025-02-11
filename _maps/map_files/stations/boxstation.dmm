@@ -57589,18 +57589,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "ivC" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/explorer,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "ivE" = (
