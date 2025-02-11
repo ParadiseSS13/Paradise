@@ -350,6 +350,8 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.gases.toxins()),
             ByondValue::from(value.gases.sleeping_agent()),
             ByondValue::from(value.gases.agent_b()),
+			ByondValue::from(value.gases.hydrogen()),
+			ByondValue::from(value.gases.water_vapor()),
             ByondValue::from(value.mode),
             ByondValue::from(environment_id as f32),
             ByondValue::from(value.superconductivity.north),
