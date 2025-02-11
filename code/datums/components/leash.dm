@@ -169,8 +169,5 @@
 	if(force_teleport_in_effect)
 		new force_teleport_in_effect(movable_parent.loc)
 
-	if(ismob(movable_parent))
-		to_chat(movable_parent, "<span class='warning'>You are too far away!</span>")
-
 	SEND_SIGNAL(parent, COMSIG_LEASH_FORCE_TELEPORT)
 
