@@ -26502,9 +26502,6 @@
 /turf/space,
 /area/space/nearstation)
 "bLU" = (
-/obj/structure/sign/vacuum{
-	pixel_x = 32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -45563,13 +45560,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"cYg" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/aisat)
 "cYh" = (
 /obj/structure/closet/wardrobe/yellow,
 /obj/machinery/requests_console/directional/east,
@@ -63392,6 +63382,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/miningdock)
+"hZe" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "AI Minisatellite Airlock Exterior";
+	dir = 5;
+	network = list("SS13","Minisat")
+	},
+/turf/space,
+/area/space/nearstation)
 "hZg" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -70325,7 +70324,7 @@
 	},
 /area/station/security/permabrig)
 "lYU" = (
-/obj/effect/spawner/airlock/w_to_e,
+/obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall,
 /area/station/aisat)
 "lYX" = (
@@ -81370,6 +81369,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
 	},
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -84169,16 +84171,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/prisonershuttle)
-"tuT" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/station/aisat)
 "tvq" = (
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
@@ -92644,6 +92636,12 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"xOU" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/aisat)
 "xOV" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -105998,11 +105996,11 @@ aaa
 aaa
 aaa
 aaa
-abj
+gtb
 oUR
 oUR
-oUR
-cYg
+nmp
+lwd
 lYU
 bRL
 tZH
@@ -106258,7 +106256,7 @@ aaa
 abj
 abj
 oUR
-tuT
+nmp
 pgS
 oUR
 hse
@@ -106513,9 +106511,9 @@ aaa
 aaa
 aaa
 aaa
-gtb
+abj
 oUR
-oUR
+xOU
 lwd
 gLg
 rCa
@@ -106771,9 +106769,9 @@ aaa
 aaa
 aaa
 abj
-abj
-abj
-dVS
+oUR
+nmp
+lwd
 sYZ
 plz
 bTS
@@ -107027,9 +107025,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+abj
+hZe
+abj
 adh
 wts
 qbl
