@@ -519,10 +519,12 @@
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
 		return //wait till the game starts or the monkeys runtime
-	to_chat(world,"DEBIG: Found newstatus of: [new_status]")
 	if(!new_status)
-		new_status = find_record("ai_target", targetname, GLOB.data_core.general)
-		to_chat(world, " DEBUG: found record for [targetname]: [new_status]")
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == targetname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						new_status = E.fields["ai_target"]
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)
