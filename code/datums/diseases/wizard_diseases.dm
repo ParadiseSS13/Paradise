@@ -73,6 +73,25 @@
 	severity = DANGEROUS
 	virus_heal_resistant = TRUE
 
+/datum/disease/wand_rot/stage_act()
+	if(!..())
+		return FALSE
+
+	switch(stage)
+		if(1)
+			if(prob(5))
+
+				to_chat(affected_mob, "<span class='danger'>Your stomach feels strange.</span>")
+		if(2)
+
+		if(3)
+
+		if(4)
+
+		if(5)
+			if(prob(5))
+				affected_mob.emote("burps")
+
 /datum/disease/mystic_malaise
 	name = "Mystic Malaise"
 	max_stages = 5
@@ -85,3 +104,22 @@
 	desc = "A magic-infused disease that resides in the gut, converting gastric juices into space-matter."
 	severity = DANGEROUS
 	virus_heal_resistant = TRUE
+
+/datum/disease/mystic_malaise/stage_act()
+	if(!..())
+		return FALSE
+
+	switch(stage)
+		if(1)
+			if(prob(5))
+
+				to_chat(affected_mob, "<span class='danger'>Your stomach feels strange.</span>")
+		if(2)
+
+		if(3)
+
+		if(4)
+
+		if(5)
+			if(prob(5))
+				affected_mob.emote("burps")
