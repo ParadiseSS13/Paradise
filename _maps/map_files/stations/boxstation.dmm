@@ -35400,10 +35400,6 @@
 	},
 /area/station/public/construction)
 "cxB" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "aisat_vent"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plating,
@@ -49670,12 +49666,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"eqt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "eqN" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -123908,7 +123898,7 @@ aab
 vHd
 saB
 jmM
-eqt
+dnW
 wza
 dnZ
 wtW
