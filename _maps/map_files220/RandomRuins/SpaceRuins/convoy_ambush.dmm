@@ -417,7 +417,7 @@
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(3)
 	},
-/obj/item/gun/energy/laser/retro/old,
+/obj/effect/spawner/random/pool/spaceloot/laser,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -588,7 +588,7 @@
 	dir = 2
 	},
 /obj/structure/closet/crate,
-/obj/item/grenade/frag,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common_rare,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "zo" = (
@@ -830,7 +830,7 @@
 	dir = 2
 	},
 /obj/structure/closet/crate,
-/obj/item/grenade/frag,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common_rare,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "IN" = (
@@ -917,6 +917,15 @@
 "LF" = (
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered/unpowered_structures)
+"LZ" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/mining_tool,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -1119,17 +1128,16 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "TF" = (
 /obj/structure/closet/syndicate,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/gun/projectile/automatic/pistol,
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
 	dir = 4
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "TT" = (
-/obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/status_display/directional/east,
+/obj/effect/spawner/random/pool/spaceloot/security/modsuit,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -1179,8 +1187,8 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "VO" = (
 /obj/structure/table,
-/obj/item/grenade/plastic/c4,
 /obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common_rare,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered/unpowered_structures)
 "VX" = (
@@ -4816,7 +4824,7 @@ TA
 wB
 wB
 wB
-SA
+LZ
 RP
 wr
 wr

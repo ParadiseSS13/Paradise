@@ -29,7 +29,7 @@
 /turf/template_noop,
 /area/ruin/space/unpowered/unpowered_structures)
 "bi" = (
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/template_noop,
 /area/template_noop)
 "bq" = (
@@ -333,10 +333,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
-"zg" = (
-/obj/item/storage/box/syndidonkpockets,
-/turf/template_noop,
-/area/template_noop)
 "zG" = (
 /obj/structure/table,
 /obj/structure/lattice,
@@ -452,7 +448,7 @@
 /turf/template_noop,
 /area/template_noop)
 "IA" = (
-/obj/machinery/suit_storage_unit/syndicate/secure,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/nuclear,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Jr" = (
@@ -1598,7 +1594,7 @@ Ly
 Ly
 SK
 Ly
-zg
+bi
 jM
 tO
 SK

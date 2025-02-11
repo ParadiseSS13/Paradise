@@ -1011,8 +1011,8 @@
 	dir = 1
 	},
 /obj/structure/safe/floor,
-/obj/item/camera_bug,
 /obj/item/flash,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/greengrid,
 /area/ruin/space/spacehotelv1/reception)
 "ix" = (
@@ -2959,7 +2959,7 @@
 /obj/item/clothing/under/dress/victdress/red,
 /obj/item/clothing/under/dress/victdress,
 /obj/item/clothing/under/suit/victsuit,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/cyan,
 /area/ruin/space/spacehotelv1/guestroom5)
 "xb" = (
@@ -4309,12 +4309,12 @@
 /area/ruin/space/spacehotelv1/bar)
 "GZ" = (
 /obj/structure/table/holotable/wood,
+/obj/effect/turf_decal/siding/wood/neutral{
+	dir = 4
+	},
 /obj/item/paper/pamphlet/deltainfo{
 	name = "Hotel pamphlet";
 	info = "<center><b>The Twin Nexus Hotel</center></b><br><center><i>A place of Sanctuary</i></center><br><br><center>Welcome to The Twin-Nexus Hotel, \[insert name here]! The loyal staff strive to their best effort to cater for the best possible experience for all space(wo)men! If you have any questions or comments, please ask one of our on-board staff for more information.</center>"
-	},
-/obj/effect/turf_decal/siding/wood/neutral{
-	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
@@ -6464,6 +6464,10 @@
 /obj/item/folder/red{
 	pixel_x = 10;
 	pixel_y = 6
+	},
+/obj/item/t_scanner{
+	pixel_x = -10;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)

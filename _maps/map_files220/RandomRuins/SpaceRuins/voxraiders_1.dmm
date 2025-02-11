@@ -138,7 +138,7 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"
 	},
@@ -223,10 +223,10 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/unpowered/unpowered_structures)
 "vp" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/command{
 	locked = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"
 	},
@@ -291,6 +291,11 @@
 	icon_state = "plastitanium"
 	},
 /area/ruin/space/powered)
+"Cs" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/ruin/space/powered)
 "CI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -339,7 +344,7 @@
 "Fi" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"
 	},
@@ -377,6 +382,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "JI" = (
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/vox/ranged_laser/space,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark_Golden_1"
 	},
@@ -412,6 +418,28 @@
 	icon_state = "Dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
+"MB" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 9;
+	pixel_x = 8
+	},
+/obj/item/food/sliced/cheese_pizza{
+	pixel_y = -2;
+	pixel_x = -7
+	},
+/obj/item/storage/box/zipties{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/toy/plushie/voxplushie{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
+	icon_state = "plastitanium"
+	},
+/area/ruin/space/powered)
 "NN" = (
 /obj/item/flag/solgov,
 /turf/simulated/floor/plasteel/airless{
@@ -424,6 +452,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -452,7 +481,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "QX" = (
-/mob/living/simple_animal/hostile/vox/ranged_laser/space,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -476,7 +504,7 @@
 /area/ruin/space/powered)
 "SX" = (
 /obj/structure/rack,
-/obj/item/salvage/loot/pirate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen{
 	icon_state = "plastitanium"
 	},
@@ -524,26 +552,6 @@
 "Xz" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating/nitrogen,
-/area/ruin/space/powered)
-"XZ" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 9;
-	pixel_x = 8
-	},
-/obj/item/toy/plushie/voxplushie,
-/obj/item/food/sliced/cheese_pizza{
-	pixel_y = -2;
-	pixel_x = -7
-	},
-/obj/item/storage/box/zipties{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/item/grenade/plastic/c4,
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen{
-	icon_state = "plastitanium"
-	},
 /area/ruin/space/powered)
 "Yg" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
@@ -664,7 +672,7 @@ OC
 CI
 il
 AK
-Mq
+Fi
 oL
 Mq
 Fi
@@ -846,7 +854,7 @@ Lq
 xa
 iD
 Rb
-XZ
+MB
 Ra
 SX
 hJ
@@ -922,7 +930,7 @@ dQ
 KN
 KN
 dQ
-UO
+Cs
 fG
 Sp
 ye

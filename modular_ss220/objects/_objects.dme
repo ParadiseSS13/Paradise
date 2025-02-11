@@ -45,6 +45,7 @@
 #include "code/shuttle.dm"
 #include "code/smartfridge.dm"
 #include "code/spellbook.dm"
+#include "code/suit_storage_unit.dm"
 #include "code/tribune.dm"
 #include "code/key.dm"
 #include "code/musician.dm"

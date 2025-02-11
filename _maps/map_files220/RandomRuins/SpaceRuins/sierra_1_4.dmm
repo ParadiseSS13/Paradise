@@ -103,6 +103,18 @@
 	icon_state = "white_large"
 	},
 /area/ruin/space/sierra/med)
+"aR" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/crowbar,
+/obj/item/t_scanner{
+	pixel_x = 8;
+	pixel_y = -8
+	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/sierra/shelter)
 "aV" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sierra/hall)
@@ -1415,6 +1427,7 @@
 /area/ruin/space/sierra/med)
 "kB" = (
 /obj/structure/rack,
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plating,
 /area/ruin/space/sierra/med)
 "kI" = (
@@ -5570,6 +5583,14 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sierra/med)
+"Rv" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/safe/floor,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/sierra/shelter)
 "Rw" = (
 /obj/structure/cable/green{
 	d1 = 1;
@@ -10093,8 +10114,8 @@ KS
 BT
 Me
 FF
-kZ
-kZ
+Rv
+aR
 kZ
 kZ
 kZ

@@ -104,6 +104,10 @@
 	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "darkdurand-broken"
 
+// mechtransport_new space ruin mech
+/obj/mecha/combat/durand/old/mechtransport_new
+	obj_integrity = 120
+
 #undef ERT_TYPE_AMBER
 #undef ERT_TYPE_RED
 #undef ERT_TYPE_GAMMA

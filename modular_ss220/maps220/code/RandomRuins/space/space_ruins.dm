@@ -5,7 +5,6 @@
 	description = "Пример описания" // Описание руины. Видно только админам.
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/" // Путь до карты, обязательно оставлять таким.
 	suffix = "" // .dmm файл руины, вписывать название полностью, пример: suffix = "example.dmm". Саму карту закидывать в путь префикса.
-	// cost = 5 // Вес руины, чем он больше, тем меньше шанс что она заспавнится
 	allow_duplicates = FALSE // Разрешает/Запрещает дубликаты руины. TRUE - могут быть дубликаты. FALSE - дубликатов не будет.
 	always_place = TRUE // Если вписать эту строчку, руина будет спавнится всегда. Использовать ТОЛЬКО для теста! После удалить.
 	ci_exclude = /datum/map_template/ruin/space/example // Это не использовать.
@@ -18,7 +17,6 @@
 	description = "An abandoned unarmed transport ship, a perfect target for the bandit scum."
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "mechtransport_new.dmm"
-	// cost = 3
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/destroyed_infiltrator
@@ -27,7 +25,6 @@
 	description = "They're loading BSA! But why? Ah, they're going to sho-..."
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "destroyed_infiltrator.dmm"
-	// cost = 3
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/transit_bar
@@ -36,7 +33,6 @@
 	description = "One of the trillion bars in this galaxy, this one looks especially homey and comfy."
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "transit_bar.dmm"
-	// cost = 1
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/infected_ship
@@ -45,7 +41,6 @@
 	description = "A lonely drifting ship showing no signs of life... What kind of black rubber substance is weaving around its shell?"
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "infected_ship.dmm"
-	// cost = 3
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/convoy_ambush
@@ -54,7 +49,6 @@
 	description = "I've been waiting for this for twuh years!"
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "convoy_ambush.dmm"
-	// cost = 3
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/whiteship
@@ -65,7 +59,6 @@
 	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
 	allow_duplicates = FALSE
 	always_place = TRUE
-	// cost = 0
 
 /datum/map_template/ruin/space/whiteship/get_cost()
 	return 0
@@ -76,7 +69,6 @@
 	description = "A small Vox skipjack near some space scrap. They will definitely not tolerate new rivals."
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "voxraiders_1.dmm"
-	// cost = 4
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/spacehotel
@@ -85,7 +77,6 @@
 	description = "An interstellar hotel, where the weary spaceman can rest their head and relax, assured that the residental staff will not murder them in their sleep. Probably."
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "spacehotel.dmm"
-	// cost = 10
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/sierra_1_4
@@ -94,5 +85,4 @@
 	description = "Wreckage of the Sierra after a terrible incident"
 	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
 	suffix = "sierra_1_4.dmm"
-	// cost = 20 я хуй знает как это тут сделать, так что похуй.
 	allow_duplicates = FALSE

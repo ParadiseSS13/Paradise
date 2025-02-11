@@ -6,10 +6,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/toolbox/syndicate{
-	pixel_x = -10;
-	pixel_y = 10
-	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common_rare,
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "al" = (
@@ -358,7 +355,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/item/toy/sword,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "iP" = (
@@ -936,8 +933,8 @@
 /obj/machinery/light_construct/directional/west,
 /obj/item/paper/crumpled,
 /obj/effect/spawner/random/dirt/often,
-/obj/item/storage/secure/briefcase/syndie,
 /obj/item/trash/spentcasing/bullet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "yd" = (
@@ -1605,7 +1602,7 @@
 	amount = 1
 	},
 /obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/corpse,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "WR" = (

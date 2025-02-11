@@ -230,6 +230,7 @@
 /area/ruin/space/powered)
 "R" = (
 /obj/structure/closet/crate/can,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/space/powered)
 "T" = (

@@ -18,9 +18,9 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "aH" = (
-/obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/directional/north,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "aK" = (
@@ -247,7 +247,7 @@
 "fO" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/camera_bug,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "gB" = (
@@ -331,7 +331,7 @@
 /area/ruin/space/powered)
 "ir" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "iG" = (
@@ -529,6 +529,13 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
+"mF" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
 "mN" = (
 /obj/machinery/button/windowtint/west{
 	id = "mech_toilet"
@@ -545,9 +552,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "nc" = (
-/obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ng" = (
@@ -662,6 +669,11 @@
 /obj/structure/railing/corner,
 /turf/template_noop,
 /area/template_noop)
+"pC" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random/loot/crate,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/powered)
 "pQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -690,9 +702,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "qA" = (
-/obj/mecha/combat/durand/old{
-	obj_integrity = 120
-	},
+/obj/effect/spawner/random/pool/spaceloot/mechtransport_new/mecha,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/ruin/space/powered)
 "qB" = (
@@ -809,8 +819,8 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "sU" = (
-/obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "tf" = (
@@ -1228,11 +1238,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
-"BX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
 "Cl" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/scavengers/meele/crusher,
@@ -1246,8 +1251,8 @@
 /area/ruin/space/powered)
 "Co" = (
 /obj/structure/table,
-/obj/item/mecha_parts/core,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Cp" = (
@@ -1306,6 +1311,12 @@
 	layer = 3.11
 	},
 /turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"CX" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/loot/crate,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "CZ" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1778,7 +1789,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "KY" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "La" = (
@@ -1861,12 +1872,6 @@
 "LY" = (
 /obj/structure/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/powered)
-"Md" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
-/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Me" = (
 /obj/structure/extinguisher_cabinet{
@@ -2423,14 +2428,11 @@
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(7)
 	},
-/obj/item/mecha_parts/mecha_equipment/weapon/honker,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
 /obj/item/mecha_modkit/voice/nanotrasen,
 /obj/item/toy/figure/mech/mauler,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/directional/south,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
+/obj/effect/spawner/random/pool/spaceloot/mechtransport_new/mecha_equipment,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "WK" = (
@@ -2871,9 +2873,9 @@ qU
 qU
 Sb
 sD
-Md
+CX
 sh
-HB
+pC
 HB
 LC
 Kb
@@ -2929,7 +2931,7 @@ nk
 VB
 bR
 sh
-sh
+CX
 pm
 vP
 lf
@@ -3036,7 +3038,7 @@ qU
 qU
 Sb
 Oh
-HB
+pC
 HB
 HB
 GF
@@ -3091,8 +3093,8 @@ Sb
 qU
 Sb
 Uu
-sh
-Md
+mF
+CX
 HB
 HB
 nk
@@ -3893,7 +3895,7 @@ QD
 SH
 ir
 rZ
-BX
+hw
 CW
 VO
 QD

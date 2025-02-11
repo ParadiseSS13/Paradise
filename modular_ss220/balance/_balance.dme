@@ -7,6 +7,7 @@
 #include "code/items/storage/surgical_tray.dm"
 #include "code/items/storage/closets.dm"
 #include "code/jobs/warden.dm"
+#include "code/loot/pools.dm"
 #include "code/mobs/aliens/larva.dm"
 #include "code/species/machine.dm"
 #include "code/species/skrell.dm"
