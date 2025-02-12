@@ -116,3 +116,10 @@
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
 
+// Cyborg specific items
+
+/// from /mob/living/silicon/robot/proc/activate_item() (mob/user), A general signal for if a specific borg item needs something done when being activated.
+#define COMSIG_CYBORG_ITEM_ACTIVATED "cyborg_activation"
+
+/// from /mob/living/silicon/robot/proc/deactivate_item() (mob/user), A general signal for if a specific borg item needs something done when being deactivated.
+#define COMSIG_CYBORG_ITEM_DEACTIVATED "cyborg_deactivation"
