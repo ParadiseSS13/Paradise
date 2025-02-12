@@ -45,6 +45,12 @@
 			attached_bits -= bit
 			bit.break_bit()
 
+	// If it has a chance to fail, see if it failed
+	if(bit_failure_rate)
+		if(prob(bit_failure_rate))
+			return
+
+
 	return TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.

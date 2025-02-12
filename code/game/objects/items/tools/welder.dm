@@ -141,6 +141,7 @@
 		user.flash_eyes(light_intensity)
 
 /obj/item/weldingtool/use(amount)
+	amount = amount * bit_efficiency_mod
 	if(GET_FUEL < amount * requires_fuel)
 		return
 	remove_fuel(amount)

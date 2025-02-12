@@ -637,6 +637,7 @@
  * * amount - the amount of matter to use
  */
 /obj/item/rcd/use(amount)
+	amount = amount * bit_efficiency_mod
 	if(matter < amount)
 		return FALSE
 	matter -= amount

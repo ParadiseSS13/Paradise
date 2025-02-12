@@ -180,6 +180,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/max_bits = 1
 	/// Can this item equip bits?
 	var/can_have_bits = FALSE
+	/// Failure rate of using this tool. Without a bit, defaults to 0 for no failure chance
+	var/bit_failure_rate = 0
+	/// Efficiency modifier for tools that use energy or fuel
+	var/bit_efficiency_mod = 1
 
 	///////////////////////////
 	// MARK: item hover FX

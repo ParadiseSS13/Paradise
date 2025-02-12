@@ -67,7 +67,7 @@
 	/// Tool speed multiplier
 	var/tool_speed_mult = 1.0
 	/// Tool precision multiplier
-	var/tool_precision_mult = 1.0
+	var/tool_failure_mult = 1.0
 	/// How much larger does a bit with this material make it?
 	var/size_mod = 0
 	/// Projectile speed multiplier
@@ -88,7 +88,7 @@
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
 	movement_speed_mod = -0.5
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_DEBUFF
+	tool_failure_mult = MINOR_MATERIAL_BUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_BUFF
 
@@ -97,7 +97,7 @@
 	laser_armor_mult = MINOR_MATERIAL_BUFF
 	heat_insulation_mult = MINOR_MATERIAL_BUFF
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
 
@@ -109,7 +109,7 @@
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MAJOR_MATERIAL_BUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	size_mod = 1
 	fire_rate_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_DEBUFF
@@ -129,7 +129,7 @@
 	burn_armor_mult = MINOR_MATERIAL_DEBUFF
 	laser_armor_mult = MINOR_MATERIAL_BUFF
 	heat_insulation_mult = MINOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
 	projectile_speed_mult = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
@@ -144,7 +144,7 @@
 	siemens_coeff_mult = MINOR_MATERIAL_BUFF
 	radiation_armor_mult = MAJOR_MATERIAL_DEBUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	size_mod = 1
 	projectile_speed_mult = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
@@ -159,7 +159,7 @@
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
 	siemens_coeff_mult = MAJOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	durability_mult = MAJOR_MATERIAL_BUFF
 
 /datum/smith_material/bluespace
@@ -244,7 +244,7 @@
 	movement_speed_mod = 0.5
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	size_mod = -1
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_BUFF
@@ -261,7 +261,7 @@
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
-	tool_precision_mult = MINOR_MATERIAL_BUFF
+	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	projectile_speed_mult = MINOR_MATERIAL_DEBUFF
 	power_draw_mult = MAJOR_MATERIAL_DEBUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF

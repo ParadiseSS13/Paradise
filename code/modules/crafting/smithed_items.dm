@@ -298,9 +298,11 @@
 	icon_state = "bit"
 	desc = "Debug tool bit. If you see this, notify the development team."
 	/// Speed modifier
-	var/speed_mod = 0
-	/// Precision modifier
-	var/precision_mod = 0
+	var/speed_mod = 1.0
+	/// Efficiency modifier
+	var/efficiency_mod = 1.0
+	/// Failure rate
+	var/failure_rate = 0
 	/// Size modifier
 	var/size_mod = 0
 	/// Durability
@@ -313,18 +315,23 @@
 	durability = initial(durability) * material.durability_mult
 	size_mod = initial(size_mod) + material.size_mod
 	speed_mod = initial(speed_mod) * quality.stat_mult * material.tool_speed_mult
-	precision_mod = initial(precision_mod) * quality.stat_mult * material.tool_precision_mult
+	failure_rate = initial(failure_rate) * quality.stat_mult * material.tool_failure_mult
+	efficiency_mod = initial(efficiency_mod) * quality.stat_mult * material.power_draw_mult
 
-/obj/item/smithed_item/tool_bit/on_attached(mob/user, obj/item/clothing/suit/target)
+/obj/item/smithed_item/tool_bit/on_attached(mob/user, obj/item/target)
 	if(!istype(target))
 		return
 	attached_tool = target
 	attached_tool.w_class += size_mod
-	attached_tool.toolspeed = toolspeed * speed_mod
+	attached_tool.toolspeed = attached_tool.toolspeed * speed_mod
+	attached_tool.bit_failure_rate += failure_rate
+	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod * efficiency_mod
 
 /obj/item/smithed_item/tool_bit/on_detached()
-	attached_tool.toolspeed = toolspeed / speed_mod
+	attached_tool.toolspeed = attached_tool.toolspeed / speed_mod
 	attached_tool.w_class -= size_mod
+	attached_tool.bit_failure_rate -= failure_rate
+	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod / efficiency_mod
 	attached_tool = null
 
 /obj/item/smithed_item/tool_bit/proc/break_bit()
@@ -333,36 +340,52 @@
 
 /obj/item/smithed_item/tool_bit/speed
 	name = "speed bit"
-	desc = "A tool bit optimized for speed, at the cost of precision."
-	speed_mod = -0.2
-	precision_mod = -0.2
+	desc = "A tool bit optimized for speed, at the cost of efficiency."
+	speed_mod = 0.8
+	failure_rate = 5
+	efficiency_mod = 0.9
 
-/obj/item/smithed_item/tool_bit/precision
-	name = "precision bit"
-	desc = "A tool bit optimized for precision, at the cost of speed."
-	speed_mod = 0.2
-	precision_mod = 0.2
+/obj/item/smithed_item/tool_bit/efficiency
+	name = "efficient bit"
+	desc = "A tool bit optimized for efficiency, at the cost of speed."
+	speed_mod = 1.2
+	efficiency_mod = 1.25
+
+/obj/item/smithed_item/tool_bit/balanced
+	name = "efficient bit"
+	desc = "A tool bit that's fairly balanced in all aspects."
+	speed_mod = 0.9
+	failure_rate = 2
+	efficiency_mod = 1.1
 
 /obj/item/smithed_item/tool_bit/heavy
 	name = "heavy duty bit"
 	desc = "A large, advanced tool bit that maximises speed."
-	speed_mod = -0.4
-	precision_mod = -0.4
+	speed_mod = 0.6
+	failure_rate = 10
+	efficiency_mod = 0.75
 	size_mod = 1
 	durability = 40
 
-/obj/item/smithed_item/tool_bit/surgical
-	name = "surgical bit"
-	desc = "An advanced tool bit that maximises precision."
-	speed_mod = 0.4
-	precision_mod = 0.6
+/obj/item/smithed_item/tool_bit/economical
+	name = "economical bit"
+	desc = "An advanced tool bit that maximises efficiency."
+	speed_mod = 1.4
+	efficiency_mod = 1.5
 	durability = 15
+
+/obj/item/smithed_item/tool_bit/advanced
+	name = "advanced bit"
+	desc = "An advanced tool bit that's fairly balanced in all aspects."
+	speed_mod = 0.75
+	failure_rate = 2
+	efficiency_mod = 1.3
 
 /obj/item/smithed_item/tool_bit/admin
 	name = "adminium bit"
 	desc = "A hyper-advanced bit restricted to central command officials."
 	speed_mod = -1
-	precision_mod = 1
+	efficiency_mod = 1
 	durability = 100
 
 // Lenses
@@ -420,59 +443,59 @@
 /obj/item/smithed_item/lense/accelerator
 	name = "accelerator lense"
 	desc = "A lense that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
-	laser_speed_mult = 0.1
-	damage_mult = -0.1
+	laser_speed_mult = 1.1
+	damage_mult = 0.9
 
 /obj/item/smithed_item/lense/speed
 	name = "speed lense"
 	desc = "A lense that cools the capacitors more efficiently, allowing for greater fire rate."
-	fire_rate_mult = 0.15
-	damage_mult = -0.1
+	fire_rate_mult = 1.15
+	damage_mult = 0.9
 	durability = 30
 
 /obj/item/smithed_item/lense/amplifier
 	name = "amplifier lense"
 	desc = "A lense that increases the frequency of emitted beams, increasing their potency."
-	power_mult = 0.1
-	damage_mult = 0.1
+	power_mult = 1.1
+	damage_mult = 1.1
 
 /obj/item/smithed_item/lense/efficiency
 	name = "efficiency lense"
 	desc = "A lense that optimizes the number of shots an energy weapon can take before running dry."
-	power_mult = -0.2
-	damage_mult = -0.1
+	power_mult = 0.8
+	damage_mult = 0.9
 	durability = 80
 
 /obj/item/smithed_item/lense/rapid
 	name = "rapid lense"
 	desc = "An advanced lense that bypasses the heat capacitor entirely, allowing for unprecedented fire rates of low-power emissions."
-	fire_rate_mult = 0.5
-	laser_speed_mult = -0.1
-	damage_mult = -0.2
+	fire_rate_mult = 1.5
+	laser_speed_mult = 0.9
+	damage_mult = 0.8
 	durability = 60
 
 /obj/item/smithed_item/lense/densifier
 	name = "densifier lense"
 	desc = "An advanced lense that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
-	fire_rate_mult = -0.3
-	laser_speed_mult = -0.3
-	damage_mult = 0.4
+	fire_rate_mult = 0.7
+	laser_speed_mult = 0.7
+	damage_mult = 1.4
 	durability = 30
 
 /obj/item/smithed_item/lense/velocity
 	name = "velocity lense"
 	desc = "An advanced lense that forces energy emissions from the barrel as fast as possible, accelerating them to ludicrous speed."
-	laser_speed_mult = 0.5
-	damage_mult = -0.2
+	laser_speed_mult = 1.5
+	damage_mult = 0.8
 	durability = 30
 
 /obj/item/smithed_item/lense/admin
 	name = "adminium lense"
 	desc = "A hyper-advanced lense restricted to high-ranking central command officials."
-	laser_speed_mult = 3
-	damage_mult = 3
-	fire_rate_mult = 3
-	power_mult = -0.5
+	laser_speed_mult = 5
+	damage_mult = 5
+	fire_rate_mult = 5
+	power_mult = 0.5
 	durability = 3000
 
 // Components
@@ -657,23 +680,35 @@
 	material_cost = list(MAT_TITANIUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/speed
 
-/obj/item/smithed_item/component/bit_mount/precision
-	name = "precision bit mount"
-	desc = "This is the primary component of a precision bit"
+/obj/item/smithed_item/component/bit_mount/efficiency
+	name = "efficiency bit mount"
+	desc = "This is the primary component of an efficiency bit"
 	material_cost = list(MAT_SILVER = 4000)
-	finished_product = /obj/item/smithed_item/tool_bit/precision
+	finished_product = /obj/item/smithed_item/tool_bit/efficiency
+
+/obj/item/smithed_item/component/bit_mount/balanced
+	name = "balanced bit mount"
+	desc = "This is the primary component of an balanced bit."
+	material_cost = list(MAT_TITANIUM = 4000)
+	finished_product = /obj/item/smithed_item/tool_bit/balanced
 
 /obj/item/smithed_item/component/bit_mount/heavy
 	name = "heavy duty bit mount"
-	desc = "This is the primary component of a heavy duty bit"
+	desc = "This is the primary component of a heavy duty bit."
 	material_cost = list(MAT_TITANIUM = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
 
-/obj/item/smithed_item/component/bit_mount/surgical
-	name = "surgical bit mount"
-	desc = "This is the primary component of a surgical bit"
+/obj/item/smithed_item/component/bit_mount/economical
+	name = "economical bit mount"
+	desc = "This is the primary component of an economical bit."
 	material_cost = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
-	finished_product = /obj/item/smithed_item/tool_bit/surgical
+	finished_product = /obj/item/smithed_item/tool_bit/economical
+
+/obj/item/smithed_item/component/bit_mount/advanced
+	name = "advanced bit head"
+	desc = "This is the secondary component of an advanced bit."
+	material_cost = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
 /obj/item/smithed_item/component/bit_head
 	name = "Debug bit head"
@@ -683,27 +718,39 @@
 
 /obj/item/smithed_item/component/bit_head/speed
 	name = "speed bit head"
-	desc = "This is the secondary component of a speed bit"
+	desc = "This is the secondary component of a speed bit."
 	material_cost = list(MAT_METAL = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/speed
 
-/obj/item/smithed_item/component/bit_head/precision
-	name = "precision bit head"
-	desc = "This is the secondary component of a precision bit"
+/obj/item/smithed_item/component/bit_head/efficiency
+	name = "efficiency bit head"
+	desc = "This is the secondary component of an efficiency bit."
 	material_cost = list(MAT_METAL = 4000)
-	finished_product = /obj/item/smithed_item/tool_bit/precision
+	finished_product = /obj/item/smithed_item/tool_bit/efficiency
+
+/obj/item/smithed_item/component/bit_head/balanced
+	name = "balanced bit head"
+	desc = "This is the secondary component of a balanced bit."
+	material_cost = list(MAT_BRASS = 4000)
+	finished_product = /obj/item/smithed_item/tool_bit/balanced
 
 /obj/item/smithed_item/component/bit_head/heavy
 	name = "heavy duty bit head"
-	desc = "This is the secondary component of a heavy duty bit"
+	desc = "This is the secondary component of a heavy duty bit."
 	material_cost = list(MAT_METAL = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
 
-/obj/item/smithed_item/component/bit_head/surgical
-	name = "surgical bit head"
-	desc = "This is the secondary component of a surgical bit"
+/obj/item/smithed_item/component/bit_head/economical
+	name = "economical bit head"
+	desc = "This is the secondary component of an economical bit."
 	material_cost = list(MAT_METAL = 4000, MAT_PLASMA = 4000)
-	finished_product = /obj/item/smithed_item/tool_bit/surgical
+	finished_product = /obj/item/smithed_item/tool_bit/economical
+
+/obj/item/smithed_item/component/bit_head/advanced
+	name = "advanced bit head"
+	desc = "This is the secondary component of an advanced bit."
+	material_cost = list(MAT_METAL = 4000, MAT_PLATINUM = 4000)
+	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
 /obj/item/smithed_item/component/lense_frame
 	name = "Debug lense frame"
