@@ -7,7 +7,7 @@
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	forceMove(T1)
+	abstract_move(T1)
 	return 1
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()

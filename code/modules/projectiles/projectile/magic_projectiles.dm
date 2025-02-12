@@ -172,8 +172,6 @@
 
 /obj/item/projectile/magic/door/on_hit(atom/target)
 	. = ..()
-	if(!.)
-		return .
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
 		if(!(istype(target, /turf/simulated/wall/indestructible)))
