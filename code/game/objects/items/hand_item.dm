@@ -75,7 +75,7 @@
 	return ..()
 
 /obj/item/slapper/parry/proc/dropkey(mob/user)
-	if(user && user.get_active_hand() == src)
+	if(user?.get_active_hand() == src)
 		qdel(src)
 
 /obj/item/slapper/parry/Destroy()
