@@ -39,7 +39,7 @@ Ask ninjanomnom if they're around
 #define RAD_MOB_GORILLIZE_PROB 0.1					// Chance of gorillization per tick when over threshold
 
 // Values here are for how much of the radiation is let through
-#define RAD_NO_INSULATION 1.0						// Default value for gamma insulation
+#define RAD_NO_INSULATION 1.0						// Default value for Gamma and Beta insulation
 #define RAD_MOB_INSULATION 0.98						// Default value for mobs
 #define RAD_VERY_LIGHT_INSULATION 0.9
 #define RAD_LIGHT_INSULATION 0.8
