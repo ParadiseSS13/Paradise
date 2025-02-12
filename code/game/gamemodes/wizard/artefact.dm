@@ -919,7 +919,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		/datum/disease/beesease/wizard_variant,
 		/datum/disease/berserker/wizard_variant,
 		/datum/disease/cold9/wizard_variant,
-		/datum/disease/brainrot/wizard_variant,
 		/datum/disease/fluspanish/wizard_variant,
 		/datum/disease/kingstons_advanced/wizard_variant,
 		/datum/disease/dna_retrovirus/wizard_variant,

@@ -7,9 +7,6 @@
 /datum/disease/cold9/wizard_variant
 	spread_flags = NON_CONTAGIOUS
 
-/datum/disease/brainrot/wizard_variant
-	spread_flags = NON_CONTAGIOUS
-
 /datum/disease/fluspanish/wizard_variant
 	spread_flags = NON_CONTAGIOUS
 
