@@ -1,8 +1,3 @@
-/turf/simulated/Initialize(mapload)
-	. = ..()
-	if(!blocks_air)
-		blind_set_air(get_initial_air())
-
 /turf/simulated/proc/get_initial_air()
 	var/datum/gas_mixture/air = new()
 	if(!blocks_air)
@@ -47,8 +42,12 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-/turf/simulated/proc/update_visuals()
-	var/datum/gas_mixture/air = get_readonly_air()
+/turf/simulated/proc/update_visuals(use_initial_air = FALSE)
+	var/datum/gas_mixture/air
+	if(use_initial_air)
+		air = get_initial_air()
+	else
+		air = get_readonly_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return
@@ -176,6 +175,10 @@
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
 	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
+
+/turf/simulated/Initialize_Atmos(milla_tick)
+	..()
+	update_visuals(TRUE)
 
 /turf/proc/recalculate_atmos_connectivity()
 	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()

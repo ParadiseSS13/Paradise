@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	var/has_behind = FALSE
 
 /datum/body_accessory/proc/try_restrictions(mob/living/carbon/human/H)
-	return (H.dna.species.name in allowed_species)
+	return (H.dna.species.sprite_sheet_name in allowed_species)
 
 /datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
 	if(animated_icon)
