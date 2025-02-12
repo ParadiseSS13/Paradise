@@ -1186,3 +1186,17 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+// callback referenced in mob_helpers.dm after demotion time has exceeded the threshhold for arrest
+/mob/living/proc/auto_arrest_after_demote(datum/data/record/target_records)
+	var/status = SEC_RECORD_STATUS_ARREST
+	var/their_name = target_records.fields["name"]
+	var/their_rank = target_records.fields["rank"]
+
+	deltimer(demotion_timer)
+	demotion_timer = null
+
+	target_records.fields["criminal"] = status
+	log_admin("Secstatus of [their_rank] [their_name] became [status] after 5 minutes of remaining demoted.")
+	target_records.fields["comments"] += "Set to [status] by ALICE on [GLOB.current_date_string] [station_time_timestamp()], comment: Petty Theft - Failure to appear for demotion. (Automatic)"
+	update_all_mob_security_hud()
