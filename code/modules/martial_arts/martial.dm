@@ -323,6 +323,9 @@
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
+		else if(IS_HERETIC(user))
+			to_chat(user, "<span class='hierophant_warning'>You and everyone else are already dreaming. You need to wake up, not sleep more...</span>")
+			return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -346,6 +349,9 @@
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
+		else if(IS_HERETIC(user))
+			to_chat(user, "<span class='hierophant_warning'>The mansus remembers the basics of CQC. You do not need to.</span>")
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
