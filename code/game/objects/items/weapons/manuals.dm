@@ -582,7 +582,7 @@
 	desc = "A small guidebook on how to operate a Ripley powerloader exosuit. It's filled with disclaimers and pre-signed waivers."
 	summary = "Standard operational practices and construction requirements for operation of the Ripley mk. 3 powerloader system."
 	icon_state ="book"
-	author = "Hephasteus Industries"
+	author = "Hephaestus Industries"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 
 	pages = list({"<html><meta charset='utf-8'>
