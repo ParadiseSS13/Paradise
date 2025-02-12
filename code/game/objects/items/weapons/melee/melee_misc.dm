@@ -503,7 +503,7 @@
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
-	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
+	if(enchant && (iswizard(user) || IS_CULTIST(user) || IS_HERETIC(user))) // only wizards, cultists, and heretics understand runes
 		. += "The runes along the side read; [enchant.desc]."
 
 
