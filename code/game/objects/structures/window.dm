@@ -44,9 +44,10 @@
 
 
 /obj/structure/window/rad_act(amount, emission_type)
-	. = ..()
-	if(emission_type == GAMMA_RAD && amount * (1 - rad_insulation_gamma) * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
-		AddComponent(/datum/component/radioactive, amount * (1 - rad_insulation_gamma) * rad_conversion_amount, src, BETA_RAD)
+	. = base_rad_act(amount, emission_type)
+	amount = amout * (1 - .)
+	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
+		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD)
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -650,7 +651,7 @@
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
-	rad_conversion_amount = 0.2
+	rad_conversion_amount = 2
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -669,7 +670,7 @@
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
-	rad_conversion_amount = 0.4
+	rad_conversion_amount = 1
 
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -711,7 +712,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 0.4
+	rad_conversion_amount = 3.5
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -732,7 +733,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 0.8
+	rad_conversion_amount = 1.5
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -809,7 +810,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 1.2
+	rad_conversion_amount = 2.5
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

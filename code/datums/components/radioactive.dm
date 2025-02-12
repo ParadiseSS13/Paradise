@@ -74,7 +74,7 @@
 		animate(filter, alpha = 110, time = 15, loop = -1)
 		animate(alpha = 40, time = 25)
 
-/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, emission_type, _half_life)
+/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, emission_type, _half_life = RAD_HALF_LIFE)
 	if(!i_am_original)
 		return
 	if(!hl3_release_date) // Permanently radioactive things don't get to grow stronger

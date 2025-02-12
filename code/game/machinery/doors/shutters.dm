@@ -19,7 +19,7 @@
 	icon = 'icons/obj/doors/shutters_radiation.dmi'
 	icon_state = "closed"
 	rad_insulation_beta = RAD_BETA_BLOCKER
-	rad_insulation_gamma = RAD_VERY_HEAVY_INSULATION
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
 
 /obj/machinery/door/poddoor/shutters/radiation/preopen
 	icon_state = "open"
@@ -36,4 +36,4 @@
 /obj/machinery/door/poddoor/shutters/radiation/close()
 	. = ..()
 	rad_insulation_beta = RAD_BETA_BLOCKER
-	rad_insulation_gamma = RAD_VERY_HEAVY_INSULATION
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION

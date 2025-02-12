@@ -602,18 +602,24 @@
 /**
  * Respond to a radioactive wave hitting this atom
  *
- * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ * Default behaviour is to return base_rad_act
  */
 /atom/proc/rad_act(amount, emission_type)
-	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	return base_rad_act(amount, emission_type)
+
+/**
+*This should be called by all rad_act calls.
+*We do not want to call parent so that we can assign different behaviours to different items that share a parent without having them perform the same actions
+*/
+/atom/proc/base_rad_act(emission_type)
 	switch(emission_type)
 		if(ALPHA_RAD)
-			return rad_insulation_alpha
+			. = rad_insulation_alpha
 		if(BETA_RAD)
-			return rad_insulation_beta
+			. = rad_insulation_beta
 		if(GAMMA_RAD)
-			return rad_insulation_gamma
+			. = rad_insulation_gamma
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount * (1 - .))
 
 /// Attempt to contaminate a single atom
 /atom/proc/contaminate_atom(atom/source, intensity, emission_type)

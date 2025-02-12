@@ -9,7 +9,7 @@
 	density = TRUE
 	explosion_block = 2
 	rad_insulation_beta = RAD_BETA_BLOCKER
-	rad_insulation_gamma = RAD_EXTREME_INSULATION
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
 	damage_cap = 600
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel

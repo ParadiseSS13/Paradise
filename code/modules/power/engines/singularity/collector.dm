@@ -1,6 +1,6 @@
 // stored_energy += (pulse_strength - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_EFFICIENCY 80 	// radiation needs to be over this amount to get power
-#define RAD_COLLECTOR_COEFFICIENT 100
+#define RAD_COLLECTOR_EFFICIENCY 20	// radiation needs to be over this amount to get power
+#define RAD_COLLECTOR_COEFFICIENT 500
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
@@ -15,7 +15,7 @@
 	max_integrity = 350
 	integrity_failure = 80
 	rad_insulation_beta = RAD_BETA_BLOCKER
-	rad_insulation_gamma = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = FALSE
@@ -133,9 +133,11 @@
 	else
 		update_icons()
 
+/// Converts absorbed Beta or Gamma radiation into electrical energy
 /obj/machinery/power/rad_collector/rad_act(amount, emission_type)
-	. = ..()
-	if(emission_type != ALPHA_RAD && loaded_tank && active)
+	. = base_rad_act(amount, emission_type)
+	amount = amount * (1 - .)
+	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > RAD_COLLECTOR_EFFICIENCY)
 		stored_energy += (amount - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
 
 

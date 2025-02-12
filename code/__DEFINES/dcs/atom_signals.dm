@@ -61,7 +61,7 @@
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
 ///from base of atom/emag_act(): (/mob/user)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
-///from base of atom/rad_act(intensity)
+///from base of atom/rad_act(intensity, emission_type)
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///from base of turf/irradiate(/datum/radiation_wave)
 #define COMSIG_TURF_IRRADIATE
