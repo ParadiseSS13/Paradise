@@ -66,7 +66,7 @@
 
 	if(left_click && alt_click)
 		if(istype(loc, /obj/effect/portal))
-			message_admins("[key_name_admin(user)] force closed a portal at [get_area(loc.origin)]")
+			message_admins("[key_name(user)] closed a portal at [get_area(loc)]")
 			qdel(loc)
 		return
 	else if(left_click)
