@@ -926,7 +926,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		/datum/disease/tuberculosis/wizard_variant,
 		/datum/disease/anxiety/wizard_variant,
 		/datum/disease/wizarditis/wizard_variant,
-		/datum/disease/appendicitis
+		/datum/disease/appendicitis,
+		/datum/disease/grut_gut,
+		/datum/disease/wand_rot,
+		/datum/disease/mystic_malaise
 		)
 	picked_disease = pick(possible_diseases)
 	return picked_disease
