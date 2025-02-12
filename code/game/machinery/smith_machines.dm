@@ -140,6 +140,8 @@
 /obj/machinery/mineral/smart_hopper/proc/transfer_ore(obj/item/stack/ore/O)
 	if(!linked_crucible)
 		return
+	// Award points if the ore is actually transferable to the magma crucible
+	give_points(O.type, O.amount)
 	// Insert materials
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
@@ -149,8 +151,6 @@
 			materials.insert_item(O, linked_crucible.sheet_per_ore)
 		else
 			materials.insert_item(O, 1)
-	// Award points if the ore actually transfers to the magma crucible
-	give_points(O.type, O.amount)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
