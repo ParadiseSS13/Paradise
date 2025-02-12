@@ -34,7 +34,9 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0
+	flags = 0 // TODO, someday move all off the flags here to turf_flags
+
+	var/turf_flags = NONE
 
 	var/image/obscured	//camerachunks
 
@@ -282,8 +284,9 @@
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-
+	var/carryover_turf_flags = turf_flags & (RESERVATION_TURF|UNUSED_RESERVATION_TURF)
 	var/turf/W = new path(src)
+	W.turf_flags |= carryover_turf_flags
 	if(old_comp_lookup)
 		LAZYOR(W.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
@@ -478,27 +481,27 @@
 	if(SSticker)
 		GLOB.cameranet.update_visibility(src)
 
-/turf/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return TRUE
+/turf/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(can_lay_cable())
-		if(istype(attacking, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = attacking
+		if(istype(used, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = used
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
 					LC.attackby__legacy__attackchain(C, user)
-					return TRUE
+					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
-			return TRUE
-		else if(istype(attacking, /obj/item/rcl))
-			var/obj/item/rcl/R = attacking
+			return ITEM_INTERACT_COMPLETE
+		else if(istype(used, /obj/item/rcl))
+			var/obj/item/rcl/R = used
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby__legacy__attackchain(R, user)
-						return TRUE
+						return ITEM_INTERACT_COMPLETE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
+
+			return ITEM_INTERACT_COMPLETE
 
 /turf/proc/can_have_cabling()
 	return TRUE

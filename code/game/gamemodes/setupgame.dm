@@ -39,7 +39,6 @@
 	GLOB.coughblock         = getAssignedBlock("COUGH",         numsToAssign)
 	GLOB.glassesblock       = getAssignedBlock("GLASSES",       numsToAssign)
 	GLOB.epilepsyblock      = getAssignedBlock("EPILEPSY",      numsToAssign)
-	GLOB.twitchblock        = getAssignedBlock("TWITCH",        numsToAssign)
 	GLOB.nervousblock       = getAssignedBlock("NERVOUS",       numsToAssign)
 	GLOB.wingdingsblock     = getAssignedBlock("WINGDINGS",     numsToAssign)
 	GLOB.mesonblock			= getAssignedBlock("MESONS",        numsToAssign, good=1)

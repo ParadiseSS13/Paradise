@@ -7,7 +7,7 @@
 		/obj/item/clothing/suit/armor/bulletproof = 5,
 		/obj/item/clothing/mask/gas/explorer/marines = 5,
 		/obj/item/clothing/gloves/combat = 5,
-		/obj/item/storage/belt/military/assault = 5,
+		/obj/item/storage/belt/federation_webbing = 5,
 		/obj/item/clothing/under/solgov = 5,
 		/obj/item/mod/module/dispenser = 5,
 		/obj/item/flag/solgov = 3

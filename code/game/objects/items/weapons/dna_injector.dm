@@ -464,26 +464,6 @@
 /obj/item/dnainjector/anticlumsy/GetInitBlock()
 	return GLOB.clumsyblock
 
-/obj/item/dnainjector/antitour
-	name = "DNA-Injector (Anti-Tour.)"
-	desc = "Will cure tourettes."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antitour/GetInitBlock()
-	return GLOB.twitchblock
-
-/obj/item/dnainjector/tourmut
-	name = "DNA-Injector (Tour.)"
-	desc = "Gives you a nasty case off tourettes."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/tourmut/GetInitBlock()
-	return GLOB.twitchblock
-
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
 	desc = "Makes you s-s-stuttterrr."

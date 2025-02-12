@@ -411,7 +411,7 @@
 	},
 /area/ruin/space/powered)
 "SL" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "Tb" = (

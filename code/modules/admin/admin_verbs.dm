@@ -80,7 +80,8 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
-	/client/proc/stop_global_admin_sounds
+	/client/proc/stop_global_admin_sounds,
+	/client/proc/stop_sounds_global
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -159,6 +160,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
+	/client/proc/map_template_load_lazy,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
