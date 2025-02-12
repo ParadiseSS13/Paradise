@@ -703,6 +703,27 @@ fn milla_get_tick_time() -> eyre::Result<ByondValue> {
     ))
 }
 
+/// BYOND API for freezing a specific z-level.
+#[byondapi::bind]
+fn milla_set_zlevel_frozen(
+    byond_z: ByondValue,
+    byond_frozen: ByondValue,
+) -> eyre::Result<ByondValue> {
+    let z = f32::try_from(byond_z)? as i32 - 1;
+    let frozen = bool::try_from(byond_frozen)?;
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let active = buffers.get_active().read().unwrap();
+    let maybe_z_level = active.0[z as usize].try_write();
+    if maybe_z_level.is_err() {
+        return Err(eyre!(
+            "Tried to freeze or unfreeze during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
+        ));
+    }
+    let mut z_level = maybe_z_level.unwrap();
+    z_level.frozen = frozen;
+    Ok(ByondValue::null())
+}
+
 // Yay, tests!
 #[cfg(test)]
 mod tests {

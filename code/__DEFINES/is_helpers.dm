@@ -62,6 +62,8 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define ismask(A) (istype(A, /obj/item/clothing/mask))
+
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
