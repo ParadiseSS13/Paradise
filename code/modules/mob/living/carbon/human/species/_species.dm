@@ -416,9 +416,10 @@
  * 	- new_subtype: Our imitate species, by datum reference.
  * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
  * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
+ * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
  */
 ///
-/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE)
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
 	return
 
 // Do species-specific reagent handling here

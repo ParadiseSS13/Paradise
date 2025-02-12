@@ -182,6 +182,11 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
 			var/datum/species/S = GLOB.all_species[active_character.species]
+			var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
+			if(istype(S) && istype(subtype))
+				subtype = new subtype.type()
+				S = new S.type()
+				S.bodyflags |= subtype.bodyflags
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
