@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
+	cares_about_temperature = TRUE
 	var/mob/living/carbon/human/master_commander = null
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -26,7 +27,7 @@
 	master_commander = null
 	return ..()
 
-/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

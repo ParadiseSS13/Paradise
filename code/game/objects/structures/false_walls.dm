@@ -287,6 +287,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
+	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat() > 300)

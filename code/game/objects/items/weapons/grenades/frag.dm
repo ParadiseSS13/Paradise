@@ -73,4 +73,8 @@
 	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")
 	scatter_atom()
 
+/obj/item/shrapnel/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
+
 #undef DEFAULT_SHRAPNEL_RANGE
