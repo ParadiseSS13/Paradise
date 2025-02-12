@@ -18,6 +18,7 @@
 	throw_speed = 1
 	throw_range = 5
 	force = 2
+	new_attack_chain = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashed", "whacked")
 	resistance_flags = FLAMMABLE
@@ -73,8 +74,7 @@
 	name = "Book: [CB.title]"
 	icon_state = "book[rand(1,8)]"
 
-
-/obj/item/book/attack__legacy__attackchain(mob/M, mob/living/user)
+/obj/item/book/pre_attack(atom/target, mob/living/user, params)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
@@ -83,7 +83,7 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
-/obj/item/book/attack_self__legacy__attackchain(mob/user)
+/obj/item/book/activate_self(mob/user)
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
@@ -91,18 +91,19 @@
 		return
 	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
 	read_book(user)
+	..()
 
-/obj/item/book/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/book/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(is_pen(I))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I
 		scanner.scanBook(src, user) //abstraction and proper scoping ftw | did you know barcode scanner code used to be here?
-		return
+		return ITEM_INTERACT_COMPLETE
 	else if(I.sharp && !carved) //don't use sharp objects on your books if you don't want to carve out all of its pages kids!
 		carve_book(user, I)
 	else if(store_item(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	else
 		..()
 
