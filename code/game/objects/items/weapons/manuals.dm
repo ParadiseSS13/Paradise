@@ -597,7 +597,7 @@
 				</head>
 				<body>
 				<center>
-				<b style='font-size: 12px;'>Hephasteus Industries - Forging the Tools of Tommorow </b>
+				<b style='font-size: 12px;'>Hephaestus Industries - Forging the Tools of Tomorrow</b>
 				<h1>Autonomous Power Loader Unit \"Ripley\"</h1>
 				</center>
 				<h2>Specifications:</h2>
