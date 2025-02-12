@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	burnt = TRUE
 	update_icon()
 
-/turf/simulated/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/simulated/floor/temperature_expose(exposed_temperature, exposed_volume)
 	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST && prob(1))
 		burn_tile()
 

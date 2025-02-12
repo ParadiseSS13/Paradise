@@ -83,12 +83,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/access_button/the_button = spawn_button(T, is_this_an_interior_airlock ? interior_direction : exterior_direction, is_this_an_interior_airlock)
 	if(one_door_only == DOOR_NORMAL_PLACEMENT) //We only need one door, we are done
 		return
-	if(!(tiles_in_x_direction % 2) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
+	if(ISEVEN(tiles_in_x_direction) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, EAST))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, EAST))
-	else if(!(tiles_in_y_direction % 2) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
+	else if(ISEVEN(tiles_in_y_direction) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, NORTH))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)

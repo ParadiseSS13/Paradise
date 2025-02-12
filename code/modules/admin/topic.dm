@@ -2849,7 +2849,7 @@
 										R.module.modules += I
 										I.loc = R.module
 										R.module.rebuild_modules()
-										R.activate_module(I)
+										R.activate_item(I)
 										R.module.fix_modules()
 
 		if(number == 1)

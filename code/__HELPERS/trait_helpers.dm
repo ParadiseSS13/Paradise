@@ -139,6 +139,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BEING_OFFERED     "offered"
 #define TRAIT_BLIND 			"blind"
+#define TRAIT_PARAPLEGIC		"paraplegic"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
 #define TRAIT_NEARSIGHT			"nearsighted"
@@ -261,12 +262,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 
+
 #define TRAIT_BOMBIMMUNE "bombimmune"
 /// Trait for when you can no longer gain body heat
 #define TRAIT_HYPOTHERMIC "body_hypothermic"
 
 /// Used to prevent multiple floating blades from triggering over the same target
 #define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+
+
+/// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "trait_ai_paused"
 
 
 //***** MIND TRAITS *****/

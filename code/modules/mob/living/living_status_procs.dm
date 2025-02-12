@@ -823,7 +823,9 @@ STATUS EFFECTS
 // Deaf
 /mob/living/proc/CureDeaf()
 	CureIfHasDisability(GLOB.deafblock)
-
+// Paraplegia
+/mob/living/proc/CureParaplegia()
+	CureIfHasDisability(GLOB.paraplegicblock)
 // Epilepsy
 /mob/living/proc/CureEpilepsy()
 	CureIfHasDisability(GLOB.epilepsyblock)
