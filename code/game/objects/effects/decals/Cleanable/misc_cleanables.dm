@@ -37,7 +37,7 @@
 	icon_state = "plasmatiny"
 
 /obj/effect/decal/cleanable/glass/plastitanium
-	icon_state = "plasmatiny"
+	icon_state = "plastitaniumtiny"
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
