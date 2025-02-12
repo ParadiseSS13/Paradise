@@ -60,6 +60,10 @@
 #define ANTAG_HUD_BLOB 					22
 #define ANTAG_HUD_ZOMBIE 				23
 #define ANTAG_HUD_MIND_FLAYER 			24
+// SS220 EDIT - START
+#define ANTAG_HUD_BLOOD_BROTHER			25
+#define ANTAG_HUD_VOX_RAIDER			26
+// SS220 EDIT - END
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

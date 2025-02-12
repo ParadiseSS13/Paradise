@@ -73,9 +73,8 @@
 	var/job_banned_gamemode = FALSE
 
 //Only override this proc
-/datum/job/proc/after_spawn(mob/living/carbon/human/H)
+/datum/job/proc/after_spawn(mob/living/carbon/human/H, joined_late = FALSE)	// SS220 EDIT - jobs - prisoner spawn
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
-
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return
@@ -205,12 +204,12 @@
 					permitted = TRUE
 
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(H, "<span class='warning'>Ваша текущая работа или статус в белом списке не позволяют вам спауниться с [G.display_name]!</span>")
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G)), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						to_chat(H, "<span class='notice'>Одеваем вас в [G.display_name]!</span>")
 					else
 						gear_leftovers += G
 				else
@@ -232,20 +231,24 @@
 			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G)))
 			if(istype(placed_in))
 				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+					to_chat(H, "<span class='notice'>Помещение [G.display_name] в [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
+					to_chat(H, "<span class='notice'>Помещение [G.display_name] в ваш [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				to_chat(H, "<span class='notice'>Помещение [G.display_name] в ваш инвентарь!</span>")
 				continue
 			if(H.put_in_hands(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				to_chat(H, "<span class='notice'>Помещение [G.display_name] в ваши руки!</span>")
 				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			to_chat(H, "<span class='danger'>Не удалось найти хранилище на мобе, либо вы спавнитесь без свободных рук и рюкзака, либо это ошибка.</span>")
 			qdel(G)
 
 		gear_leftovers.Cut()
+
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 	return 1
 
@@ -281,7 +284,7 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.name = "КПК-[H.real_name] ([PDA.ownjob])"
 		if(H.client?.prefs.active_character.pda_ringtone)
 			PDA.ttone = H.client.prefs.active_character.pda_ringtone
 

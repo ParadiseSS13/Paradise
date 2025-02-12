@@ -65,7 +65,8 @@
 		cyborg_brain_type,
 		body_type,
 		pda_ringtone,
-		species_subtype
+		species_subtype,
+		tts_seed
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

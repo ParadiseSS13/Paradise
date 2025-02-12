@@ -262,7 +262,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/nag() // Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill [MAX_AMOUNT - amount] at <b>[get_area(src)]</b>!", radio_channel)
+		speak("Запрос пополнения на [MAX_AMOUNT - amount] в <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) // Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.

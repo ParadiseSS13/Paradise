@@ -1,7 +1,7 @@
 #define MOP_SOUND_CD 2 SECONDS // How many seconds before the mopping sound triggers again
 
 /obj/item/mop
-	desc = "The world of janitalia wouldn't be complete without a mop."
+	desc = "Есть два правила: не мусорить, не срать. Вперёд боец, в бой!"
 	name = "mop"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mop"

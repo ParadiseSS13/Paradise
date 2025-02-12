@@ -1,0 +1,20 @@
+#include "code/_defines/alerts.dm"
+
+#include "code/mob/language.dm"
+#include "code/mob/emotes.dm"
+#include "code/mob/serpentids.dm"
+
+#include "code/organs/external/serpentids_organs_other.dm"
+#include "code/organs/external/serpentids_organs_head.dm"
+#include "code/organs/external/serpentids_organs_torso.dm"
+
+#include "code/organs/internal/organs/serpentids_organs_eyes.dm"
+#include "code/organs/internal/organs/serpentids_organs_ears.dm"
+#include "code/organs/internal/organs/serpentids_organs_lungs.dm"
+#include "code/organs/internal/organs/serpentids_organs_heart.dm"
+#include "code/organs/internal/organs/serpentids_organs_kidneys.dm"
+#include "code/organs/internal/organs/serpentids_organs_liver.dm"
+#include "code/organs/internal/organs/serpentids_organs_additionals.dm"
+
+#include "code/organs/internal/implants/serpentid_mantis_blades.dm"
+#include "code/organs/internal/implants/serpentid_mantis_chest.dm"

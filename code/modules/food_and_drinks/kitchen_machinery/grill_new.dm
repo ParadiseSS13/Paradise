@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/grill
-	name = "grill"
-	desc = "Backyard grilling, IN SPACE."
+	name = "гриль"
+	desc = "Гриль на заднем дворе, В КОСМОСЕ."
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "grill_off"
 	cook_verbs = list("Grilling", "Searing", "Frying")

@@ -3,7 +3,7 @@
 	name = "Ancient Skeleton"
 	name_plural = "Ancient Skeletons"
 
-	blurb = "Spoopy and scary."
+	blurb = "Жуткие и страшные."
 
 	icobase = 'icons/mob/human_races/r_skeleton.dmi'
 
@@ -48,8 +48,8 @@
 			for(var/obj/item/organ/external/L in our_organs)
 				if(L.mend_fracture())
 					break // We're only checking one limb here, bucko
-		if(prob(3))
-			H.say(pick("Thanks Mr. Skeltal", "Thank for strong bones", "Doot doot!"))
+		if(prob(10)) // SS220 EDIT: ORIGINAL - 3%
+			H.say(pick("Спасибо Мистеру Скелтал!", "От такого молока челюсть отвисает!", "Я вижу четКость своих решений!", "Надо не забыть пересчитать косточки...", "Маленькие скелеты паКостят!", "Хорошо что у меня язык без костей!", "Теперь я не буду ЧЕРЕПашкой!", "Теперь мне не нужны костыли!", "Костян плохого не посоветует!", "Ощущаешь мою ловКость?", "Я чувствую такую лёгКость!", "Большая редКость найти любимую жидКость!", "Моя любимая жидКость!", "Аж закостенел!", "Теперь я вешу скелетонну!", "Спасибо за крепкие кости!", "Ду-ду!", "Вы замечали что мы все в одной плосКости?"))
 		return TRUE
 
 	return ..()
