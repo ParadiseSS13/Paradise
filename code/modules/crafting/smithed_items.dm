@@ -536,6 +536,30 @@
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
 
+/obj/item/smithed_item/component/attack_hand(mob/user)
+	var/burn_me = TRUE
+	var/mob/living/carbon/human/H = user
+	if(!hot)
+		return ..()
+
+	if(!istype(H))
+		return ..()
+
+	if(H.gloves)
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(G.max_heat_protection_temperature)
+			burn_me = !(G.max_heat_protection_temperature > 360)
+
+	if(!burn_me ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
+		return ..()
+	else
+		to_chat(user, "<span class='warning'>You burn your hand as you try to pick up [src]!</span>")
+		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		if(affecting.receive_damage(0, 10)) // 10 burn damage
+			H.UpdateDamageIcon()
+		H.updatehealth()
+		return
+
 /obj/item/smithed_item/component/insert_frame
 	name = "Debug insert frame"
 	icon_state = "insert_frame"
