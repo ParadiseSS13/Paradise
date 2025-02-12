@@ -106,10 +106,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.name in species_restricted))
+				if(!(H.dna.species.sprite_sheet_name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.name in species_restricted)
+				if(H.dna.species.sprite_sheet_name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
@@ -612,10 +612,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
-
-// Changes the speech verb when wearing a mask if a value is returned
-/obj/item/clothing/mask/proc/change_speech_verb()
-	return
 
 //////////////////////////////
 // MARK: SHOES

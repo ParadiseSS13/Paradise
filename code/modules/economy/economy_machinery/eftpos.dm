@@ -6,6 +6,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	/// Unique identifying name of this EFTPOS for transaction tracking in money accounts
 	var/machine_name = ""
 	/// Whether or not the EFTPOS is locked into a transaction
@@ -162,11 +163,11 @@
 			if(istype(I, /obj/item/card))
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
-					access_code = 0
-					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+					access_code = 1000
+					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 			else if(istype(I, /obj/item/card/emag))
-				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
+				access_code = 1000
+				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
 		if("offer")
 			if(can_offer)
 				offer(user)
@@ -252,6 +253,7 @@
 	throw_range = 7
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list()
 	hitsound = 'sound/weapons/ringslam.ogg'
 	drop_sound = 'sound/items/handling/register_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'

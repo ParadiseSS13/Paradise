@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial - 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISEVEN(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial + 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISODD(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
