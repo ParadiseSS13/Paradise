@@ -45,7 +45,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
 	if(!(stat & (BROKEN | NOPOWER)))
-		set_light(2)
+		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 	else
 		set_light(0)
 
