@@ -99,10 +99,10 @@
 			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
-/datum/species/slime/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE) //Handling species-subtype and imitation
+/datum/species/slime/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE) //Handling species-subtype and imitation
 	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
 		var/datum/species/temp_species = new type()
-		if(isnull(new_subtype) || temp_species.name == new_subtype.name) // Back to our original species.
+		if(isnull(new_subtype) || (temp_species.name == new_subtype.name && !forced)) // Back to our original species.
 			H.species_subtype = "None"
 			temp_species.species_subtype = "None" // Update our species subtype to match the Mob's subtype.
 			var/datum/species/S = GLOB.all_species[temp_species.name]
@@ -121,10 +121,6 @@
 		temp_species.female_scream_sound = new_subtype.female_scream_sound
 		temp_species.default_headacc = new_subtype.default_headacc
 		temp_species.default_bodyacc = new_subtype.default_bodyacc
-		temp_species.male_cough_sounds = new_subtype.male_cough_sounds
-		temp_species.female_cough_sounds = new_subtype.female_cough_sounds
-		temp_species.male_sneeze_sound = new_subtype.male_sneeze_sound
-		temp_species.female_sneeze_sound = new_subtype.female_sneeze_sound
 		temp_species.bodyflags = new_subtype.bodyflags
 		temp_species.bodyflags |= static_bodyflags // Add our static bodyflags that slime must always have.
 		temp_species.sprite_sheet_name = new_subtype.sprite_sheet_name
@@ -139,7 +135,7 @@
 		// Update misc parts that are stored as reference in species and used on the mob. Also resets stylings to none to prevent anything wacky...
 
 		if(reset_styles)
-			H.body_accessory = GLOB.body_accessory_by_name[default_bodyacc]
+			H.body_accessory = GLOB.body_accessory_by_name[temp_species.default_bodyacc]
 			H.tail = temp_species.tail
 			H.wing = temp_species.wing
 			var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -149,7 +145,7 @@
 			H.s_tone = 0
 			H.m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 			H.m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-			H.change_head_accessory(GLOB.head_accessory_styles_list[default_headacc])
+			H.change_head_accessory(GLOB.head_accessory_styles_list[temp_species.default_headacc])
 		H.change_icobase(temp_species.icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)

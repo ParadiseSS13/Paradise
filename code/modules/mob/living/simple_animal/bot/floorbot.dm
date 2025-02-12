@@ -60,7 +60,7 @@
 	..()
 	target = null
 	oldloc = null
-	ignore_list.Cut()
+	clear_ignore_list()
 	nagged = 0
 	anchored = FALSE
 	update_icon()
@@ -222,7 +222,7 @@
 			if(emagged && isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				anchored = TRUE
-				mode = BOT_REPAIRING
+				set_mode(BOT_REPAIRING)
 				if(prob(90))
 					F.break_tile_to_plating()
 				else
@@ -243,12 +243,12 @@
 				add_to_ignore(target)
 				ignore_job -= target.UID()
 				target = null
-				mode = BOT_IDLE
+				set_mode(BOT_IDLE)
 				return
 		else if(!bot_move(target))
 			ignore_job -= target.UID()
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -256,7 +256,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/inc_amount_callback()
 	amount ++
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	ignore_job -= target.UID()
 	target = null
 
@@ -308,7 +308,7 @@
 		return
 
 	if(amount <= 0)
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		ignore_job -= target.UID()
 		target = null
 		return
@@ -317,13 +317,13 @@
 
 	if(isspaceturf(target_turf)) // If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
-		mode = BOT_REPAIRING
+		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
-		mode = BOT_REPAIRING
+		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
@@ -343,7 +343,7 @@
 	else
 		target_turf.ChangeTurf(/turf/simulated/floor/plating)
 
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	amount--
 	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
@@ -354,14 +354,14 @@
 		return
 	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
-	mode = BOT_EAT_TILE
+	set_mode(BOT_EAT_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_eat_tile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
 		target = null
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 	if((amount + T.amount) > MAX_AMOUNT)
 		var/i = MAX_AMOUNT - amount
@@ -372,7 +372,7 @@
 		qdel(T)
 	anchored = FALSE
 	target = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/proc/start_make_tile(obj/item/stack/sheet/metal/M)
@@ -380,14 +380,14 @@
 		return
 	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
-	mode = BOT_MAKE_TILE
+	set_mode(BOT_MAKE_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_make_tile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_make_tile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))
 		target = null
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 
 	if((amount + 4) > MAX_AMOUNT) // 1 metal = 4 tiles, hence + 4
@@ -404,7 +404,7 @@
 		qdel(M)
 	anchored = FALSE
 	target = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()

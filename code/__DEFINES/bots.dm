@@ -26,6 +26,7 @@
 #define BOT_NO_ROUTE		17	// no destination beacon found (or no route)
 #define BOT_MAKE_TILE		18	// converting metal into tiles (floorbots)
 #define BOT_EAT_TILE		19	// adding said tiles to inventory (floorbots)
+#define BOT_PATHING			20	// Actively pathfinding.
 
 //Bot types
 #define SEC_BOT				"Security"	// Secutritrons (Beepsky) and ED-209s
@@ -42,3 +43,24 @@
 #define SENTIENCE_OTHER 3
 #define SENTIENCE_MINEBOT 4
 #define SENTIENCE_BOSS 5
+
+// Medbot voice keys
+#define MEDIBOT_VOICED_HOLD_ON "Эй, %TARGET%! Подождите, я сейчас прибуду."
+#define MEDIBOT_VOICED_WANT_TO_HELP "%TARGET%, стойте! Я хочу помочь!"
+#define MEDIBOT_VOICED_YOU_ARE_INJURED "%TARGET%, кажется, вы ранены!"
+
+#define MEDIBOT_VOICED_ALL_PATCHED_UP "Как новенький!"
+#define MEDIBOT_VOICED_APPLE_A_DAY "Яблочко на ужин и врач не нужен!"
+#define MEDIBOT_VOICED_FEEL_BETTER "Поправляйтесь!"
+
+#define MEDIBOT_VOICED_STAY_WITH_ME	"Нет! Не бросай меня!"
+#define MEDIBOT_VOICED_LIVE	"Живи, черт возьми, ЖИВИ!"
+#define MEDIBOT_VOICED_NEVER_LOST "Я... Я никогда раньше не терял пациентов. Сегодня, то есть."
+
+#define MEDIBOT_VOICED_DELICIOUS "Великолепно!"
+#define MEDIBOT_VOICED_PLASTIC_SURGEON "Я так и знал! Нужно было учиться на пластического хирурга."
+#define MEDIBOT_VOICED_MASK_ON "Радар, надень маску!"
+#define MEDIBOT_VOICED_ALWAYS_A_CATCH "Всегда есть подвох, но со мной тебе нечего бояться!"
+#define MEDIBOT_VOICED_LIKE_FLIES "Что это за медицинский отдел такой? Все мрут как мухи!"
+
+#define MEDIBOT_VOICED_FUCK_YOU	"Да блять!"
