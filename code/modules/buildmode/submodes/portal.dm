@@ -120,10 +120,10 @@
 	if(two_way)
 		spawn_portal(origin, destination, user)
 		spawn_portal(destination, origin, user)
-		message_admins("[key_name_admin(user)] Created a two-way portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime / 10] seconds")
+		message_admins("[key_name_admin(user)] Created two-way portals from [get_area(origin)][ADMIN_COORDJMP(origin)] to [get_area(destination)][ADMIN_COORDJMP(destination)] for [lifetime / 10] seconds")
 	else
 		spawn_portal(origin, destination, user)
-		message_admins("[key_name_admin(user)] Created a one-way portal from <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[origin.x];Y=[origin.y];Z=[origin.z]'>[get_area(origin)] (JMP)</a> to <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[destination.x];Y=[destination.y];Z=[destination.z]'>[get_area(destination)] (JMP)</a> for a duration of [lifetime / 10] seconds")
+		message_admins("[key_name_admin(user)] Created a portal from [get_area(origin)][ADMIN_COORDJMP(origin)] to [get_area_name(destination)][ADMIN_COORDJMP(destination)] for [lifetime / 10] seconds")
 
 // Resets the portal selection, clearing stored origin, destination and overlay.
 /datum/buildmode_mode/portal/proc/reset_portal_selection(mob/user)
