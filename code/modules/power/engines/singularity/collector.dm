@@ -1,5 +1,5 @@
-// stored_energy += (pulse_strength - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_EFFICIENCY 30	// radiation needs to be over this amount to get power
+// stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT
+#define RAD_COLLECTOR_THRESHOLD 30	// radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_COEFFICIENT 1100
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
@@ -22,6 +22,8 @@
 	var/locked = FALSE
 	var/drainratio = 1
 	var/powerproduction_drain = 0.001
+	var/power_threshold = RAD_COLLECTOR_THRESHOLD
+	var/power_coefficient = RAD_COLLECTOR_COEFFICIENT
 
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
@@ -135,8 +137,8 @@
 
 /// Converts absorbed Beta or Gamma radiation into electrical energy
 /obj/machinery/power/rad_collector/rad_act(amount, emission_type)
-	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (amount - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
+	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > power_threshold)
+		stored_energy += (amount - power_threshold) * power_coefficient
 
 
 /obj/machinery/power/rad_collector/proc/update_icons()
@@ -159,7 +161,7 @@
 		flick("ca_deactive", src)
 	update_icons()
 
-#undef RAD_COLLECTOR_EFFICIENCY
+#undef RAD_COLLECTOR_THRESHOLD
 #undef RAD_COLLECTOR_COEFFICIENT
 #undef RAD_COLLECTOR_STORED_OUT
 #undef RAD_COLLECTOR_OUTPUT

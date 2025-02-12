@@ -141,10 +141,9 @@
 	while(!istype(start_turf, /turf))
 		start_turf = start_turf.loc
 
-	var/list/things = get_rad_contents(start_turf) // Radiate the waves origin frist
+	var/list/things = get_rad_contents(start_turf, emission_type) // Radiate the waves origin frist
 
-	for(var/k in 1 to length(things))
-		var/atom/thing = things[k]
+	for(var/atom/thing in things)
 		if(!thing || thing.UID() == source.UID())
 			continue
 		wave.weight_sum = wave.weight_sum * thing.base_rad_act(intensity, emission_type)
