@@ -1,44 +1,39 @@
 //  Oh, right. The .dm file. The .dm file for Kuzco, the file chosen especially to datumize gases, Kuzco's .dm file. That .dm file?
 
+#define GAS_OXYGEN "Oxygen"
+#define GAS_CARBON_DIOXIDE "Carbon Dioxide"
+#define GAS_NITROGEN "Nitrogen"
+#define GAS_TOXINS "Toxins"
+#define GAS_SLEEPING_AGENT "Sleeping Agent"
+#define GAS_AGENT_B "Agent B"
+#define GAS_HYDROGEN "Hydrogen"
+#define GAS_WATER_VAPOR "Water Vapor"
 /datum/gas
-	var/name = ""
-	var/amount = 0
-	var/heat_capacity = 0
-	var/moles_visible = null
+	var/name
+	var/moles_visible
 
 /datum/gas/oxygen
-	name = "Oxygen"
-	amount = 0
-	heat_capacity = 20
-
-/datum/gas/nitrogen
-	name = "Nitrogen"
-	amount = 0
-	heat_capacity = 20
+	name = "GAS_OXYGEN"
 
 /datum/gas/carbon_dioxide
-	name = "Carbon Dioxide"
-	amount = 0
-	heat_capacity = 30
+	name = "GAS_CARBON_DIOXIDE"
+
+/datum/gas/nitrogen
+	name = "GAS_NITROGEN"
 
 /datum/gas/toxins
-	amount = 0
-	heat_capacity = 200
+	name = "GAS_TOXINS"
 	moles_visible = 0.5
 
 /datum/gas/sleeping_agent
-	amount = 0
-	heat_capacity = 40
+	name = "GAS_SLEEPING_AGENT"
 
 /datum/gas/agent_b
-	amount = 0
-	heat_capacity = 300
+	name = "GAS_AGENT_B"
 
 /datum/gas/hydrogen
-	amount = 0
-	heat_capacity = 15
+	name = "GAS_HYDROGEN"
+
 
 /datum/gas/water_vapor
-	amount = 0
-	heat_capacity = 40
-
+	name = "GAS_WATER_VAPOR"
