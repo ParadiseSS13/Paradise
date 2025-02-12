@@ -49,6 +49,10 @@
 
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
+	to_chat(user, "<span class='warning'>You begin to break the blade...</span>")
+	if(!do_after(user, 1 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
+		to_chat(user, "<span class='warning'>You fail to break the blade!</span>")
+		return
 	var/turf/safe_turf = find_safe_turf()
 	var/turf/blade_turf = get_turf(user)
 	var/area/our_area = get_area(blade_turf)
