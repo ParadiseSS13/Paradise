@@ -14,7 +14,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	layer = TURF_LAYER
 
 	var/mineral = /obj/item/stack/sheet/metal

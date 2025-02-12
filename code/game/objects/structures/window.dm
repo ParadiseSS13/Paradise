@@ -14,7 +14,7 @@
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
-	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -45,7 +45,7 @@
 
 /obj/structure/window/rad_act(amount, emission_type)
 	. = ..()
-	if(emission_type == GAMMA_RAD)
+	if(emission_type == GAMMA_RAD && amount * (1 - rad_insulation_gamma) * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
 		AddComponent(/datum/component/radioactive, amount * (1 - rad_insulation_gamma) * rad_conversion_amount, src, BETA_RAD)
 
 /obj/structure/window/examine(mob/user)
@@ -710,7 +710,7 @@
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
-	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 0.4
 
 /obj/structure/window/full/plasmareinforced
@@ -731,7 +731,7 @@
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
-	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 0.8
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -747,7 +747,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
-	rad_insulation_beta = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
@@ -800,7 +800,7 @@
 	reinf = TRUE
 	heat_resistance = 32000
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation_beta = RAD_HEAVY_INSULATION
+	rad_insulation_beta = RAD
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
@@ -808,7 +808,7 @@
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS //used in shuttles, same reason as above
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
-	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 1.2
 
 /obj/structure/window/reinforced/clockwork
