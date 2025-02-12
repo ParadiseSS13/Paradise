@@ -206,9 +206,6 @@
 				var/turf/T = get_turf(affected_mob)
 				T.add_vomit_floor(FALSE, FALSE, /obj/effect/decal/cleanable/vomit/spacematter)
 
-/datum/disease/mystic_malaise/proc/create_spacematter_vomit()
-
-
 /obj/effect/decal/cleanable/vomit/spacematter
 	name = "Spacematter Vomit"
 	desc = "Despite the hazard, its dazzlingly beautiful. You should probably get away from it though."
