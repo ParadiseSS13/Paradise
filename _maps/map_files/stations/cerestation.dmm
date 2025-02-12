@@ -1954,9 +1954,7 @@
 	color = "#954535"
 	},
 /obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "aqx" = (
 /obj/item/trash/candy,
@@ -2060,9 +2058,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "arw" = (
 /obj/structure/cable/orange{
@@ -5416,9 +5412,7 @@
 	},
 /area/station/aisat/service)
 "aXA" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "aXD" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -6433,9 +6427,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "bfb" = (
 /obj/structure/disposalpipe/segment,
@@ -7119,9 +7111,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology)
 "bio" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/dockmed)
 "bis" = (
 /obj/structure/disposalpipe/segment,
@@ -8207,9 +8197,7 @@
 /obj/machinery/camera/autoname{
 	dir = 5
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "bpg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10889,9 +10877,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "bCJ" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/cargocom)
 "bCK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -14700,9 +14686,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "bUD" = (
 /obj/effect/spawner/random/barrier/grille_often,
@@ -15761,9 +15745,7 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "cak" = (
 /turf/simulated/floor/plating,
@@ -16214,9 +16196,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "cel" = (
 /obj/structure/filingcabinet,
@@ -16488,9 +16468,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "cgr" = (
 /obj/structure/cable/orange{
@@ -19353,9 +19331,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "cFb" = (
 /obj/machinery/hydroponics/soil,
@@ -19942,9 +19918,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "cIO" = (
 /obj/machinery/newscaster/directional/east,
@@ -22341,9 +22315,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "cWD" = (
 /turf/simulated/wall,
@@ -22418,9 +22390,7 @@
 	},
 /area/station/hallway/secondary/entry/north)
 "cXi" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "cXj" = (
 /obj/structure/extinguisher_cabinet{
@@ -22504,9 +22474,7 @@
 	},
 /area/station/turret_protected/aisat/interior)
 "cXW" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "cYa" = (
 /obj/structure/disposalpipe/segment{
@@ -22515,9 +22483,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "cYb" = (
 /turf/simulated/wall,
@@ -25116,9 +25082,7 @@
 	},
 /area/station/security/main)
 "duo" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "duq" = (
 /obj/effect/spawner/airlock,
@@ -25877,9 +25841,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "dAe" = (
 /obj/effect/landmark/start/doctor,
@@ -26045,9 +26007,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "dBe" = (
 /obj/machinery/light,
@@ -26084,9 +26044,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "dBk" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
@@ -27342,9 +27300,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "dQc" = (
 /obj/machinery/computer/monitor,
@@ -27856,9 +27812,7 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "dUV" = (
 /obj/structure/disposalpipe/segment{
@@ -27887,9 +27841,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "dVr" = (
 /obj/machinery/disposal/delivery_chute{
@@ -28160,9 +28112,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "dZz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -30186,9 +30136,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "eCl" = (
 /obj/structure/cable/orange{
@@ -30701,9 +30649,7 @@
 "eIm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "eIr" = (
 /obj/structure/cable/orange{
@@ -31223,9 +31169,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "ePk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -31387,9 +31331,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "eSb" = (
 /obj/structure/disposalpipe/segment{
@@ -32123,9 +32065,7 @@
 	},
 /area/station/engineering/break_room)
 "few" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "feB" = (
 /obj/structure/cable/orange{
@@ -32199,9 +32139,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "feU" = (
 /obj/machinery/camera{
@@ -33081,9 +33019,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "fsq" = (
 /obj/structure/transit_tube/horizontal,
@@ -33960,9 +33896,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "fFE" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -34131,9 +34065,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "fIf" = (
 /obj/item/storage/toolbox/electrical{
@@ -35439,9 +35371,7 @@
 	pixel_x = -5
 	},
 /obj/structure/railing,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "fZU" = (
 /obj/structure/lattice/catwalk,
@@ -36460,9 +36390,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "gqU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -37488,9 +37416,7 @@
 	dir = 4
 	},
 /obj/structure/railing,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "gFP" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -39003,9 +38929,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "hdc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -40026,9 +39950,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hre" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor{
@@ -40445,18 +40367,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "hwm" = (
 /obj/structure/chair/comfy{
 	dir = 8
 	},
 /obj/structure/railing,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hwr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40668,9 +40586,7 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "hzj" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -41603,9 +41519,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hKF" = (
 /obj/structure/disposalpipe/segment/corner,
@@ -41639,9 +41553,7 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "hLg" = (
 /obj/machinery/firealarm/directional/south,
@@ -42209,9 +42121,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hRT" = (
 /obj/machinery/cooker/deepfryer,
@@ -45246,9 +45156,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "iFT" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -45690,9 +45598,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/cargocom)
 "iKY" = (
 /obj/structure/table/glass/reinforced,
@@ -46276,9 +46182,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/directional/east,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "iSu" = (
 /obj/structure/cable/orange{
@@ -46463,9 +46367,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "iUh" = (
 /obj/item/radio/intercom{
@@ -47861,9 +47763,7 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "jmj" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "jmo" = (
 /obj/structure/table/reinforced,
@@ -47964,9 +47864,7 @@
 /area/station/public/locker)
 "joi" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "joj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48534,9 +48432,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "jug" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -48777,9 +48673,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "jwo" = (
 /obj/item/beacon,
@@ -49243,9 +49137,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "jBh" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -49956,9 +49848,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "jJG" = (
 /obj/structure/disposalpipe/segment{
@@ -50019,9 +49909,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "jKn" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -51021,9 +50909,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "jWQ" = (
 /turf/simulated/floor/plasteel{
@@ -52054,9 +51940,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "klF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -52262,9 +52146,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "kok" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -52437,9 +52319,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "kqR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -54586,9 +54466,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "kSy" = (
 /obj/structure/disposalpipe/segment,
@@ -55148,9 +55026,7 @@
 /area/station/security/armory/secure)
 "laG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "laI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57435,9 +57311,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "lCT" = (
 /obj/structure/table,
@@ -57600,9 +57474,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "lEO" = (
 /obj/machinery/navbeacon{
@@ -58441,9 +58313,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "lQT" = (
 /obj/structure/cable/yellow{
@@ -59811,9 +59681,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "mic" = (
 /turf/simulated/wall,
@@ -60173,9 +60041,7 @@
 /area/station/hallway/primary/port/south)
 "mnz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "mnA" = (
 /obj/machinery/economy/vending/cigarette,
@@ -61045,9 +60911,7 @@
 /area/station/maintenance/disposal/external/southeast)
 "mxW" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/engmed)
 "mya" = (
 /obj/structure/table,
@@ -61736,9 +61600,7 @@
 /turf/simulated/floor/grass,
 /area/station/hallway/spacebridge/scidock)
 "mIr" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/primary/fore/east)
 "mIv" = (
 /obj/structure/disposalpipe/segment,
@@ -62332,9 +62194,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "mQI" = (
 /obj/structure/cable/orange{
@@ -62366,9 +62226,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "mRj" = (
 /obj/structure/chair/wood,
@@ -62541,9 +62399,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "mTI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -63992,9 +63848,7 @@
 /turf/space,
 /area/space/nearstation)
 "nmW" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/sercom)
 "nna" = (
 /obj/machinery/power/apc/directional/north,
@@ -64258,9 +64112,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/cargocom)
 "nrl" = (
 /obj/machinery/hydroponics/soil,
@@ -64693,9 +64545,7 @@
 /area/station/service/chapel)
 "nwC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "nwI" = (
 /obj/item/radio/intercom{
@@ -64770,9 +64620,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "nxA" = (
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -65154,9 +65002,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "nEj" = (
 /obj/machinery/hologram/holopad,
@@ -65659,9 +65505,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "nKr" = (
 /obj/item/pickaxe/mini,
@@ -65808,9 +65652,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "nLT" = (
 /obj/structure/disposalpipe/junction/reversed{
@@ -66039,9 +65881,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "nPH" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
@@ -66241,9 +66081,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "nSn" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/engmed)
 "nSt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -66253,9 +66091,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "nSO" = (
 /obj/structure/grille/broken,
@@ -67539,9 +67375,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "olY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68240,9 +68074,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "ouB" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -68491,9 +68323,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "oyp" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -68829,9 +68659,7 @@
 /area/station/engineering/break_room)
 "oCu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "oCT" = (
 /obj/structure/mineral_door/wood,
@@ -70734,9 +70562,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "pcf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -71536,9 +71362,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "pmB" = (
 /obj/structure/disposalpipe/segment{
@@ -75071,9 +74895,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "qgd" = (
 /obj/machinery/navbeacon{
@@ -75211,9 +75033,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "qhd" = (
 /obj/structure/window/reinforced{
@@ -75232,9 +75052,7 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "qhi" = (
 /obj/item/kirbyplants/large/plant4,
@@ -76010,9 +75828,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "qsg" = (
 /obj/structure/cable{
@@ -76126,9 +75942,7 @@
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "qtD" = (
 /obj/structure/window{
@@ -76564,9 +76378,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "qyP" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/scidock)
 "qyR" = (
 /obj/structure/cable{
@@ -76619,9 +76431,7 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "qzM" = (
 /obj/structure/sign/poster/contraband/rip_badger{
@@ -76787,9 +76597,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/comeng)
 "qBL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -77581,9 +77389,7 @@
 "qMR" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/camera/autoname,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "qMU" = (
 /turf/simulated/floor/plasteel{
@@ -77929,9 +77735,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "qRz" = (
 /obj/structure/table/wood,
@@ -78899,9 +78703,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "reB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80355,9 +80157,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "rCC" = (
 /obj/machinery/requests_console/directional/west,
@@ -81592,9 +81392,7 @@
 	color = "#954535"
 	},
 /obj/machinery/alarm/directional/west,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "rRm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -81803,9 +81601,7 @@
 /area/station/hallway/secondary/exit)
 "rTY" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "rUb" = (
 /obj/structure/cable{
@@ -82638,9 +82434,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "seO" = (
 /obj/structure/cable{
@@ -83330,9 +83124,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "snx" = (
 /obj/structure/cable/orange{
@@ -83658,9 +83450,7 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "stj" = (
 /obj/structure/cable{
@@ -84863,9 +84653,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "sGr" = (
 /obj/machinery/hologram/holopad,
@@ -85086,9 +84874,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "sKb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85161,9 +84947,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "sLh" = (
 /obj/machinery/status_display{
@@ -85378,9 +85162,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "sNC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85568,9 +85350,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "sOD" = (
 /turf/simulated/floor/plating,
@@ -86666,9 +86446,7 @@
 "tdX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "tek" = (
 /obj/effect/decal/cleanable/dirt,
@@ -87347,9 +87125,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "tmf" = (
 /obj/effect/spawner/random/dirt/maybe,
@@ -87405,9 +87181,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "tnj" = (
 /obj/structure/rack,
@@ -87430,9 +87204,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
 "tnN" = (
 /obj/machinery/shower{
@@ -88108,9 +87880,7 @@
 "twk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/alarm/directional/west,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "twp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -88239,9 +88009,7 @@
 /area/station/science/toxins/mixing)
 "txQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "txS" = (
 /obj/structure/sign/poster/random{
@@ -88253,9 +88021,7 @@
 /area/station/maintenance/apmaint)
 "tyg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "tyk" = (
 /obj/structure/table/reinforced,
@@ -89589,9 +89355,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "tRQ" = (
 /obj/machinery/recharger/wallcharger{
@@ -89811,9 +89575,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "tUh" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -90409,9 +90171,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "uay" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/serveng)
 "uaJ" = (
 /obj/structure/cable/orange{
@@ -91771,9 +91531,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "uqV" = (
 /obj/machinery/door/airlock/maintenance{
@@ -91880,9 +91638,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "usT" = (
 /obj/structure/table,
@@ -92053,9 +91809,7 @@
 "uuG" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "uuU" = (
 /obj/machinery/disposal,
@@ -92373,9 +92127,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "uxU" = (
 /obj/structure/cable{
@@ -94406,9 +94158,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "uWl" = (
 /obj/structure/cable/orange{
@@ -96105,9 +95855,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "vtp" = (
 /obj/structure/sign/vacuum/external{
@@ -96123,9 +95871,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/servsci)
 "vtv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -97461,9 +97207,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "vJL" = (
 /turf/simulated/floor/plasteel{
@@ -99101,9 +98845,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
 "whp" = (
 /obj/structure/table/reinforced,
@@ -100678,9 +100420,7 @@
 /area/station/maintenance/starboard)
 "wyN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "wyO" = (
 /obj/structure/table/wood,
@@ -102495,9 +102235,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "wUU" = (
 /obj/structure/cable/orange{
@@ -102658,9 +102396,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "wWZ" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -102760,9 +102496,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "wYw" = (
 /obj/machinery/light/small{
@@ -104041,9 +103775,7 @@
 	},
 /area/station/maintenance/fore)
 "xrc" = (
-/turf/simulated/floor/transparent/glass/reinforced{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/servsci)
 "xrj" = (
 /obj/structure/cable/orange{
@@ -104183,9 +103915,7 @@
 	color = "#954535"
 	},
 /obj/machinery/light,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "xtM" = (
 /obj/structure/dispenser/oxygen,
@@ -104408,9 +104138,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "xwI" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/dockmed)
 "xwL" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -104798,9 +104526,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "xAr" = (
 /obj/structure/chair/sofa/corp/left,
@@ -106489,9 +106215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "xUh" = (
 /obj/structure/table/glass,
@@ -107240,9 +106964,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "yfF" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -107612,9 +107334,7 @@
 	},
 /area/station/hallway/primary/port/south)
 "yjg" = (
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "yjp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -107662,9 +107382,7 @@
 /area/station/maintenance/disposal/northeast)
 "yjI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
+/turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "yjM" = (
 /obj/structure/disposalpipe/segment{
