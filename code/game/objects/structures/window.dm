@@ -638,7 +638,7 @@
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
-	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through. Lacks protection from radiation."
+	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through. When hit with Gamma particles it will become charged and start emitting Beta particles"
 	icon_state = "plasmawindow"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
@@ -654,7 +654,7 @@
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. Lacks protection from radiation."
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. When hit with Gamma particles it will become charged and start emitting Beta particles"
 	icon_state = "plasmarwindow"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
@@ -669,8 +669,26 @@
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
-	rad_conversion_amount = 1
+	rad_conversion_amount = 1.5
 
+/obj/structure/window/plastitanium
+	name = "plastitanium window"
+	desc = "An evil looking window of plasma and titanium. When hit with Gamma particles it will become charged and start emitting Beta particles"
+	icon_state = "plasmarwindow"
+	glass_decal = /obj/effect/decal/cleanable/glass/plastitanium
+	shardtype = /obj/item/shard/plasma
+	glass_type = /obj/item/stack/sheet/plastitaniumglass
+	reinf = TRUE
+	heat_resistance = 32000
+	max_integrity = 600
+	explosion_block = 2
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
+	damage_deflection = 21
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	rad_conversion_amount = 2.5
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -695,7 +713,7 @@
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
-	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through. Has very light protection from radiation."
+	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through. When hit with Gamma particles it will become charged and start emitting Beta particles"
 	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
@@ -711,11 +729,11 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 3.5
+	rad_conversion_amount = 2.5
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. Offers superior protection from radiation."
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. When hit with Gamma particles it will become charged and start emitting Beta particles"
 	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
@@ -732,7 +750,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 1.5
+	rad_conversion_amount = 2
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -792,7 +810,7 @@
 
 /obj/structure/window/full/plastitanium
 	name = "plastitanium window"
-	desc = "An evil looking window of plasma and titanium."
+	desc = "An evil looking window of plasma and titanium. When hit with Gamma particles it will become charged and start emitting Beta particles"
 	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
@@ -809,7 +827,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 2.5
+	rad_conversion_amount = 3.2
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

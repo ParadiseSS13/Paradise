@@ -1,12 +1,12 @@
 // stored_energy += (pulse_strength - RAD_COLLECTOR_EFFICIENCY) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_EFFICIENCY 20	// radiation needs to be over this amount to get power
+#define RAD_COLLECTOR_EFFICIENCY 30	// radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_COEFFICIENT 1100
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
 /obj/machinery/power/rad_collector
 	name = "radiation collector array"
-	desc = "A device which uses Hawking Radiation and plasma to produce power."
+	desc = "A device which converts raditation to useable electical energy using plasma. It absorbs Beta particles extremely well, and Gamma particles to a lesser extent"
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
