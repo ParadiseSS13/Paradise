@@ -1456,7 +1456,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
-	target.rust_heretic_act(4)
+	target.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
 
 /// Used with the spawner component to do something when a mob is spawned.
 /atom/proc/on_mob_spawn(mob/created_mob)
