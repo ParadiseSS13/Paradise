@@ -142,7 +142,7 @@
 	return
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
-	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
+	if(!parent_tank || (!istype(parent_tank, /obj/item/watertank) && !istype(parent_tank, /obj/item/mod/module/firefighting_tank)))	//To avoid weird issues from admin spawns
 		return FALSE
 	else
 		return TRUE
@@ -218,11 +218,12 @@
 	name = "extinguisher nozzle"
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
-	icon_state = "atmos_nozzle"
+	icon_state = "atmos_nozzle_1"
 	item_state = "nozzleatmos"
-	safety = 0
+	has_safety = FALSE
+	safety_active = FALSE
 	max_water = 500
-	precision = 1
+	precision = TRUE
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
@@ -230,10 +231,23 @@
 	var/obj/item/watertank/tank
 	/// What mode are we currently in?
 	var/nozzle_mode = EXTINGUISHER
-	/// Are we overusing the metal synthesizer? can be used 5 times in quick succession, regains 1 use per 10 seconds
-	var/metal_synthesis_cooldown = 0
-	/// Is our nanofrost on cooldown?
-	var/nanofrost_cooldown = FALSE
+	/// How many shots of metal foam do we have?
+	var/metal_synthesis_charge = 5
+	/// Time to refill 1 charge of metal foam.
+	var/metal_regen_time = 2 SECONDS
+	/// Refire delay for nanofrost chunks.
+	var/nanofrost_cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(nanofrost_cooldown)
+
+/obj/item/extinguisher/mini/nozzle/examine(mob/user)
+	. = ..()
+	switch(nozzle_mode)
+		if(EXTINGUISHER)
+			. += "<span class='notice'>[src] is currently set to extinguishing mode.</span>"
+		if(NANOFROST)
+			. += "<span class='notice'>[src] is currently set to nanofrost mode.</span>"
+		if(METAL_FOAM)
+			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	if(!check_tank_exists(loc, src))
@@ -255,67 +269,88 @@
 	if(tank && loc != tank.loc)
 		forceMove(tank)
 
-/obj/item/extinguisher/mini/nozzle/attack_self__legacy__attackchain(mob/user)
+/obj/item/extinguisher/mini/nozzle/activate_self(mob/user)
+	..()
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			tank.icon_state = "waterbackpackatmos_1"
 			to_chat(user, "Swapped to nanofrost launcher")
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			tank.icon_state = "waterbackpackatmos_2"
 			to_chat(user, "Swapped to metal foam synthesizer")
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			tank.icon_state = "waterbackpackatmos_0"
 			to_chat(user, "Swapped to water extinguisher")
+	update_icon(UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/extinguisher/mini/nozzle/update_icon_state()
+	switch(nozzle_mode)
+		if(EXTINGUISHER)
+			icon_state = "atmos_nozzle_1"
+			tank.icon_state = "waterbackpackatmos_0"
+		if(NANOFROST)
+			icon_state = "atmos_nozzle_2"
+			tank.icon_state = "waterbackpackatmos_1"
+		if(METAL_FOAM)
+			icon_state = "atmos_nozzle_3"
+			tank.icon_state = "waterbackpackatmos_2"
 
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user)
 	..()
+	if(istype(tank, /obj/item/mod/module/firefighting_tank))
+		return
+
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack__legacy__attackchain(atom/target, mob/user)
+/obj/item/extinguisher/mini/nozzle/extinguisher_spray(atom/A, mob/living/user)
 	if(nozzle_mode == EXTINGUISHER)
-		..()
-		return
-	var/Adj = user.Adjacent(target)
-	if(Adj)
-		AttemptRefill(target, user)
+		return ..()
 
+	. = TRUE
 	switch(nozzle_mode)
 		if(NANOFROST)
-			if(Adj)
-				return //Safety check so you don't blast yourself trying to refill your tank
 			if(reagents.total_volume < 100)
-				to_chat(user, "<span class='notice'>You need at least 100 units of water to use the nanofrost launcher!</span>")
+				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
 				return
-			if(nanofrost_cooldown)
-				to_chat(user, "<span class='notice'>Nanofrost launcher is still recharging.</span>")
+
+			if(COOLDOWN_TIMELEFT(src, nanofrost_cooldown))
+				to_chat(user, "<span class='warning'>The nanofrost launcher is still recharging!</span>")
 				return
-			nanofrost_cooldown = TRUE
+
+			COOLDOWN_START(src, nanofrost_cooldown, nanofrost_cooldown_time)
 			reagents.remove_any(100)
-			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+			var/obj/effect/nanofrost_container/iceball = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 			playsound(src,'sound/items/syringeproj.ogg', 40, TRUE)
-			A.throw_at(target, 6, 2, user)
+			iceball.throw_at(A, 6, 2, user)
 			sleep(2)
-			A.Smoke()
-			addtimer(VARSET_CALLBACK(src, nanofrost_cooldown, FALSE))
-		if(METAL_FOAM)
-			if(!Adj)
-				return
-			if(metal_synthesis_cooldown >= 5)
-				to_chat(user, "<span class='notice'>Metal foam mix is still being synthesized.</span>")
-				return
-			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
-			F.spread_amount = 0
-			metal_synthesis_cooldown++
-			addtimer(CALLBACK(src, PROC_REF(metal_cooldown)), 10 SECONDS)
+			iceball.Smoke()
+			return
 
-/obj/item/extinguisher/mini/nozzle/proc/metal_cooldown()
-	metal_synthesis_cooldown--
+		if(METAL_FOAM)
+			if(!user.Adjacent(A) || !isturf(A))
+				return
+
+			if(metal_synthesis_charge <= 0)
+				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized!</span>")
+				return
+
+			if(reagents.total_volume < 10)
+				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
+				return
+
+			var/obj/effect/particle_effect/foam/metal/foam = new /obj/effect/particle_effect/foam/metal(get_turf(A), TRUE)
+			foam.spread_amount = 0
+			reagents.remove_any(10)
+			metal_synthesis_charge--
+			addtimer(CALLBACK(src, PROC_REF(refill_metal_charge)), metal_regen_time)
+			return
+
+/obj/item/extinguisher/mini/nozzle/proc/refill_metal_charge()
+	metal_synthesis_charge++
 
 /obj/effect/nanofrost_container
 	name = "nanofrost container"
