@@ -4,6 +4,7 @@
  * (Intrinsic actions like bar flinging, spells like fireball or smoke, or martial arts)
  */
 /obj/item/book/granter
+	new_attack_chain = TRUE
 	/// Flavor messages displayed to mobs reading the granter
 	var/list/remarks = list()
 	/// Controls how long a mob must keep the book in his hand to actually successfully learn
@@ -20,8 +21,7 @@
 		'sound/effects/pageturn2.ogg',
 		'sound/effects/pageturn3.ogg'
 	)
-
-/obj/item/book/granter/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/book/granter/activate_self(mob/user)
 	if(reading)
 		to_chat(user, "<span class='warning'>You're already reading this!</span>")
 		return FALSE
