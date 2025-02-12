@@ -720,6 +720,8 @@ What are the archived variables for?
 	private_toxins = milla[MILLA_INDEX_TOXINS]
 	private_sleeping_agent = milla[MILLA_INDEX_SLEEPING_AGENT]
 	private_agent_b = milla[MILLA_INDEX_AGENT_B]
+	private_hydrogen = milla[MILLA_INDEX_HYDROGEN]
+	private_water_vapor = milla[MILLA_INDEX_WATER_VAPOR]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
@@ -734,6 +736,8 @@ What are the archived variables for?
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
+	var/total_hydrogen = 0
+	var/total_water_vapor = 0
 	var/must_share = FALSE
 
 	// Collect all the cheap data and check if there's a significant temperature difference.
@@ -755,6 +759,8 @@ What are the archived variables for?
 		total_carbon_dioxide += G.private_carbon_dioxide
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
+		total_hydrogen += G.private_hydrogen
+		total_water_vapor += G.private_water_vapor
 
 	if(total_volume <= 0)
 		return
@@ -780,6 +786,12 @@ What are the archived variables for?
 				must_share = TRUE
 				break
 			if(abs(G.private_agent_b - total_agent_b * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_hydrogen - total_hydrogen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_water_vapor - total_water_vapor * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
 
@@ -812,6 +824,8 @@ What are the archived variables for?
 		G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
 		G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
 		G.private_agent_b = total_agent_b * G.volume / total_volume
+		G.private_hydrogen = total_hydrogen * G.volume / total_volume
+		G.private_water_vapor = total_water_vapor * G.volume / total_volume
 
 		G.private_temperature = temperature
 		// In theory, we should G.set_dirty() here, but that's only useful for bound mixtures, and these can't be.
@@ -852,6 +866,8 @@ What are the archived variables for?
 		readonly.private_toxins = private_toxins
 		readonly.private_sleeping_agent = private_sleeping_agent
 		readonly.private_agent_b = private_agent_b
+		readonly.private_hydrogen = private_hydrogen
+		readonly.private_water_vapor = private_water_vapor
 		readonly.private_temperature = private_temperature
 		readonly.private_hotspot_temperature = private_hotspot_temperature
 		readonly.private_hotspot_volume = private_hotspot_volume
@@ -886,6 +902,14 @@ What are the archived variables for?
 	private_agent_b = value
 	set_dirty()
 
+/datum/gas_mixture/bound_to_turf/set_hydrogen(value)
+	private_hydrogen = value
+	set_dirty()
+
+/datum/gas_mixture/bound_to_turf/set_water_vapor(value)
+	private_water_vapor = value
+	set_dirty()
+
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
 	private_temperature = value
 	set_dirty()
@@ -897,7 +921,7 @@ What are the archived variables for?
 		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
-	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
+	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, hydrogen = private_hydrogen, water_vapor = private_water_vapor, temperature = private_temperature)
 
 /datum/gas_mixture/bound_to_turf/proc/get_readonly()
 	if(isnull(readonly))
@@ -914,6 +938,8 @@ What are the archived variables for?
 	private_toxins = parent.private_toxins
 	private_sleeping_agent = parent.private_sleeping_agent
 	private_agent_b = parent.private_agent_b
+	private_hydrogen = parent.private_hydrogen
+	private_water_vapor = parent.private_water_vapor
 
 	private_temperature = parent.private_temperature
 	private_hotspot_temperature = parent.private_hotspot_temperature
