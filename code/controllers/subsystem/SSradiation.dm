@@ -26,7 +26,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	warned_atoms[ref] = TRUE
 	var/atom/master = contamination.parent
 	SSblackbox.record_feedback("tally", "contaminated", 1, master.type)
-	var/msg = "has become contaminated with enough radiation to contaminate other objects. || Source: [contamination.source] || Strength: [contamination.strength]"
+	var/msg = "has become contaminated with enough radiation to emit radiation waves || Source: [contamination.source] || Strength: [contamination.alpha_strength + contamination.beta_strength + contamination.gamma_strength]"
 	master.investigate_log(msg, "radiation")
 
 /datum/controller/subsystem/processing/radiation/fire(resumed)
@@ -45,9 +45,9 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	var/atom/owner = thing.parent
 	var/turf/place = get_turf(owner)
 	if(turf_rad_cache[place])
-		turf_rad_cache[place] += thing.strength
+		turf_rad_cache[place] += (thing.alpha_strength + thing.beta_strength + thing.gamma_strength)
 	else
-		turf_rad_cache[place] = thing.strength
+		turf_rad_cache[place] = (thing.alpha_strength + thing.beta_strength + thing.gamma_strength)
 
 
 /datum/controller/subsystem/processing/radiation/proc/refresh_rad_cache()

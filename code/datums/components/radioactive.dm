@@ -9,24 +9,28 @@
 	var/source
 	///the half-life measured in ticks
 	var/hl3_release_date
-	var/strength
-	var/can_contaminate
-	var/emission_type = ALPHA_RAD
+	var/alpha_strength
+	var/beta_strength
+	var/gamma_strength
 
-/datum/component/radioactive/Initialize(_strength = 0, _source,  _emission_type = ALPHA_RAD, _half_life = RAD_HALF_LIFE, _can_contaminate = TRUE)
+/datum/component/radioactive/Initialize(_strength, _source, emission_type, _half_life = RAD_HALF_LIFE)
 	if(!istype(parent, /atom))
 		return COMPONENT_INCOMPATIBLE
-	strength = _strength
+	switch(emission_type)
+		if(ALPHA_RAD)
+			alpha_strength = _strength
+		if(BETA_RAD)
+			beta_strength = _strength
+		if(GAMMA_RAD)
+			gamma_strength = _strength
 	source = _source
 	hl3_release_date = _half_life
-	can_contaminate = _can_contaminate
-	emission_type = emission_type
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
 	RegisterSignal(parent, COMSIG_ADMIN_DECONTAMINATE, PROC_REF(admin_decontaminate))
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(rad_attack))
 		RegisterSignal(parent, COMSIG_ATTACK_OBJ, PROC_REF(rad_attack))
-	if(strength > RAD_MINIMUM_CONTAMINATION)
+	if(alpha_strength + beta_strength + gamma_strength > RAD_MINIMUM_CONTAMINATION)
 		SSradiation.warn(src)
 	//Let's make er glow
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
@@ -44,14 +48,23 @@
 	return ..()
 
 /datum/component/radioactive/process()
-	if(!prob(50))
-		return
-	radiation_pulse(parent, strength, emission_type)
+	if(alpha_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, alpha_strength, ALPHA_RAD)
+	if(beta_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, beta_strength, BETA_RAD)
+	if(gamma_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, gamma_strength, GAMMA_RAD)
+
 	if(!hl3_release_date)
 		return
-	strength -= strength / hl3_release_date
+
+	alpha_strength -= alpha_strength / hl3_release_date
+	beta_strength -= beta_strength / hl3_release_date
+	gamma_strength -= gamma_strength / hl3_release_date
+
 	SSradiation.update_rad_cache(src)
-	if(strength <= RAD_BACKGROUND_RADIATION)
+
+	if(alpha_strength + beta_strength + gamma_strength <= RAD_BACKGROUND_RADIATION)
 		qdel(src)
 		return PROCESS_KILL
 
@@ -61,16 +74,27 @@
 		animate(filter, alpha = 110, time = 15, loop = -1)
 		animate(alpha = 40, time = 25)
 
-/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, _half_life, _can_contaminate)
+/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, emission_type, _half_life)
 	if(!i_am_original)
 		return
 	if(!hl3_release_date) // Permanently radioactive things don't get to grow stronger
 		return
 	if(C)
 		var/datum/component/radioactive/other = C
-		strength = max(strength, other.strength)
+		alpha_strength = max(alpha_strength, other.alpha_strength)
+		beta_strength = max(beta_strength, other.beta_strength)
+		gamma_strength = max(gamma_strength, other.gamma_strength)
+		hl3_release_date = other.hl3_release_date
 	else
-		strength = max(strength, _strength)
+		switch(emission_type)
+			if(ALPHA_RAD)
+				alpha_strength = max(alpha_strength, _strength)
+			if(BETA_RAD)
+				beta_strength = max(beta_strength, _strength)
+			if(GAMMA_RAD)
+				gamma_strength = max(gamma_strength, _strength)
+
+		hl3_release_date = _half_life
 
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, list/out)
 	SIGNAL_HANDLER
@@ -80,7 +104,7 @@
 	var/list/fragments = list()
 	if(get_dist(master, user) <= 1)
 		fragments += "The air around [master] feels warm"
-	switch(strength)
+	switch(alpha_strength + beta_strength + gamma_strength)
 		if(0 to RAD_AMOUNT_LOW)
 			if(length(fragments))
 				fragments += "."
@@ -96,12 +120,20 @@
 
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER
-
-	radiation_pulse(parent, strength / 20, emission_type)
-	target.rad_act(strength / 2)
+	if(alpha_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, alpha_strength / 20, ALPHA_RAD)
+		target.rad_act(alpha_strength / 2, ALPHA_RAD)
+	if(beta_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, beta_strength / 20, BETA_RAD)
+		target.rad_act(beta_strength / 2, BETA_RAD)
+	if(gamma_strength > RAD_BACKGROUND_RADIATION)
+		radiation_pulse(parent, gamma_strength / 20, GAMMA_RAD)
+		target.rad_act(gamma_strength / 2, GAMMA_RAD)
 	if(!hl3_release_date)
 		return
-	strength -= strength / hl3_release_date
+	alpha_strength -= alpha_strength / hl3_release_date
+	beta_strength -= beta_strength / hl3_release_date
+	gamma_strength -= gamma_strength / hl3_release_date
 
 /datum/component/radioactive/proc/admin_decontaminate()
 	SIGNAL_HANDLER

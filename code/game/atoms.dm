@@ -61,7 +61,7 @@
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
 	/// Radiation insulation for alpha emissions
-	var/rad_insulation_alpha = RAD_NEAR_FULL_INSULATION
+	var/rad_insulation_alpha = RAD_ALPHA_BLOCKER
 	/// Radiation insulation for beta emissions
 	var/rad_insulation_beta = RAD_NO_INSULATION
 	/// Radiation insulation for gamma emissions
@@ -1013,9 +1013,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/clean_radiation(clean_factor = 2)
 	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
 	if(!QDELETED(healthy_green_glow))
-		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
-		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
-		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+		healthy_green_glow.alpha_strength = max(0, (healthy_green_glow.alpha_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		healthy_green_glow.beta_strength = max(0, (healthy_green_glow.beta_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		healthy_green_glow.gamma_strength = max(0, (healthy_green_glow.gamma_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		if((healthy_green_glow.alpha_strength + healthy_green_glow.beta_strength + healthy_green_glow.gamma_strength) <= RAD_BACKGROUND_RADIATION)
 			healthy_green_glow.RemoveComponent()
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)

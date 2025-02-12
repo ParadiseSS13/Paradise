@@ -167,8 +167,8 @@
 		if(!thing)
 			continue
 		var/datum/component/radioactive/radiation = thing.GetComponent(/datum/component/radioactive)
-		if(radiation && rad_strength < radiation.strength)
-			rad_strength = radiation.strength
+		if(radiation && rad_strength < (radiation.alpha_strength + radiation.beta_strength + radiation.gamma_strength))
+			rad_strength = (radiation.alpha_strength + radiation.beta_strength + radiation.gamma_strength)
 	return rad_strength
 
 /// Contaminate things that share our immediate location(periodic)
