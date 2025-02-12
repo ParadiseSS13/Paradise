@@ -157,7 +157,7 @@
 
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
-	desc = "A plumber's guide on how to efficiently plumb and clean out old drone shells."
+	desc = "A plumber's guide on how to properly identify a pipe."
 	summary = "A handy encyclopedia on the many different flavors of pipe and device available to Atomspherics."
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
