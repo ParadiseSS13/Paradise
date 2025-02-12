@@ -812,7 +812,7 @@
 		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) || (istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY)))
 		to_chat(user, "<span class='notice'>You close the portal with your [used].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)

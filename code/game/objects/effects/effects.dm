@@ -107,10 +107,9 @@
 /obj/effect/decal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks))
 		scoop(used, user)
-		return ITEM_INTERACT_COMPLETE
 	else if(issimulatedturf(loc))
 		used.melee_attack_chain(user, loc)
-		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/decal/attack_animal(mob/living/simple_animal/M)
 	if(issimulatedturf(loc))
