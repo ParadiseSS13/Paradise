@@ -101,7 +101,7 @@
 	desc = "A shard of plastitanium glass. Considerably tougher then normal glass shards. Apparently not tough enough to be a window."
 	force = 6
 	throwforce = 11
-	icon_state = "plasmalarge"
+	icon_state = "plastitaniumlarge"
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
-	icon_prefix = "plasma"
+	icon_prefix = "plastitanium"
 	welded_type = /obj/item/stack/sheet/plastitaniumglass

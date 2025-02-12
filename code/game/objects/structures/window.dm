@@ -674,7 +674,7 @@
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon_state = "plasmarwindow"
+	icon_state = "plastitaniumwindow"
 	glass_decal = /obj/effect/decal/cleanable/glass/plastitanium
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
