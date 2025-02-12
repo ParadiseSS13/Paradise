@@ -1120,6 +1120,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				shock_reduction += R.shock_reduction
 	return shock_reduction
 
+/mob/living/carbon/proc/shock_reduction_doll()
+	var/shock_reduction = 0
+	var/view_true_health = FALSE
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				if(R.view_true_health) // This makes it so painkillers that have a TRUE view_true_health won't muddy up the health doll
+					continue
+				else
+					shock_reduction += R.shock_reduction
+	return shock_reduction
+
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
 

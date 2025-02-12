@@ -698,8 +698,9 @@
 		return
 	else
 		var/shock_reduction = shock_reduction()
+		var/shock_reduction_doll = shock_reduction_doll()
 		if(healths)
-			var/health_amount = get_perceived_trauma(shock_reduction)
+			var/health_amount = get_perceived_trauma(shock_reduction_doll)
 			if(..(health_amount)) //not dead
 				switch(health_hud_override)
 					if(HEALTH_HUD_OVERRIDE_CRIT)
