@@ -290,6 +290,7 @@
 /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
 	name = "Vertical Bridge One"
 	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
 
 /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
 	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
@@ -297,6 +298,7 @@
 /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
 	name = "Horizontal Bridge One"
 	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
 
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO
