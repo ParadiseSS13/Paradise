@@ -158,10 +158,10 @@
 #define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					21
-#define MILLA_INDEX_INTERESTING_REASONS		22
-#define MILLA_INDEX_AIRFLOW_X				23
-#define MILLA_INDEX_AIRFLOW_Y				24
+#define MILLA_INDEX_TURF					23
+#define MILLA_INDEX_INTERESTING_REASONS		24
+#define MILLA_INDEX_AIRFLOW_X				25
+#define MILLA_INDEX_AIRFLOW_Y				26
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y
