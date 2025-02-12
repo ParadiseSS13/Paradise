@@ -85,7 +85,7 @@
 		var/atom/thing = k
 		if(QDELETED(thing))
 			continue
-		weight = weight * thing.rad_act(weight * intensity, emission_type)
+		weight = weight * thing.base_rad_act(weight * intensity, emission_type)
 	// return the resulting weight if the radiation on the tile would end up greater than background
 	return (((weight * intensity) > RAD_BACKGROUND_RADIATION) ? weight : 0)
 

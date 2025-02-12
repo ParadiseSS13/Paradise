@@ -122,13 +122,13 @@
 	SIGNAL_HANDLER
 	if(alpha_strength > RAD_BACKGROUND_RADIATION)
 		radiation_pulse(parent, alpha_strength / 20, ALPHA_RAD)
-		target.rad_act(alpha_strength / 2, ALPHA_RAD)
+		target.base_rad_act(alpha_strength / 2, ALPHA_RAD)
 	if(beta_strength > RAD_BACKGROUND_RADIATION)
 		radiation_pulse(parent, beta_strength / 20, BETA_RAD)
-		target.rad_act(beta_strength / 2, BETA_RAD)
+		target.base_rad_act(beta_strength / 2, BETA_RAD)
 	if(gamma_strength > RAD_BACKGROUND_RADIATION)
 		radiation_pulse(parent, gamma_strength / 20, GAMMA_RAD)
-		target.rad_act(gamma_strength / 2, GAMMA_RAD)
+		target.base_rad_act(gamma_strength / 2, GAMMA_RAD)
 	if(!hl3_release_date)
 		return
 	alpha_strength -= alpha_strength / hl3_release_date

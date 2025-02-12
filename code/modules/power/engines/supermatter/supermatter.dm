@@ -377,7 +377,7 @@
 				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))) SECONDS
 				H.AdjustHallucinate(hallucination_amount)
 			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
-			L.rad_act(rads)
+			L.base_rad_act(rads, GAMMA_RAD)
 
 	var/turf/T = get_turf(src)
 	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
@@ -597,7 +597,7 @@
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
-		l.rad_act(rads)
+		l.base_rad_act(rads, GAMMA_RAD)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2

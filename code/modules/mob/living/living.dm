@@ -1040,7 +1040,7 @@
 	update_z(new_turf?.z)
 
 /mob/living/rad_act(amount, emission_type)
-	. = base_rad_act(amount, emission_type)
+	amount /= RAD_MOB_INSULATION
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 

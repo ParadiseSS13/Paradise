@@ -602,16 +602,15 @@
 /**
  * Respond to a radioactive wave hitting this atom
  *
- * Default behaviour is to return base_rad_act
+ * This should only be called through the atom/base_rad_act proc
  */
 /atom/proc/rad_act(amount, emission_type)
-	return base_rad_act(amount, emission_type)
+	return
 
 /**
-*This should be called by all rad_act calls.
-*We do not want to call parent so that we can assign different behaviours to different items that share a parent without having them perform the same actions
+* Sends a COMSIG_ATOM_RAD_ACT signal, calls the atoms rad_act with the amount of radiation it should have absorbed and returns the rad insulation of the atom that isappropriate for emission_type
 */
-/atom/proc/base_rad_act(emission_type)
+/atom/proc/base_rad_act(amount, emission_type)
 	switch(emission_type)
 		if(ALPHA_RAD)
 			. = rad_insulation_alpha
@@ -619,7 +618,9 @@
 			. = rad_insulation_beta
 		if(GAMMA_RAD)
 			. = rad_insulation_gamma
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount * (1 - .))
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	if(amount >= RAD_BACKGROUND_RADIATION)
+		rad_act(amount * (1 - .), emission_type)
 
 /// Attempt to contaminate a single atom
 /atom/proc/contaminate_atom(atom/source, intensity, emission_type)

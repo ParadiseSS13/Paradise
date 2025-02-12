@@ -101,9 +101,6 @@
 		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount, emission_type)
-	. = base_rad_act(amount, emission_type)
-	if(amount <= RAD_BACKGROUND_RADIATION)
-		return
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process()

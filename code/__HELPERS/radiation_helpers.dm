@@ -147,7 +147,7 @@
 		var/atom/thing = things[k]
 		if(!thing || thing.UID() == source.UID())
 			continue
-		wave.weight_sum = wave.weight_sum * thing.rad_act(intensity)
+		wave.weight_sum = wave.weight_sum * thing.base_rad_act(intensity, emission_type)
 	// We can do this because we are on one tile so we have one weight
 	wave.weights[1] = wave.weight_sum
 
