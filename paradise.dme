@@ -1649,6 +1649,7 @@
 #include "code\modules\asset_cache\assets\asset_tgui.dm"
 #include "code\modules\asset_cache\transports\asset_transport.dm"
 #include "code\modules\asset_cache\transports\webroot_transport.dm"
+#include "code\modules\atmospherics\gases.dm"
 #include "code\modules\atmospherics\environmental\LINDA_fire.dm"
 #include "code\modules\atmospherics\environmental\LINDA_system.dm"
 #include "code\modules\atmospherics\environmental\LINDA_turf_tile.dm"
