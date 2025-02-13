@@ -471,8 +471,8 @@
 		H.bodytemperature = H.dna.species.body_temperature
 		if(regen_type_applied == "Legion")
 			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+				owner.remove_CC()
 				for(var/obj/item/organ/external/E in H.bodyparts)
-					owner.remove_CC()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
 					E.mend_fracture()
