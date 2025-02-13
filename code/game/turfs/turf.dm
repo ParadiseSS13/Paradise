@@ -675,11 +675,31 @@
 	get_turf_air(T).copy_from(air)
 
 /turf/simulated/proc/update_hotspot()
-	var/datum/gas_mixture/air = get_readonly_air()
-	if(air.fuel_burnt() < 0.001)
-		if(isnull(active_hotspot))
-			return FALSE
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	var/fuel_burnt = 0
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
 
+	if(active_hotspot.data_tick != SSair.milla_tick)
+		if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+			air = get_readonly_air()
+		else
+			air = bound_air
+		fuel_burnt = air.fuel_burnt()
+		if(air.hotspot_volume() > 0)
+			active_hotspot.temperature = air.hotspot_temperature()
+			active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+		else
+			active_hotspot.temperature = air.temperature()
+			active_hotspot.volume = CELL_VOLUME
+	else
+		fuel_burnt = active_hotspot.fuel_burnt
+
+	if(fuel_burnt < 0.001)
 		// If it's old, delete it.
 		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
@@ -687,18 +707,12 @@
 		else
 			return TRUE
 
-	if(isnull(active_hotspot))
-		active_hotspot = new(src)
-
 	active_hotspot.death_timer = SSair.milla_tick + 4
-	if(air.hotspot_volume() > 0)
-		active_hotspot.temperature = air.hotspot_temperature()
-		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
-	else
-		active_hotspot.temperature = air.temperature()
-		active_hotspot.volume = CELL_VOLUME
 
-	active_hotspot.update_visuals()
+	if(active_hotspot.update_tick == 0)
+		active_hotspot.update_visuals(active_hotspot.fuel_burnt)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+	active_hotspot.update_tick = (active_hotspot.update_tick + 1) % active_hotspot.update_interval
 	return TRUE
 
 /turf/simulated/proc/update_wind()
@@ -712,7 +726,14 @@
 
 	wind_effect.dir = wind_direction(wind_x, wind_y)
 
-	var/datum/gas_mixture/air = get_readonly_air()
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+		air = get_readonly_air()
+	else
+		air = bound_air
+
 	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	wind_effect.alpha = min(255, 5 + wind_strength * 25)

@@ -452,9 +452,7 @@
 		item_state = "reactiveoff"
 		add_fingerprint(user)
 	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)

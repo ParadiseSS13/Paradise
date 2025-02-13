@@ -399,6 +399,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
 	unbuckle_time = 5 SECONDS
+	cares_about_temperature = TRUE
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -701,7 +702,7 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(null, temp, volume)
+/obj/structure/spacevine/temperature_expose(temp, volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)

@@ -73111,10 +73111,6 @@
 /area/station/maintenance/solar_maintenance/port)
 "pGm" = (
 /obj/machinery/ai_status_display,
-/obj/item/radio/intercom{
-	pixel_y = 28;
-	name = "custom placement"
-	},
 /turf/simulated/wall/r_wall,
 /area/station/command/office/hop)
 "pGx" = (
