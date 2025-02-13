@@ -217,7 +217,7 @@
 /atom/movable/proc/set_loc(T, teleported=0)
 	var/old_loc = loc
 	loc = T
-	Moved(old_loc, get_dir(old_loc, loc))
+	Moved(old_loc, get_dir(old_loc, loc), null, null, FALSE)
 
 
 /**
@@ -1139,3 +1139,39 @@
 /atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
 	pixel_x = x_offset + rand(-scatter_distance, scatter_distance)
 	pixel_y = y_offset + rand(-scatter_distance, scatter_distance)
+
+/**
+ * A backwards depth-limited breadth-first-search to see if the target is
+ * logically "in" anything adjacent to us.
+ *
+ * Arguments:
+ * * ultimate_target - the specific item we're attempting to reach.
+ * * tool - if present, checked to see if the tool can reach the target via [/obj/item/var/reach].
+ * * view_only - if TRUE, only considers locations in atoms visible to us, as opposed to nested inventories.
+ */
+/atom/movable/proc/can_reach_nested_adjacent(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/list/direct_access = direct_access()
+	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
+
+	var/list/closed = list()
+	var/list/checking = list(ultimate_target)
+
+	while(length(checking) && depth > 0)
+		var/list/next = list()
+		--depth
+
+		for(var/atom/target in checking)  // will filter out nulls
+			if(closed[target] || isarea(target))  // avoid infinity situations
+				continue
+
+			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
+				if(Adjacent(target) || (tool && check_tool_reach(src, target, tool.reach))) //Adjacent or reaching attacks
+					return TRUE
+
+			closed[target] = TRUE
+
+			if(!target.loc)
+				continue
+
+		checking = next
+	return FALSE
