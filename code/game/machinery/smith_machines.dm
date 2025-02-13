@@ -151,6 +151,9 @@
 			materials.insert_item(O, linked_crucible.sheet_per_ore)
 		else
 			materials.insert_item(O, 1)
+	animate_transfer()
+	// Award points if the ore actually transfers to the magma crucible
+	give_points(O.type, O.amount)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
@@ -184,6 +187,11 @@
 /obj/machinery/mineral/smart_hopper/proc/give_points(obj/item/stack/ore/ore_path, ore_amount)
 	if(initial(ore_path.refined_type))
 		points += initial(ore_path.points) * point_upgrade * ore_amount
+
+/obj/machinery/mineral/smart_hopper/proc/animate_transfer()
+	icon_state = "hopper_on"
+	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), 3 SECONDS)
+	linked_crucible.animate_transfer()
 
 /obj/machinery/magma_crucible
 	name = "magma crucible"
@@ -225,6 +233,10 @@
 	sheet_per_ore = S
 	SStgui.update_uis(src)
 // POLTODO: UI for seeing current minerals as a bar graph
+
+/obj/machinery/magma_crucible/proc/animate_transfer()
+	icon_state = "crucible_input"
+	addtimer(VARSET_CALLBACK(src, icon_state, "crucible"), 3 SECONDS)
 
 /obj/machinery/smithing
 	name = "smithing machine"
