@@ -159,6 +159,11 @@
 /// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
 /// And a decomposition rate close to 0 at 1400 Kelvin
 #define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
+
+#define H2_NEEDED_FOR_H2O 20
+#define O2_NEEDED_FOR_H2O 10
+#define H2O_PRODUCED 10
+
 // From milla/src/model.rs, line 126
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
 #define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
