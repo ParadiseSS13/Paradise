@@ -66,6 +66,7 @@
 	. = ..()
 	carp_randomify(rarechance)
 	update_icons()
+	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	if(random_color)
