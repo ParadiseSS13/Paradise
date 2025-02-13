@@ -284,7 +284,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	init_verbs()
 
 /client/verb/show_own_notes()
-	set name = "Show Public Notes"
+	set name = "Show My Notes"
 	set desc = "View your public notes."
 	set category = "OOC"
 

@@ -1,4 +1,4 @@
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE, sanitise_html = TRUE, public = FALSE) // Dont you EVER disable this last param unless you know what you're doing
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE, sanitise_html = TRUE, public = FALSE) // Dont you EVER disable 'sanitise_html', only automated systems should use this
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(IsAdminAdvancedProcCall() && !sanitise_html)
