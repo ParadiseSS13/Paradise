@@ -134,6 +134,9 @@
 	/// Whether this atom is using the new attack chain.
 	var/new_attack_chain = FALSE
 
+	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
+	var/cares_about_temperature = FALSE
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -675,9 +678,7 @@
 
 /obj/item/update_filters()
 	. = ..()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /atom/proc/get_filter(name)
 	if(filter_data && filter_data[name])

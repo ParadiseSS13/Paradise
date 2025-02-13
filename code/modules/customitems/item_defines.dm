@@ -1006,9 +1006,7 @@
 			item_state += "_on"
 			suit_adjusted = 1 //Lights On
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
@@ -1332,9 +1330,7 @@
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color(user)
@@ -1406,9 +1402,7 @@
 		to_chat(usr, "You transform \the [src].")
 		adjusted = 1
 	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /// chronx100: Hughe O'Splash
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx
