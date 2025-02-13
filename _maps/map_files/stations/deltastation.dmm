@@ -50540,6 +50540,9 @@
 /area/station/maintenance/abandonedbar)
 "duU" = (
 /obj/structure/computerframe,
+/obj/structure/sign/poster/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "duV" = (
@@ -55993,15 +55996,6 @@
 /area/station/maintenance/port2)
 "dYG" = (
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/delivery,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/white,
-/area/station/maintenance/port2)
-"dYH" = (
-/obj/item/kirbyplants/large,
-/obj/structure/sign/poster/random{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
@@ -67027,8 +67021,7 @@
 /area/station/maintenance/aft2)
 "kgO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 5;
-	level = 2
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -121625,7 +121618,7 @@ fTZ
 fTZ
 fTZ
 dYo
-dYH
+dYG
 gQW
 cDi
 twz
