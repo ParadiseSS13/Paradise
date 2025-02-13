@@ -71,7 +71,7 @@
 #define PLASMA_MINIMUM_OXYGEN_NEEDED		2
 #define PLASMA_MINIMUM_OXYGEN_PLASMA_RATIO	30
 #define PLASMA_OXYGEN_FULLBURN				10
-#define WATER_VAPOR_PER_PLASMA				5 //moles of water vapor produced per mole of plasma burnt
+#define WATER_VAPOR_PER_PLASMA				500 //moles of water vapor produced per mole of plasma burnt
 
 //GASES
 #define MIN_TOXIC_GAS_DAMAGE				1
