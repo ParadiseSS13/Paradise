@@ -22,6 +22,7 @@
 	color = "#C805DC"
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
+	view_true_health = FALSE
 	taste_description = "numbness"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -598,6 +599,7 @@
 	color = "#B54848"
 	metabolization_rate = 0.1
 	shock_reduction = 25
+	view_true_health = FALSE
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "relief"
@@ -803,6 +805,7 @@
 	addiction_threshold = 15
 	metabolization_rate = 0.25 //Lasts for 120 seconds
 	shock_reduction = 50
+	view_true_health = FALSE
 	harmless = FALSE
 	taste_description = "a delightful numbing"
 	allowed_overdose_process = TRUE

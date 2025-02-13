@@ -169,7 +169,7 @@
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
-	shock_reduction = 0.25
+	shock_reduction = 25
 	view_true_health = TRUE
 	taste_description = "motor oil"
 	process_flags = SYNTHETIC

@@ -623,6 +623,7 @@
 	overdose_threshold = 20
 	taste_description = "paint thinner"
 	shock_reduction = 20
+	view_true_health = FALSE
 	allowed_overdose_process = TRUE
 	addiction_chance = 2 // fairly rare, but funny
 	addiction_chance_additional = 20
@@ -853,6 +854,7 @@
 	addiction_chance = 3
 	addiction_threshold = 20 //High chance so higher threshold
 	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
+	view_true_health = FALSE
 	allowed_overdose_process = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	/// Keeps track of how many chemicals we are delaying the changeling by.
