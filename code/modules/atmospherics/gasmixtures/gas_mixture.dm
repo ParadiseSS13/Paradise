@@ -712,6 +712,7 @@ What are the archived variables for?
 				private_gases[GAS_TOXINS] = QUANTIZE(private_gases[GAS_TOXINS] - plasma_burn_rate)
 				private_gases[GAS_OXYGEN] = QUANTIZE(private_gases[GAS_OXYGEN] - (plasma_burn_rate * private_oxygen_burn_rate))
 				private_gases[GAS_CARBON_DIOXIDE] += plasma_burn_rate
+				private_gases[GAS_WATER_VAPOR] += WATER_VAPOR_PER_PLASMA
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
