@@ -11,8 +11,8 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_HYDROGEN  30
 #define SPECIFIC_HEAT_WATER_VAPOR      33
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + innate_heat_capacity)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, innate_heat_capacity) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + hydrogen * SPECIFIC_HEAT_HYDROGEN + water_vapor * SPECIFIC_HEAT_WATER_VAPOR + innate_heat_capacity)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
@@ -74,58 +74,51 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/carbon_dioxide()
 	return private_gases[GAS_CARBON_DIOXIDE]
-	return private_gases[GAS_CARBON_DIOXIDE]
+
 
 /datum/gas_mixture/proc/set_carbon_dioxide(value)
 	private_gases[GAS_CARBON_DIOXIDE] = value
-	private_gases[GAS_CARBON_DIOXIDE] = value
+
 
 /datum/gas_mixture/proc/nitrogen()
 	return private_gases[GAS_NITROGEN]
-	return private_gases[GAS_NITROGEN]
+
 
 /datum/gas_mixture/proc/set_nitrogen(value)
 	private_gases[GAS_NITROGEN] = value
-	private_gases[GAS_NITROGEN] = value
+
 
 /datum/gas_mixture/proc/toxins()
 	return private_gases[GAS_TOXINS]
-	return private_gases[GAS_TOXINS]
+
 
 /datum/gas_mixture/proc/set_toxins(value)
-	private_gases[GAS_TOXINS] = value
 	private_gases[GAS_TOXINS] = value
 
 /datum/gas_mixture/proc/sleeping_agent()
 	return private_gases[GAS_SLEEPING_AGENT]
-	return private_gases[GAS_SLEEPING_AGENT]
 
 /datum/gas_mixture/proc/set_sleeping_agent(value)
-	private_gases[GAS_SLEEPING_AGENT] = value
 	private_gases[GAS_SLEEPING_AGENT] = value
 
 /datum/gas_mixture/proc/agent_b()
 	return private_gases[GAS_AGENT_B]
-	return private_gases[GAS_AGENT_B]
 
 /datum/gas_mixture/proc/set_agent_b(value)
-	private_gases[GAS_AGENT_B] = value
 	private_gases[GAS_AGENT_B] = value
 
 /datum/gas_mixture/proc/hydrogen()
 	return private_gases[GAS_HYDROGEN]
-	return private_gases[GAS_HYDROGEN]
+
 
 /datum/gas_mixture/proc/set_hydrogen(value)
-	private_gases[GAS_HYDROGEN] = value
 	private_gases[GAS_HYDROGEN] = value
 
 /datum/gas_mixture/proc/water_vapor()
 	return private_gases[GAS_WATER_VAPOR]
-	return private_gases[GAS_WATER_VAPOR]
+
 
 /datum/gas_mixture/proc/set_water_vapor(value)
-	private_gases[GAS_WATER_VAPOR] = value
 	private_gases[GAS_WATER_VAPOR] = value
 
 /datum/gas_mixture/proc/temperature()
@@ -153,7 +146,6 @@ What are the archived variables for?
 /datum/gas_mixture/proc/total_moles()
 	return private_gases[GAS_OXYGEN] + private_gases[GAS_CARBON_DIOXIDE] + private_gases[GAS_NITROGEN] + private_gases[GAS_TOXINS] + private_gases[GAS_SLEEPING_AGENT] + private_gases[GAS_AGENT_B] + private_gases[GAS_HYDROGEN] + private_gases[GAS_WATER_VAPOR]
 /datum/gas_mixture/proc/total_trace_moles()
-	return private_gases[GAS_AGENT_B]
 	return private_gases[GAS_AGENT_B]
 
 	/// Calculate pressure in kilopascals
@@ -711,15 +703,15 @@ What are the archived variables for?
 		else
 			private_temperature_scale = (private_temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
 		if(private_temperature_scale > 0)
-			private_oxygen_burn_rate = 0 = OXYGEN_BURN_RATE_BASE - private_temperature_scale
+			private_oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - private_temperature_scale
 			if(private_gases[GAS_OXYGEN] > private_gases[GAS_TOXINS] * PLASMA_OXYGEN_FULLBURN)
 				plasma_burn_rate = (private_gases[GAS_TOXINS] * private_temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
 				plasma_burn_rate = (private_temperature_scale * (private_gases[GAS_OXYGEN] / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
-				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
-				private_carbon_dioxide += plasma_burn_rate
+				private_gases[GAS_TOXINS] = QUANTIZE(private_gases[GAS_TOXINS] - plasma_burn_rate)
+				private_gases[GAS_OXYGEN] = QUANTIZE(private_gases[GAS_OXYGEN] - (plasma_burn_rate * private_oxygen_burn_rate))
+				private_gases[GAS_CARBON_DIOXIDE] += plasma_burn_rate
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 

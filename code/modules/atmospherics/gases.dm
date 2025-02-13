@@ -8,14 +8,6 @@
 #define GAS_AGENT_B "Agent B"
 #define GAS_HYDROGEN "Hydrogen"
 #define GAS_WATER_VAPOR "Water Vapor"
-#define GAS_OXYGEN "Oxygen"
-#define GAS_CARBON_DIOXIDE "Carbon Dioxide"
-#define GAS_NITROGEN "Nitrogen"
-#define GAS_TOXINS "Toxins"
-#define GAS_SLEEPING_AGENT "Sleeping Agent"
-#define GAS_AGENT_B "Agent B"
-#define GAS_HYDROGEN "Hydrogen"
-#define GAS_WATER_VAPOR "Water Vapor"
 /datum/gas
 	var/name
 	var/heat_capacity = 0
