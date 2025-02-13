@@ -67,10 +67,10 @@ What are the archived variables for?
 	return
 
 /datum/gas_mixture/proc/oxygen()
-    return private_gases[GAS_OXYGEN]
+	return private_gases[GAS_OXYGEN]
 
 /datum/gas_mixture/proc/set_oxygen(value)
-    private_gases[GAS_OXYGEN] = value
+	private_gases[GAS_OXYGEN] = value
 
 /datum/gas_mixture/proc/carbon_dioxide()
 	return private_gases[GAS_CARBON_DIOXIDE]
@@ -138,7 +138,7 @@ What are the archived variables for?
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
-    return HEAT_CAPACITY_CALCULATION(private_gases[GAS_OXYGEN], private_gases[GAS_CARBON_DIOXIDE], private_gases[GAS_NITROGEN], private_gases[GAS_TOXINS], private_gases[GAS_SLEEPING_AGENT], private_gases[GAS_AGENT_B], private_gases[GAS_HYDROGEN], private_gases[GAS_WATER_VAPOR], innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_gases[GAS_OXYGEN], private_gases[GAS_CARBON_DIOXIDE], private_gases[GAS_NITROGEN], private_gases[GAS_TOXINS], private_gases[GAS_SLEEPING_AGENT], private_gases[GAS_AGENT_B], private_gases[GAS_HYDROGEN], private_gases[GAS_WATER_VAPOR], innate_heat_capacity)
 /datum/gas_mixture/proc/heat_capacity_archived()
 	return HEAT_CAPACITY_CALCULATION(private_gases_archived[GAS_OXYGEN], private_gases_archived[GAS_CARBON_DIOXIDE], private_gases_archived[GAS_NITROGEN], private_gases_archived[GAS_TOXINS], private_gases_archived[GAS_SLEEPING_AGENT], private_gases_archived[GAS_AGENT_B], private_gases_archived[GAS_HYDROGEN], private_gases_archived[GAS_WATER_VAPOR], innate_heat_capacity)
 
