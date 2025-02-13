@@ -293,6 +293,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /mob/living/simple_animal/bot/medbot/attacked_by(obj/item/attacker, mob/living/user)
 	var/current_health = health
 	. = ..()

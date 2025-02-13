@@ -122,6 +122,8 @@
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	if(!open || !cell)
 		return

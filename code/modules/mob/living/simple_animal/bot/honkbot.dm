@@ -121,6 +121,9 @@
 	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))
 		retaliate(user)
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()

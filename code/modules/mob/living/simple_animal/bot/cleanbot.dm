@@ -103,6 +103,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
 	if(emagged)
