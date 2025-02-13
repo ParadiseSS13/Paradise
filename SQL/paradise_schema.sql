@@ -416,7 +416,7 @@ CREATE TABLE `notes` (
   `public` TINYINT(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
-  KEY `deleted` (`deleted`)
+  KEY `deleted` (`deleted`),
   KEY `public` (`public`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
