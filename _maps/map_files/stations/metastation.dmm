@@ -209,9 +209,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -7620,6 +7617,7 @@
 /area/station/legal/lawoffice)
 "aNJ" = (
 /obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11220,15 +11218,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/hallway/primary/central/se)
-"bbh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/hallway/primary/central/north)
 "bbm" = (
 /obj/machinery/alarm/directional/north,
 /obj/item/kirbyplants/medium/medium8,
@@ -12210,21 +12199,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
-"bel" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/north)
 "ben" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -52457,6 +52431,21 @@
 /obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
+"iPQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/north)
 "iPT" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -62685,9 +62674,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/machinery/door/firedoor/heavy,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -69007,6 +68993,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79484,9 +79471,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "uXa" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82186,6 +82170,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -110795,9 +110782,9 @@ iCR
 iCR
 iCR
 lIM
-bbh
-bcM
-bel
+rSj
+nuz
+xuG
 bfR
 xIX
 xIX
@@ -112324,7 +112311,7 @@ ioy
 tmZ
 huV
 aHM
-aJn
+iPQ
 aNJ
 lIM
 iCR
@@ -119858,9 +119845,9 @@ fqn
 vfd
 cPc
 cPc
-cPc
-coG
-coG
+bdN
+cOp
+cOp
 qpK
 coG
 cOp
@@ -120115,7 +120102,7 @@ emj
 tWK
 emj
 nCh
-cPc
+bdN
 yeU
 dCm
 nqr
@@ -120372,7 +120359,7 @@ qEh
 fGH
 qEh
 das
-cPc
+bdN
 yed
 xrA
 qkD
@@ -120629,7 +120616,7 @@ emj
 tIg
 qEh
 aAO
-cPc
+bdN
 keu
 xIl
 xIl
@@ -120886,7 +120873,7 @@ tYt
 rPx
 cPc
 cPc
-cPc
+bdN
 ubf
 gpw
 uHG
@@ -121143,7 +121130,7 @@ fCO
 fGH
 qEh
 nLv
-cPc
+bdN
 jSe
 lFt
 jXU
@@ -121400,11 +121387,11 @@ ggT
 kgB
 emj
 kNZ
-cPc
-cPc
-cPc
-cPc
-cPc
+bdN
+bdN
+bdN
+bdN
+bdN
 bdN
 gRS
 gRS
