@@ -100,7 +100,6 @@
 	..()
 	M.update_blind_effects()
 
-
 /datum/mutation/disability/colourblindness
 	name = "Colourblindness"
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
@@ -227,6 +226,18 @@
 
 /datum/mutation/disability/mute/on_say(mob/M, message)
 	return ""
+
+/datum/mutation/disability/paraplegic
+	name = "Paraplegic"
+	desc = "Your legs don't work, even with prosthetics."
+	activation_messages = list("MY LEG!")
+	deactivation_messages = list("You can feel your legs again.")
+	instability = -GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_PARAPLEGIC)
+
+/datum/mutation/disability/paraplegic/New()
+	..()
+	block = GLOB.paraplegicblock
 
 ////////////////////////////////////////
 // MARK: Harmful to everyone

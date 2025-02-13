@@ -238,6 +238,7 @@
 	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	cares_about_temperature = TRUE
 	var/base_state = "tube" // Base description and icon_state
 	/// Is the light on or off?
 	var/on = FALSE
@@ -943,7 +944,7 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()

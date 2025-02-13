@@ -7,7 +7,9 @@
 	if(isnull(subtype)) // Set the subtype to be the same as Species in the case we don't have one, saves alot of headaches when we're checking for valid markings etc.
 		subtype = S
 	else
-		S.bodyflags |= subtype.bodyflags
+		S = new S.type()
+		S.bodyflags |= subtype.bodyflags // Used for finding valid styles.
+		S.species_subtype = subtype.name // Used for finding valid styles.
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -202,8 +204,15 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
-						S = NS
+						if(isnull(NS))
+							NS = GLOB.all_species[active_character.species]
+						S = new NS.type()
+						active_character.species_subtype = "None"
 						active_character.age = clamp(active_character.age, S.min_age, S.max_age)
+						subtype = GLOB.all_species[active_character.species_subtype] // Changing species resets subtype.
+						if(isnull(subtype))
+							subtype = GLOB.all_species[active_character.species]
+						subtype = new subtype.type()
 						reset_styles(S)
 				if("species_subtype")
 					if(S.bodyflags & HAS_SPECIES_SUBTYPE)
@@ -211,11 +220,17 @@
 						if(isnull(new_subtype) || active_character.species_subtype == new_subtype)
 							return
 						active_character.species_subtype = new_subtype
-						var/datum/species/NS = GLOB.all_species[active_character.species_subtype]
-						if(isnull(NS))
-							NS = GLOB.all_species[active_character.species]
-						subtype = NS
-						reset_styles(subtype, S)
+						subtype = GLOB.all_species[active_character.species_subtype]
+						if(isnull(subtype))
+							subtype = GLOB.all_species[active_character.species]
+						subtype = new subtype.type()
+						S = new S.type() // Always make a new species before editing it, as datums get messy.
+						if(S.name != subtype.name)
+							S.bodyflags |= subtype.bodyflags // Add our body flags of the new subtype.
+							S.species_subtype = subtype.name
+							reset_styles(subtype, S)
+						else
+							reset_styles(S)
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -1269,51 +1284,51 @@
 		var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
 		robohead = GLOB.all_robolimbs[head_model]
 	//grab one of the valid hair styles for the newly chosen species
-	active_character.h_style = random_hair_style(active_character.gender, NS, robohead)
+	active_character.h_style = random_hair_style(active_character.gender, NS.name, robohead)
 
 	//grab one of the valid facial hair styles for the newly chosen species
-	active_character.f_style = random_facial_hair_style(active_character.gender, NS, robohead)
+	active_character.f_style = random_facial_hair_style(active_character.gender, NS.name, robohead)
 
 	if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-		active_character.ha_style = random_head_accessory(NS)
+		active_character.ha_style = random_head_accessory(NS.name)
 	else
 		active_character.ha_style = "None" // No Vulp ears on Unathi
 		active_character.hacc_colour = rand_hex_color()
 
 	if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-		active_character.m_styles["head"] = random_marking_style("head", NS, robohead, null, active_character.alt_head)
+		active_character.m_styles["head"] = random_marking_style("head", NS.name, robohead, null, active_character.alt_head)
 	else
 		active_character.m_styles["head"] = "None"
 		active_character.m_colours["head"] = "#000000"
 
 	if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-		active_character.m_styles["body"] = random_marking_style("body", NS)
+		active_character.m_styles["body"] = random_marking_style("body", NS.name)
 	else
 		active_character.m_styles["body"] = "None"
 		active_character.m_colours["body"] = "#000000"
 
 	if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-		active_character.m_styles["tail"] = random_marking_style("tail", NS, null, active_character.body_accessory)
+		active_character.m_styles["tail"] = random_marking_style("tail", NS.name, null, active_character.body_accessory)
 	else
 		active_character.m_styles["tail"] = "None"
 		active_character.m_colours["tail"] = "#000000"
 
 	// Don't wear another species' underwear!
 	var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
-	if(!SA || !(NS in SA.species_allowed))
-		active_character.underwear = random_underwear(active_character.body_type, NS)
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.underwear = random_underwear(active_character.body_type, NS.name)
 
 	SA = GLOB.undershirt_list[active_character.undershirt]
-	if(!SA || !(NS in SA.species_allowed))
-		active_character.undershirt = random_undershirt(active_character.body_type, NS)
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.undershirt = random_undershirt(active_character.body_type, NS.name)
 
 	SA = GLOB.socks_list[active_character.socks]
-	if(!SA || !(NS in SA.species_allowed))
-		active_character.socks = random_socks(active_character.body_type, NS)
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.socks = random_socks(active_character.body_type, NS.name)
 
 	//reset skin tone and colour
 	if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-		random_skin_tone(NS)
+		random_skin_tone(NS.name)
 	else
 		active_character.s_tone = 0
 

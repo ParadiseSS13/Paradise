@@ -180,6 +180,7 @@
 	name = "plasma door"
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
+	cares_about_temperature = TRUE
 
 /obj/structure/mineral_door/transparent/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.get_heat())
@@ -190,7 +191,7 @@
 	else
 		return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		TemperatureAct(exposed_temperature)

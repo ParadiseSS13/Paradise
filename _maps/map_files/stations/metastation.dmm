@@ -834,11 +834,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
-"ajD" = (
-/mob/living/simple_animal/mouse,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fore)
 "ajE" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -12476,7 +12471,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -15608,10 +15602,6 @@
 	dir = 1
 	},
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
-"bmA" = (
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bmE" = (
@@ -27082,16 +27072,6 @@
 	icon_state = "C11"
 	},
 /area/station/hallway/primary/central/south)
-"cbb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "cbc" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
@@ -29744,11 +29724,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"clJ" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "clK" = (
 /obj/structure/closet,
 /obj/item/extinguisher,
@@ -36644,10 +36619,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
-"cOU" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "cOV" = (
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -36991,7 +36962,6 @@
 "cQt" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cQu" = (
@@ -39260,10 +39230,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"dbH" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft)
 "dbI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -47169,10 +47135,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"gof" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "goq" = (
 /obj/structure/closet/secure_closet/hos,
 /obj/item/cartridge/detective,
@@ -47934,7 +47896,6 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "gHh" = (
@@ -48677,11 +48638,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
-"gWz" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "gWE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -51910,10 +51866,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"isf" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "isB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
@@ -57262,10 +57214,6 @@
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
-"kQF" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/wood,
-/area/station/maintenance/starboard)
 "kRc" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -66844,11 +66792,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"peg" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard2)
 "pej" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69577,10 +69520,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
-"qoK" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard2)
 "qoQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70757,7 +70696,6 @@
 	},
 /area/station/security/interrogation)
 "qRm" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
@@ -76381,10 +76319,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
-"tnW" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "toc" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
@@ -79948,7 +79882,6 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -80308,7 +80241,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -83377,10 +83309,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
 /area/station/science/research)
-"wLB" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "wMb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -86663,7 +86591,6 @@
 /area/station/engineering/atmos/distribution)
 "yih" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -86672,10 +86599,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"yiP" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fore)
 "yiU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -99426,7 +99349,7 @@ qCK
 aOB
 aOB
 adY
-bmA
+adY
 aOB
 aLF
 aML
@@ -103089,7 +103012,7 @@ cpD
 crG
 bZP
 clK
-gof
+crG
 crG
 bZP
 aaa
@@ -104864,7 +104787,7 @@ cdT
 cdT
 cdT
 cdT
-cOU
+bTY
 xOy
 aSM
 aSM
@@ -105587,7 +105510,7 @@ awh
 hka
 imw
 adY
-bmA
+adY
 aOB
 bmK
 bgA
@@ -106196,7 +106119,7 @@ chy
 tPO
 eJG
 czw
-dbH
+chy
 bZU
 abq
 aaa
@@ -118673,7 +118596,7 @@ nEV
 nEV
 awp
 aDY
-wLB
+alW
 cnV
 nVQ
 whf
@@ -119978,7 +119901,7 @@ nSs
 acL
 aWv
 aFj
-yiP
+fpy
 bne
 ajg
 iGR
@@ -121842,7 +121765,7 @@ dtC
 cte
 gnS
 cFB
-peg
+gSO
 ipj
 cmB
 qub
@@ -124109,7 +124032,7 @@ aLl
 ayv
 aLl
 apL
-isf
+avA
 eiI
 aLl
 bdt
@@ -124844,7 +124767,7 @@ aaa
 aaa
 aaa
 ahH
-ajD
+oTt
 azu
 awp
 air
@@ -124869,7 +124792,7 @@ gip
 nET
 blB
 wYm
-cbb
+blB
 beF
 juq
 apV
@@ -124925,7 +124848,7 @@ bPj
 wdY
 cte
 cqE
-qoK
+cwG
 dhw
 dhw
 bUz
@@ -125374,7 +125297,7 @@ air
 aBZ
 iAS
 oyN
-gWz
+cxr
 hgU
 aLl
 fpk
@@ -125410,7 +125333,7 @@ aoG
 aoG
 aoG
 dSv
-tnW
+asJ
 nWJ
 oXK
 aoG
@@ -126462,7 +126385,7 @@ cfL
 ciu
 ciH
 aRQ
-clJ
+aRQ
 biB
 bul
 clB
@@ -126707,7 +126630,7 @@ kbr
 vud
 axh
 cyv
-kQF
+ovR
 bZH
 fTV
 nXk
