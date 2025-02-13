@@ -435,6 +435,16 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	icon_state = "whiters" //See Initialize()
 	can_label = FALSE
 
+/obj/machinery/atmospherics/portable/canister/hydrogen
+	name = "Canister \[H2\]"
+	icon_state = "white" //See Initialize()
+	can_label = FALSE
+
+/obj/machinery/atmospherics/portable/canister/water_vapor
+	name = "Canister \[H2O\]"
+	icon_state = "light_grey" //See Initialize()
+	can_label = FALSE
+
 
 /obj/machinery/atmospherics/portable/canister/toxins/Initialize(mapload)
 	. = ..()
@@ -491,6 +501,18 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	canister_color["prim"] = "whiters"
 	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
+
+/obj/machinery/atmospherics/portable/canister/hydrogen/Initialize(mapload)
+	. = ..()
+	canister_color["prim"] = "white"
+	air_contents.set_hydrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
+	. = ..()
+	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	canister_color["prim"] = "light_grey"
+	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/I)
 	if(!(stat & BROKEN))
