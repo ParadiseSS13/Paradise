@@ -46,11 +46,3 @@
 	name = "Water Vapor"
 	heat_capacity = 40
 
-#undef GAS_OXYGEN
-#undef GAS_CARBON_DIOXIDE
-#undef GAS_NITROGEN
-#undef GAS_TOXINS
-#undef GAS_SLEEPING_AGENT
-#undef GAS_AGENT_B
-#undef GAS_HYDROGEN
-#undef GAS_WATER_VAPOR
