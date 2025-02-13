@@ -189,7 +189,7 @@
 
 	if(user.a_intent == INTENT_HARM)
 		. = ..() // Whack them too if in harm intent
-		if(!isnull(.)) // Attack returns null when successful
+		if(isnull(.))
 			return
 		if(turned_on)
 			baton_stun(L, user, ignore_shield_check = TRUE)
