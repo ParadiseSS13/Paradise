@@ -712,7 +712,6 @@ What are the archived variables for?
 				private_gases[GAS_TOXINS] = QUANTIZE(private_gases[GAS_TOXINS] - plasma_burn_rate)
 				private_gases[GAS_OXYGEN] = QUANTIZE(private_gases[GAS_OXYGEN] - (plasma_burn_rate * private_oxygen_burn_rate))
 				private_gases[GAS_CARBON_DIOXIDE] += plasma_burn_rate
-				private_gases[GAS_WATER_VAPOR] += plasma_burn_rate
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -725,6 +724,13 @@ What are the archived variables for?
 
 		if(fuel_burnt)
 			reacting = TRUE
+
+
+
+	// water vapor formation
+	if((private_gases[GAS_HYDROGEN] > H2_NEEDED_FOR_H20) && (private_gases[GAS_OXYGEN] > O2_NEEDED_FOR_H20) && private_temperature == 100)
+		var/test_value = 500
+		private_gases[GAS_WATER_VAPOR] += test_value
 
 	set_dirty()
 	return reacting

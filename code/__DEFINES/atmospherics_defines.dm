@@ -71,7 +71,6 @@
 #define PLASMA_MINIMUM_OXYGEN_NEEDED		2
 #define PLASMA_MINIMUM_OXYGEN_PLASMA_RATIO	30
 #define PLASMA_OXYGEN_FULLBURN				10
-#define WATER_VAPOR_PER_PLASMA				500 //moles of water vapor produced per mole of plasma burnt
 
 //GASES
 #define MIN_TOXIC_GAS_DAMAGE				1
@@ -165,6 +164,9 @@
 #define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
 #define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2		//! Tile is exposed to the environment, ex: lavaland
 #define ATMOS_MODE_NO_DECAY 3					//! Prevents hot tiles from automatically decaying towards T20C.
+#define H2_NEEDED_FOR_H20 20
+#define O2_NEEDED_FOR_H20 10
+
 
 /// Lavaland environment: hot, low pressure.
 #define ENVIRONMENT_LAVALAND "lavaland"
