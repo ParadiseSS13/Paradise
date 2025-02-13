@@ -58,11 +58,6 @@ made by people actually in-touch with the server atmosphere.
 
 ### PR Expectations
 
-Contributors may only have a maximum of **2** feature or balance Pull Requests
-open at any given time. Any additional Pull Requests beyond this limit will be
-closed at the discretion of the Headcoders. The Headcoders may grant an
-exemption to this limit on a case-by-case basis, as the need arises.
-
 All Pull Requests are expected to be tested prior to submission. If a submitted
 Pull Request fails to pass CI checks, the likelihood of it being merged will be
 significantly lower. If you can't take the time to compile/test your Pull
