@@ -208,6 +208,9 @@
 	/// Overrides colorblindness when interacting with wires
 	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
+	/// If TRUE, will hide the wearer's examines from other players.
+	var/hide_examine = FALSE
+
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	resistance_flags = NONE
