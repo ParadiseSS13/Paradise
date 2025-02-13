@@ -57439,7 +57439,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "eFX" = (
 /obj/structure/chair/sofa/right{
@@ -62726,7 +62726,10 @@
 "hHk" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitepurple"
+	},
 /area/station/science/research)
 "hHo" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -63238,7 +63241,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "hXE" = (
 /obj/machinery/computer/operating{
@@ -65899,10 +65902,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "jzV" = (
-/obj/effect/turf_decal{
-	dir = 6
-	},
 /obj/machinery/atmospherics/portable/scrubber/huge,
+/obj/effect/turf_decal,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -71270,7 +71271,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "mAS" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -73300,7 +73301,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "nEp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -77166,14 +77167,14 @@
 	},
 /area/station/service/chapel)
 "pKD" = (
-/obj/effect/turf_decal{
-	dir = 5
-	},
 /obj/machinery/power/apc/critical/directional/east{
 	shock_proof = 1
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/effect/turf_decal{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -79617,7 +79618,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "rcz" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -80628,6 +80629,12 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/lobby)
+"rAr" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "rAD" = (
 /obj/structure/chair/sofa/bench{
 	dir = 8
@@ -82927,7 +82934,10 @@
 	},
 /area/station/hallway/primary/central/north)
 "sFK" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
 /area/station/science/research)
 "sGs" = (
 /obj/item/soap,
@@ -84126,7 +84136,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/station/science/research)
 "tjT" = (
 /obj/item/radio/intercom{
@@ -88947,7 +88960,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "vKr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -90043,7 +90056,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplefull"
+	},
 /area/station/science/storage)
 "wmQ" = (
 /obj/machinery/door/window/brigdoor{
@@ -125778,7 +125793,7 @@ cSt
 cZt
 tjM
 rct
-sFK
+rAr
 kBZ
 xsz
 vbA
