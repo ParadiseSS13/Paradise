@@ -1130,7 +1130,6 @@
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
-	var/list/quirk_organs = list()
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 		var/balance_check = 0
