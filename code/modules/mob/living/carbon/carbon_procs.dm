@@ -1120,7 +1120,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				shock_reduction += R.shock_reduction
 	return shock_reduction
 
-/mob/living/carbon/proc/shock_reduction_doll()
+/mob/living/carbon/proc/shock_reduction_doll() // This proc is for the HUD elements that painkillers affect to use
 	var/shock_reduction_doll = 0
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
