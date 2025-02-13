@@ -41966,9 +41966,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "ekF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
