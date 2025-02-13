@@ -471,9 +471,7 @@
 	if(src == user.get_active_hand()) //update inhands
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()

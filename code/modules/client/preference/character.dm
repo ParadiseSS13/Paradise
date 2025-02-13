@@ -1719,6 +1719,7 @@
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIC, "Paraplegia")
 
 
 	HTML += {"</ul>
@@ -1947,7 +1948,7 @@
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
-	if(!l_foot && !r_foot)
+	if((!l_foot && !r_foot) || (disabilities & DISABILITY_FLAG_PARAPLEGIC))
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
 	else if(!l_foot || !r_foot)
@@ -1995,6 +1996,10 @@
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.blindblock)
+
+	if(disabilities & DISABILITY_FLAG_PARAPLEGIC)
+		character.dna.SetSEState(GLOB.paraplegicblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.paraplegicblock)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)

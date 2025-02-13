@@ -228,7 +228,7 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_WEAPONS
 	)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/blueshield
 	important_information = "Эта роль требует, чтобы вы обеспечивали безопасность руководителей персонала, а не всего экипажа. Вы можете производить аресты только в том случае, если нарушитель напрямую угрожает члену командования, представителю Нанотрейзен или магистрату."

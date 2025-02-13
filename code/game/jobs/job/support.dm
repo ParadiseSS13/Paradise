@@ -313,10 +313,11 @@
 
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
+	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
-	suit_store = /obj/item/plant_analyzer
+	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
 	id = /obj/item/card/id/botanist
 	backpack = /obj/item/storage/backpack/botany

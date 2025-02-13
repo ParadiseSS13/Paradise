@@ -62,9 +62,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -210,6 +208,9 @@
 	/// Overrides colorblindness when interacting with wires
 	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
+	/// If TRUE, will hide the wearer's examines from other players.
+	var/hide_examine = FALSE
+
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	resistance_flags = NONE
@@ -609,9 +610,7 @@
 	H.wear_mask_update(src, toggle_off = up)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 //////////////////////////////
 // MARK: SHOES
@@ -835,9 +834,7 @@
 		if(adjust_flavour)
 			flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 		to_chat(user, "You [flavour] \the [src].")
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 	else
 		var/flavour = "open"
 		icon_state += "_open"
@@ -845,9 +842,7 @@
 		if(adjust_flavour)
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] \the [src].")
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 
 	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)

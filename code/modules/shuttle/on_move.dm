@@ -7,14 +7,12 @@
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	// SS220 EDIT START - added check for /movable/lighting_object to fix tests
-	var/this = src // here is how we fool the linter
-	if(istype(this, /atom/movable/lighting_object))
-		forceMove(T1)
-	else
-		abstract_move(T1)
-	// SS220 EDIT END
+	abstract_move(T1)
 	return 1
+
+/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	// lighting objects should not be moved from their parent turfs
+	return 0
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
 	// Used for marking where to preview/load shuttles

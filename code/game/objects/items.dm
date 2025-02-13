@@ -383,7 +383,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			return
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) // Can't equip modules with an empty cell.
-			R.activate_module(src)
+			R.activate_item(src)
 			R.hud_used.update_robot_modules_display()
 
 // Due to storage type consolidation this should get used more now.
@@ -995,6 +995,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
+
+/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.UpdateButtons(status_only, force)
 
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
