@@ -28,14 +28,17 @@ What are the archived variables for?
 
 	// Private fields. Use the matching procs to get and set them.
 	// e.g. GM.oxygen(), GM.set_oxygen()
-	var/private_oxygen = 0
-	var/private_carbon_dioxide = 0
-	var/private_nitrogen = 0
-	var/private_toxins = 0
-	var/private_sleeping_agent = 0
-	var/private_agent_b = 0
-	var/private_hydrogen = 0
-	var/private_water_vapor = 0
+	var/private_gases = list(
+		GAS_OXYGEN = 0,
+		GAS_CARBON_DIOXIDE = 0,
+		GAS_NITROGEN = 0,
+		GAS_TOXINS = 0,
+		GAS_SLEEPING_AGENT = 0,
+		GAS_AGENT_B = 0,
+		GAS_HYDROGEN = 0,
+		GAS_WATER_VAPOR = 0
+	)
+
 	var/private_temperature = 0 //in Kelvin
 	var/private_hotspot_temperature = 0
 	var/private_hotspot_volume = 0
@@ -43,14 +46,17 @@ What are the archived variables for?
 
 	// Archived versions of the private fields.
 	// Only gas_mixture should use these.
-	var/private_oxygen_archived = 0
-	var/private_carbon_dioxide_archived = 0
-	var/private_nitrogen_archived = 0
-	var/private_toxins_archived = 0
-	var/private_sleeping_agent_archived = 0
-	var/private_agent_b_archived = 0
-	var/private_hydrogen_archived = 0
-	var/private_water_vapor_archived = 0
+	var/private_gases_archived = list(
+		GAS_OXYGEN = 0,
+		GAS_CARBON_DIOXIDE = 0,
+		GAS_NITROGEN = 0,
+		GAS_TOXINS = 0,
+		GAS_SLEEPING_AGENT = 0,
+		GAS_AGENT_B = 0,
+		GAS_HYDROGEN = 0,
+		GAS_WATER_VAPOR = 0
+	)
+
 	var/private_temperature_archived = 0
 
 	/// Is this mixture currently synchronized with MILLA? Always true for non-bound mixtures.
@@ -61,52 +67,52 @@ What are the archived variables for?
 	return
 
 /datum/gas_mixture/proc/oxygen()
-	return private_oxygen
+    return private_gases[GAS_OXYGEN]
 
 /datum/gas_mixture/proc/set_oxygen(value)
-	private_oxygen = value
+    private_gases[GAS_OXYGEN] = value
 
 /datum/gas_mixture/proc/carbon_dioxide()
-	return private_carbon_dioxide
+	return private_gases[GAS_CARBON_DIOXIDE]
 
 /datum/gas_mixture/proc/set_carbon_dioxide(value)
-	private_carbon_dioxide = value
+	private_gases[GAS_CARBON_DIOXIDE] = value
 
 /datum/gas_mixture/proc/nitrogen()
-	return private_nitrogen
+	return private_gases[GAS_NITROGEN]
 
 /datum/gas_mixture/proc/set_nitrogen(value)
-	private_nitrogen = value
+	private_gases[GAS_NITROGEN] = value
 
 /datum/gas_mixture/proc/toxins()
-	return private_toxins
+	return private_gases[GAS_TOXINS]
 
 /datum/gas_mixture/proc/set_toxins(value)
-	private_toxins = value
+	private_gases[GAS_TOXINS] = value
 
 /datum/gas_mixture/proc/sleeping_agent()
-	return private_sleeping_agent
+	return private_gases[GAS_SLEEPING_AGENT]
 
 /datum/gas_mixture/proc/set_sleeping_agent(value)
-	private_sleeping_agent = value
+	private_gases[GAS_SLEEPING_AGENT] = value
 
 /datum/gas_mixture/proc/agent_b()
-	return private_agent_b
+	return private_gases[GAS_AGENT_B]
 
 /datum/gas_mixture/proc/set_agent_b(value)
-	private_agent_b = value
+	private_gases[GAS_AGENT_B] = value
 
 /datum/gas_mixture/proc/hydrogen()
-	return private_hydrogen
+	return private_gases[GAS_HYDROGEN]
 
 /datum/gas_mixture/proc/set_hydrogen(value)
-	private_hydrogen = value
+	private_gases[GAS_HYDROGEN] = value
 
 /datum/gas_mixture/proc/water_vapor()
-	return private_water_vapor
+	return private_gases[GAS_WATER_VAPOR]
 
 /datum/gas_mixture/proc/set_water_vapor(value)
-	private_water_vapor = value
+	private_gases[GAS_WATER_VAPOR] = value
 
 /datum/gas_mixture/proc/temperature()
 	return private_temperature
@@ -125,17 +131,15 @@ What are the archived variables for?
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, innate_heat_capacity)
-
+    return HEAT_CAPACITY_CALCULATION(private_gases[GAS_OXYGEN], private_gases[GAS_CARBON_DIOXIDE], private_gases[GAS_NITROGEN], private_gases[GAS_TOXINS], private_gases[GAS_SLEEPING_AGENT], private_gases[GAS_AGENT_B], private_gases[GAS_HYDROGEN], private_gases[GAS_WATER_VAPOR], innate_heat_capacity)
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_gases_archived[GAS_OXYGEN], private_gases_archived[GAS_CARBON_DIOXIDE], private_gases_archived[GAS_NITROGEN], private_gases_archived[GAS_TOXINS], private_gases_archived[GAS_SLEEPING_AGENT], private_gases_archived[GAS_AGENT_B], private_gases_archived[GAS_HYDROGEN], private_gases_archived[GAS_WATER_VAPOR], innate_heat_capacity)
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()
-	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b + private_hydrogen + private_water_vapor
-
+	return private_gases[GAS_OXYGEN] + private_gases[GAS_CARBON_DIOXIDE] + private_gases[GAS_NITROGEN] + private_gases[GAS_TOXINS] + private_gases[GAS_SLEEPING_AGENT] + private_gases[GAS_AGENT_B] + private_gases[GAS_HYDROGEN] + private_gases[GAS_WATER_VAPOR]
 /datum/gas_mixture/proc/total_trace_moles()
-	return private_agent_b
+	return private_gases[GAS_AGENT_B]
 
 	/// Calculate pressure in kilopascals
 /datum/gas_mixture/proc/return_pressure()
@@ -153,14 +157,13 @@ What are the archived variables for?
 
 	///Update archived versions of variables. Returns: TRUE in all cases
 /datum/gas_mixture/proc/archive()
-	private_oxygen_archived = private_oxygen
-	private_carbon_dioxide_archived = private_carbon_dioxide
-	private_nitrogen_archived =  private_nitrogen
-	private_toxins_archived = private_toxins
-	private_sleeping_agent_archived = private_sleeping_agent
-	private_agent_b_archived = private_agent_b
-	private_hydrogen_archived = private_hydrogen
-	private_water_vapor_archived = private_water_vapor
+	private_gases_archived[GAS_OXYGEN] = private_gases[GAS_OXYGEN]
+	private_gases_archived[GAS_CARBON_DIOXIDE] = private_gases[GAS_CARBON_DIOXIDE]
+	private_gases_archived[GAS_NITROGEN] = private_gases[GAS_NITROGEN]
+	private_gases_archived[GAS_SLEEPING_AGENT] = private_gases[GAS_SLEEPING_AGENT]
+	private_gases_archived[GAS_AGENT_B] = private_gases[GAS_AGENT_B]
+	private_gases_archived[GAS_HYDROGEN] = private_gases[GAS_HYDROGEN]
+	private_gases_archived[GAS_WATER_VAPOR] = private_gases[GAS_WATER_VAPOR]
 
 	private_temperature_archived = private_temperature
 
@@ -179,14 +182,14 @@ What are the archived variables for?
 		if(combined_heat_capacity != 0)
 			private_temperature = (giver.private_temperature * giver_heat_capacity + private_temperature * self_heat_capacity) / combined_heat_capacity
 
-	private_oxygen += giver.private_oxygen
-	private_carbon_dioxide += giver.private_carbon_dioxide
-	private_nitrogen += giver.private_nitrogen
-	private_toxins += giver.private_toxins
-	private_sleeping_agent += giver.private_sleeping_agent
-	private_agent_b += giver.private_agent_b
-	private_hydrogen += giver.private_hydrogen
-	private_water_vapor += giver.private_water_vapor
+	private_gases[GAS_OXYGEN] += giver.private_gases[GAS_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] += giver.private_gases[GAS_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] += giver.private_gases[GAS_NITROGEN]
+	private_gases[GAS_TOXINS] += giver.private_gases[GAS_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] += giver.private_gases[GAS_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] += giver.private_gases[GAS_AGENT_B]
+	private_gases[GAS_HYDROGEN] += giver.private_gases[GAS_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] += giver.private_gases[GAS_WATER_VAPOR]
 
 	set_dirty()
 	return TRUE
@@ -209,23 +212,25 @@ What are the archived variables for?
 	var/datum/gas_mixture/removed = new
 
 
-	removed.private_oxygen = QUANTIZE((private_oxygen / sum) * amount)
-	removed.private_nitrogen = QUANTIZE((private_nitrogen/  sum) * amount)
-	removed.private_carbon_dioxide = QUANTIZE((private_carbon_dioxide / sum) * amount)
-	removed.private_toxins = QUANTIZE((private_toxins / sum) * amount)
-	removed.private_sleeping_agent = QUANTIZE((private_sleeping_agent / sum) * amount)
-	removed.private_agent_b = QUANTIZE((private_agent_b / sum) * amount)
-	removed.private_hydrogen = QUANTIZE((private_hydrogen / sum) * amount)
-	removed.private_water_vapor = QUANTIZE((private_water_vapor / sum) * amount)
+	removed.private_gases[GAS_OXYGEN] = QUANTIZE((private_gases[GAS_OXYGEN] / sum) * amount)
+	removed.private_gases[GAS_CARBON_DIOXIDE] = QUANTIZE((private_gases[GAS_CARBON_DIOXIDE] / sum) * amount)
+	removed.private_gases[GAS_NITROGEN] = QUANTIZE((private_gases[GAS_NITROGEN] / sum) * amount)
+	removed.private_gases[GAS_TOXINS] = QUANTIZE((private_gases[GAS_TOXINS] / sum) * amount)
+	removed.private_gases[GAS_SLEEPING_AGENT] = QUANTIZE((private_gases[GAS_SLEEPING_AGENT] / sum) * amount)
+	removed.private_gases[GAS_AGENT_B] = QUANTIZE((private_gases[GAS_AGENT_B] / sum) * amount)
+	removed.private_gases[GAS_HYDROGEN] = QUANTIZE((private_gases[GAS_HYDROGEN] / sum) * amount)
+	removed.private_gases[GAS_WATER_VAPOR] = QUANTIZE((private_gases[GAS_WATER_VAPOR] / sum) * amount)
 
-	private_oxygen = max(private_oxygen - removed.private_oxygen, 0)
-	private_nitrogen = max(private_nitrogen - removed.private_nitrogen, 0)
-	private_carbon_dioxide = max(private_carbon_dioxide - removed.private_carbon_dioxide, 0)
-	private_toxins = max(private_toxins - removed.private_toxins, 0)
-	private_sleeping_agent = max(private_sleeping_agent - removed.private_sleeping_agent, 0)
-	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
-	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
-	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
+
+	private_gases[GAS_OXYGEN] = max(private_gases[GAS_OXYGEN] - removed.private_gases[GAS_OXYGEN], 0)
+	private_gases[GAS_CARBON_DIOXIDE] = max(private_gases[GAS_CARBON_DIOXIDE] - removed.private_gases[GAS_CARBON_DIOXIDE], 0)
+	private_gases[GAS_NITROGEN] = max(private_gases[GAS_NITROGEN] - removed.private_gases[GAS_NITROGEN], 0)
+	private_gases[GAS_TOXINS] = max(private_gases[GAS_TOXINS] - removed.private_gases[GAS_TOXINS], 0)
+	private_gases[GAS_SLEEPING_AGENT] = max(private_gases[GAS_SLEEPING_AGENT] - removed.private_gases[GAS_SLEEPING_AGENT], 0)
+	private_gases[GAS_AGENT_B] = max(private_gases[GAS_AGENT_B] - removed.private_gases[GAS_AGENT_B], 0)
+	private_gases[GAS_HYDROGEN] = max(private_gases[GAS_HYDROGEN] - removed.private_gases[GAS_HYDROGEN], 0)
+	private_gases[GAS_WATER_VAPOR] = max(private_gases[GAS_WATER_VAPOR] - removed.private_gases[GAS_WATER_VAPOR], 0)
+
 
 	removed.private_temperature = private_temperature
 
@@ -243,23 +248,24 @@ What are the archived variables for?
 
 	var/datum/gas_mixture/removed = new
 
-	removed.private_oxygen = QUANTIZE(private_oxygen * ratio)
-	removed.private_nitrogen = QUANTIZE(private_nitrogen * ratio)
-	removed.private_carbon_dioxide = QUANTIZE(private_carbon_dioxide * ratio)
-	removed.private_toxins = QUANTIZE(private_toxins * ratio)
-	removed.private_sleeping_agent = QUANTIZE(private_sleeping_agent * ratio)
-	removed.private_agent_b = QUANTIZE(private_agent_b * ratio)
-	removed.private_hydrogen = QUANTIZE(private_hydrogen * ratio)
-	removed.private_water_vapor = QUANTIZE(private_water_vapor * ratio)
+	removed.private_gases[GAS_OXYGEN] = QUANTIZE(private_gases[GAS_OXYGEN] * ratio)
+	removed.private_gases[GAS_CARBON_DIOXIDE] = QUANTIZE(private_gases[GAS_CARBON_DIOXIDE] * ratio)
+	removed.private_gases[GAS_NITROGEN] = QUANTIZE(private_gases[GAS_NITROGEN] * ratio)
+	removed.private_gases[GAS_TOXINS] = QUANTIZE(private_gases[GAS_TOXINS] * ratio)
+	removed.private_gases[GAS_SLEEPING_AGENT] = QUANTIZE(private_gases[GAS_SLEEPING_AGENT] * ratio)
+	removed.private_gases[GAS_AGENT_B] = QUANTIZE(private_gases[GAS_AGENT_B] * ratio)
+	removed.private_gases[GAS_HYDROGEN] = QUANTIZE(private_gases[GAS_HYDROGEN] * ratio)
+	removed.private_gases[GAS_WATER_VAPOR] = QUANTIZE(private_gases[GAS_WATER_VAPOR] * ratio)
 
-	private_oxygen = max(private_oxygen - removed.private_oxygen, 0)
-	private_nitrogen = max(private_nitrogen - removed.private_nitrogen, 0)
-	private_carbon_dioxide = max(private_carbon_dioxide - removed.private_carbon_dioxide, 0)
-	private_toxins = max(private_toxins - removed.private_toxins, 0)
-	private_sleeping_agent = max(private_sleeping_agent - removed.private_sleeping_agent, 0)
-	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
-	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
-	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
+
+	private_gases[GAS_OXYGEN] = max(private_gases[GAS_OXYGEN] - removed.private_gases[GAS_OXYGEN], 0)
+	private_gases[GAS_CARBON_DIOXIDE] = max(private_gases[GAS_CARBON_DIOXIDE] - removed.private_gases[GAS_CARBON_DIOXIDE], 0)
+	private_gases[GAS_NITROGEN] = max(private_gases[GAS_NITROGEN] - removed.private_gases[GAS_NITROGEN], 0)
+	private_gases[GAS_TOXINS] = max(private_gases[GAS_TOXINS] - removed.private_gases[GAS_TOXINS], 0)
+	private_gases[GAS_SLEEPING_AGENT] = max(private_gases[GAS_SLEEPING_AGENT] - removed.private_gases[GAS_SLEEPING_AGENT], 0)
+	private_gases[GAS_AGENT_B] = max(private_gases[GAS_AGENT_B] - removed.private_gases[GAS_AGENT_B], 0)
+	private_gases[GAS_HYDROGEN] = max(private_gases[GAS_HYDROGEN] - removed.private_gases[GAS_HYDROGEN], 0)
+	private_gases[GAS_WATER_VAPOR] = max(private_gases[GAS_WATER_VAPOR] - removed.private_gases[GAS_WATER_VAPOR], 0)
 
 	removed.private_temperature = private_temperature
 	set_dirty()
@@ -268,14 +274,14 @@ What are the archived variables for?
 
 	//Copies variables from sample
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
-	private_oxygen = sample.private_oxygen
-	private_carbon_dioxide = sample.private_carbon_dioxide
-	private_nitrogen = sample.private_nitrogen
-	private_toxins = sample.private_toxins
-	private_sleeping_agent = sample.private_sleeping_agent
-	private_agent_b = sample.private_agent_b
-	private_hydrogen = sample.private_hydrogen
-	private_water_vapor = sample.private_water_vapor
+	private_gases[GAS_OXYGEN] = sample.private_gases[GAS_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] = sample.private_gases[GAS_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] = sample.private_gases[GAS_NITROGEN]
+	private_gases[GAS_TOXINS] = sample.private_gases[GAS_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] = sample.private_gases[GAS_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] = sample.private_gases[GAS_AGENT_B]
+	private_gases[GAS_HYDROGEN] = sample.private_gases[GAS_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] = sample.private_gases[GAS_WATER_VAPOR]
 
 	private_temperature = sample.private_temperature
 	set_dirty()
