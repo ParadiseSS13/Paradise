@@ -11,8 +11,8 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_HYDROGEN  30
 #define SPECIFIC_HEAT_WATER_VAPOR      33
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, innate_heat_capacity) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + hydrogen * SPECIFIC_HEAT_HYDROGEN + water_vapor * SPECIFIC_HEAT_WATER_VAPOR + innate_heat_capacity)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + innate_heat_capacity)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
@@ -74,44 +74,58 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/carbon_dioxide()
 	return private_gases[GAS_CARBON_DIOXIDE]
+	return private_gases[GAS_CARBON_DIOXIDE]
 
 /datum/gas_mixture/proc/set_carbon_dioxide(value)
+	private_gases[GAS_CARBON_DIOXIDE] = value
 	private_gases[GAS_CARBON_DIOXIDE] = value
 
 /datum/gas_mixture/proc/nitrogen()
 	return private_gases[GAS_NITROGEN]
+	return private_gases[GAS_NITROGEN]
 
 /datum/gas_mixture/proc/set_nitrogen(value)
+	private_gases[GAS_NITROGEN] = value
 	private_gases[GAS_NITROGEN] = value
 
 /datum/gas_mixture/proc/toxins()
 	return private_gases[GAS_TOXINS]
+	return private_gases[GAS_TOXINS]
 
 /datum/gas_mixture/proc/set_toxins(value)
+	private_gases[GAS_TOXINS] = value
 	private_gases[GAS_TOXINS] = value
 
 /datum/gas_mixture/proc/sleeping_agent()
 	return private_gases[GAS_SLEEPING_AGENT]
+	return private_gases[GAS_SLEEPING_AGENT]
 
 /datum/gas_mixture/proc/set_sleeping_agent(value)
+	private_gases[GAS_SLEEPING_AGENT] = value
 	private_gases[GAS_SLEEPING_AGENT] = value
 
 /datum/gas_mixture/proc/agent_b()
 	return private_gases[GAS_AGENT_B]
+	return private_gases[GAS_AGENT_B]
 
 /datum/gas_mixture/proc/set_agent_b(value)
+	private_gases[GAS_AGENT_B] = value
 	private_gases[GAS_AGENT_B] = value
 
 /datum/gas_mixture/proc/hydrogen()
 	return private_gases[GAS_HYDROGEN]
+	return private_gases[GAS_HYDROGEN]
 
 /datum/gas_mixture/proc/set_hydrogen(value)
+	private_gases[GAS_HYDROGEN] = value
 	private_gases[GAS_HYDROGEN] = value
 
 /datum/gas_mixture/proc/water_vapor()
 	return private_gases[GAS_WATER_VAPOR]
+	return private_gases[GAS_WATER_VAPOR]
 
 /datum/gas_mixture/proc/set_water_vapor(value)
+	private_gases[GAS_WATER_VAPOR] = value
 	private_gases[GAS_WATER_VAPOR] = value
 
 /datum/gas_mixture/proc/temperature()
@@ -139,6 +153,7 @@ What are the archived variables for?
 /datum/gas_mixture/proc/total_moles()
 	return private_gases[GAS_OXYGEN] + private_gases[GAS_CARBON_DIOXIDE] + private_gases[GAS_NITROGEN] + private_gases[GAS_TOXINS] + private_gases[GAS_SLEEPING_AGENT] + private_gases[GAS_AGENT_B] + private_gases[GAS_HYDROGEN] + private_gases[GAS_WATER_VAPOR]
 /datum/gas_mixture/proc/total_trace_moles()
+	return private_gases[GAS_AGENT_B]
 	return private_gases[GAS_AGENT_B]
 
 	/// Calculate pressure in kilopascals
@@ -182,6 +197,14 @@ What are the archived variables for?
 		if(combined_heat_capacity != 0)
 			private_temperature = (giver.private_temperature * giver_heat_capacity + private_temperature * self_heat_capacity) / combined_heat_capacity
 
+	private_gases[GAS_OXYGEN] += giver.private_gases[GAS_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] += giver.private_gases[GAS_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] += giver.private_gases[GAS_NITROGEN]
+	private_gases[GAS_TOXINS] += giver.private_gases[GAS_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] += giver.private_gases[GAS_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] += giver.private_gases[GAS_AGENT_B]
+	private_gases[GAS_HYDROGEN] += giver.private_gases[GAS_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] += giver.private_gases[GAS_WATER_VAPOR]
 	private_gases[GAS_OXYGEN] += giver.private_gases[GAS_OXYGEN]
 	private_gases[GAS_CARBON_DIOXIDE] += giver.private_gases[GAS_CARBON_DIOXIDE]
 	private_gases[GAS_NITROGEN] += giver.private_gases[GAS_NITROGEN]
@@ -282,6 +305,14 @@ What are the archived variables for?
 	private_gases[GAS_AGENT_B] = sample.private_gases[GAS_AGENT_B]
 	private_gases[GAS_HYDROGEN] = sample.private_gases[GAS_HYDROGEN]
 	private_gases[GAS_WATER_VAPOR] = sample.private_gases[GAS_WATER_VAPOR]
+	private_gases[GAS_OXYGEN] = sample.private_gases[GAS_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] = sample.private_gases[GAS_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] = sample.private_gases[GAS_NITROGEN]
+	private_gases[GAS_TOXINS] = sample.private_gases[GAS_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] = sample.private_gases[GAS_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] = sample.private_gases[GAS_AGENT_B]
+	private_gases[GAS_HYDROGEN] = sample.private_gases[GAS_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] = sample.private_gases[GAS_WATER_VAPOR]
 
 	private_temperature = sample.private_temperature
 	set_dirty()
@@ -291,14 +322,14 @@ What are the archived variables for?
 	///Copies all gas info from the turf into the gas list along with temperature
 	///Returns: TRUE if we are mutable, FALSE otherwise
 /datum/gas_mixture/proc/copy_from_turf(turf/model)
-	private_oxygen = model.oxygen
-	private_carbon_dioxide = model.carbon_dioxide
-	private_nitrogen = model.nitrogen
-	private_toxins = model.toxins
-	private_sleeping_agent = model.sleeping_agent
-	private_agent_b = model.agent_b
-	private_hydrogen = model.hydrogen
-	private_water_vapor = model.water_vapor
+	private_gases[GAS_OXYGEN] = model.oxygen
+	private_gases[GAS_CARBON_DIOXIDE] = model.carbon_dioxide
+	private_gases[GAS_NITROGEN] = model.nitrogen
+	private_gases[GAS_TOXINS] = model.toxins
+	private_gases[GAS_SLEEPING_AGENT] = model.sleeping_agent
+	private_gases[GAS_AGENT_B] = model.agent_b
+	private_gases[GAS_HYDROGEN] = model.hydrogen
+	private_gases[GAS_WATER_VAPOR] = model.water_vapor
 
 	//acounts for changes in temperature
 	var/turf/model_parent = model.parent_type
@@ -314,17 +345,17 @@ What are the archived variables for?
 	if(!sharer)
 		return 0
 	/// Don't make calculations if there is no difference.
-	if(private_oxygen_archived == sharer.private_oxygen_archived && private_carbon_dioxide_archived == sharer.private_carbon_dioxide_archived && private_nitrogen_archived == sharer.private_nitrogen_archived &&\
-	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_hydrogen_archived == sharer.private_hydrogen_archived && private_water_vapor_archived == sharer.private_water_vapor_archived && private_temperature_archived == sharer.private_temperature_archived)
+	if(private_gases_archived[GAS_OXYGEN] == sharer.private_gases_archived[GAS_OXYGEN] && private_gases_archived[GAS_CARBON_DIOXIDE] == sharer.private_gases_archived[GAS_CARBON_DIOXIDE] && private_gases_archived[GAS_NITROGEN] == sharer.private_gases_archived[GAS_NITROGEN] &&\
+	private_gases_archived[GAS_TOXINS] == sharer.private_gases_archived[GAS_TOXINS] && private_gases_archived[GAS_SLEEPING_AGENT] == sharer.private_gases_archived[GAS_SLEEPING_AGENT] && private_gases_archived[GAS_AGENT_B] == sharer.private_gases_archived[GAS_AGENT_B] && private_gases_archived[GAS_HYDROGEN] == sharer.private_gases_archived[GAS_HYDROGEN] && private_gases_archived[GAS_WATER_VAPOR] == sharer.private_gases_archived[GAS_WATER_VAPOR] && private_temperature_archived == sharer.private_temperature_archived)
 		return 0
-	var/delta_oxygen = QUANTIZE(private_oxygen_archived - sharer.private_oxygen_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - sharer.private_carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = QUANTIZE(private_nitrogen_archived - sharer.private_nitrogen_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = QUANTIZE(private_toxins_archived - sharer.private_toxins_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = QUANTIZE(private_sleeping_agent_archived - sharer.private_sleeping_agent_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = QUANTIZE(private_agent_b_archived - sharer.private_agent_b_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_hydrogen = QUANTIZE(private_hydrogen_archived - sharer.private_hydrogen_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_water_vapor = QUANTIZE(private_water_vapor_archived - sharer.private_water_vapor_archived) / (atmos_adjacent_turfs + 1)
+	var/delta_oxygen = QUANTIZE(private_gases_archived[GAS_OXYGEN] - sharer.private_gases_archived[GAS_OXYGEN]) / (atmos_adjacent_turfs + 1)
+	var/delta_carbon_dioxide = QUANTIZE(private_gases_archived[GAS_CARBON_DIOXIDE] - sharer.private_gases_archived[GAS_CARBON_DIOXIDE]) / (atmos_adjacent_turfs + 1)
+	var/delta_nitrogen = QUANTIZE(private_gases_archived[GAS_NITROGEN] - sharer.private_gases_archived[GAS_NITROGEN]) / (atmos_adjacent_turfs + 1)
+	var/delta_toxins = QUANTIZE(private_gases_archived[GAS_TOXINS] - sharer.private_gases_archived[GAS_TOXINS]) / (atmos_adjacent_turfs + 1)
+	var/delta_sleeping_agent = QUANTIZE(private_gases_archived[GAS_SLEEPING_AGENT] - sharer.private_gases_archived[GAS_SLEEPING_AGENT]) / (atmos_adjacent_turfs + 1)
+	var/delta_agent_b = QUANTIZE(private_gases_archived[GAS_AGENT_B] - sharer.private_gases[GAS_AGENT_B]) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = QUANTIZE(private_gases_archived[GAS_HYDROGEN] - sharer.private_gases_archived[GAS_HYDROGEN]) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = QUANTIZE(private_gases_archived[GAS_WATER_VAPOR] - sharer.private_gases_archived[GAS_WATER_VAPOR]) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - sharer.private_temperature_archived)
 
@@ -389,29 +420,29 @@ What are the archived variables for?
 		old_self_heat_capacity = heat_capacity()
 		old_sharer_heat_capacity = sharer.heat_capacity()
 
-	private_oxygen -= delta_oxygen
-	sharer.private_oxygen += delta_oxygen
+	private_gases[GAS_OXYGEN] -= delta_oxygen
+	sharer.private_gases[GAS_OXYGEN] += delta_oxygen
 
-	private_carbon_dioxide -= delta_carbon_dioxide
-	sharer.private_carbon_dioxide += delta_carbon_dioxide
+	private_gases[GAS_CARBON_DIOXIDE] -= delta_carbon_dioxide
+	sharer.private_gases[GAS_CARBON_DIOXIDE] += delta_carbon_dioxide
 
-	private_nitrogen -= delta_nitrogen
-	sharer.private_nitrogen += delta_nitrogen
+	private_gases[GAS_NITROGEN] -= delta_nitrogen
+	sharer.private_gases[GAS_NITROGEN] += delta_nitrogen
 
-	private_toxins -= delta_toxins
-	sharer.private_toxins += delta_toxins
+	private_gases[GAS_TOXINS] -= delta_toxins
+	sharer.private_gases[GAS_TOXINS] += delta_toxins
 
-	private_sleeping_agent -= delta_sleeping_agent
-	sharer.private_sleeping_agent += delta_sleeping_agent
+	private_gases[GAS_SLEEPING_AGENT] -= delta_sleeping_agent
+	sharer.private_gases[GAS_SLEEPING_AGENT] += delta_sleeping_agent
 
-	private_agent_b -= delta_agent_b
-	sharer.private_agent_b += delta_agent_b
+	private_gases[GAS_AGENT_B] -= delta_agent_b
+	sharer.private_gases[GAS_AGENT_B] += delta_agent_b
 
-	private_hydrogen -= delta_hydrogen
-	sharer.private_hydrogen += delta_hydrogen
+	private_gases[GAS_HYDROGEN] -= delta_hydrogen
+	sharer.private_gases[GAS_HYDROGEN] += delta_hydrogen
 
-	private_water_vapor -= delta_water_vapor
-	sharer.private_water_vapor += delta_water_vapor
+	private_gases[GAS_WATER_VAPOR] -= delta_water_vapor
+	sharer.private_gases[GAS_WATER_VAPOR] += delta_water_vapor
 
 	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
 
@@ -437,14 +468,14 @@ What are the archived variables for?
 	//Similar to share(...), except the model is not modified
 	//Return: amount of gas exchanged
 /datum/gas_mixture/proc/mimic(turf/model, atmos_adjacent_turfs = 4) //I want this proc to die a painful death
-	var/delta_oxygen = QUANTIZE(private_oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = QUANTIZE(private_nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = QUANTIZE(private_toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = QUANTIZE(private_sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = QUANTIZE(private_agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-	var/delta_hydrogen = QUANTIZE(private_hydrogen_archived - model.hydrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_water_vapor = QUANTIZE(private_water_vapor_archived - model.water_vapor) / (atmos_adjacent_turfs + 1)
+	var/delta_oxygen = QUANTIZE(private_gases_archived[GAS_OXYGEN] - model.oxygen) / (atmos_adjacent_turfs + 1)
+	var/delta_carbon_dioxide = QUANTIZE(private_gases_archived[GAS_CARBON_DIOXIDE] - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
+	var/delta_nitrogen = QUANTIZE(private_gases_archived[GAS_NITROGEN] - model.nitrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_toxins = QUANTIZE(private_gases_archived[GAS_TOXINS] - model.toxins) / (atmos_adjacent_turfs + 1)
+	var/delta_sleeping_agent = QUANTIZE(private_gases_archived[GAS_SLEEPING_AGENT] - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
+	var/delta_agent_b = QUANTIZE(private_gases_archived[GAS_AGENT_B] - model.agent_b) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = QUANTIZE(private_gases_archived[GAS_HYDROGEN] - model.hydrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = QUANTIZE(private_gases_archived[GAS_WATER_VAPOR] - model.water_vapor) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - model.temperature)
 
@@ -482,14 +513,14 @@ What are the archived variables for?
 
 		old_self_heat_capacity = heat_capacity()
 
-	private_oxygen -= delta_oxygen
-	private_carbon_dioxide -= delta_carbon_dioxide
-	private_nitrogen -= delta_nitrogen
-	private_toxins -= delta_toxins
-	private_sleeping_agent -= delta_sleeping_agent
-	private_agent_b -= delta_agent_b
-	private_hydrogen -= delta_hydrogen
-	private_water_vapor -= delta_water_vapor
+	private_gases[GAS_OXYGEN] -= delta_oxygen
+	private_gases[GAS_CARBON_DIOXIDE] -= delta_carbon_dioxide
+	private_gases[GAS_NITROGEN] -= delta_nitrogen
+	private_gases[GAS_TOXINS] -= delta_toxins
+	private_gases[GAS_SLEEPING_AGENT] -= delta_sleeping_agent
+	private_gases[GAS_AGENT_B] -= delta_agent_b
+	private_gases[GAS_HYDROGEN] -= delta_hydrogen
+	private_gases[GAS_WATER_VAPOR] -= delta_water_vapor
 
 	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
 
@@ -509,25 +540,25 @@ What are the archived variables for?
 
 	//Returns: FALSE if self-check failed or TRUE if check passes
 /datum/gas_mixture/proc/check_turf(turf/model, atmos_adjacent_turfs = 4) //I want this proc to die a painful death
-	var/delta_oxygen = (private_oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
-	var/delta_carbon_dioxide = (private_carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
-	var/delta_nitrogen = (private_nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_toxins = (private_toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
-	var/delta_sleeping_agent = (private_sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
-	var/delta_agent_b = (private_agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-	var/delta_hydrogen = (private_hydrogen_archived - model.hydrogen) / (atmos_adjacent_turfs + 1)
-	var/delta_water_vapor = (private_water_vapor_archived - model.water_vapor) / (atmos_adjacent_turfs + 1)
+	var/delta_oxygen = (private_gases_archived[GAS_OXYGEN] - model.oxygen) / (atmos_adjacent_turfs + 1)
+	var/delta_carbon_dioxide = (private_gases_archived[GAS_CARBON_DIOXIDE] - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
+	var/delta_nitrogen = (private_gases_archived[GAS_NITROGEN] - model.nitrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_toxins = (private_gases_archived[GAS_TOXINS] - model.toxins) / (atmos_adjacent_turfs + 1)
+	var/delta_sleeping_agent = (private_gases_archived[GAS_SLEEPING_AGENT] - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
+	var/delta_agent_b = (private_gases_archived[GAS_AGENT_B] - model.agent_b) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = (private_gases_archived[GAS_HYDROGEN] - model.hydrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = (private_gases_archived[GAS_WATER_VAPOR] - model.water_vapor) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - model.temperature)
 
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= private_oxygen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= private_carbon_dioxide_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_nitrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_toxins_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_sleeping_agent_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_hydrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_water_vapor_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= private_gases_archived[GAS_OXYGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= private_gases_archived[GAS_CARBON_DIOXIDE] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_gases_archived[GAS_NITROGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_gases_archived[GAS_TOXINS] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_gases_archived[GAS_SLEEPING_AGENT] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_gases_archived[GAS_AGENT_B] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_gases_archived[GAS_HYDROGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_gases_archived[GAS_WATER_VAPOR] * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return FALSE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return FALSE
@@ -578,23 +609,23 @@ What are the archived variables for?
 
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
-	if((abs(private_oxygen - sample.private_oxygen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_oxygen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_oxygen) || (private_oxygen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_oxygen)))
+	if((abs(private_gases[GAS_OXYGEN] - sample.private_gases[GAS_OXYGEN]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_OXYGEN] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_OXYGEN]) || (private_gases[GAS_OXYGEN] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_OXYGEN])))
 		return FALSE
-	if((abs(private_nitrogen - sample.private_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_nitrogen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_nitrogen) || (private_nitrogen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_nitrogen)))
+	if((abs(private_gases[GAS_NITROGEN] - sample.private_gases[GAS_NITROGEN]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_NITROGEN] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_NITROGEN]) || (private_gases[GAS_NITROGEN] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_NITROGEN])))
 		return FALSE
-	if((abs(private_carbon_dioxide - sample.private_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_carbon_dioxide < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_carbon_dioxide) || (private_carbon_dioxide > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_carbon_dioxide)))
+	if((abs(private_gases[GAS_CARBON_DIOXIDE] - sample.private_gases[GAS_CARBON_DIOXIDE]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_CARBON_DIOXIDE] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_CARBON_DIOXIDE]) || (private_gases[GAS_CARBON_DIOXIDE] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_CARBON_DIOXIDE])))
 		return FALSE
-	if((abs(private_toxins - sample.private_toxins) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_toxins < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_toxins) || (private_toxins > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_toxins)))
+	if((abs(private_gases[GAS_TOXINS] - sample.private_gases[GAS_TOXINS]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_TOXINS] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_TOXINS]) || (private_gases[GAS_TOXINS] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_TOXINS])))
 		return FALSE
-	if((abs(private_sleeping_agent - sample.private_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_sleeping_agent < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_sleeping_agent) || (private_sleeping_agent > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_sleeping_agent)))
+	if((abs(private_gases[GAS_SLEEPING_AGENT] - sample.private_gases[GAS_SLEEPING_AGENT]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_SLEEPING_AGENT] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_SLEEPING_AGENT]) || (private_gases[GAS_SLEEPING_AGENT] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_SLEEPING_AGENT])))
 		return FALSE
-	if((abs(private_agent_b - sample.private_agent_b) > MINIMUM_AIR_TO_SUSPEND) && \
-		((private_agent_b < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_agent_b) || (private_agent_b > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_agent_b)))
+	if((abs(private_gases[GAS_AGENT_B] - sample.private_gases[GAS_AGENT_B]) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_gases[GAS_AGENT_B] < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_AGENT_B]) || (private_gases[GAS_AGENT_B] > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_gases[GAS_AGENT_B])))
 		return FALSE
 
 	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
@@ -604,25 +635,25 @@ What are the archived variables for?
 	return TRUE
 
 /datum/gas_mixture/proc/check_turf_total(turf/model) //I want this proc to die a painful death
-	var/delta_oxygen = (private_oxygen - model.oxygen)
-	var/delta_carbon_dioxide = (private_carbon_dioxide - model.carbon_dioxide)
-	var/delta_nitrogen = (private_nitrogen - model.nitrogen)
-	var/delta_toxins = (private_toxins - model.toxins)
-	var/delta_sleeping_agent = (private_sleeping_agent - model.sleeping_agent)
-	var/delta_agent_b = (private_agent_b - model.agent_b)
-	var/delta_hydrogen = (private_hydrogen - model.hydrogen)
-	var/delta_water_vapor = (private_water_vapor - model.water_vapor)
+	var/delta_oxygen = (private_gases[GAS_OXYGEN] - model.oxygen)
+	var/delta_carbon_dioxide = (private_gases[GAS_CARBON_DIOXIDE] - model.carbon_dioxide)
+	var/delta_nitrogen = (private_gases[GAS_NITROGEN] - model.nitrogen)
+	var/delta_toxins = (private_gases[GAS_TOXINS] - model.toxins)
+	var/delta_sleeping_agent = (private_gases[GAS_SLEEPING_AGENT] - model.sleeping_agent)
+	var/delta_agent_b = (private_gases[GAS_AGENT_B] - model.agent_b)
+	var/delta_hydrogen = (private_gases[GAS_HYDROGEN] - model.hydrogen)
+	var/delta_water_vapor = (private_gases[GAS_WATER_VAPOR] - model.water_vapor)
 
 	var/delta_temperature = (private_temperature - model.temperature)
 
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= private_oxygen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= private_carbon_dioxide * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_nitrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_toxins * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_sleeping_agent * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_hydrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_water_vapor * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= private_gases[GAS_OXYGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= private_gases[GAS_CARBON_DIOXIDE] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_gases[GAS_NITROGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_gases[GAS_TOXINS] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_gases[GAS_SLEEPING_AGENT] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_gases[GAS_AGENT_B] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_gases[GAS_HYDROGEN] * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_gases[GAS_WATER_VAPOR] * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return FALSE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return FALSE
@@ -634,31 +665,31 @@ What are the archived variables for?
 /datum/gas_mixture/proc/react(atom/dump_location)
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
-	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > 900)
-		if(private_toxins > MINIMUM_HEAT_CAPACITY && private_carbon_dioxide > MINIMUM_HEAT_CAPACITY)
-			var/reaction_rate = min(private_carbon_dioxide * 0.75, private_toxins * 0.25, private_agent_b * 0.05)
+	if((private_gases[GAS_AGENT_B] > MINIMUM_MOLE_COUNT) && private_temperature > 900)
+		if(private_gases[GAS_TOXINS] > MINIMUM_HEAT_CAPACITY && private_gases[GAS_CARBON_DIOXIDE] > MINIMUM_HEAT_CAPACITY)
+			var/reaction_rate = min(private_gases[GAS_CARBON_DIOXIDE] * 0.75, private_gases[GAS_TOXINS] * 0.25, private_gases[GAS_AGENT_B] * 0.05)
 
-			private_carbon_dioxide -= reaction_rate
-			private_oxygen += reaction_rate
+			private_gases[GAS_CARBON_DIOXIDE] -= reaction_rate
+			private_gases[GAS_OXYGEN] += reaction_rate
 
-			private_agent_b -= reaction_rate * 0.05
+			private_gases[GAS_AGENT_B] -= reaction_rate * 0.05
 
 			private_temperature += (reaction_rate * 20000) / heat_capacity()
 
 			reacting = TRUE
 
-	if((private_sleeping_agent > MINIMUM_MOLE_COUNT) && private_temperature > N2O_DECOMPOSITION_MIN_ENERGY)
+	if((private_gases[GAS_SLEEPING_AGENT] > MINIMUM_MOLE_COUNT) && private_temperature > N2O_DECOMPOSITION_MIN_ENERGY)
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/burned_fuel = 0
-		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent, private_sleeping_agent)
-		private_sleeping_agent -= burned_fuel
+		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_gases[GAS_SLEEPING_AGENT], private_gases[GAS_SLEEPING_AGENT])
+		private_gases[GAS_SLEEPING_AGENT] -= burned_fuel
 
 		if(burned_fuel)
 			energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-			private_oxygen += burned_fuel * 0.5
-			private_nitrogen += burned_fuel
+			private_gases[GAS_OXYGEN] += burned_fuel * 0.5
+			private_gases[GAS_NITROGEN] += burned_fuel
 
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -667,7 +698,7 @@ What are the archived variables for?
 
 	fuel_burnt = 0
 	//Handle plasma burning
-	if((private_toxins > MINIMUM_MOLE_COUNT) && (private_oxygen > MINIMUM_MOLE_COUNT) && private_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	if((private_gases[GAS_TOXINS] > MINIMUM_MOLE_COUNT) && (private_gases[GAS_OXYGEN] > MINIMUM_MOLE_COUNT) && private_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/plasma_burn_rate = 0
@@ -680,13 +711,12 @@ What are the archived variables for?
 		else
 			private_temperature_scale = (private_temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
 		if(private_temperature_scale > 0)
-			private_oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - private_temperature_scale
-			if(private_oxygen > private_toxins * PLASMA_OXYGEN_FULLBURN)
-				plasma_burn_rate = (private_toxins * private_temperature_scale) / PLASMA_BURN_RATE_DELTA
+			private_oxygen_burn_rate = 0 = OXYGEN_BURN_RATE_BASE - private_temperature_scale
+			if(private_gases[GAS_OXYGEN] > private_gases[GAS_TOXINS] * PLASMA_OXYGEN_FULLBURN)
+				plasma_burn_rate = (private_gases[GAS_TOXINS] * private_temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
-				plasma_burn_rate = (private_temperature_scale * (private_oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
+				plasma_burn_rate = (private_temperature_scale * (private_gases[GAS_OXYGEN] / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-				plasma_burn_rate = min(plasma_burn_rate, private_toxins, private_oxygen / private_oxygen_burn_rate) //Ensures matter is conserved properly
 				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
 				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
 				private_carbon_dioxide += plasma_burn_rate
@@ -720,14 +750,14 @@ What are the archived variables for?
 	return (partial_pressure * BREATH_VOLUME) / (R_IDEAL_GAS_EQUATION * private_temperature)
 
 /datum/gas_mixture/proc/copy_from_milla(list/milla)
-	private_oxygen = milla[MILLA_INDEX_OXYGEN]
-	private_carbon_dioxide = milla[MILLA_INDEX_CARBON_DIOXIDE]
-	private_nitrogen = milla[MILLA_INDEX_NITROGEN]
-	private_toxins = milla[MILLA_INDEX_TOXINS]
-	private_sleeping_agent = milla[MILLA_INDEX_SLEEPING_AGENT]
-	private_agent_b = milla[MILLA_INDEX_AGENT_B]
-	private_hydrogen = milla[MILLA_INDEX_HYDROGEN]
-	private_water_vapor = milla[MILLA_INDEX_WATER_VAPOR]
+	private_gases[GAS_OXYGEN] = milla[MILLA_INDEX_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] = milla[MILLA_INDEX_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] = milla[MILLA_INDEX_NITROGEN]
+	private_gases[GAS_TOXINS] = milla[MILLA_INDEX_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] = milla[MILLA_INDEX_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] = milla[MILLA_INDEX_AGENT_B]
+	private_gases[GAS_HYDROGEN] = milla[MILLA_INDEX_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] = milla[MILLA_INDEX_WATER_VAPOR]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
@@ -759,14 +789,14 @@ What are the archived variables for?
 		else if(abs(temperature - G.private_temperature) >= 1)
 			must_share = TRUE
 
-		total_oxygen += G.private_oxygen
-		total_nitrogen += G.private_nitrogen
-		total_toxins += G.private_toxins
-		total_carbon_dioxide += G.private_carbon_dioxide
-		total_sleeping_agent += G.private_sleeping_agent
-		total_agent_b += G.private_agent_b
-		total_hydrogen += G.private_hydrogen
-		total_water_vapor += G.private_water_vapor
+		total_oxygen += G.private_gases[GAS_OXYGEN]
+		total_nitrogen += G.private_gases[GAS_NITROGEN]
+		total_toxins += G.private_gases[GAS_TOXINS]
+		total_carbon_dioxide += G.private_gases[GAS_CARBON_DIOXIDE]
+		total_sleeping_agent += G.private_gases[GAS_SLEEPING_AGENT]
+		total_agent_b += G.private_gases[GAS_AGENT_B]
+		total_hydrogen += G.private_gases[GAS_HYDROGEN]
+		total_water_vapor += G.private_gases[GAS_WATER_VAPOR]
 
 	if(total_volume <= 0)
 		return
@@ -776,28 +806,28 @@ What are the archived variables for?
 		for(var/datum/gas_mixture/G as anything in mixtures)
 			if(!istype(G))
 				continue
-			if(abs(G.private_oxygen - total_oxygen * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_OXYGEN] - total_oxygen * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_nitrogen - total_nitrogen * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_NITROGEN] - total_nitrogen * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_toxins - total_toxins * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_TOXINS] - total_toxins * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_carbon_dioxide - total_carbon_dioxide * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_CARBON_DIOXIDE] - total_carbon_dioxide * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_sleeping_agent - total_sleeping_agent * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_SLEEPING_AGENT] - total_sleeping_agent * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_agent_b - total_agent_b * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_AGENT_B] - total_agent_b * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_hydrogen - total_hydrogen * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_HYDROGEN] - total_hydrogen * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
-			if(abs(G.private_water_vapor - total_water_vapor * G.volume / total_volume) > 0.1)
+			if(abs(G.private_gases[GAS_WATER_VAPOR] - total_water_vapor * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
 
@@ -824,14 +854,14 @@ What are the archived variables for?
 	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(!istype(G))
 			continue
-		G.private_oxygen = total_oxygen * G.volume / total_volume
-		G.private_nitrogen = total_nitrogen * G.volume / total_volume
-		G.private_toxins = total_toxins * G.volume / total_volume
-		G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
-		G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
-		G.private_agent_b = total_agent_b * G.volume / total_volume
-		G.private_hydrogen = total_hydrogen * G.volume / total_volume
-		G.private_water_vapor = total_water_vapor * G.volume / total_volume
+		G.private_gases[GAS_OXYGEN] = total_oxygen * G.volume / total_volume
+		G.private_gases[GAS_NITROGEN] = total_nitrogen * G.volume / total_volume
+		G.private_gases[GAS_TOXINS] = total_toxins * G.volume / total_volume
+		G.private_gases[GAS_CARBON_DIOXIDE] = total_carbon_dioxide * G.volume / total_volume
+		G.private_gases[GAS_SLEEPING_AGENT] = total_sleeping_agent * G.volume / total_volume
+		G.private_gases[GAS_AGENT_B] = total_agent_b * G.volume / total_volume
+		G.private_gases[GAS_HYDROGEN] = total_hydrogen * G.volume / total_volume
+		G.private_gases[GAS_WATER_VAPOR] = total_water_vapor * G.volume / total_volume
 
 		G.private_temperature = temperature
 		// In theory, we should G.set_dirty() here, but that's only useful for bound mixtures, and these can't be.
@@ -866,14 +896,14 @@ What are the archived variables for?
 	dirty = TRUE
 
 	if(!isnull(readonly))
-		readonly.private_oxygen = private_oxygen
-		readonly.private_carbon_dioxide = private_carbon_dioxide
-		readonly.private_nitrogen = private_nitrogen
-		readonly.private_toxins = private_toxins
-		readonly.private_sleeping_agent = private_sleeping_agent
-		readonly.private_agent_b = private_agent_b
-		readonly.private_hydrogen = private_hydrogen
-		readonly.private_water_vapor = private_water_vapor
+		readonly.private_gases[GAS_OXYGEN] = private_gases[GAS_OXYGEN]
+		readonly.private_gases[GAS_CARBON_DIOXIDE] = private_gases[GAS_CARBON_DIOXIDE]
+		readonly.private_gases[GAS_NITROGEN] = private_gases[GAS_NITROGEN]
+		readonly.private_gases[GAS_TOXINS] = private_gases[GAS_TOXINS]
+		readonly.private_gases[GAS_SLEEPING_AGENT] = private_gases[GAS_SLEEPING_AGENT]
+		readonly.private_gases[GAS_AGENT_B] = private_gases[GAS_AGENT_B]
+		readonly.private_gases[GAS_HYDROGEN] = private_gases[GAS_HYDROGEN]
+		readonly.private_gases[GAS_WATER_VAPOR] = private_gases[GAS_WATER_VAPOR]
 		readonly.private_temperature = private_temperature
 		readonly.private_hotspot_temperature = private_hotspot_temperature
 		readonly.private_hotspot_volume = private_hotspot_volume
@@ -885,35 +915,35 @@ What are the archived variables for?
 	ASSERT(SSair.is_in_milla_safe_code())
 
 /datum/gas_mixture/bound_to_turf/set_oxygen(value)
-	private_oxygen = value
+	private_gases[GAS_OXYGEN] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_carbon_dioxide(value)
-	private_carbon_dioxide = value
+	private_gases[GAS_CARBON_DIOXIDE] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_nitrogen(value)
-	private_nitrogen = value
+	private_gases[GAS_NITROGEN] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_toxins(value)
-	private_toxins = value
+	private_gases[GAS_TOXINS] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_sleeping_agent(value)
-	private_sleeping_agent = value
+	private_gases[GAS_SLEEPING_AGENT] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_agent_b(value)
-	private_agent_b = value
+	private_gases[GAS_AGENT_B] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_hydrogen(value)
-	private_hydrogen = value
+	private_gases[GAS_HYDROGEN] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_water_vapor(value)
-	private_water_vapor = value
+	private_gases[GAS_WATER_VAPOR] = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
@@ -927,7 +957,7 @@ What are the archived variables for?
 		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
-	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, hydrogen = private_hydrogen, water_vapor = private_water_vapor, temperature = private_temperature)
+	set_tile_atmos(bound_turf, oxygen = private_gases[GAS_OXYGEN], carbon_dioxide = private_gases[GAS_CARBON_DIOXIDE], nitrogen = private_gases[GAS_NITROGEN], toxins = private_gases[GAS_TOXINS], sleeping_agent = private_gases[GAS_SLEEPING_AGENT], agent_b = private_gases[GAS_AGENT_B], hydrogen = private_gases[GAS_HYDROGEN], water_vapor = private_gases[GAS_WATER_VAPOR], temperature = private_temperature)
 
 /datum/gas_mixture/bound_to_turf/proc/get_readonly()
 	if(isnull(readonly))
@@ -938,14 +968,14 @@ What are the archived variables for?
 /datum/gas_mixture/readonly
 
 /datum/gas_mixture/readonly/New(datum/gas_mixture/parent)
-	private_oxygen = parent.private_oxygen
-	private_carbon_dioxide = parent.private_carbon_dioxide
-	private_nitrogen = parent.private_nitrogen
-	private_toxins = parent.private_toxins
-	private_sleeping_agent = parent.private_sleeping_agent
-	private_agent_b = parent.private_agent_b
-	private_hydrogen = parent.private_hydrogen
-	private_water_vapor = parent.private_water_vapor
+	private_gases[GAS_OXYGEN] = parent.private_gases[GAS_OXYGEN]
+	private_gases[GAS_CARBON_DIOXIDE] = parent.private_gases[GAS_CARBON_DIOXIDE]
+	private_gases[GAS_NITROGEN] = parent.private_gases[GAS_NITROGEN]
+	private_gases[GAS_TOXINS] = parent.private_gases[GAS_TOXINS]
+	private_gases[GAS_SLEEPING_AGENT] = parent.private_gases[GAS_SLEEPING_AGENT]
+	private_gases[GAS_AGENT_B] = parent.private_gases[GAS_AGENT_B]
+	private_gases[GAS_HYDROGEN] = parent.private_gases[GAS_HYDROGEN]
+	private_gases[GAS_WATER_VAPOR] = parent.private_gases[GAS_WATER_VAPOR]
 
 	private_temperature = parent.private_temperature
 	private_hotspot_temperature = parent.private_hotspot_temperature
