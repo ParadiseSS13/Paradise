@@ -240,25 +240,25 @@
 			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
-			if (demotion_timer)
+			if(demotion_timer)
 				var/demote_remaining_time = checktimerend(demotion_timer) - world.time
 				var/demote_remaining_minutes = round(demote_remaining_time / 600)
 				var/demote_remaining_seconds = round((demote_remaining_time - demote_remaining_minutes * 600) / 10, 1)
 				var/time_string
 
-				if (demote_remaining_minutes < 0)
+				if(demote_remaining_minutes < 0)
 					// negative minutes...
 					time_string = "(ERROR - please create an issue report on GitHub!)"
 				else
 					time_string = ""
 
-					if (demote_remaining_minutes == 1)
+					if(demote_remaining_minutes == 1)
 						time_string += "[demote_remaining_minutes] minute"
-					else if (demote_remaining_minutes > 1)
+					else if(demote_remaining_minutes > 1)
 						time_string += "[demote_remaining_minutes] minutes"
 
-					if (demote_remaining_seconds > 0)
-						if (time_string)
+					if(demote_remaining_seconds > 0)
+						if(time_string)
 							time_string += " and "
 						time_string += "[demote_remaining_seconds] seconds"
 

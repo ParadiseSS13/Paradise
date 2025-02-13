@@ -238,7 +238,7 @@
 	var/their_rank = target_records.fields["rank"]
 
 	// safely remove the demotion timer if it's not going to be needed.
-	if (criminal_status != "demote" && user.demotion_timer)
+	if(criminal_status != "demote" && user.demotion_timer)
 		deltimer(user.demotion_timer)
 		user.demotion_timer = null
 
@@ -260,7 +260,7 @@
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			// only start the timer if there isn't already one.
-			if (user.demotion_timer == null)
+			if(user.demotion_timer == null)
 				user.demotion_timer = addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, auto_arrest_after_demote), target_records), 5 MINUTES, TIMER_STOPPABLE)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
@@ -281,14 +281,14 @@
 
 	for(var/p in GLOB.human_list)
 		var/mob/living/carbon/human/crew = p
-		if (crew.real_name == their_name && crew.demotion_timer != null)
+		if(crew.real_name == their_name && crew.demotion_timer != null)
 			user = crew
 
-	if (user == null)
+	if(user == null)
 		return FALSE
 
 	// safely remove the demotion timer
-	if (user.demotion_timer)
+	if(user.demotion_timer)
 		deltimer(user.demotion_timer)
 		user.demotion_timer = null
 
