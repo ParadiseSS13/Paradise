@@ -1198,5 +1198,5 @@
 
 	target_records.fields["criminal"] = status
 	log_admin("Secstatus of [their_rank] [their_name] became [status] after 5 minutes of remaining demoted.")
-	target_records.fields["comments"] += "Set to [status] by ALICE on [GLOB.current_date_string] [station_time_timestamp()], comment: Petty Theft - Failure to appear for demotion. (Automatic)"
+	target_records.fields["comments"] += "Set to [status] by SYSTEM on [GLOB.current_date_string] [station_time_timestamp()], comment: Petty Theft - Failure to appear for demotion. (Automatic)"
 	update_all_mob_security_hud()
