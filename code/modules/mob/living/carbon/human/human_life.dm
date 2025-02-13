@@ -697,7 +697,6 @@
 	if(dna.species.update_health_hud())
 		return
 	else
-		var/shock_reduction = shock_reduction()
 		var/shock_reduction_doll = shock_reduction_doll()
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction_doll)
@@ -722,7 +721,7 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
 					var/damage = O.get_damage()
-					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
+					damage -= shock_reduction_doll / BODYPART_PAIN_REDUCTION
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
 					if(damage > 0)

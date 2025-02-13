@@ -1122,7 +1122,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/shock_reduction_doll()
 	var/shock_reduction = 0
-	var/view_true_health = FALSE
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.shock_reduction)
