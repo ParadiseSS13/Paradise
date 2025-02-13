@@ -69886,7 +69886,15 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "lMM" = (
-/obj/effect/spawner/random/barrier/wall_probably,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lMX" = (
@@ -75477,18 +75485,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
-"oQY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "oRa" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -78661,6 +78657,7 @@
 	},
 /area/station/security/interrogation)
 "qFj" = (
+/obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -83110,14 +83107,10 @@
 	},
 /area/station/security/permabrig)
 "sKG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -83652,6 +83645,9 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
@@ -86324,6 +86320,11 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fsmaint)
+"umw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/barrier/wall_probably,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "unn" = (
 /obj/machinery/door_timer/cell_3{
 	pixel_y = -32
@@ -88960,6 +88961,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"vKU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "vLC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -89998,6 +90011,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "wmQ" = (
@@ -126243,8 +126257,8 @@ sAD
 lwv
 dOO
 qFj
-xVf
-oQY
+vKU
+dOO
 tYD
 dOO
 djA
@@ -126499,7 +126513,7 @@ xyH
 xyH
 xyH
 dID
-dbp
+umw
 lMM
 sKG
 wxo
