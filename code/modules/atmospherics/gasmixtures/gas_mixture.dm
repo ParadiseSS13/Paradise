@@ -696,7 +696,7 @@ What are the archived variables for?
 
 		if(fuel_burnt)
 			reacting = TRUE
-
+3
 	// handles formation of water vapor
 	if((private_hydrogen >= H2_NEEDED_FOR_H2O) && (private_oxygen >= O2_NEEDED_FOR_H2O) && private_temperature > 400)
 		private_hydrogen -= H2_NEEDED_FOR_H2O
