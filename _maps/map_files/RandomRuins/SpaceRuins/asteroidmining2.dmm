@@ -4,27 +4,27 @@
 /area/space)
 "f" = (
 /turf/simulated/mineral/random/space,
-/area/space)
+/area/ruin/space/unpowered)
 "n" = (
 /turf/simulated/mineral/random/high_chance/space,
-/area/space)
+/area/ruin/space/unpowered)
 "o" = (
 /turf/simulated/mineral/random/low_chance/space,
-/area/space)
+/area/ruin/space/unpowered)
 "r" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/unpowered)
 "A" = (
 /obj/structure/spawner/mining/hivelord,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/unpowered)
 "S" = (
 /obj/structure/spawner/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin/space/unpowered)
 "V" = (
 /turf/simulated/mineral,
-/area/space)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a

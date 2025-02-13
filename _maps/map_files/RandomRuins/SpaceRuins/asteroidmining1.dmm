@@ -1,19 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/mineral/random/low_chance/space,
-/area/space)
+/area/ruin/space/unpowered)
 "c" = (
 /turf/simulated/mineral/random/high_chance/space,
-/area/space)
+/area/ruin/space/unpowered)
 "h" = (
 /turf/space,
 /area/space)
 "J" = (
 /turf/simulated/mineral,
-/area/space)
+/area/ruin/space/unpowered)
 "T" = (
 /turf/simulated/mineral/random/space,
-/area/space)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 h
