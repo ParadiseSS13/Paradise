@@ -62667,14 +62667,15 @@
 	},
 /area/station/science/toxins/mixing)
 "nqG" = (
-/obj/machinery/door/airlock/research,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/airlock/research{
+	name = "Research Division"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
-/area/station/science/research)
+/area/station/maintenance/aft2)
 "nqJ" = (
 /obj/structure/table,
 /obj/item/phone{
@@ -69245,7 +69246,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/aft2)
+/area/station/science/toxins/mixing)
 "qpN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -71358,6 +71359,7 @@
 "rlG" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "rlJ" = (
@@ -118809,10 +118811,10 @@ uCe
 uCe
 uCe
 uCe
-cmz
-cmz
-cmz
-cmz
+bdN
+bdN
+bdN
+bdN
 nqG
 cOp
 crN
