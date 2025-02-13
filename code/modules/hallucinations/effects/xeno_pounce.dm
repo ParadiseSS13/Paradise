@@ -66,7 +66,7 @@
 							"<span class='userdanger'>[name] pounces on you!</span>")
 
 		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
-		QDEL_IN(src, 2 SECONDS)
+	QDEL_IN(src, 2 SECONDS)
 
 /**
   * Throws the xeno towards the given loc.

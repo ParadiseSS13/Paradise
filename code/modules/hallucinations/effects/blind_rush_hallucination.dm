@@ -48,14 +48,10 @@
 	var/rush_timer = null
 
 /obj/effect/hallucination/no_delete/blind_rusher/Initialize(mapload, mob/living/carbon/target)
-	rush_timer = addtimer(CALLBACK(src, PROC_REF(rush)), rush_time, TIMER_LOOP | TIMER_STOPPABLE)
+	rush_timer = addtimer(CALLBACK(src, PROC_REF(rush)), rush_time, TIMER_LOOP | TIMER_DELETE_ME)
 	if(prob(50))
 		hallucination_icon = 'icons/mob/simple_human.dmi'
 		hallucination_icon_state = pick("clown", "skeleton_warden", "skeleton_warden_alt")
-	return ..()
-
-/obj/effect/hallucination/no_delete/blind_rusher/Destroy()
-	deltimer(rush_timer)
 	return ..()
 
 /obj/effect/hallucination/no_delete/blind_rusher/proc/rush()

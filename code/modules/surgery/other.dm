@@ -126,7 +126,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_burns
-	name = "mend burns"
+	name = "treat severe burns"
 	allowed_tools = list(
 		/obj/item/stack/medical/ointment/advanced = 100,
 		/obj/item/stack/medical/ointment = 90

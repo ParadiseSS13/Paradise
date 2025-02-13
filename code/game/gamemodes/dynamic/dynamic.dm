@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	var/list/datum/ruleset/implied_rulesets = list()
 
 	/// How much budget is left after roundstart antagonists roll
-	var/budget_overflow = 0
+	var/antag_budget = 0
 
 	/// Log for what happens in a dynamic round
 	var/list/dynamic_log = list()
@@ -27,7 +27,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
 /datum/game_mode/dynamic/proc/allocate_ruleset_budget()
-	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 5, "2" = 12, "3" = 3))) // more likely to or 2
+	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 8, "2" = 12, "3" = 3)))
+	antag_budget = num_players()
 	log_dynamic("Allocated gamemode budget: [ruleset_budget]")
 	var/list/possible_rulesets = list()
 	for(var/datum/ruleset/ruleset as anything in subtypesof(/datum/ruleset))
@@ -68,9 +69,9 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	if(!ruleset)
 		return
 	if(!force)
-		var/failure_reason = ruleset.ruleset_possible(ruleset_budget, rulesets)
+		var/failure_reason = ruleset.ruleset_possible(ruleset_budget, rulesets, antag_budget)
 		if(failure_reason)
-			log_dynamic("Failed [ruleset.name] ruleset: [failure_reason]")
+			log_dynamic("Failed [ruleset.name] ruleset: [failure_reason].")
 			return
 		log_dynamic("Rolled ruleset: [ruleset.name]")
 	rulesets[ruleset] = ruleset.antag_weight
@@ -89,33 +90,30 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	if(!length(rulesets))
 		log_dynamic("No rulesets in play.")
 		return
-	var/budget = num_players()
-	log_dynamic("Allocated antagonist budget: [budget].")
+	log_dynamic("Allocated antagonist budget: [antag_budget].")
 
 	for(var/datum/ruleset/ruleset in rulesets)
 		ruleset.antag_amount = 1
-		budget -= ruleset.antag_cost
-		log_dynamic("Automatic deduction: +1 [ruleset.name]. Remaining budget: [budget].")
+		antag_budget -= ruleset.automatic_deduct(antag_budget)
 
 	log_dynamic("Rulesets in play: [english_list((rulesets + implied_rulesets))]")
 
-	apply_antag_budget(budget)
+	apply_antag_budget()
 
-/datum/game_mode/dynamic/proc/apply_antag_budget(budget) // todo, can be called later in the game to apply more budget. That also means there has to be shit done for latejoins.
+/datum/game_mode/dynamic/proc/apply_antag_budget() // todo, can be called later in the game to apply more budget. That also means there has to be shit done for latejoins.
 	var/list/temp_rulesets = rulesets.Copy()
-	while(budget >= 0)
+	while(antag_budget >= 0)
 		var/datum/ruleset/ruleset = pickweight(temp_rulesets)
 		if(!ruleset)
-			log_dynamic("No rulesets remaining. Remaining budget: [budget].")
-			budget_overflow = budget
+			log_dynamic("No rulesets remaining. Remaining budget: [antag_budget].")
 			return
-		if(!ruleset.antagonist_possible(budget))
+		if(!ruleset.antagonist_possible(antag_budget))
 			log_dynamic("Rolled [ruleset.name]: failed, removing [ruleset.name] ruleset.")
 			temp_rulesets -= ruleset
 			continue
 		ruleset.antag_amount++
-		budget -= ruleset.antag_cost
-		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [budget].")
+		antag_budget -= ruleset.antag_cost
+		log_dynamic("Rolled [ruleset.name]: success, +1 [ruleset.name]. Remaining budget: [antag_budget].")
 	log_dynamic("No more antagonist budget remaining.")
 
 /datum/game_mode/dynamic/pre_setup()
@@ -128,10 +126,10 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets)) // rulesets first, then implied rulesets
 		log_dynamic("Applying [ruleset.antag_amount] [ruleset.name]\s.")
-		budget_overflow += ruleset.roundstart_pre_setup()
+		antag_budget += ruleset.roundstart_pre_setup()
 
-	log_dynamic("Budget overflow: [budget_overflow].")
-	// for the future, maybe try readding antagonists with apply_antag_budget(budget_overflow)
+	log_dynamic("Budget overflow: [antag_budget].")
+	// for the future, maybe try readding antagonists with apply_antag_budget(antag_budget)
 	log_dynamic("Finished dynamic setup in [stop_watch(watch)]s.")
 	return TRUE
 
@@ -147,19 +145,19 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 
 /datum/game_mode/dynamic/latespawn(mob)
 	. = ..()
-	budget_overflow++
+	antag_budget++
 
 /datum/game_mode/dynamic/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
 	var/turf/T = get_turf(cryopod)
 	if(!T || is_admin_level(T.z))
 		return
-	budget_overflow--
+	antag_budget--
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
 		return
 	for(var/datum/antagonist/antag in sleepy_mob.mind.antag_datums)
 		for(var/datum/ruleset/possible_ruleset as anything in subtypesof(/datum/ruleset))
 			if(istype(antag, possible_ruleset.antagonist_type))
-				budget_overflow += possible_ruleset.antag_cost
+				antag_budget += possible_ruleset.antag_cost
 				log_dynamic("[possible_ruleset] cryo. +[possible_ruleset.antag_cost] budget.")
 
 /datum/game_mode/dynamic/get_webhook_name()
@@ -168,6 +166,11 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		if(implied.was_triggered)
 			implied_and_used += implied
 	return "[name] ([english_list(rulesets + implied_and_used, nothing_text = "Extended")])"
+
+/datum/game_mode/dynamic/declare_completion()
+	for(var/datum/ruleset/ruleset in rulesets)
+		ruleset.declare_completion()
+	. = ..()
 
 /proc/log_dynamic(text)
 	log_game("Dynamic: [text]")

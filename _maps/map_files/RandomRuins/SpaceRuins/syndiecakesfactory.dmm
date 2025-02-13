@@ -1286,7 +1286,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "YE" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/grass,
 /area/ruin/space/syndicakefactory)
 "YQ" = (

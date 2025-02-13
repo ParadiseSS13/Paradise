@@ -17,6 +17,10 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 
 #define TEST_ASSERT_LAST_CHATLOG(puppet, text) if(!puppet.last_chatlog_has_text(text)) { return Fail("Expected `[text]` in last chatlog but got `[puppet.get_last_chatlog()]`", __FILE__, __LINE__) }
 
+#define TEST_ASSERT_ANY_CHATLOG(puppet, text) if(!puppet.any_chatlog_has_text(text))  { return Fail("Expected `[text]` in any chatlog but got [jointext(puppet.get_chatlogs(), "\n")]", __FILE__, __LINE__) }
+
+#define TEST_ASSERT_NOT_CHATLOG(puppet, text) if(puppet.any_chatlog_has_text(text))  { return Fail("Didn't expect `[text]` in any chatlog but got [jointext(puppet.get_chatlogs(), "\n")]", __FILE__, __LINE__) }
+
 /// Asserts that the two parameters passed are equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_EQUAL(a, b, message) do { \

@@ -357,7 +357,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -574,7 +574,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -1440,7 +1440,7 @@
 	},
 /area/ruin/space/moonbase19)
 "ey" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1491,7 +1491,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "eK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "West Lobby";
@@ -1725,7 +1725,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/moonbase19)
 "fC" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 10
@@ -1978,7 +1978,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2108,7 +2108,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "gP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -2210,7 +2210,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -2298,7 +2298,7 @@
 	},
 /area/ruin/space/moonbase19)
 "hs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2640,7 +2640,7 @@
 	},
 /area/ruin/space/moonbase19)
 "io" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/directions/engineering{
 	pixel_x = -32;
 	dir = 8
@@ -2972,7 +2972,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -3022,7 +3022,7 @@
 /area/ruin/space/moonbase19)
 "jp" = (
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -3035,7 +3035,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jt" = (
@@ -3130,7 +3130,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3298,7 +3298,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kg" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3431,7 +3431,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "kB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 10
 	},
@@ -3458,7 +3458,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -3481,7 +3481,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "kN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -3644,7 +3644,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3681,7 +3681,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -3869,7 +3869,7 @@
 	},
 /area/ruin/space/moonbase19)
 "mv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -4502,7 +4502,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4880,7 +4880,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "qu" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -5187,7 +5187,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "escape"
@@ -5413,7 +5413,7 @@
 	},
 /area/ruin/space/moonbase19)
 "sp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5498,7 +5498,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "td" = (
@@ -5979,7 +5979,7 @@
 	},
 /area/ruin/space/moonbase19)
 "vB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6154,7 +6154,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "wp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5
@@ -6175,7 +6175,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -6857,7 +6857,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -6870,7 +6870,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7747,7 +7747,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Dy" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7909,7 +7909,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Ep" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
@@ -8123,7 +8123,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Fk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -8238,7 +8238,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -8266,7 +8266,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8621,7 +8621,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "HA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -9228,7 +9228,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Kz" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 4
@@ -9472,7 +9472,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 4
@@ -9755,7 +9755,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "MY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -10018,7 +10018,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Od" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -10095,7 +10095,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Oo" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10397,7 +10397,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "PQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -11648,7 +11648,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 9
@@ -11801,7 +11801,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Wn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -11896,7 +11896,7 @@
 	},
 /area/ruin/space/moonbase19)
 "WJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 9
 	},
@@ -12152,7 +12152,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -12229,7 +12229,7 @@
 	},
 /area/ruin/space/moonbase19)
 "XY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},

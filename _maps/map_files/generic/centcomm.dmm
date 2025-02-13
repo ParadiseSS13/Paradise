@@ -1867,7 +1867,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "gY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "gZ" = (
@@ -2079,7 +2079,7 @@
 /area/shuttle/administration)
 "hy" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
 	},
@@ -3802,7 +3802,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_y = 25
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3938,7 +3938,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ni" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "nj" = (
@@ -3986,7 +3986,7 @@
 /obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "np" = (
@@ -4231,7 +4231,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "nW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4816,7 +4816,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "qg" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/item/storage/secure/safe{
 	pixel_x = 32
 	},
@@ -4957,7 +4957,7 @@
 	pixel_y = -2;
 	req_access = list(151)
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5005,7 +5005,7 @@
 /turf/simulated/wall/indestructible,
 /area/ghost_bar)
 "qS" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "qT" = (
@@ -5135,7 +5135,7 @@
 /area/ghost_bar)
 "rl" = (
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "rn" = (
@@ -5236,7 +5236,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "rx" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
@@ -5767,7 +5767,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tB" = (
@@ -6482,7 +6482,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "vT" = (
@@ -7418,7 +7418,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
 "Ai" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
@@ -7634,7 +7634,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
 "AV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "AX" = (
@@ -8413,7 +8413,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -10230,7 +10230,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Ke" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
 "Kg" = (
@@ -11099,7 +11099,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "MV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "MX" = (
@@ -11409,7 +11409,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -11575,7 +11575,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "OF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -11647,7 +11647,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "OO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11691,7 +11691,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "OV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/door_control/no_emag{
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
@@ -11711,7 +11711,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "OX" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -11996,7 +11996,7 @@
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "PY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Qa" = (
@@ -12223,7 +12223,7 @@
 	},
 /area/ghost_bar)
 "QN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -12596,7 +12596,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
 "Sf" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -12634,7 +12634,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/specops)
 "Sn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -12718,7 +12718,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "SF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -12731,7 +12731,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "SJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "SK" = (
@@ -13569,7 +13569,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "Wl" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/door_control/no_emag{
 	id = "CCcustoms1";
 	name = "CentCom Outer Customs Shutters";
@@ -13868,14 +13868,14 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "WW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
 "WX" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/control)
 "WZ" = (
@@ -14158,7 +14158,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "XY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "XZ" = (
@@ -14535,7 +14535,7 @@
 	},
 /area/centcom/specops)
 "Zl" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/mirror{
 	pixel_y = 30
 	},
