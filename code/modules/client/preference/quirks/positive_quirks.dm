@@ -49,3 +49,10 @@
 	new /obj/item/food/customizable/sandwich(src)
 	new /obj/item/food/chips(src)
 	new /obj/item/reagent_containers/drinks/cans/cola(src)
+
+/datum/quirk/upgraded_lungs
+	name = "Upgraded Cybernetic Lungs"
+	desc  = "Your lungs have been replaced with upgraded cybernetics."
+	cost = 2
+	organic_only = TRUE
+	organ_to_give = list("lungs" = /obj/item/organ/internal/lungs/cybernetic/upgraded)

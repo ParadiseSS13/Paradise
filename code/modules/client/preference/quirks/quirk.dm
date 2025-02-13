@@ -22,9 +22,9 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/item_to_give
 	/// If there's an item to give, what slot should it be equipped to roundstart?
 	var/item_slot = ITEM_SLOT_IN_BACKPACK
-	/// If this quirk adds an organ
-	var/organ_to_give
-	/// What organ should be removed (if any). Must be the string name of the organ as found in the has_organ var from the species datum. 
+	/// What organ this quirk gives (if any). Must be in the format of ("organ_name" = organ_path)
+	var/list/organ_to_give
+	/// What organ should be removed (if any). Must be the string name of the organ as found in the has_organ var from the species datum.
 	var/organ_to_remove
 
 /datum/quirk/Destroy(force, ...)

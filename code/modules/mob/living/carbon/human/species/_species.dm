@@ -223,7 +223,9 @@
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
-
+	for(var/datum/quirk/quirk in H.quirks)
+		if(quirk.organ_to_give)
+			has_organ |= quirk.organ_to_give
 	for(var/limb_name in has_limbs)
 		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
 			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
