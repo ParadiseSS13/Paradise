@@ -39,6 +39,8 @@
 	var/turf/source_turf = get_turf(user)
 	var/cast_on = targets[1]
 	var/turf/targeted_turf = get_turf(cast_on)
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, targeted_turf) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin, user)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout, user)

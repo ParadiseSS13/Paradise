@@ -154,7 +154,7 @@
 	// - One from your department
 	// - One from security
 	// - One from heads of staff ("high value")
-	var/list/datum/mind/final_targets = list() //Qwertodo: Figure out how the fuck to make this work after roundstart. Look at  traitor objectives?
+	var/list/datum/mind/final_targets = list()
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
