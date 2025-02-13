@@ -25,20 +25,20 @@
 
 	switch(cause)
 		if("gib")
-			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
+			a.autosay("[mobname] погиб-гиб-б-б в-в-в...", "Датчик Смерти [mobname]")
 			qdel(src)
 		if("emp")
 			if(!COOLDOWN_FINISHED(src, emp_spam_lock))
 				return
 			var/name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
-			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
+			a.autosay("[mobname] погиб в [name]!", "Датчик Смерти [mobname]")
 			COOLDOWN_START(src, emp_spam_lock, 0.1 SECONDS)
 		else
 			if(is_type_in_typecache(t, stealth_areas))
 				//give the syndies a bit of stealth
-				a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
+				a.autosay("[mobname] погиб в космосе!", "Датчик Смерти [mobname]")
 			else
-				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
+				a.autosay("[mobname] погиб в [t.name]!", "Датчик Смерти [mobname]")
 			qdel(src)
 
 	qdel(a)
