@@ -347,7 +347,7 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
 			hudglasses = H.glasses
 			if(hudglasses.hud_debug)
-				return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
+				return TRUE
 
 		var/have_hudtypes = list()
 		var/datum/atom_hud/data/human/medbasic = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
