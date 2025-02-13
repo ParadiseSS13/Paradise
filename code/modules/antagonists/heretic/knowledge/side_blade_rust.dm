@@ -86,7 +86,7 @@
 		They were very effective, for simple iron, but used up quickly. I soon ran out. \
 		No replacement munitions worked in their stead. It was peculiar in what it wanted."
 	required_atoms = list(
-		/obj/item/ammo_casing = 3,
+		list(/obj/item/ammo_casing, /obj/item/trash/spentcasing) = 3,
 	)
 	banned_atom_types = list(/obj/item/ammo_casing/lionhunter) // The gods are very generous with ingredients, but not *that* generous
 	result_atoms = list(/obj/item/ammo_box/lionhunter)
