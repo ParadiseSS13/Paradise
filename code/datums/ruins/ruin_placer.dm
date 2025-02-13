@@ -16,6 +16,7 @@
 
 /datum/ruin_placement/proc/try_to_place(zlist_or_zlevel, area_whitelist)
 	var/list/z_levels = islist(zlist_or_zlevel) ? zlist_or_zlevel : list(zlist_or_zlevel)
+	shuffle_inplace(z_levels)
 
 	// Our goal is to maximize padding, so we'll perform some number of attempts
 	// on one z-level, then the next, until we reach some limit, then reduce the

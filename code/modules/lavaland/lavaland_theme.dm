@@ -5,12 +5,15 @@
 	var/turf/simulated/floor/primary_turf_type
 	/// Icon state of planet present on background of station Z-level
 	var/planet_icon_state
+	var/list/built_bridges
 
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
 		stack_trace("Turf type is `null` in `[type]` lavaland theme")
 	else if(!ispath(primary_turf_type))
 		stack_trace("Wrong turf type `[primary_turf_type.type]` in `[type]` lavaland theme")
+
+	built_bridges = list()
 
 /**
  * This proc should do all theme specific thing.
@@ -23,16 +26,16 @@
 /datum/lavaland_theme/proc/setup_multisector()
 	var/bridge_diameter = 12
 	var/interval = 20
-	var/list/built_bridges = list()
-
 	for(var/zlvl in levels_by_trait(ORE_LEVEL))
 		var/datum/space_level/level = GLOB.space_manager.get_zlev(zlvl)
 		if(!built_bridges["[zlvl]"])
 			built_bridges["[zlvl]"] = list()
 
 		for(var/d in level.neighbors)
-			if(d == Z_LEVEL_SOUTH && !(Z_LEVEL_SOUTH in built_bridges["[level.zpos]"]))
+			if(d == Z_LEVEL_SOUTH)
 				var/datum/space_level/connected = level.get_connection(Z_LEVEL_SOUTH)
+				if(!built_bridges["[connected.zpos]"])
+					built_bridges["[connected.zpos]"] = list()
 				var/left_margin = TRANSITIONEDGE + 5
 				while(left_margin < world.maxx - TRANSITIONEDGE)
 					if(prob(50))
@@ -46,11 +49,13 @@
 
 					left_margin += interval
 
-				LAZYORASSOCLIST(built_bridges, "[level.zpos]", Z_LEVEL_SOUTH)
-				LAZYORASSOCLIST(built_bridges, "[connected.zpos]", Z_LEVEL_NORTH)
+				built_bridges["[zlvl]"]["[connected.zpos]"] = Z_LEVEL_SOUTH
+				built_bridges["[connected.zpos]"]["[zlvl]"] = Z_LEVEL_NORTH
 
-			else if(d == Z_LEVEL_EAST && !(Z_LEVEL_WEST in built_bridges["[level.zpos]"]))
+			else if(d == Z_LEVEL_EAST)
 				var/datum/space_level/connected = level.get_connection(Z_LEVEL_EAST)
+				if(!built_bridges["[connected.zpos]"])
+					built_bridges["[connected.zpos]"] = list()
 				var/north_margin = TRANSITIONEDGE + 5
 				while(north_margin < world.maxy - TRANSITIONEDGE)
 					if(prob(50))
@@ -64,8 +69,19 @@
 
 					north_margin += interval
 
-				LAZYORASSOCLIST(built_bridges, "[level.zpos]", Z_LEVEL_EAST)
-				LAZYORASSOCLIST(built_bridges, "[connected.zpos]", Z_LEVEL_WEST)
+				built_bridges["[zlvl]"]["[connected.zpos]"] = Z_LEVEL_EAST
+				built_bridges["[connected.zpos]"]["[zlvl]"] = Z_LEVEL_WEST
+
+/datum/lavaland_theme/proc/get_bridge_direction(z1, z2)
+	if(z1 == z2)
+		return null
+
+	if(("[z1]" in built_bridges) && ("[z2]" in built_bridges["[z1]"]))
+		return built_bridges["[z1]"]["[z2]"]
+	if(("[z2]" in built_bridges) && ("[z1]" in built_bridges["[z2]"]))
+		return built_bridges["[z2]"]["[z1]"]
+
+	return null
 
 /datum/lavaland_theme/lava
 	name = "lava"

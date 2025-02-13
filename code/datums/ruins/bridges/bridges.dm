@@ -70,6 +70,10 @@
 	if(end.flags & LAVA_BRIDGE || !(ismineralturf(end) || istype(end, /turf/simulated/floor/plating/asteroid)))
 		return FALSE
 
+	var/area/A = get_area(end)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
+		return FALSE
+
 	return TRUE
 
 /// Returns whether the passed in turf is a valid "passage". A valid passage is
@@ -84,6 +88,9 @@
 	if(!istype(get_step(T, side_to_side[1]), /turf/simulated/floor/lava/mapping_lava))
 		return FALSE
 	if(!istype(get_step(T, side_to_side[2]), /turf/simulated/floor/lava/mapping_lava))
+		return FALSE
+	var/area/A = get_area(T)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
 		return FALSE
 
 	return TRUE

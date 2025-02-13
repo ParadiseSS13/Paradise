@@ -90,9 +90,12 @@
 	var/list/milla_data = null
 
 	new_attack_chain = TRUE
-	var/destination_z
+	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
 	var/destination_x
+	/// The destination y-coordinate that atoms entering this turf will be automatically moved to.
 	var/destination_y
+	/// The destination z-level that atoms entering this turf will be automatically moved to.
+	var/destination_z
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
