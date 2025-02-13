@@ -691,7 +691,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	var/list/can_see_target = viewers(examined)
 	for(var/mob/M as anything in viewers(2, src))
-		if(!M.client || HAS_TRAIT(M, TRAIT_BLIND))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
 			continue
 
 		if(examining_worn_item || (M == src) || (M in can_see_target))
