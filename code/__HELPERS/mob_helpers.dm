@@ -236,11 +236,12 @@
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
+	var/timer = target_records.fields["timer"]
 
 	// safely remove the demotion timer if it's not going to be needed.
-	if(criminal_status != "demote" && user.demotion_timer)
-		deltimer(user.demotion_timer)
-		user.demotion_timer = null
+	if(criminal_status != "demote" && timer != null)
+		deltimer(timer)
+		target_records.fields["timer"] = null
 
 	switch(criminal_status)
 		if("arrest", SEC_RECORD_STATUS_ARREST)
@@ -260,8 +261,8 @@
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			// only start the timer if there isn't already one.
-			if(user.demotion_timer == null)
-				user.demotion_timer = addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, auto_arrest_after_demote), target_records), 5 MINUTES, TIMER_STOPPABLE)
+			if(timer == null)
+				target_records.fields["timer"] = addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, auto_arrest_after_demote), target_records), 30 SECONDS, TIMER_STOPPABLE)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -276,21 +277,12 @@
 	return 1
 
 /proc/try_clear_demoted_status(datum/data/record/target_records)
-	var/mob/living/user
-	var/their_name = target_records.fields["name"]
-
-	for(var/p in GLOB.human_list)
-		var/mob/living/carbon/human/crew = p
-		if(crew.real_name == their_name && crew.demotion_timer != null)
-			user = crew
-
-	if(user == null)
-		return FALSE
+	var/timer = target_records.fields["timer"]
 
 	// safely remove the demotion timer
-	if(user.demotion_timer)
-		deltimer(user.demotion_timer)
-		user.demotion_timer = null
+	if(timer != null)
+		deltimer(timer)
+		target_records.fields["timer"] = null
 
 	target_records.fields["criminal"] = SEC_RECORD_STATUS_NONE
 	target_records.fields["comments"] += "Successfully demoted on [GLOB.current_date_string] [station_time_timestamp()]."

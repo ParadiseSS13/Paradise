@@ -1193,9 +1193,10 @@
 	var/status = SEC_RECORD_STATUS_ARREST
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
+	var/timer = target_records.fields["timer"]
 
-	deltimer(demotion_timer)
-	demotion_timer = null
+	deltimer(timer)
+	target_records.fields["timer"] = null
 
 	target_records.fields["criminal"] = status
 	log_admin("Secstatus of [their_rank] [their_name] became [status] after 5 minutes of remaining demoted.")

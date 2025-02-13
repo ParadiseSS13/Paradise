@@ -117,7 +117,3 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
-
-
-	/// id of timer tracking how long this person has been demoted
-	var/demotion_timer
