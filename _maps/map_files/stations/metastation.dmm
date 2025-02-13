@@ -50710,6 +50710,15 @@
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
+"ibg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "ibh" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -110010,7 +110019,7 @@ xJy
 aGy
 xJy
 jaK
-xJy
+ibg
 xJy
 xJy
 xJy
