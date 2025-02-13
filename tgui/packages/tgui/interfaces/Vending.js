@@ -81,7 +81,11 @@ export const Vending = (props, context) => {
   // Just in case we still have undefined values in the list
   inventory = inventory.filter((item) => !!item);
   return (
-    <Window title="Vending Machine" width={450} height={Math.min(171 + inventory.length * 32, 585)}>
+    <Window
+      title="Vending Machine"
+      width={450}
+      height={Math.min((!locked || !!bypass_lock ? 230 : 171) + inventory.length * 32, 585)}
+    >
       <Window.Content scrollable>
         <Stack fill vertical>
           {(!locked || !!bypass_lock) && (
