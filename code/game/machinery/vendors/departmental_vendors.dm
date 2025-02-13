@@ -357,7 +357,7 @@
 /obj/machinery/economy/vending/smith
 	name = "\improper Castivend"
 	desc = "Everything you need to start your own smithing workshop."
-	icon_state = "cargodrobe"
+	icon_state = "castivend"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	req_access = list(ACCESS_SMITH)
 	products = list(/obj/item/smithing_cast/sheet = 6,
