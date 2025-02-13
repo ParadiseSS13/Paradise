@@ -1,3 +1,38 @@
+// CC loot pool
+/datum/spawn_pool/centcommloot
+	id = "central_command_spawn_pool"
+	available_points = INFINITY
+
+/obj/effect/spawner/random/pool/centcommloot
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "giftbox"
+	spawn_pool_id = "central_command_spawn_pool"
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm
+	spawn_inside = null
+	spawn_pool_id = "central_command_spawn_pool"
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot/centcomm
+	spawn_inside = null
+	spawn_pool_id = "central_command_spawn_pool"
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/officer/depot/centcomm
+	spawn_inside = null
+	spawn_pool_id = "central_command_spawn_pool"
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot/centcomm
+	spawn_inside = null
+	spawn_pool_id = "central_command_spawn_pool"
+
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed
+	loot = list(
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm = 30,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot/centcomm = 20,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/officer/depot/centcomm = 5,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot/centcomm = 1,
+	)
+
+// space loot pool
 /datum/spawn_pool/spaceloot
 	available_points = 2200 // tweak available points considering centcomm and away mission
 

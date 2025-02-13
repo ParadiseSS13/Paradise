@@ -337,6 +337,7 @@
 "aoD" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2076,6 +2077,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny/invisible,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5713,6 +5715,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/light_fake/small,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11818,8 +11821,7 @@
 /area/centcom/ss220/supply)
 "haI" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17961,8 +17963,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19973,8 +19974,8 @@
 /area/syndicate_mothership)
 "lKt" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -20849,16 +20850,6 @@
 /obj/machinery/computer/shuttle/sit,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
-"mjW" = (
-/obj/structure/light_fake/spot{
-	dir = 1
-	},
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowalt"
-	},
-/area/syndicate_mothership/cargo)
 "mkf" = (
 /obj/structure/chair/comfy/red{
 	dir = 1
@@ -22240,14 +22231,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
-"neJ" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkyellowalt"
-	},
-/area/syndicate_mothership/cargo)
 "neL" = (
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/carpet/arcade,
@@ -22455,13 +22438,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
-"nlb" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership)
 "nlc" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/gamma/space)
@@ -23153,8 +23129,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23578,8 +23553,7 @@
 /area/syndicate_mothership/outside)
 "nRS" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24730,8 +24704,7 @@
 "oEC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25393,9 +25366,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "oYr" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellowalt"
@@ -33866,6 +33838,7 @@
 	icon_state = "cardboard_syndicate"
 	},
 /obj/effect/turf_decal/delivery/white,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34405,9 +34378,8 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "upU" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellowalt"
@@ -36691,6 +36663,7 @@
 "vEg" = (
 /obj/structure/light_fake/spot,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -38194,8 +38167,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38751,16 +38723,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/admin1)
-"wLN" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
-/obj/structure/closet/secure_closet/depot,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "wMc" = (
 /obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
@@ -40125,6 +40087,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/centcommloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42638,7 +42601,7 @@ rQg
 brK
 vjy
 bed
-wLN
+tJL
 aoD
 rQg
 bnK
@@ -42895,7 +42858,7 @@ rQg
 dqv
 dcn
 bed
-wLN
+tJL
 jKB
 rQg
 apg
@@ -43152,7 +43115,7 @@ vVk
 vVk
 hlh
 vVk
-lKt
+jKB
 dxV
 rQg
 cNI
@@ -43410,7 +43373,7 @@ iLT
 hOq
 rQg
 aoD
-lKt
+jKB
 rQg
 fgd
 lpx
@@ -44683,7 +44646,7 @@ slN
 slN
 oYr
 vVk
-neJ
+cex
 slN
 slN
 nbj
@@ -44940,7 +44903,7 @@ slN
 slN
 vEg
 rQg
-mjW
+sKq
 slN
 slN
 nbj
@@ -46493,8 +46456,8 @@ iLT
 iLT
 gfa
 rQg
-lKt
-lKt
+jKB
+jKB
 rQg
 fgd
 mAS
@@ -47008,7 +46971,7 @@ kMv
 dcn
 mpV
 tJL
-lKt
+jKB
 rQg
 apg
 qFx
@@ -47265,7 +47228,7 @@ sRe
 vHq
 mpV
 boW
-lKt
+jKB
 rQg
 bnK
 lpx
@@ -50571,7 +50534,7 @@ fnU
 gOQ
 tCJ
 bcl
-nlb
+ovP
 haI
 jsg
 haI
