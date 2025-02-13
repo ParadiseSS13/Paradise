@@ -1124,11 +1124,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/shock_reduction_doll = 0
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction_doll)
+			if(R.shock_reduction)
 				if(R.view_true_health) // This makes it so painkillers that have a TRUE view_true_health won't muddy up the health doll
 					continue
 				else
-					shock_reduction_doll += R.shock_reduction_doll
+					shock_reduction_doll += R.shock_reduction
 	return shock_reduction_doll
 
 /mob/living/carbon/proc/can_eat(flags = 255)
