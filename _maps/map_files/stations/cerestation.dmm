@@ -96226,6 +96226,7 @@
 /area/station/hallway/secondary/exit)
 "vuM" = (
 /obj/structure/marker_beacon/dock_marker,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "vuQ" = (
