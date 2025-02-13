@@ -578,6 +578,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.icon_state = "id"
 			modify.rank = "Assistant"
 			regenerate_id_name()
+			// release the demote status from the individual in question, if possible
+			var/datum/data/record/security_record = find_security_record("name", modify.registered_name)
+			var/cleared_successfully = FALSE
+			if (security_record && security_record.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
+				cleared_successfully = try_clear_demoted_status(security_record)
+			if (!cleared_successfully)
+				visible_message("<span class='warning'>[src]: Demotee record not found, manual Security record update required.</span>")
 			modify.RebuildHTML()
 			return
 		if("terminate")

@@ -238,7 +238,7 @@
 	var/their_rank = target_records.fields["rank"]
 
 	// safely remove the demotion timer if it's not going to be needed.
-	if (criminal_status != "demote" && user.demotion_timer != null)
+	if (criminal_status != "demote" && user.demotion_timer)
 		deltimer(user.demotion_timer)
 		user.demotion_timer = null
 
@@ -274,6 +274,28 @@
 	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
+
+/proc/try_clear_demoted_status(datum/data/record/target_records)
+	var/mob/living/user
+	var/their_name = target_records.fields["name"]
+
+	for(var/p in GLOB.human_list)
+		var/mob/living/carbon/human/crew = p
+		if (crew.real_name == their_name && crew.demotion_timer != null)
+			user = crew
+
+	if (user == null)
+		return FALSE
+
+	// safely remove the demotion timer
+	if (user.demotion_timer)
+		deltimer(user.demotion_timer)
+		user.demotion_timer = null
+
+	target_records.fields["criminal"] = SEC_RECORD_STATUS_NONE
+	target_records.fields["comments"] += "Successfully demoted on [GLOB.current_date_string] [station_time_timestamp()]."
+	update_all_mob_security_hud()
+	return TRUE
 
 /**
  * Creates attack (old and new) logs for the user and defense logs for the target.
