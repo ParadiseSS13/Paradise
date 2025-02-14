@@ -696,14 +696,28 @@ What are the archived variables for?
 
 		if(fuel_burnt)
 			reacting = TRUE
-3
-	// handles formation of water vapor
-	if((private_hydrogen >= H2_NEEDED_FOR_H2O) && (private_oxygen >= O2_NEEDED_FOR_H2O) && private_temperature > 400)
-		private_hydrogen -= H2_NEEDED_FOR_H2O
-		private_oxygen -= O2_NEEDED_FOR_H2O
-		private_water_vapor += H2O_PRODUCED
-		log_admin("HEY LOOK I MADE WATER VAPOR")
 
+	// handles formation of water vapor
+	if((private_hydrogen >= H2_NEEDED_FOR_H2O) && (private_oxygen >= O2_NEEDED_FOR_H2O) && private_temperature > WATER_VAPOR_REACTION_TEMPERATURE)
+		var/energy_released = WATER_VAPOR_REACTION_ENERGY
+
+        // Calculate the reaction rate based on temperature
+		var/reaction_rate = 1 - (H2O_REACTION_COEFFICIENT_A / ((private_temperature + H2O_REACTION_COEFFICIENT_C) ** 2))
+		var/burned_hydrogen = min(reaction_rate * private_hydrogen, H2_NEEDED_FOR_H2O)
+		var/burned_oxygen = min(reaction_rate * private_oxygen, O2_NEEDED_FOR_H2O)
+		var/produced_water_vapor = (burned_hydrogen / H2_NEEDED_FOR_H2O) * H2O_PRODUCED
+
+		private_hydrogen -= burned_hydrogen
+		private_oxygen -= burned_oxygen
+		private_water_vapor += produced_water_vapor
+
+		var/old_heat_capacity = heat_capacity()
+		var/new_heat_capacity = heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+
+		log_admin("HEY LOOK I MADE WATER VAPOR")
+		reacting = TRUE
 
 	set_dirty()
 	return reacting

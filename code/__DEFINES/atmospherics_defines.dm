@@ -163,6 +163,10 @@
 #define H2_NEEDED_FOR_H2O 20
 #define O2_NEEDED_FOR_H2O 10
 #define H2O_PRODUCED 10
+#define H2O_REACTION_COEFFICIENT_A 1.0e10 // random number idk
+#define H2O_REACTION_COEFFICIENT_C 1000 // random number idk
+#define WATER_VAPOR_REACTION_TEMPERATURE 400
+#define WATER_VAPOR_REACTION_ENERGY 1000
 
 // From milla/src/model.rs, line 126
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
