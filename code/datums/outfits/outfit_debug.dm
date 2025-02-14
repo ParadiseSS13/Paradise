@@ -331,7 +331,6 @@
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)
 	new /obj/item/clothing/suit/advanced_protective_suit(src)
-	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
 	new /obj/item/adminfu_scroll(src)
 	new /obj/item/teleporter/admin(src)
 	new /obj/item/storage/belt/bluespace/admin(src) // god i love storage nesting
