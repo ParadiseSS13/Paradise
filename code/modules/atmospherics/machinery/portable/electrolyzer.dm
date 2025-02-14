@@ -1,4 +1,4 @@
-obj/machinery/portable/electrolyzer
+/obj/machinery/portable/electrolyzer
 	name = "gas electrolyzer"
 	desc = ""
 	anchored = FALSE
