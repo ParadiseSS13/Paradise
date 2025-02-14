@@ -205,18 +205,14 @@
 		Feedstop(0, 0)
 		return
 
-	var/mob/living/carbon/human/C = M // I don't want to accidentally break feeding on Xenos or something.
-	if(C.dna) // Ensures there is DNA for the Synthetic check
-		if(!(C.dna.species.reagent_tag & PROCESS_ORG))
-			return // This is just to prevent feeding on IPCs giving nutrition
-		else
-			add_nutrition(rand(7, 15))
-			//Heal yourself.
-			adjustBruteLoss(-3)
-	else // If no DNA it's an organic thing
-		add_nutrition(rand(7, 15))
-		//Heal yourself.
-		adjustBruteLoss(-3)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod))
+			return
+			
+	add_nutrition(rand(7, 15))
+	//Heal yourself.
+	adjustBruteLoss(-3)
 
 
 
