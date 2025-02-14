@@ -892,15 +892,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"agg" = (
-/mob/living/simple_animal/mouse/brown,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "agl" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
@@ -29745,10 +29736,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/public/sleep)
-"eBD" = (
-/mob/living/simple_animal/mouse/white,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "eBF" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -36498,7 +36485,6 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/white,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -51226,7 +51212,6 @@
 "jKO" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "jKQ" = (
@@ -110666,12 +110651,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
-"xXN" = (
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "xXS" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -159911,7 +159890,7 @@ mDi
 miw
 fqw
 wyL
-agg
+aHt
 ozK
 itf
 fMl
@@ -164535,7 +164514,7 @@ itf
 aZM
 itf
 itf
-xXN
+gFg
 aHt
 gFg
 vHH
@@ -167862,7 +167841,7 @@ iVi
 fGz
 fqw
 jPW
-xXN
+gFg
 gFg
 nKW
 mon
@@ -170190,7 +170169,7 @@ eFU
 shz
 qcB
 rvd
-eBD
+vHH
 iBi
 itf
 aZM
