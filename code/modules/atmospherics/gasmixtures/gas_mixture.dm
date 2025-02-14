@@ -701,7 +701,7 @@ What are the archived variables for?
 	if((private_hydrogen >= H2_NEEDED_FOR_H2O) && (private_oxygen >= O2_NEEDED_FOR_H2O) && private_temperature > WATER_VAPOR_REACTION_TEMPERATURE)
 		var/energy_released = WATER_VAPOR_REACTION_ENERGY
 
-        // Calculate the reaction rate based on temperature
+		// Calculate the reaction rate based on temperature
 		var/reaction_rate = 1 - (H2O_REACTION_COEFFICIENT_A / ((private_temperature + H2O_REACTION_COEFFICIENT_C) ** 2))
 		var/burned_hydrogen = min(reaction_rate * private_hydrogen, H2_NEEDED_FOR_H2O)
 		var/burned_oxygen = min(reaction_rate * private_oxygen, O2_NEEDED_FOR_H2O)
