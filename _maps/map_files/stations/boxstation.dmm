@@ -49689,6 +49689,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
+"eqx" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "eqN" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -54719,6 +54726,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
+/area/station/hallway/secondary/exit)
+"gUn" = (
+/turf/space,
 /area/station/hallway/secondary/exit)
 "gUp" = (
 /obj/item/holder/mouse,
@@ -63061,6 +63071,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"lpe" = (
+/obj/effect/spawner/airlock/w_to_e/long,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "lpq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -64679,6 +64693,10 @@
 "mfM" = (
 /turf/simulated/floor/plasteel,
 /area/station/science/lobby)
+"mfO" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/turf/simulated/floor/plating/airless,
+/area/station/hallway/secondary/exit)
 "mfQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -66083,19 +66101,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/legal/lawoffice)
-"mSJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/secondary/exit)
 "mSN" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -66655,6 +66660,15 @@
 	icon_state = "whitehall"
 	},
 /area/station/medical/paramedic)
+"nmZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "nnv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69927,6 +69941,9 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"oPY" = (
+/turf/simulated/floor/plating/airless,
+/area/station/hallway/secondary/exit)
 "oQy" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -74843,7 +74860,7 @@
 "rnx" = (
 /obj/machinery/camera{
 	c_tag = "Departure Lounge South-East";
-	dir = 10
+	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -77260,9 +77277,9 @@
 	},
 /area/station/public/dorms)
 "sGl" = (
-/obj/structure/lattice,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/hallway/secondary/exit)
 "sGw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Maintenance"
@@ -77422,6 +77439,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"sMw" = (
+/obj/structure/sign/vacuum/external{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "sMJ" = (
 /obj/structure/chair,
 /obj/machinery/power/apc/directional/north,
@@ -83099,6 +83123,16 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"vTG" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "vUK" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
@@ -85438,16 +85472,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/command/bridge)
-"xir" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	name = "Escape Airlock"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/hallway/secondary/exit)
 "xiF" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine{
@@ -141407,10 +141431,10 @@ iek
 bHV
 bmm
 oMz
+bmm
 hCr
 bEF
-bEF
-aaa
+aab
 aaa
 aaa
 aab
@@ -141663,11 +141687,11 @@ nHv
 swk
 snH
 bSc
-mSJ
+oMz
+bmm
+eqx
 bEF
 bEF
-aaa
-aaa
 aaa
 aaa
 aab
@@ -141921,10 +141945,10 @@ iek
 ijt
 bmm
 oMz
+sMw
+nmZ
+vTG
 bEF
-aaa
-aaa
-aaa
 aaa
 aaa
 aab
@@ -142179,9 +142203,9 @@ njk
 bSa
 rnx
 bEF
-aaa
-aaa
-aaa
+oPY
+lpe
+bEF
 aaa
 aaa
 aab
@@ -142436,9 +142460,9 @@ oWE
 bmm
 skf
 bEF
-aaa
-aaa
-aaa
+mfO
+bEF
+aab
 aaa
 aaa
 aYm
@@ -142694,7 +142718,7 @@ ido
 vKP
 bEF
 sGl
-aab
+bEF
 aab
 aab
 aYm
@@ -142950,9 +142974,9 @@ jsC
 bAE
 jsC
 bEF
-aaa
-aaa
-aaa
+gUn
+bEF
+aab
 aaa
 aaa
 aaa
@@ -143202,14 +143226,14 @@ tnJ
 pXs
 eWC
 bjR
-xir
+boI
 ktQ
-xir
+boI
 ktQ
-aaa
-aaa
-aaa
-aaa
+doE
+doE
+doE
+aab
 aaa
 aaa
 aaa
@@ -143463,10 +143487,10 @@ bAN
 ktQ
 bol
 ktQ
-aaa
-aaa
-aaa
-aaa
+aab
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -143973,9 +143997,9 @@ ktQ
 ktQ
 ktQ
 ktQ
-xir
+boI
 ktQ
-xir
+boI
 ktQ
 aaa
 aaa
