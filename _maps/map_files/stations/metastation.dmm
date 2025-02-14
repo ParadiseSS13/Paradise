@@ -63563,10 +63563,10 @@
 	},
 /area/station/service/bar)
 "nAM" = (
-/obj/machinery/space_heater,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/portable/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
