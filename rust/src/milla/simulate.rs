@@ -646,7 +646,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
 // Hydrogen and oxygen making water vapor
-	if cached_temperature > WATER_VAPOR_FORMATION_TEMP && (my_next_tile.gases.hydrogen() > 0.0 && my_next_tile.gases.water_vapor() > 0.0)
+	if cached_temperature > WATER_VAPOR_FORMATION_TEMP
+	&& my_next_tile.gases.hydrogen() > 0.0
+	&& my_next_tile.gases.water_vapor() > 0.0
 	{
 		let H2_O2_consumed = (my_next_tile.gases.hydrogen() * 2.0) + my_next_tile.gases.oxygen();
 		let water_vapor_produced = 1.0;
