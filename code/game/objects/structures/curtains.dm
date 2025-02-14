@@ -58,8 +58,8 @@
 	new_curtain.fingerprintshidden = src.fingerprintshidden
 	new_curtain.fingerprintslast = src.fingerprintslast
 
-	user.visible_message("<span class='notice'>[user] attaches the [src] to the [on_wall].</span>", \
-		"<span class='notice'>You attach the [src] to the [on_wall].</span>")
+	user.visible_message("<span class='notice'>[user] attaches the [src] to [on_wall].</span>", \
+		"<span class='notice'>You attach the [src] to [on_wall].</span>")
 	qdel(src)
 
 /obj/item/mounted/curtain/curtain_fixture/activate_self(mob/user)
