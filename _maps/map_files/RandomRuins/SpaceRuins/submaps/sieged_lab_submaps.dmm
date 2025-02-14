@@ -285,7 +285,7 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room,
 /obj/machinery/door/airlock/research,
 /obj/structure/barricade/wooden,
-/obj/effect/mapping_helpers/airlock/access/all/science,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -1708,7 +1708,7 @@
 /area/template_noop)
 "Jt" = (
 /obj/machinery/door/airlock/research,
-/obj/effect/mapping_helpers/airlock/access/all/science,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
