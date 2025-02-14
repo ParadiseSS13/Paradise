@@ -219,13 +219,14 @@ If a map manipulation fails, it should do both these things:
    primary paths through maintenance.
 
 6. All pre-existing balance guidelines regarding mapping apply to submaps:
-   https://devdocs.paradisestation.org/mapping/design/#balance-guidelines Loot
-   counts must remain consistent. Walls should only be reinforced in appropriate
-   places. There should be no "treasure troves" or hoards only accessible with
-   detailed map knowledge. AI cameras cannot be placed in maints submaps.
-   Antag/sec balance, tactical flexibility, and navigability must be considered.
-   Dead ends are to be avoided. Department maintenance airlocks may not be moved
-   or removed.
+   https://devdocs.paradisestation.org/mapping/design/#balance-guidelines
+
+   Loot counts must remain consistent. Walls should only be reinforced in
+   appropriate places. There should be no "treasure troves" or hoards only
+   accessible with detailed map knowledge. AI cameras cannot be placed in maints
+   submaps. Antag/sec balance, tactical flexibility, and navigability must be
+   considered. Dead ends are to be avoided. Department maintenance airlocks may
+   not be moved or removed.
 
 7. One submap must be an exact duplicate of the original area's contents. A
    submap will never not be chosen, and so it's necessary there be a submap of
