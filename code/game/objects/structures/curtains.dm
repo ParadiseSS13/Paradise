@@ -46,7 +46,7 @@
 
 /obj/item/mounted/curtain/curtain_fixture/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!istype(target,/obj/structure/window) && !istype(target,/turf/simulated/wall/))
+	if(!istype(target ,/obj/structure/window) && !istype(target, /turf/simulated/wall/))
 		return
 	var/on_wall = get_turf(target)
 	to_chat(user, "<span class='notice'>You begin attaching [src] to the [on_wall].</span>")
