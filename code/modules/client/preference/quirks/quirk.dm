@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 /datum/quirk/proc/remove_organ()
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
 	var/obj/item/organ/to_remove = owner.get_organ_slot(organ_slot_to_remove)
-	INVOKE_ASYNC(to_remove, TYPE_PROC_REF(/obj/item/organ, remove), owner, TRUE)
+	INVOKE_ASYNC(to_remove, TYPE_PROC_REF(/obj/item/organ/internal, remove), owner, TRUE)
 
 /datum/quirk/proc/give_organ()
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
