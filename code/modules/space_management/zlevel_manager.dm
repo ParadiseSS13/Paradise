@@ -113,6 +113,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
 	world.maxz++
+	SSai_controllers.on_max_z_changed()
 	var/our_z = world.maxz
 	milla_init_z(our_z)
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)

@@ -33,6 +33,7 @@
 	M.CureEpilepsy()
 	M.CureCoughing()
 	M.CureNervous()
+	M.CureParaplegia()
 	M.SetEyeBlurry(0)
 	M.SetWeakened(0)
 	M.SetStunned(0)
