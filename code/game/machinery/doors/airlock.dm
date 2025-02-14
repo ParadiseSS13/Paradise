@@ -63,6 +63,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
+	cares_about_temperature = TRUE
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -1680,7 +1681,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		return PROCESS_KILL
 
-/obj/machinery/door/airlock/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(heat_proof)
 		return

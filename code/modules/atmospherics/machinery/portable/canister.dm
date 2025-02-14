@@ -60,6 +60,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
 	max_integrity = 250
 	integrity_failure = 100
+	cares_about_temperature = TRUE
 
 	var/valve_open = FALSE
 	var/release_pressure = ONE_ATMOSPHERE
@@ -166,7 +167,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	else if(current_pressure_appearance == EXTREME_PRESSURE)
 		. += "can-o3"
 
-/obj/machinery/atmospherics/portable/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/atmospherics/portable/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)

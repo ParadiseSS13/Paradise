@@ -50,12 +50,9 @@
 		R = user.get_inactive_hand()
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/robouser = user
-		if(istype(robouser.module_state_1, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_1
-		else if(istype(robouser.module_state_2, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_2
-		else if(istype(robouser.module_state_3, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_3
+		var/metal_slot = robouser.get_module_by_item(/obj/item/stack/sheet/metal)
+		if(metal_slot)
+			R = robouser.all_active_items[metal_slot]
 
 	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
 		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")

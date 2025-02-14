@@ -528,3 +528,12 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	var/icon/I = getFlatIcon(thing)
 	return icon2asset(I, target)
+
+/// Slimifies an icon by painting a color onto the icon, then changing the alpha.
+/icon/proc/slimify(color = "#FFFFFF", alpha = "FF")
+	GrayScale()
+	var/list/hsl = rgb2hsl(hex2num(copytext(color, 2, 4)), hex2num(copytext(color, 4, 6)), hex2num(copytext(color, 6, 8)))
+	hsl[3] = clamp(hsl[3], 0, 0.4) // Clamps luminance.
+	var/rgb = hsl2rgb(arglist(hsl))
+	var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+	Blend("[new_color][alpha]", ICON_ADD)
