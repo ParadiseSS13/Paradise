@@ -208,14 +208,17 @@
 	var/mob/living/carbon/human/C = M // I don't want to accidentally break feeding on Xenos or something.
 	if(C.dna) // Ensures there is DNA for the Synthetic check
 		if(!(C.dna.species.reagent_tag & PROCESS_ORG))
-			// This is just to prevent feeding on IPCs giving nutrition
+			return // This is just to prevent feeding on IPCs giving nutrition
 		else
 			add_nutrition(rand(7, 15))
+			//Heal yourself.
+			adjustBruteLoss(-3)
 	else // If no DNA it's an organic thing
 		add_nutrition(rand(7, 15))
+		//Heal yourself.
+		adjustBruteLoss(-3)
 
-	//Heal yourself.
-	adjustBruteLoss(-3)
+
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 	if(docile) //God as my witness, I will never go hungry again
