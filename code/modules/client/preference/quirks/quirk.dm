@@ -96,8 +96,18 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 			return TRUE
 	return FALSE
 
+/// An admin-only proc for adding quirks directly to a mob. This won't do anything for quirks that give items/organs though since those are effects on spawn
 /mob/living/carbon/human/proc/force_add_quirk()
+	var/quirk_name = tgui_input_list(src, "What quirk do you want to add to [src]?", "Quirk to add", GLOB.quirk_datums)
+	if(!quirk_name)
+		return
+	var/datum/quirk/to_add = GLOB.quirk_datums[quirk_name]
+	to_add.apply_quirk_effects(src)
 
+/// An admin only proc for removing quirks directly from mobs
 /mob/living/carbon/human/proc/force_remove_quirk()
-
+	var/datum/quirk/to_remove = tgui_input_list(src, "What quirk do you want to remove from [src]?", "Quirk to remove", src.quirks)
+	if(!to_remove)
+		return
+	qdel(to_remove)
 

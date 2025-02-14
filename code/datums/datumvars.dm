@@ -1192,12 +1192,29 @@
 		if(!(rem_organ in M.internal_organs))
 			to_chat(usr, "Mob does not have that organ.")
 			return
-
 		to_chat(usr, "Removed [rem_organ] from [M].")
 		rem_organ.remove(M)
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
+
+	else if(href_list["addquirk"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/living/carbon/human/M = locateUID(href_list["addquirk"])
+		if(!istype(M))
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
+			return
+		M.force_add_quirk()
+
+	else if(href_list["remquirk"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/living/carbon/human/M = locateUID(href_list["remquirk"])
+		if(!istype(M))
+			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
+			return
+		M.force_remove_quirk()
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return

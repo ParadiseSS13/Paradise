@@ -1204,6 +1204,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
 	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
+	.["Add Quirk"] = "byond://?_src_=vars;addquirk=[UID()]"
+	.["Remove Quirk"] = "byond://?_src_=vars;remquirk=[UID()]"
 
 	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
 	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
