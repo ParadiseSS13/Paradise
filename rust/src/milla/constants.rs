@@ -42,6 +42,10 @@ pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
 pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 
 // How hot does it need to be for water vapor to break down?
+
+// How hot does it need to be for water vapor to form from H2 and O2?
+pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
+
 pub(crate) const WATER_VAPOR_BREAKDOWN_TEMP: f32 = 2000.0;
 
 pub(crate) const WATER_VAPOR_REACTION_TEMPERATURE: f32 = 400.0;
