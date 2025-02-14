@@ -12,8 +12,6 @@
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
-	///Chance to block melee attacks using items while on throw mode.
-	var/block_chance = 0
 	var/help_verb = null
 	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns = FALSE
