@@ -383,6 +383,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	switch(choice)
 		if("Add")
+			if(M.buffer_uid in inlet_uids)
+				to_chat(user, "<span class='warning'>Error: This device is already connected to the console.</span>")
+				return
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/outlet_injector))
@@ -412,6 +415,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 						inlet_injector.update_icon()
 					inlet_data -= uid
 					inlet_uids -= uid
+					break
 
 		if("Clear")
 			if(inlet_uids)
@@ -437,6 +441,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	switch(choice)
 		if("Add")
+			if(M.buffer_uid in outlet_uids)
+				to_chat(user, "<span class='warning'>Error: This device is already connected to the console.</span>")
+				return
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
 			if(!linked_datum)
@@ -501,6 +508,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					outlet_scrubber_data -= uid
 					outlet_vent_data -= uid
 					outlet_uids -= uid
+					break
 
 		if("Clear")
 			if(length(outlet_uids))
