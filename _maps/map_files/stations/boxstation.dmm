@@ -54727,9 +54727,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
-"gUn" = (
-/turf/space,
-/area/station/hallway/secondary/exit)
 "gUp" = (
 /obj/item/holder/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -64695,7 +64692,7 @@
 /area/station/science/lobby)
 "mfO" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "mfQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -77278,7 +77275,7 @@
 /area/station/public/dorms)
 "sGl" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "sGw" = (
 /obj/machinery/door/airlock/maintenance{
@@ -83763,6 +83760,9 @@
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
+"wms" = (
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/exit)
 "wmt" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -142203,7 +142203,7 @@ njk
 bSa
 rnx
 bEF
-oPY
+wms
 lpe
 bEF
 aaa
@@ -142974,7 +142974,7 @@ jsC
 bAE
 jsC
 bEF
-gUn
+oPY
 bEF
 aab
 aaa
