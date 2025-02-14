@@ -25,10 +25,11 @@
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 
-	. = __attack_core(M, user)
+	if(!__attack_core(M, user))
+		return
 
 	if(!M.new_attack_chain)
-		M.attacked_by__legacy__attackchain(src, user, def_zone)
+		return M.attacked_by__legacy__attackchain(src, user, def_zone)
 
 /**
  * Called when `user` attacks us with item `W`.
@@ -45,9 +46,9 @@
 	return FALSE
 
 /obj/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return ..() || (can_be_hit && I.new_attack_chain \
+	return ..() || (can_be_hit && (I.new_attack_chain \
 		? I.attack_obj(src, user, params) \
-		: I.attack_obj__legacy__attackchain(src, user, params))
+		: I.attack_obj__legacy__attackchain(src, user, params)))
 
 /mob/living/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -24,6 +24,10 @@
 	var/slip_verb
 	/// TRUE the player will only slip if the mob this datum is attached to is horizontal
 	var/horizontal_required
+	///what we give to connect_loc by default, makes slippable mobs moving over us slip
+	var/static/list/default_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(slip),
+	)
 
 /datum/component/slippery/Initialize(_description, _knockdown = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _slip_always = FALSE, _slip_verb = "slip", _horizontal_required = FALSE)
 	if(!isatom(parent))
@@ -38,19 +42,21 @@
 	slip_verb = _slip_verb
 	horizontal_required = _horizontal_required
 
-/datum/component/slippery/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
+	add_connect_loc_behalf_to_parent()
 
-/datum/component/slippery/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))
+/datum/component/slippery/proc/add_connect_loc_behalf_to_parent()
+	if(ismovable(parent))
+		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
 /**
-	Called whenever the parent receives either the `MOVABLE_CROSSED` signal or the `ATOM_ENTERED` signal.
+	Called whenever the parent receives the `ATOM_ENTERED` signal.
 
 	Calls the `victim`'s `slip()` proc with the component's variables as arguments.
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
-/datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
+/datum/component/slippery/proc/slip(datum/source, mob/living/carbon/human/victim)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
 	if(istype(victim) && !HAS_TRAIT(victim, TRAIT_FLYING))
 		var/atom/movable/owner = parent
 		if(!isturf(owner.loc))

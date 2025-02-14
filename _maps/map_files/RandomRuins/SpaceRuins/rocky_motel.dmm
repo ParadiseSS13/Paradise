@@ -38,6 +38,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -46,6 +47,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/dress/sundress,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
 "fH" = (
@@ -74,6 +76,7 @@
 "gP" = (
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
@@ -94,6 +97,10 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"ic" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
 /area/ruin/space/powered)
 "iY" = (
 /turf/simulated/floor/carpet/black,
@@ -122,7 +129,6 @@
 /area/ruin/space/powered)
 "lq" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/jacket/fluff,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/suit/navy,
 /obj/item/clothing/under/pants/blackjeans,
@@ -214,7 +220,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "vN" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "zs" = (
 /obj/structure/bed,
@@ -229,6 +235,12 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"AF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
 "Cq" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -274,6 +286,13 @@
 	dir = 6;
 	icon_state = "black"
 	},
+/area/ruin/space/powered)
+"EZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Gh" = (
 /obj/structure/disposalpipe/segment{
@@ -332,9 +351,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/powered)
-"JY" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
 "Kh" = (
 /obj/structure/safe/floor,
 /obj/item/stack/spacecash/c200,
@@ -376,6 +392,12 @@
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
+"Sg" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
 "Sk" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/plastitanium,
@@ -389,7 +411,7 @@
 	},
 /area/ruin/space/powered)
 "SL" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "Tb" = (
@@ -407,6 +429,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/powered)
+"TK" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "TQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -426,6 +454,7 @@
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -549,9 +578,11 @@ vN
 vN
 vN
 vN
-Ya
-Ya
-Ya
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 "}
@@ -574,13 +605,43 @@ vN
 vN
 vN
 vN
+vN
+Ya
+Ya
+Ya
+vN
+vN
+vN
+"}
+(3,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 Ya
 Ya
 Ya
 Ya
 vN
+vN
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+vN
 vN
 vN
 vN
@@ -604,8 +665,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+vN
 vN
 vN
 vN
@@ -629,8 +692,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+vN
 vN
 vN
 vN
@@ -639,6 +704,7 @@ XP
 Yu
 Ya
 Ya
+Sg
 Ya
 Ya
 Ya
@@ -653,9 +719,10 @@ Ya
 Ya
 Ya
 Ya
-Ya
+vN
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+vN
 vN
 vN
 vN
@@ -679,8 +746,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+vN
 vN
 vN
 PM
@@ -704,8 +773,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+vN
 vN
 Ya
 PM
@@ -729,8 +800,10 @@ Ya
 vN
 vN
 vN
+vN
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+vN
 Ya
 Ya
 CP
@@ -754,8 +827,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -779,15 +854,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+vN
 vN
 Ya
 CF
 zx
 zx
 zx
-zx
+ic
 zx
 gY
 DV
@@ -804,8 +881,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -829,8 +908,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -854,8 +935,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -879,15 +962,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+vN
 vN
 Ya
 CF
 zx
 zx
 zx
-JY
+TT
 Ed
 zx
 kP
@@ -904,8 +989,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+vN
 vN
 Ya
 gs
@@ -929,15 +1016,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+vN
 vN
 vN
 Ya
 Ya
 CF
 zx
-JY
+TT
 zx
 Ya
 Aa
@@ -954,15 +1043,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+vN
 vN
 vN
 vN
 Ya
 gs
 Id
-Vl
+EZ
 PM
 Ya
 qN
@@ -972,31 +1063,7 @@ Ml
 PM
 vN
 vN
-vN
-vN
-vN
-vN
-vN
-vN
-vN
-"}
-(19,1,1) = {"
-vN
-vN
-vN
-vN
-Ya
-Ya
-PM
-ph
-Ya
-vN
-vN
-vN
-vN
-vN
-vN
-vN
+AF
 vN
 vN
 vN
@@ -1010,9 +1077,65 @@ vN
 vN
 vN
 vN
+vN
+Ya
+Ya
+PM
+ph
+Ya
+vN
+vN
+TK
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(21,1,1) = {"
+vN
+vN
+vN
+vN
+vN
 Ya
 Ya
 ph
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(22,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 vN

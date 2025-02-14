@@ -60,6 +60,14 @@
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
 
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/add_hud_to(mob/user)
+	..()
+	SSair.add_pressure_hud(user)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -222,10 +230,10 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 
@@ -399,7 +407,7 @@
 			holder.icon_state = "hudpatrol"
 		if(BOT_PREP_ARREST, BOT_ARREST, BOT_HUNT, BOT_BLOCKED, BOT_NO_ROUTE) //STOP RIGHT THERE, CRIMINAL SCUM!
 			holder.icon_state = "hudalert"
-		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
+		if(BOT_MOVING, BOT_PATHING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
 			holder.icon_state = "hudmove"
 		else
 			holder.icon_state = ""
@@ -526,7 +534,7 @@
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
 		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
-	else if(isAI(commenter))
+	else if(is_ai(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"

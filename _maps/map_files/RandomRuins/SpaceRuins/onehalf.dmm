@@ -1030,6 +1030,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dd" = (
 /obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "de" = (
@@ -1122,12 +1123,17 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
+"jI" = (
+/obj/structure/disposalpipe/trunk,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/onehalf/drone_bay)
 "jQ" = (
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/closet/crate/medical,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
@@ -1196,10 +1202,10 @@ aa
 aa
 aa
 aa
+aw
 aa
-aa
-aa
-aa
+aw
+aw
 aa
 aa
 aa
@@ -1214,28 +1220,6 @@ aa
 aa
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
-aw
-aa
-aw
-aw
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(4,1,1) = {"
 aa
 aa
 aa
@@ -1257,7 +1241,7 @@ aa
 aa
 aa
 "}
-(5,1,1) = {"
+(4,1,1) = {"
 aa
 aa
 ae
@@ -1279,7 +1263,7 @@ aa
 aa
 aa
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 aa
 aa
 ac
@@ -1301,7 +1285,7 @@ aa
 aa
 aa
 "}
-(7,1,1) = {"
+(6,1,1) = {"
 aa
 ab
 af
@@ -1323,7 +1307,7 @@ aa
 aa
 aa
 "}
-(8,1,1) = {"
+(7,1,1) = {"
 aa
 ac
 ag
@@ -1345,7 +1329,7 @@ aa
 aa
 aa
 "}
-(9,1,1) = {"
+(8,1,1) = {"
 aa
 ac
 ag
@@ -1367,7 +1351,7 @@ aa
 aa
 aa
 "}
-(10,1,1) = {"
+(9,1,1) = {"
 aa
 ac
 ag
@@ -1389,7 +1373,7 @@ dg
 aa
 aa
 "}
-(11,1,1) = {"
+(10,1,1) = {"
 aa
 ac
 ag
@@ -1411,7 +1395,7 @@ aw
 aa
 aa
 "}
-(12,1,1) = {"
+(11,1,1) = {"
 aa
 ac
 ag
@@ -1433,7 +1417,7 @@ cl
 cx
 aa
 "}
-(13,1,1) = {"
+(12,1,1) = {"
 aa
 ac
 ag
@@ -1455,7 +1439,7 @@ bP
 do
 aa
 "}
-(14,1,1) = {"
+(13,1,1) = {"
 aa
 ac
 ah
@@ -1477,7 +1461,7 @@ cz
 dp
 aa
 "}
-(15,1,1) = {"
+(14,1,1) = {"
 aa
 ac
 ag
@@ -1499,7 +1483,7 @@ dj
 ac
 aa
 "}
-(16,1,1) = {"
+(15,1,1) = {"
 aa
 ac
 ag
@@ -1521,7 +1505,7 @@ bT
 ac
 aa
 "}
-(17,1,1) = {"
+(16,1,1) = {"
 aa
 ad
 ai
@@ -1543,7 +1527,7 @@ bT
 ac
 aa
 "}
-(18,1,1) = {"
+(17,1,1) = {"
 aa
 aa
 aa
@@ -1565,12 +1549,12 @@ bT
 ac
 aa
 "}
-(19,1,1) = {"
+(18,1,1) = {"
 aa
 aa
 aa
 as
-aE
+jI
 aM
 ba
 bo
@@ -1587,7 +1571,7 @@ bT
 ac
 aa
 "}
-(20,1,1) = {"
+(19,1,1) = {"
 aa
 aa
 aa
@@ -1609,7 +1593,7 @@ dk
 dq
 aa
 "}
-(21,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -1631,7 +1615,7 @@ dl
 ac
 aa
 "}
-(22,1,1) = {"
+(21,1,1) = {"
 aa
 aa
 aa
@@ -1653,7 +1637,7 @@ dl
 ac
 aa
 "}
-(23,1,1) = {"
+(22,1,1) = {"
 aa
 aa
 aa
@@ -1675,7 +1659,7 @@ dl
 ac
 aa
 "}
-(24,1,1) = {"
+(23,1,1) = {"
 aa
 aa
 aa
@@ -1697,12 +1681,12 @@ dn
 dq
 aa
 "}
-(25,1,1) = {"
+(24,1,1) = {"
 aa
 aa
 aa
 av
-aE
+jI
 aR
 by
 bo
@@ -1719,7 +1703,7 @@ bT
 ac
 aa
 "}
-(26,1,1) = {"
+(25,1,1) = {"
 aa
 aa
 aa
@@ -1741,7 +1725,7 @@ bT
 ac
 aa
 "}
-(27,1,1) = {"
+(26,1,1) = {"
 aa
 aa
 aa
@@ -1763,7 +1747,7 @@ ai
 af
 aa
 "}
-(28,1,1) = {"
+(27,1,1) = {"
 aa
 aa
 aa
@@ -1785,7 +1769,7 @@ aa
 aa
 aa
 "}
-(29,1,1) = {"
+(28,1,1) = {"
 aa
 aa
 aa
@@ -1807,7 +1791,7 @@ aa
 aa
 aa
 "}
-(30,1,1) = {"
+(29,1,1) = {"
 aa
 aa
 aa
@@ -1829,7 +1813,7 @@ aa
 aa
 aa
 "}
-(31,1,1) = {"
+(30,1,1) = {"
 aa
 aa
 aa
@@ -1851,7 +1835,7 @@ aa
 aa
 aa
 "}
-(32,1,1) = {"
+(31,1,1) = {"
 aa
 aa
 aa

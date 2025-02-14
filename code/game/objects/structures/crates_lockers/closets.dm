@@ -167,7 +167,7 @@
 	QDEL_NULL(door_obj)
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+/obj/structure/closet/CanPass(atom/movable/mover, border_dir)
 	if(wall_mounted)
 		return TRUE
 	return (!density)
@@ -247,7 +247,7 @@
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
-		if(isAI(M))
+		if(is_ai(M))
 			continue
 
 		M.forceMove(src)
@@ -446,7 +446,7 @@
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)</span>")
 	for(var/mob/O in viewers(usr.loc))
 		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
 
@@ -510,30 +510,35 @@
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
-	desc = "A storage unit that moves and stores through the fourth dimension."
+	desc = "An experimental storage unit which defies several conventional laws of physics. It appears to only tenuously exist on this plane of reality, allowing it to phase through anything less solid than a wall."
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
-/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
-	UpdateTransparency(AM, loc)
-	return TRUE
+/obj/structure/closet/bluespace/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(UpdateTransparency),
+		COMSIG_ATOM_EXITED = PROC_REF(UpdateTransparency),
+	)
 
-/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/closet/bluespace/proc/UpdateTransparency()
+	SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_EXITED
 	transparent = FALSE
-	for(var/atom/A in location)
-		if(A.density && A != src && A != AM)
+	if(!get_turf(loc))
+		return
+
+	for(var/atom/A in loc)
+		if(A.density && A != src)
 			transparent = TRUE
 			alpha = 180
 			update_icon()
 			return
 	alpha = 255
 	update_icon()
-
-/obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
-	if(AM.density)
-		UpdateTransparency(location = loc)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
@@ -542,8 +547,10 @@
 	for(var/atom/A in T.contents)
 		if(A.density && isairlock(A))
 			return
-	UpdateTransparency(src, NewLoc)
-	forceMove(NewLoc)
+
+	. = ..()
+
+	UpdateTransparency()
 
 /obj/structure/closet/bluespace/close()
 	. = ..()

@@ -272,6 +272,7 @@
 		return // TODO, add a refund proc?
 	user_eyes.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 	for(var/datum/action/action in user_eyes.actions)
+		action.button_background_icon_state = "bg_flayer"
 		action.Grant(owner)
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
@@ -345,6 +346,7 @@
 	if(!internal_jammer)
 		internal_jammer = new /obj/item/jammer(owner) //Shove it in the flayer's chest
 		for(var/datum/action/action in internal_jammer.actions)
+			action.button_background_icon_state = "bg_flayer"
 			action.Grant(owner)
 
 	internal_jammer.range = 15 + ((level - 1) * 5) //Base range of the jammer is 15, each level adds 5 tiles for a max of 25 if you want to be REALLY annoying

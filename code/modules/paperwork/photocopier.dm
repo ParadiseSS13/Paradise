@@ -128,8 +128,7 @@
 	p.tiny = photocopy.tiny
 	p.img = photocopy.img
 	p.desc = photocopy.desc
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	if(photocopy.scribble)
 		p.scribble = photocopy.scribble
 	return p
@@ -170,8 +169,7 @@
 	else if(folder)
 		p.forceMove(folder)
 	p.desc = "You see [copymob]'s ass on the photo."
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	p.img = temp_img
 	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
@@ -220,8 +218,7 @@
 
 	P.icon_state = "paper_words"
 	P.name = bundle.name
-	P.pixel_y = rand(-8, 8)
-	P.pixel_x = rand(-9, 9)
+	P.scatter_atom()
 	return P
 
 /obj/machinery/photocopier/proc/remove_document()
@@ -477,35 +474,41 @@
 	use_power(active_power_consumption)
 	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 
-/obj/machinery/photocopier/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
+/obj/machinery/photocopier/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo) || istype(used, /obj/item/paper_bundle))
 		if(!copyitem)
 			user.drop_item()
-			copyitem = O
-			O.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
+			copyitem = used
+			used.forceMove(src)
+			to_chat(user, "<span class='notice'>You insert \the [used] into \the [src].</span>")
 			flick(insert_anim, src)
 		else
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
-	else if(istype(O, /obj/item/toner))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
 			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
-			var/obj/item/toner/T = O
+			var/obj/item/toner/T = used
 			toner += T.toner_amount
-			qdel(O)
+			qdel(used)
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/folder))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/folder))
 		if(!folder) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
-			to_chat(user, "<span class='notice'>You slide the [O] into \the [src].</span>")
-			folder = O
-			O.forceMove(src)
+			to_chat(user, "<span class='notice'>You slide the [used] into \the [src].</span>")
+			folder = used
+			used.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/grab)) //For ass-copying.
-		var/obj/item/grab/G = O
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/grab)) //For ass-copying.
+		var/obj/item/grab/G = used
 		if(ismob(G.affecting) && G.affecting != copymob)
 			var/mob/GM = G.affecting
 			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
@@ -514,6 +517,8 @@
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -528,7 +533,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user) || target.move_resist > user.pull_force)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || is_ai(user) || target.move_resist > user.pull_force)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return

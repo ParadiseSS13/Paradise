@@ -393,7 +393,7 @@
 
 /obj/structure/closet/crate/secure/oldstation/research/populate_contents()
 	new /obj/item/circuitboard/circuit_imprinter(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -438,7 +438,7 @@
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
+	desc = "A very large sublight engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
 	appearance_flags = LONG_GLIDE

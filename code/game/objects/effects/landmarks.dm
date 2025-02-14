@@ -118,6 +118,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "bubblegum_arena_exit"
 	icon_state = "bubblegumjumpscare"
 
+/obj/effect/landmark/spawner/backrooms
+	name = "backrooms_spawn"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/spawner/backrooms/Initialize(mapload)
+	spawner_list = GLOB.backroomswarp
+	return ..()
+
 /obj/effect/landmark/spawner/syndie
 	name = "Syndicate-Spawn"
 	icon_state = "Syndie"
@@ -422,9 +430,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Warden"
 	icon_state = "Warden"
 
+/obj/effect/landmark/start/nanotrasen_career_trainer
+	name ="Nanotrasen Career Trainer"
+	icon_state = "NCT"
+
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
 
+/obj/effect/landmark/game_test/bottom_left_corner
+
+/obj/effect/landmark/game_test/top_right_corner
 
 //Costume spawner landmarks
 

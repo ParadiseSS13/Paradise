@@ -83,73 +83,63 @@
 	anchored = FALSE
 	var/build = 0
 
-/obj/machinery/mass_driver_frame/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
+/obj/machinery/mass_driver_frame/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	switch(build)
 		if(0) // Loose frame
-			if(iswrench(W))
+			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to anchor [src] on the floor.</span>")
-				playsound(get_turf(src), W.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * W.toolspeed, target = src) && (build == 0))
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = TRUE
 					build++
-				return TRUE
-			return FALSE
-
+				return ITEM_INTERACT_COMPLETE
 		if(1) // Fixed to the floor
-			if(iswrench(W))
+			if(iswrench(used))
 				to_chat(user, "<span class='notice'>You begin to de-anchor [src] from the floor.</span>")
-				playsound(get_turf(src), W.usesound, 50, TRUE)
-				if(do_after(user, 1 SECONDS * W.toolspeed, target = src) && (build == 1))
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 1))
 					build--
 					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
-				return TRUE
-			return FALSE
-
+				return ITEM_INTERACT_COMPLETE
 		if(2) // Welded to the floor
-			if(iscoil(W))
-				var/obj/item/stack/cable_coil/C = W
+			if(iscoil(used))
+				var/obj/item/stack/cable_coil/C = used
 				to_chat(user, "<span class='notice'>You start adding cables to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, TRUE)
 				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
-				return TRUE
-			return FALSE
-
+				return ITEM_INTERACT_COMPLETE
 		if(3) // Wired
-			if(iswirecutter(W))
+			if(iswirecutter(used))
 				to_chat(user, "<span class='notice'>You begin to remove the wiring from [src].</span>")
-				if(do_after(user, 1 SECONDS * W.toolspeed, target = src) && (build == 3))
+				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc, 2)
-					playsound(get_turf(src), W.usesound, 50, 1)
+					playsound(get_turf(src), used.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
-			if(istype(W, /obj/item/stack/rods))
-				var/obj/item/stack/rods/R = W
+			if(istype(used, /obj/item/stack/rods))
+				var/obj/item/stack/rods/R = used
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
 				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
-				return TRUE
-
-			return FALSE
-
+				return ITEM_INTERACT_COMPLETE
 		if(4) // Grille in place
-			if(iscrowbar(W))
+			if(iscrowbar(used))
 				to_chat(user, "<span class='notice'>You begin to pry off the grille from [src]...</span>")
-				playsound(get_turf(src), W.usesound, 50, TRUE)
-				if(do_after(user, 3 SECONDS * W.toolspeed, target = src) && (build == 4))
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				if(do_after(user, 3 SECONDS * used.toolspeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
-				return TRUE
-			return FALSE
+				return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

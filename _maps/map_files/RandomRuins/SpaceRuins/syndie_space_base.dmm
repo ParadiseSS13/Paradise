@@ -556,7 +556,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "dA" = (
-/turf/space,
+/turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "dD" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -606,9 +606,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "dM" = (
 /obj/structure/cable/green{
@@ -919,9 +917,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "fA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -1570,10 +1566,8 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/obj/item/kirbyplants/plant22,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/obj/item/kirbyplants/medium/medium6,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "iJ" = (
 /obj/structure/window/reinforced{
@@ -1698,9 +1692,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "jH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1877,9 +1869,7 @@
 "kK" = (
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable/green,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "kO" = (
 /obj/machinery/economy/vending/hatdispenser/free,
@@ -1964,6 +1954,9 @@
 	},
 /obj/structure/cable/green{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/green{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2418,9 +2411,7 @@
 /obj/structure/cable/green{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "nT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2431,6 +2422,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
+"nV" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "nW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2608,9 +2602,7 @@
 /obj/structure/cable/green{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "pe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2797,7 +2789,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "pS" = (
-/turf/space,
+/turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pT" = (
 /obj/machinery/light{
@@ -2827,11 +2819,18 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "qf" = (
-/obj/machinery/economy/arcade/claw,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/light/small{
+	dir = 8
 	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
+/obj/item/toy/plushie/lizardplushie{
+	name = "Forks-the-Outlet"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "qj" = (
 /obj/machinery/light,
 /obj/machinery/camera{
@@ -2960,6 +2959,10 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"rd" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/main)
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -3212,6 +3215,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/cable/green{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3403,9 +3409,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "up" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3435,7 +3439,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "uy" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -3457,6 +3461,9 @@
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SBW6";
 	location = "SBW5"
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3667,9 +3674,7 @@
 /obj/machinery/chem_dispenser/soda/upgraded{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vz" = (
 /obj/machinery/atmospherics/binary/volume_pump{
@@ -3694,9 +3699,7 @@
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vD" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -3771,9 +3774,7 @@
 /obj/item/reagent_containers/drinks/flask/barflask,
 /obj/structure/table/wood,
 /obj/machinery/alarm/syndicate/directional/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "vW" = (
 /obj/structure/table/glass,
@@ -4064,6 +4065,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"xM" = (
+/obj/machinery/economy/arcade/claw/syndi,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "xO" = (
 /obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
@@ -4124,6 +4131,20 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"ye" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "yf" = (
 /obj/effect/turf_decal/caution{
 	dir = 8
@@ -4151,9 +4172,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ym" = (
 /obj/machinery/economy/vending/cigarette/syndicate/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "yq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -4211,7 +4230,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "za" = (
@@ -4476,9 +4495,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Al" = (
 /obj/structure/grille,
@@ -4768,9 +4785,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "BW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4863,9 +4878,7 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "CI" = (
 /obj/machinery/light{
@@ -5007,9 +5020,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "DV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5327,6 +5338,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5555,9 +5569,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "GL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "GM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5692,9 +5704,7 @@
 "HC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "HM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5715,10 +5725,8 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "HO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/beer,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/obj/item/reagent_containers/drinks/bottle/beer,
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "HP" = (
 /mob/living/carbon/human/monkey,
@@ -5907,9 +5915,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "IS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6114,9 +6120,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "JE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6836,6 +6840,9 @@
 "OT" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered/syndicate_space_base/inner)
+"OU" = (
+/turf/template_noop,
+/area/ruin/unpowered/syndicate_space_base/outer)
 "OY" = (
 /obj/machinery/light{
 	dir = 1
@@ -7170,9 +7177,7 @@
 /area/ruin/unpowered/syndicate_space_base/outer)
 "Rm" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Rp" = (
 /obj/machinery/light{
@@ -7204,6 +7209,18 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"RM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "RN" = (
 /obj/machinery/reagentgrinder,
 /obj/item/stack/sheet/mineral/plasma{
@@ -7255,6 +7272,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"RW" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "RX" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/main)
@@ -7282,9 +7309,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Sq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7636,6 +7661,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7725,9 +7753,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Uw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -7855,9 +7881,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Vh" = (
 /obj/machinery/economy/vending/toyliberationstation/secured,
@@ -7947,7 +7971,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/crowbar,
 /obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -7958,9 +7982,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "VS" = (
 /obj/machinery/navbeacon/invisible{
@@ -8021,7 +8043,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8167,9 +8189,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Xa" = (
 /obj/structure/disposaloutlet{
@@ -8470,9 +8490,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "YL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -8725,41 +8743,6 @@ AV
 AV
 AV
 AV
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-Ri
-Ri
-AV
-Ri
-Ri
 AV
 AV
 AV
@@ -8782,7 +8765,43 @@ AV
 AV
 AV
 AV
-Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -8798,31 +8817,19 @@ AV
 AV
 AV
 AV
-AV
-Ri
-AV
 Ri
 AV
 AV
 AV
-Ri
 AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 Ri
 Ri
 Ri
@@ -8836,25 +8843,38 @@ Ri
 Ri
 AV
 AV
-Ri
-Ri
-Ri
-AV
 AV
 AV
 AV
 AV
 Ri
+Ri
 AV
-AV
-AV
+Ri
 Ri
 AV
 AV
 AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 Ri
-AV
-AV
 AV
 AV
 AV
@@ -8872,6 +8892,80 @@ AV
 AV
 AV
 AV
+Ri
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+Ri
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+"}
+(4,1,1) = {"
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -8936,7 +9030,8 @@ AV
 AV
 AV
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+AV
 AV
 Ri
 AV
@@ -9008,7 +9103,8 @@ AV
 AV
 AV
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9080,7 +9176,8 @@ AV
 AV
 AV
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -9152,7 +9249,8 @@ AV
 Ri
 AV
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -9224,7 +9322,8 @@ AV
 AV
 AV
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9296,7 +9395,8 @@ AV
 AV
 AV
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9368,7 +9468,8 @@ AV
 AV
 AV
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9386,12 +9487,12 @@ xn
 xn
 xn
 xn
-My
+ye
 ma
 nZ
 kk
 ZI
-My
+RM
 xn
 xn
 xn
@@ -9440,7 +9541,8 @@ AV
 AV
 AV
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9512,7 +9614,8 @@ Ri
 AV
 AV
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -9584,7 +9687,8 @@ AV
 AV
 AV
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9656,7 +9760,8 @@ AV
 AV
 AV
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -9728,7 +9833,8 @@ AV
 AV
 AV
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+AV
 Ri
 Ri
 AV
@@ -9800,7 +9906,8 @@ AV
 AV
 AV
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9872,7 +9979,8 @@ AV
 AV
 AV
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+AV
 AV
 AV
 AV
@@ -9944,7 +10052,8 @@ AV
 Ri
 AV
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -9958,7 +10067,7 @@ xn
 xn
 xn
 xn
-qf
+xM
 xQ
 xQ
 My
@@ -10016,7 +10125,8 @@ Ri
 AV
 AV
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10030,7 +10140,7 @@ kE
 kE
 kE
 xn
-qf
+xM
 xQ
 vR
 nW
@@ -10088,7 +10198,8 @@ Ri
 AV
 AV
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10160,7 +10271,8 @@ Ri
 AV
 AV
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -10232,7 +10344,8 @@ Ri
 Ri
 AV
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10304,7 +10417,8 @@ Ri
 AV
 AV
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10376,7 +10490,8 @@ Ri
 AV
 AV
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10448,7 +10563,8 @@ Ri
 AV
 AV
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10520,7 +10636,8 @@ Ri
 AV
 AV
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10592,7 +10709,8 @@ Ri
 AV
 AV
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+AV
 Ri
 AV
 Ri
@@ -10664,7 +10782,8 @@ Ri
 AV
 AV
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10736,7 +10855,8 @@ AV
 Ri
 AV
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10808,7 +10928,8 @@ AV
 AV
 AV
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -10880,7 +11001,8 @@ AV
 AV
 AV
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -10952,7 +11074,8 @@ AV
 AV
 AV
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11024,7 +11147,8 @@ AV
 AV
 AV
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -11096,7 +11220,8 @@ Ri
 AV
 AV
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11168,7 +11293,8 @@ AV
 AV
 AV
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11240,7 +11366,8 @@ AV
 Ri
 AV
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11312,7 +11439,8 @@ Ri
 Ri
 AV
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11384,7 +11512,8 @@ AV
 AV
 AV
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11456,7 +11585,8 @@ Ri
 AV
 AV
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11528,7 +11658,8 @@ AV
 AV
 AV
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11600,7 +11731,8 @@ Ri
 AV
 AV
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+AV
 AV
 AV
 AV
@@ -11672,7 +11804,8 @@ AV
 AV
 AV
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+AV
 Ri
 AV
 AV
@@ -11744,7 +11877,8 @@ Ri
 AV
 AV
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11816,7 +11950,8 @@ Ri
 AV
 AV
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -11888,7 +12023,8 @@ Ri
 Ri
 AV
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -11930,8 +12066,8 @@ wA
 PL
 sV
 TK
-RX
-kE
+RW
+qf
 kE
 kE
 kE
@@ -11960,7 +12096,8 @@ Ri
 AV
 AV
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12002,8 +12139,8 @@ hO
 PL
 am
 am
-RX
-kE
+rd
+nV
 kE
 kE
 kE
@@ -12032,7 +12169,8 @@ Ri
 AV
 AV
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12104,7 +12242,8 @@ Ri
 Ri
 AV
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12176,7 +12315,8 @@ Ri
 Ri
 AV
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12248,7 +12388,8 @@ Ri
 Ri
 AV
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12320,7 +12461,8 @@ Ri
 Ri
 AV
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12392,7 +12534,8 @@ Ri
 Ri
 AV
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12464,7 +12607,8 @@ Ri
 Ri
 AV
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12536,7 +12680,8 @@ Ri
 Ri
 AV
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12608,7 +12753,8 @@ Ri
 Ri
 AV
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+AV
 Ri
 Ri
 Ri
@@ -12680,7 +12826,8 @@ Ri
 Ri
 AV
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12752,7 +12899,8 @@ Ri
 Ri
 AV
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12824,7 +12972,8 @@ Ri
 Ri
 AV
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -12896,7 +13045,8 @@ Ri
 Ri
 AV
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+AV
 AV
 Ri
 Ri
@@ -12968,95 +13118,14 @@ Ri
 Ri
 AV
 "}
-(60,1,1) = {"
-AV
-AV
-Ri
-Ri
-Ri
-AD
-AD
-AD
-Mf
-AD
-Mf
-Mf
-AD
-Mf
-Mf
-Mf
-LE
-AD
-AD
-kE
-kE
-kE
-AD
-LE
-kE
-AD
-Mf
-Mf
-Mf
-Mf
-AD
-AD
-Mf
-AD
-AD
-Mf
-AD
-kE
-kE
-AD
-AD
-kE
-kE
-kE
-kE
-kE
-Vl
-Vl
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-nv
-Vl
-Vl
-kE
-kE
-kE
-kE
-kE
-Ri
-Ri
-AV
-AV
-"}
 (61,1,1) = {"
 AV
-Ri
+AV
 AV
 Ri
 Ri
 Ri
-kE
-kE
-kE
 AD
-AD
-AD
-kE
-kE
-AD
-Mf
 AD
 AD
 Mf
@@ -13064,33 +13133,41 @@ AD
 Mf
 Mf
 AD
-AD
-AD
-AD
 Mf
-AD
+Mf
+Mf
 LE
 AD
+AD
 kE
 kE
+kE
+AD
+LE
+kE
+AD
+Mf
+Mf
+Mf
+Mf
+AD
+AD
+Mf
+AD
 AD
 Mf
 AD
 kE
 kE
 AD
-kE
-kE
 AD
 kE
 kE
-OT
 kE
 kE
 kE
 Vl
 Vl
-rw
 nv
 nv
 nv
@@ -13098,21 +13175,97 @@ nv
 nv
 nv
 nv
-rw
+nv
+nv
+nv
+nv
 Vl
 Vl
 kE
 kE
 kE
-OT
 kE
-Ri
+kE
 Ri
 Ri
 AV
 AV
 "}
 (62,1,1) = {"
+AV
+AV
+Ri
+AV
+Ri
+Ri
+Ri
+kE
+kE
+kE
+AD
+AD
+AD
+kE
+kE
+AD
+Mf
+AD
+AD
+Mf
+AD
+Mf
+Mf
+AD
+AD
+AD
+AD
+Mf
+AD
+LE
+AD
+kE
+kE
+AD
+Mf
+AD
+kE
+kE
+AD
+kE
+kE
+AD
+kE
+kE
+OT
+kE
+kE
+kE
+Vl
+Vl
+rw
+nv
+nv
+nv
+nv
+nv
+nv
+nv
+rw
+Vl
+Vl
+kE
+kE
+kE
+OT
+kE
+Ri
+Ri
+Ri
+AV
+AV
+"}
+(63,1,1) = {"
+AV
 AV
 AV
 AV
@@ -13184,7 +13337,8 @@ AV
 AV
 AV
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+AV
 AV
 AV
 Ri
@@ -13256,107 +13410,26 @@ AV
 AV
 AV
 "}
-(64,1,1) = {"
-AV
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-kE
-Ri
-kE
-kE
-Ri
-kE
-Ri
-kE
-kE
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-kE
-Ri
-kE
-Ri
-Ri
-kE
-Ri
-kE
-kE
-kE
-kE
-kE
-OT
-OT
-OT
-OT
-kE
-OT
-OT
-kE
-kE
-kE
-Vl
-Vl
-Vl
-kE
-kE
-OT
-OT
-kE
-kE
-kE
-OT
-OT
-OT
-Ri
-Ri
-Ri
-AV
-AV
-"}
 (65,1,1) = {"
 AV
-Ri
 AV
-AV
-Ri
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-Ri
 AV
 AV
 AV
 Ri
 Ri
+Ri
+Ri
+Ri
+kE
+Ri
+kE
+kE
+Ri
+kE
+Ri
+kE
+kE
 Ri
 Ri
 Ri
@@ -13371,14 +13444,11 @@ Ri
 Ri
 kE
 Ri
-OT
-OT
 kE
+Ri
+Ri
 kE
-kE
-kE
-kE
-kE
+Ri
 kE
 kE
 kE
@@ -13386,50 +13456,62 @@ kE
 kE
 OT
 OT
+OT
+OT
 kE
+OT
+OT
+kE
+kE
+kE
+Vl
+Vl
+Vl
+kE
+kE
+OT
+OT
 kE
 kE
 kE
 OT
+OT
+OT
 Ri
 Ri
 Ri
-Ri
-Ri
-AV
 AV
 AV
 "}
 (66,1,1) = {"
 AV
 AV
-AV
-AV
-AV
-AV
 Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
 AV
 AV
 Ri
 AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
 AV
+Ri
+AV
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13444,14 +13526,7 @@ Ri
 Ri
 Ri
 kE
-kE
 Ri
-kE
-kE
-kE
-Ri
-kE
-OT
 OT
 OT
 kE
@@ -13460,14 +13535,23 @@ kE
 kE
 kE
 kE
-Ri
+kE
+kE
+kE
+kE
+kE
+OT
+OT
+kE
+kE
+kE
 kE
 OT
 Ri
 Ri
 Ri
 Ri
-AV
+Ri
 AV
 AV
 AV
@@ -13481,28 +13565,17 @@ AV
 AV
 AV
 Ri
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
 Ri
 AV
 AV
@@ -13510,6 +13583,11 @@ AV
 AV
 AV
 AV
+AV
+Ri
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13524,23 +13602,30 @@ Ri
 Ri
 kE
 kE
+Ri
 kE
 kE
 kE
 Ri
 kE
+OT
+OT
+OT
+kE
+kE
+kE
+kE
+kE
 kE
 Ri
-Ri
-Ri
+kE
+OT
 Ri
 Ri
 Ri
 Ri
 AV
 AV
-AV
-Ri
 AV
 AV
 "}
@@ -13549,31 +13634,19 @@ AV
 AV
 AV
 AV
-Ri
-Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 AV
 AV
 AV
 AV
 Ri
+AV
+AV
+AV
 Ri
+AV
+AV
+AV
 Ri
-AV
-AV
-AV
-AV
 AV
 AV
 AV
@@ -13586,6 +13659,16 @@ AV
 AV
 AV
 AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
+AV
+AV
+Ri
 Ri
 Ri
 Ri
@@ -13598,11 +13681,15 @@ Ri
 Ri
 Ri
 kE
+kE
+kE
+kE
+kE
 Ri
 kE
 kE
-kE
-kE
+Ri
+Ri
 Ri
 Ri
 Ri
@@ -13610,9 +13697,8 @@ Ri
 Ri
 AV
 AV
-Ri
-Ri
 AV
+Ri
 AV
 AV
 "}
@@ -13620,29 +13706,12 @@ AV
 AV
 AV
 AV
-Ri
-Ri
-AV
-AV
-AV
 AV
 AV
 Ri
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
 Ri
 AV
 AV
-Ri
 AV
 AV
 AV
@@ -13658,24 +13727,6 @@ AV
 AV
 AV
 Ri
-AV
-AV
-Ri
-AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
 Ri
 Ri
 AV
@@ -13683,8 +13734,44 @@ AV
 AV
 AV
 AV
+AV
+AV
+AV
+AV
+AV
+AV
+Ri
+AV
+AV
+AV
+AV
 Ri
 Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+kE
+Ri
+kE
+kE
+kE
+kE
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+Ri
+Ri
+AV
 AV
 AV
 "}
@@ -13693,6 +13780,14 @@ AV
 AV
 AV
 AV
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
 AV
 AV
 AV
@@ -13704,24 +13799,10 @@ AV
 AV
 AV
 AV
+Ri
 AV
 AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-AV
+Ri
 AV
 AV
 AV
@@ -13739,18 +13820,98 @@ AV
 Ri
 AV
 AV
-AV
-AV
-Ri
-Ri
-Ri
-Ri
-Ri
-Ri
 Ri
 AV
 AV
+AV
 Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+Ri
+AV
+AV
+AV
+AV
+AV
+Ri
+OU
+AV
+AV
+"}
+(71,1,1) = {"
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV

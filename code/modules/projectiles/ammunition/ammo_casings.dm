@@ -183,7 +183,7 @@
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
-	variance = 35
+	variance = 25
 	materials = list(MAT_METAL=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
@@ -252,13 +252,22 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 
+/obj/item/ammo_casing/shotgun/laserslug
+	name = "laser slug"
+	desc = "A rudimentary 12 gauge shotgun shell that replicates the effects of a laser weapon with a low-powered laser."
+	icon_state = "improvshell"
+	projectile_type = /obj/item/projectile/beam/laser
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
 	desc = "An advanced 12 gauge shell that uses a multitude of lenses to split a high-powered laser into eight small beams."
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 8
-	variance = 35
+	variance = 25
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
@@ -415,7 +424,7 @@
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(A)) && modified && !FD.pen)
-		if(!user.unEquip(A))
+		if(!user.unequip(A)) // forceMove happens in add_pen
 			return
 		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")

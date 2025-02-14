@@ -1,6 +1,9 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 
+	if(flags & ABSTRACT)
+		return
+
 	if(notransform)
 		return
 
@@ -43,7 +46,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	if(times_fired % 2 == 1)
+	if(ISODD(times_fired))
 		var/datum/milla_safe/carbon_breathe/milla = new()
 		milla.invoke_async(src)
 	else
@@ -55,7 +58,11 @@
 
 /datum/milla_safe/carbon_breathe/on_run(mob/living/carbon/carbon)
 	var/turf/T = get_turf(carbon)
-	carbon.breathe(get_turf_air(T))
+	if(istype(T))
+		carbon.breathe(get_turf_air(T))
+	else
+		var/datum/gas_mixture/vacuum = new()
+		carbon.breathe(vacuum)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(datum/gas_mixture/environment)

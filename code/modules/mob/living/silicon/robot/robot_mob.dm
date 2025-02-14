@@ -21,18 +21,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
-	var/atom/movable/screen/inv1 = null
-	var/atom/movable/screen/inv2 = null
-	var/atom/movable/screen/inv3 = null
+	var/list/inventory_screens = list()
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	// 3 Modules can be activated at any one time.
+	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
-	var/module_active = null
-	var/module_state_1 = null
-	var/module_state_2 = null
-	var/module_state_3 = null
+	/// The item the borg currently has selected, or null if nothing is selected
+	var/selected_item
+	/// The list of up to 3 items the borg can have "equipped". The contents will either be CYBORG_EMPTY_MODULE for nothing, or the item selected
+	var/list/all_active_items = list(CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE)
 
 	var/obj/item/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
@@ -537,8 +535,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   */
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
-		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv", "Hydrobot")
-			can_be_hatted = FALSE // Their base sprite already comes with a hat
+		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
+			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
+			can_wear_restricted_hats = TRUE
+		if("Rover-Medi", "Rover-Jani", "Rover-Engi", "Rover-Serv")
+			can_be_hatted = FALSE
 			hat_offset_y = -1
 		if("Noble-CLN", "Noble-SRV", "Noble-DIG", "Noble-MED", "Noble-SEC", "Noble-ENG", "Noble-STD")
 			can_be_hatted = TRUE
@@ -1171,8 +1172,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 		else
-			sleep(6)
 			SetEmagged(TRUE)
+			sleep(6)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(hud_used)
 				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
@@ -1289,29 +1290,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 
 	if(usr != src)
-		return 1
+		return TRUE
 
 	if(href_list["mach_close"])
 		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
-		return 1
+		return TRUE
 
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self__legacy__attackchain(src)
-		return 1
+		return TRUE
 
 	if(href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
-			return 1
+			return TRUE
 
-		activate_module(O)
+		activate_item(O)
 
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
@@ -1321,22 +1322,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])
 		if(activated(O))
-			if(module_state_1 == O)
-				module_state_1 = null
-				contents -= O
-			else if(module_state_2 == O)
-				module_state_2 = null
-				contents -= O
-			else if(module_state_3 == O)
-				module_state_3 = null
-				contents -= O
-			else
-				to_chat(src, "Module isn't activated.")
+			uneq_module(O)
 		else
 			to_chat(src, "Module isn't activated")
-		return 1
-
-	return 1
+		return TRUE
+	return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
 	radio.interact(src)
@@ -1421,7 +1411,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	. = ..()
 	if(camera && last_camera_update + CAMERA_UPDATE_COOLDOWN < world.time)
 		last_camera_update = world.time
-		GLOB.cameranet.updatePortableCamera(camera, OldLoc)
+		GLOB.cameranet.update_portable_camera(camera, OldLoc)
 		SEND_SIGNAL(camera, COMSIG_CAMERA_MOVED, OldLoc)
 
 #undef CAMERA_UPDATE_COOLDOWN
@@ -1455,7 +1445,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "IC"
 
 	var/obj/item/W = get_active_hand()
-	if(W)
+	if(!W)
+		return
+	if(W.new_attack_chain)
+		W.activate_self(src)
+	else
 		W.attack_self__legacy__attackchain(src)
 
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
@@ -1653,7 +1647,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
 		base_icon = icon_state
-	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+	if(selected_item && istype(selected_item, /obj/item/borg/destroyer/mobility))
 		icon_state = "[base_icon]-roll"
 	else
 		icon_state = base_icon
@@ -1731,27 +1725,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 /mob/living/silicon/robot/proc/check_module_damage(makes_sound = TRUE)
-	if(modules_break)
-		if(health < 50) //Gradual break down of modules as more damage is sustained
-			if(uneq_module(module_state_3))
-				if(makes_sound)
-					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
-					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-
-			if(health < 0)
-				if(uneq_module(module_state_2))
-					if(makes_sound)
-						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
-						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
-					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
-
-				if(health < -50)
-					if(uneq_module(module_state_1))
-						if(makes_sound)
-							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
-							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
-						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+	if(!modules_break)
+		return
+	var/list/broken_modules = list()
+	if(health < 50) //Gradual break down of modules as more damage is sustained
+		broken_modules += CYBORG_MODULE_THREE
+	if(health < 0)
+		broken_modules += CYBORG_MODULE_TWO
+	if(health < -50)
+		broken_modules += CYBORG_MODULE_ONE
+	for(var/i in 1 to length(broken_modules))
+		if(uneq_module(all_active_items[broken_modules[i]])) // Since a full list of broken modules would be (3, 2, 1) it has to be a bit wonky
+			if(makes_sound)
+				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module [broken_modules[i]] OFFLINE.\"</span>")
+				playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module [broken_modules[i]] OFFLINE.</span>")
 
 /mob/living/silicon/robot/advanced_reagent_vision()
 	return has_advanced_reagent_vision
@@ -1809,3 +1797,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/robot/plushify(plushie_override, curse_time)
+	if(curse_time == -1)
+		QDEL_NULL(mmi)
+	return ..()

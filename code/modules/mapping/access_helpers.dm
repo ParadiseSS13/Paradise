@@ -170,6 +170,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
 
+/obj/effect/mapping_helpers/airlock/access/any/security/evidence
+	access = ACCESS_EVIDENCE
+
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/any/service
 	icon_state = "access_helper_serv"
@@ -389,6 +392,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
 
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence
+	access = ACCESS_EVIDENCE
+
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/all/service
 	icon_state = "access_helper_serv"
@@ -492,3 +498,10 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders
 	access = ACCESS_TRADE_SOL
+
+// -------------------- Procedure access helpers
+/obj/effect/mapping_helpers/airlock/access/all/procedure
+	icon_state = "access_helper_pro"
+
+/obj/effect/mapping_helpers/airlock/access/all/procedure/trainer
+	access = ACCESS_TRAINER

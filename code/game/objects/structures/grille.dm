@@ -13,6 +13,7 @@
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
+	cares_about_temperature = TRUE
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -90,7 +91,7 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
+/obj/structure/grille/CanPass(atom/movable/mover, border_dir)
 	. = !density
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
@@ -228,7 +229,7 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)

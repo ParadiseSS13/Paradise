@@ -324,7 +324,7 @@
 	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -1049,6 +1049,14 @@
 				return
 	return ..()
 
+/obj/item/storage/box/papersack/pbj_lunch
+	name = "peanut butter and jelly lunch"
+	desc = "A paper sack filled with enough sandwiches to feed a department."
+
+/obj/item/storage/box/papersack/pbj_lunch/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/food/peanut_butter_jelly(src)
+
 /obj/item/storage/box/relay_kit
 	name = "telecommunications relay kit"
 	desc = "Contains everything you need to set up your own telecommunications array!"
@@ -1142,7 +1150,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -1236,6 +1244,17 @@
 	new /obj/item/stack/sheet/glass(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/screwdriver(src)
+
+/obj/item/storage/box/crewvend
+	name = "CrewVend 3000 Kit"
+	desc = "Contains everything you need to build your own vending machine!"
+
+/obj/item/storage/box/crewvend/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
+	board.set_type("CrewVend 3000")
 	new /obj/item/screwdriver(src)
 
 /obj/item/storage/box/hardmode_box

@@ -6,7 +6,7 @@ do {\
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/breadslice/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/item/food/sliced/bread/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
 		return
@@ -356,7 +356,7 @@ do {\
 			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
 			return
 
-	if(!user.unEquip(snack))
+	if(!user.unequip(snack))
 		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
 		return
 

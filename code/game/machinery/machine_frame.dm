@@ -251,9 +251,9 @@
 		qdel(O)
 	new_machine.component_parts = list()
 	for(var/obj/O in src)
-		O.forceMove(null)
+		O.moveToNullspace()
 		new_machine.component_parts += O
-	circuit.forceMove(null)
+	circuit.moveToNullspace()
 	new_machine.RefreshParts()
 	qdel(src)
 
@@ -317,7 +317,9 @@ to destroy them and players will be able to make replacements.
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
 		"JaniDrobe" =							/obj/machinery/economy/vending/janidrobe,
-		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe)
+		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
+		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
+		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
 		"SyndiMed Plus" =						/obj/machinery/economy/vending/wallmed/syndicate)
@@ -337,7 +339,10 @@ to destroy them and players will be able to make replacements.
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
-	req_components = list(initial(typepath.refill_canister) = 1)
+	if(initial(typepath.refill_canister))
+		req_components = list(initial(typepath.refill_canister) = 1)
+	else
+		req_components = list()
 
 /obj/item/circuitboard/slot_machine
 	board_name = "Slot Machine"
@@ -716,22 +721,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 
-//Almost the same recipe as destructive analyzer to give people choices.
-/obj/item/circuitboard/experimentor
-	board_name = "E.X.P.E.R.I-MENTOR"
+/obj/item/circuitboard/scientific_analyzer // fucking US spelling
+	board_name = "Scientific Analyzer"
 	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/experimentor
-	board_type = "machine"
-	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
-	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 2)
-
-/obj/item/circuitboard/destructive_analyzer
-	board_name = "Destructive Analyzer"
-	icon_state = "science"
-	build_path = /obj/machinery/r_n_d/destructive_analyzer
+	build_path = /obj/machinery/r_n_d/scientific_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(

@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_antagonists2,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
@@ -79,7 +80,8 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
-	/client/proc/stop_global_admin_sounds
+	/client/proc/stop_global_admin_sounds,
+	/client/proc/stop_sounds_global
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -159,6 +161,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
+	/client/proc/map_template_load_lazy,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
@@ -387,9 +390,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
-		if(isAI(mob)) // client.mob, built in byond client var
+		if(is_ai(mob)) // client.mob, built in byond client var
 			var/mob/living/silicon/ai/ai = mob
-			ai.eyeobj.setLoc(old_turf)
+			ai.eyeobj.set_loc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -573,6 +576,19 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	holder.check_antagonists()
 	log_admin("[key_name(usr)] checked antagonists")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/proc/check_antagonists2()
+	set name = "TGUI - Antagonists"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/ban_panel()

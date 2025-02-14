@@ -10,6 +10,7 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/softcap
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/softcap.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 		)
 	dyeable = TRUE
@@ -32,9 +33,7 @@
 		to_chat(user, "You flip the hat back in normal position.")
 	user.update_inv_head()	//so our mob-overlays update
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"

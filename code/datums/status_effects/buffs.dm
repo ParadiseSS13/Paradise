@@ -46,11 +46,13 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
-	owner.adjustFireLoss(-grace_heal)
-	owner.adjustToxLoss(-grace_heal)
-	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+
+	var/mob/living/carbon/human/owner_human = owner
+	owner_human.adjustBruteLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustFireLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustToxLoss(-grace_heal)
+	owner_human.adjustOxyLoss(-(grace_heal * 2))
+	owner_human.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
@@ -92,9 +94,12 @@
 	var/found_someone = FALSE
 
 	for(var/mob/living/L in oview(9, owner))
-		found_someone = TRUE
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		if(L.can_block_magic(MAGIC_RESISTANCE))
+			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
+			continue
+		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
@@ -337,11 +342,13 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
+	owner.permanent_huds |= H
 	return ..()
 
 /datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	owner.permanent_huds ^= H
 	H.remove_hud_from(owner)
 
 /datum/status_effect/hippocratic_oath/tick()

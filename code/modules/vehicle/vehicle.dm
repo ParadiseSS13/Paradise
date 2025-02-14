@@ -5,6 +5,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = null
 	density = TRUE
+	appearance_flags = LONG_GLIDE
 	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
@@ -24,6 +25,9 @@
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
 	var/spaceworthy = FALSE
 
+	/// Did we install a vtec?
+	var/installed_vtec = FALSE
+
 	new_attack_chain = TRUE
 
 
@@ -36,7 +40,7 @@
 	return ..()
 
 // So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target)
+/obj/vehicle/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSMOB))
 		return TRUE
 	else
@@ -61,29 +65,29 @@
 			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-	if(vehicle_move_delay > 1)
-		vehicle_move_delay = 1
-		qdel(vtec)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	if(installed_vtec)
+		return FALSE
 
-		return TRUE
+	installed_vtec = TRUE
+	vehicle_move_delay -= 1
+	qdel(vtec)
+	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	return TRUE
 
-/obj/vehicle/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return FINISH_ATTACK
-
-	if(key_type && !is_key(inserted_key) && is_key(attacking))
+/obj/vehicle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(key_type && !is_key(inserted_key) && is_key(used))
 		if(user.drop_item())
-			attacking.forceMove(src)
-			to_chat(user, "<span class='notice'>You insert [attacking] into [src].</span>")
+			used.forceMove(src)
+			to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
-			inserted_key = attacking
+			inserted_key = used
 		else
-			to_chat(user, "<span class='warning'>[attacking] seems to be stuck to your hand!</span>")
-		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/borg/upgrade/vtec) && install_vtec(attacking, user))
-		return FINISH_ATTACK
+			to_chat(user, "<span class='warning'>[used] seems to be stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/borg/upgrade/vtec) && install_vtec(used, user))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/vehicle/AltClick(mob/user)
 	if(inserted_key && user.Adjacent(user))
@@ -183,11 +187,13 @@
 		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		Move(get_step(src, direction), direction, delay)
+		Move(get_step(src, direction), direction)
 
 		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1) * 0.5)
 			last_move_diagonal = TRUE
 		else
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1))
 			last_move_diagonal = FALSE
 
 		if(has_buckled_mobs())
@@ -226,7 +232,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(has_gravity(src))
 		return TRUE
 
@@ -242,7 +248,7 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/vehicle/zap_act(power, zap_flags)

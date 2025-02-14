@@ -51,7 +51,6 @@
 		/obj/item/book/manual/wiki/chef_recipes,
 		/obj/item/book/manual/wiki/engineering_construction,
 		/obj/item/book/manual/wiki/engineering_guide,
-		/obj/item/book/manual/wiki/experimentor,
 		/obj/item/book/manual/wiki/faxes,
 		/obj/item/book/manual/wiki/hacking,
 		/obj/item/book/manual/wiki/hydroponics,

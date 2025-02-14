@@ -356,6 +356,12 @@
 	build_path = /obj/machinery/computer/sm_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
+/obj/item/circuitboard/singulo_monitor
+	board_name = "Singularity Monitoring Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/singulo_monitor
+	origin_tech = "programming=2;powerstorage=2"
+
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	board_name = "RD Console"
@@ -363,11 +369,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building
-	var/list/access_types = list("R&D Core", "E.X.P.E.R.I-MENTOR", "Public")
-
-/obj/item/circuitboard/rdconsole/experiment
-	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-	build_path = /obj/machinery/computer/rdconsole/experiment
+	var/list/access_types = list("R&D Core", "Public")
 
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
@@ -540,9 +542,6 @@
 				if("R&D Core")
 					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-				if("E.X.P.E.R.I-MENTOR")
-					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-					build_path = /obj/machinery/computer/rdconsole/experiment
 				if("Public")
 					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
@@ -563,13 +562,17 @@
 
 /obj/structure/computerframe
 	name = "computer frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "comp_frame_1"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/Initialize(mapload)
+	. = ..()
+	overlays += "comp_frame_1"
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
@@ -619,8 +622,9 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon_state()
-	icon_state = "comp_frame_[state]"
+/obj/structure/computerframe/update_overlays()
+	..()
+	. += "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)

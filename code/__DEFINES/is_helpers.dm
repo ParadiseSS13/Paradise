@@ -62,6 +62,8 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define ismask(A) (istype(A, /obj/item/clothing/mask))
+
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
@@ -138,6 +140,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) istype(A, /obj/item/reagent_containers/pill)
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
+#define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
@@ -151,3 +154,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
 
 #define is_screen_atom(A) istype(A, /atom/movable/screen)
+
+#define is_multi_tile_object(atom) (atom?.bound_width > world.icon_size || atom?.bound_height > world.icon_size)

@@ -136,11 +136,16 @@
 
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced // Prevents you from automatically grabbing walls to stop moving in space.
+
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
+
+#define STATUS_EFFECT_RUST_CORRUPTION /datum/status_effect/rust_corruption
 
 #define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
 
 #define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
+
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -165,6 +170,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
@@ -194,6 +200,7 @@
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_OFFERING_EFTPOS /datum/status_effect/high_five/offering_eftpos
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 #define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
 

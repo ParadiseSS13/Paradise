@@ -4,6 +4,7 @@
 
 #define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 
+//MARK: FOOD
 /obj/item/food
 	name = "snack"
 	desc = "yummy!"
@@ -40,13 +41,13 @@
 	var/goal_difficulty = FOOD_GOAL_SKIP
 
 	var/bitecount = 0
-	var/trash = null
+	var/trash
 	var/slice_path
 	var/slices_num
-	var/dried_type = null
+	var/dried_type
 	var/dry = FALSE
 	var/cooktype[0]
-	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
+	var/cooked_type  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
@@ -150,7 +151,7 @@
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
-		user.unEquip(src)	//so icons update :[
+		user.unequip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
 		user.put_in_hands(trash_item)
@@ -167,7 +168,6 @@
 		return ..()
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return FALSE
 
@@ -274,6 +274,24 @@
 			W.taste(reagents)
 			W.consume(src)
 
+//MARK: SLICE
+/obj/item/food/sliced
+
+/obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
+	if(made_by_sliceable)
+		// we null reagent from subclass, because it will get reagents from parent sliceable
+		list_reagents = list()
+		return ..()
+	if(length(list_reagents))
+		return ..()
+
+	// We don't have any reagents, let's add something
+	log_debug("[src] was a sliced food, which was neither sliced and has no reagents.")
+	list_reagents = list("nutriment" = 5)
+
+	return ..()
+
+//MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
 
@@ -285,7 +303,7 @@
 	if(!Adjacent(user))
 		return
 	var/obj/item/I = user.get_active_hand()
-	if(!I)
+	if(!I || I == src) // dont try to slip inside itself
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
@@ -334,10 +352,9 @@
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
-		var/obj/slice = new slice_path (loc)
+		var/obj/slice = new slice_path (loc, TRUE)
 		reagents.trans_to(slice,reagents_per_slice)
-		slice.pixel_x = rand(-7, 7)
-		slice.pixel_y = rand(-7, 7)
+		slice.scatter_atom()
 	qdel(src)
 	return ..()
 
@@ -354,8 +371,7 @@
 	cooktype["grilled"] = TRUE
 	cooktype["deep fried"] = TRUE
 
-// MISC
-
+//MARK: MISC
 /obj/item/food/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."

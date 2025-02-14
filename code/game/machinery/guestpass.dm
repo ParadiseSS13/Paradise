@@ -60,16 +60,20 @@
 	. = ..()
 	my_terminal_id = ++global_terminal_id
 
-/obj/machinery/computer/guestpass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+/obj/machinery/computer/guestpass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id/nct_data_chip))
+		to_chat(user, "<span class='warning'>[used] does not seem compatible with this terminal!</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		if(!scan)
 			if(user.drop_item())
-				I.forceMove(src)
-				scan = I
+				used.forceMove(src)
+				scan = used
 				SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
