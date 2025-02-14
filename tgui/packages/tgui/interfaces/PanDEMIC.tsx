@@ -4,6 +4,13 @@ import { useBackend } from '../backend';
 import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
+interface BaseStats {
+  stealth: number;
+  resistance: number;
+  stageSpeed: number;
+  transmissibility: number;
+  severity: number;
+}
 interface PathogenSymptom {
   name: string;
   stealth: number;
@@ -26,6 +33,7 @@ interface PathogenStrain {
   possibleTreatments?: string;
   transmissionRoute?: string;
   symptoms?: PathogenSymptom[];
+  baseStats?: BaseStats;
   isAdvanced: BooleanLike;
 }
 
@@ -300,7 +308,7 @@ const sum = (values: number[]) => {
 const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
   const { sympton_names, analyzing, analysisTimeDelta } = data;
-  const { symptoms, known } = props.strain;
+  const { baseStats, symptoms, known } = props.strain;
 
   return (
     <Flex.Item grow>
@@ -332,13 +340,24 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
               <Table.Cell>{symptom.transmissibility}</Table.Cell>
             </Table.Row>
           ))}
+
           <Table.Row className="table-spacer" />
           <Table.Row>
+            <Table.Cell>{'Base Stats'}</Table.Cell>
+            <Table.Cell>{baseStats.stealth}</Table.Cell>
+            <Table.Cell>{baseStats.resistance}</Table.Cell>
+            <Table.Cell>{baseStats.stageSpeed}</Table.Cell>
+            <Table.Cell>{baseStats.transmissibility}</Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
             <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
-            <Table.Cell>{known ? sum(symptoms.map((s) => s.stealth)) : 'UNKNOWN'}</Table.Cell>
-            <Table.Cell>{known ? sum(symptoms.map((s) => s.resistance)) : 'UNKNOWN'}</Table.Cell>
-            <Table.Cell>{known ? sum(symptoms.map((s) => s.stageSpeed)) : 'UNKNOWN'}</Table.Cell>
-            <Table.Cell>{known ? sum(symptoms.map((s) => s.transmissibility)) : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stealth)) + baseStats.stealth : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.resistance)) + baseStats.resistance : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stageSpeed)) + baseStats.stageSpeed : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>
+              {known ? sum(symptoms.map((s) => s.transmissibility)) + baseStats.transmissibility : 'UNKNOWN'}
+            </Table.Cell>
           </Table.Row>
         </Table>
       </Section>

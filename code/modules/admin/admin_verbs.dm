@@ -796,7 +796,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/list/name_symptoms = list()
 		for(var/datum/symptom/S in AD.symptoms)
 			name_symptoms += S.name
-		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [AD.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats D.base_properties]")
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [AD.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(AD.base_properties)]")
 	else
 		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [D.name]!")
 

@@ -368,6 +368,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			continue
 
 		var/list/symptoms = list()
+		var/list/base_stats = list()
 		var/datum/disease/advance/A = D
 		if(istype(D, /datum/disease/advance))
 			known = (A.GetDiseaseID() in GLOB.known_advanced_diseases)
@@ -383,8 +384,21 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 					"transmissibility" = known ? S.transmittable : "UNKNOWN",
 					"complexity" = known ? S.level : "UNKNOWN",
 				))
+
+			base_stats["stealth"] = A.base_properties["stealth"]
+			base_stats["resistance"] = A.base_properties["resistance"]
+			base_stats["stageSpeed"] = A.base_properties["stage rate"]
+			base_stats["transmissibility"] = A.base_properties["transmittable"]
+			base_stats["severity"] = A.base_properties["severity"]
+
+
 		else
 			known = TRUE
+			base_stats["stealth"] = 0
+			base_stats["resistance"] = 0
+			base_stats["stageSpeed"] = 0
+			base_stats["transmissibility"] = 0
+			base_stats["severity"] = 0
 		strains += list(list(
 			"commonName" = known ? D.name : "Unknown strain",
 			"description" = known ? D.desc : "Unknown strain",
@@ -398,6 +412,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			"possibleTreatments" = known ? D.cure_text : "Unknown strain",
 			"transmissionRoute" = known ? D.spread_text : "Unknown strain",
 			"symptoms" = symptoms,
+			"baseStats" = base_stats,
 			"isAdvanced" = istype(D, /datum/disease/advance),
 		))
 	data["strains"] = strains

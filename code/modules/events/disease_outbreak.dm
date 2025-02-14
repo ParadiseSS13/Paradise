@@ -15,21 +15,15 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	if(isemptylist(transmissable_symptoms))
 		populate_symptoms()
 	var/datum/disease/virus
-	if(prob(50))
+	if(prob(50) && severity < EVENT_LEVEL_MAJOR)
 		switch(severity)
 			if(EVENT_LEVEL_MUNDANE)
 				virus = pick(diseases_minor)
 			if(EVENT_LEVEL_MODERATE)
 				virus = pick(diseases_moderate_major)
-			else
-				stack_trace("Disease Outbreak: Invalid Event Level [severity]. Expected: 1-2")
-				virus = /datum/disease/cold
 		chosen_disease = new virus()
 	else
-		if(severity == EVENT_LEVEL_MODERATE)
-			chosen_disease = create_virus(severity * pick(2,3))	//50% chance for a major disease instead of a moderate one
-		else
-			chosen_disease = create_virus(severity * 2)
+		chosen_disease = create_virus(severity * 2)
 
 	chosen_disease.carrier = TRUE
 
@@ -38,13 +32,16 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
 			var/datum/disease/advance/temp_disease = chosen_disease.Copy()
-			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms: [english_list(temp_disease.symptoms)]</span>")
+			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms: [english_list(temp_disease.symptoms)] and the following base stats:[english_map(temp_disease.base_properties)]</span>")
 		else
 			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>")
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance
+	// Give a random stat boost equal to severity
+	for(var/i = 0, i < max_severity, i++)
+		A.base_properties[pick(A.base_properties)]++
 	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) //Choose "Payload" symptoms
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
