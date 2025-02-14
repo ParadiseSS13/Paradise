@@ -104,6 +104,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	var/report_danger_level = TRUE
 
+	/// Which MILLA tick were we initialized at?
+	var/init_tick
+
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
@@ -232,6 +235,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!building)
 		first_run()
 
+	init_tick = SSair.milla_tick
+
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
@@ -246,7 +251,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2)
+	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2 || init_tick == SSair.milla_tick)
 		return
 
 	var/turf/simulated/location = loc

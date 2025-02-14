@@ -12,6 +12,7 @@
 	var/max_range = 8
 	var/active = FALSE
 	var/beam_UID = null
+	var/mounted = FALSE
 
 	weapon_weight = WEAPON_MEDIUM
 
@@ -43,7 +44,8 @@
 	current_target = null
 
 /obj/item/gun/medbeam/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
-	add_fingerprint(user)
+	if(isliving(user) && isrobot(user))
+		add_fingerprint(user)
 
 	if(current_target)
 		LoseTarget()
@@ -60,7 +62,7 @@
 
 /obj/item/gun/medbeam/process()
 	var/source = loc
-	if(!ishuman(source) && !isrobot(source))
+	if(!mounted && !ishuman(source) && !isrobot(source))
 		LoseTarget()
 		return
 
@@ -75,20 +77,25 @@
 
 	if(get_dist(source,current_target)>max_range || !los_check(source,current_target))
 		LoseTarget()
-		to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
+		if(ishuman(source) && isrobot(source))
+			to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
 		return
 
 	if(current_target)
 		on_beam_tick(source, current_target)
 
-/obj/item/gun/medbeam/proc/los_check(mob/user,mob/target)
+/obj/item/gun/medbeam/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
 	var/datum/beam/current_beam = locateUID(beam_UID)
-	if(!istype(user_turf))
+	if(mounted)
+		user_turf = get_turf(user)
+	else if(!istype(user_turf))
 		return FALSE
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in get_line(user_turf,target))
+		if(mounted && turf == user_turf)
+			continue //Mechs are dense and thus fail the check
 		if(turf.density)
 			qdel(dummy)
 			return FALSE
@@ -111,7 +118,7 @@
 		H.adjustBruteLoss(-4, robotic = TRUE)
 		H.adjustFireLoss(-4, robotic = TRUE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(prob(10))
+			if(!mounted && prob(10))
 				E.mend_fracture()
 				E.fix_internal_bleeding()
 				E.fix_burn_wound()
@@ -360,3 +367,11 @@
 	name = "beamgun cell"
 	desc = "A cell that fell out of a beamgun. It cannot be reused until fully charged. Only this brand of battery is compatible with medical beamguns."
 	starting_charge = 0
+
+//////////////////////////////Mech Version///////////////////////////////
+/obj/item/gun/medbeam/mech
+	mounted = TRUE
+
+/obj/item/gun/medbeam/mech/Initialize(mapload)
+	. = ..()
+	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
