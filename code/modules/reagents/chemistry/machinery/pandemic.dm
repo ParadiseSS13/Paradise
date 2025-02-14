@@ -1,6 +1,6 @@
 /// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
 /// Initialized with the id of the flu and cold samples from the virologist's fridge
-GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
+GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 ))
 
 /obj/machinery/computer/pandemic
@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	resistance_flags = ACID_PROOF
 	/// Amount of time it would take to analyze the current disease. -1 means either no disease or that it doesn't require analysis
 	var/analysis_time_delta = -1
-	/// The counter that runs down when analyzing
+	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis
 	var/analysis_time
 	/// Amount of time to add to the analysis time. resets upon successful analysis.
 	var/accumulated_error = 0
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			analyzing = FALSE
 			return
 
-		if(analysis_time < world.time + analysis_time_delta)
+		if(analysis_time < world.time)
 			GLOB.known_advanced_diseases += analyzed_ID
 			analyzing = FALSE
 			analysis_time_delta = -1

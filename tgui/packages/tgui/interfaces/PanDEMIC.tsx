@@ -181,9 +181,17 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
       {
         <LabeledList.Item label="Analysis Time">
           {analyzing
-            ? Math.floor(analysisTime / 3) + ':' + Math.floor((analysisTime / 5) % 60)
+            ? (analysisTime < 6000 ? '0' : '') +
+              Math.floor(analysisTime / 600) +
+              ':' +
+              (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
+              Math.floor((analysisTime / 10) % 60)
             : analysisTimeDelta >= 0
-              ? Math.floor(analysisTimeDelta / 3) + ':' + Math.floor((analysisTimeDelta / 5) % 60)
+              ? (analysisTimeDelta < 6000 ? '0' : '') +
+                Math.floor(analysisTimeDelta / 600) +
+                ':' +
+                (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
+                Math.floor((analysisTimeDelta / 10) % 60)
               : analysisTimeDelta === -1
                 ? 'Strain Data Is Present In Database'
                 : 'Multiple Strains Detected. Analysis Impossible'}
