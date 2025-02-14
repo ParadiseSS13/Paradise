@@ -11,6 +11,10 @@
 	user.physiology.alcohol_mod *= alcohol_modifier
 	. = ..()
 
+/datum/quirk/lightweight/remove_quirk_effects()
+	. = ..()
+	user.physiology.alcohol_mod /= alcohol_modifier
+
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You just recently joined the greater galactic community, and don't understand the common tongue yet. You cannot sign up for a command or security position."

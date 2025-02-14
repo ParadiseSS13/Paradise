@@ -29,6 +29,10 @@
 	user.physiology.alcohol_mod *= alcohol_modifier
 	. = ..()
 
+/datum/quirk/heavy_drinker/remove_quirk_effects()
+	. = ..()
+	user.physiology.alcohol_mod /= alcohol_modifier
+
 /datum/quirk/meal_prepper
 	name = "Meal Prepper"
 	desc = "You thought ahead and pre-packed a meal for the day."
