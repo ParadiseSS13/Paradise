@@ -79,13 +79,25 @@ export const AtmosTankControl = (props, context) => {
           ? data.vent_outlets.map((outlet) => (
               <Section title={'Outlet: ' + outlet.name} key={outlet}>
                 <LabeledList>
-                  <LabeledList.Item label="Power">
+                  <LabeledList.Item label="Status">
                     <Button
                       icon={outlet.on ? 'power-off' : 'power-off'}
                       content={outlet.on ? 'On' : 'Off'}
                       color={outlet.on ? null : 'red'}
                       selected={outlet.on}
                       onClick={() => act('toggle_outlet_active', { dev: outlet.uid })}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Pressure Checks">
+                    <Button
+                      content="External"
+                      selected={outlet.checks === 1}
+                      onClick={() => act('set_outlet_reference', { dev: outlet.uid, val: 1 })}
+                    />
+                    <Button
+                      content="Internal"
+                      selected={outlet.checks === 2}
+                      onClick={() => act('set_outlet_reference', { dev: outlet.uid, val: 2 })}
                     />
                   </LabeledList.Item>
                   <LabeledList.Item label="Rate">
