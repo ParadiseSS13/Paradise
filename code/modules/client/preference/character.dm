@@ -1842,9 +1842,8 @@
 	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender, species)
-	var/balance_check = 0
+	var/balance_check = rebuild_quirks()
 	for(var/datum/quirk/to_add in quirks)
-		balance_check += to_add.cost
 		to_add.apply_quirk_effects(character)
 	if(balance_check > 0)
 		log_debug("[src] spawned in with more quirks than they should have been able to. Quirk balance of [balance_check].")
@@ -2237,3 +2236,20 @@
 		custom_emotes[custom_emote.name] = emote_text
 
 	return custom_emotes
+/*
+* This serves two purposes. It tallies up and returns the total quirk balance of the current loadout
+* It also rebuilds then entire list of quirks, converting the JSON format it could be into a usable datum.
+*/
+/datum/character_save/proc/rebuild_quirks()
+	var/point_total = 0
+	if(!islist(quirks)) // If it's not a normal list then it has to be JSON. Or something went horribly wrong.
+		quirks = json_decode(quirks)
+	var/list/quirk_cache = quirks.Copy()
+	quirks.Cut()
+	for(var/quirk_name in quirk_cache)
+		var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
+		if(!quirk)
+			continue
+		point_total += quirk.cost
+		quirks += quirk
+	return point_total

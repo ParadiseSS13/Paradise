@@ -14,10 +14,10 @@ GLOBAL_LIST_EMPTY(quirk_tgui_info)
 		ui.open()
 
 /datum/ui_module/quirk/ui_data(mob/user)
-	var/datum/preferences/preferences = user?.client?.prefs
-	var/list/data = list("quirk_balance" = preferences.rebuild_quirks())
+	var/datum/character_save/character = user?.client?.prefs.active_character
+	var/list/data = list("quirk_balance" = character.rebuild_quirks())
 	var/list/selected_quirks = list()
-	for(var/quirk in preferences.active_character?.quirks)
+	for(var/quirk in character?.quirks)
 		selected_quirks += quirk
 	data["selected_quirks"] = selected_quirks
 	return data
@@ -36,12 +36,11 @@ GLOBAL_LIST_EMPTY(quirk_tgui_info)
 	var/mob/user = usr
 	var/quirk_path = text2path(params["path"])
 	var/datum/quirk/quirk = new quirk_path
+	user?.client?.prefs?.active_character?.rebuild_quirks()
 	switch(action)
 		if("add_quirk")
-			log_debug("Add [quirk.name]")
 			user.add_quirk_to_save(quirk)
 		if("remove_quirk")
-			log_debug("Remove [quirk.name]")
 			user.remove_quirk_from_save(quirk)
 
 
