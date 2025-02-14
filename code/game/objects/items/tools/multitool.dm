@@ -65,7 +65,7 @@
 
 /obj/item/multitool/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!istype(target, /obj/machinery/atmospherics/unary))
+	if(!(istype(target, /obj/machinery/atmospherics/unary) || istype(target, /obj/machinery/atmospherics/air_sensor)))
 		return
 	if(!(target in view(5, user)))
 		to_chat(user,"<span class='warning'>[target] out of multitool range. Please get within 5 meters and try again.<span>")

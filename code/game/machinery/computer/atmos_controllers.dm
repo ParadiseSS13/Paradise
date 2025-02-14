@@ -57,49 +57,45 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 #define ONOFF_TOGGLE(flag) "\[[(output & flag) ? "YES" : "NO"]]"
 /obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/I)
-	while(Adjacent(user))
+	var/list/options = list(
+		"Pressure: [ONOFF_TOGGLE(SENSOR_PRESSURE)]" = SENSOR_PRESSURE,
+		"Temperature: [ONOFF_TOGGLE(SENSOR_TEMPERATURE)]" = SENSOR_TEMPERATURE,
+		"Oxygen: [ONOFF_TOGGLE(SENSOR_O2)]" = SENSOR_O2,
+		"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
+		"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
+		"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
+		"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
+		"-SAVE TO BUFFER-" = "multitool"
+	)
 
-		var/list/options = list(
-			"Pressure: [ONOFF_TOGGLE(SENSOR_PRESSURE)]" = SENSOR_PRESSURE,
-			"Temperature: [ONOFF_TOGGLE(SENSOR_TEMPERATURE)]" = SENSOR_TEMPERATURE,
-			"Oxygen: [ONOFF_TOGGLE(SENSOR_O2)]" = SENSOR_O2,
-			"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
-			"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
-			"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
-			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
-			"-SAVE TO BUFFER-" = "multitool"
-		)
+	var/temp_answer = tgui_input_list(user, "Select an option to adjust", "Options!", options)
 
-		var/temp_answer = tgui_input_list(user, "Select an option to adjust", "Options!", options)
+	if(!(src in view(5, user)))
+		return TRUE
 
-		if(!Adjacent(user))
-			break
+	if(temp_answer in options) // Null will break us out
+		switch(options[temp_answer])
+			if(SENSOR_PRESSURE)
+				output ^= SENSOR_PRESSURE
+			if(SENSOR_TEMPERATURE)
+				output ^= SENSOR_TEMPERATURE
+			if(SENSOR_O2)
+				output ^= SENSOR_O2
+			if(SENSOR_PLASMA)
+				output ^= SENSOR_PLASMA
+			if(SENSOR_N2)
+				output ^= SENSOR_N2
+			if(SENSOR_CO2)
+				output ^= SENSOR_CO2
+			if(SENSOR_N2O)
+				output ^= SENSOR_N2O
+			if("multitool")
+				if(!ismultitool(I)) // Should never happen
+					return
 
-		if(temp_answer in options) // Null will break us out
-			switch(options[temp_answer])
-				if(SENSOR_PRESSURE)
-					output ^= SENSOR_PRESSURE
-				if(SENSOR_TEMPERATURE)
-					output ^= SENSOR_TEMPERATURE
-				if(SENSOR_O2)
-					output ^= SENSOR_O2
-				if(SENSOR_PLASMA)
-					output ^= SENSOR_PLASMA
-				if(SENSOR_N2)
-					output ^= SENSOR_N2
-				if(SENSOR_CO2)
-					output ^= SENSOR_CO2
-				if(SENSOR_N2O)
-					output ^= SENSOR_N2O
-				if("multitool")
-					if(!ismultitool(I)) // Should never happen
-						return
-
-					var/obj/item/multitool/M = I
-					M.buffer_uid = UID()
-					to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
-		else
-			break
+				var/obj/item/multitool/M = I
+				M.buffer_uid = UID()
+				to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 	return TRUE
 #undef ONOFF_TOGGLE
