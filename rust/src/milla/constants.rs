@@ -44,6 +44,12 @@ pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 // How hot does it need to be for water vapor to break down?
 pub(crate) const WATER_VAPOR_BREAKDOWN_TEMP: f32 = 2000.0;
 
+pub(crate) const WATER_VAPOR_REACTION_TEMPERATURE: f32 = 400.0;
+
+pub(crate) const WATER_VAPOR_REACTION_ENERGY: f32 = 1000.0;
+
+
+
 /// Index for oxygen in gas list.
 pub(crate) const GAS_OXYGEN: usize = 0;
 
