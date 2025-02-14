@@ -372,8 +372,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	return
 
 // Name the disease.
-/datum/disease/advance/proc/AssignName(name = "Unknown")
-	src.name = name
+/datum/disease/advance/proc/AssignName(_name = "Unknown")
+	name = _name
+	if(GLOB.archive_diseases[GetDiseaseID()])
+		var/datum/disease/advance/virus = GLOB.archive_diseases[GetDiseaseID()]
+		virus.name = _name
 	return
 
 // Return a unique ID of the disease.

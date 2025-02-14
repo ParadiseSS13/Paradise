@@ -37,6 +37,7 @@ interface PanDEMICData {
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
+  analysisTimeDelta: number;
   analysisTime: number;
   analyzing: BooleanLike;
   sympton_names: string[];
@@ -93,7 +94,7 @@ const CommonCultureActions = (props, context) => {
 
 const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerContainsVirus, analysisTime, analyzing } = data;
+  const { beakerContainsVirus, analysisTime, analysisTimeDelta, analyzing } = data;
   const {
     commonName,
     description,
@@ -162,7 +163,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
     analyzeButton = (
       <Button
         content="Analyze Strain"
-        disabled={analysisTime < 0 || analyzing}
+        disabled={analysisTimeDelta < 0 || analyzing}
         onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
       />
     );
@@ -179,11 +180,13 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
       </LabeledList.Item>
       {
         <LabeledList.Item label="Analysis Time">
-          {analysisTime >= 0
-            ? Math.floor(analysisTime / 30) + ':' + Math.floor((analysisTime * 2) % 60)
-            : analysisTime === -1
-              ? 'Strain Data Is Present In Database'
-              : 'Multiple Strains Detected. Analysis Impossible'}
+          {analyzing
+            ? Math.floor(analysisTime / 3) + ':' + Math.floor((analysisTime / 5) % 60)
+            : analysisTimeDelta >= 0
+              ? Math.floor(analysisTimeDelta / 3) + ':' + Math.floor((analysisTimeDelta / 5) % 60)
+              : analysisTimeDelta === -1
+                ? 'Strain Data Is Present In Database'
+                : 'Multiple Strains Detected. Analysis Impossible'}
         </LabeledList.Item>
       }
       {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
@@ -288,7 +291,7 @@ const sum = (values: number[]) => {
 
 const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { sympton_names, analyzing, analysisTime } = data;
+  const { sympton_names, analyzing, analysisTimeDelta } = data;
   const { symptoms, known } = props.strain;
 
   return (
@@ -297,7 +300,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
         <Table className="symptoms-table">
           <Table.Row>
             <Table.Cell>Name</Table.Cell>
-            <Table.Cell>{known ? 'Stealth' : 'Guess'}</Table.Cell>
+            <Table.Cell>{known ? 'Stealth' : 'Predicted Symptoms'}</Table.Cell>
             <Table.Cell>Resistance</Table.Cell>
             <Table.Cell>Stage Speed</Table.Cell>
             <Table.Cell>Transmissibility</Table.Cell>
@@ -310,7 +313,9 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
               ) : (
                 <Dropdown
                   options={sympton_names}
-                  disabled={analyzing || analysisTime === -2}
+                  width="180px"
+                  selected={'No Prediction'}
+                  disabled={analyzing || analysisTimeDelta === -2}
                   onSelected={(val) => (symptom.guess = val)}
                 />
               )}

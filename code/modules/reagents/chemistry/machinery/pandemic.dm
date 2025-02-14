@@ -13,10 +13,12 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	circuit = /obj/item/circuitboard/pandemic
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
-	/// Amount of time it takes to analyze an advanced disease. units are 2 seconds
-	var/analysisTime = -1
-	/// Amount of time to add to the analysis time. resets upon successful analysis. units are 2 seconds
-	var/accumulatedError = 0
+	/// Amount of time it would take to analyze the current disease. -1 means either no disease or that it doesn't require analysis
+	var/analysis_time_delta = -1
+	/// The counter that runs down when analyzing
+	var/analysis_time
+	/// Amount of time to add to the analysis time. resets upon successful analysis.
+	var/accumulated_error = 0
 	/// Whether the PANDEMIC is currently analyzing an advanced disease
 	var/analyzing = FALSE
 	/// ID of the disease being analyzed
@@ -33,9 +35,9 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	. = ..()
 	GLOB.pandemics |= src
 	var/datum/symptom/S
-	symptomlist += list("No Guess")
+	symptomlist += list("No Prediction")
 	for(var/i in GLOB.list_symptoms)
-		//I don't know a way to access the names of types that have no instances.
+		//I don't know a way to access the name of something with only the path without creating an instance.
 		S = new i()
 		symptomlist += list(S.name)
 		qdel(S)
@@ -110,7 +112,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	B.name = "[name] [bottle_type] bottle"
 	return B
 
-/obj/machinery/computer/pandemic/proc/find_analysis_time(datum/reagent/R)
+/obj/machinery/computer/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
 	var/strains = 0
 	var/stage_amount = 0
 	var/list/stages = list()
@@ -127,7 +129,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		if(AD.strain != current_strain || current_strain == "")
 			strains++
 			if(strains > 1)
-				analysisTime = - 2
+				analysis_time_delta = - 2
 				SStgui.update_uis(src, TRUE)
 				return
 			current_strain = AD.strain
@@ -140,13 +142,13 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		if(!(AD.stage in stages))
 			stage_amount++
 			stages += AD.stage
-
-	analysisTime = max(max(6 * (stealth ^ 0.7) , 0) + 1.1 - stage_amount ^ 2 , 0) MINUTES + accumulatedError
+	stealth = max(stealth, 0)
+	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES + accumulated_error
 	SStgui.update_uis(src, TRUE)
 
 
 /obj/machinery/computer/pandemic/proc/stop_analysis()
-	analysisTime = -1
+	analysis_time_delta = -1
 	analyzing = FALSE
 	analyzed_ID = ""
 
@@ -159,29 +161,27 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		names += list(i["name"])
 		guesses += list(i["guess"])
 	for(var/i in guesses)
-		if(!i || i == "No Guess")
+		if(!i || i == "No Prediction")
 			continue
 		if(i in names)
-			analysisTime = max(0, analysisTime - 2 MINUTES)
+			analysis_time_delta = max(0, analysis_time_delta - 20 MINUTES)
 		else
-			analysisTime = max(0, analysisTime + 2 MINUTES)
-			accumulatedError += 2 MINUTES
-
+			analysis_time_delta = max(0, analysis_time_delta + 20 MINUTES)
+			accumulated_error += 20 MINUTES
+	analysis_time = analysis_time_delta + world.time
+	return
 
 /obj/machinery/computer/pandemic/process()
 	. = ..()
 	if(analyzing)
-		if(analysisTime < 0)
+		if(analysis_time_delta < 0)
 			analyzing = FALSE
 			return
 
-		if(analysisTime > 0)
-			analysisTime -= clamp(1 , 0 , max(analysisTime , 0))
-
-		if(analysisTime == 0)
+		if(analysis_time < world.time + analysis_time_delta)
 			GLOB.known_advanced_diseases += analyzed_ID
 			analyzing = FALSE
-			analysisTime = -1
+			analysis_time_delta = -1
 			SStgui.update_uis(src, TRUE)
 
 /obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
@@ -341,7 +341,8 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		"beakerContainsBlood" = Blood ? TRUE : FALSE,
 		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
 		"selectedStrainIndex" = selected_strain_index,
-		"analysisTime" = analysisTime,
+		"analysisTime" = analysis_time > world.time ? analysis_time - world.time : 0,
+		"analysisTimeDelta" = analysis_time_delta,
 		"analyzing" = analyzing,
 		"sympton_names" = symptomlist,
 	)
@@ -412,7 +413,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			if(D)
 				resistances += list(D.name)
 	data["resistances"] = resistances
-	data["analysisTime"] = analysisTime
+	data["analysis_time_delta"] = analysis_time_delta
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
@@ -514,7 +515,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		icon_state = "pandemic1"
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			if(R.id == "blood")
-				find_analysis_time(R)
+				find_analysis_time_delta(R)
 				SStgui.update_uis(src, TRUE)
 				break
 
