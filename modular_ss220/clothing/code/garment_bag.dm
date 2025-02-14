@@ -6,3 +6,7 @@
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
 	. = ..()
 	new /obj/item/clothing/gloves/combat(src)
+
+/obj/item/storage/bag/garment/paramedic/populate_contents()
+	. = ..()
+	new /obj/item/clothing/suit/storage/paramedic/pmed_jacket_new(src)

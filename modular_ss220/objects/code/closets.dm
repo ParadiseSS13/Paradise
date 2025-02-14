@@ -46,3 +46,8 @@
 	new /obj/item/storage/box/donkpockets(src)
 	new /obj/item/storage/fancy/egg_box(src)
 	new /obj/item/storage/fancy/egg_box(src)
+
+/obj/structure/closet/paramedic/populate_contents()
+	. = ..()
+	new /obj/item/clothing/suit/storage/paramedic/pmed_jacket_new(src)
+	new /obj/item/clothing/suit/storage/paramedic/pmed_jacket_new(src)
