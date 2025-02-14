@@ -13,9 +13,13 @@
 	blacklisted = TRUE
 
 /datum/quirk/foreigner/apply_quirk_effects(mob/living/quirky)
-	quirky.remove_language("Galactic Common")
-	quirky.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
-	. = ..()
+	..()
+	owner.remove_language("Galactic Common")
+	owner.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
+
+/datum/quirk/foreigner/remove_quirk_effects()
+	quirky.add_language("Galactic Common")
+	..()
 
 /datum/quirk/deaf
 	name = "Deafness"
