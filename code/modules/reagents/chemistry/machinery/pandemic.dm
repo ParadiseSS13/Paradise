@@ -518,8 +518,6 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 				SStgui.update_uis(src, TRUE)
 				break
 
-
-
 		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
