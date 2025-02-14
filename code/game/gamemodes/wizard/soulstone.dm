@@ -21,7 +21,10 @@
 
 	/// For tracking during the 'optional' bit
 	var/opt_in = FALSE
+	/// Is this a purified soulstone, or an antag one?
 	var/purified = FALSE
+	/// Is this soulstone capable of making possessed items?
+	var/can_possess = FALSE
 
 /obj/item/soulstone/proc/can_use(mob/living/user)
 	if(IS_CULTIST(user) && purified && !iswizard(user))
@@ -39,6 +42,7 @@
 	icon_state = "purified_soulstone"
 	icon_state_full = "purified_soulstone2"
 	purified = TRUE
+	can_possess = TRUE
 	optional = TRUE
 
 /obj/item/soulstone/anybody/purified/chaplain
@@ -181,7 +185,20 @@
 	return FINISH_ATTACK
 
 /obj/item/soulstone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(istype(I, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+	if(istype(I, /obj/item/stack/sheet/runed_metal))
+		if(purified)
+			to_chat(user, "<span class='warning'>\The [src] repels [I].</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(can_possess)
+			to_chat(user, "<span class='warning'>\The [src] does not require reinforcement.</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/sheet/runed_metal/runed_metal = I
+		if(runed_metal.use(1))
+			name = "reinforced [name]"
+			can_possess = TRUE
+			to_chat(user, "<span class='notice'>You apply [I] to [src], reinforcing it enough to force the spirit to possess an item.</span>")
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(I, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -190,6 +207,7 @@
 			remove_filter("ray")
 			usability = TRUE
 			purified = TRUE
+			can_possess = TRUE
 			optional = TRUE
 			icon_state = "purified_soulstone"
 			icon_state_full = "purified_soulstone2"
@@ -215,8 +233,10 @@
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
 		if(do_after(user, 40, target = src))
 			remove_filter("ray")
+			name = "soul stone"
 			usability = FALSE
 			purified = FALSE
+			can_possess = FALSE
 			optional = FALSE
 			icon_state = "soulstone"
 			icon_state_full = "soulstone2"
@@ -246,9 +266,12 @@
 				return ..()
 	if(!can_use(user))
 		return ..()
+	if(!can_possess && !iswizard(user))
+		to_chat(user, "<span class='warning'>\The [src] is too weak to bind a spirit to [A]. Reinforce it with runed metal first.</span>")
+		return ..()
 	var/mob/living/simple_animal/shade/shade = locate(/mob/living/simple_animal/shade) in contents
 	if(!shade)
-		to_chat(user, "<span class='warning'>The soulstone contains no souls!</span>")
+		to_chat(user, "<span class='warning'>\The [src] contains no souls!</span>")
 		return ..()
 	if(HAS_TRAIT(A, TRAIT_DO_NOT_POSSESS))
 		to_chat(user, "<span class='warning'>Try as you might, you can't seem to force the spirit into [A].</span>")
@@ -258,15 +281,20 @@
 		return ..()
 
 	var/mob/living/simple_animal/possessed_object/possession = new(A)
-	possession.was_shade = TRUE
-	possession.shade_type = shade.type
-	possession.shade_name = shade.real_name
+	if(purified)
+		possession.was_shade = TRUE
+		possession.shade_type = shade.type
+		possession.shade_name = shade.real_name
 	possession.ckey = shade.ckey
 	if(shade.mind)
 		shade.mind.transfer_to(possession)
 	possession.cancel_camera()
 	SEND_SIGNAL(shade, COMSIG_TRANSFER_HELD_BODY, possession)
 	qdel(shade)
+
+	if(!purified)
+		qdel(src)
+		return
 
 	name = "soulstone"
 	icon_state = initial(icon_state)

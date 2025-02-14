@@ -280,3 +280,7 @@
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically
 	return possessed_item.throw_impact(hit_atom, throwingdatum)
+
+/mob/living/simple_animal/possessed_object/soulstone
+	status_flags = CANPUSH  // The soulstone-created variant can be dragged.
+	density = TRUE 		    // It's also dense so you can shoot it easily.
