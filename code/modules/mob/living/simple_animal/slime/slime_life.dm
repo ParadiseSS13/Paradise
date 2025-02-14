@@ -207,7 +207,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod))
+		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod)
 			return
 			
 	add_nutrition(rand(7, 15))
