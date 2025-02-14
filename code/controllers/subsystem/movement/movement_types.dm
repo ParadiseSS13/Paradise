@@ -206,7 +206,7 @@
 
 /datum/move_loop/move/move()
 	var/atom/old_loc = moving.loc
-	moving.Move(get_step(moving, direction), direction, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	moving.Move(get_step(moving, direction), direction, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE), !(flags & MOVEMENT_LOOP_NO_MOMENTUM_CHANGE))
 	// We cannot rely on the return value of Move(), we care about teleports and it doesn't
 	// Moving also can be null on occasion, if the move deleted it and therefor us
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
@@ -658,7 +658,7 @@
 
 /datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
-	if(moving.loc != moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
+	if(moving.loc == moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
 		update_slope()
 
 /datum/move_loop/has_target/move_towards/handle_no_target()

@@ -27,7 +27,7 @@
 
 /obj/item/fish_eggs/babycarp
 	name = "baby space carp eggs"
-	desc = "Eggs from the substantially smaller form of the intergalactic terror."
+	desc = "Eggs from the substantially smaller form of the spaceborn terror."
 	icon_state = "babycarp_eggs"
 	fish_type = /datum/fish/babycarp
 

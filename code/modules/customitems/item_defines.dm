@@ -16,6 +16,12 @@
 /obj/item/fluff
 	var/used = FALSE
 
+/obj/item/clothing/suit/hooded/hoodie/fluff
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/suit/hooded/fluff
+	w_class = WEIGHT_CLASS_SMALL
+
 /// Generic tattoo gun, make subtypes for different folks
 /obj/item/fluff/tattoo_gun
 	name = "disposable tattoo pen"
@@ -58,7 +64,7 @@
 		return
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
-	if(!(target.dna.species.name in temp_tatt.species_allowed))
+	if(!(target.dna.species.sprite_sheet_name in temp_tatt.species_allowed))
 		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
@@ -152,7 +158,6 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -944,14 +949,14 @@
 	icon_state = "greenhood"
 
 /// Hylocereus: Sam Aria
-/obj/item/clothing/suit/hooded/hoodie/hylo
+/obj/item/clothing/suit/hooded/hoodie/fluff/hylo
 	name = "worn assymetrical hoodie"
 	desc = "A soft, cozy longline hoodie. It looks old and worn, but well cared for. There's no label, but a series of dates and names is penned on a scrap of fabric sewn on the inside of the left side of the chest - 'Sam Aria' is scrawled atop them all, next to the words 'Please Remember'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hoodie"
-	hoodtype = /obj/item/clothing/head/hooded/hood/hylo
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/hylo
 
-/obj/item/clothing/head/hooded/hood/hylo
+/obj/item/clothing/head/hooded/hood/fluff/hylo
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hood"
 
@@ -1001,9 +1006,7 @@
 			item_state += "_on"
 			suit_adjusted = 1 //Lights On
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 		to_chat(user, "You turn [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
@@ -1074,8 +1077,6 @@
 
 	if(target.change_hair("Sasook Hair", 1))
 		to_chat(target, "<span class='notice'>You dump some of [src] on your head and style it around.</span>")
-
-
 
 /// MrSynnester : Shesi Skaklas
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi
@@ -1329,9 +1330,7 @@
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color(user)
@@ -1358,14 +1357,12 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
-
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"
 	desc = "These boots were made for crawlin'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
-
 
 /// chronx100: Hughe O'Splash
 /obj/item/nullrod/fluff/chronx
@@ -1405,9 +1402,7 @@
 		to_chat(usr, "You transform \the [src].")
 		adjusted = 1
 	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /// chronx100: Hughe O'Splash
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx
@@ -1547,7 +1542,6 @@
 	if(target.change_hair("Zekes Tentacles", 1))
 		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
 
-
 /// Fethas: Sefra'neem
 /obj/item/clothing/accessory/locket/fluff/fethasnecklace
 	name = "Orange gemmed locket"
@@ -1569,7 +1563,6 @@
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
 
-
 /// Lightfire: Hyperion
 /obj/item/clothing/head/fluff/lfbowler
 	name = "classy bowler hat"
@@ -1588,7 +1581,6 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
-
 
 /// LightFire53: Ikelos
 /obj/item/fluff/lighty_plasman_modkit
@@ -1765,8 +1757,6 @@
 	item_color = "kiamask"
 	species_restricted = list("Vox")
 
-
-
 /obj/item/clothing/gloves/ring/fluff
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
@@ -1780,14 +1770,11 @@
 /obj/item/clothing/gloves/ring/fluff/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	return
 
-
-
 /// Benjaminfallout: Pretzel Brassheart
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout
 	name = "Pretzel's Ring"
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
-
 
 /// Gangelwaefre: Kikeri
 /obj/item/clothing/under/fluff/kikeridress

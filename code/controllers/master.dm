@@ -83,7 +83,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/New()
 	if(!random_seed)
-		#ifdef GAME_TESTS
+		#ifdef TEST_RUNNER
 		random_seed = 29051994
 		#else
 		random_seed = rand(1, 1e9)
