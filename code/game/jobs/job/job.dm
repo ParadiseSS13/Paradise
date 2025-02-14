@@ -236,7 +236,8 @@
 	var/list/leftover_items = list()
 	for(var/datum/quirk/quirk in H.quirks)
 		if(quirk.item_to_give)
-			leftover_items += quirk.item_to_give
+			var/obj/item/new_item = new quirk.item_to_give
+			leftover_items += new_item
 
 	for(var/datum/gear/G in gear_leftovers)
 		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
