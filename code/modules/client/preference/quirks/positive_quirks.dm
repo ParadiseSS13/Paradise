@@ -55,4 +55,4 @@
 	desc  = "Your lungs have been replaced with upgraded cybernetics."
 	cost = 2
 	organic_only = TRUE
-	organ_to_give = list("lungs" = /obj/item/organ/internal/lungs/cybernetic/upgraded)
+	organ_to_give = /obj/item/organ/internal/lungs/cybernetic/upgraded

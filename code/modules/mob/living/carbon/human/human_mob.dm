@@ -1132,14 +1132,6 @@
 			I.flags = 0 // Temporary set the flags to 0
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
-		var/balance_check = 0
-		for(var/datum/quirk/to_add in quirks)
-			balance_check += to_add.cost
-			to_add.apply_quirk_effects(src)
-			if(!isnull(to_add.organ_to_remove)) // Quirks handle organ removal here, but handling adding organs comes post-job, like with cybernetic revolution
-				dna.species.has_organ -= dna.species.has_organ[to_add.organ_to_remove]
-		if(balance_check > 0)
-			log_debug("[src] spawned in with more quirks than they should have been able to. Quirk balance of [balance_check].")
 	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
 	if(keep_missing_bodyparts)
 		for(var/organ_name as anything in bodyparts_by_name)

@@ -1842,7 +1842,12 @@
 	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender, species)
-
+	var/balance_check = 0
+	for(var/datum/quirk/to_add in quirks)
+		balance_check += to_add.cost
+		to_add.apply_quirk_effects(character)
+	if(balance_check > 0)
+		log_debug("[src] spawned in with more quirks than they should have been able to. Quirk balance of [balance_check].")
 	character.add_language(language)
 
 

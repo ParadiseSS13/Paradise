@@ -105,4 +105,4 @@
 	cost = -2
 	machine_only = TRUE
 	trait_to_apply = TRAIT_NO_APC_CHARGING
-	organ_to_remove = "charger" // This feels like such a dumb way to do this but I can't think of a smarter solution
+	organ_slot_to_remove = "r_arm_device" // This feels like such a dumb way to do this but I can't think of a smarter solution

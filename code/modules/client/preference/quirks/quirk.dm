@@ -22,10 +22,10 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/item_to_give
 	/// If there's an item to give, what slot should it be equipped to roundstart?
 	var/item_slot = ITEM_SLOT_IN_BACKPACK
-	/// What organ this quirk gives (if any). Must be in the format of ("organ_name" = organ_path)
-	var/list/organ_to_give
+	/// The path of the organ the quirk should give.
+	var/organ_to_give
 	/// What organ should be removed (if any). Must be the string name of the organ as found in the has_organ var from the species datum.
-	var/organ_to_remove
+	var/organ_slot_to_remove
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
@@ -46,6 +46,20 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 		START_PROCESSING(SSprocessing, src)
 	if(trait_to_apply)
 		ADD_TRAIT(owner, trait_to_apply, "quirk")
+	if(organ_slot_to_remove)
+		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(remove_organ))
+	if(organ_to_give)
+		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(give_organ))
+
+/datum/quirk/proc/remove_organ()
+	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	var/obj/item/organ/to_remove = owner.get_organ_slot(organ_slot_to_remove)
+	INVOKE_ASYNC(to_remove, TYPE_PROC_REF(/obj/item/organ, remove), owner, TRUE)
+
+/datum/quirk/proc/give_organ()
+	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	var/obj/item/organ/internal/cybernetic = new organ_to_give
+	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), owner, TRUE)
 
 /// For any behavior that needs to happen before a quirk is destroyed
 /datum/quirk/proc/remove_quirk_effects()
