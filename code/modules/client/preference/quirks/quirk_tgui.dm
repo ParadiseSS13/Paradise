@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(quirk_tgui_info)
 	var/mob/user = usr
 	var/quirk_path = text2path(params["path"])
 	var/datum/quirk/quirk = new quirk_path
-	user?.client?.prefs?.active_character?.rebuild_quirks()
+	user.client.prefs.active_character.rebuild_quirks()
 	switch(action)
 		if("add_quirk")
 			user.add_quirk_to_save(quirk)
