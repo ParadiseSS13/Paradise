@@ -44,7 +44,7 @@
 	alcohol_perc = 0.2
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
-	drink_desc = "A freezing pint of beer"
+	drink_desc = "A freezing pint of beer."
 	taste_description = "beer"
 
 /datum/reagent/consumable/ethanol/cider
@@ -56,7 +56,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "rewriter"
 	drink_name = "Cider"
-	drink_desc = "a refreshing glass of traditional cider"
+	drink_desc = "A refreshing glass of traditional cider."
 	taste_description = "cider"
 
 /datum/reagent/consumable/ethanol/whiskey
@@ -255,7 +255,7 @@
 	alcohol_perc = 0.1
 	drink_icon = "aleglass"
 	drink_name = "Ale glass"
-	drink_desc = "A freezing pint of delicious Ale"
+	drink_desc = "A freezing pint of delicious Ale."
 	taste_description = "ale"
 
 /datum/reagent/consumable/ethanol/thirteenloko
@@ -537,7 +537,7 @@
 	alcohol_perc = 0.5
 	drink_icon = "toxinsspecialglass"
 	drink_name = "Toxins Special"
-	drink_desc = "Whoah, this thing is on FIRE"
+	drink_desc = "Whoah, this thing is on FIRE!"
 	taste_description = "FIRE"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -747,7 +747,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "b&p"
 	drink_name = "Barefoot"
-	drink_desc = "Barefoot and pregnant"
+	drink_desc = "Barefoot and pregnant."
 	taste_description = "pregnancy"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -815,21 +815,21 @@
 	alcohol_perc = 0.2
 	drink_icon = "bahama_mama"
 	drink_name = "Bahama Mama"
-	drink_desc = "Tropic cocktail"
+	drink_desc = "Tropic cocktail."
 	taste_description = "HONK"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
 	id = "singulo"
-	description = "A bluespace beverage!"
+	description = "The edge of eternity, contained in a glass."
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
-	drink_desc = "A bluespace beverage."
+	drink_desc = "The edge of eternity, contained in a glass."
 	taste_description = "infinity"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -1129,7 +1129,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "kahluaglass"
 	drink_name = "Glass of RR coffee Liquor"
-	drink_desc = "DAMN, THIS THING LOOKS ROBUST"
+	drink_desc = "DAMN, THIS THING LOOKS ROBUST!"
 	taste_description = "coffee and alcohol"
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
@@ -1200,7 +1200,7 @@
 	alcohol_perc = 0.5
 	drink_icon = "drunkenblumpkin"
 	drink_name = "Drunken Blumpkin"
-	drink_desc = "A drink for the drunks"
+	drink_desc = "A drink for the drunks."
 	taste_description = "weirdness"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -1253,7 +1253,7 @@
 	if(prob(8))
 		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
 	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
+		to_chat(M, "<span class='userdanger'><b>OH GOD OH GOD PLEASE NO!!</b></span>")
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))
@@ -1504,14 +1504,11 @@
 /datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
-		switch(rand(1, 3))
-			if(1)
-				to_chat(M, "<span class='warning'>You feel hungry...</span>")
-			if(2)
-				update_flags |= M.adjustToxLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
-			else
-				pass()
+		if(prob(66.66))
+			to_chat(M, "<span class='warning'>You feel hungry...</span>")
+		else if(prob(50))
+			update_flags |= M.adjustToxLoss(1, FALSE)
+			to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
 			M.adjust_nutrition(-remove_nutrition)
@@ -1871,7 +1868,7 @@
 	alcohol_perc = 0.4
 	drink_icon = "lagerglass"
 	drink_name = "Starlink Lager"
-	drink_desc = "A pale beer that's the cause of many a soccer-related fight"
+	drink_desc = "A pale beer that's the cause of many a soccer-related fight."
 	taste_description = "an own goal"
 
 /datum/reagent/consumable/ethanol/stout
@@ -1882,7 +1879,7 @@
 	alcohol_perc = 0.4
 	drink_icon = "stoutglass"
 	drink_name = "Stout"
-	drink_desc = "A pitch black beer from Ireland, high in iron content"
+	drink_desc = "A pitch black beer from Ireland, high in iron content."
 	taste_description = "the luck of the Irish"
 
 /datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it

@@ -53,8 +53,6 @@
 		U.accessories += M
 		M.on_attached(U)
 
-
-
 /datum/job/hop
 	title = "Head of Personnel"
 	flag = JOB_HOP
@@ -126,8 +124,6 @@
 
 	bio_chips = list()
 
-
-
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"
 	flag = JOB_NANO
@@ -179,7 +175,8 @@
 		ACCESS_SECURITY,
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_THEATRE,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
+		ACCESS_TRAINER
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/nanotrasenrep
@@ -201,8 +198,6 @@
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
-
-
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
@@ -222,6 +217,7 @@
 		ACCESS_CARGO,
 		ACCESS_CONSTRUCTION,
 		ACCESS_ENGINE,
+		ACCESS_EVIDENCE,
 		ACCESS_HEADS,
 		ACCESS_KEYCARD_AUTH,
 		ACCESS_MAILSORTING,
@@ -233,7 +229,7 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_WEAPONS
 	)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/blueshield
 	important_information = "This role requires you to ensure the safety of the Heads of Staff, not the general crew. You may perform arrests only if the combatant is directly threatening a member of Command, the Nanotrasen Representative, or the Magistrate."
@@ -258,14 +254,13 @@
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
-
 /datum/job/judge
 	title = "Magistrate"
 	flag = JOB_JUDGE
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Supreme Court"
+	supervisors = "Nanotrasen Asset Protection"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
@@ -276,6 +271,7 @@
 	access = list(
 		ACCESS_BRIG,
 		ACCESS_COURT,
+		ACCESS_EVIDENCE,
 		ACCESS_HEADS,
 		ACCESS_INTERNAL_AFFAIRS,
 		ACCESS_MAGISTRATE,
@@ -283,7 +279,8 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
+		ACCESS_TRAINER
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/judge
@@ -308,7 +305,6 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-
 
 /datum/job/iaa
 	title = "Internal Affairs Agent"
@@ -357,3 +353,74 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/job/nanotrasentrainer
+	title = "Nanotrasen Career Trainer"
+	flag = JOB_INSTRUCTOR
+	department_flag = JOBCAT_ENGSEC
+	total_positions = 2
+	spawn_positions = 2
+	supervisors = "the Nanotrasen Representative"
+	department_head = list("Captain")
+	selection_color = "#ddddff"
+	mentor_only = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
+	transfer_allowed = FALSE
+	access = list(
+		ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_CARGO,
+		ACCESS_MAILSORTING,
+		ACCESS_CONSTRUCTION,
+		ACCESS_COURT,
+		ACCESS_EVA,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_RESEARCH,
+		ACCESS_SEC_DOORS,
+		ACCESS_THEATRE,
+		ACCESS_INTERNAL_AFFAIRS,
+		ACCESS_TRAINER
+	)
+	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	outfit = /datum/outfit/job/nct
+	important_information = "Your job is to try to assist as many crew members as possible regardless of department. You are NOT permitted to give command staff advice on any command SOP questions or aid in legal advice."
+
+/datum/outfit/job/nct
+	name = "Nanotrasen Career Trainer"
+	jobtype = /datum/job/nanotrasentrainer
+	uniform = /obj/item/clothing/under/rank/procedure/nct
+	suit = /obj/item/clothing/suit/storage/nct
+	gloves = /obj/item/clothing/gloves/color/white
+	shoes = /obj/item/clothing/shoes/centcom
+	head = /obj/item/clothing/head/beret/nct/green
+	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
+	l_ear = /obj/item/radio/headset/headset_nct
+	id = /obj/item/card/id/nct
+	l_pocket = /obj/item/card/id/nct_data_chip
+	r_pocket = /obj/item/flash
+	pda = /obj/item/pda/heads/ntrep
+	backpack = /obj/item/storage/backpack/satchel
+
+	backpack_contents = list(
+		/obj/item/pinpointer/crew = 1,
+		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/book/manual/sop_ntinstructor,
+		/obj/item/laser_pointer/blue = 1
+	)
+
+	bio_chips = list(/obj/item/bio_chip/mindshield)
+
+/datum/outfit/job/nct/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/nct_data_chip/I = H.l_store
+	I.registered_user = H.mind.current
+	I.registered_name = H.real_name
+	var/icon/newphoto = get_id_photo(H, "Nanotrasen Career Trainer")
+	I.photo = newphoto
+
+/datum/outfit/job/nct/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.offstation_role = TRUE

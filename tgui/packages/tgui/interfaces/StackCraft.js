@@ -200,7 +200,7 @@ const RecipeBox = (props, context) => {
   const { act, data } = useBackend(context);
   const { amount } = data;
   const { title, recipe } = props;
-  const { result_amount, required_amount, max_result_amount, uid, image } = recipe;
+  const { result_amount, required_amount, max_result_amount, uid, icon, icon_state, image } = recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
   const sheetSuffix = required_amount > 1 ? 's' : '';
@@ -212,7 +212,9 @@ const RecipeBox = (props, context) => {
   return (
     <ImageButton
       fluid
-      base64={image}
+      base64={image} /* Use base64 image if we have it. DmIcon cannot paint grayscale images yet */
+      dmIcon={icon}
+      dmIconState={icon_state}
       imageSize={32}
       disabled={!max_possible_multiplier}
       tooltip={tooltipContent}

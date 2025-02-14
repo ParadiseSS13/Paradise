@@ -14,6 +14,31 @@
 	name = "Atmospherics Distribution Loop"
 	icon_state = "atmos"
 
+/area/station/engineering/atmos/storage
+	name = "Atmospherics Hardsuit Storage"
+	icon_state = "atmos_suits"
+
+/area/station/engineering/atmos/transit
+	name = "Atmospherics Transit Tube"
+	icon_state = "atmos_transit"
+
+/area/station/engineering/atmos/asteroid
+	name = "Asteroid"
+	icon_state = "asteroid"
+	sound_environment = SOUND_AREA_SPACE
+	apc_starts_off = TRUE
+
+/area/station/engineering/atmos/asteroid_filtering
+	name = "Asteroid Filtering"
+	icon_state = "asteroid_atmos"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+
+/area/station/engineering/atmos/asteroid_core
+	name = "Asteroid Molten Core"
+	icon_state = "asteroid_core"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	sound_environment = SOUND_AREA_ASTEROID
+
 // general engineering
 /area/station/engineering
 	ambientsounds = ENGINEERING_SOUNDS
@@ -60,10 +85,18 @@
 	name = "\improper Gravity Generator"
 	icon_state = "gravgen"
 
+/area/station/engineering/transmission_laser
+	name = "\improper Power Transmission Laser"
+	icon_state = "engi"
+
 /area/station/engineering/ai_transit_tube
 	name = "\improper AI Minisat Tranit Tube"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/station/engineering/engine_foyer
+	name = "Engine foyer"
+	icon_state = "engine_hallway"
 
 // engine areas
 

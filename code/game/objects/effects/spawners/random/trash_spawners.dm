@@ -30,6 +30,7 @@
 	)
 
 	spawn_random_angle = TRUE
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/food_trash/record_item(type_path_to_make)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
@@ -57,8 +58,16 @@
 
 		// Ammo casings rarely
 		list(
-			/obj/item/ammo_casing/c10mm,
-			/obj/item/trash/spentcasing,
+			/obj/item/trash/spentcasing/shotgun,
+			/obj/item/trash/spentcasing/shotgun/rubbershot,
+			/obj/item/trash/spentcasing/shotgun/beanbag,
+			/obj/item/trash/spentcasing/shotgun/slug,
+			/obj/item/trash/spentcasing/shotgun/dragonsbreath,
+			/obj/item/trash/spentcasing/shotgun/stun,
+			/obj/item/trash/spentcasing/bullet,
+			/obj/item/trash/spentcasing/bullet/medium,
+			/obj/item/trash/spentcasing/bullet/large,
+			/obj/item/trash/spentcasing/bullet/lasershot
 		) = 1,
 	)
 

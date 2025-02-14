@@ -69,7 +69,7 @@
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
+/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, border_dir)
 	return TRUE
 
 
@@ -316,7 +316,7 @@
 					if(T.density)
 						forceMove(H.loc)
 					if(H.buckled)
-						H.buckled.unbuckle_mob(H, force = TRUE)
+						H.unbuckle(force = TRUE)
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")

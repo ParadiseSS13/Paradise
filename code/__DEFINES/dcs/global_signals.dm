@@ -12,19 +12,12 @@
 #define COMSIG_GLOB_EXPLOSION "!explosion"
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
-///from SSsun when the sun changes position : (azimuth)
-#define COMSIG_SUN_MOVED "sun_moved"
 ///from SSsecurity_level on planning security level change : (previous_level_number, new_level_number)
 #define COMSIG_SECURITY_LEVEL_CHANGE_PLANNED "security_level_change_planned"
 ///from SSsecurity_level when the security level changes : (previous_level_number, new_level_number)
 #define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"
-
-/// mob was created somewhere : (mob)
-#define COMSIG_GLOB_MOB_CREATED "!mob_created"
-/// mob died somewhere : (mob , gibbed)
-#define COMSIG_GLOB_MOB_DEATH "!mob_death"
-/// global living say plug - use sparingly: (mob/speaker , message)
-#define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
 /// Called when the round has started, but before GAME_STATE_PLAYING.
 #define COMSIG_TICKER_ROUND_STARTING "comsig_ticker_round_starting"

@@ -31,7 +31,7 @@
 			return
 		holstered = holding
 		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
-		mod.wearer.unEquip(mod.wearer.get_active_hand())
+		mod.wearer.unequip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
 		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \
@@ -66,7 +66,7 @@
 	if(!.)
 		return
 	var/obj/item/grenade/mirage/grenade = .
-	grenade.attack_self(mod.wearer)
+	grenade.attack_self__legacy__attackchain(mod.wearer)
 
 /obj/item/grenade/mirage
 	name = "mirage grenade"
@@ -81,7 +81,7 @@
 	thrower = null
 	return ..()
 
-/obj/item/grenade/mirage/attack_self(mob/user)
+/obj/item/grenade/mirage/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	thrower = user
 
@@ -191,7 +191,7 @@
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
 	var/obj/item/grenade/grenade = dispensed
-	grenade.attack_self(mod.wearer)
+	grenade.attack_self__legacy__attackchain(mod.wearer)
 	return grenade
 
 /obj/item/mod/module/anomaly_locked/firewall/prebuilt
@@ -245,7 +245,7 @@
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
 	var/obj/item/grenade/grenade = dispensed
-	grenade.attack_self(mod.wearer)
+	grenade.attack_self__legacy__attackchain(mod.wearer)
 	return grenade
 
 /obj/item/mod/module/anomaly_locked/cryogrenade/prebuilt
@@ -270,7 +270,7 @@
 	thrower = null
 	return ..()
 
-/obj/item/grenade/cryogrenade_mod/attack_self(mob/user)
+/obj/item/grenade/cryogrenade_mod/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	thrower = user
 
@@ -304,4 +304,4 @@
 	var/obj/item/grenade/smokebomb/grenade = ..()
 	if(!grenade)
 		return
-	grenade.attack_self(mod.wearer)
+	grenade.attack_self__legacy__attackchain(mod.wearer)

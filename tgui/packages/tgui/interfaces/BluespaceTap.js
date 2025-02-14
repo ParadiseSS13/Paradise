@@ -1,30 +1,68 @@
 import { useBackend } from '../backend';
-import { Button, Collapsible, Stack, LabeledList, NoticeBox, Section, Slider, Box } from '../components';
+import {
+  Button,
+  Collapsible,
+  Stack,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Slider,
+  Box,
+  NumberInput,
+  Dimmer,
+  Flex,
+  Icon,
+  Blink,
+} from '../components';
 import { Window } from '../layouts';
 import { formatPower } from '../format';
+
+export const Incursion = (props, context) => {
+  const { data } = useBackend(context);
+  const { portaling } = data;
+  if (portaling) {
+    return (
+      <Dimmer fontsize="256px" backgroundColor="rgba(35,0,0,0.85)">
+        <Blink
+          fontsize="256px"
+          interval={Math.random() > 0.25 ? 750 + 400 * Math.random() : 290 + 150 * Math.random()}
+          time={60 + 150 * Math.random()}
+        >
+          <Stack mb="30px" fontsize="256px">
+            <Stack.Item bold color="red" fontsize="256px" textAlign="center">
+              <Icon name="skull" size={14} mb="64px" />
+              <br />
+              E$#OR:& U#KN!WN IN%ERF#R_NCE
+            </Stack.Item>
+          </Stack>
+        </Blink>
+      </Dimmer>
+    );
+  }
+};
 
 export const BluespaceTap = (props, context) => {
   const { act, data } = useBackend(context);
   const product = data.product || [];
   const {
-    desiredLevel,
-    inputLevel,
+    desiredMiningPower,
+    miningPower,
     points,
     totalPoints,
     powerUse,
     availablePower,
-    maxLevel,
     emagged,
-    nextLevelPower,
     autoShutown,
     stabilizers,
     stabilizerPower,
+    stabilizerPriority,
   } = data;
-  const barColor = (desiredLevel > inputLevel && 'bad') || 'good';
+  const barColor = (desiredMiningPower > miningPower && 'bad') || 'good';
   return (
     <Window width={650} height={450}>
       <Window.Content scrollable>
         <Stack fill vertical>
+          <Incursion />
           <Alerts />
           <Collapsible title="Input Management">
             <Section fill title="Input">
@@ -34,6 +72,7 @@ export const BluespaceTap = (props, context) => {
                 color={!!autoShutown && !emagged ? 'green' : 'red'}
                 disabled={!!emagged}
                 tooltip="Turn auto shutdown on or off"
+                tooltipPosition="top"
                 onClick={() => act('auto_shutdown')}
               />
               <Button
@@ -42,45 +81,55 @@ export const BluespaceTap = (props, context) => {
                 color={!!stabilizers && !emagged ? 'green' : 'red'}
                 disabled={!!emagged}
                 tooltip="Turn stabilizers on or off"
+                tooltipPosition="top"
                 onClick={() => act('stabilizers')}
               />
+              <Button
+                icon={!!stabilizerPriority && !emagged ? 'toggle-on' : 'toggle-off'}
+                content="Stabilizer priority"
+                color={!!stabilizerPriority && !emagged ? 'green' : 'red'}
+                disabled={!!emagged}
+                tooltip="On: Mining power will not exceed what can be stabilized"
+                tooltipPosition="top"
+                onClick={() => act('stabilizer_priority')}
+              />
               <LabeledList>
-                <LabeledList.Item label="Input Level">{inputLevel}</LabeledList.Item>
-                <LabeledList.Item label="Desired Level">
-                  <Stack inline width="100%">
+                <LabeledList.Item label="Desired Mining Power">{formatPower(desiredMiningPower)}</LabeledList.Item>
+                <LabeledList.Item labelStyle={{ 'vertical-align': 'top' }} label="Set Desired Mining Power">
+                  <Stack width="100%">
                     <Stack.Item>
                       <Button
-                        icon="fast-backward"
-                        disabled={desiredLevel === 0 || emagged}
+                        icon="step-backward"
+                        disabled={desiredMiningPower === 0 || emagged}
                         tooltip="Set to 0"
-                        onClick={() => act('set', { set_level: 0 })}
+                        tooltipPosition="bottom"
+                        onClick={() => act('set', { set_power: 0 })}
                       />
                       <Button
-                        icon="step-backward"
-                        tooltip="Decrease to actual input level"
-                        disabled={desiredLevel === 0 || emagged}
-                        onClick={() => act('set', { set_level: inputLevel })}
+                        icon="fast-backward"
+                        tooltip="Decrease by 10 MW"
+                        tooltipPosition="bottom"
+                        disabled={desiredMiningPower === 0 || emagged}
+                        onClick={() => act('set', { set_power: desiredMiningPower - 10000000 })}
                       />
                       <Button
                         icon="backward"
-                        disabled={desiredLevel === 0 || emagged}
-                        tooltip="Decrease one step"
-                        onClick={() => act('decrease')}
+                        disabled={desiredMiningPower === 0 || emagged}
+                        tooltip="Decrease by 1 MW"
+                        tooltipPosition="bottom"
+                        onClick={() => act('set', { set_power: desiredMiningPower - 1000000 })}
                       />
                     </Stack.Item>
-                    <Stack.Item grow={1} mx={1}>
-                      <Slider
+                    <Stack.Item mx={1}>
+                      <NumberInput
                         disabled={emagged}
-                        value={desiredLevel}
-                        fillValue={inputLevel}
-                        minValue={0}
-                        color={barColor}
-                        maxValue={maxLevel}
-                        stepPixelSize={20}
+                        minvalue={0}
+                        value={desiredMiningPower}
+                        maxvalue={Infinity}
                         step={1}
                         onChange={(e, value) =>
                           act('set', {
-                            set_level: value,
+                            set_power: value,
                           })
                         }
                       />
@@ -88,25 +137,24 @@ export const BluespaceTap = (props, context) => {
                     <Stack.Item>
                       <Button
                         icon="forward"
-                        disabled={desiredLevel === maxLevel || emagged}
-                        tooltip="Increase one step"
-                        tooltipPosition="left"
-                        onClick={() => act('increase')}
+                        disabled={emagged}
+                        tooltip="Increase by one MW"
+                        tooltipPosition="bottom"
+                        onClick={() => act('set', { set_power: desiredMiningPower + 1000000 })}
                       />
                       <Button
                         icon="fast-forward"
-                        disabled={desiredLevel === maxLevel || emagged}
-                        tooltip="Set to max"
-                        tooltipPosition="left"
-                        onClick={() => act('set', { set_level: maxLevel })}
+                        disabled={emagged}
+                        tooltip="Increase by 10MW"
+                        tooltipPosition="bottom"
+                        onClick={() => act('set', { set_power: desiredMiningPower + 10000000 })}
                       />
                     </Stack.Item>
                   </Stack>
                 </LabeledList.Item>
                 <LabeledList.Item label="Total Power Use">{formatPower(powerUse)}</LabeledList.Item>
-                <LabeledList.Item label="Mining Power Use">{formatPower(powerUse - stabilizerPower)}</LabeledList.Item>
+                <LabeledList.Item label="Mining Power Use">{formatPower(miningPower)}</LabeledList.Item>
                 <LabeledList.Item label="Stabilizer Power Use">{formatPower(stabilizerPower)}</LabeledList.Item>
-                <LabeledList.Item label="Mining Power for next level">{formatPower(nextLevelPower)}</LabeledList.Item>
                 <LabeledList.Item label="Surplus Power">{formatPower(availablePower)}</LabeledList.Item>
               </LabeledList>
             </Section>
@@ -147,17 +195,17 @@ export const BluespaceTap = (props, context) => {
 export const Alerts = (props, context) => {
   const { act, data } = useBackend(context);
   const product = data.product || [];
-  const { inputLevel, emagged, safeLevels, autoShutown, stabilizers, overhead } = data;
+  const { miningPower, stabilizerPower, emagged, safeLevels, autoShutown, stabilizers, overhead } = data;
   return (
     <>
       {!autoShutown && !emagged && <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>}
       {emagged ? (
         <NoticeBox danger={1}>All safeties disabled</NoticeBox>
-      ) : inputLevel <= safeLevels ? (
+      ) : miningPower <= 15000000 ? (
         ''
       ) : !stabilizers ? (
         <NoticeBox danger={1}>Stabilizers disabled, Instability likely</NoticeBox>
-      ) : inputLevel - overhead > safeLevels ? (
+      ) : miningPower > stabilizerPower + 15000000 ? (
         <NoticeBox danger={1}>Stabilizers overwhelmed, Instability likely</NoticeBox>
       ) : (
         <NoticeBox>High Power, engaging stabilizers</NoticeBox>

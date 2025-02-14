@@ -75,7 +75,7 @@
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/drinks/drinkingglass/alliescocktail, // 0TC
 		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
-		/obj/item/CQC_manual) // 50tc
+		/obj/item/cqc_manual) // 50tc
 
 /// 145TC + RCD & Mesons Autoimplanter
 /obj/item/storage/box/syndie_kit/bundle/infiltrator
@@ -124,20 +124,20 @@
 		/obj/item/bio_chip_implanter/storage, // 40TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 220TC
+/// 200TC
 /obj/item/storage/box/syndie_kit/bundle/hacker
 	name = "Hacker Bundle"
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
-		/obj/item/melee/energy/sword/saber/blue, // 40TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire, // 20TC
 		/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
-		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/aiModule/syndicate, // 15TC
+		/obj/item/ai_module/toy_ai, // 0TC
+		/obj/item/ai_module/syndicate, // 15TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5TC
 		/obj/item/bio_chip_implanter/freedom/prototype, // 10TC
 		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
@@ -154,7 +154,7 @@
 		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
-		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
+		/obj/item/clothing/glasses/meson/engine/atmos, // 0TC
 		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
@@ -195,7 +195,7 @@
 /// 80TC + modules + laser gun
 /obj/item/storage/box/syndie_kit/bundle/metroid
 	name = "Modsuit Bundle"
-	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
+	desc = "Don the equipment of an interstellar bounty hunter and blast your way through the station!"
 	items = list(
 		/obj/item/mod/control/pre_equipped/traitor_elite, // 45TC
 		/obj/item/mod/module/visor/thermal, // 15TC
@@ -222,7 +222,7 @@
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/clothing/under/syndicate/combat, //0TC
 		/obj/item/clothing/accessory/holster, // 0TC
-		/obj/item/clothing/accessory/scarf/red, //0TC
+		/obj/item/clothing/neck/scarf/red, //0TC
 		/obj/item/clothing/head/beret, // 0TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/clothing/shoes/combat) // 0TC
@@ -455,7 +455,7 @@
 /obj/item/storage/box/syndie_kit/safecracking/populate_contents()
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/mask/balaclava(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/clothing/neck/stethoscope(src)
 	new /obj/item/book/manual/wiki/hacking(src)
 
 /obj/item/storage/box/syndie_kit/chameleon
@@ -472,6 +472,7 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/nuke
 	name = "operative's chameleon kit"
@@ -488,6 +489,7 @@
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/clothing/mask/chameleon/voice_change(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
@@ -528,7 +530,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)
@@ -557,9 +559,32 @@
 /obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
 	new /obj/item/grenade/syndieminibomb/pen(src)
 
+/obj/item/storage/box/syndie_kit/chemical_canister
+	name = "\improper Chemical flamethrower canisters"
+
+/obj/item/storage/box/syndie_kit/chemical_canister/populate_contents()
+	new /obj/item/chemical_canister/extended/nuclear(src)
+	new /obj/item/chemical_canister/extended/nuclear(src)
+
 /obj/item/storage/box/syndie_kit/decoy
 	name = "\improper Decoy Grenade kit"
 
 /obj/item/storage/box/syndie_kit/decoy/populate_contents()
 	for(var/i in 1 to 5)
 		new /obj/item/grenade/firecracker/decoy(src)
+
+/obj/item/storage/box/syndie_kit/forgers_kit
+	name = "\improper Forger's kit"
+
+/obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/syndie_mantis
+	name = "\improper Mantis Blades kit"
+	desc = "A sleek box marked with a Cybersun logo. The label says it contains a pair of CX-12 'Naginata' mantis blades and accompanying autosurgeons."
+
+/obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l(src)
+

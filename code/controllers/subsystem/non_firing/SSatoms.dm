@@ -49,7 +49,6 @@ SUBSYSTEM_DEF(atoms)
 		log_startup_progress("Initialized [count] atoms in [stop_watch(watch)]s")
 	else
 		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
-	pass(count)
 
 	initialized = INITIALIZATION_INNEW_REGULAR
 
@@ -101,6 +100,11 @@ SUBSYSTEM_DEF(atoms)
 		qdeleted = TRUE
 	else if(!A.initialized)
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
+	else
+		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+		var/atom/location = A.loc
+		if(location)
+			SEND_SIGNAL(location, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, A, arguments[1])
 
 	return qdeleted || QDELING(A)
 

@@ -69,14 +69,14 @@
 
 
 
-/obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/nettle/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-		usr.unEquip(src)
+		usr.unequip(src)
 		qdel(src)
 
 /obj/item/grown/nettle/basic
@@ -105,7 +105,7 @@
 			user.Weaken(10 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
-/obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
+/obj/item/grown/nettle/death/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	..()
 	if(!isliving(M))
 		return

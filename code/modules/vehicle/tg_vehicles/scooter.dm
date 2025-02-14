@@ -33,6 +33,11 @@
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
+		if(istype(get_turf(src), /turf/simulated/floor/plating/asteroid)) //Rocks are bad for wheels mkay?
+			if(!HAS_TRAIT(src, TRAIT_NO_BREAK_GLASS_TABLES))
+				buckled_mob.adjustStaminaLoss(2)
+				if(prob(7)) //Not to much spam.
+					to_chat(buckled_mob, "<span class='warning'>The rocky terrain you are riding on is tiring you out!</span>")
 
 /obj/tgvehicle/scooter/skateboard
 	name = "skateboard"
@@ -51,6 +56,8 @@
 	var/instability = 10
 	///If true, riding the skateboard with walk intent on will prevent crashing.
 	var/can_slow_down = TRUE
+	///Is this board cursed, preventing the cheeser from picking it up right away and using it again. Can not get on it while cursed either.
+	var/cursed = FALSE
 
 /obj/tgvehicle/scooter/skateboard/Initialize(mapload)
 	. = ..()
@@ -73,8 +80,8 @@
 
 /obj/tgvehicle/scooter/skateboard/generate_actions()
 	. = ..()
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
 	set_density(TRUE)
@@ -112,7 +119,7 @@
 			V.tilt(rider, from_combat = TRUE)
 			return
 		rider.throw_at(throw_target, 3, 2)
-		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
+		var/head_slot = rider.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(!head_slot || !(istype(head_slot, /obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
@@ -169,7 +176,7 @@
 
 	if(location)
 		if(prob(33))
-			location.hotspot_expose(1000, 1000)
+			location.hotspot_expose(1000, 1)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)
@@ -190,6 +197,9 @@
 
 /obj/tgvehicle/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
 	if(skater.incapacitated() || !Adjacent(skater))
+		return
+	if(cursed)
+		to_chat(skater, "<span class='danger'>Some magic burns your hands whenever you go to pick [src] up!</span>")
 		return
 	if(has_buckled_mobs())
 		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
@@ -214,6 +224,7 @@
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	var/mutable_appearance/curse_overlay
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
 	. = ..()
@@ -221,6 +232,27 @@
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/necropolis_curse()
+	cursed = TRUE
+	can_buckle = FALSE
+	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	curse_overlay.pixel_y = -10
+
+	add_overlay(curse_overlay)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/remove_rider()
+	visible_message("<span class='warning'>The boosters on [src] burn out as the magic extinguishes it!</span>")
+	if(has_buckled_mobs())
+		var/mob/living/carbon/skaterboy = buckled_mobs[1]
+		unbuckle_mob(skaterboy)
+	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS,TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/clear_curse()
+	can_buckle = TRUE
+	cursed = FALSE
+	cut_overlay(curse_overlay)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"
@@ -243,7 +275,7 @@
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/scooter_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
 		return ..()
 	var/obj/item/stack/S = I
@@ -269,7 +301,7 @@
 /obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
 	return
 
-/obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
+/obj/tgvehicle/scooter/skateboard/improvised/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
 	var/obj/item/stack/S = I
@@ -314,12 +346,12 @@
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
-/obj/item/melee/skateboard/attack_self(mob/user)
+/obj/item/melee/skateboard/attack_self__legacy__attackchain(mob/user)
 	var/obj/tgvehicle/scooter/skateboard/S = new board_item_type(get_turf(user))//this probably has fucky interactions with telekinesis but for the record it wasn't my fault
 	S.buckle_mob(user)
 	qdel(src)

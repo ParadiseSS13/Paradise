@@ -109,8 +109,8 @@
 	playsound(src, 'sound/effects/meteorimpact.ogg', 25, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A, yes)
-	if(charging && yes)
+/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A)
+	if(charging)
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -175,7 +175,7 @@
 	if(target)
 		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
 
-/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc)
+/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(ischasm(newloc)) // as this place filled with chasms, they shouldn't randomly fall in while wandering around
 		return FALSE
 	return ..()
@@ -281,6 +281,17 @@
 /obj/effect/portal/advanced/deepstorage
 	name = "portal"
 	desc = "Good luck."
+
+// loot spawners
+
+/obj/effect/spawner/random/deepstorage_reward
+	name = "warehouse fashion reward"
+	loot = list(
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/clothing/suit/pimpcoat,
+			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/clothing/glasses/sunglasses/yeah
+	)
 
 // paper stuff & lore
 

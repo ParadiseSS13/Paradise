@@ -6,33 +6,33 @@ do {\
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/breadslice/attackby(obj/item/W, mob/user, params)
+/obj/item/food/sliced/bread/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
 		return
 	..()
 
-/obj/item/food/bun/attackby(obj/item/W, mob/user, params)
+/obj/item/food/bun/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/burger)
 		return
 	..()
 
-/obj/item/food/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
+/obj/item/food/sliceable/flatdough/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pizza)
 		return
 	..()
 
 
-/obj/item/food/boiledspaghetti/attackby(obj/item/W, mob/user, params)
+/obj/item/food/boiledspaghetti/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pasta)
 		return
 	..()
 
 
-/obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
+/obj/item/trash/plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/fullycustom)
 		return
@@ -46,10 +46,10 @@ do {\
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/trash/bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.attackby(I, user, params)
+		S.attackby__legacy__attackchain(I, user, params)
 		qdel(src)
 	else
 		..()
@@ -196,7 +196,7 @@ do {\
 
 /obj/item/food/customizable/candy/cotton
 	name = "flavored cotton candy"
-	desc = "Who can take a sunrise, sprinkle it with dew,"
+	desc = "Who can take a sunrise, sprinkle it with dew."
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -205,7 +205,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
-	desc = "Cover it in chocolate and a miracle or two,"
+	desc = "Cover it in chocolate and a miracle or two."
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -214,7 +214,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
-	desc = "The Candy Man can 'cause he mixes it with love,"
+	desc = "The Candy Man can 'cause he mixes it with love."
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -232,7 +232,7 @@ do {\
 
 /obj/item/food/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
-	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	desc = "Who can take a rainbow, Wrap it in a sigh."
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -241,7 +241,7 @@ do {\
 
 /obj/item/food/customizable/candy/candycane
 	name = "flavored candy cane"
-	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	desc = "Soak it in the sun and make strawberry-lemon pie."
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -263,15 +263,6 @@ do {\
 	icon_state = "donutcustom"
 	baseicon = "donutcustom"
 	basename = "filled donut"
-	snack_overlays = 0
-	top = 0
-
-/obj/item/food/customizable/candy/bar
-	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
-	baseicon = "barcustom"
-	basename = "flavored chocolate bar"
 	snack_overlays = 0
 	top = 0
 
@@ -335,12 +326,11 @@ do {\
 	tastes = list("bun" = 4)
 
 
-/obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(new_name))
-			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
-			return
+/obj/item/food/customizable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	..()
+
+	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
+		return
 
 	if(!istype(I, /obj/item/food))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
@@ -366,7 +356,7 @@ do {\
 			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
 			return
 
-	if(!user.unEquip(snack))
+	if(!user.unequip(snack))
 		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
 		return
 

@@ -151,7 +151,12 @@
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
-
+/// The coefficient a for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_A 1.376651173e10
+/// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
+/// And a decomposition rate close to 0 at 1400 Kelvin
+#define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
 // From milla/src/model.rs, line 126
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
 #define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
@@ -164,3 +169,15 @@
 #define ENVIRONMENT_TEMPERATE "temperate"
 /// Cold environment: Normal atmosphere, -93 C.
 #define ENVIRONMENT_COLD "cold"
+
+/// How far away should we load the pressure HUD data from MILLA?
+#define PRESSURE_HUD_LOAD_RADIUS 15
+
+/// How far away should we send the pressure HUD to the player?
+#define PRESSURE_HUD_RADIUS 12
+
+// Vent pump modes
+/// Don't go over the external pressure
+#define ONLY_CHECK_EXT_PRESSURE 1
+/// Only release until we reach this pressure
+#define ONLY_CHECK_INT_PRESSURE 2

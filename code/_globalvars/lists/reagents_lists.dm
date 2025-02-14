@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
 GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
-					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
+					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana", "bungojuice",
 					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
 					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
@@ -41,12 +41,14 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
-							"reagent", "dragonsbreath", "nanocalcium",
-							"xenomicrobes", "nanomachines", "gibbis", "prions",
+							"reagent", "drink", "medicine", "plantnutrient", "consumable", "dragonsbreath",
+							"nanocalcium", "xenomicrobes", "nanomachines", "gibbis", "prions",
 							"spidereggs", "heartworms", "bacon_grease",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
 							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling",
 							"teslium_paste", "omnizine_no_addiction", "zombiecure1",
-							"zombiecure2", "zombiecure3", "zombiecure4"
+							"zombiecure2", "zombiecure3", "zombiecure4",
+							"admincleaner_all", "admincleaner_item", "admincleaner_mob",
+							"synthetic_omnizine_no_addiction", "surge_plus"
 							))

@@ -11,7 +11,6 @@
 	light_range = 3
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
-	flying = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
@@ -29,6 +28,7 @@
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	mouse_opacity = MOUSE_OPACITY_ICON
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
+	initial_traits = list(TRAIT_FLYING)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
@@ -47,14 +47,18 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
+	GLOB.alive_megafauna_list |= UID()
 	if(internal_gps && true_spawn)
 		internal_gps = new internal_gps(src)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(hoverboard_deactivation))
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
+	UnregisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET)
+	GLOB.alive_megafauna_list -= UID()
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
@@ -73,6 +77,7 @@
 	return ..() && health <= 0
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
+	GLOB.alive_megafauna_list -= UID()
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -101,7 +106,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
@@ -157,6 +162,21 @@
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
 		C.density = FALSE //I hate it.
 		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
+
+/mob/living/simple_animal/hostile/megafauna/proc/hoverboard_deactivation(source, target)
+	SIGNAL_HANDLER // COMSIG_HOSTILE_FOUND_TARGET
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	if(!L.buckled)
+		return
+	if(!istype(L.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
+		return
+	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
+	// Not a visible message, as walls or such may be in the way
+	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
+	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
+	cursed_board.necropolis_curse()
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

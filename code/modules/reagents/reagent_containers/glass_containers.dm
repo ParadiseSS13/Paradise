@@ -6,8 +6,6 @@
 	var/base_name = " "
 	desc = " "
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
-	item_state = "null"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
@@ -29,7 +27,7 @@
 
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 
-/obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/glass/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(!is_open_container())
 		return ..()
 
@@ -71,7 +69,7 @@
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
-/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if((!proximity) || !check_allowed_items(target, target_self = TRUE))
 		return
 
@@ -112,7 +110,7 @@
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
@@ -131,6 +129,13 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
@@ -142,23 +147,21 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 79)
-				filling.icon_state = "[icon_state]75"
-			if(80 to 90)
+			if(1 to 19)
+				filling.icon_state = "[icon_state]1"
+			if(20 to 39)
+				filling.icon_state = "[icon_state]20"
+			if(40 to 59)
+				filling.icon_state = "[icon_state]40"
+			if(60 to 79)
+				filling.icon_state = "[icon_state]60"
+			if(80 to 99)
 				filling.icon_state = "[icon_state]80"
-			if(91 to INFINITY)
+			if(100 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
@@ -175,7 +178,7 @@
 	if(reagents)
 		reagents.temperature_reagents(4000)
 
-/obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/glass/beaker/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
@@ -191,9 +194,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+/obj/item/reagent_containers/glass/beaker/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.on_atom_entered(source, entered)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -267,7 +270,7 @@
 
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete."
+	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -302,7 +305,8 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
+	prefered_slot_flags = ITEM_SLOT_IN_BACKPACK
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -323,12 +327,12 @@
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_HUD_HEAD && reagents.total_volume)
+	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
 		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+/obj/item/reagent_containers/glass/bucket/attackby__legacy__attackchain(obj/D, mob/user, params)
 	if(istype(D, /obj/item/mop))
 		var/obj/item/mop/m = D
 		m.wet_mop(src, user)
@@ -337,7 +341,7 @@
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.unEquip(src)
+		user.unequip(src)
 		qdel(src)
 	else
 		..()

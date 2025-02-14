@@ -4,6 +4,7 @@
 	name = "Maintenance loot spawner"
 	spawn_loot_chance = 65
 	spawn_random_offset_max_pixels = 8
+	record_spawn = TRUE
 
 /obj/effect/spawner/random/maintenance/Initialize(mapload)
 	loot = GLOB.maintenance_loot_tables

@@ -11,6 +11,10 @@
 	var/obj/item/stack/sheet/build_stack_type
 	var/build_stack_amount
 
+/obj/structure/reflector/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		anchored = TRUE
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
@@ -38,7 +42,7 @@
 	return -1
 
 
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)

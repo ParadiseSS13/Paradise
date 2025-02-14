@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/ring
 	name = "iron ring"
-	desc = "A band that goes around your finger.  It's considered gauche to wear more than one."
+	desc = "A band that goes around your finger. It's considered gauche to wear more than one."
 	gender = "neuter" // not plural anymore
 	transfer_prints = TRUE
 	icon_state = "ironring"
@@ -25,7 +25,7 @@
 	if(stud)
 		. += "It is adorned with a single gem."
 
-/obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/ring/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)

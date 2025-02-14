@@ -205,7 +205,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = MECH_RCD_MODE_DECONSTRUCT
-	var/canRwall = 0
+	var/can_rwall = 0
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
@@ -231,7 +231,7 @@
 	switch(mode)
 		if(MECH_RCD_MODE_DECONSTRUCT)
 			if(iswallturf(target))
-				if((isreinforcedwallturf(target) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
+				if((isreinforcedwallturf(target) && !can_rwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
 				var/turf/simulated/wall/W = target
 				occupant_message("Deconstructing [target]...")
@@ -280,7 +280,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		switch(mode)
@@ -375,7 +376,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Topic(href,href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle"])
 		set_ready_state(!equip_ready)
 		occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
@@ -454,6 +456,55 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher
+	name = "exosuit crusher"
+	desc = "A mech mounted crusher. For crushing bigger things."
+	icon_state = "mecha_crusher"
+	equip_cooldown = 1.2 SECONDS
+	energy_drain = 3000
+	harmful = TRUE
+	range = MECHA_MELEE | MECHA_RANGED
+	var/obj/item/kinetic_crusher/mecha/internal_crusher
+
+/obj/item/kinetic_crusher/mecha
+	/// Since this one doesn't have the two_handed component it will always use the value in force
+	force = 30
+	armour_penetration_flat = 15
+	detonation_damage = 90
+	backstab_bonus = 50
+
+/obj/item/kinetic_crusher/mecha/get_turf_for_projectile(atom/user)
+	if(ismecha(user.loc) && isturf(user.loc?.loc))
+		return user.loc.loc
+	return null
+
+/obj/item/kinetic_crusher/mecha/Initialize(mapload)
+	. = ..()
+	DeleteComponent(/datum/component/parry)
+	DeleteComponent(/datum/component/two_handed)
+
+	/// This is only for the sake of internal checks in the crusher itself.
+	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
+	. = ..()
+	internal_crusher = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Destroy()
+	QDEL_NULL(internal_crusher)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(!chassis.occupant)
+		return
+	chassis.occupant.changeNext_click(equip_cooldown)
+	var/proximate = chassis.Adjacent(target)
+	if(proximate)
+		target.attackby__legacy__attackchain(internal_crusher, chassis.occupant)
+	internal_crusher.afterattack__legacy__attackchain(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR

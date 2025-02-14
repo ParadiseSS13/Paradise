@@ -26,7 +26,7 @@ namespace JSX {
     marquee: any;
     blink: any;
   }
-  Element
+  Element;
 }
 
 type TguiMessage = {
@@ -144,6 +144,11 @@ type ByondType = {
   parseJson(text: string): any;
 
   /**
+   * Downloads a blob, platform-agnostic
+   */
+  saveBlob(blob: Blob, filename: string, ext: string): void;
+
+  /**
    * Sends a message to `/datum/tgui_window` which hosts this window instance.
    */
   sendMessage(type: string, payload?: any): void;
@@ -169,6 +174,11 @@ type ByondType = {
    * Loads a script into the document.
    */
   loadJs(url: string): void;
+
+  /**
+   * Maps icons to their ref
+   */
+  iconRefMap: Record<string, string>;
 };
 
 /**

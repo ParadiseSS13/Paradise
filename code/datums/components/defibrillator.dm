@@ -72,7 +72,7 @@
 
 	var/effect_target = isnull(actual_unit) ? parent : actual_unit
 
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(trigger_defib))
+	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(trigger_defib))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
@@ -119,7 +119,7 @@
  * Start the defibrillation process when triggered by a signal.
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	SIGNAL_HANDLER  // COMSIG_ATTACK
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return TRUE
@@ -183,8 +183,8 @@
 	)
 
 	busy = TRUE
-	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
-	if(ghost?.can_reenter_corpse)
+	var/mob/dead/observer/ghost = target.get_ghost()
+	if(ghost)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
@@ -298,8 +298,9 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
+		var/obj/item/organ/internal/brain/sponge = target.get_int_organ(/obj/item/organ/internal/brain)
 		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
-		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
+		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > sponge.damage)
 			target.setBrainLoss(defib_time_brain_damage)
 
 		target.set_heartattack(FALSE)
@@ -308,7 +309,8 @@
 		target.Paralyse(10 SECONDS)
 		target.emote("gasp")
 
-		if(target.getBrainLoss() >= 100)
+		// Check if the brain has more than a critical amount of brain damage
+		if(target.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL))
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 			playsound(get_turf(defib_ref), safety_off_sound, 50, FALSE)
 			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")

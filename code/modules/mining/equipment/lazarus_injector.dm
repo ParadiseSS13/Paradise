@@ -14,7 +14,7 @@
 	var/malfunctioning = 0
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
-/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/lazarus_injector/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!loaded)
 		return
 	if(isliving(target) && proximity_flag)
@@ -91,7 +91,7 @@
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/mobcapsule/attack(mob/living/simple_animal/S, mob/user, prox_flag)
+/obj/item/mobcapsule/attack__legacy__attackchain(mob/living/simple_animal/S, mob/user, prox_flag)
 	if(istype(S) && S.sentience_type == capture_type)
 		capture(S, user)
 		return TRUE
@@ -121,7 +121,7 @@
 		captured.forceMove(get_turf(src))
 		captured = null
 
-/obj/item/mobcapsule/attack_self(mob/user)
+/obj/item/mobcapsule/attack_self__legacy__attackchain(mob/user)
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0

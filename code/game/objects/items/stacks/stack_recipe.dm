@@ -4,10 +4,10 @@
 /datum/stack_recipe
 	/// Visible title of recipe
 	var/title = "ERROR"
-	/// Cached recipe result base64 image
-	var/image
 	/// Resulting typepath of crafted atom
 	var/result_type
+	/// Generated base64 image. Used only if result has color
+	var/result_image
 	/// Required stack amount to make
 	var/req_amount = 1
 	/// Amount of atoms made
@@ -52,15 +52,14 @@
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
 
+	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
-	var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
 	var/paint = result::color
-
-	result_icon.Scale(32, 32)
 	if(!isnull(paint) && paint != COLOR_WHITE)
+		var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
+		result_icon.Scale(32, 32)
 		result_icon.Blend(paint, ICON_MULTIPLY)
-
-	src.image = "[icon2base64(result_icon)]"
+		src.result_image = "[icon2base64(result_icon)]"
 
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
@@ -105,11 +104,15 @@
 		if(!do_after(user, time, target = material.loc))
 			return FALSE
 
+	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+		return FALSE
+
 	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
 		to_chat(user, "<span class='warning'>There is a structure here!</span>")
 		return FALSE
 
-	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once during try_build, and when we build the actual thing, in case it was on a do-after and there's now a structure here.
+		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
 		return FALSE
 
 	if(max_res_amount > 1) // Is it a stack?

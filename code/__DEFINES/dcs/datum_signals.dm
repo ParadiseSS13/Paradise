@@ -8,14 +8,12 @@
 
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
-/// before a component is removed from a datum because of RemoveComponent: (/datum/component)
+/// before a component is removed from a datum because of UnlinkComponent: (/datum/component)
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
 #define COMSIG_PARENT_QDELETING "parent_qdeleting"
-/// generic topic handler (usr, href_list)
-#define COMSIG_TOPIC "handle_topic"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -37,12 +35,6 @@
 	/// If returned from this signal, will prevent any surgery splashing.
 	#define COMPONENT_BLOOD_SPLASH_HANDLED (1<<0)
 
-// Sent from a surgery step when organs are being spread from an incision
-#define COMSIG_SURGERY_GERM_SPREAD "surgery_germ_spread"
-	/// If returned from this signal, germ spread will be blocked.
-	#define COMPONENT_GERM_SPREAD_BLOCK (1<<0)
-
-
 // /datum/species
 
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
@@ -61,14 +53,12 @@
 #define COMSIG_SONG_END		"song_end"
 
 
-// /datum/component/decal
+// /datum/element/decal
 
-///(): Returns bitflags of wet values.
-#define COMSIG_TURF_IS_WET "check_turf_wet"
-///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+///called on an object to clean it of cleanables.
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+	///Returned by cleanable components when they are cleaned.
+	#define COMPONENT_CLEANED (1<<0)
 
 
 // /datum/component/two_handed
@@ -78,6 +68,8 @@
 	#define COMPONENT_TWOHANDED_BLOCK_WIELD (1<<0)
 ///from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"
+///from base of /datum/component/forces_doors_open/proc/force_open_door(obj/item): (datum/source, mob/user, atom/target)
+#define COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT "twohanded_wielded_try_wield_interact"
 
 
 // /datum/action
@@ -126,10 +118,6 @@
 
 // other subtypes
 
-/// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
-#define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
-	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
-
 ///from base of /datum/local_powernet/proc/power_change()
 #define COMSIG_POWERNET_POWER_CHANGE "powernet_power_change"
 
@@ -137,5 +125,12 @@
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
 
-///called when you wash your face at a sink: (num/strength)
-#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"
+
+/// /datum/component/label
+/// Called when a handlabeler is used on an item when off
+#define COMSIG_LABEL_REMOVE "label_remove"
+
+// /datum/ruleset
+
+/// from base of /datum/ruleset/proc/can_apply()
+#define COMSIG_RULESET_FAILED_SPECIES "failed_species"

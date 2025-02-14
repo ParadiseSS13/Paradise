@@ -14,7 +14,7 @@
 
 /obj/item/clothing/ears/earmuffs/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && ((slot == SLOT_HUD_LEFT_EAR) || (slot == SLOT_HUD_RIGHT_EAR)))
+	if(ishuman(user) && (slot & ITEM_SLOT_BOTH_EARS))
 		ADD_TRAIT(user, TRAIT_DEAF, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/clothing/ears/earmuffs/dropped(mob/user)

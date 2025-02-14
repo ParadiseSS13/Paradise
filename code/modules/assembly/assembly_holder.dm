@@ -34,24 +34,23 @@
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A1)
-		A1.forceMove(src)
+			user.transfer_item_to(A1, src)
+		else
+			A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A2)
-		A2.forceMove(src)
+			user.transfer_item_to(A2, src)
+		else
+			A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1
 	a_right = A2
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
+	A1.on_attach()
+	A2.on_attach()
 	return TRUE
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
-		return TRUE
-	return FALSE
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()
@@ -83,11 +82,12 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
+// TODO: All these assemblies passing the crossed args around needs to be cleaned up with signals
+/obj/item/assembly_holder/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(a_left)
-		a_left.Crossed(AM, oldloc)
+		a_left.on_atom_entered(source, entered)
 	if(a_right)
-		a_right.Crossed(AM, oldloc)
+		a_right.on_atom_entered(source, entered)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
@@ -153,7 +153,7 @@
 		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
 	update_icon()
 
-/obj/item/assembly_holder/attack_self(mob/user)
+/obj/item/assembly_holder/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
@@ -162,18 +162,18 @@
 		if(istype(a_left, a_right.type)) // If they are the same type it causes issues due to window code
 			switch(tgui_alert(user, "Which side would you like to use?", "Choose", list("Left", "Right")))
 				if("Left")
-					a_left.attack_self(user)
+					a_left.attack_self__legacy__attackchain(user)
 				if("Right")
-					a_right.attack_self(user)
+					a_right.attack_self__legacy__attackchain(user)
 			return
 		else
-			a_left.attack_self(user)
-			a_right.attack_self(user)
+			a_left.attack_self__legacy__attackchain(user)
+			a_right.attack_self__legacy__attackchain(user)
 	else
 		var/turf/T = get_turf(src)
 		if(!T)
 			return FALSE
-		user.unEquip(src, TRUE, TRUE)
+		user.unequip(src, force = TRUE)
 		if(a_left)
 			a_left.holder = null
 			a_left.forceMove(T)

@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
 
-/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
+/obj/item/hivelordstabilizer/afterattack__legacy__attackchain(obj/item/organ/internal/M, mob/user)
 	. = ..()
 	var/obj/item/organ/internal/regenerative_core/C = M
 	if(!istype(C, /obj/item/organ/internal/regenerative_core))
@@ -90,12 +90,12 @@
 			user.drop_item()
 			qdel(src)
 
-/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/organ/internal/regenerative_core/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(proximity_flag)
 		applyto(target, user)
 
-/obj/item/organ/internal/regenerative_core/attack_self(mob/user)
+/obj/item/organ/internal/regenerative_core/attack_self__legacy__attackchain(mob/user)
 	applyto(user, user)
 
 /obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0)
@@ -130,9 +130,7 @@
 	. = ..()
 	if(!inert && !preserved)
 		. += "legion_soul_crackle"
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/organ/internal/regenerative_core/legion/go_inert()
 	..()

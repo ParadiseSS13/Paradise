@@ -1,7 +1,7 @@
 /datum/station_goal/secondary/random_bulk_reagent/kitchen
 	name = "Random Bulk Condiment"
 	department = "Kitchen"
-	abstract = FALSE
+	weight = 1
 
 /datum/station_goal/secondary/random_bulk_reagent/kitchen/randomize_params()
 	..()

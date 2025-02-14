@@ -12,10 +12,10 @@
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
-/obj/item/reagent_containers/patch/attack(mob/living/carbon/C, mob/user)
+/obj/item/reagent_containers/patch/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	return apply(C, user)
 
-/obj/item/reagent_containers/patch/attack_self(mob/user)
+/obj/item/reagent_containers/patch/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
 /obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/C, mob/user)
@@ -52,6 +52,7 @@
 
 /obj/item/reagent_containers/patch/styptic/small
 	name = "brute mini-patch"
+	icon_state = "bandaid_brute_small"
 	list_reagents = list("styptic_powder" = 15)
 
 /obj/item/reagent_containers/patch/silver_sulf
@@ -63,6 +64,7 @@
 
 /obj/item/reagent_containers/patch/silver_sulf/small
 	name = "burn mini-patch"
+	icon_state = "bandaid_burn_small"
 	list_reagents = list("silver_sulfadiazine" = 15)
 
 /obj/item/reagent_containers/patch/synthflesh

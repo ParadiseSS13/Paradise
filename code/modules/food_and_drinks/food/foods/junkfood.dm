@@ -111,15 +111,26 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
-/obj/item/food/twimsts/attack_self(mob/user)
+/obj/item/food/twimsts/attack_self__legacy__attackchain(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	L.create_reagents(100)
 	reagents.copy_to(L, reagents.total_volume)
-	user.unEquip(src)
+	user.unequip(src)
 	var/obj/item/trash_item = generate_trash(user)
-	user.unEquip(trash_item)
+	user.drop_item_to_ground(trash_item)
 	user.put_in_hands(L)
 	qdel(src)
+
+/obj/item/food/deluxe_chocolate_bar
+	name = "Deluxe Chocolate-bar"
+	desc = "Crafted from premium cacao and infused with quantum nutrients, this luxury chocolate bar is wrapped in nanofoil for ultimate freshness. Experience the essence of culinary supremacy with every bite."
+	icon = 'icons/obj/food/candy.dmi'
+	icon_state = "choco"
+	filling_color = "#7D5F46"
+	antable = FALSE
+	junkiness = 25
+	list_reagents = list("chocolate" = 5, "sugar" = 10)
+	tastes = list("chocolate" = 1)
 
 //////////////////////
 //		Homemade	//

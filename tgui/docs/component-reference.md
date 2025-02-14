@@ -570,6 +570,10 @@ A Robust button is specifically for sticking a picture in it.
 - `disabled: boolean` - Makes button disabled and dark red if true.
   Also disables onClick & onRightClick.
 - `selected: boolean` - Makes button selected and green if true.
+- `dmFallback: any` - Optional. Adds a "stub" when loading DmIcon.
+- `dmIcon: string` - Parameter `icon` of component `DmIcon`.
+- `dmIconState: string` - Parameter `icon_state` of component `DmIcon`.
+  For proper work of `DmIcon` it is necessary that both parameters are filled in!
 - `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
   Allows the use of `title`
 - `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".

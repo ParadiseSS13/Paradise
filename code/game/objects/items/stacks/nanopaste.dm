@@ -9,8 +9,9 @@
 	amount = 6
 	max_amount = 6
 	toolspeed = 1
+	merge_type = /obj/item/stack/nanopaste
 
-/obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/stack/nanopaste/attack__legacy__attackchain(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0
 	if(isrobot(M))	//Repairing cyborgs
@@ -32,7 +33,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
 
-/obj/item/stack/nanopaste/afterattack(atom/A, mob/user, proximity_flag)
+/obj/item/stack/nanopaste/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
 	if(!ismecha(A) || user.a_intent == INTENT_HARM || !proximity_flag)
 		return
 	var/obj/mecha/mecha = A
@@ -92,7 +93,7 @@
 	energy_type = /datum/robot_storage/energy/medical/nanopaste
 	is_cyborg = TRUE
 
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
+/obj/item/stack/nanopaste/cyborg/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
 	else

@@ -38,7 +38,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
 	var/one_door_exterior //See above
 
-/obj/effect/spawner/airlock/Initialize()
+/obj/effect/spawner/airlock/Initialize(mapload)
 	..()
 	forceMove(locate(x + 1, y + 1, z)) //Needs to move because our icon_state implies we are one turf to the northeast, when we're not
 	opposite_interior_direction = turn(interior_direction, 180) //Do it this way (instead of setting it directly) to avoid code mishaps
@@ -83,12 +83,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/access_button/the_button = spawn_button(T, is_this_an_interior_airlock ? interior_direction : exterior_direction, is_this_an_interior_airlock)
 	if(one_door_only == DOOR_NORMAL_PLACEMENT) //We only need one door, we are done
 		return
-	if(!(tiles_in_x_direction % 2) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
+	if(ISEVEN(tiles_in_x_direction) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, EAST))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, EAST))
-	else if(!(tiles_in_y_direction % 2) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
+	else if(ISEVEN(tiles_in_y_direction) && (is_this_an_interior_airlock && !north_or_south_interior || !is_this_an_interior_airlock && !north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, NORTH))
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
@@ -207,14 +207,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		// Since airlocks are created first, we steal the payload logic
 		// to apply to the controls later
 		req_access = airlock.req_access
-		req_access_txt = airlock.req_access_txt
 		req_one_access = airlock.req_one_access
-		req_one_access_txt = airlock.req_one_access_txt
 	else
 		I.req_access = req_access
-		I.req_access_txt = req_access_txt
 		I.req_one_access = req_one_access
-		I.req_one_access_txt = req_one_access_txt
 
 // MARK: AIRLOCK HELPERS
 

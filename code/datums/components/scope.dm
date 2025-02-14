@@ -58,6 +58,9 @@
 	))
 
 /datum/component/scope/process()
+	if(!tracker)
+		STOP_PROCESSING(SSprojectiles, src)
+		return
 	var/mob/user_mob = tracker.owner
 	var/client/user_client = user_mob.client
 	if(!user_client)
@@ -101,7 +104,7 @@
 	SIGNAL_HANDLER // COMSIG_GUN_TRY_FIRE
 	if(!tracker?.given_turf || target == get_target(tracker.given_turf))
 		return NONE
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack), get_target(tracker.given_turf), user)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack__legacy__attackchain), get_target(tracker.given_turf), user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /datum/component/scope/proc/on_examine(datum/source, mob/user, list/examine_list)

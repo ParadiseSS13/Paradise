@@ -57,19 +57,19 @@ const MainMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { newmessagepriority, announcementConsole, silent } = data;
   let messageInfo;
-  if (newmessagepriority >= RQ_NONEW_MESSAGES) {
-    messageInfo = (
-      <Box color="red" bold mb={1}>
-        There are new messages
-      </Box>
-    );
-  } else if (newmessagepriority === RQ_HIGHPRIORITY) {
+  if (newmessagepriority === RQ_HIGHPRIORITY) {
     messageInfo = (
       <Blink>
         <Box color="red" bold mb={1}>
           NEW PRIORITY MESSAGES
         </Box>
       </Blink>
+    );
+  } else if (newmessagepriority > RQ_NONEW_MESSAGES) {
+    messageInfo = (
+      <Box color="red" bold mb={1}>
+        There are new messages
+      </Box>
     );
   } else {
     messageInfo = (

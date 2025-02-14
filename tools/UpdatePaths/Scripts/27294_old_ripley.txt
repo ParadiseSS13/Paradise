@@ -1,0 +1,1 @@
+/obj/mecha/working/ripley/mining : /obj/mecha/working/ripley/mining/old

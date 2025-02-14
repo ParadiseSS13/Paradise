@@ -152,6 +152,7 @@
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
+	if(rights & R_DEV_TEAM)		. += "[seperator]+DEV_TEAM"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
@@ -248,7 +249,7 @@
 /proc/heat2color_g(temp)
 	temp /= 100
 	if(temp <= 66)
-		. = max(0, min(255, 99.4708025861 * log(temp) - 161.1195681661))
+		. = max(0, min(255, 99.4708025861 * log(max(temp, 1)) - 161.1195681661))
 	else
 		. = max(0, min(255, 288.1221695283 * ((temp - 60) ** -0.0755148492)))
 
@@ -260,7 +261,7 @@
 		if(temp <= 16)
 			. = 0
 		else
-			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+			. = max(0, min(255, 138.5177312231 * log(max(temp - 10, 1)) - 305.0447927307))
 
 //Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
 /proc/text2matrix(matrixtext)

@@ -24,7 +24,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
 	faction = list("carp")
-	flying = TRUE
+	initial_traits = list(TRAIT_FLYING)
 
 	var/carp_color = "carp" //holder for icon set
 	var/static/list/carp_colors = list(\
@@ -85,7 +85,7 @@
 		icon_living = "koi[koinum]"
 		icon_dead = "koi[koinum]-dead"
 
-/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/honk

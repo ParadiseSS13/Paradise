@@ -263,7 +263,8 @@
 		if(QDELETED(V))
 			vents -= vent_uid
 			continue
-
+		if(V.on == FALSE && power == FALSE) // Don't bother if it's already off
+			continue
 		V.on = power
 		V.releasing = direction
 		V.external_pressure_bound = pressure

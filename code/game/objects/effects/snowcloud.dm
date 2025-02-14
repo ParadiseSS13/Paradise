@@ -65,7 +65,8 @@
 /obj/effect/snow
 	desc = "Perfect for making snow angels, or throwing at other people!"
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "snow"
+	icon_state = "snow1"
+	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
 
 /obj/effect/snow/New()
@@ -96,7 +97,7 @@
 	user.put_in_hands(SB)
 	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
 
-/obj/effect/snow/attackby(obj/item/I, mob/user)
+/obj/effect/snow/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/shovel))
 		var/obj/item/shovel/S = I
 		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")

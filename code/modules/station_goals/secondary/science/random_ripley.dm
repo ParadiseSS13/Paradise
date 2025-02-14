@@ -3,7 +3,7 @@
 	department = "Robotics"
 	progress_type = /datum/secondary_goal_progress/random_ripley
 	should_send_crate = FALSE
-	abstract = FALSE
+	weight = 1
 	var/list/modules = list()
 	var/static/list/general_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/repair_droid,
@@ -34,7 +34,7 @@
 
 	report_message = list("One of our rapid-response teams lost a mech, and needs a replacement Ripley with \a [initial(general_module.name)] and \a [initial(engineering_module.name)].",
 						"You must label the mech properly. Use your ID card on a hand labeller to configure it.")
-	admin_desc = "Ripley with [initial(general_module.name)] and  [initial(engineering_module.name)]"
+	admin_desc = "Ripley with [initial(general_module.name)] and [initial(engineering_module.name)]"
 
 
 /datum/secondary_goal_progress/random_ripley
