@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	owner = quirky
 	owner.quirks += src
 	if(processes)
-		START_PROCESSING(SSprocessing, src)
+		START_PROCESSING(SSobj, src)
 	if(trait_to_apply)
 		ADD_TRAIT(owner, trait_to_apply, "quirk")
 	if(organ_slot_to_remove)
@@ -95,3 +95,9 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 			active_character.quirks.Remove(quirk)
 			return TRUE
 	return FALSE
+
+/mob/living/carbon/human/proc/force_add_quirk()
+
+/mob/living/carbon/human/proc/force_remove_quirk()
+
+
