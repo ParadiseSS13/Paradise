@@ -5,6 +5,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	desc = "A balloon that can be used to extract equipment or personnel to a Fulton Recovery Beacon. Anything not bolted down can be moved. Link the pack to a beacon by using the pack in hand."
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
+	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	var/obj/structure/extraction_point/beacon
 	var/list/beacon_networks = list("station")
@@ -40,6 +41,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/afterattack__legacy__attackchain(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
+	playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
+	user.do_attack_animation(A)
 	if(!beacon)
 		to_chat(user, "<span class='warning'>[src] is not linked to a beacon, and cannot be used!</span>")
 		return
