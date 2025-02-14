@@ -78,7 +78,7 @@
 	if(ease_of_breathing < ASTHMA_ATTACK_THRESHOLD)
 		return
 	owner.emote("cough")
-	if(prob(ease_of_breathing / 5))
+	if(prob(ease_of_breathing / 4))
 		trigger_asthma_symptom(ease_of_breathing)
 
 /* Causes an asthmatic flareup, which gets worse depending on how much oxygen and stamina damage the owner already has.
@@ -88,10 +88,11 @@
 	owner.visible_message("<span class='notice'>[owner] violently coughs!</span>", "<span class='warning'>Your asthma flares up!</span>")
 	switch(current_severity)
 		if(50 to 75)
-			owner.adjustOxyLoss(2)
+			owner.adjustOxyLoss(3)
 		if(76 to 100)
-			owner.adjustOxyLoss(4)
+			owner.adjustOxyLoss(5)
 		if(101 to 150) // By now you're doubled over coughing
+			owner.adjustOxyLoss(2)
 			owner.AdjustLoseBreath(4 SECONDS)
 			owner.KnockDown(4 SECONDS)
 		if(151 to INFINITY)
