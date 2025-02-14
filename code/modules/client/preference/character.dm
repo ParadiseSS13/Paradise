@@ -133,7 +133,7 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(length(loadout_gear))
 		gearlist = json_encode(loadout_gear)
-	if(length(quirks))
+	if(islist(quirks))
 		quirks = json_encode(quirks)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
