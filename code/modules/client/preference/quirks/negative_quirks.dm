@@ -1,19 +1,9 @@
-/datum/quirk/lightweight
+/datum/quirk/alcohol_tolerance/lightweight
 	name = "Lightweight"
 	desc = "You can't handle liquor very well, and get drunker quicker."
 	cost = -1
-	var/alcohol_modifier = 1.3
+	alcohol_modifier = 1.3
 
-/datum/quirk/lightweight/apply_quirk_effects(mob/living/quirky)
-	if(!ishuman(quirky))
-		return
-	var/mob/living/carbon/human/user = quirky
-	user.physiology.alcohol_mod *= alcohol_modifier
-	. = ..()
-
-/datum/quirk/lightweight/remove_quirk_effects()
-	. = ..()
-	user.physiology.alcohol_mod /= alcohol_modifier
 
 /datum/quirk/foreigner
 	name = "Foreigner"

@@ -16,22 +16,11 @@
 	cost = 2
 	trait_to_apply = TRAIT_CRAFTY
 
-/datum/quirk/heavy_drinker
+/datum/quirk/alcohol_tolerance/heavy_drinker
 	name = "Heavy Drinker"
 	desc = "You're used to the effects of alcohol, and get drunk slower than others."
 	cost = 1
-	var/alcohol_modifier = 0.7
-
-/datum/quirk/heavy_drinker/apply_quirk_effects(mob/living/quirky)
-	if(!ishuman(quirky))
-		return
-	var/mob/living/carbon/human/user = quirky
-	user.physiology.alcohol_mod *= alcohol_modifier
-	. = ..()
-
-/datum/quirk/heavy_drinker/remove_quirk_effects()
-	. = ..()
-	user.physiology.alcohol_mod /= alcohol_modifier
+	alcohol_modifier = 0.7
 
 /datum/quirk/meal_prepper
 	name = "Meal Prepper"
