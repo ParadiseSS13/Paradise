@@ -22,6 +22,7 @@
 	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/crowbar/red
+	desc = "A hefty steel crowbar with red stripes. It'll hit a bit harder than a normal crowbar."
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
 	belt_icon = "crowbar_red"
