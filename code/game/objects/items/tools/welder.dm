@@ -263,7 +263,7 @@
 
 /obj/item/weldingtool/research
 	name = "research welding tool"
-	desc = "A scratched-up welding tool that's been the subject of numerous aftermarket enhancements. It has a larger fuel tank, and a more focused torch than a standard welder."
+	desc = "A scratched-up welding tool that's been the subject of numerous aftermarket enhancements. It has a larger fuel tank, and a more focused torch than a standard welder. A label on the side reads, \"Property of Theseus\"."
 	icon_state = "welder_research"
 	item_state = "welder_research"
 	belt_icon = "welder_research"
