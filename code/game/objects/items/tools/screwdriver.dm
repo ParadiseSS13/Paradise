@@ -134,6 +134,6 @@
 
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
-	desc = "An powered screwdriver typically found in construction and engineering robots."
+	desc = "A powered screwdriver typically found in construction and engineering robots."
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
