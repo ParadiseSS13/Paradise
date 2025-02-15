@@ -1,6 +1,6 @@
 /obj/item/wrench
 	name = "wrench"
-	desc = "A wrench with common uses. Can be found in your hand."
+	desc = "A standard adjustable wrench made of forged steel. Can be used to fasten or remove bolts, and deconstruct objects."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
 	belt_icon = "wrench"
@@ -46,12 +46,12 @@
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
-	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
+	desc = "A powered industrial wrench commonly found in construction and engineering robots. More efficient than most manual wrenches."
 	toolspeed = 0.5
 
 /obj/item/wrench/brass
 	name = "brass wrench"
-	desc = "A brass wrench. It's faintly warm to the touch."
+	desc = "A brass adjustable wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
 	belt_icon = "wrench_brass"
 	toolspeed = 0.5
@@ -59,7 +59,7 @@
 
 /obj/item/wrench/power
 	name = "hand drill"
-	desc = "A simple powered drill with a bolt bit."
+	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a bolt driver head attached."
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -88,7 +88,7 @@
 
 /obj/item/wrench/medical
 	name = "medical wrench"
-	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."
+	desc = "A standard adjustable wrench covered in medical iconography. Its outer surface is mostly covered in rubber, and it seems to be more fficient than a normal wrench."
 	icon_state = "wrench_medical"
 	force = 2 //MEDICAL
 	throwforce = 4

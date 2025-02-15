@@ -1,7 +1,7 @@
 //Screwdriver
 /obj/item/screwdriver
 	name = "screwdriver"
-	desc = "You can be totally screwy with this."
+	desc = "A common screwdriver made of plastic and steel, fitted with a Sector-standard Phillips head."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
 	belt_icon = "screwdriver"
@@ -32,7 +32,7 @@
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
-	desc = "A screwdriver with an ultra thin tip."
+	desc = "A specialized screwdriver with an ultra-thin flathead tip, meant for accessing very specific machinery."
 	icon_state = "screwdriver_nuke"
 	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
@@ -74,7 +74,7 @@
 
 /obj/item/screwdriver/cargo
 	name = "cargo screwdriver"
-	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
+	desc = "A brown screwdriver proudly bearing the (very small) heraldry of the Supply Department. It's faster than a typical screwdriver thanks to its magnetic tip."
 	icon_state = "screwdriver_cargo"
 	belt_icon = "screwdriver_cargo"
 	toolspeed = 0.75
@@ -97,7 +97,7 @@
 
 /obj/item/screwdriver/power
 	name = "hand drill"
-	desc = "A simple hand drill with a screwdriver bit attached."
+	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a screwdriver head attached."
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -134,6 +134,6 @@
 
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
-	desc = "An electrical screwdriver, designed to be both precise and quick."
+	desc = "An powered screwdriver typically found in construction and engineering robots."
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
