@@ -15,6 +15,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	flags = NOBLUDGEON
 	materials = list(MAT_METAL = 210, MAT_GLASS = 150)
+	rad_insulation_alpha = RAD_ONE_PERCENT
+	rad_insulation_beta = RAD_ONE_PERCENT
+	rad_insulation_gamma = RAD_ONE_PERCENT
 
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
@@ -110,6 +113,7 @@
 	loop.start()
 
 /obj/item/geiger_counter/rad_act(amount, emission_type)
+	amount *= 100
 	if(amount <= RAD_BACKGROUND_RADIATION || !scanning)
 		return
 	current_tick_amount += amount

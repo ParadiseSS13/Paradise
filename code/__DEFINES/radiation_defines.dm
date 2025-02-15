@@ -40,6 +40,7 @@ Ask ninjanomnom if they're around
 
 // Values here are for how much of the radiation is let through
 #define RAD_NO_INSULATION 1.0						// Default value for Gamma and Beta insulation
+#define RAD_ONE_PERCENT 0.99						// Used by geiger counters
 #define RAD_MOB_INSULATION 0.98						// Default value for mobs
 #define RAD_VERY_LIGHT_INSULATION 0.9
 #define RAD_LIGHT_INSULATION 0.8
