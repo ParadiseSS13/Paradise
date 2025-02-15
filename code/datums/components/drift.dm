@@ -5,10 +5,6 @@
 	var/atom/inertia_last_loc
 	var/old_dir
 	var/datum/move_loop/move/drifting_loop
-	///Should we ignore the next glide rate input we get?
-	///This is to some extent a hack around the order of operations
-	///Around COMSIG_MOVELOOP_POSTPROCESS. I'm sorry lad
-	var/ignore_next_glide = FALSE
 	///Have we been delayed? IE: active, but not working right this second?
 	var/delayed = FALSE
 	var/block_inputs_until
@@ -19,7 +15,7 @@
 		return COMPONENT_INCOMPATIBLE
 	. = ..()
 
-	var/flags = MOVEMENT_LOOP_OUTSIDE_CONTROL
+	var/flags = MOVEMENT_LOOP_NO_MOMENTUM_CHANGE
 	if(instant)
 		flags |= MOVEMENT_LOOP_START_FAST
 	var/atom/movable/movable_parent = parent
@@ -61,8 +57,6 @@
 	if(SEND_SIGNAL(parent, COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT) & DRIFT_VISUAL_FAILED)
 		return
 
-	// Ignore the next glide because it's literally just us
-	ignore_next_glide = TRUE
 	var/atom/movable/movable_parent = parent
 	movable_parent.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(visual_delay, SSspacedrift.visual_delay))
 	if(ismob(parent))
@@ -74,7 +68,7 @@
 		mob_parent.client?.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(visual_delay, SSspacedrift.visual_delay)
 
 /datum/component/drift/proc/newtonian_impulse(datum/source, inertia_direction)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_NEWTONIAN_MOVE
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
 	if(drifting_loop)
@@ -84,32 +78,28 @@
 	return COMPONENT_MOVABLE_NEWTONIAN_BLOCK
 
 /datum/component/drift/proc/drifting_start()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVELOOP_START
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
 	RegisterSignal(movable_parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
-	// We will use glide size to intuit how long to delay our loop's next move for
-	// This way you can't ride two movements at once while drifting, since that'd be dumb as fuck
-	RegisterSignal(movable_parent, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, PROC_REF(handle_glidesize_update))
 	// If you stop pulling something mid drift, I want it to retain that momentum
 	RegisterSignal(movable_parent, COMSIG_ATOM_NO_LONGER_PULLING, PROC_REF(stopped_pulling))
 
 /datum/component/drift/proc/drifting_stop()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVELOOP_STOP
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
-	ignore_next_glide = FALSE
 	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_UPDATED_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
 
 /datum/component/drift/proc/before_move(datum/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVELOOP_PREPROCESS_CHECK
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
 	delayed = FALSE
 
 /datum/component/drift/proc/after_move(datum/source, result, visual_delay)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVELOOP_POSTPROCESS
 	if(result == MOVELOOP_FAILURE)
 		qdel(src)
 		return
@@ -122,15 +112,14 @@
 		return
 
 	inertia_last_loc = movable_parent.loc
-	ignore_next_glide = TRUE
 
 /datum/component/drift/proc/loop_death(datum/source)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	drifting_loop = null
 	UnregisterSignal(parent, COMSIG_MOVABLE_NEWTONIAN_MOVE) // We won't block a component from replacing us anymore
 
-/datum/component/drift/proc/handle_move(datum/source, old_loc)
-	SIGNAL_HANDLER
+/datum/component/drift/proc/handle_move(datum/source, old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	// This can happen, because signals once sent cannot be stopped
 	if(QDELETED(src))
 		return
@@ -138,33 +127,19 @@
 	if(!isturf(movable_parent.loc))
 		qdel(src)
 		return
-	if(movable_parent.inertia_moving)
-		return
-	if(!movable_parent.Process_Spacemove(drifting_loop.direction, continuous_move = TRUE))
-		return
-	qdel(src)
+	// If we experience a momentum change that's not a result of changing Z levels, delay the drifting loop so we don't double-move.
+	if(momentum_change && !HAS_TRAIT(movable_parent, TRAIT_CURRENTLY_Z_MOVING))
+		drifting_loop.pause_for(movable_parent.inertia_move_delay)
 
-/// We're going to take the passed in glide size
-/// and use it to manually delay our loop for that period
-/// to allow the other movement to complete
-/datum/component/drift/proc/handle_glidesize_update(datum/source, old_glide_size)
-	SIGNAL_HANDLER
-	// If we aren't drifting, or this is us, fuck off
-	var/atom/movable/movable_parent = parent
-	if(!drifting_loop || movable_parent.inertia_moving)
+	if(!movable_parent.inertia_moving)
+		qdel(src)
 		return
-	// If we are drifting, but this set came from the moveloop itself, drop the input
-	// I'm sorry man
-	if(ignore_next_glide)
-		ignore_next_glide = FALSE
-		return
-	var/glide_delay = round(world.icon_size / movable_parent.glide_size, 1) * world.tick_lag
-	drifting_loop.pause_for(glide_delay)
-	delayed = TRUE
+	if(movable_parent.Process_Spacemove(drifting_loop.direction, continuous_move = TRUE))
+		qdel(src)
 
 /// If we're pulling something and stop, we want it to continue at our rate and such
 /datum/component/drift/proc/stopped_pulling(datum/source, atom/movable/was_pulling)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATOM_NO_LONGER_PULLING
 	// This does mean it falls very slightly behind, but otherwise they'll potentially run into us
 	var/next_move_in = drifting_loop.timer - world.time + world.tick_lag
 	was_pulling.newtonian_move(drifting_loop.direction, start_delay = next_move_in)
@@ -187,6 +162,7 @@
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(allow_final_movement))
 
 /datum/component/drift/proc/allow_final_movement(datum/source)
+	SIGNAL_HANDLER  // COMSIG_MOB_CLIENT_PRE_MOVE
 	// Some things want to allow movement out of spacedrift, we should let them
 	if(SEND_SIGNAL(parent, COMSIG_MOVABLE_DRIFT_BLOCK_INPUT) & DRIFT_ALLOW_INPUT)
 		return

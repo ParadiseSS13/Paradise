@@ -1207,9 +1207,7 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	usr.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/lordadmiral
 	name = "lord admiral's coat"
