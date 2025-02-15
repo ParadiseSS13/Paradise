@@ -22,7 +22,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[target]'s [name]", MELEE_ATTACK))
-			playsound(target, 'sound/weapons/genhit.ogg', 50, 1)
+			playsound(target, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FINISH_ATTACK
 
 	if(isrobot(user))
