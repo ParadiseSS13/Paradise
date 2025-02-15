@@ -682,7 +682,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN HARDSUITS?",
+		"WHO TOOK THE DAMN MODSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
 		"OH GOD WHY WOULD YOU PUT PLASMA IN THE SM?",
