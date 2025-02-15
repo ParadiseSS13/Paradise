@@ -144,8 +144,6 @@
 	var/list/things = get_rad_contents(start_turf, emission_type) // Radiate the waves origin frist
 
 	for(var/atom/thing in things)
-		if(!thing || thing.UID() == source.UID())
-			continue
 		wave.weight_sum = wave.weight_sum * thing.base_rad_act(intensity, emission_type)
 	// We can do this because we are on one tile so we have one weight
 	wave.weights[1] = wave.weight_sum
