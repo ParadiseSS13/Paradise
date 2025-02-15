@@ -4,6 +4,7 @@
 	var/radioactivity_gamma
 	/// Contamination cooldown in seconds
 	var/contaminate_cd
+	var/contained = FALSE
 	COOLDOWN_DECLARE(contaminate_cooldown)
 
 /datum/component/inherent_radioactivity/Initialize(_radioactivity_alpha, _radioactivity_beta, _radioactivity_gamma, _contaminate_cd = 0)
@@ -15,6 +16,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(try_contaminate_hand))
 	if(isitem(parent))
 		RegisterSignal(parent, list(COMSIG_ATTACK, COMSIG_ATTACK_OBJ), PROC_REF(impact_contaminate))
+	START_PROCESSING(SSradiation, src)
 
 /datum/component/inherent_radioactivity/proc/impact_contaminate(atom/source, atom/target)
 	SIGNAL_HANDLER

@@ -17,11 +17,9 @@
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
 
 /obj/item/nuke_core/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nuke_core/attackby__legacy__attackchain(obj/item/nuke_core_container/container, mob/user)
@@ -99,7 +97,11 @@
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
-		STOP_PROCESSING(SSobj, core)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		var/datum/component/radioactive/box_contamination = GetComponent(/datum/component/radioactive)
+		STOP_PROCESSING(SSradiation, radioactivity)
+		if(box_contamination)
+			box_contamination.RemoveComponent()
 		icon_state = "core_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
