@@ -24,6 +24,14 @@
 	var/powerproduction_drain = 0.001
 	var/power_threshold = RAD_COLLECTOR_THRESHOLD
 	var/power_coefficient = RAD_COLLECTOR_COEFFICIENT
+	/// A record of the strength of each beta wave that hit the collector over rad_time
+	var/beta_waves = list()
+	/// A record of the strength of each gamma wave that hit the collector over a rad_time
+	var/gamma_waves = list()
+	/// Amount of time across which the maximum wave is checked
+	var/rad_time = 10 SECONDS
+	/// The current time count for clearing old data from the lists
+	var/rad_time_counter = 0
 
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
@@ -39,6 +47,20 @@
 		var/power_produced = RAD_COLLECTOR_OUTPUT
 		produce_direct_power(power_produced)
 		stored_energy -= power_produced
+	if(world.time > rad_time_counter)
+		rad_time_counter = world.time + rad_time
+		for(var/listing in gamma_waves)
+			if(world.time > text2num(listing) + rad_time)
+				gamma_waves -= listing
+			// We put the listing in oldest to newest so as soon as we hit something new enough we can keep the rest
+			else
+				break
+		for(var/listing in beta_waves)
+			if(world.time > text2num(listing) + rad_time)
+				beta_waves -= listing
+			// We put the listing in oldest to newest so as soon as we hit something new enough we can keep the rest
+			else
+				break
 
 
 /obj/machinery/power/rad_collector/attack_hand(mob/user)
@@ -112,7 +134,20 @@
 		// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 		// So joules = stored_energy * SSmachines.wait * 0.1
 		var/joules = stored_energy * SSmachines.wait * 0.1
-		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+		var/max_beta = 0
+		var/max_gamma = 0
+		for(var/listing in beta_waves)
+			if(max_beta < beta_waves[listing])
+				max_beta = beta_waves[listing]
+		for(var/listing in gamma_waves)
+			if(max_gamma < gamma_waves[listing])
+				max_gamma = gamma_waves[listing]
+		var/beta_delta = max_beta - RAD_COLLECTOR_THRESHOLD
+		var/gamma_delta = max_gamma - RAD_COLLECTOR_THRESHOLD
+		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b></span>"
+		. +="<span class='notice'> Strongest Beta wave absorbed over the last [rad_time /(1 SECONDS)] seconds had a strength of <b>[max_beta]</b> which was <b>[abs(beta_delta)]</b> [beta_delta >= 0 ? "above" : "below"] the threshold</span>"
+		. +="<span class='notice'> Strongest Gamma wave absorbed over the last [rad_time /(1 SECONDS)] seconds had a strength of <b>[max_gamma]</b> which was <b>[abs(gamma_delta)]</b> [gamma_delta >= 0 ? "above" : "below"] the threshold</span>"
+
 	else
 		. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"</span>"
 
@@ -137,6 +172,10 @@
 
 /// Converts absorbed Beta or Gamma radiation into electrical energy
 /obj/machinery/power/rad_collector/rad_act(amount, emission_type)
+	if(emission_type == BETA_RAD)
+		beta_waves += list("[world.time]" = amount)
+	if(emission_type == GAMMA_RAD)
+		gamma_waves += list("[world.time]" = amount)
 	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > power_threshold)
 		stored_energy += (amount - power_threshold) * power_coefficient
 
