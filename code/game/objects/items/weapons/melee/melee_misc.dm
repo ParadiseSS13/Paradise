@@ -484,8 +484,8 @@
 	// multiplier for how much the cooldown is reduced by. A miner spellblade can only buff every 4 seconds, making it more vunerable, the wizard one is much more consistant.
 	power = 2
 
-/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade)
-	cooldown_multiplier /= power
+/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade/S)
+	cooldown_multiplier /= S.power
 
 /datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	. = ..()
