@@ -47,7 +47,7 @@
 /obj/structure/window/rad_act(amount, emission_type)
 	amount = amount * (1 - .)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
-		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD)
+		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD, 60)
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -730,7 +730,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 2.5
+	rad_conversion_amount = 3
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -751,7 +751,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 2
+	rad_conversion_amount = 2.5
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -828,7 +828,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 3.2
+	rad_conversion_amount = 4
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
