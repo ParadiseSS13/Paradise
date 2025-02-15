@@ -572,7 +572,7 @@
 
 /obj/structure/computerframe/Initialize(mapload)
 	. = ..()
-	overlays += "comp_frame_1"
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
