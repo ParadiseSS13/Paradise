@@ -5,6 +5,8 @@
   */
 /proc/get_rad_contents(atom/location, emission_type)
 	var/static/list/ignored_things = typecacheof(list(
+		/mob/camera,
+		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
@@ -39,6 +41,8 @@
 
 /proc/get_rad_contamination_adjacent(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
+		/mob/camera,
+		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
@@ -92,6 +96,8 @@
 
 /proc/get_rad_contamination_target(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
+		/mob/camera,
+		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
