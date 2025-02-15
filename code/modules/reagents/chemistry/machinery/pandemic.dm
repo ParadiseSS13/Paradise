@@ -17,8 +17,12 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 	var/analysis_time_delta = -1
 	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis
 	var/analysis_time
-	/// Amount of time to add to the analysis time. resets upon successful analysis.
-	var/accumulated_error = 0
+	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
+	var/static/accumulated_error = 0
+	/// List of virus strains and stages already used for calibration.
+	var/static/list/used_calibration = list()
+	/// Whether the machine is calibrating
+	var/calibrating = FALSE
 	/// Whether the PANDEMIC is currently analyzing an advanced disease
 	var/analyzing = FALSE
 	/// ID of the disease being analyzed
@@ -143,7 +147,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			stage_amount++
 			stages += AD.stage
 	stealth = max(stealth, 0)
-	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES + accumulated_error
+	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES
 	SStgui.update_uis(src, TRUE)
 
 
@@ -166,10 +170,29 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 		if(i in names)
 			analysis_time_delta = max(0, analysis_time_delta - 20 MINUTES)
 		else
-			analysis_time_delta = max(0, analysis_time_delta + 20 MINUTES)
 			accumulated_error += 20 MINUTES
 	analysis_time = analysis_time_delta + world.time
 	return
+
+/obj/machinery/computer/pandemic/proc/calibrate()
+	if(!accumulated_error)
+		return
+	var/error_reduction
+	for(var/datum/disease/advance/virus in GetViruses())
+		// We can't calibrate using the same strain and stage combination twice
+		if(!(used_calibration["[virus.strain]_[virus.stage]"]))
+			used_calibration += list("[virus.strain]_[virus.stage]" = TRUE)
+			error_reduction += max(accumulated_error / 5, 20 MINUTES)
+	if(error_reduction)
+		calibrating = TRUE
+		SStgui.update_uis(src)
+		spawn(10 SECONDS)
+			accumulated_error = max(accumulated_error - error_reduction, 0)
+			calibrating = FALSE
+			SStgui.update_uis(src)
+	// Reset the list of used viruses if we are fully calibrated
+	if(!accumulated_error)
+		used_calibration = list()
 
 /obj/machinery/computer/pandemic/process()
 	. = ..()
@@ -178,7 +201,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			analyzing = FALSE
 			return
 
-		if(analysis_time < world.time)
+		if(analysis_time + accumulated_error < world.time)
 			GLOB.known_advanced_diseases += analyzed_ID
 			analyzing = FALSE
 			analysis_time_delta = -1
@@ -257,6 +280,8 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 
 			var/obj/item/reagent_containers/glass/bottle/B = create_culture(vaccine_name, "vaccine", 200)
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+		if("calibrate")
+			calibrate()
 		if("eject_beaker")
 			stop_analysis()
 			eject_beaker()
@@ -334,14 +359,23 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			if(B)
 				Blood = B
 				break
+	var/can_calibrate = FALSE
+	if(Blood && accumulated_error > 0)
+		if(Blood.data && Blood.data["viruses"])
+			for(var/datum/disease/advance/virus in Blood.data["viruses"])
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases) && !used_calibration["[virus.strain]-[virus.stage]"])
+					can_calibrate = TRUE
+					break
 
 	var/list/data = list(
 		"synthesisCooldown" = wait ? TRUE : FALSE,
 		"beakerLoaded" = beaker ? TRUE : FALSE,
 		"beakerContainsBlood" = Blood ? TRUE : FALSE,
 		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
+		"calibrating" = calibrating,
+		"canCalibrate" = can_calibrate,
 		"selectedStrainIndex" = selected_strain_index,
-		"analysisTime" = analysis_time > world.time ? analysis_time - world.time : 0,
+		"analysisTime" = (analysis_time + accumulated_error) > world.time ? analysis_time + accumulated_error - world.time : 0,
 		"analysisTimeDelta" = analysis_time_delta,
 		"analyzing" = analyzing,
 		"sympton_names" = symptomlist,

@@ -3,6 +3,7 @@ import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
+import { Operating } from '../interfaces/common/Operating';
 
 interface BaseStats {
   stealth: number;
@@ -42,6 +43,8 @@ interface PanDEMICData {
   beakerLoaded: BooleanLike;
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
+  calibrating: BooleanLike;
+  canCalibrate: BooleanLike;
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
@@ -53,7 +56,7 @@ interface PanDEMICData {
 
 export const PanDEMIC = (props, context) => {
   const { data } = useBackend<PanDEMICData>(context);
-  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
+  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, calibrating, resistances = [] } = data;
 
   let emptyPlaceholder;
   if (!beakerLoaded) {
@@ -68,6 +71,7 @@ export const PanDEMIC = (props, context) => {
     <Window width={575} height={510}>
       <Window.Content>
         <Stack fill vertical>
+          <Operating operating={calibrating} name="PanD.E.M.I.C" />
           {emptyPlaceholder && !beakerContainsVirus ? (
             <Section title="Container Information" buttons={<CommonCultureActions fill vertical />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
@@ -84,9 +88,10 @@ export const PanDEMIC = (props, context) => {
 
 const CommonCultureActions = (props, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerLoaded } = data;
+  const { beakerLoaded, canCalibrate } = data;
   return (
     <>
+      <Button icon="disk" content="Calibrate" disabled={!canCalibrate} onClick={() => act('calibrate')} />
       <Button icon="eject" content="Eject" disabled={!beakerLoaded} onClick={() => act('eject_beaker')} />
       <Button.Confirm
         icon="trash-alt"
