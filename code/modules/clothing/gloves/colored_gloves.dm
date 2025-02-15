@@ -32,7 +32,7 @@
 
 /obj/item/clothing/gloves/color/fyellow/old
 	name = "worn out insulated gloves"
-	desc = "An old pair of insulated gloves. While a lot of the rubber is worn away, enough should be left to at least reduce any electrical shocks."
+	desc = "An old pair of insulated gloves. While a lot of the rubber is worn away, enough should be left to at least reduce any electrical shocks. Probably."
 
 /obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
 	. = ..()
