@@ -88,7 +88,7 @@
 
 /obj/item/wrench/medical
 	name = "medical wrench"
-	desc = "A standard adjustable wrench covered in medical iconography. Its outer surface is mostly covered in rubber, and it seems to be more fficient than a normal wrench."
+	desc = "A standard adjustable wrench covered in medical iconography. Its outer surface is mostly covered in rubber, and it seems to be more efficient than a normal wrench."
 	icon_state = "wrench_medical"
 	force = 2 //MEDICAL
 	throwforce = 4
