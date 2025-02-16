@@ -10393,6 +10393,11 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"aYg" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "aYh" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -38115,6 +38120,10 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"cYr" = (
+/obj/effect/spawner/random/barrier/grille_maybe,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "cYx" = (
 /obj/structure/chair{
 	dir = 1
@@ -50148,6 +50157,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"hPG" = (
+/obj/item/clothing/mask/cigarette/rollie,
+/obj/item/clothing/mask/cigarette/rollie{
+	pixel_y = -3
+	},
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "hPJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53323,6 +53340,13 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
+"jqr" = (
+/obj/structure/chair/comfy/brown,
+/obj/structure/sign/poster/contraband/ambrosia_vulgaris{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "jrp" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -53340,6 +53364,19 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"jsc" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "jse" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -61782,6 +61819,10 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"mZs" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "mZH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -63061,6 +63102,11 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
+"nAL" = (
+/obj/item/cigbutt/roach,
+/obj/item/cigbutt/roach,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "nAM" = (
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/stripes/line{
@@ -63882,6 +63928,12 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/public/sleep)
+"nVo" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "nVp" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -69260,6 +69312,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
+"qqG" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "qqM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -70948,6 +71004,7 @@
 /obj/structure/sign/security{
 	pixel_y = 32
 	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "rcY" = (
@@ -74418,6 +74475,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/warden)
+"sEx" = (
+/obj/effect/spawner/random/barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "sEI" = (
 /obj/machinery/atmospherics/trinary/filter,
 /turf/simulated/floor/plasteel,
@@ -109251,8 +109312,8 @@ gKP
 gsR
 uPt
 gYO
-iCR
-iCR
+jqr
+nAL
 lIM
 kyq
 aNl
@@ -109508,8 +109569,8 @@ axN
 axN
 mdZ
 gYO
-iCR
-iCR
+hPG
+qqG
 lIM
 cBa
 cbv
@@ -109765,8 +109826,8 @@ vEF
 wBl
 wHH
 gYO
-iCR
-iCR
+lIM
+sEx
 lIM
 lIM
 lIM
@@ -110279,20 +110340,20 @@ aDT
 axN
 aty
 gYO
-iCR
+aYg
 iCR
 aKs
 fPL
 iCR
+qqG
 iCR
 iCR
 iCR
 iCR
 iCR
+qqG
 iCR
-iCR
-iCR
-fPL
+jsc
 lIM
 sTC
 hdw
@@ -110541,7 +110602,7 @@ aMf
 pch
 lIM
 iCR
-iCR
+cYr
 lIM
 lIM
 lIM
@@ -111054,7 +111115,7 @@ cvX
 kRG
 aKv
 lIM
-iCR
+cYr
 iCR
 lIM
 sBW
@@ -112339,7 +112400,7 @@ aHM
 iPQ
 aNJ
 lIM
-iCR
+qqG
 iCR
 lIM
 rJI
@@ -112596,7 +112657,7 @@ aHM
 aJh
 aTi
 lIM
-iCR
+nVo
 iCR
 lIM
 iWU
@@ -113111,7 +113172,7 @@ aJk
 aNL
 lIM
 svc
-iCR
+mZs
 lIM
 eDC
 umc
