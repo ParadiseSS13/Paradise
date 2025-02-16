@@ -238,8 +238,10 @@
 			purified = FALSE
 			can_possess = FALSE
 			optional = FALSE
-			icon_state = "soulstone"
-			icon_state_full = "soulstone2"
+			if(purified)
+				icon_state = "purified_soulstone"
+			else
+				icon_state = "soulstone"
 			for(var/mob/M in contents)
 				if(M.mind)
 					icon_state = "soulstone2"
@@ -280,7 +282,7 @@
 	if(!do_after(user, 4 SECONDS, target = A))
 		return ..()
 
-	var/mob/living/simple_animal/possessed_object/possession = new(A)
+	var/mob/living/simple_animal/possessed_object/soulstone/possession = new(A)
 	if(purified)
 		possession.was_shade = TRUE
 		possession.shade_type = shade.type
