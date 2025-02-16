@@ -1408,11 +1408,10 @@ so that different stomachs can handle things in different ways VB*/
 	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 
 /mob/living/carbon/is_inside_mob(atom/thing)
-	if(..())
-		return TRUE
+	if(!(..()))
+		return FALSE
 	if(head && head.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(wear_suit && wear_suit.UID() == thing.UID())
-		return TRUE
-
-	return FALSE
+		return FALSE
+	return TRUE

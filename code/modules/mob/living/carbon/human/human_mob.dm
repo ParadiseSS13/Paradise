@@ -2088,31 +2088,33 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /// Checks if an item is inside the body of the mob
 /mob/living/carbon/human/is_inside_mob(atom/thing)
-	if(..())
-		return TRUE
+	if(!(..()))
+		return FALSE
 	if(w_uniform && w_uniform.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(shoes && shoes.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(belt && belt.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(gloves && gloves.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(neck && neck.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(glasses && glasses.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(l_ear && l_ear.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(r_ear && r_ear.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(wear_id && wear_id.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(wear_pda && wear_pda.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(r_store && r_store.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(l_store && l_store.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(s_store && s_store.UID() == thing.UID())
-		return TRUE
+		return FALSE
+
+	return TRUE

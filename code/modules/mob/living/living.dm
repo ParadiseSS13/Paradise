@@ -1061,18 +1061,23 @@
 	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
 
 /mob/living/proc/is_inside_mob(atom/thing)
+	if(thing.UID() == UID())
+		return TRUE
+	if(istype(/datum/component, thing))
+		var/datum/component/attached = thing
+		return (attached.parent.UID() == UID())
 	if(!(thing in contents))
 		return FALSE
 	if(l_hand && l_hand.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(r_hand && r_hand.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(back && back.UID() == thing.UID())
-		return TRUE
+		return FALSE
 	if(wear_mask && wear_mask.UID() == thing.UID())
-		return TRUE
+		return FALSE
 
-	return FALSE
+	return TRUE
 
 /mob/living/proc/fakefireextinguish()
 	return

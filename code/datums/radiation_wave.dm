@@ -22,7 +22,7 @@
 
 /datum/radiation_wave/New(atom/_source, _intensity = 0, _emission_type = ALPHA_RAD)
 
-	source = "[_source] \[[_source.UID()]\]"
+	source = _source
 	master_turf = get_turf(_source)
 	intensity = _intensity
 	emission_type = _emission_type
