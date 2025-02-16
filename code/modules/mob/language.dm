@@ -220,7 +220,7 @@
 
 /datum/language/skrell
 	name = "Qurvolious"
-	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water. Some words incorporate high-frequency sounds that can only be spoken by Skrell."
+	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water. Unlike many Skrell dialects, Qurvolious can be heard, if not comprehended, by non-Skrell in its entirety."
 	speech_verb = "warbles"
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
