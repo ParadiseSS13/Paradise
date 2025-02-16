@@ -29,7 +29,7 @@
 	/// A record of the strength of each gamma wave that hit the collector over a rad_time
 	var/gamma_waves = list()
 	/// Amount of time across which the maximum wave is checked
-	var/rad_time = 10 SECONDS
+	var/rad_time = 5 SECONDS
 	/// The current time count for clearing old data from the lists
 	var/rad_time_counter = 0
 
@@ -145,8 +145,8 @@
 		var/beta_delta = max_beta - RAD_COLLECTOR_THRESHOLD
 		var/gamma_delta = max_gamma - RAD_COLLECTOR_THRESHOLD
 		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b></span>"
-		. +="<span class='notice'> Strongest Beta wave absorbed over the last [rad_time /(1 SECONDS)] seconds had a strength of <b>[max_beta]</b> which was <b>[abs(beta_delta)]</b> [beta_delta >= 0 ? "above" : "below"] the threshold</span>"
-		. +="<span class='notice'> Strongest Gamma wave absorbed over the last [rad_time /(1 SECONDS)] seconds had a strength of <b>[max_gamma]</b> which was <b>[abs(gamma_delta)]</b> [gamma_delta >= 0 ? "above" : "below"] the threshold</span>"
+		. +="<span class='notice'>Strongest Beta absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_beta]</b>, <b>[abs(beta_delta)]</b> [beta_delta >= 0 ? "above" : "below"] threshold</span>"
+		. +="<span class='notice'>Strongest Gamma absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_gamma]</b>, <b>[abs(gamma_delta)]</b> [gamma_delta >= 0 ? "above" : "below"] threshold</span>"
 
 	else
 		. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"</span>"
