@@ -12,7 +12,7 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	see_in_dark = 2
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
