@@ -222,6 +222,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/iridium
 	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/brass
+	name = "brass ore"
+	desc = "Rock formation containing brass. This ore is not naturally occurring - if you see this, let development know."
+	singular_name = "brass ore chunk"
+	points = 1
+	refined_type = /obj/item/stack/tile/brass
+	materials = list(MAT_BRASS = MINERAL_MATERIAL_AMOUNT)
+
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
 	desc = "HONK!"

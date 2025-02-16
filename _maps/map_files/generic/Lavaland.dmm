@@ -6851,6 +6851,7 @@
 /obj/item/storage/backpack/duffel,
 /obj/item/storage/backpack/duffel,
 /obj/item/storage/backpack/duffel,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9066,7 +9067,7 @@
 /turf/simulated/wall/boss,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "Pz" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

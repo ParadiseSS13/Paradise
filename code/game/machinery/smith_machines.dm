@@ -231,12 +231,30 @@
 		S += SHEET_MULT_ADD_PER_RATING * M.rating
 	// Update our values
 	sheet_per_ore = S
-	SStgui.update_uis(src)
-// POLTODO: UI for seeing current minerals as a bar graph
 
 /obj/machinery/magma_crucible/proc/animate_transfer()
 	icon_state = "crucible_input"
 	addtimer(VARSET_CALLBACK(src, icon_state, "crucible"), 3 SECONDS)
+
+/obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(panel_open)
+		if(!I.multitool_check_buffer(user))
+			return
+		var/obj/item/multitool/multi = I
+		multi.set_multitool_buffer(user, src)
+		return
+
+	var/list/msgs = list()
+	msgs += "<span class='notice'>Scanning contents of [src]:</span>"
+
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	for(var/MAT in materials.materials)
+		var/datum/material/M = materials.materials[MAT]
+		if(!M)
+			continue
+		msgs += "[M.name]: [M.amount / MINERAL_MATERIAL_AMOUNT] sheets.</font>"
+	to_chat(user, chat_box_regular(msgs.Join("<br>")))
 
 /obj/machinery/smithing
 	name = "smithing machine"
