@@ -17,7 +17,8 @@
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/nuke_core/Destroy()
 	return ..()

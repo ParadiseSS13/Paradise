@@ -344,7 +344,8 @@
 
 /datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.AddComponent(/datum/component/inherent_radioactivity, 40, 0, 0)
+	var/datum/component/inherent_radioactivity/radioactivity = H.AddComponent(/datum/component/inherent_radioactivity, 40, 0, 0)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /datum/species/golem/uranium/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

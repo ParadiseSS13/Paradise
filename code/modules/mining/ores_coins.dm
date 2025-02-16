@@ -422,7 +422,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/coin/clown
 	cmineral = "bananium"

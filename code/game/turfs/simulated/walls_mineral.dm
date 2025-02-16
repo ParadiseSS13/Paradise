@@ -75,7 +75,8 @@
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"

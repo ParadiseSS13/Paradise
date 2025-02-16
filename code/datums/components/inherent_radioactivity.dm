@@ -1,4 +1,5 @@
 /datum/component/inherent_radioactivity
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	var/radioactivity_alpha
 	var/radioactivity_beta
 	var/radioactivity_gamma
@@ -7,7 +8,7 @@
 	var/contained = FALSE
 	COOLDOWN_DECLARE(contaminate_cooldown)
 
-/datum/component/inherent_radioactivity/Initialize(_radioactivity_alpha, _radioactivity_beta, _radioactivity_gamma, _contaminate_cd = 0)
+/datum/component/inherent_radioactivity/Initialize(_radioactivity_alpha = 0, _radioactivity_beta = 0, _radioactivity_gamma = 0, _contaminate_cd = 1.5)
 	radioactivity_alpha = _radioactivity_alpha
 	radioactivity_beta = _radioactivity_beta
 	radioactivity_gamma = _radioactivity_gamma
@@ -42,7 +43,7 @@
 		if(contaminate_cd > 0)
 			COOLDOWN_START(src, contaminate_cooldown, contaminate_cd SECONDS)
 
-/datum/component/inherent_radioactivity/InheritComponent(datum/component/C, i_am_original, _radioactivity_alpha,  _radioactivity_beta, _radioactivity_gamma, _contaminate_cd)
+/datum/component/inherent_radioactivity/InheritComponent(datum/component/C, i_am_original, _radioactivity_alpha = 0,  _radioactivity_beta = 0, _radioactivity_gamma = 0, _contaminate_cd = 1.5)
 	if(!i_am_original)
 		return
 	if(C)
