@@ -280,6 +280,10 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 
 			var/obj/item/reagent_containers/glass/bottle/B = create_culture(vaccine_name, "vaccine", 200)
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+		if("remove_from_database")
+			if(params["strain_id"] in GLOB.known_advanced_diseases)
+				GLOB.known_advanced_diseases -= params["strain_id"]
+				SStgui.update_uis(src)
 		if("calibrate")
 			calibrate()
 		if("eject_beaker")
@@ -437,6 +441,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "24:origin"
 			"commonName" = known ? D.name : "Unknown strain",
 			"description" = known ? D.desc : "Unknown strain",
 			"strainID" = istype(D, /datum/disease/advance) ? A.strain : D.name,
+			"strainFullID" = istype(D, /datum/disease/advance) ? A.GetDiseaseID() : D.name,
 			"diseaseID" = istype(D, /datum/disease/advance) ? A.id : D.name,
 			"sample_stage" = D.stage,
 			"known" = known,

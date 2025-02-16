@@ -25,6 +25,7 @@ interface PathogenStrain {
   commonName?: string;
   description?: string;
   strainID?: string;
+  strainFullID?: string;
   diseaseID?: string;
   sample_stage?: number;
   known?: BooleanLike;
@@ -234,6 +235,12 @@ const StrainInformationSection = (
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
+      <Button
+        icon={'trash-alt'}
+        content="remove from database"
+        disabled={!props.strain.known}
+        onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
+      />
       <Button
         icon={synthesisCooldown ? 'spinner' : 'clone'}
         iconSpin={synthesisCooldown}
