@@ -95,6 +95,7 @@
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
+	cares_about_temperature = TRUE
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
@@ -104,7 +105,7 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)

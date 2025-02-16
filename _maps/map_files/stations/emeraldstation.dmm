@@ -24858,7 +24858,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33031,7 +33031,7 @@
 	name = "Evidence Storage"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "gDm" = (
@@ -41859,7 +41859,7 @@
 	dir = 4;
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -42953,6 +42953,14 @@
 /obj/item/storage/box/cups,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
+"iAk" = (
+/obj/machinery/camera/motion{
+	c_tag = "AI Satellite Hallway";
+	dir = 8;
+	network = list("SS13","MiniSat")
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/aisat/hall)
 "iAo" = (
 /mob/living/simple_animal/hostile/scarybat,
 /obj/structure/closet/crate{
@@ -108454,6 +108462,10 @@
 	},
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
+"vyc" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/bluegrid,
+/area/station/aisat/hall)
 "vyj" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -166559,7 +166571,7 @@ geh
 iLL
 uwp
 aKa
-lLR
+vyc
 sRx
 tFJ
 aKa
@@ -167585,7 +167597,7 @@ dQC
 sIx
 xwv
 iLL
-uwp
+iAk
 aKa
 bqT
 rtf
