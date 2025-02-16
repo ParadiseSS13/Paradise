@@ -502,6 +502,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
 	if(..() || !possible_target.current.client)
 		return TRUE
+	// SS220 EDIT START - GAS FIXES AND REBALANCE
+	if(is_species(possible_target, /datum/species/serpentid))
+		return TRUE
+	// SS220 EDIT END - GAS FIXES AND REBALANCE
 	// If the target is geneless, then it's an invalid target.
 	return HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
 

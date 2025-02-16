@@ -18,7 +18,7 @@
 
 /obj/item/organ/internal/eyes/serpentid/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/organ_decay, 0.04, BASIC_RECOVER_VALUE)
+	AddComponent(/datum/component/organ_decay, 0.16, BASIC_RECOVER_VALUE)
 	AddComponent(/datum/component/organ_toxin_damage, 0.02)
 	AddComponent(/datum/component/hunger_organ)
 	AddComponent(/datum/component/organ_action, radial_action_state, radial_action_icon)
@@ -54,13 +54,18 @@
 	. = ..()
 	if(!force_off && owner?.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA && !(status & ORGAN_DEAD) && !active)
 		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 		chemical_consuption = initial(chemical_consuption)
 		active = TRUE
 		owner.visible_message(span_warning("Зрачки [owner] расширяются!"))
 	else
 		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
 		chemical_consuption = 0
 		active = FALSE
 		owner.visible_message(span_notice("Зрачки [owner] сужаются."))
 	owner?.update_sight()
 	SEND_SIGNAL(src, COMSIG_ORGAN_CHANGE_CHEM_CONSUPTION, chemical_consuption)
+
+/obj/item/organ/internal/eyes/serpentid/get_active_state()
+	return active

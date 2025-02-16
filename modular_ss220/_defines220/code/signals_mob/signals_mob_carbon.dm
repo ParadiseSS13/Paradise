@@ -1,7 +1,8 @@
 // Signals for /mob/living/carbon
 /// called by /mob/equip_to_slot() : (/datum/component/mob_overlay_shift)
 #define COMSIG_MOB_ON_EQUIP "mob_on_equip"
-
+/// called by /datum/action/changeling/transform/sting_action() : (/datum/component/mob_overlay_shift)
+#define COMSIG_CHANGELING_FINISHED_TRANSFORM "changeling_finished_transform"
 /// called by /mob/ClickOn() : (/datum/component/mob_overlay_shift)
 #define COMSIG_MOB_ON_CLICK "mob_on_click"
 

@@ -63,7 +63,7 @@
 
 /datum/component/pixel_shift/proc/pixel_shift(mob/target, direction)
 	var/mob/living/owner = parent
-	if(HAS_TRAIT(owner, TRAIT_RESTRAINED) || HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || length(owner.grabbed_by) || owner.stat != CONSCIOUS)
+	if(HAS_TRAIT(owner, TRAIT_RESTRAINED) || HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || length(owner.grabbed_by) || owner.stat != CONSCIOUS || owner.isCarrying())
 		return
 	passthroughable = NONE
 	switch(direction)

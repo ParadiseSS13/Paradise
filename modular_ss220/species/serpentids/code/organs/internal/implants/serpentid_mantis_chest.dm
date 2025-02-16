@@ -5,7 +5,7 @@
 	icon_state = "chest_implant"
 	parent_organ = "chest"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/switch_blades)
-	contents = newlist(/obj/item/kitchen/knife/combat/serpentblade,/obj/item/kitchen/knife/combat/serpentblade)
+	contents = newlist(/obj/item/kitchen/knife/combat/serpentblade)
 	action_icon = list(/datum/action/item_action/organ_action/toggle/switch_blades = 'modular_ss220/species/serpentids/icons/organs.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle/switch_blades = "serpentid_hand_act")
 	var/obj/item/holder_l = null
@@ -19,6 +19,13 @@
 	unremovable = TRUE
 	emp_proof = TRUE
 	var/first_recollor = TRUE
+	destroy_on_removal = TRUE
+	stealth_level = 5
+
+/obj/item/organ/internal/cyberimp/chest/serpentid_blades/Initialize(mapload)
+	. = ..()
+	var/obj/item/kitchen/knife/combat/serpentblade/blade = contents[1]
+	blade.parent_blade_implant = src
 
 /datum/action/item_action/organ_action/toggle/switch_blades
 	name = "Switch Threat Mode"
@@ -47,8 +54,8 @@
 	if(crit_fail || (!holder_l && !length(contents)))
 		to_chat(owner, span_warning("Вы не можете поднять клинки"))
 		return
-	var/extended = holder_l && !(holder_l in src)
-	if(extended)
+
+	if(blades_active)
 		if(!activation_in_progress)
 			activation_in_progress = TRUE
 			Retract()
@@ -86,6 +93,21 @@
 	holder_l.w_class = WEIGHT_CLASS_HUGE
 	holder_l.materials = null
 
+	if(IS_CHANGELING(owner)) //Если линг
+		for(var/arm_slot in list(ITEM_SLOT_LEFT_HAND,ITEM_SLOT_RIGHT_HAND)) //Если активны в одной руке щит или меч - убрать
+			var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
+
+			if(arm_item)
+				if(istype(arm_item, /obj/item/melee/arm_blade) || istype(arm_item, /obj/item/shield/changeling))
+					if(istype(arm_item, /obj/item/melee/arm_blade))
+						var/obj/item/melee/arm_blade/armblade = arm_item
+						var/datum/action/changeling/weapon/item_datum = armblade.parent_action
+						item_datum.retract(owner, TRUE)
+					else
+						var/obj/item/shield/changeling/armshield = arm_item
+						qdel(armshield)
+
+
 	for(var/arm_slot in list(ITEM_SLOT_LEFT_HAND,ITEM_SLOT_RIGHT_HAND))
 		var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
@@ -100,11 +122,15 @@
 			else
 				to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
-	if(!owner.put_in_l_hand(holder_l))
-		return
+	holder_l.forceMove(owner)
+	owner.l_hand = holder_l
+	holder_l.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
+	holder_l.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
+	holder_l.equipped(owner, ITEM_SLOT_LEFT_HAND)
+	owner.update_inv_l_hand()
 
 	blades_active = TRUE
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/weapons/blade_unsheath.ogg', 50, 1)
 	new_icon_state = "blades_1"
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
@@ -116,7 +142,7 @@
 	owner.transfer_item_to(holder_l, src, force = TRUE)
 	holder_l = null
 	blades_active = FALSE
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/weapons/blade_unsheath.ogg', 50, 1)
 	new_icon_state = "blades_0"
 	update_icon(UPDATE_OVERLAYS)
 
@@ -126,8 +152,6 @@
 		return
 	var/obj/item/organ/internal/cyberimp/chest/serpentid_blades/blades_implant = M.get_int_organ(/obj/item/organ/internal/cyberimp/chest/serpentid_blades)
 	if(blades_implant)
-		if(blades_implant.owner.invisibility != INVISIBILITY_OBSERVER)
-			blades_implant.owner.reset_visibility()
 		if(blades_implant.blades_active)
 			if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 				add_attack_logs(M, H, "Melee attacked with blades (miss/block)")
@@ -137,7 +161,6 @@
 			switch(M.a_intent)
 				if(INTENT_HELP)
 					help(M, H, attacker_style)
-
 
 				if(INTENT_GRAB)
 					blades_grab(M, H, attacker_style)
@@ -150,10 +173,21 @@
 		else
 			. = ..()
 	else
+		if(isserpentid(M))
+			var/obj/item/organ/internal/kidneys/serpentid/kidneys = M.get_int_organ(/obj/item/organ/internal/kidneys/serpentid)
+			M.reset_visibility()
+			kidneys.switch_mode(force_off = TRUE)
 		. = ..()
 
 //Модификация усиленного граба
 /datum/species/proc/blades_grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	var/grab_level = GRAB_AGGRESSIVE
+	if(isserpentid(user) && (user.invisibility == INVISIBILITY_LEVEL_TWO))
+		var/obj/item/organ/internal/kidneys/serpentid/kidneys = user.get_int_organ(/obj/item/organ/internal/kidneys/serpentid)
+		user.reset_visibility()
+		kidneys.switch_mode(force_off = TRUE)
+	else
+		grab_level = GRAB_PASSIVE
 	if(target.check_block())
 		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"))
 		return FALSE
@@ -164,11 +198,15 @@
 		user.swap_hand()
 	target.grabbedby(user)
 	var/obj/item/grab/grab_item = user.get_active_hand()
-	grab_item.state = GRAB_AGGRESSIVE
+	grab_item.state = grab_level
 	grab_item.icon_state = "grabbed1"
 
 //Модификация усиленного дизарма
 /datum/species/proc/blades_disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(isserpentid(user))
+		var/obj/item/organ/internal/kidneys/serpentid/kidneys = user.get_int_organ(/obj/item/organ/internal/kidneys/serpentid)
+		user.reset_visibility()
+		kidneys.switch_mode(force_off = TRUE)
 	if(user == target)
 		return FALSE
 	if(target.check_block())
@@ -265,5 +303,9 @@
 		return FALSE
 	if(!user.hand)
 		user.swap_hand()
+	if(isserpentid(user))
+		var/obj/item/organ/internal/kidneys/serpentid/kidneys = user.get_int_organ(/obj/item/organ/internal/kidneys/serpentid)
+		user.reset_visibility()
+		kidneys.switch_mode(force_off = TRUE)
 	var/obj/item/kitchen/knife/combat/serpentblade/blade = user.get_active_hand()
 	blade.attack(target, user)

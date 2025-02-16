@@ -8,6 +8,8 @@
 #define COMSIG_LIMB_RECEIVE_DAMAGE "limb_receive_damage"
 /// called by /obj/item/organ/external/heal_damage() : (/datum/component/carapace)
 #define COMSIG_LIMB_HEAL_DAMAGE "limb_heal_damage"
+/// called by /datum/surgery_step/set_bone/end_step(), /datum/surgery_step/retract_carapace/end_step : (/datum/component/carapace)
+#define COMSIG_LIMB_SHELL_OPERATION "limb_shell_operation"
 /// called by /obj/item/organ/internal/cyberimp/arm/Extend() /obj/item/organ/internal/cyberimp/arm/Retract() : (/datum/element/paired_implants)
 #define COMSIG_DOUBLEIMP_SYNCHONIZE "doubleimp_synchonize"
 /// called by /obj/item/organ/internal/remove() /obj/item/organ/internal/insert() : (/datum/element/paired_implants)

@@ -8,17 +8,20 @@
 
 /datum/component/gadom_living/Initialize()
 	carrier = parent
+	carrier.can_buckle = FALSE
 	START_PROCESSING(SSprojectiles, src)
 
 /datum/component/gadom_living/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_GADOM_LOAD, PROC_REF(try_load_mob))
 	RegisterSignal(parent, COMSIG_GADOM_UNLOAD, PROC_REF(try_unload_mob))
 	RegisterSignal(parent, COMSIG_GADOM_CAN_GRAB, PROC_REF(block_operation))
+	RegisterSignal(parent, COMSIG_CHANGELING_FINISHED_TRANSFORM, PROC_REF(try_unload_mob))
 
 /datum/component/gadom_living/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_GADOM_LOAD)
 	UnregisterSignal(parent, COMSIG_GADOM_UNLOAD)
 	UnregisterSignal(parent, COMSIG_GADOM_CAN_GRAB)
+	UnregisterSignal(parent, COMSIG_CHANGELING_FINISHED_TRANSFORM)
 
 /datum/component/gadom_living/proc/block_operation(datum/component_holder)
 	SIGNAL_HANDLER
@@ -78,7 +81,7 @@
 	carrier.loaded = null
 	carrier.passenger = null
 	carrier.unbuckle_all_mobs()
-	carrier.can_buckle = TRUE
+	carrier.can_buckle = FALSE
 	carrier.update_icon(UPDATE_OVERLAYS)
 	carrier.clear_alert("serpentid_holding")
 
@@ -89,3 +92,4 @@
 	passenger = null
 	M.layer = initial(M.layer)
 	M.pixel_y = initial(M.pixel_y)
+	clear_alert("serpentid_holding")

@@ -20,7 +20,11 @@
 	if(!owner)
 		var/obj/item/organ/internal/limb = parent
 		owner = limb.owner
+
 	if(!owner)
+		return
+	var/obj/item/organ/internal/brain = owner.get_int_organ(/obj/item/organ/internal/brain)
+	if(!brain)
 		return
 	var/damage_amount = owner.getBruteLoss() + owner.getFireLoss() + owner.getCloneLoss()
 	if(owner?.nutrition < NUTRITION_LEVEL_HUNGRY || owner.stat != DEAD || damage_amount > AUTO_DEFIBRILATION_THRESHOLD)

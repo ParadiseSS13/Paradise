@@ -276,7 +276,7 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE, species_exclusive = null)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE, species_exclusive = null, list/species_exclude = null)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -302,6 +302,10 @@
 		if(!eligible_player.client.skip_antag)
 			if(species_exclusive && (eligible_player.client.prefs.active_character.species != species_exclusive))
 				continue
+			// SS220 ADDITION START - SERPENTIDS
+			if(species_exclude && (eligible_player.client.prefs.active_character.species in species_exclude))
+				continue
+			// SS220 ADDITION END - SERPENTIDS
 			if(role in eligible_player.client.prefs.be_special)
 				player_draft_log += "[eligible_player.key] had [roletext] enabled, so we are drafting them."
 				candidates += eligible_player.mind

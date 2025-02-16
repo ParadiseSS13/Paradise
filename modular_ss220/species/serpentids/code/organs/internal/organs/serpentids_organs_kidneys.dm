@@ -14,7 +14,7 @@
 
 /obj/item/organ/internal/kidneys/serpentid/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/organ_decay, 0.03, BASIC_RECOVER_VALUE)
+	AddComponent(/datum/component/organ_decay, 0.12, BASIC_RECOVER_VALUE)
 	AddComponent(/datum/component/organ_toxin_damage, 0.15)
 	AddComponent(/datum/component/hunger_organ)
 	AddComponent(/datum/component/organ_action, radial_action_state, radial_action_icon)
@@ -33,12 +33,16 @@
 
 /obj/item/organ/internal/kidneys/serpentid/switch_mode(force_off = FALSE)
 	. = ..()
-	if(!force_off && owner?.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA && !cloak_engaged && !(status & ORGAN_DEAD))
-		cloak_engaged = TRUE
-		chemical_consuption = initial(chemical_consuption)
-		owner.visible_message(span_warning("Тело [owner] начинает покрываться пятнами и преломлять свет!"))
-	else
-		cloak_engaged = FALSE
-		chemical_consuption = 0
-		owner.visible_message(span_notice("Тело [owner] перестает преломлять свет."))
+	if(!(HAS_TRAIT(owner, TRAIT_CLOAKBLOCKED)))
+		if(!force_off && owner?.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA && !cloak_engaged && !(status & ORGAN_DEAD))
+			cloak_engaged = TRUE
+			chemical_consuption = initial(chemical_consuption)
+			owner.visible_message(span_warning("Тело [owner] начинает покрываться пятнами и преломлять свет!"))
+		else
+			cloak_engaged = FALSE
+			chemical_consuption = 0
+			owner.visible_message(span_notice("Тело [owner] перестает преломлять свет."))
 	SEND_SIGNAL(src, COMSIG_ORGAN_CHANGE_CHEM_CONSUPTION, chemical_consuption)
+
+/obj/item/organ/internal/kidneys/serpentid/get_active_state()
+	return cloak_engaged

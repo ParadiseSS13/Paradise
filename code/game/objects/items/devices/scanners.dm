@@ -397,6 +397,11 @@ SLIME SCANNER
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
 
+	//SS220 ADDITION START - SERPENTIDS
+	if(SEND_SIGNAL(H, COMSIG_SHELL_GET_CARAPACE_STATE) & CARAPACE_SHELL_BROKEN)
+		msgs = get_carapace_damage_level(H, msgs)
+	//SS220 ADDITION END - SERPENTIDS
+
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/healthanalyzer/attackby__legacy__attackchain(obj/item/I, mob/user, params)

@@ -10,7 +10,7 @@
 
 /obj/item/organ/internal/liver/serpentid/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/organ_decay, 0.04, BASIC_RECOVER_VALUE)
+	AddComponent(/datum/component/organ_decay, 0.3, BASIC_RECOVER_VALUE)
 	AddComponent(/datum/component/organ_toxin_damage, 0.1)
 
 /obj/item/organ/internal/liver/serpentid/on_life()

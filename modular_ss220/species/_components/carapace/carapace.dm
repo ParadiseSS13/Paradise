@@ -27,6 +27,7 @@
 /datum/component/carapace
 	var/self_mending = FALSE
 	var/broken_treshold = CARAPACE_BROKEN_STATE
+	var/operation_in_process = FALSE
 
 /datum/component/carapace/Initialize(allow_self_mending, break_threshold)
 	src.self_mending = allow_self_mending
@@ -37,10 +38,16 @@
 /datum/component/carapace/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_LIMB_RECEIVE_DAMAGE, PROC_REF(receive_damage))
 	RegisterSignal(parent, COMSIG_LIMB_HEAL_DAMAGE, PROC_REF(heal_damage))
+	RegisterSignal(parent, COMSIG_LIMB_SHELL_OPERATION, PROC_REF(handle_operation_status))
 
 /datum/component/carapace/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_LIMB_RECEIVE_DAMAGE)
 	UnregisterSignal(parent, COMSIG_LIMB_HEAL_DAMAGE)
+	UnregisterSignal(parent, COMSIG_LIMB_SHELL_OPERATION)
+
+/datum/component/carapace/proc/handle_operation_status(obj/item/organ/external/affected_limb, state_to_apply)
+	SIGNAL_HANDLER
+	operation_in_process = state_to_apply
 
 //Проки, срабатываемые при получении или исцелении урона
 /datum/component/carapace/proc/receive_damage(obj/item/organ/external/affected_limb, brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
@@ -49,12 +56,12 @@
 		affected_limb.fracture()
 	if(length(affected_limb.internal_organs))
 		var/obj/item/organ/internal/O = pick(affected_limb.internal_organs)
-		O.receive_damage(burn * affected_limb.burn_dam)
+		O.receive_damage(burn)
 
 /datum/component/carapace/proc/heal_damage(obj/item/organ/external/affected_limb, brute, burn, internal = 0, robo_repair = 0, updating_health = TRUE)
 	SIGNAL_HANDLER
 	if((affected_limb.status & ORGAN_BROKEN) && affected_limb.get_damage() == 0)
-		if(self_mending || prob(CARAPACE_HEAL_BROKEN_PROB))
+		if((self_mending || prob(CARAPACE_HEAL_BROKEN_PROB)) && !operation_in_process)
 			affected_limb.mend_fracture()
 
 //////////////////////////////////////////////////////////////////
@@ -62,7 +69,7 @@
 //////////////////////////////////////////////////////////////////
 ///Датумы для операций
 /datum/surgery/carapace_break
-	name = "Break carapace"
+	name = "Break chitin"
 	steps = list(
 		/datum/surgery_step/saw_carapace,
 		/datum/surgery_step/cut_carapace,
@@ -83,7 +90,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/bone_repair/carapace
-	name = "Carapace Repair"
+	name = "Chitin Repair"
 	steps = list(
 		/datum/surgery_step/glue_bone,
 		/datum/surgery_step/set_bone,
@@ -133,7 +140,7 @@
 //Блокировка простого скальпеля (базовый начальный шаг любой операции), если карапас не был сломан, но появилась какая-то операция, которая не должна быть
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if((affected?.encased == CARAPACE_ENCASE_WORD) && !(affected.status & ORGAN_BROKEN))
+	if((affected?.encased == CARAPACE_ENCASE_WORD) && !(affected.status & ORGAN_BROKEN) && !istype(surgery, /datum/surgery/carapace_shell_repair))
 		to_chat(user, span_notice("[capitalize(target.declent_ru(NOMINATIVE))] покрыта крепким хитином. Сломайте его, прежде чем начать операцию."))
 		return SURGERY_BEGINSTEP_ABORT
 	. = .. ()
@@ -142,12 +149,18 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if((affected?.encased == CARAPACE_ENCASE_WORD) && !(affected.status & ORGAN_BROKEN))
 		affected.fracture()
+		REMOVE_TRAIT(target, TRAIT_PIERCEIMMUNE, "carapace_state")
+		SEND_SIGNAL(affected, COMSIG_LIMB_SHELL_OPERATION, TRUE)
 	. = .. ()
 
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if((affected?.encased == CARAPACE_ENCASE_WORD) && !(affected.status & ORGAN_BROKEN))
+	if((affected?.encased == CARAPACE_ENCASE_WORD) && (affected.status & ORGAN_BROKEN))
 		affected.mend_fracture()
+		if(isserpentid(target))
+			if(!(SEND_SIGNAL(target, COMSIG_SHELL_GET_CARAPACE_STATE) & CARAPACE_SHELL_BROKEN))
+				ADD_TRAIT(target, TRAIT_PIERCEIMMUNE, "carapace_state")
+		SEND_SIGNAL(affected, COMSIG_LIMB_SHELL_OPERATION, FALSE)
 	. = .. ()
 
 #undef CARAPACE_BROKEN_STATE

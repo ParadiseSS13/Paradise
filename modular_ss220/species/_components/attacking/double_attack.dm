@@ -1,8 +1,6 @@
 /*
 ===Компонент на атаку парного оружия
-Срабатывает при атаке оружием. Второе оружие через паузу в 0.2 секунды запускает атаку.
-
-Срабатывает только, если оружие одинаковое.
+Срабатывает при атаке оружием. Второе оружие через паузу в N секунд запускает атаку.
 */
 
 /datum/component/double_attack
@@ -28,6 +26,8 @@
 
 /datum/component/double_attack/proc/hand_attack(mob/living/target, mob/living/user, def_zone, obj/item/hand_item)
 	if(QDELETED(src) || QDELETED(target) || user != hand_item.loc  || !user.Adjacent(target))
+		state_attack = FALSE
 		return
 	hand_item.attack(target, user, def_zone)
 	state_attack = FALSE
+

@@ -273,6 +273,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!IS_CULTIST(M) || (M.mind && IS_SACRIFICE_TARGET(M.mind)))
 			if(isconstruct(M)) // No offering constructs please
 				continue
+			// SS220 EDIT START - SERPENTIDS
+			if(is_species(M, /datum/species/serpentid))
+				M.Paralyse(15 SECONDS)
+				M.AdjustSleeping(60 SECONDS, bound_lower = 60 SECONDS, bound_upper = 100 SECONDS)
+				for(var/I in invokers)
+					to_chat(I, "<span class='warning'>Предложенная кровь недостаточно хороша для подношения, найдите другую жертву!</span>")
+				continue
+			// SS220 EDIT END - SERPENTIDS
 			offer_targets += M
 
 	// Offering a head/brain

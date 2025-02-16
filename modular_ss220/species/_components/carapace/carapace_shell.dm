@@ -44,12 +44,35 @@
 	RegisterSignal(H, COMSIG_SURGERY_STOP, PROC_REF(check_surgery_perform))
 	RegisterSignal(H, COMSIG_SURGERY_REPAIR, PROC_REF(surgery_carapace_shell_repair))
 	RegisterSignal(H, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(update_attacked_time))
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(clear_state))
+	RegisterSignal(H, COMSIG_SHELL_GET_CARAPACE_STATE, PROC_REF(is_armor_piercied))
+	RegisterSignal(H, COMSIG_SHELL_GET_CARAPACE_LEVEL, PROC_REF(get_broken_stage))
 
 /datum/component/carapace_shell/UnregisterFromParent()
 	UnregisterSignal(H, COMSIG_LIVING_LIFE)
 	UnregisterSignal(H, COMSIG_SURGERY_STOP)
 	UnregisterSignal(H, COMSIG_SURGERY_REPAIR)
 	UnregisterSignal(H, COMSIG_MOB_APPLY_DAMAGE)
+	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
+	UnregisterSignal(H, COMSIG_SHELL_GET_CARAPACE_STATE)
+	UnregisterSignal(H, COMSIG_SHELL_GET_CARAPACE_LEVEL)
+
+/datum/component/carapace_shell/proc/is_armor_piercied()
+	SIGNAL_HANDLER
+	return broken_stage > 0 ? CARAPACE_SHELL_BROKEN : FALSE
+
+/datum/component/carapace_shell/proc/get_broken_stage(mob/human, list/msg)
+	SIGNAL_HANDLER
+	var/level
+	switch(broken_stage)
+		if(1)
+			level = "умеренные"
+		if(2)
+			level = "опасные"
+		if(3)
+			level = "критические"
+	if(level)
+		msg += "<span class='danger'>Обнаружены [level] повреждения целостности панциря.</span>"
 
 /datum/component/carapace_shell/proc/stage_1_break()
 	H.dna.species.brute_mod = CARAPACE_SHELL_BROKEN_BRUTE
@@ -62,14 +85,15 @@
 	H.dna.species.brute_mod = CARAPACE_SHELL_ARMORED_BRUTE
 	H.dna.species.burn_mod = CARAPACE_SHELL_ARMORED_BURN
 	ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "carapace_state")
-	H.clear_alert("carapace_break")
 	broken_stage--
 
 /datum/component/carapace_shell/proc/stage_2_break()
 	H.throw_alert("carapace_break", /atom/movable/screen/alert/carapace/break_cloak)
+	ADD_TRAIT(H, TRAIT_CLOAKBLOCKED, "carapace_state")
 	broken_stage++
 
 /datum/component/carapace_shell/proc/stage_2_repair()
+	REMOVE_TRAIT(H, TRAIT_CLOAKBLOCKED, "carapace_state")
 	broken_stage--
 
 /datum/component/carapace_shell/proc/stage_3_break()
@@ -155,10 +179,17 @@
 		if(istype(organ))
 			organ.switch_mode(force_off = TRUE)
 
+	if((broken_stage < 1 && character_damage < state_1_threshold) || !isserpentid(H))
+		H.clear_alert("carapace_break")
+
+/datum/component/carapace_shell/proc/clear_state()
+	SIGNAL_HANDLER
+	broken_stage = 0
+
 //////////////////////////////////////////////////////////////////
 //					Хирургия для панциря						//
 //////////////////////////////////////////////////////////////////
-/datum/surgery/bone_repair/carapace_shell
+/datum/surgery/carapace_shell_repair
 	name = "Carapace Integrity Repair"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
@@ -219,7 +250,7 @@
 	)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery/bone_repair/carapace_shell/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/carapace_shell_repair/can_start(mob/user, mob/living/carbon/target)
 	var/can_start = (SEND_SIGNAL(target, COMSIG_SURGERY_STOP) & SURGERY_STOP)
 	return can_start
 
@@ -227,3 +258,8 @@
 #undef CARAPACE_SHELL_ARMORED_BURN
 #undef CARAPACE_SHELL_BROKEN_BRUTE
 #undef CARAPACE_SHELL_BROKEN_BURN
+
+/proc/get_carapace_damage_level(mob/target, list/msgs)
+	. = msgs
+	SEND_SIGNAL(target, COMSIG_SHELL_GET_CARAPACE_LEVEL, .)
+	return .

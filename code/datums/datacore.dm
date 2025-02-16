@@ -259,6 +259,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	temp = new /icon(icobase, "[head]_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
+	// SS220 EDIT START - SERPENTIDS
+	if(is_species(H, /datum/species/serpentid))
+		temp = new/icon("icon" = 'modular_ss220/species/serpentids/icons/mob/r_serpentid.dmi', "icon_state" = "preview")
+		preview_icon.Blend(temp, ICON_OVERLAY)
+	// SS220 EDIT END - SERPENTIDS
+
 	//Tail
 	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
@@ -395,6 +401,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		job_clothes = custom_job
 	else if(H.mind)
 		job_clothes = H.mind.assigned_role
+	//SS220 EDIT START - SERPENTIDS
+	if(is_species(H, /datum/species/serpentid))
+		job_clothes = "Naked"
+	//SS220 EDIT END - SERPENTIDS
 	switch(job_clothes)
 		if("Head of Personnel")
 			clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "hop_s")

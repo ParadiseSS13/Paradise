@@ -16,7 +16,7 @@
 
 /obj/item/organ/internal/ears/serpentid/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/organ_decay, 0.05, BASIC_RECOVER_VALUE)
+	AddComponent(/datum/component/organ_decay, 0.2, BASIC_RECOVER_VALUE)
 	AddComponent(/datum/component/organ_toxin_damage, 0.05)
 	AddComponent(/datum/component/hunger_organ)
 	AddComponent(/datum/component/organ_action, radial_action_state, radial_action_icon)
@@ -38,6 +38,9 @@
 		chemical_consuption = 0
 		owner.visible_message(span_notice("Тело [owner] перестает колыхаться."))
 	SEND_SIGNAL(src, COMSIG_ORGAN_CHANGE_CHEM_CONSUPTION, chemical_consuption)
+
+/obj/item/organ/internal/ears/serpentid/get_active_state()
+	return active
 
 /obj/item/organ/internal/ears/serpentid/proc/sense_creatures()
 	for(var/mob/living/creature in range(9, owner))

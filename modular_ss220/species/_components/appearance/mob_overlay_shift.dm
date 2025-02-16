@@ -35,17 +35,26 @@
 	shift_call(parent)
 
 /datum/component/mob_overlay_shift/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_MOB_ON_EQUIP, COMSIG_MOB_ON_CLICK), PROC_REF(shift_call))
+	RegisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT, COMSIG_MOVABLE_MOVED, COMSIG_MOB_ON_EQUIP, COMSIG_MOB_ON_CLICK, COMSIG_CHANGELING_FINISHED_TRANSFORM, COMSIG_CMA_TRANSFORM), PROC_REF(shift_call))
+	RegisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE), PROC_REF(update_dir))
 	RegisterSignal(parent, list(COMSIG_MOB_GET_OVERLAY_SHIFTS_LIST), PROC_REF(get_list))
 
 /datum/component/mob_overlay_shift/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_MOB_ON_EQUIP, COMSIG_MOB_ON_CLICK, COMSIG_MOB_GET_OVERLAY_SHIFTS_LIST))
+	UnregisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_MOVABLE_MOVED, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_MOB_ON_EQUIP, COMSIG_MOB_ON_CLICK, COMSIG_MOB_GET_OVERLAY_SHIFTS_LIST, COMSIG_CHANGELING_FINISHED_TRANSFORM, COMSIG_CMA_TRANSFORM))
+
+/datum/component/mob_overlay_shift/proc/update_dir(mob/living/carbon/human/mob, olddir, newdir)
+	SIGNAL_HANDLER
+	if(newdir)
+		dir = newdir
+	update_apperance(mob)
 
 /datum/component/mob_overlay_shift/proc/shift_call(mob/living/carbon/human/mob)
 	SIGNAL_HANDLER
 	if(mob.dir)
 		dir = mob.dir
+	update_apperance(mob)
 
+/datum/component/mob_overlay_shift/proc/update_apperance(mob/living/carbon/human/mob)
 	var/list/body_parts = list(MOB_OVERLAY_SHIFT_HAND, MOB_OVERLAY_SHIFT_BELT, MOB_OVERLAY_SHIFT_BACK, MOB_OVERLAY_SHIFT_HEAD)
 	var/position
 	switch(dir)
@@ -59,7 +68,8 @@
 			position = MOB_OVERLAY_SHIFT_FRONT
 
 	var/flip = (dir == WEST || dir == SOUTH) ? -1 : 1
-
+	if(!position)
+		position = MOB_OVERLAY_SHIFT_SIDE //ГБС лежит
 	// Update shift values based on direction
 	for(var/body_part in body_parts)
 		var/x_shift_key = "shift_x"
@@ -70,8 +80,11 @@
 		var/x_central_value = shift_data[body_part][MOB_OVERLAY_SHIFT_CENTER]["x"]
 		var/y_central_value = shift_data[body_part][MOB_OVERLAY_SHIFT_CENTER]["y"]
 
-		shift_data[body_part][x_shift_key] = flip * x_shift_value + x_central_value
-		shift_data[body_part][y_shift_key] = flip * y_shift_value + y_central_value
+		shift_data[body_part][y_shift_key] = 0
+		shift_data[body_part][x_shift_key] = 0
+		if(isserpentid(mob))
+			shift_data[body_part][x_shift_key] = flip * x_shift_value + x_central_value
+			shift_data[body_part][y_shift_key] = flip * y_shift_value + y_central_value
 
 	update_call(mob)
 
@@ -97,3 +110,7 @@
 #undef MOB_OVERLAY_SHIFT_SIDE
 #undef MOB_OVERLAY_SHIFT_FRONT
 #undef MOB_OVERLAY_SHIFT_CENTER
+
+/atom/movable/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	l_move_time = world.time

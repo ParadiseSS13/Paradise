@@ -19,6 +19,7 @@
 //Сколько голода потребляют уши (сонар)
 #define SERPENTID_ORGAN_HUNGER_EARS 0.1  //78 минут
 
+#define TRAIT_CLOAKBLOCKED		"cloak_block"
 //минимальное цветовосприятие
 #define SERPENTID_EYES_LOW_VISIBLE_VALUE 0.5
 //Максимальное цветовосприяте

@@ -19,3 +19,7 @@
 /mob/living/carbon/human
 	var/atom/movable/loaded = null
 	var/mob/living/passenger = null
+
+/mob/living/proc/isCarrying()
+	var/mob/living/carbon/human/check_one = src
+	return check_one?.loaded || check_one?.passenger

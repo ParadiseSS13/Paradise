@@ -25,11 +25,13 @@
 	RegisterSignal(parent, COMSIG_GADOM_LOAD, PROC_REF(try_load_cargo))
 	RegisterSignal(parent, COMSIG_GADOM_UNLOAD, PROC_REF(try_unload_cargo))
 	RegisterSignal(parent, COMSIG_GADOM_CAN_GRAB, PROC_REF(block_operation))
+	RegisterSignal(parent, COMSIG_CHANGELING_FINISHED_TRANSFORM, PROC_REF(try_unload_cargo))
 
 /datum/component/gadom_cargo/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_GADOM_LOAD)
 	UnregisterSignal(parent, COMSIG_GADOM_UNLOAD)
 	UnregisterSignal(parent, COMSIG_GADOM_CAN_GRAB)
+	UnregisterSignal(parent, COMSIG_CHANGELING_FINISHED_TRANSFORM)
 
 /datum/component/gadom_cargo/proc/block_operation()
 	SIGNAL_HANDLER
@@ -74,6 +76,7 @@
 
 	if(!isliving(AM))
 		AM.crate_carrying_person = carrier
+		AM.density = FALSE
 		AM.forceMove(carrier.loc)
 
 	carrier.loaded = AM
@@ -101,7 +104,8 @@
 			var/turf/newT = get_step(T,dirn)
 			if(carrier.loaded.CanPass(carrier.loaded, newT))
 				step(carrier.loaded, dirn)
+		carrier.loaded.density = TRUE
 		carrier.loaded.crate_carrying_person = null
 		carrier.loaded = null
-		carrier.clear_alert("serpentid_holding")
 	carrier.update_icon(UPDATE_OVERLAYS)
+	carrier.clear_alert("serpentid_holding")

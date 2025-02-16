@@ -21,9 +21,22 @@
 	SIGNAL_HANDLER
 	if(isnull(organ.owner))
 		return TRUE
+	var/active = FALSE
+	if(istype(organ, /obj/item/organ/internal/kidneys/serpentid))
+		var/obj/item/organ/internal/kidneys/serpentid/checkorgan = organ
+		active = checkorgan.cloak_engaged
+	if(istype(organ, /obj/item/organ/internal/eyes/serpentid))
+		var/obj/item/organ/internal/eyes/serpentid/checkorgan = organ
+		active = checkorgan.active
+	if(istype(organ, /obj/item/organ/internal/lungs/serpentid))
+		var/obj/item/organ/internal/lungs/serpentid/checkorgan = organ
+		active = checkorgan.active_secretion
+	if(istype(organ, /obj/item/organ/internal/ears/serpentid))
+		var/obj/item/organ/internal/ears/serpentid/checkorgan = organ
+		active = checkorgan.active
 	if(consuption_count && organ.owner.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
 		organ.owner.adjust_nutrition(-consuption_count)
-	else //Если количества недостаточно - выключить режим
+	else if(active) //Если количества недостаточно - выключить режим
 		organ.switch_mode(force_off = TRUE)
 
 

@@ -15,12 +15,13 @@
 	var/recover_rate
 	var/decay_rate
 	var/death_state_timer
-	var/dead_last_state = FALSE
+	var/lt_live = FALSE
 
 /datum/component/organ_decay/Initialize(income_decay_rate = BASIC_RECOVER_VALUE, income_recover_rate = BASIC_DECAY_VALUE)
 	organ = parent
 	recover_rate = income_recover_rate
 	decay_rate = income_decay_rate
+	death_state_timer = world.time
 	START_PROCESSING(SSdcs, src)
 
 /datum/component/organ_decay/Destroy(force, silent)
@@ -32,11 +33,11 @@
 		return
 
 	var/is_no_owner = isnull(organ.owner)
-	if(!dead_last_state)
+	if(lt_live)
 		death_state_timer = world.time
-	dead_last_state = organ?.owner.stat == DEAD
+	lt_live = (organ?.owner?.stat != DEAD)
 	var/formaldehyde_found = organ.owner?.get_chemical_value("formaldehyde") > 0
-	var/is_destroying = (dead_last_state || (is_no_owner && !organ.is_in_freezer))
+	var/is_destroying = (!lt_live || (is_no_owner && !organ.is_in_freezer))
 	if(is_destroying && !formaldehyde_found && ((world.time - death_state_timer) >= ORGAN_DEATH_TIMER))
 		organ.receive_damage(decay_rate, 1)
 	if((organ.damage <= (organ.max_damage / ORGAN_RECOVERY_THRESHOLD)) && (organ.damage > 0) && !is_destroying)

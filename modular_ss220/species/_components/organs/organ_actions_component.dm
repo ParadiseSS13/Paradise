@@ -38,7 +38,10 @@
 
 	for(var/obj/item/organ/internal/I in organs_list)
 		if(I.radial_action_state && I.radial_action_icon)
-			choices["[I.name]"] = image(icon = I.radial_action_icon, icon_state = I.radial_action_state)
+			var/image/organ_image = image(icon = I.radial_action_icon, icon_state = I.radial_action_state)
+			if(I.get_active_state())
+				organ_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
+			choices["[I.name]"] = organ_image
 
 	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(check_actions), user))
 	if(!check_actions(user))
@@ -78,3 +81,6 @@
 /obj/item/organ/internal
 	var/radial_action_state
 	var/radial_action_icon
+
+/obj/item/organ/internal/proc/get_active_state()
+	return
