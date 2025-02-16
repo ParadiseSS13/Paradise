@@ -2090,29 +2090,29 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_inside_mob(atom/thing)
 	if(..())
 		return TRUE
-	if(w_uniform && w_uniform.UID() == thing.UID)
+	if(w_uniform && w_uniform.UID() == thing.UID())
 		return TRUE
-	if(shoes && shoes.UID() == thing.UID)
+	if(shoes && shoes.UID() == thing.UID())
 		return TRUE
-	if(belt && belt.UID() == thing.UID)
+	if(belt && belt.UID() == thing.UID())
 		return TRUE
-	if(gloves && gloves.UID() == thing.UID)
+	if(gloves && gloves.UID() == thing.UID())
 		return TRUE
-	if(neck && neck.UID() == thing.UID)
+	if(neck && neck.UID() == thing.UID())
 		return TRUE
-	if(glasses && glasses .UID() == thing.UID)
+	if(glasses && glasses.UID() == thing.UID())
 		return TRUE
-	if(l_ear && l_ear.UID() == thing.UID)
+	if(l_ear && l_ear.UID() == thing.UID())
 		return TRUE
-	if(r_ear && r_ear.UID() == thing.UID)
+	if(r_ear && r_ear.UID() == thing.UID())
 		return TRUE
-	if(wear_id && wear_id.UID() == thing.UID)
+	if(wear_id && wear_id.UID() == thing.UID())
 		return TRUE
-	if(wear_pda && wear_pda.UID() == thing.UID)
+	if(wear_pda && wear_pda.UID() == thing.UID())
 		return TRUE
-	if(r_store && r_store.UID() == thing.UID)
+	if(r_store && r_store.UID() == thing.UID())
 		return TRUE
-	if(l_store && l_store.UID() == thing.UID)
+	if(l_store && l_store.UID() == thing.UID())
 		return TRUE
-	if(s_store && s_store.UID() == thing.UID)
+	if(s_store && s_store.UID() == thing.UID())
 		return TRUE

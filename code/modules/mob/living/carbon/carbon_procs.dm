@@ -1407,12 +1407,12 @@ so that different stomachs can handle things in different ways VB*/
 	add_attack_logs(M, M, "Revived with Lazarus Reagent")
 	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 
-mob/living/carbon/is_inside_mob(atom/thing)
+/mob/living/carbon/is_inside_mob(atom/thing)
 	if(..())
 		return TRUE
-	if(head && head.UID() == thing.UID)
+	if(head && head.UID() == thing.UID())
 		return TRUE
-	if(wear_suit && wear_suit.UID() == thing.UID)
+	if(wear_suit && wear_suit.UID() == thing.UID())
 		return TRUE
 
 	return FALSE
