@@ -963,10 +963,10 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
 	..()
-	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_can_eat[UID()]")
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/remove(mob/living/carbon/M, special = FALSE)
-	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_can_eat[UID()]")
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
