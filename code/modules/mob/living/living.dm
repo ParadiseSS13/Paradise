@@ -1040,10 +1040,13 @@
 	..()
 	update_z(new_turf?.z)
 
-/mob/living/rad_act(amount, emission_type)
+/mob/living/rad_act(atom/source, amount, emission_type)
 	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
 	if(emission_type > ALPHA_RAD)
 		amount /=  (1 - RAD_MOB_INSULATION)
+	// Alpha sources outside the body don't do much
+	else if(!inside_mob(source))
+		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
@@ -1056,6 +1059,20 @@
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
 	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
+
+/mob/living/proc/is_inside_mob(atom/thing)
+	if(!(thing in contents))
+		return FALSE
+	if(l_hand && l_hand.UID() == thing.UID)
+		return TRUE
+	if(r_hand && r_hand.UID() == thing.UID)
+		return TRUE
+	if(back && back.UID() == thing.UID)
+		return TRUE
+	if(wear_mask && wear_mask.UID() == thing.UID)
+		return TRUE
+
+	return FALSE
 
 /mob/living/proc/fakefireextinguish()
 	return

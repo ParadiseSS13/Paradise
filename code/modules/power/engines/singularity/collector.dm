@@ -171,7 +171,7 @@
 		update_icons()
 
 /// Converts absorbed Beta or Gamma radiation into electrical energy
-/obj/machinery/power/rad_collector/rad_act(amount, emission_type)
+/obj/machinery/power/rad_collector/rad_act(atom/source, amount, emission_type)
 	if(emission_type == BETA_RAD)
 		beta_waves += list("[world.time]" = amount)
 	if(emission_type == GAMMA_RAD)

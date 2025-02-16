@@ -67,7 +67,7 @@
 		weight_right = index < (2 * steps) ? weights[WRAP_INDEX((index + offset), weight_length)] : 0
 		// The weight of the current tile the average of the weights of the tiles we checked for earlier
 		// And is reduced by irradiating things and getting blocked
-		new_weights += radiate(current_turf, (ratio) * (weight_left + weight_center + weight_right) / ((1 + (index > 1 && index < (2 * steps + 1) && steps > 1) + (index > 2 && index < (2 * steps)))), emission_type)
+		new_weights += radiate(source, current_turf, (ratio) * (weight_left + weight_center + weight_right) / ((1 + (index > 1 && index < (2 * steps + 1) && steps > 1) + (index > 2 && index < (2 * steps)))), emission_type)
 		weight_sum += new_weights[i + 1]
 		// Advance to next turf
 		current_turf = get_step(current_turf, walk_dir)
@@ -79,13 +79,13 @@
 	weights = new_weights
 
 /// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
-/datum/radiation_wave/proc/radiate(turf/current_turf, weight, emission_type)
+/datum/radiation_wave/proc/radiate(atom/source, turf/current_turf, weight, emission_type)
 	var/list/turf_atoms = get_rad_contents(current_turf, emission_type)
 	for(var/k in turf_atoms)
 		var/atom/thing = k
 		if(QDELETED(thing))
 			continue
-		weight = weight * thing.base_rad_act(weight * intensity, emission_type)
+		weight = weight * thing.base_rad_act(source ,weight * intensity, emission_type)
 	// return the resulting weight if the radiation on the tile would end up greater than background
 	return (((weight * intensity) > RAD_BACKGROUND_RADIATION) ? weight : 0)
 

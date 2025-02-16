@@ -614,13 +614,13 @@
  *
  * This should only be called through the atom/base_rad_act proc
  */
-/atom/proc/rad_act(amount, emission_type)
+/atom/proc/rad_act(atom/source, amount, emission_type)
 	return
 
 /**
 * Sends a COMSIG_ATOM_RAD_ACT signal, calls the atoms rad_act with the amount of radiation it should have absorbed and returns the rad insulation of the atom that isappropriate for emission_type
 */
-/atom/proc/base_rad_act(amount, emission_type)
+/atom/proc/base_rad_act(atom/source, amount, emission_type)
 	switch(emission_type)
 		if(ALPHA_RAD)
 			. = rad_insulation_alpha
@@ -628,9 +628,9 @@
 			. = rad_insulation_beta
 		if(GAMMA_RAD)
 			. = rad_insulation_gamma
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount, emission_type)
 	if(amount >= RAD_BACKGROUND_RADIATION)
-		rad_act(amount * (1 - .), emission_type)
+		rad_act(source, amount * (1 - .), emission_type)
 
 /// Attempt to contaminate a single atom
 /atom/proc/contaminate_atom(atom/source, intensity, emission_type)

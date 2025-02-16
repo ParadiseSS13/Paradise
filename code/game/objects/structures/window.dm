@@ -44,7 +44,7 @@
 	var/rad_conversion_amount = 0
 
 
-/obj/structure/window/rad_act(amount, emission_type)
+/obj/structure/window/rad_act(atom/source, amount, emission_type)
 	amount = amount * (1 - .)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
 		AddComponent(/datum/component/radioactive, amount * rad_conversion_amount, src, BETA_RAD, 60)

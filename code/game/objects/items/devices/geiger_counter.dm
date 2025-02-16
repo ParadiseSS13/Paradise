@@ -112,7 +112,7 @@
 	loop.last_radiation = radiation_count
 	loop.start()
 
-/obj/item/geiger_counter/rad_act(amount, emission_type)
+/obj/item/geiger_counter/rad_act(atom/source, amount, emission_type)
 	amount *= 100
 	if(amount <= RAD_BACKGROUND_RADIATION || !scanning)
 		return
@@ -132,7 +132,7 @@
 			addtimer(CALLBACK(src, PROC_REF(scan), target, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
 		else
 			user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='danger'>You project [src]'s stored radiation into [target]!</span>")
-			target.base_rad_act(radiation_count)
+			target.base_rad_act(src, radiation_count, BETA_RAD)
 			radiation_count = 0
 		return TRUE
 
@@ -201,8 +201,8 @@
 	RegisterSignal(user, COMSIG_ATOM_RAD_ACT, PROC_REF(redirect_rad_act))
 	listeningTo = user
 
-/obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount)
-	rad_act(amount)
+/obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount, emission_type)
+	base_rad_act(source, amount, emission_type)
 
 /obj/item/geiger_counter/cyborg/dropped()
 	. = ..()
