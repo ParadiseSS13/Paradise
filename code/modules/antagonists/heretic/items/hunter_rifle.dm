@@ -165,13 +165,16 @@
 	if(target != original)
 		return
 	stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet once we hit our target
+	if(!isliving(target))
+		qdel(src)
+		return
 	var/mob/living/victim = target
 	var/mob/firing_mob = firer
 	if(IS_HERETIC_OR_MONSTER(victim) || !IS_HERETIC(firing_mob))
 		qdel(src)
 		return
 
-		SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
+	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
 	qdel(src)
 	return
 
