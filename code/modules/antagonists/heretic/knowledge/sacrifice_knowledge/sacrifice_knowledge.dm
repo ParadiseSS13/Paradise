@@ -415,7 +415,7 @@
 	playsound(sac_target, 'sound/ambience/antag/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
-	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
+	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION) // Begin the minigame
 
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
 	RegisterSignal(sac_target, COMSIG_MOB_DEATH, PROC_REF(on_target_death)) // Loss condition

@@ -171,7 +171,7 @@
 		qdel(src)
 		return
 
-	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
+		SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
 	qdel(src)
 	return
 

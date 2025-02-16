@@ -9,7 +9,7 @@
 "bY" = (
 /obj/structure/table,
 /obj/item/whetstone,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "cN" = (
 /obj/effect/decal/cleanable/ash,
@@ -101,7 +101,7 @@
 "ob" = (
 /obj/item/shard,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "op" = (
 /turf/simulated/floor/indestructible,
@@ -135,11 +135,11 @@
 "qB" = (
 /obj/effect/spawner/random/blood/often,
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "qD" = (
 /obj/item/whetstone,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "qO" = (
 /obj/structure/lattice/indestructible,
@@ -159,13 +159,13 @@
 "sT" = (
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "tO" = (
 /turf/simulated/wall/indestructible/rock,
 /area/centcom/heretic_sacrifice/rust)
 "tT" = (
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "ua" = (
 /obj/effect/decal/snow/clean/edge,
@@ -186,7 +186,7 @@
 "wn" = (
 /obj/item/kitchen/knife,
 /obj/structure/table,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "wF" = (
 /obj/effect/decal/snow/clean/edge,
@@ -217,6 +217,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
+/area/centcom/heretic_sacrifice/void)
+"zD" = (
+/turf/simulated/wall/indestructible/wood,
 /area/centcom/heretic_sacrifice/void)
 "zL" = (
 /obj/machinery/light/very_dim/directional/north,
@@ -350,7 +353,7 @@
 /area/centcom/heretic_sacrifice/void)
 "LX" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "Ml" = (
 /obj/item/instrument/saxophone,
@@ -393,7 +396,7 @@
 /area/centcom/heretic_sacrifice/flesh)
 "Qp" = (
 /obj/effect/landmark/heretic/blade,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "Rp" = (
 /obj/item/instrument/recorder,
@@ -418,7 +421,7 @@
 /obj/machinery/light/floor{
 	invisibility = 100
 	},
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "TH" = (
 /obj/effect/spawner/window/plastitanium,
@@ -434,7 +437,7 @@
 /area/space)
 "UH" = (
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel/airless/indestructible,
+/turf/simulated/floor/plasteel,
 /area/centcom/heretic_sacrifice/blade)
 "Vx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -545,16 +548,16 @@ Um
 (2,1,1) = {"
 Um
 vN
-vN
-vN
-vN
-vN
+zD
+zD
+zD
+zD
 Ld
 Ld
-vN
-vN
-vN
-vN
+zD
+zD
+zD
+zD
 vN
 Um
 YG
