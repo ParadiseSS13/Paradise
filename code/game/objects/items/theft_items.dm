@@ -120,7 +120,8 @@
 /obj/item/nuke_core_container/proc/crack_open()
 	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(core)
-		START_PROCESSING(SSobj, core)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		START_PROCESSING(SSradiation, radioactivity)
 		icon_state = "core_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
