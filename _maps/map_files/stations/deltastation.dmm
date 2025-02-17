@@ -10341,11 +10341,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"aOp" = (
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
-/turf/simulated/floor/plasteel/grimy,
-/area/station/maintenance/gambling_den)
 "aOq" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/grimy,
@@ -10361,15 +10356,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/gambling_den)
 "aOt" = (
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aOu" = (
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aOv" = (
@@ -10644,7 +10638,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "aPw" = (
-/obj/item/reagent_containers/glass/bucket,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -10749,23 +10742,16 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/maintenance/gambling_den)
-"aPL" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/folder/red,
-/turf/simulated/floor/plasteel/grimy,
-/area/station/maintenance/gambling_den)
 "aPM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aPN" = (
-/obj/structure/chair/stool,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -10788,8 +10774,11 @@
 	},
 /area/station/service/janitor)
 "aPV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -11230,29 +11219,24 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
-"aRj" = (
-/turf/simulated/floor/plasteel/grimy,
-/area/station/maintenance/gambling_den)
 "aRk" = (
-/obj/structure/table/wood,
-/obj/item/storage/briefcase,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/maintenance/gambling_den)
 "aRl" = (
+/obj/item/storage/briefcase,
 /obj/structure/table/wood,
-/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/maintenance/gambling_den)
 "aRm" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aRn" = (
-/obj/structure/chair/stool,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aRs" = (
@@ -11659,21 +11643,23 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aSQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "aSR" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -11699,10 +11685,11 @@
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "aSX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/landmark/start/assistant,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/start/assistant,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "aSY" = (
@@ -12199,6 +12186,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -12640,8 +12631,8 @@
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "aVV" = (
-/obj/structure/table/wood,
 /obj/machinery/light/small,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plating,
 /area/station/maintenance/gambling_den)
 "aVX" = (
@@ -15685,7 +15676,7 @@
 	},
 /area/station/maintenance/fore)
 "bgo" = (
-/obj/structure/closet,
+/obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
@@ -46130,10 +46121,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"dcO" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/plating,
-/area/station/maintenance/gambling_den)
 "dcP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -65287,7 +65274,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
 "joa" = (
@@ -68389,8 +68375,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "ldm" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/station/public/pet_store)
 "ldp" = (
@@ -68852,9 +68838,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "lqK" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/economy/vending/clothing,
 /obj/machinery/camera{
 	dir = 6;
@@ -70237,28 +70220,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"mhx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/fore/north)
 "mhG" = (
 /obj/structure/rack,
 /obj/item/screwdriver,
@@ -70394,8 +70355,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/economy/slot_machine,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "mlY" = (
@@ -71012,6 +70973,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/security/detective)
+"mCx" = (
+/obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/folder/red,
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/maintenance/gambling_den)
 "mDm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -73194,6 +73162,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
+"nIr" = (
+/obj/item/clothing/glasses/sunglasses,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/maintenance/gambling_den)
 "nIs" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area"
@@ -74383,8 +74356,8 @@
 "orj" = (
 /obj/machinery/economy/vending/hatdispenser,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
@@ -77823,10 +77796,10 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "qjR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/sink{
 	pixel_y = 25
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "qjT" = (
@@ -78492,6 +78465,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -78547,7 +78523,7 @@
 	},
 /area/station/hallway/secondary/entry/north)
 "qGn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /turf/simulated/floor/wood,
@@ -80291,6 +80267,11 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
+"rwO" = (
+/obj/item/deck/cards/syndicate,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/maintenance/gambling_den)
 "rwU" = (
 /turf/simulated/wall,
 /area/station/service/barber)
@@ -84835,14 +84816,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
 "tIy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/pet_store)
@@ -92205,10 +92186,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
-"xwU" = (
-/obj/machinery/economy/slot_machine,
-/turf/simulated/floor/plating,
-/area/station/maintenance/gambling_den)
 "xxb" = (
 /turf/simulated/floor/plasteel/stairs/left{
 	dir = 4
@@ -92275,6 +92252,13 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/east)
+"xzo" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/gambling_den)
 "xzp" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -124277,7 +124261,7 @@ aHq
 onW
 azb
 aor
-aqF
+aEt
 aor
 aor
 aEt
@@ -124534,15 +124518,15 @@ aHr
 aCl
 azb
 ayC
-aMV
-aMV
-aMW
-aMY
-aSO
-aXe
-aMW
-aMW
-aBo
+aUp
+xzo
+xzo
+xzo
+aUp
+xzo
+aUp
+aUp
+aor
 baC
 bcb
 azb
@@ -124792,17 +124776,17 @@ aCl
 tuq
 aBo
 aMV
-aOp
-aPJ
-aRj
-aSP
-aUp
-aOs
-aMY
+aMV
+aMW
+aMW
+aSO
+aXe
+aMW
+aMW
 ayC
 baD
 aVK
-aor
+aYP
 beS
 bgo
 aVK
@@ -125048,15 +125032,15 @@ utf
 dkP
 yfB
 aLz
-aMW
+aMV
 aOq
-aPK
+aPJ
 aRk
 aPM
-aRm
-jEn
-aMW
-aYP
+aUp
+aOs
+aMY
+aBo
 azb
 aVK
 ayC
@@ -125306,14 +125290,14 @@ nyH
 aKc
 aLA
 aMW
-aOr
-aPL
+nIr
+aPK
 aRl
 aPV
-aUq
-lfd
+aRm
+jEn
 aMW
-aCo
+aor
 azb
 azb
 azb
@@ -125563,12 +125547,12 @@ aCl
 aKe
 azb
 aMW
-aOs
-aSP
-aRm
+aOr
+mCx
+rwO
 aSQ
-dcO
-xwU
+aUq
+lfd
 aMW
 aYQ
 aEu
@@ -126079,7 +126063,7 @@ aLC
 aMY
 aOu
 mlS
-lfd
+aSP
 aQq
 aUp
 aOs
@@ -130180,7 +130164,7 @@ azl
 aAx
 aAw
 aES
-mhx
+aUv
 qbI
 aFA
 aGy
