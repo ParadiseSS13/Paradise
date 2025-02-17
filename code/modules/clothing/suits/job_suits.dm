@@ -29,20 +29,22 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-//Smith
+// Smith
 /obj/item/clothing/suit/apron/smith
 	name = "smith's apron"
 	desc = "A black, heat-treated apron for use while smelting."
 	icon = 'icons/obj/clothing/suits/utility.dmi'
 	icon_state = "smith_apron"
-	item_state = 'icons/mob/clothing/suits/utility.dmi'
+	item_state = "smith_apron"
 	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	allowed = list(/obj/item/hammer, /obj/item/smithing_cast, /obj/item/smithed_item, /obj/item/stack/sheet, /obj/item/stack/tile/brass)
 	resistance_flags = FIRE_PROOF
+	insert_max = 3
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/suit/utility.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/suit/utility.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/suit/utility.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit/utility.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi'
 	)
 
 //Chaplain

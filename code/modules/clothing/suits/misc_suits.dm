@@ -1113,9 +1113,11 @@
 
 /obj/item/clothing/suit/jacket/bomber/smith
 	name = "smithing bomber jacket"
-	desc = "placeholder"
+	desc = "A stylish jacket that has extra internal pockets for inserts."
 	icon_state = "bombersmith"
 	item_state = "bombersmith"
+	insert_max = 3
+	allowed = list(/obj/item/hammer, /obj/item/smithing_cast, /obj/item/smithed_item, /obj/item/stack/sheet, /obj/item/stack/tile/brass)
 
 /obj/item/clothing/suit/jacket/bomber/hydro
 	name = "hydroponics bomber jacket"
