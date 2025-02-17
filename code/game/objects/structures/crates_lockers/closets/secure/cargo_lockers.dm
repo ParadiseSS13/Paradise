@@ -35,8 +35,9 @@
 /obj/structure/closet/secure_closet/smith
 	name = "smith's locker"
 	req_access = list(ACCESS_SMITH)
-	icon_state = "smith"
+	icon_state = "cargo"
 	opened_door_sprite = "cargo"
+	closed_door_sprite = "smith"
 
 /obj/structure/closet/secure_closet/smith/populate_contents()
 	new /obj/item/radio/headset/headset_cargo(src)
