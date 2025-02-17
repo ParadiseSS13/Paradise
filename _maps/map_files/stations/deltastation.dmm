@@ -26340,8 +26340,7 @@
 "bNW" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46585,8 +46584,7 @@
 /area/station/maintenance/apmaint)
 "deZ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /obj/machinery/atmospherics/portable/canister,
 /obj/effect/turf_decal/stripes/line{
@@ -46607,8 +46605,7 @@
 /area/station/service/chapel)
 "dfd" = (
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -52776,8 +52773,7 @@
 "dMg" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
@@ -65929,8 +65925,7 @@
 "jNp" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -69046,8 +69041,7 @@
 "lwr" = (
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -76048,8 +76042,7 @@
 /area/station/public/fitness)
 "plr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77025,8 +77018,7 @@
 /area/station/medical/chemistry)
 "pLU" = (
 /obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1;
-	name = "Portable Air Pump Connector"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
