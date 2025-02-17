@@ -705,6 +705,7 @@
 	// Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
 	if((reagent.process_flags & ORGANIC) && (reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_DUO))
 		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/shock_reduction()
 	var/shock_reduction = 0
