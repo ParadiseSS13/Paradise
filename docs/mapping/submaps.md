@@ -95,6 +95,16 @@ even whole layouts, making it so a map looks different every time it is visited.
 
     ![](./images/mapmanip_results.png)
 
+    Mapmanip can also generate permutations of your map at the command line, by
+    running:
+
+    ```sh
+    .\tools\rustlib_tools\mapmanip.ps1
+    ```
+
+    This will create a version of every map that has submaps and save them with
+    the suffix `mapmanipout.dmm`, wherever the original map is located.
+
 ## Areas and Turfs
 
 Areas and turfs, and specifically their "noop" types, have special meaning in
