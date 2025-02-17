@@ -814,7 +814,7 @@
 	name = "7.62 round"
 	id = "762a"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 250)
+	materials = list(MAT_METAL = 10000)
 	build_path = /obj/item/ammo_casing/a762
 	category = list("hacked", "Security")
 
