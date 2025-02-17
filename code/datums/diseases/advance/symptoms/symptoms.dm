@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 	/// List of reagents that prevent the symptom from acting
 	var/list/treatments = list()
 	/// Amount of reagents purged when they prevent the symptom from acting
-	var/purge_amount = 3
+	var/purge_amount = 0.4
 
 /datum/symptom/New()
 	var/list/S = GLOB.list_symptoms
