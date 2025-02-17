@@ -16845,7 +16845,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -18555,8 +18554,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/shelf/supply,
-/obj/item/eftpos,
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "bni" = (

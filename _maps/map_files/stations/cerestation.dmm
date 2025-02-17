@@ -39609,11 +39609,6 @@
 /area/station/security/main)
 "hle" = (
 /obj/machinery/light,
-/obj/structure/shelf/supply,
-/obj/item/stack/sheet/metal/ten,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -54303,7 +54298,10 @@
 	pixel_y = -28
 	},
 /obj/structure/shelf/supply,
-/obj/item/eftpos,
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/item/stack/sheet/metal/ten,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -78604,11 +78602,11 @@
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
 "qYR" = (
-/obj/structure/closet,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
 /obj/machinery/requests_console/directional/south,
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"

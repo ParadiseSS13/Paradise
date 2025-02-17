@@ -42,6 +42,7 @@
 /obj/structure/closet/secure_closet/smith/populate_contents()
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/storage/bag/garment/smith(src)
+	new /obj/item/eftpos(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"

@@ -51601,7 +51601,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/closet,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "kja" = (
@@ -110619,8 +110618,7 @@
 /area/station/security/checkpoint/secondary)
 "vSy" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/shelf/supply,
-/obj/item/eftpos,
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "vSD" = (

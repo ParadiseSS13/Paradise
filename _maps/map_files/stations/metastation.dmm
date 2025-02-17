@@ -5169,7 +5169,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -7324,13 +7323,7 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Bay Storage"
 	},
-/obj/structure/shelf/supply,
-/obj/item/stack/sheet/metal/ten,
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = -3;
-	pixel_y = 6
-	},
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -8208,7 +8201,12 @@
 	pixel_y = 24
 	},
 /obj/structure/shelf/supply,
-/obj/item/eftpos,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/item/stack/sheet/metal/ten,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"

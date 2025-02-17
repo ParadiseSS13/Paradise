@@ -33165,10 +33165,10 @@
 /area/station/maintenance/asmaint2)
 "coH" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
-/obj/structure/closet,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -66869,8 +66869,6 @@
 /area/station/turret_protected/aisat/interior)
 "nrD" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/shelf/supply,
-/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
