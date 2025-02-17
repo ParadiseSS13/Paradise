@@ -115,10 +115,10 @@
 	name = "Smith"
 	jobtype = /datum/job/smith
 
-	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/cargo/miner
+	gloves = /obj/item/clothing/gloves/smithing
+	uniform = /obj/item/clothing/under/rank/cargo/smith
 	l_ear = /obj/item/radio/headset/headset_cargo
-	shoes = /obj/item/clothing/shoes/workboots/mining
+	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
 

@@ -29,6 +29,22 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+//Smith
+/obj/item/clothing/suit/apron/smith
+	name = "smith's apron"
+	desc = "A black, heat-treated apron for use while smelting."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_state = "smith_apron"
+	item_state = 'icons/mob/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	resistance_flags = FIRE_PROOF
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit/utility.dmi'
+	)
+
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
 	name = "chaplain hoodie"

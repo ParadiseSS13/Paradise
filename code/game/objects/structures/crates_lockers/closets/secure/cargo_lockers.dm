@@ -32,6 +32,16 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/expedition(src)
 
+/obj/structure/closet/secure_closet/smith
+	name = "smith's locker"
+	req_access = list(ACCESS_SMITH)
+	icon_state = "smith"
+	opened_door_sprite = "cargo"
+
+/obj/structure/closet/secure_closet/smith/populate_contents()
+	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/storage/bag/garment/smith(src)
+
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)

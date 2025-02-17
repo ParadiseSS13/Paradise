@@ -1111,6 +1111,12 @@
 	item_state = "bomberexpedition"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/t_scanner/adv_mining_scanner, /obj/item/shovel, /obj/item/pickaxe, /obj/item/storage/bag/ore, /obj/item/gps)
 
+/obj/item/clothing/suit/jacket/bomber/smith
+	name = "smithing bomber jacket"
+	desc = "placeholder"
+	icon_state = "bombersmith"
+	item_state = "bombersmith"
+
 /obj/item/clothing/suit/jacket/bomber/hydro
 	name = "hydroponics bomber jacket"
 	desc = "A stylish choice for the workers of the hydroponics lab."
