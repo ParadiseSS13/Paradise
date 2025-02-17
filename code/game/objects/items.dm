@@ -458,7 +458,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/AltClick(mob/user)
 	. = ..()
-	if(!attached_bits)
+	if(!length(attached_bits))
 		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
 		return
 	var/obj/item/smithed_item/tool_bit/old_bit

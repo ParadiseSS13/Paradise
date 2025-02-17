@@ -880,11 +880,11 @@
 
 /obj/item/clothing/suit/AltClick(mob/user) // Take out an insert
 	. = ..()
-	if(!inserts)
+	if(!length(inserts))
 		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
 		return
 	var/obj/item/smithed_item/insert/old_insert
-	if((inserts) == 1)
+	if(length(inserts) == 1)
 		old_insert = inserts[0]
 	else
 		old_insert = tgui_input_list(user, "Select an insert", src, inserts)
