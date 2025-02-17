@@ -16,8 +16,10 @@
 	var/flags
 	/// A trait you want to add when scoped in to the mob.
 	var/trait_to_add
+	/// A trait required to add the above trait. If this is null, no trait is required.
+	var/trait_required_to_add_trait
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, flags, trait_to_add)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, flags, trait_to_add, trait_required_to_add_trait)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
@@ -26,6 +28,7 @@
 	src.time_to_scope = time_to_scope
 	src.flags = flags
 	src.trait_to_add = trait_to_add
+	src.trait_required_to_add_trait = trait_required_to_add_trait
 
 
 /datum/component/scope/Destroy(force)
@@ -196,12 +199,15 @@
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
 	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
-	if(trait_to_add)
-		ADD_TRAIT(user, trait_to_add, "[UID(src)]")
-		user.update_sight()
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
+	if(trait_required_to_add_trait)
+		if(!HAS_TRAIT(user, trait_required_to_add_trait))
+			return TRUE
+	if(trait_to_add)
+		ADD_TRAIT(user, trait_to_add, "[UID(src)]")
+		user.update_sight()
 	return TRUE
 
 /datum/component/scope/proc/on_incapacitated(mob/living/source, amount = 0, ignore_canstun = FALSE)
