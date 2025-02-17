@@ -23,7 +23,6 @@ BONUS
 	transmittable = -1
 	level = 4
 	severity = 1
-	treatments = list("carpet")
 
 /datum/symptom/beard/Activate(datum/disease/advance/A)
 	..()

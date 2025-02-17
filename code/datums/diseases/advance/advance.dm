@@ -139,6 +139,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			for(var/treatment in S.treatments)
 				if(treatment in mob_reagents)
 					treated = TRUE
+					affected_mob.reagents.remove_reagent(treatment, S.purge_amount)
 			if(!treated)
 				S.Activate(src)
 	else

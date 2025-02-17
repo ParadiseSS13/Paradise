@@ -24,7 +24,6 @@ Bonus
 	transmittable = 2
 	level = 2
 	severity = 2
-	treatments = list("capsaicin" , "condensedcapsaicin")
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
 	..()

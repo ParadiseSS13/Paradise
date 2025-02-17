@@ -24,7 +24,6 @@ Bonus
 	transmittable = -2
 	level = 3
 	severity = 3
-	treatments = list("ephedrine", "epinephrine", "methamphetamine" , "stimulants" , "mephedrone" , "bath_salts")
 
 /datum/symptom/weakness/Activate(datum/disease/advance/A)
 	..()

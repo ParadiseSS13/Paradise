@@ -23,7 +23,6 @@ BONUS
 	transmittable = 2
 	level = 4
 	severity = 1
-	treatments = list("hairgrownium", "super_hairgrownium")
 
 /datum/symptom/shedding/Activate(datum/disease/advance/A)
 	..()
