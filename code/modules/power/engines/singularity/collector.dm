@@ -1,6 +1,6 @@
 // stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_THRESHOLD 230	// radiation needs to be over this amount to get power
-#define RAD_COLLECTOR_COEFFICIENT 600
+#define RAD_COLLECTOR_THRESHOLD 140	// This gets subtracted from the value of absorbed radiation
+#define RAD_COLLECTOR_COEFFICIENT 450
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
@@ -14,7 +14,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	max_integrity = 350
 	integrity_failure = 80
-	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_beta = RAD_BETA_COLLECTOR
 	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
@@ -24,9 +24,9 @@
 	var/powerproduction_drain = 0.001
 	var/power_threshold = RAD_COLLECTOR_THRESHOLD
 	var/power_coefficient = RAD_COLLECTOR_COEFFICIENT
-	/// A record of the strength of each beta wave that hit the collector over rad_time
+	/// A record of the absorbed strength of each beta wave that hit the collector. This keeps record up to rad_time old, and only the maximum absorption for each time point.
 	var/beta_waves = list()
-	/// A record of the strength of each gamma wave that hit the collector over a rad_time
+	/// A record of the absorbed strength of each gamma wave that hit the collector. This keeps record up to rad_time old, and only the maximum absorption for each time point.
 	var/gamma_waves = list()
 	/// Amount of time across which the maximum wave is checked
 	var/rad_time = 5 SECONDS
@@ -136,6 +136,7 @@
 		var/joules = stored_energy * SSmachines.wait * 0.1
 		var/max_beta = 0
 		var/max_gamma = 0
+		// Find the maximum beta and gamma absorptions we have logged
 		for(var/listing in beta_waves)
 			if(max_beta < beta_waves[listing])
 				max_beta = beta_waves[listing]
@@ -172,10 +173,17 @@
 
 /// Converts absorbed Beta or Gamma radiation into electrical energy
 /obj/machinery/power/rad_collector/rad_act(atom/source, amount, emission_type)
+	// Log the absorption at current time. If we already have one logged and the new value is bigger overwrite it.
 	if(emission_type == BETA_RAD)
-		beta_waves += list("[world.time]" = amount)
+		if(!beta_waves["[world.time]"])
+			beta_waves += list("[world.time]" = amount)
+		else if(beta_waves["[world.time]"] < amount)
+			beta_waves["[world.time]"] = amount
 	if(emission_type == GAMMA_RAD)
-		gamma_waves += list("[world.time]" = amount)
+		if(!gamma_waves["[world.time]"])
+			gamma_waves += list("[world.time]" = amount)
+		else if(gamma_waves["[world.time]"] < amount)
+			gamma_waves["[world.time]"] = amount
 	if(emission_type != ALPHA_RAD && loaded_tank && active && amount > power_threshold)
 		stored_energy += (amount - power_threshold) * power_coefficient
 

@@ -49,9 +49,10 @@ Ask ninjanomnom if they're around
 #define RAD_VERY_HEAVY_INSULATION 0.5
 #define RAD_EXTREME_INSULATION 0.4
 #define RAD_VERY_EXTREME_INSULATION 0.2
-#define RAD_GAMMA_WINDOW 0.4						// For single tile windows that are activated by gamma radiation
-#define RAD_GAMMA_FULL_WINDOW 0.16					// For full tile windows that are activated by gamma radiation
-#define RAD_BETA_BLOCKER 0.05						// Amount of Beta radiation blocked by metallic things like walls and airlocks
+#define RAD_GAMMA_WINDOW 0.4						// For directional windows that are activated by gamma radiation
+#define RAD_GAMMA_FULL_WINDOW 0.3					// For full tile windows that are activated by gamma radiation
+#define RAD_BETA_COLLECTOR 0.3						// Amount of Beta radiation absorbed by collectors
+#define RAD_BETA_BLOCKER 0.2						// Amount of Beta radiation blocked by metallic things like walls and airlocks
 #define RAD_ALPHA_BLOCKER 0.01						// default value for Alpha insulation
 #define RAD_FULL_INSULATION 0						// Unused
 
