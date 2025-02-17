@@ -11261,7 +11261,13 @@
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "aRz" = (
-/obj/structure/shelf/service,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/crate/freezer,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/tomato,
+/obj/item/seeds/wheat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -13152,15 +13158,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/south)
-"aXB" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/seeds/tomato,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/wheat,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreenfull"
-	},
-/area/station/service/kitchen)
 "aXC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -50952,15 +50949,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/office)
-"dAS" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/station/service/kitchen)
 "dAX" = (
 /obj/structure/computerframe,
 /obj/item/circuitboard/operating,
@@ -58934,6 +58922,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/fsmaint)
+"fKR" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/station/service/kitchen)
 "fKV" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "Interrogation"
@@ -60370,6 +60365,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
+"gCR" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen"
+	},
+/area/station/service/hydroponics)
 "gDp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -81033,6 +81034,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
+"rRi" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/station/service/kitchen)
 "rRw" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves{
@@ -92955,6 +92963,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/warden)
+"xMh" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/kitchen)
 "xMr" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/diagonal,
@@ -126687,7 +126703,7 @@ aYT
 awX
 vIQ
 bdy
-bkU
+gCR
 bgp
 bhx
 aYB
@@ -129504,12 +129520,12 @@ aKn
 aLL
 aFA
 aRw
-aRw
+fKR
 aRw
 aTd
 aUF
+xMh
 aWe
-aXB
 aYZ
 baM
 bfg
@@ -130532,7 +130548,7 @@ aLO
 aLP
 aFA
 aRw
-aRw
+rRi
 aRw
 aQS
 tUO
@@ -131832,7 +131848,7 @@ bgB
 bhR
 bjw
 bnc
-dAS
+bmZ
 rnb
 npJ
 xGb
