@@ -1703,6 +1703,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/computer/borgupload{
+	dir = 4
+	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai_upload)
 "aoA" = (
@@ -56771,24 +56774,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
-"kRQ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/aiupload{
-	dir = 4
-	},
-/obj/machinery/door/window/reinforced/reversed{
-	name = "AI Upload Console";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai_upload)
 "kRX" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -60141,24 +60126,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
-"mmG" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/borgupload{
-	dir = 4
-	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Cyborg Upload Console";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai_upload)
 "mmK" = (
 /obj/machinery/door_timer/cell_3{
 	pixel_x = -32
@@ -60662,10 +60629,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/station/security/warden)
-"mAA" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/redgrid,
-/area/station/turret_protected/ai_upload)
 "mAC" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/horizontal,
@@ -65272,10 +65235,6 @@
 /area/station/maintenance/starboard2)
 "oFF" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -68643,6 +68602,9 @@
 /area/station/legal/lawoffice)
 "qbe" = (
 /obj/machinery/alarm/directional/west,
+/obj/machinery/computer/aiupload{
+	dir = 4
+	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai_upload)
 "qbf" = (
@@ -82176,12 +82138,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
-"wnf" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
 "wnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -116840,11 +116796,11 @@ cwR
 gAb
 aOG
 aSY
-mAA
-kRQ
+bzZ
+beA
 oFF
-mmG
-wnf
+beA
+aRA
 aSU
 cOp
 hqx
