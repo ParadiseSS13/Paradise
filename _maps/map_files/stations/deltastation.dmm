@@ -707,7 +707,7 @@
 	pixel_y = -21
 	},
 /obj/structure/table/glass,
-/obj/item/radio/phone,
+/obj/item/ai_module/crewsimov,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "agd" = (
@@ -28451,7 +28451,8 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bSN" = (
-/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
+/obj/structure/table/glass,
+/obj/item/ai_module/nanotrasen,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bSO" = (
@@ -49587,12 +49588,6 @@
 "dqf" = (
 /turf/simulated/wall,
 /area/station/command/office/rd)
-"dqh" = (
-/obj/item/radio/intercom/private{
-	pixel_y = -28
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
 "dqi" = (
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
@@ -56373,12 +56368,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
-"eeA" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/turret_protected/ai_upload)
 "eeN" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -56727,8 +56716,8 @@
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber"
 	},
-/obj/structure/table/glass,
 /obj/item/ai_module/reset,
+/obj/structure/table/glass,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "eoJ" = (
@@ -57335,9 +57324,10 @@
 	},
 /area/station/medical/storage)
 "eCJ" = (
-/obj/structure/table/glass,
-/obj/item/ai_module/crewsimov,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/computer/aiupload{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "eDh" = (
 /obj/structure/closet/bombclosetsecurity,
@@ -60534,6 +60524,9 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/station/medical/medbay)
+"gtl" = (
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "gtL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60592,9 +60585,6 @@
 /area/station/hallway/primary/starboard/south)
 "gvO" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "gvZ" = (
@@ -61044,9 +61034,9 @@
 	},
 /area/station/medical/reception)
 "gIz" = (
-/obj/structure/table/glass,
-/obj/item/ai_module/nanotrasen,
 /obj/machinery/alarm/directional/east,
+/obj/structure/table/glass,
+/obj/item/radio/phone,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "gIF" = (
@@ -61426,6 +61416,10 @@
 	icon_state = "neutral"
 	},
 /area/station/public/fitness)
+"gTV" = (
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai_upload)
 "gUe" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -63547,18 +63541,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"iew" = (
-/obj/machinery/door/window/reinforced/reversed{
-	name = "Console Access"
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload,
-/obj/machinery/computer/borgupload,
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
 "ieH" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
@@ -65786,12 +65768,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
-"jtM" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/turret_protected/ai_upload)
 "jtR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -68189,7 +68165,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "kPL" = (
@@ -68609,9 +68584,10 @@
 	},
 /area/station/hallway/primary/central/west)
 "lbf" = (
-/obj/structure/table/glass,
-/obj/item/ai_module/corp,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/computer/borgupload{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "lbv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -75743,11 +75719,11 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "oWp" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -77468,7 +77444,7 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -82444,9 +82420,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "srQ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
@@ -82607,8 +82580,8 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/machinery/porta_turret,
-/turf/simulated/floor/bluegrid,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
+/turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "svR" = (
 /obj/machinery/firealarm/directional/north,
@@ -84416,7 +84389,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/porta_turret,
+/turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "tsp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -87680,20 +87654,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
-"uWB" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Console Access"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
-	dir = 1
-	},
-/obj/machinery/computer/aiupload{
-	dir = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
 "uXh" = (
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/wood,
@@ -89840,6 +89800,14 @@
 "wgx" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
+"wgL" = (
+/obj/item/radio/intercom/private{
+	pixel_y = -28
+	},
+/obj/structure/table/glass,
+/obj/item/ai_module/corp,
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "wgY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -91193,15 +91161,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"wRm" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/turret_protected/ai_upload)
 "wRp" = (
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
@@ -127072,8 +127031,8 @@ bMY
 srQ
 pRI
 oWp
-bMY
-dqh
+tfU
+bSK
 xyH
 uts
 ddy
@@ -127326,9 +127285,9 @@ cPn
 xyH
 eoh
 fie
-uWB
+bMY
 gvO
-iew
+bMY
 fie
 afY
 xyH
@@ -127582,12 +127541,12 @@ hZN
 jtD
 xyH
 bSN
-bMY
-eeA
-jtM
-wRm
-tfU
-bSK
+gtl
+gtl
+gtl
+gtl
+gtl
+wgL
 xyH
 nij
 dbp
@@ -127844,7 +127803,7 @@ eCJ
 gIz
 lbf
 tsl
-ukg
+gTV
 xyH
 nmj
 szb
