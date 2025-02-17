@@ -31,24 +31,6 @@
 	report_message = "Something seems to be wrong with the PDAs issued to you all this shift. Nothing too bad though."
 	trait_to_give = STATION_TRAIT_PDA_GLITCHED
 
-/datum/station_trait/late_arrivals
-	name = "Late Arrivals"
-	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 5
-	show_in_report = TRUE
-	report_message = "Sorry for that, we didn't expect to fly into that vomiting goose while bringing you to your new station."
-	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
-	blacklist = list(/datum/station_trait/hangover)
-
-/datum/station_trait/late_arrivals/New()
-	. = ..()
-	SSjobs.late_arrivals_spawning = TRUE
-
-/datum/station_trait/late_arrivals/revert()
-	. = ..()
-	SSjobs.late_arrivals_spawning = FALSE
-
-
 /datum/station_trait/hangover
 	name = "Hangover"
 	trait_type = STATION_TRAIT_NEUTRAL
@@ -56,7 +38,6 @@
 	show_in_report = TRUE
 	report_message = "Ohh....Man....That mandatory office party from last shift...God that was awesome..I woke up in some random toilet 3 sectors away..."
 	trait_to_give = STATION_TRAIT_HANGOVER
-	blacklist = list(/datum/station_trait/late_arrivals)
 
 /datum/station_trait/hangover/New()
 	. = ..()

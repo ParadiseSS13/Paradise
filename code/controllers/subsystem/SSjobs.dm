@@ -21,8 +21,6 @@ SUBSYSTEM_DEF(jobs)
 
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
-	/// Do we spawn everyone at shuttle due to late arivals?
-	var/late_arrivals_spawning = FALSE
 	/// Do we spawn people drunkenly due to the party last night?
 	var/drunken_spawning = FALSE
 	/// A list of minds that have failed to roll antagonist. Cleared when job selection finishes.
@@ -511,7 +509,7 @@ SUBSYSTEM_DEF(jobs)
 
 	H.job = rank
 
-	if(!joined_late && !late_arrivals_spawning)
+	if(!joined_late)
 		var/turf/T = null
 		var/obj/S = null
 		var/list/landmarks = GLOB.landmarks_list
@@ -574,8 +572,6 @@ SUBSYSTEM_DEF(jobs)
 		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].", force_no_usr_check=TRUE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
-	if(late_arrivals_spawning)
-		H.forceMove(pick(GLOB.latejoin))
 	if(drunken_spawning)
 		var/obj/item/organ/internal/liver/L
 		var/liver_multiplier = 1
