@@ -1007,9 +1007,11 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(rank_mask && !check_rights_for(X, rank_mask))
 			result[2]++
 			continue
-		if(X.holder.fakekey)
-			result[2]++
-			continue
+		// SS220 EDIT START - ignore stealth mode when counting active staff
+		// if(X.holder.fakekey)
+		// 	result[2]++
+		// 	continue
+		// SS220 EDIT END
 		if(X.is_afk())
 			result[3]++
 			continue
