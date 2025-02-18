@@ -1330,7 +1330,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone", "pump_up")
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
