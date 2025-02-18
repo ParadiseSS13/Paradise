@@ -73,7 +73,7 @@
 					zone = HANDS
 
 				// If it's in our pockets check against our jumpsuit only
-				else if(target_mob.l_store?.UID() == source?.UID() || target_mob?.r_store.UID() == source?.UID())
+				else if((target_mob?.l_store && target_mob?.l_store?.UID() == source?.UID()) || (target_mob?.r_store && target_mob?.r_store.UID() == source?.UID()))
 					zone = LOWER_TORSO
 					pocket = TRUE
 
