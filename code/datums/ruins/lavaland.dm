@@ -36,6 +36,14 @@
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/Ash_walker_siege
+	name = "Ash Walker Siege"
+	id = "ashwalker-siege"
+	description = "Despite the success of many ashwalker tribes to spread and propagate through the wasteland, this one was besieged by a band of miners looking to pacify the threats of the wasteland. \
+	While only threat was a singular Ash Walker warrior, they did not go out without the glory of a great combat."
+	suffix = "lavaland_surface_ash_walker_siege.dmm"
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
 	id = "golem-ship"
