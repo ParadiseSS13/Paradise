@@ -41204,7 +41204,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
