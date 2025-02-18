@@ -2,6 +2,9 @@
 #define RAD_AMOUNT_MEDIUM 200
 #define RAD_AMOUNT_HIGH 500
 #define RAD_AMOUNT_EXTREME 1000
+#define GLOW_ALPHA "#225dff5d"
+#define GLOW_BETA "#39ff1430"
+#define GLOW_GAMMA "#c125ff6b"
 
 /datum/component/radioactive
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
@@ -33,7 +36,7 @@
 	//Let's make er glow
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
 	var/atom/movable/master = parent
-	master.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#39ff1430", "size" = 2))
+	master.add_filter("rad_glow", 2, list("type" = "outline", "color" = get_glow_color(), "size" = 2))
 	addtimer(CALLBACK(src, PROC_REF(glow_loop), master), rand(1, 19)) //Things should look uneven
 	LAZYADD(SSradiation.all_radiations, src)
 	START_PROCESSING(SSradiation, src)
@@ -44,6 +47,22 @@
 	var/atom/movable/master = parent
 	master.remove_filter("rad_glow")
 	return ..()
+
+/datum/component/radioactive/proc/get_glow_color()
+	var/list/glow_alpha = rgb2num(GLOW_ALPHA)
+	var/list/glow_beta = rgb2num(GLOW_BETA)
+	var/list/glow_gamma = rgb2num(GLOW_GAMMA)
+	var/list/rad_color = list()
+	var/alpha_part = alpha_strength / (alpha_strength + beta_strength + gamma_strength)
+	var/beta_part = beta_strength / (alpha_strength + beta_strength + gamma_strength)
+	var/gamma_part = 1 - (alpha_part + beta_part)
+	var/max_ratio = 0
+	for(var/i = 1, i < 5, i++)
+		rad_color += glow_alpha[i] * alpha_part + glow_beta[i] * beta_part + glow_gamma[i] * gamma_part
+		// Find the ratio between the color value closest to 256 and 256.
+		if(i < 4 && max_ratio < (rad_color[i] / 256))
+			max_ratio = rad_color[i] / 256
+	return rgb(rad_color[1] / max_ratio, rad_color[2] / max_ratio, rad_color[3] / max_ratio, rad_color[4])
 
 /datum/component/radioactive/process()
 	if(alpha_strength > RAD_BACKGROUND_RADIATION)
@@ -93,6 +112,9 @@
 				gamma_strength = max(gamma_strength, _strength)
 
 		hl3_release_date = _half_life
+	var/atom/movable/master = parent
+	var/filter = master.get_filter("rad_glow")
+	animate(filter, color = get_glow_color())
 
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, list/out)
 	SIGNAL_HANDLER
@@ -148,3 +170,6 @@
 #undef RAD_AMOUNT_MEDIUM
 #undef RAD_AMOUNT_HIGH
 #undef RAD_AMOUNT_EXTREME
+#undef GLOW_ALPHA
+#undef GLOW_BETA
+#undef GLOW_GAMMA
