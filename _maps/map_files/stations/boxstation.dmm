@@ -69206,6 +69206,7 @@
 /obj/structure/table,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

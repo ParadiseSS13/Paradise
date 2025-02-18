@@ -39160,6 +39160,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"

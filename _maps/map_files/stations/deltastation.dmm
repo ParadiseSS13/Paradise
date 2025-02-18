@@ -54373,6 +54373,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dQr" = (

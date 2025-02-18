@@ -37622,6 +37622,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
