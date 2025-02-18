@@ -934,6 +934,9 @@ ffmpeg_cpuaffinity = ""
 force_discord_verification = false
 # Respawn delay in minutes before one may respawn as a crew member
 respawn_delay = 20
+# Players needed to enable advanced communication (common channel limitations).
+# Consider -1 as no threshold, so advanced communication is always disabled.
+advanced_communication_threshold = -1
 # Enable speech filter for players.
 # If enabled, some words will be removed from player's messages.
 enable_speech_filter = false

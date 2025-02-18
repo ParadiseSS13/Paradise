@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleReception(mob/user = usr) // SS220 EDIT - user argument
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override, receive_sound) // SS220 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
@@ -312,6 +312,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
+	tcm.receive_sound_effect = receive_sound // SS220 EDIT
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa

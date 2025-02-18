@@ -23,6 +23,7 @@
 	icon = 'modular_ss220/devices/icons/radio.dmi'
 	icon_state = "walkietalkie_special"
 	frequency = DTH_FREQ
+	freqlock = TRUE
 
 // DO NOT PLACE IT IN MAINT SPAWNERS, PLEASE
 /obj/item/radio/syndicate
@@ -31,3 +32,4 @@
 	icon = 'modular_ss220/devices/icons/radio.dmi'
 	icon_state = "walkietalkie_syndie"
 	frequency = SYNDTEAM_FREQ
+	freqlock = TRUE
