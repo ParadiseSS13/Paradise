@@ -30,8 +30,6 @@
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(rad_attack))
 		RegisterSignal(parent, COMSIG_ATTACK_OBJ, PROC_REF(rad_attack))
-	if(alpha_strength + beta_strength + gamma_strength > RAD_MINIMUM_CONTAMINATION)
-		SSradiation.warn(src)
 	//Let's make er glow
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
 	var/atom/movable/master = parent

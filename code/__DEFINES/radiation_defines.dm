@@ -56,11 +56,9 @@ Ask ninjanomnom if they're around
 #define RAD_ALPHA_BLOCKER 0.01						// default value for Alpha insulation
 #define RAD_FULL_INSULATION 0						// Unused
 
-// WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
-// contamination_strength = 	(strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
-#define RAD_MINIMUM_CONTAMINATION 350				// How strong does a radiation wave have to be to contaminate objects
-#define RAD_CONTAMINATION_STR_COEFFICIENT 0.25		// Higher means higher strength scaling contamination strength
-#define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
+// Contamination chance in percent. Mostly used by contaminate_adjacent(atom/source, intensity, emission_type)
+#define CONTAMINATION_CHANCE_TURF 1				// Chance to contaminate things while on/in a turf
+#define CONTAMINATION_CHANCE_OTHER 10			// Chance to contaminate things while in something like a bag
 
 #define RAD_HALF_LIFE 90							// The half-life of contaminated objects
 

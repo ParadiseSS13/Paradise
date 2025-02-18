@@ -180,9 +180,15 @@
 
 /// Contaminate things that share our immediate location(periodic)
 /proc/contaminate_adjacent(atom/source, intensity, emission_type)
-	var/list/contamination_contents = get_rad_contamination_adjacent(source.loc, source)
+	// If the source is a turf it is it's location
+	var/atom/location = isturf(source) ? source : source.loc
+	// Are we on a turf or in something else
+	var/is_source_on_turf = isturf(location)
+	var/contamination_chance = is_source_on_turf ? CONTAMINATION_CHANCE_TURF : CONTAMINATION_CHANCE_OTHER
+	var/list/contamination_contents = get_rad_contamination_adjacent(location, source)
 	for(var/atom/thing in contamination_contents)
-		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+		if(prob(contamination_chance))
+			thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
 
 /// Contaminate the contents of a target(single instance)
 /proc/contaminate_target(atom/target, atom/source, intensity, emission_type)
