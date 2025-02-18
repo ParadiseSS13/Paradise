@@ -79,7 +79,7 @@
 	last_block_shadow_crawl = 0
 	block_shadow_crawl = FALSE
 
-/mob/living/simple_animal/demon/shadow/proc/check_block_shadow_crawl(var/block_time)
+/mob/living/simple_animal/demon/shadow/proc/check_block_shadow_crawl(block_time)
 	if(block_time == last_block_shadow_crawl)
 		/// it means 10 seconds passed from last shadow grapple shot and it didnt unset block_shadow_crawl
 		to_chat(src, "<span class='warning'>You feel good enough to use Shadow Crawl again.</span>")
