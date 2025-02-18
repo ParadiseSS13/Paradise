@@ -68,3 +68,5 @@
 	if(radioactivity_gamma > 0)
 		contaminate_adjacent(parent, radioactivity_gamma, GAMMA_RAD)
 		radiation_pulse(parent, 2 * radioactivity_gamma, GAMMA_RAD)
+
+	SSradiation.update_rad_cache_inherent(src)

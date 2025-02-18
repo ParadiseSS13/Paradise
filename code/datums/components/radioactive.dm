@@ -79,7 +79,7 @@
 	beta_strength -= beta_strength / hl3_release_date
 	gamma_strength -= gamma_strength / hl3_release_date
 
-	SSradiation.update_rad_cache(src)
+	SSradiation.update_rad_cache_contaminated(src)
 
 	if(alpha_strength + beta_strength + gamma_strength <= RAD_BACKGROUND_RADIATION)
 		qdel(src)
