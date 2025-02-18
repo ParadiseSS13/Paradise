@@ -45,6 +45,9 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
+	"[toml]": {
+		"editor.formatOnSave": false
+	},
 
 	"editor.formatOnSave": true,
 	"gitlens.advanced.blame.customArguments": [
