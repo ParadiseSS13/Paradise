@@ -14,6 +14,7 @@
 #include "attack_chain\test_attack_chain_cult_dagger.dm"
 #include "attack_chain\test_attack_chain_machinery.dm"
 #include "attack_chain\test_attack_chain_mobs.dm"
+#include "attack_chain\test_attack_chain_stunbaton.dm"
 #include "attack_chain\test_attack_chain_turf.dm"
 #include "attack_chain\test_attack_chain_vehicles.dm"
 #include "games\test_cards.dm"
