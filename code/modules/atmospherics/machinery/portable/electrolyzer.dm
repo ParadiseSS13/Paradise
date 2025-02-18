@@ -27,7 +27,3 @@
 		to_chat(user, "<span class='notice'>The electrolyzer is now on.</span>")
 		icon_state = "electrolyzer_on"
 
-/obj/machinery/atmospherics/portable/electrolyzer/process()
-    if(active)
-		var/MINIMUM_WATER_FOR_ELECTROLYZER = 10
-				log_admin("DEBUG: HEY LOOK, HYROGEN")
