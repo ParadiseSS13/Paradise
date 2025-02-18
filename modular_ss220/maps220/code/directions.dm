@@ -3,18 +3,18 @@
 	name = "\improper station intercom"
 
 /obj/item/radio/intercom/directional/south
-	pixel_y = -22
+	pixel_y = -28
 	dir = 1
 
 /obj/item/radio/intercom/directional/north
-	pixel_y = 22
+	pixel_y = 28
 
 /obj/item/radio/intercom/directional/west
-	pixel_x = -22
+	pixel_x = -28
 	dir = 4
 
 /obj/item/radio/intercom/directional/east
-	pixel_x = 22
+	pixel_x = 28
 	dir = 8
 
 /* Nanotrasen WallMed */
