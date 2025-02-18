@@ -306,7 +306,7 @@
 	prehit(A)
 	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
-	if(pre_permutation != ATOM_PREHIT_FAILURE)
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(A in permutated))
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
@@ -438,7 +438,7 @@
 
 /// A mob moving on a tile with a projectile is hit by it.
 /obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated))
 		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
