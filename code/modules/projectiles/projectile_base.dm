@@ -276,6 +276,7 @@
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
+			permutated.Cut()
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
