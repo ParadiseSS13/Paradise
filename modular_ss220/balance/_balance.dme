@@ -9,6 +9,7 @@
 #include "code/items/weapons.dm"
 #include "code/jobs/warden.dm"
 #include "code/loot/pools.dm"
+#include "code/loot/megafauna.dm"
 #include "code/mobs/aliens/larva.dm"
 #include "code/species/machine.dm"
 #include "code/species/skrell.dm"
