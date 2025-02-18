@@ -11,8 +11,12 @@
 		/obj/docking_port,
 		/atom/movable/lighting_object,
 		/obj/item/projectile,
+		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location)
+	var/list/window_priority = list()
+	var/list/collector_priority = list()
+	var/list/other_priority = list()
 	. = list()
 	var/insulation = 1
 	while(length(processing_list))
@@ -27,10 +31,14 @@
 				insulation = thing.rad_insulation_beta
 			if(GAMMA_RAD)
 				insulation = thing.rad_insulation_gamma
-
 		/// 1 means no rad insulation, which means perfectly permeable, so no interaction with it directly, but the contents might be relevant.
 		if(insulation < 1)
-			. += thing
+			if(istype(thing, /obj/structure/window))
+				window_priority += thing
+			else if(istype(thing, /obj/machinery/power/rad_collector))
+				collector_priority += thing
+			else
+				other_priority += thing
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
 		if(ishuman(thing))
@@ -38,6 +46,7 @@
 			if(target_mob.get_rad_protection() >= 0.99) // I would do exactly equal to 1, but you will never hit anything between 1 and .975, and byond seems to output 0.99999
 				continue
 		processing_list += thing.contents
+	. =	window_priority + collector_priority + other_priority
 
 /proc/get_rad_contamination_adjacent(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
@@ -47,6 +56,7 @@
 		/obj/docking_port,
 		/atom/movable/lighting_object,
 		/obj/item/projectile,
+		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location)
 	// We want to select which clothes and items we contaminate depending on where on the human we are. We assume we are in some form of storage or on the floor otherwise.
@@ -101,7 +111,8 @@
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
-		/obj/item/projectile
+		/obj/item/projectile,
+		/atom/movable/emissive_blocker,
 	))
 	var/list/processing_list = list(location) + location.contents
 	. = list()
