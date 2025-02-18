@@ -24,7 +24,6 @@ Bonus
 	transmittable = 2
 	level = 2
 	severity = 2
-	treatments = list("menthol", "frostoil")
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
 	..()

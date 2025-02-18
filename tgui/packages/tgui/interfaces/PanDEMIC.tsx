@@ -173,12 +173,21 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
     }
   }
   let analyzeButton;
+  let removeDataButton;
   if (isAdvanced) {
     analyzeButton = (
       <Button
-        content="Analyze Strain"
+        content="Analyze"
         disabled={analysisTimeDelta < 0 || analyzing}
         onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
+      />
+    );
+    removeDataButton = (
+      <Button
+        icon={'trash-alt'}
+        content="Delete Data"
+        disabled={!props.strain.known}
+        onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
       />
     );
   }
@@ -190,6 +199,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           {commonName ?? 'Unknown'}
           {nameButtons}
           {analyzeButton}
+          {removeDataButton}
         </Stack>
       </LabeledList.Item>
       {
@@ -235,12 +245,6 @@ const StrainInformationSection = (
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
-      <Button
-        icon={'trash-alt'}
-        content="remove from database"
-        disabled={!props.strain.known}
-        onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
-      />
       <Button
         icon={synthesisCooldown ? 'spinner' : 'clone'}
         iconSpin={synthesisCooldown}

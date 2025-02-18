@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis
 	var/analysis_time
 	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
-	var/static/accumulated_error = 0
+	var/static/accumulated_error = list()
 	/// List of virus strains and stages already used for calibration.
 	var/static/list/used_calibration = list()
 	/// Whether the machine is calibrating
@@ -45,8 +45,11 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 		symptomlist += list(S.name)
 		qdel(S)
 	// We init the list for the Z level here so that we can know it is loaded when we do.
-	if(!length(GLOB.known_advanced_diseases) || !GLOB.known_advanced_diseases[num2text(z)])
-		GLOB.known_advanced_diseases += list(num2text(z) = list("4:origin", "24:origin"))
+	if(!(z in GLOB.known_advanced_diseases))
+		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
+	if(!(z in accumulated_error))
+		accumulated_error += list("[z]" = 0)
+
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
@@ -126,10 +129,10 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 	var/stealth = 0
 	for(var/datum/disease/advance/AD in R.data["viruses"])
 		//automatically analyze if the tracker stores the ID of an analyzed disease
-		if(AD.tracker && (AD.tracker in GLOB.known_advanced_diseases[num2text(z)]))
-			if(!(AD.GetDiseaseID() in GLOB.known_advanced_diseases[num2text(z)]))
-				GLOB.known_advanced_diseases[num2text(z)] += list(AD.GetDiseaseID())
-		if(AD.GetDiseaseID() in GLOB.known_advanced_diseases[num2text(z)])
+		if(AD.tracker && (AD.tracker in GLOB.known_advanced_diseases["[z]"]))
+			if(!(AD.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
+				GLOB.known_advanced_diseases["[z]"] += list(AD.GetDiseaseID())
+		if(AD.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
 			return
 		if(AD.strain != current_strain || current_strain == "")
 			strains++
@@ -171,28 +174,28 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 		if(i in names)
 			analysis_time_delta = max(0, analysis_time_delta - 20 MINUTES)
 		else
-			accumulated_error += 20 MINUTES
+			accumulated_error["[z]"] += 20 MINUTES
 	analysis_time = analysis_time_delta + world.time
 	return
 
 /obj/machinery/computer/pandemic/proc/calibrate()
-	if(!accumulated_error)
+	if(!accumulated_error["[z]"])
 		return
 	var/error_reduction
 	for(var/datum/disease/advance/virus in GetViruses())
 		// We can't calibrate using the same strain and stage combination twice
 		if(!(used_calibration["[virus.strain]_[virus.stage]"]))
 			used_calibration += list("[virus.strain]_[virus.stage]" = TRUE)
-			error_reduction += max(accumulated_error / 5, 20 MINUTES)
+			error_reduction += max(accumulated_error["[z]"] / 5, 20 MINUTES)
 	if(error_reduction)
 		calibrating = TRUE
 		SStgui.update_uis(src)
 		spawn(10 SECONDS)
-			accumulated_error = max(accumulated_error - error_reduction, 0)
+			accumulated_error["[z]"] = max(accumulated_error["[z]"] - error_reduction, 0)
 			calibrating = FALSE
 			SStgui.update_uis(src)
 	// Reset the list of used viruses if we are fully calibrated
-	if(!accumulated_error)
+	if(!accumulated_error["[z]"])
 		used_calibration = list()
 
 /obj/machinery/computer/pandemic/process()
@@ -202,8 +205,8 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 			analyzing = FALSE
 			return
 
-		if(analysis_time + accumulated_error < world.time)
-			GLOB.known_advanced_diseases[num2text(z)] += analyzed_ID
+		if(analysis_time + accumulated_error["[z]"] < world.time)
+			GLOB.known_advanced_diseases["[z]"] += analyzed_ID
 			analyzing = FALSE
 			analysis_time_delta = -1
 			SStgui.update_uis(src, TRUE)
@@ -282,9 +285,11 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 			var/obj/item/reagent_containers/glass/bottle/B = create_culture(vaccine_name, "vaccine", 200)
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 		if("remove_from_database")
-			if(params["strain_id"] in GLOB.known_advanced_diseases[num2text(z)])
-				GLOB.known_advanced_diseases[num2text(z)] -= params["strain_id"]
-				SStgui.update_uis(src)
+			var/confirm = tgui_alert(user, "Are you sure you want to delete this strain's data from the database?", "Delete Strain Data", list("Yes", "No"))
+			if(confirm == ("Yes") && (user in range(3, src)))
+				if(params["strain_id"] in GLOB.known_advanced_diseases["[z]"])
+					GLOB.known_advanced_diseases["[z]"] -= params["strain_id"]
+					SStgui.update_uis(src)
 		if("calibrate")
 			calibrate()
 		if("eject_beaker")
@@ -365,10 +370,10 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 				Blood = B
 				break
 	var/can_calibrate = FALSE
-	if(Blood && accumulated_error > 0)
+	if(Blood && accumulated_error["[z]"] > 0)
 		if(Blood.data && Blood.data["viruses"])
 			for(var/datum/disease/advance/virus in Blood.data["viruses"])
-				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases[num2text(z)]) && !used_calibration["[virus.strain]-[virus.stage]"])
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[virus.strain]-[virus.stage]"])
 					can_calibrate = TRUE
 					break
 
@@ -380,7 +385,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 		"calibrating" = calibrating,
 		"canCalibrate" = can_calibrate,
 		"selectedStrainIndex" = selected_strain_index,
-		"analysisTime" = (analysis_time + accumulated_error) > world.time ? analysis_time + accumulated_error - world.time : 0,
+		"analysisTime" = (analysis_time + accumulated_error["[z]"]) > world.time ? analysis_time + accumulated_error["[z]"] - world.time : 0,
 		"analysisTimeDelta" = analysis_time_delta,
 		"analyzing" = analyzing,
 		"sympton_names" = symptomlist,
@@ -410,7 +415,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 		var/list/base_stats = list()
 		var/datum/disease/advance/A = D
 		if(istype(D, /datum/disease/advance))
-			known = (A.GetDiseaseID() in GLOB.known_advanced_diseases[num2text(z)])
+			known = (A.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
 			D = GLOB.archive_diseases[A.GetDiseaseID()]
 			if(!D)
 				CRASH("We weren't able to get the advance disease from the archive.")
