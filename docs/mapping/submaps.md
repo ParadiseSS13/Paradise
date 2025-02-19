@@ -179,3 +179,77 @@ If a map manipulation fails, it should do both these things:
 - Alternative possible layouts for the whole map, where rooms and departments
   are in different places every round.
 - The sky is the limit, literally.
+
+# Submaps Design Guidelines
+
+1. Currently, while they do not have to be exactly rectangular, submaps cannot
+   be larger than 24x24 tiles. This is in order to prevent them from being too
+   difficult to review or navigate and get used to in-game.
+
+2. Submaps are **not** to be used as a proxy to change something you do not like
+   about a map. If you have issues with the balance or design of a map, those
+   issues should be addressed with ordinary remap PRs.
+
+## Stations
+
+1. For the time being, submaps on stations may only be used in maintenance
+   tunnels, and only one submap per area (i.e. fore, aft) is permitted.
+
+2. Submaps in maintenance tunnels should continue to comply with existing rules
+   about signposting. Areas in maints should remain recognizable regardless of
+   submap configuration. This means that pre-existing signposts should be
+   respected, such as the abandoned medical area in Box medmaints, the mining
+   equipment in Cere cargo maints, etc.
+
+3. To prevent overuse of submaps, there is currently a restriction of three per
+   station. This limit may be raised depending on how submaps are received by
+   players. The areas chosen are first-come, first serve. Whoever gets their
+   changes mapped in first sets the available submaps.
+
+4. Submaps should be used to increase variety and add an element of chance to
+   player mechanics. They should not be used with an intention to confuse
+   players, or to cut off the primary path through the maintenance tunnels.
+   Primary paths through maints can make detours but must return to their
+   original ingress and egress points. Paths which lead to department maints
+   airlocks must remain obvious and easily accessible.
+
+5. Submaps may not replace tiles which have atmos pipes, power cables, or other
+   engineering/atmospherics equipment. This is to prevent this equipment from
+   being hidden with walls or no longer accessible via their pre-existing
+   primary paths through maintenance.
+
+6. All pre-existing balance guidelines regarding mapping apply to submaps:
+   https://devdocs.paradisestation.org/mapping/design/#balance-guidelines
+
+   Loot counts must remain consistent. Walls should only be reinforced in
+   appropriate places. There should be no "treasure troves" or hoards only
+   accessible with detailed map knowledge. AI cameras cannot be placed in maints
+   submaps. Antag/sec balance, tactical flexibility, and navigability must be
+   considered. Dead ends are to be avoided. Department maintenance airlocks may
+   not be moved or removed.
+
+7. One submap must be an exact duplicate of the original area's contents. A
+   submap will never not be chosen, and so it's necessary there be a submap of
+   the original area's contents so that a variant with those contents spawns.
+
+8. The original contents of the submap's area should remain as is. This is so
+   that in the event mapmanip fails, the original area's contents can still be
+   used.
+
+9. Currently, submaps which replace entire areas of maints are discouraged until
+   we see a design that will not frustrate players or become a balance problem
+   regarding sec/antag navigability. If someone is willing to create a PR to
+   prototype this, they are welcome to, but there is no guarantee it will be
+   accepted. A PR of this kind is not subject to the 24x24 size constraint rule.
+
+## Ruins
+
+1. Submaps on ruins are allowed to be more flexible. There's currently no limit
+   on how many submaps may be used on a given ruin, however the 24x24 tile limit
+   remains.
+
+2. Submaps should be used to increase the number of unique ways a ruin can be
+   approached and run, including randomizing specific challenges, rewards, and
+   paths through the ruin. They should not be used purely for decorative
+   purposes, or for changes that could be accomplished using existing random
+   spawners.

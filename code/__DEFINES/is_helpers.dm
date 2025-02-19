@@ -45,6 +45,8 @@
 
 #define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
 
+#define isshadowdemon(A) (istype(A, /mob/living/simple_animal/demon/shadow))
+
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
@@ -61,6 +63,8 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define ismask(A) (istype(A, /obj/item/clothing/mask))
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
