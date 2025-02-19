@@ -205,7 +205,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = MECH_RCD_MODE_DECONSTRUCT
-	var/canRwall = 0
+	var/can_rwall = 0
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
@@ -231,7 +231,7 @@
 	switch(mode)
 		if(MECH_RCD_MODE_DECONSTRUCT)
 			if(iswallturf(target))
-				if((isreinforcedwallturf(target) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
+				if((isreinforcedwallturf(target) && !can_rwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
 				var/turf/simulated/wall/W = target
 				occupant_message("Deconstructing [target]...")

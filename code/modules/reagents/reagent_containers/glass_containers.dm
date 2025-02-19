@@ -270,7 +270,7 @@
 
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete."
+	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -341,7 +341,7 @@
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.unEquip(src)
+		user.unequip(src)
 		qdel(src)
 	else
 		..()

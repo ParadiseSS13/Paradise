@@ -6,6 +6,7 @@ use crate::milla::simulate;
 use crate::milla::statics::*;
 use crate::milla::tick;
 use byondapi::global_call::call_global;
+use byondapi::map::byond_block;
 use byondapi::map::byond_xyz;
 use byondapi::prelude::*;
 use eyre::eyre;
@@ -95,6 +96,56 @@ pub(crate) fn internal_create_environment(
 
     let buffers = BUFFERS.get_or_init(Buffers::new);
     buffers.create_environment(tile)
+}
+
+/// BYOND API for loading a block of turfs into MILLA with their default air.
+#[byondapi::bind]
+fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corner: ByondValue) -> eyre::Result<ByondValue> {
+    let property_ref = data_property.get_strid()?;
+    for turf in byond_block(byond_xyz(&low_corner)?, byond_xyz(&high_corner)?)? {
+        let (x, y, z) = byond_xyz(&turf)?.coordinates();
+        let mut property = turf.read_var_id(property_ref)?;
+        let data = property.get_list_values()?;
+        property.decrement_ref();
+        if data.len() != 17 {
+            return Err(eyre!("data property has the wrong length: {} vs {}", data.len(), 17));
+        }
+
+        internal_set_tile(
+            x as i32 - 1,
+            y as i32 - 1,
+            z as i32 - 1,
+            conversion::byond_to_option_f32(data[0])?,
+            conversion::byond_to_option_f32(data[1])?,
+            conversion::byond_to_option_f32(data[2])?,
+            conversion::byond_to_option_f32(data[3])?,
+            conversion::byond_to_option_f32(data[4])?,
+            conversion::byond_to_option_f32(data[5])?,
+            conversion::bounded_byond_to_option_f32(data[6], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[7], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[8], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[9], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?,
+            None,
+            Some(0.0),
+            Some(0.0),
+            Some(0.0),
+        )?;
+
+        internal_reset_superconductivity(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
+        internal_reduce_superconductivity(
+            x as i32 - 1,
+            y as i32 - 1,
+            z as i32 - 1,
+            conversion::bounded_byond_to_option_f32(data[13], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[14], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[15], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[16], 0.0, 1.0)?,
+        )?;
+    }
+    Ok(ByondValue::null())
 }
 
 /// BYOND API for setting the atmos details of a tile.
@@ -650,6 +701,27 @@ fn milla_get_tick_time() -> eyre::Result<ByondValue> {
     Ok(ByondValue::from(
         TICK_TIME.load(std::sync::atomic::Ordering::Relaxed) as f32,
     ))
+}
+
+/// BYOND API for freezing a specific z-level.
+#[byondapi::bind]
+fn milla_set_zlevel_frozen(
+    byond_z: ByondValue,
+    byond_frozen: ByondValue,
+) -> eyre::Result<ByondValue> {
+    let z = f32::try_from(byond_z)? as i32 - 1;
+    let frozen = bool::try_from(byond_frozen)?;
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let active = buffers.get_active().read().unwrap();
+    let maybe_z_level = active.0[z as usize].try_write();
+    if maybe_z_level.is_err() {
+        return Err(eyre!(
+            "Tried to freeze or unfreeze during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
+        ));
+    }
+    let mut z_level = maybe_z_level.unwrap();
+    z_level.frozen = frozen;
+    Ok(ByondValue::null())
 }
 
 // Yay, tests!

@@ -232,11 +232,11 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
-				walk_away(thingy,chassis,15,2)
+				H.drop_item_to_ground(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						walk(thingy,0)
+						GLOB.move_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)

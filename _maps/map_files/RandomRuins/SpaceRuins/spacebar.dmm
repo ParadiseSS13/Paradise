@@ -127,6 +127,7 @@
 /area/ruin/space/powered/bar)
 "aF" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aG" = (
@@ -134,6 +135,7 @@
 /area/ruin/space/powered)
 "aH" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aI" = (
@@ -223,7 +225,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aY" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/scalpel,
 /obj/structure/table,
@@ -456,6 +458,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

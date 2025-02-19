@@ -186,6 +186,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/reach = 1
 
+	scatter_distance = 5
+
 /obj/item/New()
 	..()
 
@@ -229,7 +231,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
-		m.unEquip(src, 1)
+		m.unequip(src, force = TRUE)
 	QDEL_LIST_CONTENTS(actions)
 
 	master = null
@@ -340,26 +342,21 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(isstorage(src.loc))
-		/// If the item is in a storage item, take it out
-		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src)
-
 	if(..())
 		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
-	if(loc == user)
-		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
+
+	if(isliving(loc))
+		if(loc == user)
+			if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unequip(src))
+				return FALSE
+		else
 			return FALSE
 
 	if(flags & ABSTRACT)
 		return FALSE
-
-	else
-		if(isliving(loc))
-			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
@@ -374,7 +371,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(!A.has_fine_manipulation && !HAS_TRAIT(src, TRAIT_XENO_INTERACTABLE))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
-			A.unEquip(src)
+			A.drop_item_to_ground(src)
 		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
 		return
 	attack_hand(A)
@@ -386,7 +383,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			return
 		var/mob/living/silicon/robot/R = user
 		if(!R.low_power_mode) // Can't equip modules with an empty cell.
-			R.activate_module(src)
+			R.activate_item(src)
 			R.hud_used.update_robot_modules_display()
 
 // Due to storage type consolidation this should get used more now.
@@ -584,7 +581,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // The default action is attack_self().
 // Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	attack_self__legacy__attackchain(user)
+	if(new_attack_chain)
+		activate_self(user)
+	else
+		attack_self__legacy__attackchain(user)
 
 /obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
@@ -988,6 +988,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
+/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.UpdateButtons(status_only, force)
+
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
   *
@@ -1020,3 +1024,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	return cig
+
+/// Changes the speech verb when wearing this item if a value is returned
+/obj/item/proc/change_speech_verb()
+	return

@@ -538,10 +538,10 @@
 		var/mob/M = inserted.loc
 		if(!M.get_active_hand() == inserted)
 			return //not sure how this would happen, but smartfridges check for it so
-		if(!M.drop_item())
+		if(!M.unequip(inserted))
 			to_chat(inserter, "<span class='warning'>[inserted] is stuck to you!</span>")
 			return
-		M.unEquip(inserted)
+
 	inserted.forceMove(src)
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
 	SStgui.try_update_ui(inserter, src)
@@ -560,26 +560,25 @@
 			return RP
 	return FALSE
 
-//Attackby and x_acts
-/obj/machinery/clonepod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.is_open_container())
-		return
+/obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.is_open_container())
+		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
 			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
-		insert_organ(I, user)
-		return
+	if(is_organ(used) || is_type_in_list(used, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+		insert_organ(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

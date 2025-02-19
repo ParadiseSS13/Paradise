@@ -5,6 +5,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = null
 	density = TRUE
+	appearance_flags = LONG_GLIDE
 	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
@@ -23,6 +24,9 @@
 	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
 	var/spaceworthy = FALSE
+
+	/// Did we install a vtec?
+	var/installed_vtec = FALSE
 
 	new_attack_chain = TRUE
 
@@ -61,12 +65,14 @@
 			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-	if(vehicle_move_delay > 1)
-		vehicle_move_delay = 1
-		qdel(vtec)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	if(installed_vtec)
+		return FALSE
 
-		return TRUE
+	installed_vtec = TRUE
+	vehicle_move_delay -= 1
+	qdel(vtec)
+	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
+	return TRUE
 
 /obj/vehicle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(key_type && !is_key(inserted_key) && is_key(used))
@@ -181,11 +187,13 @@
 		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		Move(get_step(src, direction), direction, delay)
+		Move(get_step(src, direction), direction)
 
 		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1) * 0.5)
 			last_move_diagonal = TRUE
 		else
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1))
 			last_move_diagonal = FALSE
 
 		if(has_buckled_mobs())
@@ -224,7 +232,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(has_gravity(src))
 		return TRUE
 
@@ -240,7 +248,7 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/vehicle/zap_act(power, zap_flags)

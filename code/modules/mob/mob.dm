@@ -114,8 +114,10 @@
 	usr.show_message(t, EMOTE_VISIBLE)
 
 /mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+#ifndef GAME_TESTS
 	if(!client)
 		return
+#endif
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related
@@ -635,6 +637,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return TRUE
 
 	face_atom(A)
+
 	if(!client)
 		var/list/result = A.examine(src)
 		to_chat(src, chat_box_examine(result.Join("\n")))
@@ -645,16 +648,90 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/key in client.recent_examines)
 		if(client.recent_examines[key] < world.time)
 			client.recent_examines -= key
+
 	var/ref_to_atom = A.UID()
+
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
-			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+			result = A.examine(src)
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+		broadcast_examine(A)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+
+/// Tells nearby mobs about our examination.
+/mob/proc/broadcast_examine(atom/examined)
+	if(examined == src)
+		return
+
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+	if(isitem(examined))
+		var/obj/item/I = examined
+		if(I.in_storage)
+			if(get(I, /mob/living) == src)
+				loc_str = "inside [p_their()] [I.loc.name]..."
+			else
+				loc_str = "inside [I.loc]..."
+
+		else if(I.loc == src)
+			// Hide items in pockets.
+			if(get_slot_by_item(I) & ITEM_SLOT_BOTH_POCKETS)
+				loc_str = "inside [p_their()] pockets."
+			else
+				loc_str = "at [p_their()] [I.name]."
+
+			examining_worn_item = TRUE
+
+	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
+	if(examining_worn_item)
+		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/list/can_see_target = viewers(examined)
+	for(var/mob/M as anything in viewers(2, src))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
+			continue
+
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
+		else
+			to_chat(M, cannot_see_str)
+
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
+/mob/living/carbon/human/broadcast_examine(atom/examined)
+	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/mask = get_item_by_slot(ITEM_SLOT_MASK)
+	if(mask && ((mask.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
+		return
+
+	// We'll just assume if your eyes have tinted covering you can't see them very well.
+	if(get_total_tint())
+		return
+
+	return ..()
+
+/mob/dead/broadcast_examine(atom/examined)
+	return //Observers arent real the government is lying to you
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -791,10 +868,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -805,8 +882,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
-		if(src:cameraFollow)
-			src:cameraFollow = null
+		if(src:camera_follow)
+			src:camera_follow = null
 
 /mob/Topic(href, href_list)
 	if(href_list["flavor_more"])
@@ -1134,13 +1211,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
-/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src), force_no_usr_check = FALSE, automatic = FALSE)
 	if(!ckey)
 		return
 	var/real_ckey = ckey
 	if(ckey[1] == "@") // Admin aghosting will do this
 		real_ckey = copytext(ckey, 2)
-	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time, force_no_usr_check, automatic)
 	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
@@ -1180,31 +1257,31 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
+	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
 
-	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "?_src_=vars;gib=[UID()]"
+	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()

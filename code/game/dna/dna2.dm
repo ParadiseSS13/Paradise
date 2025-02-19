@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/head = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	/*// Body Accessory
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	head_traits_to_dna(character, H)
+	head_traits_to_dna(character, head)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
@@ -163,6 +163,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
+	if(head)
+		head.dna.UI = character.dna.UI
+	if(eyes_organ)
+		eyes_organ.dna.UI = character.dna.UI
 
 	UpdateUI()
 
@@ -255,7 +259,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
-	return EncodeDNABlock(GetUIValue(block))
+	return ENCODE_DNA_BLOCK(GetUIValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -352,7 +356,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get hex-encoded SE block.
 /datum/dna/proc/GetSEBlock(block)
-	return EncodeDNABlock(GetSEValue(block))
+	return ENCODE_DNA_BLOCK(GetSEValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -383,15 +387,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
 
-
-/proc/EncodeDNABlock(value)
-	return num2hex(value, 3)
-
 /datum/dna/proc/UpdateUI()
 	var/list/ui_text_list = list()
 	uni_identity = ""
 	for(var/block in UI)
-		ui_text_list += EncodeDNABlock(block)
+		ui_text_list += ENCODE_DNA_BLOCK(block)
 	uni_identity = ui_text_list.Join("")
 	//testing("New UI: [uni_identity]")
 	dirtyUI = 0
@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/se_text_list = list()
 	struc_enzymes = ""
 	for(var/block in SE)
-		se_text_list += EncodeDNABlock(block)
+		se_text_list += ENCODE_DNA_BLOCK(block)
 	struc_enzymes = se_text_list.Join("")
 	//testing("Old SE: [oldse]")
 	//testing("New SE: [struc_enzymes]")

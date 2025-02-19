@@ -50,9 +50,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon(updates=ALL)
 	. = ..()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
@@ -308,7 +306,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()

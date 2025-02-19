@@ -179,27 +179,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = 0
 	return ..()
 
-/obj/machinery/computer/rdconsole/attackby__legacy__attackchain(obj/item/D as obj, mob/user as mob, params)
-
+/obj/machinery/computer/rdconsole/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//Loading a disk into it.
-	if(istype(D, /obj/item/disk))
+	if(istype(used, /obj/item/disk))
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
+		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
+		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
-		D.loc = src
+			return ITEM_INTERACT_COMPLETE
+		used.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
-		..()
+		return ..()
+
 	SStgui.update_uis(src)
-	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)
@@ -453,9 +452,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				SSblackbox.record_feedback("tally", "station_protolathe_production", amount, "[being_built.type]")
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				if(istype(new_item)) // Only want a random pixel offset if it IS actually an item, and not a structure like a bluespace closet
-					new_item.pixel_x = rand(-5, 5)
-					new_item.pixel_y = rand(-5, 5)
+				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
@@ -495,6 +492,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this console?\nYou won't be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				unlink()
+
+			return TRUE
+
+		if("maxresearch")
+			if(!check_rights(R_ADMIN))
+				return
+			if(!network_manager_uid)
+				return
+			var/choice = tgui_alert(ui.user, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))
+			if(choice == "Yes")
+				log_admin("[key_name(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				message_admins("[key_name_admin(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				maximize()
 
 			return TRUE
 
@@ -748,6 +758,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
+/obj/machinery/computer/rdconsole/proc/maximize()
+	var/datum/research/files = get_files()
+	if(!files)
+		return
+	for(var/T in files.known_tech)
+		files.UpdateTech(T, 8)
+	SStgui.update_uis(src)
+
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
 		return 1
@@ -876,6 +894,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked"] = TRUE
 	files.RefreshResearch()
 
+	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["menu"] = menu
 	data["submenu_protolathe"] = submenu_protolathe
 	data["submenu_imprinter"] = submenu_imprinter
