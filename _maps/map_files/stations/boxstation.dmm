@@ -17615,6 +17615,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -18816,10 +18817,6 @@
 "blf" = (
 /turf/simulated/floor/wood,
 /area/station/procedure/trainer_office)
-"blg" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
 "blh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -31294,7 +31291,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cgK" = (
@@ -33953,6 +33949,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "crV" = (
@@ -54579,21 +54576,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/reception)
-"gOT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "gPb" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -64151,6 +64133,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -73940,14 +73923,18 @@
 	},
 /area/station/medical/reception)
 "qJN" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft/north)
+/area/station/hallway/primary/central/se)
 "qKh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -101335,7 +101322,7 @@ aXB
 aZY
 aVc
 bgw
-gOT
+bda
 aSW
 bgt
 bkc
@@ -102626,7 +102613,7 @@ sYL
 sYL
 sYL
 brn
-blg
+mgM
 bqr
 bvb
 btA
@@ -117052,7 +117039,7 @@ tDt
 kEA
 meh
 crU
-qJN
+cvJ
 cGo
 cvJ
 fDx
@@ -120641,7 +120628,7 @@ xig
 xBy
 tgQ
 bFO
-gVV
+qJN
 lLv
 eEA
 cdW
@@ -122937,7 +122924,7 @@ bmq
 bmq
 bAv
 bAk
-bHy
+brW
 bDa
 bOU
 aTY
@@ -123708,7 +123695,7 @@ bmq
 bzo
 aUS
 pcF
-brW
+bHy
 bDb
 bEy
 aUO
@@ -124993,7 +124980,7 @@ gxs
 bdT
 bdT
 bAk
-bHy
+brW
 aRy
 bEp
 aVI
