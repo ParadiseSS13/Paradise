@@ -99,7 +99,7 @@
 		new_transform.Scale(0.65, 1)
 	other_visual.transform = new_transform
 
-/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
+/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core) //qwertodo: move this back
 	. = ..()
 	mod_link = new(
 		src,
