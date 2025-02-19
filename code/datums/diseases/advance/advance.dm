@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(advanced_cures, list(
 
 GLOBAL_LIST_INIT(plant_cures,list(
 									"bicaridine", "kelotane", "omnizine",
- 									"synaptizine", "weak_omnizine", "morphine",
+									"synaptizine", "weak_omnizine", "morphine",
 									"cbd", "thc", "nicotine" , "psilocybin"
 ))
 
