@@ -594,6 +594,13 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/gripper/gripper = used
+	if(istype(gripper) && gripper.engineering_machine_interaction)
+		if(gripper.gripped_item)
+			return item_interaction(user, gripper.gripped_item, modifiers)
+		else
+			return ..()
+
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(used, /obj/item/lightreplacer))
