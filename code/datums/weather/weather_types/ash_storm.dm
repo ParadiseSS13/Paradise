@@ -54,12 +54,13 @@
 	if(!golemShuttleOnPlanet)
 		eligible_areas -= get_areas(/area/shuttle/freegolem)
 
-	for(var/i in 1 to length(eligible_areas))
-		var/area/place = eligible_areas[i]
+	while(length(eligible_areas))
+		var/area/place = eligible_areas[length(eligible_areas)]
 		if(place.outdoors)
 			outside_areas += place
 		else
 			inside_areas += place
+		eligible_areas.len--
 
 	sound_ao.output_atoms = outside_areas
 	sound_ai.output_atoms = inside_areas
