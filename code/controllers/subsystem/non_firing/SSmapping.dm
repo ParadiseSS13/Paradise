@@ -102,21 +102,20 @@ SUBSYSTEM_DEF(mapping)
 	loadStation()
 
 	var/lavaland_zlvl_count = rand(GLOB.configuration.ruins.minimum_lavaland_zlevels, GLOB.configuration.ruins.maximum_lavaland_zlevels)
-	if(lavaland_zlvl_count == 0)
+	if(lavaland_zlvl_count > 0)
+		var/watch = start_watch()
+		log_startup_progress("Loading lavaland...")
+		for(var/i in 1 to lavaland_zlvl_count)
+			var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
+				"LAVALAND[i]",
+				linkage = CROSSLINKED,
+				traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
+				transition_tag = TRANSITION_TAG_LAVALAND
+			)
+			GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
+		log_startup_progress("Loaded lavaland in [stop_watch(watch)]s")
+	else
 		log_startup_progress("Skipping Lavaland...")
-		return
-
-	var/watch = start_watch()
-	log_startup_progress("Loading lavaland...")
-	for(var/i in 1 to lavaland_zlvl_count)
-		var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
-			"LAVALAND[i]",
-			linkage = CROSSLINKED,
-			traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
-			transition_tag = TRANSITION_TAG_LAVALAND
-		)
-		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
-	log_startup_progress("Loaded lavaland in [stop_watch(watch)]s")
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
