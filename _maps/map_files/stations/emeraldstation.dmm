@@ -24803,9 +24803,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "eYj" = (
-/obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
