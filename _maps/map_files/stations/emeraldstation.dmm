@@ -21578,6 +21578,7 @@
 /obj/effect/spawner/random/blood/maybe,
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -41993,6 +41994,7 @@
 "iqK" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing/shotgun,
+/obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "iqL" = (
@@ -45337,6 +45339,7 @@
 "iXG" = (
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
