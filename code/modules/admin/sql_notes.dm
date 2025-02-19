@@ -51,7 +51,7 @@
 		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
 			return
-		public = (alert(usr, "Would you like to make this note public?", "Public Note?", "Yes", "No") == "Yes")
+		public = (alert(usr, "Would you like to make this note public?", "Public Note?", "Private", "Public") == "Public")
 
 	if(!adminckey)
 		adminckey = usr.ckey
@@ -291,7 +291,7 @@
 		var/adminckey = query_find_note_edit.item[3]
 		var/automated = query_find_note_edit.item[4]
 		var/public = query_find_note_edit.item[5]
-		if(!adminckey || adminckey != usr.ckey)
+		if((!adminckey || adminckey != usr.ckey) && !check_rights(R_PERMISSIONS))
 			to_chat(usr, "<span class='notice'>You cannot toggle the publicity of notes created by other users.</span>")
 			return
 		if(automated)
