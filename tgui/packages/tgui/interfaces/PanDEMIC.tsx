@@ -183,9 +183,11 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
       />
     );
     removeDataButton = (
-      <Button
+      <Button.Confirm
         icon={'trash-alt'}
+        confirmIcon="eraser"
         content="Delete Data"
+        confirmContent="Delete Data"
         disabled={!props.strain.known}
         onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
       />

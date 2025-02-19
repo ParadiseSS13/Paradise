@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		tracker = D.tracker
 		for(var/r in D.cures)
 			cures += r
-			cure_text = D.cure_text
+		cure_text = D.cure_text
 		strain = D.strain
 		new_cure = FALSE
 
