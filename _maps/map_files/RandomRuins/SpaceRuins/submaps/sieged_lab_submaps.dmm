@@ -78,6 +78,7 @@
 "by" = (
 /obj/structure/table,
 /obj/machinery/alarm/directional/south,
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -894,6 +895,15 @@
 	icon_state = "whiteblue"
 	},
 /area/template_noop)
+"td" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/template_noop)
 "te" = (
 /obj/effect/mob_spawn/human/corpse/random_species/engineer{
 	random = 1
@@ -1233,6 +1243,7 @@
 /area/template_noop)
 "zY" = (
 /obj/structure/rack,
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1849,6 +1860,10 @@
 	icon_state = "brown"
 	},
 /area/template_noop)
+"No" = (
+/obj/item/stock_parts/cell,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "Nu" = (
 /obj/structure/table/flipped{
 	dir = 4
@@ -2107,6 +2122,10 @@
 /obj/structure/firelock_frame,
 /turf/template_noop,
 /area/template_noop)
+"Uf" = (
+/obj/item/stock_parts/cell,
+/turf/space,
+/area/space)
 "Uh" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -2786,7 +2805,7 @@ nK
 Df
 nK
 nK
-ox
+No
 Of
 nK
 nK
@@ -4094,7 +4113,7 @@ ox
 ea
 UH
 QX
-Lm
+Uf
 nK
 RC
 nK
@@ -5226,7 +5245,7 @@ nK
 DX
 TC
 AS
-AS
+td
 lm
 lm
 Gl

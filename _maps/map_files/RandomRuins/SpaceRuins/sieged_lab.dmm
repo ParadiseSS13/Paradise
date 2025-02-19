@@ -40,6 +40,10 @@
 "cs" = (
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/sieged_lab)
+"cA" = (
+/obj/item/gun/projectile/automatic/wt550,
+/turf/simulated/wall,
+/area/ruin/space/sieged_lab)
 "da" = (
 /obj/structure/table,
 /obj/item/storage/box/cups{
@@ -166,6 +170,11 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
+/area/ruin/space/sieged_lab)
+"kr" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kA" = (
 /obj/structure/toilet{
@@ -360,12 +369,14 @@
 /area/ruin/space/sieged_lab)
 "tc" = (
 /obj/item/chair/stool,
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
 /area/ruin/space/sieged_lab)
 "tg" = (
 /obj/structure/table/wood,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "tn" = (
@@ -423,10 +434,6 @@
 	color = "#00ff00"
 	},
 /turf/simulated/wall,
-/area/ruin/space/sieged_lab)
-"uT" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/horiz_hallway,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "uY" = (
 /obj/machinery/alarm/monitor/directional/north,
@@ -1895,15 +1902,15 @@ xr
 xr
 xr
 xr
-tZ
-tZ
+NN
+DW
 xr
 NN
 DW
 Jr
 xr
-NN
-DW
+xr
+xr
 xr
 xr
 xr
@@ -2262,7 +2269,7 @@ vg
 Gh
 Gh
 Gh
-ZK
+cA
 xc
 rd
 Hq
@@ -2485,8 +2492,8 @@ xr
 xr
 xr
 xr
-tZ
-tZ
+NN
+DW
 xr
 NN
 HI
@@ -2669,15 +2676,15 @@ kb
 tZ
 xd
 xr
-tZ
-Jr
+NN
+VM
 xr
 xr
 xr
 xr
 xr
-xr
-xr
+NN
+DW
 xr
 jW
 Xk
@@ -2728,8 +2735,8 @@ ZK
 sj
 ZK
 ZK
-tZ
-uT
+lx
+YF
 ZK
 ZK
 ZK
@@ -2787,8 +2794,8 @@ SH
 wh
 yD
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 Gh
 Gh
@@ -2846,8 +2853,8 @@ ve
 gz
 Pm
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 Gh
 Gh
@@ -2905,8 +2912,8 @@ TI
 Zd
 Pm
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 Gh
 Gh
@@ -2964,8 +2971,8 @@ ve
 Gh
 Iw
 ZK
-tZ
-Gh
+lx
+HI
 uC
 Gh
 Gh
@@ -3023,8 +3030,8 @@ mU
 Gh
 ua
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 bs
 ZK
@@ -3082,8 +3089,8 @@ zz
 Gh
 fl
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 DZ
 DZ
@@ -3141,8 +3148,8 @@ uu
 KZ
 jC
 ZK
-tZ
-Gh
+lx
+HI
 ZK
 ql
 ql
@@ -3367,7 +3374,7 @@ bT
 SP
 nY
 Gh
-Gh
+kr
 gu
 Gh
 Gh
