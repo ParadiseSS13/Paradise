@@ -189,6 +189,7 @@
 /area/ruin/space/sieged_lab
 	name = "Laboratory X-18"
 	apc_starts_off = TRUE
+	tele_proof = TRUE
 
 /area/ruin/space/moonbase19
 	name = "Moon Base 19"
