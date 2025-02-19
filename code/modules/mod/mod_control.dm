@@ -91,6 +91,10 @@
 	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
+	/// The MODlink datum, letting us call people from the suit.
+	var/datum/mod_link/mod_link
+	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
+	var/starting_frequency = null
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -157,10 +161,10 @@
 		module = new module(src)
 		install(module)
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mod/control/Destroy()
-	if(active)
-		STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
 	for(var/obj/item/part as anything in mod_parts)
@@ -179,6 +183,7 @@
 		QDEL_NULL(boots)
 	if(core)
 		QDEL_NULL(core)
+	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
 	wearer = null
 	selected_module = null
@@ -206,6 +211,7 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
+	. += "You could copy/set link frequency with a <b>multitool</b>."
 
 /obj/item/mod/control/examine_more(mob/user)
 	. = ..()
@@ -214,9 +220,13 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
+	if(mod_link.link_call)
+		subtract_charge((DEFAULT_CHARGE_DRAIN * 0.25))
+	if(!active)
+		return
 	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
-		return PROCESS_KILL
+		return
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
 		malfunctioning_charge_drain = rand(1, 20)
@@ -522,6 +532,7 @@
 		retract(null, part)
 	if(active)
 		finish_activation(on = FALSE)
+		mod_link?.end_call()
 	var/mob/old_wearer = wearer
 	unset_wearer()
 	old_wearer.drop_item()
@@ -604,6 +615,10 @@
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
+
+/// Intended for callbacks, don't use normally, just get wearer by itself.
+/obj/item/mod/control/proc/get_wearer()
+	return wearer
 
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))

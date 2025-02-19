@@ -107,12 +107,14 @@ Please contact me on #coderbus IRC. ~Carn x
 	. = overlays_standing[cache_index]
 	if(.)
 		add_overlay(.)
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
+	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, I)
 
 
 GLOBAL_LIST_EMPTY(damage_icon_parts)

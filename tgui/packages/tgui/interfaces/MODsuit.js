@@ -464,6 +464,15 @@ const ParametersSection = (props, context) => {
         >
           {locked ? 'Locked' : 'Unlocked'}
         </LabeledList.Item>
+        <LabeledList.Item label="MODLink">
+          <Button
+            icon={'wifi'}
+            color={link_call ? 'good' : 'default'}
+            disabled={!link_id}
+            content={link_call ? 'Calling (' + link_call + ')' : 'Call (' + link_id + ')'}
+            onClick={() => act('call')}
+          />
+        </LabeledList.Item>
         <LabeledList.Item label="Cover">{open ? 'Open' : 'Closed'}</LabeledList.Item>
         <LabeledList.Item label="Selected Module">{selected_module || 'None'}</LabeledList.Item>
         <LabeledList.Item label="Complexity">
