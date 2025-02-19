@@ -129,7 +129,7 @@
  */
 /datum/surgery/proc/get_surgery_step()
 	var/step_type = steps[step_number]
-	return new step_type
+	return new step_type(src)
 
 /**
  * Get the next step in the current surgery, or null if we're on the last one.
@@ -137,7 +137,7 @@
 /datum/surgery/proc/get_surgery_next_step()
 	if(step_number < length(steps))
 		var/step_type = steps[step_number + 1]
-		return new step_type
+		return new step_type(src)
 	else
 		return null
 
@@ -203,6 +203,10 @@
 	var/success_sound
 	/// Sound played if the step fails. Single value only
 	var/failure_sound
+	/// UUID of the surgery that created this step.
+	/// Useful with SURGERY defines that want to skip every step added by this surgery.
+	/// Note that this may not always be filled, so make sure you double check
+	var/creator_surgery_uuid
 
 	// evil infection stuff that will make everyone hate me
 
@@ -210,6 +214,10 @@
 	var/can_infect = FALSE
 	/// How much blood this step can get on surgeon. See SURGERY_BLOODSPREAD_* defines
 	var/blood_level = SURGERY_BLOODSPREAD_NONE
+
+/datum/surgery_step/New(datum/surgery/creating_surgery)
+	if(creating_surgery)
+		creator_surgery_uuid = creating_surgery.UID()
 
 /**
  * Whether or not the tool being used is usable for the surgery.
@@ -336,6 +344,23 @@
 
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
+
+	if(begin_step_result == SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY)
+		var/list/steps_created = list()
+		var/datum/surgery_step/step = surgery.get_surgery_step()
+		steps_created.Add(step)
+		var/initial_uid = step.creator_surgery_uuid
+		if(!initial_uid)
+			stack_trace("Cannot bypass current surgery step, surgery_uuid was not set for some reason. Will just go to the next step.")
+			return SURGERY_INITIATE_SUCCESS
+		while(step && step.creator_surgery_uuid && step.creator_surgery_uuid == initial_uid)
+			surgery.step_number++
+			step = surgery.get_surgery_step()
+			steps_created.Add(step)
+
+		QDEL_LIST_CONTENTS(steps_created)
+		return SURGERY_INITIATE_SUCCESS
+
 
 	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
 

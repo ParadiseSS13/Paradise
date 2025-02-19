@@ -26,6 +26,13 @@
 	requires_organic_bodypart = TRUE
 	requires_bodypart = TRUE
 
+	/// Internal organ that's being manipulated. May or may not be set
+	var/obj/item/organ/internal/organ_under_treatment
+
+/datum/surgery/organ_manipulation/Destroy()
+	. = ..()
+	organ_under_treatment = null
+
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	steps = list(
@@ -36,7 +43,7 @@
 		/datum/surgery_step/generic/cauterize
 	)
 
-/datum/surgery/organ_manipulation_boneless
+/datum/surgery/organ_manipulation/boneless
 	name = "Organ Manipulation"
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	steps = list(
@@ -77,7 +84,7 @@
 			return FALSE
 		return TRUE
 
-/datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/organ_manipulation/boneless/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
 		return FALSE

@@ -2,17 +2,21 @@
 /datum/surgery/intermediate/manipulate/repair_organ
 	name = "Repair organs (abstract)"
 	desc = "An intermediate surgery to treat minor damage to a patient's organs."
-	steps = list(/datum/surgery_step/organ_repair)
+	steps = list(
+		/datum/surgery_step/organ_repair,
+		/datum/surgery_step/internal/manipulate_organs/bandage
+	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 
 /datum/surgery/intermediate/manipulate/repair_organ/robotic
 	name = "Repair robotic organs (abstract)"
 	desc = "An intermediate surgery to treat minor damage to a patient's organs."
-	steps = list(/datum/surgery_step/organ_repair)
+	steps = list(/datum/surgery_step/organ_repair/robotic)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 
+//! Note: this one is tailored to fit under the above surgery!
 /datum/surgery_step/organ_repair
 	name = "repair organs surgically"
 	allowed_tools = list(
@@ -55,7 +59,7 @@
 
 	if(!length(organs_inside))
 		// this should probably only be called by
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
 
 
 	if(length(organs_inside) > 1)
@@ -65,18 +69,23 @@
 		organ_selected = organs_inside[1]
 
 	if(!organ_selected)
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
 	if(organ_selected.repaired_by_operation)
 		to_chat(user, "<span class='warning'>[organ_selected] has already been patched up once before, further operations would just make it worse.</span>")
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
 	if(organ_selected.damage == 0)
 		to_chat(user, "<span class='notice'>[organ_selected] is already in perfect condition!</span>")
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
 
 	if(organ_selected.is_dead())
 		// need mito to bring it back from the dead.
 		to_chat(user, "<span class='warning'>[organ_selected] has completely shut down, you can't fix it like this.</span>")
-		return SURGERY_BEGINSTEP_SKIP
+		return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
+
+
+	if(istype(surgery, /datum/surgery/organ_manipulation))
+		var/datum/surgery/organ_manipulation/organ_surg = surgery
+		organ_surg.organ_under_treatment = organ_selected
 
 	if(!robotic)
 		user.visible_message(
@@ -96,8 +105,6 @@
 	if(!.)
 		return
 
-
-
 	return SURGERY_BEGINSTEP_CONTINUE
 
 /datum/surgery_step/organ_repair/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -107,7 +114,7 @@
 		user.visible_message("<span class='notice'>...but it's not there anymore!</span>")
 		return SURGERY_STEP_CONTINUE
 
-	organ_selected.damage = 0
+	organ_selected.damage = min(organ_selected.min_broken_damage, organ_selected.damage)
 	organ_selected.repaired_by_operation = TRUE
 	// a bit more fragile
 	organ_selected.min_broken_damage -= 10
@@ -136,7 +143,6 @@
 		return SURGERY_STEP_CONTINUE
 
 	organ_selected.receive_damage(20)
-	organ_selected.repaired_by_operation = TRUE
 
 	var/error = pick("stabs", "jabs", "slices")
 	user.visible_message(
@@ -258,6 +264,7 @@
 				)
 				I.damage = 0  // nanopaste is expensive
 				healing_stack.use(1)
+
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -290,3 +297,135 @@
 			I.receive_damage(dam_amt, 0)
 
 	return SURGERY_STEP_RETRY
+
+
+/datum/surgery_step/internal/manipulate_organs/bandage
+
+	allowed_tools = list(
+		/obj/item/stack/medical/bruise_pack/advanced = 100,
+		/obj/item/stack/medical/bruise_pack = 60,
+		/obj/item/stack/nanopaste = 100
+	)
+
+	preop_sound = 'sound/surgery/organ1.ogg'
+	/// As above, whether or not this can treat robotic organs.
+	/// Mostly has to do with the selection, though.
+	var/robotic = FALSE
+	var/obj/item/organ/internal/organ_under_treatment
+
+/datum/surgery_step/internal/manipulate_organs/bandage/Destroy(force, ...)
+	organ_under_treatment = null
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/bandage/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	if(istype(surgery, /datum/surgery/organ_manipulation))
+		var/datum/surgery/organ_manipulation/surg = surgery
+		organ_under_treatment = surg.organ_under_treatment
+		// stack_trace("[src] should only be part of a /datum/surgery/intermediate/manipulate/repair_organ surgery")
+		// to_chat(user, "<span class='notice'>There doesn't seem to be any more you need to do...</span>")
+		// return SURGERY_BEGINSTEP_SKIP
+	else
+		var/obj/item/organ/internal/organ_selected
+		var/list/organs_inside = list()
+		for(var/obj/item/organ/internal/org as anything in affected.internal_organs)
+			if(org.is_robotic() && !robotic)
+				continue
+			if(!org.is_robotic() && robotic)
+				continue
+			organs_inside |= org
+
+		if(!length(organs_inside))
+			// die
+			return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
+
+
+		if(length(organs_inside) > 1)
+			organ_selected = tgui_input_list(user, "Which organ would you like to operate on?", "Select Organ", organs_inside)
+
+		else
+			organ_selected = organs_inside[1]
+
+		if(!organ_selected)
+			return SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY
+
+		organ_under_treatment = organ_selected
+
+
+	if(!istype(organ_under_treatment) || QDELETED(organ_under_treatment) || target.get_organ_slot(organ_under_treatment.slot) != organ_under_treatment)
+		to_chat(user, "<span class='notice'>The organ you were treating doesn't seem to be there anymore...</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+
+	if(!iscarbon(target))
+		to_chat(user, "<span class='danger'>They do not have organs to mend!</span>")
+		// note that we want to return skip here so we can go "back" to the proxy step
+		return SURGERY_BEGINSTEP_SKIP
+
+	user.visible_message(
+		"<span class='notice'>[user] start to use [tool] to wrap [target]'s [organ_under_treatment.name]!</span>",
+		"<span class='notice'>You start to use [tool] to wrap [target]'s [target]'s [organ_under_treatment.name].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+
+	if(affected)
+		affected.custom_pain("You feel a stinging pressure around your [organ_under_treatment.name]")
+
+	..()
+	return SURGERY_BEGINSTEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/bandage/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!iscarbon(target))
+		return SURGERY_STEP_CONTINUE
+
+	if(!istype(organ_under_treatment) || QDELETED(organ_under_treatment) || target.get_organ_slot(organ_under_treatment.slot) != organ_under_treatment)
+		to_chat(user, "<span class='notice'>The organ you were treating doesn't seem to be there anymore...</span>")
+		return SURGERY_STEP_CONTINUE
+
+	var/obj/item/stack/healing_stack = tool
+
+	if(!istype(healing_stack) || QDELETED(healing_stack) || !tool.use(1))
+		to_chat("<span class='notice'>It doesn't look like there's anything left to treat them with.</span>")
+		return SURGERY_STEP_CONTINUE
+
+
+	user.visible_message(
+		"<span class='notice'>[user] wraps up [organ_under_treatment] with [tool]!</span>",
+		"<span class='notice'>You carefully wrap [target]'s [organ_under_treatment.name] with [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+
+	// second step necessary to actually full-heal the organ
+	organ_under_treatment.damage = 0
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/bandage/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!iscarbon(target))
+		return SURGERY_STEP_CONTINUE
+
+	if(!istype(organ_under_treatment) || QDELETED(organ_under_treatment) || target.get_organ_slot(organ_under_treatment.slot) != organ_under_treatment)
+		to_chat(user, "<span class='notice'>The organ you were treating doesn't seem to be there anymore...</span>")
+		return SURGERY_STEP_CONTINUE
+
+	var/obj/item/stack/healing_stack = tool
+
+	if(!istype(healing_stack) || QDELETED(healing_stack) || !tool.use(1))
+		to_chat("<span class='notice'>It doesn't look like there's anything left to treat them with.</span>")
+		return SURGERY_STEP_CONTINUE
+
+
+	user.visible_message(
+		"<span class='notice'>[user] accidentally presses [organ_under_treatment] too hard with [tool], causing it to bleed even more!</span>",
+		"<span class='notice'>You accidentally press [organ_under_treatment] too hard with [tool], causing it to bleed even more.</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+
+	// second step necessary to actually full-heal the organ
+	organ_under_treatment.damage += 10
+	target.bleed(10)
+
+	return SURGERY_STEP_CONTINUE
+// todo add fail step
