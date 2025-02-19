@@ -15,7 +15,7 @@
 /obj/item/forensics/swab/proc/is_used()
 	return used
 
-/obj/item/forensics/swab/attack(mob/living/M, mob/user)
+/obj/item/forensics/swab/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!ishuman(M))
 		return ..()
 	if(is_used())
@@ -91,16 +91,16 @@
 		inuse = FALSE
 		return TRUE
 
-/obj/item/forensics/swab/afterattack(atom/A, mob/user, proximity)
+/obj/item/forensics/swab/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 
-	if(!proximity || istype(A, /obj/machinery/dnaforensics))
+	if(istype(A, /obj/machinery/dnaforensics))
 		return
 
 	if(istype(A,/mob/living))
 		return
 
 	if(is_used())
-		to_chat(user, "<span class='warning'>This sample is already in use.</span>")
+		to_chat(user, "<span class='warning'>This sample kit is already used</span>")
 		return
 
 	add_fingerprint(user)

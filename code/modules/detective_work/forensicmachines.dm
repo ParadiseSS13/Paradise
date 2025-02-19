@@ -64,7 +64,7 @@
 	. = ..()
 	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
-/obj/machinery/dnaforensics/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a test tube inside the scanner.</span>")
@@ -72,11 +72,14 @@
 
 	if(istype(W, /obj/item/forensics/swab))
 		to_chat(user, "<span class='notice'>You insert [W] into the DNA analyzer.</span>")
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		swab = W
 		update_icon()
 		return
+	else
+		to_chat(user, "<span class='notice'>This is not a compatable sample!</span>")
+
 	..()
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
@@ -191,7 +194,7 @@
 	. = ..()
 	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
-/obj/machinery/microscope/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/microscope/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
@@ -200,7 +203,7 @@
 	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You inserted [W] into the microscope.</span>")
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		sample = W
 		update_icon()

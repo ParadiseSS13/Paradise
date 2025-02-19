@@ -15975,6 +15975,11 @@
 "djk" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/detflask,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "djB" = (
@@ -44345,8 +44350,7 @@
 /area/station/security/armory/secure)
 "iNz" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
+/obj/machinery/microscope,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "iNH" = (
@@ -68741,6 +68745,8 @@
 	pixel_y = -10
 	},
 /obj/item/camera/detective,
+/obj/item/taperecorder,
+/obj/item/storage/box/evidence,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "nJW" = (
@@ -102040,12 +102046,8 @@
 /area/station/maintenance/dorms/fore)
 "uji" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/taperecorder,
 /obj/machinery/light,
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "ujC" = (

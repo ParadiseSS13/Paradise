@@ -130,11 +130,11 @@
 /obj/item/sample/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
 	// Fingerprints will be handled in after_attack() to not mess up the samples taken
-	return A.attackby(src, user, params)
+	return A.attackby__legacy__attackchain(src, user, params)
 
-/obj/item/sample/attackby(obj/O, mob/user)
+/obj/item/sample/attackby__legacy__attackchain(obj/O, mob/user)
 	if(O.type == src.type)
-		user.unEquip(O)
+		user.unequip(O)
 		if(merge_evidence(O, user))
 			qdel(O)
 		return TRUE
@@ -142,7 +142,7 @@
 
 /obj/item/sample/fibers
 	name = "\improper fiber bag"
-	desc = "Used to store fiber evidence for forensic examination."
+	desc = "Used to store fiber evidence for forensic examianation."
 	icon_state = "fiberbag"
 
 /obj/item/sample/print
@@ -152,7 +152,7 @@
 	icon_state = "fingerprint0"
 	item_state = "paper"
 
-/obj/item/sample/print/attack_self(mob/user)
+/obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
 	if(evidence && evidence.len)
 		return
 	if(!ishuman(user))
@@ -231,7 +231,7 @@
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
 	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]" : "[evidence_type]"] в \the [S].</span>")
 
-/obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity)
+/obj/item/forensics/sample_kit/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(can_take_sample(user, A))
@@ -243,7 +243,7 @@
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
 	if(ismob(src.loc))
-		afterattack(over, usr, TRUE)
+		afterattack__legacy__attackchain(over, usr, TRUE)
 
 /obj/item/forensics/sample_kit/powder
 	name = "\improper Fingerprint Powder"

@@ -6688,12 +6688,7 @@
 /obj/structure/noticeboard{
 	pixel_y = -30
 	},
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/multi,
-/obj/item/reagent_containers/drinks/flask/detflask,
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "ayB" = (
@@ -8923,6 +8918,12 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/clothing/glasses/sunglasses,
+/obj/item/camera/detective,
+/obj/item/camera_film,
+/obj/item/camera_film,
+/obj/item/storage/photo_album{
+	pixel_y = -10
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "aFC" = (
@@ -8945,15 +8946,15 @@
 /area/station/science/hallway)
 "aFD" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	on = 0;
-	pixel_x = -3;
-	pixel_y = 8
-	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/ashtray/bronze,
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28
+	},
+/obj/item/flashlight/lamp/green{
+	on = 0;
+	pixel_x = -3;
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -9948,6 +9949,12 @@
 /obj/item/radio/intercom/department/security{
 	pixel_y = -28
 	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/multi,
+/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "aJl" = (
@@ -63381,16 +63388,11 @@
 /area/station/medical/virology)
 "lvV" = (
 /obj/structure/table/wood,
-/obj/item/storage/photo_album{
-	pixel_y = -10
-	},
-/obj/item/camera_film,
-/obj/item/camera_film,
-/obj/item/camera/detective,
 /obj/machinery/requests_console/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/microscope,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "lwt" = (
