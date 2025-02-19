@@ -235,7 +235,7 @@
 /// Here's where we rewrite how byond handles movement except slightly different.
 /// To be removed on step_ conversion.
 /// All this work to prevent a second bump.
-/atom/movable/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE)
+/atom/movable/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE, momentum_change = TRUE)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
@@ -287,7 +287,7 @@
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)
 
-	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs)
+	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs, momentum_change)
 	loc = newloc
 
 	. = TRUE
@@ -310,7 +310,7 @@
 
 	RESOLVE_ACTIVE_MOVEMENT
 
-/atom/movable/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
+/atom/movable/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE, momentum_change = TRUE)
 	var/atom/movable/pullee = pulling
 	var/turf/current_turf = loc
 	if(!loc || !newloc)
@@ -325,7 +325,7 @@
 
 	if(loc != newloc)
 		if(!IS_DIR_DIAGONAL(direct)) //Cardinal move
-			. = ..(newloc, direct)
+			. = ..(newloc, direct, momentum_change = momentum_change)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir = 0
@@ -334,22 +334,24 @@
 			var/direct_NS = direct & (NORTH | SOUTH)
 			var/direct_EW = direct & (EAST | WEST)
 			var/first_step_target = get_step(src, direct_NS)
-			step(src, direct_NS)
+			// .() is rarely seen (for good reason), but it calls the same proc we're in.
+			// We cant' avoid it here, because oour overloading of Move() makes it call the wrong one.
+			. = .(first_step_target, direct_NS, glide_size_override, FALSE, momentum_change)
 			if(loc == first_step_target)
 				first_step_dir = direct_NS
 				moving_diagonally = SECOND_DIAG_STEP
-				. = step(src, direct_EW)
+				. = .(newloc, direct_EW, glide_size_override, FALSE, momentum_change)
 			else if(loc == oldloc)
 				first_step_target = get_step(src, direct_EW)
-				step(src, direct_EW)
+				. = .(first_step_target, direct_EW, glide_size_override, FALSE, momentum_change)
 				if(loc == first_step_target)
 					first_step_dir = direct_EW
 					moving_diagonally = SECOND_DIAG_STEP
-					. = step(src, direct_NS)
+					. = .(newloc, direct_NS, glide_size_override, FALSE, momentum_change)
 			if(first_step_dir != 0)
 				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
-					Moved(oldloc, first_step_dir)
+					Moved(oldloc, first_step_dir, FALSE, null, TRUE)
 				else if(!inertia_moving)
 					newtonian_move(direct)
 				if(client_mobs_in_contents)
@@ -520,7 +522,7 @@
 	var/atom/oldloc = loc
 	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
 
-	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
+	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null, TRUE)
 
 	if(destination)
 		if(pulledby && !HAS_TRAIT(src, TRAIT_CURRENTLY_Z_MOVING))
@@ -657,6 +659,11 @@
 	AddComponent(/datum/component/drift, direction, instant, start_delay)
 
 	return TRUE
+
+/mob/newtonian_move(direction, instant = FALSE, start_delay = 0)
+	if(buckled)
+		return FALSE
+	return ..()
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
