@@ -51,7 +51,7 @@ Ask ninjanomnom if they're around
 #define RAD_VERY_EXTREME_INSULATION 0.2
 #define RAD_GAMMA_WINDOW 0.4						// For directional windows that are activated by gamma radiation
 #define RAD_GAMMA_FULL_WINDOW 0.16					// For full tile windows that are activated by gamma radiation
-#define RAD_BETA_COLLECTOR 0.3						// Amount of Beta radiation absorbed by collectors
+#define RAD_BETA_COLLECTOR 0.2						// Amount of Beta radiation absorbed by collectors
 #define RAD_BETA_BLOCKER 0.2						// Amount of Beta radiation blocked by metallic things like walls and airlocks
 #define RAD_ALPHA_BLOCKER 0.01						// default value for Alpha insulation
 #define RAD_FULL_INSULATION 0						// Unused
@@ -64,6 +64,14 @@ Ask ninjanomnom if they're around
 
 #define RAD_GEIGER_MEASURE_SMOOTHING 5
 #define RAD_GEIGER_GRACE_PERIOD 2
+
+/// The portion of a radiation wave that acts on the source tile.
+#define RAD_SOURCE_WEIGHT 0.25
+
+/// The point in steps at which radiation waves start to decay
+#define RAD_DECAY_POINT 30
+/// This multiplies the intensity of the radiation wave each step after reaching the decay point.
+#define RAD_DECAY_RATE 0.7
 
 #define ALPHA_RAD 1
 #define BETA_RAD 2

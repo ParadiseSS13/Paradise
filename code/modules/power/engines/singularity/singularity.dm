@@ -151,7 +151,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, (energy * 45) + 8000, GAMMA_RAD)
+		radiation_pulse(src, (energy * 90) + 8000, GAMMA_RAD)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()

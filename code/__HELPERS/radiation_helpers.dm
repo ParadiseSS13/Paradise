@@ -159,13 +159,17 @@
 		start_turf = start_turf.loc
 
 	var/list/things = get_rad_contents(start_turf, emission_type) // Radiate the waves origin frist
-
+	// Adjust the weights so the source tile doesn't get all the rads
+	wave.weight_sum = RAD_SOURCE_WEIGHT
+	wave.weights = list(wave.weight_sum)
 	for(var/atom/thing in things)
 		if(thing.UID() == source.UID())
 			// Don't block our own radiation
 			source.base_rad_act(source ,intensity, emission_type)
 		else
-			wave.weight_sum = wave.weight_sum * thing.base_rad_act(source ,intensity, emission_type)
+			wave.weight_sum = wave.weight_sum * thing.base_rad_act(source ,intensity * wave.weight_sum, emission_type)
+	// Add the rest of the weight back
+	wave.weight_sum += (1 - RAD_SOURCE_WEIGHT)
 	// We can do this because we are on one tile so we have one weight
 	wave.weights[1] = wave.weight_sum
 
