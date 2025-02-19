@@ -388,11 +388,10 @@ GLOBAL_LIST_EMPTY(holopads)
 
 //Can we display holos there
 /obj/machinery/hologram/holopad/proc/validate_location(turf/T, mob/living/user)
+	if(!is_ai(user) && T.loc != get_area(src)) //For AI, the area check is done on trying to find another holopad instead
+		return FALSE
 	if(T.z == z && (get_dist(T, src) <= holo_range))
-		if(is_ai(user)) //For AI, the area check is done on trying to find another holopad instead
-			return TRUE
-		if(T.loc == get_area(src))
-			return TRUE
+		return TRUE
 	return FALSE
 
 
