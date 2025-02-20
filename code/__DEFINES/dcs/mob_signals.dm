@@ -150,6 +150,11 @@
 #define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
+//sent from base of /obj/item/healthanalyzer/get_carapace_damage_level: ()
+#define COMSIG_SHELL_GET_CARAPACE_LEVEL "surgery_get_carapace_level"
+//sent from base of /datum/surgery_step/set_bone/end_step: ()
+#define COMSIG_SHELL_GET_CARAPACE_STATE "surgery_get_carapace_state"
+	#define CARAPACE_SHELL_BROKEN (1<<0)
 //sent from mobs when they exit their body as a ghost
 #define COMSIG_LIVING_GHOSTIZED "ghostized"
 //sent from mobs when they re-enter their body as a ghost

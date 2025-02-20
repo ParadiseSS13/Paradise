@@ -1,5 +1,5 @@
 /obj/mecha/combat/honker
-	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
+	desc = "Созданный компанией \"Tyranny of Honk, INC\", этот экзокостюм предназначен для мощной поддержки клоунов. Используется для распространения веселья и радости жизни. ХОНК!"
 	name = "H.O.N.K"
 	icon_state = "honker"
 	initial_icon = "honker"
@@ -140,8 +140,8 @@
 
 /obj/mecha/combat/honker/examine_more(mob/user)
 	. = ..()
-	. += "<i>A cheerful, colorful modification of a Durand chassis, the Honk mech is designed as heavy laughterfield support for producing mass honking casualties. \
-	Built and perfected by some of the most skilled Clowns ever known to the galaxy, with materials and labor provided by Donk Co, the Honk has somehow managed to have its design smuggled aboard almost ever Nanotrasen station, to the imminent laughter (screams) and joy (despair) of it's crew!</i>"
+	. += "<i>Веселая и яркая модификация Дюранда Х.О.Н.К. спроектирована для поддержки весёлой атмосферы. \
+	Построенный и усовершенствованный одними из самых опытных клоунов, когда-либо известных в галактике, с использованием материалов и рабочей силы, предоставленных Donk Co, Х.О.Н.К. каким-то образом удалось проникнуть на борт почти каждой станции Nanotrasen, для распространения неминуемого смеха (крика) и радости (страданий) всему экипажу!</i>"
 	. += ""
-	. += "<i>Equipped with a massive HoNkER BlAsT 5000 horn and long range mortars capable of firing both slippery banana peels and dangerous mousetraps, the Honk is well equipped to provide a Clown with everything they need to 'entertain' a station's crew, and to draw the ire of any nearby Security. \
-	Honk!</i>"
+	. += "<i>Оборудованный массивным гудком ХоНКоВзРыВ 5000 и минометами дальнего действия, способными стрелять как скользкими банановыми кожурами, так и опасными мышеловками, Х.О.Н.К. хорошо оснащен для обеспечения клоуна всем необходимым, чтобы «развлечь» экипаж станции и вызвать гнев сотрудников службы безопасности. \
+	ХОНК!</i>"

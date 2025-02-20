@@ -6,7 +6,7 @@
 	var/turf/target_turf
 	announceWhen = 1
 	/// The prefix message for the anomaly annoucement.
-	var/prefix_message = "Localized hyper-energetic flux wave detected on long range scanners."
+	var/prefix_message = "На сканерах дальнего действия обнаружена гиперэнергетическая потоковая аномалия."
 	/// Sound effect used
 	var/announce_sound = 'sound/AI/anomaly_flux.ogg'
 
@@ -42,7 +42,7 @@
 	if(false_alarm && !target)
 		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
 		return
-	GLOB.minor_announcement.Announce("[prefix_message] Expected location: [target.name].", "Anomaly Alert", announce_sound)
+	GLOB.minor_announcement.Announce("[prefix_message] Предполагаемая локация: [target.name].", "ВНИМАНИЕ: Обнаружена аномалия.", announce_sound)
 
 /datum/event/anomaly/start()
 	var/newAnomaly = new anomaly_path(target_turf)

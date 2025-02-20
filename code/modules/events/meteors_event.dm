@@ -15,9 +15,9 @@
 
 /datum/event/meteor_wave/announce(false_alarm)
 	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
-		GLOB.minor_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+		GLOB.minor_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: Астероиды.", new_sound = 'sound/AI/meteors.ogg')
 	else
-		GLOB.minor_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
+		GLOB.minor_announcement.Announce("Станция проходит через скопление астероидов.", "ВНИМАНИЕ: Астероиды.")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
@@ -36,9 +36,9 @@
 	QDEL_NULL(screen_alert)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.minor_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
+			GLOB.minor_announcement.Announce("Станция прошла через астероидный пояс", "ВНИМАНИЕ: Астероиды.")
 		else
-			GLOB.minor_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
+			GLOB.minor_announcement.Announce("Станция прошла через скопление астероидов", "ВНИМАНИЕ: Астероиды.")
 
 /datum/event/meteor_wave/proc/get_meteors()
 	switch(severity)
