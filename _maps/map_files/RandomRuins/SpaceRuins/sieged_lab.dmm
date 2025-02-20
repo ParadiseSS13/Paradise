@@ -571,7 +571,6 @@
 "zz" = (
 /obj/structure/shelf,
 /obj/effect/spawner/random/engineering/toolbox,
-/obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -1000,6 +999,7 @@
 "Xv" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"

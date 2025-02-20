@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/DestroyPathToTarget()
 	if(!doors_opened)
-		for(var/turf/T in RANGE_TURFS(4, src))
+		for(var/turf/T in RANGE_TURFS(8, src))
 			for(var/obj/machinery/door/airlock/airlock in T)
 				airlock.open(forced = TRUE)
 				airlock.lock(forced = TRUE)
