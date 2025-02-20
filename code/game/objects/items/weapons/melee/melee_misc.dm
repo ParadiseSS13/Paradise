@@ -425,7 +425,7 @@
 		zap(target, user, list(user), power)
 
 /datum/enchantment/lightning/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
 	else
@@ -462,7 +462,7 @@
 		toggle_traits(S, user)
 
 /datum/enchantment/fire/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
 		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
