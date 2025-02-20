@@ -268,9 +268,16 @@
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
+
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
+		var/datum/component/inherent_radioactivity/radioactivity = sliver.GetComponent(/datum/component/inherent_radioactivity)
+		var/datum/component/radioactive/contamination = GetComponent(/datum/component/radioactive)
+		if(radioactivity)
+			STOP_PROCESSING(SSradiation, radioactivity)
+		if(contamination)
+			contamination.RemoveComponent()
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
