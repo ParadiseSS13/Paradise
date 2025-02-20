@@ -22,8 +22,10 @@
 	if(!possible_products)
 		return
 	var/list/product_names = list()
-	for(var/obj/item/product in possible_products)
-		product_names[product.name] = product
+	var/product
+	for(product in possible_products)
+		var/obj/item/possible_product = product
+		product_names[possible_product.name] = possible_product
 	var/new_product = tgui_input_list(user, "Select a product", src, product_names)
 	if(!new_product)
 		selected_product = possible_products[1]
@@ -84,8 +86,10 @@
 	. = ..()
 	var/list/quality_name_list = list()
 	var/list/quality_type_list = typesof(/datum/smith_quality)
-	for(var/datum/smith_quality/quality_type in quality_type_list)
-		quality_name_list[quality_type.name] = quality_type
+	var/quality_type
+	for(quality_type in quality_type_list)
+		var/datum/smith_quality/new_quality = quality_type
+		quality_name_list[new_quality.name] = new_quality
 	var/selected_quality = tgui_input_list(user, "Select a quality", src, quality_name_list)
 	if(!selected_quality)
 		quality = quality_type_list[1]
