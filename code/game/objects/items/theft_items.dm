@@ -14,11 +14,14 @@
 	flags_2 = RAD_NO_CONTAMINATE_2 //This is made from radioactive material so cannot really be contaminated
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
+	// Is this made from radioactive material or not.
+	var/radioactive_material = TRUE
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
-	START_PROCESSING(SSradiation, radioactivity)
+	if(radioactive_material)
+		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
+		START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/nuke_core/Destroy()
 	return ..()
@@ -163,6 +166,7 @@
 	pulseicon = "supermatter_sliver_pulse"
 	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
 	layer = ABOVE_MOB_LAYER + 0.02
+	radioactive_material = FALSE
 
 /obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
@@ -272,10 +276,7 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
-		var/datum/component/inherent_radioactivity/radioactivity = sliver.GetComponent(/datum/component/inherent_radioactivity)
 		var/datum/component/radioactive/contamination = GetComponent(/datum/component/radioactive)
-		if(radioactivity)
-			STOP_PROCESSING(SSradiation, radioactivity)
 		if(contamination)
 			contamination.RemoveComponent()
 		icon_state = "supermatter_container_sealed"
