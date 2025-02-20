@@ -28292,7 +28292,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "ehQ" = (
-/obj/effect/spawner/random/dirt/frequent,
 /obj/structure/sign/pods{
 	pixel_x = 32
 	},
@@ -68966,13 +68965,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet/red,
 /area/station/service/chapel)
-"nRe" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/maintenance{
-	name = "Starboard Asteroid Maintenance Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "nRs" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -91868,14 +91860,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/engineering/transmission_laser)
-"tod" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Medical Asteroid Solars"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "tof" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -160588,7 +160572,7 @@ lCC
 aRx
 hqL
 cpC
-tod
+aRx
 jvd
 ftZ
 eaH
@@ -162163,7 +162147,7 @@ sLy
 qYR
 fqw
 fqw
-nRe
+fqw
 rrj
 idF
 nNM
