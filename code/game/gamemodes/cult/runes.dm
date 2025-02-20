@@ -86,7 +86,7 @@ To draw a rune, use a ritual dagger.
 			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 			qdel(src)
 		return ITEM_INTERACT_COMPLETE
-	
+
 	if(istype(used, /obj/item/nullrod))
 		var/obj/item/nullrod/nullrod = used
 		if(IS_CULTIST(user)) // cultist..what are doing..cultist..staph...
@@ -1099,7 +1099,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	..()
+	. = ..()
 	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
