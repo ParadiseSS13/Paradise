@@ -8034,7 +8034,7 @@
 	},
 /area/station/command/office/cmo)
 "blG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "blK" = (
@@ -9662,7 +9662,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "bvI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -67233,7 +67233,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "nwN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -103273,7 +103273,7 @@
 /area/station/maintenance/starboard)
 "wfg" = (
 /obj/machinery/alarm/directional/north,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
