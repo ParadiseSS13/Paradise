@@ -235,7 +235,7 @@
 	radiation_armor = initial(radiation_armor) * quality.stat_mult * material.radiation_armor_mult
 	armor = list(MELEE = brute_armor, BULLET = brute_armor, LASER = laser_armor, ENERGY = burn_armor, BOMB = explosive_armor, RAD = radiation_armor, FIRE = heat_insulation, ACID = 0)
 
-/obj/item/smithed_item/insert/on_attached(mob/user, obj/item/clothing/suit/target)
+/obj/item/smithed_item/insert/on_attached(obj/item/clothing/suit/target)
 	if(!istype(target))
 		return
 	attached_suit = target
@@ -251,6 +251,7 @@
 	attached_suit.siemens_coefficient += siemens_coeff
 	attached_suit.min_cold_protection_temperature += heat_insulation
 	attached_suit.max_heat_protection_temperature -= heat_insulation
+	attached_suit.inserts -= src
 	attached_suit = null
 
 /obj/item/smithed_item/insert/ballistic
@@ -344,6 +345,8 @@
 	heat_insulation = 50
 	movement_speed_mod = 2
 	siemens_coeff = 1
+	quality = /datum/smith_quality/masterwork
+	material = /datum/smith_material/platinum
 
 // Tool Bits
 
@@ -371,7 +374,7 @@
 	failure_rate = initial(failure_rate) * quality.stat_mult * material.tool_failure_mult
 	efficiency_mod = initial(efficiency_mod) * quality.stat_mult * material.power_draw_mult
 
-/obj/item/smithed_item/tool_bit/on_attached(mob/user, obj/item/target)
+/obj/item/smithed_item/tool_bit/on_attached(obj/item/target)
 	if(!istype(target))
 		return
 	attached_tool = target
@@ -446,6 +449,8 @@
 	speed_mod = -1
 	efficiency_mod = 1
 	durability = 100
+	quality = /datum/smith_quality/masterwork
+	material = /datum/smith_material/platinum
 
 // lenss
 
@@ -473,7 +478,7 @@
 	laser_speed_mult = initial(laser_speed_mult) * quality.stat_mult * material.projectile_speed_mult
 	fire_rate_mult = initial(fire_rate_mult) * quality.stat_mult * material.fire_rate_multiplier
 
-/obj/item/smithed_item/lens/on_attached(mob/user, obj/item/gun/energy/target)
+/obj/item/smithed_item/lens/on_attached(obj/item/gun/energy/target)
 	if(!istype(target))
 		return
 	attached_gun = target
@@ -560,6 +565,8 @@
 	fire_rate_mult = 5
 	power_mult = 0.5
 	durability = 3000
+	quality = /datum/smith_quality/masterwork
+	material = /datum/smith_material/platinum
 
 // Components
 

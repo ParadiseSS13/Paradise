@@ -74,7 +74,7 @@
 /obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	if(istype(I, /obj/item/smithed_item/lens))
-		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, user, I)
+		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, I)
 
 /obj/item/gun/energy/proc/attach_lens(mob/user, obj/item/smithed_item/lens/new_lens)
 	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
@@ -82,20 +82,22 @@
 	if(!istype(new_lens))
 		return
 	if(current_lens)
-		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		to_chat(usr, "<span class='notice'>Your [src] already has a lens.</span>")
 		return
-	new_lens.forceMove(src)
+	if(new_lens.flags & NODROP || !usr.drop_item() || !new_lens.forceMove(src))
+		to_chat(usr, "<span class='warning'>[new_lens] is stuck to your hand!</span>")
+		return
 	current_lens = new_lens
-	new_lens.on_attached(user, src)
+	new_lens.on_attached(src)
 
 /obj/item/gun/energy/proc/detach_lens(mob/user, obj/item/smithed_item/lens/new_lens)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
 
 	if(!current_lens)
-		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		to_chat(usr, "<span class='notice'>Your [src] has no lens to remove.</span>")
 		return
 	current_lens.on_detached()
-	user.put_in_hands(current_lens)
+	usr.put_in_hands(current_lens)
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot

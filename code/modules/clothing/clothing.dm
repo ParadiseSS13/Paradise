@@ -883,7 +883,7 @@
 /obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	if(istype(I, /obj/item/smithed_item/insert))
-		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, user, I)
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, I)
 
 /obj/item/clothing/suit/proc/detach_insert(mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
@@ -896,13 +896,13 @@
 /obj/item/clothing/suit/proc/finish_detach_insert(mob/user)
 	var/obj/item/smithed_item/insert/old_insert
 	if(length(inserts) == 1)
-		old_insert = inserts[0]
+		old_insert = inserts[1]
 	else
-		old_insert = tgui_input_list(user, "Select an insert", src, inserts)
+		old_insert = tgui_input_list(usr, "Select an insert", src, inserts)
 	if(!istype(old_insert, /obj/item/smithed_item/insert))
 		return
 	old_insert.on_detached()
-	user.put_in_hands(old_insert)
+	usr.put_in_hands(old_insert)
 
 /obj/item/clothing/suit/proc/attach_insert(mob/user, obj/item/smithed_item/insert/new_insert)
 	SIGNAL_HANDLER // COMSIG_INSERT_ATTACH
@@ -910,11 +910,13 @@
 	if(!istype(new_insert))
 		return
 	if(length(inserts) == insert_max)
-		to_chat(user, "<span class='notice'>Your suit has no slots to add an insert.</span>")
+		to_chat(usr, "<span class='notice'>Your suit has no slots to add an insert.</span>")
 		return
-	new_insert.forceMove(src)
+	if(new_insert.flags & NODROP || !usr.drop_item() || !new_insert.forceMove(src))
+		to_chat(usr, "<span class='warning'>[new_insert] is stuck to your hand!</span>")
+		return
 	inserts += new_insert
-	new_insert.on_attached(user, src)
+	new_insert.on_attached(src)
 
 /obj/item/clothing/suit/proc/resist_restraints(mob/living/carbon/user, break_restraints)
 	var/effective_breakout_time = breakouttime

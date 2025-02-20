@@ -446,7 +446,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
 	else if(istype(I, /obj/item/smithed_item/tool_bit))
-		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, user, I)
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, I)
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
@@ -462,9 +462,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(length(attached_bits) >= max_bits)
 		to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
 		return
-	bit.forceMove(src)
+	if(bit.flags & NODROP || !usr.drop_item() || !bit.forceMove(src))
+		to_chat(usr, "<span class='warning'>[bit] is stuck to your hand!</span>")
+		return
 	attached_bits += bit
-	bit.on_attached(user, src)
+	bit.on_attached(src)
 
 /// Used to remove a bit through a signal
 /obj/item/proc/remove_bit(mob/user)
@@ -479,13 +481,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/finish_remove_bit(mob/user)
 	var/obj/item/smithed_item/tool_bit/old_bit
 	if(length(attached_bits) == 1)
-		old_bit = attached_bits[0]
+		old_bit = attached_bits[1]
 	else
-		attached_bits = tgui_input_list(user, "Select a tool bit", src, attached_bits)
+		attached_bits = tgui_input_list(usr, "Select a tool bit", src, attached_bits)
 	if(!istype(old_bit, /obj/item/smithed_item/tool_bit))
 		return
 	old_bit.on_detached()
-	user.put_in_hands(old_bit)
+	usr.put_in_hands(old_bit)
 
 /// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc. Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
