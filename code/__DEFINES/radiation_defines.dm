@@ -69,9 +69,9 @@ Ask ninjanomnom if they're around
 #define RAD_SOURCE_WEIGHT 0.25
 
 /// The point in steps at which radiation waves start to decay
-#define RAD_DECAY_POINT 30
+#define RAD_DECAY_POINT 10
 /// This multiplies the intensity of the radiation wave each step after reaching the decay point.
-#define RAD_DECAY_RATE 0.7
+#define RAD_DECAY_RATE 0.7943 // 1% after 20 tiles
 
 #define ALPHA_RAD 1
 #define BETA_RAD 2
