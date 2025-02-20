@@ -29892,7 +29892,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "csb" = (
@@ -38207,7 +38207,7 @@
 	dir = 4;
 	name = "Evidence"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

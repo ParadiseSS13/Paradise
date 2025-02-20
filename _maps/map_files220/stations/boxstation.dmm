@@ -1886,7 +1886,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3312,7 +3312,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4225,7 +4225,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -81447,7 +81447,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
