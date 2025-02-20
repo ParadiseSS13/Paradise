@@ -17,6 +17,10 @@
 	. = ..()
 	populate_products()
 
+/obj/item/smithing_cast/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can select the desired product by using [src] in your hand.</span>"
+
 /obj/item/smithing_cast/activate_self(mob/user)
 	. = ..()
 	if(!possible_products)
@@ -47,6 +51,10 @@
 /obj/item/smithing_cast/sheet/update_desc()
 	desc = "[initial(desc)] It is currently configured to make [amount_to_make] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
 	return ..()
+
+/obj/item/smithing_cast/sheet/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can change the amount of sheets smelted by alt-clicking [src].</span>"
 
 /obj/item/smithing_cast/sheet/populate_products()
 	possible_products = list(/obj/item/stack/sheet/metal,
@@ -81,6 +89,10 @@
 	var/datum/smith_quality/quality = /datum/smith_quality
 	/// The type of product
 	var/product_type
+
+/obj/item/smithing_cast/component/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can change the quality of the product by alt-clicking [src].</span>"
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
 	. = ..()
@@ -154,6 +166,7 @@
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
 	desc = "Debug smithed item. If you see this, notify the development team."
+	w_class = WEIGHT_CLASS_SMALL
 	/// The quality of the item
 	var/datum/smith_quality/quality
 	/// The material of the item
@@ -164,14 +177,26 @@
 	if(!quality)
 		return
 	if(!material)
+		name = "[quality.name] [initial(name)]"
+		return
+	name = "[quality.name] [material.name] [initial(name)]"
+
+/obj/item/smithed_item/update_name()
+	. = ..()
+	if(!quality)
+		return
+	if(!material)
 		name = "[quality.name] " + name
 		return
-	name = "[quality.name] [material.name] " + name
+	name = "[quality.name] [material.name] [initial(name)]"
 
 /obj/item/smithed_item/proc/on_attached(mob/user, obj/item/target)
 	return
 
 /obj/item/smithed_item/proc/on_detached(mob/user)
+	return
+
+/obj/item/smithed_item/proc/set_stats()
 	return
 
 // Inserts
@@ -199,8 +224,7 @@
 	/// The suit the insert is attached to
 	var/obj/item/clothing/suit/attached_suit
 
-/obj/item/smithed_item/insert/Initialize(mapload)
-	. = ..()
+/obj/item/smithed_item/insert/set_stats()
 	brute_armor = initial(brute_armor) * quality.stat_mult * material.brute_armor_mult
 	burn_armor = initial(burn_armor) * quality.stat_mult * material.burn_armor_mult
 	laser_armor = initial(laser_armor) * quality.stat_mult * material.laser_armor_mult
@@ -340,8 +364,7 @@
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
 
-/obj/item/smithed_item/tool_bit/Initialize(mapload)
-	. = ..()
+/obj/item/smithed_item/tool_bit/set_stats()
 	durability = initial(durability) * material.durability_mult
 	size_mod = initial(size_mod) + material.size_mod
 	speed_mod = initial(speed_mod) * quality.stat_mult * material.tool_speed_mult
@@ -443,8 +466,7 @@
 	/// The weapon the lens is attached to
 	var/obj/item/gun/energy/attached_gun
 
-/obj/item/smithed_item/lens/Initialize(mapload)
-	. = ..()
+/obj/item/smithed_item/lens/set_stats()
 	durability = initial(durability) * material.durability_mult
 	power_mult = initial(power_mult) * quality.stat_mult * material.power_draw_mult
 	damage_mult = initial(damage_mult) * quality.stat_mult * material.projectile_damage_multiplier
@@ -461,7 +483,6 @@
 		var/obj/item/projectile/e_bullet = casing.projectile_type
 		e_bullet.damage = e_bullet.damage * damage_mult
 		e_bullet.speed = e_bullet.speed / laser_speed_mult
-
 
 /obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
@@ -553,8 +574,6 @@
 	desc = "Debug smithed component part. If you see this, notify the development team."
 	/// What type of part is it
 	var/part_type
-	/// What materials are required to make it
-	var/material_cost = list()
 	/// What is this a part of
 	var/finished_product
 	/// Is this component currently hot
@@ -567,16 +586,28 @@
 	if(!quality)
 		return
 	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
-	for(var/material in material_cost)
-		material = ROUND_UP(material * quality.material_mult)
+	update_desc()
 
 /obj/item/smithed_item/component/proc/powerhammer()
 	hammer_time--
 	if(prob(50) || hammer_time <= 0)
 		hot = FALSE
+	update_desc()
 
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
+	update_desc()
+
+/obj/item/smithed_item/component/update_desc()
+	. = ..()
+	desc = initial(desc)
+	desc += "\n"
+	if(hammer_time)
+		desc += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
+	else
+		desc += "It is complete."
+	if(hot)
+		desc +="\n<span class='warning'>It is glowing hot!</span>"
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
 	var/burn_me = TRUE
@@ -611,61 +642,61 @@
 /obj/item/smithed_item/component/insert_frame/ballistic
 	name = "ballistic insert frame"
 	desc = "This is the primary component of a ballistic plate."
-	material_cost = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 10000)
 	finished_product = /obj/item/smithed_item/insert/ballistic
 
 /obj/item/smithed_item/component/insert_frame/thermal
 	name = "thermal insert frame"
 	desc = "This is the primary component of a thermal plate."
-	material_cost = list(MAT_GOLD = 6000)
+	materials = list(MAT_GOLD = 6000)
 	finished_product = /obj/item/smithed_item/insert/thermal
 
 /obj/item/smithed_item/component/insert_frame/fireproofing
 	name = "fireproofing insert frame"
 	desc = "This is the primary component of a fireproofing plate."
-	material_cost = list(MAT_SILVER = 10000)
+	materials = list(MAT_SILVER = 10000)
 	finished_product = /obj/item/smithed_item/insert/fireproofing
 
 /obj/item/smithed_item/component/insert_frame/reflective
 	name = "reflective insert frame"
 	desc = "This is the primary component of a reflective plate."
-	material_cost = list(MAT_SILVER = 10000)
+	materials = list(MAT_SILVER = 10000)
 	finished_product = /obj/item/smithed_item/insert/reflective
 
 /obj/item/smithed_item/component/insert_frame/rad_hazard
 	name = "radiation hazard insert frame"
 	desc = "This is the primary component of a radiation hazard plate."
-	material_cost = list(MAT_GOLD = 6000)
+	materials = list(MAT_GOLD = 6000)
 	finished_product = /obj/item/smithed_item/insert/rad_hazard
 
 /obj/item/smithed_item/component/insert_frame/rubberized
 	name = "rubberized insert frame"
 	desc = "This is the primary component of a rubberized plate."
-	material_cost = list(MAT_PLASMA = 10000)
+	materials = list(MAT_PLASMA = 10000)
 	finished_product = /obj/item/smithed_item/insert/rubberized
 
 /obj/item/smithed_item/component/insert_frame/advanced
 	name = "advanced insert frame"
 	desc = "This is the primary component of a advanced armor mesh."
-	material_cost = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
 	finished_product = /obj/item/smithed_item/insert/advanced
 
 /obj/item/smithed_item/component/insert_frame/engineering
 	name = "engineering insert frame"
 	desc = "This is the primary component of a advanced engineering mesh."
-	material_cost = list(MAT_GOLD = 10000, MAT_SILVER = 10000)
+	materials = list(MAT_GOLD = 10000, MAT_SILVER = 10000)
 	finished_product = /obj/item/smithed_item/insert/engineering
 
 /obj/item/smithed_item/component/insert_frame/heavy
 	name = "heavy duty insert frame"
 	desc = "This is the primary component of a advanced heavy duty plate."
-	material_cost = list(MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
+	materials = list(MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
 	finished_product = /obj/item/smithed_item/insert/heavy
 
 /obj/item/smithed_item/component/insert_frame/mobility
 	name = "mobility mesh insert frame"
 	desc = "This is the primary component of a advanced mobility mesh."
-	material_cost = list(MAT_BLUESPACE = 4000)
+	materials = list(MAT_BLUESPACE = 4000)
 	finished_product = /obj/item/smithed_item/insert/mobility
 
 /obj/item/smithed_item/component/insert_lining
@@ -677,61 +708,61 @@
 /obj/item/smithed_item/component/insert_lining/ballistic
 	name = "ballistic insert lining"
 	desc = "This is the secondary component of a ballistic plate."
-	material_cost = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 10000)
 	finished_product = /obj/item/smithed_item/insert/ballistic
 
 /obj/item/smithed_item/component/insert_lining/thermal
 	name = "thermal insert lining"
 	desc = "This is the secondary component of a thermal plate."
-	material_cost = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 10000)
 	finished_product = /obj/item/smithed_item/insert/thermal
 
 /obj/item/smithed_item/component/insert_lining/fireproofing
 	name = "fireproofing insert lining"
 	desc = "This is the secondary component of a fireproofing plate."
-	material_cost = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
 	finished_product = /obj/item/smithed_item/insert/fireproofing
 
 /obj/item/smithed_item/component/insert_lining/reflective
 	name = "reflective insert lining"
 	desc = "This is the secondary component of a reflective plate."
-	material_cost = list(MAT_GOLD = 6000)
+	materials = list(MAT_GOLD = 6000)
 	finished_product = /obj/item/smithed_item/insert/reflective
 
 /obj/item/smithed_item/component/insert_lining/rad_hazard
 	name = "radiation hazard insert lining"
 	desc = "This is the secondary component of a radiation hazard plate."
-	material_cost = list(MAT_TITANIUM = 10000)
+	materials = list(MAT_TITANIUM = 10000)
 	finished_product = /obj/item/smithed_item/insert/rad_hazard
 
 /obj/item/smithed_item/component/insert_lining/rubberized
 	name = "rubberized insert lining"
 	desc = "This is the secondary component of a rubberized plate."
-	material_cost = list(MAT_PLASMA = 10000)
+	materials = list(MAT_PLASMA = 10000)
 	finished_product = /obj/item/smithed_item/insert/rubberized
 
 /obj/item/smithed_item/component/insert_lining/advanced
 	name = "advanced insert lining"
 	desc = "This is the secondary component of a advanced armor mesh."
-	material_cost = list(MAT_TITANIUM = 10000, MAT_DIAMOND = 2000)
+	materials = list(MAT_TITANIUM = 10000, MAT_DIAMOND = 2000)
 	finished_product = /obj/item/smithed_item/insert/advanced
 
 /obj/item/smithed_item/component/insert_lining/engineering
 	name = "engineering insert lining"
 	desc = "This is the secondary component of a advanced engineering mesh."
-	material_cost = list(MAT_TITANIUM = 10000, MAT_IRIDIUM = 2000)
+	materials = list(MAT_TITANIUM = 10000, MAT_IRIDIUM = 2000)
 	finished_product = /obj/item/smithed_item/insert/engineering
 
 /obj/item/smithed_item/component/insert_lining/heavy
 	name = "heavy duty insert lining"
 	desc = "This is the secondary component of a advanced heavy duty plate."
-	material_cost = list(MAT_TITANIUM = 10000, MAT_PLATINUM = 2000)
+	materials = list(MAT_TITANIUM = 10000, MAT_PLATINUM = 2000)
 	finished_product = /obj/item/smithed_item/insert/heavy
 
 /obj/item/smithed_item/component/insert_lining/mobility
 	name = "mobility mesh insert lining"
 	desc = "This is the secondary component of a advanced mobility mesh."
-	material_cost = list(MAT_PALLADIUM = 2000)
+	materials = list(MAT_PALLADIUM = 2000)
 	finished_product = /obj/item/smithed_item/insert/mobility
 
 /obj/item/smithed_item/component/bit_mount
@@ -743,37 +774,37 @@
 /obj/item/smithed_item/component/bit_mount/speed
 	name = "speed bit mount"
 	desc = "This is the primary component of a speed bit"
-	material_cost = list(MAT_TITANIUM = 4000)
+	materials = list(MAT_TITANIUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/speed
 
 /obj/item/smithed_item/component/bit_mount/efficiency
 	name = "efficiency bit mount"
 	desc = "This is the primary component of an efficiency bit"
-	material_cost = list(MAT_SILVER = 4000)
+	materials = list(MAT_SILVER = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/efficiency
 
 /obj/item/smithed_item/component/bit_mount/balanced
 	name = "balanced bit mount"
 	desc = "This is the primary component of an balanced bit."
-	material_cost = list(MAT_TITANIUM = 4000)
+	materials = list(MAT_TITANIUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/balanced
 
 /obj/item/smithed_item/component/bit_mount/heavy
 	name = "heavy duty bit mount"
 	desc = "This is the primary component of a heavy duty bit."
-	material_cost = list(MAT_TITANIUM = 8000, MAT_PLASMA = 8000)
+	materials = list(MAT_TITANIUM = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
 
 /obj/item/smithed_item/component/bit_mount/economical
 	name = "economical bit mount"
 	desc = "This is the primary component of an economical bit."
-	material_cost = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	materials = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/economical
 
 /obj/item/smithed_item/component/bit_mount/advanced
 	name = "advanced bit head"
 	desc = "This is the secondary component of an advanced bit."
-	material_cost = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	materials = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
 /obj/item/smithed_item/component/bit_head
@@ -785,37 +816,37 @@
 /obj/item/smithed_item/component/bit_head/speed
 	name = "speed bit head"
 	desc = "This is the secondary component of a speed bit."
-	material_cost = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/speed
 
 /obj/item/smithed_item/component/bit_head/efficiency
 	name = "efficiency bit head"
 	desc = "This is the secondary component of an efficiency bit."
-	material_cost = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/efficiency
 
 /obj/item/smithed_item/component/bit_head/balanced
 	name = "balanced bit head"
 	desc = "This is the secondary component of a balanced bit."
-	material_cost = list(MAT_BRASS = 4000)
+	materials = list(MAT_BRASS = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/balanced
 
 /obj/item/smithed_item/component/bit_head/heavy
 	name = "heavy duty bit head"
 	desc = "This is the secondary component of a heavy duty bit."
-	material_cost = list(MAT_METAL = 8000, MAT_PLASMA = 8000)
+	materials = list(MAT_METAL = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
 
 /obj/item/smithed_item/component/bit_head/economical
 	name = "economical bit head"
 	desc = "This is the secondary component of an economical bit."
-	material_cost = list(MAT_METAL = 4000, MAT_PLASMA = 4000)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/economical
 
 /obj/item/smithed_item/component/bit_head/advanced
 	name = "advanced bit head"
 	desc = "This is the secondary component of an advanced bit."
-	material_cost = list(MAT_METAL = 4000, MAT_PLATINUM = 4000)
+	materials = list(MAT_METAL = 4000, MAT_PLATINUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
 /obj/item/smithed_item/component/lens_frame
@@ -827,43 +858,43 @@
 /obj/item/smithed_item/component/lens_frame/accelerator
 	name = "accelerator lens frame"
 	desc = "This is the primary component of an accelerator lens."
-	material_cost = list(MAT_TITANIUM = 4000)
+	materials = list(MAT_TITANIUM = 4000)
 	finished_product = /obj/item/smithed_item/lens/accelerator
 
 /obj/item/smithed_item/component/lens_frame/speed
 	name = "speed lens frame"
 	desc = "This is the primary component of a speed lens."
-	material_cost = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 4000)
 	finished_product = /obj/item/smithed_item/lens/speed
 
 /obj/item/smithed_item/component/lens_frame/amplifier
 	name = "amplifier lens frame"
 	desc = "This is the primary component of an amplifier lens."
-	material_cost = list(MAT_GOLD = 4000)
+	materials = list(MAT_GOLD = 4000)
 	finished_product = /obj/item/smithed_item/lens/amplifier
 
 /obj/item/smithed_item/component/lens_frame/efficiency
 	name = "efficiency lens frame"
 	desc = "This is the primary component of an efficiency lens."
-	material_cost = list(MAT_SILVER = 4000)
+	materials = list(MAT_SILVER = 4000)
 	finished_product = /obj/item/smithed_item/lens/efficiency
 
 /obj/item/smithed_item/component/lens_frame/rapid
 	name = "rapid lens frame"
 	desc = "This is the primary component of an advanced rapid lens."
-	material_cost = list(MAT_PALLADIUM = 2000)
+	materials = list(MAT_PALLADIUM = 2000)
 	finished_product = /obj/item/smithed_item/lens/rapid
 
 /obj/item/smithed_item/component/lens_frame/densifier
 	name = "densifier lens frame"
 	desc = "This is the primary component of an advanced densifier lens."
-	material_cost = list(MAT_PLATINUM = 2000)
+	materials = list(MAT_PLATINUM = 2000)
 	finished_product = /obj/item/smithed_item/lens/densifier
 
 /obj/item/smithed_item/component/lens_frame/velocity
 	name = "velocity lens frame"
 	desc = "This is the primary component of an advanced velocity lens."
-	material_cost = list(MAT_BRASS = 30000)
+	materials = list(MAT_BRASS = 30000)
 	finished_product = /obj/item/smithed_item/lens/velocity
 
 /obj/item/smithed_item/component/lens_focus
@@ -875,43 +906,43 @@
 /obj/item/smithed_item/component/lens_focus/accelerator
 	name = "accelerator lens focus"
 	desc = "This is the secondary component of an accelerator lens."
-	material_cost = list(MAT_METAL = 4000, MAT_GLASS = 10000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 10000)
 	finished_product = /obj/item/smithed_item/lens/accelerator
 
 /obj/item/smithed_item/component/lens_focus/speed
 	name = "speed lens focus"
 	desc = "This is the secondary component of a speed lens."
-	material_cost = list(MAT_PLASMA = 4000, MAT_GLASS = 10000)
+	materials = list(MAT_PLASMA = 4000, MAT_GLASS = 10000)
 	finished_product = /obj/item/smithed_item/lens/speed
 
 /obj/item/smithed_item/component/lens_focus/amplifier
 	name = "amplifier lens focus"
 	desc = "This is the secondary component of an amplifier lens."
-	material_cost = list(MAT_TITANIUM = 4000, MAT_GLASS = 10000)
+	materials = list(MAT_TITANIUM = 4000, MAT_GLASS = 10000)
 	finished_product = /obj/item/smithed_item/lens/amplifier
 
 /obj/item/smithed_item/component/lens_focus/efficiency
 	name = "efficiency lens focus"
 	desc = "This is the secondary component of an efficiency lens."
-	material_cost = list(MAT_METAL = 4000, MAT_GLASS = 10000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 10000)
 	finished_product = /obj/item/smithed_item/lens/efficiency
 
 /obj/item/smithed_item/component/lens_focus/rapid
 	name = "rapid lens focus"
 	desc = "This is the secondary component of an advanced rapid lens."
-	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
+	materials = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 	finished_product = /obj/item/smithed_item/lens/rapid
 
 /obj/item/smithed_item/component/lens_focus/densifier
 	name = "densifier lens focus"
 	desc = "This is the secondary component of an advanced densifier lens."
-	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
+	materials = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 	finished_product = /obj/item/smithed_item/lens/densifier
 
 /obj/item/smithed_item/component/lens_focus/velocity
 	name = "velocity lens focus"
 	desc = "This is the secondary component of an advanced velocity lens."
-	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
+	materials = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 	finished_product = /obj/item/smithed_item/lens/velocity
 
 /obj/item/smithed_item/component/trim
@@ -923,85 +954,85 @@
 /obj/item/smithed_item/component/trim/metal
 	name = "metal trim"
 	desc = "Smithed component of any smithing item. Made of metal."
-	material_cost = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 10000)
 	material = /datum/smith_material/metal
 
 /obj/item/smithed_item/component/trim/silver
 	name = "silver trim"
 	desc = "Smithed component of any smithing item. Made of silver."
-	material_cost = list(MAT_SILVER = 10000)
+	materials = list(MAT_SILVER = 10000)
 	material = /datum/smith_material/silver
 
 /obj/item/smithed_item/component/trim/gold
 	name = "gold trim"
 	desc = "Smithed component of any smithing item. Made of gold."
-	material_cost = list(MAT_GOLD = 10000)
+	materials = list(MAT_GOLD = 10000)
 	material = /datum/smith_material/gold
 
 /obj/item/smithed_item/component/trim/plasma
 	name = "plasma trim"
 	desc = "Smithed component of any smithing item. Made of solid plasma."
-	material_cost = list(MAT_PLASMA = 10000)
+	materials = list(MAT_PLASMA = 10000)
 	material = /datum/smith_material/plasma
 
 /obj/item/smithed_item/component/trim/titanium
 	name = "titanium trim"
 	desc = "Smithed component of any smithing item. Made of titanium."
-	material_cost = list(MAT_TITANIUM = 10000)
+	materials = list(MAT_TITANIUM = 10000)
 	material = /datum/smith_material/titanium
 
 /obj/item/smithed_item/component/trim/uranium
 	name = "uranium trim"
 	desc = "Smithed component of any smithing item. Made of uranium."
-	material_cost = list(MAT_URANIUM = 10000)
+	materials = list(MAT_URANIUM = 10000)
 	material = /datum/smith_material/uranium
 
 /obj/item/smithed_item/component/trim/diamond
 	name = "diamond trim"
 	desc = "Smithed component of any smithing item. Made of diamond."
-	material_cost = list(MAT_DIAMOND = 10000)
+	materials = list(MAT_DIAMOND = 10000)
 	material = /datum/smith_material/diamond
 
 /obj/item/smithed_item/component/trim/bluespace
 	name = "bluespace trim"
 	desc = "Smithed component of any smithing item. Made of bluespace crystals."
-	material_cost = list(MAT_BLUESPACE = 10000)
+	materials = list(MAT_BLUESPACE = 10000)
 	material = /datum/smith_material/bluespace
 
 /obj/item/smithed_item/component/trim/plasteel
 	name = "plasteel trim"
 	desc = "Smithed component of any smithing item. Made of plasteel."
-	material_cost = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 10000)
 	material = /datum/smith_material/plasteel
 
 /obj/item/smithed_item/component/trim/plastitanium
 	name = "plastitanium trim"
 	desc = "Smithed component of any smithing item. Made of plastitanium."
-	material_cost = list(MAT_TITANIUM = 10000, MAT_PLASMA = 10000)
+	materials = list(MAT_TITANIUM = 10000, MAT_PLASMA = 10000)
 	material = /datum/smith_material/plastitanium
 
 /obj/item/smithed_item/component/trim/iridium
 	name = "iridium trim"
 	desc = "Smithed component of any smithing item. Made of iridium."
-	material_cost = list(MAT_IRIDIUM = 10000)
+	materials = list(MAT_IRIDIUM = 10000)
 	material = /datum/smith_material/iridium
 
 /obj/item/smithed_item/component/trim/palladium
 	name = "palladium trim"
 	desc = "Smithed component of any smithing item. Made of palladium."
-	material_cost = list(MAT_PALLADIUM = 10000)
+	materials = list(MAT_PALLADIUM = 10000)
 	material = /datum/smith_material/palladium
 
 /obj/item/smithed_item/component/trim/platinum
 	name = "platinum trim"
 	desc = "Smithed component of any smithing item. Made of platinum."
-	material_cost = list(MAT_PLATINUM = 10000)
+	materials = list(MAT_PLATINUM = 10000)
 	material = /datum/smith_material/platinum
 
 /obj/item/smithed_item/component/trim/brass
 	name = "brass trim"
 	desc = "Smithed component of any smithing item. Made of brass."
-	material_cost = list(MAT_BRASS = 10000)
+	materials = list(MAT_BRASS = 10000)
 	material = /datum/smith_material/brass
 
 #undef PART_PRIMARY

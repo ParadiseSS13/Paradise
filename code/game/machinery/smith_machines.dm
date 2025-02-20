@@ -3,7 +3,7 @@
 #define POINT_MULT_ADD_PER_RATING 0.10
 #define SHEET_MULT_ADD_PER_RATING 0.20
 #define OPERATION_SPEED_MULT_PER_RATING 0.25
-#define EFFICIENCY_MULT_ADD_PER_RATING 0.05
+#define EFFICIENCY_MULT_ADD_PER_RATING 0.1
 
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
@@ -213,7 +213,7 @@
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PALLADIUM, MAT_IRIDIUM, MAT_PLATINUM, MAT_BRASS), INFINITY, FALSE, /obj/item/stack, null, null)
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PALLADIUM, MAT_IRIDIUM, MAT_PLATINUM, MAT_BRASS), INFINITY, FALSE, list(/obj/item/stack, /obj/item/smithed_item), null, null)
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/magma_crucible(null)
@@ -283,7 +283,13 @@
 	/// The noise the machine makes when operating
 	var/operation_sound
 
+/obj/machinery/smithing/examine(mob/user)
+	. = ..()
+	if(working_component)
+		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
+
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -294,7 +300,7 @@
 
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return FINISH_ATTACK
 
 	if(!istype(used, /obj/item/smithed_item/component))
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
@@ -304,9 +310,6 @@
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 	working_component = used
-	operate(operation_time, user)
-	update_icon(UPDATE_ICON_STATE)
-	return ..()
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
@@ -315,9 +318,10 @@
 		if(stat & (NOPOWER|BROKEN))
 			return FALSE
 		use_power(500)
-		playsound(src, operation_sound, 50, TRUE)
+		if(operation_sound)
+			playsound(src, operation_sound, 50, TRUE)
 		sleep(1 SECONDS)
-	playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
+	playsound(src, 'sound/machines/recycler.ogg', 50, FALSE)
 	operating = FALSE
 
 /obj/machinery/smithing/proc/special_attack_grab(obj/item/grab/G, mob/user)
@@ -348,6 +352,9 @@
 	if(!working_component)
 		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
 		return
+	if(operating)
+		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		return
 	user.put_in_hands(working_component)
 	working_component = null
 
@@ -363,8 +370,6 @@
 	bound_height = 32
 	bound_width = 32
 	bound_y = 0
-	operation_time = 10 SECONDS
-	operating = FALSE
 	/// Linked magma crucible
 	var/obj/machinery/magma_crucible/linked_crucible
 	/// Operational Efficiency
@@ -385,6 +390,11 @@
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
 		return
+
+/obj/machinery/smithing/casting_basin/examine(mob/user)
+	. = ..()
+	if(cast)
+		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
 
 /obj/machinery/smithing/casting_basin/RefreshParts()
 	var/O = 0
@@ -427,41 +437,89 @@
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
 		return
-
+	if(operating)
+		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		return
 	user.put_in_hands(cast)
 	cast = null
 
 /obj/machinery/smithing/casting_basin/attack_hand(mob/user)
-	. = ..()
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast inserted!</span>")
-		return
+		return FINISH_ATTACK
 	if(!linked_crucible)
 		to_chat(user, "<span class='warning'>There is no linked magma crucible!</span>")
-		return
+		return FINISH_ATTACK
+	if(operating)
+		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		return FINISH_ATTACK
+
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
-	var/obj/item/product = cast.selected_product
+	var/obj/item/temp_product = new cast.selected_product // Product is stored as a type, I need a temporary item for handling material calcs
 	var/amount = cast.amount_to_make
-	var/datum/material/M
-	for(var/MAT in product.materials)
-		M = materials.materials[MAT]
-		var/stored = M.amount / MINERAL_MATERIAL_AMOUNT
-		if(istype(cast, /obj/item/smithing_cast/sheet))
-			amount = min(amount, stored, MAX_STACK_SIZE)
+	var/MAT
+
+	if(!istype(temp_product))
+		to_chat(user, "<span class='warning'>The product is not an item! This is a problem you should make an issue report about!</span>")
+		log_debug("Attempted to make [temp_product] at a casting basin, product is not an item.")
+		return FINISH_ATTACK
+
 	if(istype(cast, /obj/item/smithing_cast/component))
-		var /obj/item/smithing_cast/component/comp_cast = cast
-		product.materials = product.materials * comp_cast.quality.material_mult
-	materials.use_amount(product.materials, multiplier = amount)
+		var/obj/item/smithing_cast/component/comp_cast = cast
+		var/datum/smith_quality/quality = new comp_cast.quality
+		var/list/used_mats = list()
+
+		// Check if there is enough materials to craft the item
+		for(MAT in temp_product.materials)
+			used_mats[MAT] = (temp_product.materials[MAT] * quality.material_mult) / efficiency
+
+		if(!materials.has_materials(used_mats, 1))
+			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")
+			qdel(temp_product)
+			return FINISH_ATTACK
+
+		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		// Use the materials and create the item.
+		materials.use_amount(used_mats)
+		operate(operation_time, user)
+		var/obj/item/smithed_item/produced_item = new cast.selected_product(src.loc)
+		produced_item.quality = quality
+		produced_item.update_name()
+		produced_item.update_desc()
+		// Clean up temps
+		qdel(temp_product)
+		return FINISH_ATTACK
 
 	if(istype(cast, /obj/item/smithing_cast/sheet))
-		sleep((operation_time / 100) * amount)
-		var/obj/item/stack/new_stack = new product(src.loc)
-		new_stack.amount = amount
-	else
-		sleep(operation_time)
-		new product(src.loc)
+		// Get max amount of sheets (0-50)
+		var/datum/material/M
+		var/stored
 
-	// TODO: SMELTING
+		// Check if there is enough materials to craft the item
+		for(MAT in temp_product.materials)
+			M = materials.materials[MAT]
+			if(!stored)
+				stored = M.amount / MINERAL_MATERIAL_AMOUNT
+			else
+				stored = min(M.amount / MINERAL_MATERIAL_AMOUNT, stored)
+			if(istype(cast, /obj/item/smithing_cast/sheet))
+				amount = min(amount, stored, MAX_STACK_SIZE)
+		if(!amount)
+			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt a sheet of [temp_product.name]!</span>")
+			qdel(temp_product)
+			return FINISH_ATTACK
+
+		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
+		// Use the materials and create the item.
+		materials.use_amount(temp_product.materials, amount)
+		operate(operation_time, user)
+		var/obj/item/stack/new_stack = new cast.selected_product(src.loc)
+		new_stack.amount = amount
+
+		// Clean up temps
+		qdel(temp_product)
+		return FINISH_ATTACK
 
 /obj/machinery/smithing/power_hammer
 	name = "power hammer"
@@ -499,6 +557,15 @@
 	..()
 	working_component.powerhammer()
 	do_sparks(5, TRUE, src)
+
+/obj/machinery/smithing/power_hammer/attack_hand(mob/user)
+	. = ..()
+	if(operating)
+		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		return
+	operate(operation_time, user)
+	update_icon(UPDATE_ICON_STATE)
+	return FINISH_ATTACK
 
 /obj/machinery/smithing/power_hammer/special_attack(mob/user, mob/living/target)
 	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
@@ -551,6 +618,15 @@
 	..()
 	working_component.heat_up()
 
+/obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
+	. = ..()
+	if(operating)
+		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		return
+	operate(operation_time, user)
+	update_icon(UPDATE_ICON_STATE)
+	return FINISH_ATTACK
+
 /obj/machinery/smithing/lava_furnace/special_attack(mob/user, mob/living/target)
 	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 	if(!istype(head))
@@ -582,8 +658,6 @@
 	bound_height = 32
 	bound_width = 32
 	bound_y = 0
-	operation_time = 10 SECONDS
-	operating = FALSE
 	operation_sound = 'sound/items/welder.ogg'
 	/// Primary component
 	var/obj/item/smithed_item/component/primary
@@ -606,6 +680,13 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/smithing/kinetic_assembler/examine(mob/user)
+	. = ..()
+	if(primary || secondary || trim)
+		. += "<span class='notice'>You can activate the machine with your hand, or a component by alt-clicking.</span>"
+	if(finished_product)
+		. += "<span class='notice'>To complete the product, strike it with your hammer!</span>"
+
 /obj/machinery/smithing/kinetic_assembler/RefreshParts()
 	var/S = 0
 	for(var/obj/item/stock_parts/M in component_parts)
@@ -618,6 +699,9 @@
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
 
+	if(istype(used, /obj/item/hammer))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!istype(used, /obj/item/smithed_item/component))
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -628,8 +712,10 @@
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
 			primary.forceMove(src.loc)
 			primary = null
+		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the primary component slot of [src].</span>")
-		comp.forceMove(src)
 		primary = comp
 		return ITEM_INTERACT_COMPLETE
 
@@ -638,8 +724,10 @@
 			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
 			secondary.forceMove(src.loc)
 			secondary = null
+		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the secondary component slot of [src].</span>")
-		comp.forceMove(src)
 		secondary = comp
 		return ITEM_INTERACT_COMPLETE
 
@@ -648,13 +736,14 @@
 			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
 			trim.forceMove(src.loc)
 			trim = null
+		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the trim component slot of [src].</span>")
-		comp.forceMove(src)
 		trim = comp
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/kinetic_assembler/attack_hand(mob/user)
-	. = ..()
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK
@@ -671,18 +760,21 @@
 		to_chat(user, "<span class='warning'>[primary] does not match [secondary]!</span>")
 		return FINISH_ATTACK
 
-	operate()
+	operate(operation_time, user)
+	return FINISH_ATTACK
 
-/obj/machinery/smithing/kinetic_assembler/operate()
+/obj/machinery/smithing/kinetic_assembler/operate(loops, mob/living/user)
 	..()
 	finished_product = new primary.finished_product(src)
 	var/quality_list = list(primary.quality, secondary.quality, trim.quality)
-	var/datum/smith_quality/lowest = quality_list[0]
+	var/datum/smith_quality/lowest = quality_list[1]
 	for(var/datum/smith_quality/quality in quality_list)
 		if(quality.stat_mult < lowest.stat_mult)
 			lowest = quality
 	finished_product.quality = lowest
 	finished_product.material = trim.material
+	finished_product.set_stats()
+	finished_product.update_name()
 	qdel(primary)
 	qdel(secondary)
 	qdel(trim)
