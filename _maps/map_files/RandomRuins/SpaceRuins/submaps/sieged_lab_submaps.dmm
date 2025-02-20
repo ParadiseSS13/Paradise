@@ -8,13 +8,6 @@
 	icon_state = "whitepurple"
 	},
 /area/template_noop)
-"ab" = (
-/obj/machinery/suit_storage_unit,
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/template_noop)
 "an" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
@@ -224,7 +217,7 @@
 /turf/template_noop,
 /area/template_noop)
 "fA" = (
-/obj/effect/spawner/random/syndicate/mine,
+/obj/effect/spawner/random/mine,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/template_noop,
 /area/template_noop)
@@ -774,7 +767,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "qf" = (
-/obj/effect/spawner/random/syndicate/mine,
+/obj/effect/spawner/random/mine,
 /obj/effect/spawner/random/engineering/materials,
 /turf/template_noop,
 /area/template_noop)
@@ -929,7 +922,6 @@
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -945,7 +937,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ts" = (
-/obj/effect/spawner/random/syndicate/mine,
+/obj/effect/spawner/random/mine,
 /turf/template_noop,
 /area/template_noop)
 "tt" = (
@@ -1117,7 +1109,6 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "xV" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2001,7 +1992,6 @@
 /area/template_noop)
 "QC" = (
 /obj/machinery/economy/vending/boozeomat,
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "QG" = (
@@ -2206,10 +2196,6 @@
 "WK" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/plating,
-/area/template_noop)
-"WQ" = (
-/obj/machinery/door/poddoor/multi_tile/impassable,
-/turf/template_noop,
 /area/template_noop)
 "WS" = (
 /obj/machinery/mech_bay_recharge_port,
@@ -3946,7 +3932,7 @@ nK
 "}
 (25,1,1) = {"
 nK
-WQ
+nK
 nK
 nK
 nK
@@ -4873,7 +4859,7 @@ nK
 nK
 Fw
 nB
-ab
+nB
 nK
 nK
 nK

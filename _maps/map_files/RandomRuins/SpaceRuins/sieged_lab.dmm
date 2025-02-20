@@ -504,10 +504,10 @@
 /area/ruin/space/sieged_lab)
 "xV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
 	id_tag = "SL_EndRoom"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -1049,13 +1049,13 @@
 /turf/simulated/wall,
 /area/ruin/space/sieged_lab)
 "ZN" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	id_tag = "SL_EndRoom"
-	},
 /obj/machinery/door/airlock/command{
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+	id_tag = "SL_EndRoom"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 

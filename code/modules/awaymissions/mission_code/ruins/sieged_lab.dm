@@ -42,22 +42,17 @@
 	internal_gps = null
 	faction = list("syndicate", "spawned_corpse")
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/doors_opened = FALSE
 	pixel_x = 0
 	medal_type = null
 	score_type = null
 	crusher_loot = list()
-	loot = (/obj/item/melee/energy/sword/saber/red)
+	rapid_melee = 5 // 4 decisecond cooldown before charges, SSnpc wait is 20, 20/4 = 5
+	loot = (/obj/item/melee/razorwire/harbinger)
 
-/obj/item/melee/energy/cleaving_saw/syndicate_harbinger
-	name = "energy sword"
+/obj/item/melee/razorwire/harbinger
 	force = 15
-	force_on = 20
-	icon = 'icons/obj/weapons/energy_melee.dmi'
-	icon_state = "swordred"
-	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
-	usesound = 'sound/weapons/blade1.ogg'
-	is_a_cleaving_saw = FALSE
 
 /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 	icon = 'icons/mob/simple_human.dmi'
@@ -84,7 +79,7 @@
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/Initialize(mapload)
 	. = ..()
 	qdel(miner_saw)
-	miner_saw = new/obj/item/melee/energy/cleaving_saw/syndicate_harbinger(src)
+	miner_saw = new/obj/item/melee/razorwire/harbinger(src)
 
 	set_light(2, 2, COLOR_RED)
 
@@ -103,8 +98,6 @@
 		return
 	for(var/obj/O in T.contents)
 		if(!O.Adjacent(targets_from))
-			continue
-		if((istype(O, /obj/structure/window)))
 			continue
 		if((ismachinery(O) || isstructure(O)) && O.density && environment_smash >= ENVIRONMENT_SMASH_STRUCTURES && !O.IsObscured())
 			O.attack_animal(src)
@@ -149,7 +142,14 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 
 /obj/machinery/door/airlock/bloody
 	icon_state = "closed_bloody"
+	closed_icon_state = "closed_bloody"
 	opening_icon_state = "opening_bloody"
 	closing_icon_state = "closing_bloody"
-	glass = TRUE // so we don't add a fill overlay
-	opacity = TRUE // but we're still opaque
+	airlock_material = "_" // sentinel value so we don't try adding fillers of any kind
+
+/obj/effect/spawner/random/mine
+	name = "50pc landmine"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "mine"
+	loot = list(/obj/effect/mine)
+	spawn_loot_chance = 50
