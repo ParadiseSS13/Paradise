@@ -64,6 +64,7 @@
 	// Disabilities
 	GLOB.lispblock      = getAssignedBlock("LISP",       numsToAssign)
 	GLOB.muteblock      = getAssignedBlock("MUTE",       numsToAssign)
+	GLOB.paraplegicblock= getAssignedBlock("PARAPLEGIC", numsToAssign)
 	GLOB.radblock       = getAssignedBlock("RAD",        numsToAssign)
 	GLOB.fatblock       = getAssignedBlock("FAT",        numsToAssign)
 	GLOB.chavblock      = getAssignedBlock("CHAV",       numsToAssign)
