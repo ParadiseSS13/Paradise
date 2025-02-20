@@ -157,6 +157,16 @@ Difficulty: Medium
 	transform_stop_attack = FALSE
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/butcher(mob/living/L)
+	visible_message("<span class='danger'>[src] butchers [L]!</span>",
+	"<span class='userdanger'>You butcher [L], restoring your health!</span>")
+	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
+		if(guidance)
+			adjustHealth(-L.maxHealth)
+		else
+			adjustHealth(-(L.maxHealth * 0.5))
+	L.gib()
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/AttackingTarget()
 	if(client)
 		transform_stop_attack = FALSE
@@ -166,14 +176,7 @@ Difficulty: Medium
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			visible_message("<span class='danger'>[src] butchers [L]!</span>",
-			"<span class='userdanger'>You butcher [L], restoring your health!</span>")
-			if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-				if(guidance)
-					adjustHealth(-L.maxHealth)
-				else
-					adjustHealth(-(L.maxHealth * 0.5))
-			L.gib()
+			butcher(L)
 			return TRUE
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)

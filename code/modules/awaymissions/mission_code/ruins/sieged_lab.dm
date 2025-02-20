@@ -71,6 +71,14 @@
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/transform_weapon()
 	return
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/devour(mob/living/L)
+	// Gibbing seems a bit unfair
+	return FALSE
+
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/butcher(mob/living/L)
+	// Gibbing seems a bit unfair
+	return FALSE
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/Initialize(mapload)
 	. = ..()
 	qdel(miner_saw)
