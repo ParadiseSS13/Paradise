@@ -40,10 +40,6 @@
 "cs" = (
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/sieged_lab)
-"cA" = (
-/obj/item/gun/projectile/automatic/wt550,
-/turf/simulated/wall,
-/area/ruin/space/sieged_lab)
 "da" = (
 /obj/structure/table,
 /obj/item/storage/box/cups{
@@ -481,15 +477,6 @@
 /obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
-"xc" = (
-/obj/structure/gunrack{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/ruin/space/sieged_lab)
 "xd" = (
 /obj/structure/sign/engineering{
 	pixel_x = 32
@@ -719,6 +706,13 @@
 /area/template_noop)
 "GY" = (
 /turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/sieged_lab)
+"Hk" = (
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/wt550,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/ruin/space/sieged_lab)
 "Hq" = (
 /turf/simulated/wall/r_wall,
@@ -2269,8 +2263,8 @@ vg
 Gh
 Gh
 Gh
-cA
-xc
+ZK
+OI
 rd
 Hq
 lx
@@ -2330,7 +2324,7 @@ Gh
 Gh
 BT
 OI
-xF
+Hk
 Hq
 lx
 HI
