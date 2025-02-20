@@ -3,10 +3,14 @@
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
 	desc = "Debug smithing cast. If you see this, notify the development team."
+	w_class = WEIGHT_CLASS_SMALL
 	/// The selected final product of the item
 	var/obj/item/selected_product
 	/// Possible products of the item
-	var/possible_products = list()
+	var/list/possible_products = list()
+	/// How many products are we smelting at any given operation?
+	var/amount_to_make = 1
+
 	new_attack_chain = TRUE
 
 /obj/item/smithing_cast/Initialize(mapload)
@@ -17,7 +21,15 @@
 	. = ..()
 	if(!possible_products)
 		return
-	selected_product = tgui_input_list(user, "Select a product", src, possible_products)
+	var/list/product_names = list()
+	for(var/obj/item/product in possible_products)
+		product_names[product.name] = product
+	var/new_product = tgui_input_list(user, "Select a product", src, product_names)
+	if(!new_product)
+		selected_product = possible_products[1]
+	else
+		selected_product = product_names[new_product]
+	update_desc()
 
 /obj/item/smithing_cast/update_desc()
 	return ..()
@@ -29,11 +41,9 @@
 	name = "sheet cast"
 	icon_state = "sheet_cast"
 	desc = "A cast for forging molten minerals into workable sheets."
-	/// How many sheets are we smelting at any given operation?
-	var/sheet_number = 1
 
 /obj/item/smithing_cast/sheet/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [sheet_number] [selected_product][sheet_number == 1 ? "" : "s"]."
+	desc = "[initial(desc)] It is currently configured to make [amount_to_make] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
 	return ..()
 
 /obj/item/smithing_cast/sheet/populate_products()
@@ -53,29 +63,45 @@
 							/obj/item/stack/sheet/mineral/iridium,
 							/obj/item/stack/tile/brass
 							)
+	if(length(possible_products))
+		selected_product = possible_products[1]
+		update_desc()
 
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
-	sheet_number = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
+	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
+	update_desc()
 
 /obj/item/smithing_cast/component
 	name = "component cast"
 	desc = "Debug component cast. If you see this, notify the development team."
 	/// The selected quality of the item
-	var/datum/smith_quality/quality = /datum/smith_quality/standard
+	var/datum/smith_quality/quality = /datum/smith_quality
 	/// The type of product
 	var/product_type
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
 	. = ..()
-	quality = tgui_input_list(user, "Select a quality", src, (typesof(/datum/smith_quality) - list(/datum/smith_quality)))
+	var/list/quality_name_list = list()
+	var/list/quality_type_list = typesof(/datum/smith_quality)
+	for(var/datum/smith_quality/quality_type in quality_type_list)
+		quality_name_list[quality_type.name] = quality_type
+	var/selected_quality = tgui_input_list(user, "Select a quality", src, quality_name_list)
+	if(!selected_quality)
+		quality = quality_type_list[1]
+	else
+		quality = quality_name_list[selected_quality]
+	update_desc()
 
 /obj/item/smithing_cast/component/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [selected_product] at [quality]."
+	desc = "[initial(desc)] It is currently configured to make [selected_product.name] at [quality.name] quality."
 	return ..()
 
 /obj/item/smithing_cast/component/populate_products()
 	possible_products = (typesof(product_type) - list(product_type))
+	if(length(possible_products))
+		selected_product = possible_products[1]
+		update_desc()
 
 /obj/item/smithing_cast/component/insert_frame
 	name = "insert frame cast"
@@ -332,7 +358,13 @@
 	attached_tool.w_class -= size_mod
 	attached_tool.bit_failure_rate -= failure_rate
 	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod / efficiency_mod
+	attached_tool.attached_bits -= src
 	attached_tool = null
+
+/obj/item/smithed_item/tool_bit/proc/damage_bit()
+	durability--
+	if(durability == 0)
+		break_bit()
 
 /obj/item/smithed_item/tool_bit/proc/break_bit()
 	on_detached()
@@ -434,7 +466,13 @@
 		var/obj/item/projectile/e_bullet = casing.projectile_type
 		e_bullet.damage = e_bullet.damage / damage_mult
 		e_bullet.speed = e_bullet.speed * laser_speed_mult
+	attached_gun.current_lens = null
 	attached_gun = null
+
+/obj/item/smithed_item/lens/proc/damage_lens()
+	durability--
+	if(durability <= 0)
+		break_lens()
 
 /obj/item/smithed_item/lens/proc/break_lens()
 	on_detached()

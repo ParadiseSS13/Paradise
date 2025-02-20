@@ -68,18 +68,17 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
-
-/obj/item/gun/energy/AltClick(mob/user) // Take out a lense
-	. = ..()
-	if(!current_lens)
-		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
-		return
-	current_lens.on_detached()
-	user.put_in_hands(current_lens)
+	RegisterSignal(src, COMSIG_LENS_ATTACH, PROC_REF(attach_lens))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_lens))
 
 /obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
-	var/obj/item/smithed_item/lens/new_lens = I
+	if(istype(I, /obj/item/smithed_item/lens))
+		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, user, I)
+
+/obj/item/gun/energy/proc/attach_lens(mob/user, obj/item/smithed_item/lens/new_lens)
+	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
+
 	if(!istype(new_lens))
 		return
 	if(current_lens)
@@ -88,6 +87,15 @@
 	new_lens.forceMove(src)
 	current_lens = new_lens
 	new_lens.on_attached(user, src)
+
+/obj/item/gun/energy/proc/detach_lens(mob/user, obj/item/smithed_item/lens/new_lens)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+
+	if(!current_lens)
+		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		return
+	current_lens.on_detached()
+	user.put_in_hands(current_lens)
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -155,10 +163,7 @@
 	if(!chambered && can_shoot())
 		process_chamber()
 	if(current_lens)
-		current_lens.durability--
-		if(current_lens.durability <= 0)
-			current_lens.break_lens()
-			current_lens = null
+		current_lens.damage_lens()
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)

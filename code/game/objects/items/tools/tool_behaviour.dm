@@ -40,10 +40,7 @@
 
 	// If it has a bit, wear and tear
 	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
-		bit.durability--
-		if(bit.durability == 0)
-			attached_bits -= bit
-			bit.break_bit()
+		bit.damage_bit()
 
 	// If it has a chance to fail, see if it failed
 	if(bit_failure_rate)

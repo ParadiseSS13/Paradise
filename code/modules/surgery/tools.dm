@@ -10,11 +10,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_RETRACTOR
-	can_have_bits = TRUE
 
 /obj/item/retractor/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
@@ -34,11 +35,12 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 	tool_behaviour = TOOL_HEMOSTAT
-	can_have_bits = TRUE
 
 /obj/item/hemostat/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -58,7 +60,11 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
-	can_have_bits = TRUE
+
+/obj/item/cautery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
@@ -106,11 +112,12 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
-	can_have_bits = TRUE
 
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>",
@@ -144,12 +151,13 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	tool_behaviour = TOOL_SCALPEL
-	can_have_bits = TRUE
 
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/surgery_initiator)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 
 /obj/item/scalpel/suicide_act(mob/user)
@@ -247,11 +255,12 @@
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	tool_behaviour = TOOL_SAW
-	can_have_bits = TRUE
 
 /obj/item/circular_saw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
@@ -272,11 +281,12 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONEGEL
-	can_have_bits = TRUE
 
 /obj/item/bonegel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/bonegel/augment
 	toolspeed = 0.5
@@ -293,11 +303,12 @@
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
-	can_have_bits = TRUE
 
 /obj/item/fix_o_vein/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/fix_o_vein/augment
 	toolspeed = 0.5
@@ -317,11 +328,12 @@
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONESET
-	can_have_bits = TRUE
 
 /obj/item/bonesetter/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5

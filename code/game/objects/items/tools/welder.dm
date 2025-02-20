@@ -25,7 +25,6 @@
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
-	can_have_bits = TRUE
 	var/maximum_fuel = 20
 	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
 	var/requires_fuel = TRUE
@@ -47,6 +46,8 @@
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)

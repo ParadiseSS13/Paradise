@@ -18,9 +18,13 @@
 	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
-	can_have_bits = TRUE
 
 	new_attack_chain = TRUE
+
+/obj/item/wrench/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

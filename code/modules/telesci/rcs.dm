@@ -18,7 +18,6 @@
 	throw_range = 5
 	toolspeed = 1
 	usesound = 'sound/weapons/flash.ogg'
-	can_have_bits = TRUE
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
@@ -28,6 +27,11 @@
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
+
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/rcs/get_cell()
 	return rcell

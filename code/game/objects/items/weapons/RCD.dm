@@ -236,7 +236,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
-	can_have_bits = TRUE
 	/// No ammo warning
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
 	/// The spark system used to create sparks when the user interacts with the RCD.
@@ -278,6 +277,8 @@
 
 /obj/item/rcd/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 	if(!length(possible_actions))
 		possible_actions = list()
 		for(var/action_type in subtypesof(/datum/rcd_act))

@@ -300,7 +300,9 @@
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	used.forceMove(src)
+	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
 	working_component = used
 	operate(operation_time, user)
 	update_icon(UPDATE_ICON_STATE)
@@ -415,8 +417,11 @@
 		to_chat(user, "<span class='warning'>[src] already has a cast inserted.</span>")
 		return
 
-	used.forceMove(src)
+	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
 	cast = used
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/casting_basin/AltClick(mob/living/user)
 	if(!cast)
@@ -436,23 +441,24 @@
 		return
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
 	var/obj/item/product = cast.selected_product
-	var/amount = 1
+	var/amount = cast.amount_to_make
 	var/datum/material/M
 	for(var/MAT in product.materials)
 		M = materials.materials[MAT]
 		var/stored = M.amount / MINERAL_MATERIAL_AMOUNT
 		if(istype(cast, /obj/item/smithing_cast/sheet))
-			var/obj/item/smithing_cast/sheet/sheet_cast = cast
-			amount = min(sheet_cast.sheet_number, stored, MAX_STACK_SIZE)
+			amount = min(amount, stored, MAX_STACK_SIZE)
 	if(istype(cast, /obj/item/smithing_cast/component))
 		var /obj/item/smithing_cast/component/comp_cast = cast
 		product.materials = product.materials * comp_cast.quality.material_mult
 	materials.use_amount(product.materials, multiplier = amount)
-	sleep(operation_time)
+
 	if(istype(cast, /obj/item/smithing_cast/sheet))
+		sleep((operation_time / 100) * amount)
 		var/obj/item/stack/new_stack = new product(src.loc)
 		new_stack.amount = amount
 	else
+		sleep(operation_time)
 		new product(src.loc)
 
 	// TODO: SMELTING

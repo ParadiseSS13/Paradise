@@ -23,7 +23,6 @@
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
-	can_have_bits = TRUE
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	/// Reference to whatever machine is held in the buffer
@@ -32,6 +31,11 @@
 	var/buffer_uid
 	/// Cooldown for detecting APCs
 	COOLDOWN_DECLARE(cd_apc_scan)
+
+/obj/item/multitool/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE

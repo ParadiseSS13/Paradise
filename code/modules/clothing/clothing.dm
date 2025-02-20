@@ -778,6 +778,8 @@
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()
+	RegisterSignal(src, COMSIG_INSERT_ATTACH, PROC_REF(attach_insert))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_insert))
 
 /**
  * Wrapper proc to apply shielding through AddComponent().
@@ -878,11 +880,20 @@
 /obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
 	return FALSE
 
-/obj/item/clothing/suit/AltClick(mob/user) // Take out an insert
-	. = ..()
+/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+	..()
+	if(istype(I, /obj/item/smithed_item/insert))
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, user, I)
+
+/obj/item/clothing/suit/proc/detach_insert(mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+
 	if(!length(inserts))
 		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
 		return
+	INVOKE_ASYNC(src, PROC_REF(finish_detach_insert), user)
+
+/obj/item/clothing/suit/proc/finish_detach_insert(mob/user)
 	var/obj/item/smithed_item/insert/old_insert
 	if(length(inserts) == 1)
 		old_insert = inserts[0]
@@ -893,9 +904,9 @@
 	old_insert.on_detached()
 	user.put_in_hands(old_insert)
 
-/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	var/obj/item/smithed_item/insert/new_insert = I
+/obj/item/clothing/suit/proc/attach_insert(mob/user, obj/item/smithed_item/insert/new_insert)
+	SIGNAL_HANDLER // COMSIG_INSERT_ATTACH
+
 	if(!istype(new_insert))
 		return
 	if(length(inserts) == insert_max)

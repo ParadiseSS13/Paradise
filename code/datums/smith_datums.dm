@@ -1,7 +1,7 @@
 // Quality
 
 /datum/smith_quality
-	var/name = "Boring Debug"
+	var/name = "standard"
 	/// How much does this quality improve stats?
 	var/stat_mult = 1.0
 	/// How many more materials does this quality require?
@@ -9,32 +9,26 @@
 	/// How much extra work is needed to produce this quality?
 	var/work_mult = 1.0
 
-/datum/smith_quality/standard
-	name = "Standard"
-	stat_mult = 1.0
-	material_mult = 1.0
-	work_mult = 1.0
-
 /datum/smith_quality/improved
-	name = "Improved"
+	name = "improved"
 	stat_mult = 1.25
 	material_mult = 1.5
 	work_mult = 2.0
 
 /datum/smith_quality/enhanced
-	name = "Enhanced"
+	name = "enhanced"
 	stat_mult = 1.5
 	material_mult = 2.0
 	work_mult = 3.0
 
 /datum/smith_quality/superior
-	name = "Superior"
+	name = "superior"
 	stat_mult = 1.75
 	material_mult = 3.0
 	work_mult = 4.5
 
 /datum/smith_quality/masterwork
-	name = "Masterwork"
+	name = "masterwork"
 	stat_mult = 2.0
 	material_mult = 4.0
 	work_mult = 6.0

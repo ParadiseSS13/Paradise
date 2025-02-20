@@ -21,7 +21,6 @@
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	tool_behaviour = TOOL_SCREWDRIVER
-	can_have_bits = TRUE
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
 	new_attack_chain = TRUE
@@ -30,6 +29,8 @@
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"

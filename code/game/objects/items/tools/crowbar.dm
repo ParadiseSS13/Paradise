@@ -17,10 +17,14 @@
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
-	can_have_bits = TRUE
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
+
+/obj/item/crowbar/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"

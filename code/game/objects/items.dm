@@ -178,8 +178,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/attached_bits = list()
 	/// Maximum number of bits
 	var/max_bits = 1
-	/// Can this item equip bits?
-	var/can_have_bits = FALSE
 	/// Failure rate of using this tool. Without a bit, defaults to 0 for no failure chance
 	var/bit_failure_rate = 0
 	/// Efficiency modifier for tools that use energy or fuel
@@ -447,20 +445,38 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			user.transfer_fingerprints_to(src)
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
-	else if(istype(I, /obj/item/smithed_item/tool_bit) && can_have_bits)
-		if(length(attached_bits) >= max_bits)
-			to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
-			return
-		var/obj/item/smithed_item/tool_bit/bit = I
-		bit.forceMove(src)
-		attached_bits += bit
-		bit.on_attached(user, src)
+	else if(istype(I, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, user, I)
 
-/obj/item/AltClick(mob/user)
-	. = ..()
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
+	if(!signal_result)
+		return FALSE
+	if(hit_reaction_chance >= 0) // Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+	return signal_result
+
+/// Used to add a bit through a signal
+/obj/item/proc/add_bit(mob/user, obj/item/smithed_item/tool_bit/bit)
+	SIGNAL_HANDLER // COMSIG_BIT_ATTACH
+	if(length(attached_bits) >= max_bits)
+		to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
+		return
+	bit.forceMove(src)
+	attached_bits += bit
+	bit.on_attached(user, src)
+
+/// Used to remove a bit through a signal
+/obj/item/proc/remove_bit(mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+
 	if(!length(attached_bits))
 		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
 		return
+
+	INVOKE_ASYNC(src, PROC_REF(finish_remove_bit), user)
+
+/obj/item/proc/finish_remove_bit(mob/user)
 	var/obj/item/smithed_item/tool_bit/old_bit
 	if(length(attached_bits) == 1)
 		old_bit = attached_bits[0]
@@ -470,14 +486,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	old_bit.on_detached()
 	user.put_in_hands(old_bit)
-
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
-	if(!signal_result)
-		return FALSE
-	if(hit_reaction_chance >= 0) // Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-	return signal_result
 
 /// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc. Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
