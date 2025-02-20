@@ -233,8 +233,10 @@
 	sheet_per_ore = S
 
 /obj/machinery/magma_crucible/proc/animate_transfer()
+/*  MARK: Todo: Switch to Overlays 
 	icon_state = "crucible_input"
 	addtimer(VARSET_CALLBACK(src, icon_state, "crucible"), 3 SECONDS)
+*/
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
