@@ -87,8 +87,11 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_NORMAL
 	level = 2
+	/// Will the constructed pipe be flipped
 	var/flipped = FALSE
+	/// The label that will be put on the constructed pipe when this is wrenched down
 	var/label = null
+	/// The type of the pipe that will be created when this is wrenched down
 	var/makes_type = null
 
 /obj/item/pipe/Initialize(mapload, new_pipe_type, new_dir, obj/machinery/atmospherics/make_from)
