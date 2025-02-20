@@ -113,7 +113,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
-		)
+	)
 
 /obj/item/clothing/gloves/handwraps
 	name = "cloth handwraps"
