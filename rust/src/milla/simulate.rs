@@ -681,7 +681,7 @@ pub(crate) fn apply_tile_mode(
             if my_next_tile.temperature() > SPACE_COOLING_THRESHOLD {
                 let excess_thermal_energy = my_next_tile.thermal_energy
                     - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
-                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_RATIO * excess_thermal_energy)
+                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_TEMPERATURE_RATIO * my_next_tile.temperature())
                     .min(excess_thermal_energy);
                 my_next_tile.thermal_energy -= cooling;
             }
