@@ -22,8 +22,8 @@
 #define MOVEMENT_LOOP_IGNORE_GLIDE (1<<2)
 ///Should we not update our movables dir on move?
 #define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
-///Is the loop moving the movable outside its control, like it's an external force? e.g. footsteps won't play if enabled.
-#define MOVEMENT_LOOP_OUTSIDE_CONTROL (1<<4)
+///Controls how the loop will set momentum_change in its Move call.
+#define MOVEMENT_LOOP_NO_MOMENTUM_CHANGE (1<<4)
 
 // Movement loop status flags
 /// Has the loop been paused, soon to be resumed?
@@ -54,12 +54,13 @@
 #define ACTIVE_MOVEMENT_OLDLOCS 4
 
 /// The arguments of this macro correspond directly to the argument order of /atom/movable/proc/Moved
-#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced, _oldlocs) \
+#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced, _oldlocs, _momentum_change) \
 	active_movement = list( \
 		_old_loc, \
 		_direction, \
 		_forced, \
 		_oldlocs, \
+		_momentum_change, \
 	)
 
 /// Finish any active movements
