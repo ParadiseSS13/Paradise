@@ -86,12 +86,6 @@
 /obj/effect/spawner/themed_mess/dirty,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
-"gu" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	color = "#ff7f00"
-	},
-/turf/simulated/wall,
-/area/ruin/space/sieged_lab)
 "gv" = (
 /obj/structure/sign/directions/bridge{
 	dir = 1
@@ -117,12 +111,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
-	},
-/area/ruin/space/sieged_lab)
-"jw" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
 	},
 /area/ruin/space/sieged_lab)
 "jC" = (
@@ -170,6 +158,9 @@
 "kr" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kA" = (
@@ -248,6 +239,10 @@
 "oI" = (
 /obj/structure/sign/directions/security{
 	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8;
+	color = "#ff7f00"
 	},
 /turf/simulated/wall,
 /area/ruin/space/sieged_lab)
@@ -602,6 +597,12 @@
 	dir = 8;
 	icon_state = "red"
 	},
+/area/ruin/space/sieged_lab)
+"Ce" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "CY" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1002,6 +1003,15 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common,
 /turf/simulated/floor/plasteel{
 	dir = 8;
+	icon_state = "neutral"
+	},
+/area/ruin/space/sieged_lab)
+"Yk" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	color = "#ff7f00"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "neutral"
 	},
 /area/ruin/space/sieged_lab)
@@ -2255,11 +2265,11 @@ ZK
 ZK
 lx
 tZ
-jw
+tZ
 Gh
 Gh
 Gh
-vg
+xr
 Gh
 Gh
 Gh
@@ -2490,12 +2500,12 @@ NN
 DW
 xr
 NN
-HI
-gu
+Yk
+ZK
 Gh
 Gh
-Gh
-gu
+Ce
+ZK
 Gh
 Gh
 Gh
@@ -2551,11 +2561,11 @@ ZK
 lx
 HI
 oI
-uk
 ZK
 ZK
 ZK
 uk
+ZK
 ZK
 ZK
 Hq
@@ -3133,7 +3143,7 @@ Gh
 Gh
 Gh
 Gh
-vg
+xr
 Gh
 Gh
 Gh
@@ -3369,7 +3379,7 @@ SP
 nY
 Gh
 kr
-gu
+ZK
 Gh
 Gh
 Gh
@@ -3428,8 +3438,8 @@ SP
 ZK
 ZK
 ZK
-ZK
 uk
+ZK
 ZK
 ZK
 ZK

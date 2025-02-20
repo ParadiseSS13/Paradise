@@ -882,6 +882,10 @@
 	icon_state = "whiteblue"
 	},
 /area/template_noop)
+"sC" = (
+/obj/machinery/door/airlock/bloody,
+/turf/template_noop,
+/area/template_noop)
 "sF" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
 /obj/structure/barricade/sandbags,
@@ -2118,6 +2122,10 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"TX" = (
+/obj/machinery/door/airlock,
+/turf/template_noop,
+/area/template_noop)
 "TZ" = (
 /obj/structure/firelock_frame,
 /turf/template_noop,
@@ -2198,6 +2206,10 @@
 "WK" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/plating,
+/area/template_noop)
+"WQ" = (
+/obj/machinery/door/poddoor/multi_tile/impassable,
+/turf/template_noop,
 /area/template_noop)
 "WS" = (
 /obj/machinery/mech_bay_recharge_port,
@@ -3934,7 +3946,7 @@ nK
 "}
 (25,1,1) = {"
 nK
-nK
+WQ
 nK
 nK
 nK
@@ -4330,25 +4342,25 @@ nK
 "}
 (31,1,1) = {"
 nK
-nK
+TX
 mY
 mt
 EY
 nK
 nK
-nK
+TX
 ZV
 zF
 Oo
 nK
 nK
-nK
+TX
 mY
 mY
 mY
 nK
 nK
-nK
+sC
 vB
 gN
 yI
@@ -4593,26 +4605,26 @@ nK
 nK
 "}
 (35,1,1) = {"
-nK
 bo
+nK
 dy
 ku
 FU
 nK
-nK
 bo
+nK
 Nn
 lm
 Uh
 nK
-nK
 bo
+nK
 XW
 tt
 XW
 nK
-nK
 bo
+nK
 Rh
 nK
 nK
@@ -4660,7 +4672,6 @@ nK
 "}
 (36,1,1) = {"
 nK
-nK
 Nv
 nK
 nK
@@ -4680,6 +4691,7 @@ nK
 nK
 nK
 Nv
+nK
 nK
 nK
 nK
@@ -5122,19 +5134,19 @@ nK
 "}
 (43,1,1) = {"
 nK
-nK
+TX
 nk
 lm
 Ju
 nK
 nK
-nK
+TX
 rw
 Me
 lm
 nK
 nK
-nK
+TX
 aS
 Lz
 Lz
@@ -5385,20 +5397,20 @@ nK
 nK
 "}
 (47,1,1) = {"
-nK
 bo
+nK
 dA
 Nb
 XV
 nK
-nK
 bo
+nK
 qX
 WW
 so
 nK
-nK
 bo
+nK
 Af
 an
 an
@@ -5452,7 +5464,6 @@ nK
 "}
 (48,1,1) = {"
 nK
-nK
 Nv
 nK
 nK
@@ -5466,6 +5477,7 @@ nK
 nK
 nK
 Nv
+nK
 nK
 nK
 nK

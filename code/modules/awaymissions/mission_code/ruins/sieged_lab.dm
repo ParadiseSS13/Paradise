@@ -146,3 +146,10 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 	loot = list(
 		/obj/item/paper/sieged_lab_research_paper
 	)
+
+/obj/machinery/door/airlock/bloody
+	icon_state = "closed_bloody"
+	opening_icon_state = "opening_bloody"
+	closing_icon_state = "closing_bloody"
+	glass = TRUE // so we don't add a fill overlay
+	opacity = TRUE // but we're still opaque
