@@ -485,17 +485,15 @@
 	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost * power_mult
-		var/obj/item/projectile/e_bullet = casing.projectile_type
-		e_bullet.damage = e_bullet.damage * damage_mult
-		e_bullet.speed = e_bullet.speed / laser_speed_mult
+		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost / power_mult
-		var/obj/item/projectile/e_bullet = casing.projectile_type
-		e_bullet.damage = e_bullet.damage / damage_mult
-		e_bullet.speed = e_bullet.speed * laser_speed_mult
+		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
 	attached_gun.current_lens = null
 	attached_gun = null
 
