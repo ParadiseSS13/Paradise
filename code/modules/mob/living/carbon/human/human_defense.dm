@@ -281,10 +281,6 @@ emp_act
 			return right_hand_parry.parent
 	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
-
 /mob/living/carbon/human/emp_act(severity)
 	..()
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
@@ -497,11 +493,6 @@ emp_act
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
 			return FALSE
-
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
-		return FALSE
-
 
 	send_item_attack_message(I, user, hit_area)
 
@@ -781,7 +772,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
@@ -842,7 +833,7 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD)) // hit mobs that are intentionally lying down to prevent combat crawling.
+	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) // hit mobs that are intentionally lying down to prevent combat crawling.
 
 /mob/living/carbon/human/canBeHandcuffed()
 	return has_left_hand() || has_right_hand()

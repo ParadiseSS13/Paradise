@@ -30,44 +30,44 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
-/obj/machinery/recharger/attackby__legacy__attackchain(obj/item/G, mob/user, params)
-	var/allowed = is_type_in_list(G, allowed_devices)
+/obj/machinery/recharger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/allowed = is_type_in_list(used, allowed_devices)
 
 	if(!allowed)
 		return ..()
 
-	. = TRUE
-
 	if(!anchored)
 		to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(charging)
 		to_chat(user, "<span class='warning'>There's \a [charging] inserted in [src] already!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
 	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
-		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
-		return
+		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [used].</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(G, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = G
+	if(istype(used, /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = used
 		if(!E.can_charge)
 			to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item())
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	G.forceMove(src)
-	charging = G
+	used.forceMove(src)
+	charging = used
 	change_power_mode(ACTIVE_POWER_USE)
-	using_power = check_cell_needs_recharging(get_cell_from(G))
+	using_power = check_cell_needs_recharging(get_cell_from(used))
 	update_icon()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))

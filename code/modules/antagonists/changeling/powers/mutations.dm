@@ -213,6 +213,20 @@
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
+	/// Used for deleting gun after hitting something
+	var/hit_something = FALSE
+	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
+	var/shooting_right_now = FALSE 
+
+/obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	shooting_right_now = TRUE
+	. = ..()
+	shooting_right_now = FALSE
+	check_should_delete()
+
+/obj/item/gun/magic/tentacle/proc/check_should_delete()
+	if(!shooting_right_now && hit_something)
+		qdel(src)
 
 /obj/item/gun/magic/tentacle/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
@@ -294,7 +308,8 @@
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	var/mob/living/carbon/human/H = firer
-	qdel(source.gun)
+	source.gun.hit_something = TRUE
+	source.gun.check_should_delete()
 	if(blocked >= 100)
 		return FALSE
 	if(isitem(target))
@@ -353,8 +368,8 @@
 			add_attack_logs(H, C, "imobilised with a changeling tentacle")
 			if(!iscarbon(H))
 				return TRUE
-			var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
-			B.Crossed(C)
+			var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(get_turf(L))
+			B.on_atom_entered(C, L)
 			return TRUE
 
 		if(INTENT_HARM)
@@ -418,30 +433,12 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses = 6
-
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
-/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
-	. = ..()
-	if(!.)
-		return
-	if(remaining_uses < 1)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			H.unequip(src, force = TRUE)
-		qdel(src)
-		return FALSE
-	else
-		remaining_uses--
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|

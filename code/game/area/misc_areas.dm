@@ -50,6 +50,7 @@
 
 /area/game_test
 	name = "Game Test Area"
+	requires_power = FALSE
 
 //SYNDICATES
 
@@ -63,3 +64,11 @@
 
 /area/syndicate_mothership/jail
 	name = "\improper Syndicate Jail"
+
+/area/cordon
+	name = "CORDON"
+	icon_state = "cordon"
+	requires_power = FALSE
+	always_unpowered = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	valid_territory = FALSE

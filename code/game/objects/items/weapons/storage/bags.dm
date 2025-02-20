@@ -98,7 +98,7 @@
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
-	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
+	desc = "An advanced trash bag that uses experimental bluespace technology to send stored trash to a specialized pocket dimension."
 	icon_state = "bluetrashbag"
 	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
@@ -179,16 +179,25 @@
 	. = ..()
 	if(listening_to == user)
 		return
+	begin_listening(src, user)
+
+/obj/item/storage/bag/ore/proc/begin_listening(datum/source, mob/user) // Even though its unused, the datum/source argument is required to make the signals work.
+	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_ACTIVATED
 	if(listening_to)
 		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(pickup_ores))
 	listening_to = user
 
-/obj/item/storage/bag/ore/dropped()
-	. = ..()
+/obj/item/storage/bag/ore/proc/end_listening()
+	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_DEACTIVATED
 	if(listening_to)
 		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
 		listening_to = null
+
+
+/obj/item/storage/bag/ore/dropped()
+	. = ..()
+	end_listening()
 
 /obj/item/storage/bag/ore/proc/pickup_ores(mob/living/user)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
@@ -207,6 +216,16 @@
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP
+
+/obj/item/storage/bag/ore/cyborg/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CYBORG_ITEM_ACTIVATED, PROC_REF(begin_listening))
+	RegisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED, PROC_REF(end_listening))
+
+/obj/item/storage/bag/ore/cyborg/Destroy()
+	UnregisterSignal(src, COMSIG_CYBORG_ITEM_ACTIVATED)
+	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
+	return ..()
 
 /// miners, your messiah has arrived
 /obj/item/storage/bag/ore/holding

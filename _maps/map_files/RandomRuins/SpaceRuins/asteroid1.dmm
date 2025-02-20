@@ -9,6 +9,10 @@
 "c" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/unpowered)
+"l" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "V" = (
 /turf/template_noop,
 /area/template_noop)
@@ -149,7 +153,7 @@ V
 V
 V
 b
-b
+l
 V
 V
 V

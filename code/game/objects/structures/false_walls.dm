@@ -287,6 +287,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
+	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat() > 300)
@@ -404,6 +405,15 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+
+/obj/structure/falsewall/backrooms
+	desc = "A strange wall that looks like cheap wallpaper and drywall."
+	icon = 'icons/turf/walls/backrooms_wall.dmi'
+	icon_state = "backrooms_wall-0"
+	base_icon_state = "backrooms_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BACKROOMS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BACKROOMS_WALLS)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"

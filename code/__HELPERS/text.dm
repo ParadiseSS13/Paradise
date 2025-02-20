@@ -293,7 +293,7 @@
 		return copytext(new_message, 1, length + 1)
 	if(delta == 1)
 		return new_message + " "
-	if(delta % 2)
+	if(ISODD(delta))
 		new_message = " " + new_message
 		delta--
 	var/spaces = add_lspace("",delta/2-1)

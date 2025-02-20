@@ -268,7 +268,7 @@
 	f = round(f)
 	f = max(low, f)
 	f = min(high, f)
-	if((f % 2) == 0) //Ensure the last digit is an odd number
+	if(ISEVEN(f)) //Ensure the last digit is an odd number
 		f += 1
 	return f
 
@@ -1561,12 +1561,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += T.contents
 		if(areas)
 			. |= T.loc
-
-/proc/turf_clear(turf/T)
-	for(var/atom/A in T)
-		if(A.simulated)
-			return FALSE
-	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")

@@ -34,7 +34,9 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0
+	flags = 0 // TODO, someday move all off the flags here to turf_flags
+
+	var/turf_flags = NONE
 
 	var/image/obscured	//camerachunks
 
@@ -282,8 +284,9 @@
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-
+	var/carryover_turf_flags = turf_flags & (RESERVATION_TURF|UNUSED_RESERVATION_TURF)
 	var/turf/W = new path(src)
+	W.turf_flags |= carryover_turf_flags
 	if(old_comp_lookup)
 		LAZYOR(W.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
@@ -478,27 +481,27 @@
 	if(SSticker)
 		GLOB.cameranet.update_visibility(src)
 
-/turf/attack_by(obj/item/attacking, mob/user, params)
-	if(..())
-		return TRUE
+/turf/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(can_lay_cable())
-		if(istype(attacking, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = attacking
+		if(istype(used, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = used
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
 					LC.attackby__legacy__attackchain(C, user)
-					return TRUE
+					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
-			return TRUE
-		else if(istype(attacking, /obj/item/rcl))
-			var/obj/item/rcl/R = attacking
+			return ITEM_INTERACT_COMPLETE
+		else if(istype(used, /obj/item/rcl))
+			var/obj/item/rcl/R = used
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby__legacy__attackchain(R, user)
-						return TRUE
+						return ITEM_INTERACT_COMPLETE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
+
+			return ITEM_INTERACT_COMPLETE
 
 /turf/proc/can_have_cabling()
 	return TRUE
@@ -672,11 +675,31 @@
 	get_turf_air(T).copy_from(air)
 
 /turf/simulated/proc/update_hotspot()
-	var/datum/gas_mixture/air = get_readonly_air()
-	if(air.fuel_burnt() < 0.001)
-		if(isnull(active_hotspot))
-			return FALSE
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	var/fuel_burnt = 0
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
 
+	if(active_hotspot.data_tick != SSair.milla_tick)
+		if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+			air = get_readonly_air()
+		else
+			air = bound_air
+		fuel_burnt = air.fuel_burnt()
+		if(air.hotspot_volume() > 0)
+			active_hotspot.temperature = air.hotspot_temperature()
+			active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+		else
+			active_hotspot.temperature = air.temperature()
+			active_hotspot.volume = CELL_VOLUME
+	else
+		fuel_burnt = active_hotspot.fuel_burnt
+
+	if(fuel_burnt < 0.001)
 		// If it's old, delete it.
 		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
@@ -684,18 +707,12 @@
 		else
 			return TRUE
 
-	if(isnull(active_hotspot))
-		active_hotspot = new(src)
-
 	active_hotspot.death_timer = SSair.milla_tick + 4
-	if(air.hotspot_volume() > 0)
-		active_hotspot.temperature = air.hotspot_temperature()
-		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
-	else
-		active_hotspot.temperature = air.temperature()
-		active_hotspot.volume = CELL_VOLUME
 
-	active_hotspot.update_visuals()
+	if(active_hotspot.update_tick == 0)
+		active_hotspot.update_visuals(active_hotspot.fuel_burnt)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+	active_hotspot.update_tick = (active_hotspot.update_tick + 1) % active_hotspot.update_interval
 	return TRUE
 
 /turf/simulated/proc/update_wind()
@@ -709,7 +726,14 @@
 
 	wind_effect.dir = wind_direction(wind_x, wind_y)
 
-	var/datum/gas_mixture/air = get_readonly_air()
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+		air = get_readonly_air()
+	else
+		air = bound_air
+
 	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	wind_effect.alpha = min(255, 5 + wind_strength * 25)

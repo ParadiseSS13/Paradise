@@ -225,7 +225,6 @@
 	name = "Suspicious Supply Depot"
 	description = "A syndicate supply depot, heavily stocked, but heavily guarded with an assortment of shields, sentry bots, armed operatives and more."
 	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list because of the shielding chance
 
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"

@@ -1566,7 +1566,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "iJ" = (
@@ -4230,7 +4230,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "za" = (
@@ -8043,7 +8043,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

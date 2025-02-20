@@ -72,11 +72,12 @@ CONTENTS:
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	var/combat_cooldown = 10 SECONDS
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
+	COOLDOWN_DECLARE(abductor_adrenaline)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -102,9 +103,7 @@ CONTENTS:
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -158,26 +157,20 @@ CONTENTS:
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
+		if(!COOLDOWN_FINISHED(src, abductor_adrenaline))
+			to_chat(loc, "<span class='warning'>Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
+		to_chat(loc, "<span class='notice'>You feel a series of pricks down your back, followed by a surge of energy!</span>")
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
 		M.stand_up(TRUE)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, abductor_adrenaline, combat_cooldown)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)
 			C.vest = null
@@ -265,9 +258,7 @@ CONTENTS:
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/abductor_baton/update_icon_state()
 	switch(mode)
