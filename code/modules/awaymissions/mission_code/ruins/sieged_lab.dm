@@ -46,6 +46,8 @@
 	pixel_x = 0
 	medal_type = null
 	score_type = null
+	crusher_loot = list()
+	loot = (/obj/item/melee/energy/sword/saber/red)
 
 /obj/item/melee/energy/cleaving_saw/syndicate_harbinger
 	name = "energy sword"
