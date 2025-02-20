@@ -637,6 +637,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return TRUE
 
 	face_atom(A)
+
 	if(!client)
 		var/list/result = A.examine(src)
 		to_chat(src, chat_box_examine(result.Join("\n")))
@@ -647,7 +648,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/key in client.recent_examines)
 		if(client.recent_examines[key] < world.time)
 			client.recent_examines -= key
+
 	var/ref_to_atom = A.UID()
+
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
@@ -657,8 +660,78 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(length(A.examine_more()))
 			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+		broadcast_examine(A)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+
+/// Tells nearby mobs about our examination.
+/mob/proc/broadcast_examine(atom/examined)
+	if(examined == src)
+		return
+
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+	if(isitem(examined))
+		var/obj/item/I = examined
+		if(I.in_storage)
+			if(get(I, /mob/living) == src)
+				loc_str = "inside [p_their()] [I.loc.name]..."
+			else
+				loc_str = "inside [I.loc]..."
+
+		else if(I.loc == src)
+			// Hide items in pockets.
+			if(get_slot_by_item(I) & ITEM_SLOT_BOTH_POCKETS)
+				loc_str = "inside [p_their()] pockets."
+			else
+				loc_str = "at [p_their()] [I.name]."
+
+			examining_worn_item = TRUE
+
+	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
+	if(examining_worn_item)
+		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/list/can_see_target = viewers(examined)
+	for(var/mob/M as anything in viewers(2, src))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
+			continue
+
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
+		else
+			to_chat(M, cannot_see_str)
+
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
+/mob/living/carbon/human/broadcast_examine(atom/examined)
+	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/mask = get_item_by_slot(ITEM_SLOT_MASK)
+	if(mask && ((mask.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
+		return
+
+	// We'll just assume if your eyes have tinted covering you can't see them very well.
+	if(get_total_tint())
+		return
+
+	return ..()
+
+/mob/dead/broadcast_examine(atom/examined)
+	return //Observers arent real the government is lying to you
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))

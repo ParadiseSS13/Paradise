@@ -58,6 +58,9 @@
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 
+/obj/item/organ/internal/cyberimp/eyes/hud/security/hidden
+	stealth_level = 4 // Only surgery or a body scanner with the highest tier of stock parts can detect this.
+
 /obj/item/organ/internal/cyberimp/eyes/hud/jani
 	name = "Janitor HUD implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."

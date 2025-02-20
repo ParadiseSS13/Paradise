@@ -67,6 +67,7 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -148,6 +149,8 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
 
+	hide_examine = TRUE
+
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = TRUE
 
@@ -220,6 +223,7 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision janitor HUD"

@@ -342,7 +342,7 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) >= (user.client.maxview() + 2))
+		if(get_dist(src, T) >= (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
