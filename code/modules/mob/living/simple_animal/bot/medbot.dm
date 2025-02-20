@@ -26,10 +26,45 @@
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
+	var/list/idle_phrases = list(
+		MEDIBOT_VOICED_MASK_ON = 'sound/voice/mradar.ogg',
+		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/voice/mcatch.ogg',
+		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/voice/msurgeon.ogg',
+		MEDIBOT_VOICED_LIKE_FLIES = 'sound/voice/mflies.ogg',
+		MEDIBOT_VOICED_DELICIOUS = 'sound/voice/mdelicious.ogg',
+	)
+
+	var/list/finish_healing_phrases = list(
+		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/voice/mpatchedup.ogg',
+		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/voice/mapple.ogg',
+		MEDIBOT_VOICED_FEEL_BETTER = 'sound/voice/mfeelbetter.ogg',
+	)
+
+	var/list/located_patient_phrases = list(
+		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/mcoming.ogg',
+		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/mhelp.ogg',
+		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/minjured.ogg',
+	)
+
+	var/list/patient_died_phrases = list(
+		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/voice/mno.ogg',
+		MEDIBOT_VOICED_LIVE = 'sound/voice/mlive.ogg',
+		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/mlost.ogg',
+	)
+
+	var/list/frustration_phrases = list(
+		MEDIBOT_VOICED_FUCK_YOU = 'sound/voice/mfuck_you.ogg',
+	)
+
+	/// The above lists joined into one, for one-place lookups
+	var/list/all_phrases
+
 	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/mob/living/carbon/patient = null
-	var/mob/living/carbon/oldpatient = null
+	/// UID of the previous patient. Used to avoid running selection checks on them if we failed to heal them.
+	var/previous_patient
+
 	var/oldloc = null
 	var/last_found = 0
 	var/last_warning = 0
@@ -129,6 +164,8 @@
 	prev_access = access_card.access
 	qdel(J)
 
+	all_phrases = idle_phrases + located_patient_phrases + finish_healing_phrases + patient_died_phrases + frustration_phrases
+
 	if(new_skin)
 		skin = new_skin
 	update_icon()
@@ -136,17 +173,19 @@
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
 	patient = null
-	oldpatient = null
+	previous_patient = null
 	oldloc = null
 	last_found = world.time
 	declare_cooldown = FALSE
+	frustration = 0
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	patient = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	last_found = world.time
+	frustration = 0
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
@@ -268,7 +307,7 @@
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		flick("medibot_spark", src)
 		if(user)
-			oldpatient = user
+			previous_patient = user.UID()
 
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
@@ -280,16 +319,13 @@
 	if(H.stat == DEAD)
 		return
 
-	if((H == oldpatient) && (world.time < last_found + 200))
+	if((H.UID() == previous_patient) && (world.time < last_found + 200))
 		return
 
 	if(assess_patient(H))
 		last_found = world.time
-		if((last_newpatient_speak + 300) < world.time) //Don't spam these messages!
-			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/mcoming.ogg', "Wait [H.name]! I want to help!" = 'sound/voice/mhelp.ogg', "[H.name], you appear to be injured!" = 'sound/voice/minjured.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+		if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
+			medbot_phrase(pick(located_patient_phrases), H)
 			last_newpatient_speak = world.time
 		return H
 	else
@@ -299,57 +335,57 @@
 	if(!..())
 		return
 
-	if(mode == BOT_HEALING)
-		return
+	switch(mode)
+		if(BOT_HEALING)
+			return
 
-	if(frustration > 8)
-		oldpatient = patient
+	if(frustration > 5)
+		previous_patient = patient.UID()
 		soft_reset()
+		medbot_phrase(MEDIBOT_VOICED_FUCK_YOU)
 
 	if(!patient)
 		if(!shut_up && prob(1))
-			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/mradar.ogg', "There's always a catch, and I'm the best there is." = 'sound/voice/mcatch.ogg', "I knew it, I should've been a plastic surgeon." = 'sound/voice/msurgeon.ogg', "What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/mflies.ogg', "Delicious!" = 'sound/voice/mdelicious.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(loc, messagevoice[message], 50, FALSE)
+			medbot_phrase(pick(idle_phrases))
+
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
-		oldpatient = patient
+		patient = scan(/mob/living/carbon/human, scan_range = scan_range)
 
-	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
-		if(mode != BOT_HEALING)
-			mode = BOT_HEALING
-			update_icon()
-			frustration = 0
-			medicate_patient(patient)
-		return
+	if(patient)
+		if((get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
+			if(mode != BOT_HEALING)
+				set_mode(BOT_HEALING)
+				update_icon()
+				medicate_patient(patient)
+			return
 
-	//Patient has moved away from us!
-	else if(patient && length(path) && (get_dist(patient,path[length(path)]) > 2))
-		path = list()
-		mode = BOT_IDLE
-		last_found = world.time
-
-	else if(stationary_mode && patient) //Since we cannot move in this mode, ignore the patient and wait for another.
-		soft_reset()
-		return
-
-	if(patient && !length(path) && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30, access = access_card.access)
-		mode = BOT_MOVING
-		if(!length(path)) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30, 1, access = access_card.access)
-			if(!length(path)) //Do not chase a patient we cannot reach.
-				soft_reset()
-
-	if(length(path) && patient)
-		if(!bot_move(path[length(path)]))
-			oldpatient = patient
+		else if(stationary_mode) //Since we cannot move in this mode, ignore the patient and wait for another.
 			soft_reset()
-		return
+			return
 
-	if(length(path) > 8 && patient)
-		frustration++
+		//Patient has moved away from us!
+		else if(!length(path) || (length(path) && (get_dist(patient, path[length(path)]) > 2)))
+			path = list()
+			set_mode(BOT_IDLE)
+			last_found = world.time
+
+		if(!length(path) && (get_dist(src,patient) > 1))
+			set_mode(BOT_PATHING)
+			path = get_path_to(src, patient, 30, access = access_card.access)
+			set_mode(BOT_MOVING)
+			if(!length(path)) //try to get closer if you can't reach the patient directly
+				path = get_path_to(src, patient, 30, 1, access = access_card.access)
+				if(!length(path)) //Do not chase a patient we cannot reach.
+					add_to_ignore(patient)
+					soft_reset()
+
+		if(length(path))
+			frustration++
+			if(!bot_move(path[length(path)]))
+				previous_patient = patient.UID()
+				soft_reset()
+			return
+
 
 	if(auto_patrol && !stationary_mode && !patient)
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
@@ -358,7 +394,6 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
-	return
 
 /mob/living/simple_animal/bot/medbot/proc/assess_beaker_injection(mob/living/carbon/C)
 	//If we have and are using a medicine beaker, return any reagent the patient is missing
@@ -431,7 +466,7 @@
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C
-		mode = BOT_HEALING
+		set_mode(BOT_HEALING)
 		update_icon()
 		medicate_patient(C)
 		update_icon()
@@ -444,20 +479,19 @@
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
+	set waitfor = FALSE
+
 	if(!on)
 		return
 
 	if(!istype(C))
-		oldpatient = patient
+		previous_patient = patient.UID()
 		soft_reset()
 		return
 
 	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
-		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
-		var/message = pick(messagevoice)
-		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
-		oldpatient = patient
+		medbot_phrase(pick(patient_died_phrases), C)
+		previous_patient = patient.UID()
 		soft_reset()
 		return
 
@@ -471,38 +505,39 @@
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
-		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg', "An apple a day keeps me away." = 'sound/voice/mapple.ogg', "Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
-		var/message = pick(messagevoice)
-		speak(message)
-		playsound(loc, messagevoice[message], 50, FALSE)
+		medbot_phrase(pick(finish_healing_phrases), C)
 		bot_reset()
 		return
-	else
-		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
-			soft_reset()
-			return
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-		addtimer(CALLBACK(src, PROC_REF(do_inject), C, !isnull(beaker_injection), reagent_id), 3 SECONDS)
+	if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
+		soft_reset()
 		return
 
-/mob/living/simple_animal/bot/medbot/proc/do_inject(mob/living/carbon/C, inject_beaker, reagent_id)
-	if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-		if(inject_beaker)
-			if(use_beaker && reagent_glass?.reagents.total_volume)
-				var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-				reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
-				reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
-		else
-			patient.reagents.add_reagent(reagent_id, injection_amount)
+	C.visible_message(
+		"<span class='danger'>[src] is trying to inject [patient]!</span>",
+		"<span class='userdanger'>[src] is trying to inject you!</span>"
+	)
 
-		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", "<span class='userdanger'>[src] injects you with its syringe!</span>")
-	else
+	if(!do_after(src, 3 SECONDS, target = C) || !on || (get_dist(src, patient) > 1) || !assess_patient(patient))
+		soft_reset()
 		visible_message("[src] retracts its syringe.")
+		return
 
-	update_icon()
-	soft_reset()
+	if(!isnull(beaker_injection))
+		if(use_beaker && reagent_glass?.reagents.total_volume)
+			var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+			reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
+			reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
+	else
+		patient.reagents.add_reagent(reagent_id, injection_amount)
+
+	C.visible_message(
+		"<span class='danger'>[src] injects [patient] with its syringe!</span>",
+		"<span class='userdanger'>[src] injects you with its syringe!</span>"
+	)
+
+	// Don't soft reset here, we already have a patient, only soft reset if we fail to heal them.
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
@@ -568,6 +603,14 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
+/// Given a proper medbot phrase key, say the line with any replacements, and play its sound.
+/mob/living/simple_animal/bot/medbot/proc/medbot_phrase(phrase, mob/target)
+	var/sound_path = all_phrases[phrase]
+	if(target)
+		phrase = replacetext(phrase, "%TARGET%", "[target]")
+
+	speak(phrase)
+	playsound(src, sound_path, 75, FALSE)
 
 #undef MEDBOT_MIN_HEALING_THRESHOLD
 #undef MEDBOT_MAX_HEALING_THRESHOLD

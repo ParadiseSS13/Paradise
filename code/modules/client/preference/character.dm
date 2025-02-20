@@ -833,6 +833,7 @@
 
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
+	var/will_slimify = FALSE
 
 	//Icon-based species colour.
 	var/coloured_tail
@@ -844,12 +845,17 @@
 			if(subtype_species) // Take certain attributes from our subtype to apply to our current species.
 				H.dna.species.updatespeciessubtype(H, subtype_species)
 				current_species = H.dna.species
+			icobase = current_species.icobase
 		else if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			var/obj/item/organ/external/chest/C = H.get_organ("chest")
+			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-		icobase = current_species.icobase
+		else
+			icobase = current_species.icobase
+		will_slimify = (istype(current_species, /datum/species/slime) && current_species.species_subtype != "None")
 		qdel(H)
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
@@ -882,9 +888,8 @@
 			bodypart.Blend(new /icon(R.icon, "[name]"), ICON_OVERLAY)
 			preview_icon.Blend(bodypart, ICON_OVERLAY)
 			continue
-		if(istype(current_species, /datum/species/slime) && current_species.species_subtype != "None") // Applies to limbs that are not robotic.
-			bodypart.GrayScale()
-			bodypart.Blend("[s_colour]DC", ICON_AND) //DC = 220 alpha.
+		if(will_slimify) // Applies to limbs that are not robotic.
+			bodypart.slimify(s_colour, "A0")
 		else
 			// Skin color
 			if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
@@ -936,6 +941,10 @@
 					t_marking_s.Blend(m_colours["tail"], ICON_ADD)
 					temp.Blend(t_marking_s, ICON_OVERLAY)
 
+			if(will_slimify)
+				temp.slimify(s_colour, "A0")
+				if(underlay)
+					underlay.slimify(s_colour, "A0")
 			// Body accessory has an underlay, add it too.
 			if(underlay)
 				ICON_SHIFT_XY(underlay, offset_x, offset_y)
@@ -952,6 +961,8 @@
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
+				if(will_slimify)
+					b_marking_s.slimify(s_colour, "A0")
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = m_styles["head"]
@@ -959,6 +970,8 @@
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
+				if(will_slimify)
+					h_marking_s.slimify(s_colour, "A0")
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
 	var/icon/hands_icon = icon(preview_icon)
@@ -1005,6 +1018,8 @@
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(hacc_colour, ICON_ADD)
+			if(will_slimify)
+				head_accessory_s.slimify(s_colour, "A0")
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
@@ -1699,6 +1714,7 @@
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIC, "Paraplegia")
 
 
 	HTML += {"</ul>
@@ -1857,7 +1873,6 @@
 		character.species_subtype = "None"
 	if(be_random_name)
 		real_name = random_name(gender, species)
-
 	character.add_language(language)
 
 
@@ -1928,7 +1943,7 @@
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
-	if(!l_foot && !r_foot)
+	if((!l_foot && !r_foot) || (disabilities & DISABILITY_FLAG_PARAPLEGIC))
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
 	else if(!l_foot || !r_foot)
@@ -1976,6 +1991,10 @@
 	if(disabilities & DISABILITY_FLAG_BLIND)
 		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.blindblock)
+
+	if(disabilities & DISABILITY_FLAG_PARAPLEGIC)
+		character.dna.SetSEState(GLOB.paraplegicblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.paraplegicblock)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
 		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)

@@ -1,7 +1,7 @@
 #define ACCESS_SECURITY					1	//! Security equipment.
 #define ACCESS_BRIG						2	//! Brig timers and permabrig.
 #define ACCESS_ARMORY					3
-#define ACCESS_FORENSICS_LOCKERS		4
+#define ACCESS_FORENSICS_LOCKERS		4	//! Detective office and locker
 #define ACCESS_MEDICAL					5
 #define ACCESS_MORGUE					6
 #define ACCESS_TOX						7
@@ -66,6 +66,7 @@
 #define ACCESS_CARGO_BAY				78
 #define ACCESS_SUPPLY_SHUTTLE			79
 #define ACCESS_TRAINER					80
+#define ACCESS_EVIDENCE					81	//! Security evidence room
 
 #define ACCESS_WEAPONS					99	//! Weapon authorization for secbots.
 
