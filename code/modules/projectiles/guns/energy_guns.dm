@@ -34,8 +34,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
-	/// Current lense
-	var/obj/item/smithed_item/lense/current_lense
+	/// Current lens
+	var/obj/item/smithed_item/lens/current_lens
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -71,23 +71,23 @@
 
 /obj/item/gun/energy/AltClick(mob/user) // Take out a lense
 	. = ..()
-	if(!current_lense)
-		to_chat(user, "<span class='notice'>Your [src] has no lense to remove.</span>")
+	if(!current_lens)
+		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
 		return
-	current_lense.on_detached()
-	user.put_in_hands(current_lense)
+	current_lens.on_detached()
+	user.put_in_hands(current_lens)
 
 /obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
-	var/obj/item/smithed_item/lense/new_lense = I
-	if(!istype(new_lense))
-		return 
-	if(current_lense)
-		to_chat(user, "<span class='notice'>Your [src] already has a lense.</span>")
-		return 
-	new_lense.forceMove(src)
-	current_lense = new_lense
-	new_lense.on_attached(user, src)
+	var/obj/item/smithed_item/lens/new_lens = I
+	if(!istype(new_lens))
+		return
+	if(current_lens)
+		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		return
+	new_lens.forceMove(src)
+	current_lens = new_lens
+	new_lens.on_attached(user, src)
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -154,11 +154,11 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
-	if(current_lense)
-		current_lense.durability--
-		if(current_lense.durability <= 0)
-			current_lense.break_lense()
-			current_lense = null
+	if(current_lens)
+		current_lens.durability--
+		if(current_lens.durability <= 0)
+			current_lens.break_lens()
+			current_lens = null
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)

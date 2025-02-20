@@ -101,17 +101,17 @@
 	desc = "A cast for creating bit heads."
 	product_type = /obj/item/smithed_item/component/bit_head
 
-/obj/item/smithing_cast/component/lense_frame
-	name = "lense frame cast"
-	icon_state = "lense_frame_cast"
-	desc = "A cast for creating lense frames."
-	product_type = /obj/item/smithed_item/component/lense_frame
+/obj/item/smithing_cast/component/lens_frame
+	name = "lens frame cast"
+	icon_state = "lens_frame_cast"
+	desc = "A cast for creating lens frames."
+	product_type = /obj/item/smithed_item/component/lens_frame
 
-/obj/item/smithing_cast/component/lense_focus
-	name = "lense focus cast"
-	icon_state = "lense_focus_cast"
-	desc = "A cast for creating lense foci."
-	product_type = /obj/item/smithed_item/component/lense_focus
+/obj/item/smithing_cast/component/lens_focus
+	name = "lens focus cast"
+	icon_state = "lens_focus_cast"
+	desc = "A cast for creating lens foci."
+	product_type = /obj/item/smithed_item/component/lens_focus
 
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"
@@ -388,12 +388,12 @@
 	efficiency_mod = 1
 	durability = 100
 
-// Lenses
+// lenss
 
-/obj/item/smithed_item/lense
-	name = "Debug lense"
-	icon_state = "lense"
-	desc = "Debug lense. If you see this, notify the development team."
+/obj/item/smithed_item/lens
+	name = "Debug lens"
+	icon_state = "lens"
+	desc = "Debug lens. If you see this, notify the development team."
 	/// Laser speed multiplier
 	var/laser_speed_mult = 1.0
 	/// Power draw multiplier
@@ -402,12 +402,12 @@
 	var/damage_mult = 1.0
 	/// Fire rate multiplier
 	var/fire_rate_mult = 1.0
-	/// Lense durability
+	/// lens durability
 	var/durability = 40
-	/// The weapon the lense is attached to
+	/// The weapon the lens is attached to
 	var/obj/item/gun/energy/attached_gun
 
-/obj/item/smithed_item/lense/Initialize(mapload)
+/obj/item/smithed_item/lens/Initialize(mapload)
 	. = ..()
 	durability = initial(durability) * material.durability_mult
 	power_mult = initial(power_mult) * quality.stat_mult * material.power_draw_mult
@@ -415,7 +415,7 @@
 	laser_speed_mult = initial(laser_speed_mult) * quality.stat_mult * material.projectile_speed_mult
 	fire_rate_mult = initial(fire_rate_mult) * quality.stat_mult * material.fire_rate_multiplier
 
-/obj/item/smithed_item/lense/on_attached(mob/user, obj/item/gun/energy/target)
+/obj/item/smithed_item/lens/on_attached(mob/user, obj/item/gun/energy/target)
 	if(!istype(target))
 		return
 	attached_gun = target
@@ -427,7 +427,7 @@
 		e_bullet.speed = e_bullet.speed / laser_speed_mult
 
 
-/obj/item/smithed_item/lense/on_detached()
+/obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost / power_mult
@@ -436,62 +436,62 @@
 		e_bullet.speed = e_bullet.speed * laser_speed_mult
 	attached_gun = null
 
-/obj/item/smithed_item/lense/proc/break_lense()
+/obj/item/smithed_item/lens/proc/break_lens()
 	on_detached()
 	qdel(src)
 
-/obj/item/smithed_item/lense/accelerator
-	name = "accelerator lense"
-	desc = "A lense that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
+/obj/item/smithed_item/lens/accelerator
+	name = "accelerator lens"
+	desc = "A lens that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
 	laser_speed_mult = 1.1
 	damage_mult = 0.9
 
-/obj/item/smithed_item/lense/speed
-	name = "speed lense"
-	desc = "A lense that cools the capacitors more efficiently, allowing for greater fire rate."
+/obj/item/smithed_item/lens/speed
+	name = "speed lens"
+	desc = "A lens that cools the capacitors more efficiently, allowing for greater fire rate."
 	fire_rate_mult = 1.15
 	damage_mult = 0.9
 	durability = 30
 
-/obj/item/smithed_item/lense/amplifier
-	name = "amplifier lense"
-	desc = "A lense that increases the frequency of emitted beams, increasing their potency."
+/obj/item/smithed_item/lens/amplifier
+	name = "amplifier lens"
+	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
 	power_mult = 1.1
 	damage_mult = 1.1
 
-/obj/item/smithed_item/lense/efficiency
-	name = "efficiency lense"
-	desc = "A lense that optimizes the number of shots an energy weapon can take before running dry."
+/obj/item/smithed_item/lens/efficiency
+	name = "efficiency lens"
+	desc = "A lens that optimizes the number of shots an energy weapon can take before running dry."
 	power_mult = 0.8
 	damage_mult = 0.9
 	durability = 80
 
-/obj/item/smithed_item/lense/rapid
-	name = "rapid lense"
-	desc = "An advanced lense that bypasses the heat capacitor entirely, allowing for unprecedented fire rates of low-power emissions."
+/obj/item/smithed_item/lens/rapid
+	name = "rapid lens"
+	desc = "An advanced lens that bypasses the heat capacitor entirely, allowing for unprecedented fire rates of low-power emissions."
 	fire_rate_mult = 1.5
 	laser_speed_mult = 0.9
 	damage_mult = 0.8
 	durability = 60
 
-/obj/item/smithed_item/lense/densifier
-	name = "densifier lense"
-	desc = "An advanced lense that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
+/obj/item/smithed_item/lens/densifier
+	name = "densifier lens"
+	desc = "An advanced lens that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
 	fire_rate_mult = 0.7
 	laser_speed_mult = 0.7
 	damage_mult = 1.4
 	durability = 30
 
-/obj/item/smithed_item/lense/velocity
-	name = "velocity lense"
-	desc = "An advanced lense that forces energy emissions from the barrel as fast as possible, accelerating them to ludicrous speed."
+/obj/item/smithed_item/lens/velocity
+	name = "velocity lens"
+	desc = "An advanced lens that forces energy emissions from the barrel as fast as possible, accelerating them to ludicrous speed."
 	laser_speed_mult = 1.5
 	damage_mult = 0.8
 	durability = 30
 
-/obj/item/smithed_item/lense/admin
-	name = "adminium lense"
-	desc = "A hyper-advanced lense restricted to high-ranking central command officials."
+/obj/item/smithed_item/lens/admin
+	name = "adminium lens"
+	desc = "A hyper-advanced lens restricted to high-ranking central command officials."
 	laser_speed_mult = 5
 	damage_mult = 5
 	fire_rate_mult = 5
@@ -776,101 +776,101 @@
 	material_cost = list(MAT_METAL = 4000, MAT_PLATINUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
-/obj/item/smithed_item/component/lense_frame
-	name = "Debug lense frame"
-	icon_state = "lense_frame"
-	desc = "Debug smithed component part of a laser lense. If you see this, notify the development team."
+/obj/item/smithed_item/component/lens_frame
+	name = "Debug lens frame"
+	icon_state = "lens_frame"
+	desc = "Debug smithed component part of a laser lens. If you see this, notify the development team."
 	part_type = PART_PRIMARY
 
-/obj/item/smithed_item/component/lense_frame/accelerator
-	name = "accelerator lense frame"
-	desc = "This is the primary component of an accelerator lense."
+/obj/item/smithed_item/component/lens_frame/accelerator
+	name = "accelerator lens frame"
+	desc = "This is the primary component of an accelerator lens."
 	material_cost = list(MAT_TITANIUM = 4000)
-	finished_product = /obj/item/smithed_item/lense/accelerator
+	finished_product = /obj/item/smithed_item/lens/accelerator
 
-/obj/item/smithed_item/component/lense_frame/speed
-	name = "speed lense frame"
-	desc = "This is the primary component of a speed lense."
+/obj/item/smithed_item/component/lens_frame/speed
+	name = "speed lens frame"
+	desc = "This is the primary component of a speed lens."
 	material_cost = list(MAT_METAL = 4000)
-	finished_product = /obj/item/smithed_item/lense/speed
+	finished_product = /obj/item/smithed_item/lens/speed
 
-/obj/item/smithed_item/component/lense_frame/amplifier
-	name = "amplifier lense frame"
-	desc = "This is the primary component of an amplifier lense."
+/obj/item/smithed_item/component/lens_frame/amplifier
+	name = "amplifier lens frame"
+	desc = "This is the primary component of an amplifier lens."
 	material_cost = list(MAT_GOLD = 4000)
-	finished_product = /obj/item/smithed_item/lense/amplifier
+	finished_product = /obj/item/smithed_item/lens/amplifier
 
-/obj/item/smithed_item/component/lense_frame/efficiency
-	name = "efficiency lense frame"
-	desc = "This is the primary component of an efficiency lense."
+/obj/item/smithed_item/component/lens_frame/efficiency
+	name = "efficiency lens frame"
+	desc = "This is the primary component of an efficiency lens."
 	material_cost = list(MAT_SILVER = 4000)
-	finished_product = /obj/item/smithed_item/lense/efficiency
+	finished_product = /obj/item/smithed_item/lens/efficiency
 
-/obj/item/smithed_item/component/lense_frame/rapid
-	name = "rapid lense frame"
-	desc = "This is the primary component of an advanced rapid lense."
+/obj/item/smithed_item/component/lens_frame/rapid
+	name = "rapid lens frame"
+	desc = "This is the primary component of an advanced rapid lens."
 	material_cost = list(MAT_PALLADIUM = 2000)
-	finished_product = /obj/item/smithed_item/lense/rapid
+	finished_product = /obj/item/smithed_item/lens/rapid
 
-/obj/item/smithed_item/component/lense_frame/densifier
-	name = "densifier lense frame"
-	desc = "This is the primary component of an advanced densifier lense."
+/obj/item/smithed_item/component/lens_frame/densifier
+	name = "densifier lens frame"
+	desc = "This is the primary component of an advanced densifier lens."
 	material_cost = list(MAT_PLATINUM = 2000)
-	finished_product = /obj/item/smithed_item/lense/densifier
+	finished_product = /obj/item/smithed_item/lens/densifier
 
-/obj/item/smithed_item/component/lense_frame/velocity
-	name = "velocity lense frame"
-	desc = "This is the primary component of an advanced velocity lense."
+/obj/item/smithed_item/component/lens_frame/velocity
+	name = "velocity lens frame"
+	desc = "This is the primary component of an advanced velocity lens."
 	material_cost = list(MAT_BRASS = 30000)
-	finished_product = /obj/item/smithed_item/lense/velocity
+	finished_product = /obj/item/smithed_item/lens/velocity
 
-/obj/item/smithed_item/component/lense_focus
-	name = "Debug lense focus"
-	icon_state = "lense_focus"
-	desc = "Debug smithed component part of a laser lense. If you see this, notify the development team."
+/obj/item/smithed_item/component/lens_focus
+	name = "Debug lens focus"
+	icon_state = "lens_focus"
+	desc = "Debug smithed component part of a laser lens. If you see this, notify the development team."
 	part_type = PART_SECONDARY
 
-/obj/item/smithed_item/component/lense_focus/accelerator
-	name = "accelerator lense focus"
-	desc = "This is the secondary component of an accelerator lense."
+/obj/item/smithed_item/component/lens_focus/accelerator
+	name = "accelerator lens focus"
+	desc = "This is the secondary component of an accelerator lens."
 	material_cost = list(MAT_METAL = 4000, MAT_GLASS = 10000)
-	finished_product = /obj/item/smithed_item/lense/accelerator
+	finished_product = /obj/item/smithed_item/lens/accelerator
 
-/obj/item/smithed_item/component/lense_focus/speed
-	name = "speed lense focus"
-	desc = "This is the secondary component of a speed lense."
+/obj/item/smithed_item/component/lens_focus/speed
+	name = "speed lens focus"
+	desc = "This is the secondary component of a speed lens."
 	material_cost = list(MAT_PLASMA = 4000, MAT_GLASS = 10000)
-	finished_product = /obj/item/smithed_item/lense/speed
+	finished_product = /obj/item/smithed_item/lens/speed
 
-/obj/item/smithed_item/component/lense_focus/amplifier
-	name = "amplifier lense focus"
-	desc = "This is the secondary component of an amplifier lense."
+/obj/item/smithed_item/component/lens_focus/amplifier
+	name = "amplifier lens focus"
+	desc = "This is the secondary component of an amplifier lens."
 	material_cost = list(MAT_TITANIUM = 4000, MAT_GLASS = 10000)
-	finished_product = /obj/item/smithed_item/lense/amplifier
+	finished_product = /obj/item/smithed_item/lens/amplifier
 
-/obj/item/smithed_item/component/lense_focus/efficiency
-	name = "efficiency lense focus"
-	desc = "This is the secondary component of an efficiency lense."
+/obj/item/smithed_item/component/lens_focus/efficiency
+	name = "efficiency lens focus"
+	desc = "This is the secondary component of an efficiency lens."
 	material_cost = list(MAT_METAL = 4000, MAT_GLASS = 10000)
-	finished_product = /obj/item/smithed_item/lense/efficiency
+	finished_product = /obj/item/smithed_item/lens/efficiency
 
-/obj/item/smithed_item/component/lense_focus/rapid
-	name = "rapid lense focus"
-	desc = "This is the secondary component of an advanced rapid lense."
+/obj/item/smithed_item/component/lens_focus/rapid
+	name = "rapid lens focus"
+	desc = "This is the secondary component of an advanced rapid lens."
 	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
-	finished_product = /obj/item/smithed_item/lense/rapid
+	finished_product = /obj/item/smithed_item/lens/rapid
 
-/obj/item/smithed_item/component/lense_focus/densifier
-	name = "densifier lense focus"
-	desc = "This is the secondary component of an advanced densifier lense."
+/obj/item/smithed_item/component/lens_focus/densifier
+	name = "densifier lens focus"
+	desc = "This is the secondary component of an advanced densifier lens."
 	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
-	finished_product = /obj/item/smithed_item/lense/densifier
+	finished_product = /obj/item/smithed_item/lens/densifier
 
-/obj/item/smithed_item/component/lense_focus/velocity
-	name = "velocity lense focus"
-	desc = "This is the secondary component of an advanced velocity lense."
+/obj/item/smithed_item/component/lens_focus/velocity
+	name = "velocity lens focus"
+	desc = "This is the secondary component of an advanced velocity lens."
 	material_cost = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
-	finished_product = /obj/item/smithed_item/lense/velocity
+	finished_product = /obj/item/smithed_item/lens/velocity
 
 /obj/item/smithed_item/component/trim
 	name = "Debug trim"

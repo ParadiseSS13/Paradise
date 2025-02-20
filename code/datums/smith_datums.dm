@@ -78,7 +78,7 @@
 	var/projectile_damage_multiplier = 1.0
 	/// Fire rate multiplier
 	var/fire_rate_multiplier = 1.0
-	/// Multiplier for tool uses and lense uses.
+	/// Multiplier for tool uses and lens uses.
 	var/durability_mult = 1.0
 
 /datum/smith_material/metal

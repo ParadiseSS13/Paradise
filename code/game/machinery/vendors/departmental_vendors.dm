@@ -365,8 +365,8 @@
 					/obj/item/smithing_cast/component/insert_lining = 3,
 					/obj/item/smithing_cast/component/bit_mount = 3,
 					/obj/item/smithing_cast/component/bit_head = 3,
-					/obj/item/smithing_cast/component/lense_focus = 3,
-					/obj/item/smithing_cast/component/lense_frame = 3,
+					/obj/item/smithing_cast/component/lens_focus = 3,
+					/obj/item/smithing_cast/component/lens_frame = 3,
 					/obj/item/smithing_cast/component/trim = 3)
 
 	refill_canister = /obj/item/vending_refill/smith
