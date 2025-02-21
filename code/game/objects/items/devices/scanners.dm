@@ -774,9 +774,6 @@ SLIME SCANNER
 				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 
 	else// Sum mixtures then present
-		if(!total_moles)
-			message += "<span class='notice'>[target] is empty!</span>"
-			message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 		for(var/datum/gas_mixture/air as anything in airs)
 			if(isnull(air))
 				continue
