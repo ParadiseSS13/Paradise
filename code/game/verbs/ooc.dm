@@ -303,7 +303,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		to_chat(src, "<span class='danger'>Unfortunately, we were not able to retrieve your notes.</span>")
 		qdel(query_get_notes)
 		return
-	output += "<h2><center>Notes of [ckey]</center></h2>"
+	output += "<h2><center>Notes of [ckey]</center></h2><br><center><font size='1'>Don't discuss warnings or other punishments from the admins in Paradise Discord.</font></center>"
 	output += "<hr style='background:#000000; border:0; height:3px'>"
 	var/found_notes = FALSE
 	while(query_get_notes.NextRow())
@@ -322,11 +322,13 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		output += "</b>"
 
 		if(last_editor)
-			output += " <font size='2'>Last edit by [last_editor].</font>"
+			output += " <font size='1'>Last edit by [last_editor].</font>"
 		output += "<br>[replacetext(notetext, "\n", "<br>")]<hr style='background:#000000; border:0; height:1px'>"
 	if(!found_notes)
 		output += "<b>You have no public notes.</b>"
 	qdel(query_get_notes)
-	usr << browse(output.Join(""), "window=show_public_notes;size=900x500")
+	var/datum/browser/popup = new(mob, "show_public_notes", "Public Notes", 900, 500)
+	popup.set_content(output.Join(""))
+	popup.open()
 
 #undef DEFAULT_PLAYER_OOC_COLOUR
