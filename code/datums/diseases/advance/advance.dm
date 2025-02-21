@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(standard_cures, list(
 
 GLOBAL_LIST_INIT(advanced_cures, list(
 									"atropine", "mitocholide", "lazarus_reagent",
-									"cryoxadone", "pen_acid", "haloperidol",
+									"cryoxadone", "hydrocodone", "haloperidol",
 									"degreaser", "perfluorodecalin"
 ))
 
