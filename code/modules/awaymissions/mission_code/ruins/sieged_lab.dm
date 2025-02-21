@@ -166,5 +166,11 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 	name = "50pc landmine"
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "mine"
-	loot = list(/obj/effect/mine)
+	loot = list(/obj/effect/mine/sieged_lab)
 	spawn_loot_chance = 50
+
+/obj/effect/mine/sieged_lab
+	name = "sentry mine"
+
+/obj/effect/mine/sieged_lab/mineEffect(mob/living/victim)
+	explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
