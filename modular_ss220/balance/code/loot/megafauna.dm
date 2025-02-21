@@ -16,15 +16,22 @@
 		new /obj/structure/closet/crate/necropolis/tendril(loc)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()
-	if(!enraged)
-		return ..()
-	var/crate_type = pick(loot)
-	var/obj/structure/closet/crate/C = new crate_type(loc)
-	new /obj/item/melee/spellblade/random(C)
+	if(enraged)
+		loot = list(/obj/structure/closet/crate/necropolis/bubblegum/enraged)
+		crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/enraged/crusher)
+	return ..()
 
 /obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
+
+/obj/structure/closet/crate/necropolis/bubblegum/enraged/populate_contents()
+	. = ..()
+	new /obj/item/melee/spellblade/random(src)
+
+/obj/structure/closet/crate/necropolis/bubblegum/enraged/crusher/populate_contents()
+	. = ..()
+	new /obj/item/crusher_trophy/demon_claws(src)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	loot_chance = 100
