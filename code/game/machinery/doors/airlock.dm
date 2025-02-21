@@ -1498,7 +1498,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(obj_integrity < (0.75 * max_integrity))
 		update_icon()
 
-/obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
+/obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user, deconstructed_by_rust = FALSE)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
@@ -1535,8 +1535,16 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			electronics = null
 			ae.forceMove(loc)
 			ae.is_installed = FALSE
+		if(deconstructed_by_rust)
+			DA.deconstruct(FALSE)
 	QDEL_LIST_CONTENTS(fillers)
 	qdel(src)
+
+/obj/machinery/door/airlock/rust_heretic_act()
+	if(obj_integrity > 350) // Door armour is 30% melee. Above 350 HP, the door will survive.
+		return ..()
+	else
+		deconstruct(FALSE, null, TRUE)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)

@@ -34,6 +34,8 @@
 		if(prob(chance_of_not_rusting))
 			continue
 		for(var/atom/victim in target_turfs)
+			if(victim.invisibility == INVISIBILITY_MAXIMUM) //Don't hit pipes till pipes are exposed
+				continue
 			if(isliving(user))
 				user.do_rust_heretic_act(victim)
 			else

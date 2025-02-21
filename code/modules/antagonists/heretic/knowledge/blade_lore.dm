@@ -337,8 +337,13 @@
 	// Subtract the decrement, but only if the target is living
 	if(isliving(target))
 		blade.force -= offand_force_decrement
+	// We want to make this a little less murdery. Attack their chest.
+	var/old_zone = source.zone_selected
+	source.zone_selected = BODY_ZONE_CHEST
 	// Perform the offhand attack
 	blade.melee_attack_chain(source, target)
+	// Set it back to the old zone.
+	source.zone_selected = old_zone
 	// Restore the force.
 	blade.force = last_weapon_force
 

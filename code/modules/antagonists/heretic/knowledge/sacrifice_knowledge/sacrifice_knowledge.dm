@@ -426,7 +426,7 @@
 	if(isplasmaman(sac_target) || isvox(sac_target))
 		usable_organs -= /obj/item/organ/internal/lungs/corrupt // Their lungs are already more cursed than anything I could give them
 
-	var/total_implant = rand(2, 4)
+	var/total_implant = 2
 
 	for(var/i in 1 to total_implant)
 		if(!length(usable_organs))
