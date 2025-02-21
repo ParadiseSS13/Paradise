@@ -48,33 +48,48 @@
 	medal_type = null
 	score_type = null
 	crusher_loot = list()
+	health = 750
+	maxHealth = 750
 	rapid_melee = 5 // 4 decisecond cooldown before charges, SSnpc wait is 20, 20/4 = 5
-	loot = (/obj/item/melee/razorwire/harbinger)
+	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
+	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 
 /obj/item/melee/razorwire/harbinger
 	force = 15
+
+/obj/item/melee/razorwire/harbinger/Initialize(mapload)
+	. = ..()
+	icon_state = "razorwire"
+	item_state = "razorwire"
+	update_icon()
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger
+	contents = newlist(/obj/item/melee/razorwire/harbinger)
 
 /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "syndicate_harbinger"
 	duration = 15
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/death()
-	if(health > 0)
-		return
-	new /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death(loc, dir)
-	return ..()
-
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/transform_weapon()
 	return
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/devour(mob/living/L)
 	// Gibbing seems a bit unfair
+	LoseTarget()
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/butcher(mob/living/L)
 	// Gibbing seems a bit unfair
+	LoseTarget()
 	return FALSE
+
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/CanAttack(atom/the_target)
+	. = ..()
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat == DEAD)
+			return FALSE // wtf why is this not already the case
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/syndicate/Initialize(mapload)
 	. = ..()

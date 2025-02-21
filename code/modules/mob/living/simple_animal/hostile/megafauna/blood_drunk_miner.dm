@@ -61,6 +61,7 @@ Difficulty: Medium
 							/datum/action/innate/megafauna_attack/transform_weapon)
 
 	initial_traits = list() // Don't want to inherit flight from parent type /megafauna/
+	var/death_simplemob_representation = /obj/effect/temp_visual/dir_setting/miner_death
 
 /obj/item/gps/internal/miner
 	icon_state = null
@@ -140,7 +141,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
 	if(health > 0)
 		return
-	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
+	new death_simplemob_representation(loc, dir)
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
