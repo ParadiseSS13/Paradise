@@ -550,6 +550,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
+	flags_2 = HOLOGRAM_2
 
 /obj/effect/overlay/holo_pad_hologram/Destroy()
 	Impersonation = null
