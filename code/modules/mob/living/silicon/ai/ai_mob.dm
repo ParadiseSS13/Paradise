@@ -1114,7 +1114,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					if("Roller-Mouse")
 						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk2"), FALSE, hologram_color)
 					if("Roller-Monkey")
-						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"))
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"), FALSE, hologram_color)
 
 		else
 			var/icon_list[] = list(
