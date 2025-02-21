@@ -175,7 +175,7 @@
 		Feedstop()
 		return
 
-// This is where damage dealt by slime feeding is handled.
+	// This is where damage dealt by slime feeding is handled.
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustCloneLoss(rand(2, 4))
@@ -214,8 +214,6 @@
 	add_nutrition(rand(7, 15))
 	//Heal yourself.
 	adjustBruteLoss(-3)
-
-
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 	if(docile) //God as my witness, I will never go hungry again
