@@ -4,9 +4,9 @@
 
 	route = PATH_SIDE
 
-	tier1 = /datum/heretic_knowledge/dummy_cosmic_to_ash
+	tier1 = /datum/heretic_knowledge/eldritch_coin
 	tier2 = /datum/heretic_knowledge/spell/space_phase
-	tier3 = /datum/heretic_knowledge/eldritch_coin
+	tier3 = /datum/heretic_knowledge/dummy_cosmic_to_ash
 
 
 // Sidepaths for knowledge between Ash and comsic.
