@@ -565,7 +565,7 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	default_unfasten_wrench(user, I, time = 4 SECONDS)
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/economy/vending/proc/item_slot_check(mob/user, obj/item/I)
