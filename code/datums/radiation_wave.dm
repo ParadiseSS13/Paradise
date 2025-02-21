@@ -55,7 +55,7 @@
 	var/index
 	var/offset
 	var/walk_dir = EAST
-	var/ratio = steps > 1 ? ((steps - 1) * 8) / (steps * 8) : (1 / 8)
+	var/ratio = steps > 1 ? (steps - 1) / steps : (1 / 8)
 	var/weight_length = length(weights)
 	// Iterate around the periphery of a square for each step
 	for(var/i = 0, i < 8 * steps, i++)

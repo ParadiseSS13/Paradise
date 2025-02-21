@@ -689,7 +689,7 @@
 	damage_deflection = 21
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
-	rad_conversion_amount = 2.5
+	rad_conversion_amount = 2.25
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -730,7 +730,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 3
+	rad_conversion_amount = 2.6
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -828,7 +828,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
-	rad_conversion_amount = 3.7
+	rad_conversion_amount = 3
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
