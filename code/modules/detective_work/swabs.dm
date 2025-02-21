@@ -15,6 +15,10 @@
 /obj/item/forensics/swab/proc/is_used()
 	return used
 
+/obj/item/forensics/swab/pre_attack(atom/A, mob/living/user, params)
+	. = ..()
+	return A.attackby__legacy__attackchain(src, user, params)
+
 /obj/item/forensics/swab/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!ishuman(M))
 		return ..()
