@@ -22,6 +22,8 @@
 	var/list/scramble_cache = list()
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
+	/// Can the mob speak this language, or only understand it?
+	var/can_speak = TRUE
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !length(syllables) || english_names)
@@ -697,7 +699,18 @@
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
+	return speaking.can_speak && (universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages))
+
+/// Toggles specifically whether the mob will be able to speak this language, they'll still be able to understand it though. Must be passed a reference to the mob's language list
+/mob/proc/toggle_speaking_language(datum/language/to_toggle)
+	to_toggle.can_speak = !to_toggle.can_speak
+
+/// Returns a reference to the named language, if it's in the mob's languages list. Returns false otherwise
+/mob/proc/get_language_by_name(language_name)
+	for(var/datum/language/language in languages)
+		if(language.name == language_name)
+			return language
+	return FALSE
 
 //TBD
 /mob/proc/check_lang_data()
@@ -736,8 +749,11 @@
 			set_default_language(null)
 		else
 			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
-			if(L)
-				set_default_language(L)
+			if(!L || !L.can_speak)
+				to_chat(src, "<span class='notice'>You can't speak that language fluently enough.</span>")
+				return FALSE
+			set_default_language(L)
+
 		check_languages()
 		return TRUE
 

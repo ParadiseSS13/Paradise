@@ -8,17 +8,19 @@
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You just recently joined the greater galactic community, and don't understand the common tongue yet. You cannot sign up for a command or security position."
-	cost = -2
+	cost = -1
 	item_to_give = /obj/item/taperecorder
 	blacklisted = TRUE
 
 /datum/quirk/foreigner/apply_quirk_effects(mob/living/quirky)
 	..()
-	owner.remove_language("Galactic Common")
+	var/datum/language/common = owner.get_language_by_name("Galactic Common")
+	owner.toggle_speaking_language(common)
 	owner.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
 
 /datum/quirk/foreigner/remove_quirk_effects()
-	owner.add_language("Galactic Common")
+	var/datum/language/common = owner.get_language_by_name("Galactic Common")
+	owner.toggle_speaking_language(common)
 	..()
 
 /datum/quirk/deaf
