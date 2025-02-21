@@ -750,9 +750,6 @@ SLIME SCANNER
 			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
 			heat_capacity = air.heat_capacity()
 			thermal_energy = air.thermal_energy()
-			if(!total_moles)
-				message += "<span class='notice'>[target] is empty!</span>"
-				message += "<span class='notice'>Volume: [round(volume)] Liters</span>" // don't want to change the order volume appears in, suck it
 			if(total_moles)
 				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
