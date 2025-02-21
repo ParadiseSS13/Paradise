@@ -952,7 +952,7 @@
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(garbage.anchored)
 			continue
-		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
+		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.my_bag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
 			bag.handle_item_insertion(garbage, user, TRUE)

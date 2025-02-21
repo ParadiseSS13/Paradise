@@ -188,9 +188,6 @@
 		kidneys.switch_mode(force_off = TRUE)
 	else
 		grab_level = GRAB_PASSIVE
-	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"))
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -208,9 +205,6 @@
 		user.reset_visibility()
 		kidneys.switch_mode(force_off = TRUE)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s disarm attempt!"))
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
@@ -295,9 +289,6 @@
 		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
 	if(target != user && handle_harm_antag(user, target))
-		return FALSE
-	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s attack!"))
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE

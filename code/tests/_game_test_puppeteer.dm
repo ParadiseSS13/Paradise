@@ -129,6 +129,14 @@
 			if(istype(A, atom_type))
 				return A
 
+/datum/test_puppeteer/proc/get_last_tgui()
+	if(!(puppet.mind.key in GLOB.game_test_tguis))
+		return null
+	var/list/tgui_list = GLOB.game_test_tguis[puppet.mind.key]
+	if(!length(tgui_list))
+		return null
+	return tgui_list[length(tgui_list)]
+
 // No we don't technically need to put these things into an actual backpack and
 // so forth, we could just leave them lying around and teleport them to the
 // player but this keeps things realistic and may surface issues we wouldn't

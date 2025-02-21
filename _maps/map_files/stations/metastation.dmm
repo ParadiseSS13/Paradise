@@ -86489,7 +86489,7 @@
 	},
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -111707,7 +111707,7 @@ bje
 dKK
 bje
 bje
-bht
+bje
 lJg
 bje
 byv
