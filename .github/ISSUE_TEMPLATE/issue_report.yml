@@ -20,13 +20,14 @@ body:
     attributes:
       value: Thanks for taking the time to fill out this issue report! Don't forget to give it a meaningful title so users can find the report easily.
   - type: checkboxes
-  - font-size: 150%;
     id: not_an_exploit
     attributes:
       label: Exploit Reports
       description: "[This is important, if your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)"
       options:
         - label: I confirm this issue is not an exploit. (Required)
+        - label: I confirm this issue does not give players a unfair advantage. (Required)
+        - label: I confirn this issue does not affect server stability or security. (required)
           required: true
 
   - type: input
