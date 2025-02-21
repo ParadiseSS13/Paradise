@@ -749,6 +749,7 @@
 	message = "chirps!"
 	message_param = "chirps at %t."
 	emote_type = EMOTE_AUDIBLE
+	age_based = TRUE
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/creatures/nymphchirp.ogg"
 
