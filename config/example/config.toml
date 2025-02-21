@@ -683,7 +683,8 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker_siege.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm", ##SIN
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_eden", ##SIN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm", # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",

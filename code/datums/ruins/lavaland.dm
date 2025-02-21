@@ -28,6 +28,13 @@
 	allow_duplicates = FALSE
 	always_place = TRUE
 
+/datum/map_template/ruin/lavaland/seed_vault_eden
+	name = "Garden of Eden"
+	id = "ruin-eden"
+	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to full extent of the wastes, \
+	to research and adapt their creations to the ashen wastes. Unfortunately, "
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
 	id = "ash-walker"

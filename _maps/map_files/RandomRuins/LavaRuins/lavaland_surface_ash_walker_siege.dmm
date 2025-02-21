@@ -8,7 +8,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "aP" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -46,7 +46,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "gp" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -60,7 +60,7 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "gz" = (
 /obj/item/ammo_box/magazine/laser{
 	max_ammo = 0;
@@ -95,7 +95,7 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "iu" = (
 /obj/structure/headspear{
 	pixel_y = 16
@@ -116,7 +116,7 @@
 /area/lavaland/surface/outdoors)
 "kO" = (
 /turf/simulated/wall/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "lw" = (
 /obj/item/seeds/tower,
 /obj/effect/mapping_helpers/no_lava,
@@ -140,7 +140,7 @@
 /obj/structure/stone_tile,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "ms" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -153,7 +153,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "nj" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -164,13 +164,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "nr" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "nI" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/boss,
@@ -186,7 +186,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "rL" = (
 /obj/item/gun/energy/kinetic_accelerator,
 /obj/effect/mob_spawn/human/corpse/miner,
@@ -197,7 +197,7 @@
 "sm" = (
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "sw" = (
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -211,7 +211,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "vi" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -230,7 +230,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "wx" = (
 /turf/template_noop,
 /area/template_noop)
@@ -251,7 +251,7 @@
 	},
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "zq" = (
 /obj/structure/headspear{
 	pixel_y = 16
@@ -293,7 +293,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/item/food/meat,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Cc" = (
 /obj/structure/stone_tile/block,
 /obj/effect/mapping_helpers/no_lava,
@@ -304,7 +304,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "ES" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -315,7 +315,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Ge" = (
 /obj/effect/mob_spawn/human/corpse/miner,
 /obj/effect/mapping_helpers/no_lava,
@@ -358,11 +358,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "IC" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "JS" = (
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
@@ -384,7 +384,7 @@
 	},
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Md" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -396,7 +396,7 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/food/meat,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Ms" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -413,7 +413,7 @@
 "NM" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/wall/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "NY" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/no_lava,
@@ -457,7 +457,7 @@
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "So" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -468,7 +468,7 @@
 /obj/structure/stone_tile,
 /obj/item/stack/ore/diamond,
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Uy" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern,
@@ -485,7 +485,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "VN" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -495,7 +495,7 @@
 /area/lavaland/surface/outdoors)
 "Wv" = (
 /turf/simulated/floor/lava/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 "Wz" = (
 /obj/structure/bonfire,
 /obj/effect/mapping_helpers/no_lava,
@@ -530,7 +530,7 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 wx
