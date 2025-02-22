@@ -36,10 +36,14 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "bq" = (
-/obj/structure/lattice/lava,
-/obj/item/mine_bot_upgrade,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
+/obj/machinery/conveyor/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
 "bG" = (
 /obj/effect/turf_decal{
 	dir = 8
@@ -461,15 +465,17 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "kz" = (
+/obj/machinery/conveyor/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
+"kB" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"kB" = (
-/obj/machinery/conveyor/west,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/circuitboard/aiupload_broken,
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_factory)
 "kK" = (
 /obj/item/conveyor_construct{
 	pixel_x = -5;
@@ -751,14 +757,9 @@
 /area/ruin/unpowered/althland_factory)
 "sL" = (
 /obj/machinery/conveyor/west,
-/obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
-"sU" = (
-/obj/effect/mapping_helpers/lava_magnet,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
 "tf" = (
 /obj/item/mounted/frame/apc_frame,
 /obj/effect/decal/cleanable/dirt,
@@ -770,6 +771,8 @@
 "tw" = (
 /obj/machinery/conveyor/south,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -781,11 +784,9 @@
 /area/ruin/unpowered/althland_factory)
 "up" = (
 /obj/machinery/conveyor/west,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "ut" = (
 /obj/effect/turf_decal{
@@ -842,16 +843,6 @@
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = 31
 	},
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
-/area/ruin/unpowered/althland_factory)
-"vj" = (
-/obj/machinery/conveyor/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/rods,
-/obj/item/stack/cable_coil,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1702,6 +1693,10 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
+"QF" = (
+/obj/effect/mapping_helpers/lava_magnet,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
 "Rh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1862,6 +1857,7 @@
 "UO" = (
 /obj/machinery/conveyor/west,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "UP" = (
@@ -1909,7 +1905,6 @@
 "WN" = (
 /obj/machinery/conveyor/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/circuitboard/aiupload_broken,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -2404,14 +2399,14 @@ IF
 IF
 IF
 IF
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 Cb
-kz
-kz
+kB
+kB
 IF
 IF
 IF
@@ -2452,7 +2447,7 @@ Gk
 Gk
 NN
 Wk
-kz
+kB
 IF
 GN
 GN
@@ -2493,9 +2488,9 @@ ji
 Ik
 ut
 Wk
-kz
+kB
 Wk
-up
+WN
 GN
 GN
 GN
@@ -2534,14 +2529,14 @@ TI
 JV
 Tu
 bL
-kz
+kB
 Wk
 PI
-tw
+kz
 GN
 GN
 GN
-bq
+GN
 IF
 UI
 UI
@@ -2575,14 +2570,14 @@ EE
 ji
 ln
 Wk
-kz
+kB
 Wk
-UO
+sL
 Su
 fZ
 IF
 GN
-dW
+GN
 IF
 IF
 IF
@@ -2616,12 +2611,12 @@ PJ
 XV
 Ur
 Wk
-kz
+kB
 Wk
 rq
 Dk
 hX
-up
+WN
 IF
 GN
 IF
@@ -2657,12 +2652,12 @@ kp
 PQ
 yV
 Wk
-kz
+kB
 Wk
 kK
 mq
 CL
-WN
+bq
 GN
 GN
 IF
@@ -2698,12 +2693,12 @@ Ik
 IF
 GN
 Wk
-kz
+kB
 Wk
 qy
 Ez
 aZ
-UO
+sL
 IF
 Wk
 IF
@@ -2738,16 +2733,16 @@ NN
 Wn
 GN
 dW
-kz
-kz
+kB
+kB
 Wk
 cs
 dm
 Mk
-kB
+UO
 Ks
 Wk
-kz
+kB
 IF
 IF
 GN
@@ -2779,17 +2774,17 @@ NN
 Wn
 GN
 IF
-kz
-kz
+kB
+kB
 Wk
 AS
-vj
+tw
 bJ
 OE
 fj
 bL
-kz
-kz
+kB
+kB
 GN
 GN
 GN
@@ -2819,18 +2814,18 @@ jt
 NN
 Wk
 GN
-kz
-kz
+kB
+kB
 Wk
 Wk
-UO
+sL
 pM
 Cp
-WN
+bq
 Wk
 Wk
-kz
-kz
+kB
+kB
 Wk
 IF
 GN
@@ -2860,8 +2855,8 @@ eF
 Ik
 Wk
 IF
-kz
-kz
+kB
+kB
 Wk
 Ux
 ay
@@ -2869,9 +2864,9 @@ Ii
 Xp
 KN
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 bJ
 IF
@@ -2900,19 +2895,19 @@ wO
 MN
 LM
 dV
-kz
-kz
-kz
+kB
+kB
+kB
 ka
 dA
-sL
-tw
+up
+kz
 CL
-kB
+UO
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 WR
 IF
@@ -2942,8 +2937,8 @@ ge
 Ij
 Wk
 ja
-kz
-kz
+kB
+kB
 Wk
 TE
 uV
@@ -2951,9 +2946,9 @@ TY
 MK
 Xq
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 LF
 Zo
@@ -2982,19 +2977,19 @@ Wk
 Wk
 bL
 Wk
-kz
-kz
+kB
+kB
 IF
 Wk
 Qq
 pp
 RM
 lo
-kB
+UO
 bL
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 jT
 jd
@@ -3019,11 +3014,11 @@ UI
 IF
 IF
 IF
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 IF
 IF
 Wk
@@ -3031,10 +3026,10 @@ Ig
 uV
 mq
 CL
-up
+WN
 bL
-kz
-kz
+kB
+kB
 Wk
 Wk
 zR
@@ -3065,7 +3060,7 @@ IF
 IF
 IF
 IF
-sU
+QF
 IF
 Wk
 vU
@@ -3074,8 +3069,8 @@ YO
 mj
 bG
 ka
-kz
-kz
+kB
+kB
 ka
 uT
 wW
@@ -3115,8 +3110,8 @@ Nl
 IF
 PB
 ka
-kz
-kz
+kB
+kB
 ka
 Ge
 rp
@@ -3156,7 +3151,7 @@ GN
 GN
 rp
 Wk
-kz
+kB
 Wk
 Wk
 xb
@@ -3187,9 +3182,9 @@ NN
 mo
 GN
 GN
-kz
-kz
-kz
+kB
+kB
+kB
 GN
 GN
 IF
@@ -3197,8 +3192,8 @@ GN
 GN
 Ij
 Wk
-kz
-kz
+kB
+kB
 Wk
 HW
 yj
@@ -3229,24 +3224,24 @@ TI
 GN
 GN
 GN
-kz
-kz
-kz
+kB
+kB
+kB
 GN
 GN
 GN
 GN
 Wk
 Wk
-kz
-kz
+kB
+kB
 Wk
 Im
 GX
 kX
 lV
 Wk
-kz
+kB
 IF
 IF
 IF
@@ -3272,22 +3267,22 @@ GN
 IF
 IF
 GN
-kz
-kz
+kB
+kB
 GN
 GN
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 Wk
 Wk
 zF
 Tn
 Wk
 Wk
-kz
+kB
 IF
 IF
 IF
@@ -3314,13 +3309,13 @@ GN
 GN
 GN
 IF
-kz
+kB
 IF
 GN
 GN
 IF
-kz
-kz
+kB
+kB
 LH
 yd
 XM
@@ -3328,8 +3323,8 @@ xq
 JK
 Lw
 Wk
-kz
-kz
+kB
+kB
 IF
 IF
 IF
@@ -3351,18 +3346,18 @@ NN
 Ya
 Fb
 GN
-kz
+kB
 GN
 GN
 GN
 IF
 IF
 GN
-kz
+kB
 IF
 IF
-kz
-kz
+kB
+kB
 gL
 HW
 GO
@@ -3370,7 +3365,7 @@ vE
 Uy
 Wk
 Wk
-kz
+kB
 IF
 IF
 IF
@@ -3399,9 +3394,9 @@ GN
 GN
 bL
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 Wk
 Wk
@@ -3411,8 +3406,8 @@ RU
 fW
 FT
 Wk
-kz
-kz
+kB
+kB
 IF
 IF
 UI
@@ -3452,8 +3447,8 @@ xJ
 Hz
 dq
 Wk
-kz
-kz
+kB
+kB
 IF
 IF
 UI
@@ -3481,7 +3476,7 @@ CG
 Rh
 UP
 Wk
-kz
+kB
 fL
 Sq
 Wk
@@ -3493,9 +3488,9 @@ IF
 iK
 BK
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 IF
 IF
 UI
@@ -3534,9 +3529,9 @@ IF
 KD
 TI
 ka
-kz
-kz
-kz
+kB
+kB
+kB
 IF
 IF
 UI
@@ -3563,8 +3558,8 @@ pr
 jd
 zc
 Wk
-kz
-kz
+kB
+kB
 YW
 Wk
 kg
@@ -3575,10 +3570,10 @@ GN
 IF
 vM
 Wk
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
 IF
 IF
 "}
@@ -3616,10 +3611,10 @@ GN
 IF
 Xb
 Wk
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
 IF
 IF
 "}
@@ -3645,9 +3640,9 @@ ud
 dV
 Wk
 Wk
-kz
-kz
-kz
+kB
+kB
+kB
 Wk
 Wk
 Wk
@@ -3657,11 +3652,11 @@ GN
 GN
 Wk
 Wk
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 IF
 "}
 (39,1,1) = {"
@@ -3686,9 +3681,9 @@ UI
 UI
 UI
 UI
-kz
-kz
-kz
+kB
+kB
+kB
 UI
 UI
 UI
@@ -3698,11 +3693,11 @@ GN
 GN
 GN
 IF
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 IF
 "}
 (40,1,1) = {"
@@ -3727,9 +3722,9 @@ UI
 UI
 UI
 UI
-kz
-kz
-kz
+kB
+kB
+kB
 UI
 UI
 UI
@@ -3739,11 +3734,11 @@ IF
 GN
 IF
 IF
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
 IF
 "}
 (41,1,1) = {"
@@ -3768,9 +3763,9 @@ UI
 UI
 UI
 UI
-kz
-kz
-kz
+kB
+kB
+kB
 UI
 UI
 UI
@@ -3780,10 +3775,10 @@ UI
 IF
 UI
 UI
-kz
-kz
-kz
-kz
-kz
-kz
+kB
+kB
+kB
+kB
+kB
+kB
 "}
