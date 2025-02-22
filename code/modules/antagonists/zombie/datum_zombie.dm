@@ -17,6 +17,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 // ability to find nearby brains to eat (like cling/vamp ability to track people around them)
 /datum/antagonist/zombie/New(chosen_plague)
 	chosen_disease = chosen_plague
+	..()
 
 /datum/antagonist/zombie/on_gain()
 	. = ..()

@@ -9,8 +9,5 @@
 	master_hud_name = "wizard"
 
 /datum/antagonist/mindslave/necromancy/plague_zombie
-
 	name = "Necromancy-risen Plague Zombie"
-	master_hud_name = "wizard"
-
 
