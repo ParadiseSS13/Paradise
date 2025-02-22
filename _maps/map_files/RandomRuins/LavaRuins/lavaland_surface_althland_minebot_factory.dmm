@@ -36,9 +36,8 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "bq" = (
-/obj/machinery/conveyor/west,
+/obj/machinery/conveyor/south,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/circuitboard/aiupload_broken,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -144,7 +143,6 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "dW" = (
-/obj/structure/lattice/lava,
 /obj/structure/lattice/lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
@@ -465,12 +463,9 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "kz" = (
-/obj/machinery/conveyor/south,
+/obj/machinery/conveyor/west,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "kB" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -757,6 +752,7 @@
 /area/ruin/unpowered/althland_factory)
 "sL" = (
 /obj/machinery/conveyor/west,
+/obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
@@ -784,9 +780,11 @@
 /area/ruin/unpowered/althland_factory)
 "up" = (
 /obj/machinery/conveyor/west,
-/obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
 /area/ruin/unpowered/althland_factory)
 "ut" = (
 /obj/effect/turf_decal{
@@ -1206,7 +1204,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "GN" = (
-/obj/structure/lattice/lava,
+/obj/effect/mapping_helpers/lava_magnet,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "GO" = (
@@ -1693,10 +1691,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
-"QF" = (
-/obj/effect/mapping_helpers/lava_magnet,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
 "Rh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1905,6 +1899,7 @@
 "WN" = (
 /obj/machinery/conveyor/west,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -2449,8 +2444,8 @@ NN
 Wk
 kB
 IF
-GN
-GN
+dW
+dW
 IF
 IF
 IF
@@ -2490,10 +2485,10 @@ ut
 Wk
 kB
 Wk
-WN
-GN
-GN
-GN
+up
+dW
+dW
+dW
 IF
 IF
 UI
@@ -2532,11 +2527,11 @@ bL
 kB
 Wk
 PI
-kz
-GN
-GN
-GN
-GN
+bq
+dW
+dW
+dW
+dW
 IF
 UI
 UI
@@ -2572,12 +2567,12 @@ ln
 Wk
 kB
 Wk
-sL
+kz
 Su
 fZ
 IF
-GN
-GN
+dW
+dW
 IF
 IF
 IF
@@ -2616,9 +2611,9 @@ Wk
 rq
 Dk
 hX
-WN
+up
 IF
-GN
+dW
 IF
 IF
 Wk
@@ -2657,13 +2652,13 @@ Wk
 kK
 mq
 CL
-bq
-GN
-GN
+WN
+dW
+dW
 IF
 IF
-GN
-GN
+dW
+dW
 iK
 vL
 eo
@@ -2691,20 +2686,20 @@ mW
 JL
 Ik
 IF
-GN
+dW
 Wk
 kB
 Wk
 qy
 Ez
 aZ
-sL
+kz
 IF
 Wk
 IF
 IF
 IF
-GN
+dW
 IF
 IF
 RM
@@ -2731,7 +2726,7 @@ HG
 sn
 NN
 Wn
-GN
+dW
 dW
 kB
 kB
@@ -2745,9 +2740,9 @@ Wk
 kB
 IF
 IF
-GN
-GN
-GN
+dW
+dW
+dW
 IF
 JO
 Wk
@@ -2764,15 +2759,15 @@ UI
 UI
 IF
 IF
-GN
-GN
+dW
+dW
 Ik
 BS
 jd
 ab
 NN
 Wn
-GN
+dW
 IF
 kB
 kB
@@ -2785,10 +2780,10 @@ fj
 bL
 kB
 kB
-GN
-GN
-GN
-GN
+dW
+dW
+dW
+dW
 IF
 IF
 Wk
@@ -2805,34 +2800,34 @@ UI
 UI
 IF
 IF
-GN
-GN
+dW
+dW
 od
 od
 Dk
 jt
 NN
 Wk
-GN
+dW
 kB
 kB
 Wk
 Wk
-sL
+kz
 pM
 Cp
-bq
+WN
 Wk
 Wk
 kB
 kB
 Wk
 IF
-GN
+dW
 IF
 IF
 IF
-GN
+dW
 UI
 UI
 UI
@@ -2847,7 +2842,7 @@ UI
 UI
 IF
 IF
-GN
+dW
 Wk
 Wk
 oT
@@ -2871,9 +2866,9 @@ Wk
 bJ
 IF
 IF
-GN
-GN
-GN
+dW
+dW
+dW
 UI
 UI
 UI
@@ -2900,8 +2895,8 @@ kB
 kB
 ka
 dA
-up
-kz
+sL
+bq
 CL
 UO
 Wk
@@ -2913,8 +2908,8 @@ WR
 IF
 IF
 IF
-GN
-GN
+dW
+dW
 IF
 UI
 UI
@@ -2953,9 +2948,9 @@ Wk
 LF
 Zo
 IF
-GN
-GN
-GN
+dW
+dW
+dW
 IF
 IF
 UI
@@ -2993,10 +2988,10 @@ kB
 Wk
 jT
 jd
-GN
-GN
+dW
+dW
 Tl
-GN
+dW
 IF
 IF
 IF
@@ -3026,7 +3021,7 @@ Ig
 uV
 mq
 CL
-WN
+up
 bL
 kB
 kB
@@ -3034,10 +3029,10 @@ Wk
 Wk
 zR
 TI
-GN
-GN
+dW
+dW
 fA
-GN
+dW
 IF
 IF
 IF
@@ -3060,7 +3055,7 @@ IF
 IF
 IF
 IF
-QF
+GN
 IF
 Wk
 vU
@@ -3075,7 +3070,7 @@ ka
 uT
 wW
 ZN
-GN
+dW
 dm
 BZ
 Wk
@@ -3101,9 +3096,9 @@ IF
 IF
 IF
 IF
-GN
+dW
 IF
-GN
+dW
 IF
 rM
 Nl
@@ -3140,15 +3135,15 @@ Wk
 Wk
 bL
 bL
-GN
+dW
 IF
-GN
-GN
-GN
-GN
-GN
-GN
-GN
+dW
+dW
+dW
+dW
+dW
+dW
+dW
 rp
 Wk
 kB
@@ -3180,16 +3175,16 @@ Be
 gZ
 NN
 mo
-GN
-GN
+dW
+dW
 kB
 kB
 kB
-GN
-GN
+dW
+dW
 IF
-GN
-GN
+dW
+dW
 Ij
 Wk
 kB
@@ -3221,16 +3216,16 @@ As
 Hh
 LQ
 TI
-GN
-GN
-GN
+dW
+dW
+dW
 kB
 kB
 kB
-GN
-GN
-GN
-GN
+dW
+dW
+dW
+dW
 Wk
 Wk
 kB
@@ -3262,15 +3257,15 @@ fp
 YS
 NN
 kl
-GN
-GN
+dW
+dW
 IF
 IF
-GN
+dW
 kB
 kB
-GN
-GN
+dW
+dW
 kB
 kB
 kB
@@ -3304,15 +3299,15 @@ NN
 NN
 Qj
 IF
-GN
-GN
-GN
-GN
+dW
+dW
+dW
+dW
 IF
 kB
 IF
-GN
-GN
+dW
+dW
 IF
 kB
 kB
@@ -3345,14 +3340,14 @@ cj
 NN
 Ya
 Fb
-GN
+dW
 kB
-GN
-GN
-GN
+dW
+dW
+dW
 IF
 IF
-GN
+dW
 kB
 IF
 IF
@@ -3390,8 +3385,8 @@ Wk
 Wk
 Wk
 YB
-GN
-GN
+dW
+dW
 bL
 Wk
 kB
@@ -3433,7 +3428,7 @@ WQ
 gj
 Pk
 IF
-GN
+dW
 Wk
 yE
 yE
@@ -3524,7 +3519,7 @@ YZ
 Ik
 Ya
 fR
-GN
+dW
 IF
 KD
 TI
@@ -3565,8 +3560,8 @@ Wk
 kg
 bS
 IF
-GN
-GN
+dW
+dW
 IF
 vM
 Wk
@@ -3606,8 +3601,8 @@ Wk
 oJ
 Pw
 IF
-GN
-GN
+dW
+dW
 IF
 Xb
 Wk
@@ -3647,9 +3642,9 @@ Wk
 Wk
 Wk
 Wk
-GN
-GN
-GN
+dW
+dW
+dW
 Wk
 Wk
 kB
@@ -3687,11 +3682,11 @@ kB
 UI
 UI
 UI
-GN
-GN
-GN
-GN
-GN
+dW
+dW
+dW
+dW
+dW
 IF
 kB
 kB
@@ -3731,7 +3726,7 @@ UI
 UI
 IF
 IF
-GN
+dW
 IF
 IF
 kB
