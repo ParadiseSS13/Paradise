@@ -528,10 +528,6 @@
 		var/datum/D = value
 		return D.debug_variable_value(sanitize)
 
-	else if(isclient(value))
-		var/client/C = value
-		return "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(value)] \ref[value]</a> (Da client)"
-//
 	else if(islist(value))
 		var/list/L = value
 		var/list/items = list()
