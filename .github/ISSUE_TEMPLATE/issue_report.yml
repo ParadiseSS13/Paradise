@@ -27,7 +27,7 @@ body:
       options:
         - label: I confirm this issue does not give players a unfair advantage. (Required)
           required: true
-        - label: I confirn this issue does not affect server stability or security. (required)
+        - label: I confirm this issue does not affect server stability or security. (Required)
           required: true
 
   - type: input
