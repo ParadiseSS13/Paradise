@@ -410,12 +410,6 @@
 	mob_species = /datum/species/unathi/ashwalker
 	outfit = /datum/outfit/ashwalker
 
-/datum/outfit/ashwalker
-	name = "Ashwalker Corpse"
-	head = /obj/item/clothing/head/helmet/gladiator
-	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
-	shoes = /obj/item/clothing/shoes/sandal
-
 //Assistant Corpse
 /obj/effect/mob_spawn/human/corpse/assistant
 	name = "Assistant"
