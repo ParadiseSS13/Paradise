@@ -33,7 +33,9 @@
 	id = "ruin-eden"
 	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to full extent of the wastes, \
 	to research and adapt their creations to the ashen wastes. Unfortunately, "
+	suffix = "lavaland_surface_eden.dmm"
 	allow_duplicates = FALSE
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
@@ -43,13 +45,14 @@
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/lavaland/Ash_walker_siege
+/datum/map_template/ruin/lavaland/ash_walker_siege
 	name = "Ash Walker Siege"
 	id = "ashwalker-siege"
 	description = "Despite the success of many ashwalker tribes to spread and propagate through the wasteland, this one was besieged by a band of miners looking to pacify the threats of the wasteland. \
 	While only threat was a singular Ash Walker warrior, they did not go out without the glory of a great combat."
 	suffix = "lavaland_surface_ash_walker_siege.dmm"
 	allow_duplicates = FALSE
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
@@ -75,6 +78,15 @@
 	Now, it lies abandoned, wholly reclaimed by the hostile environment, transforming into yet another relic of a lost company."
 	suffix = "lavaland_surface_althland_excavation.dmm"
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/althland_minebot_factory
+	name = "Althland Minebot Factory"
+	id = "althland-minebot-factory"
+	description = "A long-since abandoned factory, teeming with the remains of the abandoned robotics within. This once busy settlement now lay in ruin, a testament to the harsh reality of the wastes. \
+	On rare occasions such as this, it is a reminder that even in disrepair, some places may still great power within."
+	suffix = "lavaland_surface_althland_minebot_factory.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/sin
 	allow_duplicates = FALSE

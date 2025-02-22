@@ -12,11 +12,17 @@
 /area/lavaland/surface/outdoors)
 "bn" = (
 /obj/structure/table_frame/wood,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"bx" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "bP" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "bZ" = (
@@ -25,6 +31,7 @@
 "ca" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/rock/pile/largejungle,
+/obj/item/food/grown/apple/gold,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "dh" = (
@@ -34,12 +41,18 @@
 /area/ruin/unpowered/misc_lavaruin)
 "dv" = (
 /obj/item/hatchet,
+/mob/living/simple_animal/hostile/killertomato,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "dy" = (
 /obj/effect/decal/remains/human,
 /obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/grass/jungle/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ek" = (
+/obj/structure/flora/junglebush,
 /obj/structure/spacevine,
+/obj/effect/spawner/random/loot/crate,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "eP" = (
@@ -52,28 +65,39 @@
 /obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ff" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "fV" = (
 /obj/structure/chair/wood,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "gu" = (
 /obj/structure/flora/rock/pile/largejungle,
+/obj/item/food/grown/apple/gold,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "gw" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/killertomato,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "gC" = (
 /obj/structure/table/wood,
+/obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "gK" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/kirbyplants/large/dead,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "gY" = (
@@ -86,6 +110,23 @@
 /obj/item/stack/ore/plasma,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
+"he" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"hi" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"hY" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "jb" = (
 /mob/living/simple_animal/hostile/killertomato,
 /turf/simulated/floor/wood/lavaland_air,
@@ -96,7 +137,17 @@
 	},
 /obj/structure/closet/crate,
 /obj/item/shovel,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"jA" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"kf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "km" = (
 /obj/structure/chair/wood{
@@ -106,13 +157,25 @@
 /mob/living/simple_animal/hostile/killertomato,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
+"kI" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"kO" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/unpowered/misc_lavaruin)
 "lh" = (
 /obj/effect/spawner/random/dice,
 /obj/structure/table/wood/poker,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "lq" = (
 /obj/structure/table/wood/poker,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "lN" = (
@@ -125,9 +188,12 @@
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/killertomato,
+/obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "mg" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "mr" = (
@@ -135,13 +201,11 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
-"mT" = (
-/mob/living/simple_animal/hostile/tree,
-/turf/simulated/floor/grass/jungle,
-/area/ruin/unpowered/misc_lavaruin)
 "nb" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/grass/jungle,
+/obj/effect/spawner/random/book,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "nJ" = (
 /obj/structure/window/full/reinforced,
@@ -151,29 +215,46 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/rh,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
+"nQ" = (
+/obj/effect/spawner/random/food_trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "of" = (
 /obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "oo" = (
-/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "pi" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
+/obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "po" = (
 /obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"ql" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "qx" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/trash,
 /obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"qJ" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "qU" = (
@@ -190,7 +271,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "sJ" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/grass/jungle,
+/turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "sU" = (
 /obj/structure/sink/kitchen{
@@ -198,6 +279,8 @@
 	pixel_y = 3;
 	pixel_x = -13
 	},
+/obj/effect/decal/cleanable/flour,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "ti" = (
@@ -209,11 +292,14 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "tU" = (
 /obj/structure/flora/rock/pile/largejungle,
 /obj/structure/flora/junglebush/large,
+/obj/item/food/grown/apple/gold,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "uf" = (
@@ -230,6 +316,10 @@
 "uq" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"uH" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "uL" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
@@ -255,27 +345,43 @@
 "vA" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/chair/wood,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "wr" = (
 /obj/structure/closet/crate/miningcar,
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/uranium,
+/obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "wO" = (
 /obj/item/seeds/tomato/killer,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
+"wP" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"wR" = (
+/obj/item/kirbyplants/large/dead,
+/obj/structure/spacevine,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "xK" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "xP" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"zq" = (
+/turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "zC" = (
 /obj/effect/spawner/random/trash,
@@ -289,10 +395,18 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "AN" = (
-/obj/machinery/door/airlock/wood,
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"AR" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "AY" = (
@@ -304,11 +418,14 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "BD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "BE" = (
@@ -349,8 +466,13 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
+"De" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "Dh" = (
 /obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Dl" = (
@@ -360,11 +482,17 @@
 /area/ruin/unpowered/misc_lavaruin)
 "Dr" = (
 /mob/living/simple_animal/hostile/killertomato,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/grass/jungle,
+/turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "DC" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/unpowered/misc_lavaruin)
+"DT" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "DZ" = (
 /obj/item/shovel/spade,
@@ -374,12 +502,20 @@
 "Ee" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Eq" = (
+/obj/effect/decal/cleanable/generic,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "EB" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "EC" = (
@@ -387,6 +523,14 @@
 	dir = 10
 	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Fk" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "FN" = (
@@ -394,49 +538,68 @@
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
-"Gd" = (
-/obj/effect/spawner/random/blood/maybe,
-/turf/simulated/floor/grass/jungle,
-/area/ruin/unpowered/misc_lavaruin)
 "GH" = (
 /obj/item/food/grown/apple/gold,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
-"Ia" = (
-/obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/hostile/tree,
-/turf/simulated/floor/grass/jungle,
+"Hw" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"HN" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"HX" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Ih" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table/wood,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Jd" = (
 /obj/item/shard,
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Jv" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "JD" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "JT" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"JU" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "Kj" = (
-/obj/effect/spawner/random/blood/maybe,
-/obj/structure/spacevine,
-/turf/simulated/floor/grass/jungle,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "LN" = (
 /obj/structure/chair/wood{
@@ -447,6 +610,7 @@
 "Md" = (
 /obj/structure/table,
 /obj/item/food/sliceable/carrotcake,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Mv" = (
@@ -458,6 +622,7 @@
 "MJ" = (
 /obj/item/chair/wood,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "MX" = (
@@ -465,16 +630,18 @@
 /obj/item/toy/plushie/dionaplushie{
 	pixel_y = 10
 	},
+/obj/structure/spacevine,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ns" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Nz" = (
 /obj/item/gun/energy/floragun,
 /obj/structure/flora/rock/jungle,
-/turf/simulated/floor/grass/jungle,
-/area/ruin/unpowered/misc_lavaruin)
-"NE" = (
-/mob/living/simple_animal/hostile/killertomato,
-/obj/structure/spacevine,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "NH" = (
@@ -483,7 +650,8 @@
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "NQ" = (
-/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "NY" = (
@@ -497,6 +665,7 @@
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/item/food/grown/apple,
 /obj/item/food/salad,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "OS" = (
@@ -521,6 +690,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Rh" = (
@@ -532,6 +702,12 @@
 /obj/structure/flora/junglebush,
 /obj/structure/spacevine,
 /turf/simulated/floor/grass/jungle,
+/area/ruin/unpowered/misc_lavaruin)
+"Rz" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/trash,
+/obj/structure/spacevine,
+/turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "RA" = (
 /obj/structure/closet/crate/miningcar,
@@ -547,14 +723,30 @@
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
+"Tf" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/seed_vault_diona,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "To" = (
-/obj/item/shard,
 /obj/effect/mapping_helpers/turfs/burn,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "TF" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"TX" = (
+/obj/effect/decal/cleanable/flour,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Uo" = (
@@ -562,7 +754,14 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Vc" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Vf" = (
@@ -574,6 +773,7 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "VZ" = (
@@ -582,12 +782,19 @@
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "Wb" = (
-/obj/item/shard,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Wc" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
+/area/ruin/unpowered/misc_lavaruin)
+"Wr" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Ww" = (
 /obj/structure/table/wood,
@@ -595,6 +802,7 @@
 /obj/item/pickaxe{
 	pixel_x = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "WC" = (
@@ -618,23 +826,19 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
-"XT" = (
-/obj/effect/spawner/random/trash,
-/obj/structure/spacevine,
-/turf/simulated/floor/grass/jungle,
-/area/ruin/unpowered/misc_lavaruin)
 "Ye" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/wood,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"YE" = (
+/obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "YT" = (
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
-/obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/grass/jungle,
-/area/ruin/unpowered/misc_lavaruin)
-"Zh" = (
-/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/blood,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "ZB" = (
@@ -643,6 +847,7 @@
 "ZE" = (
 /obj/structure/shelf/supply,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 
@@ -741,8 +946,8 @@ bZ
 bZ
 bZ
 bZ
-bZ
-bZ
+uq
+uq
 au
 au
 au
@@ -788,7 +993,7 @@ bZ
 bZ
 bZ
 DC
-NY
+Wr
 JD
 QO
 Mv
@@ -842,19 +1047,19 @@ bZ
 bZ
 bZ
 DC
-ZB
+qJ
 NY
 NY
 Ye
 DC
 eP
 eP
-NQ
-Wb
-ZB
-NQ
+uH
+Vc
+wP
+uH
 TF
-ZB
+wP
 hd
 DC
 bZ
@@ -872,15 +1077,15 @@ DC
 eX
 ZE
 bP
-ZB
-ZB
-NY
-NY
-zC
+wP
+qJ
+HN
+HN
+jA
 BD
-BD
+Fk
 ZB
-NY
+HN
 EC
 jy
 DC
@@ -897,18 +1102,18 @@ bZ
 bZ
 DC
 jb
-ZB
-ZB
+YE
+qJ
 NY
 DC
 zC
-ZB
-NY
+De
+HN
 bP
-ZB
-uL
+qJ
+Tf
 BD
-ZB
+De
 Ww
 DC
 bZ
@@ -933,10 +1138,10 @@ DC
 of
 uf
 vA
-ZB
+wP
 EB
-NY
-eP
+HN
+JU
 DC
 bZ
 bZ
@@ -958,7 +1163,7 @@ JT
 JT
 DC
 DC
-gC
+kI
 Ee
 gw
 Wb
@@ -1005,19 +1210,19 @@ JT
 JT
 JT
 JT
-DC
-DC
-DC
-DC
-DC
+ql
+ql
+ql
+ql
+ql
 JT
 JT
 JT
 nJ
 AY
-Od
-NY
-Od
+zq
+hY
+zq
 Ih
 DC
 bZ
@@ -1030,20 +1235,20 @@ bZ
 JT
 JT
 JT
-DC
-DC
-DC
+ql
+ql
+ql
 ru
 ru
 ru
+ql
+ql
 DC
 DC
 DC
-DC
-DC
-NY
+xP
 Dr
-mg
+kf
 dh
 Ai
 DC
@@ -1056,8 +1261,8 @@ bZ
 bZ
 JT
 JT
-DC
-DC
+ql
+ql
 sl
 mr
 WC
@@ -1068,11 +1273,11 @@ BE
 gY
 DC
 wr
-mg
+bx
 NY
 bP
-Od
-CL
+zq
+Ns
 Jd
 bZ
 bZ
@@ -1083,10 +1288,10 @@ bZ
 JT
 JT
 JT
-DC
+ql
 Pk
 Xl
-Wc
+lN
 Od
 Od
 zP
@@ -1095,11 +1300,11 @@ wO
 gY
 DC
 RA
-ti
-XT
-CL
-Od
-CL
+zq
+sJ
+HX
+zq
+he
 Dh
 bZ
 bZ
@@ -1109,11 +1314,11 @@ bZ
 bZ
 JT
 JT
-DC
-DC
+ql
+ql
 Ru
 Wc
-mT
+Od
 VZ
 Od
 WC
@@ -1123,8 +1328,8 @@ ru
 DC
 DC
 DC
-ti
-xP
+zq
+hi
 qx
 To
 DC
@@ -1136,7 +1341,7 @@ bZ
 bZ
 JT
 JT
-DC
+ql
 qU
 Od
 Od
@@ -1149,11 +1354,11 @@ nO
 WC
 ti
 Dl
-ti
+zq
 Kj
-ti
+zq
 CL
-Od
+zq
 DC
 bZ
 bZ
@@ -1163,7 +1368,7 @@ bZ
 bZ
 JT
 JT
-DC
+ql
 WC
 Xl
 Od
@@ -1175,12 +1380,12 @@ YT
 Od
 WC
 BE
-Dl
-ti
-ti
-ti
+kO
+zq
+zq
+zq
 bP
-NY
+HN
 DC
 bZ
 bZ
@@ -1190,7 +1395,7 @@ bZ
 bZ
 JT
 JT
-DC
+ql
 qU
 lN
 Od
@@ -1202,12 +1407,12 @@ Nz
 Wc
 Od
 mr
-Dl
-ti
-NE
+kO
+zq
+Dr
 dy
-ti
-Zh
+zq
+zq
 DC
 bZ
 bZ
@@ -1217,8 +1422,8 @@ bZ
 bZ
 JT
 JT
-DC
-DC
+ql
+ql
 Od
 zP
 WC
@@ -1231,10 +1436,10 @@ ru
 DC
 DC
 DC
-XT
-Od
-NY
-ZB
+sJ
+zq
+HN
+YE
 DC
 bZ
 bZ
@@ -1245,23 +1450,23 @@ bZ
 JT
 JT
 JT
-DC
-Ru
+ql
+ek
 Od
 Wc
-Ia
+Xl
 Od
 Od
 zP
 FN
 ru
 DC
-eP
-Od
-ti
+Rz
+zq
+zq
 oo
 mg
-Od
+zq
 DC
 bZ
 bZ
@@ -1272,8 +1477,8 @@ bZ
 bZ
 JT
 JT
-DC
-DC
+ql
+ql
 sl
 WC
 dv
@@ -1284,9 +1489,9 @@ Ru
 ru
 DC
 MX
-NY
 xP
-NY
+hi
+HN
 eP
 pi
 DC
@@ -1300,19 +1505,19 @@ bZ
 JT
 JT
 JT
-DC
-DC
-DC
+ql
+ql
+ql
 qU
 gY
 gY
+ql
+ql
 DC
 DC
 DC
-DC
-DC
-Gd
-NY
+Kj
+DT
 sJ
 nb
 mb
@@ -1329,18 +1534,18 @@ JT
 JT
 JT
 JT
-DC
-DC
-DC
-DC
-DC
+ql
+ql
+ql
+ql
+ql
 JT
 JT
 JT
 nJ
-of
-ZB
-NY
+wR
+Eq
+hi
 Jv
 aq
 DC
@@ -1394,8 +1599,8 @@ nJ
 DC
 Rh
 PS
-NY
-ZB
+hY
+qJ
 DC
 au
 au
@@ -1414,7 +1619,7 @@ bZ
 DC
 DC
 nJ
-nJ
+Hw
 DC
 DC
 gK
@@ -1422,7 +1627,7 @@ sU
 km
 MJ
 SD
-NY
+Wr
 AN
 au
 au
@@ -1442,13 +1647,13 @@ DC
 of
 Uo
 tR
-NY
+Wr
 DC
-ZB
+wP
 bP
 uL
-ZB
-NY
+wP
+HN
 AY
 DC
 au
@@ -1469,12 +1674,12 @@ DC
 fV
 uX
 bn
-zC
+jA
 AN
-NY
-SD
-NY
-ZB
+HN
+nQ
+HN
+TX
 NQ
 DC
 DC
@@ -1496,7 +1701,7 @@ DC
 vA
 lq
 lh
-Wb
+AR
 DC
 OP
 Md
@@ -1523,7 +1728,7 @@ DC
 zC
 Bi
 LN
-bP
+ff
 DC
 DC
 nJ
