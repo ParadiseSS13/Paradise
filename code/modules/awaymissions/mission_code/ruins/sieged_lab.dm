@@ -50,7 +50,9 @@
 	crusher_loot = list()
 	health = 750
 	maxHealth = 750
-	rapid_melee = 5 // 4 decisecond cooldown before charges, SSnpc wait is 20, 20/4 = 5
+	rapid_melee = 3
+	wander = FALSE
+	move_force = MOVE_FORCE_DEFAULT
 	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
 	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 
@@ -132,8 +134,7 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 	"biotech",
 	"combat",
 	"magnets",
-	"programming",
-	"syndicate"
+	"programming"
 ))
 
 /obj/item/paper/sieged_lab_research_paper
@@ -170,7 +171,7 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 	spawn_loot_chance = 50
 
 /obj/effect/mine/sieged_lab
-	name = "sentry mine"
+	name = "mine"
 
 /obj/effect/mine/sieged_lab/mineEffect(mob/living/victim)
 	explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched

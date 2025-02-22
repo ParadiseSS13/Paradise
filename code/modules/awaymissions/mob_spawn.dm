@@ -679,6 +679,7 @@
 		/datum/species/grey,
 		/datum/species/diona,
 	)
+	del_types |= /obj/item/card/id
 
 	return ..()
 
