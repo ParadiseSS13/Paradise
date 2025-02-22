@@ -13,7 +13,7 @@
 
 /datum/gear/hat
 	main_typepath = /datum/gear/hat
-	slot = SLOT_HUD_HEAD
+	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
@@ -70,12 +70,12 @@
 /datum/gear/hat/capcsec
 	display_name = "Security cap, corporate"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
 /datum/gear/hat/capsec
 	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
 /datum/gear/hat/capjanigrey
 	display_name = "Cap, janitor grey"
@@ -146,7 +146,7 @@
 /datum/gear/hat/cowboyhat/sec
 	display_name = "Cowboy hat, security"
 	path = /obj/item/clothing/head/cowboyhat/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"

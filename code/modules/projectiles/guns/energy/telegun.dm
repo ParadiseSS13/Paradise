@@ -2,7 +2,7 @@
 
 /obj/item/gun/energy/telegun
 	name = "teleporter gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to Bluespace Beacons."
+	desc = "An extremely high-tech energy gun that utilizes jury-rigged bluespace technology to teleport away living targets."
 	icon_state = "telegun"
 	item_state = "telegun"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
@@ -14,7 +14,7 @@
 	teleport_target = null
 	return ..()
 
-/obj/item/gun/energy/telegun/attack_self(mob/living/user)
+/obj/item/gun/energy/telegun/attack_self__legacy__attackchain(mob/living/user)
 	var/list/L = list()
 	var/list/areaindex = list()
 

@@ -74,7 +74,7 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/target, mob/living/user)
+/obj/item/flamethrower/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
@@ -121,7 +121,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
+/obj/item/flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
@@ -140,7 +140,7 @@
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
 
-/obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
+/obj/item/flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(isigniter(I))
 		var/obj/item/assembly/igniter/IG = I
 		if(IG.secured)
@@ -206,7 +206,7 @@
 		return ptank.return_analyzable_air()
 	return null
 
-/obj/item/flamethrower/attack_self(mob/user)
+/obj/item/flamethrower/attack_self__legacy__attackchain(mob/user)
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/user)
@@ -231,11 +231,13 @@
 	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
 	lit = !lit
 	if(lit)
+		damtype = BURN
 		START_PROCESSING(SSobj, src)
 		if(!warned_admins)
 			message_admins("[ADMIN_LOOKUPFLW(user)] has lit a flamethrower.")
 			warned_admins = TRUE
 	else
+		damtype = initial(damtype)
 		STOP_PROCESSING(SSobj,src)
 	update_icon()
 
@@ -269,17 +271,14 @@
 	operating = FALSE
 	for(var/mob/M in viewers(1, loc))
 		if(M.client && M.machine == src)
-			attack_self(M)
+			attack_self__legacy__attackchain(M)
 
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
-	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	if(air_transfer.toxins())
-		air_transfer.set_toxins(air_transfer.toxins() * 5)
 	target.blind_release_air(air_transfer)
-	target.hotspot_expose((ptank.air_contents.temperature() * 2) + 380, 500)
+	target.hotspot_expose(PLASMA_UPPER_TEMPERATURE, min(CELL_VOLUME, CELL_VOLUME * air_transfer.total_moles()))
 
 
 /obj/item/flamethrower/Initialize(mapload)

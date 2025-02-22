@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -74,7 +74,7 @@
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon()
 
-/obj/item/pen/multi/attack_self(mob/living/user as mob)
+/obj/item/pen/multi/attack_self__legacy__attackchain(mob/living/user as mob)
 	select_colour(user)
 
 /obj/item/pen/multi/update_overlays()
@@ -146,7 +146,7 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/sleepy/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
@@ -179,19 +179,25 @@
 	name = "fancy pen"
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
-	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
+	container_type = (DRAINABLE | TRANSPARENT) //cannot be refilled, but pax can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
 	transfer_amount = 25 // 4 Dosages instead of 2
 
-/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
-	var/can_transfer = reagents.total_volume && M.reagents
+/obj/item/pen/sleepy/love/Initialize(mapload)
 	. = ..()
-	if(can_transfer && .)
-		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
-	return TRUE
+	START_PROCESSING(SSobj, src)
+
+/obj/item/pen/sleepy/love/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/pen/sleepy/love/fill_pen()
-	reagents.add_reagent("love", 100)
+	reagents.add_reagent("pax", 100) // strong and unique reagent, making you a pacifist for a long time.
+
+/obj/item/pen/sleepy/love/process()
+	if(reagents.total_volume < 100)
+		reagents.add_reagent("pax", 0.5) // slow refill over time. In average 1 dose every 100 seconds.
+
 
 /obj/item/pen/sleepy/undisguised
 	name = "sleepy pen"
@@ -210,7 +216,7 @@
 	armour_penetration_flat = 20
 	throw_speed = 4
 
-/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(cigarette_lighter_act(user, M))
 		return
 
@@ -264,7 +270,7 @@
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE
 
-/obj/item/pen/edagger/attack_self(mob/living/user)
+/obj/item/pen/edagger/attack_self__legacy__attackchain(mob/living/user)
 	if(active)
 		active = FALSE
 		force = initial(force)
@@ -308,7 +314,7 @@
 /obj/item/pen/multi/poison
 	var/current_poison = null
 
-/obj/item/pen/multi/poison/attack_self(mob/living/user)
+/obj/item/pen/multi/poison/attack_self__legacy__attackchain(mob/living/user)
 	. = ..()
 	switch(colour)
 		if("black")
@@ -332,3 +338,17 @@
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
 			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+
+// MARK: CHAMELEON PEN
+/obj/item/pen/chameleon
+	var/forge_name
+
+/obj/item/pen/chameleon/attack_self__legacy__attackchain(mob/user)
+	if(!iscarbon(user))
+		return
+
+	if(!Adjacent(user) || user.incapacitated())
+		return
+
+	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
+

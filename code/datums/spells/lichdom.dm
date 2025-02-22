@@ -1,7 +1,6 @@
 /datum/spell/lichdom
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
-	school = "necromancy"
 	base_cooldown = 10
 	clothes_req = FALSE
 	centcom_cancast = FALSE
@@ -60,7 +59,7 @@
 		if(iscarbon(current_body))
 			var/mob/living/carbon/C = current_body
 			for(var/obj/item/W in C)
-				C.unEquip(W)
+				C.drop_item_to_ground(W)
 
 		// Give a hint as to where the body is
 		var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
@@ -117,10 +116,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.set_species(/datum/species/skeleton/lich)
-		H.unEquip(H.wear_suit)
-		H.unEquip(H.head)
-		H.unEquip(H.shoes)
-		H.unEquip(H.head)
+		H.drop_item_to_ground(H.wear_suit)
+		H.drop_item_to_ground(H.head)
+		H.drop_item_to_ground(H.shoes)
+		H.drop_item_to_ground(H.head)
 		equip_lich(H)
 
 	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
@@ -138,7 +137,7 @@
 	return TRUE
 
 /datum/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), ITEM_SLOT_JUMPSUIT)

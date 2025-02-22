@@ -301,6 +301,7 @@
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
+	antimagic_flags = NONE
 
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
@@ -372,6 +373,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_eat"
 
@@ -382,14 +384,22 @@
 	. = ..()
 	if(!.)
 		return
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
-			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
-			can_eat = FALSE
-	return can_eat
+
+	if(!iscarbon(user))
+		return TRUE
+
+	var/mob/living/carbon/C = user
+	if(!(C.head?.flags_cover & HEADCOVERSMOUTH))
+		if(!ismask(C.wear_mask))
+			return TRUE
+
+		var/obj/item/clothing/mask/worn_mask = C.wear_mask
+		if(!(worn_mask.flags_cover & MASKCOVERSMOUTH) || worn_mask.up)
+			return TRUE
+
+	if(show_message)
+		to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+	return FALSE
 
 /datum/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
@@ -470,7 +480,7 @@
 	if(ismob(the_item.loc) && isitem(the_item))
 		var/obj/item/eaten = the_item
 		var/mob/the_owner = the_item.loc
-		if(!the_owner.unEquip(eaten, FALSE, TRUE))
+		if(!the_owner.drop_item_to_ground(eaten, silent = TRUE))
 			to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
 			return
 	user.visible_message("<span class='danger'>[user] eats [the_item].</span>")
@@ -511,6 +521,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_jump"
 	var/leap_distance = 10
@@ -542,10 +553,9 @@
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return FALSE
 		var/prevLayer = user.layer
-		var/prevFlying = user.flying
 		user.layer = 9
 
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_FLYING, "leap")
 		for(var/i in 1 to leap_distance)
 			var/turf/hit_turf = get_step(user, user.dir)
 			var/atom/hit_atom = get_blocking_atom(hit_turf)
@@ -560,7 +570,7 @@
 				user.pixel_y -= 8
 			sleep(1)
 
-		user.flying = prevFlying
+		REMOVE_TRAIT(user, TRAIT_FLYING, "leap")
 		user.pixel_y = 0 // In case leap was varedited to be longer or shorter
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
@@ -637,6 +647,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
 
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_poly"
 
@@ -685,6 +696,7 @@
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_empath"
 
@@ -794,6 +806,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_morph"
 
@@ -819,9 +832,10 @@
 			M.change_gender(FEMALE)
 
 	if(eyes_organ)
-		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
-		if(new_eyes)
-			M.change_eye_color(new_eyes)
+		var/new_eyes = tgui_input_color(user, "Please select eye color.", "Character Generation", eyes_organ.eye_color)
+		if(isnull(new_eyes))
+			return
+		M.change_eye_color(new_eyes)
 
 	if(istype(head_organ))
 		//Alt heads.
@@ -839,14 +853,14 @@
 		if(new_style)
 			M.change_hair(new_style)
 
-		var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
-		if(new_hair)
+		var/new_hair = tgui_input_color(user, "Please select hair color.", "Character Generation", head_organ.hair_colour)
+		if(!isnull(new_hair))
 			M.change_hair_color(new_hair)
 
 		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-			new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
-			if(new_hair)
+			new_hair = tgui_input_color(user, "Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour)
+			if(!isnull(new_hair))
 				M.change_hair_color(new_hair, TRUE)
 
 		// facial hair
@@ -856,25 +870,25 @@
 		if(new_style)
 			M.change_facial_hair(new_style)
 
-		var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
-		if(new_facial)
+		var/new_facial = tgui_input_color(user, "Please select facial hair color.", "Character Generation", head_organ.facial_colour)
+		if(!isnull(new_facial))
 			M.change_facial_hair_color(new_facial)
 
 		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-			new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
-			if(new_facial)
+			new_facial = tgui_input_color(user, "Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour)
+			if(!isnull(new_facial))
 				M.change_facial_hair_color(new_facial, TRUE)
 
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
 			var/new_head_accessory = tgui_input_list(user, "Please select head accessory style", "Character Generation", valid_head_accessories)
-			if(new_head_accessory)
+			if(!isnull(new_head_accessory))
 				M.change_head_accessory(new_head_accessory)
 
-			var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
-			if(new_head_accessory_colour)
+			var/new_head_accessory_colour = tgui_input_color(user, "Please select head accessory color.", "Character Generation", head_organ.headacc_colour)
+			if(!isnull(new_head_accessory_colour))
 				M.change_head_accessory_color(new_head_accessory_colour)
 
 
@@ -883,7 +897,7 @@
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = tgui_input_list(user, "Please select body accessory style", "Character Generation", valid_body_accessories)
-			if(new_body_accessory)
+			if(!isnull(new_body_accessory))
 				M.change_body_accessory(new_body_accessory)
 
 	if(istype(head_organ))
@@ -891,32 +905,32 @@
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
 			var/new_marking = tgui_input_list(user, "Please select head marking style", "Character Generation", valid_head_markings)
-			if(new_marking)
+			if(!isnull(new_marking))
 				M.change_markings(new_marking, "head")
 
-			var/new_marking_colour = input("Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
-			if(new_marking_colour)
+			var/new_marking_colour = tgui_input_color(user, "Please select head marking color.", "Character Generation", M.m_colours["head"])
+			if(!isnull(new_marking_colour))
 				M.change_marking_color(new_marking_colour, "head")
 
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
 		var/new_marking = tgui_input_list(user, "Please select body marking style", "Character Generation", valid_body_markings)
-		if(new_marking)
+		if(!isnull(new_marking))
 			M.change_markings(new_marking, "body")
 
-		var/new_marking_colour = input("Please select body marking colour.", "Character Generation", M.m_colours["body"]) as null|color
-		if(new_marking_colour)
+		var/new_marking_colour = tgui_input_color(user, "Please select body marking color.", "Character Generation", M.m_colours["body"])
+		if(!isnull(new_marking_colour))
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
 		var/new_marking = tgui_input_list("Please select tail marking style", "Character Generation", valid_tail_markings)
-		if(new_marking)
+		if(!isnull(new_marking))
 			M.change_markings(new_marking, "tail")
 
-		var/new_marking_colour = input("Please select tail marking colour.", "Character Generation", M.m_colours["tail"]) as null|color
-		if(new_marking_colour)
+		var/new_marking_colour = tgui_input_color(user, "Please select tail marking color.", "Character Generation", M.m_colours["tail"])
+		if(!isnull(new_marking_colour))
 			M.change_marking_color(new_marking_colour, "tail")
 
 	//Skin tone.
@@ -945,8 +959,8 @@
 
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
-		if(new_body_colour)
+		var/new_body_colour = tgui_input_color(user, "Please select body color.", "Character Generation", M.skin_colour)
+		if(!isnull(new_body_colour))
 			M.change_skin_color(new_body_colour)
 
 	M.update_dna()
@@ -983,6 +997,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_project"
 
@@ -1017,6 +1032,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
 	var/list/expanded_minds = list()
@@ -1105,6 +1121,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_view"
 

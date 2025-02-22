@@ -20,6 +20,8 @@
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
 
 	var/s_tone = 0	//Skin tone
+	/// Species Sub-Type - overrites the species_sheet_name when it's not "None", acts the same as a skin tone.
+	var/species_subtype = "None"
 
 	//Skin colour
 	var/skin_colour = "#000000"
@@ -45,6 +47,7 @@
 	var/obj/item/clothing/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/clothing/gloves = null
+	var/obj/item/clothing/neck = null
 	var/obj/item/clothing/glasses = null
 	var/obj/item/l_ear = null
 	var/obj/item/r_ear = null
@@ -106,3 +109,6 @@
 
 	/// Lazylist of sources to track what our alpha should be, alpha is set to the minimum. Use the `set_alpha_tracking` and `get_alpha` helpers.
 	var/list/alpha_sources
+
+/mob/living/carbon/human/fake
+	flags = ABSTRACT

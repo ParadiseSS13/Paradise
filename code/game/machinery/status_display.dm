@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 	var/index1
 	var/index2
 
-/obj/machinery/status_display/Initialize()
+/obj/machinery/status_display/Initialize(mapload)
 	. = ..()
 	GLOB.status_displays |= src
 	update_icon(UPDATE_OVERLAYS)

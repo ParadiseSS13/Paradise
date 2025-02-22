@@ -27,7 +27,7 @@ export const TextInputModal = (props, context) => {
   const { act, data } = useBackend<TextInputData>(context);
   const { max_length, message = '', multiline, placeholder, timeout, title } = data;
   const [input, setInput] = useLocalState<string>(context, 'input', placeholder || '');
-  const onType = (value: string) => {
+  const onChange = (value: string) => {
     if (value === input) {
       return;
     }
@@ -59,7 +59,7 @@ export const TextInputModal = (props, context) => {
               <Box color="label">{message}</Box>
             </Stack.Item>
             <Stack.Item grow>
-              <InputArea input={input} onType={onType} />
+              <InputArea input={input} onChange={onChange} />
             </Stack.Item>
             <Stack.Item>
               <InputButtons input={input} message={`${input.length}/${max_length}`} />
@@ -75,7 +75,7 @@ export const TextInputModal = (props, context) => {
 const InputArea = (props, context) => {
   const { act, data } = useBackend<TextInputData>(context);
   const { max_length, multiline } = data;
-  const { input, onType } = props;
+  const { input, onChange } = props;
 
   const visualMultiline = multiline || input.length >= 40;
 
@@ -86,14 +86,14 @@ const InputArea = (props, context) => {
       height={multiline || input.length >= 40 ? '100%' : '1.8rem'}
       maxLength={max_length}
       onEscape={() => act('cancel')}
-      onEnter={(event) => {
+      onEnter={(event, value) => {
         if (visualMultiline && event.shiftKey) {
           return;
         }
         event.preventDefault();
-        act('submit', { entry: input });
+        act('submit', { entry: value });
       }}
-      onInput={(_, value) => onType(value)}
+      onChange={(_, value) => onChange(value)}
       placeholder="Type something..."
       value={input}
     />

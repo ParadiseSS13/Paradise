@@ -160,6 +160,9 @@
 	name = "Lavaland Wastes"
 	outdoors = TRUE
 
+/area/lavaland/surface/outdoors/legion_arena
+	name = "Legion Arena"
+
 /// monsters and ruins spawn here
 /area/lavaland/surface/outdoors/unexplored
 	icon_state = "unexplored"
@@ -169,3 +172,5 @@
 	icon_state = "danger"
 
 /area/lavaland/surface/outdoors/explored
+
+/area/lavaland/surface/outdoors/targetable

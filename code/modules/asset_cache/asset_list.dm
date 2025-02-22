@@ -311,9 +311,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/frame = 1
 	var/movement_states = FALSE
 
-	/// Used in asset name generation, (asset_name = "[prefix].[icon_state_name].png")
+	/// Used in asset name generation, (asset_name = `"[prefix].[icon_state_name].png"`)
 	var/prefix = "default"
-	/// Generate icon filenames using GENERATE_ASSET_NAME instead the "[prefix].[icon_state_name].png" format
+	/// Generate icon filenames using GENERATE_ASSET_NAME instead the `"[prefix].[icon_state_name].png"` format
 	var/generic_icon_names = FALSE
 
 /datum/asset/simple/icon_states/register(_icon = icon)

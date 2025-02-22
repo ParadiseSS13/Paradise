@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 
 /datum/orbit_menu/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/orbit_job)
+		get_asset_datum(/datum/asset/spritesheet/job_icons)
 	)
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
@@ -107,6 +107,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					- vampire
 					- changelings
 					- revolutionaries/headrevs
+					- event
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -120,8 +121,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
-							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors)
+							"Nuclear Operative" = (mind in SSticker.mode.syndicates)
 						)
 
 					for(var/antag_name in other_antags)

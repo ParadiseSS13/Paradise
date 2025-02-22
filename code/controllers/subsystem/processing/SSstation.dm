@@ -18,9 +18,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 /datum/controller/subsystem/processing/station/proc/SetupTraits()
 
 	if(fexists("data/next_traits.txt"))
-		var/forced_traits_contents = file2list("data/next_traits.txt")
+		var/forced_traits_contents = file2text("data/next_traits.txt")
 		fdel("data/next_traits.txt")
-		var/list/temp_list = splittext(forced_traits_contents[1], ",")
+		var/list/temp_list = json_decode(forced_traits_contents)
 
 		for(var/trait_text_path in temp_list)
 			var/station_trait_path = text2path(trait_text_path)

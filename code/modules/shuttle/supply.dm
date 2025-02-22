@@ -52,7 +52,7 @@
 	// The item preventing this shuttle from going to CC.
 	var/blocking_item = "ERR_UNKNOWN"
 
-/obj/docking_port/mobile/supply/Initialize()
+/obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
 		var/datum/economy/simple_seller/seller = new T
@@ -219,6 +219,10 @@
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return CARGO_OK
+		return CARGO_SKIP_ATOM
+
+	if(istype(AM, /mob/dead))
+		return CARGO_SKIP_ATOM
 
 	return CARGO_OK
 

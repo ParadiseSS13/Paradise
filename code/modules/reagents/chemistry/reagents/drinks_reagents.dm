@@ -102,9 +102,11 @@
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
-/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_INGEST)
-		M.adjustToxLoss(-rand(1,2))
+/datum/reagent/consumable/drink/triple_citrus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(15))
+		update_flags |= M.adjustToxLoss(-rand(1, 2), FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berryjuice
 	name = "Berry Juice"
@@ -139,6 +141,15 @@
 	drink_name = "Apple Juice"
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
+
+/datum/reagent/consumable/bungojuice
+	name = "Bungo Juice"
+	id = "bungojuice"
+	description = "Exotic! You feel like you are on vacation already."
+	color = "#F9E43D"
+	drink_name = "Bungo Juice"
+	drink_desc = "Exotic! You feel like you are on vacation already."
+	taste_description = "succulent bungo with an acidic poisonous tang"
 
 /datum/reagent/consumable/drink/watermelonjuice
 	name = "Watermelon Juice"
@@ -527,7 +538,7 @@
 	drink_desc = "Made with real grapes! Shocking!"
 	taste_description = "grape soda"
 
-/datum/reagent/consumable/drink/coco/icecoco
+/datum/reagent/consumable/drink/icecoco
 	name = "Iced Cocoa"
 	id = "icecoco"
 	description = "Hot cocoa and ice, refreshing and cool."

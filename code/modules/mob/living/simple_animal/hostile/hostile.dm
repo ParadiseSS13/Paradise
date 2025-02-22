@@ -115,7 +115,7 @@
 		Move(get_step(src, chosen_dir))
 		face_atom(target) //Looks better if they keep looking at you when dodging
 
-/mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
 	return ..()
@@ -467,11 +467,16 @@
 /mob/living/simple_animal/hostile/proc/EscapeConfinement()
 	if(buckled)
 		buckled.attack_animal(src)
+	if(!targets_from)
+		return
 	if(!isturf(targets_from.loc) && targets_from.loc != null)//Did someone put us in something?
 		var/atom/A = targets_from.loc
 		A.attack_animal(src)//Bang on it till we get out
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
+	if(QDELETED(target))
+		LoseTarget()
+		return
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)

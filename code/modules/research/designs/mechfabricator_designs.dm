@@ -249,6 +249,70 @@
 	construction_time = 13 SECONDS
 	category = list("Odysseus")
 
+//Nkarrdem
+/datum/design/nkarrdem_chassis
+	name = "Exosuit Chassis (\"Nkarrdem\")"
+	id = "nkarrdem_chassis"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/chassis/nkarrdem
+	materials = list(MAT_METAL=20000)
+	construction_time = 10 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_torso
+	name = "Exosuit Torso (\"Nkarrdem\")"
+	id = "nkarrdem_torso"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_torso
+	materials = list(MAT_METAL=12000)
+	construction_time = 18 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_head
+	name = "Exosuit Head (\"Nkarrdem\")"
+	id = "nkarrdem_head"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_head
+	materials = list(MAT_METAL=6000,MAT_GLASS=10000)
+	construction_time = 10 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_left_arm
+	name = "Exosuit Left Arm (\"Nkarrdem\")"
+	id = "nkarrdem_left_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_left_arm
+	materials = list(MAT_METAL=6000)
+	construction_time = 12 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_right_arm
+	name = "Exosuit Right Arm (\"Nkarrdem\")"
+	id = "nkarrdem_right_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_right_arm
+	materials = list(MAT_METAL=6000)
+	construction_time = 12 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_left_leg
+	name = "Exosuit Left Leg (\"Nkarrdem\")"
+	id = "nkarrdem_left_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_left_leg
+	materials = list(MAT_METAL=12000)
+	construction_time = 13 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_right_leg
+	name = "Exosuit Right Leg (\"Nkarrdem\")"
+	id = "nkarrdem_right_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_right_leg
+	materials = list(MAT_METAL=12000)
+	construction_time = 13 SECONDS
+	category = list("Nkarrdem")
+
 //Gygax
 /datum/design/gygax_chassis
 	name = "Exosuit Chassis (\"Gygax\")"
@@ -672,6 +736,66 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_medical_beamgun
+	name = "Exosuit Medical Equipment (Medical Beamgun)"
+	id = "mech_medi_beam"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	req_tech = list("combat" = 5, "materials" = 7, "powerstorage" = 7, "biotech" = 7)
+	materials = list(MAT_METAL=15000,MAT_GLASS=8000,MAT_PLASMA=3000,MAT_GOLD=8000,MAT_DIAMOND=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_mop
+	name = "Exosuit Janitorial Equipment (Mega Mop)"
+	id = "mech_mop"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4, "engineering" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop
+	materials = list(MAT_METAL=5000,MAT_GLASS=3000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_garbage_bag
+	name = "Exosuit Janitorial Equipment (Garbage Magnet)"
+	id = "mech_garbage_bag"
+	build_type = MECHFAB
+	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
+	materials = list(MAT_METAL=1500,MAT_GOLD=1500,MAT_URANIUM=700,MAT_PLASMA=2000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_mega_spray
+	name = "Exosuit Janitorial Equipment (Mega Spray)"
+	id = "mech_mega_spray"
+	build_type = MECHFAB
+	req_tech = list("biotech" = 5, "engineering" = 6, "plasmatech" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
+	materials = list(MAT_METAL=1000,MAT_GLASS=4000,MAT_GOLD=1000,MAT_PLASMA=3000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_light_replacer
+	name = "Exosuit Janitorial Equipment (Light Replacer)"
+	id = "mech_light_replacer"
+	build_type = MECHFAB
+	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer
+	materials = list(MAT_METAL=1500,MAT_SILVER=150,MAT_GLASS=6000,MAT_BLUESPACE=300)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_cleaning_grenade_launcher
+	name = "Exosuit Janitorial Equipment (Cleaning Grenade Launcher)"
+	id = "mech_cleaning_grenade_launcher"
+	build_type = MECHFAB
+	req_tech = list("toxins" = 7, "engineering" = 7, "plasmatech" = 6, "combat" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
+	materials = list(MAT_METAL=5000,MAT_GLASS=3000,MAT_SILVER=4000,MAT_GOLD=6000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator
 	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"
@@ -847,7 +971,7 @@
 
 /datum/design/clusterbang_launcher
 	name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
-	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
+	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute."
 	id = "clusterbang_launcher"
 	build_type = MECHFAB
 	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
@@ -880,7 +1004,7 @@
 
 /datum/design/mech_energy_relay
 	name = "Exosuit Module (Tesla Energy Relay)"
-	desc = "Tesla Energy Relay"
+	desc = "Tesla Energy Relay."
 	id = "mech_energy_relay"
 	build_type = MECHFAB
 	req_tech = list("magnets" = 4, "powerstorage" = 5, "engineering" = 4)
@@ -1186,6 +1310,16 @@
 	build_path = /obj/item/borg/upgrade/rped
 	req_tech = list("materials" = 3, "engineering" = 4)
 	materials = list(MAT_METAL = 40000, MAT_GLASS = 15000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_rsf_executive
+	name = "Cyborg Upgrade (Executive Service Upgrade)"
+	id = "borg_upgrade_RSF_executive"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/rsf_executive
+	req_tech = list("materials" = 2, "biotech" = 3)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 

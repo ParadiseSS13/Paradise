@@ -19,9 +19,10 @@
 	item_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
-	max_combined_w_class = 6
+	max_combined_w_class = 7
 	var/datum/martial_art/judo/style
 	can_hold = list(
+		/obj/item/radio,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -37,14 +38,15 @@
 /obj/item/storage/belt/judobelt/update_weight()
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/storage/belt/judobelt/Initialize()
+/obj/item/storage/belt/judobelt/Initialize(mapload)
 	. = ..()
 	style = new()
 
 /obj/item/storage/belt/judobelt/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!</span>")
@@ -59,7 +61,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You suddenly forget the arts of Corporate Judo...</span>")
 
@@ -74,11 +76,6 @@
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
-
-/datum/martial_art/judo/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
-	if(IS_HORIZONTAL(attacker))
-		return FALSE
-	return ..()
 
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")

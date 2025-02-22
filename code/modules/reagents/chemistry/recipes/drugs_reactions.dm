@@ -138,6 +138,14 @@
 	result_amount = 2
 	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
 
+/datum/chemical_reaction/lube/conductive
+	name = "conductive lube"
+	id = "conductivelube"
+	result = "conductivelube"
+	required_reagents = list("teslium" = 1, "lube" = 1, "aluminum" = 1)
+	result_amount = 3
+	mix_message = "The mixture darkens and starts sparking."
+
 /datum/chemical_reaction/surge
 	name = "Surge"
 	id = "surge"

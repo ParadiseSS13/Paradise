@@ -228,7 +228,7 @@
 	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	T.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 10)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
@@ -264,10 +264,6 @@
 	if(method == REAGENT_TOUCH)
 		// 100 volume - 20 seconds of lost sleep
 		AdjustSleeping(-(volume * 0.2 SECONDS), bound_lower = 1 SECONDS) // showers cannot save you from sleeping gas, 1 second lower boundary
-
-//This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(turf/T, speed)
-	src.take_organ_damage(speed*5)
 
 /mob/living/proc/near_wall(direction, distance=1)
 	var/turf/T = get_step(get_turf(src),direction)

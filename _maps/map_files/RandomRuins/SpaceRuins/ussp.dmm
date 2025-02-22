@@ -64,16 +64,16 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/bridge)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "ap" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -84,7 +84,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/bridge)
 "ar" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -149,7 +149,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "ay" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
@@ -214,7 +214,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "aG" = (
@@ -260,7 +260,7 @@
 "aL" = (
 /obj/structure/table/reinforced,
 /obj/item/phone{
-	desc = "An old Russian phone. The dial tone is still humming.";
+	desc = "An old Soviet phone. The dial tone is still humming.";
 	name = "spin-dial phone"
 	},
 /turf/simulated/floor/plasteel{
@@ -272,12 +272,12 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/russian/ranged/mosin,
+/mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aN" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -298,7 +298,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -317,7 +317,7 @@
 /area/ruin/space/derelict/bridge)
 "aS" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -351,11 +351,11 @@
 "aX" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/suit/space/syndicate/blue{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Command Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/blue{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Command Helmet"
 	},
 /turf/simulated/floor/wood,
@@ -470,7 +470,6 @@
 /area/ruin/space/derelict/arrival)
 "bo" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/directional/west,
@@ -481,8 +480,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
@@ -490,8 +487,6 @@
 "bq" = (
 /obj/structure/table/wood,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/paper/djstation{
@@ -503,8 +498,6 @@
 "br" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -512,8 +505,6 @@
 /area/ruin/space/derelict/bridge)
 "bs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -521,16 +512,12 @@
 /area/ruin/space/derelict/bridge)
 "bt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/bridge)
 "bu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command/glass{
@@ -540,8 +527,6 @@
 /area/ruin/space/derelict/bridge)
 "bv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -549,16 +534,12 @@
 /area/ruin/space/derelict/bridge)
 "bw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bx" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -657,8 +638,6 @@
 /area/ruin/space/derelict/bridge)
 "bL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -725,14 +704,14 @@
 /area/ruin/space/derelict/arrival)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
 /area/ruin/space/derelict/arrival)
 "bV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bW" = (
@@ -757,7 +736,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "bZ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -880,7 +859,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -902,7 +881,7 @@
 /obj/structure/rack,
 /obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "ct" = (
@@ -912,8 +891,6 @@
 /area/ruin/space/derelict/bridge)
 "cu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
@@ -953,11 +930,11 @@
 "cz" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Security Helmet"
 	},
 /turf/simulated/floor/plasteel{
@@ -1000,8 +977,6 @@
 /area/ruin/space/derelict/bridge)
 "cF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -1065,10 +1040,6 @@
 /obj/structure/sign/mech,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"cM" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "cN" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
@@ -1122,8 +1093,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "cT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1147,7 +1116,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "cW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1198,7 +1167,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "dd" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1245,8 +1214,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "dj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/spot{
@@ -1263,10 +1230,6 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/ruin/space/derelict/crew_quarters)
-"dl" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "dm" = (
 /obj/machinery/computer/security,
@@ -1321,6 +1284,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1417,11 +1381,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/window/reinforced,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1507,7 +1468,6 @@
 /obj/item/clothing/gloves/combat,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
@@ -1562,8 +1522,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "dY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -1633,8 +1591,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ei" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1645,7 +1601,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1659,7 +1615,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "el" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/musician/piano,
@@ -1746,8 +1701,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ev" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1769,7 +1722,6 @@
 	output_level = 30000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1780,8 +1732,6 @@
 "ey" = (
 /obj/machinery/atmospherics/unary/tank/oxygen,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1807,7 +1757,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "eC" = (
 /obj/structure/chair/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eD" = (
@@ -1830,30 +1780,18 @@
 /area/ruin/space/derelict/crew_quarters)
 "eG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 30
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"eI" = (
-/obj/structure/sign/securearea,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ruslocksec";
@@ -1875,8 +1813,6 @@
 	name = "Security Wing Lockdown"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1934,8 +1870,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "eS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1964,7 +1898,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -1974,8 +1907,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2010,9 +1941,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/hallway/primary)
 "fb" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fc" = (
@@ -2021,8 +1950,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "fd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
@@ -2070,24 +1997,18 @@
 /area/ruin/space/derelict/hallway/primary)
 "fj" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/science{
@@ -2099,8 +2020,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "fm" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2111,13 +2030,9 @@
 /area/ruin/space/derelict/hallway/primary)
 "fn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2125,8 +2040,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "fo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2136,8 +2049,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "fp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering{
@@ -2149,34 +2060,24 @@
 /area/ruin/space/derelict/hallway/primary)
 "fq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fs" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2216,13 +2117,11 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/wood,
@@ -2236,7 +2135,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "fz" = (
 /obj/structure/mopbucket,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fA" = (
@@ -2247,31 +2146,23 @@
 	},
 /area/ruin/space/derelict/arrival)
 "fB" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fD" = (
-/obj/item/trash/spentcasing,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fE" = (
@@ -2282,7 +2173,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/mob/living/simple_animal/hostile/russian/ranged/mosin,
+/mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fF" = (
@@ -2322,8 +2213,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "fJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2365,8 +2254,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "fQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -2386,27 +2273,13 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"fT" = (
-/obj/machinery/door_control{
-	id = "ruslock";
-	layer = 2.1;
-	name = "suspicious button"
-	},
-/obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
 "fU" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fV" = (
 /obj/structure/chair/stool/bar,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fW" = (
@@ -2420,8 +2293,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "fX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2486,10 +2357,6 @@
 	icon_state = "purple"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"ge" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/hallway/primary)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -2530,7 +2397,6 @@
 	track = 2
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2553,7 +2419,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "gn" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "go" = (
@@ -2576,7 +2442,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "gr" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gs" = (
@@ -2633,7 +2499,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "gy" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "gz" = (
@@ -2651,20 +2517,15 @@
 /area/ruin/space/derelict/hallway/primary)
 "gB" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gC" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
@@ -2702,7 +2563,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "gH" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "gI" = (
@@ -2714,10 +2575,6 @@
 /obj/item/reagent_containers/drinks/bottle/kahlua,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
-"gJ" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
 "gK" = (
 /obj/structure/chair{
 	dir = 4
@@ -2732,9 +2589,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gM" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "gN" = (
@@ -2773,7 +2628,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "gS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2782,13 +2637,9 @@
 /area/ruin/space/derelict/hallway/primary)
 "gT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -2835,7 +2686,6 @@
 "gZ" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2843,7 +2693,7 @@
 	},
 /area/ruin/space/derelict/solar_control)
 "ha" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -2869,8 +2719,6 @@
 /area/ruin/space/derelict/arrival)
 "he" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -2900,7 +2748,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hi" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
@@ -2919,8 +2767,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "hk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2932,7 +2778,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hm" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "hn" = (
@@ -2955,7 +2801,6 @@
 "hr" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2965,7 +2810,6 @@
 "hs" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2989,8 +2833,6 @@
 /area/ruin/space/derelict/arrival)
 "hv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
@@ -3028,7 +2870,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hA" = (
@@ -3041,7 +2883,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hB" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -3049,7 +2891,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "hC" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hD" = (
@@ -3061,8 +2903,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "hE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -3085,9 +2925,9 @@
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/destTagger,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -3111,8 +2951,6 @@
 /area/ruin/space/derelict/arrival)
 "hL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3123,7 +2961,7 @@
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3143,18 +2981,12 @@
 /area/ruin/space/derelict/hallway/primary)
 "hO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -3168,8 +3000,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "hQ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/chair/stool,
@@ -3184,8 +3014,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "hS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3225,11 +3053,9 @@
 /area/ruin/space/derelict/arrival)
 "hZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ia" = (
@@ -3278,7 +3104,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/hallway/primary)
 "ig" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -3299,11 +3125,11 @@
 "ik" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/syndicate/black/engie{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Engineering Helmet"
 	},
 /obj/item/clothing/suit/space/syndicate/black/engie{
-	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
+	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to the Union!";
 	name = "Cosmonaut Engineering Suit"
 	},
 /turf/simulated/floor/plasteel{
@@ -3317,8 +3143,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "im" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3327,9 +3151,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "in" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -3352,7 +3174,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iq" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/space/nearstation)
 "ir" = (
@@ -3374,15 +3196,11 @@
 /area/ruin/space/derelict/arrival)
 "ix" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3454,6 +3272,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "iI" = (
 /obj/structure/closet/firecloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -3461,8 +3280,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "iJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
@@ -3477,7 +3294,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "iL" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "iM" = (
@@ -3536,7 +3353,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "iU" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iV" = (
@@ -3561,8 +3378,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "iX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/science{
@@ -3584,7 +3399,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "iZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -3597,8 +3412,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering{
@@ -3620,8 +3433,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/chair/wood{
@@ -3656,7 +3467,7 @@
 /area/ruin/space/derelict/arrival)
 "jj" = (
 /obj/item/paper/djstation{
-	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry Russian security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
+	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry commie security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
 	name = "unknown report"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3665,11 +3476,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 "jl" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	locked = 1;
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
+	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
@@ -3686,29 +3497,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jo" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
-"jq" = (
-/obj/effect/landmark/burnturf,
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/arrival)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -3722,7 +3522,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jt" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -3730,8 +3530,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ju" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3762,8 +3560,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -3774,7 +3570,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "jz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "jA" = (
@@ -3804,8 +3600,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3840,8 +3634,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "jJ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
@@ -3854,8 +3646,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "jL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
@@ -3871,8 +3661,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -3880,13 +3668,9 @@
 /area/ruin/space/derelict/solar_control)
 "jP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -3931,22 +3715,16 @@
 	},
 /area/ruin/space/derelict/arrival)
 "jX" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict14"
 	},
 /area/ruin/space/derelict/arrival)
 "jY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3955,8 +3733,6 @@
 /area/ruin/space/derelict/arrival)
 "jZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3965,16 +3741,12 @@
 /area/ruin/space/derelict/arrival)
 "ka" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/titanium{
@@ -3984,8 +3756,6 @@
 /area/ruin/space/derelict/arrival)
 "kc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -3995,8 +3765,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4004,20 +3772,14 @@
 /area/ruin/space/derelict/hallway/primary)
 "ke" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
@@ -4025,8 +3787,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/titanium{
@@ -4042,8 +3802,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -4056,8 +3814,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ki" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -4073,8 +3829,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -4126,21 +3880,18 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "kp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "kq" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/derelict/hallway/primary)
 "kr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
@@ -4154,8 +3905,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4166,8 +3915,6 @@
 	name = "External Airlock"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -4179,8 +3926,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ku" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4194,26 +3939,18 @@
 /area/ruin/space/derelict/hallway/primary)
 "kv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4223,8 +3960,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -4239,8 +3974,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ky" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
@@ -4248,8 +3981,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "kz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/titanium{
@@ -4260,8 +3991,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "kA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4269,29 +3998,21 @@
 /area/ruin/space/derelict/crew_quarters)
 "kB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood/fancy,
@@ -4307,23 +4028,17 @@
 /area/ruin/space/derelict/crew_quarters)
 "kE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "kF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -4338,18 +4053,12 @@
 /area/ruin/space/derelict/crew_quarters)
 "kH" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -4368,7 +4077,6 @@
 "kK" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -4386,7 +4094,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "kN" = (
-/obj/item/trash/spentcasing,
+/obj/item/trash/spentcasing/shotgun,
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict3"
 	},
@@ -4408,8 +4116,6 @@
 /area/ruin/space/derelict/arrival)
 "kR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4430,9 +4136,7 @@
 /area/ruin/space/derelict/arrival)
 "kU" = (
 /obj/machinery/light/small,
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "redblue"
@@ -4477,13 +4181,9 @@
 /area/ruin/space/derelict/hallway/primary)
 "la" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -4521,8 +4221,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "lg" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4557,9 +4255,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "ll" = (
-/obj/item/trash/spentcasing{
-	icon_state = "s-casing"
-	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "lm" = (
@@ -4570,8 +4266,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "ln" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -4584,16 +4278,12 @@
 /area/ruin/space/derelict/crew_quarters)
 "lo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "lp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
@@ -4614,13 +4304,9 @@
 /area/ruin/space/derelict/hallway/primary)
 "ls" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -4650,7 +4336,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lw" = (
-/obj/structure/statue/russian_mulebot,
+/obj/structure/statue/soviet_mulebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lx" = (
@@ -4691,31 +4377,23 @@
 /area/ruin/space/derelict/hallway/primary)
 "lC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "lD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/derelict/hallway/primary)
 "lE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -4829,8 +4507,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "lT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4907,9 +4583,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "mf" = (
-/obj/item/trash/spentcasing{
-	icon_state = "762-casing"
-	},
+/obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "mg" = (
@@ -4930,14 +4604,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mk" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ml" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/airless,
@@ -4956,8 +4630,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "mp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5016,7 +4688,7 @@
 "mx" = (
 /obj/structure/closet/crate/can,
 /obj/item/clothing/under/costume/mankini{
-	desc = "No honest Russian would wear this abomination";
+	desc = "No honest comrade would wear this abomination";
 	name = "lucky underwear"
 	},
 /turf/simulated/floor/plasteel{
@@ -5031,7 +4703,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mA" = (
@@ -5080,8 +4752,6 @@
 /area/ruin/space/derelict/arrival)
 "mJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/medical/glass{
@@ -5098,7 +4768,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "mL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "green"
@@ -5113,8 +4783,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "mN" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5123,8 +4791,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "mO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
@@ -5162,8 +4828,6 @@
 /area/ruin/space/derelict/arrival)
 "mT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5195,7 +4859,7 @@
 /area/space/nearstation)
 "mY" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5209,8 +4873,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "na" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/window/reinforced{
@@ -5227,14 +4889,13 @@
 /area/ruin/space/derelict/hallway/primary)
 "nb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -5281,6 +4942,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "nh" = (
 /obj/structure/closet/athletic_mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -5321,8 +4983,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "no" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -5332,8 +4992,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "np" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -5391,13 +5049,13 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/derelict/arrival)
 "ny" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5455,16 +5113,14 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nG" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/ruin/space/derelict/arrival)
 "nH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5473,8 +5129,6 @@
 /area/ruin/space/derelict/arrival)
 "nI" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5497,16 +5151,16 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nM" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "nO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/shoes/black,
@@ -5519,16 +5173,12 @@
 /area/ruin/space/derelict/hallway/primary)
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nR" = (
 /obj/machinery/light/small{
@@ -5539,9 +5189,7 @@
 	pixel_y = 8
 	},
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
@@ -5552,8 +5200,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "nT" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/kitchen_machine/grill,
@@ -5602,8 +5248,6 @@
 /area/ruin/space/derelict/arrival)
 "nZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5611,7 +5255,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "oa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -5626,33 +5270,27 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "od" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oe" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "of" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "og" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5662,8 +5300,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "oi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -5702,7 +5338,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "on" = (
-/obj/item/stack/tile,
+/obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "op" = (
@@ -5720,7 +5356,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "or" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
@@ -5743,28 +5379,18 @@
 /area/ruin/space/derelict/hallway/primary)
 "ou" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ov" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ow" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -5781,8 +5407,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ox" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5791,8 +5415,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "oy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
@@ -5842,14 +5464,14 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "oE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/ruin/space/derelict/arrival)
 "oF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -5890,13 +5512,9 @@
 /area/ruin/space/derelict/hallway/primary)
 "oN" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oO" = (
 /obj/machinery/door/airlock/public/glass{
@@ -5926,7 +5544,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "oS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -5961,8 +5579,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "oW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5987,11 +5603,8 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6060,8 +5673,6 @@
 /area/space/nearstation)
 "pl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/titanium{
@@ -6087,7 +5698,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
 "pp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
 "pq" = (
@@ -6102,8 +5713,6 @@
 /area/ruin/space/derelict/arrival)
 "ps" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6111,6 +5720,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "pt" = (
 /obj/structure/closet/jcloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pu" = (
@@ -6163,15 +5773,13 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/derelict/arrival)
 "pB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -6208,14 +5816,14 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/ruin/space/derelict/arrival)
 "pI" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6224,7 +5832,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "pJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "pK" = (
@@ -6353,7 +5961,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -6361,8 +5969,6 @@
 /area/ruin/space/derelict/arrival)
 "qb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -6392,7 +5998,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
@@ -6423,7 +6029,7 @@
 /area/ruin/space/derelict/arrival)
 "ql" = (
 /obj/machinery/economy/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -6456,16 +6062,11 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "qp" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/arrival)
-"qq" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qr" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6503,8 +6104,6 @@
 /area/ruin/space/derelict/arrival)
 "qx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/titanium{
@@ -6522,11 +6121,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
-	layer = 3.3;
-	name = "custom placement";
-	pixel_x = 27
+/obj/machinery/newscaster/directional/east{
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6539,8 +6135,6 @@
 /area/ruin/space/derelict/crew_quarters)
 "qB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6549,8 +6143,6 @@
 /area/ruin/space/derelict/arrival)
 "qC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6559,8 +6151,6 @@
 /area/ruin/space/derelict/arrival)
 "qD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/medical/glass{
@@ -6573,8 +6163,6 @@
 /area/ruin/space/derelict/arrival)
 "qE" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -6593,8 +6181,6 @@
 /area/ruin/space/derelict/arrival)
 "qH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6743,8 +6329,6 @@
 /area/ruin/space/derelict/arrival)
 "rb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/chair/stool,
@@ -6752,8 +6336,6 @@
 /area/ruin/space/derelict/arrival)
 "rc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table,
@@ -6761,8 +6343,6 @@
 /area/ruin/space/derelict/arrival)
 "rd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table,
@@ -6772,8 +6352,6 @@
 /area/ruin/space/derelict/arrival)
 "re" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair/stool,
@@ -6781,8 +6359,6 @@
 /area/ruin/space/derelict/arrival)
 "rf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6792,8 +6368,6 @@
 /area/ruin/space/derelict/arrival)
 "rg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6802,8 +6376,6 @@
 /area/ruin/space/derelict/arrival)
 "rh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6813,13 +6385,9 @@
 /area/ruin/space/derelict/arrival)
 "ri" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6828,8 +6396,6 @@
 /area/ruin/space/derelict/arrival)
 "rj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6874,8 +6440,6 @@
 /area/ruin/space/derelict/arrival)
 "rr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/flora/ausbushes/fullgrass{
@@ -6933,7 +6497,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -6946,8 +6510,6 @@
 /area/ruin/space/derelict/arrival)
 "ry" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/flora/ausbushes/fullgrass{
@@ -6967,7 +6529,7 @@
 /obj/structure/statue/diamond/captain{
 	anchored = 1;
 	desc = "A statue in honour of those who rose against the tyranny of the Trans-Solar Federation in 2443.";
-	icon_state = "russian";
+	icon_state = "soviet";
 	layer = 4;
 	name = "Cygni Commemorative Statue";
 	pixel_y = 16
@@ -7014,8 +6576,6 @@
 /area/ruin/space/derelict/arrival)
 "rE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -7122,16 +6682,12 @@
 /area/ruin/space/derelict/arrival)
 "rP" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -7141,8 +6697,6 @@
 /area/ruin/space/derelict/arrival)
 "rQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -7155,8 +6709,6 @@
 /area/ruin/space/derelict/arrival)
 "rR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7237,8 +6789,6 @@
 /area/ruin/space/derelict/arrival)
 "sc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -7248,8 +6798,6 @@
 /area/ruin/space/derelict/arrival)
 "sd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -7259,8 +6807,6 @@
 /area/ruin/space/derelict/arrival)
 "se" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -7279,18 +6825,12 @@
 /area/ruin/space/derelict/arrival)
 "si" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -7298,13 +6838,9 @@
 /area/ruin/space/derelict/solar_control)
 "sj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -7312,13 +6848,9 @@
 /area/ruin/space/derelict/solar_control)
 "sk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -7326,18 +6858,12 @@
 /area/ruin/space/derelict/solar_control)
 "sl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -7380,18 +6906,12 @@
 /area/ruin/space/derelict/solar_control)
 "ss" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -7406,18 +6926,12 @@
 /area/ruin/space/derelict/solar_control)
 "su" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -7425,7 +6939,7 @@
 /area/ruin/space/derelict/solar_control)
 "sv" = (
 /obj/item/gps/ruin{
-	gpstag = "Russian Distress Signal"
+	gpstag = "Soviet Distress Signal"
 	},
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
@@ -7437,6 +6951,26 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
+"xi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
+"Ae" = (
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
+"Bx" = (
+/obj/machinery/door_control{
+	id = "ruslock";
+	layer = 2.1;
+	name = "suspicious button"
+	},
+/obj/machinery/economy/vending/cigarette/free{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
 "Ci" = (
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
@@ -7450,17 +6984,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
+"El" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
+"Mi" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
 "Nv" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"NK" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/template_noop,
-/area/template_noop)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -7478,23 +7013,37 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
+"Tc" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/arrival)
 "XQ" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/russian,
+/mob/living/simple_animal/hostile/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
+"Ye" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
 "Yi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
+/area/ruin/space/derelict/arrival)
+"Za" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 
 (1,1,1) = {"
@@ -7539,14 +7088,16 @@ ac
 ac
 ac
 ac
-iu
-iu
-iu
-iu
-iu
-iu
-iu
-iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -7631,10 +7182,105 @@ ac
 ac
 ac
 ac
+ac
+iu
+iu
+iu
+iu
+iu
+iu
+iu
+iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(3,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ir
 iP
 ji
-jQ
+Za
 jQ
 lt
 lI
@@ -7680,8 +7326,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7772,8 +7420,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+ac
 ac
 ac
 ac
@@ -7864,100 +7514,104 @@ ac
 ac
 ac
 ac
-"}
-(5,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ag
-ag
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-iu
-iu
-jl
-iu
-iu
-jl
-iu
-iu
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (6,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ag
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+iu
+iu
+jl
+iu
+iu
+jl
+iu
+iu
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(7,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8048,8 +7702,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8140,8 +7796,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8232,8 +7890,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8270,7 +7930,7 @@ ac
 ac
 aW
 bn
-gJ
+xi
 bn
 bn
 hI
@@ -8324,8 +7984,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8416,8 +8078,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8508,8 +8172,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8600,8 +8266,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8633,7 +8301,7 @@ aW
 bn
 ed
 en
-eI
+El
 fg
 fB
 fX
@@ -8692,8 +8360,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8737,7 +8407,7 @@ hM
 ia
 iz
 iV
-jq
+Tc
 jZ
 kS
 lx
@@ -8784,8 +8454,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8876,8 +8548,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+ac
 ac
 ac
 ac
@@ -8909,7 +8583,7 @@ dQ
 do
 do
 cm
-cM
+El
 de
 fE
 fZ
@@ -8968,8 +8642,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9060,8 +8736,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9152,8 +8830,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9244,8 +8924,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9313,7 +8995,7 @@ mS
 oc
 oS
 qg
-qq
+bn
 aW
 ac
 ac
@@ -9336,8 +9018,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9428,8 +9112,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9452,7 +9138,7 @@ aW
 bn
 cm
 cA
-cM
+El
 cA
 do
 dD
@@ -9520,8 +9206,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9612,8 +9300,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9636,7 +9326,7 @@ bF
 bT
 co
 cA
-cM
+El
 dg
 ds
 bn
@@ -9704,8 +9394,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9796,8 +9488,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+ac
 ac
 ad
 ac
@@ -9888,8 +9582,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+ac
 ac
 ac
 ac
@@ -9980,8 +9676,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10072,8 +9770,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+ac
 ac
 ab
 ac
@@ -10164,8 +9864,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10256,8 +9958,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10348,8 +10052,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10440,8 +10146,10 @@ ac
 ag
 ac
 ac
+ac
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+ac
 ac
 af
 ac
@@ -10532,8 +10240,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10624,8 +10334,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10716,8 +10428,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10808,8 +10522,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+ac
 ac
 ac
 ac
@@ -10844,7 +10560,7 @@ et
 eQ
 fl
 fL
-ge
+Ye
 eg
 ac
 ac
@@ -10900,8 +10616,10 @@ ac
 hs
 hs
 ac
+ac
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+ac
 ac
 ae
 af
@@ -10992,8 +10710,10 @@ jx
 sj
 ss
 lH
+ac
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+ac
 ac
 ac
 af
@@ -11084,8 +10804,10 @@ ac
 ac
 ls
 st
+ac
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11176,8 +10898,10 @@ jx
 sk
 su
 lH
+ac
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11268,8 +10992,10 @@ ac
 hr
 hr
 ac
+ac
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+ac
 ac
 ac
 ag
@@ -11360,8 +11086,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11452,8 +11180,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11544,8 +11274,10 @@ ac
 ad
 ac
 ag
+ac
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11636,8 +11368,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11728,8 +11462,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+ac
 ab
 ac
 ac
@@ -11820,8 +11556,10 @@ ac
 ai
 ac
 ac
+ac
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+ac
 ac
 ac
 ac
@@ -11912,8 +11650,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12004,8 +11744,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12096,8 +11838,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12188,8 +11932,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12280,8 +12026,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12372,8 +12120,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12464,8 +12214,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12556,8 +12308,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12648,8 +12402,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12712,14 +12468,15 @@ ac
 aV
 pm
 pt
-hU
+Ae
 pM
 pY
 db
 db
 db
 qK
-dl
+Mi
+ac
 ac
 ac
 ac
@@ -12741,7 +12498,8 @@ ac
 ac
 ac
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12832,8 +12590,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12924,8 +12684,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(60,1,1) = {"
+(61,1,1) = {"
+ac
 ac
 ac
 ac
@@ -12949,7 +12711,7 @@ ac
 ac
 aV
 bm
-dl
+Mi
 dz
 dJ
 db
@@ -12990,9 +12752,9 @@ pn
 pw
 pw
 db
+qA
 db
-db
-dl
+Mi
 aV
 ac
 ac
@@ -13016,8 +12778,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(61,1,1) = {"
+(62,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13051,7 +12815,7 @@ ek
 eD
 fb
 eD
-fT
+Bx
 bm
 dH
 aV
@@ -13108,8 +12872,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(62,1,1) = {"
+(63,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13200,8 +12966,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13292,8 +13060,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(64,1,1) = {"
+(65,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13355,7 +13125,7 @@ oR
 db
 ph
 bm
-dl
+Mi
 bm
 aV
 ac
@@ -13384,8 +13154,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(65,1,1) = {"
+(66,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13476,8 +13248,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(66,1,1) = {"
+(67,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13568,8 +13342,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(67,1,1) = {"
+(68,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13660,8 +13436,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(68,1,1) = {"
+(69,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13752,8 +13530,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(69,1,1) = {"
+(70,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13844,8 +13624,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(70,1,1) = {"
+(71,1,1) = {"
+ac
 ac
 ac
 ac
@@ -13936,8 +13718,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(71,1,1) = {"
+(72,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14028,100 +13812,104 @@ ac
 ac
 ac
 ac
-"}
-(72,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-NK
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-bm
-lo
-bm
-lo
-bm
-ag
-ag
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (73,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+bm
+lo
+bm
+lo
+bm
+ag
+ag
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(74,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14212,8 +14000,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(74,1,1) = {"
+(75,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14304,8 +14094,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(75,1,1) = {"
+(76,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14396,8 +14188,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(76,1,1) = {"
+(77,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14488,97 +14282,6 @@ ac
 ac
 ac
 ac
-"}
-(77,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-jO
-ac
-jO
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (78,1,1) = {"
@@ -14619,21 +14322,23 @@ ac
 ac
 ac
 ac
-hs
-hs
-hs
-hs
-hs
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 jO
 ac
 jO
 ac
-hs
-hs
-hs
-hs
-hs
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -14674,6 +14379,101 @@ ac
 ac
 "}
 (79,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+hs
+hs
+hs
+hs
+hs
+ac
+jO
+ac
+jO
+ac
+hs
+hs
+hs
+hs
+hs
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(80,1,1) = {"
+ac
 ac
 ac
 ac
@@ -14764,97 +14564,6 @@ ac
 ac
 ac
 ac
-"}
-(80,1,1) = {"
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-hr
-hr
-hr
-hr
-hr
-ac
-jO
-ac
-jO
-ac
-hr
-hr
-hr
-hr
-hr
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
 ac
 "}
 (81,1,1) = {"
@@ -14896,19 +14605,21 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
-ac
+hr
+hr
+hr
+hr
+hr
 ac
 jO
 ac
 jO
 ac
-ac
-ac
-ac
-ac
+hr
+hr
+hr
+hr
+hr
 ac
 ac
 ac
@@ -14992,6 +14703,101 @@ ac
 ac
 ac
 ac
+ac
+ac
+jO
+ac
+jO
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(83,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 gZ
 jP
 ac
@@ -15040,8 +14846,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(83,1,1) = {"
+(84,1,1) = {"
+ac
 ac
 ac
 ac
@@ -15132,8 +14940,10 @@ ac
 ac
 ac
 ac
+ac
 "}
-(84,1,1) = {"
+(85,1,1) = {"
+ac
 ac
 ac
 ac
@@ -15218,6 +15028,101 @@ ac
 ac
 ac
 pd
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+"}
+(86,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ac
 ac
 ac

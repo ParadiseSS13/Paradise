@@ -23,6 +23,10 @@
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
+	. += fancy_storage_examine(user)
+
+/obj/item/storage/fancy/proc/fancy_storage_examine(mob/user)
+	. = list()
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
@@ -31,6 +35,13 @@
 			. += "There is one [icon_type] left in the box."
 		else
 			. += "There are [length(contents)] [icon_type]s in the box."
+
+/obj/item/storage/fancy/remove_from_storage(obj/item/I, atom/new_location)
+	if(!istype(I))
+		return FALSE
+
+	update_icon()
+	return ..()
 
 /*
  * Donut Box
@@ -101,10 +112,11 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/storage/fancy/candle_box/full
-	icon_state = "candlebox5"
+/obj/item/storage/fancy/candle_box/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -151,7 +163,7 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += image('icons/obj/crayons.dmi', crayon.dye_color)
 
-/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/fancy/crayons/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
 		switch(C.dye_color)
@@ -177,7 +189,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -186,7 +198,7 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/match(src)
 
-/obj/item/storage/fancy/matches/attackby(obj/item/match/W, mob/user, params)
+/obj/item/storage/fancy/matches/attackby__legacy__attackchain(obj/item/match/W, mob/user, params)
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
@@ -216,7 +228,7 @@
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
 	can_hold = list(/obj/item/clothing/mask/cigarette,
@@ -235,7 +247,7 @@
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	icon_state = "[initial(icon_state)][length(contents)]"
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M, mob/living/user)
+/obj/item/storage/fancy/cigarettes/attack__legacy__attackchain(mob/living/carbon/M, mob/living/user)
 	if(!ismob(M))
 		return
 
@@ -245,7 +257,7 @@
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
-				M.equip_to_slot_if_possible(C, SLOT_HUD_WEAR_MASK)
+				M.equip_to_slot_if_possible(C, ITEM_SLOT_MASK)
 				if(M != user)
 					user.visible_message(
 						"<span class='notice'>[user] takes \a [C.name] out of [src] and gives it to [M].</span>",
@@ -293,7 +305,7 @@
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
-	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
+	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\"."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
@@ -435,7 +447,7 @@
 	else
 		. += "ledb"
 
-/obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/lockbox/vials/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	update_icon()
 

@@ -1,0 +1,1 @@
+/obj/effect/spawner/lootdrop{name="trash spawner"} : /obj/effect/spawner/random/trash

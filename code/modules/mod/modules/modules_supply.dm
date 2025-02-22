@@ -7,12 +7,20 @@
 		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
 		though using it to help people is up to you."
 	icon_state = "gps"
-	module_type = MODULE_ACTIVE
+	module_type = MODULE_USABLE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
-	device = /obj/item/gps/mod
+	allow_flags = MODULE_ALLOW_INACTIVE
+	var/obj/item/gps/mod/gps
+
+/obj/item/mod/module/gps/Initialize(mapload)
+	. = ..()
+	gps = new(src)
+
+/obj/item/mod/module/gps/on_use()
+	gps.attack_self__legacy__attackchain(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
@@ -550,7 +558,7 @@
 			mineral_turf.gets_drilled(firer)
 	for(var/mob/living/mob in range(power, src))
 		mob.apply_damage(damage * (ishostile(mob) ? fauna_boost : 1), BRUTE, spread_damage = TRUE)
-		if(!ishostile(mob) || !firer)
+		if(!ishostile(mob) || !firer || mob.stat != CONSCIOUS)
 			continue
 		var/mob/living/simple_animal/hostile/hostile_mob = mob
 		hostile_mob.GiveTarget(firer)

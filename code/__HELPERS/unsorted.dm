@@ -20,6 +20,21 @@
 
 	return 0
 
+/*
+* For getting coordinate signs from a direction define. I.E. NORTHWEST is (-1,1), SOUTH is (0,-1)
+* Returns a length 2 list where the first value is the sign of x, and the second is the sign of y
+*/
+/proc/get_signs_from_direction(direction)
+	var/x_sign = 1
+	var/y_sign = 1
+	x_sign = ((direction & EAST) ? 1 : -1)
+	y_sign = ((direction & NORTH) ? 1 : -1)
+	if(DIR_JUST_VERTICAL(direction))
+		x_sign = 0
+	if(DIR_JUST_HORIZONTAL(direction))
+		y_sign = 0
+	return list(x_sign, y_sign)
+
 //Returns the middle-most value
 /proc/dd_range(low, high, num)
 	return max(low,min(high,num))
@@ -183,8 +198,7 @@
 	var/current_y_step = starting_atom.y
 	var/starting_z = starting_atom.z
 
-	var/list/line = list(get_step(starting_atom, 0))//get_turf(atom) is faster than locate(x, y, z) //Get turf isn't defined yet so we use get step
-
+	var/list/line = list(get_turf(starting_atom))
 	var/x_distance = ending_atom.x - current_x_step //x distance
 	var/y_distance = ending_atom.y - current_y_step
 
@@ -254,7 +268,7 @@
 	f = round(f)
 	f = max(low, f)
 	f = min(high, f)
-	if((f % 2) == 0) //Ensure the last digit is an odd number
+	if(ISEVEN(f)) //Ensure the last digit is an odd number
 		f += 1
 	return f
 
@@ -283,7 +297,7 @@
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled)
@@ -758,6 +772,14 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
+/datum/coords/New(x_pos_, y_pos_, z_pos_)
+	x_pos = x_pos_
+	y_pos = y_pos_
+	z_pos = z_pos_
+
+/datum/coords/proc/to_string(z = null)
+	return "([x_pos],[y_pos],[z ? z : z_pos])"
+
 /area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
@@ -857,7 +879,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 
 						O.loc.Exited(O)
-						O.setLoc(X)
+						O.set_loc(X)
 						O.loc.Entered(O)
 
 					for(var/mob/M in T)
@@ -991,7 +1013,28 @@ Returns 1 if the chain up to the area contains the given typepath
 					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+						if(!(V in list(
+							"ckey",
+							"comp_lookup",
+							"contents",
+							"destination_x",
+							"destination_y",
+							"destination_z",
+							"group",
+							"key",
+							"loc",
+							"locs",
+							"luminosity",
+							"parent_type",
+							"parent",
+							"signal_procs",
+							"type",
+							"vars",
+							"verbs",
+							"x",
+							"y",
+							"z",
+						)))
 							X.vars[V] = T.vars[V]
 
 					to_update += X
@@ -1141,41 +1184,23 @@ Checks if that loc and dir has a item on the wall
 */
 GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
-	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
+	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign, /obj/machinery/barsign)))
+	/obj/structure/sign, /obj/machinery/barsign, /obj/machinery/light, /obj/machinery/light_construct)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
-		if(is_type_in_typecache(O, GLOB.wall_items))
-			//Direction works sometimes
-			if(O.dir == dir)
-				return 1
+		if(is_type_in_typecache(O, GLOB.wall_items) && dir == O.dir)
+			return TRUE
 
-			//Some stuff doesn't use dir properly, so we need to check pixel instead
-			switch(dir)
-				if(SOUTH)
-					if(O.pixel_y > 10)
-						return 1
-				if(NORTH)
-					if(O.pixel_y < -10)
-						return 1
-				if(WEST)
-					if(O.pixel_x > 10)
-						return 1
-				if(EAST)
-					if(O.pixel_x < -10)
-						return 1
-
-	//Some stuff is placed directly on the wallturf (signs)
+	// Some stuff is placed directly on the wallturf (signs)
 	for(var/obj/O in get_step(loc, dir))
 		if(is_type_in_typecache(O, GLOB.wall_items))
-			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
-				return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/atan2(x, y)
 	if(!x && !y) return 0
@@ -1537,12 +1562,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(areas)
 			. |= T.loc
 
-/proc/turf_clear(turf/T)
-	for(var/atom/A in T)
-		if(A.simulated)
-			return FALSE
-	return TRUE
-
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
 	var/tY = splittext(tX[2], ":")
@@ -1723,6 +1742,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			matches[key] = value
 	return matches
 
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 
 //Increases delay as the server gets more overloaded,
@@ -1874,9 +1896,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-/proc/pass()
-	return
-
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
@@ -1971,43 +1990,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Radio Noise"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
-
-/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
-	switch(input_slot_flags)
-		if(SLOT_FLAG_OCLOTHING)
-			return SLOT_HUD_OUTER_SUIT
-		if(SLOT_FLAG_ICLOTHING)
-			return SLOT_HUD_JUMPSUIT
-		if(SLOT_FLAG_GLOVES)
-			return SLOT_HUD_GLOVES
-		if(SLOT_FLAG_EYES)
-			return SLOT_HUD_GLASSES
-		if(SLOT_FLAG_MASK)
-			return SLOT_HUD_WEAR_MASK
-		if(SLOT_FLAG_HEAD)
-			return SLOT_HUD_HEAD
-		if(SLOT_FLAG_FEET)
-			return SLOT_HUD_SHOES
-		if(SLOT_FLAG_ID)
-			return SLOT_HUD_WEAR_ID
-		if(SLOT_FLAG_BELT)
-			return SLOT_HUD_BELT
-		if(SLOT_FLAG_BACK)
-			return SLOT_HUD_BACK
-		if(SLOT_FLAG_PDA)
-			return SLOT_HUD_WEAR_PDA
-		if(SLOT_FLAG_TIE)
-			return SLOT_HUD_TIE
-
+		if(CHANNEL_SURGERY_SOUNDS)
+			return "Surgery Sounds"
 
 /**
   * HTTP Get (Powered by RUSTG)
   *
-  * This proc should be used as a replacement for [world.Export()] due to an underlying issue with it.
+  * This proc should be used as a replacement for [/world/proc/Export] due to an underlying issue with it.
   * See: https://www.byond.com/forum/post/2772166
   * The one thing you will need to be aware of is that this no longer wraps the response inside a "file", so anything that relies on a file2text() unwrap will need tweaking.
   * RUST HTTP also has better support for HTTPS as well as weird quirks with modern webservers.
-  * Returns an assoc list that follows the standard [world.Export()] format (https://secure.byond.com/docs/ref/index.html#/world/proc/Export), with the above exception
+  * Returns an assoc list that follows the standard [/world/proc/Export] format (https://secure.byond.com/docs/ref/index.html#/world/proc/Export), with the above exception
   *
   * Arguments:
   * * url - URL to GET

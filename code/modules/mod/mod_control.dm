@@ -8,11 +8,11 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
-	icon_state = "mod_control"
+	icon_state = null
 	item_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
@@ -87,10 +87,8 @@
 	var/emp_proof = FALSE
 	/// List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
-	/// Is the jetpack on so we should make ion effects?
-	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
-	var/datum/action/item_action/chameleon/change/modsuit/chameleon_action
+	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
 
@@ -231,22 +229,15 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
 
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		return TRUE
-
-/obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active || !isturf(user.loc))
-		return
-	var/turf/T = get_step(src, REVERSE_DIR(direction))
-	if(!has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -276,7 +267,7 @@
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src, force = TRUE))
 					return
 				M.put_in_active_hand(src)
 			else
@@ -352,7 +343,7 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
 			to_chat(user, "<span class='warning'>Open the cover first!</span>")
@@ -399,7 +390,7 @@
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
 	else if(bag && istype(attacking_item))
-		bag.attackby(attacking_item, user, params)
+		bag.attackby__legacy__attackchain(attacking_item, user, params)
 
 	return ..()
 

@@ -61,9 +61,7 @@
 	if(iseffect(O))
 		var/obj/effect/E = O
 		if(E.is_cleanable())
-			var/obj/effect/decal/cleanable/blood/B = E
-			if(!(istype(B) && B.off_floor))
-				qdel(E)
+			qdel(E)
 	else
 		if(O.simulated)
 			O.color = initial(O.color)

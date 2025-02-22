@@ -3,12 +3,13 @@
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE
-	layer = 3.5
+	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
+	var/removable = TRUE
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
@@ -36,7 +37,7 @@
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
-	if(istype(src, /obj/structure/sign/double))
+	if(!removable)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -85,6 +86,9 @@
 	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
 	qdel(src)
 
+/obj/structure/sign/double
+	removable = FALSE
+
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
@@ -107,7 +111,7 @@
 
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
-	desc = "A warning sign which reads 'SECURE AREA'"
+	desc = "A warning sign which reads 'SECURE AREA'."
 	icon_state = "securearea"
 
 /obj/structure/sign/wait
@@ -125,22 +129,22 @@
 
 /obj/structure/sign/biohazard
 	name = "\improper BIOHAZARD"
-	desc = "A warning sign which reads 'BIOHAZARD'"
+	desc = "A warning sign which reads 'BIOHAZARD'."
 	icon_state = "bio"
 
 /obj/structure/sign/electricshock
 	name = "\improper HIGH VOLTAGE"
-	desc = "A warning sign which reads 'HIGH VOLTAGE'"
+	desc = "A warning sign which reads 'HIGH VOLTAGE'."
 	icon_state = "shock"
 
 /obj/structure/sign/examroom
 	name = "\improper EXAM"
-	desc = "A guidance sign which reads 'EXAM ROOM'"
+	desc = "A guidance sign which reads 'EXAM ROOM'."
 	icon_state = "examroom"
 
 /obj/structure/sign/vacuum
 	name = "\improper HARD VACUUM AHEAD"
-	desc = "A warning sign which reads 'HARD VACUUM AHEAD'"
+	desc = "A warning sign which reads 'HARD VACUUM AHEAD'."
 	icon_state = "space"
 
 /obj/structure/sign/vacuum/external
@@ -150,29 +154,29 @@
 
 /obj/structure/sign/deathsposal
 	name = "\improper DISPOSAL LEADS TO SPACE"
-	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'"
+	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'."
 	icon_state = "deathsposal"
 
 /obj/structure/sign/pods
 	name = "\improper ESCAPE PODS"
-	desc = "A warning sign which reads 'ESCAPE PODS'"
+	desc = "A warning sign which reads 'ESCAPE PODS'."
 	icon_state = "pods"
 
 /obj/structure/sign/fire
 	name = "\improper DANGER: FIRE"
-	desc = "A warning sign which reads 'DANGER: FIRE'"
+	desc = "A warning sign which reads 'DANGER: FIRE'."
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/nosmoking_1
 	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'"
+	desc = "A warning sign which reads 'NO SMOKING'."
 	icon_state = "nosmoking"
 	resistance_flags = FLAMMABLE
 
 /obj/structure/sign/nosmoking_2
 	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'"
+	desc = "A warning sign which reads 'NO SMOKING'."
 	icon_state = "nosmoking2"
 
 /obj/structure/sign/radiation
@@ -197,7 +201,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	desc = "The universal symbol of medical institutions across the Sector. You'll probably find help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
@@ -285,12 +289,12 @@
 
 /obj/structure/sign/chemistry
 	name = "\improper CHEMISTRY"
-	desc = "A warning sign which reads 'CHEMISTRY'"
+	desc = "A warning sign which reads 'CHEMISTRY'."
 	icon_state = "chemistry1"
 
 /obj/structure/sign/botany
 	name = "\improper HYDROPONICS"
-	desc = "A warning sign which reads 'HYDROPONICS'"
+	desc = "A warning sign which reads 'HYDROPONICS'."
 	icon_state = "hydro1"
 
 /obj/structure/sign/xenobio
@@ -337,14 +341,6 @@
 	name = "\improper RESTROOM"
 	desc = "A sign labelling a restroom."
 	icon_state = "restroom"
-
-/obj/structure/sign/medbay
-	name = "\improper MEDBAY"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
-	icon_state = "bluecross"
-
-/obj/structure/sign/medbay/alt
-	icon_state = "bluecross2"
 
 /obj/structure/sign/directions
 	name = "direction sign"

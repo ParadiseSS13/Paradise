@@ -23,7 +23,7 @@
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
-/obj/structure/necropolis_gate/Initialize()
+/obj/structure/necropolis_gate/Initialize(mapload)
 	. = ..()
 	var/turf/sight_blocker_turf = get_turf(src)
 	if(sight_blocker_distance)
@@ -48,6 +48,12 @@
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/necropolis_gate/Destroy()
 	qdel(sight_blocker, TRUE)
 	return ..()
@@ -55,15 +61,16 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
+/obj/structure/necropolis_gate/CanPass(atom/movable/mover, border_dir)
+	if(border_dir == dir)
 		return !density
 	return TRUE
 
-/obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
-	if(get_dir(O.loc, target) == dir)
-		return !density
-	return TRUE
+/obj/structure/necropolis_gate/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(direction == dir && density)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -142,7 +149,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
 
-/obj/structure/necropolis_gate/legion_gate/Initialize()
+/obj/structure/necropolis_gate/legion_gate/Initialize(mapload)
 	. = ..()
 	GLOB.necropolis_gate = src
 
@@ -207,7 +214,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/open = FALSE
 	var/static/mutable_appearance/top_overlay
 
-/obj/structure/necropolis_arch/Initialize()
+/obj/structure/necropolis_arch/Initialize(mapload)
 	. = ..()
 	icon_state = "arch_bottom"
 	top_overlay = mutable_appearance('icons/effects/160x160.dmi', "arch_top")

@@ -82,13 +82,14 @@
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 
+/turf/simulated/floor/vines/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/vines/get_broken_states()
 	return list()
 
 //All of this shit is useless for vines
-
-/turf/simulated/floor/vines/attackby()
-	return
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -398,6 +399,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
 	unbuckle_time = 5 SECONDS
+	cares_about_temperature = TRUE
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -405,6 +407,10 @@
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	color = "#ffffff"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -477,7 +483,7 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/spacevine/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I
@@ -512,15 +518,15 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(!isliving(crosser))
+/obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/movable)
+	if(!isliving(movable))
 		return
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		SM.on_cross(src, crosser)
+		SM.on_cross(src, movable)
 
 	if(prob(30 * energy))
-		entangle(crosser)
+		entangle(movable)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)
@@ -696,7 +702,7 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(null, temp, volume)
+/obj/structure/spacevine/temperature_expose(temp, volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)
@@ -705,7 +711,7 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target)
+/obj/structure/spacevine/CanPass(atom/movable/mover, border_dir)
 	if(isvineimmune(mover))
 		. = TRUE
 	else

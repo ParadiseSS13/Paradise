@@ -7,7 +7,7 @@
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -23,7 +23,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
+/obj/item/reagent_containers/spray/afterattack__legacy__attackchain(atom/A, mob/user)
 	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
@@ -77,25 +77,16 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
-	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
-	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
+	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
+	chem_puff.create_reagents(amount_per_transfer_from_this)
+	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
+	chem_puff.icon += mix_color_from_reagents(chem_puff.reagents.reagent_list)
 
-	for(var/i in 1 to spray_currentrange)
-		if(!step_towards(D, A) && i != 1)
-			qdel(D)
-			return
-		D.reagents.reaction(get_turf(D))
-		for(var/atom/T in get_turf(D))
-			D.reagents.reaction(T)
-		sleep(3)
-		if(QDELETED(D))
-			return
-	qdel(D)
+	var/datum/move_loop/our_loop = GLOB.move_manager.move_towards_legacy(chem_puff, A, 3 DECISECONDS, timeout = spray_currentrange * 3 DECISECONDS, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
-
-/obj/item/reagent_containers/spray/attack_self(mob/user)
+/obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -135,7 +126,7 @@
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
 
-/obj/item/reagent_containers/spray/cleaner/attack_self(mob/user)
+/obj/item/reagent_containers/spray/cleaner/attack_self__legacy__attackchain(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -215,7 +206,7 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
+/obj/item/reagent_containers/spray/waterflower/attack_self__legacy__attackchain(mob/user) //Don't allow changing how much the flower sprays
 	return
 
 //chemsprayer
@@ -271,7 +262,7 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self__legacy__attackchain(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

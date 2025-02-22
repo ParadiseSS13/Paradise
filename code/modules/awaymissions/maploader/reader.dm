@@ -26,17 +26,26 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * allowed to romp unchecked.
  */
 /datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE)
-	var/tfile = dmm_file// the map file we're creating
+	var/map_data
 	var/fname = "Lambda"
-	if(isfile(tfile))
-		fname = "[tfile]"
+	if(isfile(dmm_file))
+		fname = "[dmm_file]"
 		// Make sure we dont load a dir up
 		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
-			log_debug("Attempted to load map template without filename (Attempted [tfile])")
+			log_debug("Attempted to load map template without filename (Attempted [dmm_file])")
 			return
-		tfile = wrap_file2text(tfile)
-		if(!length(tfile))
+
+		// use rustlib to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		// is not passed `dmm_file` because byondapi-rs doesn't support resource types yet
+		map_data = mapmanip_read_dmm(fname)
+		// if rustlib for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!map_data)
+			map_data = wrap_file2text(dmm_file)
+
+		if(!length(map_data))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
@@ -57,7 +66,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
 		LM.index = 1
-		while(dmmRegex.Find(tfile, LM.index))
+		while(dmmRegex.Find(map_data, LM.index))
 			LM.index = dmmRegex.next
 
 			// "aa" = (/type{vars=blah})

@@ -8,7 +8,7 @@
 
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
-/// before a component is removed from a datum because of RemoveComponent: (/datum/component)
+/// before a component is removed from a datum because of UnlinkComponent: (/datum/component)
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
@@ -53,10 +53,12 @@
 #define COMSIG_SONG_END		"song_end"
 
 
-// /datum/component/decal
+// /datum/element/decal
 
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+///called on an object to clean it of cleanables.
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+	///Returned by cleanable components when they are cleaned.
+	#define COMPONENT_CLEANED (1<<0)
 
 
 // /datum/component/two_handed
@@ -66,6 +68,8 @@
 	#define COMPONENT_TWOHANDED_BLOCK_WIELD (1<<0)
 ///from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"
+///from base of /datum/component/forces_doors_open/proc/force_open_door(obj/item): (datum/source, mob/user, atom/target)
+#define COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT "twohanded_wielded_try_wield_interact"
 
 
 // /datum/action
@@ -120,3 +124,13 @@
 /// Sent when bodies transfer between shades/shards and constructs
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
+
+
+/// /datum/component/label
+/// Called when a handlabeler is used on an item when off
+#define COMSIG_LABEL_REMOVE "label_remove"
+
+// /datum/ruleset
+
+/// from base of /datum/ruleset/proc/can_apply()
+#define COMSIG_RULESET_FAILED_SPECIES "failed_species"

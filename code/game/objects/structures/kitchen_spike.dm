@@ -20,7 +20,7 @@
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -69,7 +69,7 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
+/obj/structure/kitchenspike/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
@@ -87,7 +87,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))
+	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
@@ -171,7 +171,6 @@
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
 	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()

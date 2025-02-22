@@ -74,7 +74,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(human_squish_check))
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -100,7 +100,7 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
@@ -432,7 +432,7 @@
 		AM.forceMove(src)
 
 	load = AM
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
@@ -461,7 +461,7 @@
 	if(!load)
 		return
 
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 	unbuckle_all_mobs()
 
@@ -556,55 +556,55 @@
 						increment_path()
 						path -= loc
 						if(destination == home_destination)
-							mode = BOT_GO_HOME
+							set_mode(BOT_GO_HOME)
 						else
-							mode = BOT_DELIVER
+							set_mode(BOT_DELIVER)
 
 					else // failed to move
 
 						blockcount++
-						mode = BOT_BLOCKED
+						set_mode(BOT_BLOCKED)
 						if(blockcount == 3)
 							buzz(ANNOYED)
 
 						if(blockcount > 10) // attempt 10 times before recomputing
 							// find new path excluding blocked turf
 							buzz(SIGH)
-							mode = BOT_WAIT_FOR_NAV
+							set_mode(BOT_WAIT_FOR_NAV)
 							blockcount = 0
 							addtimer(CALLBACK(src, PROC_REF(process_blocked), next), 2 SECONDS)
 							return
 						return
 				else
 					buzz(ANNOYED)
-					mode = BOT_NAV
+					set_mode(BOT_NAV)
 					return
 			else
-				mode = BOT_NAV
+				set_mode(BOT_NAV)
 				return
 
 		if(BOT_NAV) // calculate new path
-			mode = BOT_WAIT_FOR_NAV
+			set_mode(BOT_WAIT_FOR_NAV)
 			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
 	if(length(path))
 		buzz(DELIGHT)
-	mode = BOT_BLOCKED
+	set_mode(BOT_BLOCKED)
 
 /mob/living/simple_animal/bot/mulebot/proc/process_nav()
 	calc_path()
 
 	if(length(path))
 		blockcount = 0
-		mode = BOT_BLOCKED
+		set_mode(BOT_BLOCKED)
 		buzz(DELIGHT)
 
 	else
 		buzz(SIGH)
 
-		mode = BOT_NO_ROUTE
+		set_mode(BOT_NO_ROUTE)
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -624,9 +624,9 @@
 	if(!on)
 		return
 	if(destination == home_destination)
-		mode = BOT_GO_HOME
+		set_mode(BOT_GO_HOME)
 	else
-		mode = BOT_DELIVER
+		set_mode(BOT_DELIVER)
 	update_icon()
 	get_nav()
 
@@ -639,7 +639,7 @@
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
-	mode = BOT_BLOCKED
+	set_mode(BOT_BLOCKED)
 	update_icon()
 
 // called when bot reaches current target
@@ -685,7 +685,7 @@
 		if(auto_return && home_destination && destination != home_destination)
 			// auto return set and not at home already
 			start_home()
-			mode = BOT_BLOCKED
+			set_mode(BOT_BLOCKED)
 		else
 			bot_reset()	// otherwise go idle
 
@@ -879,10 +879,13 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
-	if(!ishuman(AM))
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(datum/source, old_location, direction, forced)
+	if(!isturf(loc))
 		return
-	RunOver(AM)
+	for(var/atom/AM in loc)
+		if(!ishuman(AM))
+			continue
+		RunOver(AM)
 
 #undef SIGH
 #undef ANNOYED

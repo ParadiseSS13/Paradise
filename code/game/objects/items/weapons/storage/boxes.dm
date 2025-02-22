@@ -218,12 +218,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
-/obj/item/storage/box/PDAs
+/obj/item/storage/box/pdas
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
 	icon_state = "pda_box"
 
-/obj/item/storage/box/PDAs/populate_contents()
+/obj/item/storage/box/pdas/populate_contents()
 	var/newcart = pick(
 		/obj/item/cartridge/engineering,
 		/obj/item/cartridge/security,
@@ -320,9 +320,11 @@
 	desc = "A full set of labelled components for assembling an R&D setup with. There are wordless picrographs of how to assemble everything on the back."
 
 /obj/item/storage/box/large/rnd_parts/populate_contents()
+	new /obj/item/circuitboard/rnd_network_controller(src)
+	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -332,6 +334,7 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/stock_parts/scanning_module(src)
+	new /obj/item/stock_parts/scanning_module(src)
 	new /obj/item/stock_parts/micro_laser(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
@@ -339,6 +342,7 @@
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/stack/sheet/glass/fifty(src)
 	new /obj/item/stack/sheet/metal/fifty(src)
+	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/box/large/glowstick/emergency
@@ -699,77 +703,99 @@
 ////////////////
 /* Ammo Boxes */
 ////////////////
-/obj/item/storage/box/slug
-	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slug_box"
 
-/obj/item/storage/box/slug/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
+/obj/item/storage/fancy/shell
+	icon = 'icons/obj/shell_boxes.dmi'
+	storage_slots = 8
+	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	can_hold = list(/obj/item/ammo_casing/shotgun)
+	/// What shell do we fill the box with
+	var/shell_type
 
-/obj/item/storage/box/buck
-	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshot_box"
+/obj/item/storage/fancy/shell/fancy_storage_examine(mob/user)
+	. = list()
+	if(!length(contents))
+		. += "There are no shells in the box."
+		return
 
-/obj/item/storage/box/buck/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
+	var/list/shell_list = list() // Associated list of all shells in the box
+	for(var/obj/item/ammo_casing/shotgun/shell as anything in contents)
+		shell_list[shell.name] += 1
 
-/obj/item/storage/box/dragonsbreath
-	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreath_box"
+	for(var/thing as anything in shell_list)
+		if(shell_list[thing] == 1)
+			. += "There is one [thing] in the box."
+		else
+			. += "There are [shell_list[thing]] [thing]s in the box."
 
-/obj/item/storage/box/dragonsbreath/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+/obj/item/storage/fancy/shell/update_icon_state()
+	icon_state = "open"
 
-/obj/item/storage/box/stun
-	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stun_box"
+/obj/item/storage/fancy/shell/populate_contents()
+	if(!shell_type)
+		return
+	for(var/i in 1 to storage_slots)
+		new shell_type(src)
 
-/obj/item/storage/box/stun/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
+/obj/item/storage/fancy/shell/update_overlays()
+	. = ..()
+	var/list/cached_contents = contents
+	for(var/index in 1 to length(cached_contents))
+		var/obj/shell = cached_contents[index]
+		var/image/I = image(icon, src, initial(shell.icon_state))
+		I.pixel_x = 3 * (round((index - 1) / 2))
+		I.pixel_y = -4 * ((index + 1) % 2)
+		. += I
 
-/obj/item/storage/box/beanbag
-	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbag_box"
+	. += "shell_box_front" // need to add another overlay to prevent from other overlays from showing on top
 
-/obj/item/storage/box/beanbag/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershot_box"
-
-/obj/item/storage/box/rubbershot/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
+/obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranq_box"
+	icon_state = "tranqbox"
+	shell_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
-/obj/item/storage/box/tranquilizer/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+/obj/item/storage/fancy/shell/slug
+	name = "ammunition box (Slug)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "slugbox"
+	shell_type = /obj/item/ammo_casing/shotgun
 
-/obj/item/storage/box/holy
+/obj/item/storage/fancy/shell/buck
+	name = "ammunition box (Buckshot)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "buckbox"
+	shell_type = /obj/item/ammo_casing/shotgun/buckshot
+
+/obj/item/storage/fancy/shell/dragonsbreath
+	name = "ammunition box (Dragonsbreath)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "dragonsbox"
+	shell_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+
+/obj/item/storage/fancy/shell/stun
+	name = "ammunition box (Stun shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "stunbox"
+	shell_type = /obj/item/ammo_casing/shotgun/stunslug
+
+/obj/item/storage/fancy/shell/beanbag
+	name = "ammunition box (Beanbag shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "beanbox"
+	shell_type = /obj/item/ammo_casing/shotgun/beanbag
+
+/obj/item/storage/fancy/shell/rubbershot
+	name = "ammunition box (Rubbershot shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "rubberbox"
+	shell_type = /obj/item/ammo_casing/shotgun/rubbershot
+
+/obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
 	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "hshell_box"
-
-/obj/item/storage/box/holy/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/holy(src)
+	icon_state = "holybox"
+	shell_type = /obj/item/ammo_casing/shotgun/holy
 
 ////////////////
 /* Donk Boxes */
@@ -794,7 +820,7 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "This box feels slightly warm."
 	icon_state = "donk_box"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -990,7 +1016,7 @@
 	else
 		icon_state = "[item_state]_closed"
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
@@ -1022,6 +1048,14 @@
 				qdel(src)
 				return
 	return ..()
+
+/obj/item/storage/box/papersack/pbj_lunch
+	name = "peanut butter and jelly lunch"
+	desc = "A paper sack filled with enough sandwiches to feed a department."
+
+/obj/item/storage/box/papersack/pbj_lunch/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/food/peanut_butter_jelly(src)
 
 /obj/item/storage/box/relay_kit
 	name = "telecommunications relay kit"
@@ -1116,7 +1150,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -1159,7 +1193,7 @@
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
 	return (BRUTELOSS)
 
-/obj/item/storage/box/hug/attack_self(mob/user)
+/obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)
@@ -1212,6 +1246,17 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
 
+/obj/item/storage/box/crewvend
+	name = "CrewVend 3000 Kit"
+	desc = "Contains everything you need to build your own vending machine!"
+
+/obj/item/storage/box/crewvend/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
+	board.set_type("CrewVend 3000")
+	new /obj/item/screwdriver(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."
@@ -1239,6 +1284,15 @@
 /obj/item/storage/box/coke_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/coke(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/coke(src)
+
+/obj/item/storage/box/tacticool_envirosuit
+	name = "tactical suit box"
+	desc = "A box with a special envirosuit usually supplied by black markets."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/tacticool_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/tacticool(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

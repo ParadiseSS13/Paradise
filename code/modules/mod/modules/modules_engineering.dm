@@ -133,22 +133,25 @@
 	name = "tether"
 	icon_state = "tether_projectile"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	var/chain_icon_state = "line"
 	speed = 2
 	damage = 5
 	range = 15
 	hitsound = 'sound/weapons/batonextend.ogg'
 	hitsound_wall = 'sound/weapons/batonextend.ogg'
+	///How fast the tether will throw the user at the target
+	var/yank_speed = 1
 
 /obj/item/projectile/tether/proc/make_chain()
 	if(firer)
-		chain = Beam(firer, icon_state = "line", icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', time = 10 SECONDS, maxdistance = 15)
+		chain = Beam(firer, chain_icon_state, icon, time = 10 SECONDS, maxdistance = range)
 
 /obj/item/projectile/tether/on_hit(atom/target)
 	. = ..()
 	if(firer && isliving(firer))
 		var/mob/living/L = firer
 		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
+		L.throw_at(target, 15, yank_speed, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
 
 /obj/item/projectile/tether/Destroy()
 	QDEL_NULL(chain)
@@ -156,49 +159,31 @@
 
 /// Atmos water tank module
 
-/obj/item/mod/module/firefighting_tank
-	name = "MOD firefighting tank"
-	desc = "A refrigerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
-	icon_state = "firefighting_tank"
-	module_type = MODULE_ACTIVE
-	complexity = 2
-	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	device = /obj/item/extinguisher/mini/mod
-
 #define EXTINGUISHER 0
 #define NANOFROST 1
 #define METAL_FOAM 2
 
-/obj/item/extinguisher/mini/mod
+/obj/item/mod/module/firefighting_tank
+	name = "MOD firefighting tank"
+	desc = "A refrigerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. \
+	Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time.\
+	The smaller volume compared to a dedicated firefighting backpack means that non-water modes suffer from longer cooldowns."
+	icon_state = "firefighting_tank"
+	module_type = MODULE_ACTIVE
+	complexity = 2
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	incompatible_modules = list(/obj/item/mod/module/firefighting_tank)
+	device = /obj/item/extinguisher/mini/nozzle/mod
+	// Used by nozzle code.
+	var/volume = 500
+
+/obj/item/extinguisher/mini/nozzle/mod
 	name = "modsuit extinguisher nozzle"
 	desc = "A heavy duty nozzle attached to a modsuit's internal tank."
-	icon = 'icons/obj/watertank.dmi'
-	icon_state = "atmos_nozzle_1"
-	item_state = "nozzleatmos"
-	safety = 0
-	max_water = 500
-	precision = 1
-	cooling_power = 5
-	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP // Necessary to ensure that the nozzle and tank never seperate
-	var/nozzle_mode = EXTINGUISHER
-	var/metal_synthesis_charge = 5
-	COOLDOWN_DECLARE(nanofrost_cooldown)
+	metal_regen_time = 5 SECONDS
+	nanofrost_cooldown_time = 10 SECONDS
 
-/obj/item/extinguisher/mini/mod/attack_self(mob/user)
-	switch(nozzle_mode)
-		if(EXTINGUISHER)
-			nozzle_mode = NANOFROST
-			to_chat(user, "<span class='notice'>Swapped to nanofrost launcher.</span>")
-		if(NANOFROST)
-			nozzle_mode = METAL_FOAM
-			to_chat(user, "<span class='notice'>Swapped to metal foam synthesizer.</span>")
-		if(METAL_FOAM)
-			nozzle_mode = EXTINGUISHER
-			to_chat(user, "<span class='notice'>Swapped to water extinguisher.</span>")
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/extinguisher/mini/mod/update_icon_state()
+/obj/item/extinguisher/mini/nozzle/mod/update_icon_state()
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			icon_state = "atmos_nozzle_1"
@@ -206,59 +191,6 @@
 			icon_state = "atmos_nozzle_2"
 		if(METAL_FOAM)
 			icon_state = "atmos_nozzle_3"
-
-/obj/item/extinguisher/mini/mod/examine(mob/user)
-	. = ..()
-	switch(nozzle_mode)
-		if(EXTINGUISHER)
-			. += "<span class='notice'>[src] is currently set to extinguishing mode.</span>"
-		if(NANOFROST)
-			. += "<span class='notice'>[src] is currently set to nanofrost mode.</span>"
-		if(METAL_FOAM)
-			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
-
-/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
-	var/is_adjacent = user.Adjacent(target)
-	if(is_adjacent && AttemptRefill(target, user))
-		return
-	switch(nozzle_mode)
-		if(EXTINGUISHER)
-			..()
-
-		if(NANOFROST)
-			if(reagents.total_volume < 100)
-				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
-				return
-			if(!COOLDOWN_FINISHED(src, nanofrost_cooldown))
-				to_chat(user, "<span class='warning'>Nanofrost launcher is still recharging.</span>")
-				return
-			COOLDOWN_START(src, nanofrost_cooldown, 10 SECONDS)
-			reagents.remove_any(100)
-			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
-			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
-			playsound(src, 'sound/items/syringeproj.ogg', 40, 1)
-			for(var/counter in 1 to 5)
-				step_towards(A, target)
-				sleep(2)
-			A.Smoke()
-
-		if(METAL_FOAM)
-			if(!is_adjacent|| !isturf(target))
-				return
-			if(metal_synthesis_charge <= 0)
-				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized.</span>")
-				return
-			if(reagents.total_volume < 10)
-				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
-				return
-			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
-			F.spread_amount = 0
-			reagents.remove_any(10)
-			metal_synthesis_charge--
-			addtimer(CALLBACK(src, PROC_REF(decrease_metal_charge)), 5 SECONDS)
-
-/obj/item/extinguisher/mini/mod/proc/decrease_metal_charge()
-		metal_synthesis_charge++
 
 #undef EXTINGUISHER
 #undef NANOFROST

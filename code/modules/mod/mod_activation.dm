@@ -74,13 +74,13 @@
 		to_chat(user, "<span class='warning'>[part.name] already deployed!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(part in overslotting_parts)
-		var/obj/item/overslot = wearer.get_item_by_slot(slot_bitfield_to_slot(part.slot_flags))
+		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
 		if(overslot)
-			wearer.unEquip(overslot, TRUE)
+			wearer.drop_item_to_ground(overslot, force = TRUE)
 			overslotting_parts[part] = overslot
 			overslot.forceMove(part)
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
-	if(wearer.equip_to_slot_if_possible(part, slot_bitfield_to_slot(part.slot_flags), disable_warning = TRUE))
+	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, disable_warning = TRUE))
 		part.flags |= NODROP
 		if(mass)
 			return TRUE
@@ -104,12 +104,11 @@
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	part.flags &= ~NODROP
-	wearer.unEquip(part, TRUE)
-	part.forceMove(src)
+	wearer.transfer_item_to(part, src, force = TRUE)
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)
 		var/obj/item/overslot = overslotting_parts[part]
-		if(!wearer.equip_to_slot_if_possible(overslot, slot_bitfield_to_slot(overslot.slot_flags), disable_warning = TRUE))
+		if(!wearer.equip_to_slot_if_possible(overslot, overslot.slot_flags, disable_warning = TRUE))
 			overslot.forceMove(get_turf(wearer))
 		overslotting_parts[part] = null
 	if(mass)
@@ -223,7 +222,7 @@
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
 	update_speed()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	wearer.regenerate_icons()
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.

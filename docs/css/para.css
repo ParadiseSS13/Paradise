@@ -26,3 +26,7 @@ header {
 
 	--md-typeset-a-color: #ff558d;
   }
+
+.md-typeset .admonition {
+	font-size: 0.8rem;
+}
