@@ -98,3 +98,5 @@
 			decalselection = lowertext(decalselection)
 			custom_skin = "_[decalselection]"
 			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+		return
+	return ..()
