@@ -155,7 +155,6 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 			// Prepare the body
 			var/list/request_body = list("url" = web_sound_input)
-
 			// Send the request off
 			var/datum/http_request/media_poll_request = new()
 			// The fact we are using GET with a body offends me
@@ -188,18 +187,20 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					var/res = tgui_alert(src, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No", "Cancel"))
 					switch(res)
 						if("Yes")
+							log_admin("[key_name(src)] played web sound: [web_sound_input]")
+							message_admins("[key_name(src)] played web sound: [web_sound_input]")
 							to_chat(world, "<span class='boldannounceooc'>[src.ckey] played: [webpage_url]</span>")
 						if("No")
 							music_extra_data["link"] = "Song Link Hidden"
 							music_extra_data["title"] = "Song Title Hidden"
 							music_extra_data["artist"] = "Song Artist Hidden"
+							log_admin("[key_name(src)] played web sound: [web_sound_input]")
+							message_admins("[key_name(src)] played web sound: [web_sound_input]")
 							to_chat(world, "<span class='boldannounceooc'>[src.ckey] played an internet sound</span>")
 						if("Cancel")
 							return
 
 					SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
-					log_admin("[key_name(src)] played web sound: [web_sound_input]")
-					message_admins("[key_name(src)] played web sound: [web_sound_input]")
 
 			else
 				to_chat(src, "<span class='boldwarning'>yt-dlp URL retrieval FAILED:</span>")
@@ -221,14 +222,13 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				var/client/C = M.client
 				var/this_uid = M.client.UID()
 				if(C.prefs.sound & SOUND_MIDI)
+					if(stop_web_sounds)
+						C.tgui_panel?.stop_music()
 					if(ckey in M.client.prefs.admin_sound_ckey_ignore)
 						C.tgui_panel?.stop_music()
 						to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
-						continue
-					if(!stop_web_sounds)
-						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-						to_chat(C, "(<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 					else
-						C.tgui_panel?.stop_music()
+						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
+						to_chat(C, "<span class='warning'>(<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 				else
 					to_chat(C, "<span class='warning'>But Admin MIDIs are disabled in preferences!</span>")
