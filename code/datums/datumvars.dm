@@ -112,6 +112,8 @@
 	if(!D)
 		return
 
+	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
+	asset_cache_datum.send(usr)
 
 	var/islist = islist(D)
 	var/isclient = isclient(D)
@@ -249,19 +251,10 @@
 
 	var/html = {"
 <html>
-	<meta charset="UTF-8">
 	<head>
+		<meta charset="UTF-8">
 		<title>[title]</title>
-		<style>
-			body {
-				font-family: Verdana, sans-serif;
-				font-size: 9pt;
-			}
-			.value {
-				font-family: "Courier New", monospace;
-				font-size: 8pt;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
 		<script type="text/javascript">
@@ -533,11 +526,11 @@
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		return "<a href='byond://?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(value)] \ref[value]</a> ([D.type])"
+		return D.debug_variable_value(sanitize)
 
 	else if(isclient(value))
 		var/client/C = value
-		return "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(value)] \ref[value]</a> ([C.type])"
+		return "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(value)] \ref[value]</a> (Da client)"
 //
 	else if(islist(value))
 		var/list/L = value
@@ -565,8 +558,19 @@
 	else
 		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
 
+/datum/proc/debug_variable_value(sanitize)
+	return "<a href='byond://?_src_=vars;Vars=[UID()]'>[VV_HTML_ENCODE(src)] \ref[src]</a> ([type])"
 
-
+/matrix/debug_variable_value(sanitize)
+	return {"<span class='value'>
+			<table class='matrixbrak'><tbody><tr><td class='lbrak'>&nbsp;</td><td>
+			<table class='matrix'>
+			<tbody>
+				<tr><td>[a]</td><td>[d]</td><td>0</td></tr>
+				<tr><td>[b]</td><td>[e]</td><td>0</td></tr>
+				<tr><td>[c]</td><td>[f]</td><td>1</td></tr>
+			</tbody>
+			</table></td><td class='rbrak'>&nbsp;</td></tr></tbody></table></span>"} //TODO link to modify_transform wrapper for all matrices
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
