@@ -67,7 +67,6 @@
 /proc/delete_link_visual_generic(datum/mod_link/mod_link)
 	var/mob/living/user = mod_link.get_user_callback.Invoke()
 	playsound(mod_link.get_other().holder, 'sound/machines/terminal_processing.ogg', 50, vary = TRUE, frequency = -1)
-	//mod_link.holder.lose_hearing_sensitivity(REF(mod_link))
 	mod_link.holder.UnregisterSignal(user, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY, COMSIG_ATOM_DIR_CHANGE))
 	QDEL_NULL(mod_link.visual)
 
@@ -99,21 +98,6 @@
 		new_transform.Scale(0.65, 1)
 	other_visual.transform = new_transform
 
-/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core) //qwertodo: move this back
-	. = ..()
-	mod_link = new(
-		src,
-		starting_frequency,
-		CALLBACK(src, PROC_REF(get_wearer)),
-		CALLBACK(src, PROC_REF(can_call)),
-		CALLBACK(src, PROC_REF(make_link_visual)),
-		CALLBACK(src, PROC_REF(get_link_visual)),
-		CALLBACK(src, PROC_REF(delete_link_visual))
-	)
-
-///obj/item/mod/control/multitool_act_secondary(mob/living/user, obj/item/multitool/tool) // qwertodo same here for frequency
-
-
 /obj/item/mod/control/proc/can_call()
 	return get_charge() && wearer && wearer.stat < DEAD
 
@@ -128,13 +112,21 @@
 
 /obj/item/mod/control/hear_talk(mob/living/M, list/message_pieces)
 	. = ..()
-	if(M != wearer || !visual)
+	if(M != wearer || !mod_link.visual)
 		return
-	mod_link.visual.atom_say(multilingual_to_message(message_pieces))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.voice != M.real_name)
+			mod_link.visual.name = H.voice
+		else
+			mod_link.visual.name = M.name
+	else
+		mod_link.visual.name = M.name
+	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
 
 /obj/item/mod/control/proc/on_overlay_change(atom/source, cache_index, overlay)
-	SIGNAL_HANDLER
-	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 1 TICKS, TIMER_UNIQUE)
+	SIGNAL_HANDLER //COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
+	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 0.2 SECONDS, TIMER_UNIQUE)
 
 /obj/item/mod/control/proc/update_link_visual()
 	if(QDELETED(mod_link.link_call))
@@ -144,7 +136,7 @@
 	mod_link.visual.add_overlay(mod_link.visual_overlays)
 
 /obj/item/mod/control/proc/on_wearer_set_dir(atom/source, dir, newdir)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
 	on_user_set_dir_generic(mod_link, newdir || SOUTH)
 
 /obj/item/clothing/neck/link_scryer
@@ -183,10 +175,10 @@
 /obj/item/clothing/neck/link_scryer/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>The battery charge reads [cell.percent()]%. <b>Right-click</b> with an empty hand to remove it.</span>"
+		. += "<span class='notice'>The battery charge reads [cell.percent()]%. Use a <b>Screwdriver</b> to remove it.</span>"
 	else
 		. += "<span class='notice'>It is missing a battery, one can be installed by clicking with a power cell on it.</span>"
-	. += "<span class='notice'>The MODlink ID is [mod_link.id], frequency is [mod_link.frequency || "unset"]. <b>Right-click</b> with multitool to copy/imprint frequency.</span>"
+	. += "<span class='notice'>The MODlink ID is [mod_link.id], frequency is [mod_link.frequency || "unset"]. <b>Use</b> a multitool to copy/imprint frequency.</span>"
 	. += "<span class='notice'>Use in hand to set name.</span>"
 
 /obj/item/clothing/neck/link_scryer/equipped(mob/living/user, slot)
@@ -208,6 +200,52 @@
 	label = new_label
 	to_chat(user, "<span class='notice'>You set the name as [label].</span>")
 	update_name()
+
+
+/obj/item/clothing/neck/link_scryer/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	var/obj/item/linked_thing = locateUID(M.buffer_uid)
+
+	if(!linked_thing)
+		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		M.buffer_uid = UID()
+		return TRUE
+	if(ismodcontrol(linked_thing))
+		var/obj/item/mod/control/chosen_control = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_control.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+	else
+		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy or imprint the frequency?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				mod_link.frequency = chosen_scryer.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+			if("Imprint")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+
+/obj/item/clothing/neck/link_scryer/get_cell()
+	return cell
 
 /obj/item/clothing/neck/link_scryer/process()
 	if(!mod_link.link_call)
@@ -242,14 +280,6 @@
 	user.put_in_hands(cell)
 	return
 
-///obj/item/clothing/neck/link_scryer/multitool_act_secondary(mob/living/user, obj/item/multitool/tool) qwertodo: look into this before merge
-
-
-///obj/item/clothing/neck/link_scryer/worn_overlays(mutable_appearance/standing, isinhands)
-	//. = ..()
-	//if(!QDELETED(mod_link.link_call))
-	//	. += mutable_appearance('icons/mob/clothing/neck.dmi', "modlink_active") //qwertodo: make this use just icon state
-
 /obj/item/clothing/neck/link_scryer/ui_action_click(mob/user)
 	if(mod_link.link_call)
 		mod_link.end_call()
@@ -280,13 +310,19 @@
 
 /obj/item/clothing/neck/link_scryer/hear_talk(mob/living/M, list/message_pieces)
 	. = ..()
-	if(M != loc || !visual)
+	if(M != loc || !mod_link.visual)
 		return
-	mod_link.visual.atom_say(multilingual_to_message(message_pieces))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.voice != M.real_name)
+			mod_link.visual.name = H.voice
+	else
+		mod_link.visual.name = M.name
+	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
 
 /obj/item/clothing/neck/link_scryer/proc/on_overlay_change(atom/source, cache_index, overlay)
-	SIGNAL_HANDLER
-	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 1 TICKS, TIMER_UNIQUE)
+	SIGNAL_HANDLER //COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
+	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 0.2 SECONDS, TIMER_UNIQUE)
 
 /obj/item/clothing/neck/link_scryer/proc/update_link_visual()
 	if(QDELETED(mod_link.link_call))
@@ -297,7 +333,7 @@
 	mod_link.visual.add_overlay(mod_link.visual_overlays)
 
 /obj/item/clothing/neck/link_scryer/proc/on_user_set_dir(atom/source, dir, newdir)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
 	on_user_set_dir_generic(mod_link, newdir || SOUTH)
 
 /obj/item/clothing/neck/link_scryer/loaded

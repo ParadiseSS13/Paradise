@@ -162,6 +162,15 @@
 		install(module)
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 	START_PROCESSING(SSobj, src)
+	mod_link = new(
+		src,
+		starting_frequency,
+		CALLBACK(src, PROC_REF(get_wearer)),
+		CALLBACK(src, PROC_REF(can_call)),
+		CALLBACK(src, PROC_REF(make_link_visual)),
+		CALLBACK(src, PROC_REF(get_link_visual)),
+		CALLBACK(src, PROC_REF(delete_link_visual))
+	)
 
 /obj/item/mod/control/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -303,6 +312,49 @@
 		update_charge_alert()
 		return TRUE
 	return ..()
+
+/obj/item/mod/control/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	var/obj/item/linked_thing = locateUID(M.buffer_uid)
+
+	if(!linked_thing)
+		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		M.buffer_uid = UID()
+		return TRUE
+	if(ismodcontrol(linked_thing))
+		var/obj/item/mod/control/chosen_control = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_control.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+	else
+		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy or imprint the frequency?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				mod_link.frequency = chosen_scryer.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+			if("Imprint")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+
 
 /obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	if(..())
