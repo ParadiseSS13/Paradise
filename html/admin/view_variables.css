@@ -8,6 +8,17 @@ body {
 	display: inline-block;
 }
 
+.var {
+	display: none;
+}
+
+.var.visible {
+	display: list-item;
+}
+
+.var.selected {
+	background-color: "#ffee88";
+}
 table.matrix {
 	border-collapse: collapse; border-spacing: 0;
 	font-size: 7pt;
