@@ -199,7 +199,7 @@
 		return
 	label = new_label
 	to_chat(user, "<span class='notice'>You set the name as [label].</span>")
-	update_name()
+	update_appearance(UPDATE_NAME)
 
 
 /obj/item/clothing/neck/link_scryer/multitool_act(mob/user, obj/item/I)
