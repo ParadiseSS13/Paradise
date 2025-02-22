@@ -35,7 +35,6 @@
 	to research and adapt their creations to the ashen wastes. Unfortunately, "
 	suffix = "lavaland_surface_eden.dmm"
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
@@ -52,7 +51,6 @@
 	While only threat was a singular Ash Walker warrior, they did not go out without the glory of a great combat."
 	suffix = "lavaland_surface_ash_walker_siege.dmm"
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
@@ -86,7 +84,6 @@
 	On rare occasions such as this, it is a reminder that even in disrepair, some places may still great power within."
 	suffix = "lavaland_surface_althland_minebot_factory.dmm"
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/sin
 	allow_duplicates = FALSE
