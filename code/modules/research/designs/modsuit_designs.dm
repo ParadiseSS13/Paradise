@@ -52,7 +52,7 @@
 	build_path = /obj/item/mod/construction/boots
 	category = list("MODsuit Construction")
 
-/datum/design/mod_boots
+/datum/design/mod_scryer
 	name = "MODlink Scryer"
 	desc = "A neck-worn piece of gear that can call with another MODlink-compatible device."
 	id = "mod_scryer"
