@@ -142,6 +142,7 @@
 		return
 	// Award points if the ore is actually transferable to the magma crucible
 	give_points(O.type, O.amount)
+	animate_transfer(O.amount)
 	// Insert materials
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
@@ -151,9 +152,6 @@
 			materials.insert_item(O, linked_crucible.sheet_per_ore)
 		else
 			materials.insert_item(O, 1)
-	animate_transfer()
-	// Award points if the ore actually transfers to the magma crucible
-	give_points(O.type, O.amount)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
@@ -188,10 +186,11 @@
 	if(initial(ore_path.refined_type))
 		points += initial(ore_path.points) * point_upgrade * ore_amount
 
-/obj/machinery/mineral/smart_hopper/proc/animate_transfer()
+/obj/machinery/mineral/smart_hopper/proc/animate_transfer(ore_amount)
 	icon_state = "hopper_on"
-	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), 3 SECONDS)
-	linked_crucible.animate_transfer()
+	var/time_to_animate = max(ore_amount * 2, 1 SECONDS)
+	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
+	linked_crucible.animate_transfer(time_to_animate)
 
 /obj/machinery/magma_crucible
 	name = "magma crucible"
@@ -210,6 +209,8 @@
 	resistance_flags = FIRE_PROOF
 	/// Sheet multiplier applied when smelting ore.
 	var/sheet_per_ore = 1
+	/// State for adding ore
+	var/adding_ore
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
@@ -232,11 +233,20 @@
 	// Update our values
 	sheet_per_ore = S
 
-/obj/machinery/magma_crucible/proc/animate_transfer()
-/*  MARK: Todo: Switch to Overlays 
-	icon_state = "crucible_input"
-	addtimer(VARSET_CALLBACK(src, icon_state, "crucible"), 3 SECONDS)
-*/
+/obj/machinery/magma_crucible/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(adding_ore)
+		. += "crucible_input"
+
+/obj/machinery/magma_crucible/proc/animate_transfer(time_to_animate)
+	adding_ore = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	addtimer(CALLBACK(src, PROC_REF(stop_animating)), time_to_animate)
+
+/obj/machinery/magma_crucible/proc/stop_animating()
+	adding_ore = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
