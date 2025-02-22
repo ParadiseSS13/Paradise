@@ -12,6 +12,8 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 2
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
@@ -185,7 +187,7 @@
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
 
 //Manifest, Recall, Communicate

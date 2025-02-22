@@ -957,7 +957,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Can be used to parry incoming melee attacks."
 	reference = "MBK"
 	item = /obj/item/storage/box/syndie_kit/syndie_mantis
-	cost = 60
+	cost = 75
+	surplus = 0
+	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 ////////////////////////////////////////
 // MARK: POINTLESS BADASSERY

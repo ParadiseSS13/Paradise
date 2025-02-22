@@ -15,6 +15,7 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
+	cares_about_temperature = TRUE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
@@ -90,7 +91,7 @@
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
-	var/melee_can_hit = TRUE
+	var/mecha_melee_cooldown = FALSE
 
 	/// How many ion thrusters we got on this bad boy
 	var/thruster_count = 0
@@ -263,12 +264,12 @@
 	else
 		if(internal_damage & MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
+		if(mecha_melee_cooldown || !isatom(target))
 			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+		if(iswallturf(target) || isliving(target) || isobj(target))
+			target.mech_melee_attack(src)
+			mecha_melee_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
@@ -286,7 +287,7 @@
 ////////  MARK: Movement procs
 //////////////////////////////////
 
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return TRUE
@@ -699,7 +700,7 @@
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/mecha/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", 1)
@@ -1031,6 +1032,10 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
+	var/mob/camera/eye/hologram/hologram_eye = AI.remote_control
+	if(istype(hologram_eye))
+		hologram_eye.release_control()
+		qdel(hologram_eye)
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
@@ -1315,6 +1320,7 @@
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
+			AI.eyeobj?.set_loc(newloc)
 			qdel(AI.linked_core)
 	else
 		return

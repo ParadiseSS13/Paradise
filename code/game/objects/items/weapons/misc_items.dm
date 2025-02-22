@@ -121,6 +121,10 @@
 	throw_speed = 4
 	throw_range = 5
 
+/obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
+
 
 
 /obj/item/fan

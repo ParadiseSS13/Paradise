@@ -199,15 +199,18 @@
 	ui_interact(user)
 
 
-/obj/machinery/bookbinder/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/paper))
-		select_paper(I)
-	if(istype(I, /obj/item/paper_bundle))
-		select_paper_stack(I)
-	if(istype(I, /obj/item/book))
-		select_book(I)
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
+/obj/machinery/bookbinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper))
+		select_paper(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/paper_bundle))
+		select_paper_stack(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/book))
+		select_book(used)
+		return ITEM_INTERACT_COMPLETE
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

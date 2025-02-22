@@ -9,6 +9,7 @@
 	idle_power_consumption = 1250
 	active_power_consumption = 2500
 	light_color = "#00FF00"
+	light_power = 0.5
 	var/mob/living/carbon/human/occupant
 	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
 	var/scan_level = 1
@@ -64,28 +65,28 @@
 	else
 		icon_state = "bodyscanner-open"
 
-/obj/machinery/bodyscanner/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
+/obj/machinery/bodyscanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/TYPECAST_YOUR_SHIT = used
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
 			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		M.forceMove(src)
 		occupant = M
@@ -94,7 +95,7 @@
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -363,6 +364,7 @@
 		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
 		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
 		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHT)
+		occupantData["paraplegic"] = HAS_TRAIT(occupant, TRAIT_PARAPLEGIC)
 
 	data["occupant"] = occupantData
 	return data
@@ -452,6 +454,8 @@
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
 			dat += "<font color='red'>Retinal misalignment detected.</font><br>"
+		if(HAS_TRAIT(occupant, TRAIT_PARAPLEGIC))
+			dat += "<font color='red'>Lumbar nerves damaged.</font><br>"
 
 		dat += "<hr>"
 		dat += "<table border='1' style='width:100%'>"

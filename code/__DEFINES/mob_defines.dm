@@ -276,9 +276,6 @@
 #define is_ai_eye(A)		(istype((A), /mob/camera/eye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
-#define isSpirit(A)		(istype((A), /mob/spirit))
-#define ismask(A)		(istype((A), /mob/spirit/mask))
-
 #define isobserver(A)	(istype((A), /mob/dead/observer))
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
@@ -383,3 +380,7 @@
 #define BRAIN_DAMAGE_RATIO_MODERATE 6 / 12
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
+
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 16

@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		B.remove(C)
 		qdel(B)
 
-/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
+/obj/singularity/Process_Spacemove(movement_dir = 0, continuous_move = FALSE) //The singularity stops drifting for no man!
 	return 0
 
 /obj/singularity/blob_act(obj/structure/blob/B)

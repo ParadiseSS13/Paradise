@@ -173,7 +173,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1502,7 +1502,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_x = 32
 	},
@@ -2282,7 +2282,7 @@
 	dir = 8;
 	pixel_y = -24
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -5203,7 +5203,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "ur" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -6044,7 +6044,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -31
 	},
@@ -9523,7 +9523,7 @@
 /area/lavaland/surface/outdoors/targetable)
 "VV" = (
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/item/radio/intercom{
 	name = "north bump";

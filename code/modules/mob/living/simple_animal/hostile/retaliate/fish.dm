@@ -85,7 +85,7 @@
 		icon_living = "koi[koinum]"
 		icon_dead = "koi[koinum]-dead"
 
-/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/honk
