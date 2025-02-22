@@ -221,14 +221,17 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			for(var/mob/M in GLOB.player_list)
 				var/client/C = M.client
 				var/this_uid = M.client.UID()
+				if(stop_web_sounds)
+					C.tgui_panel?.stop_music()
+					continue
 				if(C.prefs.sound & SOUND_MIDI)
-					if(stop_web_sounds)
-						C.tgui_panel?.stop_music()
 					if(ckey in M.client.prefs.admin_sound_ckey_ignore)
 						C.tgui_panel?.stop_music()
 						to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
+						continue
 					else
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 						to_chat(C, "<span class='warning'>(<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 				else
 					to_chat(C, "<span class='warning'>But Admin MIDIs are disabled in preferences!</span>")
+	return
