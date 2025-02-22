@@ -516,6 +516,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
+"lf" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/obj/machinery/conveyor/west{
+	layer = 1.9;
+	plane = -6
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
 "ln" = (
 /obj/structure/sign/poster/official/walk{
 	pixel_y = -29
@@ -807,6 +817,15 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_factory)
+"tG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/obj/machinery/conveyor/south{
+	plane = -6;
+	layer = 1.9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
 "ud" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/lavaland_air,
@@ -1082,6 +1101,17 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
+"zq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/circuitboard/aiupload_broken,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_factory)
 "zF" = (
 /obj/structure/door_assembly/door_assembly_ext{
 	name = "Broken External Airlock"
@@ -1194,17 +1224,6 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
-/area/ruin/unpowered/althland_factory)
-"DF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/circuitboard/aiupload_broken,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1637,16 +1656,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
-"OW" = (
-/obj/effect/baseturf_helper/lava/mapping_lava,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/generic,
-/obj/machinery/conveyor/west{
-	layer = 1.9;
-	plane = -6
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_factory)
 "Pb" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1810,6 +1819,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_factory)
+"RN" = (
+/obj/structure/machine_frame,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "RU" = (
@@ -1989,15 +2004,6 @@
 	oxygen = 0;
 	nitrogen = 0
 	},
-/area/ruin/unpowered/althland_factory)
-"WP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/circuitboard/aiupload_broken,
-/obj/machinery/conveyor/south{
-	plane = -6;
-	layer = 1.9
-	},
-/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "WQ" = (
 /obj/structure/disposalpipe/broken,
@@ -2750,7 +2756,7 @@ Wk
 kB
 Wk
 kK
-WP
+tG
 CL
 WN
 dW
@@ -2790,7 +2796,7 @@ dW
 Wk
 kB
 Wk
-OW
+lf
 Ez
 aZ
 kz
@@ -2997,7 +3003,7 @@ ka
 dA
 sL
 bq
-CL
+RN
 UO
 Wk
 kB
@@ -3209,7 +3215,7 @@ kB
 kB
 ka
 Ge
-DF
+zq
 IF
 IF
 Ya
