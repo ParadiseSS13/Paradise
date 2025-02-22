@@ -91,9 +91,6 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
-/// Modifiers for delamination power surge
-#define SM_APC_BREAK_CHANCE 25
-
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -139,7 +136,7 @@
 	var/damage_penalty_point = 550
 
 	///A scaling value that affects the severity of explosions.
-	var/explosion_power = 15
+	var/explosion_power = 35
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
 	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
@@ -411,20 +408,6 @@
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
-	// Short power to all SMES
-	for(var/obj/machinery/power/smes/power_storage in GLOB.machines)
-		if(power_storage.z == z)
-			power_storage.charge = 0
-	// Short and depower APCs. A more severe version of the shortout event
-	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", 'sound/AI/power_short.ogg')
-	var/affected_apc_count = 0
-	for(var/obj/machinery/power/apc/apc in GLOB.machines)
-		if(prob(25) && (apc.z == z))
-			apc.cell.charge = 0
-			apc.apc_short()
-			affected_apc_count++
-	log_and_message_admins("Supermatter delamination power surge has shorted out and depowered [affected_apc_count] APCs.")
-
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
@@ -1026,7 +1009,7 @@
 	icon_state = "darkmatter_shard"
 	anchored = FALSE
 	gasefficency = 0.125
-	explosion_power = 9
+	explosion_power = 12
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
 
@@ -1329,4 +1312,3 @@
 #undef N2_CRUNCH
 #undef N2O_CRUNCH
 #undef PLASMA_CRUNCH
-#undef SM_APC_BREAK_CHANCE
