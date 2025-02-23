@@ -573,8 +573,8 @@
 		operate(operation_time, user)
 		produced_item = new cast.selected_product(src)
 		produced_item.quality = quality
-		produced_item.update_name()
-		produced_item.update_desc()
+		produced_item.update_appearance(UPDATE_NAME)
+		produced_item.update_appearance(UPDATE_DESC)
 		produced_item.update_icon(UPDATE_ICON_STATE)
 		update_icon(UPDATE_OVERLAYS)
 		// Clean up temps

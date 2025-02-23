@@ -35,7 +35,7 @@
 		selected_product = possible_products[1]
 	else
 		selected_product = product_names[new_product]
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/update_desc()
 	return ..()
@@ -75,12 +75,12 @@
 							)
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_desc()
+		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
-	update_desc()
+	uupdate_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component
 	name = "component cast"
@@ -107,7 +107,7 @@
 		quality = quality_type_list[1]
 	else
 		quality = quality_name_list[selected_quality]
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component/update_desc()
 	desc = "[initial(desc)] It is currently configured to make [selected_product.name] at [quality.name] quality."
@@ -117,7 +117,7 @@
 	possible_products = (typesof(product_type) - list(product_type))
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_desc()
+		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component/insert_frame
 	name = "insert frame cast"
@@ -591,7 +591,7 @@
 	if(!quality)
 		return
 	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/smithed_item/component/update_icon_state()
 	. = ..()
@@ -605,11 +605,11 @@
 	if(prob(50) || hammer_time <= 0)
 		hot = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/smithed_item/component/update_desc()
