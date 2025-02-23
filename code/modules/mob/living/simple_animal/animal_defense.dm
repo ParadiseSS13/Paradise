@@ -21,7 +21,8 @@
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
 				return
-			if(M.is_in_active_hand())
+			var/obj/item/I = get_active_hand()
+			if(I)
 				return ..()
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>", "<span class='userdanger'>[M] [response_harm] you!</span>")
