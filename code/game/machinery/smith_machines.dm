@@ -913,7 +913,7 @@
 	finished_product.quality = lowest
 	finished_product.material = trim.material
 	finished_product.set_stats()
-	finished_product.update_name()
+	finished_product.update_appearance(UPDATE_NAME)
 	qdel(primary)
 	qdel(secondary)
 	qdel(trim)
