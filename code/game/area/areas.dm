@@ -342,8 +342,7 @@
 			GLOB.firealarm_soundloop.start(F)
 		if(!firealarm_sound_stop_timer)
 			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE || TIMER_UNIQUE)
-		else(deltimer(firealarm_sound_stop_timer))
-		
+
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
 		if(!QDELETED(C))
@@ -372,6 +371,7 @@
 		ModifyFiredoors(TRUE)
 		if(firealarm_sound_stop_timer)
 			deltimer(firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = null
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
