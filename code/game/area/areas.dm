@@ -61,6 +61,8 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
+	/// Timer to stop ongoing fire alarm sounds
+	var/firealarm_sound_stop_timer = null
 	/// The air alarms present in this area.
 	var/list/air_alarms = list()
 	/// The list of vents in our area.
@@ -338,7 +340,10 @@
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 			GLOB.firealarm_soundloop.start(F)
-
+		if(!firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 1 MINUTES, TIMER_STOPPABLE || TIMER_UNIQUE)
+		else(deltimer(firealarm_sound_stop_timer))
+		
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
 		if(!QDELETED(C))
@@ -348,6 +353,11 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/stop_alarm_sounds()
+	for(var/item in firealarms)
+		var/obj/machinery/firealarm/F = item
+		F.update_icon()
+		GLOB.firealarm_soundloop.stop(F)
 /**
   * Reset the firealarm alert for this area
   *
@@ -360,6 +370,8 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		if(firealarm_sound_stop_timer)
+			deltimer(firealarm_sound_stop_timer)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
