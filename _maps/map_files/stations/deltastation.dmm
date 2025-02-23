@@ -44582,7 +44582,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters"
+	name = "Research and Development Front Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
@@ -45422,13 +45422,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
-"cWY" = (
-/obj/effect/landmark/start/scientist,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/rnd)
 "cXa" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex,
@@ -45660,6 +45653,7 @@
 /area/station/science/rnd)
 "cYq" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cYr" = (
@@ -45872,10 +45866,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
 /obj/machinery/firealarm/directional/west,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -46228,6 +46224,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/scientist,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "daL" = (
@@ -46553,13 +46550,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "dcc" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -46993,13 +46990,13 @@
 	},
 /obj/machinery/door_control{
 	id = "researchdesk1";
-	name = "Primary Research Shutters";
+	name = "Research and Development Front Desk Shutters";
 	pixel_x = -8;
 	pixel_y = -26
 	},
 /obj/machinery/door_control{
 	id = "researchdesk2";
-	name = "Secondary Research Shutters";
+	name = "Research and Development Lab Shutters";
 	pixel_x = 8;
 	pixel_y = -26
 	},
@@ -47452,10 +47449,6 @@
 /area/station/science/research)
 "dfo" = (
 /turf/simulated/wall/r_wall,
-/area/station/science/robotics/chargebay)
-"dfp" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
 /area/station/science/robotics/chargebay)
 "dfq" = (
 /obj/machinery/hologram/holopad,
@@ -49338,7 +49331,7 @@
 	req_access = list(29)
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "roboticsshutters";
 	name = "Mech Bay Shutters"
 	},
@@ -49568,7 +49561,7 @@
 /area/station/science/xenobiology)
 "doR" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "roboticsshutters";
 	name = "Mech Bay Shutters"
 	},
@@ -49838,7 +49831,7 @@
 /area/station/science/robotics)
 "dqm" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	id_tag = "robodesk";
 	name = "Robotics Desk Shutters"
 	},
@@ -50358,9 +50351,6 @@
 /obj/item/healthanalyzer,
 /obj/item/storage/firstaid/regular/empty,
 /obj/item/storage/firstaid/regular/empty,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -50911,7 +50901,6 @@
 	},
 /area/station/science/robotics)
 "dvo" = (
-/obj/effect/landmark/start/roboticist,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -63281,9 +63270,11 @@
 	dir = 8;
 	name = "Robotics Surgery"
 	},
-/obj/effect/mapping_helpers/airlock/polarized,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "RoboSurgery"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63929,6 +63920,13 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"ihx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/landmark/start/roboticist,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/robotics)
 "ihK" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "air_out";
@@ -69795,11 +69793,11 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = s;
+	name = "Research and Development Lab Shutters";
 	id_tag = "researchdesk2"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/chargebay)
+/area/station/science/rnd)
 "lzY" = (
 /obj/structure/table/wood,
 /obj/machinery/alarm/directional/east,
@@ -73241,14 +73239,14 @@
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "rnd"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "researchdesk1";
-	name = "Research Desk Shutters"
-	},
 /obj/machinery/door/window/classic/normal,
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "researchdesk1";
+	name = "Research and Development Front Desk Shutters"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "nyH" = (
@@ -80506,7 +80504,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters"
+	name = "Research and Development Front Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "rnd"
@@ -83495,6 +83493,9 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"sRE" = (
+/turf/simulated/wall/r_wall,
+/area/station/science/rnd)
 "sRR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -86066,8 +86067,10 @@
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "rnd"
 	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/robotics/chargebay)
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/station/science/rnd)
 "ugz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -86225,7 +86228,7 @@
 "ujF" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
-/area/station/science/robotics/chargebay)
+/area/station/science/rnd)
 "ujH" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -89073,8 +89076,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
 "vPo" = (
@@ -92810,15 +92813,8 @@
 	},
 /area/station/maintenance/fsmaint)
 "xKX" = (
-/obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/wrench,
-/obj/item/clothing/glasses/welding,
 /obj/machinery/newscaster/directional/north,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -130506,13 +130502,13 @@ cZx
 cKF
 dbY
 cRg
+sRE
 dfo
 dfo
-dfp
 dfo
 vPd
 gfI
-dfp
+dfo
 dfo
 dqp
 dql
@@ -130763,7 +130759,7 @@ cTR
 anF
 egF
 ddC
-dfo
+sRE
 dim
 doU
 dmf
@@ -131020,7 +131016,7 @@ cZs
 daI
 dca
 ddj
-dfo
+sRE
 din
 doV
 dnx
@@ -131290,7 +131286,7 @@ dsL
 dvl
 dug
 dvn
-dui
+ihx
 dyR
 dEX
 jTj
@@ -131528,7 +131524,7 @@ ewj
 xKn
 cTR
 cVu
-cWY
+cZA
 daJ
 daJ
 daK
@@ -132048,7 +132044,7 @@ daJ
 daJ
 daJ
 ddF
-dfo
+sRE
 rmU
 doX
 lqj
@@ -132305,7 +132301,7 @@ ddr
 daM
 dcc
 ddH
-dfo
+sRE
 dis
 djS
 cDI
@@ -132562,7 +132558,7 @@ cTR
 cVz
 lyp
 cVz
-dfo
+sRE
 dit
 iaD
 hYh
@@ -132819,7 +132815,7 @@ cTQ
 daN
 dce
 ddJ
-dfo
+sRE
 dfo
 dfo
 dnB
