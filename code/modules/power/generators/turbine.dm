@@ -111,7 +111,7 @@
 // The inlet of the compressor is the direction it faces
 
 	gas_contained = new
-	gas_contained.volume = 250
+	gas_contained.volume = 50
 	inturf = get_step(src, dir)
 	locate_machinery()
 	if(!turbine)
@@ -205,12 +205,12 @@
 	if(!compressor.starter)
 		return
 
-	var/compression_ratio = min(1 + compressor.rpm / 5000, 10)
+	var/compression_ratio = min(1 + compressor.rpm / 100, 50)
 
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
 	// The more we are able to compress the gas the more gas we can shove in the compressor
-	var/transfer_moles = environment.total_moles() * (compression_ratio / 10) * compressor.throttle
+	var/transfer_moles = environment.total_moles() * (compression_ratio / 50) * compressor.throttle
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
 
@@ -230,8 +230,8 @@
 		friction_energy_loss = (compressor.rpm ** 1.99) / (COMPFRICTION * compressor.efficiency)
 
 	// Work done by gas flowing through the turbine.
-	// W = F * Δx = (P / m^2) * Δx
-	var/kinetic_energy_gain = max((((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume)  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION ), 0)
+	// W = F * Δx = P * m^2 * Δx
+	var/kinetic_energy_gain = max((((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume)  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION) * 640, 0)
 
 	// Calculate the total kinetic energy
 	var/kinetic_energy = (compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 1.99) * (compressor.rpm ** 1.99) / 2) + kinetic_energy_gain - friction_energy_loss
