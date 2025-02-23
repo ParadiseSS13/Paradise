@@ -210,7 +210,7 @@
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
 	// The more we are able to compress the gas the more gas we can shove in the compressor
-	var/transfer_moles = environment.total_moles() * (compression_ratio / 10) * throttle
+	var/transfer_moles = environment.total_moles() * (compression_ratio / 10) * compressor.throttle
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
 
