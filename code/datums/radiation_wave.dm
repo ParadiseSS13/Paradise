@@ -86,7 +86,7 @@
 
 /// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
 /datum/radiation_wave/proc/radiate(atom/source, turf/current_turf, weight, emission_type)
-	if(length(current_turf.contents))
+	if(length(current_turf.contents) || !isfloorturf(current_turf))
 		var/list/turf_atoms = get_rad_contents(current_turf, emission_type)
 		for(var/k in turf_atoms)
 			var/atom/thing = k
