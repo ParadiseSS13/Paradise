@@ -51554,7 +51554,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
