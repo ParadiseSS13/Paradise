@@ -205,7 +205,7 @@
 	compressor.gas_contained.merge(removed)
 
 	// Rotational kinetic energy turned to heat by friction. E = I * ω^2 / 2,  ΔE = I * (ω1^2 - ω2^2) / 2 and ΔT = ΔE / c
-	var/friction_energy_loss = compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 2) * (compressor.rpm ** 2 - (compressor.rpm - (compressor.rpm*compressor.rpm)/(COMPFRICTION*compressor.efficiency)) ** 2) / 2 * compressor.heat_capacity
+	var/friction_energy_loss = (compressor.rpm ** 2) / (COMPFRICTION * compressor.efficiency)
 
 	// Work done by gas flowing through the turbine.
 	// W = F * Δx = (P / m^2) * Δx = Δx * nRT / (V * m^2) = Δx * nRT / ((m^2 * Δx * m^2)) = nRT / m^4. m^2 here is the bore's cross sectional area, which is constant.
@@ -221,11 +221,11 @@
 	compressor.temperature += friction_energy_loss
 
 	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
-	var/total_energy = compressor.gas_contained.temperature() * gas_heat_capacity + compressor.temperature * compressor.heat_capacity
+	var/total_heat_energy = compressor.gas_contained.temperature() * gas_heat_capacity + compressor.temperature * compressor.heat_capacity
 
 	// Spread energy between the gas mix and compressor depending on heat capacity
-	compressor.gas_contained.set_temperature(total_energy * gas_heat_capacity / (compressor.heat_capacity + gas_heat_capacity))
-	compressor.temperature = total_energy * compressor.heat_capacity / (compressor.heat_capacity + gas_heat_capacity)
+	compressor.gas_contained.set_temperature(total_heat_energy * gas_heat_capacity / (compressor.heat_capacity + gas_heat_capacity))
+	compressor.temperature = total_heat_energy * compressor.heat_capacity / (compressor.heat_capacity + gas_heat_capacity)
 
 	if(!(compressor.stat & NOPOWER))
 		compressor.use_power(2800)
