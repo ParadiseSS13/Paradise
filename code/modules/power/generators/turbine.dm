@@ -66,6 +66,8 @@
 	var/last_overheat = 0
 	/// Internal radio, used to alert engineers of turbine trip!
 	var/obj/item/radio/radio
+	/// Limits the amount of gas mix that is allowed to go into the compressor. 1 is fully open, 0 is fully closed
+	var/throttle = 1
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -109,6 +111,7 @@
 // The inlet of the compressor is the direction it faces
 
 	gas_contained = new
+	gas_contained.volume = 250
 	inturf = get_step(src, dir)
 	locate_machinery()
 	if(!turbine)
@@ -174,6 +177,10 @@
 /obj/machinery/power/compressor/CanAtmosPass(direction)
 	return !density
 
+/// Prevents heat leakage through the compressor
+/obj/machinery/power/compressor/get_superconductivity(direction)
+	return 0
+
 /obj/machinery/power/compressor/proc/trigger_overheat()
 	starter = FALSE
 	last_overheat = world.time
@@ -198,21 +205,36 @@
 	if(!compressor.starter)
 		return
 
+	var/compression_ratio = min(1 + compressor.rpm / 5000, 10)
+
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
-	var/datum/gas_mixture/output_side = get_turf_air(compressor.turbine.outturf)
-	var/transfer_moles = environment.total_moles()/10
+	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
+	// The more we are able to compress the gas the more gas we can shove in the compressor
+	var/transfer_moles = environment.total_moles() * (compression_ratio / 10) * throttle
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
 
-	// Rotational kinetic energy turned to heat by friction. E = I * ω^2 / 2,  ΔE = I * (ω1^2 - ω2^2) / 2 and ΔT = ΔE / c
-	var/friction_energy_loss = (compressor.rpm ** 2) / (COMPFRICTION * compressor.efficiency)
+	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
+	var/total_heat_energy = (compressor.gas_contained.temperature() * gas_heat_capacity) + (compressor.temperature * compressor.heat_capacity)
+
+	// Do a heat transfer before the gas burns
+	compressor.gas_contained.set_temperature(total_heat_energy / (compressor.heat_capacity + gas_heat_capacity))
+	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
+
+	for(var/i = 0, i < min(10 + compressor.rpm / 1000, 20), i++)
+		compressor.gas_contained.react()
+
+	var/friction_energy_loss = 0
+	// Rotational kinetic energy turned to heat by friction. E = I * ω^2 / 2,  ΔE = I * (ω1^2 - ω2^2) / 2 and ΔT = ΔE / c/
+	if(compressor.rpm)
+		friction_energy_loss = (compressor.rpm ** 1.99) / (COMPFRICTION * compressor.efficiency)
 
 	// Work done by gas flowing through the turbine.
-	// W = F * Δx = (P / m^2) * Δx = Δx * nRT / (V * m^2) = Δx * nRT / ((m^2 * Δx * m^2)) = nRT / m^4. m^2 here is the bore's cross sectional area, which is constant.
-	var/kinetic_energy_gain = ((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION) / 4
+	// W = F * Δx = (P / m^2) * Δx
+	var/kinetic_energy_gain = max((((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume)  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION ), 0)
 
 	// Calculate the total kinetic energy
-	var/kinetic_energy = (compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 2) * (compressor.rpm ** 2) / 2) + kinetic_energy_gain - friction_energy_loss
+	var/kinetic_energy = (compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 1.99) * (compressor.rpm ** 1.99) / 2) + kinetic_energy_gain - friction_energy_loss
 
 	// Set compressor RPM accoring to current kinetic energy
 	compressor.rpm = max(0, sqrtor0(2 * kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
@@ -220,12 +242,12 @@
 	// Increase temperature according to the amount of energy lost to friction
 	compressor.temperature += friction_energy_loss
 
-	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
-	var/total_heat_energy = compressor.gas_contained.temperature() * gas_heat_capacity + compressor.temperature * compressor.heat_capacity
+	gas_heat_capacity = compressor.gas_contained.heat_capacity()
+	total_heat_energy = (compressor.gas_contained.temperature() * gas_heat_capacity) + (compressor.temperature * compressor.heat_capacity)
 
-	// Spread energy between the gas mix and compressor depending on heat capacity
-	compressor.gas_contained.set_temperature(total_heat_energy * gas_heat_capacity / (compressor.heat_capacity + gas_heat_capacity))
-	compressor.temperature = total_heat_energy * compressor.heat_capacity / (compressor.heat_capacity + gas_heat_capacity)
+	// Do another heat transfer after the burn
+	compressor.gas_contained.set_temperature(total_heat_energy / (compressor.heat_capacity + gas_heat_capacity))
+	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
 	if(!(compressor.stat & NOPOWER))
 		compressor.use_power(2800)
@@ -280,7 +302,7 @@
 	RefreshParts()
 // The outlet is pointed at the direction of the turbine component
 
-	outturf = get_step(src, dir)
+	outturf = loc
 	locate_machinery()
 	if(!compressor)
 		stat |= BROKEN
@@ -294,12 +316,12 @@
 /obj/machinery/power/turbine/locate_machinery()
 	if(compressor)
 		return
-	compressor = locate() in get_step(src, get_dir(outturf, src))
+	compressor = locate() in get_step(src, ((dir & 5) << 1) | ((dir & 10) >> 1))
 	if(compressor)
 		compressor.locate_machinery()
 
-/obj/machinery/power/turbine/CanAtmosPass(turf/T)
-	return !density
+///obj/machinery/power/turbine/CanAtmosPass(turf/T)
+//	return !density
 
 /obj/machinery/power/turbine/process()
 	var/datum/milla_safe/turbine_process/milla = new()
@@ -451,6 +473,7 @@
 	data["compressor_broken"] = (compressor?.stat & BROKEN)
 	data["turbine"] = !isnull(compressor?.turbine)
 	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
+	data["throttle"] = (compressor?.throttle * 100)
 
 	if(compressor?.turbine)
 		data["online"] = compressor.starter
@@ -481,6 +504,8 @@
 		if("disconnect")
 			disconnect()
 			. = TRUE
+		if("set_throttle")
+			compressor.throttle = text2num(params["throttle"]) / 100
 
 /obj/machinery/computer/turbine_computer/process()
 	src.updateDialog()

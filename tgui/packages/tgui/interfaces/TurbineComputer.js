@@ -1,11 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, ProgressBar } from '../components';
+import { Button, LabeledList, Section, ProgressBar, Knob } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
-  const { compressor, compressor_broken, turbine, turbine_broken, online } = data;
+  const { compressor, compressor_broken, turbine, turbine_broken, online, throttle } = data;
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
     <Window width={400} height={200}>
@@ -26,6 +26,26 @@ export const TurbineComputer = (props, context) => {
           }
         >
           {operational ? <TurbineWorking /> : <TurbineBroken />}
+        </Section>
+        <Section>
+          {operational ? (
+            <Knob
+              size={1.25}
+              value={throttle}
+              unit="%"
+              minValue={0}
+              maxValue={100}
+              step={1}
+              stepPixelSize={1}
+              onDrag={(e, value) =>
+                act('set_throttle', {
+                  throttle: value,
+                })
+              }
+            />
+          ) : (
+            ''
+          )}
         </Section>
       </Window.Content>
     </Window>
