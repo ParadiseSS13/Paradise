@@ -701,7 +701,13 @@
 		"Is the engine meant to be making that noise?",
 		"THE TESLA IS LOOSE CALL THE SHUTTLE",
 		"Go fix the chewed wires, you lazy bums!",
-		"Go fix that breach, or we'll end up with no air!",
+		"Go fix that breach, or we'll all suffocate!",
+		"Why is the engine failing?",
+		"Checked that everything is connected as it should be?",
+		"If you push the SM too far we'll have to abandon station!",
+		"SOS, save our supermatter!",
+		"Is that a terror spider in the SM?",
+		"Remember those mesons, or you'll be seeing terror spiders in the SM!",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
