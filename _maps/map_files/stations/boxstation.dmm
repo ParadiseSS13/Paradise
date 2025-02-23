@@ -53916,6 +53916,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/unisex)
+"gyA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "gyG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -54765,7 +54770,7 @@
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57588,11 +57593,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"ivC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel,
-/area/station/supply/expedition)
 "ivE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -67885,7 +67885,7 @@
 	dir = 8;
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -75214,7 +75214,7 @@
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82102,7 +82102,7 @@
 	dir = 8;
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -111255,7 +111255,7 @@ bkg
 blX
 wrU
 kBW
-ivC
+gyA
 rsA
 bDJ
 wrU

@@ -89,10 +89,10 @@
 
 	var/static_bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED | HAS_SPECIES_SUBTYPE
 
-/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE) //Handling species-subtype and imitation
+/datum/species/machine/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE) //Handling species-subtype and imitation
 	if(H.dna.species.bodyflags & HAS_SPECIES_SUBTYPE)
 		var/datum/species/temp_species = new type()
-		if(isnull(new_subtype) || temp_species.name == new_subtype.name) // Back to our original species.
+		if(isnull(new_subtype) || (temp_species.name == new_subtype.name && !forced)) // Back to our original species.
 			H.species_subtype = "None"
 			temp_species.species_subtype = "None" // Update our species subtype to match the Mob's subtype.
 			var/datum/species/S = GLOB.all_species[temp_species.name]
