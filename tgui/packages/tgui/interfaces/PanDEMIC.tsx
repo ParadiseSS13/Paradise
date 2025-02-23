@@ -362,10 +362,10 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
           <Table.Row className="table-spacer" />
           <Table.Row>
             <Table.Cell>{'Base Stats'}</Table.Cell>
-            <Table.Cell>{baseStats.stealth}</Table.Cell>
-            <Table.Cell>{baseStats.resistance}</Table.Cell>
-            <Table.Cell>{baseStats.stageSpeed}</Table.Cell>
-            <Table.Cell>{baseStats.transmissibility}</Table.Cell>
+            <Table.Cell>{known ? baseStats.stealth : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.resistance : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.stageSpeed : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.transmissibility : 'UNKNOWN'}</Table.Cell>
           </Table.Row>
 
           <Table.Row>

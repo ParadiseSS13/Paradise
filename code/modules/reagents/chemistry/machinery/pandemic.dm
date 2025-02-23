@@ -145,6 +145,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 		if(!stealth_init)
 			for(var/datum/symptom/S in AD.symptoms)
 				stealth += S.stealth
+			stealth += AD.base_properties["stealth"]
 			stealth_init = TRUE
 
 		if(!(AD.stage in stages))

@@ -40,9 +40,11 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance
 	// Give a random stat boost equal to severity
+	var/list/properties_to_buff = A.base_properties.Copy() - "severity"
 	for(var/i = 0, i < max_severity, i++)
-		A.base_properties[pick(A.base_properties)]++
-	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) //Choose "Payload" symptoms
+		A.base_properties[pick(properties_to_buff)]++
+	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
+	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) //Choose "Payload" symptoms. Longevity is excluded
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
 	while(length(symptoms_to_try))
@@ -71,7 +73,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				diseases_moderate_major += candidate
 
 /datum/event/disease_outbreak/proc/populate_symptoms()
-	for(var/candidate in subtypesof(/datum/symptom))
+	// Disease events shouldn't just resolve themselves
+	var/list/candidate_list = subtypesof(/datum/symptom) - /datum/symptom/heal/longevity
+	for(var/candidate in candidate_list)
 		var/datum/symptom/CS = candidate
 		if(initial(CS.transmittable) > 1)
 			transmissable_symptoms += candidate
