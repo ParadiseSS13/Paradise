@@ -546,10 +546,7 @@
 /area/station/engineering/solar/fore_port)
 "agY" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/alarm/directional/south,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "ahd" = (
