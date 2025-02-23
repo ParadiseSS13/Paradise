@@ -194,7 +194,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(SSticker.current_state > GAME_STATE_STARTUP || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
+	if(SSticker.current_state < GAME_STATE_STARTUP || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
