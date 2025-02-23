@@ -206,7 +206,7 @@
 		if(!HAS_TRAIT(user, trait_required_to_add_trait))
 			return TRUE
 	if(trait_to_add)
-		ADD_TRAIT(user, trait_to_add, "[UID(src)]")
+		ADD_TRAIT(user, trait_to_add, "[UID()]")
 		user.update_sight()
 	return TRUE
 
@@ -241,7 +241,7 @@
 	))
 	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(trait_to_add)
-		REMOVE_TRAIT(user, trait_to_add, "[UID(src)]")
+		REMOVE_TRAIT(user, trait_to_add, "[UID()]")
 		user.update_sight()
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
