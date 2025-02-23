@@ -80,7 +80,7 @@
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
-	uupdate_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component
 	name = "component cast"
