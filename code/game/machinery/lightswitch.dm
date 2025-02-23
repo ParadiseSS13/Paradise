@@ -27,10 +27,11 @@
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	var/area/A = get_area(src)
-	RegisterSignal(A, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_icon))
+	RegisterSignal(A, COMSIG_ATOM_UPDATED_ICON, PROC_REF(signal_lightswitch_icon_update))
 	RegisterSignal(A, COMSIG_AREA_LIGHTSWITCH_DELETING, PROC_REF(lightswitch_cancel_autoswitch))
 
 /obj/machinery/light_switch/Destroy()
+	var/area/A = get_area(src)
 	UnregisterSignal(A, COMSIG_AREA_LIGHTSWITCH_DELETING) // make sure src isnt included, if we're the last light switch to go the lights will turn back on
 	if(SEND_SIGNAL(A, COMSIG_AREA_LIGHTSWITCH_DELETING) & COMSIG_AREA_LIGHTSWITCH_CANCEL)
 		return ..()
@@ -38,6 +39,9 @@
 	// Toggle the lights on if there are no other light switches
 	set_area_lightswitch(TRUE)
 	return ..()
+
+/obj/machinery/light_switch/proc/signal_lightswitch_icon_update()
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
@@ -68,6 +72,7 @@
 /obj/machinery/light_switch/attack_hand(mob/user)
 	var/area/A = get_area(src)
 	set_area_lightswitch(!A.lightswitch)
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 
 /obj/machinery/light_switch/power_change()
 	if(!..())
@@ -105,11 +110,10 @@
 	var/area/A = get_area(src)
 	A.lightswitch = new_state
 	// sends an area signal to all lightswitches in our area to update their icons and overlays
-	A.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	A.update_icon(UPDATE_ICON_STATE)
 
 	// Update all the lights in our area
 	machine_powernet.power_change()
-	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 
 /obj/machinery/light_switch/proc/lightswitch_cancel_autoswitch()
 	SIGNAL_HANDLER
