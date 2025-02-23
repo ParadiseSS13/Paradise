@@ -19,8 +19,13 @@
 // * ^ *  * V *		 D - Doors with firedoor
 // **|***D**|**      ^ - Fuel feed (Not vent, but a gas outlet)
 //   |      |        V - Suction vent (Like the ones in atmos)
-//
 
+/// Compressor's moment of inertia in kg * m^2
+#define COMP_MOMENT_OF_INERTIA 6000
+/// Compressors heat capacity in J / K
+#define COMPRESSOR_HEAT_CAPACITY 5000
+/// Convert RPM to SI angular velocity units
+#define RPM_TO_RAD_PER_SECOND 0.1047
 #define OVERDRIVE 4
 #define VERY_FAST 3
 #define FAST 2
@@ -48,6 +53,12 @@
 	var/rpmtarget = 0
 	var/capacity = 1e6
 	var/comp_id = 0
+	/// Moment of Inertia
+	var/moment_of_inertia = COMP_MOMENT_OF_INERTIA
+	/// Heat capacity of the compressor. Used for gas heating and cooling it.
+	var/heat_capacity = COMPRESSOR_HEAT_CAPACITY
+	/// Current temperature of the compressor
+	var/temperature = T20C
 	var/efficiency
 	/// value that dertermines the amount of overheat "damage" on the turbine.
 	var/overheat = 0
@@ -187,22 +198,34 @@
 	if(!compressor.starter)
 		return
 
-	if(compressor.rpm_threshold == OVERDRIVE)
-		compressor.overheat += 2
-		if(compressor.overheat >= OVERHEAT_THRESHOLD)
-			compressor.trigger_overheat()
-	else if(compressor.overheat > 0)
-		compressor.overheat -= 2
-	compressor.rpm = 0.9 * compressor.rpm + 0.1 * compressor.rpmtarget
-
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
+	var/datum/gas_mixture/output_side = get_turf_air(compressor.turbine.outturf)
 	var/transfer_moles = environment.total_moles()/10
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
 
-// RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
-	compressor.rpm = max(0, compressor.rpm - (compressor.rpm*compressor.rpm)/(COMPFRICTION*compressor.efficiency))
+	// Rotational kinetic energy turned to heat by friction. E = I * ω^2 / 2,  ΔE = I * (ω1^2 - ω2^2) / 2 and ΔT = ΔE / c
+	var/friction_energy_loss = compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 2) * (compressor.rpm ** 2 - (compressor.rpm - (compressor.rpm*compressor.rpm)/(COMPFRICTION*compressor.efficiency)) ** 2) / 2 * compressor.heat_capacity
 
+	// Work done by gas flowing through the turbine.
+	// W = F * Δx = (P / m^2) * Δx = Δx * nRT / (V * m^2) = Δx * nRT / ((m^2 * Δx * m^2)) = nRT / m^4. m^2 here is the bore's cross sectional area, which is constant.
+	var/kinetic_energy_gain = ((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION) / 4
+
+	// Calculate the total kinetic energy
+	var/kinetic_energy = (compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 2) * (compressor.rpm ** 2) / 2) + kinetic_energy_gain - friction_energy_loss
+
+	// Set compressor RPM accoring to current kinetic energy
+	compressor.rpm = max(0, sqrtor0(2 * kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
+
+	// Increase temperature according to the amount of energy lost to friction
+	compressor.temperature += friction_energy_loss
+
+	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
+	var/total_energy = compressor.gas_contained.temperature() * gas_heat_capacity + compressor.temperature * compressor.heat_capacity
+
+	// Spread energy between the gas mix and compressor depending on heat capacity
+	compressor.gas_contained.set_temperature(total_energy * gas_heat_capacity / (compressor.heat_capacity + gas_heat_capacity))
+	compressor.temperature = total_energy * compressor.heat_capacity / (compressor.heat_capacity + gas_heat_capacity)
 
 	if(!(compressor.stat & NOPOWER))
 		compressor.use_power(2800)
@@ -302,15 +325,6 @@
 		turbine.lastgen = ((turbine.compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * turbine.productivity * POWER_CURVE_MOD
 
 	turbine.produce_direct_power(turbine.lastgen)
-
-	// Weird function but it works. Should be something else...
-
-	var/newrpm = ((turbine.compressor.gas_contained.temperature()) * turbine.compressor.gas_contained.total_moles()) / 4
-
-	newrpm = max(0, newrpm)
-
-	if(!turbine.compressor.starter || newrpm > 1000)
-		turbine.compressor.rpmtarget = newrpm
 
 	if(turbine.compressor.gas_contained.total_moles()>0)
 		var/oamount = min(turbine.compressor.gas_contained.total_moles(), (turbine.compressor.rpm + 100) / 35000 * turbine.compressor.capacity)
