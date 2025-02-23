@@ -146,7 +146,7 @@
 
 // should buildmode be exited clear the users overlays should they have any.
 /datum/buildmode_mode/portal/Destroy()
-    if (portal_origin_overlay)
-        usr.client.images -= portal_origin_overlay
-        portal_origin_overlay = null
-    ..()
+	if(portal_origin_overlay)
+		usr.client.images -= portal_origin_overlay
+		portal_origin_overlay = null
+	..()
