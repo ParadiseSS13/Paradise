@@ -473,7 +473,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
 	var/win_timer = addtimer(CALLBACK(src, PROC_REF(return_target), sac_target), SACRIFICE_REALM_DURATION, TIMER_STOPPABLE)
-	LAZYSET(return_timers, UID(sac_target), win_timer)
+	LAZYSET(return_timers, sac_target.UID(), win_timer)
 
 /**
  * This proc is called from [proc/after_target_wakes] after the helgrasp runs out in the [sac_target].)
@@ -501,10 +501,10 @@
 	if(QDELETED(sac_target))
 		return
 
-	var/current_timer = LAZYACCESS(return_timers, UID(sac_target))
+	var/current_timer = LAZYACCESS(return_timers, sac_target.UID())
 	if(current_timer)
 		deltimer(current_timer)
-	LAZYREMOVE(return_timers, UID(sac_target))
+	LAZYREMOVE(return_timers, sac_target.UID())
 
 	UnregisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED)
 	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
