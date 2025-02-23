@@ -161,10 +161,9 @@
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!user.drop_item_to_ground(used))
+		if(!user.transfer_item_to(used, src))
 			return ITEM_INTERACT_COMPLETE
 
-		used.forceMove(src)
 		stored_plants += used
 		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
 		SStgui.update_uis(src)

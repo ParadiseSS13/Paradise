@@ -24851,7 +24851,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33024,7 +33024,7 @@
 	name = "Evidence Storage"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "gDm" = (
@@ -41851,7 +41851,7 @@
 	dir = 4;
 	name = "Evidence Storage"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

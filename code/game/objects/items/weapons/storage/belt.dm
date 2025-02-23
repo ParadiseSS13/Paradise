@@ -325,6 +325,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/radio,
+		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -343,7 +344,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner)
+		/obj/item/detective_scanner,
+	)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)

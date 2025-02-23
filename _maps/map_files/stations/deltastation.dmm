@@ -19146,7 +19146,7 @@
 	},
 /area/station/security/main)
 "boS" = (
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Evidence Storage"
 	},
@@ -23407,7 +23407,7 @@
 	},
 /area/station/command/bridge)
 "bCM" = (
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
@@ -56725,7 +56725,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
