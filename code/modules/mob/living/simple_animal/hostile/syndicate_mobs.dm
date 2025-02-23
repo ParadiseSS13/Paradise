@@ -7,6 +7,7 @@
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -61,35 +62,19 @@
 	var/ranged_block_chance = 35
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(O.force)
-		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
-		else
-			var/damage = O.force
-			if(O.damtype == STAMINA)
-				damage = 0
-			if(force_threshold && damage < force_threshold)
-				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
-				return
-			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
-		playsound(loc, O.hitsound, 25, TRUE, -1)
-	else
-		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
-
+	if(prob(melee_block_chance))
+		visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
+		user.do_attack_animation(src)
+		return
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
-	else
-		if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
-			adjustHealth(Proj.damage)
-	return 0
+		return
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
