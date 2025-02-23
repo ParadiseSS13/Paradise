@@ -188,7 +188,7 @@
 
 /datum/spell/flayer/self/weapon/grapple_arm/on_apply()
 	..()
-	cooldown_handler.recharge_duration = initial(cooldown_handler.recharge_duration) - 10 SECONDS * level
+	cooldown_handler.recharge_duration = initial(cooldown_handler.recharge_duration) - 10 SECONDS * level - 1
 
 /*
  * A slightly slower (5 seconds) version of the basic access tuner
