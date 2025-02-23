@@ -28017,23 +28017,13 @@
 	},
 /area/station/medical/paramedic)
 "edo" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
 /obj/machinery/disposal,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/toolcloset,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -40068,7 +40058,10 @@
 	},
 /area/station/security/main)
 "hle" = (
-/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -75247,6 +75240,9 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -80176,19 +80172,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
-"qHB" = (
-/turf/simulated/wall,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/supply/smith_office,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/starboard,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
 "qHC" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
@@ -105263,30 +105246,12 @@
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "wFK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/structure/shelf/supply,
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
 /obj/item/stack/sheet/metal/ten,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/item/airlock_electronics,
-/obj/item/apc_electronics{
-	pixel_y = -4
-	},
 /obj/machinery/firealarm/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -161386,7 +161351,7 @@ kmP
 hIQ
 sLy
 qYR
-qHB
+phE
 fqw
 nRe
 rrj
@@ -161643,7 +161608,7 @@ uQs
 wKe
 pyS
 edo
-qHB
+phE
 vHH
 vHH
 eGO
