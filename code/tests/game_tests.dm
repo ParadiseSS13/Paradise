@@ -46,5 +46,8 @@
 
 #ifdef MAP_TESTS
 #include "test_areas_apcs.dm"
+#include "test_areas_air_alarms.dm"
+#include "test_areas_fire_alarms.dm"
 #include "test_map_tests.dm"
+
 #endif
