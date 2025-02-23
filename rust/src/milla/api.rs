@@ -104,7 +104,9 @@ fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corn
     let property_ref = data_property.get_strid()?;
     for turf in byond_block(byond_xyz(&low_corner)?, byond_xyz(&high_corner)?)? {
         let (x, y, z) = byond_xyz(&turf)?.coordinates();
-        let data = turf.read_var_id(property_ref)?.get_list_values()?;
+        let mut property = turf.read_var_id(property_ref)?;
+        let data = property.get_list_values()?;
+        property.decrement_ref();
         if data.len() != 17 {
             return Err(eyre!("data property has the wrong length: {} vs {}", data.len(), 17));
         }
@@ -699,6 +701,27 @@ fn milla_get_tick_time() -> eyre::Result<ByondValue> {
     Ok(ByondValue::from(
         TICK_TIME.load(std::sync::atomic::Ordering::Relaxed) as f32,
     ))
+}
+
+/// BYOND API for freezing a specific z-level.
+#[byondapi::bind]
+fn milla_set_zlevel_frozen(
+    byond_z: ByondValue,
+    byond_frozen: ByondValue,
+) -> eyre::Result<ByondValue> {
+    let z = f32::try_from(byond_z)? as i32 - 1;
+    let frozen = bool::try_from(byond_frozen)?;
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let active = buffers.get_active().read().unwrap();
+    let maybe_z_level = active.0[z as usize].try_write();
+    if maybe_z_level.is_err() {
+        return Err(eyre!(
+            "Tried to freeze or unfreeze during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
+        ));
+    }
+    let mut z_level = maybe_z_level.unwrap();
+    z_level.frozen = frozen;
+    Ok(ByondValue::null())
 }
 
 // Yay, tests!

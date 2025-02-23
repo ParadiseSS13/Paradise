@@ -50,17 +50,17 @@
 	dye_color = temp
 	set_light(2, l_color = temp)
 
-/obj/machinery/dye_generator/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/dye_generator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
-
-	if(istype(I, /obj/item/hair_dye_bottle))
-		var/obj/item/hair_dye_bottle/HD = I
+	if(istype(used, /obj/item/hair_dye_bottle))
+		var/obj/item/hair_dye_bottle/HD = used
 		user.visible_message("<span class='notice'>[user] fills [HD] up with some dye.</span>","<span class='notice'>You fill [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
 		HD.update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/dye_generator/obj_break(damage_flag)

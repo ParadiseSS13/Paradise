@@ -172,8 +172,6 @@
 
 /obj/item/projectile/magic/door/on_hit(atom/target)
 	. = ..()
-	if(!.)
-		return .
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
 		if(!(istype(target, /turf/simulated/wall/indestructible)))
@@ -269,7 +267,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.unequip(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob

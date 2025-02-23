@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
   * * role_cleanname - The name override to display to clients
   */
-/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
+/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason, dont_play_notice_sound = FALSE)
 	log_debug("Polling candidates [role ? "for [role_cleanname || get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 	for(var/mob/M in (GLOB.player_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
-
-		SEND_SOUND(M, notice_sound)
+		if(!dont_play_notice_sound)
+			SEND_SOUND(M, notice_sound)
 		if(flash_window)
 			window_flash(M.client)
 

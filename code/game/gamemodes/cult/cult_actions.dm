@@ -121,7 +121,7 @@
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)
 	if(D)
-		owner.remove_from_mob(D)
+		owner.unequip(D)
 		owner.put_in_hands(D)
 		D.activate_self(owner)
 	else

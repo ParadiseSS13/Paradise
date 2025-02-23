@@ -45,7 +45,7 @@
 	if(!user.canUnEquip(I))
 		return
 
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, unEquip), I)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, drop_item_to_ground), I)
 
 	var/list/click_params = params2list(params)
 	//Center the icon where the user clicked.

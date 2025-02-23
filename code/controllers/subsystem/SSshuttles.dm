@@ -173,7 +173,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/callShuttle = 1
 
 	for(var/thing in GLOB.shuttle_caller_list)
-		if(isAI(thing))
+		if(is_ai(thing))
 			var/mob/living/silicon/ai/AI = thing
 			if(AI.stat || !AI.client)
 				continue
@@ -303,7 +303,7 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
 		if(console.department != "Cargo Bay")
 			continue
-		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
+		console.createMessage("Nanotrasen Mail and Interstellar Logistics", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
 
 	if(!length(supply_shuttle_turfs))
 		for(var/turf/simulated/T in supply.areaInstance)

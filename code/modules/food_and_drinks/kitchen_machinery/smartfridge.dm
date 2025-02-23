@@ -177,27 +177,27 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/part_replacer))
+/obj/machinery/smartfridge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
 		return
 
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(load(O, user))
+	if(load(used, user))
 		user.visible_message(
-			"<span class='notice'>[user] has added [O] to [src].</span>",
-			"<span class='notice'>You add [O] to [src].</span>"
+			"<span class='notice'>[user] has added [used] to [src].</span>",
+			"<span class='notice'>You add [used] to [src].</span>"
 		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
-		var/obj/item/storage/P = O
+	if(istype(used, /obj/item/storage/bag) || istype(used, /obj/item/storage/box))
+		var/obj/item/storage/P = used
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
@@ -212,11 +212,13 @@
 		var/failed = length(P.contents)
 		if(failed)
 			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
-		return TRUE
+	if(!istype(used, /obj/item/card/emag))
+		to_chat(user, "<span class='notice'>\The [src] smartly refuses [used].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/smartfridge/attack_ai(mob/user)
 	if(!silicon_controllable)
@@ -358,12 +360,14 @@
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
-					if(!M.drop_item())
+					if(M.transfer_item_to(I, src))
+						// TODO: Use COMSIG_ATOM_ENTERED/EXITED to update item quantities
+						// instead of having to fiddle with the values everywhere
+						item_quants[I.name] += 1
+						return TRUE
+					else
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return FALSE
-				else
-					M.unEquip(I)
-				I.forceMove(src)
 			else
 				I.forceMove(src)
 

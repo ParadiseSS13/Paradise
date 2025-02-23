@@ -83,7 +83,7 @@
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
 		return FALSE
 	if(user.client)
-		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
+		if(user.gas_scan && src.return_analyzable_air() && atmos_scan(user=user, target=src, silent=TRUE))
 			return TRUE
 
 // health + machine analyzer for ghosts

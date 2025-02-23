@@ -17,6 +17,7 @@
 	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
 	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
 
+	eyes = "blank_eyes"
 	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT

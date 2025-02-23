@@ -138,7 +138,6 @@
 			switch(src.wet)
 				if(TURF_WET_WATER)
 					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
-						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
@@ -147,7 +146,6 @@
 
 				if(TURF_WET_ICE) // Ice
 					if(M.slip("the icy floor", 8 SECONDS, tilesSlipped = 0, walkSafely = 0))
-						M.inertia_dir = 0
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ("head")
 							if(affected)
@@ -157,6 +155,10 @@
 
 				if(TURF_WET_PERMAFROST) // Permafrost
 					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+
+/turf/simulated/BeforeChange()
+	QDEL_NULL(wind_effect)
+	return ..()
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	. = ..()

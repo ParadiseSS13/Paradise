@@ -470,7 +470,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)
 	for(var/obj/item/W in L)
-		if(!L.unEquip(W))
+		if(!L.drop_item_to_ground(W))
 			qdel(W)
 	visible_message("<span class='hierophant_warning'>\"[pick(kill_phrases)]\"</span>")
 	visible_message("<span class='hierophant_warning'>[src] annihilates [L]!</span>","<span class='userdanger'>You annihilate [L], restoring your health!</span>")
@@ -738,42 +738,64 @@ Difficulty: Hard
 	bursting = FALSE //we no longer damage crossers
 
 /obj/effect/temp_visual/hierophant/blast/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(bursting)
-		do_damage(get_turf(src))
+	if(!bursting)
+		return
+
+	if(ismecha(entered))
+		damage_mech(entered)
+	else if(isliving(entered))
+		damage_living(entered)
+
+/obj/effect/temp_visual/hierophant/blast/proc/damage_living(mob/living/target)
+	if(!istype(target))
+		return
+	if(target in hit_things)
+		return
+
+	hit_things |= target
+	if((friendly_fire_check && caster && target.faction_check_mob(caster)) || target.stat == DEAD)
+		return
+
+	target.flash_screen_color("#660099", 1)
+	playsound(target,'sound/weapons/sear.ogg', 50, TRUE, -4)
+	to_chat(target, "<span class='userdanger'>You're struck by \a [name]!</span>")
+	var/limb_to_hit = target.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+	var/armor = target.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
+	target.apply_damage(damage, BURN, limb_to_hit, armor)
+	if(ishostile(target))
+		var/mob/living/simple_animal/hostile/H = target //mobs find and damage you...
+		if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
+			if(!QDELETED(caster))
+				if(get_dist(H, caster) <= H.aggro_vision_range)
+					H.FindTarget(list(caster), 1)
+				else
+					H.Goto(get_turf(caster), H.move_to_delay, 3)
+	if(monster_damage_boost && (ismegafauna(target) || istype(target, /mob/living/simple_animal/hostile/asteroid)))
+		target.adjustBruteLoss(damage)
+	if(caster)
+		add_attack_logs(caster, target, "Struck with a [name]")
+
+/obj/effect/temp_visual/hierophant/blast/proc/damage_mech(obj/mecha/target)
+	if(!istype(target))
+		return
+	if(target in hit_things)
+		return
+
+	hit_things |= target
+	if(target.occupant)
+		if(friendly_fire_check && caster && caster.faction_check_mob(target.occupant))
+			return
+		to_chat(target.occupant, "<span class='userdanger'>Your [target.name] is struck by \a [name]!</span>")
+	playsound(target, 'sound/weapons/sear.ogg', 50, TRUE, -4)
+	target.take_damage(damage, BURN, 0, 0)
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
 		return
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
-		hit_things += L
-		if((friendly_fire_check && caster && L.faction_check_mob(caster)) || L.stat == DEAD)
-			continue
-		L.flash_screen_color("#660099", 1)
-		playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
-		to_chat(L, "<span class='userdanger'>You're struck by a [name]!</span>")
-		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
-		L.apply_damage(damage, BURN, limb_to_hit, armor)
-		if(ishostile(L))
-			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
-			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
-				if(!QDELETED(caster))
-					if(get_dist(H, caster) <= H.aggro_vision_range)
-						H.FindTarget(list(caster), 1)
-					else
-						H.Goto(get_turf(caster), H.move_to_delay, 3)
-		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))
-			L.adjustBruteLoss(damage)
-		if(caster)
-			add_attack_logs(caster, L, "Struck with a [name]")
+		damage_living(L)
 	for(var/obj/mecha/M in T.contents - hit_things) //also damage mechs.
-		hit_things += M
-		if(M.occupant)
-			if(friendly_fire_check && caster && caster.faction_check_mob(M.occupant))
-				continue
-			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
-		playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-		M.take_damage(damage, BURN, 0, 0)
+		damage_mech(M)
 
 /obj/effect/hierophant
 	name = "hierophant beacon"

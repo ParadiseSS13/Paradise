@@ -1,8 +1,3 @@
-/turf/simulated/Initialize(mapload)
-	. = ..()
-	if(!blocks_air)
-		blind_set_air(get_initial_air())
-
 /turf/simulated/proc/get_initial_air()
 	var/datum/gas_mixture/air = new()
 	if(!blocks_air)
@@ -47,8 +42,12 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-/turf/simulated/proc/update_visuals()
-	var/datum/gas_mixture/air = get_readonly_air()
+/turf/simulated/proc/update_visuals(use_initial_air = FALSE)
+	var/datum/gas_mixture/air
+	if(use_initial_air)
+		air = get_initial_air()
+	else
+		air = get_readonly_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return
@@ -129,9 +128,9 @@
 	if(direction == 0)
 		return
 
-	if(last_high_pressure_movement_time >= SSair.times_fired - 3)
+	if(last_high_pressure_movement_time >= SSair.milla_tick - 3)
 		return
-	last_high_pressure_movement_time = SSair.times_fired
+	last_high_pressure_movement_time = SSair.milla_tick
 
 	air_push(direction, (force - force_needed) / force_needed)
 
@@ -171,11 +170,15 @@
 #define INDEX_SOUTH	3
 #define INDEX_WEST	4
 
-/turf/proc/Initialize_Atmos(times_fired)
+/turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
-	private_unsafe_recalculate_atmos_connectivity()
+	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
 	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
-	milla_data = milla_atmos_airtight + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + milla_superconductivity
+	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
+
+/turf/simulated/Initialize_Atmos(milla_tick)
+	..()
+	update_visuals(TRUE)
 
 /turf/proc/recalculate_atmos_connectivity()
 	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()
@@ -188,26 +191,26 @@
 		return
 
 	// This is one of two places expected to call this otherwise-unsafe method.
-	T.private_unsafe_recalculate_atmos_connectivity()
+	var/list/connectivity = T.private_unsafe_recalculate_atmos_connectivity()
 
-	set_tile_airtight(T, T.milla_atmos_airtight)
+	set_tile_airtight(T, connectivity[1])
 	reset_superconductivity(T)
-	reduce_superconductivity(T, T.milla_superconductivity)
+	reduce_superconductivity(T, connectivity[2])
 
 /// This method is unsafe to use because it only updates milla_* properties, but does not write them to MILLA. Use recalculate_atmos_connectivity() instead.
 /turf/proc/private_unsafe_recalculate_atmos_connectivity()
 	if(blocks_air)
-		milla_atmos_airtight = list(TRUE, TRUE, TRUE, TRUE)
-		milla_superconductivity = list(0, 0, 0, 0)
-		return
+		var/milla_atmos_airtight = list(TRUE, TRUE, TRUE, TRUE)
+		var/milla_superconductivity = list(0, 0, 0, 0)
+		return list(milla_atmos_airtight, milla_superconductivity)
 
-	milla_atmos_airtight = list(
+	var/milla_atmos_airtight = list(
 		!CanAtmosPass(NORTH, FALSE),
 		!CanAtmosPass(EAST, FALSE),
 		!CanAtmosPass(SOUTH, FALSE),
 		!CanAtmosPass(WEST, FALSE))
 
-	milla_superconductivity = list(
+	var/milla_superconductivity = list(
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
@@ -230,6 +233,8 @@
 		milla_superconductivity[INDEX_SOUTH] = min(milla_superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
 		milla_superconductivity[INDEX_WEST] = min(milla_superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
 
+	return list(milla_atmos_airtight, milla_superconductivity)
+
 /obj/effect/wind
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -237,6 +242,14 @@
 	icon_state = "wind"
 	layer = MASSIVE_OBJ_LAYER
 	blend_mode = BLEND_OVERLAY
+
+	// See comment on attempt_init.
+	initialized = TRUE
+
+// Wind has nothing it needs to initialize, and it's not surprising if it gets both created and qdeleted during an init freeze. Prevent that from causing an init sanity error.
+/obj/effect/wind/attempt_init(...)
+	initialized = TRUE
+	return
 
 #undef INDEX_NORTH
 #undef INDEX_EAST

@@ -222,7 +222,8 @@
 	T.burn_tile()
 
 /obj/effect/mapping_helpers/turfs/rust
-	icon_state = "rustwall"
+	icon = 'icons/effects/rust_overlay.dmi'
+	icon_state = "rust1"
 	var/spawn_probability = 100
 
 /obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
@@ -230,7 +231,12 @@
 		return
 
 	if(prob(spawn_probability))
-		T.rust()
+		rustify(T)
+
+/obj/effect/mapping_helpers/turfs/proc/rustify(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !HAS_TRAIT(W, TRAIT_RUSTY))
+		W.rust_turf()
 
 /obj/effect/mapping_helpers/turfs/rust/probably
 	spawn_probability = 75

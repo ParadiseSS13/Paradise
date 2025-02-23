@@ -13,6 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 	var/sterile = FALSE
@@ -46,7 +47,7 @@
 
 /obj/item/clothing/mask/facehugger/attack__legacy__attackchain(mob/living/M, mob/user)
 	..()
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
@@ -60,7 +61,7 @@
 		if(sterile)
 			. += "<span class='boldannounceic'>It looks like the proboscis has been removed.</span>"
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		Die()
@@ -129,7 +130,7 @@
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return FALSE
-			target.unEquip(W)
+			target.drop_item_to_ground(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")

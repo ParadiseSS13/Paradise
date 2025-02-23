@@ -21,6 +21,7 @@
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()
+	add_overlay("computer_wires") // The computer doesn't have a wire-less state. This makes it a permanent overlay unaffected by update_overlays.
 	power_change()
 	update_icon()
 
@@ -193,7 +194,7 @@
 	return ..()
 
 /obj/machinery/computer/nonfunctional
-	name = "broken computer"
+	name = "derelict computer"
 	desc = "A computer long since rendered non-functional due to lack of maintenance. \
 		It is spitting out error messages."
 	circuit = /obj/item/circuitboard/nonfunctional

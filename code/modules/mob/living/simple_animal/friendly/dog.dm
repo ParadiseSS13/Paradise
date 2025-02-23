@@ -22,6 +22,7 @@
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
+	var/razor_shave_delay = 5 SECONDS
 
 /mob/living/simple_animal/pet/dog/npc_safe(mob/user)
 	return TRUE
@@ -120,7 +121,7 @@
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
 	if(istype(inventory_back, /obj/item/extinguisher))
 		var/obj/item/extinguisher/E = inventory_back
-		if(E.AttemptRefill(A, src))
+		if(E.attempt_refill(A, src))
 			return
 	return ..()
 
@@ -193,7 +194,7 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, razor_shave_delay, target = src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
 			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE
@@ -224,7 +225,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_to_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -534,7 +535,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1	//Void puppies can navigate space.
 
 //LISA! SQUEEEEEEEEE~

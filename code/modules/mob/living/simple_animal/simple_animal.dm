@@ -167,7 +167,7 @@
 
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	QDEL_NULL(pcollar)
 	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
@@ -504,12 +504,12 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
-	if(!. || !I)
+	if(!. || !target)
 		return
 
-	if(I == pcollar)
+	if(target == pcollar)
 		pcollar = null
 		regenerate_icons()
 
@@ -593,7 +593,7 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_item_to_ground(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
@@ -611,7 +611,7 @@
 
 	var/obj/old_collar = pcollar
 
-	unEquip(pcollar)
+	drop_item_to_ground(pcollar)
 
 	if(user)
 		user.put_in_hands(old_collar)
@@ -627,7 +627,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE
