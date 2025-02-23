@@ -44923,9 +44923,6 @@
 "cVe" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/machinery/computer/guestpass{
 	pixel_x = -28
 	},
@@ -45025,6 +45022,9 @@
 /area/station/science/rnd)
 "cVv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -45036,14 +45036,14 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/station/science/rnd)
 "cVx" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/station/science/rnd)
 "cVz" = (
@@ -45347,9 +45347,6 @@
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/micro_laser,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -45361,30 +45358,28 @@
 /area/station/science/rnd)
 "cWQ" = (
 /obj/machinery/r_n_d/scientific_analyzer,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cWR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cWS" = (
 /obj/machinery/r_n_d/protolathe,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
 /area/station/science/rnd)
 "cWT" = (
 /obj/structure/table/reinforced,
@@ -45630,9 +45625,6 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
@@ -45646,28 +45638,31 @@
 /obj/machinery/computer/rdconsole/core{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cYq" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/landmark/start/scientist,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplecorners"
+	},
 /area/station/science/rnd)
 "cYr" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/requests_console/directional/east,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
 /area/station/science/rnd)
 "cYy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -45863,9 +45858,6 @@
 "cZs" = (
 /obj/structure/table/reinforced,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty{
@@ -45902,6 +45894,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -46847,9 +46842,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/machinery/light,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46899,6 +46891,9 @@
 	id = "rnd";
 	pixel_x = 24;
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -46953,9 +46948,6 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/recharger{
 	pixel_y = 5
 	},
@@ -46970,9 +46962,6 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -46985,9 +46974,6 @@
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/dropper,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/machinery/door_control{
 	id = "researchdesk1";
 	name = "Research and Development Front Desk Shutters";
@@ -47020,9 +47006,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/light,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -55325,6 +55308,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -78114,6 +78100,12 @@
 	icon_state = "neutral"
 	},
 /area/station/legal/courtroom/gallery)
+"qiU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/rnd)
 "qjH" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -92815,8 +92807,8 @@
 /obj/machinery/newscaster/directional/north,
 /obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner"
+	dir = 5;
+	icon_state = "darkpurple"
 	},
 /area/station/science/rnd)
 "xLe" = (
@@ -132039,7 +132031,7 @@ nxX
 cVw
 cWQ
 cYn
-daJ
+qiU
 daJ
 daJ
 ddF
