@@ -49,6 +49,15 @@
 		linked_crucible = crucible
 		return
 
+/obj/machinery/mineral/smart_hopper/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "hopper_wires"
+
+/obj/machinery/mineral/smart_hopper/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/mineral/smart_hopper/RefreshParts()
 	var/P = BASE_POINT_MULT
 	for(var/obj/item/stock_parts/M in component_parts)
@@ -238,6 +247,20 @@
 	overlays.Cut()
 	if(adding_ore)
 		. += "crucible_input"
+	if(panel_open)
+		. += "crucible_wires"
+
+/obj/machinery/magma_crucible/update_icon_state()
+	. = ..()
+	if(!has_power())
+		icon_state = "[initial(icon_state)]_off"
+	else
+		icon_state = initial(icon_state)
+
+/obj/machinery/magma_crucible/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/magma_crucible/proc/animate_transfer(time_to_animate)
 	adding_ore = TRUE
@@ -300,6 +323,11 @@
 	if(working_component)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
 
+/obj/machinery/smithing/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
+
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(istype(used, /obj/item/grab))
@@ -325,7 +353,7 @@
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(ALL)
 	for(var/i=1 to loops)
 		if(stat & (NOPOWER|BROKEN))
 			return FALSE
@@ -335,6 +363,7 @@
 		sleep(1 SECONDS)
 	playsound(src, 'sound/machines/recycler.ogg', 50, FALSE)
 	operating = FALSE
+	update_icon(ALL)
 
 /obj/machinery/smithing/proc/special_attack_grab(obj/item/grab/G, mob/user)
 	if(special_attack_on_cooldown)
@@ -375,7 +404,7 @@
 	name = "casting basin"
 	desc = "A table with a large basin for pouring molten metal. It has a slot for a mold."
 	icon = 'icons/obj/machines/smithing_machines.dmi'
-	icon_state = "casting_bench"
+	icon_state = "casting_open"
 	max_integrity = 100
 	pixel_x = 0	// 1x1
 	pixel_y = 0
@@ -388,6 +417,8 @@
 	var/efficiency = 1
 	/// Inserted cast
 	var/obj/item/smithing_cast/cast
+	/// Finished product
+	var/obj/item/smithed_item/component/produced_item
 
 /obj/machinery/smithing/casting_basin/Initialize(mapload)
 	. = ..()
@@ -407,6 +438,9 @@
 	. = ..()
 	if(cast)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
+		. += "<span class='notice'>There is a [cast] in the cast slot.</span>"
+	if(produced_item)
+		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
 
 /obj/machinery/smithing/casting_basin/RefreshParts()
 	var/O = 0
@@ -417,6 +451,37 @@
 	// Update our values
 	operation_time = initial(operation_time) - O
 	efficiency = initial(efficiency) - E
+
+/obj/machinery/smithing/casting_basin/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(produced_item)
+		. += "casting_closed"
+	if(cast && !produced_item)
+		if(istype(cast, /obj/item/smithing_cast/sheet))
+			. += "cast_sheet"
+		else if(istype(cast, /obj/item/smithing_cast/component/insert_frame))
+			. += "cast_armorframe"
+		else if(istype(cast, /obj/item/smithing_cast/component/insert_lining))
+			. += "cast_mesh"
+		else if(istype(cast, /obj/item/smithing_cast/component/bit_mount))
+			. += "cast_bitmount"
+		else if(istype(cast, /obj/item/smithing_cast/component/bit_head))
+			. += "cast_bithead"
+		else if(istype(cast, /obj/item/smithing_cast/component/lens_focus))
+			. += "cast_focus"
+		else if(istype(cast, /obj/item/smithing_cast/component/lens_frame))
+			. += "cast_lens"
+		else if(istype(cast, /obj/item/smithing_cast/component/trim))
+			. += "cast_trim"
+	if(panel_open)
+		. += "casting_wires"
+	if(operating)
+		. += "casting_pour"
+
+/obj/machinery/smithing/casting_basin/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/casting_basin/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -443,6 +508,7 @@
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 	cast = used
+	update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/casting_basin/AltClick(mob/living/user)
@@ -454,8 +520,19 @@
 		return
 	user.put_in_hands(cast)
 	cast = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/casting_basin/attack_hand(mob/user)
+	if(produced_item)
+		if(produced_item.burn_check(user))
+			produced_item.burn_user(user)
+			produced_item.forceMove(src.loc)
+			produced_item = null
+			return FINISH_ATTACK
+		user.put_in_hands(produced_item)
+		produced_item = null
+		update_icon(UPDATE_OVERLAYS)
+		return FINISH_ATTACK
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast inserted!</span>")
 		return FINISH_ATTACK
@@ -494,10 +571,12 @@
 		// Use the materials and create the item.
 		materials.use_amount(used_mats)
 		operate(operation_time, user)
-		var/obj/item/smithed_item/produced_item = new cast.selected_product(src.loc)
+		produced_item = new cast.selected_product(src)
 		produced_item.quality = quality
 		produced_item.update_name()
 		produced_item.update_desc()
+		produced_item.update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK
@@ -551,6 +630,23 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/plasteel(null)
 	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/smithing/power_hammer/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(operating)
+		. += "hammer_hit"
+	else
+		. += "hammer_idle"
+	if(panel_open)
+		. += "hammer_wires"
+	if(has_power())
+		. += "hammer_fan_on"
+
+/obj/machinery/smithing/power_hammer/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/power_hammer/RefreshParts()
 	var/S = 0
@@ -598,7 +694,7 @@
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
-	icon_state = "furnace"
+	icon_state = "furnace_off"
 	operation_sound = 'sound/surgery/cautery1.ogg'
 
 /obj/machinery/smithing/lava_furnace/Initialize(mapload)
@@ -620,6 +716,23 @@
 	// Update our values
 	operation_time = initial(operation_time) - S
 
+/obj/machinery/smithing/lava_furnace/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(panel_open)
+		. += "furnace_wires"
+
+/obj/machinery/smithing/lava_furnace/update_icon_state()
+	. = ..()
+	if(operating)
+		icon_state = "furnace"
+	else
+		icon_state = "furnace_off"
+
+/obj/machinery/smithing/lava_furnace/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/smithing/lava_furnace/operate(loops, mob/living/user)
 	if(working_component.hot)
 		to_chat(user, "<span class='notice'>[working_component] is already well heated.</span>")
@@ -636,7 +749,6 @@
 		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
 		return
 	operate(operation_time, user)
-	update_icon(UPDATE_ICON_STATE)
 	return FINISH_ATTACK
 
 /obj/machinery/smithing/lava_furnace/special_attack(mob/user, mob/living/target)
@@ -696,8 +808,14 @@
 	. = ..()
 	if(primary || secondary || trim)
 		. += "<span class='notice'>You can activate the machine with your hand, or a component by alt-clicking.</span>"
+	if(primary)
+		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
+	if(secondary)
+		. += "<span class='notice'>There is a [secondary] in the primary slot.</span>"
+	if(trim)
+		. += "<span class='notice'>There is a [trim] in the primary slot.</span>"
 	if(finished_product)
-		. += "<span class='notice'>To complete the product, strike it with your hammer!</span>"
+		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
 /obj/machinery/smithing/kinetic_assembler/RefreshParts()
 	var/S = 0
@@ -705,6 +823,15 @@
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
 	operation_time = initial(operation_time) - S
+
+/obj/machinery/smithing/kinetic_assembler/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(operating)
@@ -790,6 +917,9 @@
 	qdel(primary)
 	qdel(secondary)
 	qdel(trim)
+	primary = null
+	secondary = null
+	trim = null
 
 /obj/machinery/smithing/kinetic_assembler/hammer_act(mob/user, obj/item/i)
 	if(operating)

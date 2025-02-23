@@ -10764,11 +10764,10 @@
 	},
 /area/mine/laborcamp)
 "Za" = (
+/obj/effect/turf_decal/delivery,
 /obj/machinery/mineral/smart_hopper{
-	dir = 8;
 	input_dir = 4
 	},
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -10785,6 +10784,14 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/west)
+"Zg" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed/brad,
+/mob/living/simple_animal/cockroach/brad,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/targetable)
 "Zh" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -23485,7 +23492,7 @@ tO
 qZ
 Td
 ek
-lt
+Zg
 nu
 iF
 iF

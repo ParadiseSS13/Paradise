@@ -233,7 +233,7 @@
 	heat_insulation = initial(heat_insulation) * quality.stat_mult * material.heat_insulation_mult
 	siemens_coeff = initial(siemens_coeff) * quality.stat_mult * material.siemens_coeff_mult
 	radiation_armor = initial(radiation_armor) * quality.stat_mult * material.radiation_armor_mult
-	armor = list(MELEE = brute_armor, BULLET = brute_armor, LASER = laser_armor, ENERGY = burn_armor, BOMB = explosive_armor, RAD = radiation_armor, FIRE = heat_insulation, ACID = 0)
+	armor = new /datum/armor(brute_armor, brute_armor, laser_armor, laser_armor, explosive_armor, radiation_armor, burn_armor, 0, 0)
 
 /obj/item/smithed_item/insert/on_attached(obj/item/clothing/suit/target)
 	if(!istype(target))
@@ -593,15 +593,24 @@
 	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 	update_desc()
 
+/obj/item/smithed_item/component/update_icon_state()
+	. = ..()
+	if(hot)
+		icon_state = "[initial(icon_state)]_hot"
+	else
+		icon_state = "[initial(icon_state)]"
+
 /obj/item/smithed_item/component/proc/powerhammer()
 	hammer_time--
 	if(prob(50) || hammer_time <= 0)
 		hot = FALSE
+		update_icon(UPDATE_ICON_STATE)
 	update_desc()
 
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
 	update_desc()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/smithed_item/component/update_desc()
 	. = ..()
@@ -615,28 +624,36 @@
 		desc +="\n<span class='warning'>It is glowing hot!</span>"
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
-	var/burn_me = TRUE
-	var/mob/living/carbon/human/H = user
 	if(!hot)
 		return ..()
+	if(burn_check(user))
+		burn_user(user)
+		return
+	return ..()
 
+/obj/item/smithed_item/component/proc/burn_check(mob/user)
+	var/burn_me = TRUE
+	var/mob/living/carbon/human/H = user
 	if(!istype(H))
-		return ..()
-
+		return TRUE
 	if(H.gloves)
 		var/obj/item/clothing/gloves/G = H.gloves
 		if(G.max_heat_protection_temperature)
 			burn_me = !(G.max_heat_protection_temperature > 360)
 
 	if(!burn_me ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
-		return ..()
-	else
-		to_chat(user, "<span class='warning'>You burn your hand as you try to pick up [src]!</span>")
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-		if(affecting.receive_damage(0, 10)) // 10 burn damage
-			H.UpdateDamageIcon()
-		H.updatehealth()
+		return FALSE
+	return TRUE
+
+/obj/item/smithed_item/component/proc/burn_user(mob/user)
+	var/mob/living/carbon/human/H = user
+	if(!istype(H))
 		return
+	to_chat(user, "<span class='warning'>You burn your hand as you try to pick up [src]!</span>")
+	var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+	if(affecting.receive_damage(0, 10)) // 10 burn damage
+		H.UpdateDamageIcon()
+	H.updatehealth()
 
 /obj/item/smithed_item/component/insert_frame
 	name = "Debug insert frame"
