@@ -699,6 +699,9 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
+		"THE TESLA IS LOOSE CALL THE SHUTTLE",
+		"Go fix the chewed wires, you lazy bums!",
+		"Go fix that breach, or we'll end up with no air!",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
