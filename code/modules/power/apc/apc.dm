@@ -477,7 +477,7 @@
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > APC_CHANNEL_SETTING_AUTO_OFF))
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
 		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, (environment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
-		if(lighting_channel > 1)
+		if(lighting_channel > APC_CHANNEL_SETTING_AUTO_OFF)
 			emergency_power = TRUE
 			if(emergency_power_timer)
 				deltimer(emergency_power_timer)
