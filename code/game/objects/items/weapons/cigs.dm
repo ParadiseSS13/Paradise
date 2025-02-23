@@ -290,6 +290,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		M.drop_item_to_ground(src, force = TRUE)		//Force the un-equip so the overlays update
+		butt.slot_flags |= ITEM_SLOT_MASK // Temporarily allow it to go on masks
+		M.equip_to_slot_if_possible(butt, ITEM_SLOT_MASK)
+		butt.slot_flags &= ~ITEM_SLOT_MASK
+
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

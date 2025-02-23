@@ -219,11 +219,10 @@ GLOBAL_VAR(bomb_set)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!user.drop_item_to_ground(used))
+			if(!user.transfer_item_to(used, src))
 				to_chat(user, "<span class='notice'>The [used] is stuck to your hand!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] puts [used] back in [src].</span>", "<span class='notice'>You put [used] back in [src].</span>")
-			used.forceMove(src)
 			core = used
 			update_icon(UPDATE_OVERLAYS)
 

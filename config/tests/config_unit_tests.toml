@@ -1,0 +1,11 @@
+[ruin_configuration]
+enable_lavaland = false
+enable_space_ruins = false
+minimum_zlevels = 0
+maximum_zlevels = 0
+
+[redis_configuration]
+enabled = false
+
+[database_configuration]
+enabled = true

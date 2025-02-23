@@ -5,6 +5,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = null
 	density = TRUE
+	appearance_flags = LONG_GLIDE
 	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
@@ -186,11 +187,13 @@
 		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		Move(get_step(src, direction), direction, delay)
+		Move(get_step(src, direction), direction)
 
 		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1) * 0.5)
 			last_move_diagonal = TRUE
 		else
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1))
 			last_move_diagonal = FALSE
 
 		if(has_buckled_mobs())

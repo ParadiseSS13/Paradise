@@ -3,6 +3,10 @@
 	var/name
 	/// Pluralized name (since "[name]s" is not always valid)
 	var/name_plural
+	/// Sub-type of the species. Used for when slimes imitate a species or when an IPC has augments that look like another species. This will affect sprite_sheet_name
+	var/species_subtype = "None"
+	/// List of available sub-types for the species to imitate / morph into (Machine / Slime)
+	var/allowed_species_subtypes = list()
 	/// The corresponding key for spritesheets
 	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
@@ -201,7 +205,9 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
-	if(!sprite_sheet_name)
+	if(!isnull(species_subtype) && species_subtype != "None")
+		sprite_sheet_name = species_subtype
+	else if(!sprite_sheet_name)
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
@@ -404,6 +410,18 @@
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
+/** Handles changing icobase for species that can imitate/morph into other species
+ * 	Arguments:
+ * 	- H: The human of which was are updating.
+ * 	- new_subtype: Our imitate species, by datum reference.
+ * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
+ * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
+ * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
+ */
+///
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
+	return
+
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
 // Return the parent value if processing does not explicitly stop
@@ -509,9 +527,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -535,9 +550,6 @@
 		add_attack_logs(user, target, "flayerdrain")
 		return
 	//End Mind Flayer Code
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
@@ -584,9 +596,6 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE

@@ -9,6 +9,7 @@
 	idle_power_consumption = 1250
 	active_power_consumption = 2500
 	light_color = "#00FF00"
+	light_power = 0.5
 	var/mob/living/carbon/human/occupant
 	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
 	var/scan_level = 1
@@ -363,6 +364,7 @@
 		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
 		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
 		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHT)
+		occupantData["paraplegic"] = HAS_TRAIT(occupant, TRAIT_PARAPLEGIC)
 
 	data["occupant"] = occupantData
 	return data
@@ -452,6 +454,8 @@
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
 			dat += "<font color='red'>Retinal misalignment detected.</font><br>"
+		if(HAS_TRAIT(occupant, TRAIT_PARAPLEGIC))
+			dat += "<font color='red'>Lumbar nerves damaged.</font><br>"
 
 		dat += "<hr>"
 		dat += "<table border='1' style='width:100%'>"

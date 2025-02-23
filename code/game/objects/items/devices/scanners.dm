@@ -1254,5 +1254,7 @@ SLIME SCANNER
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHT))
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+	if(HAS_TRAIT(target, TRAIT_PARAPLEGIC))
+		dat += "<font color='red'>Lumbar nerves damaged.</font><BR>"
 
 	return dat
