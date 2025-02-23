@@ -62,6 +62,7 @@
 	UnregisterSignal(victim.puppet, COMSIG_HUMAN_ATTACKED)
 
 	var/mob/living/simple_animal/pet/dog/corgi/corgi = player.spawn_mob_nearby(/mob/living/simple_animal/pet/dog/corgi)
+	corgi.anchored = TRUE
 	player.click_on(corgi)
 	TEST_ASSERT_LAST_CHATLOG(player, "corgi with the kitchen knife")
 	player.put_away(knife)
@@ -75,6 +76,37 @@
 	player.click_on(corgi)
 	TEST_ASSERT(corgi.shaved, "corgi was not shaved")
 	player.put_away(razor)
+	corgi.death()
+	var/obj/laz_injector = player.spawn_obj_in_hand(/obj/item/lazarus_injector)
+	player.click_on(corgi)
+	TEST_ASSERT_LAST_CHATLOG(player, "injects the corgi")
+	qdel(laz_injector)
+
+	var/mob/slime = player.spawn_mob_nearby(/mob/living/simple_animal/slime)
+	slime.anchored = TRUE
+
+	player.spawn_obj_in_hand(/obj/item/slimepotion/slime/docility)
+	player.click_on(corgi)
+	TEST_ASSERT_LAST_CHATLOG(player, "only works on slimes!")
+	player.click_on(slime)
+	TEST_ASSERT_LAST_CHATLOG(player, "You feed the slime the potion")
+
+	var/obj/mind_transfer_slime_potion = player.spawn_obj_in_hand(/obj/item/slimepotion/transference)
+	player.click_on(corgi)
+	var/datum/tgui_alert/alert = player.get_last_tgui()
+	TEST_ASSERT_NOTNULL(alert, "no TGUI")
+	TEST_ASSERT_SUBSTRING(alert.message, "transfer your consciousness to the corgi")
+	alert.set_choice("No")
+
+	player.click_on(slime)
+	alert = player.get_last_tgui()
+	TEST_ASSERT_NOTNULL(alert, "no TGUI")
+	TEST_ASSERT_SUBSTRING(alert.message, "transfer your consciousness to the pet slime")
+	alert.set_choice("No")
+
+	qdel(mind_transfer_slime_potion)
+	qdel(corgi)
+	qdel(slime)
 
 	victim.puppet.death()
 	player.spawn_obj_in_hand(/obj/item/kitchen/knife/butcher/meatcleaver)
