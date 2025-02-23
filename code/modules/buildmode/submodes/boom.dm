@@ -2,15 +2,15 @@
 	key = "boom"
 
 	// Range of Total Devastation
-	var/devastation
+	var/devastation = -1
 	// Ramge of Heavy Impact
-	var/heavy
+	var/heavy = -1
 	// Range of Light Impact
-	var/light
+	var/light = -1
 	// Range of Flash
-	var/flash
+	var/flash = -1
 	// Range of Flames
-	var/flames
+	var/flames = -1
 
 /datum/buildmode_mode/boom/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
