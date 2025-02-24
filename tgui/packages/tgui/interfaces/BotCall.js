@@ -5,10 +5,10 @@ import { Window } from '../layouts';
 const BotStatus = (mode) => {
   const statusMap = [
     // magic numbers are from bots.dm under mode defines
-    { modes: [0], label: 'Idle', color: 'green' },
+    { modes: [0, 20], label: 'Idle', color: 'green' },
     { modes: [1, 2, 3], label: 'Arresting', color: 'yellow' },
     { modes: [4, 5], label: 'Patrolling', color: 'average' },
-    { modes: [9, 20], label: 'Moving', color: 'average' },
+    { modes: [9], label: 'Moving', color: 'average' },
     { modes: [6, 11], label: 'Responding', color: 'green' },
     { modes: [12], label: 'Delivering Cargo', color: 'blue' },
     { modes: [13], label: 'Returning Home', color: 'blue' },
