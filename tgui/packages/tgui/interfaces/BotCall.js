@@ -8,7 +8,7 @@ const BotStatus = (mode) => {
     { modes: [0], label: 'Idle', color: 'green' },
     { modes: [1, 2, 3], label: 'Arresting', color: 'yellow' },
     { modes: [4, 5], label: 'Patrolling', color: 'average' },
-    { modes: [9], label: 'Moving', color: 'average' },
+    { modes: [9, 20], label: 'Moving', color: 'average' },
     { modes: [6, 11], label: 'Responding', color: 'green' },
     { modes: [12], label: 'Delivering Cargo', color: 'blue' },
     { modes: [13], label: 'Returning Home', color: 'blue' },
@@ -18,8 +18,9 @@ const BotStatus = (mode) => {
       color: 'blue',
     },
   ];
+  const failsafeStatus = (mode) => ({ modes: [-1], label: 'ERROR!!CALL_CODER!!' + mode, color: 'red' });
 
-  const matchedStatus = statusMap.find((mapping) => mapping.modes.includes(mode));
+  const matchedStatus = statusMap.find((mapping) => mapping.modes.includes(mode)) ?? failsafeStatus(mode);
 
   return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
 };
