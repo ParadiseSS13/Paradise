@@ -833,6 +833,12 @@
 	icon_state = "lasershotbox"
 	shell_type = /obj/item/ammo_casing/shotgun/lasershot
 
+/obj/item/storage/fancy/shell/frag12
+	name = "ammunition box (FRAG-12 slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "frag12box"
+	shell_type = /obj/item/ammo_casing/shotgun/frag12
+
 ////////////////
 /* Donk Boxes */
 ////////////////
