@@ -248,10 +248,13 @@
 	name = "match"
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "match_unlit"
+	icon_state = "match"
 	var/lit = FALSE
 	var/burnt = FALSE
+	var/infinite_burn = FALSE
 	var/smoketime = 5
+	var/burn_on_drop = TRUE
+	var/lightrange = 2
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
@@ -259,9 +262,10 @@
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
-	smoketime--
-	if(smoketime < 1)
-		matchburnout()
+	if(!infinite_burn)
+		smoketime--
+		if(smoketime < 1)
+			matchburnout()
 	if(location)
 		location.hotspot_expose(700, 1)
 		return
@@ -278,16 +282,17 @@
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
-		icon_state = "match_lit"
+		icon_state = "[icon_state]_lit"
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
 		item_state = "cigon"
-		name = "lit match"
-		desc = "A match. This one is lit."
+		name = "lit [name]"
+		desc = "It's on fire."
 		attack_verb = list("burnt","singed")
 		START_PROCESSING(SSobj, src)
 		update_icon()
+		set_light(lightrange, l_color = "#ED9200")
 		return TRUE
 
 /obj/item/match/proc/matchburnout()
@@ -296,16 +301,17 @@
 		burnt = TRUE
 		damtype = "brute"
 		force = initial(force)
-		icon_state = "match_burnt"
+		icon_state = "[icon_state]_burnt"
 		item_state = "cigoff"
-		name = "burnt match"
-		desc = "A match. This one has seen better days."
+		name = "burnt [name]"
+		desc = "It's burned out."
 		attack_verb = list("flicked")
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/match/dropped(mob/user)
-	matchburnout()
+	if(burn_on_drop)
+		matchburnout()
 	. = ..()
 
 /obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
@@ -366,6 +372,7 @@
 /obj/item/match/firebrand
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
+	burn_on_drop = FALSE
 	smoketime = 20 //40 seconds
 
 /obj/item/match/firebrand/New()
@@ -433,3 +440,24 @@
 /obj/item/match/unathi/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
+
+/obj/item/match/torch
+	icon_state = "torch"
+	name = "torch sconce"
+	desc = "A standing torch sconce, made from towercap wood."
+	w_class = WEIGHT_CLASS_BULKY
+	infinite_burn = TRUE
+	burn_on_drop = FALSE
+	lightrange = 4
+
+/obj/item/torch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct()
+
+/obj/item/torch/deconstruct()
+	density = FALSE
+	new /obj/item/stack/sheet/wood (get_turf(src), 5)
+	qdel(src)
+	..()

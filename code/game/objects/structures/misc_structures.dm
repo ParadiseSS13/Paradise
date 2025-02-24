@@ -9,10 +9,70 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = TRUE
+	density = FALSE
+	new_attack_chain = TRUE
+
+/obj/structure/signpost/deconstruct()
+	new /obj/item/stack/sheet/wood (get_turf(src), 2)
+	qdel(src)
+	..()
+
+/obj/structure/signpost/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct()
+
+/obj/structure/signpost/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/pen))
+		rename(user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/structure/signpost/proc/rename(mob/user)
+	var/n_name = rename_interactive(user)
+	if(isnull(n_name))
+		return
+	if(n_name != "")
+		name = "Sign: [n_name]"
+		update()
+		return ITEM_INTERACT_COMPLETE
+	else
+		name = initial(name)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/signpost/proc/update()
+	if((name != initial(name))) //If the sign has been written on
+		overlays += "[initial(icon_state)]_writing"
+		desc = "It says: '" + name + "'."
+	else
+		overlays.Cut()
+
+/obj/structure/signpost/wood
+	name = "wooden sign"
+	desc = "A small wooden marker, to leave a message, honor the fallen, or stake a claim."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "signpost_wood"
+	var/scarf = FALSE
+
+/obj/structure/signpost/wood/AltClick(mob/living/user)
+	if(!scarf)
+		scarf = TRUE
+		to_chat(user, "<span class='notice'>You tie a memorial wreath around the sign.</span>")
+	else
+		scarf = FALSE
+		to_chat(user, "<span class='notice'>You untie the memorial wreath from the sign.</span>")
+	update()
+
+/obj/structure/signpost/wood/update()
+	..()
+	if(scarf)
+		icon_state = "signpost_wood_scarf"
+	else
+		icon_state = "signpost_wood"
 
 /obj/structure/ninjatele
-
 	name = "Long-Distance Teleportation Console"
 	desc = "A console used to send a Spider Clan operative long distances rapidly."
 	icon = 'icons/obj/ninjaobjects.dmi'
