@@ -20,12 +20,28 @@
 // **|***D**|**      ^ - Fuel feed (Not vent, but a gas outlet)
 //   |      |        V - Suction vent (Like the ones in atmos)
 
+/// Multiplies the friction of the compressor
+#define COMPFRICTION 60
 /// Compressor's moment of inertia in kg * m^2
-#define COMP_MOMENT_OF_INERTIA 6000
-/// Compressors heat capacity in J / K
-#define COMPRESSOR_HEAT_CAPACITY 5000
-/// Convert RPM to SI angular velocity units
+#define COMP_MOMENT_OF_INERTIA 300
+/// Convert RPM to radians per second(SI angular velocity units)
 #define RPM_TO_RAD_PER_SECOND 0.1047
+/// Compressors heat capacity in J / K
+#define COMPRESSOR_HEAT_CAPACITY 50000
+/// Changes the scaling of thermal efficiency with temperature
+#define THERMAL_EFF_TEMP_CURVE 6000
+/// The portion of the kinetic energy converted to electrical
+#define KINETIC_TO_ELECTRIC 0.005
+/// The maximum compression ratio of the turbine
+#define COMPRESSION_RATIO_MAX 50
+/// Scales the effect of compresion ratio on thermal efficiency
+#define THERMAL_EFF_COMPRESSION_CURVE 0.7
+/// The base value we add values dervied from componenet ratings to for thermal efficiency scaling. higher value means lesser effect of parts
+#define THERMAL_EFF_PART_BASE 4
+/// The base value we add values dervied from componenet ratings to for power efficiency. higher value means lesser effect of parts
+#define POWER_EFF_PART_BASE 4
+/// Maximum possible thermal efficiency
+#define THERMAL_EFF_MAX 0.55
 #define OVERDRIVE 4
 #define VERY_FAST 3
 #define FAST 2
@@ -33,8 +49,18 @@
 
 //below defines the time between an overheat event and next startup
 #define OVERHEAT_TIME 120 SECONDS
-#define OVERHEAT_THRESHOLD 200 //measured in cycles of 2 seconds
-#define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
+/// Amount of damage at which the turbine catastrophically fails
+#define BEARING_DAMAGE_MAX 2000
+/// The temperature at which the bearings start taking damage
+#define BEARING_DAMAGE_THRESHOLD 3e4
+/// Scales the damage taking by the bearings. Higher value means less damage.
+#define BEARING_DAMAGE_SCALING 1e6
+/// Friction from bearing damage
+#define BEARING_DAMAGE_FRICTION 600
+/// Message send upon catastrphic failure
+#define FAILURE_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
+/// RPM at which the turbine explodes upon failing
+#define FAIILRE_RPM_EXPLOSION_THRESHOLD 150000
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
@@ -59,15 +85,23 @@
 	var/heat_capacity = COMPRESSOR_HEAT_CAPACITY
 	/// Current temperature of the compressor
 	var/temperature = T20C
+	/// The kinetic energy of the turbine
+	var/kinetic_energy = 0
 	var/efficiency
-	/// value that dertermines the amount of overheat "damage" on the turbine.
-	var/overheat = 0
+	/// The amount of bearing damage. Increases friction and can lead to a catastrophic failure
+	var/bearing_damage = 0
 	/// This value needs to be zero. It represents seconds since the last overheat event
-	var/last_overheat = 0
+	var/a_thing = 0
 	/// Internal radio, used to alert engineers of turbine trip!
 	var/obj/item/radio/radio
 	/// Limits the amount of gas mix that is allowed to go into the compressor. 1 is fully open, 0 is fully closed
 	var/throttle = 1
+	/// The temperature of the gas in the compressor before the burn
+	var/pre_burn_temp = 0
+	/// The portion of the gas' thermal energy that is converted to kinetic energy
+	var/thermal_efficiency = 0
+	/// By how much the intake gas is getting compressed
+	var/compression_ratio = 1
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -124,9 +158,6 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
-#define COMPFRICTION 5e5
-#define COMPSTARTERLOAD 2800
-
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
 		return
@@ -164,6 +195,18 @@
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
+/obj/machinery/power/compressor/welder_act(mob/user, obj/item/I)
+	if(panel_open)
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+			return FALSE
+		to_chat(user, "<span class='notice'>You fix [src]'s bearings</span>")
+		bearing_damage = 0
+		stat &= ~BROKEN
+		return TRUE
+	else
+		to_chat(user,"<span class='warning'>You need to open the panel first</span>")
+		return TRUE
+
 /obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -181,15 +224,20 @@
 /obj/machinery/power/compressor/get_superconductivity(direction)
 	return 0
 
-/obj/machinery/power/compressor/proc/trigger_overheat()
+/obj/machinery/power/compressor/proc/catastrophic_failure()
 	starter = FALSE
-	last_overheat = world.time
-	overheat -= 50
-	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering")
-	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+	radio.autosay(FAILURE_MESSAGE, name, "Engineering")
+	var/rpm_delta = rpm - FAIILRE_RPM_EXPLOSION_THRESHOLD
+	if(rpm_delta > 0)
+		explosion(src, rpm_delta / 5000, rpm_delta / 3000, rpm_delta / 1000)
+		qdel(turbine)
+		qdel(src)
+	else
+		playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+		stat |= BROKEN
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()
-	return max(last_overheat + OVERHEAT_TIME - world.time, 0)
+	return max(a_thing + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
 	var/datum/milla_safe/compressor_process/milla = new()
@@ -198,6 +246,9 @@
 /datum/milla_safe/compressor_process
 
 /datum/milla_safe/compressor_process/on_run(obj/machinery/power/compressor/compressor)
+	// Lose heat to conduction. This should happen regardless of whether the compressor works.
+	compressor.temperature = compressor.temperature * 0.997
+
 	if(!compressor.turbine)
 		compressor.stat = BROKEN
 	if(compressor.stat & BROKEN || compressor.panel_open)
@@ -205,58 +256,78 @@
 	if(!compressor.starter)
 		return
 
-	var/compression_ratio = min(1 + compressor.rpm / 100, 50)
+	// By how much we compress the gas going into the turbine
+	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm /(compressor.rpm + 15000))
 
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
 	// The more we are able to compress the gas the more gas we can shove in the compressor
-	var/transfer_moles = environment.total_moles() * (compression_ratio / 50) * compressor.throttle
+	var/transfer_moles = environment.total_moles() * (compressor.compression_ratio / 50) * compressor.throttle
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
 
-	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
-	var/total_heat_energy = (compressor.gas_contained.temperature() * gas_heat_capacity) + (compressor.temperature * compressor.heat_capacity)
+	// Lose kinetic energy to compressing the gas.
+	compressor.kinetic_energy -= min(compressor.kinetic_energy, compressor.compression_ratio * (compressor.gas_contained.return_pressure() - environment.return_pressure()))
 
-	// Do a heat transfer before the gas burns
+	var/gas_heat_capacity = compressor.gas_contained.heat_capacity()
+	var/total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)
+
+	// Pre heat the gas using the compressor's residual heat
 	compressor.gas_contained.set_temperature(total_heat_energy / (compressor.heat_capacity + gas_heat_capacity))
 	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
-	for(var/i = 0, i < min(10 + compressor.rpm / 1000, 20), i++)
+	// Record the pre burn temp. This is for the UI
+	compressor.pre_burn_temp = compressor.gas_contained.temperature()
+
+	// Burn the gas mix
+	for(var/i = 0, i < 10 + (compressor.compression_ratio / 2), i++)
 		compressor.gas_contained.react()
 
-	var/friction_energy_loss = 0
-	// Rotational kinetic energy turned to heat by friction. E = I * ω^2 / 2,  ΔE = I * (ω1^2 - ω2^2) / 2 and ΔT = ΔE / c/
-	if(compressor.rpm)
-		friction_energy_loss = (compressor.rpm ** 1.99) / (COMPFRICTION * compressor.efficiency)
+	// We just changed our composition
+	gas_heat_capacity = compressor.gas_contained.heat_capacity()
 
-	// Work done by gas flowing through the turbine.
-	// W = F * Δx = P * m^2 * Δx
-	var/kinetic_energy_gain = max((((compressor.gas_contained.temperature() * compressor.gas_contained.total_moles() / compressor.gas_contained.volume)  - (output_side.temperature() * output_side.total_moles() / output_side.volume)) * R_IDEAL_GAS_EQUATION) * 640, 0)
+	var/friction_energy_loss = 0
+	// Rotational kinetic energy turned to heat by friction
+	if(compressor.rpm)
+		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.5)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
+
+	// The portion of the thermal energy of the gas converted to kinetic energy
+	compressor.thermal_efficiency = (compressor.gas_contained.return_pressure() + output_side.return_pressure()) <= 0 ? 0 : \
+	THERMAL_EFF_MAX * \
+	((compressor.compression_ratio / COMPRESSION_RATIO_MAX) ** THERMAL_EFF_COMPRESSION_CURVE) * \
+	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
+	(compressor.gas_contained.temperature() / (compressor.gas_contained.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
+	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure()))
+
+	var/kinetic_energy_gain = compressor.gas_contained.thermal_energy() * compressor.thermal_efficiency
+
+	// Take energy away from the gas
+	if(compressor.gas_contained.total_moles() > 0)
+		compressor.gas_contained.set_temperature((compressor.gas_contained.thermal_energy() - kinetic_energy_gain) / gas_heat_capacity)
 
 	// Calculate the total kinetic energy
-	var/kinetic_energy = (compressor.moment_of_inertia * (RPM_TO_RAD_PER_SECOND ** 1.99) * (compressor.rpm ** 1.99) / 2) + kinetic_energy_gain - friction_energy_loss
+	compressor.kinetic_energy = max(compressor.kinetic_energy + kinetic_energy_gain - friction_energy_loss, 0)
 
 	// Set compressor RPM accoring to current kinetic energy
-	compressor.rpm = max(0, sqrtor0(2 * kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
+	compressor.rpm = max(0, sqrtor0(2 * compressor.kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
 
 	// Increase temperature according to the amount of energy lost to friction
-	compressor.temperature += friction_energy_loss
+	compressor.temperature += friction_energy_loss / compressor.heat_capacity
 
-	gas_heat_capacity = compressor.gas_contained.heat_capacity()
-	total_heat_energy = (compressor.gas_contained.temperature() * gas_heat_capacity) + (compressor.temperature * compressor.heat_capacity)
+	total_heat_energy = compressor.gas_contained.thermal_energy() + (compressor.temperature * compressor.heat_capacity)
 
 	// Do another heat transfer after the burn
 	compressor.gas_contained.set_temperature(total_heat_energy / (compressor.heat_capacity + gas_heat_capacity))
 	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
-	if(!(compressor.stat & NOPOWER))
-		compressor.use_power(2800)
-		if(compressor.rpm < 1000)
-			compressor.rpmtarget = 1000
-	else
-		if(compressor.rpm < 1000)
-			compressor.rpmtarget = 0
+	// Damage bearings if overheated
+	if(compressor.temperature > BEARING_DAMAGE_THRESHOLD)
+		compressor.bearing_damage += (compressor.temperature - BEARING_DAMAGE_THRESHOLD) * compressor.rpm / BEARING_DAMAGE_SCALING
 
+	if(compressor.bearing_damage >= BEARING_DAMAGE_MAX)
+		compressor.catastrophic_failure()
+
+	/// Check RPM against thresholds to decide which icon to use
 	var/new_rpm_threshold
 	switch(compressor.rpm)
 		if(50001 to INFINITY)
@@ -284,8 +355,8 @@
 // TURBPOWER modifies how much raw energy can you get from rpms,
 // TURBCURVESHAPE modifies the shape of the curve - the lower the value the less straight the curve is.
 
-#define TURBPOWER 500000
-#define TURBCURVESHAPE 0.5
+#define TURBPOWER 150000
+#define TURBCURVESHAPE 1.5
 #define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 
 /obj/machinery/power/turbine/Initialize(mapload)
@@ -341,14 +412,13 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	if(turbine.compressor.gas_contained.temperature() < 500)
-		turbine.lastgen = 0
-	else
-		turbine.lastgen = ((turbine.compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * turbine.productivity * POWER_CURVE_MOD
+	// Lost 1% kinetic energy and convert up to 1% of kinetic energy to electrical power depending on efficiecy
+	turbine.lastgen = turbine.compressor.kinetic_energy * 0.01 * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.01 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
-	if(turbine.compressor.gas_contained.total_moles()>0)
+	if(turbine.compressor.gas_contained.total_moles() > 0)
 		var/oamount = min(turbine.compressor.gas_contained.total_moles(), (turbine.compressor.rpm + 100) / 35000 * turbine.compressor.capacity)
 		var/datum/gas_mixture/removed = turbine.compressor.gas_contained.remove(oamount)
 		turbine.outturf.blind_release_air(removed)
@@ -419,12 +489,7 @@
 
 	switch(action)
 		if("toggle_power")
-			var/time_until_done =  compressor.time_until_overheat_done()
-			if(time_until_done)
-				compressor.starter = FALSE
-				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
-				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
-			else if(compressor?.turbine)
+			if(compressor?.turbine)
 				compressor.starter = !compressor.starter
 				. = TRUE
 				playsound(src, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
@@ -479,8 +544,12 @@
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
+		data["compressionRatio"] = compressor.compression_ratio
 		data["temperature"] = compressor.gas_contained.temperature()
-		data["bearing_heat"] = clamp((compressor.overheat / OVERHEAT_THRESHOLD) * 100, 0, 100)
+		data["bearingDamage"] = clamp((compressor.bearing_damage / BEARING_DAMAGE_MAX) * 100, 0, 100)
+		data["preBurnTemperature"] = compressor.pre_burn_temp
+		data["thermalEfficiency"] = compressor.thermal_efficiency
+
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -489,13 +558,7 @@
 
 	switch(action)
 		if("toggle_power")
-			var/time_until_done = compressor.time_until_overheat_done()
-			if(time_until_done)
-				compressor.starter = FALSE
-				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
-				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
-				. = TRUE
-			else if(compressor?.turbine)
+			if(compressor?.turbine)
 				if(!compressor.starter)
 					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 				compressor.starter = !compressor.starter
@@ -515,12 +578,23 @@
 #undef VERY_FAST
 #undef FAST
 #undef SLOW
-
+#undef BEARING_DAMAGE_THRESHOLD
 #undef OVERHEAT_TIME
-#undef OVERHEAT_THRESHOLD
-#undef OVERHEAT_MESSAGE
+#undef BEARING_DAMAGE_MAX
+#undef FAILURE_MESSAGE
 #undef COMPFRICTION
-#undef COMPSTARTERLOAD
 #undef TURBPOWER
 #undef TURBCURVESHAPE
 #undef POWER_CURVE_MOD
+#undef COMP_MOMENT_OF_INERTIA
+#undef RPM_TO_RAD_PER_SECOND
+#undef COMPRESSOR_HEAT_CAPACITY
+#undef THERMAL_EFF_TEMP_CURVE
+#undef KINETIC_TO_ELECTRIC
+#undef COMPRESSION_RATIO_MAX
+#undef THERMAL_EFF_COMPRESSION_CURVE
+#undef THERMAL_EFF_PART_BASE
+#undef POWER_EFF_PART_BASE
+#undef THERMAL_EFF_MAX
+#undef BEARING_DAMAGE_SCALING
+

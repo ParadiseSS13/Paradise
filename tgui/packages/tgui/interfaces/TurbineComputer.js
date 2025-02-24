@@ -1,14 +1,15 @@
 import { useBackend } from '../backend';
 import { Button, LabeledList, Section, ProgressBar, Knob } from '../components';
+import { formatPower } from '../format';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
-  const { compressor, compressor_broken, turbine, turbine_broken, online, throttle } = data;
+  const { compressor, compressor_broken, turbine, turbine_broken, online, throttle, preBurnTemperature } = data;
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
-    <Window width={400} height={200}>
+    <Window width={400} height={380}>
       <Window.Content>
         <Section
           title="Status"
@@ -27,10 +28,10 @@ export const TurbineComputer = (props, context) => {
         >
           {operational ? <TurbineWorking /> : <TurbineBroken />}
         </Section>
-        <Section>
+        <Section title="Throttle">
           {operational ? (
             <Knob
-              size={1.25}
+              size={3}
               value={throttle}
               unit="%"
               minValue={0}
@@ -71,15 +72,18 @@ const TurbineBroken = (props, context) => {
 // Element Tree for if the turbine is working
 const TurbineWorking = (props, context) => {
   const { data } = useBackend(context);
-  const { rpm, temperature, power, bearing_heat } = data;
+  const { rpm, temperature, power, bearingDamage, preBurnTemperature, thermalEfficiency, compressionRatio } = data;
   return (
     <LabeledList>
       <LabeledList.Item label="Turbine Speed">{rpm} RPM</LabeledList.Item>
+      <LabeledList.Item label="Effective Compression Ratio">{compressionRatio}:1</LabeledList.Item>
+      <LabeledList.Item label="Pre Burn Temp">{preBurnTemperature} K</LabeledList.Item>
       <LabeledList.Item label="Internal Temp">{temperature} K</LabeledList.Item>
-      <LabeledList.Item label="Generated Power">{power} W</LabeledList.Item>
-      <LabeledList.Item label="Bearing Heat">
+      <LabeledList.Item label="Thermal Efficiency">{thermalEfficiency * 100} %</LabeledList.Item>
+      <LabeledList.Item label="Generated Power">{formatPower(power)}</LabeledList.Item>
+      <LabeledList.Item label="Bearing Damage">
         <ProgressBar
-          value={bearing_heat}
+          value={bearingDamage}
           minValue={0}
           maxValue={100}
           ranges={{
@@ -88,7 +92,7 @@ const TurbineWorking = (props, context) => {
             bad: [90, Infinity],
           }}
         >
-          {toFixed(bearing_heat) + '%'}
+          {toFixed(bearingDamage) + '%'}
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>
