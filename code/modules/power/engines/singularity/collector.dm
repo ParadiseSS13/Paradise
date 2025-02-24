@@ -1,6 +1,6 @@
 // stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_THRESHOLD 90	// This gets subtracted from the value of absorbed radiation
-#define RAD_COLLECTOR_COEFFICIENT 666 // \M/_
+#define RAD_COLLECTOR_THRESHOLD 80	// This gets subtracted from the value of absorbed radiation
+#define RAD_COLLECTOR_COEFFICIENT 400
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
