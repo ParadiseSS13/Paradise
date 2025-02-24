@@ -116,5 +116,5 @@
 	machine_powernet.power_change()
 
 /obj/machinery/light_switch/proc/lightswitch_cancel_autoswitch()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_AREA_LIGHTSWITCH_DELETING
 	return COMSIG_AREA_LIGHTSWITCH_CANCEL

@@ -8,4 +8,5 @@
 
 /// From obj/machinery/light_switch/Destroy(): ()
 #define COMSIG_AREA_LIGHTSWITCH_DELETING "area_lightswitch_deleting"
+	/// Stop all area lightswitches from turning back on.
 	#define COMSIG_AREA_LIGHTSWITCH_CANCEL (1<<0)
