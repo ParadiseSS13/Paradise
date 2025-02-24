@@ -131,9 +131,6 @@
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
 
-
-
-
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
