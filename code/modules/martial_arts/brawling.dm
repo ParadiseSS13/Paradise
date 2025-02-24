@@ -1,12 +1,6 @@
 /datum/martial_art/boxing
 	name = "Boxing"
 	weight = 1
-	var/boxing_hit_sounds = list('sound/weapons/boxing1.ogg',
-					'sound/weapons/boxing2.ogg',
-					'sound/weapons/boxing3.ogg',
-					'sound/weapons/boxing4.ogg',
-					'sound/weapons/boxing5.ogg',
-					'sound/weapons/boxing6.ogg')
 
 /datum/martial_art/boxing/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
@@ -33,7 +27,7 @@
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, pick(boxing_hit_sounds), 50, TRUE, -1)
+	playsound(D.loc, "boxing", 50, TRUE, -1)
 
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
