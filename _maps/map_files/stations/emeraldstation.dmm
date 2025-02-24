@@ -110765,6 +110765,7 @@
 	pixel_y = 11
 	},
 /obj/machinery/light,
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
