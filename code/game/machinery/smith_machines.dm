@@ -474,6 +474,7 @@
 			. += "cast_lens"
 		else if(istype(cast, /obj/item/smithing_cast/component/trim))
 			. += "cast_trim"
+		. += "casting_lip"
 	if(panel_open)
 		. += "casting_wires"
 	if(operating)
