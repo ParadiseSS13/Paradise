@@ -183,7 +183,7 @@
 				continue
 
 			if(isturf(target) || isturf(target.loc) || (target in direct_access) || !(target.IsObscured()) || istype(target.loc, /obj/item/storage)) //Directly accessible atoms
-				if(target.Adjacent(src) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
+				if(target.Adjacent(src) || (tool && check_tool_reach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
 			closed[target] = TRUE
@@ -206,7 +206,7 @@
 /mob/living/direct_access(atom/target)
 	return ..() + get_contents()
 
-/proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
+/proc/check_tool_reach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
 		return FALSE
 	switch(reach)

@@ -50,9 +50,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon(updates=ALL)
 	. = ..()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)

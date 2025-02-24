@@ -61,6 +61,9 @@
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
+/obj/item/organ/internal/cyberimp/eyes/hud/security/hidden
+	stealth_level = 4 // Only surgery or a body scanner with the highest tier of stock parts can detect this.
+
 /obj/item/organ/internal/cyberimp/eyes/hud/jani
 	name = "Janitor HUD implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
