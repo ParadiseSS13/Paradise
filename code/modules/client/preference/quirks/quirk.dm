@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 */
 /datum/quirk/proc/apply_quirk_effects(mob/living/carbon/human/quirky)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!quirky)
+	if(!istype(quirky))
 		log_debug("[src] did not find a mob to apply its effects to.")
 		return FALSE
 	owner = quirky
@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/datum/character_save/active_character = src.client?.prefs?.active_character
 	if(!active_character)
 		return FALSE
-	for(var/datum/quirk/quirk in active_character.quirks)
+	for(var/datum/quirk/quirk as anything in active_character.quirks)
 		if(quirk.name == to_remove.name)
 			active_character.quirks.Remove(quirk)
 			return TRUE
