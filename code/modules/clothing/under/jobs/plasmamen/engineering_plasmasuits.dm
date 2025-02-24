@@ -41,7 +41,7 @@
 
 /obj/item/clothing/under/plasmaman/atmospherics/contortionist/proc/check_clothing(mob/user as mob)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, jumpsuit (obviously), and helmet (obviously)
-	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK,ITEM_SLOT_HANDCUFFED,ITEM_SLOT_LEGCUFFED,ITEM_SLOT_LEFT_HAND,ITEM_SLOT_RIGHT_HAND,ITEM_SLOT_BELT,ITEM_SLOT_OUTER_SUIT)
+	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_BELT, ITEM_SLOT_OUTER_SUIT)
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing [user.get_item_by_slot(slot_id)].</span>")
