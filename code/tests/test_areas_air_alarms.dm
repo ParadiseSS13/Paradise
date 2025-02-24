@@ -3,7 +3,7 @@
 	var/list/optional_areas = list(/area/station/science/toxins/test, /area/station/maintenance/electrical_shop)
 
 /datum/game_test/area_air_alarms/Run()
-	for(var/area/station/A as anything in SSmapping.existing_station_areas)
+	for(var/area/station/A in SSmapping.existing_station_areas)
 		if(A.there_can_be_many || A.outdoors)
 			continue
 		if(is_type_in_list(A, optional_areas))
