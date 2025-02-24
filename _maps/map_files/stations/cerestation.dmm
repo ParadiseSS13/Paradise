@@ -38233,7 +38233,7 @@
 	name = "SERVER ROOM";
 	pixel_y = 32
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "gMp" = (
@@ -90783,7 +90783,7 @@
 	},
 /area/station/public/sleep/secondary)
 "tlj" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "tlq" = (

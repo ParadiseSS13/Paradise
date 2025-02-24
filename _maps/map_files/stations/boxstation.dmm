@@ -32899,7 +32899,7 @@
 	},
 /area/station/medical/medbay)
 "cny" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "cnA" = (
@@ -33725,7 +33725,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "crp" = (

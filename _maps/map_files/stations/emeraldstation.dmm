@@ -509,7 +509,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "ahk" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "ahp" = (
@@ -70426,10 +70426,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "nZP" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "nZQ" = (
