@@ -163,6 +163,7 @@
 				add_to_ignore(target)
 				target = null
 				path = list()
+				set_mode(BOT_IDLE)
 				return
 			set_mode(BOT_MOVING)
 
