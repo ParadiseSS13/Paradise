@@ -67101,6 +67101,7 @@
 /area/station/maintenance/apmaint)
 "ntR" = (
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "nua" = (
