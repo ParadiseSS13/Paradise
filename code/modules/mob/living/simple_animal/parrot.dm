@@ -682,7 +682,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN MODSUITS?",
+		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
 		"OH GOD WHY WOULD YOU PUT PLASMA IN THE SM?",
@@ -706,10 +706,11 @@
 		"Checked that everything is connected as it should be?",
 		"If you push the SM too far we'll have to abandon station!",
 		"SOS, save our supermatter!",
-		"Is that a terror spider in the SM?",
-		"Remember those mesons, or you'll be seeing terror spiders in the SM!",
+		"Is that a spider in the SM?",
+		"Remember those mesons, or you'll be seeing spiders in the SM!",
 		"Check the air alarm is set properly!",
 		"Is the station goal done yet?",
+		"WHO TOOK THE DAMN MODSUITS?",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
