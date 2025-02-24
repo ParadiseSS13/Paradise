@@ -670,6 +670,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(examined == src)
 		return
 
+	// Only ones who can see both examining mob and examined item
+	var/list/can_see_examine = viewers(examined) & viewers(2, src)
+	if(can_see_examine.len <= 1)
+		return
+
 	// If TRUE, the usr's view() for the examined object too
 	var/examining_worn_item = FALSE
 	var/loc_str = "at something off in the distance."
@@ -697,12 +702,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
-	var/list/can_see_target = viewers(examined)
-	for(var/mob/M as anything in viewers(2, src))
+	for(var/mob/M as anything in can_see_examine)
 		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
 			continue
 
-		if(examining_worn_item || (M == src) || (M in can_see_target))
+		if(examining_worn_item || (M == src))
 			to_chat(M, can_see_str)
 		else
 			to_chat(M, cannot_see_str)
@@ -733,6 +737,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/dead/broadcast_examine(atom/examined)
 	return //Observers arent real the government is lying to you
+
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Should prevent AI in camera form from triggering proc
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
+	return // AI is not spying on you
+
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
