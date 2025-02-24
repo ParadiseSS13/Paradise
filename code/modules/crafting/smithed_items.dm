@@ -272,7 +272,7 @@
 	name = "fireproofing plate"
 	desc = "A heavy plate of asbestos designed to fireproof a user. A firefighter's godsend."
 	burn_armor = 10
-	movement_speed_mod = -0.5
+	movement_speed_mod = -0.2
 	heat_insulation = 20
 
 /obj/item/smithed_item/insert/reflective
@@ -302,7 +302,7 @@
 	laser_armor = 10
 	explosive_armor = 10
 	radiation_armor = 10
-	movement_speed_mod = -0.5
+	movement_speed_mod = -0.2
 
 /obj/item/smithed_item/insert/engineering
 	name = "engineering mesh"
@@ -313,7 +313,7 @@
 	heat_insulation = 10
 	explosive_armor = 10
 	siemens_coeff = 0.4
-	movement_speed_mod = -0.5
+	movement_speed_mod = -0.2
 
 /obj/item/smithed_item/insert/heavy
 	name = "heavy duty plate"
@@ -324,16 +324,16 @@
 	explosive_armor = 10
 	heat_insulation = 10
 	siemens_coeff = -0.4
-	movement_speed_mod = -1
+	movement_speed_mod = -0.4
 
 /obj/item/smithed_item/insert/mobility
 	name = "mobility mesh"
 	desc = "An advanced alloy mesh that is both lightweight and invigorating to the wearer."
-	brute_armor = -10
-	burn_armor = -10
-	laser_armor = -10
+	brute_armor = -15
+	burn_armor = -15
+	laser_armor = -15
 	heat_insulation = 10
-	movement_speed_mod = 1
+	movement_speed_mod = 0.4
 
 /obj/item/smithed_item/insert/admin
 	name = "adminium mesh"
@@ -343,7 +343,7 @@
 	laser_armor = 50
 	radiation_armor = 50
 	heat_insulation = 50
-	movement_speed_mod = 2
+	movement_speed_mod = 1
 	siemens_coeff = 1
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
