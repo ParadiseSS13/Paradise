@@ -69,17 +69,6 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	if(processes)
 		STOP_PROCESSING(SSprocessing, src)
 
-/datum/quirk/alcohol_tolerance
-	var/alcohol_modifier = 1
-
-/datum/quirk/alcohol_tolerance/apply_quirk_effects(mob/living/quirky)
-	..()
-	owner.physiology.alcohol_mod *= alcohol_modifier
-
-/datum/quirk/alcohol_tolerance/remove_quirk_effects()
-	..()
-	owner.physiology.alcohol_mod /= alcohol_modifier
-
 /********************************************************************
 *   Mob Procs, mostly for many mob/new_player in the lobby screen 	*
  ********************************************************************/
