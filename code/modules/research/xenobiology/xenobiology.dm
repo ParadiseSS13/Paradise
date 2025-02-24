@@ -512,7 +512,7 @@
 	var/obj/structure/table/T = target
 	if(istype(T))
 		// Speed table must remain.
-		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on your own!</span>")
+		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on their own!</span>")
 		T.slippery = TRUE
 	else
 		var/obj/item/I = target
