@@ -154,7 +154,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		if(!candidates.len)
 			continue
 		var/datum/job_candidate/candidate = pick(candidates)
-		assign_role(candidate, command_position)
+		assign_role(candidate, job)
 
 /datum/job_selector/proc/fill_ai_position()
 	if(!GLOB.configuration.jobs.allow_ai)
