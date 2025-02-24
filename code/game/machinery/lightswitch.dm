@@ -27,6 +27,7 @@
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	var/area/A = get_area(src)
+	// Yes, we're listening to the area to update its signal.
 	RegisterSignal(A, COMSIG_ATOM_UPDATED_ICON, PROC_REF(signal_lightswitch_icon_update))
 	RegisterSignal(A, COMSIG_AREA_LIGHTSWITCH_DELETING, PROC_REF(lightswitch_cancel_autoswitch))
 
@@ -109,7 +110,7 @@
 /obj/machinery/light_switch/proc/set_area_lightswitch(new_state)
 	var/area/A = get_area(src)
 	A.lightswitch = new_state
-	// sends an area signal to all lightswitches in our area to update their icons and overlays
+	// Sends an area signal to all lightswitches in our area to update their icons and overlays
 	A.update_icon(UPDATE_ICON_STATE)
 
 	// Update all the lights in our area
