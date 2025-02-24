@@ -39,7 +39,7 @@
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling)) // This is such a snowflaky check
 		user.ventcrawler = VENTCRAWLER_NONE
 
-/obj/item/clothing/under/plasmaman/atmospherics/contortionist/proc/check_clothing(mob/user as mob)
+/obj/item/clothing/under/plasmaman/atmospherics/contortionist/proc/check_clothing(mob/user)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, jumpsuit (obviously), and helmet (obviously)
 	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_BELT, ITEM_SLOT_OUTER_SUIT)
 	for(var/slot_id in slot_must_be_empty)
