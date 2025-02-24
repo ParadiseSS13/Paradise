@@ -380,7 +380,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	special_attack_on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown)
-	if(result && !isnull(G) && !QDELETED(G))
+	if(result && !QDELETED(G))
 		qdel(G)
 
 	return TRUE
@@ -504,7 +504,7 @@
 		to_chat(user, "<span class='warning'>[src] already has a cast inserted.</span>")
 		return
 
-	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+	if(used.flags & NODROP || !user.transfer_item_to(used, src))
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
 	cast = used
@@ -851,7 +851,7 @@
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
 			primary.forceMove(src.loc)
 			primary = null
-		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
 			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the primary component slot of [src].</span>")
@@ -863,7 +863,7 @@
 			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
 			secondary.forceMove(src.loc)
 			secondary = null
-		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
 			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the secondary component slot of [src].</span>")
@@ -875,7 +875,7 @@
 			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
 			trim.forceMove(src.loc)
 			trim = null
-		if(comp.flags & NODROP || !user.drop_item() || !comp.forceMove(src))
+		if(comp.flags & NODROP || !user.transfer_item_to(used, src))
 			to_chat(user, "<span class='warning'>[comp] is stuck to your hand!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You insert [comp] into the trim component slot of [src].</span>")
