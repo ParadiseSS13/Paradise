@@ -236,6 +236,13 @@
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
+	var/timer = target_records.fields["timer"]
+
+	// safely remove the demotion timer if it's not going to be needed.
+	if(criminal_status != "demote" && timer != null)
+		deltimer(timer)
+		target_records.fields["timer"] = null
+
 	switch(criminal_status)
 		if("arrest", SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
@@ -253,6 +260,9 @@
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			// only start the timer if there isn't already one.
+			if(timer == null)
+				target_records.fields["timer"] = addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, auto_arrest_after_demote), target_records), 5 MINUTES, TIMER_STOPPABLE | TIMER_DELETE_ME)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -265,6 +275,19 @@
 	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
+
+/proc/try_clear_demoted_status(datum/data/record/target_records)
+	var/timer = target_records.fields["timer"]
+
+	// safely remove the demotion timer
+	if(timer != null)
+		deltimer(timer)
+		target_records.fields["timer"] = null
+
+	target_records.fields["criminal"] = SEC_RECORD_STATUS_NONE
+	target_records.fields["comments"] += "Successfully demoted on [GLOB.current_date_string] [station_time_timestamp()]."
+	update_all_mob_security_hud()
+	return TRUE
 
 /**
  * Creates attack (old and new) logs for the user and defense logs for the target.

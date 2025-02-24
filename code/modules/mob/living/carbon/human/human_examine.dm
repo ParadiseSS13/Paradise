@@ -220,12 +220,14 @@
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
 		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
+		var/datum/data/record/security_record
 
 		if(perpname)
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
+							security_record = R
 							criminal = R.fields["criminal"]
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
@@ -240,6 +242,31 @@
 			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
+			var/timer = security_record.fields["timer"]
+
+			if(timer != null)
+				var/demote_remaining_time = checktimerend(timer) - world.time
+				var/demote_remaining_minutes = round(demote_remaining_time / 600)
+				var/demote_remaining_seconds = round((demote_remaining_time - demote_remaining_minutes * 600) / 10, 1)
+				var/time_string
+
+				if(demote_remaining_minutes < 0)
+					// negative minutes...
+					time_string = "(ERROR - please create an issue report on GitHub!)"
+				else
+					time_string = ""
+
+					if(demote_remaining_minutes == 1)
+						time_string += "[demote_remaining_minutes] minute"
+					else if(demote_remaining_minutes > 1)
+						time_string += "[demote_remaining_minutes] minutes"
+
+					if(demote_remaining_seconds > 0)
+						if(time_string)
+							time_string += " and "
+						time_string += "[demote_remaining_seconds] seconds"
+
+				msg += "<span class='deptradio'><b>Due to [p_their(FALSE)] Demote status, [p_they(FALSE)] will be automatically set to Arrest in [time_string].</b>\n"
 
 	return msg
 
