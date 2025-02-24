@@ -708,6 +708,8 @@
 		"SOS, save our supermatter!",
 		"Is that a terror spider in the SM?",
 		"Remember those mesons, or you'll be seeing terror spiders in the SM!",
+		"Check the air alarm is set properly!",
+		"Is the station goal done yet?",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
