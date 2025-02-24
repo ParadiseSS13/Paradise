@@ -80,7 +80,7 @@
 	brute_armor_mult = MINOR_MATERIAL_BUFF
 	burn_armor_mult = MINOR_MATERIAL_DEBUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -0.5
+	movement_speed_mod = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
 	tool_failure_mult = MINOR_MATERIAL_BUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
@@ -98,7 +98,7 @@
 /datum/smith_material/gold
 	name = "gold"
 	burn_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -0.5
+	movement_speed_mod = MINOR_MATERIAL_DEBUFF
 	heat_insulation_mult = MINOR_MATERIAL_BUFF
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MAJOR_MATERIAL_BUFF
@@ -134,7 +134,7 @@
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	laser_armor_mult = MINOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -0.5
+	movement_speed_mod = MINOR_MATERIAL_DEBUFF
 	siemens_coeff_mult = MINOR_MATERIAL_BUFF
 	radiation_armor_mult = MAJOR_MATERIAL_DEBUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
@@ -160,7 +160,7 @@
 	name = "bluespace"
 	laser_armor_mult = MAJOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = 0.5
+	movement_speed_mod = MINOR_MATERIAL_BUFF
 	heat_insulation_mult = MINOR_MATERIAL_BUFF
 	siemens_coeff_mult = MINOR_MATERIAL_BUFF
 	radiation_armor_mult = MINOR_MATERIAL_DEBUFF
@@ -174,7 +174,7 @@
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	laser_armor_mult = MINOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -1.0
+	movement_speed_mod = MAJOR_MATERIAL_DEBUFF
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
 	size_mod = 2
@@ -189,7 +189,7 @@
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	laser_armor_mult = MAJOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -0.5
+	movement_speed_mod = MINOR_MATERIAL_DEBUFF
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
@@ -204,7 +204,7 @@
 	brute_armor_mult = MINOR_MATERIAL_BUFF
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	laser_armor_mult = MINOR_MATERIAL_BUFF
-	movement_speed_mod = -0.5
+	movement_speed_mod = MINOR_MATERIAL_DEBUFF
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
 	tool_speed_mult = MINOR_MATERIAL_BUFF
@@ -235,7 +235,7 @@
 	burn_armor_mult = MINOR_MATERIAL_BUFF
 	laser_armor_mult = MINOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_DEBUFF
-	movement_speed_mod = 0.5
+	movement_speed_mod = MINOR_MATERIAL_BUFF
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
 	tool_failure_mult = MINOR_MATERIAL_DEBUFF
@@ -250,7 +250,7 @@
 	burn_armor_mult = MINOR_MATERIAL_DEBUFF
 	laser_armor_mult = MAJOR_MATERIAL_BUFF
 	explosive_armor_mult = MINOR_MATERIAL_DEBUFF
-	movement_speed_mod = 0.5
+	movement_speed_mod = MINOR_MATERIAL_BUFF
 	heat_insulation_mult = MINOR_MATERIAL_DEBUFF
 	siemens_coeff_mult = MINOR_MATERIAL_DEBUFF
 	radiation_armor_mult = MINOR_MATERIAL_BUFF
