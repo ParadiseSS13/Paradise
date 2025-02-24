@@ -133,13 +133,14 @@
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
 	if(!mapload)
-		var/built_name = ""
+		var/list/built_name = list()
 		built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
 		built_name += " of "
 		built_name += pick(strings(REVENANT_NAME_FILE, "adjective"))
 		built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
-		name = built_name
-		real_name = built_name
+		var/combined_name = built_name.Join("")
+		name = combined_name
+		real_name = combined_name
 
 	flags_2 |= RAD_NO_CONTAMINATE_2
 	remove_from_all_data_huds()
@@ -147,7 +148,7 @@
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_revenant_antagonist))
 
 /mob/living/simple_animal/revenant/proc/make_revenant_antagonist(revenant)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_BODY_TRANSFER_TO
 	mind.assigned_role = SPECIAL_ROLE_REVENANT
 	mind.special_role = SPECIAL_ROLE_REVENANT
 	giveObjectivesandGoals()
