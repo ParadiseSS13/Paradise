@@ -4,7 +4,7 @@
 
 /datum/game_test/area_fire_alarms/Run()
 	for(var/area/station/A as anything in SSmapping.existing_station_areas)
-		if(A.there_can_be_many || !A.outdoors)
+		if(A.there_can_be_many || A.outdoors)
 			continue
 		if(is_type_in_list(A, optional_areas))
 			continue
