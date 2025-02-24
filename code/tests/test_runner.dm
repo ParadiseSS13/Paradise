@@ -27,7 +27,7 @@
 	// Run map tests first in case unit tests futz with map state
 	RunMap()
 	#endif
-	#if  defined(GAME_TESTS) || defnied(MAP_TESTS)
+	#if  defined(GAME_TESTS) || defined(MAP_TESTS)
 	Run()
 	#endif
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
