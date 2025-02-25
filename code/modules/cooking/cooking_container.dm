@@ -66,14 +66,20 @@
 	return PCWJ_CONTAINER_AVAILABLE
 
 /obj/item/reagent_containers/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!tracker && (contents.len || reagents.total_volume != 0))
-		to_chat(user, "The [src] is full. Empty its contents first.")
+	if(!tracker && (length(contents) || reagents.total_volume != 0))
+		to_chat(user, "\The [src] is full. Empty its contents first.")
 		return ITEM_INTERACT_COMPLETE
 
 	process_item(user, used)
 
 	return ITEM_INTERACT_COMPLETE
 
+/// Attempt to progress the known recipes in the tracker with the item last used
+/// on the container. Note that this is the same proc used for both steps like
+/// adding items to a container, as well as cooking the container in a cooking
+/// machine, such as an oven or stove. So in some cases `used` will be something
+/// like a food item, and in other cases `used` will be an
+/// [/obj/machinery/cooking].
 /obj/item/reagent_containers/cooking/proc/process_item(mob/user, obj/used)
 	if(!istype(used))
 		return PCWJ_NO_STEPS
@@ -121,7 +127,7 @@
 		if(PCWJ_COMPLETE)
 			if(tracker.step_reaction_message && ismob(user))
 				to_chat(user, "<span class='notice'>[tracker.step_reaction_message]</span>")
-				to_chat(user, "<span class='notice'>You finish cooking with \the [src].</span>")
+				to_chat(user, "<span class='notice'>You finish cooking with [src].</span>")
 			QDEL_NULL(tracker)
 			clear_cooking_data()
 			update_appearance(UPDATE_ICON)
@@ -157,7 +163,7 @@
 				AM.forceMove(get_turf(target))
 
 		if(ismob(user))
-			to_chat(user, "<span class='notice'>You remove all the solid items from [src].</span>")
+			to_chat(user, "<span class='notice'>You remove everything from [src].</span>")
 
 	if(reagent_clear)
 		reagents.clear_reagents()
