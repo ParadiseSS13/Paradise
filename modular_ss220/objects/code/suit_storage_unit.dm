@@ -4,3 +4,6 @@
 
 /obj/machinery/suit_storage_unit/security/space/safeguard
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard
+
+/obj/machinery/suit_storage_unit/lavaland/ruin
+	storage_type = /obj/item/gps/mining/ruin

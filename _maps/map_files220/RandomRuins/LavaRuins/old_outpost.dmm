@@ -44,7 +44,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "cd" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/lavaland/ruin,
 /obj/effect/mapping_helpers/machinery/damaged,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "brown";
@@ -62,7 +62,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "dA" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/lavaland/ruin,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "brown";
@@ -315,9 +315,8 @@
 /obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/clothing/mask/cigarette/cigar,
-/turf/simulated/floor/plasteel/lavaland_air{
-	icon_state = "cautionfull"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "qP" = (
 /obj/item/shard{
@@ -623,7 +622,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "IC" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/lavaland/ruin,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "brown";

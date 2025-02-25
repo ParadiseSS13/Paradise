@@ -35,6 +35,7 @@
 #include "code/closets.dm"
 #include "code/coffin.dm"
 #include "code/computer.dm"
+#include "code/gps.dm"
 #include "code/mattress.dm"
 #include "code/miscellaneous.dm"
 #include "code/officetoys.dm"
