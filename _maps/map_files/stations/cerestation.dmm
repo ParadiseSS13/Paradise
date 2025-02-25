@@ -13251,7 +13251,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "bPY" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /turf/simulated/floor/engine,
 /area/station/service/library)
 "bQc" = (
@@ -36383,7 +36383,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
 "gmR" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/structure/stone_tile/surrounding/burnt,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fore2)

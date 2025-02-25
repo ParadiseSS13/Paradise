@@ -163,7 +163,7 @@
 	},
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aN" = (
@@ -731,7 +731,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "tc" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},

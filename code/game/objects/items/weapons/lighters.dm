@@ -440,24 +440,3 @@
 /obj/item/match/unathi/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
-
-/obj/item/match/torch
-	icon_state = "torch"
-	name = "torch sconce"
-	desc = "A standing torch sconce, made from towercap wood."
-	w_class = WEIGHT_CLASS_BULKY
-	infinite_burn = TRUE
-	burn_on_drop = FALSE
-	lightrange = 4
-
-/obj/item/torch/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	deconstruct()
-
-/obj/item/torch/deconstruct()
-	density = FALSE
-	new /obj/item/stack/sheet/wood (get_turf(src), 5)
-	qdel(src)
-	..()
