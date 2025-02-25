@@ -264,79 +264,7 @@
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
 			wires.cut_random()
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-/mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
-	if(..())
-		return 1
 
-	switch(href_list["op"])
-		if("lock")
-			toggle_lock(usr)
-		if("power")
-			if(on)
-				turn_off()
-			else if(cell && !open)
-				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
-					return
-			else
-				return
-			visible_message("[usr] switches [on ? "on" : "off"] [src].")
-		if("cellremove")
-			if(open && cell && !usr.get_active_hand())
-				cell.update_icon()
-				usr.put_in_active_hand(cell)
-				cell.add_fingerprint(usr)
-				cell = null
-
-				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
-		if("cellinsert")
-			if(open && !cell)
-				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
-				if(istype(C))
-					usr.drop_item()
-					cell = C
-					C.forceMove(src)
-					C.add_fingerprint(usr)
-
-					usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
-		if("stop")
-			if(mode >= BOT_DELIVER)
-				bot_reset()
-		if("go")
-			if(mode == BOT_IDLE)
-				start()
-		if("home")
-			if(mode == BOT_IDLE || mode == BOT_DELIVER)
-				start_home()
-		if("destination")
-			var/new_dest = tgui_input_list(usr, "Enter Destination:", name, GLOB.deliverybeacontags)
-			if(new_dest)
-				set_destination(new_dest)
-		if("setid")
-			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
-			if(new_id)
-				set_suffix(new_id)
-		if("sethome")
-			var/new_home = tgui_input_list(usr, "Enter Home:", name, GLOB.deliverybeacontags)
-			if(new_home)
-				home_destination = new_home
-		if("unload")
-			if(load && mode != BOT_HUNT)
-				if(loc == target)
-					unload(loaddir)
-				else
-					unload(0)
-		if("autoret")
-			auto_return = !auto_return
-		if("autopick")
-			auto_pickup = !auto_pickup
-		if("report")
-			report_delivery = !report_delivery
-	update_controls()
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
