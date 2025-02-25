@@ -145,8 +145,10 @@
 	var/obj/item/stock_parts/cell/C = I
 	C.forceMove(src)
 	cell = C
-	visible_message("[user] inserts a cell into [src].",
-					"<span class='notice'>You insert the new cell into [src].</span>")
+	visible_message(
+		"[user] inserts a cell into [src].",
+		"<span class='notice'>You insert the new cell into [src].</span>"
+		)
 	update_controls()
 	update_icon()
 
@@ -357,7 +359,7 @@
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
 	var/list/data = ..()
 	data["mode"] = mode
-	data["load"] = load ? load.name : "None"
+	data["load"] = !!load
 	data["cell"] = !!cell
 	data["auto_pickup"]  = auto_pickup
 	data["auto_return"] = auto_return
@@ -367,9 +369,11 @@
 	data["set_home"] = home_destination
 //	data[""] =
 	return data
+
 /mob/living/simple_animal/bot/mulebot/ui_static_data(mob/user)
 	var/list/data = ..()
 	data["cargo_IMG"] = load ? icon2base64(icon(load.icon, load.icon_state, dir = SOUTH, frame = 1, moving = FALSE)) : null
+	data["cargo_info"] = load ? load.name : null
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params, datum/tgui/ui)
@@ -425,9 +429,14 @@
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
+					update_static_data(ui.user)
 				else
 					unload(0)
-
+					update_static_data(ui.user)
+		if("load")
+			find_crate()
+		if("refresh")
+			update_static_data(ui.user)
 
 
 
@@ -801,22 +810,10 @@
 				var/obj/structure/closet/crate/C = load
 				C.notifyRecipient(destination)
 			unload(loaddir)
-		else
-			// not loaded
-			if(auto_pickup) // find a crate
-				var/atom/movable/AM
-				if(wires.is_cut(WIRE_LOADCHECK)) // if hacked, load first unanchored thing we find
-					for(var/atom/movable/A in get_step(loc, loaddir))
-						if(!A.anchored)
-							AM = A
-							break
-				else			// otherwise, look for crates only
-					AM = locate(/obj/structure/closet/crate) in get_step(loc,loaddir)
-				if(AM && AM.Adjacent(src))
-					load(AM)
-					if(report_delivery)
-						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_channel)
-		// whatever happened, check to see if we return home
+			return
+
+		if(auto_pickup)
+			find_crate()
 
 		if(auto_return && home_destination && destination != home_destination)
 			// auto return set and not at home already
@@ -826,6 +823,27 @@
 			bot_reset()	// otherwise go idle
 
 	return
+
+/mob/living/simple_animal/bot/mulebot/proc/find_crate()
+	var/atom/movable/AM
+	loaddir = dir
+	if(wires.is_cut(WIRE_LOADCHECK)) // if hacked, load first unanchored thing we find
+		for(var/atom/movable/A in get_step(loc, loaddir))
+			if(!A.anchored)
+				AM = A
+				break
+	else
+		// otherwise, look for crates only
+		AM = locate(/obj/structure/closet/crate) in get_step(loc,loaddir)
+
+	// Nothing found
+	if(!AM || !AM.Adjacent(src))
+		return
+
+	// Load found item if adjacent
+	load(AM)
+	if(report_delivery)
+		speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_channel)
 
 /mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
 	. = ..()
