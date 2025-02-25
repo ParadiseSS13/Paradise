@@ -996,13 +996,6 @@
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
 
-/obj/structure/rack/wood
-	name = "spear rack"
-	desc = "A rack meant to hold spears, though you could probably balance other things on there if you tried..."
-	deconstruction_item = /obj/item/stack/sheet/wood
-	deconstruction_quantity = 2
-	icon_state = "rack_wood"
-
 /*
  * Rack destruction
  */
@@ -1012,7 +1005,7 @@
 		density = FALSE
 		if(deconstruction_quantity)
 			new deconstruction_item(loc, deconstruction_quantity)
-		else 
+		else
 			var/decon_parts = new deconstruction_item(get_turf(src))
 			transfer_fingerprints_to(decon_parts)
 	qdel(src)

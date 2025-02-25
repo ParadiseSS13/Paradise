@@ -203,6 +203,15 @@
 	default_scale = 0.80
 	default_rotation = -90
 
+/datum/component/shelver/spear_rack
+	placement_zones = list(
+		list(1,  1, 10, 32) = list("x" = -6, "y" = 2),
+		list(11, 1, 20, 32) = list("x" = 0, "y" = 2),
+		list(21, 1, 32, 32) = list("x" = 6, "y" = 2),
+	)
+	default_scale = 0.80
+	default_rotation = -45
+
 /// A component for items stored on shelves, propagated by [/datum/component/shelver] components.
 /datum/component/shelved
 	/// The UID of the object acting as the shelf
