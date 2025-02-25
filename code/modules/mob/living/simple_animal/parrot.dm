@@ -714,6 +714,7 @@
 		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
 		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
 		"It's an excellent idea to aim the BSA at the shuttle",
+		"Nitrogen is an awful gas if you need to power a BSH!",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
