@@ -54,7 +54,7 @@
 
 /obj/structure/signpost/wood
 	name = "wooden sign"
-	desc = "A small wooden marker, to leave a message, honor the fallen, or stake a claim."
+	desc = "A small wooden marker."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "signpost_wood"
 	var/scarf = FALSE
