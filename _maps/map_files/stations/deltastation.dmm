@@ -5980,7 +5980,6 @@
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/south)
 "aAs" = (
-/obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /obj/structure/sink{
 	dir = 8;
@@ -5990,6 +5989,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "aAt" = (
@@ -6469,9 +6469,11 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/janitorialcart,
-/obj/item/reagent_containers/glass/bucket,
 /obj/machinery/firealarm/directional/west,
+/obj/structure/janitorialcart{
+	dir = 4
+	},
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "aBx" = (
