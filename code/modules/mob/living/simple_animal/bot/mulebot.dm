@@ -340,7 +340,7 @@
 /mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
 	if(!open)
 		ui_interact(user)
-	else if(isAI(user))
+	else if(is_ai(user))
 		to_chat(user, "<span class='warning'>The bot is in maintenance mode and cannot be controlled.</span>")
 	else
 		wires.Interact(user)
