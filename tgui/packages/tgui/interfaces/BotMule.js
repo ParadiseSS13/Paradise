@@ -66,6 +66,7 @@ const MuleMain = (props, context) => {
           <Tabs.Tab key="CargoLoad" icon="truck" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
             Cargo
           </Tabs.Tab>
+          <Button fluid content="Refresh" icon="rotate-right" verticalAlign="middle" onClick={() => act('refresh')} />
         </Tabs>
         {decideTab(tabIndex)}
       </Window.Content>
@@ -75,10 +76,13 @@ const MuleMain = (props, context) => {
 
 const MuleStatus = (props, context) => {
   const { act, data } = useBackend(context);
-  const { noaccess, mode, destination, auto_pickup, auto_return, sethome, unload, bot_suffix, set_home } = data;
+  const { noaccess, auto_pickup, auto_return, sethome, bot_suffix, set_home, report } = data;
   return (
     <Section>
       <BotStatus />
+      <Button fluid content={'Change ID:  ' + bot_suffix} onClick={() => act('setid')} />
+      <Button fluid content={'Set Home:  ' + set_home} onClick={() => act('sethome')} />
+
       <Section title="Delivery Settings">
         <Button.Checkbox
           fluid
@@ -94,11 +98,13 @@ const MuleStatus = (props, context) => {
           disabled={noaccess}
           onClick={() => act('auto_return')}
         />
-        <Button.Checkbox fluid content="Change ID" onClick={() => act('setid')} />
-        <Button.Checkbox fluid content="Set Home" />
-        <LabeledList mb={1}>
-          <LabeledList.Item label="Home">{set_home}</LabeledList.Item>
-        </LabeledList>
+        <Button.Checkbox
+          fluid
+          checked={report}
+          content="Announce Delivery"
+          disabled={noaccess}
+          onClick={() => act('report')}
+        />
       </Section>
     </Section>
   );
@@ -106,31 +112,36 @@ const MuleStatus = (props, context) => {
 
 const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
-  const { noaccess, mode, load, destination, cargo_IMG } = data;
+  const { noaccess, mode, load, destination, cargo_IMG, cargo_info } = data;
   return (
     <Box>
-      {cargo_IMG !== undefined ? (
-        <img
-          src={`data:image/jpeg;base64,${cargo_IMG}`}
-          style={{
-            height: '20%',
-            width: '20%',
-            'float': 'right',
-            'vertical-align': 'middle',
-            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-            'image-rendering': 'pixelated',
-          }}
-        />
-      ) : (
-        <Box bold={1}>No Cargo</Box>
-      )}
       <Section title="Delivery Settings">
         <Button
-          content={destination ? destination : 'Select Destination'}
+          content={'Destination:  ' + (destination ? destination : 'Not Set')}
           selected={destination}
           disabled={noaccess}
           onClick={() => act('destination')}
         />
+        <Box>
+          {cargo_IMG !== null ? (
+            <img
+              src={`data:image/jpeg;base64,${cargo_IMG}`}
+              style={{
+                height: '20%',
+                width: '20%',
+                'float': 'middle',
+                'vertical-align': 'middle',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
+              }}
+            />
+          ) : (
+            <Box bold={1}>No Cargo</Box>
+          )}
+        </Box>
+        <Box as="span" m={1.5}>
+          {cargo_info}
+        </Box>
       </Section>
       <Section title="Movement Settings">
         <Stack fill>
@@ -152,9 +163,9 @@ const MuleLoad = (props, context) => {
               fluid
               icon="stop"
               content="Load"
-              disabled={noaccess || load === 'None'}
+              disabled={noaccess || load}
               color="bad"
-              onClick={() => act('unload')}
+              onClick={() => act('load')}
             />
           </Stack.Item>
           <Stack.Item>
@@ -162,7 +173,7 @@ const MuleLoad = (props, context) => {
               fluid
               icon="stop"
               content="Unload"
-              disabled={noaccess || load === 'None'}
+              disabled={noaccess || !load}
               color="bad"
               onClick={() => act('unload')}
             />
