@@ -40,7 +40,6 @@
 #include "satellite\code\satellite.dm"
 #include "sheets\code\sheets.dm"
 #include "shutters\code\shutters.dm"
-#include "soap\code\soap.dm"
 #include "stamps\code\stamps.dm"
 #include "tcomms\code\message.dm"
 #include "toolboxes\code\toolboxes.dm"
