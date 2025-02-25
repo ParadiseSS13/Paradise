@@ -183,7 +183,7 @@
 		)
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
-	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
@@ -218,7 +218,7 @@
 		COMSIG_CARBON_SWAP_HANDS,
 		COMSIG_PARENT_QDELETING,
 	))
-	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")
