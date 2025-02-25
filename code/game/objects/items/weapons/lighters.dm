@@ -248,13 +248,10 @@
 	name = "match"
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "match"
+	icon_state = "match_unlit"
 	var/lit = FALSE
 	var/burnt = FALSE
-	var/infinite_burn = FALSE
 	var/smoketime = 5
-	var/burn_on_drop = TRUE
-	var/lightrange = 2
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
@@ -262,10 +259,9 @@
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
-	if(!infinite_burn)
-		smoketime--
-		if(smoketime < 1)
-			matchburnout()
+	smoketime--
+	if(smoketime < 1)
+		matchburnout()
 	if(location)
 		location.hotspot_expose(700, 1)
 		return
@@ -282,17 +278,16 @@
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
-		icon_state = "[icon_state]_lit"
+		icon_state = "match_lit"
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
 		item_state = "cigon"
-		name = "lit [name]"
-		desc = "It's on fire."
+		name = "lit match"
+		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
 		START_PROCESSING(SSobj, src)
 		update_icon()
-		set_light(lightrange, l_color = "#ED9200")
 		return TRUE
 
 /obj/item/match/proc/matchburnout()
@@ -301,17 +296,16 @@
 		burnt = TRUE
 		damtype = "brute"
 		force = initial(force)
-		icon_state = "[icon_state]_burnt"
+		icon_state = "match_burnt"
 		item_state = "cigoff"
-		name = "burnt [name]"
-		desc = "It's burned out."
+		name = "burnt match"
+		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/match/dropped(mob/user)
-	if(burn_on_drop)
-		matchburnout()
+	matchburnout()
 	. = ..()
 
 /obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
@@ -372,7 +366,6 @@
 /obj/item/match/firebrand
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
-	burn_on_drop = FALSE
 	smoketime = 20 //40 seconds
 
 /obj/item/match/firebrand/New()
