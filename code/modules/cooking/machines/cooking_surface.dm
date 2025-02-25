@@ -10,7 +10,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/temperature = J_LO
 	var/timer = 0
 	COOLDOWN_DECLARE(cooktime_cd)
-	var/cook_stopwatch
+	var/cooking_ticks_handled = 0
 	var/obj/placed_item
 	var/on = FALSE
 	var/prob_quality_decrease = 0
@@ -29,12 +29,12 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	if(isnull(container.get_cooker_time(cooker_id, temperature)))
 		reset_cooktime()
 
-	var/result = stop_watch(cook_stopwatch) SECONDS
+	cooking_ticks_handled++
 	#ifdef PCWJ_DEBUG
-	log_debug("cook_stopwatch=[cook_stopwatch] result=[result] cooktime_cd=[cooktime_cd]")
+	log_debug("cooking_ticks_handled=[cooking_ticks_handled]")
 	#endif
 
-	container.set_cooker_data(src, result)
+	container.set_cooker_data(src, cooking_ticks_handled * 2)
 	container.process_item(user, parent)
 
 	if(timer && COOLDOWN_FINISHED(src, cooktime_cd))
@@ -98,7 +98,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
 	on = FALSE
 	unset_callbacks()
-	cook_stopwatch = null
+	cooking_ticks_handled = 0
 	parent.update_appearance(UPDATE_ICON)
 
 /datum/cooking_surface/proc/handle_burn()
@@ -134,7 +134,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 			handle_cooking(user)
 
 /datum/cooking_surface/proc/reset_cooktime()
-	cook_stopwatch = start_watch()
+	cooking_ticks_handled = 0
 	#ifdef PCWJ_DEBUG
-	log_debug("reset_cooktime world.time=[world.time] cook_stopwatch=[cook_stopwatch]")
+	log_debug("reset_cooktime")
 	#endif
