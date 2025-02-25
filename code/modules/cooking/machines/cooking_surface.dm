@@ -23,38 +23,36 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 /datum/cooking_surface/proc/handle_cooking(mob/user)
 	var/obj/item/reagent_containers/cooking/container = placed_item
-	if(!istype(placed_item))
-		return
+	if(istype(container))
+		if(isnull(container.get_cooker_time(cooker_id, temperature)))
+			reset_cooktime()
 
-	if(isnull(container.get_cooker_time(cooker_id, temperature)))
-		reset_cooktime()
+		cooking_ticks_handled++
+		#ifdef PCWJ_DEBUG
+		log_debug("cooking_ticks_handled=[cooking_ticks_handled]")
+		#endif
 
-	cooking_ticks_handled++
-	#ifdef PCWJ_DEBUG
-	log_debug("cooking_ticks_handled=[cooking_ticks_handled]")
-	#endif
+		container.set_cooker_data(src, cooking_ticks_handled * 2)
+		container.process_item(user, parent)
 
-	container.set_cooker_data(src, cooking_ticks_handled * 2)
-	container.process_item(user, parent)
+		// If we have something in here that's not the start of a recipe, it's
+		// probably a finished product. Slowly eat at the food quality if the burner
+		// is still on and the food hasn't been removed.
+		if(container.tracker && length(container.contents) && !container.tracker.recipe_started)
+			if(prob_quality_decrease < 100)
+				prob_quality_decrease = min(100, prob_quality_decrease + 5)
+			if(prob_quality_decrease)
+				for(var/obj/item in container.contents)
+					var/obj/item/food/food = item
+					if(istype(food))
+						food.food_quality -= 0.05
+						#ifdef PCWJ_DEBUG
+						log_debug("[food] quality decreased to [food.food_quality]")
+						#endif
 
 	if(timer && COOLDOWN_FINISHED(src, cooktime_cd))
 		turn_off(user)
 		return
-
-	// If we have something in here that's not the start of a recipe, it's
-	// probably a finished product. Slowly eat at the food quality if the burner
-	// is still on and the food hasn't been removed.
-	if(container.tracker && length(container.contents) && !container.tracker.recipe_started)
-		if(prob_quality_decrease < 100)
-			prob_quality_decrease = min(100, prob_quality_decrease + 5)
-		if(prob_quality_decrease)
-			for(var/obj/item in container.contents)
-				var/obj/item/food/food = item
-				if(istype(food))
-					food.food_quality -= 0.05
-					#ifdef PCWJ_DEBUG
-					log_debug("[food] quality decreased to [food.food_quality]")
-					#endif
 
 /datum/cooking_surface/proc/handle_switch(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)

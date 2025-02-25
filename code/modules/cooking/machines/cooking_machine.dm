@@ -103,6 +103,8 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	if(burner.placed_item)
 		return burner.placed_item.ShiftClick(user, modifiers)
 
+	return ..()
+
 /// Ask the user to set the a cooking surfaces's temperature.
 /obj/machinery/cooking/AltShiftClick(mob/user, modifiers)
 	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -154,10 +156,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		// and container cook times
 		makeSpeedProcess()
 
-	cooking = FALSE
-	for(var/datum/cooking_surface/surface in surfaces)
-		if(surface.on)
-			cooking = TRUE
 	update_appearance()
 
 /// Empty the container on the surface if it exists.
@@ -210,6 +208,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	vis_contents.Remove(our_item)
 
 /obj/machinery/cooking/update_icon(updates)
+	cooking = FALSE
+	for(var/datum/cooking_surface/surface in surfaces)
+		if(surface.on)
+			cooking = TRUE
+
 	. = ..()
 	for(var/obj/item/our_item in vis_contents)
 		remove_from_visible(our_item)
