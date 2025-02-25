@@ -211,7 +211,9 @@
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability = 80)
-
+#ifdef GAME_TESTS
+	probability = 100
+#endif
 	zone = check_zone(zone)
 
 	if(prob(probability))
