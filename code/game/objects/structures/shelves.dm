@@ -167,19 +167,26 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	pass_flags_self = PASSTAKE
 	max_integrity = 80
 	var/build_stack_type = /obj/item/stack/sheet/wood
+	var/image/shelf_overlay
 
 /obj/structure/spear_rack/Initialize(mapload)
 	. = ..()
 	var/static/list/spear_subtypes = subtypesof(/obj/item/spear)
 	spear_subtypes += /obj/item/spear // Shelf component expects a list, subtypesof excludes the parent type
+	shelf_overlay = mutable_appearance('icons/obj/objects.dmi', "rack_wood_over")
+	shelf_overlay.layer = LOW_ITEM_LAYER
 	AddComponent(/datum/component/shelver/spear_rack, allowed_types_ = spear_subtypes)
+	update_appearance(UPDATE_OVERLAYS)
 
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
+/obj/structure/spear_rack/update_overlays()
+	return list(shelf_overlay)
+
 /obj/structure/spear_rack/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(user.a_intent == INTENT_HELP)
+	if(user.a_intent != INTENT_HELP)
 		return FALSE
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return

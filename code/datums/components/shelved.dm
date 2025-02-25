@@ -205,9 +205,9 @@
 
 /datum/component/shelver/spear_rack
 	placement_zones = list(
-		list(1,  1, 13, 32) = list("x" = -6, "y" = 2),
-		list(14, 1, 20, 32) = list("x" = 0, "y" = 2),
-		list(21, 1, 32, 32) = list("x" = 6, "y" = 2),
+		list(1,  1, 13, 32) = list("x" = -6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(14, 1, 20, 32) = list("x" = 0, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(21, 1, 32, 32) = list("x" = 6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
 	)
 	default_scale = 0.80
 	default_rotation = -45
