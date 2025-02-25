@@ -1,3 +1,4 @@
+#define NEAREST_MW(power)((power) - (power) % (1 MW))
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
@@ -273,36 +274,38 @@
 
 	// Round down to the nearest MW if above a MW
 	if(mining_power > 1 MW)
-		mining_power = mining_power - mining_power % (1 MW)
+		mining_power = NEAREST_MW(mining_power)
 
-	// Always try to use all available power for mining if emagged
+	// Always try to use all available power for mining if emagged and disable the stabilizers
 	if(emagged)
 		desired_mining_power = mining_power
+		stabilizer_power = 0
 
 	/*
 	* Stabilizers activate above 15MW of mining power
-	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15 and 30MW of mining power
-	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
-	* Emagging disables stabilizers
+	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15MW and 30MW of mining power
+	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining power
 	*/
-	if(stabilizer_priority)
-		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
-		stabilizer_power = \
-		clamp(\
-		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), \
-		0, \
-		mining_power / 2) \
-		* (stabilizers && !emagged)
-	else
-		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
-		stabilizer_power = \
-		clamp(mining_power - desired_mining_power, \
-		0, \
-		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) \
-		* (stabilizers && !emagged)
+	else if(stabilizers)
+		if(stabilizer_priority)
+			// Lowest between enough to stabilize our desired mining power and enough to stabilize the highest mining power we could sustain with our current power budget.
+			stabilizer_power =\
+			min(max(mining_power - max(NEAREST_MW(mining_power / 2), NEAREST_MW((mining_power + 30 MW) / 3)), 0), \
+			clamp(desired_mining_power - clamp((30 MW) - desired_mining_power, 0, 15 MW), 0, desired_mining_power / 2))
 
-	// Actual mining power is what the desired mining power we set, unless we don't have enough power to satisfty that.
-	mining_power = min(desired_mining_power, mining_power - stabilizer_power)
+			// Stabilizers take priority so we subtract them from the available total straight away
+			mining_power = mining_power - stabilizer_power
+		else
+			// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
+			stabilizer_power = \
+			clamp(mining_power - desired_mining_power, \
+			0, \
+			desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW))
+	else
+		stabilizer_power = 0
+
+	// Now that we know our actual power budget we can finally set our mining power
+	mining_power = min(mining_power, desired_mining_power)
 
 	consume_direct_power(mining_power + stabilizer_power)
 
@@ -616,3 +619,4 @@
 
 #undef POINTS_PER_W
 #undef BASE_POINTS
+#undef NEAREST_MW
