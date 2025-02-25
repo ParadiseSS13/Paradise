@@ -84,24 +84,14 @@
 	for(var/obj/item/our_item in vis_contents)
 		remove_from_visible(our_item)
 
-	if(panel_open)
-		icon_state = "stove_open"
-	else
-		icon_state = "stove"
-
 	var/stove_on = FALSE
 	for(var/i in 1 to length(surfaces))
 		var/datum/cooking_surface/burner = surfaces[i]
 		if(burner.on)
 			if(!stove_on)
 				stove_on = TRUE
-			add_overlay(image(icon, icon_state = "[panel_open?"open_":""]burner_[i]"))
+			add_overlay(image(icon, icon_state = "burner_[i]"))
 
-	if(stove_on)
-		add_overlay(image(icon, icon_state = "indicator"))
-
-	for(var/i in 1 to length(surfaces))
-		var/datum/cooking_surface/burner = surfaces[i]
 		if(!burner.placed_item)
 			continue
 		var/obj/item/our_item = burner.placed_item
@@ -121,6 +111,9 @@
 		add_to_visible(our_item, i)
 		if(burner.on)
 			add_overlay(image(icon, icon_state="steam_[i]", layer = ABOVE_OBJ_LAYER))
+
+	if(stove_on)
+		add_overlay(image(icon, icon_state = "indicator"))
 
 /obj/machinery/cooking/stovetop/proc/add_to_visible(obj/item/our_item, input)
 	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID

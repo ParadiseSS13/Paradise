@@ -118,7 +118,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 /datum/cooking_surface/proc/handle_timer(mob/user)
 	var/old_time = timer ? round((timer / (1 SECONDS)), 1 SECONDS) : 1
-	timer = (input(user, "Enter a timer for the burner in seconds. To keep on, set to zero.","Set Timer", old_time) as num) SECONDS
+	timer = (tgui_input_number(user, "Enter a timer for the burner in seconds. To keep on, set to zero.","Set Timer", old_time)) SECONDS
 	if(timer != 0 && on)
 		timer_act(user)
 

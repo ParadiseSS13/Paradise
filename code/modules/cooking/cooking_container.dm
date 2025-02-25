@@ -16,21 +16,22 @@
 	icon = 'icons/obj/cooking/containers.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	volume = 240
+	container_type = OPENCONTAINER
+	visible_transfer_rate = null
+	possible_transfer_amounts = null
+	new_attack_chain = TRUE
+
+	/// The [/datum/cooking/recipe_tracker] of the current food preparation.
 	var/datum/cooking/recipe_tracker/tracker = null
 	/// Icon state of the lip layer of the object
 	var/lip
 	var/obj/effect/cooking_container_lip/lip_effect
 	/// A flat quality reduction for removing an unfinished recipe from the container.
 	var/removal_penalty = 0
-	container_type = OPENCONTAINER
 	/// Record of what cooking has been done on this food.
 	var/list/cooker_data = list()
-	var/claimed = FALSE
+	/// Preposition for human-readable recipe e.g. "in a pain", "on a grill".
 	var/preposition = "In"
-	visible_transfer_rate = null
-	possible_transfer_amounts = null
-
-	new_attack_chain = TRUE
 
 /obj/item/reagent_containers/cooking/Initialize(mapload)
 	. = ..()
@@ -41,6 +42,11 @@
 
 	clear_cooking_data()
 
+/obj/item/reagent_containers/cooking/Destroy()
+	. = ..()
+	qdel(tracker)
+	qdel(lip_effect)
+
 /obj/item/reagent_containers/cooking/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>You can <b>Alt-Click</b> to remove items from this.</span>"
@@ -49,13 +55,9 @@
 		. += get_content_info()
 
 /obj/item/reagent_containers/cooking/proc/get_content_info()
-	var/string = "It contains:</br><ul><li>"
-	string += jointext(contents, "</li><li>") + "</li></ul>"
-	return string
+	return "It contains [english_list(contents)]."
 
 /obj/item/reagent_containers/cooking/proc/get_usable_status()
-	if(claimed)
-		return PCWJ_CONTAINER_BUSY
 	if(tracker)
 		return PCWJ_CONTAINER_BUSY
 	if(length(contents) || reagents.total_volume > 0)
@@ -266,6 +268,9 @@
 	icon_state = "pan"
 	lip = "pan_lip"
 	materials = list(MAT_METAL = 5)
+	force = 8
+	throwforce = 10
+	attack_verb = list("smashed", "fried")
 	hitsound = 'sound/weapons/smash.ogg'
 
 /obj/item/reagent_containers/cooking/pot
@@ -276,6 +281,9 @@
 	materials = list(MAT_METAL = 5)
 	hitsound = 'sound/weapons/smash.ogg'
 	removal_penalty = 5
+	force = 8
+	throwforce = 10
+	attack_verb = list("clanged", "boiled")
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/reagent_containers/cooking/deep_basket

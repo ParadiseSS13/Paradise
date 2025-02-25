@@ -15,6 +15,12 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	var/list/allowed_containers
 	var/list/surfaces = list()
 
+/obj/machinery/cooking/Destroy()
+	QDEL_LIST_CONTENTS(allowed_containers)
+	QDEL_LIST_CONTENTS(surfaces)
+
+	return ..()
+
 /obj/machinery/cooking/process()
 	if(any_surface_active())
 		makeSpeedProcess()
@@ -74,7 +80,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	for(var/allowed_container_type in allowed_containers)
 		if(istype(used, allowed_container_type))
 			if(ismob(user))
-				to_chat(user, "<span class='notice'>You put [used] on \the [src].</span>")
+				to_chat(user, "<span class='notice'>You put [used] on [src].</span>")
 				if(user.drop_item())
 					used.forceMove(src)
 			else
@@ -99,11 +105,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /// Ask the user to set the a cooking surfaces's temperature.
 /obj/machinery/cooking/AltShiftClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)))
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!anchored)
-		to_chat(user, "<span class='notice'>The [src] must be secured before using it.</span>")
+		to_chat(user, "<span class='notice'>\The [src] must be secured before using it.</span>")
 		return
 
 	var/surface_idx = clickpos_to_surface(modifiers)
@@ -115,7 +121,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /// Ask the user to set a cooking surface's timer.
 /obj/machinery/cooking/CtrlClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)))
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!anchored)
@@ -130,7 +136,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /// Switch the cooking surface on or off.
 /obj/machinery/cooking/CtrlShiftClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)))
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!anchored)
@@ -150,7 +156,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /// Empty the container on the surface if it exists.
 /obj/machinery/cooking/AltClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)))
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/input = clickpos_to_surface(modifiers)

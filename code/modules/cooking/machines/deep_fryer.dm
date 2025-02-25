@@ -67,7 +67,7 @@
 					which_hand = "r_hand"
 
 				burn_victim.adjustFireLossByPart(20, which_hand)
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [surface.placed_item] off of \the [src].</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [surface.placed_item] off of [src].</span>")
 
 		user.put_in_hands(surface.placed_item)
 		surface.placed_item = null

@@ -132,11 +132,13 @@
 	if(surface.placed_item)
 		var/obj/item/our_item = surface.placed_item
 		our_item.pixel_x = 0
-		our_item.pixel_y = -5
-		our_item.transform *= 0.8
+		our_item.pixel_y = -6
+		our_item.transform *= 0.75
 		add_to_visible(our_item)
 
-	if(!opened)
+	if(opened)
+		. += image(icon, icon_state = "oven_hatch_open", layer = ABOVE_OBJ_LAYER)
+	else
 		. += image(icon, icon_state = "oven_hatch[surface.on ? "_on" : ""]", layer = ABOVE_OBJ_LAYER)
 
 /obj/machinery/cooking/oven/proc/add_to_visible(obj/item/our_item)

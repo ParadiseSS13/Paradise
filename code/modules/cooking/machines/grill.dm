@@ -11,7 +11,7 @@
 			to_chat(user, "<span class='notice'>There is no wood in the grill. Insert some planks first.</span>")
 			return
 
-	. = ..()
+	return ..()
 
 /obj/effect/grill_hopper
 	icon = 'icons/obj/cooking/machines.dmi'
@@ -109,7 +109,7 @@
 		if(!used_sheets)
 			to_chat(user, "<span class='notice'>The grill's hopper is full.</span>")
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'>You add [used_sheets] wood plank[used_sheets>1?"s":""] into the grill's hopper.</span>")
+		to_chat(user, "<span class='notice'>You add [used_sheets] wood plank\s into [src]'s hopper.</span>")
 		if(!stack.use(used_sheets))
 			qdel(stack)	// Protects against weirdness
 		stored_wood += used_sheets
@@ -139,7 +139,7 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [surface.placed_item] off of \the [src].</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [surface.placed_item] off of [src].</span>")
 
 		user.put_in_hands(surface.placed_item)
 		surface.placed_item = null
@@ -176,16 +176,16 @@
 
 		add_to_visible(our_item, i)
 
-/obj/machinery/cooking/grill/proc/add_to_visible(obj/item/our_item, input)
+/obj/machinery/cooking/grill/proc/add_to_visible(obj/item/our_item, surface_idx)
 	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
 	vis_contents += our_item
-	if(input == 2 || input == 4)
+	if(surface_idx == 2 || surface_idx == 4)
 		var/matrix/M = matrix()
 		M.Scale(-1,1)
 		our_item.transform = M
 	our_item.transform *= 0.8
 
-/obj/machinery/cooking/grill/proc/remove_from_visible(obj/item/our_item, input)
+/obj/machinery/cooking/grill/proc/remove_from_visible(obj/item/our_item)
 	our_item.vis_flags = 0
 	our_item.blend_mode = 0
 	our_item.transform =  null

@@ -36,7 +36,7 @@
 	recipes_all_applied_steps.Cut()
 	recipes_applied_step_data.Cut()
 
-	. = ..()
+	return ..()
 
 /// Wrapper function for analyzing process_item internally.
 /datum/cooking/recipe_tracker/proc/process_item_wrap(mob/user, obj/used)
