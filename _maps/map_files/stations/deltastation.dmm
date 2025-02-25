@@ -76400,11 +76400,6 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Launch";
-	dir = 9;
-	network = list("Research","SS13")
-	},
 /obj/effect/turf_decal,
 /obj/machinery/light{
 	dir = 4
@@ -90690,6 +90685,11 @@
 	},
 /obj/structure/window/plasmareinforced{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Research Toxins Launch";
+	dir = 9;
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
