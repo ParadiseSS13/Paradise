@@ -15,7 +15,7 @@
 	max_integrity = 350
 	integrity_failure = 80
 	rad_insulation_beta = RAD_BETA_COLLECTOR
-	rad_insulation_gamma = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = FALSE
