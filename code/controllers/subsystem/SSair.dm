@@ -417,40 +417,54 @@ SUBSYSTEM_DEF(air)
 			continue
 
 		var/reasons = currentrun[offset + MILLA_INDEX_INTERESTING_REASONS]
-		var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
-		var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
-		var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
-		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 
 		// Bind the MILLA tile we got, if needed.
-		if(isnull(T.bound_air))
-			bind_turf(T, milla_tile)
-		else if(T.bound_air.lastread < milla_tick)
-			T.bound_air.copy_from_milla(milla_tile)
-			T.bound_air.lastread = milla_tick
-			T.bound_air.readonly = null
-			T.bound_air.dirty = FALSE
-			T.bound_air.synchronized = FALSE
-
 		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
+			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
+			if(isnull(T.bound_air))
+				bind_turf(T, milla_tile)
+			else if(T.bound_air.lastread < milla_tick)
+				T.bound_air.copy_from_milla(milla_tile)
+				T.bound_air.lastread = milla_tick
+				T.bound_air.readonly = null
+				T.bound_air.dirty = FALSE
+				T.bound_air.synchronized = FALSE
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				S.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
+			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
+			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
+			var/hotspot_temperature = currentrun[offset + MILLA_INDEX_HOTSPOT_TEMPERATURE]
+			var/hotspot_volume = currentrun[offset + MILLA_INDEX_HOTSPOT_VOLUME]
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.active_hotspot))
 					// Wasn't an active hotspot before, add it.
 					hotspots += S
+				else
+					S.active_hotspot.temperature = temperature
+					S.active_hotspot.fuel_burnt = fuel_burnt
+					S.active_hotspot.data_tick = milla_tick
+					if(hotspot_volume > 0)
+						S.active_hotspot.temperature = hotspot_temperature
+						S.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+					else
+						S.active_hotspot.temperature = temperature
+						S.active_hotspot.volume = CELL_VOLUME
 
-				var/datum/gas_mixture/air = T.get_readonly_air()
-				T.temperature_expose(air.temperature())
+				T.temperature_expose(temperature)
 				for(var/atom/movable/item in T)
-					item.temperature_expose(air, air.temperature(), CELL_VOLUME)
-				T.temperature_expose(air, air.temperature(), CELL_VOLUME)
+					if(item.cares_about_temperature || !isnull(item.reagents))
+						item.temperature_expose(temperature, CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
+			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
+			var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.wind_tick))
@@ -461,6 +475,7 @@ SUBSYSTEM_DEF(air)
 				S.wind_y = y_flow
 			T.high_pressure_movements(x_flow, y_flow)
 
+		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 		if(MC_TICK_CHECK)
 			return
 

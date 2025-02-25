@@ -187,6 +187,11 @@ def check_camel_case_type_names(idx, line):
         type_result = result.group(0)
         return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
 
+UID_WITH_PARAMETER = re.compile(r"\bUID\(\w+\)")
+def check_uid_parameters(idx, line):
+    if result := UID_WITH_PARAMETER.search(line):
+        return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -204,6 +209,7 @@ CODE_CHECKS = [
     check_empty_list_whitespace,
     check_istype_src,
     check_camel_case_type_names,
+    check_uid_parameters,
 ]
 
 

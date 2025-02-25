@@ -7,6 +7,7 @@
 	layer = BELOW_OBJ_LAYER
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	max_integrity = 200
@@ -40,7 +41,7 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
-/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
+/obj/structure/girder/temperature_expose(exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)

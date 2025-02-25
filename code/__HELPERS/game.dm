@@ -302,7 +302,6 @@
 	return null
 
 /proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!length(candidates) && afk_bracket < 6000)
@@ -310,7 +309,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -318,7 +317,6 @@
 	return candidates
 
 /proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!length(candidates) && afk_bracket < 6000)
@@ -326,7 +324,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
