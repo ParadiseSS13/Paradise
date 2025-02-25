@@ -711,6 +711,9 @@
 		"Check the air alarm is set properly!",
 		"Is the station goal done yet?",
 		"WHO TOOK THE DAMN MODSUITS?",
+		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
+		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
+		"It's an excellent idea to aim the BSA at the shuttle",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
