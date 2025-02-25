@@ -62,6 +62,9 @@
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
 
+/obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
+	..()
+	playsound(loc, "rustle", 50, TRUE, -5)
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
