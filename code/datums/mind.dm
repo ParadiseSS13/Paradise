@@ -1513,7 +1513,7 @@
 					return
 				var/mob/living/silicon/ai/ai = current
 				for(var/mob/living/silicon/robot/R in ai.connected_robots)
-					R.unemag()
+					R.unemag(R)
 				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
