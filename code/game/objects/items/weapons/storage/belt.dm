@@ -304,6 +304,16 @@
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
+/obj/item/storage/belt/botany/full/populate_contents()
+	new /obj/item/plant_analyzer(src)
+	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/hatchet(src)
+	new /obj/item/reagent_containers/spray/pestspray(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	update_icon()
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
@@ -314,6 +324,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/radio,
+		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -332,7 +343,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner)
+		/obj/item/detective_scanner,
+	)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)

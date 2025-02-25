@@ -466,12 +466,12 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
-	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
 		if(regen_type_applied == "Legion")
 			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+				owner.remove_CC()
 				for(var/obj/item/organ/external/E in H.bodyparts)
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()

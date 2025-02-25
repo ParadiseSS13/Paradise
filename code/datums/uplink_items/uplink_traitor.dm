@@ -232,7 +232,8 @@
 	reference = "TG"
 	item = /obj/item/gun/energy/telegun
 	cost = 50
-	job = list("Research Director")
+	job = list("Scientist")
+	hijack_only = TRUE
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
