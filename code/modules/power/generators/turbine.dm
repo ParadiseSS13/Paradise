@@ -60,7 +60,7 @@
 /// Message send upon catastrphic failure
 #define FAILURE_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 /// RPM at which the turbine explodes upon failing
-#define FAIILRE_RPM_EXPLOSION_THRESHOLD 150000
+#define FAIILRE_RPM_EXPLOSION_THRESHOLD 15000
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
@@ -102,6 +102,8 @@
 	var/thermal_efficiency = 0
 	/// By how much the intake gas is getting compressed
 	var/compression_ratio = 1
+	/// List of things that would get sucked into the compressor if it spins fast enough
+	var/list/to_suck_in = list()
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -142,7 +144,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
-// The inlet of the compressor is the direction it faces
+	// The inlet of the compressor is the direction it faces
 
 	gas_contained = new
 	gas_contained.volume = 50
@@ -157,6 +159,10 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
+
+	// Register signal near inlet to suck things in
+	RegisterSignal(inturf, COMSIG_ATOM_ENTERED, PROC_REF(enter_inlet_turf))
+	RegisterSignal(inturf, COMSIG_ATOM_EXIT, PROC_REF(leave_inlet_turf))
 
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
@@ -225,19 +231,77 @@
 	return 0
 
 /obj/machinery/power/compressor/proc/catastrophic_failure()
-	starter = FALSE
-	radio.autosay(FAILURE_MESSAGE, name, "Engineering")
 	var/rpm_delta = rpm - FAIILRE_RPM_EXPLOSION_THRESHOLD
 	if(rpm_delta > 0)
 		explosion(src, rpm_delta / 5000, rpm_delta / 3000, rpm_delta / 1000)
 		qdel(turbine)
 		qdel(src)
 	else
+		radio.autosay(FAILURE_MESSAGE, name, "Engineering")
 		playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		stat |= BROKEN
+		starter = FALSE
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()
 	return max(a_thing + OVERHEAT_TIME - world.time, 0)
+
+
+/obj/machinery/power/compressor/proc/enter_inlet_turf(turf/source, atom/movable/entered)
+	SIGNAL_HANDLER
+
+	var/static/list/compressor_ignored_things = typecacheof(list(
+		/mob/dead,
+		/mob/camera,
+		/obj/effect,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+		))
+	if(!compressor_ignored_things[entered.type] && !entered.anchored)
+		to_suck_in += entered
+
+	if(rpm > 1000)
+		suck_in()
+
+/obj/machinery/power/compressor/proc/leave_inlet_turf(turf/source, atom/movable/entered)
+	SIGNAL_HANDLER
+
+	var/list/things = list(entered)
+	while(length(things))
+		var/atom/movable/thing = things[1]
+		things -= thing
+		to_suck_in -= thing
+		things += thing.contents
+
+/obj/machinery/power/compressor/proc/suck_in()
+	var/static/list/compressor_ignored_things = typecacheof(list(
+	/mob/dead,
+	/mob/camera,
+	/obj/effect,
+	/obj/docking_port,
+	/atom/movable/lighting_object,
+	))
+	var/list/act_list = list()
+
+	for(var/atom/movable/thing in to_suck_in)
+		to_suck_in -= thing
+		act_list += list(thing)
+
+	while(length(act_list))
+		var/atom/movable/thing = act_list[1]
+		act_list -= thing
+		if(compressor_ignored_things[thing.type])
+			continue
+		if(ishuman(thing))
+			var/mob/living/carbon/human/target_mob = thing
+			if(HAS_TRAIT(target_mob, TRAIT_NOSLIP))
+				continue
+		act_list += thing.contents
+		thing.forceMove(get_step(turbine.loc, turbine.loc.dir))
+		thing.compressor_grind()
+		bearing_damage += BEARING_DAMAGE_MAX / 10
+
+	if(bearing_damage > BEARING_DAMAGE_MAX)
+		catastrophic_failure()
 
 /obj/machinery/power/compressor/process()
 	var/datum/milla_safe/compressor_process/milla = new()
@@ -323,6 +387,9 @@
 	// Damage bearings if overheated
 	if(compressor.temperature > BEARING_DAMAGE_THRESHOLD)
 		compressor.bearing_damage += (compressor.temperature - BEARING_DAMAGE_THRESHOLD) * compressor.rpm / BEARING_DAMAGE_SCALING
+
+	if(compressor.rpm > 1000)
+		compressor.suck_in()
 
 	if(compressor.bearing_damage >= BEARING_DAMAGE_MAX)
 		compressor.catastrophic_failure()
