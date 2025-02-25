@@ -6,6 +6,7 @@
 */
 
 /obj/structure/signpost
+	name = "signpost"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
@@ -50,6 +51,7 @@
 		desc = "It says... nothing."
 
 /obj/structure/signpost/ruin
+	name = "Salvation"
 	writing = "This way home"
 
 /obj/structure/signpost/wood
@@ -58,6 +60,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "signpost_wood"
 	var/scarf = FALSE
+	max_integrity = 100
 
 /obj/structure/signpost/wood/AltClick(mob/living/user)
 	if(!scarf)

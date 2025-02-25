@@ -274,6 +274,7 @@
 	dangerous = FALSE
 	light_strength = 4
 	light_color = "#f5df15"
+	max_integrity = 100
 
 /obj/structure/lightable/torch/wrench_act(mob/user, obj/item/I)
 	. = TRUE
