@@ -1274,11 +1274,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(colour_priority > length(atom_colours))
 		return
 	if(coloration && atom_colours[colour_priority])
-		if(atom_colours[colour_priority][ATOM_COLOR_TYPE_INDEX] == ATOM_COLOR_TYPE_NORMAL)
-			if(atom_colours[colour_priority][ATOM_COLOR_VALUE_INDEX]!=coloration)
+		if(atom_colours[colour_priority][ATOM_COLOR_INDEX_TYPE] == ATOM_COLOR_TYPE_NORMAL)
+			if(atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE]!=coloration)
 				return // if we don't have the expected color to remove, don't do anything.
 		else
-			if(!islist(coloration) || !compare_list(coloration,atom_colours[colour_priority][ATOM_COLOR_VALUE_INDEX]["color"]))
+			if(!islist(coloration) || !compare_list(coloration,atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE]["color"]))
 				return
 	atom_colours[colour_priority] = null
 	update_atom_colour()
@@ -1298,12 +1298,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			update_appearance()
 		return
 	for(var/list/checked_color in atom_colours)
-		if(checked_color[ATOM_COLOR_TYPE_INDEX] == ATOM_COLOR_TYPE_FILTER)
-			add_filter(ATOM_PRIORITY_COLOR_FILTER, ATOM_PRIORITY_COLOR_FILTER_PRIORITY, checked_color[ATOM_COLOR_VALUE_INDEX])
-			cached_color_filter = checked_color[ATOM_COLOR_VALUE_INDEX]
+		if(checked_color[ATOM_COLOR_INDEX_TYPE] == ATOM_COLOR_TYPE_FILTER)
+			add_filter(ATOM_PRIORITY_COLOR_FILTER, ATOM_PRIORITY_COLOR_FILTER_PRIORITY, checked_color[ATOM_COLOR_INDEX_VALUE])
+			cached_color_filter = checked_color[ATOM_COLOR_INDEX_VALUE]
 			break
-		if(length(checked_color[ATOM_COLOR_VALUE_INDEX]))
-			color = checked_color[ATOM_COLOR_VALUE_INDEX]
+		if(length(checked_color[ATOM_COLOR_INDEX_VALUE]))
+			color = checked_color[ATOM_COLOR_INDEX_VALUE]
 			break
 
 	ADD_KEEP_TOGETHER(src, ATOM_COLOR_TRAIT)
