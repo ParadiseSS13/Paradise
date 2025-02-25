@@ -1135,7 +1135,7 @@
 		throw_at(target, 1, 1, spin = FALSE)
 	if(rightable)
 		layer = ABOVE_MOB_LAYER
-		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
+		AddComponent(/datum/component/tilted, 4 SECONDS, block_interactions_until_righted, rot_angle)
 
 /// Untilt a tilted object.
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
