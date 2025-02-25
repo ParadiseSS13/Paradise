@@ -512,7 +512,7 @@
 	icon_state = "wooden_stool"
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	buildstackamount = 3
+	buildstackamount = 2
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/stool/wood
 

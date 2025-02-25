@@ -11,6 +11,11 @@
 	anchored = TRUE
 	density = FALSE
 	new_attack_chain = TRUE
+	var/writing = ""
+
+/obj/structure/signpost/Initialize(mapload)
+	. = ..()
+	update()
 
 /obj/structure/signpost/deconstruct()
 	new /obj/item/stack/sheet/wood (get_turf(src), 2)
@@ -31,23 +36,21 @@
 
 /obj/structure/signpost/proc/rename(mob/user)
 	var/n_name = rename_interactive(user)
-	if(isnull(n_name))
-		return
-	if(n_name != "")
-		name = "Sign: [n_name]"
+	if(n_name)
+		writing = n_name
 		update()
-		return ITEM_INTERACT_COMPLETE
-	else
-		name = initial(name)
-	add_fingerprint(user)
-	return ITEM_INTERACT_COMPLETE
+		add_fingerprint(user)
 
 /obj/structure/signpost/proc/update()
-	if((name != initial(name))) //If the sign has been written on
+	if(writing)
 		overlays += "[initial(icon_state)]_writing"
-		desc = "It says: '" + name + "'."
+		desc = "It says: '[writing]'."
 	else
 		overlays.Cut()
+		desc = "It says... nothing."
+
+/obj/structure/signpost/ruin
+	writing = "This way home"
 
 /obj/structure/signpost/wood
 	name = "wooden sign"

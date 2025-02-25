@@ -119,7 +119,8 @@
 	name = "wooden spikes"
 	icon_state = "woodspike"
 
-//Bonfires and torches
+//MARK: Bonfires and torches
+
 /obj/structure/lightable
 	name = "lightable fire"
 	var/burning = FALSE
@@ -131,6 +132,7 @@
 	light_color = "#ED9200"
 	density = FALSE
 	anchored = TRUE
+	new_attack_chain = TRUE
 
 /obj/structure/lightable/proc/CheckOxygen()
 	var/turf/T = get_turf(src)
@@ -205,6 +207,23 @@
 		set_light(0)
 		STOP_PROCESSING(SSobj, src)
 
+/obj/structure/lightable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(istype(used, /obj/item/stack/rods) && !can_buckle)
+		var/obj/item/stack/rods/R = used
+		R.use(1)
+		can_buckle = TRUE
+		buckle_requires_restraints = TRUE
+		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
+		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
+		underlays += U
+		return ITEM_INTERACT_COMPLETE
+	if(used.get_heat())
+		lighter = user.ckey
+		user.create_log(MISC_LOG, "lit a bonfire", src)
+		StartBurning(user)
+		return ITEM_INTERACT_COMPLETE
+
 /obj/structure/lightable/bonfire
 	name = "bonfire"
 	desc = "For grilling, broiling, charring, smoking, heating, roasting, toasting, simmering, searing, melting, and occasionally burning things."
@@ -226,20 +245,6 @@
 /obj/structure/lightable/bonfire/lit/Initialize(mapload)
 	. = ..()
 	StartBurning()
-
-/obj/structure/lightable/bonfire/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/rods) && !can_buckle)
-		var/obj/item/stack/rods/R = W
-		R.use(1)
-		can_buckle = TRUE
-		buckle_requires_restraints = TRUE
-		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
-		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
-		underlays += U
-	if(W.get_heat())
-		lighter = user.ckey
-		user.create_log(MISC_LOG, "lit a bonfire", src)
-		StartBurning(user)
 
 /obj/structure/lightable/bonfire/attack_hand(mob/user)
 	if(burning)

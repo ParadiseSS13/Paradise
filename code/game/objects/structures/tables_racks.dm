@@ -1011,7 +1011,7 @@
 	if(!(flags & NODECONSTRUCT))
 		density = FALSE
 		if(deconstruction_quantity)
-			new deconstruction_item(deconstruction_quantity, loc)
+			new deconstruction_item(loc, deconstruction_quantity)
 		else 
 			var/decon_parts = new deconstruction_item(get_turf(src))
 			transfer_fingerprints_to(decon_parts)
