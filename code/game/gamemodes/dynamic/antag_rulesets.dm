@@ -215,12 +215,12 @@
 	banned_species = list("Machine")
 	implied_ruleset_type = /datum/ruleset/implied/mindflayer
 
-/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets)
+/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets, antag_budget)
 	// Theres already a ruleset, we're good to go
 	if(length(rulesets))
 		return ..()
 	// We're the first ruleset, but we can afford another ruleset
-	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost))
+	if(ruleset_budget > 1)
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
