@@ -715,6 +715,8 @@
 		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
 		"It's an excellent idea to aim the BSA at the shuttle",
 		"Nitrogen is an awful gas if you need to power a BSH!",
+		"There's a hole in the shield coverage!",
+		"The shields aren't up and meteors are inbound!",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
