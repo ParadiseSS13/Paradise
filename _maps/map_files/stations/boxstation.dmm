@@ -19987,11 +19987,11 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "boI" = (
-/obj/machinery/door/airlock/external{
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass{
 	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
