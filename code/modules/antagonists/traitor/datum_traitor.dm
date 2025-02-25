@@ -189,15 +189,15 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 	var/list/messages = list()
-	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<u><b>Синдикат предоставил вам следующие формулировки для идентификации агентов:</b></u>")
+	messages.Add("<span class='bold body'>Кодовые фразы: <span class='codephrases'>[phrases]</span></span>")
+	messages.Add("<span class='bold body'>Кодовые ответы: <span class='coderesponses'>[responses]</span></span>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Кодовые фразы</b>: <span class='red'>[phrases]</span><br>"
+	antag_memory += "<b>Кодовые ответы</b>: <span class='red'>[responses]</span><br>"
 
-	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+	messages.Add("Используйте эти слова для идентификации других агентов. Действуйте аккуратно, поскольку каждый человек - потенциальный враг.")
+	messages.Add("<b><font color=red>Вы запоминаете кодовые формулировки, определяя их в речи.</font></b>")
 
 	return messages
 
@@ -206,9 +206,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  */
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current
-	killer.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
+	killer.set_zeroth_law("Выполните свои цели любой ценой.", "Выполните задачи вашего ИИ любой ценой.")
 	killer.set_syndie_radio()
-	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
+	to_chat(killer, "Ваша гарнитура была улучшена! Используйте :t для общения по зашифорванному каналу с другими агентами синдиката")
 	killer.add_malf_picker()
 	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
 	H.add_hud_to(killer)
@@ -230,7 +230,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		R = locate(/obj/item/radio) in traitor_mob.contents
 
 	if(!R)
-		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
+		to_chat(traitor_mob, "<span class='warning'>К сожалению, Синдикат не смог предоставить вам аплинк.</span>")
 		return FALSE // They had no PDA or radio for whatever reason.
 
 	if(isradio(R))
@@ -250,8 +250,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		target_radio.hidden_uplink = T
 		T.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.</span>")
-		antag_memory += "<B>Radio Freq:</B> [format_frequency(freq)] ([R.name])."
+		to_chat(traitor_mob, "<span class='notice'>Синдикат хитро замаскировал ваш алпинк в виде [R.name]. Просто наберите частоту [format_frequency(freq)] для разблокировки скрытых функций.</span>")
+		antag_memory += "<B>Радиочастота:</B> [format_frequency(freq)] ([R.name])."
 		return TRUE
 
 	else if(istype(R, /obj/item/pda))
@@ -264,8 +264,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/obj/item/pda/P = R
 		P.lock_code = pda_pass
 
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.</span>")
-		antag_memory += "<B>Uplink Passcode:</B> [pda_pass] ([R.name]."
+		to_chat(traitor_mob, "<span class='notice'>Синдикат хитро замаскировал ваш алпинк в виде [R.name]. Просто введите код \"[pda_pass]\" в выбор рингтона для разблокировки скрытых функций.</span>")
+		antag_memory += "<B>Пароль для аплинка:</B> [pda_pass] ([R.name]."
 		return TRUE
 	return FALSE
 
@@ -274,8 +274,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var/message = "<br><b>Кодовыми фразами были:</b> <span class='bluetext'>[phrases]</span><br>\
+					<b>Кодовыми ответами были:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
 

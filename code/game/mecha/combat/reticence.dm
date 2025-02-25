@@ -1,5 +1,5 @@
 /obj/mecha/combat/reticence
-	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
+	desc = "Бесшумный и быстрый экзокостюм для мимов. Популярен среди мимов."
 	name = "\improper Reticence"
 	icon_state = "mime"
 	initial_icon = "mime"
@@ -29,9 +29,9 @@
 
 /obj/mecha/combat/reticence/examine_more(mob/user)
 	. = ..()
-	. += "<i>A dour, colorless modification of a Gygax chassis, the Reticence is a sight to behold…or not behold. \
-	It utilizes a mysterious dampening field, added by a cabal of nearly unheard-of mimes, to be entirely silent as it moves over any terrain, making it a favored weapon of this supposed conspiracy and the assassins they may, or may not, employ.</i>"
+	. += "<i>Суровая, бесцветная модификация шасси Гигакса, Молчун — это зрелище, на которое стоит смотреть… или не смотреть. \
+	Он использует таинственное поглощающее поле, чтобы сохранять полную тишину при движении по любой местности, что делает его излюбленным оружием для тихих убийц.</i>"
 	. += ""
-	. += "<i>Armed with an S.H.H. “Quietus” Carbine, an utterly silent weapon that can drain the stamina of targets unfortunate enough to be shot by it, it can ensure swift getaways. \
-	As a secondary tool, it comes equipped with a mime R.C.D., a device capable of replicating a mime's mysterious ability to create impenetrable, invisible walls. \
-	Strangely, the design for the Reticence seems to be present aboard every Nanotrasen station, though to what ends, no one knows.</i>"
+	. += "<i>Вооружен Т.С.С. Карабин «Тихий час», совершенно бесшумным оружием, которое способно истощить цель. \
+	В качестве второстепенного инструмента он оснащен УБС мима, устройством, способным воспроизводить таинственную способность пантомимы создавать непроницаемые, невидимые стены. \
+	Как ни странно, Молчун, похоже, присутствует на каждой станции Nanotrasen, хотя никто не знает, с какой целью.</i>"

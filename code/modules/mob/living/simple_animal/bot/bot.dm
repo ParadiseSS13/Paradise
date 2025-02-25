@@ -749,7 +749,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(tries >= BOT_STEP_MAX_RETRIES) // Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
-		speak("Unable to start patrol.")
+		speak("Невозможно начать патрулирование.")
 
 		return
 
@@ -761,7 +761,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(patrol_target) // has patrol target
 		INVOKE_ASYNC(src, PROC_REF(target_patrol))
 	else // No patrol target, so need a new one
-		speak("Engaging patrol mode.")
+		speak("Включен режим патрулирования.")
 		find_patrol_target()
 		tries++
 
@@ -815,7 +815,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else
 		auto_patrol = FALSE
 		set_mode(BOT_IDLE)
-		speak("Disengaging patrol mode.")
+		speak("Отключен режим патрулирования.")
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
 	// Search the beacon list for the next target in the list.
@@ -890,7 +890,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 			set_mode(BOT_SUMMON)
 			calc_summon_path()
-			speak("Responding.", radio_channel)
+			speak("Запрос принят. Выполняю.", radio_channel)
 
 	return TRUE
 
@@ -909,7 +909,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	check_bot_access()
 	set_path(get_path_to(src, summon_target, 150, access = access_card.access, exclude=avoid))
 	if(!length(path)) // Cannot reach target. Give up and announce the issue.
-		speak("Summon command failed, destination unreachable.",radio_channel)
+		speak("Команда вызова не выполнена, пункт назначения недоступен.",radio_channel)
 		bot_reset()
 
 /mob/living/simple_animal/bot/proc/summon_step()
@@ -1092,7 +1092,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/ejectpairemote(mob/user)
 	if(allowed(user) && paicard)
-		speak("Ejecting personality chip.", radio_channel)
+		speak("Извлечение микросхемы личности.", radio_channel)
 		ejectpai(user)
 
 /mob/living/simple_animal/bot/Login()

@@ -4,31 +4,31 @@
 /datum/emote/living/carbon/blink
 	key = "blink"
 	key_third_person = "blinks"
-	message = "blinks."
+	message = "моргает."
 
 /datum/emote/living/carbon/blink_r
 	key = "blink_r"
-	message = "blinks rapidly."
+	message = "быстро моргает."
 
 /datum/emote/living/carbon/cross
 	key = "cross"
 	key_third_person = "crosses"
-	message = "crosses their arms."
+	message = "скрещивает руки."
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/chuckle
 	key = "chuckle"
 	key_third_person = "chuckles"
-	message = "chuckles."
-	message_mime = "appears to chuckle."
+	message = "усмехается."
+	message_mime = "беззвучно усмехается."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	muzzled_noises = list("joyful", "upbeat")
+	muzzled_noises = list("радостный", "оптимистичный")
 
 /datum/emote/living/carbon/cough
 	key = "cough"
 	key_third_person = "coughs"
-	message = "coughs!"
-	message_mime = "appears to cough!"
+	message = "кашляет!"
+	message_mime = "бесшумно кашляет!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	vary = TRUE
 	age_based = TRUE
@@ -49,96 +49,96 @@
 /datum/emote/living/carbon/moan
 	key = "moan"
 	key_third_person = "moans"
-	message = "moans!"
-	message_mime = "appears to moan!"
-	muzzled_noises = list("pained")
+	message = "стонет!"
+	message_mime = "как будто стонет!"
+	muzzled_noises = list("страдальческий")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/giggle
 	key = "giggle"
 	key_third_person = "giggles"
-	message = "giggles."
-	message_mime = "giggles silently!"
-	muzzled_noises = list("bubbly")
+	message = "хихикает."
+	message_mime = "бесшумно хихикает!"
+	muzzled_noises = list("шипучий")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/gurgle
 	key = "gurgle"
 	key_third_person = "gurgles"
-	message = "makes an uncomfortable gurgle."
-	muzzled_noises = list("unpleasant", "guttural")
+	message = "издает неприятное булькание."
+	muzzled_noises = list("недовольный", "гортанный")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/inhale
 	key = "inhale"
 	key_third_person = "inhales"
-	message = "breathes in."
+	message = "вдыхает."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	muzzled_noises = list("breathy")
+	muzzled_noises = list("хриплый")
 
 /datum/emote/living/carbon/inhale/sharp
 	key = "inhale_s"
 	key_third_person = "inhales sharply!"
-	message = "takes a deep breath!"
+	message = "делает глубокий вдох!"
 
 /datum/emote/living/carbon/kiss
 	key = "kiss"
 	key_third_person = "kisses"
-	message = "blows a kiss."
-	message_param = "blows a kiss at %t!"
-	muzzled_noises = list("smooching")
+	message = "посылает воздушный поцелуй."
+	message_param = "посылает воздушный поцелуй %t!"
+	muzzled_noises = list("чмокающий")
 
 /datum/emote/living/carbon/wave
 	key = "wave"
 	key_third_person = "waves"
-	message = "waves."
-	message_param = "waves at %t."
+	message = "машет."
+	message_param = "машет %t."
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/yawn
 	key = "yawn"
 	key_third_person = "yawns"
-	message = "yawns."
+	message = "зевает."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	muzzled_noises = list("tired", "lazy", "sleepy")
+	muzzled_noises = list("усталый", "ленивый", "сонный")
 
 /datum/emote/living/carbon/exhale
 	key = "exhale"
 	key_third_person = "exhales"
-	message = "breathes out."
+	message = "выдыхает."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/laugh
 	key = "laugh"
 	key_third_person = "laughs"
-	message = "laughs."
-	message_mime = "laughs silently!"
-	message_param = "laughs at %t."
-	muzzled_noises = list("happy", "joyful")
+	message = "смеётся."
+	message_mime = "бесшумно смеётся!"
+	message_param = "смеется над %t."
+	muzzled_noises = list("счастливый", "веселый")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/scowl
 	key = "scowl"
 	key_third_person = "scowls"
-	message = "scowls."
+	message = "хмурится."
 
 /datum/emote/living/groan
 	key = "groan"
 	key_third_person = "groans"
-	message = "groans!"
-	message_mime = "appears to groan!"
-	message_param = "groans at %t."
-	muzzled_noises = list("pained")
+	message = "болезненно вздыхает!"
+	message_mime = "как будто болезненно вздыхает!"
+	message_param = "болезненно вздыхает на %t."
+	muzzled_noises = list("страдальческий")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
-	message = "signs."
-	message_param = "signs the number %t."
+	message = "показывает число."
+	message_param = "показывает число: %t."
 	param_desc = "number(0-10)"
 	// Humans get their own proc since they have fingers
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
@@ -148,7 +148,7 @@
 /datum/emote/living/carbon/faint
 	key = "faint"
 	key_third_person = "faints"
-	message = "faints."
+	message = "теряет сознание."
 
 /datum/emote/living/carbon/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -159,13 +159,13 @@
 /datum/emote/living/carbon/twirl
 	key = "twirl"
 	key_third_person = "twirls"
-	message = "twirls something around in their hand."
+	message = "вертит что-то в руке."
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
 	if(!(user.get_active_hand() || user.get_inactive_hand()))
-		to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
+		to_chat(user, "<span class='warning'>Вы должны держать что-то в руках, чтобы использовать эту эмоцию!</span>")
 		return TRUE
 
 	var/obj/item/thing
@@ -177,12 +177,12 @@
 
 	if(istype(thing, /obj/item/grab))
 		var/obj/item/grab/grabbed = thing
-		message = "twirls [grabbed.affecting.name] around!"
+		message = "вертит [grabbed.affecting.name] туда-сюда!"
 		grabbed.affecting.emote("spin")
 	else if(!(thing.flags & ABSTRACT))
-		message = "twirls [thing] around in their hand!"
+		message = "вертит [thing] в руке!"
 	else
-		to_chat(user, "<span class='warning'>You cannot twirl [thing]!</span>")
+		to_chat(user, "<span class='warning'>У вас не получится повертеть [thing]!</span>")
 		return TRUE
 
 	. = ..()

@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/ui_act(action, params, datum/tgui/ui)
 	if(..())
-		return
+		return TRUE // SS220 EDIT - return TRUE if the action was handled
 	. = TRUE
 	switch(action)
 		if("frequency") // Available to both headsets and non-headset radios
@@ -204,9 +204,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(has_channel_access(usr, num2text(freq)))
 				set_frequency(freq)
 		if("listen")
-			listening = !listening
+			ToggleReception(ui.user) // SS220 EDIT - better reception toggling
 		if("broadcast")
-			broadcasting = !broadcasting
+			ToggleBroadcast(ui.user) // SS220 EDIT - better broadcast toggling
 		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
 			if(!(channel in channels))
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
-					canhear_range = 3
+					canhear_range = initial(canhear_range) // SS220 EDIT - use initial value for toggling speaker
 				else
 					canhear_range = 0
 		else
@@ -267,15 +267,15 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	return can_admin_interact()
 
-/obj/item/radio/proc/ToggleBroadcast()
+/obj/item/radio/proc/ToggleBroadcast(mob/user = usr) // SS220 EDIT - user argument
 	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
 	if(broadcasting)
 		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
-/obj/item/radio/proc/ToggleReception()
+/obj/item/radio/proc/ToggleReception(mob/user = usr) // SS220 EDIT - user argument
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override, receive_sound) // SS220 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
@@ -312,6 +312,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
+	tcm.receive_sound_effect = receive_sound // SS220 EDIT
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa

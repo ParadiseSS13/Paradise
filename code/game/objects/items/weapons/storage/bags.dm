@@ -31,7 +31,7 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/trash
 	name = "trash bag"
-	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
+	desc = "Крепкий полиэтиленовый чёрный мешок. Самое то для тяжёлой работы, а у вас её будет много."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	belt_icon = "trashbag"
