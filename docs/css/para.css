@@ -1,0 +1,32 @@
+header {
+	font-family: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+}
+
+:root,[data-md-color-scheme=default] {
+
+    /* Primary color shades */
+    --md-primary-fg-color: #861f41;
+    --md-primary-fg-color--light: #861f4194;
+    --md-primary-fg-color--dark: #ac325a;
+	--md-default-fg-color--light: #e6e6e6;
+	--md-default-fg-color--lighter: #ad2e7352;
+	--md-default-fg-color: #e6e6e6;
+    --md-default-bg-color: #22030d;
+    --md-primary-bg-color--light: #ff266b;
+    --md-text-link-color: hsla(231, 48%, 48%, 1);
+
+    /* Accent color shades */
+    --md-accent-fg-color: rgb(183, 120, 255);
+    --md-accent-fg-color--transparent: hsla(189, 100%, 37%, 0.1);
+    --md-accent-bg-color: hsla(0, 0%, 100%, 1);
+    --md-accent-bg-color--light: hsla(0, 0%, 100%, 0.7);
+
+	--md-code-bg-color: #281828;
+	--md-code-fg-color: #d4d4d4;
+
+	--md-typeset-a-color: #ff558d;
+  }
+
+.md-typeset .admonition {
+	font-size: 0.8rem;
+}

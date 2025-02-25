@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/balaclava
 	name = "balaclava"
-	desc = "LOADSAMONEY"
+	desc = "LOADSAMONEY!"
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	flags = BLOCKHAIR
@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
-	adjusted_flags = SLOT_FLAG_HEAD
+	adjusted_flags = ITEM_SLOT_HEAD
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -19,7 +19,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/balaclava/attack_self(mob/user)
+/obj/item/clothing/mask/balaclava/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/luchador

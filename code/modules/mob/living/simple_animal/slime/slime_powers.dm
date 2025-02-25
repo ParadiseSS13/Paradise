@@ -29,6 +29,10 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
+	if(!length(choices))
+		to_chat(src, "<span class='warning'>No subjects nearby to feed on!</span>")
+		return
+
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feeding Selection", choices)
 	if(!M)
 		return FALSE
@@ -118,7 +122,7 @@
 			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
 							"<span class='notice'><i>I stopped feeding.</i></span>")
 		layer = initial(layer)
-		buckled.unbuckle_mob(src,force=TRUE)
+		unbuckle(force=TRUE)
 
 /mob/living/simple_animal/slime/proc/Evolve()
 	if(stat)
@@ -132,7 +136,7 @@
 			for(var/datum/action/innate/slime/evolve/E in actions)
 				E.Remove(src)
 			regenerate_icons()
-			update_name()
+			update_appearance(UPDATE_NAME)
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 	else

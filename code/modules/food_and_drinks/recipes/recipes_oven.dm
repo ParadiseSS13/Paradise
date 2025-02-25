@@ -16,9 +16,9 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/meatbread
 
@@ -30,9 +30,9 @@
 		/obj/item/food/meat/syntiflesh,
 		/obj/item/food/meat/syntiflesh,
 		/obj/item/food/meat/syntiflesh,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/meatbread
 
@@ -44,9 +44,9 @@
 		/obj/item/food/monstermeat/xenomeat,
 		/obj/item/food/monstermeat/xenomeat,
 		/obj/item/food/monstermeat/xenomeat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/xenomeatbread
 
@@ -77,6 +77,152 @@
 	)
 	result = /obj/item/food/muffin
 
+/datum/recipe/oven/berry_muffin
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/grown/berries
+	)
+	result = /obj/item/food/berry_muffin
+
+/datum/recipe/oven/booberry_muffin
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/grown/berries,
+		/obj/item/food/ectoplasm
+	)
+	result = /obj/item/food/booberry_muffin
+
+/datum/recipe/oven/moffin
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/grown/cotton
+	)
+	result = /obj/item/food/moffin
+
+/datum/recipe/oven/holy_cake
+	reagents = list("milk" = 5, "sugar" = 15, "holywater" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough
+	)
+	result = /obj/item/food/sliceable/holy_cake
+
+/datum/recipe/oven/liars_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar
+	)
+	result = /obj/item/food/sliceable/liars_cake
+
+/datum/recipe/oven/vanilla_berry_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries
+	)
+	result = /obj/item/food/sliceable/vanilla_berry_cake
+
+/datum/recipe/oven/hardware_cake
+	reagents = list("milk" = 5, "sugar" = 15, "sacid" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/circuitboard,
+		/obj/item/circuitboard
+	)
+	result = /obj/item/food/sliceable/hardware_cake
+
+/datum/recipe/oven/plum_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/plum,
+		/obj/item/food/grown/plum
+	)
+	result = /obj/item/food/sliceable/plum_cake
+
+/datum/recipe/oven/pound_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/sliceable/plaincake,
+		/obj/item/food/sliceable/plaincake,
+		/obj/item/food/sliceable/plaincake,
+		/obj/item/food/sliceable/plaincake
+	)
+	result = /obj/item/food/sliceable/pound_cake
+
+/datum/recipe/oven/pumpkin_spice_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/pumpkin,
+		/obj/item/food/grown/pumpkin
+	)
+	result = /obj/item/food/sliceable/pumpkin_spice_cake
+
+/datum/recipe/oven/slime_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/slime_extract
+	)
+	result = /obj/item/food/sliceable/slime_cake
+
+/datum/recipe/oven/spaceman_cake
+	reagents = list("milk" = 5, "sugar" = 15, "cream" = 5, "berryjuice" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/trumpet,
+		/obj/item/food/grown/trumpet
+	)
+	result = /obj/item/food/sliceable/spaceman_cake
+
+/datum/recipe/oven/vanilla_cake
+	reagents = list("milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/dough,
+		/obj/item/food/grown/vanillapod,
+		/obj/item/food/grown/vanillapod
+	)
+	result = /obj/item/food/sliceable/vanilla_cake
+
+/datum/recipe/oven/mothmallow
+	reagents = list("vanilla" = 5, "sugar" = 15, "rum" = 5)
+	items = list(
+		/obj/item/food/grown/soybeans
+	)
+	result = /obj/item/food/sliceable/mothmallow
+
 /datum/recipe/oven/carrotcake
 	reagents = list("milk" = 5, "sugar" = 15)
 	items = list(
@@ -95,8 +241,8 @@
 		/obj/item/food/dough,
 		/obj/item/food/dough,
 		/obj/item/food/dough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/cheesecake
 
@@ -169,6 +315,127 @@
 	)
 	result = /obj/item/food/berryclafoutis
 
+/datum/recipe/oven/cherry_cupcake
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/grown/cherries
+	)
+	result = /obj/item/food/cherry_cupcake
+
+/datum/recipe/oven/cherry_cupcake/blue
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/grown/bluecherries
+	)
+	result = /obj/item/food/cherry_cupcake/blue
+
+/datum/recipe/oven/oatmeal_cookie
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/grown/oat
+	)
+	result = /obj/item/food/oatmeal_cookie
+
+/datum/recipe/oven/raisin_cookie
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/dough,
+		/obj/item/food/no_raisin
+	)
+	result = /obj/item/food/raisin_cookie
+
+/datum/recipe/oven/peanut_butter_cookie
+	reagents = list("milk" = 5, "sugar" = 5, "peanutbutter" = 5)
+	items = list(
+		/obj/item/food/dough
+	)
+	result = /obj/item/food/peanut_butter_cookie
+
+/datum/recipe/oven/chocolate_cornet
+	reagents = list("milk" = 5, "sugar" = 5, "sodiumchloride" = 1)
+	items = list(
+		/obj/item/food/cookiedough,
+		/obj/item/food/chocolatebar
+	)
+	result = /obj/item/food/chocolate_cornet
+
+/datum/recipe/oven/honey_bun
+	reagents = list("milk" = 5, "sugar" = 5, "honey" = 5)
+	items = list(
+		/obj/item/food/cookiedough
+	)
+	result = /obj/item/food/honey_bun
+
+/datum/recipe/oven/cannoli
+	reagents = list("milk" = 1, "sugar" = 3)
+	items = list(
+		/obj/item/food/cookiedough
+	)
+	result = /obj/item/food/cannoli
+
+/datum/recipe/oven/beary_pie
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/monstermeat/bearmeat,
+		/obj/item/food/grown/berries
+	)
+	result = /obj/item/food/beary_pie
+
+/datum/recipe/oven/blumpkin_pie
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/grown/pumpkin/blumpkin
+	)
+	result = /obj/item/food/sliceable/blumpkin_pie
+
+/datum/recipe/oven/chocolate_lava_tart
+	reagents = list("milk" = 5, "sugar" = 5)
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar,
+		/obj/item/slime_extract
+	)
+	result = /obj/item/food/chocolate_lava_tart
+
+/datum/recipe/oven/french_silk_pie
+	reagents = list("sugar" = 5)
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar
+	)
+	result = /obj/item/food/sliceable/french_silk_pie
+
+/datum/recipe/oven/frosty_pie
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/grown/bluecherries
+	)
+	result = /obj/item/food/sliceable/frosty_pie
+
+/datum/recipe/oven/grape_tart
+	reagents = list("milk = 5", "sugar" = 5)
+	items = list(
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/grown/grapes,
+		/obj/item/food/grown/grapes,
+		/obj/item/food/grown/grapes
+	)
+	result = /obj/item/food/grape_tart
+
+/datum/recipe/oven/mime_tart
+	reagents = list("nothing" = 5, "milk = 5", "sugar" = 5)
+	items = list(
+		/obj/item/food/sliceable/flatdough
+	)
+	result = /obj/item/food/mime_tart
+
 /datum/recipe/oven/tofubread
 	items = list(
 		/obj/item/food/dough,
@@ -177,15 +444,15 @@
 		/obj/item/food/tofu,
 		/obj/item/food/tofu,
 		/obj/item/food/tofu,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/tofubread
 
 /datum/recipe/oven/loadedbakedpotato
 	items = list(
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/potato
 	)
 	result = /obj/item/food/loadedbakedpotato
@@ -216,7 +483,7 @@
 /datum/recipe/oven/fortunecookie
 	reagents = list("sugar" = 5)
 	items = list(
-		/obj/item/food/doughslice,
+		/obj/item/food/sliced/dough,
 		/obj/item/paper,
 	)
 	result = /obj/item/food/fortunecookie
@@ -238,8 +505,8 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/margheritapizza
 
@@ -249,7 +516,7 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/tomato
 	)
 	result = /obj/item/food/sliceable/pizza/meatpizza
@@ -257,7 +524,7 @@
 /datum/recipe/oven/mushroompizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/mushroom,
@@ -270,7 +537,7 @@
 /datum/recipe/oven/vegetablepizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/eggplant,
 		/obj/item/food/grown/carrot,
 		/obj/item/food/grown/corn,
@@ -282,9 +549,9 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/pineappleslice,
-		/obj/item/food/pineappleslice,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/pineapple,
+		/obj/item/food/sliced/pineapple,
 		/obj/item/food/meat,
 	)
 	result = /obj/item/food/sliceable/pizza/hawaiianpizza
@@ -292,8 +559,8 @@
 /datum/recipe/oven/macncheesepizza
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/macncheese,
 	)
 	result = /obj/item/food/sliceable/pizza/macpizza
@@ -302,10 +569,10 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/cheesepizza
 
@@ -313,7 +580,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/sausage
 	)
 	result = /obj/item/food/sliceable/pizza/pepperonipizza
@@ -322,7 +589,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/donkpocket,
 		/obj/item/food/donkpocket
 	)
@@ -332,7 +599,7 @@
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/cannabis,
 		/obj/item/food/grown/cannabis,
 		/obj/item/food/grown/cannabis,
@@ -344,7 +611,7 @@
 	reagents = list("capsaicin" = 5)
 	items = list(
 		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/chili,
 		/obj/item/food/grown/chili
 	)
@@ -356,7 +623,7 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/pestopizza
 
@@ -366,7 +633,7 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/garlic,
 		/obj/item/food/grown/garlic,
-		/obj/item/food/cheesewedge
+		/obj/item/food/sliced/cheesewedge
 	)
 	result = /obj/item/food/sliceable/pizza/garlicpizza
 
@@ -395,8 +662,8 @@
 	items = list(
 		/obj/item/food/dough,
 		/obj/item/food/dough,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 	)
 	result = /obj/item/food/sliceable/creamcheesebread
 
@@ -547,7 +814,7 @@
 /datum/recipe/oven/cracker
 	reagents = list("sodiumchloride" = 1)
 	items = list(
-		/obj/item/food/doughslice
+		/obj/item/food/sliced/dough
 	)
 	result = /obj/item/food/cracker
 
@@ -592,9 +859,9 @@
 	items = list(
 		/obj/item/food/meat,
 		/obj/item/food/meat,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
-		/obj/item/food/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
+		/obj/item/food/sliced/cheesewedge,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/grown/tomato,
 		/obj/item/food/dough

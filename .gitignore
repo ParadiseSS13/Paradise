@@ -73,4 +73,11 @@ $RECYCLE.BIN
 *.swp
 
 # Rust output.
-/milla/target/*
+/rust/target/*
+rustlibs_panic.txt
+
+# mkdocs output.
+site
+
+# mapmanip-generated DMM files
+_maps/map_files/**/*.mapmanipout.dmm

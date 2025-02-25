@@ -20,7 +20,8 @@
 	var/feedback
 	/// The desired outcome of the cloning process.
 	var/datum/cloning_data/desired_data
-
+	/// Is the scanner currently scanning someone?
+	var/currently_scanning = FALSE
 	COOLDOWN_DECLARE(scancooldown)
 
 /obj/machinery/computer/cloning/Initialize(mapload)
@@ -46,42 +47,41 @@
 			P.console = null
 	return ..()
 
-/obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
-
-	if(!ismultitool(I))
+/obj/machinery/computer/cloning/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!ismultitool(used))
 		return ..()
 
-	var/obj/item/multitool/M = I
+	var/obj/item/multitool/M = used
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(M.buffer, /obj/machinery/clonepod))
 		var/obj/machinery/clonepod/buffer_pod = M.buffer
 		if(buffer_pod.console == src)
 			to_chat(user, "<span class='warning'>[M.buffer] is already linked!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		pods += M.buffer
 		buffer_pod.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully added to the cloning pod array.</span>")
 		if(!selected_pod)
 			selected_pod = buffer_pod
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(M.buffer, /obj/machinery/clonescanner))
 		var/obj/machinery/clonescanner/buffer_scanner = M.buffer
 		if(scanner)
 			to_chat(user, "<span class='warning'>There's already a linked scanner!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		scanner = buffer_scanner
 		buffer_scanner.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully linked.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='warning'>[M.buffer] cannot be linked to [src].</span>")
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)
@@ -157,6 +157,7 @@
 
 	if(scanner)
 		data["has_scanned"] = scanner.has_scanned
+		data["currently_scanning"] = currently_scanning
 	else
 		data["has_scanned"] = FALSE
 
@@ -231,7 +232,6 @@
 			switch(text2num(params["tab"]))
 				if(TAB_MAIN)
 					tab = TAB_MAIN
-					scanner?.update_scan_status()
 					return TRUE
 				if(TAB_DAMAGES_BREAKDOWN)
 					tab = TAB_DAMAGES_BREAKDOWN
@@ -256,10 +256,12 @@
 			if(!scanner.occupant)
 				return FALSE
 
+			currently_scanning = TRUE
 			scanner.occupant.notify_ghost_cloning()
 			feedback = list("text" = "Scanning occupant! Please wait...", "color" = "good", "scan_succeeded" = FALSE)
 			COOLDOWN_START(src, scancooldown, 10 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(do_scan), patient_data), 5 SECONDS)
+			addtimer(VARSET_CALLBACK(src, currently_scanning, FALSE), 5 SECONDS) // ABSOLUTELY make sure this is false at the end of this.
 			return TRUE
 
 		if("fix_all")
@@ -318,12 +320,14 @@
 		if("eject")
 			if(scanner?.occupant)
 				scanner.remove_mob(scanner.occupant)
+				currently_scanning = FALSE
 			return TRUE
 
 
 	add_fingerprint(usr)
 
 /obj/machinery/computer/cloning/proc/do_scan(datum/cloning_data/patient_data)
+	currently_scanning = FALSE
 	if(!scanner?.occupant)
 		return
 

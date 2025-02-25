@@ -8,6 +8,7 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	antimagic_flags = NONE
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -28,6 +29,8 @@
 	if(!.)
 		return
 	if(!isliving(user))
+		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_JAUNT, get_turf(user)) & COMPONENT_BLOCK_JAUNT)
 		return FALSE
 
 /datum/spell/bloodcrawl/cast(list/targets, mob/living/user)
@@ -269,6 +272,17 @@
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
+
+/datum/spell/bloodcrawl/shadow_crawl/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/simple_animal/demon/shadow/current_demon = user
+	if(!istype(current_demon))
+		return ..()
+
+	if(current_demon.block_shadow_crawl)
+		to_chat(user, "<span class='warning'>You are too concentrated to activate [name].</span>")
+		return FALSE
+
+	return ..()
 
 /datum/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
 	return target.get_lumcount() < 0.2

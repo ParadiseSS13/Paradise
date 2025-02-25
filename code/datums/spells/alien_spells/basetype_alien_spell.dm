@@ -24,6 +24,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE
+	antimagic_flags = NONE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 

@@ -67,7 +67,7 @@
 	if(last_hovered)
 		last_hovered.MouseExited(over_location, over_control, params)
 		closeToolTip(usr)
-	last_hovered_ref = UID(over_object)
+	last_hovered_ref = over_object?.UID()
 	if(!isnull(over_object))
 		over_object.MouseEntered(over_location, over_control, params)
 
@@ -178,10 +178,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+		to_chat(user, "<span class='notice'>[src] has been binded to [keybind_to_set_to]!</span>")
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
+		to_chat(user, "<span class='notice'>Your active keybinding on [src] has been cleared.</span>")
 
 /atom/movable/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()
@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/palette_scroll/down
 	name = "Scroll Down"
-	desc = "<b>Click</b> on this to scroll the actions above down"
+	desc = "<b>Click</b> on this to scroll the actions above down."
 	icon_state = "scroll_down"
 	scroll_direction = 1
 
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/palette_scroll/up
 	name = "Scroll Up"
-	desc = "<b>Click</b> on this to scroll the actions above up"
+	desc = "<b>Click</b> on this to scroll the actions above up."
 	icon_state = "scroll_up"
 	scroll_direction = -1
 
@@ -464,7 +464,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /// Exists so you have a place to put your buttons when you move them around
 /atom/movable/screen/action_landing
 	name = "Button Space"
-	desc = "<b>Drag and drop</b> a button into this spot<br>to add it to the group"
+	desc = "<b>Drag and drop</b> a button into this spot<br>to add it to the group."
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "reserved"
 	// We want our whole 32x32 space to be clickable, so dropping's forgiving

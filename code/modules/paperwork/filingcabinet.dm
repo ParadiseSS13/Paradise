@@ -44,7 +44,7 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
+/obj/structure/filingcabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(insert(O, user))
 		return
 	if(user.a_intent != INTENT_HARM)
@@ -126,7 +126,7 @@
 /obj/structure/filingcabinet/proc/insert(obj/item/O, mob/user)
 	if(!is_type_in_list(O, accepted_items))
 		return
-	if(!user.unEquip(O))
+	if(!user.unequip(O))
 		return
 	to_chat(user, "<span class='notice'>You put [O.name] in [src].</span>")
 	O.loc = src

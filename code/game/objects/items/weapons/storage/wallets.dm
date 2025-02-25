@@ -15,6 +15,11 @@
 		/obj/item/stack/medical,
 		/obj/item/toy/crayon,
 		/obj/item/coin,
+		/obj/item/food/candy/chocolate_coin,
+		/obj/item/food/candy/coin,
+		/obj/item/food/candy/cash,
+		/obj/item/food/customizable/candy/coin,
+		/obj/item/food/customizable/candy/cash,
 		/obj/item/dice,
 		/obj/item/disk,
 		/obj/item/bio_chip_implanter,
@@ -29,7 +34,7 @@
 	cant_hold = list(
 		/obj/item/screwdriver/power
 	)
-	slot_flags = SLOT_FLAG_ID
+	slot_flags = ITEM_SLOT_ID
 
 	var/obj/item/card/id/front_id = null
 

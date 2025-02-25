@@ -30,10 +30,21 @@ GLOBAL_LIST_EMPTY(uid_log)
 		var/tag_backup = tag
 		tag = null // Grab the raw ref, not the tag
 		// num2text can output 8 significant figures max. If we go above 10 million UIDs in a round, shit breaks
-		unique_datum_id = "\ref[src]_[num2text(GLOB.next_unique_datum_id++, 8)]"
+		var/uid_number = num2text(GLOB.next_unique_datum_id++, 8)
+		unique_datum_id = "\ref[src]_[uid_number]"
+		md5_unique_datum_id = "[md5(unique_datum_id)]_[uid_number]" // Avoid ANY collision chance
 		tag = tag_backup
 		GLOB.uid_log[type]++
 	return unique_datum_id
+
+/**
+  * Safety wrapper for getting MD5 UIDs
+  *
+  * This ensures it exists before reading it
+  */
+/datum/proc/MD5_UID()
+	UID()
+	return md5_unique_datum_id
 
 /**
   * Locates a datum based off of the UID

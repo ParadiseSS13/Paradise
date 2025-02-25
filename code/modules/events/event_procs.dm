@@ -39,6 +39,8 @@
 	var/list/remove_these_areas = safe_areas - allowed_areas
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
+	if(!length(possible_areas))
+		return null
 	return pick(possible_areas)
 
 /proc/findUnrestrictedEventArea() //Does almost the same as findEventArea() but hits a few more areas including maintenance and the AI sat, and also returns a list of all the areas, instead of just one area

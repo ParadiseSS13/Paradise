@@ -30,11 +30,6 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/machinery/prize_counter/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/prize_counter)
-	)
-
 /obj/machinery/prize_counter/ui_data(mob/user)
 	var/list/data = list()
 	data["tickets"] = tickets
@@ -45,12 +40,14 @@
 
 	var/list/prizes = list()
 	for(var/datum/prize_item/prize in GLOB.global_prizes.prizes)
+		var/obj/prize_item = prize.typepath
 		prizes += list(list(
 			"name" = initial(prize.name),
 			"desc" = initial(prize.desc),
 			"cost" = prize.cost,
+			"icon" = prize_item.icon,
+			"icon_state" = prize_item.icon_state,
 			"itemID" = GLOB.global_prizes.prizes.Find(prize),
-			"imageID" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
 		))
 	static_data["prizes"] = prizes
 
@@ -82,18 +79,18 @@
 	else
 		icon_state = "prize_counter-on"
 
-/obj/machinery/prize_counter/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/tickets))
-		var/obj/item/stack/tickets/T = O
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+/obj/machinery/prize_counter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/tickets))
+		var/obj/item/stack/tickets/T = used
+		if(user.drop_item_to_ground(T))
 			tickets += T.amount
 			SStgui.update_uis(src)
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

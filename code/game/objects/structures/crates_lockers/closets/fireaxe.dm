@@ -29,7 +29,7 @@
 	else
 		. += "<span class='notice'>It is damaged beyond repair.</span>"
 
-/obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
+/obj/structure/closet/fireaxecabinet/attackby__legacy__attackchain(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
 		if(istype(O, /obj/item/multitool))
 			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
@@ -66,7 +66,7 @@
 			if(HAS_TRAIT(F, TRAIT_WIELDED))
 				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
-			if(!user.unEquip(F, FALSE))
+			if(!user.unequip(F, FALSE))
 				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
 				return
 			fireaxe = F

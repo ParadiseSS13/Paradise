@@ -7,7 +7,8 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	desc = "Controls an airlock controller, requesting the doors open on this side."
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
-	power_state = PW_CHANNEL_ENVIRONMENT
+	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_state = IDLE_POWER_USE
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
 	/// UID of the airlock controller that owns us
@@ -31,11 +32,12 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	else
 		icon_state = "access_button_off"
 
-/obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
-	//Swiping ID on the access button
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+/obj/machinery/access_button/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Swiping ID on the access button
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		attack_hand(user)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/access_button/attack_ghost(mob/user)

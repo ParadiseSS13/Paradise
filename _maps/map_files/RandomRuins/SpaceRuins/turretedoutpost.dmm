@@ -70,6 +70,7 @@
 /area/ruin/space/unpowered)
 "q" = (
 /obj/machinery/light,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "r" = (
@@ -183,6 +184,7 @@
 /area/ruin/space/unpowered)
 "H" = (
 /obj/structure/chair,
+/mob/living/simple_animal/hostile/syndicate/melee/autogib,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "I" = (
@@ -263,6 +265,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"T" = (
+/obj/item/rack_parts,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/unpowered)
+"Z" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -275,7 +293,9 @@ a
 a
 a
 a
-b
+a
+a
+a
 a
 a
 a
@@ -295,11 +315,13 @@ a
 a
 a
 a
-b
-b
-b
 a
 b
+a
+a
+a
+a
+a
 a
 a
 a
@@ -311,16 +333,18 @@ a
 a
 a
 a
-l
-l
-l
-l
-l
-l
-l
-l
+a
+a
+a
+a
+a
 b
 b
+b
+a
+b
+a
+a
 a
 a
 "}
@@ -330,18 +354,20 @@ a
 a
 a
 a
+a
+a
 l
-o
-d
-d
-d
-d
-d
-d
-o
+l
+l
+l
+l
+l
+l
 l
 b
 b
+a
+a
 a
 "}
 (5,1,1) = {"
@@ -350,61 +376,90 @@ a
 a
 a
 a
+a
 l
+o
 d
 d
-s
-r
-F
-r
 d
 d
+d
+d
+o
 l
+b
 b
 a
 a
 "}
 (6,1,1) = {"
 a
-b
-b
-b
-b
+a
+a
+a
+a
+a
 l
 d
-r
-x
-x
-x
-x
-r
+d
+T
+Z
+F
+Z
+d
 d
 l
 b
+a
 a
 a
 "}
 (7,1,1) = {"
 a
 a
-a
 b
-a
+b
+b
+b
 l
 d
-s
-x
-r
 r
 x
-s
+x
+x
+x
+r
 d
 l
 b
-b
+a
+a
 a
 "}
 (8,1,1) = {"
+a
+a
+a
+a
+b
+a
+l
+d
+s
+x
+Z
+Z
+x
+s
+d
+l
+b
+b
+a
+a
+"}
+(9,1,1) = {"
+a
 a
 a
 b
@@ -423,8 +478,10 @@ l
 a
 a
 a
+a
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+a
 a
 b
 b
@@ -443,8 +500,10 @@ l
 b
 a
 a
+a
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+a
 a
 b
 a
@@ -463,8 +522,10 @@ l
 b
 a
 a
+a
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+a
 a
 a
 c
@@ -483,8 +544,10 @@ l
 b
 a
 a
+a
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+a
 a
 a
 c
@@ -503,8 +566,10 @@ b
 b
 b
 a
+a
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+a
 a
 a
 c
@@ -523,8 +588,10 @@ b
 a
 a
 a
+a
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+a
 a
 a
 c
@@ -543,8 +610,10 @@ a
 a
 a
 a
+a
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+a
 a
 a
 c
@@ -563,8 +632,10 @@ c
 b
 b
 b
+a
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+a
 a
 b
 c
@@ -583,8 +654,10 @@ c
 b
 a
 a
+a
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+a
 a
 a
 c
@@ -603,8 +676,10 @@ c
 b
 b
 a
+a
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+a
 a
 b
 c
@@ -623,8 +698,10 @@ c
 a
 a
 a
+a
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+a
 b
 a
 c
@@ -643,8 +720,10 @@ c
 a
 a
 a
+a
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+a
 b
 b
 c
@@ -663,8 +742,10 @@ c
 a
 a
 a
+a
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+a
 a
 b
 c
@@ -683,8 +764,10 @@ c
 b
 b
 a
+a
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+a
 b
 b
 c
@@ -702,5 +785,28 @@ c
 c
 a
 b
+a
+a
+"}
+(24,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 a
 "}

@@ -2,6 +2,9 @@
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
+	// We probably shouldn't ever be setting this. LONG_GLIDE makes diagonal movement faster, because you move at full speed on both axes. However, we have manual changes scatterd around that undo this, and re-establish euclidian movement. Yes, that's exactly as silly as it sounds.
+	// Still, for the moment, we should at least make all mobs behave the same way that carbons do.
+	appearance_flags = LONG_GLIDE
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
@@ -35,7 +38,7 @@
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
 	var/lastattackerckey = null // their ckey
-	var/list/attack_log_old = list( )
+	var/list/attack_log_old = list()
 	var/list/debug_log = null
 
 	var/last_known_ckey = null	// Used in logging
@@ -63,7 +66,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -75,16 +77,15 @@
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null //Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	var/obj/item/l_hand = null //Living
 	var/obj/item/r_hand = null //Living
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
 	/// Active storage container
-	var/obj/item/storage/s_active = null //Carbon
-	var/obj/item/clothing/mask/wear_mask = null //Carbon
+	var/obj/item/storage/s_active
+	/// The currently worn mask
+	var/obj/item/wear_mask
 
 	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null

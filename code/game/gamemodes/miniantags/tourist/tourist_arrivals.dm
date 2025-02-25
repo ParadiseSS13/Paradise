@@ -78,7 +78,7 @@
 		M.mind.special_role = SPECIAL_ROLE_TOURIST
 		// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
 		// If any is false, we don't make a new tourist tot
-		if(prob(chance) && tot_number < 3 && antag_count < max_antag && (SPECIAL_ROLE_TRAITOR in M.client.prefs.be_special) && !jobban_isbanned(M, SPECIAL_ROLE_TRAITOR))
+		if(prob(chance) && tot_number < 3 && antag_count < max_antag && (ROLE_TRAITOR in M.client.prefs.be_special) && !jobban_isbanned(M, ROLE_TRAITOR))
 			if(player_old_enough_antag(M.client, ROLE_TRAITOR))
 				tot_number++
 				M.mind.add_antag_datum(/datum/antagonist/traitor)
@@ -118,8 +118,8 @@
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
 
 	M.regenerate_icons()
 	M.update_body()

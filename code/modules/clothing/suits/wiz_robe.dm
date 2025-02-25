@@ -66,7 +66,7 @@
 
 /obj/item/clothing/head/wizard/magus
 	name = "magus helm"
-	desc = "A mysterious helmet that hums with an unearthly power"
+	desc = "A mysterious helmet that hums with an unearthly power."
 	icon_state = "magus"
 	item_state = "magus"
 	dog_fashion = /datum/dog_fashion/head/wizard/magus
@@ -134,13 +134,13 @@
 
 /obj/item/clothing/suit/wizrobe/magusblue
 	name = "magus robe"
-	desc = "A set of armoured robes that seem to radiate a dark power"
+	desc = "A set of armoured robes that seem to radiate a dark power."
 	icon_state = "magusblue"
 	item_state = "magusblue"
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "magus robe"
-	desc = "A set of armoured robes that seem to radiate a dark power"
+	desc = "A set of armoured robes that seem to radiate a dark power."
 	icon_state = "magusred"
 	item_state = "magusred"
 
@@ -200,6 +200,17 @@
 /obj/item/clothing/suit/space/hardsuit/wizard/setup_shielding()
 	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
 
+/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
+
+/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
+
+
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -222,7 +233,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch

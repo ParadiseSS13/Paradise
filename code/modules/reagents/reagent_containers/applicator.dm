@@ -19,7 +19,7 @@
 
 /obj/item/reagent_containers/applicator/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to empty it.</span>"
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
@@ -96,10 +96,10 @@
 		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/applicator/attack__legacy__attackchain(mob/living/M, mob/user)
 	return apply(M, user)
 
-/obj/item/reagent_containers/applicator/attack_self(mob/user)
+/obj/item/reagent_containers/applicator/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)

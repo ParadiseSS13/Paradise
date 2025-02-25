@@ -73,6 +73,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = null
 	anchored = TRUE
 	density = TRUE
 
@@ -83,5 +84,5 @@
 
 /obj/structure/fluff/divine/conduit
 	name = "conduit"
-	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
+	desc = "It allows a deity to extend their reach. Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"

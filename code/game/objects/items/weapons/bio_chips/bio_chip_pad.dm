@@ -26,10 +26,10 @@
 	else
 		icon_state = "implantpad-off"
 
-/obj/item/bio_chip_pad/attack_self(mob/user)
+/obj/item/bio_chip_pad/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
-/obj/item/bio_chip_pad/attackby(obj/item/bio_chip_case/C, mob/user)
+/obj/item/bio_chip_pad/attackby__legacy__attackchain(obj/item/bio_chip_case/C, mob/user)
 	if(istype(C))
 		addcase(user, C)
 	else
@@ -41,7 +41,7 @@
 	if(case)
 		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
 		return
-	user.unEquip(C)
+	user.unequip(C)
 	C.forceMove(src)
 	case = C
 	update_icon(UPDATE_ICON_STATE)

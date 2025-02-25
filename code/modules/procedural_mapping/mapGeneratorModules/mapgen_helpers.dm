@@ -2,11 +2,11 @@
 
 
 // Helper to repressurize the area in case it was run in space
-/datum/mapGeneratorModule/bottomLayer/repressurize
+/datum/map_generator_module/bottom_layer/repressurize
 	spawnableAtoms = list()
 	spawnableTurfs = list()
 
-/datum/mapGeneratorModule/bottomLayer/repressurize/generate()
+/datum/map_generator_module/bottom_layer/repressurize/generate()
 	if(!mother)
 		return
 	var/list/map = mother.map
@@ -22,10 +22,10 @@
 		T.blind_set_air(air)
 
 //Only places atoms/turfs on area borders
-/datum/mapGeneratorModule/border
+/datum/map_generator_module/border
 	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_NONE
 
-/datum/mapGeneratorModule/border/generate()
+/datum/map_generator_module/border/generate()
 	if(!mother)
 		return
 	var/list/map = mother.map
@@ -33,7 +33,7 @@
 		if(is_border(T))
 			place(T)
 
-/datum/mapGeneratorModule/border/proc/is_border(turf/T)
+/datum/map_generator_module/border/proc/is_border(turf/T)
 	for(var/direction in list(SOUTH,EAST,WEST,NORTH))
 		if(get_step(T,direction) in mother.map)
 			continue

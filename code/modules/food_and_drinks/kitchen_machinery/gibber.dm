@@ -40,12 +40,12 @@
 
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to empty it.</span>"
 
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message("<span class='danger'><b>[user] climbs into [src] and turns it on!</b></span>")
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -93,24 +93,24 @@
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
+/obj/machinery/gibber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(G.state < 2)
 			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		move_into_gibber(user,G.affecting)
 		qdel(G)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		return
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, P))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -281,18 +281,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
-			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
-			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET))
+			var/obj/item/ls = H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
-			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET))
+			var/obj/item/rs = H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null
@@ -402,16 +402,14 @@
 				continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
-		H.unEquip(O)
-		O.loc = loc
+		H.transfer_item_to(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
 		if(C.flags & NODROP || stealthmode)
 			qdel(C)
-		H.unEquip(C)
-		C.loc = loc
+		H.transfer_item_to(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 

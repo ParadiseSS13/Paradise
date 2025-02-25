@@ -67,7 +67,7 @@
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
-	if(slot in list(SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND))
+	if(slot & ITEM_SLOT_BOTH_HANDS)
 		RegisterSignal(user, COMSIG_HUMAN_PARRY, PROC_REF(start_parry))
 	else
 		UnregisterSignal(user, COMSIG_HUMAN_PARRY)
@@ -79,6 +79,8 @@
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
+	if(L.stat != CONSCIOUS)
+		return
 	if(requires_two_hands && !HAS_TRAIT(parent, TRAIT_WIELDED)) // If our item has special conditions before being able to parry.
 		return
 	if(requires_activation && !HAS_TRAIT(parent, TRAIT_ITEM_ACTIVE)) // If our item requires an activation to be able to parry. [E-sword / Teleshield, etc.]

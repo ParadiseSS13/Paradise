@@ -14,6 +14,7 @@
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	blood_DNA = list()
 	var/base_icon = 'icons/effects/blood.dmi'
+	base_icon_state = "mfloor1"
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
@@ -21,7 +22,8 @@
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
-	inertia_move_delay = 1 // so they dont collide with who emitted them
+	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
+	inertia_move_delay = 5 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C == src)
@@ -33,56 +35,74 @@
 			C.bloodiness += bloodiness
 	return ..()
 
-/obj/effect/decal/cleanable/blood/Initialize(mapload)
+/obj/effect/decal/cleanable/blood/Initialize(mapload, decal_color)
 	. = ..()
-	weightless_image = new()
-	update_icon()
-
-	if(!gravity_check)
-		//weightless blood cannot dry
-		return
-
-	if(!. && !QDELETED(src))
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
-
-/obj/effect/decal/cleanable/blood/Destroy()
-	if(dry_timer)
-		deltimer(dry_timer)
-	return ..()
-
-/obj/effect/decal/cleanable/blood/update_icon()
-	var/turf/T = get_turf(src)
-	check_gravity(T)
-
-	if((T && (T.density)) || !gravity_check || locate(/obj/structure/window/) in T || locate(/obj/structure/grille/) in T)
-		off_floor = TRUE
-		layer = ABOVE_MOB_LAYER
-		plane = GAME_PLANE
-
-	if(basecolor == "rainbow")
-		basecolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
+	if(decal_color)
+		basecolor = decal_color
+	else
+		if(basecolor == "rainbow")
+			basecolor = "#[pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")]"
 
 	color = basecolor
+	base_icon_state = icon_state
 
-	if(!gravity_check)
+	var/turf/T = get_turf(src)
+	check_gravity(T)
+	update_icon()
+
+	if(gravity_check)
+		if(!. && !QDELETED(src))
+			dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+	else
 		if(prob(50))
 			animate_float(src, -1, rand(30,120))
 		else
 			animate_levitate(src, -1, rand(30,120))
+		//weightless blood cannot dry
+		return
 
-		if(weightless_image.icon_state)
-			icon_state = weightless_image.icon_state
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-		overlays -= weightless_image
-		color = "#FFFFFF"
-		icon = 'icons/effects/blood_weightless.dmi'
-		weightless_image = image(icon, icon_state)
-		icon_state = "empty"
+/obj/effect/decal/cleanable/blood/Destroy()
+	if(dry_timer)
+		deltimer(dry_timer)
+	QDEL_NULL(weightless_image)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/update_overlays()
+	. = ..()
+
+	if(gravity_check)
+		return
+
+	if(!weightless_image)
+		color = COLOR_WHITE
+		weightless_image = image(weightless_icon, base_icon_state)
 		weightless_image.icon += basecolor
-		overlays += weightless_image
+
+	. += weightless_image
+
+/obj/effect/decal/cleanable/blood/update_icon()
+	if(should_be_off_floor())
+		off_floor = TRUE
+		layer = ABOVE_MOB_LAYER
+		plane = GAME_PLANE
+
+	if(gravity_check)
+		icon = initial(icon)
+		icon_state = base_icon_state
+		color = basecolor
 	else
-		overlays.Cut()
+		icon_state = null
+
 	..()
+
+/obj/effect/decal/cleanable/blood/proc/should_be_off_floor()
+	var/turf/T = get_turf(src)
+	return ((T && T.density) || !gravity_check || (locate(/obj/structure/window/full) in T) || (locate(/obj/structure/grille) in T))
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
@@ -97,53 +117,35 @@
 		if(!locate(/obj/structure/grille/) in T && !locate(/obj/structure/window/) in T)
 			qdel(src) //no free floating dried blood in space, thatd look weird
 
-/obj/effect/decal/cleanable/blood/ex_act()
-	. = ..()
-	update_icon()
-
 /obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
 	if(gravity_check) //only floating blood can splat :C
 		return
 	var/turf/T = get_turf(AT)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T) //move to the turf to splatter on
-	animate(src) //stop floating
 	gravity_check = ALWAYS_IN_GRAVITY
-	icon = initial(icon)
-	icon_state = weightless_image.icon_state
 	layer = initial(layer)
 	plane = initial(plane)
+	animate(src)
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/try_merging_decal(turf/T)
-	..()
-
-/obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
 		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return TRUE
+	return ..()
 
-	if(pulledby && !pulledby.pulling)
-		return TRUE
-
-	if(throwing)
-		return TRUE
-
-	return FALSE
-
-
-/obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
+/obj/effect/decal/cleanable/blood/Bump(atom/A)
 	if(gravity_check)
 		return ..()
+
 	if(iswallturf(A) || istype(A, /obj/structure/window))
 		splat(A)
 		return
+
 	else if(A.density)
 		splat(get_turf(A))
 		return
@@ -152,11 +154,14 @@
 		bloodyify_human(A)
 		return
 
-	..()
+	return ..()
 
 /obj/effect/decal/cleanable/blood/proc/bloodyify_human(mob/living/carbon/human/H)
-	if(inertia_dir && H.inertia_dir == inertia_dir) //if they are moving the same direction we are, no collison
-		return
+	// Originally this code would check to see if both us and the human
+	// we collided with had inertia in the same direction, and avoided collision
+	// if so. This might be possible with movement loops but, realistically,
+	// if we've gotten here, the objects have collided no matter what direction
+	// they were going in.
 
 	var/list/obj/item/things_to_potentially_bloody = list()
 	var/count = amount + 1
@@ -185,7 +190,10 @@
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = basecolor
+		if(isnull(basecolor))
+			user.hand_blood_color = "#A10808"
+		else
+			user.hand_blood_color = basecolor
 		user.update_inv_gloves()
 		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
@@ -254,7 +262,7 @@
 	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
-	icon_state = "gibbl5"
+	icon_state = "mgibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE
@@ -307,17 +315,21 @@
 	mergeable_decal = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
-	set waitfor = 0
+	var/delay = 2
+	var/range = pick(1, 200; 2, 150; 3, 50; 4)
 	var/direction = pick(directions)
-	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
-		sleep(3)
-		if(i > 0)
-			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(loc)
-			b.basecolor = src.basecolor
-			b.update_icon()
-		if(step_to(src, get_step(src, direction), 0))
-			break
 
+	var/datum/move_loop/loop = GLOB.move_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(spread_movement_effects))
+
+/obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
+	var/obj/effect/decal/cleanable/blood/target = source.target
+	var/obj/effect/decal/cleanable/blood/splatter/splatter = new(loc, istype(target) ? target.basecolor : basecolor)
+
+	if(istype(target))
+		splatter.basecolor = target.basecolor
+		splatter.update_icon()
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload)
 	. = ..()

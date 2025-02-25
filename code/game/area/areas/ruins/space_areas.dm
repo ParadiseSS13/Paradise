@@ -28,29 +28,44 @@
 
 // Ruins of "onehalf" ship
 /area/ruin/space/onehalf/hallway
-	name = "Hallway"
+	name = "DK Excavator 453 Hallway"
 	icon_state = "hallC"
 
 /area/ruin/space/onehalf/drone_bay
-	name = "Mining Drone Bay"
+	name = "DK Excavator 453 Mining Drone Bay"
 	icon_state = "engine"
 
 /area/ruin/space/onehalf/dorms_med
-	name = "Crew Quarters"
+	name = "DK Excavator 453 Crew Quarters"
 	icon_state = "Sleep"
 
 /area/ruin/space/onehalf/abandonedbridge
-	name = "Abandoned Bridge"
+	name = "DK Excavator 453 Abandoned Bridge"
 	icon_state = "bridge"
+
+// Ruins of the Unathi Breacher ship
+/area/ruin/space/unathi_breacher/engineering
+	name = "Breacher Engine Bay"
+
+/area/ruin/space/unathi_breacher/dorms
+	name = "Breacher Crew Quarters"
+
+/area/ruin/space/unathi_breacher/bar
+	name = "Breacher Bar"
+
+/area/ruin/space/unathi_breacher/bridge
+	name = "Breacher Bridge"
+
+/area/ruin/space/unathi_breacher/hold
+	name = "Breacher Hold"
 
 //DJSTATION
 /area/ruin/space/djstation
-	name = "\improper Ruskie DJ Station"
+	name = "\improper Soviet DJ Station"
 	icon_state = "DJ"
-	there_can_be_many = TRUE
 
 /area/ruin/space/djstation/solars
-	name = "\improper Ruskie DJ Station Solars"
+	name = "\improper Soviet DJ Station Solars"
 	icon_state = "DJ"
 
 //Methlab
@@ -108,11 +123,11 @@
 
 /area/ruin/space/derelict/solar_control
 	name = "\improper Derelict Solar Control"
-	icon_state = "GENsolar"
+	icon_state = "general_solar_control"
 
 /area/ruin/space/derelict/se_solar
-	name = "South East Solars"
-	icon_state = "GENsolar"
+	name = "\improper Derelict South East Solars"
+	icon_state = "general_solars"
 
 /area/ruin/space/derelict/crew_quarters
 	name = "\improper Derelict Crew Quarters"
@@ -135,7 +150,6 @@
 /area/ruin/space/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
-	there_can_be_many = TRUE
 
 /area/ruin/space/derelict/eva
 	name = "Derelict EVA Storage"
@@ -187,38 +201,41 @@
 	requires_power = TRUE
 
 /area/ruin/space/powered/casino/docked_ships
-	name = "Shuttle"
+	name = "Dorian Casino Shuttle"
 	requires_power = FALSE
 
 /area/ruin/space/powered/casino/arrivals
-	name = "Arrivals"
+	name = "Dorian Casino Arrivals"
 
 /area/ruin/space/powered/casino/kitchen
-	name = "Dining and Kitchen"
+	name = "Dorian Casino Dining and Kitchen"
 
 /area/ruin/space/powered/casino/floor
-	name = "Casino Floor"
+	name = "Dorian Casino Casino Floor"
 
 /area/ruin/space/powered/casino/hall
-	name = "Main Hall"
+	name = "Dorian Casino Main Hall"
 
 /area/ruin/space/powered/casino/engine
-	name = "Engine Room"
+	name = "Dorian Casino Engine Room"
 
 /area/ruin/space/powered/casino/security
-	name = "Security"
+	name = "Dorian Casino Security"
 
 /area/ruin/space/powered/casino/teleporter
-	name = "Teleporter"
+	name = "Dorian Casino Teleporter"
 
 /area/ruin/space/powered/casino/maints
-	name = "Service Tunnels"
+	name = "Dorian Casino Service Tunnels"
 
 /// telecomms: Alternative telecomms sat
 /area/ruin/space/telecomms
 	name = "\improper Telecommunications Sat"
 	icon_state = "tcomms"
 	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
+	ambientsounds = list('sound/ambience/dvorak_ambience_final.ogg')
+	min_ambience_cooldown = 110 SECONDS // 3 seconds longer than the length of the song
+	max_ambience_cooldown = 170 SECONDS // A minute break at most
 
 /area/ruin/space/telecomms/powercontrol
 	name = "\improper Telecommunications Power Control"
@@ -248,3 +265,15 @@
 /area/ruin/space/sec_shuttle
 	name = "Abandoned Security Shuttle"
 	apc_starts_off = TRUE
+
+/area/ruin/space/syndicakefactory
+	name = "Syndicake factory"
+
+/area/ruin/space/clown_mime_ruin
+	name = "\improper Derelict Transport Vessel"
+
+/area/ruin/space/clockwork_monastery
+	name = "\improper Abandoned Clockwork Monastery"
+	there_can_be_many = FALSE
+	requires_power = FALSE
+	ambientsounds = list("sound/ambience/reebe_ambience_1.ogg", "sound/ambience/reebe_ambience_2.ogg", "sound/ambience/reebe_ambience_3.ogg")

@@ -29,6 +29,9 @@
 /area/station/aisat/hall
 	name = "\improper AI Satellite Hallway"
 
+/area/station/aisat/breakroom
+	name = "\improper AI Satellite Break Room Hallway"
+
 /area/station/aisat/service
 	name = "\improper AI Satellite Service"
 

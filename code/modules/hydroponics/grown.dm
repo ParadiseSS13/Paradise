@@ -36,8 +36,7 @@
 	else if(seed)
 		seed = new seed
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 	if(dried_type == -1)
 		dried_type = type
@@ -69,7 +68,7 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
@@ -92,8 +91,7 @@
 			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
 				reagents.trans_to(slice, reagents_per_slice)
-				slice.pixel_x = rand(-7, 7)
-				slice.pixel_y = rand(-7, 7)
+				slice.scatter_atom()
 			qdel(src)
 			return ..()
 
@@ -106,7 +104,7 @@
 
 
 // Various gene procs
-/obj/item/food/grown/attack_self(mob/user)
+/obj/item/food/grown/attack_self__legacy__attackchain(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
 	..()
@@ -174,10 +172,10 @@
 	return ..()
 
 // For item-containing growns such as eggy or gatfruit
-/obj/item/food/grown/shell/attack_self(mob/user)
+/obj/item/food/grown/shell/attack_self__legacy__attackchain(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
-	user.unEquip(src)
+	user.unequip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
@@ -211,7 +209,7 @@
 	set_light(0)
 
 /obj/item/food/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a </span><span class='name'>[src].</span>\n"
+	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src].</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	var/reag_txt = ""
@@ -219,7 +217,7 @@
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+			reag_txt += "\n<span class='notice'>- [R.name]: [amt]</span>"
 
 	if(reag_txt)
 		msg += reag_txt

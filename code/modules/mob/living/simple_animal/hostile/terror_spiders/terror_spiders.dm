@@ -42,6 +42,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	// Movement
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
+	status_flags = 0 // also no more grabbing
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
@@ -475,7 +476,3 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	. = ..()
 	if(pulling && !ismob(pulling) && pulling.density)
 		. += 6 // Drastic move speed penalty for dragging anything that is not a mob or a non dense object
-
-/mob/living/simple_animal/hostile/poison/terror_spider/Login()
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

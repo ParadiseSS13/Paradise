@@ -73,7 +73,7 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = SLOT_HUD_RIGHT_HAND
+	inv_box.slot_id = ITEM_SLOT_RIGHT_HAND
 	static_inventory += inv_box
 
 	inv_box = new /atom/movable/screen/inventory/hand()
@@ -81,7 +81,7 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = SLOT_HUD_LEFT_HAND
+	inv_box.slot_id = ITEM_SLOT_LEFT_HAND
 	static_inventory += inv_box
 
 	using = new /atom/movable/screen/swap_hand()
@@ -143,7 +143,7 @@
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
+			inv_slots[ITEM_SLOT_2_INDEX(inv.slot_id)] = inv
 			inv.update_icon()
 
 /datum/hud/alien/persistent_inventory_update(mob/viewer)

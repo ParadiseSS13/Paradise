@@ -38,6 +38,12 @@ const initialState = {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
   },
+  // Stat Panel settings
+  statLinked: true,
+  statFontSize: 12,
+  statFontFamily: FONTS[0],
+  statTabsStyle: 'default',
+  // End of Stat Panel settings
 };
 
 export const settingsReducer = (state = initialState, action) => {

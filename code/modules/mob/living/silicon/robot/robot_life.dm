@@ -11,7 +11,6 @@
 	if(.)
 		handle_robot_hud_updates()
 		handle_robot_cell()
-		update_items()
 
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
@@ -41,15 +40,13 @@
 /mob/living/silicon/robot/proc/enter_low_power_mode()
 	low_power_mode = TRUE
 	playsound(src, "sound/mecha/lowpower.ogg", 50, FALSE, SOUND_RANGE_SET(10))
-	to_chat(src, "<span_class='warning'>Alert: Power cell requires immediate charging.</span>")
+	to_chat(src, "<span class='warning'>Alert: Power cell requires immediate charging.</span>")
 	handle_no_power()
 
 /mob/living/silicon/robot/proc/handle_equipment()
-	if(camera && !scrambledcodes)
+	if(camera && camera.status && !scrambledcodes) //Don't turn off cameras already off
 		if(stat == DEAD || wires.is_cut(WIRE_BORG_CAMERA))
-			camera.status = FALSE
-		else
-			camera.status = TRUE
+			camera.turn_off(src, FALSE)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -110,17 +107,6 @@
 		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 
-
-/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
-	if(client)
-		for(var/obj/I in get_all_slots())
-			client.screen |= I
-	if(module_state_1)
-		module_state_1:screen_loc = ui_inv1
-	if(module_state_2)
-		module_state_2:screen_loc = ui_inv2
-	if(module_state_3)
-		module_state_3:screen_loc = ui_inv3
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

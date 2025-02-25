@@ -65,7 +65,7 @@
 */
 /obj/item/tk_grab
 	name = "Telekinetic Grab"
-	desc = "Magic"
+	desc = "Magic."
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
@@ -95,20 +95,20 @@
 
 	//stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
-	if((slot == SLOT_HUD_LEFT_HAND) || (slot== SLOT_HUD_RIGHT_HAND))
+	if(slot & ITEM_SLOT_BOTH_HANDS)
 		return
 	qdel(src)
 
 
-/obj/item/tk_grab/attack_self(mob/user)
+/obj/item/tk_grab/attack_self__legacy__attackchain(mob/user)
 	if(focus)
 		focus.attack_self_tk(user)
 
 /obj/item/tk_grab/override_throw(mob/user, atom/target)
-	afterattack(target, user)
+	afterattack__legacy__attackchain(target, user)
 	return TRUE
 
-/obj/item/tk_grab/afterattack(atom/target , mob/living/user, proximity, params)
+/obj/item/tk_grab/afterattack__legacy__attackchain(atom/target , mob/living/user, proximity, params)
 	if(!target || !user)
 		return
 	if(last_throw + TK_COOLDOWN > world.time)
@@ -140,9 +140,9 @@
 
 	if(isitem(focus) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
-		var/resolved = target.attackby(I, user, params)
+		var/resolved = target.attackby__legacy__attackchain(I, user, params)
 		if(!resolved && target && I)
-			I.afterattack(target,user,1) // for splashing with beakers
+			I.afterattack__legacy__attackchain(target,user,1) // for splashing with beakers
 
 
 	else
@@ -156,7 +156,7 @@
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time
 
-/obj/item/tk_grab/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/tk_grab/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	return
 
 /obj/item/tk_grab/is_equivalent(obj/item/I)
@@ -177,7 +177,7 @@
 	if(isitem(target))
 		if(target in user.tkgrabbed_objects)
 			// Release the old grab first
-			user.unEquip(user.tkgrabbed_objects[target])
+			user.drop_item_to_ground(user.tkgrabbed_objects[target])
 		user.tkgrabbed_objects[target] = src
 
 /obj/item/tk_grab/proc/release_object()

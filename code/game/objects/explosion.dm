@@ -13,6 +13,19 @@
 	if(!epicenter)
 		return
 
+	// If we are in end round, make explosions gib the user
+	// Why? Its funny
+	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
+		to_chat(usr, "<span class='userdanger'>Your explosive backfires!</span>")
+		var/mob/living/carbon/human/H = usr
+		H.gib() // lol
+		return
+
+	// If explosions are disabled, and there isnt a user, or the user isnt an admin, abort
+	// Admins can still ruin things :P
+	if(GLOB.disable_explosions && ((!usr) || !is_admin(usr)))
+		return
+
 	// Archive the uncapped explosion for the doppler array
 	var/orig_dev_range = devastation_range
 	var/orig_heavy_range = heavy_impact_range
@@ -182,7 +195,7 @@
 					if(breach)
 						T.ex_act(dist)
 					else
-						T.ex_act(3)
+						T.ex_act(EXPLODE_LIGHT)
 
 			CHECK_TICK
 
@@ -190,23 +203,14 @@
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
 		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
-		//Machines which report explosions.
-		for(var/array in GLOB.doppler_arrays)
-			if(!array)
-				continue
-			if(istype(array, /obj/machinery/doppler_array))
-				var/obj/machinery/doppler_array/Array = array
-				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
-			if(istype(array, /obj/item/mod/module/reagent_scanner/advanced))
-				var/obj/item/mod/module/reagent_scanner/advanced/Mod_Array = array
-				Mod_Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	return 1
 
 
 
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(2)
+		tile.ex_act(EXPLODE_HEAVY)
 
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"

@@ -49,6 +49,14 @@
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
 				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
+		if(hsrc == src && href_list["m5src"])
+			// We found an MD5'd UID, get the REAL thing
+			var/datum/D = locateUID(m5_uid_cache[href_list["m5src"]])
+			if(!istype(D))
+				CRASH("Tried to find an item by MD5'd UID when it wasnt in the client cache!")
+
+			hsrc = D
+
 
 	// asset_cache
 	var/asset_cache_job
@@ -261,7 +269,7 @@
 /client/New(TopicData)
 	// TODO: Remove with 516
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage")
+		winset(src, "", "browser-options=byondstorage,find")
 
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
@@ -1308,6 +1316,14 @@
 		editor.editors[target_UID] = editor
 
 	editor.ui_interact(mob)
+
+/client/verb/stop_client_sounds()
+	set category = "Special Verbs"
+	set name = "Stop Sounds"
+	set desc = "Stop Current Sounds."
+	SEND_SOUND(usr, sound(null))
+	to_chat(src, "All sounds stopped.")
+	tgui_panel?.stop_music()
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

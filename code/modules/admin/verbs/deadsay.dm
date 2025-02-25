@@ -25,6 +25,9 @@
 	if(check_rights(R_MENTOR, 0))
 		stafftype = "MENTOR"
 
+	if(check_rights(R_DEV_TEAM, 0))
+		stafftype = "DEVELOPER"
+
 	if(check_rights(R_MOD, 0))
 		stafftype = "MOD"
 

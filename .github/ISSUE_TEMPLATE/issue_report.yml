@@ -32,7 +32,7 @@ body:
     id: version
     attributes:
       label: BYOND Version
-      description: "What BYOND version were you using when the issue occured? (Find this by pressing the cog in the top-right of the main BYOND menu, then 'About BYOND...') (Required)"
+      description: "What BYOND version were you using when the issue occurred? (Find this by pressing the cog in the top-right of the main BYOND menu, then 'About BYOND...') (Required)"
     validations:
       required: true
 

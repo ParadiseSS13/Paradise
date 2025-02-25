@@ -19,7 +19,7 @@
 /datum/data/record
 	name = "record"
 	size = 5.0
-	var/list/fields = list(  )
+	var/list/fields = list()
 
 /datum/data/record/Destroy()
 	if(src in GLOB.data_core.medical)

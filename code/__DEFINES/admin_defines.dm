@@ -20,7 +20,6 @@
 #define BANTYPE_ADMIN_PERMA	7
 #define BANTYPE_ADMIN_TEMP	8
 
-//Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
 #define R_BUILDMODE		(1<<0)
 #define R_ADMIN			(1<<1)
@@ -40,11 +39,12 @@
 #define R_PROCCALL		(1<<15)
 #define R_VIEWRUNTIMES	(1<<16)
 #define R_MAINTAINER	(1<<17)
+#define R_DEV_TEAM		(1<<18)
 // Update the following two defines if you add more
 
-#define R_MAXPERMISSION (1<<17) //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<18) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			((1<<18)-1) //17 bit bitmask, update me if we ever add more admin permissions. Sum of all permissions to allow easy setting.
+#define R_HOST			(~0) // Sum of all permissions to allow easy setting.
 
 
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"

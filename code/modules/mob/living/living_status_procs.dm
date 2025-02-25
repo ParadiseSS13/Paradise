@@ -118,7 +118,6 @@ STATUS EFFECTS
 			layer = BLASTDOOR_LAYER
 		else
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))
@@ -513,26 +512,26 @@ STATUS EFFECTS
 /mob/living/proc/IsSlowed()
 	return has_status_effect(STATUS_EFFECT_SLOWED)
 
-/mob/living/proc/Slowed(amount, _slowdown_value)
+/mob/living/proc/Slowed(amount, slowdown_value)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
 		S.duration = max(world.time + amount, S.duration)
-		S.slowdown_value = _slowdown_value
+		S.slowdown_value = slowdown_value
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, slowdown_value)
 	return S
 
-/mob/living/proc/SetSlowed(amount, _slowdown_value)
+/mob/living/proc/SetSlowed(amount, slowdown_value)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
-	if(amount <= 0 || _slowdown_value <= 0)
+	if(amount <= 0 || slowdown_value <= 0)
 		if(S)
 			qdel(S)
 	else
 		if(S)
 			S.duration = amount
-			S.slowdown_value = _slowdown_value
+			S.slowdown_value = slowdown_value
 		else
-			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, slowdown_value)
 	return S
 
 
@@ -810,7 +809,9 @@ STATUS EFFECTS
 // Deaf
 /mob/living/proc/CureDeaf()
 	CureIfHasDisability(GLOB.deafblock)
-
+// Paraplegia
+/mob/living/proc/CureParaplegia()
+	CureIfHasDisability(GLOB.paraplegicblock)
 // Epilepsy
 /mob/living/proc/CureEpilepsy()
 	CureIfHasDisability(GLOB.epilepsyblock)
@@ -837,10 +838,6 @@ STATUS EFFECTS
 // Nervous
 /mob/living/proc/CureNervous()
 	CureIfHasDisability(GLOB.nervousblock)
-
-// Tourettes
-/mob/living/proc/CureTourettes()
-	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna && dna.GetSEState(block))
