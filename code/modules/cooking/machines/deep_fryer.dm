@@ -73,18 +73,18 @@
 		surface.placed_item = null
 		update_appearance(UPDATE_ICON)
 
-/obj/machinery/cooking/deepfryer/update_icon()
+/obj/machinery/cooking/deepfryer/update_overlays()
 	. = ..()
 
-	for(var/i in 1 to 2)
+	for(var/i in 1 to length(surfaces))
 		var/datum/cooking_surface/surface = surfaces[i]
 		if(!surface.placed_item)
 			continue
 
 		if(surface.on)
-			add_overlay(image(icon, icon_state = "fryer_basket_on_[i]"))
+			. += image(icon, icon_state = "fryer_basket_on_[i]")
 		else
-			add_overlay(image(icon, icon_state = "fryer_basket_[i]"))
+			. += image(icon, icon_state = "fryer_basket_[i]")
 
 /obj/machinery/cooking/deepfryer/AltShiftClick(mob/user, modifiers)
 	// No temperature changing on the deep fryer.

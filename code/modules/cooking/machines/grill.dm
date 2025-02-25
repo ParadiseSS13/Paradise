@@ -147,8 +147,6 @@
 
 /obj/machinery/cooking/grill/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
-	if(surface.on)
-		add_overlay(image(icon, icon_state = "fire_[surface_idx]"))
 
 	if(!(surface.placed_item))
 		return
@@ -163,6 +161,13 @@
 			our_item.pixel_y = 4
 
 	add_to_visible(our_item, surface_idx)
+
+/obj/machinery/cooking/grill/update_overlays()
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		var/datum/cooking_surface/surface = surfaces[i]
+		if(surface.on)
+			. += image(icon, icon_state = "fire_[i]")
 
 /obj/machinery/cooking/grill/add_to_visible(obj/item/our_item, surface_idx)
 	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
