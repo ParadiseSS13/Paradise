@@ -121,13 +121,7 @@
 #undef ICON_SPLIT_Y_1
 #undef ICON_SPLIT_Y_2
 
-/obj/machinery/cooking/oven/update_overlays()
-	. = ..()
-	cut_overlays()
-
-	for(var/obj/item/our_item in vis_contents)
-		remove_from_visible(our_item)
-
+/obj/machinery/cooking/oven/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[1]
 	if(surface.placed_item)
 		var/obj/item/our_item = surface.placed_item
@@ -136,21 +130,20 @@
 		our_item.transform *= 0.75
 		add_to_visible(our_item)
 
+/obj/machinery/cooking/oven/update_overlays()
+	. = ..()
 	if(opened)
 		. += image(icon, icon_state = "oven_hatch_open", layer = ABOVE_OBJ_LAYER)
 	else
+		var/datum/cooking_surface/surface = surfaces[1]
 		. += image(icon, icon_state = "oven_hatch[surface.on ? "_on" : ""]", layer = ABOVE_OBJ_LAYER)
+		if(surface.on)
+			. += image(icon, icon_state = "oven_on")
 
-/obj/machinery/cooking/oven/proc/add_to_visible(obj/item/our_item)
+/obj/machinery/cooking/oven/add_to_visible(obj/item/our_item)
 	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
 	vis_contents += our_item
 	our_item.transform *= 0.8
-
-/obj/machinery/cooking/oven/proc/remove_from_visible(obj/item/our_item)
-	our_item.vis_flags = 0
-	our_item.blend_mode = 0
-	our_item.transform =  null
-	vis_contents.Remove(our_item)
 
 /obj/machinery/cooking/oven/upgraded/InitializeParts()
 	component_parts = list()

@@ -74,9 +74,7 @@
 		update_appearance(UPDATE_ICON)
 
 /obj/machinery/cooking/deepfryer/update_icon()
-	..()
-
-	cut_overlays()
+	. = ..()
 
 	for(var/i in 1 to 2)
 		var/datum/cooking_surface/surface = surfaces[i]

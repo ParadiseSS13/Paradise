@@ -154,6 +154,12 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		// and container cook times
 		makeSpeedProcess()
 
+	cooking = FALSE
+	for(var/datum/cooking_surface/surface in surfaces)
+		if(surface.on)
+			cooking = TRUE
+	update_appearance()
+
 /// Empty the container on the surface if it exists.
 /obj/machinery/cooking/AltClick(mob/user, modifiers)
 	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -191,3 +197,24 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 			surface.handle_switch()
 
 	makeNormalProcess()
+
+/obj/machinery/cooking/proc/add_to_visible(obj/item/our_item, surface_idx)
+	SHOULD_CALL_PARENT(FALSE)
+
+/obj/machinery/cooking/proc/remove_from_visible(obj/item/our_item, input)
+	our_item.vis_flags = 0
+	our_item.blend_mode = 0
+	our_item.transform =  null
+	our_item.appearance_flags &= PIXEL_SCALE
+	vis_contents.Remove(our_item)
+
+/obj/machinery/cooking/update_icon(updates)
+	. = ..()
+	for(var/obj/item/our_item in vis_contents)
+		remove_from_visible(our_item)
+
+	for(var/i in 1 to length(surfaces))
+		update_surface_icon(i)
+
+/obj/machinery/cooking/proc/update_surface_icon(surface_idx)
+	SHOULD_CALL_PARENT(FALSE)

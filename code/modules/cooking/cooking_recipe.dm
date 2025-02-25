@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 	var/tracked_quality = 0
 
-	if(!container)
+	if(!istype(container))
 		log_debug("failure to find container when creating recipe product!")
 		return
 
@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 		var/target_uid = applied_step_data["target"]
 		var/obj/added_item = locateUID(target_uid)
-		if(added_item)
+		if(istype(added_item))
 			tracked_quality += recipe_step.calculate_quality(added_item, tracker)
 
 		if("rating" in applied_step_data)
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 	var/reagent_quality = calculate_reagent_quality(container.tracker)
 
-	for(var/i = 0; i < product_count; i++)
+	for(var/i in 1 to product_count)
 		var/obj/item/new_item = new product_type(container)
 		#ifdef PCWJ_DEBUG
 		log_debug("/recipe/proc/create_product: Item created with reagents of [new_item.reagents.total_volume]")

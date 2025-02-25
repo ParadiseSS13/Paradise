@@ -145,38 +145,26 @@
 		surface.placed_item = null
 		update_appearance(UPDATE_ICON)
 
-/obj/machinery/cooking/grill/update_icon()
-	..()
+/obj/machinery/cooking/grill/update_surface_icon(surface_idx)
+	var/datum/cooking_surface/surface = surfaces[surface_idx]
+	if(surface.on)
+		add_overlay(image(icon, icon_state = "fire_[surface_idx]"))
 
-	cut_overlays()
+	if(!(surface.placed_item))
+		return
 
-	for(var/obj/item/our_item in vis_contents)
-		remove_from_visible(our_item)
+	var/obj/item/our_item = surface.placed_item
+	switch(surface_idx)
+		if(1)
+			our_item.pixel_x = -7
+			our_item.pixel_y = 4
+		if(2)
+			our_item.pixel_x = 7
+			our_item.pixel_y = 4
 
-	icon_state = "grill"
+	add_to_visible(our_item, surface_idx)
 
-	var/grill_on = FALSE
-	for(var/i in 1 to 2)
-		var/datum/cooking_surface/surface = surfaces[i]
-		if(surface.on)
-			if(!grill_on)
-				grill_on = TRUE
-			add_overlay(image(icon, icon_state = "fire_[i]"))
-
-		if(!(surface.placed_item))
-			continue
-		var/obj/item/our_item = surface.placed_item
-		switch(i)
-			if(1)
-				our_item.pixel_x = -7
-				our_item.pixel_y = 4
-			if(2)
-				our_item.pixel_x = 7
-				our_item.pixel_y = 4
-
-		add_to_visible(our_item, i)
-
-/obj/machinery/cooking/grill/proc/add_to_visible(obj/item/our_item, surface_idx)
+/obj/machinery/cooking/grill/add_to_visible(obj/item/our_item, surface_idx)
 	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
 	vis_contents += our_item
 	if(surface_idx == 2 || surface_idx == 4)
@@ -184,12 +172,6 @@
 		M.Scale(-1,1)
 		our_item.transform = M
 	our_item.transform *= 0.8
-
-/obj/machinery/cooking/grill/proc/remove_from_visible(obj/item/our_item)
-	our_item.vis_flags = 0
-	our_item.blend_mode = 0
-	our_item.transform =  null
-	vis_contents.Remove(our_item)
 
 /obj/machinery/cooking/grill/upgraded/InitializeParts()
 	component_parts = list()
