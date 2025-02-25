@@ -68,7 +68,7 @@
 	return
 
 /obj/effect/portal/proc/on_atom_entered(datum/source, atom/movable/entered, old_loc)
-	if(isobserver(entered))
+	if(isobserver(entered) || entered.flags_2 & HOLOGRAM_2)
 		return
 
 	if(target && (get_turf(old_loc) == get_turf(target)))
