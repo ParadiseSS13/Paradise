@@ -91,7 +91,7 @@
 	. += "<span class='notice'>Alt-Click to take it down.</span>"
 
 /obj/structure/curtain/assembly/AltClick(mob/user)
-	if(user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!Adjacent(user))
