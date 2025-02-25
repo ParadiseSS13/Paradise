@@ -2336,7 +2336,7 @@
 "fO" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/window/plasma/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "fP" = (
@@ -3538,7 +3538,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lf" = (
-/obj/effect/spawner/window/plasma/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "lg" = (

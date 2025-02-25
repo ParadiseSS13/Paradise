@@ -153,6 +153,7 @@
 #include "code\__DEFINES\ai\ai_defines.dm"
 #include "code\__DEFINES\ai\blackboard_defines.dm"
 #include "code\__DEFINES\dcs\ai_signals.dm"
+#include "code\__DEFINES\dcs\area_signals.dm"
 #include "code\__DEFINES\dcs\atom_signals.dm"
 #include "code\__DEFINES\dcs\attack_chain_signals.dm"
 #include "code\__DEFINES\dcs\basetype_signals.dm"
