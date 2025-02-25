@@ -200,6 +200,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking/proc/add_to_visible(obj/item/our_item, surface_idx)
 	SHOULD_CALL_PARENT(FALSE)
+	return
 
 /obj/machinery/cooking/proc/remove_from_visible(obj/item/our_item, input)
 	our_item.vis_flags = 0
@@ -218,3 +219,4 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking/proc/update_surface_icon(surface_idx)
 	SHOULD_CALL_PARENT(FALSE)
+	return
