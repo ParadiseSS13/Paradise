@@ -686,11 +686,11 @@
 
 /obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/dropped(mob/user, silent)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)

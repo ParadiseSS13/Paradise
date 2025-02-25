@@ -25124,6 +25124,9 @@
 	pixel_y = -4;
 	pixel_x = 6
 	},
+/obj/item/storage/box/gloves,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -72588,12 +72591,10 @@
 /area/station/maintenance/fsmaint)
 "ozX" = (
 /obj/structure/shelf/science,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves,
 /obj/item/tank/internals/anesthetic,
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/clothing/mask/breath/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/stack/medical/bruise_pack/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

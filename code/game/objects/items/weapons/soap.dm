@@ -76,7 +76,7 @@
 
 /obj/item/soap/homemade
 	desc = "A homemade bar of soap. Smells of... well...."
-	icon_state = "soapgibs"
+	icon_state = "soaphome"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
 /obj/item/soap/ducttape
@@ -118,3 +118,9 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
+
+/obj/item/soap/ds
+	desc = "A very intimidating, jet-black bar of soap with a skull embossed on the top. Whatever this thing is made of, it can clean any mess in the blink of an eye."
+	icon_state = "soapds"
+	cleanspeed = 5
+

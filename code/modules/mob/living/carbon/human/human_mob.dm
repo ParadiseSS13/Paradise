@@ -650,8 +650,7 @@
 
 	if(href_list["employment_more"])
 		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
-			if(usr.incapacitated() && !isobserver(usr))
-				return
+
 
 			var/skills
 			var/perpname = get_visible_name(TRUE)
@@ -662,6 +661,10 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+
+	if(href_list["ai"])
+		try_set_malf_status(usr)
+
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
@@ -726,6 +729,49 @@
 	else if(is_ai(user))
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
+
+/mob/living/carbon/human/proc/try_set_malf_status(mob/user)
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+	if(user.incapacitated())
+		return
+
+	var/targetname = get_visible_name(TRUE)
+	if(targetname == "Unknown")
+		to_chat(user, "<span class='warning'>Unable to set a status for unknown persons.</span>")
+		return
+
+	var/datum/data/record/found_record
+	outer:
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == targetname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						found_record = E
+					break outer
+
+	if(!found_record)
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	var/static/list/possible_status = list(
+		MALF_STATUS_NONE,
+		MALF_STATUS_GREEN,
+		MALF_STATUS_RED,
+		MALF_STATUS_AVOID,
+	)
+
+	var/new_status = tgui_input_list(user, "What status shall we give [targetname]?", "MALF Status", possible_status)
+	if(!new_status)
+		return
+
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+
+	found_record.fields["ai_target"] = new_status
+
+	update_all_mob_malf_hud(new_status)
+
 
 /mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
 

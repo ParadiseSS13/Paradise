@@ -59,7 +59,7 @@
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
-	module_UID = UID(src)
+	module_UID = UID()
 	if(module_type != MODULE_ACTIVE)
 		return
 	if(ispath(device))

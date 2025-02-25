@@ -389,6 +389,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	show_me_the_hud(DATA_HUD_MALF_AI)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
@@ -403,6 +404,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	remove_the_hud(DATA_HUD_MALF_AI)
 	antagHUD = FALSE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.remove_hud_from(src)

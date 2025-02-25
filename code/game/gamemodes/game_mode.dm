@@ -280,17 +280,15 @@
 	var/list/players = list()
 	var/list/candidates = list()
 
-	var/roletext = get_roletext(role)
-
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready)
-			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, role))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, roletext))
+		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role))
 			continue
 		if(player_old_enough_antag(player.client, role))
 			players += player
@@ -307,7 +305,7 @@
 				continue
 			// SS220 ADDITION END - SERPENTIDS
 			if(role in eligible_player.client.prefs.be_special)
-				player_draft_log += "[eligible_player.key] had [roletext] enabled, so we are drafting them."
+				player_draft_log += "[eligible_player.key] had [role] enabled, so we are drafting them."
 				candidates += eligible_player.mind
 				players -= eligible_player
 
@@ -331,13 +329,11 @@
 	var/list/players = list()
 	var/list/candidates = list()
 
-	var/roletext = get_roletext(role)
-
 	// Assemble a list of active players without jobbans.
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player.client || (locate(player) in SSafk.afk_players))
 			continue
-		if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+		if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, role))
 			players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
@@ -351,7 +347,7 @@
 		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in species_to_mindflayer))
 			continue
 
-		player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
 		candidates += player.mind
 		players -= player
 
@@ -494,9 +490,6 @@
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
-
-/proc/get_roletext(role)
-	return role
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"

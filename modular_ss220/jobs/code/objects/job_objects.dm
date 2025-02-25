@@ -167,6 +167,10 @@
 	desc = "Личное смертоносное оружие клоуна-смотрителя, выданное за заслуги перед НТ и \[ДАННЫЕ ХОНКНУТЫ\]. Ходят слухи что это один из первых экземпляров произведенных во время войны мимов и клоунов на родной планете клоунов."
 
 // JANITOR //
+/obj/item/soap/nanotrasen/prime
+	desc = "Мыло марки Нанотрейзен, выполненное по спецзаказу для лучших из лучших уборщиков."
+	cleanspeed = 20
+
 /obj/item/storage/belt/janitor/full/donor/populate_contents()
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)

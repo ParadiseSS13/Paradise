@@ -43405,27 +43405,22 @@
 /area/station/hallway/primary/aft)
 "dCZ" = (
 /obj/structure/shelf/science,
-/obj/item/mmi{
-	pixel_x = -6;
-	pixel_y = -4
-	},
-/obj/item/mmi{
-	pixel_y = -4
-	},
-/obj/item/mmi{
-	pixel_y = -4;
-	pixel_x = 6
-	},
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = -8;
 	pixel_y = 10
 	},
-/obj/item/mmi{
-	pixel_y = 8
-	},
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = 8;
 	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/tank/internals/anesthetic{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/item/clothing/mask/breath/medical{
+	pixel_x = -8;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43798,6 +43793,9 @@
 	pixel_y = 6
 	},
 /obj/item/robotanalyzer,
+/obj/item/roller{
+	pixel_y = 14
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -66606,16 +66604,16 @@
 	pixel_x = 8;
 	pixel_y = -6
 	},
-/obj/item/clothing/mask/breath/medical{
-	pixel_x = -8;
-	pixel_y = 6
+/obj/item/mmi{
+	pixel_x = -6;
+	pixel_y = -4
 	},
-/obj/item/roller{
-	pixel_y = 14
+/obj/item/mmi{
+	pixel_y = -4
 	},
-/obj/item/tank/internals/anesthetic{
-	pixel_x = 8;
-	pixel_y = 6
+/obj/item/mmi{
+	pixel_y = -4;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;

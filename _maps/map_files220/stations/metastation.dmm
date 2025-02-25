@@ -41215,6 +41215,7 @@
 	},
 /obj/item/clothing/mask/breath/medical,
 /obj/machinery/light/directional/north,
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
