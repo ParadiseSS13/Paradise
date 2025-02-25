@@ -117,12 +117,12 @@
 
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
-	toggle()
+	update_icon(UPDATE_OVERLAYS)
 	..()
 /obj/structure/curtain/attack_robot(mob/living/user)
 	. = ..()
 	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
-	toggle()
+	update_icon(UPDATE_OVERLAYS)
 	..()
 
 
@@ -136,7 +136,8 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-/obj/structure/curtain/proc/toggle()
+/obj/structure/curtain/update_overlays()
+	. = ..()
 	set_opacity(!opacity)
 	cut_overlays()
 	if(opacity)
