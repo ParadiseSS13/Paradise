@@ -168,7 +168,7 @@
 	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(istype(attacker, /obj/item/mining_scanner) || istype(attacker, /obj/item/t_scanner/adv_mining_scanner) && stage == GIBTONITE_ACTIVE)
-		user.visible_message("<span class='notice'>[user] holds [attacker] to [src]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
+		user.visible_message("<span class='notice'>[user] holds [attacker] to [source]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse(source)
 		return COMPONENT_SKIP_AFTERATTACK
 
