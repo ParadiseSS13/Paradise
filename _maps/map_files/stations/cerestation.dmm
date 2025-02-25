@@ -4770,6 +4770,20 @@
 	icon_state = "darkbrownfull"
 	},
 /area/station/command/meeting_room)
+"aPx" = (
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/item/screwdriver,
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/aisat/interior)
 "aPz" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -31051,7 +31065,13 @@
 	},
 /area/station/medical/virology)
 "eQs" = (
-/turf/simulated/mineral/ancient,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/turret_protected/aisat/interior)
 "eQt" = (
 /obj/machinery/economy/vending/cigarette,
@@ -62403,21 +62423,13 @@
 	},
 /area/station/maintenance/port)
 "mqC" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Satellie Antechamber";
 	dir = 10;
 	network = list("SS13","MiniSat")
-	},
-/obj/structure/table/reinforced,
-/obj/item/crowbar/red,
-/obj/item/screwdriver,
-/obj/item/stack/cable_coil{
-	pixel_x = -2;
-	pixel_y = 8
-	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -91970,10 +91982,15 @@
 /area/station/service/hydroponics)
 "tzW" = (
 /obj/machinery/light,
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/portable/canister/air,
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil{
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/item/crowbar/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111184,14 +111201,6 @@
 "yfZ" = (
 /turf/simulated/wall,
 /area/station/medical/storage/secondary)
-"ygb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/aisat/interior)
 "yge" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft Asteroid Maintenance"
@@ -154233,10 +154242,10 @@ aAS
 axp
 ceR
 rRM
-aaf
-aaf
-aaf
-aaf
+bke
+bke
+bke
+bke
 ahF
 rNK
 rNK
@@ -154490,9 +154499,9 @@ aBl
 vNy
 rRM
 rRM
-bke
-bke
-bke
+ayM
+hcF
+cyB
 bke
 ahF
 ahF
@@ -154747,9 +154756,9 @@ aBn
 vdu
 aWM
 avq
-ayM
-hcF
-cyB
+fsT
+sfr
+pQC
 bke
 ahF
 ahF
@@ -155004,12 +155013,12 @@ aBn
 tDC
 lnO
 atJ
-fsT
-sfr
-pQC
-bke
-ahF
-ahF
+gEq
+gEq
+vsp
+mmW
+mmW
+mmW
 ahF
 rNK
 rNK
@@ -155261,12 +155270,12 @@ aBM
 aOk
 aWP
 atJ
-gEq
-gEq
-vsp
+vAa
+bll
+bll
+aPx
 eQs
-eQs
-eQs
+mmW
 ahF
 lzH
 lzH
@@ -156549,7 +156558,7 @@ bcr
 bkj
 dce
 bvT
-ygb
+aQG
 bll
 cXU
 mBR
