@@ -580,17 +580,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/south)
-"ahv" = (
-/obj/structure/lattice,
-/obj/machinery/access_button{
-	autolink_id = "aisat_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = 7;
-	req_access = list(75,13)
-	},
-/turf/space,
-/area/space/nearstation)
 "ahF" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -15926,7 +15915,6 @@
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -32698,7 +32686,7 @@
 	},
 /area/station/service/chapel)
 "cyP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "cyR" = (
@@ -32938,9 +32926,6 @@
 	},
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "aisat_vent"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -39142,6 +39127,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -40227,19 +40213,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = 9;
-	pixel_y = -25;
-	vent_link_id = "aisat_vent";
-	ext_door_link_id = "aisat_door_ext";
-	int_door_link_id = "aisat_door_int";
-	ext_button_link_id = "aisat_btn_ext";
-	int_button_link_id = "aisat_btn_int"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "aisat_vent"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -42179,13 +42154,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
 "efR" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_ext";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -48689,21 +48657,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
-"gXJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_int";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/aisat)
 "gXN" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -56068,6 +56021,10 @@
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"koo" = (
+/obj/effect/spawner/airlock/e_to_w/long/square,
+/turf/simulated/wall/r_wall,
+/area/station/aisat)
 "kpl" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -60277,12 +60234,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "aisat_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71464,7 +71415,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "riX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "rja" = (
@@ -71883,18 +71834,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/controlroom)
-"rsv" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_int";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/aisat)
 "rsI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -137707,7 +137646,7 @@ abq
 abq
 aef
 aef
-ahv
+abq
 jbB
 abq
 aef
@@ -137964,7 +137903,7 @@ abq
 aUU
 efR
 efR
-aXL
+koo
 woN
 aXH
 bDg
@@ -138733,8 +138672,8 @@ aaa
 aaa
 pln
 gGS
-rsv
-gXJ
+efR
+efR
 aXL
 aXN
 bwW

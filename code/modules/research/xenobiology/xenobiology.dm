@@ -132,8 +132,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
 	var/being_used = FALSE
+	new_attack_chain = TRUE
 
-/obj/item/slimepotion/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/proc/is_valid_potion_receiver(atom/target, mob/user)
+	if(istype(target, /obj/item/reagent_containers))
+		to_chat(user, "<span class='notice'>You cannot give [src] to [target]! It must be given directly to a slime to absorb.</span>") // le fluff faec
+		return FALSE
+
+	var/mob/living/simple_animal/slime/M = target
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>[src] only works on slimes!</span>")
 		return FALSE
@@ -143,25 +149,25 @@
 	if(being_used)
 		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return FALSE
+
 	return TRUE
 
-/obj/item/slimepotion/afterattack__legacy__attackchain(obj/item/reagent_containers/target, mob/user, proximity_flag)
-	if(!proximity_flag)
-		return
-	if(istype(target))
-		to_chat(user, "<span class='notice'>You cannot give [src] to [target]! It must be given directly to a slime to absorb.</span>") // le fluff faec
-		return
+/obj/item/slimepotion/proc/apply_potion(atom/target, mob/living/user)
+	return
+
+/obj/item/slimepotion/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_valid_potion_receiver(target, user))
+		apply_potion(target, user)
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/slimepotion/slime/docility
 	name = "docility potion"
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon_state = "bottle19"
 
-/obj/item/slimepotion/slime/docility/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
-	. = ..()
-	if(!.)
-		return
-
+/obj/item/slimepotion/slime/docility/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/slime/M = target
 	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
 		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
 		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
@@ -200,25 +206,25 @@
 		if(2)
 			. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
 
-/obj/item/slimepotion/sentience/attack__legacy__attackchain()
-	return
-
-/obj/item/slimepotion/sentience/afterattack__legacy__attackchain(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
-		return
-	if(being_used || !ismob(M))
-		return
+/obj/item/slimepotion/sentience/is_valid_potion_receiver(atom/target, mob/user)
+	if(being_used || !ismob(target))
+		return FALSE
+	var/mob/M = target
 	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
-		return ..()
+		return FALSE
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
-		return ..()
+		return FALSE
 	var/mob/living/simple_animal/SM = M
 	if(SM.sentience_type != sentience_type)
 		to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
-		return ..()
+		return FALSE
 
+	return TRUE
+
+/obj/item/slimepotion/sentience/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/SM = target
 	if(heat_stage >= 2)
 		to_chat(user, "<span class='danger'>[src] violently explodes!</span>")
 		var/turf/T = get_turf(loc)
@@ -234,7 +240,7 @@
 	being_used = TRUE
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text ? "\nReason: [sanitize(reason_text)]\n" : ""]"
-	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = SM, reason = reason_text)
 
 	if(QDELETED(src) || QDELETED(SM))
 		return
@@ -252,11 +258,11 @@
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+		to_chat(user, "<span class='notice'>[SM] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 		after_success(user, SM)
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
+		to_chat(user, "<span class='notice'>[SM] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		heat_stage += 1
 		addtimer(CALLBACK(src, PROC_REF(cooldown_potion)), 60 SECONDS)
 		if(user.Adjacent(src))
@@ -266,7 +272,6 @@
 				if(2)
 					to_chat(user, "<span class='warning'>[src] is boiling hot! You shudder to think what would happen if you used it again...</span>")
 		being_used = FALSE
-		..()
 
 /obj/item/slimepotion/sentience/proc/cooldown_potion()
 	if(!heat_stage)
@@ -285,25 +290,28 @@
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack__legacy__attackchain(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
-		return
-	if(prompted || !ismob(M))
-		return
+/obj/item/slimepotion/transference/is_valid_potion_receiver(atom/target, mob/user)
+	if(prompted || !ismob(target))
+		return FALSE
+	var/mob/M = target
 	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
 		to_chat(user, "<span class='warning'>[M] already has a higher consciousness!</span>")
-		return ..()
+		return FALSE
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
-		return ..()
+		return FALSE
 	var/mob/living/simple_animal/SM = M
 	if(SM.sentience_type != animal_type)
 		to_chat(user, "<span class='warning'>You cannot transfer your consciousness to [SM].</span>") //no controlling machines
-		return ..()
+		return FALSE
 	if(jobban_isbanned(user, ROLE_SENTIENT))
 		to_chat(user, "<span class='warning'>Your mind goes blank as you attempt to use the potion.</span>")
-		return
+		return FALSE
 
+	return TRUE
+
+/obj/item/slimepotion/transference/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/SM = target
 	prompted = TRUE
 	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
 		prompted = FALSE
@@ -326,18 +334,25 @@
 	desc = "A potent chemical mix that will cause a baby slime to generate more extract."
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
-	. = ..()
-	if(!.)
-		return
+/obj/item/slimepotion/slime/steroid/is_valid_potion_receiver(atom/target, mob/user)
+	if(!..())
+		return FALSE
+
+	var/mob/living/simple_animal/slime/M = target
+	if(!istype(M))
+		return FALSE
 
 	if(M.is_adult) //Can't steroidify adults
 		to_chat(user, "<span class='warning'>Only baby slimes can use the steroid!</span>")
-		return ..()
+		return FALSE
 	if(M.cores >= 5)
 		to_chat(user, "<span class='warning'>The slime already has the maximum amount of extract!</span>")
-		return ..()
+		return FALSE
 
+	return TRUE
+
+/obj/item/slimepotion/slime/steroid/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/slime/M = target
 	to_chat(user, "<span class='notice'>You feed the slime the steroid. It will now produce one more extract.</span>")
 	M.cores++
 	qdel(src)
@@ -347,19 +362,23 @@
 	desc = "A potent chemical mix that will give a slime extract an additional use."
 	icon_state = "bottle17"
 
+/obj/item/slimepotion/enhancer/is_valid_potion_receiver(atom/target, mob/user)
+	if(!istype(target, /obj/item/slime_extract))
+		to_chat(user, "<span class='warning'>[src] only works on slime extracts!</span>")
+		return FALSE
+
+	return TRUE
+
 /obj/item/slimepotion/slime/stabilizer
 	name = "slime stabilizer"
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
-	. = ..()
-	if(!.)
-		return
-
+/obj/item/slimepotion/slime/stabilizer/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/slime/M = target
 	if(M.mutation_chance == 0)
 		to_chat(user, "<span class='warning'>The slime already has no chance of mutating!</span>")
-		return ..()
+		return
 
 	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
 	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
@@ -370,18 +389,22 @@
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
-	. = ..()
-	if(!.)
-		return
+/obj/item/slimepotion/slime/mutator/is_valid_potion_receiver(atom/target, mob/user)
+	if(!..())
+		return FALSE
 
+	var/mob/living/simple_animal/slime/M = target
 	if(M.mutator_used)
 		to_chat(user, "<span class='warning'>This slime has already consumed a mutator, any more would be far too unstable!</span>")
-		return ..()
+		return FALSE
 	if(M.mutation_chance == 100)
 		to_chat(user, "<span class='warning'>The slime is already guaranteed to mutate!</span>")
-		return ..()
+		return FALSE
 
+	return TRUE
+
+/obj/item/slimepotion/slime/mutator/apply_potion(atom/target, mob/living/user)
+	var/mob/living/simple_animal/slime/M = target
 	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
 	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
 	M.mutator_used = TRUE
@@ -394,12 +417,8 @@
 	desc = "A monkey-shaped treat that heats up your little slime friend!"
 	icon_state = "slime_treat"
 
-/obj/item/slimepotion/speed/attack__legacy__attackchain(mob/living/simple_animal/slime/M, mob/user)
-	. = ..()
-	if(!.)
-		return
-
-	heat_up(M)
+/obj/item/slimepotion/speed/apply_potion(atom/target, mob/living/user)
+	heat_up(target)
 
 /obj/item/slimepotion/speed/proc/heat_up(mob/living/simple_animal/slime/M)
 	M.visible_message("<span class='notice'>As [M] gobbles [src], it starts buzzing with joyful energy!</span>")
@@ -421,25 +440,31 @@
 	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
-/obj/item/slimepotion/fireproof/afterattack__legacy__attackchain(obj/item/clothing/C, mob/user, proximity_flag)
-	..()
-	if(!proximity_flag)
-		return
+/obj/item/slimepotion/fireproof/is_valid_potion_receiver(atom/target, mob/user)
 	if(!uses)
 		qdel(src)
-		return
+		return FALSE
+	var/obj/item/clothing/C = target
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
-		return
+		return FALSE
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
-		return ..()
+		return FALSE
+
+	return TRUE
+
+/obj/item/slimepotion/fireproof/apply_potion(atom/target, mob/living/user)
+	var/obj/item/clothing/C = target
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
+	if(ishuman(C.loc))
+		var/mob/living/carbon/human/H = C.loc
+		H.regenerate_icons()
 	uses --
 	if(!uses)
 		qdel(src)
@@ -448,7 +473,7 @@
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
-		afterattack__legacy__attackchain(over_object, usr, TRUE)
+		apply_potion(over_object, usr)
 
 /obj/item/slimepotion/oil_slick
 	name = "slime oil potion"
@@ -457,43 +482,58 @@
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/oil_slick/afterattack__legacy__attackchain(obj/O, mob/user, proximity_flag)
-	if(!proximity_flag)
-		return
-	..()
+/obj/item/slimepotion/oil_slick/is_valid_potion_receiver(atom/target, mob/user)
+	var/obj/item/O = target
+
 	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
-		return
+		return FALSE
 	if(!isitem(O))
 		if(!istype(O, /obj/structure/table))
 			to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
-			return
+			return FALSE
 		var/obj/structure/table/T = O
 		if(T.slippery)
 			to_chat(user, "<span class='warning'>[T] can luckily not be made any slippier!</span>")
-			return
-		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on your own!</span>") //Speed table must remain.
-		T.slippery = TRUE
+			return FALSE
 	else
 		var/obj/item/I = O
 		if(I.slowdown <= 0)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
-			return
-		I.slowdown = 0
+			return FALSE
 		if(ismodcontrol(O))
 			var/obj/item/mod/control/C = O
 			if(C.active)
 				to_chat(user, "<span class='warning'>It is too dangerous to smear [src] on [C] while it is active!</span>")
-				return
+				return FALSE
+
+	return TRUE
+
+/obj/item/slimepotion/oil_slick/apply_potion(atom/target, mob/living/user)
+	var/obj/structure/table/T = target
+	if(istype(T))
+		// Speed table must remain.
+		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on their own!</span>")
+		T.slippery = TRUE
+	else
+		var/obj/item/I = target
+		if(istype(I))
+			I.slowdown = 0
+
+		var/obj/item/mod/control/C = target
+		if(istype(C))
 			C.slowdown_inactive = 0
 			C.slowdown_active = 0
 			C.update_speed()
 
-	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
-	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	O.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
-	ADD_TRAIT(O, TRAIT_OIL_SLICKED, "potion")
-	if(ishuman(O.loc))
-		var/mob/living/carbon/human/H = O.loc
+	finalize_potion_apply(target, user)
+
+/obj/item/slimepotion/oil_slick/proc/finalize_potion_apply(atom/target, mob/user)
+	to_chat(user, "<span class='notice'>You slather the oily gunk over [target], making it slick and slippery.</span>")
+	target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	target.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
+	ADD_TRAIT(target, TRAIT_OIL_SLICKED, "potion")
+	if(ishuman(target.loc))
+		var/mob/living/carbon/human/H = target.loc
 		H.regenerate_icons()
 	qdel(src)
 
@@ -501,7 +541,7 @@
 	if(usr.incapacitated())
 		return
 	if(loc == usr && loc.Adjacent(over_object))
-		afterattack__legacy__attackchain(over_object, usr, TRUE)
+		apply_potion(over_object, usr)
 
 /obj/effect/timestop
 	anchored = TRUE
