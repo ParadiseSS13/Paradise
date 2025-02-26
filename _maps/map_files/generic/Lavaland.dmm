@@ -3077,6 +3077,14 @@
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"in" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -4454,6 +4462,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/custodial)
+"oA" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "oH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4560,6 +4575,10 @@
 "pq" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"pr" = (
+/obj/structure/lattice/catwalk/mining,
+/turf/space,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "px" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4738,6 +4757,13 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"qL" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "qR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6412,14 +6438,6 @@
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
-"Bh" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/structure/railing,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "Bi" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -6832,6 +6850,13 @@
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
+"DH" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -7711,15 +7736,10 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "JB" = (
-/obj/structure/closet/crate/secure/loot,
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/radar,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "JD" = (
 /obj/structure/grille/broken,
 /obj/structure/grille/broken,
@@ -8014,6 +8034,13 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"Lv" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Lw" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
@@ -8701,10 +8728,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"Qd" = (
-/obj/structure/sign/nanotrasen,
-/turf/simulated/wall/mineral/iron,
-/area/lavaland/surface/outdoors/targetable)
 "Qf" = (
 /obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
@@ -8880,6 +8903,14 @@
 /obj/structure/firelock_frame,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"RW" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "RZ" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -9229,6 +9260,13 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
+"Um" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "Ur" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -10042,6 +10080,14 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
+"YF" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/screwdriver,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "YH" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
@@ -22750,14 +22796,14 @@ Aw
 Aw
 Aw
 iF
-Vy
-Vy
-Vy
+NR
 iF
 iF
-nu
 iF
-jZ
+iF
+iF
+iF
+iF
 nu
 nu
 tS
@@ -23007,15 +23053,15 @@ ai
 ai
 ai
 Vy
-Vy
-NR
 zI
 VU
 VU
-VU
-Is
-Is
-Is
+iF
+iF
+iF
+iF
+iF
+nu
 nu
 ec
 eQ
@@ -23263,17 +23309,17 @@ am
 am
 am
 am
-Vy
-Vy
+zI
 zI
 VU
 VU
-VU
-Is
-VU
-Is
-Is
-nu
+iF
+iF
+bt
+RW
+dO
+Lv
+pr
 ec
 nu
 nu
@@ -23520,17 +23566,17 @@ am
 am
 am
 am
-Vy
-Vy
 zI
 VU
-zI
-Is
 VU
-Is
-Is
-Is
-nu
+VU
+iF
+iF
+oA
+vZ
+vZ
+vZ
+vZ
 cx
 nu
 iF
@@ -23778,17 +23824,17 @@ am
 am
 am
 Vy
-Vy
-zI
 VU
 VU
-FC
-Is
-Is
-Is
+VU
+iF
+iF
+oA
+vZ
+vZ
 JB
-Qd
-Bh
+vZ
+bH
 iF
 iF
 Qw
@@ -24035,17 +24081,17 @@ am
 am
 am
 Vy
-Vy
-VU
-VU
-VU
-VU
-VU
-VU
-FC
 zI
+VU
+VU
 iF
-Ej
+iF
+VA
+vZ
+vZ
+vZ
+vZ
+in
 iF
 iF
 jZ
@@ -24292,16 +24338,16 @@ am
 am
 am
 Vy
-Vy
-NR
+zI
 VU
 VU
 VU
 VU
-VU
-VU
-VU
-iF
+qL
+Jg
+Jg
+YF
+DH
 Ej
 iF
 iF
@@ -24550,7 +24596,7 @@ am
 am
 Vy
 Vy
-NR
+zI
 VU
 VU
 zI
@@ -24807,8 +24853,8 @@ am
 am
 Vy
 Vy
-NR
 zI
+VU
 VU
 VU
 zI
@@ -26869,7 +26915,7 @@ NR
 zI
 VU
 VU
-Is
+Um
 cU
 jP
 bV
