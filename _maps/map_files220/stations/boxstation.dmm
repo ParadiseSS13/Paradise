@@ -64941,7 +64941,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "AI Satellite Exterior South";
+	c_tag = "AI Core North";
 	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
@@ -70146,7 +70146,7 @@
 /area/station/security/permabrig)
 "nFg" = (
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
+	c_tag = "AI Core South";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -90401,7 +90401,7 @@
 	pixel_x = 9
 	},
 /obj/machinery/camera{
-	c_tag = "AI Satellite Exterior South";
+	c_tag = "AI Core";
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/turretid/lethal{
