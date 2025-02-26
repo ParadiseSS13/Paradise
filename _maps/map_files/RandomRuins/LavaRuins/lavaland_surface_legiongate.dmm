@@ -446,6 +446,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"pP" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "qa" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -823,6 +828,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Ci" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Cn" = (
 /obj/structure/stone_tile/center/cracked,
 /obj/effect/mapping_helpers/no_lava,
@@ -1071,6 +1083,13 @@
 /area/lavaland/surface/outdoors)
 "Lw" = (
 /obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MA" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
@@ -1509,6 +1528,9 @@ os
 os
 os
 os
+os
+os
+os
 yD
 yD
 yD
@@ -1548,6 +1570,9 @@ os
 os
 "}
 (2,1,1) = {"
+os
+os
+os
 os
 os
 os
@@ -1600,6 +1625,9 @@ os
 os
 os
 os
+os
+os
+os
 yD
 yD
 yD
@@ -1646,6 +1674,9 @@ os
 os
 "}
 (4,1,1) = {"
+os
+os
+os
 os
 yD
 yD
@@ -1696,6 +1727,9 @@ os
 "}
 (5,1,1) = {"
 os
+os
+os
+os
 yD
 yD
 yD
@@ -1744,6 +1778,9 @@ os
 os
 "}
 (6,1,1) = {"
+os
+os
+os
 yD
 yD
 fE
@@ -1793,6 +1830,9 @@ os
 os
 "}
 (7,1,1) = {"
+os
+os
+os
 yD
 yD
 yD
@@ -1842,6 +1882,9 @@ os
 os
 "}
 (8,1,1) = {"
+os
+os
+os
 yD
 fE
 yD
@@ -1891,6 +1934,9 @@ os
 os
 "}
 (9,1,1) = {"
+os
+os
+os
 yD
 fE
 Vd
@@ -1940,6 +1986,9 @@ os
 os
 "}
 (10,1,1) = {"
+os
+os
+os
 yD
 Nn
 go
@@ -1989,6 +2038,9 @@ os
 os
 "}
 (11,1,1) = {"
+os
+os
+os
 yD
 Nn
 Hl
@@ -2038,6 +2090,9 @@ os
 os
 "}
 (12,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -2087,6 +2142,9 @@ os
 os
 "}
 (13,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -2136,6 +2194,9 @@ os
 os
 "}
 (14,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -2185,6 +2246,9 @@ os
 os
 "}
 (15,1,1) = {"
+os
+os
+os
 yD
 Nn
 sq
@@ -2234,6 +2298,9 @@ os
 os
 "}
 (16,1,1) = {"
+os
+os
+os
 yD
 sS
 sS
@@ -2284,6 +2351,9 @@ os
 "}
 (17,1,1) = {"
 yD
+yD
+yD
+yD
 Nn
 Nn
 Nn
@@ -2332,7 +2402,10 @@ os
 os
 "}
 (18,1,1) = {"
-yD
+wD
+ws
+Qe
+pP
 Nn
 Nn
 Nn
@@ -2381,7 +2454,10 @@ os
 os
 "}
 (19,1,1) = {"
-yD
+Nn
+Qe
+PO
+Ci
 Nn
 Nn
 Nn
@@ -2430,7 +2506,10 @@ os
 os
 "}
 (20,1,1) = {"
-yD
+Nn
+Qe
+QP
+pP
 Nn
 Nn
 Nn
@@ -2479,7 +2558,10 @@ os
 os
 "}
 (21,1,1) = {"
-yD
+Nn
+PO
+Qe
+pP
 Nn
 ya
 el
@@ -2528,7 +2610,10 @@ os
 os
 "}
 (22,1,1) = {"
-yD
+MA
+Qe
+Qe
+pP
 Nn
 TN
 rS
@@ -2578,6 +2663,9 @@ os
 "}
 (23,1,1) = {"
 yD
+yD
+yD
+yD
 Nn
 TN
 Nn
@@ -2626,6 +2714,9 @@ os
 os
 "}
 (24,1,1) = {"
+os
+os
+os
 yD
 ya
 dX
@@ -2675,6 +2766,9 @@ os
 os
 "}
 (25,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -2724,6 +2818,9 @@ os
 os
 "}
 (26,1,1) = {"
+os
+os
+os
 yD
 XW
 ya
@@ -2773,6 +2870,9 @@ os
 os
 "}
 (27,1,1) = {"
+os
+os
+os
 yD
 yD
 yD
@@ -2822,6 +2922,9 @@ os
 os
 "}
 (28,1,1) = {"
+os
+os
+os
 yD
 yD
 lZ
@@ -2871,6 +2974,9 @@ Nn
 os
 "}
 (29,1,1) = {"
+os
+os
+os
 yD
 yD
 lj
@@ -2920,6 +3026,9 @@ Nn
 Nn
 "}
 (30,1,1) = {"
+os
+os
+os
 yD
 yD
 eT
@@ -2969,6 +3078,9 @@ yD
 yD
 "}
 (31,1,1) = {"
+os
+os
+os
 yD
 yD
 WF
@@ -3018,6 +3130,9 @@ ws
 zE
 "}
 (32,1,1) = {"
+os
+os
+os
 yD
 yD
 lc
@@ -3067,6 +3182,9 @@ Qe
 Nn
 "}
 (33,1,1) = {"
+os
+os
+os
 yD
 yD
 RI
@@ -3116,6 +3234,9 @@ Qe
 Nn
 "}
 (34,1,1) = {"
+os
+os
+os
 yD
 yD
 sJ
@@ -3165,6 +3286,9 @@ PO
 Nn
 "}
 (35,1,1) = {"
+os
+os
+os
 yD
 yD
 ze
@@ -3214,6 +3338,9 @@ Qe
 Je
 "}
 (36,1,1) = {"
+os
+os
+os
 yD
 yD
 og
@@ -3263,6 +3390,9 @@ yD
 yD
 "}
 (37,1,1) = {"
+os
+os
+os
 yD
 yD
 mU
@@ -3312,6 +3442,9 @@ Nn
 Nn
 "}
 (38,1,1) = {"
+os
+os
+os
 yD
 yD
 wf
@@ -3361,6 +3494,9 @@ Nn
 os
 "}
 (39,1,1) = {"
+os
+os
+os
 yD
 yD
 yD
@@ -3410,6 +3546,9 @@ os
 os
 "}
 (40,1,1) = {"
+os
+os
+os
 yD
 CR
 sS
@@ -3459,6 +3598,9 @@ os
 os
 "}
 (41,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -3508,6 +3650,9 @@ os
 os
 "}
 (42,1,1) = {"
+os
+os
+os
 yD
 CR
 AR
@@ -3558,6 +3703,9 @@ os
 "}
 (43,1,1) = {"
 yD
+yD
+yD
+yD
 Nn
 jz
 Nn
@@ -3606,7 +3754,10 @@ os
 os
 "}
 (44,1,1) = {"
-yD
+wD
+ws
+Qe
+pP
 Nn
 jz
 rS
@@ -3655,7 +3806,10 @@ os
 os
 "}
 (45,1,1) = {"
-yD
+Nn
+Qe
+PO
+Ci
 Nn
 sS
 YW
@@ -3704,7 +3858,10 @@ os
 os
 "}
 (46,1,1) = {"
-yD
+Nn
+Qe
+QP
+pP
 Nn
 Nn
 Nn
@@ -3753,7 +3910,10 @@ os
 os
 "}
 (47,1,1) = {"
-yD
+Nn
+PO
+Qe
+pP
 Nn
 Nn
 Hc
@@ -3802,7 +3962,10 @@ os
 os
 "}
 (48,1,1) = {"
-yD
+MA
+Qe
+Qe
+pP
 Nn
 Nn
 YR
@@ -3852,6 +4015,9 @@ os
 "}
 (49,1,1) = {"
 yD
+yD
+yD
+yD
 Nn
 sq
 Nn
@@ -3900,6 +4066,9 @@ os
 os
 "}
 (50,1,1) = {"
+os
+os
+os
 yD
 CR
 Ww
@@ -3949,6 +4118,9 @@ os
 os
 "}
 (51,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -3998,6 +4170,9 @@ os
 os
 "}
 (52,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -4047,6 +4222,9 @@ os
 os
 "}
 (53,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -4096,6 +4274,9 @@ os
 os
 "}
 (54,1,1) = {"
+os
+os
+os
 yD
 Nn
 Nn
@@ -4145,6 +4326,9 @@ os
 os
 "}
 (55,1,1) = {"
+os
+os
+os
 yD
 Nn
 XR
@@ -4194,6 +4378,9 @@ os
 os
 "}
 (56,1,1) = {"
+os
+os
+os
 yD
 Nn
 go
@@ -4243,6 +4430,9 @@ os
 os
 "}
 (57,1,1) = {"
+os
+os
+os
 yD
 be
 hT
@@ -4292,6 +4482,9 @@ os
 os
 "}
 (58,1,1) = {"
+os
+os
+os
 yD
 fE
 yD
@@ -4341,6 +4534,9 @@ os
 os
 "}
 (59,1,1) = {"
+os
+os
+os
 yD
 yD
 yD
@@ -4390,6 +4586,9 @@ os
 os
 "}
 (60,1,1) = {"
+os
+os
+os
 yD
 yD
 yD
@@ -4440,6 +4639,9 @@ os
 "}
 (61,1,1) = {"
 os
+os
+os
+os
 yD
 yD
 fE
@@ -4489,6 +4691,9 @@ os
 "}
 (62,1,1) = {"
 os
+os
+os
+os
 yD
 yD
 yD
@@ -4537,6 +4742,9 @@ os
 os
 "}
 (63,1,1) = {"
+os
+os
+os
 os
 os
 os
@@ -4591,6 +4799,9 @@ os
 os
 os
 os
+os
+os
+os
 yD
 yD
 yD
@@ -4635,6 +4846,9 @@ os
 os
 "}
 (65,1,1) = {"
+os
+os
+os
 os
 os
 os
