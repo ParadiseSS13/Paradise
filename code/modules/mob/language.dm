@@ -220,14 +220,14 @@
 
 /datum/language/skrell
 	name = "Qurvolious"
-	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water. Unlike many Skrell dialects, Qurvolious can be heard, if not comprehended, by non-Skrell in its entirety."
+	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water. Certain syllables of the language cannot be comprehended by non-Skrell."
 	speech_verb = "warbles"
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
 	colour = "skrell"
 	key = "k"
 	flags = RESTRICTED
-	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix")
+	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","!","*")
 
 /datum/language/vox
 	name = "Vox-pidgin"
