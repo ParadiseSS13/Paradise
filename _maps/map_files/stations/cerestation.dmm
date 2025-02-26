@@ -21728,6 +21728,9 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVi" = (
@@ -21748,6 +21751,9 @@
 	},
 /obj/effect/decal/cleanable/cobweb{
 	icon_state = "cobweb2"
+	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)

@@ -14090,6 +14090,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "cOv" = (
@@ -96938,6 +96941,9 @@
 	name = "Gas Turbine Airlock Control";
 	pixel_x = -8;
 	pixel_y = 24
+	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)

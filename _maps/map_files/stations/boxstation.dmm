@@ -77356,6 +77356,9 @@
 /obj/structure/sign/fire{
 	pixel_x = 32
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "sKD" = (
@@ -85561,6 +85564,9 @@
 	},
 /obj/structure/sign/fire{
 	pixel_x = -32
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)

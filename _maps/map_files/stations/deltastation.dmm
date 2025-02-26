@@ -11467,6 +11467,9 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/structure/sign/magboots{
+	pixel_x = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "aQQ" = (
@@ -63523,6 +63526,9 @@
 	pixel_x = 26;
 	pixel_y = -8
 	},
+/obj/structure/sign/turbine{
+	pixel_x = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "ibg" = (
@@ -114707,7 +114713,7 @@ aKZ
 mgS
 aNV
 wfj
-aQN
+aNV
 aGZ
 aZY
 aOg
