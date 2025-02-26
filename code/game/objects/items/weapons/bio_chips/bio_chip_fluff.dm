@@ -37,7 +37,7 @@
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."
-	notes = "A complex bio-chip utilizing a multitude of synthetic chemicals invented by the Syndicate. It's rumored that synthetic rights groups maintain stockpiles of these."
+	notes = "A complex bio-chip utilizing a multitude of synthetic chemicals invented by Cybersun Industries. It's rumored that synthetic rights groups maintain stockpiles of these."
 	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
 
 /datum/implant_fluff/chem
@@ -101,8 +101,8 @@
 
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
-	notes = "Prolonged usage of this bio-chip often results in the users bones being fractured and, on occasion, complete organ failure."
-	function = "Allows the user to store two small objects within a cybernetic body cavity."
+	notes = "This bio-chip uses bluespace technology to store items inside the user's body."
+	function = "Allows the user to store two small objects within a bluespace body cavity."
 
 /datum/implant_fluff/tracking
 	name = "Nanotrasen RFID Tracking Bio-chip"
@@ -128,7 +128,7 @@
 	function = "Plays a sad trombone noise upon death of the implantee."
 
 /datum/implant_fluff/pathfinder
-	name = "Bishop Cybernetics Pathfinder Implant"
+	name = "Paizo Productions 5-E Pathfinder Implant"
 	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radiation may be a factor."
 	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
