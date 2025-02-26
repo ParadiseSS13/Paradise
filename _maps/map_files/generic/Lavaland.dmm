@@ -4793,10 +4793,14 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/computer/area_atmos/area{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/mine/laborcamp/security)
+/area/mine/laborcamp/security,
+/area/mine/laborcamp)
 "rk" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -5073,7 +5077,6 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 35
 	},
-/obj/machinery/computer/area_atmos/area,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
