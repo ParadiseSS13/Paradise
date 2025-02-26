@@ -4799,7 +4799,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/mine/laborcamp/security,
 /area/mine/laborcamp)
 "rk" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
