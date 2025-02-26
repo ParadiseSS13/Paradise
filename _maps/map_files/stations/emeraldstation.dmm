@@ -37112,6 +37112,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92913,6 +92914,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96897,6 +96899,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "tiW" = (
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
