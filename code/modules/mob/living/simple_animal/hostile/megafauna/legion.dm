@@ -57,19 +57,22 @@ Difficulty: Medium
 	transform *= 2
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
+	if(enraged || ((health / maxHealth) * 100 <= 80))
+		return
+	enraged = TRUE
 	health = 1250
 	maxHealth = 1250
 	transform /= 1.5
-	loot = list(/datum/nothing)
-	crusher_loot = list(/datum/nothing)
+	loot = list()
+	crusher_loot = list()
 	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new /mob/living/simple_animal/hostile/megafauna/legion(get_turf(src))
-	legiontwo.transform /= 1.5
-	legiontwo.loot = list(/datum/nothing)
-	legiontwo.crusher_loot = list(/datum/nothing)
+	legiontwo.enraged = TRUE
 	legiontwo.health = 1250
 	legiontwo.maxHealth = 1250
-	legiontwo.enraged = TRUE
-
+	legiontwo.transform /= 1.5
+	legiontwo.loot = list()
+	legiontwo.crusher_loot = list()
+	
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
