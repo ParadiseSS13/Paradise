@@ -680,6 +680,11 @@ active_space_ruins = [
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
+  ## Core Gameplay Ruins
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_miningbase.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gulag.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm",
+
   ##BIODOMES
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN
