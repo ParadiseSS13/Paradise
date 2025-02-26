@@ -6973,9 +6973,6 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "Em" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
