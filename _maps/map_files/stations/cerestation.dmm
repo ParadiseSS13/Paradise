@@ -1513,6 +1513,7 @@
 	c_tag = "Brig Labor Camp Shuttle Lounge";
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -52601,6 +52602,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
+"kaY" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/prisonershuttle)
 "kbd" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -64052,6 +64059,9 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigLeft";
 	name = "Brig Foyer Left Entrance"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -109129,6 +109139,7 @@
 	},
 /area/station/command/teleporter)
 "xET" = (
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -126712,7 +126723,7 @@ hHm
 szH
 akD
 bTR
-drz
+kaY
 xQS
 jYh
 qvm
