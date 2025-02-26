@@ -221,8 +221,48 @@
  * Arguments:
  * * H: The human to create organs inside of
  * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
+ * * transfer_contents: Whether or not to transfer the contents of the old organs to the new ones
  */
-/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, transfer_contents = TRUE) //Handles creation of mob organs.
+	var/list/transfer_list = list()
+	for(var/limb_name in has_limbs)
+		var/obj/item/organ/external/body_part = H.bodyparts_by_name[limb_name]
+		if(!body_part)
+			continue
+		// If we don't transfer the content or make a new organ in place of the old one, drop the contents on the ground
+		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)))
+			// Drop cavity implant
+			if(body_part.hidden)
+				body_part.hidden.forceMove(get_turf(H))
+				body_part.hidden = null // null ref so it doesn't get deleted with the bodypart
+			// Drop general contents of bodypart
+			for(var/atom/movable/thing in body_part.contents)
+				thing.forceMove(get_turf(H))
+			body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
+
+			// Drop all cyber implants
+			for(var/obj/item/organ/internal/internal_organ in body_part.internal_organs)
+				if(istype(internal_organ, /obj/item/organ/internal/cyberimp))
+					internal_organ.forceMove(get_turf(H))
+					body_part.internal_organs -= internal_organ // remove ref so it doesn't get deleted with the bodypart
+		else
+			// Transfer cavity implant
+			transfer_list += list("[limb_name]" = list("hidden" = null, "contents" = list(), "cyber_implants" = list()))
+			if(body_part.hidden)
+				transfer_list[limb_name]["hidden"] = body_part.hidden
+				body_part.hidden = null // null ref so it doesn't get deleted with the bodypart
+			// Transfer contents
+			if(length(body_part.contents))
+				transfer_list[limb_name]["contents"] = body_part.contents
+				body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
+			// Transfer Cyber Implants
+			if(length(body_part.internal_organs))
+				for(var/obj/item/organ/internal/internal_organ in body_part.internal_organs) // Drop all cyber implants
+					if(istype(internal_organ, /obj/item/organ/internal/cyberimp))
+						transfer_list[limb_name]["cyber_implants"] += internal_organ
+						body_part.internal_organs -= internal_organ // remove ref so it doesn't get deleted with the bodypart
+
+
 	QDEL_LIST_CONTENTS(H.internal_organs)
 	QDEL_LIST_CONTENTS(H.bodyparts)
 
@@ -238,6 +278,12 @@
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
+		if(istype(O, /obj/item/organ/external) && transfer_list[limb_name])
+			var/obj/item/organ/external/external_organ = O
+			external_organ.hidden = transfer_list[limb_name]["hidden"]
+			external_organ.contents = transfer_list[limb_name]["contents"]
+			external_organ.internal_organs = transfer_list[limb_name]["cyber_implants"]
+			H.internal_organs += external_organ.internal_organs
 
 	for(var/index in has_organ)
 		var/obj/item/organ/internal/organ_path = has_organ[index]
