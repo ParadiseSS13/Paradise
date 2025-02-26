@@ -5237,7 +5237,6 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "uP" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	name = "East Switch";
@@ -5701,7 +5700,6 @@
 	},
 /area/mine/laborcamp)
 "xk" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -7505,7 +7503,6 @@
 	},
 /area/mine/outpost/hallway/west)
 "HP" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -8527,7 +8524,6 @@
 	},
 /area/mine/outpost/custodial)
 "OV" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
