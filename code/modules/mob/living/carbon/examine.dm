@@ -365,7 +365,13 @@
 		return (hudtype in have_hudtypes)
 
 	else if(isrobot(M) || is_ai(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
+		var/mob/living/silicon/ai/sillycon = M
+		if(sillycon.laws.zeroth_law && is_ai(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_MALF_WRITE, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
+		else if(sillycon.laws.zeroth_law && isrobot(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
+		else
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
