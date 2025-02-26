@@ -920,7 +920,7 @@
 /obj/item/book/manual/wiki/botanist
 	name = "The Station Botanist Handbook"
 	desc = "A handbook with instructions and tips for station botanists."
-	summary = "A quick reference guide to responsibilities and tasks of the station's Botany contingent."
+	summary = "A quick reference guide to the responsibilities and tasks of the station's Botany contingent."
 	icon_state ="bookHydroponicsBotanist"
 	author = "Nanotrasen"
 	title = "The Station Botanist Handbook"
