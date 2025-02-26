@@ -119,7 +119,7 @@
 /datum/implant_fluff/uplink
 	name = "Syndicate Agent Uplink Bio-chip"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan."
-	notes = "An intricate piece of machinery that interfaces directly with the users brain and which inner workings are a closely guarded Syndicate secret."
+	notes = "An intricate piece of machinery that interfaces directly with the user's brain. The inner workings of this implant are a closely guarded Syndicate secret."
 	function = "Allows the user to access a syndicate uplink connected contained within their body, invisible from the outside but provides the same functionality as a regular uplink."
 
 /datum/implant_fluff/sad_trombone
