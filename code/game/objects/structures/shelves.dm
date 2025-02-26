@@ -171,8 +171,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 
 /obj/structure/spear_rack/Initialize(mapload)
 	. = ..()
-	var/static/list/spear_subtypes = subtypesof(/obj/item/spear)
-	spear_subtypes += /obj/item/spear // Shelf component expects a list, subtypesof excludes the parent type
+	var/static/list/spear_subtypes = typesof(/obj/item/spear)
 	shelf_overlay = mutable_appearance('icons/obj/objects.dmi', "rack_wood_over")
 	shelf_overlay.layer = LOW_ITEM_LAYER
 	AddComponent(/datum/component/shelver/spear_rack, allowed_types_ = spear_subtypes)
