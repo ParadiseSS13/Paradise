@@ -16,15 +16,6 @@
 	if(confirmation != "Yes")
 		return
 	
-	var/view_range = tgui_input_number(
-		usr,
-		"Enter a temporary view range that will be used for the mass screenshot.",
-		"View range",
-		default=15, max_value=33, min_value=15, round_value=TRUE
-		)
-	if(!view_range)
-		return
-
 	var/sleep_duration = tgui_input_number(
 		usr,
 		"Enter a delay in deciseconds between screenshots to allow the client to render changes.",
@@ -46,7 +37,7 @@
 	var/old_mob_alpha = mob.alpha
 	var/old_mob_movement = mob.animate_movement
 
-	view = view_range
+	view = 15
 	winset(src, "paramapwindow.status_bar", "is-visible=false")
 	mob.hud_used?.show_hud(HUD_STYLE_NOHUD)
 	mob.hud_used?.remove_parallax()
