@@ -27363,6 +27363,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "cci" = (
@@ -41173,6 +41176,13 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/service)
+"dGF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "dGK" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel{
@@ -43368,6 +43378,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eLh" = (
@@ -45805,6 +45818,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "fJm" = (
@@ -52355,9 +52371,7 @@
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
 "iDM" = (
-/obj/structure/chair{
-	dir = 4
-	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -55379,6 +55393,13 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"jXr" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "jXC" = (
 /obj/structure/sign/securearea{
 	pixel_y = 32
@@ -59064,6 +59085,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "lFv" = (
@@ -76766,10 +76790,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "tAy" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
-	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "tAF" = (
@@ -111591,7 +111612,7 @@ aaa
 ajo
 ipz
 fKW
-atF
+dGF
 atF
 pot
 tAy
@@ -112111,7 +112132,7 @@ vSm
 adi
 oLF
 xKQ
-adi
+jXr
 gAM
 pXf
 tYH
