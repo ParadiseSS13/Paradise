@@ -1,0 +1,4 @@
+help:
+  Transit ports are not allowed to be manually mapped in.
+/obj/docking_port/stationary/transit:
+  banned: true
