@@ -7,7 +7,7 @@
 	/// Maximum number of extra space zlevels to generate
 	var/maximum_space_zlevels = 4
 	/// Minimum number of extra lavaland zlevels to generate
-	var/minimum_lavaland_zlevels = 1
+	var/minimum_lavaland_zlevels = 2
 	/// Maximum number of extra lavaland zlevels to generate
 	var/maximum_lavaland_zlevels = 2
 	/// List of all active space ruins
