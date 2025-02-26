@@ -229,6 +229,11 @@
 		var/obj/item/organ/external/body_part = H.bodyparts_by_name[limb_name]
 		if(!body_part)
 			continue
+		// Always expel all cyber implants
+		for(var/obj/item/organ/internal/cyberimp/internal_organ in body_part.internal_organs)
+			internal_organ.remove(H)
+			internal_organ.forceMove(get_turf(H))
+
 		// If we don't transfer the content or make a new organ in place of the old one, drop the contents on the ground
 		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)))
 			// Drop cavity implant
@@ -240,14 +245,9 @@
 				thing.forceMove(get_turf(H))
 			body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
 
-			// Drop all cyber implants
-			for(var/obj/item/organ/internal/internal_organ in body_part.internal_organs)
-				if(istype(internal_organ, /obj/item/organ/internal/cyberimp))
-					internal_organ.forceMove(get_turf(H))
-					body_part.internal_organs -= internal_organ // remove ref so it doesn't get deleted with the bodypart
 		else
 			// Transfer cavity implant
-			transfer_list += list("[limb_name]" = list("hidden" = null, "contents" = list(), "cyber_implants" = list()))
+			transfer_list += list("[limb_name]" = list("hidden" = null, "contents" = list()))
 			if(body_part.hidden)
 				transfer_list[limb_name]["hidden"] = body_part.hidden
 				body_part.hidden = null // null ref so it doesn't get deleted with the bodypart
@@ -255,13 +255,6 @@
 			if(length(body_part.contents))
 				transfer_list[limb_name]["contents"] = body_part.contents
 				body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
-			// Transfer Cyber Implants
-			if(length(body_part.internal_organs))
-				for(var/obj/item/organ/internal/internal_organ in body_part.internal_organs) // Drop all cyber implants
-					if(istype(internal_organ, /obj/item/organ/internal/cyberimp))
-						transfer_list[limb_name]["cyber_implants"] += internal_organ
-						body_part.internal_organs -= internal_organ // remove ref so it doesn't get deleted with the bodypart
-
 
 	QDEL_LIST_CONTENTS(H.internal_organs)
 	QDEL_LIST_CONTENTS(H.bodyparts)
@@ -278,12 +271,23 @@
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
+		// Transfer things from the old organ to the new
 		if(istype(O, /obj/item/organ/external) && transfer_list[limb_name])
 			var/obj/item/organ/external/external_organ = O
 			external_organ.hidden = transfer_list[limb_name]["hidden"]
 			external_organ.contents = transfer_list[limb_name]["contents"]
-			external_organ.internal_organs = transfer_list[limb_name]["cyber_implants"]
-			H.internal_organs += external_organ.internal_organs
+
+			transfer_list -= transfer_list[limb_name]
+
+	// Anything we still didn't transfer for whatever reason we drop on the ground
+	for(var/list/remaining in transfer_list)
+		if(remaining["hidden"])
+			var/atom/movable/thing = remaining["hidden"]
+			thing.forceMove(get_turf(H))
+		if(length(remaining["contents"]))
+			for(var/atom/movable/thing in remaining["contents"])
+				thing.forceMove(get_turf(H))
+
 
 	for(var/index in has_organ)
 		var/obj/item/organ/internal/organ_path = has_organ[index]
