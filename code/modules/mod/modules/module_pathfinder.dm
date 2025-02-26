@@ -1,7 +1,7 @@
 ///Pathfinder - Can fly the suit from a long distance to an implant installed in someone.
 /obj/item/mod/module/pathfinder
 	name = "MOD pathfinder module"
-	desc = "This module, brought to you by Bishop Cybernetics, has two components. \
+	desc = "This module, brought to you by Paizo Productions, has two components. \
 		The first component is a series of thrusters and a computerized location subroutine installed into the \
 		very control unit of the suit, allowing it flight at highway speeds using the suit's access locks \
 		to navigate through the station, and to be able to locate the second part of the system; \
