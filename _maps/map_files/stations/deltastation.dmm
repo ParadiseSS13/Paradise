@@ -15939,11 +15939,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 4
 	},
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 8;
 	name = "Kitchen Ingredient Storage"
 	},
-/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -17158,6 +17158,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -77465,8 +77468,8 @@
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
 	anchored = 1;
-	pixel_x = 7;
-	pixel_y = -7
+	pixel_x = 4;
+	pixel_y = -2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
@@ -77478,9 +77481,6 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -87839,9 +87839,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
-	dir = 8
-	},
 /obj/item/desk_bell{
 	anchored = 1;
 	pixel_x = -7;
@@ -87863,6 +87860,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
