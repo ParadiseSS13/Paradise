@@ -673,17 +673,6 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
-/datum/cooking/recipe/slime
-	cooking_container = /obj/item/reagent_containers/cooking/pot
-	product_type = /obj/item/food/peanut_butter_jelly/slime
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_REAGENT("slimejelly", 5),
-		PCWJ_ADD_REAGENT("peanutbutter", 5),
-		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
-	)
-
 /datum/cooking/recipe/popcorn
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/popcorn

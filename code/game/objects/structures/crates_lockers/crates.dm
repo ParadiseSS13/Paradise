@@ -613,6 +613,9 @@
 	// Grill containers
 	new /obj/item/reagent_containers/cooking/grill_grate(src)
 	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	// Prep bowls
+	new /obj/item/reagent_containers/cooking/bowl(src)
+	new /obj/item/reagent_containers/cooking/bowl(src)
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()

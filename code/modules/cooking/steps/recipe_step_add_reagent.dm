@@ -76,7 +76,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 
 	var/obj/item/container = locateUID(tracker.container_uid)
 	var/trans = our_item.reagents.trans_to(container, our_item.amount_per_transfer_from_this)
-	playsound(usr, 'sound/effects/Liquid_transfer_mono.ogg', 50, 1)
 
 	return list(message = "You transfer [trans] units to \the [container].")
 

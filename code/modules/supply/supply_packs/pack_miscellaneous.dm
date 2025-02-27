@@ -628,6 +628,8 @@
 	cost = 250
 	contains = list(
 		/obj/item/reagent_containers/cooking/board,
+		/obj/item/reagent_containers/cooking/bowl,
+		/obj/item/reagent_containers/cooking/bowl,
 		/obj/item/reagent_containers/cooking/deep_basket,
 		/obj/item/reagent_containers/cooking/deep_basket,
 		/obj/item/reagent_containers/cooking/grill_grate,

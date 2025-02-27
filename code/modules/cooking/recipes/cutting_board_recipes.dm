@@ -432,8 +432,18 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_REAGENT("cherryjelly", 5),
 		PCWJ_ADD_REAGENT("peanutbutter", 5),
+		PCWJ_ADD_REAGENT("cherryjelly", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/slime
+	cooking_container = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/peanut_butter_jelly/slime
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_REAGENT("peanutbutter", 5),
+		PCWJ_ADD_REAGENT("slimejelly", 5),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
