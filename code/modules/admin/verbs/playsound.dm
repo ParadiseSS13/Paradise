@@ -226,10 +226,10 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					continue
 				if(C.prefs.sound & SOUND_MIDI)
 					if(ckey in M.client.prefs.admin_sound_ckey_ignore)
-						C.tgui_panel?.stop_music()
 						to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
 						continue
 					else
+						C.tgui_panel?.stop_music() //We stop music before playing a new song in case something is already playing
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 						to_chat(C, "<span class='warning'>(<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 				else
