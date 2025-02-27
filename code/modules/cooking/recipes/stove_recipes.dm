@@ -1,6 +1,7 @@
 /datum/cooking/recipe/friedegg
 	cooking_container = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/friedegg
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
 		PCWJ_ADD_REAGENT("sodiumchloride", 1),
@@ -11,6 +12,7 @@
 /datum/cooking/recipe/beanstew
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/beanstew
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/beans),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
@@ -25,6 +27,7 @@
 /datum/cooking/recipe/beetsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/beetsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/whitebeet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
@@ -35,6 +38,7 @@
 /datum/cooking/recipe/bloodsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/bloodsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato/blood),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato/blood),
@@ -45,6 +49,7 @@
 /datum/cooking/recipe/chicken_noodle_soup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/chicken_noodle_soup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
@@ -56,6 +61,7 @@
 /datum/cooking/recipe/clownchili
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/clownchili
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
@@ -69,6 +75,7 @@
 /datum/cooking/recipe/clownstears
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/clownstears
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/ore/bananium),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
@@ -79,6 +86,7 @@
 /datum/cooking/recipe/coldchili
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/coldchili
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/icepepper),
@@ -89,6 +97,7 @@
 /datum/cooking/recipe/cornchowder
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/cornchowder
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bacon),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/corn),
@@ -102,6 +111,7 @@
 /datum/cooking/recipe/cullenskink
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/cullenskink
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
@@ -115,6 +125,7 @@
 /datum/cooking/recipe/eyesoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/eyesoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/organ/internal/eyes),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
@@ -126,6 +137,7 @@
 /datum/cooking/recipe/frenchonionsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/frenchonionsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
@@ -136,6 +148,7 @@
 /datum/cooking/recipe/hong_kong_borscht
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_borscht
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
@@ -150,6 +163,7 @@
 /datum/cooking/recipe/hong_kong_macaroni
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_macaroni
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
@@ -162,6 +176,7 @@
 /datum/cooking/recipe/hotchili
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hotchili
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
@@ -172,6 +187,7 @@
 /datum/cooking/recipe/meatball_noodles
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/meatball_noodles
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
@@ -187,6 +203,7 @@
 /datum/cooking/recipe/meatballsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/meatballsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
@@ -198,6 +215,7 @@
 /datum/cooking/recipe/misosoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/misosoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/soydope),
 		PCWJ_ADD_ITEM(/obj/item/food/soydope),
@@ -210,6 +228,7 @@
 /datum/cooking/recipe/mushroomsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/mushroomsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
 		PCWJ_ADD_REAGENT("water", 5),
@@ -220,6 +239,7 @@
 /datum/cooking/recipe/mysterysoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/mysterysoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/badrecipe),
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
@@ -232,6 +252,7 @@
 /datum/cooking/recipe/nettlesoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/nettlesoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
 		PCWJ_ADD_PRODUCE(/obj/item/grown/nettle/basic),
@@ -243,6 +264,7 @@
 /datum/cooking/recipe/oatstew
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/oatstew
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/oat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/sweet),
@@ -255,6 +277,7 @@
 /datum/cooking/recipe/red_porridge
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/red_porridge
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/redbeet),
 		PCWJ_ADD_REAGENT("vanilla", 5),
@@ -266,6 +289,7 @@
 /datum/cooking/recipe/redbeetsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/redbeetsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/redbeet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/redbeet),
@@ -277,6 +301,7 @@
 /datum/cooking/recipe/seedsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/seedsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/seeds/sunflower),
 		PCWJ_ADD_ITEM(/obj/item/seeds/poppy/lily),
@@ -289,6 +314,7 @@
 /datum/cooking/recipe/slimesoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/slimesoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_REAGENT("water", 10),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
@@ -298,6 +324,7 @@
 /datum/cooking/recipe/stew
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/stew
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
@@ -312,6 +339,7 @@
 /datum/cooking/recipe/sweetpotatosoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/sweetpotatosoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/sweet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/sweet),
@@ -323,6 +351,7 @@
 /datum/cooking/recipe/tomatosoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/tomatosoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
@@ -333,6 +362,7 @@
 /datum/cooking/recipe/vegetablesoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/vegetablesoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
@@ -345,6 +375,7 @@
 /datum/cooking/recipe/wishsoup
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/wishsoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_REAGENT("water", 20),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
@@ -353,6 +384,7 @@
 /datum/cooking/recipe/zurek
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/zurek
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/boiledegg),
 		PCWJ_ADD_ITEM(/obj/item/food/sausage),
@@ -366,6 +398,7 @@
 /datum/cooking/recipe/amanitajelly
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/amanitajelly
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/amanita),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/amanita),
@@ -378,6 +411,7 @@
 /datum/cooking/recipe/beans
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/beans
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/soybeans),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/soybeans),
@@ -388,6 +422,7 @@
 /datum/cooking/recipe/benedict
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/benedict
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/friedegg),
 		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
@@ -398,6 +433,7 @@
 /datum/cooking/recipe/boiled_shrimp
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiled_shrimp
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
 		PCWJ_ADD_REAGENT("water", 5),
@@ -407,6 +443,7 @@
 /datum/cooking/recipe/boiledegg
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledegg
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
 		PCWJ_ADD_REAGENT("water", 5),
@@ -434,6 +471,7 @@
 /datum/cooking/recipe/boiledspaghetti
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledspaghetti
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/spaghetti),
 		PCWJ_ADD_REAGENT("water", 5),
@@ -452,6 +490,7 @@
 /datum/cooking/recipe/candiedapple
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/candiedapple
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
 		PCWJ_ADD_REAGENT("water", 5),
@@ -462,6 +501,7 @@
 /datum/cooking/recipe/chawanmushi
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/chawanmushi
+	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
@@ -474,6 +514,7 @@
 /datum/cooking/recipe/cheese_balls
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cheese_balls
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cheese_curds),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
@@ -486,6 +527,7 @@
 /datum/cooking/recipe/cheesyfries
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cheesyfries
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/fries),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -495,6 +537,7 @@
 /datum/cooking/recipe/cubancarp
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cubancarp
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
@@ -505,6 +548,7 @@
 /datum/cooking/recipe/dulce_de_batata
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/sliceable/dulce_de_batata
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/sweet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/sweet),
@@ -516,6 +560,7 @@
 /datum/cooking/recipe/eggplantparm
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/eggplantparm
+	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -526,6 +571,7 @@
 /datum/cooking/recipe/enchiladas
 	cooking_container = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/enchiladas
+	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
@@ -537,6 +583,7 @@
 /datum/cooking/recipe/fishandchips
 	cooking_container = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/fishandchips
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/fries),
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
@@ -546,6 +593,7 @@
 /datum/cooking/recipe/friedbanana
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/friedbanana
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
@@ -557,6 +605,7 @@
 /datum/cooking/recipe/macncheese
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/macncheese
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/macaroni),
@@ -568,6 +617,7 @@
 /datum/cooking/recipe/mashedtaters
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/mashed_potatoes
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 		PCWJ_ADD_REAGENT("gravy", 5),
@@ -577,6 +627,7 @@
 /datum/cooking/recipe/meatballspaggetti
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/meatballspaghetti
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/spaghetti),
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
@@ -588,6 +639,7 @@
 /datum/cooking/recipe/meatbun
 	cooking_container = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/meatbun
+	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
@@ -599,6 +651,7 @@
 /datum/cooking/recipe/monkeysdelight
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/monkeysdelight
+	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/monkeycube),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
@@ -611,6 +664,7 @@
 /datum/cooking/recipe/pastatomato
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/pastatomato
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/spaghetti),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
@@ -633,6 +687,7 @@
 /datum/cooking/recipe/popcorn
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/popcorn
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/corn),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
@@ -641,6 +696,7 @@
 /datum/cooking/recipe/ricepudding
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/ricepudding
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("rice", 10),
@@ -650,6 +706,7 @@
 /datum/cooking/recipe/sashimi
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/sashimi
+	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidereggs),
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
@@ -692,6 +749,7 @@
 /datum/cooking/recipe/spesslaw
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/spesslaw
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/spaghetti),
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
@@ -715,6 +773,7 @@
 /datum/cooking/recipe/stewedsoymeat
 	cooking_container = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/stewedsoymeat
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/soydope),
 		PCWJ_ADD_ITEM(/obj/item/food/soydope),
@@ -734,3 +793,31 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe/pancake
+	cooking_container = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/pancake
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/berry_pancake
+	cooking_container = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/pancake/berry_pancake
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/choc_chip_pancake
+	cooking_container = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/pancake/choc_chip_pancake
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
+		PCWJ_ADD_ITEM(/obj/item/food/choc_pile),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)

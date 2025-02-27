@@ -6,7 +6,7 @@ import { Box, Button, Input, Section, Stack } from '../../components';
 
 export const pda_cookbook = (props, context) => {
   const { act, data } = useBackend(context);
-  const { recipes } = data;
+  const { categories, current_category, recipes } = data;
 
   const [recipeList, setRecipeList] = useLocalState(context, 'recipeList', recipes);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
@@ -33,40 +33,41 @@ export const pda_cookbook = (props, context) => {
 
   return (
     <Box>
-      <Section
-        title={'Recipe Search'}
-        buttons={
-          <Input
-            width="200px"
-            placeholder="Search Recipes"
-            onInput={(e, value) => {
-              handleSearch(value);
-            }}
-            value={searchText}
-          />
-        }
-      >
-        <Stack vertical>
-          {recipeList.map((recipe, i) => (
-            <Stack.Item key={i}>
-              <Section title={decodeHtmlEntities(recipe.name)}>
-                {recipe.container}:
-                <ol>
-                  {recipe.instructions.map((instruction, j) => (
-                    <li key={`${i}-${j}`}>{instruction}</li>
-                  ))}
-                </ol>
-              </Section>
-            </Stack.Item>
-          ))}
-        </Stack>
-
-        {/* {JSON.stringify(recipeList)} */}
-        {/* {recipeList.map((r) => (
-        <Box key={r}>{r.name}</Box>
-      ))} */}
-        {/* {JSON.stringify(recipes)} */}
-      </Section>
+      {categories.sort().map((category, i) => (
+        <Button key={i} onClick={() => act('set_category', { name: category })}>
+          {category}
+        </Button>
+      ))}
+      {current_category && (
+        <Section
+          title={current_category}
+          buttons={
+            <Input
+              width="200px"
+              placeholder={`Search ${current_category}`}
+              onInput={(e, value) => {
+                handleSearch(value);
+              }}
+              value={searchText}
+            />
+          }
+        >
+          <Stack vertical>
+            {recipeList.map((recipe, i) => (
+              <Stack.Item key={i}>
+                <Section title={decodeHtmlEntities(recipe.name)}>
+                  {recipe.container}:
+                  <ol>
+                    {recipe.instructions.map((instruction, j) => (
+                      <li key={`${i}-${j}`}>{instruction}</li>
+                    ))}
+                  </ol>
+                </Section>
+              </Stack.Item>
+            ))}
+          </Stack>
+        </Section>
+      )}
     </Box>
   );
 };

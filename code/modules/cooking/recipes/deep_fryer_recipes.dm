@@ -1,6 +1,7 @@
 /datum/cooking/recipe/apple_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("applejuice", 5),
@@ -10,6 +11,7 @@
 /datum/cooking/recipe/apple_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("applejuice", 5),
@@ -20,6 +22,7 @@
 /datum/cooking/recipe/cherryapple_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("applejuice", 5),
@@ -30,6 +33,7 @@
 /datum/cooking/recipe/apple_slime_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("applejuice", 5),
@@ -40,6 +44,7 @@
 /datum/cooking/recipe/blumpkin_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("blumpkinjuice", 5),
@@ -49,6 +54,7 @@
 /datum/cooking/recipe/jelly_blumpkin_berry_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("blumpkinjuice", 5),
@@ -59,6 +65,7 @@
 /datum/cooking/recipe/cherry_blumpkin
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("blumpkinjuice", 5),
@@ -69,6 +76,7 @@
 /datum/cooking/recipe/slime_blumpkin_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("blumpkinjuice", 5),
@@ -79,6 +87,7 @@
 /datum/cooking/recipe/bungo_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("bungojuice", 5),
@@ -89,6 +98,7 @@
 /datum/cooking/recipe/jelly_bungo_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("bungojuice", 5),
@@ -100,6 +110,7 @@
 /datum/cooking/recipe/cherry_bungo_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("bungojuice", 5),
@@ -111,6 +122,7 @@
 /datum/cooking/recipe/slime_bungo_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("bungojuice", 5),
@@ -122,6 +134,7 @@
 /datum/cooking/recipe/caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/candy/caramel),
@@ -131,6 +144,7 @@
 /datum/cooking/recipe/jelly_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/candy/caramel),
@@ -141,6 +155,7 @@
 /datum/cooking/recipe/cherry_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/candy/caramel),
@@ -151,6 +166,7 @@
 /datum/cooking/recipe/slime_caramel_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/candy/caramel),
@@ -161,6 +177,7 @@
 /datum/cooking/recipe/chaosdonut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chaos
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("frostoil", 5),
@@ -172,6 +189,7 @@
 /datum/cooking/recipe/chocolate_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
@@ -181,6 +199,7 @@
 /datum/cooking/recipe/jelly_choco_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
@@ -191,6 +210,7 @@
 /datum/cooking/recipe/cherry_choco_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
@@ -201,6 +221,7 @@
 /datum/cooking/recipe/slime_chocolate_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
@@ -211,6 +232,7 @@
 /datum/cooking/recipe/donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("sugar", 5),
@@ -220,6 +242,7 @@
 /datum/cooking/recipe/sprinkles
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/sprinkles
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("sugar", 5),
@@ -230,6 +253,7 @@
 /datum/cooking/recipe/jellydonut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
@@ -240,6 +264,7 @@
 /datum/cooking/recipe/cherry_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/cherryjelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
@@ -250,6 +275,7 @@
 /datum/cooking/recipe/slimejelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/slimejelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
@@ -260,6 +286,7 @@
 /datum/cooking/recipe/matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("teapowder", 5),
@@ -269,6 +296,7 @@
 /datum/cooking/recipe/jelly_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("teapowder", 5),
@@ -279,6 +307,7 @@
 /datum/cooking/recipe/cherry_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("teapowder", 5),
@@ -289,6 +318,7 @@
 /datum/cooking/recipe/slime_matcha_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("teapowder", 5),
@@ -299,6 +329,7 @@
 /datum/cooking/recipe/meat_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/meat
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
@@ -309,6 +340,7 @@
 /datum/cooking/recipe/pink_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
@@ -318,6 +350,7 @@
 /datum/cooking/recipe/pink_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
@@ -328,6 +361,7 @@
 /datum/cooking/recipe/pink_cherry_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
@@ -338,6 +372,7 @@
 /datum/cooking/recipe/pink_slime_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
@@ -348,6 +383,7 @@
 /datum/cooking/recipe/spaceman_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
@@ -357,6 +393,7 @@
 /datum/cooking/recipe/jelly_spaceman_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
@@ -367,6 +404,7 @@
 /datum/cooking/recipe/cherry_spaceman_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/cherry
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
@@ -377,6 +415,7 @@
 /datum/cooking/recipe/slime_spaceman_jelly_donut
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/slime
+	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/donut),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
@@ -387,6 +426,7 @@
 /datum/cooking/recipe/deepfryer_friedbanana
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/friedbanana
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -395,6 +435,7 @@
 /datum/cooking/recipe/carrotfries
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/carrotfries
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot/wedges),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -403,6 +444,7 @@
 /datum/cooking/recipe/chimichanga
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/chimichanga
+	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/burrito),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -411,6 +453,7 @@
 /datum/cooking/recipe/corn_chips
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/cornchips
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/corn),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -419,6 +462,7 @@
 /datum/cooking/recipe/fried_tofu
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_tofu
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -427,6 +471,7 @@
 /datum/cooking/recipe/fries
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fries
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/rawsticks),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -435,6 +480,7 @@
 /datum/cooking/recipe/onionrings
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/onionrings
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -443,6 +489,7 @@
 /datum/cooking/recipe/potato_chips
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/chips
+	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato/wedges),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),
@@ -451,6 +498,7 @@
 /datum/cooking/recipe/shrimp
 	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_shrimp
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
 		PCWJ_USE_DEEP_FRYER(10 SECONDS),

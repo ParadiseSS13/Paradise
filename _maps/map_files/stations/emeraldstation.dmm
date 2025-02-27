@@ -721,13 +721,19 @@
 /area/station/hallway/primary/fore/north)
 "ajj" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/utensil/pfork,
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = 25
+	},
+/obj/item/reagent_containers/cooking/oven,
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -25573,11 +25579,17 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = -5
+	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

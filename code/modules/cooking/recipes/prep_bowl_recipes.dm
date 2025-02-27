@@ -1,6 +1,7 @@
 /datum/cooking/recipe/aesirsalad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/aesir
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/deus),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/deus),
@@ -11,6 +12,7 @@
 /datum/cooking/recipe/antipasto_salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/antipasto
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -23,6 +25,7 @@
 /datum/cooking/recipe/caesar_salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/caesar
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -34,6 +37,7 @@
 /datum/cooking/recipe/citrusdelight
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/citrusdelight
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lime),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
@@ -43,6 +47,7 @@
 /datum/cooking/recipe/fruitsalad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/fruit
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
@@ -53,6 +58,7 @@
 /datum/cooking/recipe/greek_salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/greek
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
@@ -66,6 +72,7 @@
 /datum/cooking/recipe/herbsalad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/herb
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris),
@@ -76,6 +83,7 @@
 /datum/cooking/recipe/junglesalad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/jungle
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
@@ -88,6 +96,7 @@
 /datum/cooking/recipe/kale_salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/kale
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
@@ -99,6 +108,7 @@
 /datum/cooking/recipe/melonfruitbowl
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/melonfruitbowl
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/watermelon),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
@@ -111,6 +121,7 @@
 /datum/cooking/recipe/potato_salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/potato
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/boiledegg),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
@@ -121,6 +132,7 @@
 /datum/cooking/recipe/salad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
@@ -129,6 +141,7 @@
 /datum/cooking/recipe/validsalad
 	cooking_container = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/valid
+	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris, exclude_reagents = list("toxin")),

@@ -21583,6 +21583,7 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -88260,6 +88261,7 @@
 /area/station/supply/sorting)
 "vCA" = (
 /obj/machinery/cooking/oven,
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

@@ -56,6 +56,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 	/// Everything appears in the catalog by default.
 	var/appear_in_default_catalog = TRUE
+	var/catalog_category = "Miscellaneous"
 
 	var/list/steps
 
@@ -228,4 +229,4 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 			for(var/datum/cooking/recipe_step/step in example_recipe.steps)
 				entry["instructions"] += step.get_pda_formatted_desc()
 
-			GLOB.pcwj_cookbook_lookup += list(entry)
+			LAZYORASSOCLIST(GLOB.pcwj_cookbook_lookup, example_recipe.catalog_category, list(entry))
