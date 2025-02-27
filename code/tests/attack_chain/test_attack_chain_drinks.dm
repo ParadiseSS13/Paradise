@@ -60,7 +60,6 @@
 
 	// Bottles
 	var/obj/item/reagent_containers/drinks/bottle/whiskey/bottle = player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/bottle/whiskey)
-
 	player.click_on(bucket)
 	TEST_ASSERT_LAST_CHATLOG(player, "You transfer")
 
@@ -82,4 +81,20 @@
 	TEST_ASSERT(bottle in backpack.contents, "player failed to put bottle in backpack")
 	qdel(bottle)
 
-	// TODO: Figure out molotov
+	// Molotov
+	var/obj/item/reagent_containers/drinks/bottle/molotov/molotov = player.spawn_obj_nearby(/obj/item/reagent_containers/drinks/bottle/molotov)
+	molotov.list_reagents = list("vodka" = 100)
+
+	var/obj/item/lighter/lighter = player.spawn_obj_in_hand(/obj/item/lighter/zippo)
+	lighter.lit = TRUE
+	player.click_on(molotov)
+	TEST_ASSERT(molotov.active, "player failed to light molotov")
+
+	player.puppet.drop_item()
+	player.click_on(molotov)
+	player.use_item_in_hand()
+	TEST_ASSERT(!molotov.active, "player failed to extinguish molotov")
+
+	player.click_on(backpack)
+	TEST_ASSERT(molotov in backpack.contents, "player failed to put molotov in backpack")
+	qdel(molotov)
