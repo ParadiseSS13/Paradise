@@ -55,8 +55,11 @@
 
 /obj/machinery/cooking/stovetop/attack_hand(mob/user, params)
 	var/input = clickpos_to_surface(params2list(params))
+	if(!input)
+		return
+
 	var/datum/cooking_surface/burner = surfaces[input]
-	if(burner.placed_item)
+	if(burner && burner.placed_item)
 		if(burner.on)
 			burner.handle_cooking(user)
 			var/mob/living/carbon/human/burn_victim = user
@@ -72,7 +75,7 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [burner.placed_item] off of the stove.</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [burner.placed_item] off of the stove.</span>")
 		user.put_in_hands(burner.placed_item)
 		burner.placed_item = null
 		update_appearance(UPDATE_ICON)

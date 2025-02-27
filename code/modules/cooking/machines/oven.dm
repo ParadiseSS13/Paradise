@@ -76,7 +76,7 @@
 		return
 
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(opened && surface.placed_item)
+	if(surface && surface.placed_item && opened)
 		user.put_in_hands(surface.placed_item)
 		surface.placed_item = null
 		update_appearance()

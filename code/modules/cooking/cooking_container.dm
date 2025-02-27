@@ -49,10 +49,20 @@
 
 /obj/item/reagent_containers/cooking/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> to remove items from this.</span>"
-
 	if(length(contents))
 		. += get_content_info()
+	. += "<span class='notice'><b>Alt-Click</b> to remove all items and reagents from this.</span>"
+
+/obj/item/reagent_containers/cooking/build_reagent_description(mob/user)
+	. = list()
+	if(!reagents)
+		return
+	var/one_percent = reagents.total_volume / 100
+	if(length(reagents.reagent_list))
+		. += "<span class='notice'>It contains:</span>"
+	for(var/I in reagents.reagent_list)
+		var/datum/reagent/R = I
+		. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
 
 /obj/item/reagent_containers/cooking/proc/get_content_info()
 	return "It contains [english_list(contents)]."
@@ -270,7 +280,7 @@
 
 /obj/item/reagent_containers/cooking/pan
 	name = "pan"
-	desc = "An normal pan."
+	desc = "A normal pan."
 	icon_state = "pan"
 	lip = "pan_lip"
 	materials = list(MAT_METAL = 5)

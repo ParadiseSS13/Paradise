@@ -56,8 +56,11 @@
 
 /obj/machinery/cooking/deepfryer/attack_hand(mob/user, params)
 	var/input = clickpos_to_surface(params2list(params))
+	if(!input)
+		return
+
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(surface.placed_item)
+	if(surface && surface.placed_item)
 		if(surface.on)
 			surface.handle_cooking(user)
 			var/mob/living/carbon/human/burn_victim = user
@@ -67,7 +70,7 @@
 					which_hand = "r_hand"
 
 				burn_victim.adjustFireLossByPart(20, which_hand)
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking the [surface.placed_item] off of [src].</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.placed_item] off of [src].</span>")
 
 		user.put_in_hands(surface.placed_item)
 		surface.placed_item = null
