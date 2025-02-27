@@ -39,6 +39,16 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		if(surface.on)
 			return TRUE
 
+/obj/machinery/cooking/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+	// I don't even know for certain if cooking machines are going to
+	// keep being upgradeable once autochefs come into play so I'm not
+	// going to bother making new sprites and modifying all the logic
+	// for this; cooking machines don't need to be screwdrivered open
+	// in order to exchange their parts.
+	panel_open = TRUE
+	. = ..()
+	panel_open = FALSE
+
 /obj/machinery/cooking/RefreshParts()
 	..()
 	var/man_rating = 0
@@ -57,6 +67,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
+		to_chat(user, "<span class='notice'>[src] doesn't need to be opened to exchange its parts.</span>")
 		return FALSE
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return

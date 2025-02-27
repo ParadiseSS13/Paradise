@@ -62,7 +62,7 @@
 
 /obj/machinery/cooking/grill/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It contains [stored_wood]/[wood_maximum] units of charcoal.</span>"
+	. += "<span class='notice'>It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.</span>"
 	. += "<span class='notice'><b>Alt-Shift-Click</b> on a grate to set its temperature.</span>"
 	. += "<span class='notice'><b>Ctrl-Click</b> on a grate to set its timer.</span>"
 	. += "<span class='notice'><b>Ctrl-Shift-Click</b> on a grate to toggle it on or off.</span>"

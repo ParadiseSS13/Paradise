@@ -34,6 +34,11 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
+/obj/machinery/cooking/ice_cream_mixer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle it on or off.</span>"
+
 /obj/machinery/cooking/ice_cream_mixer/clickpos_to_surface(modifiers)
 	return 1
 
