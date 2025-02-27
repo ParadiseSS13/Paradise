@@ -471,6 +471,7 @@ job_slot_amounts = [
   {name = "Librarian", lowpop = 1, highpop = 1}, # Cargo/Supply
   {name = "Quartermaster", lowpop = 1, highpop = 1},
   {name = "Shaft Miner", lowpop = 6, highpop = 6},
+  {name = "Smith", lowpop = 1, highpop = 1},
   {name = "Cargo Technician", lowpop = 3, highpop = 4}, # Silicon
   {name = "AI", lowpop = 1, highpop = 1},
   {name = "Cyborg", lowpop = 1, highpop = 1}, # Misc
