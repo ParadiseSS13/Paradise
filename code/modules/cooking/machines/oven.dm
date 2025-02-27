@@ -15,7 +15,7 @@
 /obj/machinery/cooking/oven
 	name = "oven"
 	desc = "A cozy oven for baking food."
-	icon_state = "oven_base"
+	icon_state = "oven"
 	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER

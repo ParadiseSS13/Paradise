@@ -39,16 +39,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		if(surface.on)
 			return TRUE
 
-/obj/machinery/cooking/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	// I don't even know for certain if cooking machines are going to
-	// keep being upgradeable once autochefs come into play so I'm not
-	// going to bother making new sprites and modifying all the logic
-	// for this; cooking machines don't need to be screwdrivered open
-	// in order to exchange their parts.
-	panel_open = TRUE
-	. = ..()
-	panel_open = FALSE
-
 /obj/machinery/cooking/RefreshParts()
 	..()
 	var/man_rating = 0
@@ -67,7 +57,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
-		to_chat(user, "<span class='notice'>[src] doesn't need to be opened to exchange its parts.</span>")
+		panel_open = !panel_open
+		to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+		update_appearance()
 		return
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
@@ -233,6 +225,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 	for(var/i in 1 to length(surfaces))
 		update_surface_icon(i)
+
+/obj/machinery/cooking/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += image(icon = icon, icon_state = "[icon_state]_openpanel")
 
 /obj/machinery/cooking/proc/update_surface_icon(surface_idx)
 	SHOULD_CALL_PARENT(FALSE)
