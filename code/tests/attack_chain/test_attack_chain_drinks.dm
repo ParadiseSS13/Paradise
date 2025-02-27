@@ -98,3 +98,27 @@
 	player.click_on(backpack)
 	TEST_ASSERT(molotov in backpack.contents, "player failed to put molotov in backpack")
 	qdel(molotov)
+
+	// Drinking glass
+	var/obj/item/reagent_containers/drinks/drinkingglass/glass = player.spawn_obj_nearby(/obj/item/reagent_containers/drinks/drinkingglass)
+	var/obj/item/food/egg/egg = player.spawn_obj_in_hand(/obj/item/food/egg)
+	player.click_on(glass)
+	TEST_ASSERT_LAST_CHATLOG(player, "You break [egg] in")
+
+	player.click_on(glass)
+	player.click_on(backpack)
+	TEST_ASSERT(glass in backpack.contents, "player failed to put drinking glass in backpack")
+	qdel(glass)
+
+	// Shot glass
+	var/obj/item/reagent_containers/drinks/drinkingglass/shotglass/shotglass = player.spawn_obj_nearby(/obj/item/reagent_containers/drinks/drinkingglass/shotglass)
+	shotglass.list_reagents = list("vodka" = 15)
+	lighter = player.spawn_obj_in_hand(/obj/item/lighter/zippo)
+	lighter.lit = TRUE
+	player.click_on(shotglass)
+	TEST_ASSERT_LAST_CHATLOG(player, "[shotglass] begins to burn with a blue hue!")
+
+	player.puppet.drop_item()
+	player.click_on(shotglass)
+	player.use_item_in_hand()
+	TEST_ASSERT_LAST_CHATLOG(player, "You use your hand to extinguish [shotglass]!")
