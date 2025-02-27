@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	power_state = NO_POWER_USE // going to be used outside
+	interact_offline = TRUE
 	idle_power_consumption = 0
 	pixel_x = -32
 	// Time between callouts
@@ -21,18 +22,22 @@
 	// What is our current prediction?
 	var/prediction
 	// dont want constant updates
-	var/dont_announce = FALSE
+	var/dont_announce = TRUE
+	// for fakeout calls
+	var/correct_prediction
+	luminosity = 1
 
-/obj/machinery/radar/Initialize()
+/obj/machinery/radar/Initialize(mapload)
 	. = ..()
 	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/radar(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 10)
 	RefreshParts()
-	check_time = world.time + (5 MINUTES) // short startup delay for roundstart
+	set_light(3, 1, "#e2db98")
 
 	AddComponent(/datum/component/multitile, list(
 	list(1,		1,		1),
@@ -50,22 +55,28 @@
 /obj/machinery/radar/process()
 	if ((check_time > world.time))
 		return
-
 	for(var/datum/weather/W in SSweather.processing)
-		if(W.barometer_predictable && (src.z in W.impacted_z_levels) && W.area_type == /area/lavaland/surface/outdoors)
+		if(!W)
+			break
+		if(W.barometer_predictable && W.area_type == /area/lavaland/surface/outdoors)
 			switch(W.stage)
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)
 						return
-					radio.autosay("<b>[W.name] detected converging over the local sector. Please finish any surface excavations.</b>", name, "Supply")
+					if(W.aesthetic)
+						if(correct_prediction) // unupgraded machines should still scare the poor bastards
+							radio.autosay("<b>[W.name] detected settling over the sector. No further action required.</b>", name, "Supply")
+						else
+							radio.autosay("<b>Ash Storm detected converging over the local sector. Please finish any surface excavations.</b>", name, "Supply")
+					else
+						radio.autosay("<b>[W.name] detected converging over the local sector. Please finish any surface excavations.</b>", name, "Supply")
 					last_stage = WEATHER_STARTUP_STAGE
 					check_time = world.time + W.telegraph_duration + 5 SECONDS
-					dont_announce = FALSE
 					return
 				if(WEATHER_MAIN_STAGE)
-					if(last_stage == WEATHER_STARTUP_STAGE)
+					if(last_stage == WEATHER_MAIN_STAGE)
 						return
-					radio.autosay("<b>Inclement weather inbound. Seek shelter immediately.</b>", name, "Supply")
+					radio.autosay("<b>Inclement weather has reached the local sector. Seek shelter immediately.</b>", name, "Supply")
 					last_stage = WEATHER_MAIN_STAGE
 					check_time = world.time + (W.weather_duration / 2)
 					return
@@ -77,25 +88,43 @@
 					dont_announce = FALSE
 					return
 
-		if(dont_announce == TRUE)
-			return
+	if(dont_announce == TRUE)
+		return
 
-		var/next_hit = SSweather.next_hit_by_zlevel["[src.z]"]
-		var/next_difference = next_hit - world.time
-		if(accuracy_coeff >= 4)
-			if(next_difference <= 10 MINUTES)
-			radio.autosay("<b>Weather patterns analyzed. Predicted weather event in [next_difference] minutes: [W.name] </b>", name, "Supply")
+	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["3"]
+	var/next_hit = SSweather.next_hit_by_zlevel["3"]
+	var/next_difference = next_hit - world.time
+	var/difference_rounded = DisplayTimeText(max(1, next_difference))
+
+	if(accuracy_coeff >= 4)
+		if(next_difference <= (5 MINUTES))
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
 			dont_announce = TRUE
-		else if (prob(accuracy_coeff) && next_difference < 10 MINUTES)
-			radio.autosay("<b>Weather patterns analyzed. Predicted weather event in [next_difference] minutes: [W.name] </b>", name, "Supply")
+	else if (prob(accuracy_coeff) && next_difference <= 5 MINUTES && next_difference >= 1 MINUTES)
+		if(next_weather = "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
 			dont_announce = TRUE
+			correct_prediction = TRUE
+		else
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			dont_announce = TRUE
+			correct_prediction = FALSE
 
 /obj/machinery/radar/RefreshParts()
 	for(var/obj/item/stock_parts/scanning_module/C in component_parts)
 		accuracy_coeff += C.rating
-	accuracy_coeff = accuracy_coeff / 4 //average all the parts
+	accuracy_coeff = round((accuracy_coeff / 4), 2) //average all the parts
 
-
+/obj/item/circuitboard/machine/radar
+	board_name = "Doppler Radar"
+	icon_state = "supply"
+	build_path = /obj/machinery/radar
+	board_type = "machine"
+	origin_tech = "engineering=2"
+	req_components = list(
+							/obj/item/stock_parts/scanning_module = 4,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 10)
 
 
 

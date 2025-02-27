@@ -3077,14 +3077,6 @@
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
-"in" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -4575,10 +4567,6 @@
 "pq" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
-"pr" = (
-/obj/structure/lattice/catwalk/mining,
-/turf/space,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "px" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6350,6 +6338,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Ay" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Az" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -8039,7 +8035,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/turf/simulated/floor/lava/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Lw" = (
 /obj/structure/lattice/catwalk/mining,
@@ -22796,7 +22792,7 @@ Aw
 Aw
 Aw
 iF
-NR
+Vy
 iF
 iF
 iF
@@ -23053,7 +23049,7 @@ ai
 ai
 ai
 Vy
-zI
+jZ
 VU
 VU
 iF
@@ -23309,17 +23305,17 @@ am
 am
 am
 am
-zI
-zI
+jZ
+jZ
 VU
 VU
 iF
 iF
 bt
 RW
-dO
+gl
 Lv
-pr
+vZ
 ec
 nu
 nu
@@ -23566,7 +23562,7 @@ am
 am
 am
 am
-zI
+jZ
 VU
 VU
 VU
@@ -24081,7 +24077,7 @@ am
 am
 am
 Vy
-zI
+jZ
 VU
 VU
 iF
@@ -24091,7 +24087,7 @@ vZ
 vZ
 vZ
 vZ
-in
+bH
 iF
 iF
 jZ
@@ -24338,7 +24334,7 @@ am
 am
 am
 Vy
-zI
+jZ
 VU
 VU
 VU
@@ -24348,7 +24344,7 @@ Jg
 Jg
 YF
 DH
-Ej
+Ay
 iF
 iF
 iF
