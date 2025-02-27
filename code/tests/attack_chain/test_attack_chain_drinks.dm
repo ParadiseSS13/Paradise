@@ -52,29 +52,34 @@
 	player.click_on(player)
 	TEST_ASSERT_LAST_CHATLOG(player, "You crush [can] on your forehead.")
 
-	// Trying to spawn a 2nd item after a previous one gets deleted from your hand seems to break the puppet?
+	can = player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/cans/cola)
+	player.set_intent("help")
+	player.click_on(backpack)
+	TEST_ASSERT(can in backpack.contents, "player failed to put can in backpack")
+	qdel(can)
 
-	// player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/cans/cola)
-	// player.click_on(backpack)
-	// TEST_ASSERT_LAST_CHATLOG(player, "You put")
+	// Bottles
+	var/obj/item/reagent_containers/drinks/bottle/whiskey/bottle = player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/bottle/whiskey)
 
+	player.click_on(bucket)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer")
 
-	// Bottles - Left for last coz i cant drop the broken bottle for some reason
-	// var/obj/item/reagent_containers/drinks/bottle/whiskey/bottle = player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/bottle/whiskey)
-	// player.click_on(watertank)
-	// TEST_ASSERT_LAST_CHATLOG(player, "[bottle] is full.")
+	player.click_on(player)
+	TEST_ASSERT_ANY_CHATLOG(player, "You swallow a gulp of [bottle]")
 
-	// player.click_on(player)
-	// TEST_ASSERT_ANY_CHATLOG(player, "You swallow a gulp of [bottle]")
+	player.click_on(watertank)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill [bottle] with")
 
-	// player.set_intent("harm")
-	// player.click_on(player)
-	// TEST_ASSERT(player.check_attack_log("Hit with [bottle]"), "player failed to smash a bottle on harm intent")
-	// TEST_ASSERT_NOTEQUAL(player.puppet.health, player.puppet.getMaxHealth(), "bottle smash didnt deal damage")
+	player.set_intent("harm")
+	player.click_on(player)
+	TEST_ASSERT(player.check_attack_log("Hit with [bottle]"), "player failed to smash a bottle on harm intent")
+	TEST_ASSERT_NOTEQUAL(player.puppet.health, player.puppet.getMaxHealth(), "bottle smash didnt deal damage")
+	player.puppet.drop_item()
+	player.set_intent("help")
 
-	// Get backpack putting working
-	// player.puppet.drop_item()
-	// player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/bottle/whiskey)
-	// player.click_on(backpack)
-	// TEST_ASSERT_LAST_CHATLOG(player, "You put")
+	bottle = player.spawn_obj_in_hand(/obj/item/reagent_containers/drinks/bottle/whiskey)
+	player.click_on(backpack)
+	TEST_ASSERT(bottle in backpack.contents, "player failed to put bottle in backpack")
+	qdel(bottle)
 
+	// TODO: Figure out molotov
