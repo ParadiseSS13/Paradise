@@ -639,12 +639,41 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         thermal_energy = cached_temperature * cached_heat_capacity;
         // THEN we can add in the new thermal energy.
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
+
+        cached_temperature = thermal_energy / cached_heat_capacity;
+
+        my_next_tile.fuel_burnt += plasma_burnt;
+    }
+
+// Hydrogen and oxygen making water vapor
+	if cached_temperature > WATER_VAPOR_FORMATION_TEMP
+		&& my_next_tile.gases.hydrogen() > 0.0
+		&& my_next_tile.gases.oxygen() > 0.0
+	{
+		let reaction_moles = my_next_tile.gases.hydrogen().min(my_next_tile.gases.oxygen());
+		let water_vapor_produced = reaction_moles;
+
+		my_next_tile
+			.gases
+			.set_water_vapor(my_next_tile.gases.water_vapor() + water_vapor_produced);
+		my_next_tile
+			.gases
+			.set_hydrogen(my_next_tile.gases.hydrogen() - reaction_moles * 2.0);
+		my_next_tile
+			.gases
+			.set_oxygen(my_next_tile.gases.oxygen() - reaction_moles);
+
+		// Recalculate existing thermal energy to account for the change in heat capacity.
+        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        thermal_energy = cached_temperature * cached_heat_capacity;
+        // THEN we can add in the new thermal energy.
+        thermal_energy += WATER_VAPOR_REACTION_ENERGY * water_vapor_produced;
         // Recalculate temperature for any subsequent reactions.
         // (or we would, but this is the last reaction)
         //cached_temperature = thermal_energy / cached_heat_capacity;
 
-        my_next_tile.fuel_burnt += plasma_burnt;
-    }
+		my_next_tile.fuel_burnt += reaction_moles;
+	}
 
     if hotspot_step {
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);

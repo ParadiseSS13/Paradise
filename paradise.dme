@@ -1705,6 +1705,7 @@
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_hidden.dm"
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_visible.dm"
 #include "code\modules\atmospherics\machinery\portable\canister.dm"
+#include "code\modules\atmospherics\machinery\portable\electrolyzer.dm"
 #include "code\modules\atmospherics\machinery\portable\portable_atmospherics.dm"
 #include "code\modules\atmospherics\machinery\portable\portable_pump.dm"
 #include "code\modules\atmospherics\machinery\portable\scrubber.dm"
