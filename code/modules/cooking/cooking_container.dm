@@ -119,7 +119,7 @@
 			to_chat(user, "<span class='notice'>You don't know what you'd begin to make with this.</span>")
 		if(PCWJ_NO_STEPS)
 			to_chat(user, "<span class='notice'>You get a feeling this wouldn't improve the recipe.</span>")
-		if(PCWJ_SUCCESS)
+		if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
 			if(tracker.step_reaction_message && ismob(user))
 				to_chat(user, "<span class='notice'>[tracker.step_reaction_message]</span>")
 

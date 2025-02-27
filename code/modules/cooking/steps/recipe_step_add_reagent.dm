@@ -43,13 +43,23 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	if(!(used_item.container_type & OPENCONTAINER))
 		return PCWJ_CHECK_INVALID
 
-	var/obj/item/reagent_containers/our_item = used_item
-	if(our_item.amount_per_transfer_from_this <= 0)
+	var/obj/item/reagent_containers/reagent_container = used_item
+	if(!istype(reagent_container))
 		return PCWJ_CHECK_INVALID
-	if(our_item.reagents.total_volume == 0)
+	if(reagent_container.amount_per_transfer_from_this <= 0)
+		return PCWJ_CHECK_INVALID
+	if(reagent_container.reagents.total_volume == 0)
 		return PCWJ_CHECK_INVALID
 
-	return PCWJ_CHECK_VALID
+	if(reagent_container.reagents.total_volume)
+		var/part = reagent_container.reagents.get_reagent_amount(reagent_id) / reagent_container.reagents.total_volume
+		var/incoming_amount = max(0, min(reagent_container.amount_per_transfer_from_this, reagent_container.reagents.total_volume, container.reagents.get_free_space()))
+		var/incoming_valid_amount = incoming_amount * part
+
+		if(incoming_valid_amount > 0)
+			return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
 
 /datum/cooking/recipe_step/add_reagent/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/container = locateUID(tracker.container_uid)
@@ -71,24 +81,10 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	return list(message = "You transfer [trans] units to \the [container].")
 
 /datum/cooking/recipe_step/add_reagent/is_complete(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/reagent_containers/our_item = used_item
 	var/obj/item/container = locateUID(tracker.container_uid)
-
-	if(istype(used_item, /obj/machinery/cooking))
-		if(container.reagents.has_reagent(reagent_id, amount))
-			return TRUE
+	if(!istype(container))
 		return FALSE
-
-	if(our_item.reagents.total_volume)
-		var/part = our_item.reagents.get_reagent_amount(reagent_id) / our_item.reagents.total_volume
-		var/incoming_amount = max(0, min(our_item.amount_per_transfer_from_this, our_item.reagents.total_volume, container.reagents.get_free_space()))
-		var/incoming_valid_amount = incoming_amount * part
-
-		var/resulting_total = container.reagents.get_reagent_amount(reagent_id) + incoming_valid_amount
-		if(resulting_total >= amount)
-			return TRUE
-
-	return FALSE
+	return container.reagents.has_reagent(reagent_id, amount)
 
 /datum/cooking/recipe_step/add_reagent/get_pda_formatted_desc()
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]

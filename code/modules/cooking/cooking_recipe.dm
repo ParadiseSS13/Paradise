@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 			product_count = max(product_count, min(3, applied_step_data["rating"]))
 
 	if(product_type) // Make a regular item
-		make_product_item(container, slurry, applied_steps, tracked_quality)
+		. = make_product_item(container, slurry, applied_steps, tracked_quality)
 	else
 		QDEL_LIST_CONTENTS(container.contents)
 		container.contents = list()
@@ -164,6 +164,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 	for(var/i in 1 to product_count)
 		var/obj/item/new_item = new product_type(container)
+		. = new_item
 		#ifdef PCWJ_DEBUG
 		log_debug("/recipe/proc/create_product: Item created with reagents of [new_item.reagents.total_volume]")
 		#endif

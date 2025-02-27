@@ -132,7 +132,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 			handle_cooking(user)
 
 /datum/cooking_surface/proc/reset_cooktime()
-	cooking_ticks_handled = 0
+	cooking_ticks_handled = 1
 	#ifdef PCWJ_DEBUG
 	log_debug("reset_cooktime")
 	#endif

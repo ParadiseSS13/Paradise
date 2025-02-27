@@ -115,6 +115,8 @@
 		// recipe order
 		if(container)
 			container.clear_cooking_data()
+	else
+		return PCWJ_PARTIAL_SUCCESS
 
 	for(var/datum/cooking/recipe in recipes_last_completed_step)
 		if(!(recipe in valid_recipes[sample_step.type]))
