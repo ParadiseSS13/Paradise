@@ -53,11 +53,7 @@ export class AudioPlayer {
 
     if (this.options.end) {
       audio.addEventListener('timeupdate', () => {
-        if (
-          this.options.end &&
-          this.options.end > 0 &&
-          audio.currentTime >= this.options.end
-        ) {
+        if (this.options.end && this.options.end > 0 && audio.currentTime >= this.options.end) {
           this.stop();
         }
       });
