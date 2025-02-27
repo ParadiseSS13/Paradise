@@ -96,24 +96,26 @@
 	var/next_difference = next_hit - world.time
 	var/difference_rounded = DisplayTimeText(max(1, next_difference))
 
-	if(accuracy_coeff >= 4)
+	if(next_weather == "0" || next_weather == null)
+		return
+	if(accuracy_coeff >= 4) //perfect accuracy
 		if(next_difference <= (5 MINUTES))
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
 			dont_announce = TRUE
-	else if (prob(accuracy_coeff) && next_difference <= 5 MINUTES && next_difference >= 1 MINUTES)
-		if(next_weather = "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
+	else if (prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
+		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
 			dont_announce = TRUE
-			correct_prediction = TRUE
+			correct_prediction = FALSE
 		else
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
 			dont_announce = TRUE
-			correct_prediction = FALSE
+			correct_prediction = TRUE
 
 /obj/machinery/radar/RefreshParts()
 	for(var/obj/item/stock_parts/scanning_module/C in component_parts)
 		accuracy_coeff += C.rating
-	accuracy_coeff = round((accuracy_coeff / 4), 2) //average all the parts
+	accuracy_coeff = (accuracy_coeff / 4) //average all the parts
 
 /obj/item/circuitboard/machine/radar
 	board_name = "Doppler Radar"
