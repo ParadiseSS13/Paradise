@@ -276,14 +276,14 @@
 	desc = "Put ingredients in this; designed for use with an oven. Warranty void if used."
 	icon_state = "oven_dish"
 	lip = "oven_dish_lip"
-	materials = list(MAT_METAL = 10)
+	materials = list(MAT_METAL = 1500)
 
 /obj/item/reagent_containers/cooking/pan
 	name = "pan"
 	desc = "A normal pan."
 	icon_state = "pan"
 	lip = "pan_lip"
-	materials = list(MAT_METAL = 5)
+	materials = list(MAT_METAL = 1000)
 	force = 8
 	throwforce = 10
 	attack_verb = list("smashed", "fried")
@@ -294,7 +294,7 @@
 	desc = "Boil things with this. Maybe even stick 'em in a stew."
 	icon_state = "pot"
 	lip = "pot_lip"
-	materials = list(MAT_METAL = 5)
+	materials = list(MAT_METAL = 1250)
 	hitsound = 'sound/weapons/smash.ogg'
 	removal_penalty = 5
 	force = 8
@@ -308,19 +308,20 @@
 	icon_state = "deepfryer_basket"
 	lip = "deepfryer_basket_lip"
 	removal_penalty = 5
+	materials = list(MAT_METAL = 1000)
 
 /obj/item/reagent_containers/cooking/grill_grate
 	name = "grill grate"
 	desc = "Primarily used to grill meat, place this on a grill and enjoy an ancient human tradition."
 	icon_state = "grill_grate"
-	materials = list(MAT_METAL = 5)
+	materials = list(MAT_METAL = 750)
 
 /obj/item/reagent_containers/cooking/bowl
 	name = "prep bowl"
 	desc = "A bowl for mixing, or tossing a salad. Not to be eaten out of"
 	icon_state = "bowl"
 	lip = "bowl_lip"
-	materials = list(MAT_PLASTIC = 5)
+	materials = list(MAT_PLASTIC = 500)
 	removal_penalty = 2
 
 /obj/item/reagent_containers/cooking/icecream_bowl
@@ -328,4 +329,5 @@
 	desc = "A stainless steel bowl that fits into the ice cream mixer."
 	icon_state = "ice_cream_bowl"
 	lip = "ice_cream_bowl_lip"
+	materials = list(MAT_METAL = 750)
 	var/freezing_time = 0
