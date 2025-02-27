@@ -34,6 +34,10 @@ export class AudioPlayer {
   }
 
   play(url: string, options: AudioOptions = {}) {
+    if (this.element) {
+      this.stop();
+    }
+
     this.options = options;
 
     const audio = (this.element = new Audio(url));
