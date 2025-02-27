@@ -738,7 +738,6 @@
 				var/obj/structure/closet/crate/C = load
 				C.notifyRecipient(destination)
 			unload(loaddir)
-			return
 
 		if(auto_pickup)
 			find_crate()
