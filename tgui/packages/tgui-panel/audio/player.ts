@@ -87,11 +87,11 @@ export class AudioPlayer {
     this.element.volume = volume;
   }
 
-  onPlay(subscriber: () => {}): void {
+  onPlay(subscriber: () => void): void {
     this.onPlaySubscribers.push(subscriber);
   }
 
-  onStop(subscriber: () => {}): void {
+  onStop(subscriber: () => void): void {
     this.onStopSubscribers.push(subscriber);
   }
 }
