@@ -68,7 +68,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		to_chat(user, "<span class='notice'>[src] doesn't need to be opened to exchange its parts.</span>")
-		return FALSE
+		return
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
@@ -76,6 +76,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	deconstruct()
 
 /obj/machinery/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	var/input = clickpos_to_surface(modifiers)
 	if(input)
 		var/datum/cooking_surface/surface = surfaces[input]
