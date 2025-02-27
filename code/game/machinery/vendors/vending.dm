@@ -903,7 +903,7 @@
 //override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
 /obj/machinery/economy/vending/proc/do_vend(datum/data/vending_product/R, mob/user, put_in_hands = TRUE)
 	var/vended = R.vend(loc)
-	if(put_in_hands && isliving(user) && istype(vended, /obj/item) && Adjacent(user))
+	if(put_in_hands && isliving(user) && istype(vended, /obj/item) && Adjacent(user) && !issilicon(user))
 		// Try the active hand first, then the inactive hand, and leave it here if both fail
 		if(!user.put_in_active_hand(vended))
 			user.put_in_inactive_hand(vended)
