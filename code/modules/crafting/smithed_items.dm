@@ -354,6 +354,10 @@
 	name = "Debug tool bit"
 	icon_state = "bit"
 	desc = "Debug tool bit. If you see this, notify the development team."
+	/// Base Speed modifier
+	var/base_speed_mod = 0
+	/// Base Efficiency modifier
+	var/base_efficiency_mod = 0
 	/// Speed modifier
 	var/speed_mod = 1.0
 	/// Efficiency modifier
@@ -370,9 +374,9 @@
 /obj/item/smithed_item/tool_bit/set_stats()
 	durability = initial(durability) * material.durability_mult
 	size_mod = initial(size_mod) + material.size_mod
-	speed_mod = initial(speed_mod) * quality.stat_mult * material.tool_speed_mult
+	speed_mod = 1 + (base_speed_mod * quality.stat_mult * material.tool_speed_mult)
 	failure_rate = initial(failure_rate) * quality.stat_mult * material.tool_failure_mult
-	efficiency_mod = initial(efficiency_mod) * quality.stat_mult * material.power_draw_mult
+	efficiency_mod = 1 + (base_efficiency_mod * quality.stat_mult * material.power_draw_mult)
 
 /obj/item/smithed_item/tool_bit/on_attached(obj/item/target)
 	if(!istype(target))
@@ -403,45 +407,45 @@
 /obj/item/smithed_item/tool_bit/speed
 	name = "speed bit"
 	desc = "A tool bit optimized for speed, at the cost of efficiency."
-	speed_mod = 0.8
+	base_speed_mod = -0.2
 	failure_rate = 5
-	efficiency_mod = 0.9
+	base_efficiency_mod = 0.1
 
 /obj/item/smithed_item/tool_bit/efficiency
 	name = "efficient bit"
 	desc = "A tool bit optimized for efficiency, at the cost of speed."
-	speed_mod = 1.2
-	efficiency_mod = 1.25
+	base_speed_mod = 0.2
+	base_efficiency_mod = -0.25
 
 /obj/item/smithed_item/tool_bit/balanced
 	name = "efficient bit"
 	desc = "A tool bit that's fairly balanced in all aspects."
-	speed_mod = 0.9
+	base_speed_mod = -0.1
 	failure_rate = 2
-	efficiency_mod = 1.1
+	base_efficiency_mod = -0.1
 
 /obj/item/smithed_item/tool_bit/heavy
 	name = "heavy duty bit"
 	desc = "A large, advanced tool bit that maximises speed."
-	speed_mod = 0.6
+	base_speed_mod = -0.4
 	failure_rate = 10
-	efficiency_mod = 0.75
+	base_efficiency_mod = 0.25
 	size_mod = 1
 	durability = 40
 
 /obj/item/smithed_item/tool_bit/economical
 	name = "economical bit"
 	desc = "An advanced tool bit that maximises efficiency."
-	speed_mod = 1.4
-	efficiency_mod = 1.5
+	base_speed_mod = 0.4
+	base_efficiency_mod = -0.45
 	durability = 15
 
 /obj/item/smithed_item/tool_bit/advanced
 	name = "advanced bit"
 	desc = "An advanced tool bit that's fairly balanced in all aspects."
-	speed_mod = 0.75
+	base_speed_mod = -0.25
 	failure_rate = 2
-	efficiency_mod = 1.3
+	base_efficiency_mod = -0.3
 
 /obj/item/smithed_item/tool_bit/admin
 	name = "adminium bit"
@@ -452,20 +456,28 @@
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
-// lenss
+// lenses
 
 /obj/item/smithed_item/lens
 	name = "Debug lens"
 	icon_state = "lens"
 	desc = "Debug lens. If you see this, notify the development team."
-	/// Laser speed multiplier
-	var/laser_speed_mult = 1.0
-	/// Power draw multiplier
-	var/power_mult = 1.0
-	/// Damage multiplier
-	var/damage_mult = 1.0
-	/// Fire rate multiplier
-	var/fire_rate_mult = 1.0
+	/// Base laser speed multiplier
+	var/base_laser_speed_mult = 0
+	/// Base power draw multiplier
+	var/base_power_mult = 0
+	/// Base damage multiplier
+	var/base_damage_mult = 0
+	/// Base fire rate multiplier
+	var/base_fire_rate_mult = 0
+	/// Laser speed multiplier after construction
+	var/laser_speed_mult = 1
+	/// Power draw multiplier after construction
+	var/power_mult = 1
+	/// Damage multiplier after construction
+	var/damage_mult = 1
+	/// Fire rate multiplier after construction
+	var/fire_rate_mult = 1
 	/// lens durability
 	var/durability = 40
 	/// The weapon the lens is attached to
@@ -473,27 +485,27 @@
 
 /obj/item/smithed_item/lens/set_stats()
 	durability = initial(durability) * material.durability_mult
-	power_mult = initial(power_mult) * quality.stat_mult * material.power_draw_mult
-	damage_mult = initial(damage_mult) * quality.stat_mult * material.projectile_damage_multiplier
-	laser_speed_mult = initial(laser_speed_mult) * quality.stat_mult * material.projectile_speed_mult
-	fire_rate_mult = initial(fire_rate_mult) * quality.stat_mult * material.fire_rate_multiplier
+	power_mult = 1 + (base_power_mult * quality.stat_mult * material.power_draw_mult)
+	damage_mult = 1 + (base_damage_mult * quality.stat_mult * material.projectile_damage_multiplier)
+	laser_speed_mult = 1 + (base_laser_speed_mult * quality.stat_mult * material.projectile_speed_mult)
+	fire_rate_mult = 1 + (base_fire_rate_mult * quality.stat_mult * material.fire_rate_multiplier)
 
 /obj/item/smithed_item/lens/on_attached(obj/item/gun/energy/target)
 	if(!istype(target))
 		return
 	attached_gun = target
-	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
+	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost * power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
-		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
-	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
+	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost / power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
-		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 	attached_gun.current_lens = null
 	attached_gun = null
 
@@ -509,50 +521,50 @@
 /obj/item/smithed_item/lens/accelerator
 	name = "accelerator lens"
 	desc = "A lens that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
-	laser_speed_mult = 1.1
-	damage_mult = 0.9
+	base_laser_speed_mult = 0.1
+	base_damage_mult = -0.1
 
 /obj/item/smithed_item/lens/speed
 	name = "speed lens"
 	desc = "A lens that cools the capacitors more efficiently, allowing for greater fire rate."
-	fire_rate_mult = 1.15
-	damage_mult = 0.9
-	durability = 30
+	base_fire_rate_mult = 0.15
+	base_damage_mult = -0.1
+	base_durability = 30
 
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
-	power_mult = 1.1
-	damage_mult = 1.1
+	base_power_mult = 0.1
+	base_damage_mult = 0.1
 
 /obj/item/smithed_item/lens/efficiency
 	name = "efficiency lens"
 	desc = "A lens that optimizes the number of shots an energy weapon can take before running dry."
-	power_mult = 0.8
-	damage_mult = 0.9
+	base_power_mult = -0.2
+	base_damage_mult = -0.1
 	durability = 80
 
 /obj/item/smithed_item/lens/rapid
 	name = "rapid lens"
 	desc = "An advanced lens that bypasses the heat capacitor entirely, allowing for unprecedented fire rates of low-power emissions."
-	fire_rate_mult = 1.5
-	laser_speed_mult = 0.9
-	damage_mult = 0.8
+	base_fire_rate_mult = 0.5
+	base_laser_speed_mult = -0.1
+	base_damage_mult = -0.2
 	durability = 60
 
 /obj/item/smithed_item/lens/densifier
 	name = "densifier lens"
 	desc = "An advanced lens that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
-	fire_rate_mult = 0.7
-	laser_speed_mult = 0.7
-	damage_mult = 1.4
+	base_fire_rate_mult = -0.3
+	base_laser_speed_mult = -0.3
+	base_damage_mult = 0.4
 	durability = 30
 
 /obj/item/smithed_item/lens/velocity
 	name = "velocity lens"
 	desc = "An advanced lens that forces energy emissions from the barrel as fast as possible, accelerating them to ludicrous speed."
-	laser_speed_mult = 1.5
-	damage_mult = 0.8
+	base_laser_speed_mult = 0.5
+	base_damage_mult = -0.2
 	durability = 30
 
 /obj/item/smithed_item/lens/admin
@@ -561,7 +573,7 @@
 	laser_speed_mult = 5
 	damage_mult = 5
 	fire_rate_mult = 5
-	power_mult = 0.5
+	power_mult = -0.5
 	durability = 3000
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
