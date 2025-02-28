@@ -141,10 +141,11 @@
 /area/lavaland/surface/outdoors)
 "aC" = (
 /obj/machinery/smithing/kinetic_assembler,
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/box,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8931,6 +8932,9 @@
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/economy/vending/smith,
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
