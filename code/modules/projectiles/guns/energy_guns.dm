@@ -34,6 +34,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
+	/// Can it use a lens
+	var/can_be_lensed = TRUE
 	/// Current lens
 	var/obj/item/smithed_item/lens/current_lens
 
@@ -78,7 +80,8 @@
 
 /obj/item/gun/energy/proc/attach_lens(atom/source, obj/item/smithed_item/lens/new_lens, mob/user)
 	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
-
+	if(!can_be_lensed)
+		return
 	if(!istype(new_lens))
 		return
 	if(current_lens)
@@ -96,8 +99,8 @@
 	if(!current_lens)
 		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
 		return
-	current_lens.on_detached()
 	user.put_in_hands(current_lens)
+	current_lens.on_detached()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot

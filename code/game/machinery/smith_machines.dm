@@ -51,6 +51,7 @@
 
 /obj/machinery/mineral/smart_hopper/update_overlays()
 	. = ..()
+	overlays.Cut()
 	if(panel_open)
 		. += "hopper_wires"
 
@@ -128,6 +129,12 @@
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
+
+/obj/machinery/mineral/smart_hopper/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /obj/machinery/mineral/smart_hopper/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
@@ -235,6 +242,16 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
 
+/obj/machinery/magma_crucible/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/obj/machinery/magma_crucible/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
 /obj/machinery/magma_crucible/RefreshParts()
 	var/S = BASE_SHEET_MULT
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
@@ -256,6 +273,16 @@
 		icon_state = "[initial(icon_state)]_off"
 	else
 		icon_state = initial(icon_state)
+
+/obj/machinery/magma_crucible/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/magma_crucible/Destroy()
+	. = ..()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.retrieve_all()
+	return ..()
 
 /obj/machinery/magma_crucible/power_change()
 	if(!..())
@@ -346,9 +373,14 @@
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
 		return ITEM_INTERACT_COMPLETE
 
+	if(working_component)
+		to_chat(user, "<span class='warning'>There is already a component in the machine!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
+
 	working_component = used
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
@@ -399,6 +431,18 @@
 	user.put_in_hands(working_component)
 	working_component = null
 
+/obj/machinery/smithing/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(operating)
+		to_chat(user, "<span class='alert'>[src] is busy. Please wait for completion of previous operation.</span>")
+		return
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/obj/machinery/smithing/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/smithing/casting_basin
 	name = "casting basin"
@@ -439,6 +483,7 @@
 	if(cast)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
 		. += "<span class='notice'>There is a [cast] in the cast slot.</span>"
+		. += "<span class='notice'>Currently set to produce: [cast.selected_product]</span>"
 	if(produced_item)
 		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
 
@@ -574,6 +619,7 @@
 		operate(operation_time, user)
 		produced_item = new cast.selected_product(src)
 		produced_item.quality = quality
+		produced_item.set_worktime()
 		produced_item.update_appearance(UPDATE_NAME)
 		produced_item.update_appearance(UPDATE_DESC)
 		produced_item.update_icon(UPDATE_ICON_STATE)
@@ -808,7 +854,7 @@
 /obj/machinery/smithing/kinetic_assembler/examine(mob/user)
 	. = ..()
 	if(primary || secondary || trim)
-		. += "<span class='notice'>You can activate the machine with your hand, or a component by alt-clicking.</span>"
+		. += "<span class='notice'>You can activate the machine with your hand, or remove a component by alt-clicking.</span>"
 	if(primary)
 		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
 	if(secondary)
@@ -834,6 +880,37 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/smithing/kinetic_assembler/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+/obj/machinery/smithing/kinetic_assembler/AltClick(mob/living/user)
+	if(!primary && !secondary && !trim)
+		to_chat(user, "<span class='warning'>There is no component to remove.</span>")
+		return
+	var/list/components = list("Primary", "Secondary", "Trim")
+	var/removed = tgui_input_list(user, "Select a component to remove", src, components)
+	if(!removed)
+		return
+	switch(removed)
+		if("Primary")
+			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
+			user.put_in_hands(primary)
+			primary = null
+			return
+		if("Secondary")
+			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
+			user.put_in_hands(secondary)
+			secondary = null
+			return
+		if("Trim")
+			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
+			user.put_in_hands(trim)
+			trim = null
+			return
+
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
@@ -847,6 +924,10 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/smithed_item/component/comp = used
+	if(comp.hammer_time)
+		to_chat(user, "<span class='warning'>[used] is not complete yet!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(comp.part_type == PART_PRIMARY)
 		if(primary)
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")

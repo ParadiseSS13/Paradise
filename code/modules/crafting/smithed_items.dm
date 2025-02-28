@@ -62,6 +62,10 @@
 							/obj/item/stack/sheet/mineral/silver,
 							/obj/item/stack/sheet/mineral/gold,
 							/obj/item/stack/sheet/mineral/plasma,
+							/obj/item/stack/sheet/mineral/uranium,
+							/obj/item/stack/sheet/mineral/diamond,
+							/obj/item/stack/ore/bluespace_crystal/refined,
+							/obj/item/stack/sheet/mineral/titanium,
 							/obj/item/stack/sheet/plasmaglass,
 							/obj/item/stack/sheet/plasteel,
 							/obj/item/stack/sheet/mineral/plastitanium,
@@ -504,14 +508,14 @@
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost * power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
-		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost / power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
-		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
+		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
 	attached_gun.current_lens = null
 	attached_gun = null
 
@@ -606,9 +610,6 @@
 
 /obj/item/smithed_item/component/Initialize(mapload)
 	. = ..()
-	if(!quality)
-		return
-	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 	update_appearance(UPDATE_DESC)
 
 /obj/item/smithed_item/component/update_icon_state()
@@ -648,6 +649,11 @@
 		burn_user(user)
 		return
 	return ..()
+
+/obj/item/smithed_item/component/proc/set_worktime()
+	if(!quality)
+		return
+	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 
 /obj/item/smithed_item/component/proc/burn_check(mob/user)
 	var/burn_me = TRUE
