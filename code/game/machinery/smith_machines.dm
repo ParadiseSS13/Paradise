@@ -795,6 +795,10 @@
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
+	if(!working_component)
+		to_chat(user, "<span class='warning'>There is nothing in [src]!</span>")
+		return
+
 	operate(operation_time, user)
 	return FINISH_ATTACK
 
