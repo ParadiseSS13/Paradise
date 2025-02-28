@@ -483,7 +483,7 @@
 	if(cast)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
 		. += "<span class='notice'>There is a [cast] in the cast slot.</span>"
-		. += "<span class='notice'>Currently set to produce: [cast.selected_product]</span>"
+		. += "<span class='notice'>Currently set to produce: [cast.selected_product.name]</span>"
 	if(produced_item)
 		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
 
