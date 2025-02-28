@@ -421,6 +421,9 @@
 	SStgui.update_uis(src)
 
 /obj/item/rcd/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
+		return ..()
 	if(!istype(used, /obj/item/rcd_ammo))
 		return ..()
 	var/obj/item/rcd_ammo/ammo = used
