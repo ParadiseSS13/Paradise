@@ -178,12 +178,7 @@
 
 /obj/item/smithed_item/Initialize(mapload)
 	. = ..()
-	if(!quality)
-		return
-	if(!material)
-		name = "[quality.name] [initial(name)]"
-		return
-	name = "[quality.name] [material.name] [initial(name)]"
+	set_name()
 
 /obj/item/smithed_item/update_name()
 	. = ..()
@@ -202,6 +197,14 @@
 
 /obj/item/smithed_item/proc/set_stats()
 	return
+
+/obj/item/smithed_item/proc/set_name()
+	if(!quality)
+		return
+	if(!material)
+		name = "[quality.name] [initial(name)]"
+		return
+	name = "[quality.name] [material.name] [initial(name)]"
 
 // Inserts
 
