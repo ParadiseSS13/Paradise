@@ -426,7 +426,7 @@
 		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
 		return
 	if(operating)
-		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
 	user.put_in_hands(working_component)
 	working_component = null
@@ -562,7 +562,7 @@
 		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
 		return
 	if(operating)
-		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
 	user.put_in_hands(cast)
 	cast = null
@@ -586,7 +586,7 @@
 		to_chat(user, "<span class='warning'>There is no linked magma crucible!</span>")
 		return FINISH_ATTACK
 	if(operating)
-		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return FINISH_ATTACK
 
 	var/datum/component/material_container/materials = linked_crucible.GetComponent(/datum/component/material_container)
@@ -716,7 +716,7 @@
 /obj/machinery/smithing/power_hammer/attack_hand(mob/user)
 	. = ..()
 	if(operating)
-		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
 	operate(operation_time, user)
 	update_icon(UPDATE_ICON_STATE)
@@ -793,7 +793,7 @@
 /obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
 	. = ..()
 	if(operating)
-		to_chat(user, "<span class='warning'>The casting basin is currently operating!</span>")
+		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
 	operate(operation_time, user)
 	return FINISH_ATTACK
