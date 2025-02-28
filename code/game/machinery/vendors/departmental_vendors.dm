@@ -367,6 +367,11 @@
 					/obj/item/smithing_cast/component/bit_head = 3,
 					/obj/item/smithing_cast/component/lens_focus = 3,
 					/obj/item/smithing_cast/component/lens_frame = 3,
-					/obj/item/smithing_cast/component/trim = 3)
+					/obj/item/smithing_cast/component/trim = 3,
+					/obj/item/storage/box/crewvend = 1)
 
 	refill_canister = /obj/item/vending_refill/smith
+
+	prices = list(
+		/obj/item/storage/box/crewvend = 100
+	)
