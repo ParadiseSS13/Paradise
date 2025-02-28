@@ -41,6 +41,7 @@
 	var/barometer_predictable = FALSE
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
 
+	var/area_act = FALSE // Does this affect more than just mobs, or the landscape?
 /datum/weather/New(z_levels)
 	..()
 	impacted_z_levels = z_levels
@@ -145,3 +146,6 @@
 				N.layer = initial(N.layer)
 				N.plane = initial(N.plane)
 				N.set_opacity(FALSE)
+
+/datum/weather/proc/area_act()
+	return

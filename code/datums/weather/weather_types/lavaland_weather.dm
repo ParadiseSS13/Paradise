@@ -21,7 +21,7 @@
 
 	immunity_type = "ash"
 
-	probability = 90
+	probability = 0
 
 	barometer_predictable = TRUE
 
@@ -139,3 +139,81 @@
 	aesthetic = TRUE
 
 	probability = 10
+
+/datum/weather/volcano
+	name = "volcanic activity"
+	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
+
+	// no warning. Better hope no one broke the doppler
+	telegraph_message = null
+	telegraph_duration = 300
+	telegraph_overlay = null
+	telegraph_sound = "sound/weather/volcano/lavaland_volcano_warning.ogg"
+
+	weather_message = "<span class='userdanger'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
+	weather_duration_lower = 600
+	weather_duration_upper = 1200
+	weather_overlay = null
+	weather_sound = "sound/weather/volcano/lavaland_volcano_eruption.ogg"
+
+	end_message = "<span class='boldannounceic'>The rumbling ceases and the sounds of tumbling rock dies down. It should be safe to go outside now.</span>"
+	end_duration = 300
+	end_overlay = null
+
+	area_type = /area/lavaland/surface/outdoors
+	target_trait = ORE_LEVEL
+
+	probability = 99
+
+	barometer_predictable = FALSE
+
+	area_act = TRUE
+
+	//has a river already been generated this storm?
+	var/generated_river = FALSE
+
+/datum/weather/volcano/proc/is_shuttle_docked(shuttleId, dockId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	return M && M.getDockedId() == dockId
+
+/datum/weather/volcano/proc/update_eligible_areas()
+	var/list/inside_areas = list()
+	var/list/outside_areas = list()
+	var/list/eligible_areas = list()
+	for(var/z in impacted_z_levels)
+		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+
+	// Don't play storm audio to shuttles that are not at lavaland
+	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
+	if(!miningShuttleDocked)
+		eligible_areas -= get_areas(/area/shuttle/mining)
+
+	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
+	if(!laborShuttleDocked)
+		eligible_areas -= get_areas(/area/shuttle/siberia)
+
+	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
+	if(!golemShuttleOnPlanet)
+		eligible_areas -= get_areas(/area/shuttle/freegolem)
+
+	for(var/i in 1 to length(eligible_areas))
+		var/area/place = eligible_areas[i]
+		if(place.outdoors)
+			outside_areas += place
+		else
+			inside_areas += place
+
+/datum/weather/volcano/proc/update_audio()
+
+/datum/weather/volcano/area_act()
+	if(prob(0.5) || !generated_river)
+		generate_river()
+
+/datum/weather/volcano/proc/generate_river()
+	generated_river = TRUE
+	var/datum/river_spawner/new_river = new /datum/river_spawner(3)
+	new_river.generate(2)
+
+
+
+

@@ -37,7 +37,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 10)
 	RefreshParts()
-	set_light(3, 1, "#e2db98")
+	set_light(3, 1, "#e2db98") // so the machine isnt pitch black
 
 	AddComponent(/datum/component/multitile, list(
 	list(1,		1,		1),
@@ -63,7 +63,7 @@
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)
 						return
-					if(W.aesthetic)
+					if(W.name == "emberfall")
 						if(correct_prediction) // unupgraded machines should still scare the poor bastards
 							radio.autosay("<b>[W.name] detected settling over the sector. No further action required.</b>", name, "Supply")
 						else
@@ -99,9 +99,10 @@
 	if(next_weather == "0" || next_weather == null)
 		return
 	if(accuracy_coeff >= 4) //perfect accuracy
-		if(next_difference <= (5 MINUTES))
+		if(next_difference <= (3 MINUTES))
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
 			dont_announce = TRUE
+			correct_prediction = TRUE
 	else if (prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
 		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
@@ -113,6 +114,7 @@
 			correct_prediction = TRUE
 
 /obj/machinery/radar/RefreshParts()
+	accuracy_coeff = 0
 	for(var/obj/item/stock_parts/scanning_module/C in component_parts)
 		accuracy_coeff += C.rating
 	accuracy_coeff = (accuracy_coeff / 4) //average all the parts
