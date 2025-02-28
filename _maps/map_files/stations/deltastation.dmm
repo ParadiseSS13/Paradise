@@ -27035,6 +27035,7 @@
 /obj/item/camera_film,
 /obj/item/camera_film,
 /obj/item/camera/detective,
+/obj/item/storage/box/evidence,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "bNs" = (
@@ -64054,6 +64055,7 @@
 	},
 /obj/item/pen/multi,
 /obj/item/toy/crayon/white/chalk,
+/obj/item/hand_labeler,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "ips" = (
@@ -72466,7 +72468,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "nhR" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/table/wood,
+/obj/machinery/microscope,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "nhT" = (
@@ -88428,6 +88431,11 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"vFQ" = (
+/obj/structure/table/wood,
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/wood,
+/area/station/security/detective)
 "vGg" = (
 /obj/machinery/economy/vending/coffee,
 /obj/structure/sign/poster/official/random{
@@ -90031,16 +90039,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "wuO" = (
-/obj/structure/table/wood,
 /obj/machinery/power/apc/important/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "wuT" = (
@@ -145863,7 +145866,7 @@ lZy
 mft
 bLn
 bPx
-mEG
+vFQ
 nhR
 coP
 bLn
