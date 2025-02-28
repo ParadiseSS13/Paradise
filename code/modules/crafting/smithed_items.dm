@@ -196,7 +196,7 @@
 /obj/item/smithed_item/proc/set_name()
 	if(!quality)
 		return
-	if(!material || istype(src, /obj/item/smithed_item/component/trim))
+	if(!material)
 		name = "[quality.name] " + name
 		return
 	name = "[quality.name] [material.name] [initial(name)]"
@@ -994,6 +994,12 @@
 	icon_state = "trim"
 	desc = "Debug smithed component part of any smithed item. If you see this, notify the development team."
 	part_type = PART_TRIM
+
+/obj/item/smithed_item/component/trim/set_name()
+	if(!quality)
+		return
+	name = "[quality.name] " + name
+	return
 
 /obj/item/smithed_item/component/trim/metal
 	name = "metal trim"
