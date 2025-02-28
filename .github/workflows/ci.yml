@@ -136,14 +136,6 @@ jobs:
       fail-fast: false
       matrix:
         byondtype: ['STABLE', 'BETA']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
