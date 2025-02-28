@@ -2,8 +2,8 @@
 #define BASE_SHEET_MULT 0.60
 #define POINT_MULT_ADD_PER_RATING 0.10
 #define SHEET_MULT_ADD_PER_RATING 0.20
-#define OPERATION_SPEED_MULT_PER_RATING 0.25
-#define EFFICIENCY_MULT_ADD_PER_RATING 0.1
+#define OPERATION_SPEED_MULT_PER_RATING 0.05
+#define EFFICIENCY_MULT_ADD_PER_RATING 0.05
 
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
@@ -494,7 +494,7 @@
 		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
 		E += EFFICIENCY_MULT_ADD_PER_RATING * M.rating
 	// Update our values
-	operation_time = initial(operation_time) - O
+	operation_time = ROUND_UP(initial(operation_time) * (1 - O))
 	efficiency = initial(efficiency) - E
 
 /obj/machinery/smithing/casting_basin/update_overlays()
@@ -606,7 +606,7 @@
 
 		// Check if there is enough materials to craft the item
 		for(MAT in temp_product.materials)
-			used_mats[MAT] = (temp_product.materials[MAT] * quality.material_mult) / efficiency
+			used_mats[MAT] = (temp_product.materials[MAT] * quality.material_mult) * efficiency
 
 		if(!materials.has_materials(used_mats, 1))
 			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")

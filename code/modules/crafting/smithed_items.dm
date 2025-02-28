@@ -189,7 +189,7 @@
 	. = ..()
 	if(!quality)
 		return
-	if(!material)
+	if(!material || istype(src, /obj/item/smithed_item/component/trim))
 		name = "[quality.name] " + name
 		return
 	name = "[quality.name] [material.name] [initial(name)]"
@@ -245,7 +245,7 @@
 	if(!istype(target))
 		return
 	attached_suit = target
-	attached_suit.armor.attachArmor(armor)
+	attached_suit.armor = attached_suit.armor.attachArmor(armor)
 	attached_suit.slowdown -= movement_speed_mod
 	attached_suit.siemens_coefficient -= siemens_coeff
 	attached_suit.min_cold_protection_temperature -= heat_insulation
@@ -254,7 +254,7 @@
 		attached_suit.slowdown = 0
 
 /obj/item/smithed_item/insert/on_detached(mob/user)
-	attached_suit.armor.detachArmor(armor)
+	attached_suit.armor = attached_suit.armor.detachArmor(armor)
 	if(no_more_slowdown)
 		attached_suit.slowdown = initial(attached_suit.slowdown)
 	attached_suit.slowdown += movement_speed_mod
