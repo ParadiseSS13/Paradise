@@ -182,12 +182,7 @@
 
 /obj/item/smithed_item/update_name()
 	. = ..()
-	if(!quality)
-		return
-	if(!material || istype(src, /obj/item/smithed_item/component/trim))
-		name = "[quality.name] " + name
-		return
-	name = "[quality.name] [material.name] [initial(name)]"
+	set_name()
 
 /obj/item/smithed_item/proc/on_attached(mob/user, obj/item/target)
 	return
@@ -201,8 +196,8 @@
 /obj/item/smithed_item/proc/set_name()
 	if(!quality)
 		return
-	if(!material)
-		name = "[quality.name] [initial(name)]"
+	if(!material || istype(src, /obj/item/smithed_item/component/trim))
+		name = "[quality.name] " + name
 		return
 	name = "[quality.name] [material.name] [initial(name)]"
 
