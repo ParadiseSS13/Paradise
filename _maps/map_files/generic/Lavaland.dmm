@@ -10700,6 +10700,10 @@
 	dir = 10
 	},
 /area/mine/laborcamp)
+"YD" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/wall,
+/area/mine/outpost/smith_workshop)
 "YE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20913,7 +20917,7 @@ By
 Lw
 Cu
 iF
-RB
+YD
 yQ
 RB
 Sv
