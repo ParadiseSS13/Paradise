@@ -13,16 +13,17 @@
 	var/loaded = 1
 	var/malfunctioning = 0
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
+	new_attack_chain = TRUE
 
-/obj/item/lazarus_injector/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
+/obj/item/lazarus_injector/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!loaded)
-		return
-	if(isliving(target) && proximity_flag)
+		return ITEM_INTERACT_COMPLETE
+	if(isliving(target))
 		if(isanimal(target))
 			var/mob/living/simple_animal/M = target
 			if(M.sentience_type != revive_type)
 				to_chat(user, "<span class='notice'>[src] does not work on this sort of creature.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
@@ -47,13 +48,13 @@
 				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				icon_state = "lazarus_empty"
-				return
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='notice'>[src] is only effective on the dead.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>[src] is only effective on lesser beings.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
