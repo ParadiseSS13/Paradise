@@ -428,7 +428,7 @@
 	base_efficiency_mod = -0.25
 
 /obj/item/smithed_item/tool_bit/balanced
-	name = "efficient bit"
+	name = "balanced bit"
 	desc = "A tool bit that's fairly balanced in all aspects."
 	base_speed_mod = -0.1
 	failure_rate = 2
