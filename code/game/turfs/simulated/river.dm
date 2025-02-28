@@ -37,12 +37,12 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	spread_prob_loss = spread_prob_loss_
 
 /// Generate a river between the bounds specified by (`min_x`, `min_y`) and
-/// (`max_x`, `max_y`).
+/// (`max_x`, `max_y`). set ignore_bridges TRUE to not spawn any new bridges.
 ///
 /// `nodes` is the number of unique points in those bounds the river will
 /// connect to. Note that `nodes` says little about the resultant size of the
 /// river due to its ability to detour far away from the direct path between them.
-/datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y)
+/datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y, ignore_bridges = FALSE)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 
@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 				continue
 			else
 				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
-				if(prob(1))
+				if(prob(1) && !ignore_bridges)
 					new /obj/effect/spawner/dynamic_bridge(river_turf)
 				spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type)
 

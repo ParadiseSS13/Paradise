@@ -138,34 +138,33 @@
 
 	aesthetic = TRUE
 
-	probability = 10
+	probability = 0
 
 /datum/weather/volcano
 	name = "volcanic activity"
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
 
-	// no warning. Better hope no one broke the doppler
-	telegraph_message = null
+	telegraph_message = "<span class='userdanger'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
 	telegraph_duration = 300
 	telegraph_overlay = null
 	telegraph_sound = "sound/weather/volcano/lavaland_volcano_warning.ogg"
 
-	weather_message = "<span class='userdanger'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
+	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelder now!.</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = null
 	weather_sound = "sound/weather/volcano/lavaland_volcano_eruption.ogg"
 
-	end_message = "<span class='boldannounceic'>The rumbling ceases and the sounds of tumbling rock dies down. It should be safe to go outside now.</span>"
+	end_message = null // radar will give you the safety message on this one, or your instincts
 	end_duration = 300
 	end_overlay = null
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 
-	probability = 99
+	probability = 100
 
-	barometer_predictable = FALSE
+	barometer_predictable = TRUE
 
 	area_act = TRUE
 
@@ -206,13 +205,16 @@
 /datum/weather/volcano/proc/update_audio()
 
 /datum/weather/volcano/area_act()
-	if(prob(0.5) || !generated_river)
+	if(prob(100) && !generated_river)
 		generate_river()
 
 /datum/weather/volcano/proc/generate_river()
+	if(generated_river)
+		return
+	to_chat(world, "generating a new river")
 	generated_river = TRUE
 	var/datum/river_spawner/new_river = new /datum/river_spawner(3)
-	new_river.generate(2)
+	new_river.generate(3, , , 3, , , TRUE)
 
 
 
