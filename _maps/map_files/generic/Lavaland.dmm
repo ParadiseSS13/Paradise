@@ -4525,6 +4525,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ow" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/mine/outpost/smith_workshop)
 "ox" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -5250,6 +5254,9 @@
 	icon_state = "darkredyellowfull"
 	},
 /area/mine/laborcamp)
+"sY" = (
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/mine/outpost/smith_workshop)
 "ta" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -5891,10 +5898,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/mine/outpost/smith_workshop)
 "wK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6699,14 +6703,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
-"Bb" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
 "Bf" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -6906,10 +6902,7 @@
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/mine/outpost/smith_workshop)
 "Cf" = (
 /turf/simulated/floor/mineral/titanium,
@@ -8681,10 +8674,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/mine/outpost/smith_workshop)
 "Np" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -20667,7 +20657,7 @@ Bo
 iF
 iF
 Qi
-Bb
+lp
 lp
 qg
 jZ
@@ -20924,7 +20914,7 @@ iF
 YD
 yQ
 RB
-Sv
+ow
 Sv
 yQ
 RB
@@ -21181,7 +21171,7 @@ CZ
 RB
 pf
 Xf
-Xx
+sY
 Xx
 NX
 mj
@@ -21438,7 +21428,7 @@ gi
 NT
 lO
 qx
-Xx
+sY
 Xx
 lO
 qx
