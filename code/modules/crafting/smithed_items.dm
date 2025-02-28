@@ -535,7 +535,7 @@
 	desc = "A lens that cools the capacitors more efficiently, allowing for greater fire rate."
 	base_fire_rate_mult = 0.15
 	base_damage_mult = -0.1
-	base_durability = 30
+	durability = 30
 
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
