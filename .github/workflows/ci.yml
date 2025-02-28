@@ -57,11 +57,6 @@ jobs:
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
-        with:
-          dotnet-version: 9.x
-
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
@@ -105,8 +100,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station:
-          ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
