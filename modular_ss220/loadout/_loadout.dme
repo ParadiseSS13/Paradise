@@ -7,3 +7,4 @@
 #include "code/shoes.dm"
 #include "code/suit.dm"
 #include "code/under.dm"
+#include "code/neck.dm"
