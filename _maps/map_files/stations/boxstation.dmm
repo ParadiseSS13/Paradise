@@ -14272,7 +14272,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "aXr" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXs" = (
@@ -14302,7 +14302,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXy" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -20962,7 +20962,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "brz" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "brA" = (
@@ -24426,7 +24426,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "bFC" = (
@@ -26393,7 +26393,7 @@
 /area/station/science/robotics)
 "bNo" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
@@ -31907,7 +31907,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -40710,7 +40710,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "eng_vent"
 	},
@@ -48571,7 +48571,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
@@ -57447,7 +57447,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -75724,7 +75724,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -77428,7 +77428,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
