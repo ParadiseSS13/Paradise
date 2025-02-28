@@ -215,6 +215,8 @@
 	var/explosive_armor = 0
 	/// Movement speed
 	var/movement_speed_mod = 0
+	/// Used in the mobility insert - does this negate slowdown
+	var/no_more_slowdown = FALSE
 	/// Heat insulation
 	var/heat_insulation = 0
 	/// Electrical insulation
@@ -244,9 +246,13 @@
 	attached_suit.siemens_coefficient -= siemens_coeff
 	attached_suit.min_cold_protection_temperature -= heat_insulation
 	attached_suit.max_heat_protection_temperature += heat_insulation
+	if(no_more_slowdown)
+		attached_suit.slowdown = 0
 
 /obj/item/smithed_item/insert/on_detached(mob/user)
 	attached_suit.armor.detachArmor(armor)
+	if(no_more_slowdown)
+		attached_suit.slowdown = initial(attached_suit.slowdown)
 	attached_suit.slowdown += movement_speed_mod
 	attached_suit.siemens_coefficient += siemens_coeff
 	attached_suit.min_cold_protection_temperature += heat_insulation
@@ -329,11 +335,11 @@
 /obj/item/smithed_item/insert/mobility
 	name = "mobility mesh"
 	desc = "An advanced alloy mesh that is both lightweight and invigorating to the wearer."
-	brute_armor = -15
-	burn_armor = -15
-	laser_armor = -15
+	brute_armor = -5
+	burn_armor = -5
+	laser_armor = -5
 	heat_insulation = 10
-	movement_speed_mod = 0.4
+	no_more_slowdown = TRUE
 
 /obj/item/smithed_item/insert/admin
 	name = "adminium mesh"
