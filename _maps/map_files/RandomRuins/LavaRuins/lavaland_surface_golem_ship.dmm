@@ -126,14 +126,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
 	width = 16
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem";
-	name = "Free Golem Ship";
-	width = 16
-	},
+/obj/docking_port/mobile/free_golem,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "C" = (
