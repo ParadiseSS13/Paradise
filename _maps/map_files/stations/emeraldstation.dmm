@@ -100945,9 +100945,6 @@
 /area/station/maintenance/starboard)
 "tYT" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
-/obj/item/clothing/gloves/color/latex,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)

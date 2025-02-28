@@ -13245,8 +13245,6 @@
 /area/station/engineering/smes)
 "bPO" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
