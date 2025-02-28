@@ -10272,8 +10272,6 @@
 /area/station/hallway/primary/fore)
 "aKB" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "aKC" = (
