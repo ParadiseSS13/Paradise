@@ -449,7 +449,7 @@
 	var/mob/loccer = loc
 	var/resist_chance = 20
 	var/fail_text = "You struggle, but [loccer] keeps [loccer.p_their()] grip on you!"
-	var/particle_to_spawn = /datum/nothing
+	var/particle_to_spawn = null
 	if(IS_CULTIST(loccer))
 		resist_chance = 5 // your mastahs
 		fail_text = "You struggle, but [loccer]'s grip is unnaturally hard to resist!"
@@ -461,13 +461,13 @@
 	if(HAS_MIND_TRAIT(loccer, TRAIT_HOLY))
 		resist_chance = 6
 		fail_text = "You struggle, but [loccer]'s holy grip holds tight against your thrashing."
-		particle_to_spawn = /datum/nothing
+		particle_to_spawn = null
 	if(iswizard(loccer))
 		resist_chance = 3 // magic master
 		fail_text = "You struggle, but [loccer]'s handle on magic easily neutralizes your movement."
 		particle_to_spawn = /obj/effect/particle_effect/sparks
-
-	new particle_to_spawn(get_turf(loccer))
+	if(particle_to_spawn)
+		new particle_to_spawn(get_turf(loccer))
 
 	if(prob(resist_chance))
 		return TRUE
