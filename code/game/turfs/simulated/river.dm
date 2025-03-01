@@ -32,6 +32,8 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	var/whitelist_turf_type = /turf/simulated/mineral
 	/// The turf used when a spread of the tile stops.
 	var/shoreline_turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	/// To hold all the found turfs to convert to the lava type
+	var/list/collected_turfs = list()
 
 /datum/river_spawner/New(target_z_, spread_prob_ = 25, spread_prob_loss_ = 11)
 	target_z = target_z_
@@ -72,7 +74,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
 		if(istype(get_area(cur_turf), whitelist_area_type) && !(cur_turf.flags & NO_LAVA_GEN))
-			handle_change(cur_turf, river_turf_type, warning)
+			collected_turfs += cur_turf
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
 		if(!target_turf)
 			break
@@ -107,16 +109,16 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 				cur_turf = get_step(cur_turf, cur_dir)
 				continue
 			else
-				handle_change(cur_turf, river_turf_type, warning)
-				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
-				if(prob(1) && !ignore_bridges)
-					new /obj/effect/spawner/dynamic_bridge(river_turf)
-				spread_turf(cur_turf, spread_prob, spread_prob_loss, whitelist_area_type, warning, ignore_bridges)
+				collected_turfs += cur_turf
+				spread_turf(cur_turf, spread_prob, spread_prob_loss, whitelist_area_type)
+
+	handle_change(warning, ignore_bridges)
 
 	for(var/WP in river_nodes)
 		qdel(WP)
 
-/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area, warning, ignore_bridges)
+/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area)
+	to_chat(world, "DEBUG: running spread_turf")
 	if(probability <= 0)
 		return
 	var/list/cardinal_turfs = list()
@@ -135,31 +137,37 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!istype(T, start_turf.type) && handle_change(F, start_turf.type, warning) && prob(probability))
-			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area, warning, ignore_bridges)
-			if(prob(1 && !ignore_bridges))
-				new /obj/effect/spawner/dynamic_bridge(T)
+		if(!istype(T, start_turf.type) && prob(probability))
+			collected_turfs += F
+			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!istype(T, shoreline_turf_type) && prob(probability) && handle_change(F, start_turf.type, warning))
-			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area, warning, ignore_bridges)
+		if(!istype(T, shoreline_turf_type) && prob(probability))
+			collected_turfs += T
+			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
-			handle_change(F, start_turf.type, warning)
-			if(prob(1 && !ignore_bridges))
-				new /obj/effect/spawner/dynamic_bridge(T)
+			collected_turfs += T
 
-/datum/river_spawner/proc/handle_change(cur_turf, turf_type, warning)
-	if(warning)
-		new /obj/effect/temp_visual/river_warning(cur_turf)
-		addtimer(CALLBACK(src, PROC_REF(convert_turf), cur_turf, turf_type), WARNING_DELAY)
-	else
-		convert_turf(cur_turf, turf_type)
-	return TRUE
+//
+/datum/river_spawner/proc/handle_change(warning, ignore_bridges)
+	for(var/turf/affected_turf in collected_turfs)
+		if(!istype(affected_turf, whitelist_turf_type)) // Extra final check
+			return
+		if(warning)
+			new /obj/effect/temp_visual/river_warning(affected_turf)
+			addtimer(CALLBACK(src, PROC_REF(convert_turf), affected_turf), WARNING_DELAY)
+		else
+			convert_turf(affected_turf)
+		if(prob(1) && !ignore_bridges)
+			new /obj/effect/spawner/dynamic_bridge(affected_turf)
 
-/datum/river_spawner/proc/convert_turf(turf/cur_turf, turf_type)
-	if(cur_turf.ChangeTurf(turf_type, ignore_air = TRUE))
-		return TRUE
+/datum/river_spawner/proc/convert_turf(turf/cur_turf)
+	var/X = cur_turf.x
+	var/Y = cur_turf.y
+	to_chat(world, "DEBUG: Converting turf at [X], [Y] into: [river_turf_type]")
+	cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE) // onlya single argument so I can make a callback timer
+
 
 /obj/effect/temp_visual/river_warning
 	icon = 'icons/goonstation/effects/64x64.dmi'
