@@ -87,7 +87,7 @@
 /area/ruin/space/turreted_outpost/solars)
 "hz" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/stetchkin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "ia" = (
@@ -500,7 +500,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "KO" = (
-/obj/effect/spawner/random/syndicate/loot/rare,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "LU" = (
