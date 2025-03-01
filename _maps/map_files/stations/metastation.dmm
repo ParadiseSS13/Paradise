@@ -55273,6 +55273,14 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cryo)
+"jSR" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "jSU" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -58721,6 +58729,10 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
+"luz" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "luM" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -69705,10 +69717,6 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
-"qpM" = (
-/obj/effect/spawner/random/barrier/grille_maybe,
-/turf/simulated/floor/plating,
-/area/space)
 "qpN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -75727,7 +75735,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/maintenance/fore)
 "sXt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -120160,7 +120168,7 @@ aaa
 aaa
 aaa
 ajg
-qpM
+aJl
 alW
 alW
 khy
@@ -120676,7 +120684,7 @@ bhq
 ajg
 vEt
 ajg
-ksa
+jSR
 khy
 ajg
 aIq
@@ -121448,7 +121456,7 @@ wZi
 eew
 dbD
 xbD
-akh
+luz
 eqt
 aBu
 aIt
