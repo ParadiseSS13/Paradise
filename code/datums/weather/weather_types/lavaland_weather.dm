@@ -202,8 +202,6 @@
 		else
 			inside_areas += place
 
-/datum/weather/volcano/proc/update_audio()
-
 /datum/weather/volcano/area_act()
 	if(prob(100) && !generated_river)
 		generate_river()
@@ -211,11 +209,13 @@
 /datum/weather/volcano/proc/generate_river()
 	if(generated_river)
 		return
-	to_chat(world, "generating a new river")
 	generated_river = TRUE
 	var/datum/river_spawner/new_river = new /datum/river_spawner(3)
-	new_river.generate(3, , , 3, , , TRUE)
+	new_river.generate(nodes = 3, ignore_bridges = TRUE, warning = TRUE)
+	update_audio()
 
 
-
-
+/datum/weather/volcano/proc/update_audio(sound_type)
+	switch(sound_type)
+		if("new_river")
+			return // temp, actually add a sound here

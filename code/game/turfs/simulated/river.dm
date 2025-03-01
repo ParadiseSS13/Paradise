@@ -4,6 +4,8 @@
 #define RIVER_MIN_X 50
 #define RIVER_MIN_Y 50
 
+#define WARNING_DELAY 20
+
 GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 /obj/effect/landmark/river_waypoint
@@ -42,7 +44,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 /// `nodes` is the number of unique points in those bounds the river will
 /// connect to. Note that `nodes` says little about the resultant size of the
 /// river due to its ability to detour far away from the direct path between them.
-/datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y, ignore_bridges = FALSE)
+/datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y, ignore_bridges = FALSE, warning = FALSE)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 
@@ -70,7 +72,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
 		if(istype(get_area(cur_turf), whitelist_area_type) && !(cur_turf.flags & NO_LAVA_GEN))
-			cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+			handle_change(cur_turf, river_turf_type, warning)
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
 		if(!target_turf)
 			break
@@ -105,15 +107,16 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 				cur_turf = get_step(cur_turf, cur_dir)
 				continue
 			else
+				handle_change(cur_turf, river_turf_type, warning)
 				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
 				if(prob(1) && !ignore_bridges)
 					new /obj/effect/spawner/dynamic_bridge(river_turf)
-				spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type)
+				spread_turf(cur_turf, spread_prob, spread_prob_loss, whitelist_area_type, warning, ignore_bridges)
 
 	for(var/WP in river_nodes)
 		qdel(WP)
 
-/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area)
+/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area, warning, ignore_bridges)
 	if(probability <= 0)
 		return
 	var/list/cardinal_turfs = list()
@@ -132,19 +135,40 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!istype(T, start_turf.type) && T.ChangeTurf(start_turf.type, ignore_air = TRUE) && prob(probability))
-			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
-			if(prob(1))
+		if(!istype(T, start_turf.type) && handle_change(F, start_turf.type, warning) && prob(probability))
+			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area, warning, ignore_bridges)
+			if(prob(1 && !ignore_bridges))
 				new /obj/effect/spawner/dynamic_bridge(T)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!istype(T, shoreline_turf_type) && prob(probability) && T.ChangeTurf(start_turf.type, ignore_air = TRUE))
-			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
+		if(!istype(T, shoreline_turf_type) && prob(probability) && handle_change(F, start_turf.type, warning))
+			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area, warning, ignore_bridges)
 		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
-			T.ChangeTurf(shoreline_turf_type, ignore_air = TRUE)
-			if(prob(1))
+			handle_change(F, start_turf.type, warning)
+			if(prob(1 && !ignore_bridges))
 				new /obj/effect/spawner/dynamic_bridge(T)
+
+/datum/river_spawner/proc/handle_change(cur_turf, turf_type, warning)
+	if(warning)
+		new /obj/effect/temp_visual/river_warning(cur_turf)
+		addtimer(CALLBACK(src, PROC_REF(convert_turf), cur_turf, turf_type), WARNING_DELAY)
+	else
+		convert_turf(cur_turf, turf_type)
+	return TRUE
+
+/datum/river_spawner/proc/convert_turf(turf/cur_turf, turf_type)
+	if(cur_turf.ChangeTurf(turf_type, ignore_air = TRUE))
+		return TRUE
+
+/obj/effect/temp_visual/river_warning
+	icon = 'icons/goonstation/effects/64x64.dmi'
+	icon_state = "smoke"
+	layer = ABOVE_ALL_MOB_LAYER
+	duration = WARNING_DELAY
+	randomdir = FALSE
+
+#undef WARNING_DELAY
 
 #undef RIVER_MAX_X
 #undef RIVER_MAX_Y
