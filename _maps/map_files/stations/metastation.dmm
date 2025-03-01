@@ -15724,14 +15724,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard)
-"bng" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console/directional/west,
-/turf/simulated/floor/plasteel,
-/area/space)
 "bnh" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/light{
@@ -41222,22 +41214,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"dHa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/janitorialcart/full{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "dHr" = (
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
@@ -41495,20 +41471,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
-"dQa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/l3closet/janitor,
-/obj/structure/reagent_dispensers/spacecleanertank{
-	pixel_y = 30
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/space)
 "dQb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -50729,10 +50691,6 @@
 "hPR" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/smes)
-"hQx" = (
-/obj/effect/mapping_helpers/turfs/rust/probably,
-/turf/simulated/wall,
-/area/space)
 "hQB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -53471,16 +53429,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/office/cmo)
-"jcI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plating,
-/area/space)
 "jdP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -53582,12 +53530,6 @@
 /obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
-"jfD" = (
-/obj/machinery/alarm/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/janidrobe,
-/turf/simulated/floor/plasteel,
-/area/space)
 "jfN" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -58503,12 +58445,6 @@
 	icon_state = "purple"
 	},
 /area/station/science/research)
-"loA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/jcloset,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/space)
 "loX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -59504,9 +59440,6 @@
 /obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint)
-"lKX" = (
-/turf/simulated/wall,
-/area/space)
 "lLb" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -64396,18 +64329,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
-"nTG" = (
-/obj/machinery/camera{
-	c_tag = "Custodial Closet";
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/janitor,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "nTX" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/wood,
@@ -66336,22 +66257,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"oRu" = (
-/obj/structure/table,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/item/key/janitor,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/power/apc/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/turf/simulated/floor/plasteel,
-/area/space)
 "oRx" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -67069,14 +66974,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"phC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/janitor,
-/turf/simulated/floor/plasteel,
-/area/space)
 "phE" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
@@ -74652,11 +74549,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
-"szs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/vehicle/janicart,
-/turf/simulated/floor/plasteel,
-/area/space)
 "szL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
@@ -77548,19 +77440,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
-"tRg" = (
-/mob/living/simple_animal/lizard{
-	name = "Wags-His-Tail";
-	real_name = "Wags-His-Tail"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/space)
 "tRx" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -80142,12 +80021,6 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
-"vat" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/service/janitor,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plating,
-/area/space)
 "vaw" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -83423,20 +83296,6 @@
 	icon_state = "dark"
 	},
 /area/station/command/bridge)
-"wHF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/item/storage/box/mousetraps,
-/obj/item/storage/box/mousetraps,
-/obj/item/clothing/gloves/color/orange,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel,
-/area/space)
 "wHH" = (
 /obj/structure/chair{
 	dir = 8
@@ -125288,10 +125147,10 @@ aaa
 aaa
 aaa
 aaa
-vat
-bng
-nTG
-oRu
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -125545,10 +125404,10 @@ aaa
 aaa
 aaa
 aaa
-lKX
-wHF
-jcI
-tRg
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -125802,10 +125661,10 @@ aaa
 aaa
 aaa
 aaa
-lKX
-jfD
-phC
-szs
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -126059,10 +125918,10 @@ aaa
 aaa
 aaa
 aaa
-lKX
-dQa
-loA
-dHa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -126316,10 +126175,10 @@ aaa
 aaa
 aaa
 aaa
-lKX
-lKX
-lKX
-hQx
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -126573,7 +126432,7 @@ aaa
 aaa
 aaa
 aaa
-hQx
+aaa
 aaa
 aaa
 aaa
