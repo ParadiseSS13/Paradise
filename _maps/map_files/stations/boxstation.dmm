@@ -86704,10 +86704,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/lizard{
-	name = "Wags-His-Tail";
-	real_name = "Wags-His-Tail"
-	},
+/mob/living/simple_animal/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xPE" = (

@@ -85269,11 +85269,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "xBG" = (
-/mob/living/simple_animal/lizard{
-	name = "Wags-His-Tail";
-	real_name = "Wags-His-Tail"
-	},
 /obj/effect/spawner/random/dirt/often,
+/mob/living/simple_animal/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xBS" = (
