@@ -4,7 +4,7 @@
 	department_flag = JOB_SYNDICATE // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "админами"
 	selection_color = "#ff0000"
 	access = list()
 	admin_only = TRUE

@@ -1,5 +1,5 @@
 /obj/mecha/working/ripley
-	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
+	desc = "Автономная тяговая механизированная единица «Рипли». Эта новая модель оснащена мощной защитой от опасностей, связанных с процессом добычи полезных ископаемых в открытом космосе."
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
 	initial_icon = "ripley"
@@ -83,27 +83,27 @@
 	// Goliath hides
 	if(hides)
 		if(hides == HIDES_COVERED_FULL)
-			desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+			desc = "Автономная тяговая механизированная единица «Рипли». На него установлен устрашающий панцирь, полностью состоящий из пластин шкуры голиафа — его пилот, должно быть, опытный охотник на монстров."
 		else
-			desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+			desc = "Автономная тяговая механизированная единица «Рипли». Его броня усилена пластинами из кожи голиафа."
 		return
 
 	// Metal plates
 	if(plates)
 		if(plates == PLATES_COVERED_FULL)
-			desc = "Autonomous Power Loader Unit. Its armor is completely lined with metal plating."
+			desc = "Автономная тяговая механизированная единица «Рипли». Его броня полностью покрыта металлическими пластинами."
 		else
-			desc = "Autonomous Power Loader Unit. Its armor is reinforced with some metal plating."
+			desc = "Автономная тяговая механизированная единица «Рипли». Его броня усилена металлическими пластинами."
 		return
 
 	// Drake hides
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
-			desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
+			desc = "Автономная тяговая механизированная единица «Рипли». Каждый уголок экзокостюма покрыт древней шкурой, создавая мощный щит. Пилот этого экзокостюма должен быть готов к сражениям на уровне легенд."
 		if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
-			desc = "Autonomous Power Loader Unit. Its armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
+			desc = "Автономная тяговая механизированная единица «Рипли». Его броня украшена пластинами из драконьей кожи, внушая страх врагам и защищая пилота."
 		if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
-			desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
+			desc = "Автономная тяговая механизированная единица «Рипли». Броня этого экзокостюма лишь напоминает легенду: несколько пластин из драконьей кожи украшают его обшивку, словно редкие трофеи воина."
 		return
 
 /obj/mecha/working/ripley/update_overlays()
@@ -133,16 +133,16 @@
 
 /obj/mecha/working/ripley/examine_more(mob/user)
 	. = ..()
-	. += "<i>The Ripley is a robust, venerable utility exosuit originally produced by Hephaestus Industries. \
-	It now sees widespread use in and around the Orion sector, being one of the most pervasive mechs ever produced. \
-	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
+	. += "<i>«Рипли» — это прочный и надёжный экзокостюм, первоначально произведенный Hephaestus Industries. \
+	Сейчас он широко используется в секторе Ориона и за его пределами, являясь одним из самых распространённых экзокостюмов, когда-либо созданных. \
+	Вскоре после начала производства Hephaestus передала права на выпуск «Рипли» другим корпорациям, получая отчисления по мере роста популярности экзокостюма.</i>"
 	. += ""
-	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
-	To this day, it remains one of the most valuable mechs ever produced, and Hephaestus enjoys a substantial profit from sales of this aging but rugged design. \
-	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
+	. += "<i>В зависимости от конфигурации «Рипли» можно использовать для многих целей, включая добычу полезных ископаемых, строительство и даже транспортировку грузов. \
+	По сей день он остается одним из самых популярных мехов, когда-либо созданных, и Hephaestus получает значительную прибыль от продаж этой устаревшей, но прочной конструкции. \
+	Как в случаях со всеми станционными мехами, Nanotrasen приобрела лицензию на производство «Рипли» на своих предприятиях.</i>"
 
 /obj/mecha/working/ripley/firefighter
-	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
+	desc = "Автономная тяговая механизированная единица «Огнеборец». Основан на базовом шасси «Рипли», обладает усовершенствованной термальной защитой и цистерной"
 	name = "APLU \"Firefighter\""
 	icon_state = "firefighter"
 	initial_icon = "firefighter"
@@ -157,15 +157,15 @@
 /obj/mecha/working/ripley/firefighter/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>Based on the venerable Ripley chassis, designed initially by Hephaestus Industries, the Firefighter is a retrofit created by Nanotrasen as their mining operations expanded, and a robust, fireproof exosuit was needed. \
-	Adapted to fit heat-resistant shielding, the Firefighter became a popular mech for mining teams in dangerous environments.</i>"
+	. += "<i>Основанный на шасси «Рипли», первоначально разработанном Hephaestus Industries, «Огнеборец» представляет собой модификацию, созданную Nanotrasen по мере расширения горнодобывающих предприятий и необходимости в прочном, огнестойком экзокостюме. \
+	Оборудованный термостойкой защитой «Огнеборец» стал популярным экзокостюмом среди горнодобывающих компаний, работающих в опасных условиях.</i>"
 	. += ""
-	. += "<i>Since Nanotrasen's expansion into Epsilon Eridani and their mining operations on Lavaland, the Firefighter has grown more popular among seasoned miners looking for a safer, armored way to mine in even the hottest of biomes. \
-	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
+	. += "<i>С момента экспансии Nanotrasen на Эпсилон Эридана и их горнодобывающих операций на Лаваленде, «Огнеборец» стал более популярным среди опытных шахтеров, ищущих более безопасный и надёжный способ добычи полезных ископаемых даже в самых жарких условиях. \
+	Кроме того, он нашел некоторое применение среди атмосферных техников, которые ценят его способность контролировать даже самые сильные плазменные пожары, одновременно защищая своего пилота.</i>"
 
 /obj/mecha/working/ripley/deathripley
 	name = "DEATH-RIPLEY"
-	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE!"
+	desc = "ОХ БЛЯДЬ, ЭТО ОТРЯД СМЕРТИ, НАМ ВСЕМ ПИЗДЕЦ!"
 	icon_state = "deathripley"
 	initial_icon = "deathripley"
 	step_in = 3
@@ -188,12 +188,12 @@
 /obj/mecha/working/ripley/deathripley/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>A functioning, well-made collectable for the popular Nanotrasen-Funded holovid show, 'Deathsquad'. \
-	A retrofitted and repainted Ripley chassis, the Death Ripley was created and used by the leader of the Deathsquad, Master Sergeant Killjoy, during the climactic battle with the Spider Queen “Xerxes” at the end of Season 4. \
-	The mech bears the signature mark of the team's engineer, Corporal Ironhead, who assisted Killjoy in its construction.</i>"
+	. += "<i>Функциональный, искусно выполненный коллекционный реквизит для популярного головид-шоу «Отряд смерти», финансируемого Nanotrasen. \
+	Модернизированное и перекрашенное шасси «Рипли», «Рипли Смерти» был создан и использован лидером Отряда Смерти, мастер-сержантом Киллджоем, во время решающей битвы с Паучьей Королевой «Ксеркс» в конце 4-го сезона. \
+	На мехе стоит подпись инженера команды, капрала Айронхеда, который помогал Киллджою в его постройке.</i>"
 	. += ""
-	. += "<i>Replicas such as this are sought-after collectibles among the biggest fans of Deathsquad. \
-	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
+	. += "<i>Подобные копии являются предметом коллекционирования среди самых преданных поклонников «Отряда Смерти». \
+	Даже произошла ссора, когда человек, одетый в плохо сшитый костюм Киллджоя, попытался убить коллекционера, чтобы получить «Рипли Смерти», которого позже отправили в психиатрическую больницу после крика: «ОТРЯД СМЕРТИ РЕАЛЕН!»</i>"
 
 /obj/mecha/working/ripley/mining
 	name = "APLU \"Miner\""
@@ -220,7 +220,7 @@
 	prepare_equipment()
 
 /obj/mecha/working/ripley/mining/old
-	desc = "An old, dusty mining ripley."
+	desc = "Старый, пыльный шахтёрский «Рипли»."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
@@ -265,7 +265,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			occupant_message("<span class='notice'>Вы выгрузили [O.declent_ru(ACCUSATIVE)].</span>")
 			O.loc = get_turf(src)
 			cargo -= O
 			var/turf/T = get_turf(O)
@@ -310,5 +310,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
+		desc += "</br><span class='danger'>Оборудование меха опасно искрится!</span>"
 	return ..()

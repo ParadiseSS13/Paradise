@@ -59,7 +59,7 @@
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
-		atom_say("Now serving ticket #[current_number]!")
+		atom_say("Очередь тикета номер [current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")

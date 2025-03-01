@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/oven
-	name = "oven"
-	desc = "Cookies are ready, dear."
+	name = "печь"
+	desc = "Печенье готово, дорогой."
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "oven_off"
 	cook_verbs = list("Baking", "Roasting", "Broiling")

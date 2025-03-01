@@ -38,10 +38,10 @@
 	faction = list("neutral", "jungle")
 
 	var/list/clean_speak = list(
-		"Hi",
-		"Hello!",
-		"Cracker?",
-		"BAWWWWK george mellons griffing me"
+		"Хай",
+		"Привет!",
+		"Крекер?",
+		"БВАААК повар хочет жареного попугая!"
 	)
 	speak_emote = list("squawks", "says", "yells")
 	emote_hear = list("squawks", "bawks")
@@ -675,30 +675,30 @@
  * Sub-types
  */
 /mob/living/simple_animal/parrot/poly
-	name = "Poly"
-	desc = "Poly the Parrot. An expert on quantum cracker theory."
+	name = "Поли"
+	desc = "Попугай Поли. Эксперт по квантовой теории крекеров."
 	clean_speak = list(
-		"Poly wanna cracker!",
-		"Check the crystal, you chucklefucks!",
-		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
-		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
-		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU PUT PLASMA IN THE SM?",
-		"Remember to lock the emitters!",
-		"Stop goofing off and repair the goddam station!",
-		"The supermatter is not your friend!",
-		"What were the wires again?",
-		"Goddam emaggers!",
-		"Why is nobody watching the engine?",
-		"Maybe the SM would produce more power if we fed it some clowns.",
-		"Everyone else dusted when they touched the SM, but I am sure you will be different.",
-		"I asked the mime if they turned off the scrubbers, but they didn't say a word.",
-		"This engine setup meets all safety requirements.",
-		"Chief Engineers are the SM's natural diet.",
-		"Don't eat the forbidden nacho!",
-		"Is the engine meant to be making that noise?",
+		"Поли хочет крекер!",
+		"Проверьте СМ, долбоёбы!",
+		"ВЫ ДОПУСТИЛИ ПОТЕРЮ ДОРОГОСТОЯЩЕГО ОБМУНДИРОВАНИЯ!",
+		"Подключите соляры, идиоты!",
+		"КТО ВЗЯЛ ЧЁРТОВЫ МОДЫ?",
+		"ОХ БЛЯТЬ, ОН ДЕСТАБИЛИЗИРУЕТСЯ, ВЫЗЫВАЙТЕ ШАТТЛ!",
+		"Почему у нас так много атмосферных тревог?",
+		"ОХ БЛЯТЬ, КТО ПУСТИЛ ПЛАЗМУ В СМ?",
+		"Не забудьте заблокировать эммитеры картой.",
+		"Хватит дурачиться и идите уже чинить грёбаную станцию!",
+		"Суперматерия - не твой друг.",
+		"Куда вы опять дели провода?",
+		"Грёбаные емагеры!",
+		"Почему никто не смотрит за двигателем?",
+		"Возможно СМ будет вырабатывать больше энергии, если мы скормим ему пару клоунов.",
+		"Все кто прикасался к СМу превращались вы пыль, но я уверен что с тобой будет иначе.",
+		"Я спрашивал у мима, выключили ли они скрабберы, но он ничего не сказал.",
+		"Данная сборка СМа, соответствует всем нормам безопасности.",
+		"СЕ - диета суперматерии.",
+		"Не ешь запретный начо!",
+		"Движок так и должен шуметь?",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -708,7 +708,7 @@
 	. = ..()
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
-	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
+	clean_speak += "Опасность! Нарушение целостности гиперструктуры кристалла! Целостность: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 
 /mob/living/simple_animal/parrot/poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
 	return FALSE

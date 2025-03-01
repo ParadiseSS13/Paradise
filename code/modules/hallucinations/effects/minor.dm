@@ -117,21 +117,21 @@
 	duration = 3 SECONDS
 	/// List of messages that may be heard.
 	var/list/messages = list(
-		"I'm watching you...",
-		"I'm going to kill you!",
-		"Get out!",
-		"Kchck-Chkck? Kchchck!",
-		"Did you hear that?",
-		"What did you do?",
-		"Why?",
-		"Give me that!",
-		"Honk!",
-		"Kill me!",
-		"HELP!!",
-		"RUN!!",
+		"Я слежу за тобой...",
+		"Я убью тебя!",
+		"Пошёл нахуй!",
+		"Чкчкчк? Чик-чик!",
+		"Ты слышал это?",
+		"Что ты наделал?",
+		"Почему?",
+		"Отдай!",
+		"Хонк!",
+		"Убейте меня!",
+		"ПОМОГИТЕ!!",
+		"БЕГИ!!",
 		"EI NATH!!",
 		"O bidai nabora se'sma!",
-		"I have the disk!",
+		"У меня диск!",
 	)
 
 /obj/effect/hallucination/speech/Initialize(mapload, mob/living/carbon/target)
