@@ -677,6 +677,7 @@
 		playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
 		// Use the materials and create the item.
 		materials.use_amount(temp_product.materials, amount)
+		linked_crucible.animate_pour(operation_time SECONDS)
 		operate(operation_time, user)
 		var/obj/item/stack/new_stack = new cast.selected_product(src.loc)
 		new_stack.amount = amount
