@@ -4766,6 +4766,20 @@
 	icon_state = "darkbrownfull"
 	},
 /area/station/command/meeting_room)
+"aPx" = (
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/item/screwdriver,
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/aisat/interior)
 "aPz" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -11096,12 +11110,9 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
 "bEN" = (
-/obj/structure/railing/cap/normal{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/airlock/long/square,
+/turf/simulated/wall/r_wall,
+/area/station/turret_protected/aisat/interior)
 "bES" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -12821,15 +12832,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/public/quantum/cargo)
-"bOg" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "bOh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -19452,22 +19454,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"cHK" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "cHL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -25744,6 +25730,11 @@
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server)
+"dCf" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "dCt" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -29255,10 +29246,10 @@
 /area/station/hallway/spacebridge/cargocom)
 "evn" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/railing{
+/obj/structure/cable,
+/obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/cable,
 /turf/space,
 /area/station/hallway/spacebridge/cargocom)
 "evC" = (
@@ -31004,9 +30995,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"eQs" = (
-/turf/simulated/mineral/ancient,
-/area/station/turret_protected/aisat/interior)
 "eQt" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -32469,6 +32457,16 @@
 "flr" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/electrical_shop)
+"flu" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/space,
+/area/space/nearstation)
 "flI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/small,
@@ -38830,6 +38828,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"gVR" = (
+/obj/structure/railing,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "gVS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/red,
@@ -41227,14 +41230,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"hAz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
-/area/station/hallway/spacebridge/dockmed)
 "hAA" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -48176,24 +48171,6 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/starboard/south)
-"jer" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "jeu" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable/orange{
@@ -49610,6 +49587,22 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"juZ" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "jvd" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
@@ -52850,16 +52843,6 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
-"kgJ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/space,
-/area/station/hallway/spacebridge/cargocom)
 "kgP" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable/orange,
@@ -65078,6 +65061,15 @@
 	icon_state = "neutral"
 	},
 /area/station/public/locker)
+"naU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "nbh" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -81173,21 +81165,6 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/robotics)
-"qWT" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "qWZ" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -81784,6 +81761,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"rez" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine{
+	slowdown = -0.3
+	},
+/area/station/hallway/spacebridge/dockmed)
 "reB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
@@ -82557,8 +82542,7 @@
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
 "rrb" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "rrc" = (
 /obj/machinery/door/airlock/maintenance{
@@ -89979,13 +89963,13 @@
 	},
 /area/station/hallway/primary/fore/north)
 "tda" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/obj/structure/sign/securearea{
-	pixel_y = 32
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "ailockdown";
+	layer = 2.6;
+	name = "AI Asteroid Lockdown"
 	},
-/turf/space,
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "tdd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
@@ -91762,15 +91746,16 @@
 	},
 /area/station/service/hydroponics)
 "tzW" = (
+/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
+	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/screwdriver,
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
+/obj/item/stack/cable_coil{
+	pixel_x = -2;
+	pixel_y = 8
 	},
+/obj/item/crowbar/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97254,6 +97239,21 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"uPR" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "uPU" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -105983,12 +105983,8 @@
 /area/station/maintenance/asmaint)
 "wUp" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+	dir = 10
 	},
-/obj/structure/table/reinforced,
-/obj/item/stack/cable_coil,
-/obj/item/crowbar/red,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -106056,9 +106052,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/evidence)
 "wUY" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -110229,6 +110222,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"xUV" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "xUW" = (
 /obj/machinery/computer/shuttle/labor{
 	dir = 4
@@ -153939,10 +153950,10 @@ aAS
 axp
 ceR
 rRM
-aaf
-aaf
-aaf
-aaf
+bke
+bke
+bke
+bke
 ahF
 rNK
 rNK
@@ -154196,9 +154207,9 @@ aBl
 vNy
 rRM
 rRM
-bke
-bke
-bke
+ayM
+hcF
+cyB
 bke
 ahF
 ahF
@@ -154453,9 +154464,9 @@ aBn
 vdu
 aWM
 avq
-ayM
-hcF
-cyB
+fsT
+sfr
+pQC
 bke
 ahF
 ahF
@@ -154710,12 +154721,12 @@ aBn
 tDC
 lnO
 atJ
-fsT
-sfr
-pQC
-bke
-ahF
-ahF
+gEq
+gEq
+vsp
+mmW
+mmW
+mmW
 ahF
 rNK
 rNK
@@ -154967,15 +154978,15 @@ aBM
 aOk
 aWP
 atJ
-gEq
-gEq
-vsp
-eQs
-eQs
-eQs
+vAa
+bll
+bll
+aPx
+iRq
+mmW
 ahF
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -155228,11 +155239,11 @@ vAa
 bll
 bll
 tzW
-iRq
-eQs
-eQs
+mmW
+mmW
+mmW
 bEN
-rNK
+flu
 rNK
 rNK
 rNK
@@ -155485,11 +155496,11 @@ bll
 bll
 bll
 wUp
-mmW
-mmW
 rrb
+rrb
+dCf
 tda
-rNK
+gVR
 rNK
 rNK
 rNK
@@ -155743,9 +155754,9 @@ gcR
 bvO
 wUY
 lIR
-bOg
+lIR
+naU
 jQN
-kgJ
 evn
 sRU
 sRU
@@ -156002,7 +156013,7 @@ mqC
 mmW
 mmW
 mmW
-wqc
+cXJ
 wqc
 wqc
 cXJ
@@ -156335,7 +156346,7 @@ ooM
 bmR
 wDU
 oXl
-jer
+xUV
 lVF
 nos
 ksp
@@ -156592,11 +156603,11 @@ bvt
 bvt
 bvt
 qkV
-qWT
+uPR
 oEj
 bio
 bio
-hAz
+rez
 bio
 oiB
 bio
@@ -156849,7 +156860,7 @@ fXz
 hCz
 npl
 jLn
-cHK
+juZ
 lAC
 xwI
 xwI
@@ -157030,7 +157041,7 @@ tKi
 tKi
 tKi
 tKi
-wqc
+cXJ
 wqc
 wqc
 cXJ
