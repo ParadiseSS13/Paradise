@@ -58026,7 +58026,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -92990,8 +92990,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "svc" = (
-/obj/item/kirbyplants,
 /obj/machinery/light,
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "svl" = (
