@@ -4,7 +4,7 @@
 #define RIVER_MIN_X 50
 #define RIVER_MIN_Y 50
 
-#define WARNING_DELAY 20
+#define WARNING_DELAY (20 SECONDS)
 
 GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
@@ -34,6 +34,10 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	var/shoreline_turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	/// To hold all the found turfs to convert to the lava type
 	var/list/collected_turfs = list()
+	/// Does the lava generate a warning beforehand
+	var/warning
+	/// Do we ignore building any bridges?
+	var/ignore_bridges
 
 /datum/river_spawner/New(target_z_, spread_prob_ = 25, spread_prob_loss_ = 11)
 	target_z = target_z_
@@ -41,11 +45,13 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	spread_prob_loss = spread_prob_loss_
 
 /// Generate a river between the bounds specified by (`min_x`, `min_y`) and
-/// (`max_x`, `max_y`). set ignore_bridges TRUE to not spawn any new bridges.
+/// (`max_x`, `max_y`).
 ///
 /// `nodes` is the number of unique points in those bounds the river will
 /// connect to. Note that `nodes` says little about the resultant size of the
 /// river due to its ability to detour far away from the direct path between them.
+/// set ignore_bridges TRUE to not spawn any new bridges, and set warning to TRUE to
+/// allow for the new generations to have a telegraphed icon first
 /datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y, ignore_bridges = FALSE, warning = FALSE)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
@@ -118,7 +124,6 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 		qdel(WP)
 
 /datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area)
-	to_chat(world, "DEBUG: running spread_turf")
 	if(probability <= 0)
 		return
 	var/list/cardinal_turfs = list()
@@ -137,37 +142,34 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!istype(T, start_turf.type) && prob(probability))
-			collected_turfs += F
+		if(istype(T, whitelist_turf_type) && !(T in collected_turfs) && prob(probability))
+			new /obj/effect/temp_visual/river_testing(T)
+			collected_turfs += T
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!istype(T, shoreline_turf_type) && prob(probability))
+		if(istype(T, whitelist_turf_type) && !(T in collected_turfs))
+			new /obj/effect/temp_visual/river_testing2(T)
 			collected_turfs += T
-			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
-		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
-			collected_turfs += T
-
+			if(prob(probability))
+				spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 //
 /datum/river_spawner/proc/handle_change(warning, ignore_bridges)
-	for(var/turf/affected_turf in collected_turfs)
-		if(!istype(affected_turf, whitelist_turf_type)) // Extra final check
-			return
+	for(var/turf/listed_turf in collected_turfs)
+		var/affected_turf = get_turf(listed_turf)
 		if(warning)
 			new /obj/effect/temp_visual/river_warning(affected_turf)
 			addtimer(CALLBACK(src, PROC_REF(convert_turf), affected_turf), WARNING_DELAY)
 		else
-			convert_turf(affected_turf)
-		if(prob(1) && !ignore_bridges)
-			new /obj/effect/spawner/dynamic_bridge(affected_turf)
+			convert_turf(affected_turf, ignore_bridges)
+
+	collected_turfs.Cut()
 
 /datum/river_spawner/proc/convert_turf(turf/cur_turf)
-	var/X = cur_turf.x
-	var/Y = cur_turf.y
-	to_chat(world, "DEBUG: Converting turf at [X], [Y] into: [river_turf_type]")
-	cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE) // onlya single argument so I can make a callback timer
-
+	cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+	if(prob(1) && !ignore_bridges)
+		new /obj/effect/spawner/dynamic_bridge(cur_turf)
 
 /obj/effect/temp_visual/river_warning
 	icon = 'icons/goonstation/effects/64x64.dmi'
@@ -175,6 +177,22 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = WARNING_DELAY
 	randomdir = FALSE
+
+/obj/effect/temp_visual/river_testing
+	icon = 'icons/goonstation/effects/64x64.dmi'
+	icon_state = "smoke"
+	layer = ABOVE_ALL_MOB_LAYER
+	duration = 2 MINUTES
+	randomdir = FALSE
+	color = rgb(0, 255, 42)
+
+/obj/effect/temp_visual/river_testing2
+	icon = 'icons/goonstation/effects/64x64.dmi'
+	icon_state = "smoke"
+	layer = ABOVE_ALL_MOB_LAYER
+	duration = 2 MINUTES
+	randomdir = FALSE
+	color = rgb(255, 0, 0)
 
 #undef WARNING_DELAY
 
