@@ -22669,8 +22669,6 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
-/obj/item/lightreplacer,
 /turf/simulated/floor/catwalk,
 /area/station/service/janitor)
 "dda" = (
@@ -29173,13 +29171,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/janitorialcart{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/janitorialcart/full{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/service/janitor)
 "euZ" = (
@@ -39283,12 +39281,15 @@
 /area/station/command/office/blueshield)
 "hch" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/camera{
 	c_tag = "Custodials";
 	dir = 10
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "hco" = (
@@ -45339,10 +45340,7 @@
 /area/station/maintenance/disposal/northwest)
 "iwW" = (
 /obj/structure/rack,
-/obj/item/mop,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/box/mousetraps,
 /turf/simulated/floor/catwalk,
 /area/station/service/janitor)
 "ixe" = (
@@ -90536,13 +90534,13 @@
 	},
 /area/station/supply/lobby)
 "tka" = (
-/obj/structure/janitorialcart{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/janitorialcart/full{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/service/janitor)
 "tkg" = (
@@ -92713,8 +92711,6 @@
 /obj/structure/rack,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
-/obj/item/storage/box/mousetraps,
-/obj/item/storage/box/mousetraps,
 /turf/simulated/floor/catwalk,
 /area/station/service/janitor)
 "tNz" = (
@@ -110421,30 +110417,39 @@
 	},
 /area/station/hallway/primary/central/east)
 "xXx" = (
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 9;
+	pixel_x = 9
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 9;
+	pixel_x = 9
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 7;
+	pixel_x = 7
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 7;
+	pixel_x = 7
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 5;
+	pixel_x = 5
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 5;
+	pixel_x = 5
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_y = 3;
+	pixel_x = 3
+	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
-/obj/item/grenade/chem_grenade/cleaner{
-	pixel_x = 10
-	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xXG" = (

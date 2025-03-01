@@ -18,6 +18,7 @@
 
 /obj/structure/mopbucket/full/Initialize(mapload)
 	. = ..()
+	stored_mop = new /obj/item/mop(src)
 	reagents.add_reagent("water", 150)
 
 /obj/structure/mopbucket/Destroy()
