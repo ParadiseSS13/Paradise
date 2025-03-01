@@ -19,9 +19,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_deep_fryer)
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/use_deep_fryer/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	return 5
-
 /datum/cooking/recipe_step/use_deep_fryer/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	var/list/result = list(target = used_item.UID())
 	var/obj/machinery/cooking/deepfryer/deepfryer = used_item

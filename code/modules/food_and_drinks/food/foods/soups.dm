@@ -12,7 +12,6 @@
 	consume_sound = 'sound/items/drink.ogg'
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
-	recommends_implement = /obj/item/kitchen/utensil/spoon
 
 /obj/item/food/soup/meatballsoup
 	name = "meatball soup"

@@ -33,11 +33,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/add_produce/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/food/grown/added_produce = used_item
-	var/potency_raw = round(base_quality_award + (added_produce.seed.potency - base_potency) * inherited_quality_modifier)
-	return clamp_quality(potency_raw)
-
 /datum/cooking/recipe_step/add_produce/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/container = locateUID(tracker.container_uid)
 	if(!istype(container))

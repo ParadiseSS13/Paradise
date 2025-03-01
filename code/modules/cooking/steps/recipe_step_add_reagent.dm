@@ -61,14 +61,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/add_reagent/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/container = locateUID(tracker.container_uid)
-	var/data = container.reagents.get_data(reagent_id)
-	var/cooked_quality = 0
-	if(data && islist(data) && data["FOOD_QUALITY"])
-		cooked_quality = data["FOOD_QUALITY"]
-	return cooked_quality
-
 /datum/cooking/recipe_step/add_reagent/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/reagent_containers/our_item = used_item
 	if(!istype(our_item))

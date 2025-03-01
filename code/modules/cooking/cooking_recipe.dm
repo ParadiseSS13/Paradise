@@ -62,7 +62,6 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 /datum/cooking/recipe/proc/create_product(datum/cooking/recipe_tracker/tracker)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
-	var/tracked_quality = 0
 
 	if(!istype(container))
 		log_debug("failure to find container when creating recipe product!")
@@ -88,16 +87,11 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 				continue
 			container.reagents.remove_reagent(add_reagent_step.reagent_id, amount_to_remove, safety = TRUE)
 
-		var/target_uid = applied_step_data["target"]
-		var/obj/added_item = locateUID(target_uid)
-		if(istype(added_item))
-			tracked_quality += recipe_step.calculate_quality(added_item, tracker)
-
 		if("rating" in applied_step_data)
 			product_count = max(product_count, min(3, applied_step_data["rating"]))
 
 	if(product_type) // Make a regular item
-		. = make_product_item(container, slurry, applied_steps, tracked_quality)
+		. = make_product_item(container, slurry, applied_steps)
 	else
 		QDEL_LIST_CONTENTS(container.contents)
 		container.contents = list()
@@ -105,12 +99,11 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	container.reagents.clear_reagents()
 
 	if(reagent_id)
-		var/total_quality = tracked_quality + calculate_reagent_quality(tracker)
-		container.reagents.add_reagent(reagent_id, reagent_amount, data = list("FOOD_QUALITY" = total_quality))
+		container.reagents.add_reagent(reagent_id, reagent_amount)
 
 	qdel(slurry)
 
-/datum/cooking/recipe/proc/make_product_item(obj/item/reagent_containers/cooking/container, datum/reagents/slurry, list/applied_steps, tracked_quality)
+/datum/cooking/recipe/proc/make_product_item(obj/item/reagent_containers/cooking/container, datum/reagents/slurry, list/applied_steps)
 	if(container.reagents.total_volume)
 		#ifdef PCWJ_DEBUG
 		log_debug("/recipe/proc/create_product: Transferring container reagents of [container.reagents.total_volume] to slurry of current volume [slurry.total_volume] max volume [slurry.maximum_volume]")
@@ -161,7 +154,6 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	// Purge the contents of the container we no longer need it
 	QDEL_LIST_CONTENTS(container.contents)
 
-	var/reagent_quality = calculate_reagent_quality(container.tracker)
 
 	for(var/i in 1 to product_count)
 		var/obj/item/new_item = new product_type(container)
@@ -179,29 +171,6 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 		log_debug("/recipe/proc/create_product: Transferring slurry of [slurry.total_volume] to [new_item] of total volume [new_item.reagents.total_volume]")
 		#endif
 		slurry.copy_to(new_item, amount=slurry.total_volume)
-
-		var/obj/item/food/food_item = new_item
-		if(istype(food_item))
-			food_item.food_quality = tracked_quality + reagent_quality
-			food_item.get_food_tier()
-
-/datum/cooking/recipe/proc/calculate_reagent_quality(datum/cooking/recipe_tracker/tracker)
-	var/obj/item/container = locateUID(tracker.container_uid)
-	var/total_volume = container.reagents.total_volume
-	var/calculated_volume = 0
-	var/calculated_quality = 0
-
-	var/list/applied_steps = tracker.recipes_last_completed_step[src]
-	for(var/i in 1 to length(applied_steps))
-		var/current_index = applied_steps[i]
-		var/datum/cooking/recipe_step/add_reagent/add_reagent_step = steps[current_index]
-		if(!istype(add_reagent_step))
-			continue
-
-		calculated_volume += add_reagent_step.amount
-		calculated_quality += add_reagent_step.base_quality_award
-
-	return calculated_quality - (total_volume - calculated_volume)
 
 /proc/initialize_cooking_recipes()
 	GLOB.pcwj_recipe_dictionary.Cut()

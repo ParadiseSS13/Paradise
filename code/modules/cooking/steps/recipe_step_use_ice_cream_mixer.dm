@@ -19,9 +19,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_ice_cream_mixer)
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/use_ice_cream_mixer/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	return 5
-
 /datum/cooking/recipe_step/use_ice_cream_mixer/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	var/list/result = list(target = used_item.UID())
 	var/obj/machinery/cooking/ice_cream_mixer/mixer = used_item

@@ -16,22 +16,9 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 	if("optional" in options)
 		optional = options["optional"]
 
-/datum/cooking/recipe_step/proc/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	return 0
-
 /datum/cooking/recipe_step/proc/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	SHOULD_CALL_PARENT(FALSE)
 	return PCWJ_CHECK_VALID
-
-//Automatically clamps food based on their maximum and minimum quality, if they are set.
-/datum/cooking/recipe_step/proc/clamp_quality(raw_quality)
-	if(!isnull(base_quality_award) && !isnull(max_quality_award))
-		return clamp(raw_quality, base_quality_award, max_quality_award)
-	if(!isnull(base_quality_award))
-		return max(raw_quality, base_quality_award)
-	if(!isnull(max_quality_award))
-		return min(raw_quality, max_quality_award)
-	return raw_quality
 
 /datum/cooking/recipe_step/proc/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	return list()

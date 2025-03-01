@@ -10,13 +10,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_stove)
 
 	..(options)
 
-/datum/cooking/recipe_step/use_stove/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/machinery/cooking/stovetop/stovetop = used_item
-	if(istype(stovetop))
-		return clamp_quality(stovetop.quality_mod)
-
-	return 1
-
 /datum/cooking/recipe_step/use_stove/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 

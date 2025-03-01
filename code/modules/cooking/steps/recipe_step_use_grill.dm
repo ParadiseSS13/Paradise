@@ -10,13 +10,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/use_grill)
 
 	..(options)
 
-/datum/cooking/recipe_step/use_grill/calculate_quality(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/machinery/cooking/grill/grill = used_item
-	if(istype(grill))
-		return clamp_quality(grill.quality_mod)
-
-	return 1
-
 /datum/cooking/recipe_step/use_grill/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 

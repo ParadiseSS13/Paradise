@@ -35,21 +35,6 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		container.set_cooker_data(src, cooking_ticks_handled * 2)
 		container.process_item(user, parent)
 
-		// If we have something in here that's not the start of a recipe, it's
-		// probably a finished product. Slowly eat at the food quality if the burner
-		// is still on and the food hasn't been removed.
-		if(container.tracker && length(container.contents) && !container.tracker.recipe_started)
-			if(prob_quality_decrease < 100)
-				prob_quality_decrease = min(100, prob_quality_decrease + 5)
-			if(prob_quality_decrease)
-				for(var/obj/item in container.contents)
-					var/obj/item/food/food = item
-					if(istype(food))
-						food.food_quality -= 0.05
-						#ifdef PCWJ_DEBUG
-						log_debug("[food] quality decreased to [food.food_quality]")
-						#endif
-
 	if(timer && COOLDOWN_FINISHED(src, cooktime_cd))
 		turn_off(user)
 		return
