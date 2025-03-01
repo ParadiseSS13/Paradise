@@ -373,10 +373,12 @@ SUBSYSTEM_DEF(mapping)
 	return used_turfs[T]
 
 /// Requests a /datum/turf_reservation based on the given width, height.
-/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height)
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height, reservation_type = /datum/turf_reservation, turf_type_override)
 	UNTIL(!clearing_reserved_turfs)
 	log_debug("Reserving [width]x[height] turf reservation")
-	var/datum/turf_reservation/reserve = new /datum/turf_reservation
+	var/datum/turf_reservation/reserve = new reservation_type
+	if(!isnull(turf_type_override))
+		reserve.turf_type = turf_type_override
 	for(var/i in levels_by_trait(Z_FLAG_RESERVED))
 		if(reserve.reserve(width, height, i))
 			return reserve
@@ -422,6 +424,7 @@ SUBSYSTEM_DEF(mapping)
 	unused_turfs["[z]"] = block
 	clearing_reserved_turfs = FALSE
 
+// TODO: Firing in a non-fire folder... Someone needs to move this file someday.
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
 	var/list/list/turf/unused_turfs = src.unused_turfs
