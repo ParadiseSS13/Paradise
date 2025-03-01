@@ -2,6 +2,7 @@
 #pragma FileAlreadyIncluded error
 #pragma MissingIncludedFile error
 #pragma InvalidWarningCode warning
+#pragma InvalidFileDirDefine warning
 #pragma MisplacedDirective error
 #pragma UndefineMissingDirective error
 #pragma DefinedMissingParen error
@@ -11,6 +12,7 @@
 
 //2000-2999
 #pragma SoftReservedKeyword error
+#pragma ScopeOperandNamedType error
 #pragma DuplicateVariable error
 #pragma DuplicateProcDefinition error
 #pragma PointlessParentCall error
@@ -28,9 +30,8 @@
 #pragma AmbiguousResourcePath error
 #pragma SuspiciousSwitchCase error
 #pragma PointlessPositionalArgument error
+#pragma ProcArgumentGlobal error // Ref BYOND issue https://www.byond.com/forum/post/2830750
 // NOTE: The next few pragmas are for OpenDream's experimental type checker
-// This feature is still in development, elevating these pragmas outside of local testing is discouraged
-// An RFC to finalize this feature is coming soon(TM)
 // BEGIN TYPEMAKER
 #pragma UnsupportedTypeCheck disabled
 #pragma InvalidReturnType disabled

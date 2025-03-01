@@ -43,7 +43,7 @@
 			return
 
 		if(istype(O, /obj/structure/janitorialcart))
-			var/obj/structure/janitorialcart/janicart = O	
+			var/obj/structure/janitorialcart/janicart = O
 			if(!janicart.my_mop)
 				janicart.my_mop = src
 				janicart.put_in_cart(user, src)
@@ -104,7 +104,7 @@
 	/// Self-refill toggle for when a janitor decides to mop with something other than water.
 	var/refill_enabled = TRUE
 	/// Rate per process() tick mop refills itself
-	var/refill_rate = 1 
+	var/refill_rate = 1
 	/// Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 	var/refill_reagent = "water"
 
@@ -115,7 +115,7 @@
 /obj/item/mop/advanced/activate_self(mob/user)
 	if(..())
 		return
-	
+
 	refill_enabled = !refill_enabled
 	if(refill_enabled)
 		START_PROCESSING(SSobj, src)
