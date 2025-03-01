@@ -84267,10 +84267,6 @@
 /obj/item/desk_bell{
 	anchored = 1
 	},
-/obj/machinery/door/window/classic/normal{
-	name = "Smith's Desk";
-	dir = 4
-	},
 /obj/structure/noticeboard{
 	desc = "A board for pinning important notices upon. Probably helpful for keeping track of requests.";
 	name = "requests board";
@@ -84279,6 +84275,10 @@
 	layer = 3.7
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mail_sorting{
+	dir = 1
+	},
+/obj/machinery/door/window/classic/normal{
+	name = "Cargo Desk";
 	dir = 1
 	},
 /turf/simulated/floor/plating,

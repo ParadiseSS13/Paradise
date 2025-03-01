@@ -5444,6 +5444,16 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"ul" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Hallway"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "um" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
@@ -6079,6 +6089,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/boss,
 /area/lavaland/surface/outdoors)
+"xI" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/simulated/wall,
+/area/mine/outpost/hallway/west)
 "xJ" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -23738,17 +23752,17 @@ fo
 ez
 dR
 bR
-es
+sT
 dp
 Hj
 aI
-sT
+es
 cl
 xQ
 Kd
 Ji
 QK
-aI
+sT
 Pz
 Oq
 dB
@@ -23995,7 +24009,7 @@ dy
 Vg
 dR
 bR
-bR
+ul
 CH
 bR
 bR
@@ -24005,7 +24019,7 @@ eM
 Zh
 Zh
 bR
-bR
+xI
 bR
 Oq
 Yk
