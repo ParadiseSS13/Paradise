@@ -44,6 +44,9 @@
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+	if(current_lens)
+		. += "<span class='notice'>Has a lens currently attached.</span>"
+		. += "<span class='notice'>Lenses can be removed with Alt-Click.</span>"
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))

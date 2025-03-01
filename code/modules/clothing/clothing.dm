@@ -789,6 +789,12 @@
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
 
+/obj/item/clothing/suit/examine(mob/user)
+	. = ..()
+	if(length(inserts))
+		. += "<span class='notice'>Has [length(inserts)] inserts attached.</span>"
+		. += "<span class='notice'>Inserts can be removed with Alt-Click.</span>"
+
 ///Hierophant card shielding. Saves me time.
 /obj/item/clothing/suit/proc/setup_hierophant_shielding()
 	var/datum/component/shielded/shield = GetComponent(/datum/component/shielded)

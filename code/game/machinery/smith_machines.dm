@@ -227,6 +227,8 @@
 	var/sheet_per_ore = 1
 	/// State for adding ore
 	var/adding_ore
+	/// State for if ore is being taken from it
+	var/pouring
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
@@ -266,6 +268,8 @@
 		. += "crucible_input"
 	if(panel_open)
 		. += "crucible_wires"
+	if(pouring)
+		. += "crucible_output"
 
 /obj/machinery/magma_crucible/update_icon_state()
 	. = ..()
@@ -296,6 +300,15 @@
 
 /obj/machinery/magma_crucible/proc/stop_animating()
 	adding_ore = FALSE
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/magma_crucible/proc/animate_pour(time_to_animate)
+	pouring = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	addtimer(CALLBACK(src, PROC_REF(stop_pouring)), time_to_animate)
+
+/obj/machinery/magma_crucible/proc/stop_pouring()
+	pouring = FALSE
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
@@ -484,6 +497,18 @@
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the cast by alt-clicking.</span>"
 		. += "<span class='notice'>There is a [cast] in the cast slot.</span>"
 		. += "<span class='notice'>Currently set to produce: [cast.selected_product.name]</span>"
+		if(istype(cast, /obj/item/smithing_cast/component) && !produced_item)
+			var/obj/item/temp_product = new cast.selected_product(src) // This is necessary due to selected_product being a type
+			var/obj/item/smithing_cast/component/comp_cast = cast
+			var/datum/smith_quality/quality = new comp_cast.quality
+			. += "<span class='notice'>Required Resources:</span>"
+			var/MAT
+			// Get the materials the item needs and display
+			for(MAT in temp_product.materials)
+				. += "<span class='notice'> - [MAT]: [ROUND_UP(((temp_product.materials[MAT] * quality.material_mult) * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.</span>"
+			// Get rid of the temp product
+			qdel(temp_product)
+
 	if(produced_item)
 		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
 
@@ -494,8 +519,8 @@
 		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
 		E += EFFICIENCY_MULT_ADD_PER_RATING * M.rating
 	// Update our values
-	operation_time = ROUND_UP(initial(operation_time) * (1 - O))
-	efficiency = initial(efficiency) - E
+	operation_time = ROUND_UP(initial(operation_time) * (1.1 - O))
+	efficiency = initial(efficiency) * (1.1 - E)
 
 /obj/machinery/smithing/casting_basin/update_overlays()
 	. = ..()
@@ -616,6 +641,7 @@
 		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
 		// Use the materials and create the item.
 		materials.use_amount(used_mats)
+		linked_crucible.animate_pour(operation_time SECONDS)
 		operate(operation_time, user)
 		produced_item = new cast.selected_product(src)
 		produced_item.quality = quality
@@ -700,7 +726,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = initial(operation_time) - S
+	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
 	if(!working_component.hot)
@@ -712,6 +738,8 @@
 	..()
 	working_component.powerhammer()
 	do_sparks(5, TRUE, src)
+	if(!working_component.hammer_time)
+		playsound(src, 'sound/machines/boop.ogg', 50, TRUE)
 
 /obj/machinery/smithing/power_hammer/attack_hand(mob/user)
 	. = ..()
@@ -761,7 +789,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = initial(operation_time) - S
+	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
 
 /obj/machinery/smithing/lava_furnace/update_overlays()
 	. = ..()
@@ -873,7 +901,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = initial(operation_time) - S
+	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
 
 /obj/machinery/smithing/kinetic_assembler/update_icon_state()
 	. = ..()

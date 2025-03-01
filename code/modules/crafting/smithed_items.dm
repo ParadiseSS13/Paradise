@@ -376,11 +376,14 @@
 	var/size_mod = 0
 	/// Durability
 	var/durability = 30
+	/// Max durability
+	var/max_durability = 30
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
 
 /obj/item/smithed_item/tool_bit/set_stats()
 	durability = initial(durability) * material.durability_mult
+	max_durability = durability
 	size_mod = initial(size_mod) + material.size_mod
 	speed_mod = 1 + (base_speed_mod * quality.stat_mult * material.tool_speed_mult)
 	failure_rate = initial(failure_rate) * quality.stat_mult * material.tool_failure_mult
@@ -402,6 +405,21 @@
 	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod / efficiency_mod
 	attached_tool.attached_bits -= src
 	attached_tool = null
+
+/obj/item/smithed_item/tool_bit/examine(mob/user)
+	. = ..()
+	var/healthpercent = (durability/max_durability) * 100
+	switch(healthpercent)
+		if(80 to 100)
+			. +=  "It looks pristine."
+		if(60 to 79)
+			. +=  "It looks slightly used."
+		if(40 to 59)
+			. +=  "It's seen better days."
+		if(20 to 39)
+			. +=  "It's been heavily used."
+		if(0 to 19)
+			. +=  "<span class='warning'>It's falling apart!</span>"
 
 /obj/item/smithed_item/tool_bit/proc/damage_bit()
 	durability--
@@ -488,11 +506,14 @@
 	var/fire_rate_mult = 1
 	/// lens durability
 	var/durability = 40
+	/// Max durability
+	var/max_durability = 40
 	/// The weapon the lens is attached to
 	var/obj/item/gun/energy/attached_gun
 
 /obj/item/smithed_item/lens/set_stats()
 	durability = initial(durability) * material.durability_mult
+	max_durability = durability
 	power_mult = 1 + (base_power_mult * quality.stat_mult * material.power_draw_mult)
 	damage_mult = 1 + (base_damage_mult * quality.stat_mult * material.projectile_damage_multiplier)
 	laser_speed_mult = 1 + (base_laser_speed_mult * quality.stat_mult * material.projectile_speed_mult)
@@ -502,20 +523,35 @@
 	if(!istype(target))
 		return
 	attached_gun = target
-	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
+	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost * power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
-	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
+	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.e_cost = casing.e_cost / power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
 	attached_gun.current_lens = null
 	attached_gun = null
+
+/obj/item/smithed_item/lens/examine(mob/user)
+	. = ..()
+	var/healthpercent = (durability/max_durability) * 100
+	switch(healthpercent)
+		if(80 to 100)
+			. +=  "It looks pristine."
+		if(60 to 79)
+			. +=  "It looks slightly used."
+		if(40 to 59)
+			. +=  "It's seen better days."
+		if(20 to 39)
+			. +=  "It's been heavily used."
+		if(0 to 19)
+			. +=  "<span class='warning'>It's falling apart!</span>"
 
 /obj/item/smithed_item/lens/proc/damage_lens()
 	durability--
