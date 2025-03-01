@@ -190,7 +190,7 @@ fn rotate_direction(dir_i: i32, rotation: &MapRotation) -> i32 {
     match rotation {
         MapRotation::None => dir_i,
         MapRotation::Clockwise90 => dir.clockwise_90().to_int(),
-        MapRotation::Clockwise180 => dir.flip_ns().to_int(),
+        MapRotation::Clockwise180 => dir.flip().to_int(),
         MapRotation::Clockwise270 => dir.counterclockwise_90().to_int(),
     }
 }
@@ -203,7 +203,7 @@ fn rotate_cable(dir_i: i32, rotation: &MapRotation) -> i32 {
     match rotation {
         MapRotation::None => dir_i,
         MapRotation::Clockwise90 => dir.clockwise_90().to_int(),
-        MapRotation::Clockwise180 => dir.flip_ns().to_int(),
+        MapRotation::Clockwise180 => dir.flip().to_int(),
         MapRotation::Clockwise270 => dir.counterclockwise_90().to_int(),
     }
 }
@@ -225,8 +225,12 @@ fn directional_mapper_rotate(path: String, rotation: &MapRotation) -> String {
         MapRotation::Clockwise180 => {
             if path.ends_with("/directional/north") {
                 path.replace("/directional/north", "/directional/south")
-            } else {
+            } else if path.ends_with("/directional/south") {
                 path.replace("/directional/south", "/directional/north")
+            } else if path.ends_with("/directional/east") {
+                path.replace("/directional/east", "/directional/west")
+            } else {
+                path.replace("/directional/west", "/directional/east")
             }
         }
         MapRotation::Clockwise270 => {
@@ -261,7 +265,7 @@ fn rotation_coords(coord: Coord3, map_size: &Coord3, rotation: &MapRotation) -> 
             z: coord.z,
         },
         MapRotation::Clockwise180 => Coord3 {
-            x: coord.x,
+            x: map_size.x - coord.x + 1,
             y: map_size.y - coord.y + 1,
             z: coord.z,
         },
