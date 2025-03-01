@@ -142,18 +142,17 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(istype(T, whitelist_turf_type) && !(T in collected_turfs) && prob(probability))
-			new /obj/effect/temp_visual/river_testing(T)
+		if(!is_in_list(T) && prob(probability))
 			collected_turfs += T
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(istype(T, whitelist_turf_type) && !(T in collected_turfs))
-			new /obj/effect/temp_visual/river_testing2(T)
+		if(!is_in_list(T) && prob(probability))
+			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
+		else if(!is_in_list(T) && istype(T, whitelist_turf_type))
 			collected_turfs += T
-			if(prob(probability))
-				spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
+
 //
 /datum/river_spawner/proc/handle_change(warning, ignore_bridges)
 	for(var/turf/listed_turf in collected_turfs)
@@ -168,8 +167,14 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 /datum/river_spawner/proc/convert_turf(turf/cur_turf)
 	cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
-	if(prob(1) && !ignore_bridges)
+	if(prob(0.5) && !ignore_bridges)
 		new /obj/effect/spawner/dynamic_bridge(cur_turf)
+
+/datum/river_spawner/proc/is_in_list(var/cur_turf)
+	for (var/existing_turf in collected_turfs)
+		if(existing_turf == cur_turf)
+			return TRUE
+	return FALSE
 
 /obj/effect/temp_visual/river_warning
 	icon = 'icons/goonstation/effects/64x64.dmi'
