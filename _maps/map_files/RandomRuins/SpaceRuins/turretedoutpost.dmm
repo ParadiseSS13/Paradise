@@ -638,11 +638,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost/vault)
 "TD" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
 	d1 = 1;
