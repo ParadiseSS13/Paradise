@@ -115,6 +115,9 @@
 		// recipe order
 		if(container)
 			container.clear_cooking_data()
+
+		if("signal" in step_data)
+			SEND_SIGNAL(container, step_data["signal"])
 	else
 		return PCWJ_PARTIAL_SUCCESS
 

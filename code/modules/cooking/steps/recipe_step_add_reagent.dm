@@ -80,3 +80,24 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 /datum/cooking/recipe_step/add_reagent/get_pda_formatted_desc()
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 	return "Add [amount] unit[amount > 1 ? "s" : ""] of [reagent.name]."
+
+/datum/cooking/recipe_step/add_reagent/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
+	for(var/atom/storage in task.autochef.linked_storages)
+		for(var/obj/item/reagent_containers/container in storage)
+			if(check_conditions_met(container, task.container.tracker))
+				var/old_amount_per_transfer = container.amount_per_transfer_from_this
+				container.amount_per_transfer_from_this = amount
+				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+				task.container.item_interaction(null, container)
+				container.amount_per_transfer_from_this = old_amount_per_transfer
+				return AUTOCHEF_STEP_COMPLETE
+
+	return AUTOCHEF_STEP_FAILURE
+
+/datum/cooking/recipe_step/add_reagent/attempt_autochef_prepare(obj/machinery/autochef/autochef)
+	for(var/storage in autochef.linked_storages)
+		for(var/obj/item/reagent_containers/container in storage)
+			if(container.reagents.has_reagent(reagent_id, amount))
+				return AUTOCHEF_PREP_VALID
+
+	return AUTOCHEF_PREP_MISSING_REAGENT

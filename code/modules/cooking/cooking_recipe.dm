@@ -34,8 +34,8 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	var/recipe_icon			// Icon for the cooking guide. Auto-populates if not set.
 	var/recipe_icon_state	// Icon state for the cooking guide. Auto-populates if not set.
 
-	/// The name of the cooking container the recipe is performed in.
-	var/cooking_container
+	/// The type of the cooking container the recipe is performed in.
+	var/obj/item/reagent_containers/cooking/container_type
 
 	/// Type path for the product created by the recipe.
 	var/product_type
@@ -178,12 +178,12 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	var/list/recipe_paths = subtypesof(/datum/cooking/recipe)
 	for(var/path in recipe_paths)
 		var/datum/cooking/recipe/example_recipe = new path()
-		if(!example_recipe.cooking_container)
+		if(!example_recipe.container_type)
 			continue
 
-		var/obj/item/reagent_containers/cooking/cooking_container = example_recipe.cooking_container
+		var/obj/item/reagent_containers/cooking/container_type = example_recipe.container_type
 
-		LAZYORASSOCLIST(GLOB.pcwj_recipe_dictionary, example_recipe.cooking_container, example_recipe)
+		LAZYORASSOCLIST(GLOB.pcwj_recipe_dictionary, example_recipe.container_type, example_recipe)
 
 		if(!example_recipe.appear_in_default_catalog)
 			continue
@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 			var/list/entry = list()
 			entry["name"] = product::name
-			entry["container"] = "[cooking_container::preposition] \a [cooking_container::name]"
+			entry["container"] = "[container_type::preposition] \a [container_type::name]"
 			entry["instructions"] = list()
 			for(var/datum/cooking/recipe_step/step in example_recipe.steps)
 				entry["instructions"] += step.get_pda_formatted_desc()

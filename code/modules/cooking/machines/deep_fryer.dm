@@ -1,5 +1,6 @@
 /datum/cooking_surface/deepfryer_basin
 	cooker_id = COOKER_SURFACE_DEEPFRYER
+	allow_temp_change = FALSE
 
 // TODO: add back special attack for deep fryer for v2
 // Yes, that's a v2 thing, I'm not doing it right now
@@ -60,7 +61,7 @@
 		return
 
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(surface && surface.placed_item)
+	if(surface && surface.container)
 		if(surface.on)
 			surface.handle_cooking(user)
 			var/mob/living/carbon/human/burn_victim = user
@@ -70,10 +71,10 @@
 					which_hand = "r_hand"
 
 				burn_victim.adjustFireLossByPart(20, which_hand)
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.placed_item] off of [src].</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
 
-		user.put_in_hands(surface.placed_item)
-		surface.placed_item = null
+		user.put_in_hands(surface.container)
+		surface.container = null
 		update_appearance(UPDATE_ICON)
 
 /obj/machinery/cooking/deepfryer/update_overlays()
@@ -81,17 +82,35 @@
 
 	for(var/i in 1 to length(surfaces))
 		var/datum/cooking_surface/surface = surfaces[i]
-		if(!surface.placed_item)
+		if(!surface.container)
 			continue
 
-		if(surface.on)
-			. += image(icon, icon_state = "fryer_basket_on_[i]")
-		else
-			. += image(icon, icon_state = "fryer_basket_[i]")
+/obj/machinery/cooking/deepfryer/update_surface_icon(surface_idx)
+	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
-/obj/machinery/cooking/deepfryer/AltShiftClick(mob/user, modifiers)
-	// No temperature changing on the deep fryer.
-	return
+	if(!surface.container)
+		return
+	var/obj/item/reagent_containers/cooking/deep_basket/basket = surface.container
+	if(surface.on)
+		basket.frying = TRUE
+		basket.update_icon()
+	else
+		basket.frying = FALSE
+		basket.update_icon()
+	switch(surface_idx)
+		if(1)
+			basket.pixel_x = -6
+			basket.pixel_y = 4
+		if(2)
+			basket.pixel_x = 7
+			basket.pixel_y = 4
+
+	add_to_visible(basket, surface_idx)
+
+/obj/machinery/cooking/deepfryer/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
+	container.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	container.make_mini()
+	vis_contents += container
 
 /obj/machinery/cooking/deepfryer/upgraded/InitializeParts()
 	component_parts = list()

@@ -1,5 +1,5 @@
 /datum/cooking/recipe/aesirsalad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/aesir
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -10,7 +10,7 @@
 	)
 
 /datum/cooking/recipe/antipasto_salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/antipasto
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -23,7 +23,7 @@
 	)
 
 /datum/cooking/recipe/caesar_salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/caesar
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -35,7 +35,7 @@
 	)
 
 /datum/cooking/recipe/citrusdelight
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/citrusdelight
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -45,7 +45,7 @@
 	)
 
 /datum/cooking/recipe/fruitsalad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/fruit
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -56,7 +56,7 @@
 	)
 
 /datum/cooking/recipe/greek_salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/greek
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -70,7 +70,7 @@
 	)
 
 /datum/cooking/recipe/herbsalad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/herb
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -81,7 +81,7 @@
 	)
 
 /datum/cooking/recipe/junglesalad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/jungle
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -94,7 +94,7 @@
 	)
 
 /datum/cooking/recipe/kale_salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/kale
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -106,7 +106,7 @@
 	)
 
 /datum/cooking/recipe/melonfruitbowl
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/melonfruitbowl
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -119,7 +119,7 @@
 	)
 
 /datum/cooking/recipe/potato_salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/potato
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -130,7 +130,7 @@
 	)
 
 /datum/cooking/recipe/salad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(
@@ -139,7 +139,7 @@
 	)
 
 /datum/cooking/recipe/validsalad
-	cooking_container = /obj/item/reagent_containers/cooking/bowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/valid
 	catalog_category = COOKBOOK_CATEGORY_SALADS
 	steps = list(

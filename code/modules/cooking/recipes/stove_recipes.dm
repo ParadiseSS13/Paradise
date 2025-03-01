@@ -1,5 +1,5 @@
 /datum/cooking/recipe/friedegg
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/friedegg
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -10,7 +10,7 @@
 	)
 
 /datum/cooking/recipe/beanstew
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/beanstew
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -25,7 +25,7 @@
 	)
 
 /datum/cooking/recipe/beetsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/beetsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -36,7 +36,7 @@
 	)
 
 /datum/cooking/recipe/bloodsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/bloodsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -47,7 +47,7 @@
 	)
 
 /datum/cooking/recipe/chicken_noodle_soup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/chicken_noodle_soup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -59,7 +59,7 @@
 	)
 
 /datum/cooking/recipe/clownchili
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/clownchili
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -73,7 +73,7 @@
 	)
 
 /datum/cooking/recipe/clownstears
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/clownstears
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -84,7 +84,7 @@
 	)
 
 /datum/cooking/recipe/coldchili
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/coldchili
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -95,7 +95,7 @@
 	)
 
 /datum/cooking/recipe/cornchowder
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/cornchowder
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -109,7 +109,7 @@
 	)
 
 /datum/cooking/recipe/cullenskink
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/cullenskink
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -123,7 +123,7 @@
 	)
 
 /datum/cooking/recipe/eyesoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/eyesoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -135,7 +135,7 @@
 	)
 
 /datum/cooking/recipe/frenchonionsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/frenchonionsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -146,7 +146,7 @@
 	)
 
 /datum/cooking/recipe/hong_kong_borscht
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_borscht
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -161,7 +161,7 @@
 	)
 
 /datum/cooking/recipe/hong_kong_macaroni
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_macaroni
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -174,7 +174,7 @@
 	)
 
 /datum/cooking/recipe/hotchili
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hotchili
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -185,7 +185,7 @@
 	)
 
 /datum/cooking/recipe/meatball_noodles
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/meatball_noodles
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -201,7 +201,7 @@
 	)
 
 /datum/cooking/recipe/meatballsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/meatballsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -213,7 +213,7 @@
 	)
 
 /datum/cooking/recipe/misosoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/misosoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -226,7 +226,7 @@
 	)
 
 /datum/cooking/recipe/mushroomsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/mushroomsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -237,7 +237,7 @@
 	)
 
 /datum/cooking/recipe/mysterysoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/mysterysoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -250,7 +250,7 @@
 	)
 
 /datum/cooking/recipe/nettlesoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/nettlesoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -262,7 +262,7 @@
 	)
 
 /datum/cooking/recipe/oatstew
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/oatstew
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -275,7 +275,7 @@
 	)
 
 /datum/cooking/recipe/red_porridge
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/red_porridge
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -287,7 +287,7 @@
 	)
 
 /datum/cooking/recipe/redbeetsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/redbeetsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -299,7 +299,7 @@
 	)
 
 /datum/cooking/recipe/seedsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/seedsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -312,7 +312,7 @@
 	)
 
 /datum/cooking/recipe/slimesoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/slimesoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -322,7 +322,7 @@
 	)
 
 /datum/cooking/recipe/stew
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/stew
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -337,7 +337,7 @@
 	)
 
 /datum/cooking/recipe/sweetpotatosoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/sweetpotatosoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -349,7 +349,7 @@
 	)
 
 /datum/cooking/recipe/tomatosoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/tomatosoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -360,7 +360,7 @@
 	)
 
 /datum/cooking/recipe/vegetablesoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/vegetablesoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -373,7 +373,7 @@
 	)
 
 /datum/cooking/recipe/wishsoup
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/wishsoup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -382,7 +382,7 @@
 	)
 
 /datum/cooking/recipe/zurek
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/zurek
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -396,7 +396,7 @@
 	)
 
 /datum/cooking/recipe/amanitajelly
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/amanitajelly
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -409,7 +409,7 @@
 	)
 
 /datum/cooking/recipe/beans
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/beans
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -420,7 +420,7 @@
 	)
 
 /datum/cooking/recipe/benedict
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/benedict
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -431,7 +431,7 @@
 	)
 
 /datum/cooking/recipe/boiled_shrimp
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiled_shrimp
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -441,7 +441,7 @@
 	)
 
 /datum/cooking/recipe/boiledegg
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledegg
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -451,7 +451,7 @@
 	)
 
 /datum/cooking/recipe/boiledrice
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledrice
 	steps = list(
 		PCWJ_ADD_REAGENT("water", 5),
@@ -460,7 +460,7 @@
 	)
 
 /datum/cooking/recipe/boiledslimeextract
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledslimecore
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/slime_extract),
@@ -469,7 +469,7 @@
 	)
 
 /datum/cooking/recipe/boiledspaghetti
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledspaghetti
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
@@ -479,7 +479,7 @@
 	)
 
 /datum/cooking/recipe/boiledspiderleg
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/boiledspiderleg
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spiderleg, exclude_reagents = list("toxin")),
@@ -488,7 +488,7 @@
 	)
 
 /datum/cooking/recipe/candiedapple
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/candiedapple
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -499,7 +499,7 @@
 	)
 
 /datum/cooking/recipe/chawanmushi
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/chawanmushi
 	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
@@ -512,7 +512,7 @@
 	)
 
 /datum/cooking/recipe/cheese_balls
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cheese_balls
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -525,7 +525,7 @@
 	)
 
 /datum/cooking/recipe/cheesyfries
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cheesyfries
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -535,7 +535,7 @@
 	)
 
 /datum/cooking/recipe/cubancarp
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/cubancarp
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -546,7 +546,7 @@
 	)
 
 /datum/cooking/recipe/dulce_de_batata
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/sliceable/dulce_de_batata
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -558,7 +558,7 @@
 	)
 
 /datum/cooking/recipe/eggplantparm
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/eggplantparm
 	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
@@ -569,7 +569,7 @@
 	)
 
 /datum/cooking/recipe/enchiladas
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/enchiladas
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -581,7 +581,7 @@
 	)
 
 /datum/cooking/recipe/fishandchips
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/fishandchips
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -591,7 +591,7 @@
 	)
 
 /datum/cooking/recipe/friedbanana
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/friedbanana
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -603,7 +603,7 @@
 	)
 
 /datum/cooking/recipe/macncheese
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/macncheese
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -615,7 +615,7 @@
 	)
 
 /datum/cooking/recipe/mashedtaters
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/mashed_potatoes
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -625,7 +625,7 @@
 	)
 
 /datum/cooking/recipe/meatballspaggetti
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/meatballspaghetti
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
@@ -637,7 +637,7 @@
 	)
 
 /datum/cooking/recipe/meatbun
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/meatbun
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -649,7 +649,7 @@
 	)
 
 /datum/cooking/recipe/monkeysdelight
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/monkeysdelight
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -662,7 +662,7 @@
 	)
 
 /datum/cooking/recipe/pastatomato
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/pastatomato
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
@@ -674,7 +674,7 @@
 	)
 
 /datum/cooking/recipe/popcorn
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/popcorn
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -683,7 +683,7 @@
 	)
 
 /datum/cooking/recipe/ricepudding
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/ricepudding
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -693,7 +693,7 @@
 	)
 
 /datum/cooking/recipe/sashimi
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/sashimi
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -704,7 +704,7 @@
 	)
 
 /datum/cooking/recipe/soylentgreen
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soylentgreen
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat/human),
@@ -715,7 +715,7 @@
 	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/soylentviridians
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soylentviridians
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/soybeans),
@@ -724,7 +724,7 @@
 	)
 
 /datum/cooking/recipe/spacylibertyduff
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/spacylibertyduff
 	steps = list(
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/libertycap),
@@ -736,7 +736,7 @@
 	)
 
 /datum/cooking/recipe/spesslaw
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/spesslaw
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
@@ -750,7 +750,7 @@
 	)
 
 /datum/cooking/recipe/spidereggsham
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/spidereggsham
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidereggs),
@@ -760,7 +760,7 @@
 	)
 
 /datum/cooking/recipe/stewedsoymeat
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/stewedsoymeat
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
@@ -772,7 +772,7 @@
 	)
 
 /datum/cooking/recipe/stuffing
-	cooking_container = /obj/item/reagent_containers/cooking/pot
+	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/stuffing
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/bread),
@@ -783,7 +783,7 @@
 	)
 
 /datum/cooking/recipe/pancake
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/pancake
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -792,7 +792,7 @@
 	)
 
 /datum/cooking/recipe/berry_pancake
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/pancake/berry_pancake
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -802,7 +802,7 @@
 	)
 
 /datum/cooking/recipe/choc_chip_pancake
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/pancake/choc_chip_pancake
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(

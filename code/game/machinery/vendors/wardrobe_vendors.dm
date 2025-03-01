@@ -707,6 +707,7 @@
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1,
 					/obj/item/storage/box/crewvend = 1,
+					/obj/item/storage/box/autochef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/chef = 2,
 					/obj/item/clothing/under/plasmaman/chef = 2,
 					/obj/item/cartridge/chef = 2)
@@ -729,6 +730,7 @@
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100,
 				/obj/item/storage/box/crewvend = 100,
+				/obj/item/storage/box/autochef = 100,
 				/obj/item/clothing/head/helmet/space/plasmaman/chef = 60,
 				/obj/item/clothing/under/plasmaman/chef = 60,
 				/obj/item/cartridge/chef = 50)

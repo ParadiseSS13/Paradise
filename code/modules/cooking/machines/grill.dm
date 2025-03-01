@@ -63,9 +63,7 @@
 /obj/machinery/cooking/grill/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.</span>"
-	. += "<span class='notice'><b>Alt-Shift-Click</b> on a grate to set its temperature.</span>"
-	. += "<span class='notice'><b>Ctrl-Click</b> on a grate to set its timer.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> on a grate to toggle it on or off.</span>"
+	. += "<span class='notice'><b>Ctrl-Click</b> on a surface to set its timer, temperature, and toggle it on or off.</span>"
 
 /obj/machinery/cooking/grill/process()
 	. = ..()
@@ -125,7 +123,7 @@
 		return
 
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(surface && surface.placed_item)
+	if(surface && surface.container)
 		if(surface.on)
 			surface.handle_cooking(user)
 			var/mob/living/carbon/human/burn_victim = user
@@ -142,26 +140,26 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.placed_item] off of [src].</span>")
+				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
 
-		user.put_in_hands(surface.placed_item)
-		surface.placed_item = null
+		user.put_in_hands(surface.container)
+		surface.container = null
 		update_appearance(UPDATE_ICON)
 
 /obj/machinery/cooking/grill/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
-	if(!(surface.placed_item))
+	if(!(surface.container))
 		return
 
-	var/obj/item/our_item = surface.placed_item
+	var/obj/item/our_item = surface.container
 	switch(surface_idx)
 		if(1)
 			our_item.pixel_x = -7
-			our_item.pixel_y = 4
+			our_item.pixel_y = 3
 		if(2)
 			our_item.pixel_x = 7
-			our_item.pixel_y = 4
+			our_item.pixel_y = 3
 
 	add_to_visible(our_item, surface_idx)
 
@@ -172,14 +170,15 @@
 		if(surface.on)
 			. += image(icon, icon_state = "fire_[i]")
 
-/obj/machinery/cooking/grill/add_to_visible(obj/item/our_item, surface_idx)
-	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
-	vis_contents += our_item
+/obj/machinery/cooking/grill/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
+	container.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	vis_contents += container
 	if(surface_idx == 2 || surface_idx == 4)
 		var/matrix/M = matrix()
 		M.Scale(-1,1)
-		our_item.transform = M
-	our_item.transform *= 0.8
+		container.transform = M
+
+	container.make_mini()
 
 /obj/machinery/cooking/grill/upgraded/InitializeParts()
 	component_parts = list()

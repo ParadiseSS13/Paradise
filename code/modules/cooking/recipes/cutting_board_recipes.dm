@@ -1,5 +1,5 @@
 /datum/cooking/recipe/appendixburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/appendix
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -8,7 +8,7 @@
 	)
 
 /datum/cooking/recipe/appendixburger_bitten
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/appendix
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bun),
@@ -17,7 +17,7 @@
 	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/baconburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/bacon
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -29,7 +29,7 @@
 	)
 
 /datum/cooking/recipe/baseballburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/baseball
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -38,7 +38,7 @@
 	)
 
 /datum/cooking/recipe/bearger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/bearger
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -47,7 +47,7 @@
 	)
 
 /datum/cooking/recipe/bigbiteburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/bigbite
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -59,7 +59,7 @@
 	)
 
 /datum/cooking/recipe/brainburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/brain
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -68,7 +68,7 @@
 	)
 
 /datum/cooking/recipe/cheeseburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/cheese
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -79,7 +79,7 @@
 	)
 
 /datum/cooking/recipe/chickenburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/chicken
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -88,7 +88,7 @@
 	)
 
 /datum/cooking/recipe/clownburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/clown
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -97,7 +97,7 @@
 	)
 
 /datum/cooking/recipe/crazyburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/crazy
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -114,7 +114,7 @@
 	)
 
 /datum/cooking/recipe/elecburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/elec
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -124,7 +124,7 @@
 	)
 
 /datum/cooking/recipe/fishburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/fishburger
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -133,7 +133,7 @@
 	)
 
 /datum/cooking/recipe/fivealarmburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/fivealarm
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -144,7 +144,7 @@
 	)
 
 /datum/cooking/recipe/ghostburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ghost
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -153,7 +153,7 @@
 	)
 
 /datum/cooking/recipe/hamborger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/hamborger
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -162,7 +162,7 @@
 	)
 
 /datum/cooking/recipe/hotdog
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/hotdog
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -171,7 +171,7 @@
 	)
 
 /datum/cooking/recipe/jellyburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -180,7 +180,7 @@
 	)
 
 /datum/cooking/recipe/mcguffin
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/mcguffin
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -191,7 +191,7 @@
 	)
 
 /datum/cooking/recipe/mcrib
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/mcrib
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -201,7 +201,7 @@
 	)
 
 /datum/cooking/recipe/mimeburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/mime
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -210,7 +210,7 @@
 	)
 
 /datum/cooking/recipe/plainburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/plain
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -220,7 +220,7 @@
 	)
 
 /datum/cooking/recipe/ppattyblue
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/blue
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -230,7 +230,7 @@
 	)
 
 /datum/cooking/recipe/ppattygreen
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/green
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -240,7 +240,7 @@
 	)
 
 /datum/cooking/recipe/ppattyorange
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/orange
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -250,7 +250,7 @@
 	)
 
 /datum/cooking/recipe/ppattypurple
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/purple
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -260,7 +260,7 @@
 	)
 
 /datum/cooking/recipe/ppattyrainbow
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/rainbow
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -274,7 +274,7 @@
 	)
 
 /datum/cooking/recipe/ppattyred
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/red
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -284,7 +284,7 @@
 	)
 
 /datum/cooking/recipe/ppattywhite
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/white
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -294,7 +294,7 @@
 	)
 
 /datum/cooking/recipe/ppattyyellow
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/ppatty/yellow
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -304,7 +304,7 @@
 	)
 
 /datum/cooking/recipe/ratburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/rat
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -313,7 +313,7 @@
 	)
 
 /datum/cooking/recipe/slimeburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -322,7 +322,7 @@
 	)
 
 /datum/cooking/recipe/spellburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/spell
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -331,7 +331,7 @@
 	)
 
 /datum/cooking/recipe/superbiteburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/superbite
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -346,7 +346,7 @@
 	)
 
 /datum/cooking/recipe/tofuburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/tofu
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -355,7 +355,7 @@
 	)
 
 /datum/cooking/recipe/xenoburger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/xeno
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -364,7 +364,7 @@
 	)
 
 /datum/cooking/recipe/cherrysandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/jellysandwich/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -374,7 +374,7 @@
 	)
 
 /datum/cooking/recipe/slimesandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/jellysandwich/slime
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -384,7 +384,7 @@
 	)
 
 /datum/cooking/recipe/twobread
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/twobread
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -394,7 +394,7 @@
 	)
 
 /datum/cooking/recipe/wrap
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/wrap
 	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
@@ -404,7 +404,7 @@
 	)
 
 /datum/cooking/recipe/sandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/sandwich
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -415,7 +415,7 @@
 	)
 
 /datum/cooking/recipe/philly_cheesesteak
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/philly_cheesesteak
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -427,7 +427,7 @@
 	)
 
 /datum/cooking/recipe/pbj_cherry
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/peanut_butter_jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -438,7 +438,7 @@
 	)
 
 /datum/cooking/recipe/slime
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/peanut_butter_jelly/slime
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
@@ -448,7 +448,7 @@
 	)
 
 /datum/cooking/recipe/peanut_butter_banana
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/peanut_butter_banana
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -459,7 +459,7 @@
 	)
 
 /datum/cooking/recipe/notasandwich
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/notasandwich
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -469,7 +469,7 @@
 	)
 
 /datum/cooking/recipe/jelliedtoast
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/jelliedtoast/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -478,7 +478,7 @@
 	)
 
 /datum/cooking/recipe/human_burger
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/human/burger
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bun),
@@ -488,7 +488,7 @@
 	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/burrito
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burrito
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -501,7 +501,7 @@
 	)
 
 /datum/cooking/recipe/blt
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/blt
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(

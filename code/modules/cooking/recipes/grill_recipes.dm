@@ -1,5 +1,5 @@
 /datum/cooking/recipe/bacon
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/bacon
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -8,7 +8,7 @@
 	)
 
 /datum/cooking/recipe/bbqribs
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/bbqribs
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -19,7 +19,7 @@
 	)
 
 /datum/cooking/recipe/birdsteak
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meatsteak/chicken
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -30,7 +30,7 @@
 	)
 
 /datum/cooking/recipe/cutlet
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/cutlet
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -39,7 +39,7 @@
 	)
 
 /datum/cooking/recipe/fish_skewer
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/fish_skewer
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -51,7 +51,7 @@
 	)
 
 /datum/cooking/recipe/fishfingers
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/fishfingers
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -62,7 +62,7 @@
 	)
 
 /datum/cooking/recipe/goliath
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/goliath_steak
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -71,7 +71,7 @@
 	)
 
 /datum/cooking/recipe/grilledcheese
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/grilledcheese
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
@@ -82,7 +82,7 @@
 	)
 
 /datum/cooking/recipe/human_kebab
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/human/kebab
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
@@ -93,7 +93,7 @@
 	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/meatkeb
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meatkebab
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -104,7 +104,7 @@
 	)
 
 /datum/cooking/recipe/meatsteak
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meatsteak
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -115,7 +115,7 @@
 	)
 
 /datum/cooking/recipe/omelette
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/omelette
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -127,7 +127,7 @@
 	)
 
 /datum/cooking/recipe/picoss_kebab
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/picoss_kebab
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -141,7 +141,7 @@
 	)
 
 /datum/cooking/recipe/rofflewaffles
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/rofflewaffles
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -153,7 +153,7 @@
 	)
 
 /datum/cooking/recipe/salmonsteak
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/salmonsteak
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -164,7 +164,7 @@
 	)
 
 /datum/cooking/recipe/sausage
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/sausage
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -174,7 +174,7 @@
 	)
 
 /datum/cooking/recipe/shrimp_skewer
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/shrimp_skewer
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(
@@ -187,7 +187,7 @@
 	)
 
 /datum/cooking/recipe/sushi_tamago
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/sliced/sushi_tamago
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -199,7 +199,7 @@
 	)
 
 /datum/cooking/recipe/sushi_unagi
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/sushi_unagi
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -211,7 +211,7 @@
 	)
 
 /datum/cooking/recipe/syntikebab
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/syntikebab
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -222,7 +222,7 @@
 	)
 
 /datum/cooking/recipe/syntisteak
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meatsteak
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -233,7 +233,7 @@
 	)
 
 /datum/cooking/recipe/syntitelebacon
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/telebacon
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -243,7 +243,7 @@
 	)
 
 /datum/cooking/recipe/telebacon
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/telebacon
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -253,7 +253,7 @@
 	)
 
 /datum/cooking/recipe/tofukebab
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/tofukebab
 	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
@@ -264,7 +264,7 @@
 	)
 
 /datum/cooking/recipe/waffles
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/waffles
 	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
 	steps = list(
@@ -275,7 +275,7 @@
 	)
 
 /datum/cooking/recipe/wingfangchu
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/wingfangchu
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(

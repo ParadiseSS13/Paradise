@@ -5,15 +5,16 @@ RESTRICT_TYPE(/datum/cooking_surface)
  * that can hold a cooking container.
  */
 /datum/cooking_surface
+	var/surface_name = "surface"
 	var/cooker_id
 	var/obj/machinery/cooking/parent
 	var/temperature = J_LO
 	var/timer = 0
-	COOLDOWN_DECLARE(cooktime_cd)
-	var/cooking_ticks_handled = 0
-	var/obj/placed_item
+	var/cooktime
+	var/obj/item/reagent_containers/cooking/container
 	var/on = FALSE
 	var/prob_quality_decrease = 0
+	var/allow_temp_change = TRUE
 	VAR_PRIVATE/burn_callback
 	VAR_PRIVATE/fire_callback
 
@@ -21,21 +22,27 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	. = ..()
 	parent = parent_
 
+/datum/cooking_surface/proc/container_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+	examine_list += "<span class='notice'>[examine_text()]</span>"
+
+/datum/cooking_surface/proc/examine_text()
+	var/timer_text = timer ? "is set to [timer / (1 SECONDS)] seconds" : "will cook"
+	return "This [surface_name] [timer_text] at [temperature] temperature."
+
 /datum/cooking_surface/proc/handle_cooking(mob/user)
-	var/obj/item/reagent_containers/cooking/container = placed_item
-	if(istype(container))
+	if(container)
 		if(isnull(container.get_cooker_time(cooker_id, temperature)))
 			reset_cooktime()
 
-		cooking_ticks_handled++
 		#ifdef PCWJ_DEBUG
-		log_debug("cooking_ticks_handled=[cooking_ticks_handled]")
+		log_debug("timer=[timer] cooktime=[cooktime] stopwatch=[stop_watch(cooktime)]")
 		#endif
 
-		container.set_cooker_data(src, cooking_ticks_handled * 2)
+		container.set_cooker_data(src, stop_watch(cooktime) SECONDS)
 		container.process_item(user, parent)
 
-	if(timer && COOLDOWN_FINISHED(src, cooktime_cd))
+	if(timer && (stop_watch(cooktime) SECONDS) >= timer)
 		turn_off(user)
 		return
 
@@ -50,7 +57,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	return on
 
 /datum/cooking_surface/proc/set_burn_ignite_callbacks()
-	if(placed_item)
+	if(container)
 		var/burn_time = PCWJ_BURN_TIME_LOW
 		var/fire_time = PCWJ_IGNITE_TIME_LOW
 		switch(temperature)
@@ -68,7 +75,6 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	#ifdef PCWJ_DEBUG
 	log_debug("timer act timer=[timer] world.time=[world.time]")
 	#endif
-	COOLDOWN_START(src, cooktime_cd, timer)
 
 /datum/cooking_surface/proc/turn_on(mob/user)
 	on = TRUE
@@ -81,27 +87,31 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
 	on = FALSE
 	unset_callbacks()
-	cooking_ticks_handled = 0
+	cooktime = -1
 	parent.update_appearance(UPDATE_ICON)
 
 /datum/cooking_surface/proc/handle_burn()
-	var/obj/item/reagent_containers/cooking/container = placed_item
 	if(istype(container))
 		container.handle_burning()
 
 /datum/cooking_surface/proc/handle_fire()
-	var/obj/item/reagent_containers/cooking/container = placed_item
 	if(istype(container) && container.handle_ignition())
 		parent.ignite()
 
 /datum/cooking_surface/proc/unset_callbacks()
-	COOLDOWN_RESET(src, cooktime_cd)
 	deltimer(burn_callback)
 	deltimer(fire_callback)
 
 /datum/cooking_surface/proc/handle_timer(mob/user)
-	var/old_time = timer ? round((timer / (1 SECONDS)), 1 SECONDS) : 1
-	timer = (tgui_input_number(user, "Enter a timer for the burner in seconds. To keep on, set to zero.","Set Timer", old_time)) SECONDS
+	var/old_time = timer ? timer / (1 SECONDS) : 1
+	var/timer_input = tgui_input_number(
+		user,
+		message = "Enter a timer for the burner in seconds. To keep on, set to zero.",
+		title = "Set Timer",
+		default = old_time,
+		max_value = 60)
+	if(!isnull(timer_input))
+		timer = timer_input SECONDS
 	if(timer != 0 && on)
 		timer_act(user)
 
@@ -117,7 +127,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 			handle_cooking(user)
 
 /datum/cooking_surface/proc/reset_cooktime()
-	cooking_ticks_handled = 1
+	cooktime = start_watch()
 	#ifdef PCWJ_DEBUG
 	log_debug("reset_cooktime")
 	#endif

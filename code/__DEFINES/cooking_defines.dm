@@ -54,11 +54,11 @@
 #define PCWJ_ADD_ITEM(item_type, options...) new/datum/cooking/recipe_step/add_item(item_type, list(##options))
 #define PCWJ_ADD_PRODUCE(item_type, options...) new/datum/cooking/recipe_step/add_produce(item_type, list(##options))
 #define PCWJ_ADD_REAGENT(reagent_name, amount, options...) new/datum/cooking/recipe_step/add_reagent(reagent_name, amount, list(##options))
-#define PCWJ_USE_GRILL(temperature, time, options...) new/datum/cooking/recipe_step/use_grill(temperature, time, list(##options))
-#define PCWJ_USE_OVEN(temperature, time, options...) new/datum/cooking/recipe_step/use_oven(temperature, time, list(##options))
-#define PCWJ_USE_STOVE(temperature, time, options...) new/datum/cooking/recipe_step/use_stove(temperature, time, list(##options))
-#define PCWJ_USE_ICE_CREAM_MIXER(time, options...) new/datum/cooking/recipe_step/use_ice_cream_mixer(time, list(##options))
-#define PCWJ_USE_DEEP_FRYER(time, options...) new/datum/cooking/recipe_step/use_deep_fryer(time, list(##options))
+#define PCWJ_USE_GRILL(temperature, time, options...) new/datum/cooking/recipe_step/use_machine/grill(temperature, time, list(##options))
+#define PCWJ_USE_OVEN(temperature, time, options...) new/datum/cooking/recipe_step/use_machine/oven(temperature, time, list(##options))
+#define PCWJ_USE_STOVE(temperature, time, options...) new/datum/cooking/recipe_step/use_machine/stovetop(temperature, time, list(##options))
+#define PCWJ_USE_ICE_CREAM_MIXER(time, options...) new/datum/cooking/recipe_step/use_machine/ice_cream_mixer(time, list(##options))
+#define PCWJ_USE_DEEP_FRYER(time, options...) new/datum/cooking/recipe_step/use_machine/deepfryer(time, list(##options))
 
 #define PCWJ_CONTAINER_AVAILABLE 1
 #define PCWJ_CONTAINER_BUSY 2
@@ -84,3 +84,35 @@
 #define COOKBOOK_CATEGORY_CANDY "Candies"
 #define COOKBOOK_CATEGORY_VEGE "Vegetarian Dishes"
 #define COOKBOOK_CATEGORY_DONUTS "Donuts"
+
+#define RADIAL_ACTION_SET_TIMER "Set timer"
+#define RADIAL_ACTION_SET_TEMPERATURE "Set temperature"
+#define RADIAL_ACTION_ON_OFF "Turn on/off"
+
+#define AUTOCHEF_TASK_QUEUE_IDLE 0
+#define AUTOCHEF_TASK_QUEUE_RUNNING 1
+#define AUTOCHEF_TASK_QUEUE_INTERRUPTED 2
+
+#define AUTOCHEF_TASK_START 0
+#define AUTOCHEF_TASK_COMPLETE 1
+#define AUTOCHEF_TASK_FOLLOW_STEPS 2
+#define AUTOCHEF_TASK_WAIT_FOR_RESULT 3
+#define AUTOCHEF_TASK_INTERRUPTED 4
+#define AUTOCHEF_TASK_FAILED 5
+
+#define AUTOCHEF_STEP_FAILURE 0
+#define AUTOCHEF_STEP_COMPLETE 1
+#define AUTOCHEF_STEP_ADDED_TASK 2
+#define AUTOCHEF_STEP_STARTED 3
+
+#define AUTOCHEF_PREP_INVALID 0
+#define AUTOCHEF_PREP_VALID 1
+#define AUTOCHEF_PREP_MISSING_INGREDIENT 2
+#define AUTOCHEF_PREP_MISSING_REAGENT 3
+#define AUTOCHEF_PREP_NO_AVAILABLE_MACHINES 4
+
+#define COMSIG_COOK_GRILL_NO_FUEL "cook_grill_no_fuel"
+#define COMSIG_COOK_MACHINE_STEP_COMPLETE "cook_machine_step_complete"
+#define COMSIG_COOK_MACHINE_STEP_INTERRUPTED "cook_machine_step_interrupted"
+
+#define COMSIG_AUTOCHEF_FIND_MACHINE(name) "autochef_find_machine_[name]"

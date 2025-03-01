@@ -264,6 +264,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 
+/obj/item/reagent_containers/cooking/mould/make_mini()
+	transform *= 0.5
+
+/obj/item/reagent_containers/cooking/mould/unmake_mini()
+	transform = null
+
 /obj/item/reagent_containers/cooking/mould/bear
 	name = "bear-shaped candy mould"
 	desc = "It has the shape of a small bear imprinted into it."

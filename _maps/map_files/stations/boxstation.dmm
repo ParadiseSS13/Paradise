@@ -19802,10 +19802,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -19839,7 +19836,10 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/cooking/ice_cream_mixer,
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

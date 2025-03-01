@@ -30,3 +30,9 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 /datum/cooking/recipe_step/proc/get_pda_formatted_desc()
 	SHOULD_CALL_PARENT(FALSE)
 	return ""
+
+/datum/cooking/recipe_step/proc/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
+	return AUTOCHEF_STEP_FAILURE
+
+/datum/cooking/recipe_step/proc/attempt_autochef_prepare(obj/machinery/autochef/autochef)
+	return AUTOCHEF_STEP_FAILURE

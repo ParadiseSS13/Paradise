@@ -1,5 +1,5 @@
 /datum/cooking/recipe/apple_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -9,7 +9,7 @@
 	)
 
 /datum/cooking/recipe/apple_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -20,7 +20,7 @@
 	)
 
 /datum/cooking/recipe/cherryapple_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -31,7 +31,7 @@
 	)
 
 /datum/cooking/recipe/apple_slime_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/apple/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -42,7 +42,7 @@
 	)
 
 /datum/cooking/recipe/blumpkin_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -52,7 +52,7 @@
 	)
 
 /datum/cooking/recipe/jelly_blumpkin_berry_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -63,7 +63,7 @@
 	)
 
 /datum/cooking/recipe/cherry_blumpkin
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -74,7 +74,7 @@
 	)
 
 /datum/cooking/recipe/slime_blumpkin_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/blumpkin/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -85,7 +85,7 @@
 	)
 
 /datum/cooking/recipe/bungo_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -96,7 +96,7 @@
 	)
 
 /datum/cooking/recipe/jelly_bungo_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -108,7 +108,7 @@
 	)
 
 /datum/cooking/recipe/cherry_bungo_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -120,7 +120,7 @@
 	)
 
 /datum/cooking/recipe/slime_bungo_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/bungo/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -132,7 +132,7 @@
 	)
 
 /datum/cooking/recipe/caramel_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -142,7 +142,7 @@
 	)
 
 /datum/cooking/recipe/jelly_caramel_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -153,7 +153,7 @@
 	)
 
 /datum/cooking/recipe/cherry_caramel_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -164,7 +164,7 @@
 	)
 
 /datum/cooking/recipe/slime_caramel_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/caramel/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -175,7 +175,7 @@
 	)
 
 /datum/cooking/recipe/chaosdonut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chaos
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -187,7 +187,7 @@
 	)
 
 /datum/cooking/recipe/chocolate_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -197,7 +197,7 @@
 	)
 
 /datum/cooking/recipe/jelly_choco_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -208,7 +208,7 @@
 	)
 
 /datum/cooking/recipe/cherry_choco_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -219,7 +219,7 @@
 	)
 
 /datum/cooking/recipe/slime_chocolate_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/chocolate/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -230,7 +230,7 @@
 	)
 
 /datum/cooking/recipe/donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -240,7 +240,7 @@
 	)
 
 /datum/cooking/recipe/sprinkles
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/sprinkles
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -251,7 +251,7 @@
 	)
 
 /datum/cooking/recipe/jellydonut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -262,7 +262,7 @@
 	)
 
 /datum/cooking/recipe/cherry_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/cherryjelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -273,7 +273,7 @@
 	)
 
 /datum/cooking/recipe/slimejelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/jelly/slimejelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -284,7 +284,7 @@
 	)
 
 /datum/cooking/recipe/matcha_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -294,7 +294,7 @@
 	)
 
 /datum/cooking/recipe/jelly_matcha_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -305,7 +305,7 @@
 	)
 
 /datum/cooking/recipe/cherry_matcha_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -316,7 +316,7 @@
 	)
 
 /datum/cooking/recipe/slime_matcha_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/matcha/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -327,7 +327,7 @@
 	)
 
 /datum/cooking/recipe/meat_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/meat
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -338,7 +338,7 @@
 	)
 
 /datum/cooking/recipe/pink_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -348,7 +348,7 @@
 	)
 
 /datum/cooking/recipe/pink_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -359,7 +359,7 @@
 	)
 
 /datum/cooking/recipe/pink_cherry_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -370,7 +370,7 @@
 	)
 
 /datum/cooking/recipe/pink_slime_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/pink/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -381,7 +381,7 @@
 	)
 
 /datum/cooking/recipe/spaceman_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -391,7 +391,7 @@
 	)
 
 /datum/cooking/recipe/jelly_spaceman_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -402,7 +402,7 @@
 	)
 
 /datum/cooking/recipe/cherry_spaceman_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -413,7 +413,7 @@
 	)
 
 /datum/cooking/recipe/slime_spaceman_jelly_donut
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/donut/spaceman/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
@@ -424,7 +424,7 @@
 	)
 
 /datum/cooking/recipe/deepfryer_friedbanana
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/friedbanana
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
@@ -433,7 +433,7 @@
 	)
 
 /datum/cooking/recipe/carrotfries
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/carrotfries
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -442,7 +442,7 @@
 	)
 
 /datum/cooking/recipe/chimichanga
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/chimichanga
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -451,7 +451,7 @@
 	)
 
 /datum/cooking/recipe/corn_chips
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/cornchips
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -460,7 +460,7 @@
 	)
 
 /datum/cooking/recipe/fried_tofu
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_tofu
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -469,7 +469,7 @@
 	)
 
 /datum/cooking/recipe/fries
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fries
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -478,7 +478,7 @@
 	)
 
 /datum/cooking/recipe/onionrings
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/onionrings
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -487,7 +487,7 @@
 	)
 
 /datum/cooking/recipe/potato_chips
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/chips
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
@@ -496,7 +496,7 @@
 	)
 
 /datum/cooking/recipe/shrimp
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_shrimp
 	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
 	steps = list(

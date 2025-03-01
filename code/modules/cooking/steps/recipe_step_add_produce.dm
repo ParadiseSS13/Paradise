@@ -63,3 +63,21 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 
 /datum/cooking/recipe_step/add_produce/get_pda_formatted_desc()
 	return "Add \a [produce_type::name]."
+
+/datum/cooking/recipe_step/add_produce/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
+	for(var/storage in task.autochef.linked_storages)
+		for(var/obj/possible_item in storage)
+			if(check_conditions_met(possible_item, task.container.tracker))
+				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+				task.container.item_interaction(null, possible_item)
+				return AUTOCHEF_STEP_COMPLETE
+
+	return AUTOCHEF_STEP_FAILURE
+
+/datum/cooking/recipe_step/add_produce/attempt_autochef_prepare(obj/machinery/autochef/autochef)
+	for(var/storage in autochef.linked_storages)
+		for(var/obj/possible_item in storage)
+			if(check_conditions_met(possible_item, null))
+				return AUTOCHEF_PREP_VALID
+
+	return AUTOCHEF_PREP_MISSING_INGREDIENT

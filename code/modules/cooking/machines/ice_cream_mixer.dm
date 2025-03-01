@@ -1,20 +1,11 @@
 /datum/cooking_surface/ice_cream_mixer
 	cooker_id = COOKER_SURFACE_ICE_CREAM_MIXER
-
-/datum/cooking_surface/ice_cream_mixer/turn_on(mob/user)
-	. = ..()
-	parent.icon_state = "cereal_on"
-	parent.update_appearance()
-
-/datum/cooking_surface/ice_cream_mixer/turn_off(mob/user)
-	. = ..()
-	parent.icon_state = "cereal_off"
-	parent.update_appearance()
+	allow_temp_change = FALSE
 
 /obj/machinery/cooking/ice_cream_mixer
 	name = "ice cream mixer"
 	desc = "An industrial mixing device for desserts of all kinds."
-	icon_state = "cereal_off"
+	icon_state = "ice_cream_mixer"
 	active_power_consumption = 200
 	allowed_containers = list(
 		/obj/item/reagent_containers/cooking/icecream_bowl,
@@ -25,6 +16,7 @@
 	. = ..()
 	InitializeParts()
 	surfaces += new /datum/cooking_surface/ice_cream_mixer(src)
+	update_icon()
 
 /obj/machinery/cooking/ice_cream_mixer/proc/InitializeParts()
 	component_parts = list()
@@ -44,19 +36,38 @@
 
 /obj/machinery/cooking/ice_cream_mixer/attack_hand(mob/user)
 	var/datum/cooking_surface/surface = surfaces[1]
-	if(!surface.placed_item)
+	if(!surface.container)
 		return
 
 	if(surface.on)
 		to_chat(user, "<span class='notice'>\The [src] must be off to retrieve its contents.</span>")
 		return
 
-	user.put_in_hands(surface.placed_item)
-	surface.placed_item = null
+	user.put_in_hands(surface.container)
+	surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
+	surface.container = null
+	update_appearance(UPDATE_ICON)
 
-/obj/machinery/cooking/ice_cream_mixer/AltShiftClick(mob/user, modifiers)
-	// No temperature changing on the ice cream mixer.
-	return
+/obj/machinery/cooking/ice_cream_mixer/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
+	container.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	container.make_mini()
+	vis_contents += container
+
+/obj/machinery/cooking/ice_cream_mixer/update_surface_icon(surface_idx)
+	var/datum/cooking_surface/surface = surfaces[1]
+	if(surface.container)
+		surface.container.pixel_x = 0
+		surface.container.pixel_y = 2
+		add_to_visible(surface.container, surface_idx)
+
+/obj/machinery/cooking/ice_cream_mixer/update_overlays()
+	. = ..()
+	var/datum/cooking_surface/surface = surfaces[1]
+	if(surface.on)
+		. += image(icon = icon, icon_state = "ice_cream_mixer_door", layer = ABOVE_OBJ_LAYER)
+		. += image(icon = icon, icon_state = "ice_cream_mixer_on")
+	else
+		. += image(icon = icon, icon_state = "ice_cream_mixer_door_open", layer = ABOVE_OBJ_LAYER)
 
 /obj/machinery/cooking/ice_cream_mixer/upgraded/InitializeParts()
 	component_parts = list()

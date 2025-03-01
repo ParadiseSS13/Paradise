@@ -7,11 +7,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
-	var/cooking = FALSE
-	var/quality_mod = 1
 	idle_power_consumption = 5
 	active_power_consumption = 100
 
+	var/cooking = FALSE
+	var/quality_mod = 1
 	var/list/allowed_containers
 	var/list/surfaces = list()
 
@@ -38,6 +38,17 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	for(var/datum/cooking_surface/surface in surfaces)
 		if(surface.on)
 			return TRUE
+
+/obj/machinery/cooking/ShiftClick(mob/user, modifiers)
+	var/surface_idx = clickpos_to_surface(modifiers)
+	if(!surface_idx)
+		return ..()
+
+	var/datum/cooking_surface/surface = surfaces[surface_idx]
+	if(surface.container)
+		return surface.container.ShiftClick(user, modifiers)
+
+	return ..()
 
 /obj/machinery/cooking/RefreshParts()
 	..()
@@ -68,7 +79,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	deconstruct()
 
 /obj/machinery/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
 		return ..()
 
 	var/input = clickpos_to_surface(modifiers)
@@ -78,9 +89,39 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 	return ..()
 
+/obj/machinery/cooking/CtrlClick(mob/user, modifiers)
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(!anchored)
+		return ..()
+
+	var/surface_idx = clickpos_to_surface(modifiers)
+	if(!surface_idx)
+		return
+	var/datum/cooking_surface/surface = surfaces[surface_idx]
+
+	var/list/surface_options = list(
+		RADIAL_ACTION_SET_TIMER = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_settime"),
+		RADIAL_ACTION_ON_OFF = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff"),
+	)
+	if(surface.allow_temp_change)
+		surface_options[RADIAL_ACTION_SET_TEMPERATURE] = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_settemp")
+	var/option_choice = show_radial_menu(user, src, surface_options, require_near = TRUE)
+
+	switch(option_choice)
+		if(RADIAL_ACTION_SET_TIMER)
+			surface.handle_timer(user)
+		if(RADIAL_ACTION_SET_TEMPERATURE)
+			surface.handle_temperature(user)
+		if(RADIAL_ACTION_ON_OFF)
+			if(surface.handle_switch(user))
+				makeSpeedProcess()
+			update_appearance()
+
 /obj/machinery/cooking/proc/surface_item_interaction(mob/living/user, obj/item/used, datum/cooking_surface/surface)
-	if(surface.placed_item)
-		surface.placed_item.item_interaction(user, used)
+	if(surface.container)
+		surface.container.item_interaction(user, used)
 		return ITEM_INTERACT_COMPLETE
 
 	for(var/allowed_container_type in allowed_containers)
@@ -92,24 +133,14 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 			else
 				used.forceMove(src)
 
-			surface.placed_item = used
+			surface.container = used
 			surface.prob_quality_decrease = 0
+			surface.RegisterSignal(used, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/cooking_surface, container_examine), override = TRUE)
 			if(surface.on)
 				surface.reset_cooktime()
 
-	update_appearance(UPDATE_ICON)
+	update_icon()
 	return ITEM_INTERACT_COMPLETE
-
-/obj/machinery/cooking/ShiftClick(mob/user, modifiers)
-	var/surface_idx = clickpos_to_surface(modifiers)
-	if(!surface_idx)
-		return ..()
-
-	var/datum/cooking_surface/burner = surfaces[surface_idx]
-	if(burner.placed_item)
-		return burner.placed_item.ShiftClick(user, modifiers)
-
-	return ..()
 
 /// Ask the user to set the a cooking surfaces's temperature.
 /obj/machinery/cooking/AltShiftClick(mob/user, modifiers)
@@ -127,43 +158,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	var/datum/cooking_surface/burner = surfaces[surface_idx]
 	burner.handle_temperature(user)
 
-/// Ask the user to set a cooking surface's timer.
-/obj/machinery/cooking/CtrlClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!anchored)
-		return ..()
-
-	var/surface_idx = clickpos_to_surface(modifiers)
-	if(!surface_idx)
-		return
-
-	var/datum/cooking_surface/burner = surfaces[surface_idx]
-	burner.handle_timer(user)
-
-/// Switch the cooking surface on or off.
-/obj/machinery/cooking/CtrlShiftClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!anchored)
-		to_chat(user, "<span class='notice'>The [src] must be secured before using it.</span>")
-		return
-
-	var/surface_idx = clickpos_to_surface(modifiers)
-	if(!surface_idx)
-		return
-
-	var/datum/cooking_surface/burner = surfaces[surface_idx]
-	if(burner.handle_switch(user))
-		// swap us over to SSfastprocess to have any hope
-		// of properly syncing up timing between surface
-		// and container cook times
-		makeSpeedProcess()
-
-	update_appearance()
-
 /// Empty the container on the surface if it exists.
 /obj/machinery/cooking/AltClick(mob/user, modifiers)
 	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -174,7 +168,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	if(!burner)
 		return
 
-	var/obj/item/reagent_containers/cooking/container = burner.placed_item
+	var/obj/item/reagent_containers/cooking/container = burner.container
 	if(!(istype(container)))
 		return
 
@@ -202,16 +196,17 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 	makeNormalProcess()
 
-/obj/machinery/cooking/proc/add_to_visible(obj/item/our_item, surface_idx)
+/obj/machinery/cooking/proc/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
 	SHOULD_CALL_PARENT(FALSE)
 	return
 
-/obj/machinery/cooking/proc/remove_from_visible(obj/item/our_item, input)
-	our_item.vis_flags = 0
-	our_item.blend_mode = 0
-	our_item.transform =  null
-	our_item.appearance_flags &= PIXEL_SCALE
-	vis_contents.Remove(our_item)
+/obj/machinery/cooking/proc/remove_from_visible(obj/item/reagent_containers/cooking/container, input)
+	container.vis_flags = 0
+	container.blend_mode = 0
+	container.transform =  null
+	container.appearance_flags &= PIXEL_SCALE
+	container.unmake_mini()
+	vis_contents.Remove(container)
 
 /obj/machinery/cooking/update_icon(updates)
 	cooking = FALSE
@@ -234,3 +229,14 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/proc/update_surface_icon(surface_idx)
 	SHOULD_CALL_PARENT(FALSE)
 	return
+
+/obj/machinery/cooking/power_change()
+	. = ..()
+	if(stat & NOPOWER)
+		for(var/datum/cooking_surface/surface in surfaces)
+			if(surface.on)
+				surface.turn_off()
+				var/obj/item/reagent_containers/cooking/container = surface.container
+				if(istype(container) && container.tracker)
+					SEND_SIGNAL(container.tracker, COMSIG_COOK_MACHINE_STEP_INTERRUPTED)
+

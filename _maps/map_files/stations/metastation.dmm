@@ -54893,9 +54893,6 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/cookware,
-/obj/item/stack/sheet/wood{
-	amount = 30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -77138,6 +77135,9 @@
 /obj/item/book/manual/wiki/sop_service,
 /obj/item/storage/box/donkpockets,
 /obj/machinery/firealarm/directional/south,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

@@ -1,5 +1,5 @@
 /datum/cooking/recipe/ebi_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/ebi_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -12,7 +12,7 @@
 	)
 
 /datum/cooking/recipe/ikura_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/ikura_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -25,7 +25,7 @@
 	)
 
 /datum/cooking/recipe/inari_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/inari_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -38,7 +38,7 @@
 	)
 
 /datum/cooking/recipe/masago_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/masago_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -51,7 +51,7 @@
 	)
 
 /datum/cooking/recipe/sake_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/sake_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -64,7 +64,7 @@
 	)
 
 /datum/cooking/recipe/smoked_salmon_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/smoked_salmon_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -77,7 +77,7 @@
 	)
 
 /datum/cooking/recipe/sushi_ebi
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_ebi
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -87,7 +87,7 @@
 	)
 
 /datum/cooking/recipe/sushi_ikura
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_ikura
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -97,7 +97,7 @@
 	)
 
 /datum/cooking/recipe/sushi_inari
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_inari
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -107,7 +107,7 @@
 	)
 
 /datum/cooking/recipe/sushi_masago
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_masago
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -117,7 +117,7 @@
 	)
 
 /datum/cooking/recipe/sushi_sake
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_sake
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -127,7 +127,7 @@
 	)
 
 /datum/cooking/recipe/sushi_smoked_salmon
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_smoked_salmon
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -137,7 +137,7 @@
 	)
 
 /datum/cooking/recipe/sushi_tai
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_tai
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -147,7 +147,7 @@
 	)
 
 /datum/cooking/recipe/sushi_tobiko
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_tobiko
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -157,7 +157,7 @@
 	)
 
 /datum/cooking/recipe/sushi_tobiko_egg
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliced/sushi_tobiko_egg
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -167,7 +167,7 @@
 	)
 
 /datum/cooking/recipe/tai_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/tai_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -180,7 +180,7 @@
 	)
 
 /datum/cooking/recipe/tobiko_egg_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/tobiko_egg_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
@@ -196,7 +196,7 @@
 	)
 
 /datum/cooking/recipe/tobiko_maki
-	cooking_container = /obj/item/reagent_containers/cooking/sushimat
+	container_type = /obj/item/reagent_containers/cooking/sushimat
 	product_type = /obj/item/food/sliceable/tobiko_maki
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(

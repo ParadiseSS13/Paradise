@@ -76,9 +76,9 @@
 		return
 
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(surface && surface.placed_item && opened)
-		user.put_in_hands(surface.placed_item)
-		surface.placed_item = null
+	if(surface && surface.container && opened)
+		user.put_in_hands(surface.container)
+		surface.container = null
 		update_appearance()
 	else
 		handle_open(user)
@@ -123,12 +123,10 @@
 
 /obj/machinery/cooking/oven/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[1]
-	if(surface.placed_item)
-		var/obj/item/our_item = surface.placed_item
-		our_item.pixel_x = 0
-		our_item.pixel_y = -6
-		our_item.transform *= 0.75
-		add_to_visible(our_item)
+	if(surface.container)
+		surface.container.pixel_x = 0
+		surface.container.pixel_y = -2
+		add_to_visible(surface.container)
 
 /obj/machinery/cooking/oven/update_overlays()
 	. = ..()
@@ -137,13 +135,11 @@
 	else
 		var/datum/cooking_surface/surface = surfaces[1]
 		. += image(icon, icon_state = "oven_hatch[surface.on ? "_on" : ""]", layer = ABOVE_OBJ_LAYER)
-		if(surface.on)
-			. += image(icon, icon_state = "oven_on")
 
-/obj/machinery/cooking/oven/add_to_visible(obj/item/our_item)
-	our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
-	vis_contents += our_item
-	our_item.transform *= 0.8
+/obj/machinery/cooking/oven/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
+	container.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	container.make_mini()
+	vis_contents += container
 
 /obj/machinery/cooking/oven/upgraded/InitializeParts()
 	component_parts = list()

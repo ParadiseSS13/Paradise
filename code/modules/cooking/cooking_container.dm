@@ -24,7 +24,7 @@
 	/// The [/datum/cooking/recipe_tracker] of the current food preparation.
 	var/datum/cooking/recipe_tracker/tracker = null
 	/// Icon state of the lip layer of the object
-	var/lip
+	var/lip = TRUE
 	var/obj/effect/cooking_container_lip/lip_effect
 	/// A flat quality reduction for removing an unfinished recipe from the container.
 	var/removal_penalty = 0
@@ -32,15 +32,22 @@
 	var/list/cooker_data = list()
 	/// Preposition for human-readable recipe e.g. "in a pain", "on a grill".
 	var/preposition = "In"
+	/// Whether an autochef has claimed this cooking container.
+	var/claimed
+	/// Whether the container is in "mini" mode, that is, placed on a cooking machine and rendered
+	/// with its smaller icons
+	var/mini = FALSE
 
 /obj/item/reagent_containers/cooking/Initialize(mapload)
 	. = ..()
 	flags |= REAGENT_NOREACT
+	update_lip_effect()
+	clear_cooking_data()
+
+/obj/item/reagent_containers/cooking/proc/update_lip_effect()
 	if(lip)
 		lip_effect = new
-		lip_effect.icon_state = lip
-
-	clear_cooking_data()
+		lip_effect.icon_state = "[icon_state]_lip"
 
 /obj/item/reagent_containers/cooking/Destroy()
 	. = ..()
@@ -76,6 +83,9 @@
 	return PCWJ_CONTAINER_AVAILABLE
 
 /obj/item/reagent_containers/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/autochef_remote))
+		return
+
 	if(!tracker && (length(contents) || reagents.total_volume != 0))
 		to_chat(user, "\The [src] is full. Empty its contents first.")
 		return ITEM_INTERACT_COMPLETE
@@ -250,6 +260,18 @@
 	our_item.transform = null
 	vis_contents.Remove(our_item)
 
+/obj/item/reagent_containers/cooking/proc/make_mini()
+	mini = TRUE
+	icon_state = "[initial(icon_state)]_s"
+	update_lip_effect()
+	update_icon()
+
+/obj/item/reagent_containers/cooking/proc/unmake_mini()
+	mini = FALSE
+	icon_state = initial(icon_state)
+	update_lip_effect()
+	update_icon()
+
 /obj/item/reagent_containers/cooking/board
 	name = "cutting board"
 	desc = "Good for making sandwiches on, too."
@@ -263,6 +285,7 @@
 	desc = "A wooden mat used for efficient sushi crafting."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "sushi_mat"
+	lip = null
 	preposition = "On"
 	force = 5
 	throwforce = 5
@@ -275,25 +298,48 @@
 	name = "oven dish"
 	desc = "Put ingredients in this; designed for use with an oven. Warranty void if used."
 	icon_state = "oven_dish"
-	lip = "oven_dish_lip"
 	materials = list(MAT_METAL = 1500)
+
+/obj/item/reagent_containers/cooking/oven/add_to_visible(obj/item/our_item)
+	if(mini)
+		our_item.pixel_x = 0
+		our_item.pixel_y = -4
+		our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+		our_item.blend_mode = BLEND_INSET_OVERLAY
+		our_item.transform *= 0.5
+	else
+		our_item.pixel_x = 0
+		our_item.pixel_y = 0
+		our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+		our_item.blend_mode = BLEND_INSET_OVERLAY
+		our_item.transform *= 0.5
+	vis_contents += our_item
 
 /obj/item/reagent_containers/cooking/pan
 	name = "pan"
 	desc = "A normal pan."
 	icon_state = "pan"
-	lip = "pan_lip"
 	materials = list(MAT_METAL = 1000)
 	force = 8
 	throwforce = 10
 	attack_verb = list("smashed", "fried")
 	hitsound = 'sound/weapons/smash.ogg'
 
+/obj/item/reagent_containers/cooking/pan/add_to_visible(obj/our_item)
+	if(mini)
+		our_item.pixel_x = 0
+		our_item.pixel_y = -1
+		our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+		our_item.blend_mode = BLEND_INSET_OVERLAY
+		our_item.transform *= 0.5
+		vis_contents += our_item
+	else
+		..()
+
 /obj/item/reagent_containers/cooking/pot
 	name = "cooking pot"
 	desc = "Boil things with this. Maybe even stick 'em in a stew."
 	icon_state = "pot"
-	lip = "pot_lip"
 	materials = list(MAT_METAL = 1250)
 	hitsound = 'sound/weapons/smash.ogg'
 	removal_penalty = 5
@@ -306,21 +352,42 @@
 	name = "deep fryer basket"
 	desc = "Cwispy! Warranty void if used."
 	icon_state = "deepfryer_basket"
-	lip = "deepfryer_basket_lip"
 	removal_penalty = 5
 	materials = list(MAT_METAL = 1000)
+	var/frying = FALSE
+
+/obj/item/reagent_containers/cooking/deep_basket/add_to_visible(obj/our_item)
+	if(mini)
+		our_item.pixel_x = 1
+		our_item.pixel_y = 0
+		our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+		our_item.blend_mode = BLEND_INSET_OVERLAY
+		our_item.transform *= 0.5
+		vis_contents += our_item
+	else
+		our_item.pixel_x = 4
+		our_item.pixel_y = 0
+		our_item.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+		our_item.blend_mode = BLEND_INSET_OVERLAY
+		our_item.transform *= 0.6
+		vis_contents += our_item
+
+/obj/item/reagent_containers/cooking/deep_basket/update_overlays()
+	. = ..()
+	if(frying)
+		. += image(icon = icon, icon_state = "fryerbasket_on")
 
 /obj/item/reagent_containers/cooking/grill_grate
 	name = "grill grate"
 	desc = "Primarily used to grill meat, place this on a grill and enjoy an ancient human tradition."
 	icon_state = "grill_grate"
+	lip = null
 	materials = list(MAT_METAL = 750)
 
 /obj/item/reagent_containers/cooking/bowl
 	name = "prep bowl"
 	desc = "A bowl for mixing, or tossing a salad. Not to be eaten out of"
 	icon_state = "bowl"
-	lip = "bowl_lip"
 	materials = list(MAT_PLASTIC = 500)
 	removal_penalty = 2
 
@@ -328,6 +395,12 @@
 	name = "freezing bowl"
 	desc = "A stainless steel bowl that fits into the ice cream mixer."
 	icon_state = "ice_cream_bowl"
-	lip = "ice_cream_bowl_lip"
 	materials = list(MAT_METAL = 750)
 	var/freezing_time = 0
+
+/obj/item/reagent_containers/cooking/icecream_bowl/make_mini()
+	transform *= 0.8
+
+/obj/item/reagent_containers/cooking/icecream_bowl/unmake_mini()
+	transform = null
+

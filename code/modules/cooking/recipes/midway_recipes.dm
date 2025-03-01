@@ -4,7 +4,7 @@
 // want them to be overwritten.
 
 /datum/cooking/recipe/torilla
-	cooking_container = /obj/item/reagent_containers/cooking/pan
+	container_type = /obj/item/reagent_containers/cooking/pan
 	product_type = /obj/item/food/tortilla
 	catalog_category = COOKBOOK_CATEGORY_BREAD
 	steps = list(
@@ -13,7 +13,7 @@
 	)
 
 /datum/cooking/recipe/cooked_patty
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meat/patty
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -23,7 +23,7 @@
 	)
 
 /datum/cooking/recipe/cooked_meatball
-	cooking_container = /obj/item/reagent_containers/cooking/grill_grate
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meatball
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -33,7 +33,7 @@
 	)
 
 /datum/cooking/recipe/taco
-	cooking_container = /obj/item/reagent_containers/cooking/board
+	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/taco
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
@@ -55,7 +55,7 @@
 	return PCWJ_CHECK_INVALID
 
 /datum/cooking/recipe/kfv
-	cooking_container = /obj/item/reagent_containers/cooking/deep_basket
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
 	product_type = /obj/item/food/fried_vox
 	steps = list(
 		new /datum/cooking/recipe_step/add_item/fried_vox(),
@@ -64,7 +64,7 @@
 	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/jellybean_red
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/red
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -76,7 +76,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_blue
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/blue
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -88,7 +88,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_poison
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/poison
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -100,7 +100,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_green
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/green
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -112,7 +112,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_yellow
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/yellow
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -124,7 +124,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_orange
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/orange
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -136,7 +136,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_blue
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/blue
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -148,7 +148,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_green
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/green
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -160,7 +160,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_orange
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/orange
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -172,7 +172,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_poison
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/poison
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -184,7 +184,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_purple
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/purple
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -196,7 +196,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_red
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/red
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -208,7 +208,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_wtf
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -220,7 +220,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_wtf2
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -232,7 +232,7 @@
 	)
 
 /datum/cooking/recipe/gummybear_yellow
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bear
+	container_type = /obj/item/reagent_containers/cooking/mould/bear
 	product_type = /obj/item/food/candy/gummybear/yellow
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -244,7 +244,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_blue
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/blue
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -256,7 +256,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_green
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/green
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -268,7 +268,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_orange
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/orange
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -280,7 +280,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_poison
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/poison
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -292,7 +292,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_purple
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/purple
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -304,7 +304,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_red
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/red
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -316,7 +316,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_wtf
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -328,7 +328,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_wtf2
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -340,7 +340,7 @@
 	)
 
 /datum/cooking/recipe/gummyworm_yellow
-	cooking_container = /obj/item/reagent_containers/cooking/mould/worm
+	container_type = /obj/item/reagent_containers/cooking/mould/worm
 	product_type = /obj/item/food/candy/gummyworm/yellow
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -352,7 +352,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_chocolate
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/chocolate
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -364,7 +364,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_coffee
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/cola
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -376,7 +376,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_cola
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/cola
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -388,7 +388,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_drgibb
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/cola
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -400,7 +400,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_popcorn
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/popcorn
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -412,7 +412,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_purple
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/purple
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -424,7 +424,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_wtf
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
@@ -436,7 +436,7 @@
 	)
 
 /datum/cooking/recipe/jellybean_wtf2
-	cooking_container = /obj/item/reagent_containers/cooking/mould/bean
+	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/wtf
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
