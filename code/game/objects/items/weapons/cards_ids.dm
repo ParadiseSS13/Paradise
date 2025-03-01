@@ -98,6 +98,7 @@
 	var/mining_points = 0
 	/// Total mining points for the Shift.
 	var/total_mining_points = 0
+	var/bitrunning_points = 0 //bitrunning points is a placeholder, not sure if any of this would actually work
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
@@ -562,7 +563,7 @@
 	name = "Quartermaster ID"
 	registered_name = "Quartermaster"
 	icon_state = "quartermaster"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_BITRUNNER)
 
 /obj/item/card/id/shaftminer
 	name = "Shaftminer ID"
@@ -733,6 +734,12 @@
 	name = "Explorer ID"
 	registered_name = "Explorer"
 	icon_state = "explorer"
+
+/obj/item/card/id/bitrunner
+	name = "Bitrunner ID"
+	registered_name = "Bitrunner"
+	icon_state = "bitrunner"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_BITRUNNER, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"

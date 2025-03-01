@@ -220,6 +220,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting
 	access = ACCESS_MAILSORTING
 
+/obj/effect/mapping_helpers/airlock/access/any/supply/bitrunner
+	access = ACCESS_BITRUNNER
+
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining
 	access = ACCESS_MINING
 

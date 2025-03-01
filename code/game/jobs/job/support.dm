@@ -201,6 +201,35 @@
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
 
+/datum/job/bitrunner
+	title = "Bitrunner"
+	flag = JOB_BITRUNNER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 3
+	spawn_positions = 3
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "eeddbe"
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_BITRUNNER,
+		ACCESS_MINERAL_STOREROOM
+	)
+	outfit = /datum/outfit/job/bitrunner
+
+/datum/outfit/job/bitrunner
+	name = "Bitrunner"
+	jobtype = /datum/job/bitrunner
+	l_ear = /obj/item/radio/headset/headset_cargo
+	uniform = /obj/item/clothing/under/rank/cargo/bitrunner
+	gloves = /obj/item/clothing/gloves/fingerless
+	head = /obj/item/clothing/head/soft/cargo
+	shoes = /obj/item/clothing/shoes/black
+	id = /obj/item/card/id/bitrunner
+	pda = /obj/item/pda/cargo
+
 //Food
 /datum/job/bartender
 	title = "Bartender"
