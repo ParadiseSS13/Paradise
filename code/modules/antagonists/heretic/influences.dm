@@ -201,10 +201,12 @@
 	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
 
 
-/obj/effect/heretic_influence/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/effect/heretic_influence/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
 	// Using a codex will give you two knowledge points for draining.
-	if(drain_influence_with_codex(user, I))
-		return TRUE
+	if(drain_influence_with_codex(user, attacking))
+		return FINISH_ATTACK
 	return ..()
 
 /obj/effect/heretic_influence/proc/drain_influence_with_codex(mob/user, obj/item/codex_cicatrix/codex)
