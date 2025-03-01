@@ -281,10 +281,6 @@ emp_act
 			return right_hand_parry.parent
 	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
-
 /mob/living/carbon/human/emp_act(severity)
 	..()
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
@@ -497,11 +493,6 @@ emp_act
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
 			return FALSE
-
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
-		return FALSE
-
 
 	send_item_attack_message(I, user, hit_area)
 

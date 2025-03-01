@@ -16,7 +16,9 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
+	// TODO: override = TRUE because strippable can get reattached to dead mobs after
+	// revival. Will fix for basic mobs probably maybe.
+	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto), override = TRUE)
 
 	src.items = items
 

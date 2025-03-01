@@ -527,9 +527,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -553,9 +550,6 @@
 		add_attack_logs(user, target, "flayerdrain")
 		return
 	//End Mind Flayer Code
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
@@ -602,9 +596,6 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE

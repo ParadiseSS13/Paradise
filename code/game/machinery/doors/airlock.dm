@@ -1017,7 +1017,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/assembly/signaler))
-		interact_with_panel(used)
+		interact_with_panel(user)
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = used

@@ -146,12 +146,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe))
+/obj/effect/meteor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
