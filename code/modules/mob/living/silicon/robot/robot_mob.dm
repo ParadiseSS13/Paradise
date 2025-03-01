@@ -1139,7 +1139,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 
 // Here so admins can unemag borgs.
-/mob/living/silicon/robot/unemag()
+/mob/living/silicon/robot/unemag(mob/user)
 	SetEmagged(FALSE)
 	if(!module)
 		return
@@ -1149,6 +1149,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.unemag()
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
+	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
+	A.remove_hud_from(user)
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -1217,6 +1219,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
+			var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
+			A.add_hud_to(src)
 		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
