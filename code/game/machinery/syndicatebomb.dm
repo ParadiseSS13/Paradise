@@ -114,21 +114,24 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+/obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
-	else if(istype(I, /obj/item/bombcore))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/bombcore))
 		if(!payload)
 			if(!user.drop_item())
-				return
-			payload = I
+				return ITEM_INTERACT_COMPLETE
+			payload = used
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)
@@ -528,7 +531,7 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/chemical/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
 		if(length(beakers) < max_beakers)
 			if(!user.drop_item())
@@ -599,7 +602,7 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user)
+/obj/item/bombcore/toxins/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/transfer_valve))
 		if(!ttv && !check_attached(I))
 			if(!user.drop_item())
@@ -655,7 +658,7 @@
 	var/detonated =	0
 	var/existant =	0
 
-/obj/item/syndicatedetonator/attack_self(mob/user)
+/obj/item/syndicatedetonator/attack_self__legacy__attackchain(mob/user)
 	if(timer >= world.time)
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return

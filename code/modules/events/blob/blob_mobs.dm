@@ -44,7 +44,7 @@
 				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * 0.0125)
 
-/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	// Use any nearby blob structures to allow space moves.
 	for(var/obj/structure/blob/B in range(1, src))
 		return TRUE
@@ -74,7 +74,7 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()

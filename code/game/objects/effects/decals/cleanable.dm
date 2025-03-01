@@ -27,17 +27,15 @@
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	..()
-
-	if(!ishuman(O))
+/obj/effect/decal/cleanable/blood/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!ishuman(entered))
 		return
 
-	if(!gravity_check && ishuman(O))
-		bloodyify_human(O)
+	if(!gravity_check && ishuman(entered))
+		bloodyify_human(entered)
 
 	if(!off_floor)
-		var/mob/living/carbon/human/H = O
+		var/mob/living/carbon/human/H = entered
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
@@ -87,10 +85,10 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	prepare_huds()
 	if(should_merge_decal(loc))
 		return INITIALIZE_HINT_QDEL
 	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-	prepare_huds()
 	jani_hud.add_to_hud(src)
 	jani_hud_set_sign()
 	if(random_icon_states && length(src.random_icon_states) > 0)

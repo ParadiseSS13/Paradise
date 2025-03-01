@@ -129,6 +129,7 @@ const Designs = (properties, context) => {
       className="Exofab__designs"
       title={
         <Dropdown
+          width="19rem"
           className="Exofab__dropdown"
           selected={curCategory}
           options={categories}

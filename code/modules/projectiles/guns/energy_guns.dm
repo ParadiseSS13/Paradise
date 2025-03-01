@@ -98,7 +98,7 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-/obj/item/gun/energy/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()

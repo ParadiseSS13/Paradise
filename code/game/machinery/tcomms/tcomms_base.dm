@@ -128,12 +128,12 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   *
   * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
   */
-/obj/machinery/tcomms/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), "<span class='warning'>Radio equipment on [src] has suffered an unidentified malfunction. Please restart the machine.</span>"), 5)
 	update_icon(UPDATE_ICON_STATE)
 
 

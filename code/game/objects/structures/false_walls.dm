@@ -112,7 +112,7 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
@@ -217,7 +217,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/falsewall/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -287,8 +287,9 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
+	cares_about_temperature = TRUE
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.get_heat() > 300)
 		var/turf/T = locate(user)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
@@ -404,6 +405,15 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+
+/obj/structure/falsewall/backrooms
+	desc = "A strange wall that looks like cheap wallpaper and drywall."
+	icon = 'icons/turf/walls/backrooms_wall.dmi'
+	icon_state = "backrooms_wall-0"
+	base_icon_state = "backrooms_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BACKROOMS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BACKROOMS_WALLS)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"

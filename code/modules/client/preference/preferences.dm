@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
@@ -132,6 +133,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/list/admin_sound_ckey_ignore = list()
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	/// Map preferences for the first past the post system
+	var/list/map_vote_pref_json = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -170,8 +173,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<center>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' 	[current_tab == TAB_CHAR 	? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' 	[current_tab == TAB_GAME 	? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GEAR]' 	[current_tab == TAB_GEAR 	? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists and Maps</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
@@ -180,6 +182,11 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
 			var/datum/species/S = GLOB.all_species[active_character.species]
+			var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
+			if(istype(S) && istype(subtype))
+				subtype = new subtype.type()
+				S = new S.type()
+				S.bodyflags |= subtype.bodyflags
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
@@ -203,8 +210,10 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
-			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
+			if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+				dat += "<b>Species Sub-Type:</b> <a href='byond://?_src_=prefs;preference=species_subtype;task=input'>[active_character.species_subtype]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
@@ -236,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
+			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -296,7 +306,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.f_style = "Shaved"
 
 
-			if(!(S.bodyflags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 
@@ -391,7 +401,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
+			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -482,7 +493,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
 			dat += "</td></tr></table>"
 
-		if(TAB_ANTAG) // Antagonist's Preferences
+		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
 			if(jobban_isbanned(user, ROLE_SYNDICATE))
@@ -504,60 +515,15 @@ GLOBAL_LIST_INIT(special_role_times, list(
 					else
 						var/is_special = (i in src.be_special)
 						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
-
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
 				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
 			else
 				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
+			dat += "</td><td width='405px' height='300px' valign='top'>"
+			dat += "<h2>Map Settings</h2>"
+			dat += " - <b>Choose your map preferences:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
 			dat += "</td></tr></table>"
-
-		if(TAB_GEAR)
-			var/total_cost = build_loadout()
-
-			var/fcolor = "#3366CC"
-			if(total_cost < max_gear_slots)
-				fcolor = "#E67300"
-			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='byond://?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
-			dat += "<tr><td colspan=4><center><b>"
-
-			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
-				if(firstcat)
-					firstcat = 0
-				else
-					dat += " |"
-				if(category == gear_tab)
-					dat += " <span class='linkOff'>[category]</span> "
-				else
-					dat += " <a href='byond://?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
-			dat += "</b></center></td></tr>"
-
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			for(var/gear_name in LC.gear)
-				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.type in active_character.loadout_gear)
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
-				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='byond://?_src_=prefs;preference=gear;toggle_gear=[G.type]'>[G.display_name]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
-				if(G.allowed_roles)
-					dat += "<font size=2>Restrictions: "
-					for(var/role in G.allowed_roles)
-						dat += role + " "
-					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='byond://?_src_=prefs;preference=gear;gear=[G.type];tweak=\ref[tweak]'>[tweak.get_contents(active_character.get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
-			dat += "</table>"
 
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -669,7 +635,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
@@ -772,24 +738,23 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/list/loadout_cache = active_character.loadout_gear.Copy()
 	active_character.loadout_gear.Cut()
 	if(new_item)
-		loadout_cache += new_item.type
+		loadout_cache += "[new_item]"
 
-	for(var/I in loadout_cache)
-		var/datum/gear/G = GLOB.gear_datums[text2path(I) || I]
-		if(!G)
+	for(var/item in loadout_cache)
+		var/datum/gear/gear = text2path(item) || item
+		if(!gear || !(gear.type in GLOB.gear_datums))
 			continue
-		var/added_cost = G.cost
-		if(!G.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
-			if(G.main_typepath in type_blacklist)
+		var/added_cost = gear.cost
+		if(!gear.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
+			if(gear.main_typepath in type_blacklist)
 				added_cost = 0
 			else
-				type_blacklist += G.main_typepath
+				type_blacklist += gear.main_typepath
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
-		active_character.loadout_gear += G.type
+		active_character.loadout_gear[item] = loadout_cache[item] ? loadout_cache[item] : list()
 		total_cost += added_cost
 	return total_cost
-
 
 /datum/preferences/proc/init_keybindings(overrides, raw)
 	if(raw)

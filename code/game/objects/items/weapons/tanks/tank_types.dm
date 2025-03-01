@@ -63,15 +63,14 @@
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
+/obj/item/tank/internals/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
 		var/obj/item/flamethrower/F = I
 		if((!F.status)||(F.ptank))
 			return
 		master = F
 		F.ptank = src
-		user.unEquip(src)
-		loc = F
+		user.transfer_item_to(src, F)
 		F.update_icon()
 	else
 		return ..()
@@ -103,7 +102,7 @@
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	force = 5
 	volume = 35
@@ -131,7 +130,7 @@
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4

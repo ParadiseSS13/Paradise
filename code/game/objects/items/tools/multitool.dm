@@ -47,7 +47,7 @@
 	buffer = null
 	return ..()
 
-/obj/item/multitool/attack_self(mob/user)
+/obj/item/multitool/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
 		return
 	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)
@@ -94,15 +94,15 @@
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-		if(AI.cameraFollow == src)
+		if(AI.camera_follow == src)
 			detect_state = PROXIMITY_ON_SCREEN
 			break
 
-	if(!detect_state && GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
-		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
+	if(!detect_state && GLOB.cameranet.chunk_generated(our_turf.x, our_turf.y, our_turf.z))
+		var/datum/camerachunk/chunk = GLOB.cameranet.get_camera_chunk(our_turf.x, our_turf.y, our_turf.z)
 		if(chunk)
 			if(length(chunk.seenby))
-				for(var/mob/camera/aiEye/A in chunk.seenby)
+				for(var/mob/camera/eye/ai/A in chunk.seenby)
 					//Checks if the A is to be detected or not
 					if(!A.ai_detector_visible)
 						continue
@@ -153,28 +153,10 @@
 
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION
-
-/obj/item/multitool/ai_detect/admin
-	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
-	track_delay = 5
-
-/obj/item/multitool/ai_detect/admin/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
-
-/obj/item/multitool/ai_detect/admin/multitool_detect()
-	var/turf/our_turf = get_turf(src)
-	for(var/mob/J in urange(rangewarning,our_turf))
-		if(check_rights(R_ADMIN, 0, J))
-			detect_state = PROXIMITY_NEAR
-			var/turf/detect_turf = get_turf(J)
-			if(get_dist(our_turf, detect_turf) < rangealert)
-				detect_state = PROXIMITY_ON_SCREEN
-				break
 
 /obj/item/multitool/cyborg
 	name = "multitool"

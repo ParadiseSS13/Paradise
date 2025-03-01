@@ -24,7 +24,7 @@
 /area/shuttle/administration)
 "bi" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/box/bodybags,
 /obj/item/storage/firstaid/surgery,
@@ -588,7 +588,7 @@
 "Gx" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 9;
 	height = 18;

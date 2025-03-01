@@ -1,5 +1,5 @@
 
-/obj/structures/plasmageyser
+/obj/structure/plasmageyser
 	name = "Plasma Geyser"
 	desc = "A mound of basalt rock, erupting with bubbling molten plasma. It constantly emits toxic fumes."
 	anchored = TRUE
@@ -8,22 +8,22 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	armor = list(MELEE = 30, BULLET = 80, LASER = 90, ENERGY = 90, BOMB = 80, RAD = 100, FIRE = 100, ACID = 100)
 
-/obj/structures/plasmageyser/Initialize(mapload)
+/obj/structure/plasmageyser/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 
 // for sanity checks
-/obj/structures/plasmageyser/Destroy()
+/obj/structure/plasmageyser/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/structures/plasmageyser/process()
+/obj/structure/plasmageyser/process()
 	var/datum/milla_safe/plasmageyser/milla = new()
 	milla.invoke_async(src)
 
 /datum/milla_safe/plasmageyser
 
-/datum/milla_safe/plasmageyser/on_run(obj/structures/plasmageyser/geyser)
+/datum/milla_safe/plasmageyser/on_run(obj/structure/plasmageyser/geyser)
 	var/max_pressure = ONE_ATMOSPHERE * 3
 	var/toxins_modifier = 100
 	var/co2_modifier = 12

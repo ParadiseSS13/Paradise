@@ -4,28 +4,35 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/fake_danger = 10,
 		/obj/effect/hallucination/fake_health = 15,
 		/obj/effect/hallucination/speech = 15,
-		/obj/effect/hallucination/audio = 25,
 		/obj/effect/hallucination/audio/localized = 25,
+		/obj/effect/hallucination/trait_applier/medical_machinery = 25,
+		/obj/effect/hallucination/examine_hallucination = 25,
 	),
 	HALLUCINATE_MODERATE = list(
 		/obj/effect/hallucination/delusion = 5,
+		/obj/effect/hallucination/fake_grenade/flashbang = 5,
 		/obj/effect/hallucination/self_delusion = 5,
 		/obj/effect/hallucination/bolts/moderate = 10,
-		/obj/effect/hallucination/chasms = 10,
 		/obj/effect/hallucination/fake_alert = 10,
+		/obj/effect/hallucination/fake_grenade = 10,
 		/obj/effect/hallucination/gunfire = 10,
 		/obj/effect/hallucination/plasma_flood = 10,
 		/obj/effect/hallucination/stunprodding = 10,
-		/obj/effect/hallucination/delamination_alarm = 15,
-		/obj/effect/hallucination/fake_item = 15,
+		/obj/effect/hallucination/doppelganger = 10,
 		/obj/effect/hallucination/fake_weapon = 15,
-		/obj/effect/hallucination/husks = 15,
+		/obj/effect/hallucination/ventpeek = 15,
 	),
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/abduction = 10,
 		/obj/effect/hallucination/assault = 10,
-		/obj/effect/hallucination/terror_infestation = 10,
+		/obj/effect/hallucination/fake_grenade/spawner = 10,
 		/obj/effect/hallucination/loose_energy_ball = 10,
+		/datum/hallucination_manager/xeno_pounce = 10,
+		/datum/hallucination_manager/backrooms = 1,
+		/datum/hallucination_manager/blind_rush = 1,
+		/datum/hallucination_manager/waves = 2,
+		/obj/effect/hallucination/blob = 10,
+		/obj/effect/hallucination/sniper = 10
 	)
 ))
 
@@ -45,12 +52,18 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/hallucination_icon_state
 	/// Hallucination override.
 	var/hallucination_override = FALSE
+	/// Hallucination color
+	var/hallucination_color
 	/// Hallucination layer.
 	var/hallucination_layer = MOB_LAYER
+	///Hallucination plane.
+	var/hallucination_plane = AREA_PLANE
 	/// The mob that sees this hallucination.
 	var/mob/living/carbon/target = null
 	/// Lazy list of images created as part of the hallucination. Cleared on destruction.
 	var/list/image/images = null
+	/// Should this hallucination delete itself
+	var/should_delete = TRUE
 
 /obj/effect/hallucination/Initialize(mapload, mob/living/carbon/hallucination_target)
 	. = ..()
@@ -60,13 +73,17 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	target = hallucination_target
 	if(hallucination_icon && hallucination_icon_state)
 		var/image/I = image(hallucination_icon, hallucination_override ? src : get_turf(src), hallucination_icon_state)
+		if(hallucination_color)
+			I.color = hallucination_color
 		I.override = hallucination_override
 		I.layer = hallucination_layer
+		I.plane = hallucination_plane
 		add_icon(I)
 	// Lifetime
 	if(islist(duration))
 		duration = rand(duration[1], duration[2])
-	QDEL_IN(src, duration)
+	if(should_delete)
+		QDEL_IN(src, duration)
 
 /obj/effect/hallucination/Destroy()
 	clear_icons()
@@ -145,3 +162,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		target?.playsound_local(source, snd, volume, vary, frequency)
 		return
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, snd, volume, vary, frequency), time)
+
+/// Subtype that doesn't delete itself.
+/// Mostly used for hallucination managers because they delete the hallucinations when required
+/obj/effect/hallucination/no_delete
+	should_delete = FALSE

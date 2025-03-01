@@ -94,9 +94,10 @@
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
-/obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
+/obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
@@ -120,6 +121,11 @@
 			new /obj/item/stack/rods(loc)
 		if(prob(75))
 			new /obj/item/shard(loc)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
@@ -147,9 +153,8 @@
 	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
 	animate(time = 14, transform = matrix())
 
-/obj/effect/anomaly/grav/Crossed(atom/movable/AM)
-	. = ..()
-	gravShock(AM)
+/obj/effect/anomaly/grav/proc/on_atom_entered(datum/source, atom/movable/entered)
+	gravShock(entered)
 
 /obj/effect/anomaly/grav/Bump(atom/A)
 	gravShock(A)
@@ -195,6 +200,10 @@
 	if(explosive)
 		zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
 		power = 15000
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
@@ -204,10 +213,8 @@
 	if(explosive) //Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
-
-/obj/effect/anomaly/flux/Crossed(atom/movable/AM)
-	. = ..()
-	mobShock(AM)
+/obj/effect/anomaly/flux/proc/on_atom_entered(datum/source, atom/movable/entered)
+	mobShock(entered)
 
 /obj/effect/anomaly/flux/Bump(atom/A)
 	mobShock(A)
@@ -335,7 +342,6 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
-	var/ticks = 0
 	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
 
@@ -345,16 +351,11 @@
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
-	ticks++
 	for(var/mob/living/M in hearers(4, src))
 		if(prob(50))
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	if(ticks < 4)
-		return
-	else
-		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		var/datum/gas_mixture/air = new()
@@ -376,8 +377,8 @@
 		//Make it hot and burny for the new slime
 		var/datum/gas_mixture/air = new()
 		air.set_temperature(1000)
-		air.set_toxins(500)
-		air.set_oxygen(500)
+		air.set_toxins(125)
+		air.set_oxygen(125)
 		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
@@ -418,7 +419,7 @@
 		shootAt(H)
 
 	if(prob(10))
-		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container/anomaly(get_turf(src))
 		for(var/i in 1 to 5)
 			step_towards(A, pick(turf_targets))
 			sleep(2)

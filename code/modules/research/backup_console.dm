@@ -38,20 +38,18 @@
 	SStgui.update_uis(src)
 
 
-/obj/machinery/computer/rnd_backup/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
+/obj/machinery/computer/rnd_backup/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!H.unEquip(O))
-			return TRUE
+		if(!H.transfer_item_to(used, src))
+			return ITEM_INTERACT_COMPLETE
 
-		O.forceMove(src)
-		inserted_disk = O
-		to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+		inserted_disk = used
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
-
 
 /obj/machinery/computer/rnd_backup/proc/eject_disk()
 	if(!inserted_disk)
@@ -270,8 +268,7 @@
 
 /obj/item/disk/rnd_backup_disk/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 	// Level it all out
 	for(var/tech_id in GLOB.rnd_tech_id_to_name)
 		stored_tech_assoc[tech_id] = 0

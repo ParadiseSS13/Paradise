@@ -118,10 +118,10 @@ const CrewMonitorDataView = (_properties, context) => {
           <Table.Cell>Status</Table.Cell>
           <Table.Cell>Location</Table.Cell>
         </Table.Row>
-        {crew.filter(searcher).map((cm) => {
+        {crew.filter(searcher).map((cm, index) => {
           const highlighted = highlightedNames.includes(cm.name);
           return (
-            <Table.Row key={cm.name} bold={!!cm.is_command}>
+            <Table.Row key={index} bold={!!cm.is_command}>
               <TableCell>
                 <ButtonCheckbox
                   checked={highlighted}
@@ -203,7 +203,7 @@ const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { highlightedNames } = data;
   return (
-    <Box height="526px" mb="0.5rem" overflow="hidden">
+    <Box height="100vh" mb="0.5rem" overflow="hidden">
       <NanoMap
         zoom={data.zoom}
         offsetX={data.offsetX}

@@ -35,7 +35,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/welding/attack_self(mob/user)
+/obj/item/clothing/head/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/flamedecal
@@ -80,7 +80,7 @@
 	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
-/obj/item/clothing/head/cakehat/attack_self(mob/user)
+/obj/item/clothing/head/cakehat/attack_self__legacy__attackchain(mob/user)
 	if(status > 1)
 		return
 	onfire = !onfire
@@ -112,7 +112,7 @@
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
+/obj/item/clothing/head/ushanka/attack_self__legacy__attackchain(mob/user as mob)
 	if(icon_state == "ushankadown")
 		icon_state = "ushankaup"
 		item_state = "ushankaup"
@@ -201,7 +201,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
-	if(ishuman(M) && slot == SLOT_HUD_HEAD)
+	if(ishuman(M) && slot == ITEM_SLOT_HEAD)
 		update_icon(NONE, M)
 
 /obj/item/clothing/head/kitty/mouse

@@ -69,6 +69,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/flagged_antag_rollers = list()
 	/// List of biohazards keyed to the last time their population was sampled.
 	var/list/biohazard_pop_times = list()
+	var/list/biohazard_included_admin_spawns = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -140,6 +141,9 @@ SUBSYSTEM_DEF(ticker)
 			// Start a map vote IF
 			// - Map rotate doesnt have a mode for today and map voting is enabled
 			// - Map rotate has a mode for the day and it ISNT full random
+			if(SSmaprotate.setup_done && (SSmaprotate.rotation_mode == MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES))
+				SSmaprotate.decide_next_map()
+				return
 			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else
@@ -295,11 +299,11 @@ SUBSYSTEM_DEF(ticker)
 			if(tripai.name == "tripai")
 				if(locate(/mob/living) in get_turf(tripai))
 					continue
-				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
+				GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
+		GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -359,10 +363,8 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
@@ -564,7 +566,7 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<BR>"
 
 	//Silicon laws report
-	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
+	for(var/mob/living/silicon/ai/aiPlayer in GLOB.ai_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
 		if(aiPlayer.stat != DEAD)
@@ -828,6 +830,9 @@ SUBSYSTEM_DEF(ticker)
 		else
 			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("defeated", biohazard))
 
+	for(var/biohazard in SSticker.biohazard_included_admin_spawns)
+		SSblackbox.record_feedback("nested tally", "biohazards", 1, list("included_admin_spawns", biohazard))
+
 /datum/controller/subsystem/ticker/proc/count_xenomorps()
 	. = 0
 	for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
@@ -837,12 +842,33 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/sample_biohazard_population(biohazard)
 	SSblackbox.record_feedback("ledger", "biohazard_pop_[BIOHAZARD_POP_INTERVAL_STR]_interval", biohazard_count(biohazard), biohazard)
+	if(any_admin_spawned_mobs(biohazard) && !(biohazard in biohazard_included_admin_spawns))
+		biohazard_included_admin_spawns[biohazard] = TRUE
+
 	biohazard_pop_times[biohazard] = world.time
 
 /// Record the initial time that a biohazard spawned.
 /datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
 	SSblackbox.record_feedback("associative", "biohazard_starts", 1, list("type" = biohazard, "time_ds" = world.time - time_game_started))
 	sample_biohazard_population(biohazard)
+
+/// Returns whether the given biohazard includes mobs that were admin spawned.
+/// Only returns TRUE or FALSE, does not attempt to track which mobs were
+/// admin-spawned and which ones weren't.
+/datum/controller/subsystem/ticker/proc/any_admin_spawned_mobs(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER)
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+				if(S.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_XENO)
+			for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
+				if(xeno_mind.current?.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_BLOB)
+			for(var/atom/blob_overmind in SSticker.mode.blob_overminds)
+				if(blob_overmind.admin_spawned)
+					return TRUE
 
 /datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)

@@ -26,9 +26,7 @@
 	else if(actiontype == /datum/action/item_action/toggle_music_notes)
 		toggle_visual_notes(user)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/ears/headphones/proc/toggle_visual_notes(mob/user)
 	on = !on
@@ -56,7 +54,7 @@
 	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_LEFT_EAR || slot == SLOT_HUD_RIGHT_EAR)
+	if(slot & ITEM_SLOT_BOTH_EARS)
 		return TRUE
 
 /**

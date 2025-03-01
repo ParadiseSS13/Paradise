@@ -3,6 +3,10 @@
 	var/name
 	/// Pluralized name (since "[name]s" is not always valid)
 	var/name_plural
+	/// Sub-type of the species. Used for when slimes imitate a species or when an IPC has augments that look like another species. This will affect sprite_sheet_name
+	var/species_subtype = "None"
+	/// List of available sub-types for the species to imitate / morph into (Machine / Slime)
+	var/allowed_species_subtypes = list()
 	/// The corresponding key for spritesheets
 	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
@@ -91,7 +95,7 @@
 	var/exotic_blood
 	var/own_species_blood = FALSE // Can it only use blood from it's species?
 	var/skinned_type
-	var/list/no_equip = list()	// slots the race can't equip stuff to
+	var/no_equip	// bitflags of slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/can_craft = TRUE // Can this mob using crafting or not?
 
@@ -196,9 +200,14 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
+	/// What plushie the species will turn into if turned into a plushie.
+	var/plushie_type = /obj/item/toy/plushie/humanplushie
+
 /datum/species/New()
 	unarmed = new unarmed_type()
-	if(!sprite_sheet_name)
+	if(!isnull(species_subtype) && species_subtype != "None")
+		sprite_sheet_name = species_subtype
+	else if(!sprite_sheet_name)
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
@@ -266,7 +275,9 @@
 		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
+	var/datum/organ/lungs/lung = H.get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		lung?.clear_alerts(H)
 		return TRUE
 
 ////////////////
@@ -358,10 +369,14 @@
 #undef SLOWDOWN_MULTIPLIER
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
-	for(var/slot_id in no_equip)
+	for(var/slot_id in GLOB.bitflags) // Iterate through all bitflags
+		if(slot_id > ITEM_SLOT_AMOUNT_FLAG) // If the slot_id bitflag is larger than the largest ITEM_SLOT flag we're done
+			break
+		if(!(slot_id & no_equip)) // If the slot_id bitflag isn't in the no_equip flag, check the next bitflag
+			continue
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
-			H.unEquip(thing)
+			H.drop_item_to_ground(thing)
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
@@ -395,6 +410,18 @@
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
+/** Handles changing icobase for species that can imitate/morph into other species
+ * 	Arguments:
+ * 	- H: The human of which was are updating.
+ * 	- new_subtype: Our imitate species, by datum reference.
+ * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
+ * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
+ * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
+ */
+///
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
+	return
+
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
 // Return the parent value if processing does not explicitly stop
@@ -420,6 +447,8 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	if(H.status_flags & GODMODE)
+		return FALSE	//godmode
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	if(!damage)
 		return FALSE
@@ -498,9 +527,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -524,9 +550,6 @@
 		add_attack_logs(user, target, "flayerdrain")
 		return
 	//End Mind Flayer Code
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
@@ -569,13 +592,10 @@
 		target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 						"<span class='userdanger'>[user] has knocked down [target]!</span>")
 		target.KnockDown(4 SECONDS)
-	SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+	SEND_SIGNAL(target, COMSIG_ATTACK_BY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
@@ -747,7 +767,7 @@
 	return copy
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
-	if(slot in no_equip)
+	if(slot & no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 
@@ -755,21 +775,23 @@
 		return FALSE
 
 	switch(slot)
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_LEFT_HAND)
 			return !H.l_hand && !H.incapacitated()
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_RIGHT_HAND)
 			return !H.r_hand && !H.incapacitated()
-		if(SLOT_HUD_WEAR_MASK)
-			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
-		if(SLOT_HUD_BACK)
-			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
-		if(SLOT_HUD_OUTER_SUIT)
-			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
-		if(SLOT_HUD_GLOVES)
-			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
-		if(SLOT_HUD_SHOES)
-			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
-		if(SLOT_HUD_BELT)
+		if(ITEM_SLOT_MASK)
+			return !H.wear_mask && (I.slot_flags & ITEM_SLOT_MASK)
+		if(ITEM_SLOT_BACK)
+			return !H.back && (I.slot_flags & ITEM_SLOT_BACK)
+		if(ITEM_SLOT_OUTER_SUIT)
+			return !H.wear_suit && (I.slot_flags & ITEM_SLOT_OUTER_SUIT)
+		if(ITEM_SLOT_GLOVES)
+			return !H.gloves && (I.slot_flags & ITEM_SLOT_GLOVES)
+		if(ITEM_SLOT_SHOES)
+			return !H.shoes && (I.slot_flags & ITEM_SLOT_SHOES)
+		if(ITEM_SLOT_NECK)
+			return !H.neck && (I.slot_flags & ITEM_SLOT_NECK)
+		if(ITEM_SLOT_BELT)
 			if(H.belt)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -778,20 +800,20 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_BELT))
+			if(!(I.slot_flags & ITEM_SLOT_BELT))
 				return
 			return TRUE
-		if(SLOT_HUD_GLASSES)
-			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
-		if(SLOT_HUD_HEAD)
-			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
-		if(SLOT_HUD_LEFT_EAR)
-			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
-		if(SLOT_HUD_RIGHT_EAR)
-			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
-		if(SLOT_HUD_JUMPSUIT)
-			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
-		if(SLOT_HUD_WEAR_ID)
+		if(ITEM_SLOT_EYES)
+			return !H.glasses && (I.slot_flags & ITEM_SLOT_EYES)
+		if(ITEM_SLOT_HEAD)
+			return !H.head && (I.slot_flags & ITEM_SLOT_HEAD)
+		if(ITEM_SLOT_LEFT_EAR)
+			return !H.l_ear && (I.slot_flags & ITEM_SLOT_LEFT_EAR)
+		if(ITEM_SLOT_RIGHT_EAR)
+			return !H.r_ear && (I.slot_flags & ITEM_SLOT_RIGHT_EAR)
+		if(ITEM_SLOT_JUMPSUIT)
+			return !H.w_uniform && (I.slot_flags & ITEM_SLOT_JUMPSUIT)
+		if(ITEM_SLOT_ID)
 			if(H.wear_id)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -800,10 +822,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_ID))
+			if(!(I.slot_flags & ITEM_SLOT_ID))
 				return FALSE
 			return TRUE
-		if(SLOT_HUD_WEAR_PDA)
+		if(ITEM_SLOT_PDA)
 			if(H.wear_pda)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -812,10 +834,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_PDA))
+			if(!(I.slot_flags & ITEM_SLOT_PDA))
 				return FALSE
 			return TRUE
-		if(SLOT_HUD_LEFT_STORE)
+		if(ITEM_SLOT_LEFT_POCKET)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(H.l_store)
@@ -826,9 +848,9 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_BOTH_POCKETS))
 				return TRUE
-		if(SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_RIGHT_POCKET)
 			if(I.flags & NODROP)
 				return FALSE
 			if(H.r_store)
@@ -839,10 +861,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_BOTH_POCKETS))
 				return TRUE
 			return FALSE
-		if(SLOT_HUD_SUIT_STORE)
+		if(ITEM_SLOT_SUIT_STORE)
 			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
 				return FALSE
 			if(H.s_store)
@@ -862,11 +884,11 @@
 			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
 			return FALSE
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
-		if(SLOT_HUD_IN_BACKPACK)
+		if(ITEM_SLOT_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
 				if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
@@ -878,7 +900,7 @@
 					if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
-		if(SLOT_HUD_TIE)
+		if(ITEM_SLOT_ACCESSORY)
 			if(!istype(I, /obj/item/clothing/accessory))
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
@@ -890,7 +912,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_TIE))
+			if(!(I.slot_flags & ITEM_SLOT_ACCESSORY))
 				return FALSE
 			return TRUE
 

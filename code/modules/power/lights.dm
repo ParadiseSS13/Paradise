@@ -17,7 +17,7 @@
   *
   * Incomplete light tube fixture
   *
-  * Becomes a [Light fixture] when completed
+  * Becomes a [/obj/machinery/light/built] when completed.
   */
 /obj/machinery/light_construct
 	name = "light fixture frame"
@@ -76,7 +76,7 @@
 
 	stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	update_icon(UPDATE_ICON_STATE)
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -96,19 +96,19 @@
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light_construct/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(used, /obj/item/stack/cable_coil))
 		if(stage != LIGHT_CONSTRUCT_EMPTY_FRAME)
-			return
-		var/obj/item/stack/cable_coil/coil = W
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/cable_coil/coil = used
 		coil.use(1)
 		stage = LIGHT_CONSTRUCT_WIRED
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
 			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -129,11 +129,46 @@
 	icon_state = "[fixture_type]-construct-stage[stage]"
 
 /**
+  * # Brass fixture frame
+  *
+  * Incomplete brass light tube fixture
+  *
+  * Becomes a [Brass light fixture] when completed
+  */
+
+/obj/machinery/light_construct/clockwork
+	name = "brass light fixture frame"
+	desc = "A brass light fixture under construction."
+	icon_state = "clockwork_tube-construct-stage1"
+	construct_type = /obj/machinery/light/clockwork/built
+	fixture_type = "clockwork_tube"
+
+/obj/machinery/light_construct/clockwork/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	switch(stage)
+		if(1)
+			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
+			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+				return
+			new /obj/item/stack/tile/brass(get_turf(loc), sheets_refunded)
+			TOOL_DISMANTLE_SUCCESS_MESSAGE
+			qdel(src)
+		if(2)
+			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+		if(3)
+			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
+
+/obj/machinery/light_construct/clockwork/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/tile/brass(loc, sheets_refunded)
+	qdel(src)
+
+/**
   * # Small light fixture frame
   *
   * Incomplete light bulb fixture
   *
-  * Becomes a [Small light fixture] when completed
+  * Becomes a [/obj/machinery/light/small/built] when completed
   */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -156,6 +191,28 @@
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/floor/built
 
+/obj/machinery/light_construct/clockwork/small
+	name = "small brass light fixture frame"
+	desc = "A small brass light fixture under construction."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "clockwork_bulb-construct-stage1"
+	anchored = TRUE
+	layer = 5
+	stage = 1
+	fixture_type = "clockwork_bulb"
+	sheets_refunded = 1
+	construct_type = /obj/machinery/light/clockwork/small/built
+
+/obj/machinery/light_construct/clockwork/floor
+	name = "brass floor light fixture frame"
+	desc = "A brass floor light fixture under construction."
+	icon_state = "clockwork_floor-construct-stage1"
+	anchored = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+	fixture_type = "clockwork_floor"
+	sheets_refunded = 3
+	construct_type = /obj/machinery/light/clockwork/floor/built
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
@@ -178,9 +235,10 @@
 	layer = FLY_LAYER
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2  //when in low power mode
+	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	cares_about_temperature = TRUE
 	var/base_state = "tube" // Base description and icon_state
 	/// Is the light on or off?
 	var/on = FALSE
@@ -221,7 +279,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#FFDDCC"
+	var/nightshift_light_color = "#e0eeff"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -242,8 +300,9 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#a0a080"
+	brightness_color = "#ffebb0"
 	nightshift_light_range = 4
+	nightshift_light_color = "#ffefa0" // #a0a080
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -268,6 +327,37 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 
+/obj/machinery/light/clockwork
+	icon_state = "clockwork_tube1"
+	desc = "An industrial brass light fixture."
+	glow_icon_state = "clockwork_tube"
+	base_state = "clockwork_tube"
+	deconstruct_type = /obj/machinery/light_construct/clockwork
+	brightness_color = "#ffbb8d"
+
+/obj/machinery/light/clockwork/small
+	icon_state = "clockwork_bulb1"
+	desc = "A brass light fixture."
+	glow_icon_state = "clockwork_bulb"
+	base_state = "clockwork_bulb"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/small
+
+/obj/machinery/light/clockwork/floor
+	name = "brass floor light"
+	desc = "A brass floor light."
+	icon_state = "clockwork_floor1"
+	glow_icon_state = "clockwork_floor"
+	base_state = "clockwork_floor"
+	fitting = "bulb"
+	light_type = /obj/item/light/bulb
+	deconstruct_type = /obj/machinery/light_construct/clockwork/floor
+	brightness_range = 6
+	nightshift_light_range = 6
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+
 /obj/machinery/light/built
 	status = LIGHT_EMPTY
 
@@ -277,6 +367,14 @@
 /obj/machinery/light/floor/built
 	status = LIGHT_EMPTY
 
+/obj/machinery/light/clockwork/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/small/built
+	status = LIGHT_EMPTY
+
+/obj/machinery/light/clockwork/floor/built
+	status = LIGHT_EMPTY
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -297,12 +395,10 @@
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
-			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
 		if("floor")
 			brightness_range = 6
-			brightness_color = "#a0a080"
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
@@ -457,7 +553,8 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(nightshift_enabled ? IDLE_POWER_USE : ACTIVE_POWER_USE)
+
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
@@ -496,22 +593,29 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/gripper/gripper = used
+	if(istype(gripper) && gripper.engineering_machine_interaction)
+		if(gripper.gripped_item)
+			return item_interaction(user, gripper.gripped_item, modifiers)
+		else
+			return ..()
+
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
-	if(istype(W, /obj/item/lightreplacer))
-		var/obj/item/lightreplacer/LR = W
+	if(istype(used, /obj/item/lightreplacer))
+		var/obj/item/lightreplacer/LR = used
 		LR.ReplaceLight(src, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// Attack with Spray Can! Coloring time.
-	if(istype(W, /obj/item/toy/crayon/spraycan))
-		var/obj/item/toy/crayon/spraycan/spraycan = W
+	if(istype(used, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = used
 
 		// quick check to disable capped spraypainting, aesthetic reasons
 		if(spraycan.capped)
 			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.colour, 2, 4)), hex2num(copytext(spraycan.colour, 4, 6)), hex2num(copytext(spraycan.colour, 6, 8)))
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
@@ -520,23 +624,26 @@
 		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
 		brightness_color = new_color
 		update(TRUE, TRUE, FALSE)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	// attempt to insert light
-	if(istype(W, /obj/item/light))
+	if(istype(used, /obj/item/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
 		else
 			add_fingerprint(user)
-			var/obj/item/light/L = W
+			var/obj/item/light/L = used
 			if(istype(L, light_type))
 				status = L.status
 				to_chat(user, "<span class='notice'>You insert [L].</span>")
 				switchcount = L.switchcount
 				rigged = L.rigged
-				brightness_range = L.brightness_range
-				brightness_power = L.brightness_power
-				brightness_color = L.brightness_color
+				if(L.brightness_range)
+					brightness_range = L.brightness_range
+				if(L.brightness_power)
+					brightness_power = L.brightness_power
+				if(L.brightness_color)
+					brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
 				update(TRUE, TRUE, FALSE)
@@ -552,18 +659,18 @@
 					explode()
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 		// attempt to break the light
 		//If xenos decide they want to smash a light bulb with a toolbox, who am I to stop them? /N
 
 	if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 		user.do_attack_animation(src)
-		if(prob(1 + W.force * 5))
+		if(prob(1 + used.force * 5))
 
 			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
 			"<span class='danger'>You hear the tinkle of breaking glass.</span>")
-			if(on && (W.flags & CONDUCT))
+			if(on && (used.flags & CONDUCT))
 				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			break_light_tube()
@@ -571,18 +678,20 @@
 			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
 			"<span class='danger'>You hear someone hitting a light.</span>")
 			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
-		return
+
+		return ITEM_INTERACT_COMPLETE
 
 	// attempt to stick weapon into light socket
 	if(status == LIGHT_EMPTY)
-		if(has_power() && (W.flags & CONDUCT))
+		if(has_power() && (used.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
 			else // If not electrocuted
-				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
-			return
+				to_chat(user, "<span class='danger'>You stick [used] into the light socket!</span>")
+
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -615,12 +724,14 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
-	..()
+/obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (I.flags & CONDUCT))
+		if(on && (used.flags & CONDUCT))
 			if(prob(12))
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+				return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -668,7 +779,7 @@
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour)
+	set_light((fitting == "tube" ? 3 : 2), 1, bulb_emergency_colour)
 	update_icon()
 	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
@@ -840,7 +951,7 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
@@ -904,15 +1015,19 @@
 /obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_FLYING) || L.floating)
+/obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered) && has_gravity(loc))
+		if(living_entered.incorporeal_move || HAS_TRAIT(living_entered, TRAIT_FLYING) || living_entered.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
-	return ..()
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1
@@ -932,7 +1047,6 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
-	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL
@@ -952,7 +1066,6 @@
 	base_state = "lbulb"
 	item_state = "contvapour"
 	brightness_range = 5
-	brightness_color = "#a0a080"
 
 /obj/item/light/throw_impact(atom/hit_atom)
 	..()
@@ -980,7 +1093,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
-/obj/item/light/attackby(obj/item/I, mob/user, params)
+/obj/item/light/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
@@ -1001,11 +1114,11 @@
 	else // If it's not a syringe
 		return ..()
 
-/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/light/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	..()
 	shatter()
 
-/obj/item/light/attack_obj(obj/O, mob/living/user, params)
+/obj/item/light/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	..()
 	shatter()
 

@@ -2,7 +2,7 @@
 	name = "strong blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_shield"
-	desc = "Some blob creature thingy"
+	desc = "Some blob creature thingy."
 	max_integrity = 150
 	brute_resist = 0.25
 	explosion_block = 3
@@ -49,7 +49,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blob/shield/CanPass(atom/movable/mover, border_dir)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/shield/reflective

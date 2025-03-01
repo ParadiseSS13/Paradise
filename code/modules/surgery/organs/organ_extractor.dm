@@ -39,10 +39,10 @@
 	if(storedorgan)
 		storedorgan.emp_act(severity)
 
-/obj/item/organ_extractor/attack_self(mob/user)
+/obj/item/organ_extractor/attack_self__legacy__attackchain(mob/user)
 	insert_organ(user, user)
 
-/obj/item/organ_extractor/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/organ_extractor/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(in_use)
 		to_chat(user, "<span class='warning'>[src] is already busy!</span>")
 		return
@@ -179,10 +179,10 @@
 	self_insert_time = 1 SECONDS
 	advanced = TRUE
 
-/obj/item/organ_extractor/abductor/attackby(obj/item/I, mob/user, params)
+/obj/item/organ_extractor/abductor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/organ/internal) && !storedorgan)
-		user.unEquip(I)
+		user.unequip(I)
 		insert_internal_organ_in_extractor(I)
 
 /obj/item/organ_extractor/abductor/emp_act(severity)

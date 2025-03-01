@@ -138,7 +138,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = SLOT_HUD_SUIT_STORE
+	internals_slot = ITEM_SLOT_SUIT_STORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,
@@ -148,7 +148,7 @@
 		/obj/item/stack/marker_beacon/ten=1
 	)
 
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/mining/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -156,7 +156,7 @@
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
 		S.ToggleHood()
 
-/datum/outfit/job/miner/equipped/modsuit
+/datum/outfit/job/mining/equipped/modsuit
 	name = "Shaft Miner (Equipment + MODsuit)"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
@@ -287,7 +287,7 @@
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_KNOWS_COOKING_RECIPES, ROUNDSTART_TRAIT)
 	if(H.mind)
-		H.mind.AddSpell(new /datum/spell/chef/expert_chef)
+		H.mind.AddSpell(new /datum/spell/expert_chef)
 
 /datum/job/hydro
 	title = "Botanist"
@@ -313,10 +313,11 @@
 
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
+	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
-	suit_store = /obj/item/plant_analyzer
+	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
 	id = /obj/item/card/id/botanist
 	backpack = /obj/item/storage/backpack/botany

@@ -43,9 +43,10 @@
 	style = new()
 
 /obj/item/storage/belt/judobelt/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!</span>")
@@ -60,7 +61,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You suddenly forget the arts of Corporate Judo...</span>")
 

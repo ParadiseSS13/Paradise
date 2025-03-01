@@ -47,7 +47,7 @@
 		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
+	if(is_ai(user)) //so the AI can't open it
 		return
 	else if(isrobot(user) && Adjacent(user)) //but cyborgs can, but not remotely
 		return try_to_operate(user)
@@ -59,7 +59,7 @@
 	if(user.can_advanced_admin_interact())
 		operate()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target)
+/obj/structure/mineral_door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
@@ -115,7 +115,7 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
@@ -180,8 +180,9 @@
 	name = "plasma door"
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
+	cares_about_temperature = TRUE
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
+/obj/structure/mineral_door/transparent/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.get_heat())
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
@@ -190,7 +191,7 @@
 	else
 		return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		TemperatureAct(exposed_temperature)

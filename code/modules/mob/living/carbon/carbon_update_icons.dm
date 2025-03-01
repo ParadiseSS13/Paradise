@@ -12,12 +12,13 @@
 			final_pixel_y = pixel_y
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
-				final_pixel_y = PIXEL_Y_OFFSET_LYING
+				final_pixel_y = pixel_y + PIXEL_Y_OFFSET_LYING
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed++
 		ntransform.Scale(resize)
+		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
@@ -35,9 +36,9 @@
 /mob/living/carbon/proc/update_hands_hud()
 	if(!hud_used)
 		return
-	var/atom/movable/screen/inventory/R = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
+	var/atom/movable/screen/inventory/R = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)]
 	R?.update_icon()
-	var/atom/movable/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
+	var/atom/movable/screen/inventory/L = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_LEFT_HAND)]
 	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
@@ -62,12 +63,13 @@
 		update_observer_view(l_hand)
 
 /mob/living/carbon/update_inv_wear_mask()
-	if(istype(wear_mask, /obj/item/clothing/mask))
-		update_hud_wear_mask(wear_mask)
+	if(!wear_mask)
+		return
+	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
-	if(client && hud_used && hud_used.inv_slots[SLOT_HUD_BACK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BACK]
+	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)]
 		inv.update_icon()
 
 	if(back)

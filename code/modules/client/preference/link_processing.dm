@@ -3,6 +3,13 @@
 		return
 
 	var/datum/species/S = GLOB.all_species[active_character.species]
+	var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
+	if(isnull(subtype)) // Set the subtype to be the same as Species in the case we don't have one, saves alot of headaches when we're checking for valid markings etc.
+		subtype = S
+	else
+		S = new S.type()
+		S.bodyflags |= subtype.bodyflags // Used for finding valid styles.
+		S.species_subtype = subtype.name // Used for finding valid styles.
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -84,34 +91,6 @@
 				return
 			active_character.gen_record = genmsg
 			active_character.SetRecords(user)
-
-	if(href_list["preference"] == "gear")
-		if(href_list["toggle_gear"])
-			var/datum/gear/TG = GLOB.gear_datums[text2path(href_list["toggle_gear"])]
-			if(TG && (TG.type in active_character.loadout_gear))
-				active_character.loadout_gear -= TG.type
-			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
-					return
-				build_loadout(TG)
-
-		else if(href_list["gear"] && href_list["tweak"]) // NYI
-			var/datum/gear/gear = GLOB.gear_datums[text2path(href_list["gear"])]
-			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
-			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
-				return
-			var/metadata = tweak.get_metadata(user, active_character.get_tweak_metadata(gear, tweak))
-			if(!metadata)
-				return
-			active_character.set_tweak_metadata(gear, tweak, metadata)
-		else if(href_list["select_category"])
-			gear_tab = href_list["select_category"]
-		else if(href_list["clear_loadout"])
-			active_character.loadout_gear.Cut()
-
-		ShowChoices(user)
-		return
 
 	switch(href_list["task"])
 		if("random")
@@ -225,73 +204,33 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
-						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						var/datum/robolimb/robohead
-						if(NS.bodyflags & ALL_RPARTS)
-							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
-							robohead = GLOB.all_robolimbs[head_model]
-						//grab one of the valid hair styles for the newly chosen species
-						active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
-
-						//grab one of the valid facial hair styles for the newly chosen species
-						active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
-
-						if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-							active_character.ha_style = random_head_accessory(active_character.species)
+						if(isnull(NS))
+							NS = GLOB.all_species[active_character.species]
+						S = new NS.type()
+						active_character.species_subtype = "None"
+						active_character.age = clamp(active_character.age, S.min_age, S.max_age)
+						subtype = GLOB.all_species[active_character.species_subtype] // Changing species resets subtype.
+						if(isnull(subtype))
+							subtype = GLOB.all_species[active_character.species]
+						subtype = new subtype.type()
+						reset_styles(S)
+				if("species_subtype")
+					if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+						var/new_subtype = tgui_input_list(user, "Choose your character's species subtype:", "Character Preference", S.allowed_species_subtypes)
+						if(isnull(new_subtype) || active_character.species_subtype == new_subtype)
+							return
+						active_character.species_subtype = new_subtype
+						subtype = GLOB.all_species[active_character.species_subtype]
+						if(isnull(subtype))
+							subtype = GLOB.all_species[active_character.species]
+						subtype = new subtype.type()
+						S = new S.type() // Always make a new species before editing it, as datums get messy.
+						if(S.name != subtype.name)
+							S.bodyflags |= subtype.bodyflags // Add our body flags of the new subtype.
+							S.species_subtype = subtype.name
+							reset_styles(subtype, S)
 						else
-							active_character.ha_style = "None" // No Vulp ears on Unathi
-							active_character.hacc_colour = rand_hex_color()
-
-						if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-							active_character.m_styles["head"] = random_marking_style("head", active_character.species, robohead, null, active_character.alt_head)
-						else
-							active_character.m_styles["head"] = "None"
-							active_character.m_colours["head"] = "#000000"
-
-						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-							active_character.m_styles["body"] = random_marking_style("body", active_character.species)
-						else
-							active_character.m_styles["body"] = "None"
-							active_character.m_colours["body"] = "#000000"
-
-						if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-							active_character.m_styles["tail"] = random_marking_style("tail", active_character.species, null, active_character.body_accessory)
-						else
-							active_character.m_styles["tail"] = "None"
-							active_character.m_colours["tail"] = "#000000"
-
-						// Don't wear another species' underwear!
-						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.underwear = random_underwear(active_character.body_type, active_character.species)
-
-						SA = GLOB.undershirt_list[active_character.undershirt]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.undershirt = random_undershirt(active_character.body_type, active_character.species)
-
-						SA = GLOB.socks_list[active_character.socks]
-						if(!SA || !(active_character.species in SA.species_allowed))
-							active_character.socks = random_socks(active_character.body_type, active_character.species)
-
-						//reset skin tone and colour
-						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-							random_skin_tone(active_character.species)
-						else
-							active_character.s_tone = 0
-
-						if(!(NS.bodyflags & HAS_SKIN_COLOR))
-							active_character.s_colour = "#000000"
-
-						active_character.alt_head = "None" //No alt heads on species that don't have them.
-						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
-
-						//Reset prosthetics.
-						active_character.organ_data = list()
-						active_character.rlimb_data = list()
-
-						if(!(NS.autohiss_basic_map))
-							active_character.autohiss_mode = AUTOHISS_OFF
+							reset_styles(S)
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -329,17 +268,16 @@
 
 				if("hair")
 					if(!(S.bodyflags & BALD))
-						var/input = "Choose your character's hair colour:"
-						var/new_hair = input(user, input, "Character Preference", active_character.h_colour) as color|null
-						if(new_hair)
+						var/new_hair = tgui_input_color(user, "Choose your character's hair color.", "Character Preference", active_character.h_colour)
+						if(!isnull(new_hair))
 							active_character.h_colour = new_hair
 
 				if("secondary_hair")
 					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
-							if(new_hair)
+							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair color.", "Character Preference", active_character.h_sec_colour)
+							if(!isnull(new_hair))
 								active_character.h_sec_colour = new_hair
 
 				if("h_style")
@@ -364,7 +302,7 @@
 																							But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 									valid_hairstyles += hairstyle
 						else //If the user is not a species who can have robotic heads, use the default handling.
-							if(active_character.species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
+							if((active_character.species in SA.species_allowed) || (subtype.name in SA.species_allowed)) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
@@ -387,9 +325,10 @@
 						active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
-					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
-					if(result)
-						active_character.h_grad_colour = result
+					var/result = tgui_input_color(user, "Choose your character's hair gradient color:", "Character Preference", active_character.h_grad_colour)
+					if(isnull(result))
+						return
+					active_character.h_grad_colour = result
 
 				if("h_grad_alpha")
 					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha, 255)
@@ -398,23 +337,24 @@
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("runechat_color")
-					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
-					if(result)
-						active_character.runechat_color = result
+					var/result = tgui_input_color(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color)
+					if(isnull(result))
+						return
+					active_character.runechat_color = result
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/input = "Choose the colour of your your character's head accessory:"
-						var/new_head_accessory = input(user, input, "Character Preference", active_character.hacc_colour) as color|null
-						if(new_head_accessory)
-							active_character.hacc_colour = new_head_accessory
+						var/new_head_accessory = tgui_input_color(user, "Choose the color of your your character's head accessory.", "Character Preference", active_character.hacc_colour)
+						if(isnull(new_head_accessory))
+							return
+						active_character.hacc_colour = new_head_accessory
 
 				if("ha_style")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in GLOB.head_accessory_styles_list)
 							var/datum/sprite_accessory/H = GLOB.head_accessory_styles_list[head_accessory_style]
-							if(!(active_character.species in H.species_allowed))
+							if(!(active_character.species in H.species_allowed) && !(subtype.name in H.species_allowed))
 								continue
 
 							valid_head_accessory_styles += head_accessory_style
@@ -431,7 +371,7 @@
 						var/list/valid_alt_heads = list()
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
-							if(!(active_character.species in head.species_allowed))
+							if(!(active_character.species in head.species_allowed) && !(subtype.name in head.species_allowed))
 								continue
 
 							valid_alt_heads += alternate_head
@@ -450,7 +390,7 @@
 						var/list/valid_markings = list()
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(M.marking_location != "head")
 								continue
@@ -485,17 +425,17 @@
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/input = "Choose the colour of your your character's head markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["head"]) as color|null
-						if(new_markings)
-							active_character.m_colours["head"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's head markings.", "Character Preference", active_character.m_colours["head"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["head"] = new_markings
 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(M.marking_location != "body")
 								continue
@@ -508,10 +448,10 @@
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/input = "Choose the colour of your your character's body markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["body"]) as color|null
-						if(new_markings)
-							active_character.m_colours["body"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's body markings.", "Character Preference", active_character.m_colours["body"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["body"] = new_markings
 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
@@ -520,7 +460,7 @@
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
 								continue
-							if(!(active_character.species in M.species_allowed))
+							if(!(active_character.species in M.species_allowed) && !(subtype.name in M.species_allowed))
 								continue
 							if(!active_character.body_accessory)
 								if(M.tails_allowed)
@@ -537,10 +477,10 @@
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/input = "Choose the colour of your your character's tail markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["tail"]) as color|null
-						if(new_markings)
-							active_character.m_colours["tail"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's tail markings.", "Character Preference", active_character.m_colours["tail"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["tail"] = new_markings
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
@@ -551,7 +491,7 @@
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 							if(isnull(accessory)) // None
 								continue
-							if(active_character.species in accessory.allowed_species)
+							if((active_character.species in accessory.allowed_species) || (subtype.name in accessory.allowed_species))
 								possible_body_accessories += B
 					if(S.optional_body_accessory)
 						possible_body_accessories += "None" //the only null entry should be the "None" option
@@ -565,17 +505,19 @@
 
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
-						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
-						if(new_facial)
-							active_character.f_colour = new_facial
+						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair color:", "Character Preference", active_character.f_colour)
+						if(isnull(new_facial))
+							return
+						active_character.f_colour = new_facial
 
 				if("secondary_facial")
 					if(!(S.bodyflags & SHAVED))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null
-							if(new_facial)
-								active_character.f_sec_colour = new_facial
+							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair color:", "Character Preference", active_character.f_sec_colour)
+							if(isnull(new_facial))
+								return
+							active_character.f_sec_colour = new_facial
 
 				if("f_style")
 					var/list/valid_facial_hairstyles = list()
@@ -615,7 +557,7 @@
 							continue
 						if(active_character.body_type == FEMALE && SA.body_type == MALE)
 							continue
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
@@ -627,7 +569,7 @@
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
@@ -644,7 +586,7 @@
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(!(active_character.species in SA.species_allowed))
+						if(!(active_character.species in SA.species_allowed) && !(subtype.name in SA.species_allowed))
 							continue
 						if(active_character.body_type == MALE && SA.body_type == FEMALE)
 							continue
@@ -658,39 +600,47 @@
 						active_character.socks = new_socks
 
 				if("eyes")
-					var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference", active_character.e_colour) as color|null
-					if(new_eyes)
-						active_character.e_colour = new_eyes
+					var/new_eyes = tgui_input_color(user, "Choose your character's eye color:", "Character Preference", active_character.e_colour)
+					if(isnull(new_eyes))
+						return
+					active_character.e_colour = new_eyes
 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-						if(!new_s_tone)
+						if(isnull(new_s_tone))
 							return
 						active_character.s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
 						var/prompt = "Choose your character's skin tone: 1-[length(S.icon_skin_tones)]\n(Light to Dark)"
 						var/skin_c = tgui_input_number(user, prompt, "Character Preference", active_character.s_tone, length(S.icon_skin_tones), 1)
-						if(!skin_c)
+						if(isnull(skin_c))
 							return
 						active_character.s_tone = skin_c
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user))
-						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", active_character.s_colour) as color|null
-						if(new_skin)
-							active_character.s_colour = new_skin
+						var/new_skin = tgui_input_color(user, "Choose your character's skin color: ", "Character Preference", active_character.s_colour)
+						if(isnull(new_skin))
+							return
+						active_character.s_colour = new_skin
 
 				if("ooccolor")
-					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
-					if(new_ooccolor)
-						ooccolor = new_ooccolor
+					var/new_ooccolor = tgui_input_color(user, "Choose your OOC color:", "Game Preference", ooccolor)
+					if(isnull(new_ooccolor))
+						return
+					ooccolor = new_ooccolor
 
 				if("bag")
 					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						active_character.backbag = new_backbag
+
+				if("loadout")
+					var/datum/ui_module/loadout/loadout = new()
+					loadout.ui_interact(user)
+					return FALSE
 
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
@@ -870,6 +820,13 @@
 					if(!(brain_type in GLOB.borg_brain_choices))
 						return
 					active_character.cyborg_brain_type = brain_type
+				if("pda_ringtone")
+					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", list("Reset Default Ringtone") + GLOB.pda_ringtone_choices, active_character.pda_ringtone)
+					if(!(ringtone in GLOB.pda_ringtone_choices))
+						if(ringtone == "Reset Default Ringtone")
+							active_character.pda_ringtone = null
+						return
+					active_character.pda_ringtone = ringtone
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -941,7 +898,20 @@
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
+				if("map_pick")
+					var/list/potential_maps = list()
+					for(var/x in subtypesof(/datum/map))
+						var/datum/map/M = x
+						if(!initial(M.voteable))
+							continue
+						potential_maps += M
 
+					var/list/output = tgui_input_ranked_list(usr, "Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps", potential_maps)
+					if(!length(output))
+						return
+					map_vote_pref_json = list() //Clear it out
+					for(var/index in 1 to length(output)) //This is an associated list to make blackbox tracking easier
+						map_vote_pref_json[output[index]] = index
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
@@ -1004,6 +974,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
+					parent.fit_viewport()
 					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
@@ -1015,8 +986,9 @@
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
-					if(!UI_style_color_new) return
+					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", "Game Preference", UI_style_color)
+					if(isnull(UI_style_color_new))
+						return
 					UI_style_color = UI_style_color_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -1151,9 +1123,10 @@
 					screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
-					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
-					if(screentip_color_new)
-						screentip_color = screentip_color_new
+					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", "Game Preference", screentip_color)
+					if(isnull(screentip_color_new))
+						return
+					screentip_color = screentip_color_new
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
@@ -1301,3 +1274,74 @@
 
 	ShowChoices(user)
 	return TRUE
+
+/// Reset the styles what is available to the NS (new species) parameter. Parent Species is for subtype changing.
+/datum/preferences/proc/reset_styles(datum/species/NS, datum/species/parent_species)
+	var/datum/robolimb/robohead
+	if(!isnull(parent_species))
+		NS.bodyflags |= parent_species.bodyflags
+	if(NS.bodyflags & ALL_RPARTS)
+		var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
+		robohead = GLOB.all_robolimbs[head_model]
+	//grab one of the valid hair styles for the newly chosen species
+	active_character.h_style = random_hair_style(active_character.gender, NS.name, robohead)
+
+	//grab one of the valid facial hair styles for the newly chosen species
+	active_character.f_style = random_facial_hair_style(active_character.gender, NS.name, robohead)
+
+	if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
+		active_character.ha_style = random_head_accessory(NS.name)
+	else
+		active_character.ha_style = "None" // No Vulp ears on Unathi
+		active_character.hacc_colour = rand_hex_color()
+
+	if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
+		active_character.m_styles["head"] = random_marking_style("head", NS.name, robohead, null, active_character.alt_head)
+	else
+		active_character.m_styles["head"] = "None"
+		active_character.m_colours["head"] = "#000000"
+
+	if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
+		active_character.m_styles["body"] = random_marking_style("body", NS.name)
+	else
+		active_character.m_styles["body"] = "None"
+		active_character.m_colours["body"] = "#000000"
+
+	if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+		active_character.m_styles["tail"] = random_marking_style("tail", NS.name, null, active_character.body_accessory)
+	else
+		active_character.m_styles["tail"] = "None"
+		active_character.m_colours["tail"] = "#000000"
+
+	// Don't wear another species' underwear!
+	var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.underwear = random_underwear(active_character.body_type, NS.name)
+
+	SA = GLOB.undershirt_list[active_character.undershirt]
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.undershirt = random_undershirt(active_character.body_type, NS.name)
+
+	SA = GLOB.socks_list[active_character.socks]
+	if(!SA || !(NS.name in SA.species_allowed))
+		active_character.socks = random_socks(active_character.body_type, NS.name)
+
+	//reset skin tone and colour
+	if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+		random_skin_tone(NS.name)
+	else
+		active_character.s_tone = 0
+
+	if(!(NS.bodyflags & HAS_SKIN_COLOR))
+		active_character.s_colour = "#000000"
+
+	active_character.alt_head = "None" //No alt heads on species that don't have them.
+	active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
+	active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
+
+	//Reset prosthetics.
+	active_character.organ_data = list()
+	active_character.rlimb_data = list()
+
+	if(!(NS.autohiss_basic_map))
+		active_character.autohiss_mode = AUTOHISS_OFF

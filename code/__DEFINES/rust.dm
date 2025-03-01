@@ -8,6 +8,15 @@
 
 /* This comment bypasses grep checks */ /var/__rustlib
 
+// IF we are on the production box, use a dll that has 0 compatibility of working with normal people's CPUs
+// This works by allowing rust to compile with modern x86 instructionns, instead of compiling for a pentium 4
+// This has the potential for significant speed upgrades with SIMD and similar
+#ifdef PARADISE_PRODUCTION_HARDWARE
+#define RUSTLIBS_SUFFIX "_prod"
+#else
+#define RUSTLIBS_SUFFIX ""
+#endif
+
 /proc/__detect_rustlib()
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
@@ -16,35 +25,50 @@
 			return __rustlib = "tools/ci/librustlibs_ci.so"
 #endif
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"))
-			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"
+		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"))
+			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"
 		// Then check in the current directory.
-		if(fexists("./librustlibs.so"))
-			return __rustlib = "./librustlibs.so"
+		if(fexists("./librustlibs[RUSTLIBS_SUFFIX].so"))
+			return __rustlib = "./librustlibs[RUSTLIBS_SUFFIX].so"
 		// And elsewhere.
-		return __rustlib = "librustlibs.so"
+		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
-			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
+		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs[RUSTLIBS_SUFFIX].dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs[RUSTLIBS_SUFFIX].dll"
 		// Then check in the current directory.
-		if(fexists("./rustlibs.dll"))
-			return __rustlib = "./rustlibs.dll"
+		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
+			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
+
 		// And elsewhere.
-		return __rustlib = "rustlibs.dll"
+		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
+		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
+		return assignment_confirmed
+
 
 #define RUSTLIB (__rustlib || __detect_rustlib())
 
 #define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]_ffi")(args)
 
+// This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
+#undef RUSTLIBS_SUFFIX
+
+/// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
+/proc/byondapi_stack_trace(err)
+	CRASH(err)
+
+// MARK: MILLA
+
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
-/proc/is_milla_synchronous(tick)
-	return RUSTLIB_CALL(milla_is_synchronous, tick)
+/proc/milla_load_turfs(turf/low_corner, turf/high_corner)
+	ASSERT(istype(low_corner))
+	ASSERT(istype(high_corner))
+	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
 
-/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 
 /proc/get_tile_atmos(turf/T, list/L)
 	return RUSTLIB_CALL(milla_get_tile, T, L)
@@ -57,6 +81,9 @@
 
 /proc/get_interesting_atmos_tiles()
 	return RUSTLIB_CALL(milla_get_interesting_tiles)
+
+/proc/get_tracked_pressure_tiles()
+	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -77,11 +104,24 @@
 
 	return RUSTLIB_CALL(milla_set_tile_airtight, T, north, east, south, west)
 
+/proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+
+/proc/track_pressure_tiles(atom/A, radius)
+	var/turf/T = get_turf(A)
+	if(istype(T))
+		return RUSTLIB_CALL(milla_track_pressure_tiles, T, radius)
+
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)
 
 /proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+
+/proc/set_zlevel_freeze(z, bool_frozen)
+	return RUSTLIB_CALL(milla_set_zlevel_frozen, z, bool_frozen)
+
+// MARK: MapManip
 
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
@@ -106,15 +146,20 @@
 #define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	13
 #define MILLA_INDEX_INNATE_HEAT_CAPACITY	14
 #define MILLA_INDEX_TEMPERATURE				15
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE		16
+#define MILLA_INDEX_HOTSPOT_VOLUME			17
+#define MILLA_INDEX_WIND_X					18
+#define MILLA_INDEX_WIND_Y					19
+#define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_TEMPERATURE
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					16
-#define MILLA_INDEX_INTERESTING_REASONS		17
-#define MILLA_INDEX_AIRFLOW_X				18
-#define MILLA_INDEX_AIRFLOW_Y				19
+#define MILLA_INDEX_TURF					21
+#define MILLA_INDEX_INTERESTING_REASONS		22
+#define MILLA_INDEX_AIRFLOW_X				23
+#define MILLA_INDEX_AIRFLOW_Y				24
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y

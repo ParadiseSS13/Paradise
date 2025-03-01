@@ -46,11 +46,13 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
-	owner.adjustFireLoss(-grace_heal)
-	owner.adjustToxLoss(-grace_heal)
-	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+
+	var/mob/living/carbon/human/owner_human = owner
+	owner_human.adjustBruteLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustFireLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustToxLoss(-grace_heal)
+	owner_human.adjustOxyLoss(-(grace_heal * 2))
+	owner_human.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
@@ -92,9 +94,12 @@
 	var/found_someone = FALSE
 
 	for(var/mob/living/L in oview(9, owner))
-		found_someone = TRUE
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		if(L.can_block_magic(MAGIC_RESISTANCE))
+			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
+			continue
+		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
@@ -319,7 +324,7 @@
 
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
-/datum/status_effect/hippocraticOath
+/datum/status_effect/hippocratic_oath
 	id = "Hippocratic Oath"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
@@ -332,19 +337,21 @@
 	/// Max heal points for the rod to spend on healing people
 	var/max_heal_points = 50
 
-/datum/status_effect/hippocraticOath/on_apply()
+/datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
+	owner.permanent_huds |= H
 	return ..()
 
-/datum/status_effect/hippocraticOath/on_remove()
+/datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	owner.permanent_huds ^= H
 	H.remove_hud_from(owner)
 
-/datum/status_effect/hippocraticOath/tick()
+/datum/status_effect/hippocratic_oath/tick()
 	// Death transforms you into a snake after a short grace period
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
@@ -386,7 +393,7 @@
 		if(!heal_points)
 			break
 
-/datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
+/datum/status_effect/hippocratic_oath/proc/heal(mob/living/L)
 	var/starting_points = heal_points
 	var/force_particle = FALSE
 
@@ -417,7 +424,7 @@
 	if(starting_points < heal_points || force_particle)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 
-/datum/status_effect/hippocraticOath/proc/heal_human(mob/living/carbon/human/H)
+/datum/status_effect/hippocratic_oath/proc/heal_human(mob/living/carbon/human/H)
 	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
 		H.adjustBruteLoss(-3.5, robotic = TRUE)
 		H.adjustFireLoss(-3.5, robotic = TRUE)
@@ -459,12 +466,12 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
-	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
 		if(regen_type_applied == "Legion")
 			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+				owner.remove_CC()
 				for(var/obj/item/organ/external/E in H.bodyparts)
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
@@ -673,14 +680,23 @@
 /datum/status_effect/hope/tick()
 	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
 		return
+	var/heal_multiplier = 0
+	switch(owner.health)
+		if(50 to INFINITY)
+			heal_multiplier = 1
+		if(0 to 50)
+			heal_multiplier = 2
+		if(-50 to 0)
+			heal_multiplier = 3
+		if(-100 to -50)
+			heal_multiplier = 4
+	owner.adjustBruteLoss(-heal_multiplier)
+	owner.adjustFireLoss(-heal_multiplier)
+	owner.adjustOxyLoss(-heal_multiplier)
 	if(owner.health > 50)
 		if(prob(0.5))
 			hope_message()
 		return
-	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
-	owner.adjustBruteLoss(-heal_multiplier * 0.5)
-	owner.adjustFireLoss(-heal_multiplier * 0.5)
-	owner.adjustOxyLoss(-heal_multiplier)
 	if(prob(heal_multiplier * 2))
 		hope_message()
 

@@ -4,7 +4,8 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /**********************Jaunter**********************/
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
-	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
+	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. \
+		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
@@ -12,9 +13,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/wormhole_jaunter/attack_self(mob/user)
+/obj/item/wormhole_jaunter/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
 	activate(user, TRUE)
 
@@ -55,7 +56,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else
@@ -131,7 +132,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/attack_self__legacy__attackchain(mob/user) // message is later down
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
@@ -197,7 +198,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = null
 	return ..()
 
-/obj/item/grenade/jaunter_grenade/attack_self(mob/user)
+/obj/item/grenade/jaunter_grenade/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	thrower = user
 
@@ -261,7 +262,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	/// The turf where we activated the wormwhole.
 	var/wormhole_loc
 
-/obj/item/wormhole_jaunter/wormhole_weaver/attack_self(mob/user)
+/obj/item/wormhole_jaunter/wormhole_weaver/attack_self__legacy__attackchain(mob/user)
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/emp_act(severity)

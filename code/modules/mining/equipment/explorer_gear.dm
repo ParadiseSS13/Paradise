@@ -69,6 +69,9 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 	)
 
+/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -125,7 +128,7 @@
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
-/obj/item/clothing/head/space/prisoner_gulag
+/obj/item/clothing/head/helmet/space/prisoner_gulag
 	name = "gulag helmet"
 	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside heat."
 	icon_state = "hardsuit_gulag"

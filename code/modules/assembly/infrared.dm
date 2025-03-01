@@ -126,7 +126,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -14)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
@@ -165,7 +166,7 @@
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)
 
 /obj/item/assembly/infra/AltClick(mob/user)
 	rotate(user)
@@ -213,6 +214,12 @@
 	anchored = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/beam/i_beam/proc/hit()
 	if(master)
@@ -227,7 +234,7 @@
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
-/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/beam/i_beam/process()
@@ -267,10 +274,10 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
+/obj/effect/beam/i_beam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isobj(entered) && !isliving(entered))
 		return
-	if(iseffect(AM))
+	if(iseffect(entered))
 		return
 	hit()
 

@@ -75,6 +75,8 @@
 		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+		PRESSURE_HUD = 'icons/effects/effects.dmi',
+		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -113,8 +115,10 @@
 	usr.show_message(t, EMOTE_VISIBLE)
 
 /mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+#ifndef GAME_TESTS
 	if(!client)
 		return
+#endif
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related
@@ -146,7 +150,7 @@
 
 /mob/visible_message(message, self_message, blind_message, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M as anything in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src, ai_eyes = AI_EYE_INCLUDE))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -158,7 +162,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -171,7 +175,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
 		if(!M.client)
 			continue
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
@@ -187,7 +191,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -213,7 +217,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
@@ -241,9 +245,9 @@
 		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
-	if(equip_to_slot_if_possible(W, SLOT_HUD_LEFT_HAND, del_on_fail, disable_warning))
+	if(equip_to_slot_if_possible(W, ITEM_SLOT_LEFT_HAND, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, SLOT_HUD_RIGHT_HAND, del_on_fail, disable_warning))
+	else if(equip_to_slot_if_possible(W, ITEM_SLOT_RIGHT_HAND, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -303,23 +307,24 @@
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
-		SLOT_HUD_BACK,\
-		SLOT_HUD_WEAR_PDA,\
-		SLOT_HUD_WEAR_ID,\
-		SLOT_HUD_JUMPSUIT,\
-		SLOT_HUD_OUTER_SUIT,\
-		SLOT_HUD_WEAR_MASK,\
-		SLOT_HUD_HEAD,\
-		SLOT_HUD_SHOES,\
-		SLOT_HUD_GLOVES,\
-		SLOT_HUD_LEFT_EAR,\
-		SLOT_HUD_RIGHT_EAR,\
-		SLOT_HUD_GLASSES,\
-		SLOT_HUD_BELT,\
-		SLOT_HUD_SUIT_STORE,\
-		SLOT_HUD_TIE,\
-		SLOT_HUD_LEFT_STORE,\
-		SLOT_HUD_RIGHT_STORE\
+		ITEM_SLOT_BACK,\
+		ITEM_SLOT_PDA,\
+		ITEM_SLOT_ID,\
+		ITEM_SLOT_JUMPSUIT,\
+		ITEM_SLOT_OUTER_SUIT,\
+		ITEM_SLOT_MASK,\
+		ITEM_SLOT_NECK,\
+		ITEM_SLOT_HEAD,\
+		ITEM_SLOT_SHOES,\
+		ITEM_SLOT_GLOVES,\
+		ITEM_SLOT_LEFT_EAR,\
+		ITEM_SLOT_RIGHT_EAR,\
+		ITEM_SLOT_EYES,\
+		ITEM_SLOT_BELT,\
+		ITEM_SLOT_SUIT_STORE,\
+		ITEM_SLOT_ACCESSORY,\
+		ITEM_SLOT_LEFT_POCKET,\
+		ITEM_SLOT_RIGHT_POCKET\
 	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
@@ -328,7 +333,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
-		if(isstorage(W) && slot == SLOT_HUD_HEAD) // Storage items should be put on the belt before the head
+		if(isstorage(W) && slot == ITEM_SLOT_HEAD) // Storage items should be put on the belt before the head
+			continue
+		if(W.prefered_slot_flags && !(W.prefered_slot_flags & slot)) //If there's a prefered slot flags list, make sure this slot is in it
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -352,22 +359,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/mob/living/carbon/human/H = M
 
 		switch(slot)
-			if(SLOT_HUD_LEFT_HAND)
+			if(ITEM_SLOT_LEFT_HAND)
 				if(H.l_hand)
 					return 0
 				return 1
-			if(SLOT_HUD_RIGHT_HAND)
+			if(ITEM_SLOT_RIGHT_HAND)
 				if(H.r_hand)
 					return 0
 				return 1
-			if(SLOT_HUD_WEAR_MASK)
-				if(!(slot_flags & SLOT_FLAG_MASK))
+			if(ITEM_SLOT_MASK)
+				if(!(slot_flags & ITEM_SLOT_MASK))
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
-			if(SLOT_HUD_BACK)
-				if(!(slot_flags & SLOT_FLAG_BACK))
+			if(ITEM_SLOT_BACK)
+				if(!(slot_flags & ITEM_SLOT_BACK))
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -375,8 +382,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_OUTER_SUIT)
-				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
+			if(ITEM_SLOT_OUTER_SUIT)
+				if(!(slot_flags & ITEM_SLOT_OUTER_SUIT))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -384,8 +391,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_GLOVES)
-				if(!(slot_flags & SLOT_FLAG_GLOVES))
+			if(ITEM_SLOT_GLOVES)
+				if(!(slot_flags & ITEM_SLOT_GLOVES))
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -393,8 +400,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_SHOES)
-				if(!(slot_flags & SLOT_FLAG_FEET))
+			if(ITEM_SLOT_NECK)
+				if(!(slot_flags & ITEM_SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(ITEM_SLOT_SHOES)
+				if(!(slot_flags & ITEM_SLOT_SHOES))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -402,12 +418,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_BELT)
+			if(ITEM_SLOT_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(!(slot_flags & SLOT_FLAG_BELT))
+				if(!(slot_flags & ITEM_SLOT_BELT))
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -415,8 +431,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_GLASSES)
-				if(!(slot_flags & SLOT_FLAG_EYES))
+			if(ITEM_SLOT_EYES)
+				if(!(slot_flags & ITEM_SLOT_EYES))
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -424,8 +440,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_HEAD)
-				if(!(slot_flags & SLOT_FLAG_HEAD))
+			if(ITEM_SLOT_HEAD)
+				if(!(slot_flags & ITEM_SLOT_HEAD))
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -433,8 +449,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_LEFT_EAR)
-				if(!(slot_flags & SLOT_HUD_LEFT_EAR))
+			if(ITEM_SLOT_LEFT_EAR)
+				if(!(slot_flags & ITEM_SLOT_LEFT_EAR))
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -442,8 +458,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_RIGHT_EAR)
-				if(!(slot_flags & SLOT_HUD_RIGHT_EAR))
+			if(ITEM_SLOT_RIGHT_EAR)
+				if(!(slot_flags & ITEM_SLOT_RIGHT_EAR))
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -451,8 +467,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_JUMPSUIT)
-				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
+			if(ITEM_SLOT_JUMPSUIT)
+				if(!(slot_flags & ITEM_SLOT_JUMPSUIT))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -460,12 +476,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_WEAR_ID)
+			if(ITEM_SLOT_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(!(slot_flags & SLOT_FLAG_ID))
+				if(!(slot_flags & ITEM_SLOT_ID))
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -473,26 +489,26 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_LEFT_STORE)
+			if(ITEM_SLOT_LEFT_POCKET)
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
-			if(SLOT_HUD_RIGHT_STORE)
+			if(ITEM_SLOT_RIGHT_POCKET)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
 				return 0
-			if(SLOT_HUD_SUIT_STORE)
+			if(ITEM_SLOT_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
@@ -505,7 +521,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
+				if(is_pda(src) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -514,19 +530,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 1
 				return 0
-			if(SLOT_HUD_HANDCUFFED)
+			if(ITEM_SLOT_HANDCUFFED)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/handcuffs))
-					return 0
-				return 1
-			if(SLOT_HUD_LEGCUFFED)
+				return istype(src, /obj/item/restraints/handcuffs)
+			if(ITEM_SLOT_LEGCUFFED)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/restraints/legcuffs))
-					return 0
-				return 1
-			if(SLOT_HUD_IN_BACKPACK)
+				return istype(src, /obj/item/restraints/legcuffs)
+			if(ITEM_SLOT_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
 					if(length(B.contents) < B.storage_slots && w_class <= B.max_w_class)
@@ -617,6 +629,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
+	if(QDELETED(A))
+		return
 	if(A.invisibility > see_invisible)
 		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
@@ -624,6 +638,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return TRUE
 
 	face_atom(A)
+
 	if(!client)
 		var/list/result = A.examine(src)
 		to_chat(src, chat_box_examine(result.Join("\n")))
@@ -634,16 +649,90 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/key in client.recent_examines)
 		if(client.recent_examines[key] < world.time)
 			client.recent_examines -= key
+
 	var/ref_to_atom = A.UID()
+
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
-			result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
+			result = A.examine(src)
 	else
 		result = A.examine(src)
+		if(length(A.examine_more()))
+			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+		broadcast_examine(A)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+
+/// Tells nearby mobs about our examination.
+/mob/proc/broadcast_examine(atom/examined)
+	if(examined == src)
+		return
+
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+	if(isitem(examined))
+		var/obj/item/I = examined
+		if(I.in_storage)
+			if(get(I, /mob/living) == src)
+				loc_str = "inside [p_their()] [I.loc.name]..."
+			else
+				loc_str = "inside [I.loc]..."
+
+		else if(I.loc == src)
+			// Hide items in pockets.
+			if(get_slot_by_item(I) & ITEM_SLOT_BOTH_POCKETS)
+				loc_str = "inside [p_their()] pockets."
+			else
+				loc_str = "at [p_their()] [I.name]."
+
+			examining_worn_item = TRUE
+
+	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
+	if(examining_worn_item)
+		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/list/can_see_target = viewers(examined)
+	for(var/mob/M as anything in viewers(2, src))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
+			continue
+
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
+		else
+			to_chat(M, cannot_see_str)
+
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
+/mob/living/carbon/human/broadcast_examine(atom/examined)
+	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/mask = get_item_by_slot(ITEM_SLOT_MASK)
+	if(mask && ((mask.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
+		return
+
+	// We'll just assume if your eyes have tinted covering you can't see them very well.
+	if(get_total_tint())
+		return
+
+	return ..()
+
+/mob/dead/broadcast_examine(atom/examined)
+	return //Observers arent real the government is lying to you
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -693,12 +782,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(hand)
 		var/obj/item/W = l_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_l_hand()
 	else
 		var/obj/item/W = r_hand
 		if(W)
-			W.attack_self(src)
+			if(W.new_attack_chain)
+				W.activate_self(src)
+			else
+				W.attack_self__legacy__attackchain(src)
 			update_inv_r_hand()
 	return
 
@@ -774,10 +869,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -788,10 +883,16 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
-		if(src:cameraFollow)
-			src:cameraFollow = null
+		if(src:camera_follow)
+			src:camera_follow = null
 
 /mob/Topic(href, href_list)
+	if(href_list["flavor_more"])
+		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
+		onclose(usr, "[name]")
+	if(href_list["flavor_change"])
+		update_flavor_text()
+
 	if(usr != src)
 		return TRUE
 	if(..())
@@ -801,11 +902,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["flavor_more"])
-		usr << browse(text("<html><meta charset='utf-8'><head><title>[]</title></head><body><tt>[]</tt></body></html>", name, replacetext(flavor_text, "\n", "<br>")), "window=[name];size=500x200")
-		onclose(usr, "[name]")
-	if(href_list["flavor_change"])
-		update_flavor_text()
 
 	if(href_list["scoreboard"])
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
@@ -1116,13 +1212,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
-/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src), force_no_usr_check = FALSE, automatic = FALSE)
 	if(!ckey)
 		return
 	var/real_ckey = ckey
 	if(ckey[1] == "@") // Admin aghosting will do this
 		real_ckey = copytext(ckey, 2)
-	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time, force_no_usr_check, automatic)
 	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
@@ -1162,31 +1258,31 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "?_src_=vars;hallucinate=[UID()]"
+	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
+	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
 
-	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "?_src_=vars;gib=[UID()]"
+	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
@@ -1412,3 +1508,90 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(user.incapacitated())
 		return
 	return relaydrive(user, direction)
+
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
+
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	// A list of all things which are providing anti-magic to us
+	var/list/antimagic_sources = list()
+	var/is_magic_blocked = FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
+		is_magic_blocked = TRUE
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_recent_magic_block)), 6 SECONDS)
+
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
+			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/magic/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			"<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>",
+			"<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			"<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>",
+			"<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>",
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light(_color = antimagic_color, _range = 2, _power = 2, _duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
+
+/mob/living/proc/remove_recent_magic_block()
+	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)

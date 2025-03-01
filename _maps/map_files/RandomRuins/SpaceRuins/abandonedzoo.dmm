@@ -1,22 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /obj/machinery/shieldwallgen{
 	activated = 1;
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -28,12 +25,9 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -44,12 +38,9 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -60,7 +51,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -81,8 +71,6 @@
 /area/ruin/space/unpowered)
 "ak" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -188,8 +176,6 @@
 /area/ruin/space/unpowered)
 "aD" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/highsecurity{
@@ -206,30 +192,21 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/r_wall,
@@ -237,19 +214,15 @@
 "aG" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/gun/energy/floragun,
+/obj/effect/spawner/random/pool/spaceloot/zoo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
 "aH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -258,8 +231,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/med_data/laptop,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -272,17 +243,12 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -291,7 +257,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "aL" = (
 /turf/simulated/floor/plasteel{
@@ -300,8 +266,6 @@
 /area/ruin/space/unpowered)
 "aM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
@@ -331,7 +295,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "aR" = (
 /obj/machinery/light/small{
@@ -344,7 +308,6 @@
 "aS" = (
 /obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
@@ -356,13 +319,9 @@
 /area/ruin/space/unpowered)
 "aT" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
@@ -417,7 +376,7 @@
 /area/ruin/space/unpowered)
 "aY" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/temperature,
+/obj/effect/spawner/random/pool/spaceloot/zoo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -446,8 +405,6 @@
 /area/ruin/space/unpowered)
 "bc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -455,8 +412,6 @@
 "bd" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -474,8 +429,6 @@
 	},
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -550,19 +503,13 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -588,8 +535,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -598,17 +543,12 @@
 /area/ruin/space/unpowered)
 "bs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen,
@@ -616,7 +556,6 @@
 /area/ruin/space/unpowered)
 "bt" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen,
@@ -734,7 +673,7 @@
 /area/ruin/space/unpowered)
 "bP" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "bQ" = (
 /obj/machinery/shieldwallgen{
@@ -742,8 +681,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
@@ -758,8 +695,6 @@
 /area/space/nearstation)
 "bS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
@@ -779,11 +714,11 @@
 /area/ruin/space/unpowered)
 "bV" = (
 /obj/machinery/shieldwallgen,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "bW" = (
 /obj/item/shard,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ov" = (
 /turf/simulated/floor/plating/airless,
@@ -799,27 +734,51 @@
 
 (1,1,1) = {"
 aa
-ab
-ag
-ag
-ag
-ag
-ab
 aa
 aa
 aa
 aa
 aa
 aa
-ab
-ag
-ag
-ag
-ag
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 "}
 (2,1,1) = {"
+aa
+ab
+ag
+ag
+ag
+ag
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ag
+ag
+ag
+ag
+ab
+aa
+aa
+"}
+(3,1,1) = {"
 aa
 ac
 ah
@@ -840,8 +799,9 @@ bI
 bv
 ac
 aa
+aa
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 aa
 ac
 ah
@@ -862,8 +822,9 @@ bJ
 bv
 ac
 aa
+aa
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 aa
 ac
 ai
@@ -884,8 +845,9 @@ bv
 bv
 ac
 aa
+aa
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 aa
 ac
 aj
@@ -906,8 +868,9 @@ bv
 bv
 ac
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 aa
 ad
 ak
@@ -928,8 +891,9 @@ ak
 ak
 bQ
 aa
+aa
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aa
 aa
 aa
@@ -950,8 +914,9 @@ bK
 bK
 bR
 aa
+aa
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aa
 aa
 aa
@@ -972,8 +937,9 @@ at
 at
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aa
 aa
 aa
@@ -994,8 +960,9 @@ bL
 bG
 aa
 aa
+aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aa
 aa
 aa
@@ -1016,8 +983,9 @@ bM
 bG
 aa
 aa
+aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aa
 aa
 aa
@@ -1038,8 +1006,9 @@ at
 at
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 aa
 aa
 aa
@@ -1060,8 +1029,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 aa
 ae
 ak
@@ -1082,8 +1052,9 @@ ak
 ak
 bS
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 aa
 ac
 al
@@ -1104,8 +1075,9 @@ bD
 bH
 ac
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 aa
 ac
 am
@@ -1126,8 +1098,9 @@ bH
 ov
 bT
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 aa
 ac
 an
@@ -1148,8 +1121,9 @@ ov
 bO
 bU
 bW
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 aa
 ac
 ao
@@ -1170,8 +1144,9 @@ ov
 ov
 bP
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 aa
 af
 ak
@@ -1192,8 +1167,9 @@ bN
 bP
 aa
 aa
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -1214,8 +1190,10 @@ aa
 aa
 bV
 aa
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+aa
 aa
 aa
 aa

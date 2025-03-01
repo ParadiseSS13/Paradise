@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	attack_verb = list("clubbed", "beat", "pummeled")
@@ -39,16 +39,16 @@
 	user.visible_message("<span class='hierophant_warning'>[user] fades out, leaving [user.p_their()] belongings behind!</span>")
 	for(var/obj/item/I in user)
 		if(I != src)
-			user.unEquip(I)
+			user.drop_item_to_ground(I)
 	for(var/turf/T in RANGE_TURFS(1, user))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, TRUE)
 		B.damage = 0
-	user.unEquip(src) //Drop us last, so it goes on top of their stuff
+	user.drop_item_to_ground(src) //Drop us last, so it goes on top of their stuff
 	qdel(user)
 	return OBLITERATION
 
 
-/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_club/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(world.time < timer)
 		return

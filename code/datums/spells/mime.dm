@@ -1,7 +1,6 @@
 /datum/spell/aoe/conjure/build/mime_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
-	school = "mime"
 	summon_type = list(/obj/structure/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -10,6 +9,7 @@
 	clothes_req = FALSE
 	cast_sound = null
 	human_req = TRUE
+	antimagic_flags = NONE
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
@@ -30,7 +30,6 @@
 /datum/spell/mime/speak
 	name = "Speech"
 	desc = "Make or break a vow of silence."
-	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 	human_req = TRUE
@@ -63,8 +62,7 @@
 /datum/spell/forcewall/mime
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
-	school = "mime"
-	wall_type = /obj/effect/forcefield/mime/advanced
+	wall_type = /obj/effect/forcefield/mime
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
 	base_cooldown = 60 SECONDS
@@ -87,10 +85,10 @@
 /datum/spell/mime/fingergun
 	name = "Finger Gun"
 	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
-	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 	human_req = TRUE
+	antimagic_flags = NONE
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"
@@ -134,7 +132,7 @@
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
 	icon_state = "bookmime"
 
-/obj/item/spellbook/oneuse/mime/attack_self(mob/user)
+/obj/item/spellbook/oneuse/mime/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)

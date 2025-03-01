@@ -75,7 +75,7 @@
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -252,9 +252,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
-/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/dna_probe))
-		var/obj/item/dna_probe/P = I
+/obj/machinery/dna_vault/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/dna_probe))
+		var/obj/item/dna_probe/P = used
 		var/uploaded = 0
 		for(var/plant in P.plants)
 			if(!plants[plant])
@@ -270,8 +270,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				dna[ui] = 1
 		check_goal()
 		to_chat(user, "<span class='notice'>[uploaded] new datapoints uploaded.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))

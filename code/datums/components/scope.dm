@@ -58,6 +58,9 @@
 	))
 
 /datum/component/scope/process()
+	if(!tracker)
+		STOP_PROCESSING(SSprojectiles, src)
+		return
 	var/mob/user_mob = tracker.owner
 	var/client/user_client = user_mob.client
 	if(!user_client)
@@ -101,7 +104,7 @@
 	SIGNAL_HANDLER // COMSIG_GUN_TRY_FIRE
 	if(!tracker?.given_turf || target == get_target(tracker.given_turf))
 		return NONE
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack), get_target(tracker.given_turf), user)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack__legacy__attackchain), get_target(tracker.given_turf), user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /datum/component/scope/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -180,7 +183,7 @@
 		)
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
-	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
@@ -215,7 +218,7 @@
 		COMSIG_CARBON_SWAP_HANDS,
 		COMSIG_PARENT_QDELETING,
 	))
-	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")

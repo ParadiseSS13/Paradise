@@ -52,7 +52,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 
-/obj/item/garrote/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/garrote/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(garrote_time > world.time) // Cooldown
 		return
 
@@ -84,7 +84,7 @@
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
 		return
 
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
 	var/obj/item/grab/G = M.grabbedby(U, 1)

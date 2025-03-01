@@ -44,12 +44,12 @@ CONTENTS:
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
 
 
-/obj/item/gun/magic/wand/attack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/attack__legacy__attackchain(atom/target, mob/living/user)
 	if(target == user)
 		return
 	..()
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/afterattack__legacy__attackchain(atom/target, mob/living/user)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -192,7 +192,7 @@ CONTENTS:
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/fireball/attack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/fireball/attack__legacy__attackchain(atom/target, mob/living/user)
 	if(!iscarbon(target))
 		return ..()
 
@@ -240,7 +240,7 @@ CONTENTS:
 
 // This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
 /obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)
-	var/mask_item = target.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
+	var/mask_item = target.get_item_by_slot(ITEM_SLOT_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 		return
 	. = ..()

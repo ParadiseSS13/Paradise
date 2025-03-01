@@ -736,6 +736,16 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_medical_beamgun
+	name = "Exosuit Medical Equipment (Medical Beamgun)"
+	id = "mech_medi_beam"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	req_tech = list("combat" = 5, "materials" = 7, "powerstorage" = 7, "biotech" = 7)
+	materials = list(MAT_METAL=15000,MAT_GLASS=8000,MAT_PLASMA=3000,MAT_GOLD=8000,MAT_DIAMOND=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_mop
 	name = "Exosuit Janitorial Equipment (Mega Mop)"
 	id = "mech_mop"
@@ -961,7 +971,7 @@
 
 /datum/design/clusterbang_launcher
 	name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
-	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
+	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute."
 	id = "clusterbang_launcher"
 	build_type = MECHFAB
 	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
@@ -994,7 +1004,7 @@
 
 /datum/design/mech_energy_relay
 	name = "Exosuit Module (Tesla Energy Relay)"
-	desc = "Tesla Energy Relay"
+	desc = "Tesla Energy Relay."
 	id = "mech_energy_relay"
 	build_type = MECHFAB
 	req_tech = list("magnets" = 4, "powerstorage" = 5, "engineering" = 4)
@@ -1300,6 +1310,16 @@
 	build_path = /obj/item/borg/upgrade/rped
 	req_tech = list("materials" = 3, "engineering" = 4)
 	materials = list(MAT_METAL = 40000, MAT_GLASS = 15000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_rsf_executive
+	name = "Cyborg Upgrade (Executive Service Upgrade)"
+	id = "borg_upgrade_RSF_executive"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/rsf_executive
+	req_tech = list("materials" = 2, "biotech" = 3)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 

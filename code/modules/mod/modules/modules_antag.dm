@@ -287,7 +287,7 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	mod.wearer.set_alpha_tracking(stealth_alpha, src, update_alpha = FALSE)
 	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 	drain_power(use_power_cost)
@@ -298,7 +298,7 @@
 		return
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
 	mod.wearer.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
 	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 
@@ -526,6 +526,24 @@
 
 /obj/item/mod/module/energy_shield/gamma
 	shield_icon = "shield-old"
+
+///Magic Nullifier - Protects you from magic.
+/obj/item/mod/module/anti_magic
+	name = "MOD magic nullifier module"
+	desc = "A series of obsidian rods installed into critical points around the suit, \
+		vibrated at a certain low frequency to enable them to resonate. \
+		This creates a low-range, yet strong, magic nullification field around the user, \
+		aided by a full replacement of the suit's normal coolant with holy water. \
+		Spells will spall right off this field, though it'll do nothing to help others believe you about all this."
+	icon_state = "magic_nullifier"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/anti_magic)
+
+/obj/item/mod/module/anti_magic/on_suit_activation()
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
+
+/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
 
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp

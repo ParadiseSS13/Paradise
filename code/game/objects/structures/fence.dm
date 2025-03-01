@@ -58,7 +58,7 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
+/obj/structure/fence/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
 	if(isprojectile(mover))
@@ -121,7 +121,7 @@
 					return
 			update_cut_status()
 
-/obj/structure/fence/attackby(obj/item/C, mob/user)
+/obj/structure/fence/attackby__legacy__attackchain(obj/item/C, mob/user)
 	if(shock(user, 90))
 		return
 	if(istype(C, /obj/item/stack/rods))

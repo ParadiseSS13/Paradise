@@ -16,12 +16,13 @@
 	var/timing = FALSE
 	var/armed = FALSE
 	var/timepassed = 0
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 
-/obj/item/caution/proximity_sign/attack_self(mob/user as mob)
+/obj/item/caution/proximity_sign/attack_self__legacy__attackchain(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !IS_MINDSLAVE(H))
@@ -71,10 +72,10 @@
 	name = "proximity mine dispenser"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
-	energy_type = /datum/robot_storage/energy/janitor/landmine
+	energy_type = /datum/robot_storage/energy/jani_landmine
 	is_cyborg = TRUE
 
-/obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user, proximity)
+/obj/item/stack/caution/proximity_sign/malf/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!check_allowed_items(target, 1))
 		return
 	if(!proximity)

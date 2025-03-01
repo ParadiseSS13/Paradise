@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/energy
 	name = "energy weapon lens"
-	desc = "The part of the gun that makes the laser go pew"
+	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
@@ -255,7 +255,6 @@
 
 /obj/item/ammo_casing/energy/arc_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
-	e_cost = 125 //8 shots?
 	select_name = "lightning beam" //I guess
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
 	projectile_type = /obj/item/projectile/energy/arc_revolver
@@ -280,7 +279,7 @@
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
 
 /obj/item/ammo_casing/energy/charged_plasma
-	projectile_type = /obj/item/projectile/energy/charged_plasma
+	projectile_type = /obj/item/projectile/homing/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
