@@ -48,7 +48,7 @@
 	desc = "It's a storage unit for an elite syndicate strike team's gear."
 
 /obj/structure/closet/syndicate/sst/populate_contents()
-	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/mm762x51(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/storage/belt/military/sst(src)

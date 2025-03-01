@@ -107,6 +107,8 @@
 					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
 					/obj/item/storage/box/papersack = 20,
+					/obj/item/kitchen/knife/cheese = 2,
+					/obj/item/kitchen/knife/pizza_cutter = 2,
 					/obj/item/reagent_containers/cooking/mould/bear = 1,
 					/obj/item/reagent_containers/cooking/mould/worm = 1,
 					/obj/item/reagent_containers/cooking/mould/bean = 1,
