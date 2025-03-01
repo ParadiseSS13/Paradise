@@ -150,7 +150,9 @@
 	suffix = "turretedoutpost.dmm"
 	name = "Syndicate Interdiction Platform"
 	description = "Taking a departure from their usual MO of hiding their installations away from prying eyes, \
-	the Syndicate deployed this asset right in the open and bolted enough guns onto the hull to keep all but the most determined attackers at bay. The jolly crew perform raiding operations against poorly protected NT assets."
+	the Syndicate deployed this asset right in the open and bolted enough guns onto the hull to keep all but the most determined attackers at bay. \
+	The jolly crew perform raiding operations against poorly protected NT assets."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/way_home
 	id = "way-home"

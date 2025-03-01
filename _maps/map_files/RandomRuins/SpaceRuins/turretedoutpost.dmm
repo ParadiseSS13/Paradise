@@ -34,11 +34,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"dy" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "dR" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/swat,
+/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+/obj/item/clothing/mask/gas/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
+"eg" = (
+/obj/structure/chair/comfy/red,
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
 "eh" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -56,6 +68,13 @@
 	},
 /turf/template_noop,
 /area/ruin/space/turreted_outpost/solars)
+"fV" = (
+/obj/structure/railing/cap/reversed{
+	dir = 4
+	},
+/obj/structure/railing/cap/normal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "gA" = (
 /obj/machinery/power/solar,
 /obj/structure/cable/yellow{
@@ -68,17 +87,17 @@
 /area/ruin/space/turreted_outpost/solars)
 "hz" = (
 /obj/structure/rack,
-/obj/item/clothing/mask/gas/syndicate,
+/obj/effect/spawner/random/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "ia" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "iq" = (
@@ -102,13 +121,23 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "li" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
+"ml" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "mP" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/turf/simulated/floor/plating,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "mZ" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -120,6 +149,10 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"pi" = (
+/obj/structure/railing/cap/reversed,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "px" = (
 /obj/machinery/light{
@@ -137,6 +170,10 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/paper_bin,
 /obj/item/pen/blue,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 11;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "qa" = (
@@ -181,14 +218,30 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"sp" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/structure/railing/cap/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "sX" = (
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"tm" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "tw" = (
-/obj/structure/barricade/sandbags,
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "tT" = (
@@ -223,8 +276,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "wR" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/door/airlock/hatch{
+	name = "Syndicate Interdiction Platform Bathroom"
+	},
+/turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "wW" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -296,6 +351,12 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"Bl" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "BH" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -316,11 +377,26 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"Cp" = (
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/obj/structure/railing/cap/reversed{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "CH" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Db" = (
+/obj/structure/railing/cap/reversed{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "Ez" = (
 /obj/structure/cable/yellow{
@@ -351,7 +427,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Gd" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/turreted_outpost/vault)
 "Hb" = (
 /obj/structure/cable{
@@ -360,6 +436,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Hr" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "HH" = (
 /obj/structure/table/wood,
@@ -418,12 +500,23 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "KO" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+/obj/effect/spawner/random/syndicate/loot/rare,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
+"LU" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
 "Mw" = (
 /obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"ME" = (
+/obj/structure/railing{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "Np" = (
@@ -507,11 +600,16 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/swat,
+/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+/obj/item/clothing/mask/gas/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "Se" = (
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/lighter/zippo{
+	pixel_x = -10;
+	pixel_y = 7
+	},
 /obj/item/salvage/loot/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
@@ -526,7 +624,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "SI" = (
@@ -546,7 +643,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost/vault)
 "TD" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -558,6 +654,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "TV" = (
@@ -593,12 +690,24 @@
 	icon_state = "rockvault"
 	},
 /area/ruin/space/turreted_outpost)
+"WR" = (
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "WY" = (
 /obj/structure/rack,
 /obj/machinery/light,
 /obj/item/storage/firstaid/adv,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
+"XK" = (
+/obj/structure/railing/cap/normal{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 "XP" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel/dark,
@@ -636,6 +745,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
+"ZQ" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 
 (1,1,1) = {"
 UL
@@ -643,10 +758,9 @@ UL
 UL
 UL
 UL
-UL
-tw
-tw
-tw
+ME
+Bl
+ZQ
 Yb
 Yb
 Yb
@@ -657,9 +771,9 @@ Yb
 Yb
 Yb
 Yb
-tw
-tw
-tw
+ME
+Bl
+ZQ
 UL
 "}
 (2,1,1) = {"
@@ -668,9 +782,9 @@ UL
 UL
 UL
 UL
-UL
 tw
 WE
+Db
 bI
 bI
 bI
@@ -681,10 +795,9 @@ bI
 bI
 bI
 bI
-bI
-bI
+XK
 WE
-tw
+tm
 UL
 "}
 (3,1,1) = {"
@@ -693,10 +806,9 @@ UL
 UL
 UL
 UL
-UL
-tw
+dy
+WR
 bI
-bI
 qa
 qa
 qa
@@ -708,12 +820,11 @@ qa
 qa
 qa
 bI
-bI
-tw
+pi
+Hr
 UL
 "}
 (4,1,1) = {"
-UL
 UL
 UL
 UL
@@ -743,7 +854,6 @@ UL
 UL
 UL
 UL
-UL
 Yb
 bI
 qa
@@ -768,7 +878,6 @@ UL
 UL
 UL
 UL
-UL
 Yb
 bI
 qa
@@ -778,7 +887,7 @@ Gd
 Oq
 KO
 hz
-hz
+KO
 Gd
 Gd
 Tv
@@ -788,7 +897,6 @@ Yb
 UL
 "}
 (7,1,1) = {"
-UL
 UL
 UL
 UL
@@ -818,7 +926,6 @@ UL
 UL
 UL
 UL
-UL
 Yb
 bI
 qa
@@ -843,7 +950,6 @@ UL
 UL
 UL
 UL
-UL
 Yb
 bI
 qa
@@ -863,10 +969,9 @@ Yb
 UL
 "}
 (10,1,1) = {"
-UL
-tw
-tw
-tw
+ME
+Bl
+ZQ
 UL
 UL
 Yb
@@ -888,10 +993,9 @@ Yb
 UL
 "}
 (11,1,1) = {"
-UL
 tw
 WE
-bI
+tm
 Yb
 Yb
 Yb
@@ -913,10 +1017,9 @@ Yb
 UL
 "}
 (12,1,1) = {"
-UL
-tw
-bI
-bI
+dy
+mP
+Cp
 bI
 bI
 bI
@@ -938,7 +1041,6 @@ Yb
 UL
 "}
 (13,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -964,7 +1066,6 @@ UL
 "}
 (14,1,1) = {"
 UL
-UL
 Yb
 Mw
 qa
@@ -973,7 +1074,7 @@ AC
 Ia
 qa
 OU
-kN
+LU
 Kd
 qa
 so
@@ -983,12 +1084,11 @@ IE
 qa
 Mw
 bI
-bI
-bI
-tw
+fV
+Bl
+ZQ
 "}
 (15,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -1008,12 +1108,11 @@ uc
 qa
 Mw
 Yb
-bI
-WE
 tw
+WE
+tm
 "}
 (16,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -1033,12 +1132,11 @@ AK
 qa
 Mw
 Yb
-tw
-tw
-tw
+dy
+mP
+Hr
 "}
 (17,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -1064,7 +1162,6 @@ UL
 "}
 (18,1,1) = {"
 UL
-UL
 Yb
 Mw
 qa
@@ -1088,7 +1185,6 @@ UL
 UL
 "}
 (19,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -1114,7 +1210,6 @@ UL
 "}
 (20,1,1) = {"
 UL
-UL
 Yb
 Mw
 qa
@@ -1124,7 +1219,7 @@ iq
 qa
 Ja
 QB
-Fz
+eg
 HH
 Ub
 qK
@@ -1139,12 +1234,11 @@ UL
 "}
 (21,1,1) = {"
 UL
-UL
 Yb
 QZ
 qa
 Ou
-mP
+JX
 qa
 SI
 QB
@@ -1163,7 +1257,6 @@ UL
 UL
 "}
 (22,1,1) = {"
-UL
 UL
 Yb
 Mw
@@ -1189,12 +1282,11 @@ UL
 "}
 (23,1,1) = {"
 UL
-UL
 Yb
 Mw
 qa
-Ez
-JX
+ml
+bI
 qa
 qa
 qa
@@ -1213,10 +1305,9 @@ UL
 UL
 "}
 (24,1,1) = {"
-UL
-tw
-bI
-bI
+ME
+Bl
+sp
 bI
 BH
 qy
@@ -1229,19 +1320,18 @@ EV
 bI
 bI
 bI
-bI
-bI
-tw
+fV
+Bl
+ZQ
 UL
 UL
 UL
 UL
 "}
 (25,1,1) = {"
-UL
 tw
 WE
-bI
+tm
 Yb
 Yb
 Yb
@@ -1254,19 +1344,18 @@ zR
 Yb
 Yb
 Yb
-bI
-WE
 tw
+WE
+tm
 UL
 UL
 UL
 UL
 "}
 (26,1,1) = {"
-UL
-tw
-tw
-tw
+dy
+mP
+Hr
 UL
 UL
 UL
@@ -1279,16 +1368,15 @@ Np
 zV
 UL
 UL
-tw
-tw
-tw
+dy
+mP
+Hr
 UL
 UL
 UL
 UL
 "}
 (27,1,1) = {"
-UL
 UL
 UL
 UL
@@ -1319,7 +1407,6 @@ UL
 UL
 UL
 UL
-UL
 gA
 Np
 zV
@@ -1338,7 +1425,6 @@ UL
 UL
 "}
 (29,1,1) = {"
-UL
 UL
 UL
 UL
@@ -1371,7 +1457,6 @@ UL
 UL
 UL
 UL
-UL
 Yb
 fp
 Yb
@@ -1388,7 +1473,6 @@ UL
 UL
 "}
 (31,1,1) = {"
-UL
 UL
 UL
 UL
