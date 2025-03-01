@@ -191,11 +191,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
-"rB" = (
-/obj/structure/rack,
-/obj/item/grenade/chem_grenade/teargas,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost/vault)
 "rL" = (
 /obj/structure/rack,
 /obj/structure/cable{
@@ -203,7 +198,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/ammo_box/c10mm,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "sh" = (
@@ -398,6 +393,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
+"DZ" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
 "Ez" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -499,11 +499,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
-"KO" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
-/obj/structure/rack,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost/vault)
 "LU" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -586,7 +581,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/item/ammo_box/c10mm,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "QB" = (
@@ -601,8 +596,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen/engi/syndi,
-/obj/item/clothing/mask/gas/syndicate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "Se" = (
@@ -886,9 +880,9 @@ Tv
 Gd
 Gd
 Oq
-KO
+JD
 hz
-KO
+JD
 Gd
 Gd
 Tv
@@ -908,7 +902,7 @@ bI
 qa
 Tv
 Gd
-rB
+dR
 vg
 vg
 vg
@@ -935,7 +929,7 @@ Gd
 Yr
 SF
 Pg
-JD
+DZ
 vg
 bT
 Gd
@@ -959,7 +953,7 @@ Gd
 Ri
 vg
 rL
-JD
+DZ
 vg
 WY
 Gd
@@ -980,7 +974,7 @@ bI
 qa
 Tv
 Gd
-dR
+DZ
 vg
 YB
 vg
