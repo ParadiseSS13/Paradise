@@ -68918,25 +68918,12 @@
 	},
 /area/station/medical/sleeper)
 "nMi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random/fungus/maybe,
 /obj/effect/turf_decal/siding{
 	dir = 9
 	},
 /obj/machinery/camera{
 	c_tag = "Security Aft Space Bridge";
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/security/south)
