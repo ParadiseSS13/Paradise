@@ -58,6 +58,8 @@
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
+	color = COLOR_GREEN
+
 
 /obj/item/projectile/bullet/incendiary
 	immolate = 1
