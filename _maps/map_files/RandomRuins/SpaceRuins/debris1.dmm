@@ -5,22 +5,22 @@
 "ab" = (
 /obj/structure/disposalpipe/segment,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ac" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ad" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ae" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "af" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
 /turf/template_noop,
@@ -30,14 +30,14 @@
 	dir = 4
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ah" = (
 /obj/structure/disposalpipe/broken{
 	dir = 8
 	},
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "al" = (
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
@@ -49,54 +49,54 @@
 "ap" = (
 /obj/structure/girder/displaced,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "au" = (
 /obj/structure/door_assembly/door_assembly_sec,
 /obj/item/airlock_electronics,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ax" = (
 /obj/structure/disposalpipe/junction,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ay" = (
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "az" = (
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aB" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aC" = (
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aE" = (
 /obj/item/stack/rods,
 /turf/template_noop,
 /area/template_noop)
 "aF" = (
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aG" = (
 /obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aI" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aJ" = (
 /obj/structure/disposalpipe/broken,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aK" = (
 /obj/item/shard,
 /turf/template_noop,
@@ -105,34 +105,34 @@
 /obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aQ" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aT" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aU" = (
 /obj/effect/spawner/random/barrier/wall_probably,
 /turf/template_noop,
-/area/template_noop)
+/area/ruin/unpowered)
 "aV" = (
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "aW" = (
 /obj/structure/lattice,
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aY" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aZ" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -148,11 +148,18 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
+"oY" = (
+/turf/simulated/floor/plating/burnt/airless,
+/area/space/nearstation)
+"Pl" = (
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/space/nearstation)
 "QL" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 aa
@@ -247,7 +254,7 @@ aa
 aa
 aa
 ag
-ay
+oY
 aa
 aE
 aI
@@ -291,8 +298,8 @@ aa
 aa
 aa
 aa
-ay
-aE
+oY
+Pl
 af
 aE
 aY
