@@ -530,7 +530,7 @@
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
 /datum/mind/proc/edit_memory()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Not before round-start!", "Alert")
 		return
 
@@ -1509,11 +1509,11 @@
 				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(!isAI(current))
+				if(!is_ai(current))
 					return
 				var/mob/living/silicon/ai/ai = current
 				for(var/mob/living/silicon/robot/R in ai.connected_robots)
-					R.unemag()
+					R.unemag(R)
 				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
@@ -1521,7 +1521,7 @@
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/I in current)
-					current.unEquip(I, TRUE)
+					current.drop_item_to_ground(I, force = TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")

@@ -234,35 +234,35 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/chem_dispenser/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/part_replacer))
+/obj/machinery/chem_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-			return
+			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-		I.forceMove(src)
+		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [I] with [beaker].</span>")
+			to_chat(usr, "<span class='notice'>You swap [used] with [beaker].</span>")
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
-		beaker = I
+			to_chat(user, "<span class='notice'>You set [used] on the machine.</span>")
+		beaker = used
 
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -579,9 +579,8 @@
 			if(C.maxcharge < 100)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			if(!user.unEquip(W))
+			if(!user.transfer_item_to(W, src))
 				return
-			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon(UPDATE_OVERLAYS)

@@ -39,19 +39,16 @@
 		return
 	to_chat(user, "<span class='notice'>You can't move.</span>")
 
-/obj/effect/spresent/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-
-	if(!istype(W, /obj/item/wirecutters))
+/obj/effect/spresent/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='notice'>You cut open the present.</span>")
-
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.forceMove(loc)
-
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/a_gift/attack_self__legacy__attackchain(mob/M as mob)
 	var/gift_type = pick(
@@ -119,7 +116,7 @@
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.unequip(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

@@ -94,9 +94,10 @@
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
-/obj/effect/anomaly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
+/obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
@@ -418,7 +419,7 @@
 		shootAt(H)
 
 	if(prob(10))
-		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container/anomaly(get_turf(src))
 		for(var/i in 1 to 5)
 			step_towards(A, pick(turf_targets))
 			sleep(2)

@@ -431,7 +431,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 63
+#define SQL_VERSION 64
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -732,3 +732,7 @@ do { \
 #define LAVALAND_TENDRIL_COLLAPSE_RANGE 2 //! The radius of the chasm created by killed tendrils.
 
 #define ALPHA_VISIBLE 255 // the max alpha
+
+///  Economy account defines
+#define BANK_PIN_MIN 10000
+#define BANK_PIN_MAX 99999

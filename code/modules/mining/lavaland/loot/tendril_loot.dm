@@ -91,7 +91,7 @@
 			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
-				if(!M.unEquip(src))
+				if(!M.unequip(src))
 					return
 				M.put_in_active_hand(src)
 			else
@@ -448,9 +448,6 @@
 /obj/effect/immortality_talisman/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
-
-/obj/effect/immortality_talisman/attackby__legacy__attackchain()
-	return
 
 /obj/effect/immortality_talisman/ex_act()
 	return

@@ -276,6 +276,7 @@
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
+			permutated.Cut()
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
@@ -306,7 +307,7 @@
 	prehit(A)
 	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
-	if(pre_permutation != ATOM_PREHIT_FAILURE)
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(A in permutated))
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
@@ -326,7 +327,7 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()
@@ -438,7 +439,7 @@
 
 /// A mob moving on a tile with a projectile is hit by it.
 /obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB))
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated) && (entered.loc == loc))
 		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()

@@ -211,7 +211,9 @@
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability = 80)
-
+#ifdef GAME_TESTS
+	probability = 100
+#endif
 	zone = check_zone(zone)
 
 	if(prob(probability))
@@ -351,6 +353,17 @@
 
 	return returntext
 
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
+
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = Gibberish(S.message, p, replace_rate)
@@ -450,7 +463,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -500,7 +513,7 @@
 	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
-	else if(isAI(user))
+	else if(is_ai(user))
 		var/mob/living/silicon/ai/AI=user
 		P = AI.aiMulti
 

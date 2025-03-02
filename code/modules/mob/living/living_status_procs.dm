@@ -809,7 +809,9 @@ STATUS EFFECTS
 // Deaf
 /mob/living/proc/CureDeaf()
 	CureIfHasDisability(GLOB.deafblock)
-
+// Paraplegia
+/mob/living/proc/CureParaplegia()
+	CureIfHasDisability(GLOB.paraplegicblock)
 // Epilepsy
 /mob/living/proc/CureEpilepsy()
 	CureIfHasDisability(GLOB.epilepsyblock)
@@ -836,10 +838,6 @@ STATUS EFFECTS
 // Nervous
 /mob/living/proc/CureNervous()
 	CureIfHasDisability(GLOB.nervousblock)
-
-// Tourettes
-/mob/living/proc/CureTourettes()
-	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna && dna.GetSEState(block))

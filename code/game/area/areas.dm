@@ -61,8 +61,8 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
-	/// The air alarm to use for atmos_alert consoles
-	var/obj/machinery/alarm/master_air_alarm
+	/// The air alarms present in this area.
+	var/list/air_alarms = list()
 	/// The list of vents in our area.
 	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
 	/// The list of scrubbers in our area.
@@ -301,10 +301,17 @@
 			continue
 
 		// At this point, the area is safe and the door is technically functional.
+		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created. Emagged doors are permanently disabled from automatically closing, or being operated by alarms altogether apart from the lights.
+		if(!D.emagged)
+			if(opening)
+				D.autoclose = FALSE
+			else
+				D.autoclose = TRUE
 
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
-		if(D.welded)
+		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
+
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue

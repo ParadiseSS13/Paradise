@@ -69,6 +69,9 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 	)
 
+/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)

@@ -1,12 +1,12 @@
 // This whole file really needs reorganising at some point, or at the very least the construct stuff should be moved somewhere else.
 /obj/item/soulstone
-	name = "soul stone shard"
+	name = "soul stone"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
 	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
-	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
+	desc = "A weighty shard of dark crystal, flickering with eldritch energy. A soul can be bound within, forced to obey the commands of the owner."
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "bluespace=4;materials=5"
@@ -459,7 +459,7 @@
 		to_chat(user, "<span class='notice'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(!isrobot(M))
 		for(var/obj/item/I in M)
-			M.unEquip(I)
+			M.drop_item_to_ground(I)
 
 	var/target_body = M
 	if(isbrain(M))

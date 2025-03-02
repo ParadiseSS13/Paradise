@@ -28,16 +28,19 @@
 	circuit = /obj/item/circuitboard/aiupload_broken
 	return TRUE
 
-/obj/machinery/computer/aiupload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(!istype(O, /obj/item/ai_module))
+/obj/machinery/computer/aiupload/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/ai_module/module = used
+	if(!istype(module))
 		return ..()
 	if(!check_valid_selection(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!emagged) //non-emag law change
-		var/obj/item/ai_module/M = O
-		return M.install(src)
+		module.install(src)
+		return ITEM_INTERACT_COMPLETE
+
 	apply_emag_laws(user)
-	return
+
+	return ITEM_INTERACT_COMPLETE
 
 /// checks to ensure there is a selected AI, and that it is on the same Z level
 /obj/machinery/computer/aiupload/proc/check_valid_selection(mob/user)
@@ -127,19 +130,20 @@
 	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
-/obj/machinery/computer/borgupload/attackby__legacy__attackchain(obj/item/ai_module/module, mob/user, params)
-	if(istype(module, /obj/item/ai_module))
+/obj/machinery/computer/borgupload/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/ai_module/module = used
+	if(istype(module))
 		if(!current)//no borg selected
 			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/turf/T = get_turf(current)
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
-			return
+			return ITEM_INTERACT_COMPLETE
 		module.install(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
+	return ..()
 
 /obj/machinery/computer/borgupload/attack_hand(mob/user)
 	if(stat & NOPOWER)

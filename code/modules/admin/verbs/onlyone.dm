@@ -1,5 +1,5 @@
 /client/proc/only_one()
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 
@@ -61,7 +61,7 @@
 			SEND_SOUND(M, music)
 
 /client/proc/only_me()
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 
@@ -82,7 +82,7 @@
 		var/obj/item/slot_item_ID = H.get_item_by_slot(ITEM_SLOT_ID)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(ITEM_SLOT_RIGHT_HAND)
-		H.unEquip(slot_item_hand)
+		H.drop_item_to_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, ITEM_SLOT_RIGHT_HAND)
