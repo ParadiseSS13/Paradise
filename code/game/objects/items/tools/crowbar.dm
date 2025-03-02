@@ -141,5 +141,10 @@
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(cutjaws)
+		cutjaws.attached_bits += bit
+		bit.on_attached(cutjaws)
 	qdel(src)
 	user.put_in_active_hand(cutjaws)

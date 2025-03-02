@@ -49,6 +49,12 @@
 
 	return OXYLOSS
 
+/obj/item/wrench/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	..()
+	if(istype(used, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
 	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
@@ -84,6 +90,11 @@
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(s_drill)
+		s_drill.attached_bits += bit
+		bit.on_attached(s_drill)
 	qdel(src)
 	user.put_in_active_hand(s_drill)
 

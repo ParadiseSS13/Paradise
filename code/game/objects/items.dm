@@ -487,7 +487,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(length(attached_bits) == 1)
 		old_bit = attached_bits[1]
 	else
-		attached_bits = tgui_input_list(user, "Select a tool bit", src, attached_bits)
+		old_bit = tgui_input_list(user, "Select a tool bit", src, attached_bits)
 	if(!istype(old_bit, /obj/item/smithed_item/tool_bit))
 		return
 	old_bit.on_detached()
