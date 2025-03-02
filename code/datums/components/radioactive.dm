@@ -57,7 +57,7 @@
 	var/beta_part = beta_strength / (alpha_strength + beta_strength + gamma_strength)
 	var/gamma_part = 1 - (alpha_part + beta_part)
 	var/max_ratio = 0
-	for(var/i = 1, i < 5, i++)
+	for(var/i in 1 to 4)
 		rad_color += glow_alpha[i] * alpha_part + glow_beta[i] * beta_part + glow_gamma[i] * gamma_part
 		// Find the ratio between the color value closest to 256 and 256.
 		if(i < 4 && max_ratio < (rad_color[i] / 256))

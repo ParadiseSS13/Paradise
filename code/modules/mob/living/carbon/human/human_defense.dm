@@ -854,7 +854,7 @@ emp_act
 		if(wear_suit)
 			garments = list(wear_suit)
 		for(var/obj/item/clothing/garment in contents)
-			if(garment.body_parts_covered&zone_flag)
+			if(garment.body_parts_covered & zone_flag)
 				garments |= garment
 	// If we have a suit push it to the start of the list
 	if(wear_suit)
@@ -864,7 +864,7 @@ emp_act
 	while(length(garments) && passed)
 		var/obj/item/clothing/garment = garments[1]
 		garments -= garment
-		passed = prob((garment.permeability_coefficient*100) - 1) && !(garment.flags_2 & RAD_PROTECT_CONTENTS_2)
+		passed = prob((garment.permeability_coefficient * 100) - 1) && !(garment.flags_2 & RAD_PROTECT_CONTENTS_2)
 		if(garment.flags_2 & RAD_NO_CONTAMINATE_2)
 			continue
 		contaminate += garment

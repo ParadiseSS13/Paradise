@@ -58,7 +58,7 @@
 	var/ratio = steps > 1 ? (steps - 1) / steps : (1 / 8)
 	var/weight_length = length(weights)
 	// Iterate around the periphery of a square for each step
-	for(var/i = 0, i < 8 * steps, i++)
+	for(var/i in 0 to (8 * steps - 1))
 		// our index along the edge we are on, each corner starts a new edge.
 		index = (i % (2 * steps)) + 1
 		// Get weights for rear, right rear and left rear tiles if they were part of the previous step, where rear means towards the center and left and right are along the edge we are on

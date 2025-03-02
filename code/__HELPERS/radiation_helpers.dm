@@ -132,7 +132,7 @@
 			var/list/contaminate = list()
 			var/list/results = list()
 			var/passed = TRUE
-			for(var/i = 0, i < 10, i++)
+			for(var/i in 0 to 9)
 				zone = (1<<i)
 				results = target_mob.rad_contaminate_zone(zone)
 				passed = results[1] || passed
