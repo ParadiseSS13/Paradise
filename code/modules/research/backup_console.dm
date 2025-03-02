@@ -41,10 +41,9 @@
 /obj/machinery/computer/rnd_backup/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!H.drop_item_to_ground(used))
+		if(!H.transfer_item_to(used, src))
 			return ITEM_INTERACT_COMPLETE
 
-		used.forceMove(src)
 		inserted_disk = used
 		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		SStgui.update_uis(src)
