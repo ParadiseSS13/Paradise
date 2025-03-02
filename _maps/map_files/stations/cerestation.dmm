@@ -64326,6 +64326,10 @@
 	},
 /obj/item/eftpos/register,
 /obj/structure/table,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
