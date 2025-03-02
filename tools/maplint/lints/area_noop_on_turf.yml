@@ -1,0 +1,5 @@
+help: "Please use a proper relative area for turfs, or use area/space/nearstation for structures in space."
+/area/template_noop:
+  banned_neighbors:
+  - /turf/simulated
+  - /obj/struture
