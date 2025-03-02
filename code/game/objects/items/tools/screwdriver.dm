@@ -32,12 +32,6 @@
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
-/obj/item/screwdriver/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	..()
-	if(istype(used, /obj/item/smithed_item/tool_bit))
-		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
-	return ITEM_INTERACT_COMPLETE
-
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."

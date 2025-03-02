@@ -49,12 +49,6 @@
 
 	return OXYLOSS
 
-/obj/item/wrench/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	..()
-	if(istype(used, /obj/item/smithed_item/tool_bit))
-		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
-	return ITEM_INTERACT_COMPLETE
-
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
 	desc = "An advanced robotic wrench. Can be found in construction cyborgs."

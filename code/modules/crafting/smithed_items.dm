@@ -176,6 +176,8 @@
 	/// The material of the item
 	var/datum/smith_material/material
 
+	new_attack_chain = TRUE
+
 /obj/item/smithed_item/Initialize(mapload)
 	. = ..()
 	set_name()
@@ -380,6 +382,12 @@
 	var/max_durability = 30
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
+
+/obj/item/smithed_item/tool_bit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(istype(target, /obj/item))
+		SEND_SIGNAL(target, COMSIG_BIT_ATTACH, src, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/smithed_item/tool_bit/set_stats()
 	durability = initial(durability) * material.durability_mult

@@ -48,12 +48,6 @@
 		mob.update_handcuffed()
 		return ITEM_INTERACT_COMPLETE
 
-/obj/item/wirecutters/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	..()
-	if(istype(used, /obj/item/smithed_item/tool_bit))
-		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
-	return ITEM_INTERACT_COMPLETE
-
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, TRUE, -1)
