@@ -206,7 +206,7 @@
 	// into the box.
 	if(istype(user.pulling, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = user.pulling
-		box.attackby__legacy__attackchain(src, user)
+		box.item_interaction(user, src)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"

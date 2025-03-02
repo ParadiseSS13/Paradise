@@ -10,7 +10,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	new_attack_chain = TRUE
 	var/writing = ""
 
 /obj/structure/signpost/Initialize(mapload)

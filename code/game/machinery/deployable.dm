@@ -92,22 +92,21 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
-
-/obj/structure/barricade/wooden/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/structure/barricade/wooden/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target = src))
 				if(!W.use(5))
-					return
+					return ITEM_INTERACT_COMPLETE
 				var/turf/T = get_turf(src)
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
-			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
+			return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
@@ -373,8 +372,7 @@
 	if(!target_turf2.is_blocked_turf())
 		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
-
-/obj/structure/dropwall_generator/attacked_by__legacy__attackchain(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
+/obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user)
 	if(protected)
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
