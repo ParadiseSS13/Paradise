@@ -1082,10 +1082,10 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=4"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/assembly/igniter = 1)
+							/obj/item/stack/sheet/glass = 1
+						)
 
 /obj/item/circuitboard/power_hammer
 	board_name = "Power Hammer"
