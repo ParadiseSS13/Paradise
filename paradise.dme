@@ -1661,6 +1661,7 @@
 #include "code\modules\asset_cache\assets\asset_safe.dm"
 #include "code\modules\asset_cache\assets\asset_strip.dm"
 #include "code\modules\asset_cache\assets\asset_tgui.dm"
+#include "code\modules\asset_cache\assets\asset_vv.dm"
 #include "code\modules\asset_cache\transports\asset_transport.dm"
 #include "code\modules\asset_cache\transports\webroot_transport.dm"
 #include "code\modules\atmospherics\environmental\LINDA_fire.dm"
