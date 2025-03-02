@@ -48821,7 +48821,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-
 /mob/living/simple_animal/tegu{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
