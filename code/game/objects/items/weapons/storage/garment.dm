@@ -357,3 +357,5 @@
 	new /obj/item/clothing/head/beret/smith(src)
 	new /obj/item/clothing/gloves/smithing(src)
 	new /obj/item/clothing/shoes/workboots/smithing(src)
+	new /obj/item/clothing/under/plasmaman/smith(src)
+	new /obj/item/clothing/head/helmet/plasmaman/smith(src)
