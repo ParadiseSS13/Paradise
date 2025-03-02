@@ -32539,6 +32539,13 @@
 	},
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
+"gxa" = (
+/mob/living/simple_animal/tegu{
+	name = "Wags-His-Tail";
+	real_name = "Wags-His-Tail"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/janitor)
 "gxk" = (
 /obj/structure/chair{
 	dir = 1
@@ -157655,7 +157662,7 @@ pjq
 jYc
 oSD
 iqs
-mfx
+gxa
 mfx
 vsQ
 bXw
