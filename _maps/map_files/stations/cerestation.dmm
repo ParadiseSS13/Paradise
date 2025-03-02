@@ -26192,32 +26192,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fore)
-"dIw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/hand_labeler,
-/obj/item/radio/headset/headset_med,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = 30
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 5
-	},
-/obj/structure/table/glass,
-/obj/machinery/camera{
-	c_tag = "Virology South";
-	dir = 8;
-	network = list("SS13","QM")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/r_wall,
-/area/station/medical/virology)
 "dIS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -37690,28 +37664,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "gFd" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Virology North";
-	dir = 6;
-	network = list("SS13","CMO")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/shower{
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/noslip,
 /area/station/medical/virology)
 "gFg" = (
@@ -94894,24 +94850,7 @@
 	},
 /area/station/medical/cloning)
 "ulc" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Virology East";
-	dir = 8;
-	network = list("SS13","QM")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -167495,7 +167434,7 @@ lNM
 blS
 bIX
 bil
-dIw
+bil
 bni
 bni
 bni
