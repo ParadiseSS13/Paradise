@@ -9345,10 +9345,6 @@
 "aHc" = (
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/radio/intercom/locked/prison{
-	name = "Prison Intercom (General)";
-	pixel_x = -25
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aHd" = (
