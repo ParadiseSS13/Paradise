@@ -32540,7 +32540,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "gxa" = (
-/mob/living/simple_animal/tegu{
+/mob/living/simple_animal/tegu/wags{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
 	},

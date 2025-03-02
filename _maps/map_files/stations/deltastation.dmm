@@ -77175,7 +77175,7 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "pMu" = (
-/mob/living/simple_animal/tegu{
+/mob/living/simple_animal/tegu/wags{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
 	},
