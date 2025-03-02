@@ -675,7 +675,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "WE" = (
-/obj/machinery/porta_turret/syndicate/exterior,
+/obj/machinery/porta_turret/syndicate/turret_outpost,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "rockvault"
 	},
