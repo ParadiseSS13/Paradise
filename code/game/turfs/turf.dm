@@ -153,6 +153,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	. = ..()
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
