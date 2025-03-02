@@ -58710,7 +58710,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "lxV" = (
-/mob/living/simple_animal/lizard{
+/mob/living/simple_animal/tegu{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
 	},
