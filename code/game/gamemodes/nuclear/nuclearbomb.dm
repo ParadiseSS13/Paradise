@@ -18,10 +18,13 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb1"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
+	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2 | RAD_NO_CONTAMINATE_2 | RAD_PROTECT_CONTENTS_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
 	interact_offline = TRUE
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
@@ -80,7 +83,8 @@ GLOBAL_VAR(bomb_set)
 		GLOB.poi_list |= src
 		GLOB.nuke_list |= src
 		core = new /obj/item/nuke_core/plutonium(src)
-		STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		STOP_PROCESSING(SSradiation, radioactivity)//Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
 	radio = new(src)
 	radio.listening = FALSE
@@ -201,7 +205,8 @@ GLOBAL_VAR(bomb_set)
 								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
-				STOP_PROCESSING(SSobj, core)
+				var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+				STOP_PROCESSING(SSradiation, radioactivity)
 			update_icon(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
@@ -271,7 +276,8 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
-			START_PROCESSING(SSobj, core)
+			var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+			START_PROCESSING(SSradiation, radioactivity)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("<span class='notice'>[user] begins lifting [src] off of the anchors.</span>", "<span class='notice'>You begin lifting the device off the anchors...</span>")
 		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
