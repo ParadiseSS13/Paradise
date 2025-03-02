@@ -2,7 +2,7 @@
 #define BASE_SHEET_MULT 0.60
 #define POINT_MULT_ADD_PER_RATING 0.10
 #define SHEET_MULT_ADD_PER_RATING 0.20
-#define OPERATION_SPEED_MULT_PER_RATING 0.05
+#define OPERATION_SPEED_MULT_PER_RATING 0.075
 #define EFFICIENCY_MULT_ADD_PER_RATING 0.05
 
 /obj/machinery/mineral/smart_hopper
@@ -518,10 +518,10 @@
 	var/O = 0
 	var/E = 0
 	for(var/obj/item/stock_parts/M in component_parts)
-		O += OPERATION_SPEED_MULT_PER_RATING * M.rating
+		O += 2 * OPERATION_SPEED_MULT_PER_RATING * M.rating
 		E += EFFICIENCY_MULT_ADD_PER_RATING * M.rating
 	// Update our values
-	operation_time = ROUND_UP(initial(operation_time) * (1.1 - O))
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - O)), 2)
 	efficiency = initial(efficiency) * (1.1 - E)
 
 /obj/machinery/smithing/casting_basin/update_overlays()
@@ -731,7 +731,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
 	if(!working_component.hot)
@@ -794,7 +794,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
 
 /obj/machinery/smithing/lava_furnace/update_overlays()
 	. = ..()
@@ -906,7 +906,7 @@
 	for(var/obj/item/stock_parts/M in component_parts)
 		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
 	// Update our values
-	operation_time = ROUND_UP(initial(operation_time) * (1.2 - S))
+	operation_time = operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
 
 /obj/machinery/smithing/kinetic_assembler/update_icon_state()
 	. = ..()
