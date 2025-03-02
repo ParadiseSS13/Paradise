@@ -4153,7 +4153,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/ancientstation/thetacorridor)
+/area/space/nearstation)
 "lE" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
@@ -4261,7 +4261,7 @@
 "my" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "mB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6477,6 +6477,10 @@
 	icon_state = "cautioncorner"
 	},
 /area/ruin/ancientstation)
+"LW" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "Mk" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -10139,7 +10143,7 @@ aa
 aa
 aa
 aa
-uQ
+LW
 aa
 aa
 aa
