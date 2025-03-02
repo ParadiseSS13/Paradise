@@ -31,7 +31,7 @@
 	/// A sum of how many knowledge points this heretic CURRENTLY has. Used to research.
 	var/knowledge_points = 1
 	/// The time between gaining influence passively. The heretic gain +1 knowledge points every this duration of time.
-	var/passive_gain_timer = 20 MINUTES
+	var/passive_gain_timer = 30 MINUTES
 	/// Assoc list of [typepath] = [knowledge instance]. A list of all knowledge this heretic's reserached.
 	var/list/researched_knowledge = list()
 	/// The organ slot we place our Living Heart in.
