@@ -6477,10 +6477,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/ruin/ancientstation)
-"LW" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "Mk" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -10143,7 +10139,7 @@ aa
 aa
 aa
 aa
-LW
+uQ
 aa
 aa
 aa
