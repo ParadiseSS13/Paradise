@@ -5446,6 +5446,16 @@
 	icon_state = "yellowsiding"
 	},
 /area/mine/laborcamp)
+"ud" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowcorners"
+	},
+/area/mine/outpost/hallway/west)
 "ul" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Hallway"
@@ -23339,11 +23349,11 @@ Tq
 he
 Tq
 UP
-Tq
+ud
 Tq
 sR
-fA
 Tq
+fA
 um
 lt
 iF
