@@ -26,7 +26,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	warned_atoms[ref] = TRUE
 	var/atom/master = contamination.parent
 	SSblackbox.record_feedback("tally", "contaminated", 1, master.type)
-	var/msg = "has become contaminated with enough radiation to contaminate other objects. || Source: [contamination.source] || Strength: [contamination.strength]"
+	var/msg = "has become contaminated with enough radiation to emit radiation waves || Source: [contamination.source] || Strength: [contamination.alpha_strength + contamination.beta_strength + contamination.gamma_strength]"
 	master.investigate_log(msg, "radiation")
 
 /datum/controller/subsystem/processing/radiation/fire(resumed)
@@ -41,13 +41,25 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	else
 		return 0
 
-/datum/controller/subsystem/processing/radiation/proc/update_rad_cache(datum/component/radioactive/thing)
+/datum/controller/subsystem/processing/radiation/proc/update_rad_cache_contaminated(datum/component/radioactive/thing)
 	var/atom/owner = thing.parent
 	var/turf/place = get_turf(owner)
 	if(turf_rad_cache[place])
-		turf_rad_cache[place] += thing.strength
+		turf_rad_cache[place][1] += thing.alpha_strength
+		turf_rad_cache[place][2] += thing.beta_strength
+		turf_rad_cache[place][3] += thing.gamma_strength
 	else
-		turf_rad_cache[place] = thing.strength
+		turf_rad_cache[place] = list(thing.alpha_strength, thing.beta_strength, thing.gamma_strength)
+
+/datum/controller/subsystem/processing/radiation/proc/update_rad_cache_inherent(datum/component/inherent_radioactivity/thing)
+	var/atom/owner = thing.parent
+	var/turf/place = get_turf(owner)
+	if(turf_rad_cache[place])
+		turf_rad_cache[place][1] += thing.radioactivity_alpha
+		turf_rad_cache[place][2] += thing.radioactivity_beta
+		turf_rad_cache[place][3] += thing.radioactivity_gamma
+	else
+		turf_rad_cache[place] = list(thing.radioactivity_alpha, thing.radioactivity_beta, thing.radioactivity_gamma)
 
 
 /datum/controller/subsystem/processing/radiation/proc/refresh_rad_cache()
