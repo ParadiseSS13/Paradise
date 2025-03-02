@@ -10,7 +10,7 @@
 /datum/antagonist/mindslave/heretic_monster/farewell()
 	if(owner.current)
 		to_chat(owner.current, "<span class='warning'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
-		owner.current.visible_message("<span class='warning'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
+		owner.current.visible_message("<span class='userdanger'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
 
 	return ..()
 
