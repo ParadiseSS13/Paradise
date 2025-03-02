@@ -473,7 +473,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Used to remove a bit through a signal
 /obj/item/proc/remove_bit(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
-
+	if(!Adjacent(user))
+		return
 	if(!length(attached_bits))
 		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
 		return
@@ -481,6 +482,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	INVOKE_ASYNC(src, PROC_REF(finish_remove_bit), user)
 
 /obj/item/proc/finish_remove_bit(mob/user)
+	if(!Adjacent(user))
+		return
 	var/obj/item/smithed_item/tool_bit/old_bit
 	if(length(attached_bits) == 1)
 		old_bit = attached_bits[1]

@@ -435,6 +435,8 @@
 
 /obj/machinery/smithing/AltClick(mob/living/user)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	if(!working_component)
 		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
 		return
@@ -583,6 +585,8 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/casting_basin/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
 		return
@@ -920,6 +924,8 @@
 		icon_state = "assembler_wires"
 
 /obj/machinery/smithing/kinetic_assembler/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
 	if(!primary && !secondary && !trim)
 		to_chat(user, "<span class='warning'>There is no component to remove.</span>")
 		return

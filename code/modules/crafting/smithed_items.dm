@@ -83,6 +83,8 @@
 
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
 	update_appearance(UPDATE_DESC)
 
@@ -100,6 +102,8 @@
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	var/list/quality_name_list = list()
 	var/list/quality_type_list = typesof(/datum/smith_quality)
 	var/quality_type
