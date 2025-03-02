@@ -54381,7 +54381,7 @@
 /obj/machinery/camera{
 	c_tag = "Xenobiology Lab - Space Bridge";
 	dir = 8;
-	network = list("Research","SS13","Containmentssss")
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
