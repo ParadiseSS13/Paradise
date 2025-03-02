@@ -1275,7 +1275,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	if(coloration && atom_colours[colour_priority])
 		if(atom_colours[colour_priority][ATOM_COLOR_INDEX_TYPE] == ATOM_COLOR_TYPE_NORMAL)
-			if(atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE]!=coloration)
+			if(atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE] != coloration)
 				return // if we don't have the expected color to remove, don't do anything.
 		else
 			if(!islist(coloration) || !compare_list(coloration,atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE]["color"]))
