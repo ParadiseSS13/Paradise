@@ -139,3 +139,6 @@
 	name = "nanotrasen intern beret"
 	desc = "Берет стажера НТ. Белый берет с зеленой звездой. Выглядит подозрительно похожим на берет главного инженера..."
 	icon_state = "beret_ce"
+
+/obj/item/clothing/head/kitty
+	icon_override = 'modular_ss220/clothing/icons/mob/hats.dmi'

@@ -129,6 +129,12 @@
 	donator_tier = 2
 	cost = 1
 
+/datum/gear/donor/mouse_ears
+	display_name = "Мышиные ушки"
+	path = /obj/item/clothing/head/kitty/mouse
+	donator_tier = 2
+	cost = 1
+
 /datum/gear/donor/driver
 	display_name = "Driver jacket"
 	path = /obj/item/clothing/suit/jacket/driver
