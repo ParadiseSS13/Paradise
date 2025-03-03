@@ -18,4 +18,5 @@
 		"inventory-back.png" = 'icons/ui_icons/inventory/back.png',
 		"inventory-pocket.png" = 'icons/ui_icons/inventory/pocket.png',
 		"inventory-collar.png" = 'icons/ui_icons/inventory/collar.png',
+		"inventory-neck.png" = 'icons/ui_icons/inventory/neck.png',
 	)
