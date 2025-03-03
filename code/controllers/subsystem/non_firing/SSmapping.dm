@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(mapping)
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
 	// Add a reserved z-level
-	// add_reservation_zlevel() // CURRENTLY DISABLED, AS NOTHING USES IT. IF YOU WANT TO ADD LAZYLOADING TO ANYTHING, MAKE SURE TO REIMPLEMENT THIS
+	add_reservation_zlevel()
 
 	// Now we make a list of areas for teleport locs
 	// Located below is some of the worst code I've ever seen
@@ -377,10 +377,12 @@ SUBSYSTEM_DEF(mapping)
 	return used_turfs[T]
 
 /// Requests a /datum/turf_reservation based on the given width, height.
-/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height)
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height, reservation_type = /datum/turf_reservation, turf_type_override)
 	UNTIL(!clearing_reserved_turfs)
 	log_debug("Reserving [width]x[height] turf reservation")
-	var/datum/turf_reservation/reserve = new /datum/turf_reservation
+	var/datum/turf_reservation/reserve = new reservation_type
+	if(!isnull(turf_type_override))
+		reserve.turf_type = turf_type_override
 	for(var/i in levels_by_trait(Z_FLAG_RESERVED))
 		if(reserve.reserve(width, height, i))
 			return reserve
@@ -426,6 +428,7 @@ SUBSYSTEM_DEF(mapping)
 	unused_turfs["[z]"] = block
 	clearing_reserved_turfs = FALSE
 
+// TODO: Firing in a non-fire folder... Someone needs to move this file someday.
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
 	var/list/list/turf/unused_turfs = src.unused_turfs
@@ -456,8 +459,7 @@ SUBSYSTEM_DEF(mapping)
 	lists_to_reserve.Cut(1, index)
 
 /**
- * Lazy loads a template on a lazy-loaded z-level
- * If you want to use this as non-debug, make sure to uncomment add_reservation_zlevel in /datum/controller/subsystem/mapping/Initialize()
+ * Lazy loads a template on a lazy-loaded z-level.
  */
 /datum/controller/subsystem/mapping/proc/lazy_load_template(datum/map_template/template)
 	RETURN_TYPE(/datum/turf_reservation)
