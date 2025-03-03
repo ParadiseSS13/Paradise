@@ -3,3 +3,4 @@
 #include "code/ferry_shuttles.dm"
 #include "code/lance_shuttle.dm"
 #include "code/nanotrasen_drop_pod.dm"
+#include "code/shuttle.dm"

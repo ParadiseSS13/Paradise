@@ -217,13 +217,7 @@
 	},
 /area/ghost_bar/indoor)
 "aO" = (
-/obj/docking_port/mobile{
-	dwidth = 13;
-	height = 18;
-	id = "vox_shuttle";
-	name = "scavenger shuttle";
-	width = 19;
-	dir = 2;
+/obj/docking_port/mobile/scavenger{
 	pixel_y = -5
 	},
 /obj/docking_port/stationary{
@@ -5309,14 +5303,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
-"ss" = (
-/obj/structure/shuttle/engine/large{
-	dir = 4;
-	pixel_x = -33;
-	pixel_y = -32
-	},
-/turf/simulated/floor/indestructible/transparent_floor,
-/area/shuttle/trade/sol)
 "su" = (
 /obj/item/gun/grenadelauncher,
 /obj/structure/table/wood,
@@ -5991,6 +5977,16 @@
 /obj/item/gun/energy/gun/nuclear,
 /turf/simulated/floor/wood/oak,
 /area/admin)
+"uM" = (
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9;
+	dir = 8
+	},
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
 "uN" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer/upgraded{
@@ -13069,15 +13065,7 @@
 	width = 15;
 	dheight = 1
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 7;
-	height = 18;
-	id = "trade_sol";
-	name = "sol trade shuttle";
-	width = 15;
-	dheight = 1
-	},
+/obj/docking_port/mobile/trade_sol,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "SU" = (
@@ -76748,7 +76736,7 @@ kH
 OC
 vQ
 JZ
-JZ
+uM
 Ch
 ix
 pi
@@ -76758,7 +76746,7 @@ sx
 Aa
 Ch
 JZ
-JZ
+uM
 vQ
 Vx
 us
@@ -77004,7 +76992,7 @@ kH
 kH
 OC
 eZ
-ss
+pU
 pU
 vQ
 Ch
@@ -77014,7 +77002,7 @@ ST
 Ch
 Ch
 vQ
-ss
+pU
 pU
 eZ
 Vx

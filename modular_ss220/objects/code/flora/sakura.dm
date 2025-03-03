@@ -155,25 +155,28 @@
 		if(sakura.icon_state == "cherry_blossom3")
 			pixel_x = -7
 
-/obj/effect/decal/sakura_leaves/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(I.get_heat() && !on_fire)
+/obj/effect/decal/sakura_leaves/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(attacking.get_heat() && !on_fire)
 		visible_message(span_danger("[src] bursts into flames!"))
 		fire_act()
-	if(istype(I, /obj/item/cultivator))
-		var/obj/item/cultivator/C = I
+	if(istype(attacking, /obj/item/cultivator))
+		var/obj/item/cultivator/C = attacking
 		user.visible_message(
 			span_notice("[user] is clearing [src] from the ground..."),
 			span_notice("You begin clearing [src] from the ground..."),
 			span_warning("You hear a sound of leaves rustling."))
 		playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
+
 		if(!do_after(user, 50 * C.toolspeed, target = src))
-			return
+			return FINISH_ATTACK
+
 		user.visible_message(
 			span_notice("[user] clears [src] from the ground!"),
 			span_notice("You clear [src] from the ground!"))
 		qdel(src)
-	else
-		return ..()
 
 // This is fake fire actually
 /obj/effect/decal/sakura_leaves/fire_act()

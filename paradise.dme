@@ -1755,6 +1755,7 @@
 #include "code\modules\buildmode\submodes\throwing.dm"
 #include "code\modules\buildmode\submodes\tilt.dm"
 #include "code\modules\buildmode\submodes\variable_edit.dm"
+#include "code\modules\buildmode\submodes\portal.dm"
 #include "code\modules\client\2fa.dm"
 #include "code\modules\client\client_defines.dm"
 #include "code\modules\client\client_procs.dm"

@@ -74,12 +74,11 @@
 /area/station/supply/qm)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
-	dir = 8;
 	id = "whiteship_cyberiad";
 	name = "North of Cyberiad";
-	dwidth = 8;
-	height = 31;
-	width = 21
+	dwidth = 22;
+	height = 17;
+	width = 31
 	},
 /turf/space,
 /area/space)
@@ -5642,11 +5641,11 @@
 "ays" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 3;
 	height = 5;
 	id = "sst_home";
 	name = "Near Cyberiad Arrivals";
-	width = 11
+	width = 11;
+	dwidth = 3
 	},
 /turf/space,
 /area/space)

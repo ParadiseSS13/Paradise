@@ -53,7 +53,7 @@
 		real_name = "Случайный персонаж"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Настройка персонажа</A><br /><i>[real_name]</i></p>"
 
-	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
 			output += "<p><a href='byond://?src=[UID()];ready=1'>Нажмите, если готовы</A></p>"
 		else
@@ -70,7 +70,7 @@
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>Вы <b>[client.skip_antag ? "не готовы" : "готовы"]</b> для всех антаг ролей.</small></p>"
 
-	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Наблюдать (Ожидайте...)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];observe=1'>Наблюдать</A></p>"

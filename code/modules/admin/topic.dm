@@ -2725,7 +2725,7 @@
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
-		if(!SSticker || !SSticker.mode)
+		if(SSticker.current_state < GAME_STATE_PLAYING)
 			alert("The game hasn't started yet!")
 			return
 
@@ -3001,7 +3001,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
@@ -3042,7 +3042,7 @@
 						H.loc = pick(GLOB.prisonsecuritywarp)
 					GLOB.prisonwarped += H
 			if("traitor_all")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
@@ -3306,7 +3306,7 @@
 			if("showailaws")
 				output_ai_laws()
 			if("showgm")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 				else if(SSticker.mode)
 					alert("The game mode is [SSticker.mode.name]")

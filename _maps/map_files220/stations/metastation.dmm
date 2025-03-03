@@ -2,16 +2,6 @@
 "aaa" = (
 /turf/space,
 /area/space)
-"aab" = (
-/obj/docking_port/stationary{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_n";
-	name = "north of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
 "aaD" = (
 /obj/effect/landmark/spawner/carp,
 /turf/space,
@@ -22,16 +12,6 @@
 	height = 22;
 	id = "syndicate_nw";
 	name = "northwest of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
-"aaX" = (
-/obj/docking_port/stationary{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_ne";
-	name = "northeast of station";
 	width = 18
 	},
 /turf/space,
@@ -588,16 +568,6 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
-"agD" = (
-/obj/docking_port/stationary/whiteship{
-	dir = 8;
-	id = "whiteship_cerebron";
-	name = "North of Cerebron";
-	dwidth = 8;
-	height = 31
-	},
-/turf/space,
-/area/space)
 "agG" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random/maintenance,
@@ -40489,17 +40459,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
-"ddQ" = (
-/obj/docking_port/stationary{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_se";
-	name = "southeast of station";
-	width = 18;
-	dir = 2
-	},
-/turf/space,
-/area/space)
 "ddR" = (
 /obj/structure/computerframe{
 	dir = 8
@@ -43454,17 +43413,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"eun" = (
-/obj/docking_port/stationary{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_s";
-	name = "south of station";
-	width = 18;
-	dir = 2
-	},
-/turf/space,
-/area/space)
 "euy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -51064,6 +51012,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"idI" = (
+/obj/docking_port/stationary/whiteship{
+	id = "whiteship_cerebron";
+	name = "North of Cerebron";
+	dwidth = 22;
+	height = 17;
+	width = 31
+	},
+/turf/space,
+/area/space)
 "iet" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -60597,17 +60555,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
-"mPr" = (
-/obj/docking_port/stationary{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_sw";
-	name = "southwest of station";
-	width = 18;
-	dir = 2
-	},
-/turf/space,
-/area/space)
 "mPs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -95141,7 +95088,7 @@ aaa
 aaa
 aaa
 aaa
-mPr
+aaa
 aaa
 aaa
 aaa
@@ -102911,7 +102858,6 @@ aaa
 aaa
 aaa
 aaa
-agD
 aaa
 aaa
 aaa
@@ -102920,6 +102866,7 @@ aaa
 aaa
 aaa
 aaa
+idI
 aaa
 aaa
 aaa
@@ -110053,7 +110000,7 @@ aaa
 aaa
 aaa
 aaa
-eun
+aaa
 aaa
 aaa
 aaa
@@ -112439,7 +112386,7 @@ aaa
 aaa
 aaa
 aaa
-aab
+aaa
 aaa
 aaa
 aaa
@@ -131098,7 +131045,7 @@ aaa
 aaa
 aaa
 aaa
-ddQ
+aaa
 aaa
 aaa
 aaa
@@ -131210,7 +131157,7 @@ aaa
 aaa
 aaa
 aaa
-aaX
+aaa
 aaa
 aaa
 aaa
