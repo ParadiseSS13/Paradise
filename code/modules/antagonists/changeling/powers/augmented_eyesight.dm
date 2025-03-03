@@ -27,7 +27,6 @@
 		return
 	var/obj/item/organ/internal/eyes/E = user.get_organ_slot("eyes")
 	if(E)
-		if(active)
 		E.vision_flags = initial(E.vision_flags)
 		E.flash_protect = initial(E.flash_protect)
 		user.update_sight()
