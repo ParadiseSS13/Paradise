@@ -89,5 +89,5 @@
 		return TRUE
 	return ..()
 /mob/living/simple_animal/tegu/wags
-    name = "Wags-His-Tail"
-    real_name = "Wags-His-Tail"
+	name = "Wags-His-Tail"
+	real_name = "Wags-His-Tail"
