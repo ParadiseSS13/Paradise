@@ -36,3 +36,9 @@
 	CONFIG_LOAD_NUM(space_ruin_budget_max, data["space_ruin_budget_max"])
 	CONFIG_LOAD_NUM(lavaland_ruin_budget_min, data["lavaland_ruin_budget_min"])
 	CONFIG_LOAD_NUM(lavaland_ruin_budget_max, data["lavaland_ruin_budget_max"])
+
+	// TODO -- TEMPORARY FOR TM -- REMOVE BEFORE MERGE
+	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_miningbase.dmm"
+	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gulag.dmm"
+	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm"
+	// TODO -- TEMPORARY FOR TM -- REMOVE BEFORE MERGE
