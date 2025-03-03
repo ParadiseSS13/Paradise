@@ -474,6 +474,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/plasmaman/atmospherics/contortionist))
+			var/obj/item/clothing/under/plasmaman/atmospherics/contortionist/C = H.w_uniform
+			if(!C.check_clothing(src))
+				return
+
+
 	var/obj/machinery/atmospherics/unary/vent_found
 
 	if(clicked_on)
