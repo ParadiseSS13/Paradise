@@ -5,12 +5,12 @@
 	name = "satellite lense"
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "c" = (
 /obj/structure/safe/floor,
 /obj/item/golden_record,
 /turf/simulated/wall/satellite,
-/area/template_noop)
+/area/ruin/unpowered)
 "e" = (
 /turf/template_noop,
 /area/template_noop)
@@ -18,19 +18,19 @@
 /obj/machinery/power/solar,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "q" = (
 /obj/structure/target_stake{
 	name = "low gain antenna";
 	anchored = 1
 	},
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "O" = (
 /obj/structure/lattice,
 /obj/machinery/power/solar,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "R" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
@@ -38,7 +38,7 @@
 "S" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 
 (1,1,1) = {"
 e
