@@ -1,0 +1,3 @@
+/obj/effect/spawner/window:
+  banned_neighbors:
+  - /obj/effect/spawner/window

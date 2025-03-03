@@ -1,0 +1,10 @@
+help: "Do not varedit icon states of disposals pipes to change their direction. Use the corner, reversed, and y junction types."
+/obj/structure/disposalpipe/segment:
+  banned_variables:
+  - icon_state
+/obj/structure/disposalpipe/junction:
+  banned_variables:
+  - icon_state
+/obj/structure/disposalpipe/sortjunction:
+  banned_variables:
+  - icon_state

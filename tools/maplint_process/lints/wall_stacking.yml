@@ -1,0 +1,8 @@
+/turf/simulated/wall:
+  banned_neighbors:
+  - /obj/structure/lattice
+  - /obj/structure/window/full
+  - /obj/effect/spawner/window
+  - /obj/machinery/door/airlock
+  - /obj/effect/decal
+  - /obj/machinery/light

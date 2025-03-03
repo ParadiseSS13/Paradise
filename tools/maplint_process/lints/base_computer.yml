@@ -1,0 +1,3 @@
+help: "The base computer type is not deconstructible. Use /obj/machinery/computer/nonfunctional for broken computers, or specify an exact subtype."
+=/obj/machinery/computer:
+  banned: true

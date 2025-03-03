@@ -1,0 +1,4 @@
+/obj/structure/disposalpipe/segment:
+  banned_neighbors:
+    /obj/structure/disposalpipe/segment:
+      identical: true

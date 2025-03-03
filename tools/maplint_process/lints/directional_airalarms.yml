@@ -1,0 +1,29 @@
+help: "Use the specific directional subtypes for this air alarm."
+/obj/machinery/alarm:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/alarm:
+  banned: true
+=/obj/machinery/alarm/directional:
+  banned: true
+=/obj/machinery/alarm/all_access:
+  banned: true
+=/obj/machinery/alarm/all_access/directional:
+  banned: true
+=/obj/machinery/alarm/engine:
+  banned: true
+=/obj/machinery/alarm/engine/directional:
+  banned: true
+=/obj/machinery/alarm/monitor:
+  banned: true
+=/obj/machinery/alarm/monitor/directional:
+  banned: true
+=/obj/machinery/alarm/server:
+  banned: true
+=/obj/machinery/alarm/server/directional:
+  banned: true
+=/obj/machinery/alarm/syndicate:
+  banned: true
+=/obj/machinery/alarm/syndicate/directional:
+  banned: true

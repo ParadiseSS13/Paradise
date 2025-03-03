@@ -1,0 +1,4 @@
+help: "Use only the `/access/all` access helpers. Don't mix them with the `any` access helpers."
+/obj/effect/mapping_helpers/airlock/access/all:
+  banned_neighbors:
+  - /obj/effect/mapping_helpers/airlock/access/any

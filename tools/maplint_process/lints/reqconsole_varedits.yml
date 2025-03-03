@@ -1,0 +1,7 @@
+help: "Request consoles are configured directly by their area."
+/obj/machinery/requests_console:
+  banned_variables:
+  - department
+  - departmentType
+  - announceAuth
+  - announcementConsole
