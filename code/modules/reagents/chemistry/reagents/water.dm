@@ -151,15 +151,36 @@
 
 		// Stop issues with the list changing during mixing.
 		var/list/to_mix = list()
+		var/list/disease_ids = list()
+		var/list/stages = list()
 
 		for(var/datum/disease/advance/AD in mix1)
-			to_mix += AD
-		for(var/datum/disease/advance/AD in mix2)
-			to_mix += AD
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
 
-		var/datum/disease/advance/AD = Advance_Mix(to_mix)
-		if(AD)
-			var/list/preserve = list(AD)
+		for(var/datum/disease/advance/AD in mix2)
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
+
+		var/list/result_diseases = list()
+		if(length(disease_ids) == 1)
+			for(var/datum/disease/advance/AD in to_mix)
+				result_diseases += AD.Copy()
+		else
+			result_diseases = list(Advance_Mix(to_mix))
+
+		if(length(result_diseases))
+			var/list/preserve = result_diseases
 			for(var/D in data["viruses"])
 				if(!istype(D, /datum/disease/advance))
 					preserve += D
