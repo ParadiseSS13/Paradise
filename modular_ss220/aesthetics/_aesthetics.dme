@@ -30,6 +30,7 @@
 #include "light_switch\code\light_switch.dm"
 #include "lights\code\flashlight.dm"
 #include "lights\code\lights.dm"
+#include "map_render\code\windows_spawners.dm"
 #include "newscaster\code\newscaster.dm"
 #include "piano\code\piano.dm"
 #include "racks\code\racks.dm"
