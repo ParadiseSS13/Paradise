@@ -1113,12 +1113,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/shock_reduction()
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
-	return shock_reduction
+	return 0
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
@@ -1406,3 +1401,12 @@ so that different stomachs can handle things in different ways VB*/
 	M.update_revive()
 	add_attack_logs(M, M, "Revived with Lazarus Reagent")
 	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
+
+/mob/living/carbon/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(head && head.UID() == thing.UID())
+		return FALSE
+	if(wear_suit && wear_suit.UID() == thing.UID())
+		return FALSE
+	return TRUE

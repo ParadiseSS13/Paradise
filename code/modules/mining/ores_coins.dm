@@ -422,15 +422,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
-	COOLDOWN_DECLARE(radiation_cooldown)
 
-/obj/item/coin/uranium/activate_self(mob/user)
-	if(..())
-		return
-	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
-		return
-	radiation_pulse(src, 50)
-	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
+/obj/item/coin/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/coin/clown
 	cmineral = "bananium"
