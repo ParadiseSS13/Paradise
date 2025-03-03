@@ -8,7 +8,7 @@
 /datum/quirk/alcohol_tolerance/remove_quirk_effects()
 	..()
 	owner.physiology.alcohol_mod /= alcohol_modifier
-	
+
 /datum/quirk/alcohol_tolerance/lightweight
 	name = "Lightweight"
 	desc = "You can't handle liquor very well, and get drunker quicker."
@@ -74,13 +74,13 @@
 	name = "Asthma"
 	desc = "You have trouble catching your breath, and can have violent coughing fits when exerting yourself. IPCs cannot take this."
 	cost = -3
-	organic_only = TRUE
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	trait_to_apply = TRAIT_ASTHMATIC
 	processes = TRUE
 	item_to_give = /obj/item/reagent_containers/pill/salbutamol // If an inhaler ever gets made put it here
 
 /datum/quirk/asthma/process()
-	if(owner.stat == DEAD)
+	if(!..())
 		return
 	var/ease_of_breathing = owner.getOxyLoss() + owner.getStaminaLoss() / 2
 	if(ease_of_breathing < ASTHMA_ATTACK_THRESHOLD)
@@ -112,6 +112,6 @@
 	name = "High Internal Resistance"
 	desc = "The station's outlets operate at a higher voltage than your chassis can handle, so you can only safely charge from recharging stations. Only IPCs can take this."
 	cost = -2
-	machine_only = TRUE
+	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
 	trait_to_apply = TRAIT_NO_APC_CHARGING
 	organ_slot_to_remove = "r_arm_device" // This feels like such a dumb way to do this but I can't think of a smarter solution

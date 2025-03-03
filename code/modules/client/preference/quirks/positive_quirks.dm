@@ -28,12 +28,12 @@
 	cost = 1
 	item_to_give = /obj/item/storage/box/papersack/prepped_meal
 
-/datum/quirk/glutton // TODO test
+/datum/quirk/glutton
 	name = "Glutton"
 	desc = "You can eat faster, and don't suffer any ill-effects from being overweight. IPCs cannot take this."
 	cost = 2
 	trait_to_apply = TRAIT_GLUTTON
-	organic_only = TRUE
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
@@ -47,5 +47,5 @@
 	name = "Upgraded Cybernetic Lungs"
 	desc  = "Your lungs have been replaced with upgraded cybernetics."
 	cost = 3
-	organic_only = TRUE
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/lungs/cybernetic/upgraded

@@ -8,10 +8,8 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/cost = 0
 	/// The mob that this quirk gets applied to.
 	var/mob/living/carbon/human/owner
-	/// If only organic characters can have it
-	var/organic_only = FALSE
-	/// If only IPC characters can have it
-	var/machine_only = FALSE
+	/// If IPCs and/or organic people can use it
+	var/species_flags
 	/// If having this bars you from rolling sec/command
 	var/blacklisted = FALSE
 	/// If this quirk needs to do something every life cycle
@@ -31,6 +29,17 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	remove_quirk_effects()
 	owner = null
 	..()
+
+/* For any quirk that processes, you'll want to have
+*
+* if(!..())
+*	return
+
+* At the beginning to prevent it from firing on dead people
+*/
+/datum/quirk/process()
+	if(owner.stat == DEAD)
+		return FALSE
 
 /*
 * The proc for actually applying a quirk to a mob, most often during spawning.
@@ -76,10 +85,10 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 	var/datum/character_save/active_character = src.client?.prefs?.active_character
 	if(!active_character)
 		return FALSE
-	if(to_add.organic_only && (active_character.species == "Machine"))
+	if((to_add.species_flags & QUIRK_MACHINE_INCOMPATIBLE) && (active_character.species == "Machine"))
 		to_chat(src, "<span class='warning'>You can't put that quirk on a robotic character.</span>")
 		return FALSE
-	if(to_add.machine_only && (active_character.species != "Machine"))
+	if((to_add.species_flags & QUIRK_ORGANIC_INCOMPATIBLE) && (active_character.species != "Machine"))
 		to_chat(src, "<span class='warning'>You can't put that quirk on an organic character.</span>")
 		return FALSE
 	active_character.quirks += to_add
