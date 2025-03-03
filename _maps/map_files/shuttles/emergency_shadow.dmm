@@ -873,6 +873,7 @@
 	height = 13;
 	shuttle_speed_factor = 2
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Kf" = (
@@ -982,6 +983,7 @@
 /area/shuttle/escape)
 "PX" = (
 /obj/machinery/door/airlock/hatch,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Qj" = (

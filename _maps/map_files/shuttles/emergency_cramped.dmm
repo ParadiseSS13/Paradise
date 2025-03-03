@@ -36,6 +36,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "m" = (
@@ -75,6 +76,7 @@
 	name = "Secure Transport Vessel 5";
 	timid = 1
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "r" = (

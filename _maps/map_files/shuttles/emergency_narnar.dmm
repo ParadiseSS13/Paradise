@@ -344,6 +344,11 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"vX" = (
+/obj/machinery/door/airlock/cult/friendly,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -355,7 +360,7 @@ aa
 ab
 ab
 ab
-ar
+vX
 ab
 aE
 ab
@@ -363,9 +368,9 @@ ac
 ac
 ac
 ab
-ar
+vX
 ab
-ar
+vX
 ac
 ab
 ab

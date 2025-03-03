@@ -277,6 +277,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -814,13 +815,6 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
-"Mb" = (
-/obj/machinery/door/airlock/wood{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/turf/simulated/floor/grass,
-/area/shuttle/escape)
 "NA" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass,
@@ -886,9 +880,9 @@ ac
 ac
 ac
 ab
-Mb
+bi
 ab
-Mb
+bi
 ab
 ab
 ac
