@@ -1,6 +1,6 @@
 /obj/item/wirecutters
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "A small pair of wirecutters, used for snipping electrical cabling. The handgrips are made of cheap plastic, and will not protect against electrical shocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	belt_icon = "wirecutters_red"
@@ -61,7 +61,7 @@
 
 /obj/item/wirecutters/security
 	name = "security wirecutters"
-	desc = "A pair of wirecutters with a tactical grip and robust build."
+	desc = "A pair of tacticool wirecutters fitted with contoured grips and a picatinny rail. The blades are also sharper than normal."
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
 	item_state = "cutters_red" //shh
@@ -102,7 +102,7 @@
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "A pair of integrated wirecutters used by construction and engineering robots."
 	toolspeed = 0.5
 
 /obj/item/wirecutters/cyborg/drone
@@ -113,7 +113,7 @@
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
+	desc = "A compact and powerful industrial tool with a modular head. This one has a set of large cutting blades attached."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws"
