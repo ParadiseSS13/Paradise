@@ -141,6 +141,14 @@
 		new /datum/data/pda/app/signaller
 	)
 
+/obj/item/cartridge/chef
+	name = "Chef's Guide to the Galaxy"
+	desc = "A data cartridge for portable microcomputers. Contains every cooking recipe ever."
+	icon_state = "cart-chef"
+	programs = list(
+		new /datum/data/pda/app/cookbook
+	)
+
 /obj/item/cartridge/cargo
 	name = "Space Parts & Space Vendors Cartridge"
 	desc = "A data cartridge for portable microcomputers. Has supply records and MULEbot control."
