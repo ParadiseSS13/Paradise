@@ -70,6 +70,7 @@
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
+	update_eligible_areas()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
@@ -78,7 +79,7 @@
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
-	update_eligible_areas()
+
 
 /datum/weather/proc/start()
 	if(stage >= WEATHER_MAIN_STAGE)

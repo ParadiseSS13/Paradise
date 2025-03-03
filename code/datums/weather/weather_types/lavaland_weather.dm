@@ -21,7 +21,7 @@
 
 	immunity_type = "ash"
 
-	probability = 0
+	probability = 100
 
 	barometer_predictable = TRUE
 
@@ -130,7 +130,7 @@
 
 	target_trait = ORE_LEVEL
 
-	probability = 100
+	probability = 10
 
 	barometer_predictable = TRUE
 
@@ -152,14 +152,16 @@
 	if(prob(1) && !generated_river)
 		generated_river = TRUE
 		var/datum/river_spawner/new_river = new /datum/river_spawner(3)
-		new_river.generate(nodes = 3, ignore_bridges = TRUE, warning = TRUE)
+		new_river.generate(nodes = 4, ignore_bridges = TRUE, warning = TRUE)
 	if(world.time >= next_rubble)
 		next_rubble = world.time + rand(5 DECISECONDS, 3 SECONDS)
 		var/hits = 0
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
 			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
 				valid_targets += T
-		while(hits <= 4)
+		while(hits <= 8) //sling a bunch of rocks around the map
+			if(!valid_targets) // god forbid we run out of spots to sling rocks
+				break
 			var/target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
 			hits++
@@ -172,27 +174,27 @@
 	desc = "Get out of the way!"
 	layer = FLY_LAYER
 	randomdir = FALSE
-	duration = 9
+	duration = 10
 	pixel_z = 270
 
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
 	. = ..()
-	SpinAnimation()
-	icon_state = pick("small,","large", "sharp", "dust")
-	animate(src, pixel_z = 0, time = duration)
+	icon_state = pick("small,","large", "sharp", "dust", "small1", "large1")
+	animate(src, pixel_z = 0, time = duration, segment)
 
 /obj/effect/temp_visual/rock_target
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = 2
-	duration = 9
+	duration = 10
 
 /obj/effect/temp_visual/rock_target/ex_act()
 	return
 
 /obj/effect/temp_visual/rock_target/Initialize(mapload)
 	. = ..()
+	SpinAnimation()
 	INVOKE_ASYNC(src, PROC_REF(fall))
 
 /obj/effect/temp_visual/rock_target/proc/fall()
@@ -202,13 +204,14 @@
 	sleep(duration)
 	generate_boom(T)
 	for(var/mob/living/L in T.contents)
-		if(typesof(/mob/living/simple_animal/hostile/megafauna))
+		if(istype(T, /mob/living/simple_animal/hostile/megafauna))
 			L.visible_message("[L.name] easily withstands the hit of the massive rock!")
 			return
 		else
 			L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
 			L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
+		// T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
 		T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
 
 // shamelessly stolen and modified from explosion.dm
@@ -224,12 +227,11 @@
 			if(dist < 10)
 				playsound(epicenter, "explosion", 80, TRUE)
 				playsound(epicenter, 'sound/effects/break_stone.ogg', 50, TRUE)
-				shake_camera(M, 4, 2.5)
+				shake_camera(M, 4, 3)
 			else if(dist >= 10 && dist <= 40)
-				M.playsound_local(epicenter, null, far_volume, 1, frequency, S = 'sound/effects/explosionfar.ogg', distance_multiplier = 0)
-				baseshakeamount = sqrt((dist - (dist-10)) * 0.1)
+				M.playsound_local(epicenter, 'sound/effects/explosionfar.ogg', far_volume, 1, frequency, distance_multiplier = 0)
+				baseshakeamount = sqrt((dist - 10) * 0.1)
 				shake_camera(M, 2, clamp(baseshakeamount * 0.25, 0, 2.5))
 			else if(dist > 40)
-				baseshakeamount = sqrt((dist - (dist-10)) * 0.1)
-				M.playsound_local(epicenter, null, far_volume, 1, frequency, S = 'sound/effects/explosion_distant.ogg', distance_multiplier = 0)
+				M.playsound_local(epicenter, 'sound/effects/explosion_distant.ogg', far_volume, 1, frequency, distance_multiplier = 0)
 
