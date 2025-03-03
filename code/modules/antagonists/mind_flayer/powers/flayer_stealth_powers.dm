@@ -201,7 +201,7 @@
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)
 		return
-	if(!do_mob(user, borg, conversion_time))
+	if(!do_mob(user, borg, conversion_time, hidden = TRUE))
 		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
 		return

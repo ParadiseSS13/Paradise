@@ -113,7 +113,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		H.LAssailant = null
 	else
 		H.LAssailant = owner
-	while(do_mob(owner.current, H, suck_rate))
+	while(do_mob(owner.current, H, suck_rate, hidden = TRUE))
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)

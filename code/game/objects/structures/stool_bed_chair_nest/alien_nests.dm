@@ -33,7 +33,7 @@
 				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
 					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
 					"<span class='italics'>You hear squelching...</span>")
-				if(!do_after(M, 120 SECONDS, target = src))
+				if(!do_after(M, 120 SECONDS, target = src, hidden = TRUE))
 					if(M && M.buckled)
 						to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
 					return

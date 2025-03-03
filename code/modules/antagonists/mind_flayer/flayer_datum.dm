@@ -134,7 +134,7 @@
 		"<span class='sinister'>We begin our harvest on [H].</span>",
 		"<span class='notice'>You hear the hum of electricity.</span>"
 	)
-	if(!do_mob(owner.current, H, time = 2 SECONDS))
+	if(!do_mob(owner.current, H, time = 2 SECONDS, hidden = TRUE))
 		send_swarm_message("Our connection was incomplete.")
 		harvesting = null
 		return
