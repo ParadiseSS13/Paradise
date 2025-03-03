@@ -204,6 +204,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.quirks = list() //Reset their quirks
 						if(isnull(NS))
 							NS = GLOB.all_species[active_character.species]
 						S = new NS.type()
@@ -640,6 +641,11 @@
 				if("loadout")
 					var/datum/ui_module/loadout/loadout = new()
 					loadout.ui_interact(user)
+					return FALSE
+
+				if("quirks")
+					var/datum/ui_module/quirk/quirk = new()
+					quirk.ui_interact(user)
 					return FALSE
 
 				if("nt_relation")
