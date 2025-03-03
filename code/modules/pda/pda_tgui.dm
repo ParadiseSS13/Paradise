@@ -36,12 +36,14 @@
 				cat = list()
 				shortcut_cache[P.category] = cat
 				shortcut_cat_order += P.category
-			cat |= list(list(name = P.name, icon = P.icon, notify_icon = P.notify_icon, uid = "[P.UID()]"))
+			cat |= list(list(name = P.name, icon = P.icon, color = P.color, notify_icon = P.notify_icon, uid = "[P.UID()]")) // SS220 EDIT - alarm button
 
 		// force the order of a few core categories
+		// SS220 EDIT START - alarm button
 		shortcut_cat_order = list("General") \
-			+ sortList(shortcut_cat_order - list("General", "Scanners", "Utilities")) \
-			+ list("Scanners", "Utilities")
+			+ sortList(shortcut_cat_order - list("General", "Scanners", "Utilities", "Danger")) \
+			+ list("Scanners", "Utilities", "Danger")
+		// SS220 EDIT END
 
 	data["idInserted"] = (id ? TRUE : FALSE)
 	data["idLink"] = (id ? "[id.registered_name], [id.assignment]" : "--------")

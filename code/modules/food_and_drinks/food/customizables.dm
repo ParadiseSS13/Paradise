@@ -42,7 +42,7 @@ do {\
 
 /obj/item/trash/bowl
 	name = "bowl"
-	desc = "An empty bowl. Put some food in it to start making a soup."
+	desc = "Пустая миска. Положи в неё еду, чтобы приготовить суп."
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
@@ -56,7 +56,7 @@ do {\
 
 /obj/item/food/customizable
 	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
+	desc = "Это бутерброд. Отличный перекус!"
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "sandwichcustom"
 	var/baseicon = "sandwichcustom"
@@ -82,7 +82,7 @@ do {\
 
 /obj/item/food/customizable/sandwich
 	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
+	desc = "Это бутерброд. Отличный перекус!"
 	icon_state = "sandwichcustom"
 	baseicon = "sandwichcustom"
 	basename = "sandwich"

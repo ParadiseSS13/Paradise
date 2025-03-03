@@ -61,6 +61,11 @@
 	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 		return FALSE
+	// SS220 EDIT START - GAS FIXES AND REBALANCE
+	if(is_species(target, /datum/species/serpentid))
+		to_chat(user, "<span class='warning'>This won't work on serpentids armor.</span>")
+		return FALSE
+	// SS220 EDIT START - GAS FIXES AND REBALANCE
 	if(IS_CHANGELING(target))
 		sting_feedback(user, target)
 		take_chemical_cost()
