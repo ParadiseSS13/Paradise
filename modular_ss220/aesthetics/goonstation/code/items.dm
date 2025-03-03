@@ -17,6 +17,7 @@
 	else if(emagged)
 		icon_state = "geiger_on_emag"
 	else
+		var/radiation_count = max(radiation_count_alpha, radiation_count_beta, radiation_count_gamma)
 		switch(radiation_count)
 			if(-INFINITY to RAD_LEVEL_NORMAL)
 				icon_state = "geiger_on_0"

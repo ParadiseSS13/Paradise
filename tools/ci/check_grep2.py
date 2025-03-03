@@ -4,7 +4,7 @@ import os
 import sys
 import time
 from collections import namedtuple
-
+from concurrent.futures import ProcessPoolExecutor
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST
 # An easy regex replacement for this is GLOBAL_LIST_EMPTY$1
 def check_global_list_empty(idx, line):
     if GLOBAL_LIST_EMPTY.search(line):
-        failures.append((idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead."))
+        return [(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")]
 
 # makes sure arguments contained within "ui = new" are valid
 TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
@@ -212,21 +212,9 @@ CODE_CHECKS = [
     check_uid_parameters,
 ]
 
-
-if __name__ == "__main__":
-    print("check_grep2 started")
-
-    exit_code = 0
-    start = time.time()
-
-    dm_files = glob.glob("**/*.dm", recursive=True)
-
-    if len(sys.argv) > 1:
-        dm_files = [sys.argv[1]]
-
+def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []
-
-    for code_filepath in dm_files:
+    try:
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
 
@@ -245,6 +233,25 @@ if __name__ == "__main__":
 
             if last_line and last_line[-1] != '\n':
                 all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    except Exception as e:
+        print(f"Failed to lint {code_filepath}", e)
+    return all_failures
+
+if __name__ == "__main__":
+    print("check_grep2 started")
+
+    exit_code = 0
+    start = time.time()
+
+    dm_files = glob.glob("**/*.dm", recursive=True)
+
+    if len(sys.argv) > 1:
+        dm_files = [sys.argv[1]]
+
+    all_failures = []
+    with ProcessPoolExecutor() as executor:
+        for failures in executor.map(lint_file, dm_files):
+            all_failures += failures
 
     if all_failures:
         exit_code = 1

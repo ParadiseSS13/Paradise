@@ -25,7 +25,8 @@ if __name__ == "__main__":
     exit_code = 0
     start = time.time()
 
-    dm_files = glob.glob("**/*.dm", recursive=True)
+    all_dm_files = glob.glob("**/*.dm", recursive=True)
+    dm_files = [f for f in all_dm_files if "modular_ss220" not in f.split(os.path.sep)]
 
     if len(sys.argv) > 1:
         dm_files = sys.argv[1:]

@@ -102,9 +102,7 @@ GLOBAL_LIST_INIT(restricted_jobs_ss220, security_positions_ss220 + (
 
 // ===================== ALL JOBS =====================
 
-GLOBAL_LIST_INIT(all_jobs_ss220, (list() + (
-	medical_positions_ss220 + science_positions_ss220 + engineering_positions_ss220 + security_positions_ss220 + all_donor_jobs + event_ss220)))
-
+GLOBAL_LIST_INIT(all_jobs_ss220, medical_positions_ss220 + science_positions_ss220 + engineering_positions_ss220 + security_positions_ss220 + all_donor_jobs + event_ss220)
 
 // ====================== TITLE ======================
 /proc/get_alt_titles(list/positions)

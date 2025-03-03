@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(bureaucratic_forms, list())
+GLOBAL_LIST_EMPTY(bureaucratic_forms)
 
 /datum/bureaucratic_form
 	var/const/footer_signstampfax = "<BR><font face=\"Verdana\" color=black><HR><center><font size = \"1\">Подписи глав являются доказательством их согласия.<BR>Данный документ является недействительным при отсутствии релевантной печати.<BR>Пожалуйста, отправьте обратно подписанную/проштампованную копию факсом.</font></center></font>"

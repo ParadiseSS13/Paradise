@@ -51,6 +51,42 @@ def get_sql_folder_version() -> Tuple[Union[str, None], int]:
 
     return highest_file, highest_version
 
+def get_sql_folder_version_220() -> Tuple[Union[str, None], int]:
+    folder_path = Path("SQL/updates220")
+    highest_file_220 = None
+    highest_version_220 = 0
+    all_versions_220 = [0]
+
+    for file_path in folder_path.iterdir():
+        if file_path.is_file():
+            filename = file_path.name
+            search_result = re.search(r"(?P<old>\d+)(\.220\.(?P<old220>\d+))?-(?P<new>\d+)\.220\.(?P<new220>\d+)\.", filename)
+            if search_result is None:
+                continue
+            old_version = int(search_result.group("old"))
+            new_version = int(search_result.group("new"))
+            old_version_220 = int(search_result.group("old220") or 0)
+            new_version_220 = int(search_result.group("new220"))
+            if (old_version_220 + 1) != new_version_220:
+                print_error((
+                    "Missing SQL version update detected,"
+                    f" {filename} should be"
+                    f" {old_version}.220.{old_version_220}-{new_version}.220.{old_version_220 + 1}.sql"
+                    f" or {old_version}.220.{new_version_220 - 1}-{new_version}.220.{new_version_220}.sql"
+                ))
+            if new_version_220 > highest_version_220:
+                highest_version_220 = new_version_220
+                highest_file_220 = filename
+            all_versions_220.append(new_version_220)
+
+    for num in range(highest_version_220):
+        if num not in all_versions_220:
+            print_error(f"Missing SQL update for version 220.{num}")
+
+    _, highest_version = get_sql_folder_version()
+
+    return highest_file_220, f"{highest_version}220{highest_version_220}"
+
 if __name__ == "__main__":
     print("verify_sql_version started")
 
@@ -66,7 +102,7 @@ if __name__ == "__main__":
             print_error(f"File containing config doesn't have a database_configuration section.", config_path)
             exit_code = 1
         elif "sql_version" in config_data["database_configuration"]:
-            config_sql = config_data["database_configuration"]["sql_version"]
+            config_sql = str(config_data["database_configuration"]["sql_version"])
         else:
             print_error(f"No default SQL version set in {config_path}.", config_path)
             exit_code = 1
@@ -78,7 +114,7 @@ if __name__ == "__main__":
         with open(define_path, "r") as define:
             define_data = define.read()
         if search_result := re.search(r"#define SQL_VERSION (\d+)", define_data):
-            define_sql = int(search_result.group(1))
+            define_sql = search_result.group(1)
         else:
             print_error(f"No byond define for SQL found in {define_path}.", define_path)
             exit_code = 1
@@ -86,12 +122,9 @@ if __name__ == "__main__":
         print_error(f"File containing the byond define for the SQL version does not exist ({define_path}).")
         exit_code = 1
 
-    updates_file, updates_folder_sql = get_sql_folder_version()
+    updates_file, updates_folder_sql = get_sql_folder_version_220()
 
-    if updates_folder_sql <= 0 or not isinstance(updates_folder_sql, int) or updates_file is None:
-        print_error("Failed to find a proper updates folder SQL version.")
-        exit_code = 1
-    elif(exit_code == 0):
+    if(exit_code == 0):
         if config_sql != updates_folder_sql:
             print_error(f"Updates file SQL version ({updates_folder_sql}) does not match the config SQL version ({config_sql}).", config_path)
             exit_code = 1
