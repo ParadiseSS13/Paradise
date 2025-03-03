@@ -30,43 +30,14 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
-/datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	return M && M.getDockedId() == dockId
-
-/datum/weather/ash_storm/proc/update_eligible_areas()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-	var/list/eligible_areas = list()
-	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
-
-	// Don't play storm audio to shuttles that are not at lavaland
-	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
-	if(!miningShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/mining)
-
-	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
-	if(!laborShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/siberia)
-
-	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
-	if(!golemShuttleOnPlanet)
-		eligible_areas -= get_areas(/area/shuttle/freegolem)
-
-	for(var/i in 1 to length(eligible_areas))
-		var/area/place = eligible_areas[i]
-		if(place.outdoors)
-			outside_areas += place
-		else
-			inside_areas += place
-
+/datum/weather/ash_storm/update_eligible_areas()
+	. = ..()
 	sound_ao.output_atoms = outside_areas
 	sound_ai.output_atoms = inside_areas
 	sound_wo.output_atoms = outside_areas
 	sound_wi.output_atoms = inside_areas
 
-/datum/weather/ash_storm/proc/update_audio()
+/datum/weather/ash_storm/update_audio()
 	switch(stage)
 		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
@@ -92,7 +63,6 @@
 
 /datum/weather/ash_storm/telegraph()
 	. = ..()
-	update_eligible_areas()
 	update_audio()
 
 /datum/weather/ash_storm/start()
@@ -145,21 +115,19 @@
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
 
 	telegraph_message = "<span class='userdanger'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
-	telegraph_duration = 300
-	telegraph_overlay = null
-	telegraph_sound = "sound/weather/volcano/lavaland_volcano_warning.ogg"
+	telegraph_duration = 600
+	telegraph_sound = 'sound/weather/volcano/lavaland_volcano_warning.ogg'
 
 	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelder now!.</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
-	weather_overlay = null
-	weather_sound = "sound/weather/volcano/lavaland_volcano_eruption.ogg"
+	weather_sound = 'sound/weather/volcano/lavaland_volcano_eruption.ogg'
 
-	end_message = null // radar will give you the safety message on this one, or your instincts
+	// No end message. Radar will give you the safety message on this one, or your instincts
 	end_duration = 300
-	end_overlay = null
 
 	area_type = /area/lavaland/surface/outdoors
+
 	target_trait = ORE_LEVEL
 
 	probability = 100
@@ -168,54 +136,100 @@
 
 	area_act = TRUE
 
-	//has a river already been generated this storm?
+	// The time until the next rock falls from the sky
+	var/next_rubble
+
+	// Has a river already been generated this storm?
 	var/generated_river = FALSE
 
-/datum/weather/volcano/proc/is_shuttle_docked(shuttleId, dockId)
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	return M && M.getDockedId() == dockId
+	// What tiles can we hit with a rock?
+	var/list/valid_targets = list()
 
-/datum/weather/volcano/proc/update_eligible_areas()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-	var/list/eligible_areas = list()
-	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
-
-	// Don't play storm audio to shuttles that are not at lavaland
-	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
-	if(!miningShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/mining)
-
-	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
-	if(!laborShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/siberia)
-
-	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
-	if(!golemShuttleOnPlanet)
-		eligible_areas -= get_areas(/area/shuttle/freegolem)
-
-	for(var/i in 1 to length(eligible_areas))
-		var/area/place = eligible_areas[i]
-		if(place.outdoors)
-			outside_areas += place
-		else
-			inside_areas += place
+/datum/weather/volcano/New()
+	next_rubble = world.time + 10 SECONDS // Short delay
 
 /datum/weather/volcano/area_act()
-	if(prob(100) && !generated_river)
-		generate_river()
+	if(prob(1) && !generated_river)
+		generated_river = TRUE
+		var/datum/river_spawner/new_river = new /datum/river_spawner(3)
+		new_river.generate(nodes = 3, ignore_bridges = TRUE, warning = TRUE)
+	if(world.time >= next_rubble)
+		next_rubble = world.time + rand(5 DECISECONDS, 3 SECONDS)
+		var/hits = 0
+		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
+			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
+				valid_targets += T
+		while(hits <= 4)
+			var/target = pick(valid_targets)
+			new /obj/effect/temp_visual/rock_target(target)
+			hits++
+			valid_targets -= target
 
-/datum/weather/volcano/proc/generate_river()
-	if(generated_river)
-		return
-	generated_river = TRUE
-	var/datum/river_spawner/new_river = new /datum/river_spawner(3)
-	new_river.generate(nodes = 3, ignore_bridges = TRUE, warning = TRUE)
-	update_audio()
+/obj/effect/temp_visual/rockfall
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "clownish" // we shouldnt be seeing this
+	name = "Ejected boulder"
+	desc = "Get out of the way!"
+	layer = FLY_LAYER
+	randomdir = FALSE
+	duration = 9
+	pixel_z = 270
 
+/obj/effect/temp_visual/rockfall/Initialize(mapload)
+	. = ..()
+	SpinAnimation()
+	icon_state = pick("small,","large", "sharp", "dust")
+	animate(src, pixel_z = 0, time = duration)
 
-/datum/weather/volcano/proc/update_audio(sound_type)
-	switch(sound_type)
-		if("new_river")
-			return // temp, actually add a sound here
+/obj/effect/temp_visual/rock_target
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "sniper_zoom"
+	layer = BELOW_MOB_LAYER
+	light_range = 2
+	duration = 9
+
+/obj/effect/temp_visual/rock_target/ex_act()
+	return
+
+/obj/effect/temp_visual/rock_target/Initialize(mapload)
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(fall))
+
+/obj/effect/temp_visual/rock_target/proc/fall()
+	var/turf/T = get_turf(src)
+	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	new /obj/effect/temp_visual/rockfall(T)
+	sleep(duration)
+	generate_boom(T)
+	for(var/mob/living/L in T.contents)
+		if(typesof(/mob/living/simple_animal/hostile/megafauna))
+			L.visible_message("[L.name] easily withstands the hit of the massive rock!")
+			return
+		else
+			L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
+			L.gib()
+	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
+		T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
+
+// shamelessly stolen and modified from explosion.dm
+/obj/effect/temp_visual/rock_target/proc/generate_boom(turf/epicenter)
+	for(var/MN in GLOB.player_list)
+		var/mob/M = MN
+		var/turf/M_turf = get_turf(M)
+		if(M_turf && M_turf.z == epicenter.z)
+			var/baseshakeamount
+			var/frequency = get_rand_frequency()
+			var/dist = get_dist(M_turf, epicenter)
+			var/far_volume = clamp(dist / 2, 40, 60)
+			if(dist < 10)
+				playsound(epicenter, "explosion", 80, TRUE)
+				playsound(epicenter, 'sound/effects/break_stone.ogg', 50, TRUE)
+				shake_camera(M, 4, 2.5)
+			else if(dist >= 10 && dist <= 40)
+				M.playsound_local(epicenter, null, far_volume, 1, frequency, S = 'sound/effects/explosionfar.ogg', distance_multiplier = 0)
+				baseshakeamount = sqrt((dist - (dist-10)) * 0.1)
+				shake_camera(M, 2, clamp(baseshakeamount * 0.25, 0, 2.5))
+			else if(dist > 40)
+				baseshakeamount = sqrt((dist - (dist-10)) * 0.1)
+				M.playsound_local(epicenter, null, far_volume, 1, frequency, S = 'sound/effects/explosion_distant.ogg', distance_multiplier = 0)
+

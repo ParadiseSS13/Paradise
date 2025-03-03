@@ -42,6 +42,11 @@
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
 
 	var/area_act = FALSE // Does this affect more than just mobs, or the landscape?
+
+	var/list/inside_areas = list() // Any areas not in the outside terf
+	var/list/outside_areas = list() // Any areas listed as "outside"
+	var/list/eligible_areas = list() // For variable playing or not playing sounds for shuttles
+
 /datum/weather/New(z_levels)
 	..()
 	impacted_z_levels = z_levels
@@ -73,6 +78,7 @@
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
+	update_eligible_areas()
 
 /datum/weather/proc/start()
 	if(stage >= WEATHER_MAIN_STAGE)
@@ -147,5 +153,36 @@
 				N.plane = initial(N.plane)
 				N.set_opacity(FALSE)
 
+/datum/weather/proc/update_eligible_areas()
+	for(var/z in impacted_z_levels)
+		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+
+	// Don't play storm audio to shuttles that are not at lavaland
+	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
+	if(!miningShuttleDocked)
+		eligible_areas -= get_areas(/area/shuttle/mining)
+
+	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
+	if(!laborShuttleDocked)
+		eligible_areas -= get_areas(/area/shuttle/siberia)
+
+	var/golemShuttleOnPlanet = is_shuttle_docked("freegolem", "freegolem_lavaland")
+	if(!golemShuttleOnPlanet)
+		eligible_areas -= get_areas(/area/shuttle/freegolem)
+
+	for(var/i in 1 to length(eligible_areas))
+		var/area/place = eligible_areas[i]
+		if(place.outdoors)
+			outside_areas += place
+		else
+			inside_areas += place
+
+/datum/weather/proc/is_shuttle_docked(shuttleId, dockId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	return M && M.getDockedId() == dockId
+
 /datum/weather/proc/area_act()
+	return
+
+/datum/weather/proc/update_audio()
 	return

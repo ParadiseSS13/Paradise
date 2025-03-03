@@ -559,10 +559,10 @@
 	mobile_port.loc = S1.loc
 	mobile_port.dir = S1.dir
 
-	//update mining and labor shuttle ash storm audio
+	//update mining and labor shuttle weather audio
 	if(mobile_port.id in list("mining", "laborcamp"))
 		var/mining_zlevel = level_name_to_num(MINING)
-		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		var/datum/weather/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
 			W.update_eligible_areas()
 			W.update_audio()

@@ -4,7 +4,9 @@
 #define RIVER_MIN_X 50
 #define RIVER_MIN_Y 50
 
-#define WARNING_DELAY (20 SECONDS)
+#define WARNING_DELAY (4 SECONDS)
+
+#define BRIDGE_PROB 1
 
 GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
@@ -101,6 +103,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 						cur_dir = turn(cur_dir, -45)
 				else
 					cur_dir = get_dir(cur_turf, target_turf)
+
 			// we may veer off the map entirely, returning a null turf; if so, go back and try again
 			while(get_step(cur_turf, cur_dir) == null && attempts-- > 0)
 
@@ -116,14 +119,13 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 				continue
 			else
 				collected_turfs += cur_turf
-				spread_turf(cur_turf, spread_prob, spread_prob_loss, whitelist_area_type)
 
 	handle_change(warning, ignore_bridges)
 
 	for(var/WP in river_nodes)
 		qdel(WP)
 
-/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area)
+/datum/river_spawner/proc/spread_turf(turf/start_turf, probability = 30, prob_loss = 25, whitelisted_area, ignore_bridges)
 	if(probability <= 0)
 		return
 	var/list/cardinal_turfs = list()
@@ -142,62 +144,45 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!is_in_list(T) && prob(probability))
-			collected_turfs += T
+		if(!istype(T, start_turf.type) && T.ChangeTurf(start_turf.type, ignore_air = TRUE) && prob(probability))
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!is_in_list(T) && prob(probability))
+		if(!istype(T, shoreline_turf_type) && prob(probability) && T.ChangeTurf(start_turf.type, ignore_air = TRUE))
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
-		else if(!is_in_list(T) && istype(T, whitelist_turf_type))
-			collected_turfs += T
+		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
+			T.ChangeTurf(shoreline_turf_type, ignore_air = TRUE)
 
-//
+// handles changing the lava turfs, and if it should delay it and place warnings
 /datum/river_spawner/proc/handle_change(warning, ignore_bridges)
+	var/lava_counter = 0
 	for(var/turf/listed_turf in collected_turfs)
 		var/affected_turf = get_turf(listed_turf)
 		if(warning)
-			new /obj/effect/temp_visual/river_warning(affected_turf)
+			if(lava_counter++ >= 2)
+				new /obj/effect/temp_visual/river_warning(affected_turf)
+				lava_counter = 0
 			addtimer(CALLBACK(src, PROC_REF(convert_turf), affected_turf), WARNING_DELAY)
 		else
 			convert_turf(affected_turf, ignore_bridges)
 
 	collected_turfs.Cut()
-
-/datum/river_spawner/proc/convert_turf(turf/cur_turf)
-	cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
-	if(prob(0.5) && !ignore_bridges)
+// actually convert the turf
+/datum/river_spawner/proc/convert_turf(turf/cur_turf, ignore_bridges)
+	var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+	spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type, ignore_bridges)
+	if(prob(BRIDGE_PROB) && !ignore_bridges)
 		new /obj/effect/spawner/dynamic_bridge(cur_turf)
 
-/datum/river_spawner/proc/is_in_list(var/cur_turf)
-	for (var/existing_turf in collected_turfs)
-		if(existing_turf == cur_turf)
-			return TRUE
-	return FALSE
-
 /obj/effect/temp_visual/river_warning
-	icon = 'icons/goonstation/effects/64x64.dmi'
-	icon_state = "smoke"
-	layer = ABOVE_ALL_MOB_LAYER
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "warning"
+	layer = BELOW_MOB_LAYER
 	duration = WARNING_DELAY
 	randomdir = FALSE
-
-/obj/effect/temp_visual/river_testing
-	icon = 'icons/goonstation/effects/64x64.dmi'
-	icon_state = "smoke"
-	layer = ABOVE_ALL_MOB_LAYER
-	duration = 2 MINUTES
-	randomdir = FALSE
-	color = rgb(0, 255, 42)
-
-/obj/effect/temp_visual/river_testing2
-	icon = 'icons/goonstation/effects/64x64.dmi'
-	icon_state = "smoke"
-	layer = ABOVE_ALL_MOB_LAYER
-	duration = 2 MINUTES
-	randomdir = FALSE
-	color = rgb(255, 0, 0)
+	pixel_x = -32
+	pixel_y = -32
 
 #undef WARNING_DELAY
 
