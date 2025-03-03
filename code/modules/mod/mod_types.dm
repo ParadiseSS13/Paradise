@@ -1,4 +1,5 @@
 /obj/item/mod/control/pre_equipped
+	starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// The skin we apply to the suit, defaults to the default_skin of the theme.
 	var/applied_skin
 	/// The MOD core we apply to the suit.
@@ -252,6 +253,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/traitor
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -272,6 +274,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	applied_modules = list(
@@ -293,6 +296,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
@@ -313,6 +317,7 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/elite
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_SYNDICATE)
@@ -334,6 +339,7 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
+	starting_frequency = MODLINK_FREQ_THETA
 	theme = /datum/mod_theme/prototype
 	req_access = list()
 	applied_modules = list(
@@ -349,6 +355,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/responsory
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -437,6 +444,7 @@
 	additional_module = /obj/item/mod/module/power_kick //JUDGEMENT
 
 /obj/item/mod/control/pre_equipped/apocryphal
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/apocryphal
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -474,6 +482,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -490,6 +499,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/debug
+	starting_frequency = null
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
 	/// One of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
@@ -511,6 +521,7 @@
 	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
+	starting_frequency = null
 	theme = /datum/mod_theme/administrative
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
@@ -529,6 +540,7 @@
 
 //these exist for the prefs menu
 /obj/item/mod/control/pre_equipped/empty
+	starting_frequency = null
 
 /obj/item/mod/control/pre_equipped/empty/syndicate
 	theme = /datum/mod_theme/syndicate
