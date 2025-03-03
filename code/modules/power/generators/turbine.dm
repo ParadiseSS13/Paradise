@@ -56,7 +56,7 @@
 /// Scales the damage taking by the bearings. Higher value means less damage.
 #define BEARING_DAMAGE_SCALING 1e6
 /// Friction from bearing damage
-#define BEARING_DAMAGE_FRICTION 600
+#define BEARING_DAMAGE_FRICTION 120
 /// Message send upon catastrphic failure
 #define FAILURE_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 /// RPM at which the turbine explodes upon failing
@@ -310,14 +310,20 @@
 /datum/milla_safe/compressor_process
 
 /datum/milla_safe/compressor_process/on_run(obj/machinery/power/compressor/compressor)
-	// Lose heat to conduction. This should happen regardless of whether the compressor works.
+	// The things at the start should happen regardless of whether the compressor works.
+	// Lose heat to conduction.
 	compressor.temperature = compressor.temperature * 0.997
+	var/friction_energy_loss = 0
+	// Rotational kinetic energy turned to heat by friction
+	if(compressor.rpm)
+		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.5)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
 	if(!compressor.turbine)
 		compressor.stat = BROKEN
-	if(compressor.stat & BROKEN || compressor.panel_open)
-		return
-	if(!compressor.starter)
+	// If the compressor cannot function only lose kinetic energy to friction
+	if(compressor.stat & BROKEN || compressor.panel_open || !compressor.starter)
+		compressor.kinetic_energy = max(compressor.kinetic_energy - friction_energy_loss, 0)
+		compressor.rpm = max(0, sqrtor0(2 * compressor.kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
 		return
 
 	// By how much we compress the gas going into the turbine
@@ -349,11 +355,6 @@
 
 	// We just changed our composition
 	gas_heat_capacity = compressor.gas_contained.heat_capacity()
-
-	var/friction_energy_loss = 0
-	// Rotational kinetic energy turned to heat by friction
-	if(compressor.rpm)
-		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.5)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
 	// The portion of the thermal energy of the gas converted to kinetic energy
 	compressor.thermal_efficiency = (compressor.gas_contained.return_pressure() + output_side.return_pressure()) <= 0 ? 0 : \
