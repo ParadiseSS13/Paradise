@@ -39,9 +39,17 @@
 /// Return this from begin_step() to abort the step and not try the surgery.
 #define SURGERY_BEGINSTEP_ABORT (-1)
 
+/// Return this from begin_step() to proceed as usual.
+#define SURGERY_BEGINSTEP_CONTINUE (0)
+
 /// Return this from begin_step() to skip the current step entirely and proceed to the next one.
 /// Use this if you would end up leaving someone in an invalid state.
 #define SURGERY_BEGINSTEP_SKIP (1)
+
+/// Return this from begin_step() to completely skip this step and every other step that originated from
+/// the same /datum/surgery that this step originated from.
+/// Useful in branching surgeries when you need to abort and get back to the base surgery.
+#define SURGERY_BEGINSTEP_BYPASS_ORIGIN_SURGERY (2)
 
 // Return these from end_step/fail_step to indicate the next move
 
