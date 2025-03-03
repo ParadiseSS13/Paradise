@@ -558,7 +558,6 @@
 /area/shuttle/pod_4)
 "aff" = (
 /obj/structure/closet/emcloset,
-/obj/item/radio/intercom/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -7606,6 +7605,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/wood/fancy,
 /area/station/public/sleep_female)
 "aHR" = (
@@ -9941,6 +9941,7 @@
 /obj/machinery/camera{
 	c_tag = "Mining Access North"
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -9980,6 +9981,7 @@
 "aSb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/directional/west,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -10139,6 +10141,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aSM" = (
@@ -11172,6 +11175,7 @@
 /area/station/public/locker)
 "aXV" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -17189,6 +17193,7 @@
 	c_tag = "Cargo Dock SouthEast";
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -20910,6 +20915,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bKz" = (
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -23462,12 +23468,10 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bSL" = (
-/obj/item/radio/intercom/private{
-	pixel_y = -28
-	},
 /obj/machinery/computer/borgupload{
 	dir = 1
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bSM" = (
@@ -28837,12 +28841,12 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "cnp" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/hallway/primary/central/sw)
+/area/station/hallway/primary/port)
 "cnt" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light_switch/south,
@@ -32013,6 +32017,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -33774,6 +33779,7 @@
 /area/station/medical/reception)
 "cJl" = (
 /obj/machinery/light/directional/east,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -37662,6 +37668,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -41004,6 +41011,7 @@
 	c_tag = "Research North Hallway";
 	network = list("Research","SS13")
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -41984,6 +41992,19 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/misc_lab)
+"due" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/bridge)
 "duf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -47310,6 +47331,13 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"dXg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "dXj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -50506,6 +50534,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
+"ePa" = (
+/obj/item/kirbyplants/large,
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "ePd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -55688,6 +55721,13 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/sleeper)
+"gzh" = (
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/nw)
 "gzk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59998,6 +60038,7 @@
 /area/station/service/janitor)
 "hTj" = (
 /obj/machinery/light/directional/west,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -64891,6 +64932,12 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/brig)
+"jrS" = (
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/brig)
 "jrU" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dirt,
@@ -67071,6 +67118,13 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
+"kaA" = (
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/port)
 "kaG" = (
 /obj/effect/turf_decal/siding/white,
 /turf/simulated/floor/plasteel/freezer,
@@ -68060,6 +68114,7 @@
 /area/station/maintenance/starboard2)
 "krc" = (
 /obj/machinery/optable,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -74558,6 +74613,7 @@
 	c_tag = "Central Ring Hallway West";
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -75182,6 +75238,7 @@
 /area/station/maintenance/fore2)
 "mIc" = (
 /obj/item/flag/command,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -79825,6 +79882,7 @@
 /area/station/maintenance/starboard)
 "nYh" = (
 /obj/machinery/light/directional/east,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreencorner"
@@ -83126,6 +83184,18 @@
 /obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/legal/magistrate)
+"pbE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry)
 "pbQ" = (
 /obj/item/radio/intercom/directional/south,
 /obj/structure/chair/sofa/pew/right{
@@ -84469,6 +84539,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/wood/fancy,
 /area/station/public/sleep_male)
 "pvZ" = (
@@ -86640,6 +86711,7 @@
 	c_tag = "Cargo Disposals Sorting";
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -89990,12 +90062,12 @@
 	},
 /area/station/engineering/atmos/control)
 "reW" = (
-/obj/item/radio/intercom/directional/east,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
+/area/station/hallway/primary/central/west)
 "rfd" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/interrogation/observation)
@@ -96368,6 +96440,7 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/west,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "tfF" = (
@@ -97616,6 +97689,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -102772,6 +102846,7 @@
 	},
 /obj/machinery/photocopier,
 /obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -104529,6 +104604,14 @@
 	icon_state = "blue"
 	},
 /area/station/command/bridge/checkpoint/south)
+"vPw" = (
+/obj/machinery/light/directional/west,
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore)
 "vPO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -105421,6 +105504,7 @@
 	codes_txt = "patrol;next_patrol=hall9e";
 	location = "hall9d"
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -138376,7 +138460,7 @@ bty
 byF
 bty
 bfE
-bty
+kaA
 bty
 bGO
 bWz
@@ -141660,7 +141744,7 @@ aeb
 aeb
 ltw
 aeb
-reW
+aeb
 amB
 amL
 ant
@@ -141727,7 +141811,7 @@ bOC
 bOC
 bSy
 oAE
-bWH
+cnp
 bYj
 bYj
 bYj
@@ -142692,7 +142776,7 @@ abj
 aaa
 acC
 ant
-anP
+pbE
 adb
 aor
 aoR
@@ -144293,7 +144377,7 @@ eDP
 eDP
 bDR
 bDR
-wdz
+gzh
 liZ
 xTh
 pzY
@@ -144302,7 +144386,7 @@ oUR
 gXY
 oUR
 mKB
-oUR
+reW
 oUR
 xVw
 oUR
@@ -144310,7 +144394,7 @@ oUR
 oUR
 coE
 bwm
-cnp
+bwm
 bwm
 bwm
 muZ
@@ -148331,7 +148415,7 @@ agD
 agE
 agT
 ahC
-ahV
+ePa
 ail
 ail
 ail
@@ -148419,7 +148503,7 @@ chm
 iUV
 cku
 iyc
-iyc
+due
 iyc
 fIB
 fwX
@@ -148877,7 +148961,7 @@ bhO
 aWq
 bhO
 bhO
-bsi
+vPw
 nME
 phe
 bhO
@@ -151674,7 +151758,7 @@ acC
 aec
 akb
 aeb
-aeb
+dXg
 aeb
 aeb
 aeb
@@ -153559,7 +153643,7 @@ xwQ
 ciV
 xwQ
 xwQ
-xwQ
+iru
 aER
 eZo
 lDQ
@@ -163814,7 +163898,7 @@ osD
 hWM
 smr
 raT
-off
+jrS
 vBg
 lSQ
 bvh

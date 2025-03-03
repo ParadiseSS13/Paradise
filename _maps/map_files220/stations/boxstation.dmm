@@ -831,10 +831,10 @@
 	},
 /obj/item/radio/intercom/custom{
 	dir = 8;
-	pixel_x = 36
+	pixel_x = 37
 	},
 /obj/item/radio/intercom/department/security{
-	pixel_x = 22;
+	pixel_x = 24;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2509,6 +2509,7 @@
 /obj/item/reagent_containers/spray/pepper{
 	pixel_x = 8
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -3191,12 +3192,12 @@
 /obj/item/pen,
 /obj/machinery/requests_console/directional/south,
 /obj/item/radio/intercom/department/security{
-	pixel_x = -22;
+	pixel_x = -24;
 	dir = 4
 	},
 /obj/item/radio/intercom/custom{
 	dir = 4;
-	pixel_x = -36
+	pixel_x = -37
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -3778,7 +3779,7 @@
 /area/station/security/brig)
 "arC" = (
 /obj/item/radio/intercom/department/security{
-	pixel_y = 22
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5468,10 +5469,10 @@
 "axQ" = (
 /obj/item/radio/intercom/custom{
 	dir = 1;
-	pixel_y = -36
+	pixel_y = -37
 	},
 /obj/item/radio/intercom/department/security{
-	pixel_y = -22;
+	pixel_y = -24;
 	dir = 1
 	},
 /obj/structure/table,
@@ -20158,6 +20159,7 @@
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "bDW" = (
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -21467,13 +21469,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bJr" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/machinery/button/windowtint/west{
 	id = "rnd"
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -24476,6 +24476,7 @@
 /area/station/medical/sleeper)
 "bXP" = (
 /obj/machinery/door/firedoor,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -27504,6 +27505,7 @@
 	c_tag = "Medbay Hallway Center";
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -32093,6 +32095,7 @@
 	dir = 6;
 	network = list("SS13","RD")
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -33733,10 +33736,6 @@
 /area/station/science/robotics)
 "cIO" = (
 /obj/machinery/economy/vending/scidrobe,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -35362,6 +35361,7 @@
 	c_tag = "Engineering Lobby West";
 	network = list("SS13","Engineering")
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -42319,6 +42319,13 @@
 	icon_state = "vault"
 	},
 /area/station/command/office/ce)
+"dqc" = (
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/east)
 "dqk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -42738,6 +42745,7 @@
 "dsy" = (
 /obj/item/flag/sec,
 /obj/machinery/light_switch/south,
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -43877,6 +43885,18 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/sleeper)
+"dJJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay2)
 "dJW" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	autolink_id = "n2_out";
@@ -46476,6 +46496,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -48342,6 +48363,7 @@
 	c_tag = "Engineering Lobby East";
 	network = list("SS13","Engineering")
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -50109,6 +50131,7 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -53103,9 +53126,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "hcb" = (
-/obj/item/radio/intercom,
-/turf/simulated/wall,
-/area/station/engineering/atmos)
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
+	},
+/area/station/hallway/primary/central/nw)
 "hcy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -53859,7 +53885,7 @@
 	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_y = 22
+	pixel_y = 28
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -55440,7 +55466,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_y = 24
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -57649,6 +57675,7 @@
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
 "iRV" = (
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -58231,10 +58258,10 @@
 /area/station/security/prisonershuttle)
 "jeS" = (
 /obj/item/radio/intercom/department/security{
-	pixel_y = 22
+	pixel_y = 24
 	},
 /obj/item/radio/intercom/custom{
-	pixel_y = 36
+	pixel_y = 37
 	},
 /obj/structure/filingcabinet/security,
 /obj/machinery/light/small/directional/north,
@@ -71969,6 +71996,7 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/south,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -72539,6 +72567,9 @@
 "oyO" = (
 /obj/item/stack/package_wrap,
 /obj/structure/table/glass,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -80555,8 +80586,16 @@
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"rvX" = (
+/obj/item/radio/intercom/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/se)
 "rwb" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -80661,9 +80700,11 @@
 /obj/structure/filingcabinet,
 /obj/item/radio/intercom/private{
 	dir = 4;
-	pixel_x = -36
+	pixel_x = -37
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom/directional/west{
+	pixel_x = -24
+	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "ryo" = (
@@ -81503,7 +81544,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
-	pixel_y = 24
+	pixel_y = 28
 	},
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
@@ -81941,6 +81982,13 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/engineering/ai_transit_tube)
+"rZA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port)
 "rZF" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -88214,6 +88262,13 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology)
+"uqv" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry)
 "uqy" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -93075,6 +93130,15 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/genetics)
+"wfP" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/hallway)
 "wgs" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -94355,7 +94419,7 @@
 /obj/item/radio/intercom/locked/prison{
 	dir = 4;
 	name = "Prison Intercom (General)";
-	pixel_x = -22
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -95309,6 +95373,16 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"wZY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/radio/intercom/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "wZZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -108309,7 +108383,7 @@ aaa
 aaa
 aaa
 aLd
-gGY
+uqv
 aMB
 aSd
 aSd
@@ -114204,7 +114278,7 @@ blV
 blV
 bls
 fMG
-fMG
+wZY
 bnu
 boW
 tde
@@ -119086,7 +119160,7 @@ aab
 beL
 bgA
 vJv
-oll
+rZA
 blQ
 cFP
 bnK
@@ -123462,7 +123536,7 @@ cdX
 bun
 bun
 gzl
-bun
+hcb
 bxi
 urU
 bzM
@@ -126628,7 +126702,7 @@ isi
 oWM
 osz
 ooa
-hcb
+nVh
 gCX
 cSd
 uCC
@@ -131695,7 +131769,7 @@ bCY
 bEw
 bFU
 nis
-bFU
+rvX
 bOz
 bFO
 bTG
@@ -134020,7 +134094,7 @@ caA
 cbv
 dZB
 bXP
-bXD
+caA
 caP
 bXD
 bQV
@@ -137618,7 +137692,7 @@ caA
 cbU
 dZB
 bXP
-bXD
+caA
 caP
 bXD
 ylO
@@ -138151,7 +138225,7 @@ dXp
 hYs
 cCR
 oiA
-avO
+dJJ
 bYv
 lHM
 bXI
@@ -141714,7 +141788,7 @@ bwv
 bwv
 bwv
 eiU
-cXh
+dqc
 bte
 cuQ
 djr
@@ -146871,7 +146945,7 @@ awK
 ctI
 wci
 keJ
-ggx
+wfP
 spl
 cgq
 ufq
@@ -146895,7 +146969,7 @@ ggx
 hug
 spl
 spl
-spl
+fTR
 rKV
 yku
 mCV
