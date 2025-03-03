@@ -11465,6 +11465,12 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/machinery/access_button{
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Access Button";
+	pixel_x = -21;
+	pixel_y = 10
+	},
 /obj/structure/sign/magboots{
 	pixel_x = -32
 	},
@@ -63526,12 +63532,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Access Button";
-	pixel_x = -26;
-	pixel_y = -8
 	},
 /obj/machinery/access_button{
 	autolink_id = "turbine_btn_int";

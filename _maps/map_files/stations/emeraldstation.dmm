@@ -14081,12 +14081,6 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = -23
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -96824,6 +96818,12 @@
 	},
 /obj/structure/sign/magboots{
 	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
