@@ -742,7 +742,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/mob/living/silicon/ai/ai = src
 	// Only show the AI's examines if they're in a holopad
 	if(istype(ai.current, /obj/machinery/hologram/holopad))
-		return call(ai, /mob::broadcast_examine())(examined)
+		return ..()
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
