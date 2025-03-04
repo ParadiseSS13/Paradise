@@ -147,7 +147,7 @@ pub(crate) const PLASMA_BURN_MIN_TEMP: f32 = 100.0 + T0C;
 pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 
 /// How hot does hydrogen need to be for it to ignite?
-pub(crate) const HYDROGEN_MIN_BURN_TEMP: f32 = 700.0 + T0C;
+pub(crate) const HYDROGEN_MIN_BURN_TEMPERATURE: f32 = 700.0 + T0C;
 
 /// How hot does hydrogen need to be for it to burn as well as possible?
 pub(crate) const HYDROGEN_BURN_OPTIMAL_TEMPERATURE: f32 = 2700.0 + T0C;

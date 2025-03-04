@@ -646,14 +646,14 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
 	// Hydrogen BURNING, also know as Knallgas, which is Swedish. The more you know.
-	if cached_temperature > HYDROGEN_BURN_MIN_TEMP
+	if cached_temperature > HYDROGEN_BURN_MIN_TEMPERATURE
         && my_next_tile.gases.hydrogen() > 0.0
         && my_next_tile.gases.oxygen() > 0.0
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
-        let efficiency = ((cached_temperature - HYDROGEN_BURN_MIN_TEMP)
-            / (HYDROGEN_BURN_OPTIMAL_TEMPERATURE - HYDROGEN_BURN_MIN_TEMP))
+        let efficiency = ((cached_temperature - HYDROGEN_BURN_MIN_TEMPEMATURE)
+            / (HYDROGEN_BURN_OPTIMAL_TEMPERATURE - HYDROGEN_BURN_MIN_TEMPERATURE))
             .max(0.0)
             .min(1.0);
 
