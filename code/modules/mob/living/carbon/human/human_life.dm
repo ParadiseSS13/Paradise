@@ -707,22 +707,24 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/human/shock_reduction()
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction && can_metabolize(R))
-				shock_reduction += R.shock_reduction
-	return shock_reduction
+/mob/living/carbon/human/shock_reduction(ignore_reagents = TRUE)
+    var/shock_reduction = 0
+    if(reagents)
+        for(var/datum/reagent/R in reagents.reagent_list)
+            if(ignore_reagents && R.view_true_health)
+                continue
+            if(R.shock_reduction && can_metabolize(R))
+                shock_reduction += R.shock_reduction
+    return shock_reduction
 
 #define BODYPART_PAIN_REDUCTION 5
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
-	var/shock_reduction_doll = shock_reduction_doll()
+	var/shock_reduction = shock_reduction()
 	if(healths)
-		var/health_amount = get_perceived_trauma(shock_reduction_doll)
+		var/health_amount = get_perceived_trauma(shock_reduction)
 		if(..(health_amount)) //not dead
 			switch(health_hud_override)
 				if(HEALTH_HUD_OVERRIDE_CRIT)
