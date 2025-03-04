@@ -29,13 +29,11 @@
 		owner.client.images |= hallucinations
 
 /obj/item/organ/internal/eyes/corrupt/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-	if(!owner.client)
-		return
-	if(!LAZYLEN(hallucinations))
-		return
+	if(!owner.client || !LAZYLEN(hallucinations))
+		return ..()
 	owner.client?.images -= hallucinations
 	QDEL_NULL(hallucinations)
+	return ..()
 
 
 /// Randomly secretes alcohol or hallucinogens when you're drinking something ///qwertodo: at this time this does nothing, because I used the required signal for this for modsuits and smoke. Shooting myself in the foot. Will need to figure something else out
