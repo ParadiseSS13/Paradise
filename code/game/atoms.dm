@@ -1093,10 +1093,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		if(type_override)
+			type = type_override
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
@@ -1475,6 +1477,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
 
+/**
+ * Causes effects when the atom gets hit by a rust effect from heretics
+ *
+ * Override this if you want custom behaviour in whatever gets hit by the rust
+ * /turf/rust_turf should be used instead for overriding rust on turfs
+ */
+/atom/proc/rust_heretic_act()
+	return
+
+///wrapper proc that passes our mob's rust_strength to the target we are rusting
+/mob/living/proc/do_rust_heretic_act(atom/target)
+	var/datum/antagonist/heretic/heretic_data = IS_HERETIC(src)
+	target.rust_heretic_act(heretic_data?.rust_strength)
+
+/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
+	target.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
+
 /// Used with the spawner component to do something when a mob is spawned.
 /atom/proc/on_mob_spawn(mob/created_mob)
 	return
@@ -1486,3 +1505,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	while(i < length(.))
 		var/atom/checked_atom = .[++i]
 		. += checked_atom.contents
+

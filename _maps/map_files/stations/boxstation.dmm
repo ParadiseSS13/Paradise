@@ -12904,6 +12904,8 @@
 /obj/item/seeds/wheat,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/tower,
+/obj/item/seeds/poppy,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aTB" = (
@@ -82853,8 +82855,6 @@
 /area/station/science/toxins/mixing)
 "vMJ" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1

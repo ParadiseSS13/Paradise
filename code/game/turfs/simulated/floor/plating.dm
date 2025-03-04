@@ -11,6 +11,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -185,6 +186,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable

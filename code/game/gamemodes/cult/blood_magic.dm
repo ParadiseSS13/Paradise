@@ -6,6 +6,8 @@
 	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
+	/// If the magic has been enhanced somehow, likely due to a crimson medallion.
+	var/magic_enhanced = FALSE
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
@@ -17,7 +19,7 @@
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	for(var/obj/effect/rune/empower/R in range(1, owner))
 		rune = TRUE
-		limit = MAX_BLOODCHARGE
+		limit = magic_enhanced ? ENHANCED_BLOODCHARGE : MAX_BLOODCHARGE
 		break
 	if(length(spells) >= limit)
 		if(rune)
@@ -280,20 +282,21 @@
 	else
 		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
 
-/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return
+/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target) //This should not exist
+	. = ..()
+	if(!.)
+		return FALSE
 	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
-		return
+		return TRUE
 	if(user.holy_check())
-		return
+		return TRUE
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
-		return FALSE
+		return TRUE
 	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || IS_CULTIST(target))
-			return
+			return TRUE
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
@@ -305,6 +308,7 @@
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, "<span class='cult'>You have exhausted the spell's power!</span>")
 			qdel(src)
+		return TRUE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
@@ -467,22 +471,35 @@
 		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
 							"<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 	else
-		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		if(IS_HERETIC(L))
+			L.Stun(0.5 SECONDS)
+			L.AdjustConfused(3 SECONDS)
+			L.AdjustDizzy(3 SECONDS)
 
-		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-		L.Silence(6 SECONDS)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.KnockDown(10 SECONDS)
-			C.apply_damage(60, STAMINA)
-			C.flash_eyes(1, TRUE)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
-		to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
+			var/old_color = target.color
+			target.color = COLOR_HERETIC_GREEN
+			animate(target, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+			L.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
+			playsound(L, 'sound/effects/curse.ogg', 50, TRUE)
+
+			to_chat(user, "<span class='warning'>An eldritch force intervenes as you touch [target], absorbing most of the effects!</span>")
+			to_chat(target, "<span class='warning'>As [user] touches you with vile magicks, the Mansus absorbs most of the effects!</span>")
+			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		else
+			L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+			L.Silence(6 SECONDS)
+			if(issilicon(target))
+				var/mob/living/silicon/S = L
+				S.emp_act(EMP_HEAVY)
+			else if(iscarbon(target))
+				var/mob/living/carbon/C = L
+				C.KnockDown(10 SECONDS)
+				C.apply_damage(60, STAMINA)
+				C.flash_eyes(1, TRUE)
+				C.Stuttering(16 SECONDS)
+				C.CultSlur(20 SECONDS)
+				C.Jitter(16 SECONDS)
+			to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
 	user.do_attack_animation(target)
 	uses--
 	..()

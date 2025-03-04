@@ -58096,7 +58096,6 @@
 /area/station/security/storage)
 "eSW" = (
 /obj/structure/table,
-/obj/item/storage/fancy/crayons,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_x = 28
@@ -82159,26 +82158,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"sqE" = (
-/obj/machinery/door/airlock/security/glass,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/permabrig)
 "sqF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -85773,8 +85752,6 @@
 /area/station/security/brig)
 "ugj" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
@@ -91023,12 +91000,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -146334,12 +146305,12 @@ vLP
 sGs
 aJx
 aJx
-sqE
-bkd
-aJx
-uOS
 wWV
-bkd
+aJx
+aJx
+aJx
+wWV
+aJx
 ygH
 ygH
 aaa

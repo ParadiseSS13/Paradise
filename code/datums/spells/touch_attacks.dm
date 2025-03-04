@@ -3,6 +3,8 @@
 	var/obj/item/melee/touch_attack/attached_hand = null
 	var/on_remove_message = TRUE
 	invocation_type = "none" //you scream on connecting, not summoning
+	/// Has this spell been boosted by a heretic ascending?
+	var/ascended = FALSE
 
 /datum/spell/touch/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -14,6 +16,9 @@
 	charge_hand(user)
 
 /datum/spell/touch/proc/charge_hand(mob/living/carbon/user)
+	if(SEND_SIGNAL(user, COMSIG_TOUCH_HANDLESS_CAST, src) & COMPONENT_CAST_HANDLESS)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration)
+		return
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(discharge_hand))

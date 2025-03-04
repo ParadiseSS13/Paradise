@@ -52,8 +52,8 @@
 		return
 
 	if(client?.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
-		return
+		if(client.click_intercept.InterceptClickOn(src, params, A))
+			return
 
 	if(next_click > world.time)
 		return

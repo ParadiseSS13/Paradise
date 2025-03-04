@@ -285,7 +285,7 @@
 	else
 		close()
 
-/obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
+/obj/machinery/door/firedoor/deconstruct(disassembled = TRUE, deconstructed_by_rust = FALSE)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		if(disassembled)
@@ -294,7 +294,15 @@
 			F.constructionStep = CONSTRUCTION_WIRES_EXPOSED
 			F.obj_integrity = F.max_integrity * 0.5
 		F.update_icon()
+		if(deconstructed_by_rust)
+			F.deconstruct(FALSE)
 	qdel(src)
+
+/obj/machinery/door/firedoor/rust_heretic_act()
+	if(obj_integrity > 350) // Door armour is 30% melee. Above 350 HP, the door will survive.
+		return ..()
+	else
+		deconstruct(FALSE, TRUE)
 
 /obj/machinery/door/firedoor/CanPass(atom/movable/mover, border_dir)
 	if(..())

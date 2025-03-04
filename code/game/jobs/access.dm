@@ -1,6 +1,9 @@
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
+	var/attempted_access = SEND_SIGNAL(M, COMSIG_MOB_TRIED_ACCESS, src)
+	if(attempted_access & ACCESS_DISALLOWED)
+		return FALSE
 	if(check_access())
 		return 1
 
