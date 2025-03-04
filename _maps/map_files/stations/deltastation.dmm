@@ -51959,13 +51959,8 @@
 /area/station/science/toxins/test)
 "dCz" = (
 /obj/item/target,
-/obj/machinery/camera{
-	c_tag = "Bomb Test Site";
-	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top.";
-	dir = 4;
-	invuln = 1;
-	name = "Hardened Bomb-Test Camera";
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/station/science/toxins/test)
