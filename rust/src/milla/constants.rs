@@ -43,7 +43,7 @@ pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 
 // How hot does it need to be for water vapor to break down?
 
-// How hot does it need to be for water vapor to form from hydrogen and water vapor?
+// How hot does it need to be for water vapor to form from hydrogen and oxygen?
 pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
 
 pub(crate) const WATER_VAPOR_BREAKDOWN_TEMP: f32 = 2000.0;
@@ -147,10 +147,10 @@ pub(crate) const PLASMA_BURN_MIN_TEMP: f32 = 100.0 + T0C;
 pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 
 /// How hot does hydrogen need to be for it to ignite?
-pub(crate) const HYDROGEN_MIN_BURN_TEMPERATURE: f32 = 700.0 + T0C;
+pub(crate) const HYDROGEN_MIN_IGNITE_TEMP: f32 = 700.0 + T0C;
 
 /// How hot does hydrogen need to be for it to burn as well as possible?
-pub(crate) const HYDROGEN_BURN_OPTIMAL_TEMPERATURE: f32 = 2700.0 + T0C;
+pub(crate) const HYDROGEN_OPTIMAL_BURN_TEMP: f32 = 2700.0 + T0C;
 
 /// How much of the plasma are we willing to burn each tick?
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
