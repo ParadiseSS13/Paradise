@@ -18,11 +18,8 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-
 	immunity_type = "ash"
-
-	probability = 100
-
+	probability = 0
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -107,7 +104,6 @@
 	end_sound = null
 
 	aesthetic = TRUE
-
 	probability = 0
 
 /datum/weather/volcano
@@ -127,21 +123,14 @@
 	end_duration = 300
 
 	area_type = /area/lavaland/surface/outdoors
-
 	target_trait = ORE_LEVEL
-
-	probability = 10
-
+	probability = 0
 	barometer_predictable = TRUE
-
 	area_act = TRUE
-
 	// The time until the next rock falls from the sky
 	var/next_rubble
-
 	// Has a river already been generated this storm?
 	var/generated_river = FALSE
-
 	// What tiles can we hit with a rock?
 	var/list/valid_targets = list()
 
@@ -180,7 +169,8 @@
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
 	. = ..()
 	icon_state = pick("small,","large", "sharp", "dust", "small1", "large1")
-	animate(src, pixel_z = 0, time = duration, segment)
+	animate(src, pixel_z = 0, time = duration)
+	SpinAnimation()
 
 /obj/effect/temp_visual/rock_target
 	icon = 'icons/mob/actions/actions.dmi'
@@ -211,7 +201,6 @@
 			L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
 			L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
-		// T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
 		T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
 
 // shamelessly stolen and modified from explosion.dm
@@ -235,3 +224,63 @@
 			else if(dist > 40)
 				M.playsound_local(epicenter, 'sound/effects/explosion_distant.ogg', far_volume, 1, frequency, distance_multiplier = 0)
 
+/datum/weather/acid
+	name = "acidic rain"
+	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
+
+	telegraph_message = "<span class='userdanger'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
+	telegraph_duration = 600
+	telegraph_sound = null //place me!
+	telegraph_overlay = "light_ash"
+
+	weather_message = "<span class='userdanger'><i>Acidic rain begins to pour down in thick sheets, melting rock and flesh alike. Get inside now!</i></span>"
+	weather_duration_lower = 600
+	weather_duration_upper = 1200
+	weather_sound = null //place me!
+	weather_overlay = "ash_storm" // replace this
+
+	end_message = "<span class='boldannounceic'>The pitter of acidic dropples slows to silence. It should be safe to go outside now.</span>"
+	end_duration = 300
+	end_overlay = null // Place me!
+
+	area_type = /area/lavaland/surface/outdoors
+	target_trait = ORE_LEVEL
+	probability = 100
+	barometer_predictable = TRUE
+	area_act = TRUE
+	// how long do you get before it melts a hole?
+	var/melt_delay = 5 SECONDS
+	var/melted_already
+
+/datum/weather/acid/area_act()
+	if(prob(5) && melted_already != TRUE)
+		melted_already = TRUE
+		if(!get_area_turfs(/area/survivalpod)) // dont continue if we havnt made pods yet
+			return
+		var/turf/melt_this = pick(get_area_turfs(/area/survivalpod))
+		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
+
+/datum/weather/acid/proc/melt_pod(turf/melt_this)
+	to_chat(world, "melted a roof at [melt_this.x] X, [melt_this.y]")
+	melt_this.change_area(melt_this, /area/lavaland/surface/outdoors)
+	impacted_areas += melt_this
+	for(var/turf/nearby_turf in RANGE_TURFS(1, melt_this) - melt_this)
+		if(prob(40))
+			nearby_turf.change_area(nearby_turf, /area/lavaland/surface/outdoors)
+			to_chat(world, "melted a roof at [nearby_turf.x] X, [nearby_turf.y]")
+			impacted_areas += nearby_turf
+	update_eligible_areas()
+
+/datum/weather/acid/weather_act(atom/L)
+	if(ismecha(L)) //Mechs are immune
+		return
+	if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
+		return
+	var/mob/living/carbon/human/H = L
+	if(!H.wear_suit && !H.head) // No need to check further if they
+		return
+	if((H.head.resistance_flags & ACID_PROOF) && (H.wear_suit.resistance_flags & ACID_PROOF))
+		return
+
+	H.adjustFireLoss(2)
+	H.adjustBruteLoss(2)
