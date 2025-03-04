@@ -58,6 +58,9 @@
 	if(!owner.get_num_legs())
 		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</span>")
 		return
+	if(HAS_TRAIT(owner, TRAIT_PARAPLEGIC))
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone without working legs.</span>")
+		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
 	H.mind.martial_art.combos.Cut()

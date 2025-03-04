@@ -192,10 +192,12 @@
 
 		if("silenceSound")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			return
 
 		if("muteAdmin")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			prefs.admin_sound_ckey_ignore |= href_list["a"]
 			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
 			prefs.save_preferences(src)
@@ -1316,6 +1318,14 @@
 		editor.editors[target_UID] = editor
 
 	editor.ui_interact(mob)
+
+/client/verb/stop_client_sounds()
+	set category = "Special Verbs"
+	set name = "Stop Sounds"
+	set desc = "Stop Current Sounds."
+	SEND_SOUND(usr, sound(null))
+	to_chat(src, "All sounds stopped.")
+	tgui_panel?.stop_music()
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

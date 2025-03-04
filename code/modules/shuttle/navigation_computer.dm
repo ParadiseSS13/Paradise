@@ -294,7 +294,7 @@
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
 			continue
 		var/obj/docking_port/stationary/S = V

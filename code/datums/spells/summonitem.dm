@@ -76,9 +76,8 @@
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
-					if(issilicon(M) || !M.drop_item_to_ground(item_to_retrieve)) //Items in silicons warp the whole silicon
+					if(issilicon(M) || !M.transfer_item_to(item_to_retrieve, target.loc)) //Items in silicons warp the whole silicon
 						M.visible_message("<span class='warning'>[M] suddenly disappears!</span>", "<span class='danger'>A force suddenly pulls you away!</span>")
-						M.forceMove(target.loc)
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrieve = null
 						break
