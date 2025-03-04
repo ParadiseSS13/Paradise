@@ -52,6 +52,8 @@
 	impacted_z_levels = z_levels
 
 /datum/weather/proc/generate_area_list()
+	if(impacted_areas) // just in case we call this again
+		impacted_areas.Cut()
 	var/list/affectareas = list()
 	for(var/V in get_areas(area_type))
 		affectareas += V

@@ -250,25 +250,24 @@
 	area_act = TRUE
 	// how long do you get before it melts a hole?
 	var/melt_delay = 5 SECONDS
-	var/melted_already
 
 /datum/weather/acid/area_act()
-	if(prob(5) && melted_already != TRUE)
-		melted_already = TRUE
+	if(prob(1))
 		if(!get_area_turfs(/area/survivalpod)) // dont continue if we havnt made pods yet
 			return
 		var/turf/melt_this = pick(get_area_turfs(/area/survivalpod))
+		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
 		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
 
+// lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
-	to_chat(world, "melted a roof at [melt_this.x] X, [melt_this.y]")
-	melt_this.change_area(melt_this, /area/lavaland/surface/outdoors)
-	impacted_areas += melt_this
-	for(var/turf/nearby_turf in RANGE_TURFS(1, melt_this) - melt_this)
-		if(prob(40))
-			nearby_turf.change_area(nearby_turf, /area/lavaland/surface/outdoors)
-			to_chat(world, "melted a roof at [nearby_turf.x] X, [nearby_turf.y]")
-			impacted_areas += nearby_turf
+	var/area/new_area = new /area/lavaland/surface/outdoors
+	for(var/turf/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
+		if(prob(50))
+			new_area.contents.Add(nearby_turf)
+
+	generate_area_list()
+	update_areas()
 	update_eligible_areas()
 
 /datum/weather/acid/weather_act(atom/L)
@@ -277,7 +276,7 @@
 	if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
 		return
 	var/mob/living/carbon/human/H = L
-	if(!H.wear_suit && !H.head) // No need to check further if they
+	if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
 		return
 	if((H.head.resistance_flags & ACID_PROOF) && (H.wear_suit.resistance_flags & ACID_PROOF))
 		return
