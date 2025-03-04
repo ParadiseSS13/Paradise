@@ -759,10 +759,14 @@
 			visible_message("<span class='warning'>[M] [response_harm] [src].</span>")
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby__legacy__attackchain(obj/item/O, mob/living/user)
+/mob/living/simple_animal/demon/pulse_demon/attack_by(obj/item/O, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(is_under_tile())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
+		return FINISH_ATTACK
+
 	var/obj/item/stock_parts/cell/C = O.get_cell()
 	if(C && C.charge)
 		C.use(min(C.charge, power_drain_rate))
@@ -771,6 +775,7 @@
 		to_chat(src, "<span class='notice'>[user] touches you with [O] and you drain its power!</span>")
 	visible_message("<span class='notice'>[O] goes right through [src].</span>")
 	try_shock_mob(user, O.siemens_coefficient)
+	return FINISH_ATTACK
 
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return

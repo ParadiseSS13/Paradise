@@ -92,8 +92,10 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/attackby__legacy__attackchain(obj/item/C, mob/user, params)
-	. = ..()
+/mob/living/simple_animal/hostile/hellhound/attacked_by(obj/item/attacker, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != CONSCIOUS)
