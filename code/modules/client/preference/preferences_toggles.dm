@@ -322,6 +322,7 @@
 	set category = "Special Verbs"
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
+	tgui_panel?.stop_music()
 	to_chat(src, "The current admin midi has been silenced")
 
 /datum/preference_toggle/toggle_runechat

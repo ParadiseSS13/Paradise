@@ -10,10 +10,7 @@
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
 	pda.set_light(fon ? f_lum : 0)
-	if(fon)
-		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
-	else
-		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+	pda.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 

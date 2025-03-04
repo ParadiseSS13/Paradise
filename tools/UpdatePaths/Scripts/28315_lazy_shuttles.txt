@@ -1,0 +1,9 @@
+/obj/docking_port/mobile{id="specops"} : /obj/docking_port/mobile/specops
+/obj/docking_port/mobile{id="sit"} : /obj/docking_port/mobile/sit
+/obj/docking_port/mobile{id="sst"} : /obj/docking_port/mobile/sst
+/obj/docking_port/mobile{id="admin"} : /obj/docking_port/mobile/admin{@OLD}
+/obj/docking_port/mobile{id="ferry"} : /obj/docking_port/mobile/ferry
+/obj/docking_port/mobile{id="trade_sol"} : /obj/docking_port/mobile/trade_sol
+/obj/docking_port/mobile{id="syndicate"} : /obj/docking_port/mobile/nuke_ops
+/obj/docking_port/mobile{id="freegolem"} : /obj/docking_port/mobile/free_golem
+/obj/docking_port/mobile{id="whiteship"} : /obj/docking_port/mobile/whiteship

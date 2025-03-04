@@ -275,13 +275,10 @@
 
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
-	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	if(air_transfer.toxins())
-		air_transfer.set_toxins(air_transfer.toxins() * 5)
 	target.blind_release_air(air_transfer)
-	target.hotspot_expose((ptank.air_contents.temperature() * 2) + 380, 500)
+	target.hotspot_expose(PLASMA_UPPER_TEMPERATURE, min(CELL_VOLUME, CELL_VOLUME * air_transfer.total_moles()))
 
 
 /obj/item/flamethrower/Initialize(mapload)
