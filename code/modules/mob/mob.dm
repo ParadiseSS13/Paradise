@@ -740,12 +740,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/living/silicon/ai/broadcast_examine(atom/examined)
 	var/mob/living/silicon/ai/ai = src
-	// Should prevent AI in camera form from triggering proc
+	// Only show the AI's examines if they're in a holopad
 	if(istype(ai.current, /obj/machinery/hologram/holopad))
-		// return call(mob::broadcast_examine, examined)
 		return call(ai, /mob::broadcast_examine())(examined)
-
-	return // AI is not spying on you
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
