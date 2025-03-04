@@ -30,6 +30,8 @@
 
 /obj/item/organ/internal/eyes/corrupt/remove(mob/living/carbon/M, special = 0)
 	. = ..()
+	if(!owner.client)
+		return
 	if(!LAZYLEN(hallucinations))
 		return
 	owner.client?.images -= hallucinations
