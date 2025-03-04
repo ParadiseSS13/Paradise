@@ -708,14 +708,14 @@
 	return FALSE
 
 /mob/living/carbon/human/shock_reduction(ignore_reagents = TRUE)
-    var/shock_reduction = 0
-    if(reagents)
-        for(var/datum/reagent/R in reagents.reagent_list)
-            if(ignore_reagents && R.view_true_health)
-                continue
-            if(R.shock_reduction && can_metabolize(R))
-                shock_reduction += R.shock_reduction
-    return shock_reduction
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(ignore_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
+				continue
+			if(R.shock_reduction && can_metabolize(R))
+				shock_reduction += R.shock_reduction
+	return shock_reduction
 
 #define BODYPART_PAIN_REDUCTION 5
 
