@@ -13,16 +13,16 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/fill/change_settings(mob/user)
-	var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
+	var/target_path = tgui_input_text(user, "Enter typepath:" , "Typepath", "/obj/structure/closet")
 	objholder = text2path(target_path)
 	if(!ispath(objholder))
 		objholder = pick_closest_path(target_path)
 		if(!objholder)
-			alert("No path has been selected.")
+			tgui_alert(user, "No path has been selected")
 			return
 		else if(ispath(objholder, /area))
 			objholder = null
-			alert("Area paths are not supported for this mode, use the area edit mode instead.")
+			tgui_alert(user, "Area paths are not supported for this mode, use the area edit mode instead")
 			return
 	deselect_region()
 

@@ -281,10 +281,6 @@ emp_act
 			return right_hand_parry.parent
 	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
-
 /mob/living/carbon/human/emp_act(severity)
 	..()
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
@@ -497,11 +493,6 @@ emp_act
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
 			return FALSE
-
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
-		return FALSE
-
 
 	send_item_attack_message(I, user, hit_area)
 
@@ -846,3 +837,47 @@ emp_act
 
 /mob/living/carbon/human/canBeHandcuffed()
 	return has_left_hand() || has_right_hand()
+
+/// Returns a list. The first element is whether we penetrated all clothing for the zone, the rest are the clothes that got contaminated
+/mob/living/carbon/human/proc/rad_contaminate_zone(zone_flag, pocket = FALSE)
+	// This is for items inside of the mob
+	if(!zone_flag)
+		return list(TRUE)
+	var/list/garments = list()
+	var/list/contaminate = list()
+	var/passed = TRUE
+	// items in our pocket are treated uniquely as they are outside of the mob but also under most of its clothing
+	if(pocket)
+		garments = list(w_uniform)
+	else
+		// the suit is worn on top of all other stuff so it needs to be checked first
+		if(wear_suit)
+			garments = list(wear_suit)
+		for(var/obj/item/clothing/garment in contents)
+			if(garment.body_parts_covered & zone_flag)
+				garments |= garment
+	// If we have a suit push it to the start of the list
+	if(wear_suit)
+		garments -= wear_suit
+		garments = list(wear_suit) + garments
+
+	while(length(garments) && passed)
+		var/obj/item/clothing/garment = garments[1]
+		garments -= garment
+		passed = prob((garment.permeability_coefficient * 100) - 1) && !(garment.flags_2 & RAD_PROTECT_CONTENTS_2)
+		if(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+			continue
+		contaminate += garment
+
+	return list(passed) + contaminate
+
+/// Tries to contaminate a human
+/mob/living/carbon/human/contaminate_atom(atom/source, intensity, emission_type, zone = null)
+	if(!zone)
+		zone = hit_zone_to_clothes_zone(ran_zone())
+	var/list/to_contaminate = rad_contaminate_zone(zone)
+	if(to_contaminate[1])
+		to_contaminate += src
+	to_contaminate -= to_contaminate[1]
+	for(var/atom/thing in to_contaminate)
+		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)

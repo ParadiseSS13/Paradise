@@ -595,6 +595,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
+/proc/update_all_mob_malf_hud(new_status)
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
+		H.malf_hud_set_status(new_status)
+
 /proc/getviewsize(view)
 	var/viewX
 	var/viewY
