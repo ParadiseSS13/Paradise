@@ -381,9 +381,9 @@
 	/// Size modifier
 	var/size_mod = 0
 	/// Durability
-	var/durability = 30
+	var/durability = 90
 	/// Max durability
-	var/max_durability = 30
+	var/max_durability = 90
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
 
@@ -435,6 +435,8 @@
 
 /obj/item/smithed_item/tool_bit/proc/damage_bit()
 	durability--
+	if(istype(attached_tool, /obj/item/rcd))
+		durability--
 	if(durability == 0)
 		break_bit()
 
@@ -469,14 +471,14 @@
 	failure_rate = 10
 	base_efficiency_mod = 0.25
 	size_mod = 1
-	durability = 40
+	durability = 120
 
 /obj/item/smithed_item/tool_bit/economical
 	name = "economical bit"
 	desc = "An advanced tool bit that maximises efficiency."
 	base_speed_mod = 0.4
 	base_efficiency_mod = -0.45
-	durability = 15
+	durability = 60
 
 /obj/item/smithed_item/tool_bit/advanced
 	name = "advanced bit"
@@ -490,7 +492,7 @@
 	desc = "A hyper-advanced bit restricted to central command officials."
 	speed_mod = -1
 	efficiency_mod = 1
-	durability = 100
+	durability = 300
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
@@ -590,7 +592,7 @@
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
-	base_power_mult = 0.1
+	base_power_mult = 0.2
 	base_damage_mult = 0.1
 
 /obj/item/smithed_item/lens/efficiency
@@ -611,8 +613,8 @@
 /obj/item/smithed_item/lens/densifier
 	name = "densifier lens"
 	desc = "An advanced lens that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
-	base_fire_rate_mult = -0.3
-	base_laser_speed_mult = -0.3
+	base_fire_rate_mult = -0.4
+	base_laser_speed_mult = -0.4
 	base_damage_mult = 0.4
 	durability = 30
 
