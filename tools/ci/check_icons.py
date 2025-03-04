@@ -38,7 +38,8 @@ if __name__ == "__main__":
     for dmi_path in glob("**/*.dmi", recursive=True):
         dmi = DMI.from_file(dmi_path)
         for check in ICON_CHECKS:
-            findings[dmi_path].extend(check(dmi))
+            if failures := check(dmi):
+                findings[dmi_path].extend(failures)
         count += 1
 
     if findings:
@@ -49,7 +50,7 @@ if __name__ == "__main__":
             for failure in sorted(failures):
                 print(f"{filename}: {failure}")
 
-
+    print(exit_code)
     end = time()
     print(f"\ncheck_icons checked {count} files in {end - start:.2f}s")
 
