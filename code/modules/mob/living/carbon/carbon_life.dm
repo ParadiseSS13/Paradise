@@ -304,16 +304,16 @@
 
 
 /mob/living/carbon/perceived_stamina()
-	return staminaloss - shock_reduction()
+	return staminaloss - shock_reduction_doll()
 
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
-	var/shock_reduction = shock_reduction()
+	var/shock_reduction_doll = shock_reduction_doll()
 	if(health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
-			switch(health - shock_reduction)
+			switch(health - shock_reduction_doll)
 				if(-20 to -10)
 					severity = 1
 				if(-30 to -20)
@@ -340,7 +340,7 @@
 			clear_fullscreen("crit")
 			if(getOxyLoss())
 				var/severity = 0
-				switch(getOxyLoss() - shock_reduction)
+				switch(getOxyLoss() - shock_reduction_doll)
 					if(10 to 20)
 						severity = 1
 					if(20 to 25)
@@ -362,7 +362,7 @@
 		//Fire and Brute damage overlay (BSSR)
 		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
 		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage - shock_reduction > 0)
+		if(hurtdamage - shock_reduction_doll > 0)
 			var/severity = 0
 			switch(hurtdamage)
 				if(5 to 15) severity = 1
