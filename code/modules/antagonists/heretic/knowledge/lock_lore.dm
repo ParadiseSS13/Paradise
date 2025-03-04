@@ -21,7 +21,7 @@
 	name = "A Steward's Secret"
 	desc = "Opens up the Path of Lock to you. \
 		Allows you to transmute a knife and a crowbar into a Key Blade. \
-		You can only create two at a time and they function as fast crowbars. \
+		You can only create three at a time and they function as fast crowbars. \
 		In addition, they can fit into utility belts."
 	gain_text = "The Locked Labyrinth leads to freedom. But only the trapped Stewards know the correct path."
 	required_atoms = list(

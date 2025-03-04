@@ -21,7 +21,7 @@
 	name = "Moonlight Troupe"
 	desc = "Opens up the Path of Moon to you. \
 		Allows you to transmute 2 sheets of iron and a knife into an Lunar Blade. \
-		You can only create two at a time."
+		You can only create three at a time."
 	gain_text = "Under the light of the moon the laughter echoes."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,

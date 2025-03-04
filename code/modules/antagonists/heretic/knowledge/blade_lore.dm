@@ -21,7 +21,7 @@
 	name = "The Cutting Edge"
 	desc = "Opens up the Path of Blades to you. \
 		Allows you to transmute a knife with one bar of silver or titanium to create a Sundered Blade. \
-		You can create up to four at a time."
+		You can create up to five at a time."
 	gain_text = "Our great ancestors forged swords and practiced sparring on the eve of great battles."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
