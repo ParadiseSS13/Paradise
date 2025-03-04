@@ -653,7 +653,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
         let efficiency = ((cached_temperature - HYDROGEN_BURN_MIN_TEMP)
-            / (HYDROGEN_BURN_OPTIMAL_TEMP - HYDROGEN_BURN_MIN_TEMP))
+            / (HYDROGEN_BURN_OPTIMAL_TEMPERATURE - HYDROGEN_BURN_MIN_TEMP))
             .max(0.0)
             .min(1.0);
 
