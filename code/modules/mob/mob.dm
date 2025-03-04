@@ -1417,14 +1417,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
-		var/rads = SSradiation.get_turf_radiation(place)
-		if(rads < RAD_BACKGROUND_RADIATION)
+		var/list/rads = SSradiation.get_turf_radiation(place)
+		if(!rads || (rads[1] + rads[2] + rads[3]) < RAD_BACKGROUND_RADIATION)
 			continue
-
-		var/strength = round(rads / 1000, 0.1)
+		var/alpha_strength = round(rads[1] / 1000, 0.1)
+		var/beta_strength = round(rads[2] / 1000, 0.1)
+		var/gamma_strength = round(rads[3] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
+		MA.maptext = MAPTEXT("Α [alpha_strength]k\nΒ [beta_strength]k\nΓ [gamma_strength]k")
 		MA.color = "#04e604"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
