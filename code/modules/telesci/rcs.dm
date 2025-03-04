@@ -28,6 +28,11 @@
 	/// How much power does each teleport use?
 	var/chargecost = 1000
 
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/rcs/get_cell()
 	return rcell
 
@@ -131,7 +136,8 @@
 		return
 
 	teleporting = FALSE
-	rcell.use(chargecost)
+	var/final_cost = chargecost * bit_efficiency_mod
+	rcell.use(final_cost)
 	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/final_cost)] charge\s left.</span>")

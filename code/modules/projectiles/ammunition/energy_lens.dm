@@ -7,6 +7,10 @@
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	/// Damage multiplier from equipped lenses
+	var/lens_damage_multiplier = 1
+	/// Speed multiplier from equipped lenses.
+	var/lens_speed_multiplier = 1
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser

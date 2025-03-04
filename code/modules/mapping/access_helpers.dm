@@ -233,6 +233,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mineral_storage
 	access = ACCESS_MINERAL_STOREROOM
 
+/obj/effect/mapping_helpers/airlock/access/any/supply/smith
+	access = ACCESS_SMITH
+
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm
 	access = ACCESS_QM
 

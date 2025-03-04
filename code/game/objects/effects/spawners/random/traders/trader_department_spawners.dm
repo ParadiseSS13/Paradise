@@ -40,8 +40,10 @@
 		/obj/item/stack/sheet/mineral/titanium = 5,
 		/obj/item/stack/sheet/plasteel = 5,
 
-		// Hybrid stuff you could in theory get from mining
-		/obj/item/stack/sheet/titaniumglass = 5,
+		// Rare space ore sheets
+		/obj/item/stack/sheet/mineral/platinum = 5,
+		/obj/item/stack/sheet/mineral/iridium = 5,
+		/obj/item/stack/sheet/mineral/palladium = 5,
 
 		// Rare stuff you can't get from mining
 		/obj/item/stack/sheet/mineral/tranquillite = 5,

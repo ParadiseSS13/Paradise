@@ -20,6 +20,11 @@
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
 
+/obj/item/pickaxe/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
 
@@ -140,6 +145,11 @@
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 0.5
+
+/obj/item/shovel/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/shovel/spade
 	name = "spade"
