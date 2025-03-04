@@ -645,7 +645,51 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile.fuel_burnt += plasma_burnt;
     }
 
-// Hydrogen and oxygen making water vapor
+	// Hydrogen BURNING, also know as Knallgas, which is Swedish. The more you know.
+	if cached_temperature > HYDROGEN_BURN_MIN_TEMP
+        && my_next_tile.gases.hydrogen() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
+    {
+        // How efficient is the burn?
+        // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
+        let efficiency = ((cached_temperature - HYDROGEN_BURN_MIN_TEMP)
+            / (HYDROGEN_BURN_OPTIMAL_TEMP - HYDROGEN_BURN_MIN_TEMP))
+            .max(0.0)
+            .min(1.0);
+
+        // How much hydrogen is available to burn?
+        let burnable_hydrogen = fraction * my_next_tile.gases.hydrogen();
+
+        // Actual burn amount.
+        let mut hydrogen_burnt = efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
+        if hydrogen_burnt < PLASMA_BURN_MIN_MOLES {
+            // Boost up to the minimum.
+            hydrogen_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_hydrogen);
+        }
+        if hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN > fraction * my_next_tile.gases.oxygen() {
+            // Restrict based on available oxygen.
+            hydrogen_burnt = fraction * my_next_tile.gases.oxygen() / HYDROGEN_BURN_OXYGEN_PER_HYDROGEN;
+        }
+
+        my_next_tile
+            .gases
+            .set_toxins(my_next_tile.gases.hydrogen() - hydrogen_burnt);
+        my_next_tile
+            .gases
+            .set_oxygen(my_next_tile.gases.oxygen() - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN);
+
+        // Recalculate existing thermal energy to account for the change in heat capacity.
+        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        thermal_energy = cached_temperature * cached_heat_capacity;
+        // THEN we can add in the new thermal energy.
+        thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
+
+        cached_temperature = thermal_energy / cached_heat_capacity;
+
+        my_next_tile.fuel_burnt += hydrogen_burnt;
+    }
+
+	// Hydrogen and oxygen making water vapor
 	if cached_temperature > WATER_VAPOR_FORMATION_TEMP
 		&& my_next_tile.gases.hydrogen() > 0.0
 		&& my_next_tile.gases.oxygen() > 0.0

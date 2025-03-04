@@ -43,7 +43,7 @@ pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 
 // How hot does it need to be for water vapor to break down?
 
-// How hot does it need to be for water vapor to form from H2 and O2?
+// How hot does it need to be for water vapor to form from hydrogen and water vapor?
 pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
 
 pub(crate) const WATER_VAPOR_BREAKDOWN_TEMP: f32 = 2000.0;
@@ -114,7 +114,7 @@ pub(crate) const SPECIFIC_HEAT_CARBON_DIOXIDE: f32 = 30.0;
 pub(crate) const SPECIFIC_HEAT_NITROGEN: f32 = 20.0;
 
 // The specific heat of hydrogen, in joules per kelvin-mole.
-pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 30.0;
+pub(crate) const SPECIFIC_HEAT_HYDROGEN: f32 = 15.0;
 
 // The specific heat of toxins, in joules per kelvin-mole.
 pub(crate) const SPECIFIC_HEAT_TOXINS: f32 = 200.0;
@@ -146,6 +146,12 @@ pub(crate) const PLASMA_BURN_MIN_TEMP: f32 = 100.0 + T0C;
 /// How hot does it need to be for a plasma fire to work as well as possible?
 pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 
+/// How hot does hydrogen need to be for it to ignite?
+pub(crate) const HYDROGEN_MIN_BURN_TEMP: f32 = 700.0 + T0C;
+
+/// How hot does hydrogen need to be for it to burn as well as possible?
+pub(crate) const HYDROGEN_BURN_OPTIMAL_TEMP: f32 = 2700.0 + T0C;
+
 /// How much of the plasma are we willing to burn each tick?
 pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
 
@@ -158,6 +164,9 @@ pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 /// How much oxygen do we use per plasma?
 pub(crate) const PLASMA_BURN_OXYGEN_PER_PLASMA: f32 = 0.4;
 
+/// How much oxygen do we consume for every hydrogen?
+pub(crate) const HYDROGEN_BURN_OXYGEN_PER_HYDROGEN: f32 = 1.0;
+
 /// How much thermal energy is produced, in joules per mole of agent b.
 pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 
@@ -169,6 +178,9 @@ pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 
 /// How much thermal energy is produced, in joules per mole of sleeping toxins.
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
+
+/// How much thermal energy is produced, in joules per mole of hydrogen
+pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 240_000_000_000.0;
 
 /// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]
