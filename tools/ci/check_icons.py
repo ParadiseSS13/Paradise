@@ -50,7 +50,6 @@ if __name__ == "__main__":
             for failure in sorted(failures):
                 print(f"{filename}: {failure}")
 
-    print(exit_code)
     end = time()
     print(f"\ncheck_icons checked {count} files in {end - start:.2f}s")
 
