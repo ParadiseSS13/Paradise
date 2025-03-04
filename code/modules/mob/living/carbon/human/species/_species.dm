@@ -349,10 +349,8 @@
 	leftover -= .
 
 	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
-	if(H.reagents)
-		for(var/datum/reagent/R in H.reagents.reagent_list)
-			if(R.shock_reduction)
-				health_deficiency -= R.shock_reduction
+	health_deficiency -= H.shock_reduction()
+
 	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 		return
 	if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
@@ -416,9 +414,10 @@
  * 	- new_subtype: Our imitate species, by datum reference.
  * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
  * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
+ * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
  */
 ///
-/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE)
+/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
 	return
 
 // Do species-specific reagent handling here
@@ -526,9 +525,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -552,9 +548,6 @@
 		add_attack_logs(user, target, "flayerdrain")
 		return
 	//End Mind Flayer Code
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
@@ -601,9 +594,6 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
@@ -925,9 +915,6 @@
 			return TRUE
 
 	return FALSE //Unsupported slot
-
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return FALSE
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
