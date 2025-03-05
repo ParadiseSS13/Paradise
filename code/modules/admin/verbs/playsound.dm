@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			return
 
 		web_sound_input = tgui_input_text(src, "Enter content URL", "Play Internet Sound", null)
-		if(!istext(web_sound_input) || !length(web_sound_input))
+		if(!length(web_sound_input))
 			return
 
 		web_sound_input = trim(web_sound_input)
