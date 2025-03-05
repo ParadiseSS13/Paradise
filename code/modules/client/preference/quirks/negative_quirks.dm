@@ -21,6 +21,7 @@
 	cost = -2
 	item_to_give = /obj/item/taperecorder
 	blacklisted = TRUE
+	trait_to_apply = TRAIT_FOREIGNER
 
 /datum/quirk/foreigner/apply_quirk_effects(mob/living/quirky)
 	..()
