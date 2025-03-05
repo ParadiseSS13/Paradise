@@ -39,7 +39,8 @@
 	var/list/outside_areas = list()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+		if("[z]" in GLOB.space_manager.areas_in_z)
+			eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
 
 	// Don't play storm audio to shuttles that are not at lavaland
 	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
@@ -90,6 +91,11 @@
 		if(WEATHER_END_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
+
+/datum/weather/ash_storm/generate_area_list()
+	. = ..()
+	// I'm a lazy fuck and it's either this or refactor procgen again
+	impacted_areas |= get_areas(/area/lavaland/surface/gulag_rock)
 
 /datum/weather/ash_storm/telegraph()
 	. = ..()

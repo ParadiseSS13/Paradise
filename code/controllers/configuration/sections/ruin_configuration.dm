@@ -1,5 +1,7 @@
 /// Config holder for all things regarding space ruins and lavaland ruins
 /datum/configuration_section/ruin_configuration
+	/// Whether or not *all* zlevel generation besides the station and Centcomm should be skipped.
+	var/enable_zlevels = TRUE
 	/// Enable or disable all ruins, including lavaland ruins and lavaland tendrils.
 	var/enable_space_ruins = TRUE
 	/// Minimum number of extra space zlevels to generate
@@ -25,6 +27,7 @@
 
 /datum/configuration_section/ruin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
+	CONFIG_LOAD_BOOL(enable_zlevels, data["enable_zlevels"])
 	CONFIG_LOAD_BOOL(enable_space_ruins, data["enable_space_ruins"])
 	CONFIG_LOAD_NUM(minimum_space_zlevels, data["minimum_space_zlevels"])
 	CONFIG_LOAD_NUM(maximum_space_zlevels, data["maximum_space_zlevels"])

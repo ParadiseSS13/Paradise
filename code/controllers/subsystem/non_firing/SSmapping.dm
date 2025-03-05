@@ -26,11 +26,6 @@ SUBSYSTEM_DEF(mapping)
 	/// A mapping of environment names to MILLA environment IDs.
 	var/list/environments
 
-	/// Ruin placement manager for space levels.
-	var/datum/ruin_placer/space/space_ruins_placer
-	/// Ruin placement manager for lavaland levels.
-	var/datum/ruin_placer/lavaland/lavaland_ruins_placer
-
 	var/num_of_res_levels = 0
 	var/clearing_reserved_turfs = FALSE
 	var/list/datum/turf_reservations //list of turf reservations
@@ -101,33 +96,10 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	var/lavaland_zlvl_count = rand(GLOB.configuration.ruins.minimum_lavaland_zlevels, GLOB.configuration.ruins.maximum_lavaland_zlevels)
-	if(lavaland_zlvl_count > 0)
-		var/watch = start_watch()
-		log_startup_progress("Loading lavaland...")
-		for(var/i in 1 to lavaland_zlvl_count)
-			var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
-				"LAVALAND[i]",
-				linkage = CROSSLINKED,
-				traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
-				transition_tag = TRANSITION_TAG_LAVALAND
-			)
-			GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
-		log_startup_progress("Loaded lavaland in [stop_watch(watch)]s")
+	if(GLOB.configuration.ruins.enable_zlevels)
+		generate_zlevels()
 	else
-		log_startup_progress("Skipping Lavaland...")
-
-	// Setup the Z-level linkage
-	GLOB.space_manager.do_transition_setup()
-
-	// Load lavaland
-	loadLavaland()
-
-	// Seed space ruins
-	if(GLOB.configuration.ruins.enable_space_ruins)
-		handleRuins()
-	else
-		log_startup_progress("Skipping space ruins...")
+		log_startup_progress("Skipping zlevel content...")
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
 #ifdef GAME_TESTS
@@ -202,6 +174,23 @@ SUBSYSTEM_DEF(mapping)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
 
+/datum/controller/subsystem/mapping/proc/generate_zlevels()
+	generate_space_zlevels()
+	generate_lavaland_zlevels()
+
+	// Setup the Z-level linkage
+	GLOB.space_manager.do_transition_setup()
+
+	// Perform procedural generation for lavaland rivers and caves
+	procgen_lavaland()
+
+	// Seed space ruins
+	if(GLOB.configuration.ruins.enable_space_ruins)
+		place_lavaland_ruins()
+		place_space_ruins()
+	else
+		log_startup_progress("Skipping space ruins...")
+
 /datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
 	log_startup_progress("Seeding space salvage...")
 	var/space_salvage_timer = start_watch()
@@ -255,25 +244,57 @@ SUBSYSTEM_DEF(mapping)
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
 
-// Do not confuse with seedRuins()
-/datum/controller/subsystem/mapping/proc/handleRuins()
-	// load in extra levels of space ruins
-	var/load_zlevels_timer = start_watch()
-	var/num_extra_space = rand(GLOB.configuration.ruins.minimum_space_zlevels, GLOB.configuration.ruins.maximum_space_zlevels)
-	if(num_extra_space == 0)
+/datum/controller/subsystem/mapping/proc/generate_space_zlevels()
+	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_space_zlevels, GLOB.configuration.ruins.maximum_space_zlevels)
+	if(zlevel_count == 0)
+		log_startup_progress("Skipping space levels...")
 		return
 
-	log_startup_progress("Creating random space levels...")
-	for(var/i in 1 to num_extra_space)
-		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
+	var/watch = start_watch()
+	log_startup_progress("Adding space levels...")
+	for(var/i in 1 to zlevel_count)
+		GLOB.space_manager.add_new_zlevel(
+			"Ruin Area #[i]",
+			linkage = CROSSLINKED,
+			traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY),
+			transition_tag = TRANSITION_TAG_SPACE
+		)
 		CHECK_TICK
 
-	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
-	log_startup_progress("Seeding ruins...")
-	var/seed_ruins_timer = start_watch()
-	space_ruins_placer = new()
-	space_ruins_placer.place_ruins(levels_by_trait(SPAWN_RUINS))
-	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+	log_startup_progress("Added space levels in [stop_watch(watch)]s.")
+
+/datum/controller/subsystem/mapping/proc/generate_lavaland_zlevels()
+	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_lavaland_zlevels, GLOB.configuration.ruins.maximum_lavaland_zlevels)
+	if(zlevel_count == 0)
+		log_startup_progress("Skipping lavaland levels...")
+		return
+
+	log_startup_progress("Loading lavaland...")
+	var/watch = start_watch()
+	for(var/i in 1 to zlevel_count)
+		var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
+			"LAVALAND[i]",
+			linkage = CROSSLINKED,
+			traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
+			transition_tag = TRANSITION_TAG_LAVALAND
+		)
+		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
+		CHECK_TICK
+	log_startup_progress("Added lavaland levels in [stop_watch(watch)]s")
+
+/datum/controller/subsystem/mapping/proc/place_lavaland_ruins()
+	log_startup_progress("Placing lavaland ruins...")
+	var/watch = start_watch()
+	var/datum/ruin_placer/lavaland/placer = new()
+	placer.place_ruins(levels_by_trait(ORE_LEVEL))
+	log_startup_progress("Placed lavaland ruins in [stop_watch(watch)]s.")
+
+/datum/controller/subsystem/mapping/proc/place_space_ruins()
+	log_startup_progress("Placing space ruins...")
+	var/watch = start_watch()
+	var/datum/ruin_placer/space/placer = new()
+	placer.place_ruins(levels_by_trait(SPAWN_RUINS))
+	log_startup_progress("Placed space ruins in [stop_watch(watch)]s.")
 	seed_space_salvage(levels_by_trait(SPAWN_RUINS))
 
 // Loads in the station
@@ -295,7 +316,12 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK), transition_tag = TRANSITION_TAG_SPACE)
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(
+		MAIN_STATION,
+		linkage = CROSSLINKED,
+		traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
+		transition_tag = TRANSITION_TAG_SPACE
+	)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
@@ -309,17 +335,7 @@ SUBSYSTEM_DEF(mapping)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
 
-// Loads in lavaland
-/datum/controller/subsystem/mapping/proc/loadLavaland()
-	if(GLOB.configuration.ruins.enable_space_ruins)
-		// Spawn Lavaland ruins and rivers.
-		log_startup_progress("Populating lavaland ruins...")
-		var/lavaland_setup_timer = start_watch()
-		lavaland_ruins_placer = new()
-		lavaland_ruins_placer.place_ruins(levels_by_trait(ORE_LEVEL))
-		var/time_spent = stop_watch(lavaland_setup_timer)
-		log_startup_progress("Successfully populated lavaland ruins in [time_spent]s.")
-
+/datum/controller/subsystem/mapping/proc/procgen_lavaland()
 	var/theme_watch = start_watch()
 	log_startup_progress("Loading lavaland themes...")
 	if(lavaland_theme)

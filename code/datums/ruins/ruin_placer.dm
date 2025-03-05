@@ -178,6 +178,8 @@
 			if(R.get_cost() > ruin_budget)
 				ruins_availible -= R
 
+		CHECK_TICK
+
 	log_world("Ruin loader finished with [ruin_budget] left to spend.")
 
 #undef DEFAULT_PADDING
