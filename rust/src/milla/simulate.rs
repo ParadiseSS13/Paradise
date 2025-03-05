@@ -688,35 +688,34 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
         my_next_tile.fuel_burnt += hydrogen_burnt;
     }
-	#[no_mangle]
-	pub extern "C" fn electrolyzer_process() {
+
 	// What the electrolyzer uses, splits water vapor into hydrogen and water
-    	if my_next_tile.electrolyzer_active && my_next_tile.gases.water_vapor() > 0.0 {
-        	let water_vapor_consumed = 1.0; // 1 mol of water vapor
-        	let hydrogen_produced = 2.0 * water_vapor_consumed;
-        	let oxygen_produced = water_vapor_consumed;
+    if my_next_tile.electrolyzer_active && my_next_tile.gases.water_vapor() > 0.0 {
+        let water_vapor_consumed = 1.0; // 1 mol of water vapor
+        let hydrogen_produced = 2.0 * water_vapor_consumed;
+        let oxygen_produced = water_vapor_consumed;
 
-        	my_next_tile
-            	.gases
-            	.set_water_vapor(my_next_tile.gases.water_vapor() - water_vapor_consumed);
-        	my_next_tile
-            	.gases
-            	.set_hydrogen(my_next_tile.gases.hydrogen() + hydrogen_produced);
-        	my_next_tile
-            	.gases
-            	.set_oxygen(my_next_tile.gases.oxygen() + oxygen_produced);
+        my_next_tile
+            .gases
+            .set_water_vapor(my_next_tile.gases.water_vapor() - water_vapor_consumed);
+        my_next_tile
+            .gases
+            .set_hydrogen(my_next_tile.gases.hydrogen() + hydrogen_produced);
+        my_next_tile
+            .gases
+            .set_oxygen(my_next_tile.gases.oxygen() + oxygen_produced);
 
-        	// Recalculate existing thermal energy to account for the change in heat capacity.
-        	cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        	thermal_energy = cached_temperature * cached_heat_capacity;
-        	// THEN we can add in the new thermal energy.
-        	thermal_energy += water_vapor_consumed;
-        	// Recalculate temperature for any subsequent reactions.
-        	cached_temperature = thermal_energy / cached_heat_capacity;
+        // Recalculate existing thermal energy to account for the change in heat capacity.
+        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        thermal_energy = cached_temperature * cached_heat_capacity;
+        // THEN we can add in the new thermal energy.
+        thermal_energy += water_vapor_consumed;
+        // Recalculate temperature for any subsequent reactions.
+        cached_temperature = thermal_energy / cached_heat_capacity;
 
-        	my_next_tile.fuel_burnt += water_vapor_consumed;
-    	}
-	}
+        my_next_tile.fuel_burnt += water_vapor_consumed;
+    }
+
 	// Hydrogen and oxygen making water vapor
 	if cached_temperature > WATER_VAPOR_FORMATION_TEMP
 		&& my_next_tile.gases.hydrogen() > 0.0
