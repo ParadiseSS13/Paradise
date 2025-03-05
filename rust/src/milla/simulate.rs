@@ -709,7 +709,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
         thermal_energy = cached_temperature * cached_heat_capacity;
         // THEN we can add in the new thermal energy.
-        thermal_energy += ELECTROLYSIS_ENERGY * water_vapor_consumed;
+        thermal_energy += water_vapor_consumed;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
 

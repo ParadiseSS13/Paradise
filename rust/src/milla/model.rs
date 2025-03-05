@@ -268,6 +268,7 @@ impl Tile {
             wall: [false, false],
             gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
+			electrolyzer_active: false,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
