@@ -19,7 +19,7 @@
 
 /proc/__detect_rustlib()
 	var/version_suffix = "515"
-	if (world.byond_build >= 1651)
+	if(world.byond_build >= 1651)
 		version_suffix = "516"
 
 	if(world.system_type == UNIX)
