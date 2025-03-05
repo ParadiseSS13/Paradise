@@ -21,7 +21,7 @@ cargo clean
 cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
 cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_516.so
 
-# Build it for Windows 515
+# Build it for Windows
 cargo build --release --target $WINDOWS_TARGET
 cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515.dll
 cargo clean
