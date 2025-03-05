@@ -71262,11 +71262,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "mAS" = (
@@ -81853,10 +81853,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -90029,8 +90029,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
