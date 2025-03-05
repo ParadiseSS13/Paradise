@@ -449,6 +449,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.scrub_CO2 = TRUE
 				S.scrub_Toxins = TRUE
 				S.scrub_N2O = TRUE
+				S.scrub_H2 = TRUE
+				S.scrub_H2O = TRUE
 				S.scrubbing = TRUE
 				S.widenet = TRUE
 				S.update_icon(UPDATE_ICON_STATE)
@@ -488,6 +490,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.scrub_CO2 = TRUE
 				S.scrub_Toxins = FALSE
 				S.scrub_N2O = FALSE
+				S.scrub_H2 = FALSE
+				S.scrub_H2O = FALSE
 				S.scrubbing = TRUE
 				S.widenet = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
@@ -755,6 +759,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 			scrubber_info["filter_co2"] = S.scrub_CO2
 			scrubber_info["filter_toxins"] = S.scrub_Toxins
 			scrubber_info["filter_n2o"] = S.scrub_N2O
+			scrubber_info["filter_h2"] = S.scrub_H2
+			scrubber_info["filter_h2o"] = S.scrub_H2O
 			scrubbers += list(scrubber_info)
 	data["scrubbers"] = scrubbers
 	return data
@@ -892,6 +898,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					"n2o_scrub",
 					"n2_scrub",
 					"o2_scrub",
+					"h2_scrub",
+					"h2o_scrub",
 					"widenet",
 					"scrubbing",
 					"direction")
@@ -954,6 +962,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 								S.scrub_N2 = val
 							if("o2_scrub")
 								S.scrub_O2 = val
+							if("h2")
+								S.scrub_H2 = val
+							if("h2o")
+								S.scrub_H2O = val
 							if("widenet")
 								S.widenet = val
 							if("scrubbing")

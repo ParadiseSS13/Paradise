@@ -342,22 +342,22 @@ const AirAlarmScrubbersView = (props, context) => {
           />
           <Button
             content="Hydrogen"
-            selected={s.filter_hydrogen}
+            selected={s.filter_h2}
             onClick={() =>
               act('command', {
-                cmd: 'hydrogen_scrub',
-                val: !s.filter_hydrogen,
+                cmd: 'h2_scrub',
+                val: !s.filter_h2,
                 id_tag: s.id_tag,
               })
             }
           />
           <Button
             content="Water Vapor"
-            selected={s.filter_water_vapor}
+            selected={s.filter_h2o}
             onClick={() =>
               act('command', {
-                cmd: 'water_vapor_scrub',
-                val: !s.filter_water_vapor,
+                cmd: 'h2o_scrub',
+                val: !s.filter_h2o,
                 id_tag: s.id_tag,
               })
             }

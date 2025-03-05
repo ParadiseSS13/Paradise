@@ -676,7 +676,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .set_toxins(my_next_tile.gases.hydrogen() - hydrogen_burnt);
         my_next_tile
             .gases
-            .set_oxygen(my_next_tile.gases.oxygen() - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN);
+            .set_oxygen(my_next_tile.gases.oxygen() * 0.5 - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN);
 
         // Recalculate existing thermal energy to account for the change in heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
