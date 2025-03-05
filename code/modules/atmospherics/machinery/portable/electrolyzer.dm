@@ -37,10 +37,13 @@
     . = ..()
     if(active)
         active = FALSE
-        to_chat(user, "<span class='notice'>The electrolyzer is now off.</span>")
+        to_chat(user, "<span class='notice'>The electrolyzer switches off.</span>")
         icon_state = "electrolyzer_off"
     else
         active = TRUE
-        to_chat(user, "<span class='notice'>The electrolyzer is now on.</span>")
+        to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
         icon_state = "electrolyzer_on"
 
+/obj/machinery/atmospherics/portable/electrolyzer/electrolysis
+	if(active)
+		electrolyzer_active(TRUE)

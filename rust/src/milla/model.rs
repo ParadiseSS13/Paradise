@@ -249,6 +249,8 @@ pub(crate) struct Tile {
     pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
+	/// Is the electrolyzer active?
+	pub electrolyzer_active: bool,
 }
 
 impl Tile {
