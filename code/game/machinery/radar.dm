@@ -130,6 +130,17 @@
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 10)
 
+/obj/item/circuitboard/machine/radar/broken
+	board_name = "Doppler Radar"
+	desc = "Bits of char, plastic, and ash cling to the boards surface. How it was working before was nothing short of a miracle. It's probably not going to work again."
+	icon_state = "command_broken"
+
+// We dont want them to rebuild this in random places. Ya lose it, its gone
+/obj/machinery/radar/Destroy()
+	component_parts -= /obj/item/circuitboard/machine/radar
+	new /obj/item/circuitboard/machine/radar/broken(src)
+	. = ..()
+
 
 
 

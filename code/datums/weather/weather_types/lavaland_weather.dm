@@ -1,3 +1,4 @@
+/// MARK: Ash Storm
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
 /datum/weather/ash_storm
 	name = "ash storm"
@@ -19,7 +20,7 @@
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
-	probability = 0
+	probability = 100
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -58,22 +59,6 @@
 			sound_wo.stop()
 			sound_wi.stop()
 
-/datum/weather/ash_storm/telegraph()
-	. = ..()
-	update_audio()
-
-/datum/weather/ash_storm/start()
-	. = ..()
-	update_audio()
-
-/datum/weather/ash_storm/wind_down()
-	. = ..()
-	update_audio()
-
-/datum/weather/ash_storm/end()
-	. = ..()
-	update_audio()
-
 /datum/weather/ash_storm/proc/is_ash_immune(atom/L)
 	while(L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
@@ -106,6 +91,7 @@
 	aesthetic = TRUE
 	probability = 0
 
+/// MARK: Volcano
 /datum/weather/volcano
 	name = "volcanic activity"
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
@@ -224,6 +210,7 @@
 			else if(dist > 40)
 				M.playsound_local(epicenter, 'sound/effects/explosion_distant.ogg', far_volume, 1, frequency, distance_multiplier = 0)
 
+/// MARK: Acid Rain
 /datum/weather/acid
 	name = "acidic rain"
 	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
@@ -245,7 +232,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 100
+	probability = 0
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -253,7 +240,8 @@
 
 /datum/weather/acid/area_act()
 	if(prob(1))
-		if(!get_area_turfs(/area/survivalpod)) // dont continue if we havnt made pods yet
+		var/pod_check = get_area_turfs(/area/survivalpod)
+		if(!pod_check) // dont continue if we havnt made pods yet or we'll runtime
 			return
 		var/turf/melt_this = pick(get_area_turfs(/area/survivalpod))
 		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
@@ -271,15 +259,103 @@
 	update_eligible_areas()
 
 /datum/weather/acid/weather_act(atom/L)
-	if(ismecha(L)) //Mechs are immune
-		return
-	if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
-		return
-	var/mob/living/carbon/human/H = L
-	if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
-		return
-	if((H.head.resistance_flags & ACID_PROOF) && (H.wear_suit.resistance_flags & ACID_PROOF))
-		return
+	while(L && !isturf(L))
+		if(ismecha(L)) //Mechs are immune
+			return
+		if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
+			return
+		var/mob/living/carbon/human/H = L
+		if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
+			return
+		if(!(H.head.resistance_flags & ACID_PROOF) && !(H.wear_suit.resistance_flags & ACID_PROOF))
+			H.adjustFireLoss(2)
+			H.adjustBruteLoss(2)
+		L = L.loc //Matryoshka check
 
-	H.adjustFireLoss(2)
-	H.adjustBruteLoss(2)
+/// MARK: Wind Storm
+/datum/weather/wind
+	name = "high-velocity wind"
+	desc = "High-pressure barometrics in the area have caused a radical change in air pressure, resulting in high-speed winds in the immediate vicinity."
+
+	telegraph_message = "<span class='userdanger'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"
+	telegraph_duration = 600
+	telegraph_overlay = "light_ash"
+
+	weather_message = "<span class='userdanger'><i>The wind rises into a furious rage, kicking up dirt and ash in its wake. Get inside now!</i></span>"
+	weather_duration_lower = 600
+	weather_duration_upper = 1200
+	weather_overlay = "wind"
+
+	end_message = "<span class='boldannounceic'>The wind calms into its normal rhythms, dust settling back to the ashen surface. It should be safe to go outside now.</span>"
+	end_duration = 300
+	end_overlay = "light_ash"
+
+	area_type = /area/lavaland/surface/outdoors
+	target_trait = ORE_LEVEL
+	probability = 0
+	barometer_predictable = TRUE
+	var/wind_dir
+	var/next_dir_change
+
+	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
+
+/datum/weather/wind/New()
+	wind_dir = pick(GLOB.alldirs)
+
+/datum/weather/wind/update_eligible_areas()
+	. = ..()
+	sound_ao.output_atoms = outside_areas
+	sound_ai.output_atoms = inside_areas
+	sound_wo.output_atoms = outside_areas
+	sound_wi.output_atoms = inside_areas
+
+/datum/weather/wind/update_audio()
+	switch(stage)
+		if(WEATHER_STARTUP_STAGE)
+			sound_wo.start()
+			sound_wi.start()
+
+		if(WEATHER_MAIN_STAGE)
+			sound_wo.stop()
+			sound_wi.stop()
+
+			sound_ao.start()
+			sound_ai.start()
+
+		if(WEATHER_WIND_DOWN_STAGE)
+			sound_ao.stop()
+			sound_ai.stop()
+
+			sound_wo.start()
+			sound_wi.start()
+
+		if(WEATHER_END_STAGE)
+			sound_wo.stop()
+			sound_wi.stop()
+
+/datum/weather/wind/start() //give it our custom overlay
+	custom_overlay = 'icons/effects/tile_effects.dmi'
+	overlay_dir = wind_dir
+	next_dir_change = world.time + rand(30 SECONDS, 3 MINUTES)
+	. = ..()
+
+/datum/weather/wind/wind_down() // back to normal overlay
+	custom_overlay = null
+	overlay_dir = null
+	. = ..()
+
+/datum/weather/wind/weather_act(mob/living/L)
+	while(L && !isturf(L))
+		if(ismecha(L)) //Mechs are immune
+			return TRUE
+		if(ishuman(L)) // lets not push around lavaland mobs
+			L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
+	if(next_dir_change <= world.time)
+		wind_dir = pick(GLOB.alldirs)
+		update_areas()
+
+
+

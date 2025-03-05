@@ -29,6 +29,8 @@
 
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
 	var/overlay_plane = AREA_PLANE
+	var/custom_overlay // Do we want to give it a non-standard weather effect
+	var/overlay_dir = NORTH
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
@@ -80,7 +82,9 @@
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
+
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
+	update_audio()
 
 
 /datum/weather/proc/start()
@@ -96,6 +100,7 @@
 			if(weather_sound)
 				SEND_SOUND(M, sound(weather_sound))
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	update_audio()
 
 /datum/weather/proc/wind_down()
 	if(stage >= WEATHER_WIND_DOWN_STAGE)
@@ -110,6 +115,7 @@
 			if(end_sound)
 				SEND_SOUND(M, sound(end_sound))
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
+	update_audio()
 
 /datum/weather/proc/end()
 	if(stage == WEATHER_END_STAGE)
@@ -117,6 +123,7 @@
 	stage = WEATHER_END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
+	update_audio()
 
 /datum/weather/proc/can_weather_act(mob/living/L) //Can this weather impact a mob?
 	var/turf/mob_turf = get_turf(L)
@@ -138,7 +145,12 @@
 		var/area/N = V
 		N.layer = overlay_layer
 		N.plane = overlay_plane
-		N.icon = 'icons/effects/weather_effects.dmi'
+		if(!custom_overlay)
+			N.icon = 'icons/effects/weather_effects.dmi'
+		else
+			N.icon = custom_overlay
+		if(overlay_dir)
+			N.dir = overlay_dir
 		N.invisibility = 0
 		N.color = weather_color
 		switch(stage)
@@ -152,9 +164,11 @@
 				N.color = null
 				N.icon_state = ""
 				N.icon = 'icons/turf/areas.dmi'
+				N.dir = NORTH
 				N.layer = initial(N.layer)
 				N.plane = initial(N.plane)
 				N.set_opacity(FALSE)
+
 
 /datum/weather/proc/update_eligible_areas()
 	for(var/z in impacted_z_levels)
