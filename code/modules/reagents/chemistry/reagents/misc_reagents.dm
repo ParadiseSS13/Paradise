@@ -861,6 +861,7 @@
 	description = "A dust composed of microscopic bluespace crystals, with minor space-warping properties."
 	color = "#0000CC"
 	taste_description = "fizzling blue"
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/bluespace/reaction_mob(mob/living/M, method, volume, show_message) //Qwertodo after heretic: I wanted to do more with this
 	. = ..()
