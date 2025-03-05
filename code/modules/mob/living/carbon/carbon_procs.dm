@@ -1115,17 +1115,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/shock_reduction()
 	return 0
 
-/mob/living/carbon/proc/shock_reduction_doll() // This proc is for the HUD elements that painkillers affect to use
-	var/shock_reduction_doll = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				if(R.view_true_health) // This makes it so painkillers that have a TRUE view_true_health won't muddy up the health doll
-					continue
-				else
-					shock_reduction_doll += R.shock_reduction
-	return shock_reduction_doll
-
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
 
