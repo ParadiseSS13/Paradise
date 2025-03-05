@@ -43,9 +43,4 @@
         active = TRUE
         to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
         icon_state = "electrolyzer_on"
-		rust_electrolyzer_process() // Call the Rust function
-
-/proc/call_rust_electrolyzer_process()
-    call("electrolyzer_process")
-
 
