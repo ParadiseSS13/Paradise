@@ -51237,8 +51237,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
 "ipz" = (
@@ -53673,12 +53672,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard/east)
-"jCl" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurplecorner"
-	},
-/area/station/science/research)
 "jCz" = (
 /obj/structure/sink/kitchen{
 	dir = 1;
@@ -54438,9 +54431,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "darkgrey"
 	},
 /area/station/science/research)
 "jOR" = (
@@ -65890,6 +65887,17 @@
 	icon_state = "darkgrey"
 	},
 /area/station/science/robotics)
+"oVp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/research)
 "oVx" = (
 /obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
@@ -66827,17 +66835,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"ppm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
-/area/station/science/research)
 "pps" = (
 /obj/structure/rack,
 /obj/item/crowbar/red,
@@ -69191,7 +69188,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "qpN" = (
@@ -75088,6 +75085,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/west)
+"sUW" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/science/research)
 "sVy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -77006,7 +77013,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/research/glass,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79228,7 +79235,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
 "uTp" = (
@@ -84896,7 +84903,6 @@
 	name = "Toxins Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -84906,6 +84912,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -118018,8 +118025,8 @@ cxO
 cIE
 clb
 lmq
-ppm
-jOM
+oVp
+oVp
 jOM
 ipt
 wsu
@@ -118275,10 +118282,10 @@ wYn
 qnt
 akH
 hns
+cic
+cic
+sUW
 clb
-cwR
-cwR
-cwR
 cwR
 cwR
 cwR
@@ -118532,9 +118539,9 @@ geq
 uNn
 hyQ
 auf
-jCl
-tId
-tId
+cic
+cic
+sUW
 uSP
 tug
 tId
