@@ -28,19 +28,19 @@
 
 // Turns the electrolyzer on and off
 /obj/machinery/atmospherics/portable/electrolyzer/attack_hand(mob/user as mob)
-    if(stat & BROKEN)
-        return
-    if(!anchored)
-        to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
-        return
+	if(stat & BROKEN)
+		return
+	if(!anchored)
+		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
+		return
 
-    . = ..()
-    if(active)
-        active = FALSE
-        to_chat(user, "<span class='notice'>The electrolyzer switches off.</span>")
-        icon_state = "electrolyzer_off"
-    else
-        active = TRUE
-        to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
-        icon_state = "electrolyzer_on"
+	. = ..()
+	if(active)
+		active = FALSE
+		to_chat(user, "<span class='notice'>The electrolyzer switches off.</span>")
+		icon_state = "electrolyzer_off"
+	else
+		active = TRUE
+		to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
+		icon_state = "electrolyzer_on"
 
