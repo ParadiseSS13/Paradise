@@ -14164,7 +14164,7 @@
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "bSp" = (
-/obj/machinery/portable/electrolyzer,
+/obj/machinery/atmospherics/portable/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bSr" = (

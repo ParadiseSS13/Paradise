@@ -71169,6 +71169,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"pzF" = (
+/obj/machinery/atmospherics/portable/electrolyzer,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "pzU" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -120117,7 +120121,7 @@ cPU
 cQM
 cSb
 cTh
-cSd
+pzF
 cOF
 deJ
 dfF

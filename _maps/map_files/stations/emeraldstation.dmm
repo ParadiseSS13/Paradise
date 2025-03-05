@@ -87915,13 +87915,13 @@
 	},
 /area/station/hallway/primary/central/south)
 "rwK" = (
-/obj/machinery/portable/electrolyzer,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/portable/electrolyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
