@@ -79,7 +79,7 @@
 
 /obj/item/storage/belt/unfathomable_curio/examine(mob/living/carbon/user)
 	. = ..()
-	if(IS_HERETIC(user))
+	if(IS_HERETIC(user) || !isliving(user))
 		return
 
 	user.adjustBrainLoss(10)
