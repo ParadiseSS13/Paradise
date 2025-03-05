@@ -99,6 +99,16 @@ const AirStatus = (props, context) => {
               <ProgressBar value={air.contents.n2o / 100} fractionDigits="1" color={Danger2Colour(air.danger.n2o)} />
             </LabeledList.Item>
           )}
+          {air.contents.h2 > 0.1 && (
+            <LabeledList.Item label="Hydrogen">
+              <ProgressBar value={air.contents.h2 / 100} fractionDigits="1" color={Danger2Colour(air.danger.h2)} />
+            </LabeledList.Item>
+          )}
+          {air.contents.h2o > 0.1 && (
+            <LabeledList.Item label="Water Vapor">
+              <ProgressBar value={air.contents.h2o / 100} fractionDigits="1" color={Danger2Colour(air.danger.h2o)} />
+            </LabeledList.Item>
+          )}
           {air.contents.other > 0.1 && (
             <LabeledList.Item label="Other">
               <ProgressBar
@@ -326,6 +336,28 @@ const AirAlarmScrubbersView = (props, context) => {
               act('command', {
                 cmd: 'n2o_scrub',
                 val: !s.filter_n2o,
+                id_tag: s.id_tag,
+              })
+            }
+          />
+          <Button
+            content="Hydrogen"
+            selected={s.filter_hydrogen}
+            onClick={() =>
+              act('command', {
+                cmd: 'hydrogen_scrub',
+                val: !s.filter_hydrogen,
+                id_tag: s.id_tag,
+              })
+            }
+          />
+          <Button
+            content="Water Vapor"
+            selected={s.filter_water_vapor}
+            onClick={() =>
+              act('command', {
+                cmd: 'water_vapor_scrub',
+                val: !s.filter_water_vapor,
                 id_tag: s.id_tag,
               })
             }
