@@ -249,8 +249,6 @@ pub(crate) struct Tile {
     pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
-	/// Is the electrolyzer active?
-	pub electrolyzer_active: bool,
 }
 
 impl Tile {
@@ -268,7 +266,6 @@ impl Tile {
             wall: [false, false],
             gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
-			electrolyzer_active: false,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
