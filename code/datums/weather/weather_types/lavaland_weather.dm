@@ -20,7 +20,7 @@
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
-	probability = 100
+	probability = 0
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -76,7 +76,7 @@
 		return
 	L.adjustFireLoss(4)
 
-
+/// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
 	name = "emberfall"
@@ -96,7 +96,7 @@
 	name = "volcanic activity"
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
 
-	telegraph_message = "<span class='userdanger'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
 	telegraph_duration = 600
 	telegraph_sound = 'sound/weather/volcano/lavaland_volcano_warning.ogg'
 
@@ -215,7 +215,7 @@
 	name = "acidic rain"
 	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
 
-	telegraph_message = "<span class='userdanger'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
 	telegraph_duration = 600
 	telegraph_sound = null //place me!
 	telegraph_overlay = "light_ash"
@@ -254,6 +254,7 @@
 		if(prob(50))
 			new_area.contents.Add(nearby_turf)
 
+	impacted_areas.Cut()
 	generate_area_list()
 	update_areas()
 	update_eligible_areas()
@@ -277,7 +278,7 @@
 	name = "high-velocity wind"
 	desc = "High-pressure barometrics in the area have caused a radical change in air pressure, resulting in high-speed winds in the immediate vicinity."
 
-	telegraph_message = "<span class='userdanger'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"
 	telegraph_duration = 600
 	telegraph_overlay = "light_ash"
 
@@ -292,7 +293,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 0
+	probability = 100
 	barometer_predictable = TRUE
 	var/wind_dir
 	var/next_dir_change
@@ -313,6 +314,7 @@
 	sound_wi.output_atoms = inside_areas
 
 /datum/weather/wind/update_audio()
+	to_chat(world, "DEBUG: running update_audio")
 	switch(stage)
 		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
@@ -340,6 +342,7 @@
 	custom_overlay = 'icons/effects/tile_effects.dmi'
 	overlay_dir = wind_dir
 	next_dir_change = world.time + rand(30 SECONDS, 3 MINUTES)
+	to_chat(world, "DEBUG: running start()")
 	. = ..()
 
 /datum/weather/wind/wind_down() // back to normal overlay
@@ -348,6 +351,7 @@
 	. = ..()
 
 /datum/weather/wind/weather_act(mob/living/L)
+	to_chat(world, "DEBUG: Running weather_act")
 	while(L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
 			return TRUE
