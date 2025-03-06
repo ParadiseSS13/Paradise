@@ -76,7 +76,7 @@
 	if(!Adjacent(user))
 		return
 	var/obj/item/mounted/curtain/curtain_fixture/fixture = new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
-	user.put_in_active_hand(fixture)
+	user.put_in_hands(fixture)
 	playsound(loc, 'sound/effects/salute.ogg', 75, TRUE)
 	qdel(src)
 
@@ -103,7 +103,8 @@
 
 /obj/structure/curtain/attack_robot(mob/living/user)
 	. = ..()
-	toggle_curtain()
+	if(Adjacent(user))
+		toggle_curtain()
 
 /obj/structure/curtain/proc/toggle_curtain()
 	if(assembled)
@@ -130,7 +131,7 @@
 	if(assembled)
 		desc = "A curtain."
 	else
-		desc = "A curtain assembly! It still lacks drapes however, some cloth would serve nicely."
+		desc = "A curtain assembly! It still lacks drapes however, some cloth would serve as some nicely."
 
 /obj/structure/curtain/update_overlays()
 	. = ..()
@@ -160,18 +161,18 @@
 		return
 	if(anchored)
 		user.visible_message("<span class='notice'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && anchored)
 			anchored = FALSE
 			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
 		user.visible_message("<span class='notice'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && !anchored)
 			anchored = TRUE
 			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
-		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> [src] before removing the drapes.</span>")
+		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> anchoring [src] before removing the drapes.</span>")
 		return TRUE
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
