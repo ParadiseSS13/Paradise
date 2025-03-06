@@ -52,7 +52,7 @@
 	AddComponent(/datum/component/largetransparency)
 
 /obj/machinery/radar/process()
-	if ((check_time > world.time))
+	if((check_time > world.time))
 		return
 	for(var/datum/weather/W in SSweather.processing)
 		if(!W)
@@ -102,7 +102,7 @@
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
-	else if (prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
+	else if(prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
 		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
 			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
 			dont_announce = TRUE
