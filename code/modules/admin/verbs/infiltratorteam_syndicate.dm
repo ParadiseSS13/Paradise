@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(!check_rights(R_ADMIN))
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(alert("Do you want to send in the Syndicate Infiltration Team?", null,"Yes","No")=="No")

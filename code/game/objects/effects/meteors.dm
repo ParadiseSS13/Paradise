@@ -146,12 +146,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe))
+/obj/effect/meteor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
@@ -283,7 +282,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	..()
 	explosion(loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	radiation_pulse(src, 5000, 7)
+	radiation_pulse(src, 20000, 7, ALPHA_RAD)
+	for(var/turf/target_turf in range(loc, 3))
+		contaminate_target(target_turf, src, 2000, ALPHA_RAD)
 	//Hot take on this one. This often hits walls. It really has to breach into somewhere important to matter. This at leats makes the area slightly dangerous for a bit
 
 /obj/effect/meteor/bananium
