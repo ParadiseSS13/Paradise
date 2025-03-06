@@ -401,7 +401,7 @@
 	else
 		drawing_effect = new(target_turf, rune_colour)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = list(additional_checks)))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = list(additional_checks), hidden = TRUE))
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
 		drawing_rune = FALSE

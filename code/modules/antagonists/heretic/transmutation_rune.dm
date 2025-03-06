@@ -19,6 +19,11 @@
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance("heretic_rune", silicon_image, GLOB.silicon_mob_list)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_up_our_act))
+
+/obj/effect/heretic_rune/Destroy()
+	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT)
+	return ..()
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
@@ -37,6 +42,10 @@
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
 	return TRUE
+
+/obj/effect/heretic_rune/proc/clean_up_our_act()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /**
  * Attempt to begin a ritual, giving them an input list to chose from.
