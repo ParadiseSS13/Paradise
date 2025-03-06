@@ -900,11 +900,13 @@
 	mix_message = "Из сосуда начинает валить дым."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/consumable/galactional
+/datum/reagent/consumable/ethanol/galactional
 	name = "Galactional"
 	id = "galactional"
 	description = "Пролетарии Галактики - объединяйтесь!"
 	color = "#53133e"
+	alcohol_perc = 0.5
+	dizzy_adj = 5 SECONDS
 	taste_description = "галактическое единство близко"
 	drink_icon = "galactional"
 	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
