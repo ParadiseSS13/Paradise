@@ -22,7 +22,7 @@
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
-	probability = 0
+	probability = 90
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -91,7 +91,7 @@
 	weather_duration_lower = 800
 	weather_duration_upper = 1600
 
-	probability = 0
+	probability = 30
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
 	if(is_ash_immune(L))
@@ -111,7 +111,7 @@
 	end_sound = null
 
 	aesthetic = TRUE
-	probability = 0
+	probability = 10
 
 /// MARK: Volcano
 /datum/weather/volcano
@@ -133,7 +133,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 0
+	probability = 10
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// The time until the next rock falls from the sky
@@ -254,7 +254,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 100
+	probability = 15
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -354,7 +354,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 0
+	probability = 20
 	barometer_predictable = TRUE
 	var/wind_dir
 	var/next_dir_change
