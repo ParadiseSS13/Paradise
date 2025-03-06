@@ -152,6 +152,9 @@
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!assembled)
+		to_chat(user, "<span class='notice'>You should probably add some drapes to [src] before anchoring it in place...</span>")
+		return
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
@@ -168,7 +171,7 @@
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
 		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> [src] before removing the drapes.</span>")
-		return
+		return TRUE
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
