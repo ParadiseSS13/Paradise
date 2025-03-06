@@ -6,7 +6,7 @@
 
 #define WARNING_DELAY (4 SECONDS)
 
-#define BRIDGE_PROB 1
+#define BRIDGE_PROB 2
 
 GLOBAL_LIST_EMPTY(river_waypoint_presets)
 
