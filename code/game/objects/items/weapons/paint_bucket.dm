@@ -16,7 +16,7 @@
 	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/paint/afterattack__legacy__attackchain(turf/simulated/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!is_open_container())

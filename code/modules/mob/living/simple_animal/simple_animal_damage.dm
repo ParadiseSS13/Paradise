@@ -11,6 +11,9 @@
 		. = STATUS_UPDATE_HEALTH
 	if(updating_health)
 		updatehealth()
+	if(!ckey && stat == CONSCIOUS)//Not unconscious
+		if(AIStatus == AI_IDLE)
+			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/adjustBruteLoss(amount, updating_health = TRUE)
 	if(damage_coeff[BRUTE])

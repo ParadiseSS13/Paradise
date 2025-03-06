@@ -213,7 +213,7 @@
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+				ghost.show_message("<span class='deadsay'>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -275,12 +275,12 @@
 		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
 		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user))
 	else
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user))
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user, FALSE))
 
-/datum/emote/proc/alter_emote_pitch(mob/user)
+/datum/emote/proc/alter_emote_pitch(mob/user, multiplicative = TRUE)
 	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
 		return 0.7
-	return 1
+	return multiplicative
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
@@ -288,11 +288,11 @@
  * * user - The user of the emote.
  * * text - The text of the emote.
  */
-/datum/emote/proc/runechat_emote(mob/user, text)
+/proc/runechat_emote(atom/user, text)
 	var/runechat_text = text
 	if(length(text) > 100)
 		runechat_text = "[copytext(text, 1, 101)]..."
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_mobs_in_view(1, user, ai_eyes=AI_EYE_INCLUDE)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
@@ -304,6 +304,10 @@
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
+		if(is_ai_eye(O))
+			var/mob/camera/eye/ai/eye = O
+			if(!(eye.ai in can_see) && eye.ai?.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				eye.ai.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 /**
  * Check whether or not an emote can be used due to a cooldown.
@@ -405,7 +409,7 @@
 		. = message_larva
 	else if(issilicon(user) && message_robot)
 		. = message_robot
-	else if(isAI(user) && message_AI)
+	else if(is_ai(user) && message_AI)
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey

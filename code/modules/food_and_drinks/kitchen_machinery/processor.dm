@@ -89,36 +89,36 @@
 /////OBJECT RECIPIES/////
 /////////////////////////
 /datum/food_processor_process/meat
-	input = /obj/item/food/snacks/meat
-	output = /obj/item/food/snacks/meatball
+	input = /obj/item/food/meat
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/potato
-	input = /obj/item/food/snacks/grown/potato
-	output = /obj/item/food/snacks/rawsticks
+	input = /obj/item/food/grown/potato
+	output = /obj/item/food/rawsticks
 
 /datum/food_processor_process/rawsticks
-	input = /obj/item/food/snacks/rawsticks
-	output = /obj/item/food/snacks/tatortot
+	input = /obj/item/food/rawsticks
+	output = /obj/item/food/tatortot
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/food/snacks/grown/soybeans
-	output = /obj/item/food/snacks/soydope
+	input = /obj/item/food/grown/soybeans
+	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/food/snacks/doughslice
-	output = /obj/item/food/snacks/spaghetti
+	input = /obj/item/food/sliced/dough
+	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni
-	input = /obj/item/food/snacks/spaghetti
-	output = /obj/item/food/snacks/macaroni
+	input = /obj/item/food/spaghetti
+	output = /obj/item/food/macaroni
 
 /datum/food_processor_process/parsnip
-	input = /obj/item/food/snacks/grown/parsnip
-	output = /obj/item/food/snacks/roastparsnip
+	input = /obj/item/food/grown/parsnip
+	output = /obj/item/food/roastparsnip
 
 /datum/food_processor_process/carrot
-	input =  /obj/item/food/snacks/grown/carrot
-	output = /obj/item/food/snacks/grown/carrot/wedges
+	input =  /obj/item/food/grown/carrot
+	output = /obj/item/food/grown/carrot/wedges
 
 /datum/food_processor_process/towercap
 	input = /obj/item/grown/log
@@ -188,34 +188,33 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-
+/obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		return
+	if(default_deconstruction_screwdriver(user, "processor_open", "processor", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	default_deconstruction_crowbar(user, O)
+	default_deconstruction_crowbar(user, used)
 
-	var/obj/item/what = O
+	var/obj/item/what = used
 
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if(!P)
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
+		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
 		"<span class='notice'>You put \the [what] into \the [src].")
@@ -223,7 +222,7 @@
 	user.drop_item()
 
 	what.loc = src
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken

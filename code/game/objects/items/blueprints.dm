@@ -3,7 +3,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
-	var/fluffnotice = "Nobody's gonna read this stuff!"
+	/// Extra text added to the description.
+	var/fluffnotice = "If you can read this, make an issue report on GitHub. Something done goofed!"
 
 	var/const/AREA_ERRNONE = 0
 	var/const/AREA_STATION = 1
@@ -21,7 +22,7 @@
 	var/const/ROOM_ERR_TOOLARGE = -2
 
 
-/obj/item/areaeditor/attack_self(mob/user as mob)
+/obj/item/areaeditor/attack_self__legacy__attackchain(mob/user as mob)
 	add_fingerprint(user)
 	var/text = "<BODY><HTML><meta charset='utf-8'><head><title>[src]</title></head> \
 				<h2>[station_name()] [src.name]</h2> \
@@ -53,7 +54,7 @@
 						By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/areaeditor/permit/attack_self(mob/user)
+/obj/item/areaeditor/permit/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
@@ -75,7 +76,7 @@
 	desc = "Used to define new areas in space."
 	fluffnotice = "Praise the Liberator!"
 
-/obj/item/areaeditor/golem/attack_self(mob/user)
+/obj/item/areaeditor/golem/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
@@ -88,10 +89,10 @@
 //Station blueprints!!!
 /obj/item/areaeditor/blueprints
 	name = "station blueprints"
-	desc = "Blueprints of the station. There is a \"Classified\" stamp and several coffee stains on it."
+	desc = "Blueprints of the station. There is a \"<b>CONFIDENTIAL</b>\" stamp and several coffee stains on it."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
-	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
+	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-security storage."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/showing = list()
@@ -102,7 +103,7 @@
 	return ..()
 
 
-/obj/item/areaeditor/blueprints/attack_self(mob/user)
+/obj/item/areaeditor/blueprints/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
@@ -133,7 +134,7 @@
 		clear_viewer(usr)
 		set_viewer(usr)
 
-	attack_self(usr)
+	attack_self__legacy__attackchain(usr)
 
 /obj/item/areaeditor/blueprints/proc/get_images(turf/central_turf, viewsize)
 	. = list()
@@ -175,7 +176,6 @@
 		/area/shuttle,
 		/area/admin,
 		/area/centcom,
-		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station
 	)
@@ -335,4 +335,4 @@
 /obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)

@@ -134,7 +134,7 @@
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		if(beaker)
 			beaker.ex_act(severity)
 		..()
@@ -234,32 +234,35 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
+/obj/machinery/chem_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user))
-		return
-
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-			return
-		I.forceMove(src)
+			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+			to_chat(usr, "<span class='notice'>You swap [used] with [beaker].</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
-		beaker = I
+			to_chat(user, "<span class='notice'>You set [used] on the machine.</span>")
+		beaker = used
 
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -302,6 +305,12 @@
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
+	if(isdrone(user))
+		var/mob/living/silicon/robot/drone/drone = user
+		if(!drone.emagged)
+			// There's nothing a drone can do here that wouldn't violate their laws and/or the rules.
+			to_chat(user, "<span class='warning'>Your safety protocols refuse to connect to [src].</span>")
+			return
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
@@ -422,7 +431,7 @@
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
 
-/obj/item/handheld_chem_dispenser/Initialize()
+/obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
@@ -437,7 +446,7 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
+/obj/item/handheld_chem_dispenser/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
 	if(!proximity || !current_reagent || !amount)
 		return
 
@@ -461,7 +470,7 @@
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
 
-/obj/item/handheld_chem_dispenser/attack_self(mob/user)
+/obj/item/handheld_chem_dispenser/attack_self__legacy__attackchain(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
@@ -561,7 +570,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
+/obj/item/handheld_chem_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
@@ -570,9 +579,8 @@
 			if(C.maxcharge < 100)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			if(!user.unEquip(W))
+			if(!user.transfer_item_to(W, src))
 				return
-			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon(UPDATE_OVERLAYS)

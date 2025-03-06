@@ -5,7 +5,7 @@
 	icon_state = "seed-corn"
 	species = "corn"
 	plantname = "Corn Stalks"
-	product = /obj/item/food/snacks/grown/corn
+	product = /obj/item/food/grown/corn
 	maturation = 8
 	potency = 20
 	growthstages = 3
@@ -15,12 +15,12 @@
 	mutatelist = list(/obj/item/seeds/corn/snapcorn)
 	reagents_add = list("cornoil" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
 
-/obj/item/food/snacks/grown/corn
+/obj/item/food/grown/corn
 	seed = /obj/item/seeds/corn
 	name = "ear of corn"
 	desc = "Needs some butter!"
 	icon_state = "corn"
-	cooked_type = /obj/item/food/snacks/popcorn
+	cooked_type = /obj/item/food/popcorn
 	filling_color = "#FFFF00"
 	trash = /obj/item/grown/corncob
 	bitesize_mod = 2
@@ -38,11 +38,10 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/grown/corncob/attackby(obj/item/grown/W, mob/user, params)
+/obj/item/grown/corncob/attackby__legacy__attackchain(obj/item/grown/W, mob/user, params)
 	if(W.sharp)
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
-		user.unEquip(src)
 		qdel(src)
 		return
 	else
@@ -75,7 +74,7 @@
 	..()
 	snap_pops = max(round(seed.potency/8), 1)
 
-/obj/item/grown/snapcorn/attack_self(mob/user)
+/obj/item/grown/snapcorn/attack_self__legacy__attackchain(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You pick a snap pop from the cob.</span>")
 	var/obj/item/toy/snappop/S = new /obj/item/toy/snappop(user.loc)

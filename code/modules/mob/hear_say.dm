@@ -106,7 +106,7 @@
 	if(speaker == src)
 		for(var/datum/multilingual_say_piece/SP in message_pieces)
 			if(SP.speaking && SP.speaking.flags & INNATE)
-				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
 
 	if(!can_hear())
@@ -184,7 +184,7 @@
 				heardword = html_encode(copytext(heardword, 2))
 			if(copytext(heardword,-1) in punctuation)
 				heardword = html_encode(copytext(heardword, 1, length(heardword)))
-			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+			heard = "<span class='game say'>...<i>You hear something about</i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
 	else

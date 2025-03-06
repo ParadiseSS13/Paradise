@@ -32,37 +32,24 @@
 	density = TRUE
 	anchored = TRUE
 
+/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+	default_unfasten_wrench(user, I, 1 SECONDS)
+	return TRUE
+
+/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
+	M.buffer = src
+	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	return TRUE
+
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
-
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
-
-/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -71,23 +58,19 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer)
-			if(istype(M.buffer,/obj/machinery/bsa/back))
-				back = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-			else if(istype(M.buffer,/obj/machinery/bsa/front))
-				front = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
+	. = TRUE
+	if(!M.buffer)
+		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		return
+	if(istype(M.buffer,/obj/machinery/bsa/back))
+		back = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+	else if(istype(M.buffer,/obj/machinery/bsa/front))
+		front = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -132,9 +115,13 @@
 	var/cannon_direction = WEST
 	var/static/image/top_layer = null
 	var/ex_power = 3
-	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
-	var/last_fire_time = 0 // The time at which the gun was last fired
-	var/reload_cooldown = 600 // The gun's cooldown
+	/// Amount of energy required to reload the BSA (Joules)
+	var/energy_used_per_shot = 2 MJ //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
+	/// The gun's cooldown
+	var/reload_cooldown_time = 10 MINUTES
+	/// Are we trying to reload? Should only be true if we failed to reload due to lack of power.
+	var/try_reload = FALSE
+	COOLDOWN_DECLARE(firing_cooldown)
 
 	pixel_y = -32
 	pixel_x = -192
@@ -152,8 +139,8 @@
 	cannon_direction = EAST
 
 /obj/machinery/bsa/full/admin
-	power_used_per_shot = 0
-	reload_cooldown = 100
+	energy_used_per_shot = 0
+	reload_cooldown_time = 100 SECONDS
 
 /obj/machinery/bsa/full/admin/east
 	icon_state = "cannon_east"
@@ -162,9 +149,9 @@
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
-			return locate(x - 6,y,z)
+			return locate(x - 7,y,z)
 		if(EAST)
-			return locate(x + 4,y,z)
+			return locate(x + 5,y,z)
 	return get_turf(src)
 
 /obj/machinery/bsa/full/proc/get_back_turf()
@@ -213,13 +200,16 @@
 
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
+	if(!COOLDOWN_FINISHED(src, firing_cooldown))
+		return
 	var/turf/point = get_front_turf()
 	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
-		T.ex_act(1)
+		T.ex_act(EXPLODE_DEVASTATE)
 		for(var/atom/A in T)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
+	new /obj/effect/temp_visual/bsa_splash(point, dir)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 	if(istype(target, /obj/item/gps))
 		var/obj/item/gps/G = target
@@ -234,8 +224,17 @@
 	reload()
 
 /obj/machinery/bsa/full/proc/reload()
-	use_power(power_used_per_shot)
-	last_fire_time = world.time / 10
+	if(machine_powernet?.powernet_apc?.cell?.charge KJ >= energy_used_per_shot)
+		try_reload = FALSE
+		use_power(energy_used_per_shot)
+		COOLDOWN_START(src, firing_cooldown, reload_cooldown_time)
+	else
+		try_reload = TRUE
+
+/// If we failed a reload keep trying until the APC has enough energy available.
+/obj/machinery/bsa/full/process()
+	if(try_reload)
+		reload()
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
@@ -292,7 +291,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 
-/obj/machinery/computer/bsa_control/admin/Initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()
@@ -312,7 +311,7 @@
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
 		icon_state = icon_state_nopower
-	else if(cannon && (cannon.last_fire_time + cannon.reload_cooldown) > (world.time / 10))
+	else if(cannon && (!COOLDOWN_FINISHED(cannon, firing_cooldown)))
 		icon_state = icon_state_reloading
 	else if(cannon)
 		icon_state = icon_state_active
@@ -343,14 +342,8 @@
 	if(target)
 		data["target"] = get_target_name()
 	if(cannon)
-		var/reload_cooldown = cannon.reload_cooldown
-		var/last_fire_time = cannon.last_fire_time
-		var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
-		var/minutes = max(0, round(time_to_wait / 60))
-		var/seconds = max(0, time_to_wait - (60 * minutes))
-		var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
-		data["reloadtime_text"] = "[minutes]:[seconds2]"
-		data["ready"] = minutes == 0 && seconds == 0
+		data["reloadtime_text"] = cannon.try_reload ? "Insufficient Energy For Reloading" : seconds_to_clock(round(COOLDOWN_TIMELEFT(cannon, firing_cooldown) / 10))
+		data["ready"] = !cannon.try_reload && COOLDOWN_FINISHED(cannon, firing_cooldown)
 	else
 		data["ready"] = FALSE
 	return data

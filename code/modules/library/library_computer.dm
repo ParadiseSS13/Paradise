@@ -52,9 +52,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	populate_booklist(async = FALSE)
-	//since ui_data screws up when SQL calls are made inside it,
-	//we must populate our booklist before ui_act is called for the first time
+	addtimer(CALLBACK(src, PROC_REF(populate_booklist)), 0)
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -67,22 +65,22 @@
 /obj/machinery/computer/library/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/book))
-		select_book(O)
-		return
-	if(istype(O, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/B = O
+/obj/machinery/computer/library/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/book))
+		select_book(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = used
 		if(!B.connect(src))
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
-		return
-	if(istype(O, /obj/item/card/id))
-		var/obj/item/card/id/ID = O //at some point, this should be moved over to its own proc (select_patron()???)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/ID = used //at some point, this should be moved over to its own proc (select_patron()???)
 		if(ID.registered_name)
 			user_data.patron_name = ID.registered_name
 		else
@@ -90,17 +88,17 @@
 			user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: No name detected!</span>")
-			return //no point in continuing if the ID card has no associated name!
+			return ITEM_INTERACT_COMPLETE //no point in continuing if the ID card has no associated name!
 		playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 		if(ID.associated_account_number)
 			user_data.patron_account = ID.associated_account_number
 		else
 			user_data.patron_account = null
 			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, O, time = 60))
-		return
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -303,7 +301,7 @@
 		//rating acts
 		if("set_rating")
 			if(params["rating_value"])
-				user_data.selected_rating = text2num(params["rating_value"])
+				user_data.selected_rating = clamp(text2num(params["rating_value"]), 0, 10)
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
@@ -331,7 +329,10 @@
 				user_data.selected_book.categories += text2num(params["category_id"])
 				populate_booklist()
 		if("uploadbook")
-			if(GLOB.library_catalog.upload_book(params["user_ckey"], user_data.selected_book))
+			var/choice = tgui_alert(ui.user, "I have ensured that nothing in this book violates this server's game rules and want to upload it to the database.", "Confirm", list("Yes", "No"))
+			if(choice != "Yes")
+				return
+			if(GLOB.library_catalog.upload_book(ui.user.ckey, user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
 				return
@@ -535,11 +536,11 @@
   * internal proc that will refresh our cached booklist, it needs to be called everytime we are switching parameters
   * that will affect what books will be displayed in our TGUI player book archive.
  */
-/obj/machinery/computer/library/proc/populate_booklist(async = TRUE)
+/obj/machinery/computer/library/proc/populate_booklist()
 	cached_booklist = list() //clear old list
 	var/starting_book = (archive_page_num - 1) * LIBRARY_BOOKS_PER_PAGE
 	var/range = LIBRARY_BOOKS_PER_PAGE
-	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data, async))
+	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data))
 		//instead of just adding the datum to the cached_booklist, we want to make it an assoc list so we can just give it to the TGUI
 
 		var/list/book_data = list(
@@ -558,13 +559,13 @@
 				book_data["categories"] += book_category.description //we're displaying the cats onlys, so we don't need the ids
 
 		cached_booklist += list(book_data)
-	num_pages = getmaxpages(async)
+	num_pages = getmaxpages()
 	archive_page_num = clamp(archive_page_num, 1, num_pages)
 
 ///Returns the amount of pages we will need to hold all the book our DB has found
-/obj/machinery/computer/library/proc/getmaxpages(async = TRUE)
+/obj/machinery/computer/library/proc/getmaxpages()
 	//if get_total_books doesn't return anything, just set pages to 1 so we don't break stuff
-	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data, async))
+	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
 	var/page_count = round(book_count / LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
 	//the page count amount (almost guaranteed), we check for a remainder because of this

@@ -5,6 +5,7 @@
 	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
+	faction = list("alien")
 
 	var/nightvision = TRUE
 	see_in_dark = 4
@@ -164,14 +165,6 @@
 
 	return threatcount
 
-/mob/living/carbon/alien/death(gibbed)
-	. = ..()
-	if(!.)
-		return
-
-	deathrattle()
-
-
 /mob/living/carbon/alien/proc/deathrattle()
 	var/alien_message = deathrattle_message()
 	for(var/mob/living/carbon/alien/M in GLOB.player_list)
@@ -263,3 +256,6 @@ and carry the owner just to make sure*/
 	if(health <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
 		KnockOut()
 	return ..()
+
+/mob/living/carbon/alien/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/face_hugger, curse_time)

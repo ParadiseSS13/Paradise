@@ -21,6 +21,7 @@
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
+	stat_attack = UNCONSCIOUS
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
@@ -38,12 +39,7 @@
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	. = ..()
 	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/salvage/loot/syndicate,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
+		loot |= /obj/item/salvage/loot/syndicate
 
 /mob/living/simple_animal/hostile/syndicate/Aggro()
 	. = ..()
@@ -53,8 +49,8 @@
 ///////////////Sword and shield////////////
 
 /mob/living/simple_animal/hostile/syndicate/melee
-	melee_damage_lower = 30
-	melee_damage_upper = 25
+	melee_damage_lower = 25
+	melee_damage_upper = 30
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
 	attacktext = "slashes"
@@ -65,7 +61,7 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)
@@ -108,7 +104,6 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = UNCONSCIOUS
 	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
@@ -242,12 +237,12 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
 		if(faction_check_mob(blocker))
 			return 1
-	return ..(mover, target, height)
+	return ..()
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
@@ -262,15 +257,12 @@
 	. = ..()
 	if(prob(50))
 		// 50% chance of switching to ranged variant.
-		melee_damage_lower = 30
-		melee_damage_upper = 25
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/cqchit1.ogg'
 		ranged = TRUE
 		rapid = 3
 		retreat_distance = 5
 		minimum_distance = 3
-		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_pistol"
 		icon_living = "syndicate_pistol"
@@ -282,38 +274,34 @@
 	icon_state = "syndicate_stormtrooper_sword"
 	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	armour_penetration_percentage = 50 // same as e-sword
 	minbodytemp = 0
-	maxHealth = 200
-	health = 200
+	maxHealth = 250
+	health = 250
 	melee_block_chance = 40
+	ranged_block_chance = 35 // same as officer's
 	alert_on_shield_breach = TRUE
-	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE // he should be able to chase us in space
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
 	if(prob(50))
 		// 50% chance of switching to extremely dangerous ranged variant
-		melee_damage_lower = 10
-		melee_damage_upper = 10
 		attacktext = "punches"
-		attack_sound = 'sound/weapons/punch1.ogg'
+		attack_sound = 'sound/weapons/cqchit1.ogg'
 		ranged = TRUE
 		retreat_distance = 2
 		minimum_distance = 2
-		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
 		speed = 2
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster,
-					/obj/item/salvage/loot/syndicate,
-					/obj/effect/decal/cleanable/blood/innards,
-					/obj/effect/decal/cleanable/blood,
-					/obj/effect/gibspawner/generic,
-					/obj/effect/gibspawner/generic)
+		loot |= /obj/item/salvage/loot/syndicate
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
@@ -326,6 +314,13 @@
 			O.shield_key = TRUE
 			depotarea.shields_up()
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death() // i hope it's all right
+	if(!istype(depotarea))
+		return ..()
+	if(!length(depotarea.shield_list)) // not opening lockers without getting shields down
+		depotarea.unlock_lockers()
+	return ..()
+
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space
 	name = "Syndicate Backup"
@@ -335,11 +330,11 @@
 	icon_living = "syndicate_space_sword"
 	speed = 1
 	wander = FALSE
-	alert_on_spacing = FALSE
-	death_sound = 'sound/mecha/mechmove03.ogg'
+	alert_on_spacing = FALSE // So it chasing players in space doesn't make depot explode.
+	alert_on_timeout = FALSE // So random fauna doesn't make depot explode.
 	loot = list() // Explodes, doesn't drop loot.
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/death()
@@ -357,23 +352,13 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
-
-/mob/living/simple_animal/hostile/syndicate/melee/space/Initialize(mapload)
-	. = ..()
-	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = TRUE
@@ -393,23 +378,13 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/salvage/loot/syndicate,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
-	. = ..()
-	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
@@ -440,11 +415,12 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
-	flying = TRUE
 	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
+
+	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()

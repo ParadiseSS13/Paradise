@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -25,10 +25,10 @@
 /obj/item/chameleon/equipped()
 	disrupt()
 
-/obj/item/chameleon/attack_self()
+/obj/item/chameleon/attack_self__legacy__attackchain()
 	toggle()
 
-/obj/item/chameleon/afterattack(atom/target, mob/user, proximity)
+/obj/item/chameleon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!check_sprite(target))
@@ -39,7 +39,7 @@
 		return
 	if(!active_dummy)
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
 			saved_icon = target.icon
@@ -55,7 +55,7 @@
 		return
 	if(active_dummy)
 		eject_all()
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		QDEL_NULL(active_dummy)
 		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
@@ -64,7 +64,7 @@
 		spawn(8)
 			qdel(T)
 	else
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 		var/obj/O = new saved_item(src)
 		if(!O)
 			return
@@ -101,7 +101,7 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/Initialize()
+/obj/effect/dummy/chameleon/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
@@ -117,8 +117,10 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby()
-	for(var/mob/M in src)
+/obj/effect/dummy/chameleon/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	for(var/mob/M in src)	
 		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
@@ -186,8 +188,8 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	var/active = FALSE
-	var/activationCost = 300
-	var/activationUpkeep = 50
+	var/activation_cost = 300
+	var/activation_upkeep = 50
 	var/image/disguise
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 
@@ -204,14 +206,14 @@
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge > activationCost)
+/obj/item/borg_chameleon/attack_self__legacy__attackchain(mob/living/silicon/robot/syndicate/saboteur/user)
+	if(user && user.cell && user.cell.charge > activation_cost)
 		if(isturf(user.loc))
 			toggle(user)
 		else
 			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
 	else
-		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+		to_chat(user, "<span class='warning'>You need at least [activation_cost] charge in your cell to use [src]!</span>")
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
@@ -220,7 +222,7 @@
 		return
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	apply_wibbly_filters(user)
-	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activationCost))
+	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activation_cost))
 		activate(user)
 	else
 		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
@@ -229,7 +231,7 @@
 
 /obj/item/borg_chameleon/process()
 	if(S)
-		if(!S.cell || !S.cell.use(activationUpkeep))
+		if(!S.cell || !S.cell.use(activation_upkeep))
 			disrupt(S)
 		return
 	return PROCESS_KILL

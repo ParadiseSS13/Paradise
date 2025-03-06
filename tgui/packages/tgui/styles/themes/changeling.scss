@@ -23,24 +23,15 @@
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
-    $with: (
-      'color-default': darken(colors.$primary, 20%),
-      'color-selected': #188552
-    )
+    $with: ('color-default': darken(colors.$primary, 20%), 'color-selected': #188552)
   );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css(
-    '../components/Tabs.scss',
-    $with: ('tab-color-selected': colors.$primary)
-  );
+  @include meta.load-css('../components/Tabs.scss', $with: ('tab-color-selected': colors.$primary));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #352d3b)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #352d3b));
 
   .Layout__content {
     background-image: none;

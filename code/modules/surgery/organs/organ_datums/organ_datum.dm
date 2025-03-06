@@ -25,6 +25,9 @@
 /datum/organ/proc/on_life()
 	return
 
+/datum/organ/proc/dead_process()
+	return
+
 /// Only called when the organ is robotic AND is not emp proof. Return true to override default functions
 /datum/organ/proc/on_successful_emp()
 	return FALSE
@@ -32,5 +35,5 @@
 /datum/organ/proc/on_necrotize()
 	return FALSE
 
-/datum/organ/proc/on_prepare_eat(obj/item/food/snacks/organ/snorgan)
+/datum/organ/proc/on_prepare_eat(obj/item/food/organ/snorgan)
 	return FALSE

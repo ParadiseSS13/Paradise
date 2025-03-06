@@ -25,6 +25,16 @@ const createByondUiElement = (elementId) => {
   // Return a control structure
   return {
     render: (params) => {
+      /**
+       * Note: We unmount and render because there is currently unfixable bug with
+       * how cameras are rendered on first occurence. That came with TGUI 4 and
+       * I have no idea how to fix this correctly.
+       */
+      logger.log(`unmounting '${id}'`);
+      byondUiStack[index] = null;
+      Byond.winset(id, {
+        parent: '',
+      });
       logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
@@ -77,10 +87,7 @@ export class ByondUi extends Component {
   shouldComponentUpdate(nextProps) {
     const { params: prevParams = {}, ...prevRest } = this.props;
     const { params: nextParams = {}, ...nextRest } = nextProps;
-    return (
-      shallowDiffers(prevParams, nextParams) ||
-      shallowDiffers(prevRest, nextRest)
-    );
+    return shallowDiffers(prevParams, nextParams) || shallowDiffers(prevRest, nextRest);
   }
 
   componentDidMount() {

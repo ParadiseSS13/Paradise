@@ -6,7 +6,7 @@
 	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
-	organ_datums = list(/datum/organ/heart/always_beating) // alien glands are immune to stopping
+	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
 
 	var/cooldown_low = 300
@@ -264,7 +264,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
-	new /obj/item/food/snacks/egg/gland(get_turf(owner))
+	new /obj/item/food/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800

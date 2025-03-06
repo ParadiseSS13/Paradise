@@ -13,19 +13,17 @@
 /datum/event/prison_break/virology
 	eventDept = "Medical"
 	areaName = list("Virology")
-	areaType = list(/area/station/medical/virology, /area/station/medical/virology/lab)
+	areaType = list(/area/station/medical/virology)
 
 /datum/event/prison_break/xenobiology
 	eventDept = "Science"
 	areaName = list("Xenobiology")
 	areaType = list(/area/station/science/xenobiology)
-	areaNotType = list(/area/station/science/xenobiology/xenoflora, /area/station/science/xenobiology/xenoflora_storage)
 
 /datum/event/prison_break/station
 	eventDept = "Station"
 	areaName = list("Brig","Virology","Xenobiology")
 	areaType = list(/area/station/security/prison, /area/station/security/brig, /area/station/security/permabrig, /area/station/medical/virology, /area/station/medical/virology/lab, /area/station/science/xenobiology)
-	areaNotType = list(/area/station/science/xenobiology/xenoflora, /area/station/science/xenobiology/xenoflora_storage)
 
 
 /datum/event/prison_break/setup()
@@ -48,7 +46,7 @@
 		var/my_department = "[station_name()] firewall subroutines"
 		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately one minute. Direct intervention is required immediately.<br>"
 		for(var/obj/machinery/message_server/MS in GLOB.machines)
-			MS.send_rc_message("Engineering", my_department, rc_message, "", "", 2)
+			MS.send_rc_message("Engineering", my_department, rc_message, "", "", RQ_HIGHPRIORITY)
 	else
 		stack_trace("Could not initiate grey-tide. Unable to find suitable containment area.")
 		kill()

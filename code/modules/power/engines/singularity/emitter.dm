@@ -4,7 +4,7 @@
 
 /obj/machinery/power/emitter
 	name = "emitter"
-	desc = "A heavy duty industrial laser"
+	desc = "A heavy duty industrial laser."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = FALSE
@@ -55,7 +55,7 @@
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
-	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate [src].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -146,26 +146,26 @@
 	if(!anchored)
 		step(src, get_dir(M, src))
 
-/obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(emagged)
-			to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
-			return
-		if(allowed(user))
-			if(active)
-				locked = !locked
-				to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
-			else
-				locked = FALSE //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+/obj/machinery/power/emitter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/card/id) && !istype(used, /obj/item/pda))
+		return ..()
 
-	if(exchange_parts(user, I))
-		return
+	if(emagged)
+		to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	return ..()
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(active)
+		locked = !locked
+		to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
+	else
+		locked = FALSE //just in case it somehow gets locked
+		to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -304,6 +304,7 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
+
 	P.setDir(dir)
 	P.starting = loc
 	P.Angle = null

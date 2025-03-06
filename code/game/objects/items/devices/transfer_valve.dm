@@ -1,9 +1,12 @@
+///if the icon_state for the TTV's tank is in assemblies.dmi
+#define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
+
 /obj/item/transfer_valve
 	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
 	icon_state = "valve_1"
 	item_state = "ttv"
-	desc = "Regulates the transfer of air between two tanks"
+	desc = "Regulates the transfer of air between two tanks."
 	var/obj/item/tank/tank_one = null
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null
@@ -22,25 +25,23 @@
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return 1
 
-/obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
+/obj/item/transfer_valve/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
 			return
 
 		if(!tank_one)
-			if(!user.unEquip(I))
+			if(!user.transfer_item_to(I, src))
 				return
 			tank_one = I
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
 			if(I.w_class > w_class)
 				w_class = I.w_class
 		else if(!tank_two)
-			if(!user.unEquip(I))
+			if(!user.transfer_item_to(I, src))
 				return
 			tank_two = I
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
 			if(I.w_class > w_class)
 				w_class = I.w_class
@@ -56,9 +57,9 @@
 		if(attached_device)
 			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
 			return
-		user.remove_from_mob(A)
+		if(!user.transfer_item_to(A, src))
+			return
 		attached_device = A
-		A.forceMove(src)
 		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
@@ -85,7 +86,7 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/transfer_valve/attack_self(mob/user)
+/obj/item/transfer_valve/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/transfer_valve/ui_state(mob/user)
@@ -134,7 +135,7 @@
 			toggle_valve(usr)
 		if("device")
 			if(attached_device)
-				attached_device.attack_self(usr)
+				attached_device.attack_self__legacy__attackchain(usr)
 		if("remove_device")
 			if(attached_device)
 				attached_device.forceMove(get_turf(src))
@@ -166,12 +167,23 @@
 	underlays.Cut()
 	if(!tank_one && !tank_two && !attached_device)
 		return
+
 	if(tank_one)
-		. += "[tank_one.icon_state]"
+		var/tank_one_icon_state = tank_one.icon_state
+		if(!(tank_one_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
+			tank_one_icon_state = "oxygen"
+			stack_trace("[tank_one] was inserted into a TTV with an invalid icon_state, \"[tank_one.icon_state]\"")
+		. += "[tank_one_icon_state]"
+
 	if(tank_two)
-		var/icon/J = new(icon, icon_state = "[tank_two.icon_state]")
-		J.Shift(WEST, 13)
-		underlays += J
+		var/tank_two_icon_state = tank_two.icon_state
+		if(!(tank_two_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
+			tank_two_icon_state = "oxygen"
+			stack_trace("[tank_two] was inserted into a TTV with an invalid icon_state, \"[tank_two.icon_state]\"")
+		var/icon/tank_two_icon = new(icon, icon_state = tank_two_icon_state)
+		tank_two_icon.Shift(WEST, 13)
+		underlays += tank_two_icon
+
 	if(attached_device)
 		. += "device"
 
@@ -225,3 +237,5 @@
 		split_gases()
 		valve_open = FALSE
 		update_icon()
+
+#undef TTV_TANK_ICON_STATES

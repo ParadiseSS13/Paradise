@@ -180,17 +180,18 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
+/obj/machinery/mineral/ore_redemption/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(!has_power())
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/ID = I
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/ID = used
 		if(!points)
 			to_chat(usr, "<span class='warning'>There are no points to claim.</span>");
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(anyone_claim || (req_access_claim in ID.access))
 			ID.mining_points += points
 			ID.total_mining_points += points
@@ -200,23 +201,25 @@
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		add_fingerprint(usr)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(I, /obj/item/disk/design_disk))
+	if(istype(used, /obj/item/disk/design_disk))
 		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		inserted_disk = I
+			return ITEM_INTERACT_COMPLETE
+		used.forceMove(src)
+		inserted_disk = used
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-							"<span class='notice'>You insert [I] into [src].</span>")
-		return
+		user.visible_message(
+			"<span class='notice'>[user] inserts [used] into [src].</span>",
+			"<span class='notice'>You insert [used] into [src].</span>"
+		)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(I, /obj/item/gripper))
+	if(istype(used, /obj/item/gripper))
 		if(!try_refill_storage(user))
 			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -468,7 +471,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_NORMALPRIORITY)
+			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_LOWPRIORITY)
 
 /obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
 	. = FALSE

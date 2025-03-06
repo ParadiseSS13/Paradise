@@ -20,12 +20,6 @@
   padding-bottom: 4px;
 }
 
-.RndConsole__MainMenu__Buttons {
-  .Button:not(:last-child) {
-    margin-bottom: 4px;
-  }
-}
-
 .RndConsole__LatheMaterials {
   .Table__cell:nth-child(2) {
     padding-left: 16px;
@@ -46,12 +40,7 @@
   flex-grow: 1;
 
   padding: 24px;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0
-  ); // force a background to capture clicks
+  background-color: rgba(255, 255, 255, 0); // force a background to capture clicks
 
   .NoticeBox {
     flex-grow: 1;
@@ -66,4 +55,28 @@
     // add padding between navbar and contents when any button is visible
     margin-bottom: 10px;
   }
+}
+
+#research-levels tr {
+  & > *:first-child {
+    width: 2em;
+  }
+
+  & > *:nth-child(3),
+  & > *:nth-child(4),
+  & > *:nth-child(5) {
+    text-align: center;
+  }
+}
+
+#research-levels tr:not(:first-child) > *:first-child {
+  height: 2em;
+}
+
+.upgraded-level {
+  color: #55d355;
+}
+
+.research-level-no-effect {
+  color: #888888;
 }

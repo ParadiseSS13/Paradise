@@ -3,7 +3,7 @@
 	progress_type = /datum/secondary_goal_progress/variety_reagent
 	department = "Chemistry"
 	generic_name_plural = "medicines"
-	abstract = FALSE
+	weight = 1
 
 /datum/station_goal/secondary/variety_reagent/medchem/randomize_params()
 	..()

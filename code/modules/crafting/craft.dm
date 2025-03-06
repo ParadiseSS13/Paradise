@@ -11,20 +11,26 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						//Weapon subcategories
+						list(
 							CAT_WEAPON,
-							CAT_AMMO),
+							CAT_AMMO
+						),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
 						CAT_NONE, //Tribal subcategories
-						list(	//Food subcategories
+						// Food subcategories
+						list(
 							CAT_CAKE,
 							CAT_SUSHI,
-							CAT_SANDWICH),
-						list(	//Decoration subcategories
+							CAT_SANDWICH
+						),
+						// Decoration subcategories
+						list(
 							CAT_DECORATION,
 							CAT_HOLIDAY,
-							CAT_LARGE_DECORATIONS),
+							CAT_LARGE_DECORATIONS
+						),
 						CAT_CLOTHING) //Clothing subcategories
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
@@ -83,7 +89,7 @@
 				if(AM.flags_2 & HOLOGRAM_2)
 					continue
 				. += AM
-	for(var/slot in list(SLOT_HUD_RIGHT_STORE, SLOT_HUD_LEFT_STORE))
+	for(var/slot in list(ITEM_SLOT_RIGHT_POCKET, ITEM_SLOT_LEFT_POCKET))
 		. += user.get_item_by_slot(slot)
 
 

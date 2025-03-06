@@ -24,7 +24,7 @@
 	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/envelope/attack_self(mob/user)
+/obj/item/envelope/attack_self__legacy__attackchain(mob/user)
 	if(!user?.mind)
 		return
 	if(user.real_name != recipient)
@@ -33,7 +33,7 @@
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-		user.unEquip(src)
+		user.unequip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
@@ -63,7 +63,7 @@
 
 /obj/item/envelope/security
 	icon_state = "mail_sec"
-	possible_contents = list(/obj/item/food/snacks/donut/sprinkles,
+	possible_contents = list(/obj/item/food/donut/sprinkles,
 							/obj/item/megaphone,
 							/obj/item/clothing/mask/whistle,
 							/obj/item/poster/random_official,
@@ -121,8 +121,9 @@
 							/obj/item/reagent_containers/applicator/brute,
 							/obj/item/reagent_containers/applicator/burn,
 							/obj/item/clothing/glasses/sunglasses,
-							/obj/item/food/snacks/fortunecookie,
+							/obj/item/food/fortunecookie,
 							/obj/item/scalpel/laser/laser1,
+							/obj/item/surgical_drapes,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
 							/obj/item/toy/figure/crew/geneticist,
@@ -134,8 +135,8 @@
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
-							/obj/item/reagent_containers/drinks/cans/beer,
-							/obj/item/food/snacks/candy/confectionery/nougat,
+							/obj/item/reagent_containers/drinks/bottle/beer,
+							/obj/item/food/candy/confectionery/nougat,
 							/obj/item/mod/module/storage/large_capacity,
 							/obj/item/weldingtool/hugetank,
 							/obj/item/geiger_counter,
@@ -191,13 +192,13 @@
 							/obj/item/book/manual/wiki/sop_command,
 							/obj/item/reagent_containers/patch/synthflesh,
 							/obj/item/paper_bin/nanotrasen,
-							/obj/item/food/snacks/spesslaw,
+							/obj/item/food/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
 							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
+	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
@@ -229,7 +230,7 @@
 
 /obj/item/mail_scanner
 	name = "mail scanner"
-	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
+	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
 	force = 0
 	throwforce = 0
 	icon = 'icons/obj/device.dmi'
@@ -238,7 +239,7 @@
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
@@ -250,10 +251,10 @@
 	. = ..()
 	. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.</span>"
 
-/obj/item/mail_scanner/attack()
+/obj/item/mail_scanner/attack__legacy__attackchain()
 	return
 
-/obj/item/mail_scanner/afterattack(atom/A, mob/user)
+/obj/item/mail_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
 	if(get_dist(A, user) > scanner_range)
 		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
 		return
@@ -294,5 +295,5 @@
 		saved = null
 		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
 		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
-		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
 		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)

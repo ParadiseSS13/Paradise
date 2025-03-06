@@ -3,3 +3,7 @@ items/thermal_drill.ogg was sampled from Builders Drilling.wav under a Sampling 
 creatures/dog_yelp.ogg is DogYelp.wav. It is under a CC-BY 3.0 license. It has been cropped, EQ'd, and compressed to .ogg. Source (https://freesound.org/people/TobiasKosmos/sounds/163280/)
 
 standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav" https://freesound.org/people/tom_woysky/sounds/348316/
+
+machines/triple_beep.ogg is taken from /tg/station. Source (https://github.com/tgstation/tgstation)
+
+misc/server_alert.ogg is taken from https://freesound.org/people/rhodesmas/sounds/380264/ and compressed to .ogg, under the CC-BY 3.0 license. Sound modified by Carthusia

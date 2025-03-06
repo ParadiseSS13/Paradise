@@ -1,4 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
 "ag" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59,7 +62,7 @@
 /area/ruin/powered/seedvault)
 "ed" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/seed_vault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "eI" = (
@@ -119,7 +122,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
 /obj/item/pickaxe/mini,
-/obj/item/food/snacks/grown/mushroom/glowshroom{
+/obj/item/food/grown/mushroom/glowshroom{
 	pixel_x = 8;
 	pixel_y = -8
 	},
@@ -379,9 +382,6 @@
 /area/lavaland/surface/outdoors)
 "Nt" = (
 /obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "OL" = (
@@ -473,6 +473,14 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"ZO" = (
+/obj/structure/closet/firecloset/full,
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/head/hardhat/red,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "ZQ" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/disks_plantgene,
@@ -489,84 +497,84 @@ QX
 QX
 QX
 yZ
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 QX
-BC
+aa
 QX
-BC
-BC
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
+aa
+aa
 QX
 QX
 QX
 "}
 (2,1,1) = {"
 QX
-BC
+aa
 yZ
 yZ
 yZ
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 QX
-BC
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
+aa
 "}
 (3,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 yZ
 yZ
-BC
-yZ
-yZ
-yZ
-BC
+aa
 yZ
 yZ
 yZ
+aa
 yZ
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
-BC
+yZ
+yZ
+yZ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 QX
 "}
 (4,1,1) = {"
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
 yZ
 BC
 yZ
@@ -582,16 +590,16 @@ yZ
 yZ
 yZ
 yZ
-BC
+aa
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (5,1,1) = {"
-BC
+aa
 QX
-BC
+aa
 yZ
 yZ
 yZ
@@ -611,13 +619,13 @@ yZ
 yZ
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (6,1,1) = {"
-BC
-BC
-BC
+aa
+aa
+aa
 yZ
 yZ
 no
@@ -636,14 +644,14 @@ no
 no
 yZ
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (7,1,1) = {"
-BC
-BC
-BC
+aa
+aa
+aa
 yZ
 no
 no
@@ -662,13 +670,13 @@ no
 no
 no
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (8,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 no
@@ -688,13 +696,13 @@ vt
 AG
 no
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (9,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 no
@@ -715,13 +723,13 @@ AG
 no
 yZ
 yZ
-BC
+aa
 QX
 "}
 (10,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 yZ
 no
 Pg
@@ -746,8 +754,8 @@ yZ
 "}
 (11,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 yZ
 no
 Pg
@@ -768,12 +776,12 @@ no
 yZ
 yZ
 yZ
-BC
+aa
 "}
 (12,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 yZ
 no
 no
@@ -793,12 +801,12 @@ no
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (13,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 Nj
@@ -818,14 +826,14 @@ no
 no
 Nj
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (14,1,1) = {"
-BC
-BC
-BC
+aa
+aa
+aa
 yZ
 yZ
 no
@@ -844,15 +852,15 @@ Nj
 no
 yZ
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (15,1,1) = {"
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
 yZ
 al
 yc
@@ -871,12 +879,12 @@ ja
 yZ
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (16,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 yZ
@@ -896,14 +904,14 @@ no
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 QX
 "}
 (17,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 yZ
 no
 no
@@ -923,12 +931,12 @@ no
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (18,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 no
@@ -950,11 +958,11 @@ no
 yZ
 yZ
 yZ
-BC
+aa
 "}
 (19,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 no
@@ -975,11 +983,11 @@ iV
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (20,1,1) = {"
-BC
+aa
 yZ
 yZ
 yZ
@@ -1001,8 +1009,8 @@ ga
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (21,1,1) = {"
 yZ
@@ -1028,12 +1036,12 @@ no
 yZ
 yZ
 yZ
-BC
+aa
 "}
 (22,1,1) = {"
 QX
 yZ
-BC
+aa
 yZ
 no
 MB
@@ -1053,12 +1061,12 @@ uO
 no
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (23,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 no
@@ -1080,11 +1088,11 @@ no
 yZ
 yZ
 yZ
-BC
+aa
 "}
 (24,1,1) = {"
 QX
-BC
+aa
 yZ
 yZ
 no
@@ -1105,12 +1113,12 @@ no
 no
 yZ
 yZ
-BC
+aa
 QX
 "}
 (25,1,1) = {"
-BC
-BC
+aa
+aa
 yZ
 yZ
 Nj
@@ -1131,13 +1139,13 @@ no
 Nj
 yZ
 yZ
-BC
-BC
+aa
+aa
 "}
 (26,1,1) = {"
-BC
-BC
-BC
+aa
+aa
+aa
 yZ
 yZ
 no
@@ -1158,19 +1166,19 @@ yZ
 yZ
 yZ
 yZ
-BC
+aa
 "}
 (27,1,1) = {"
-BC
-BC
-BC
-BC
+aa
+aa
+aa
+aa
 yZ
-al
-yc
+yZ
+yZ
 xe
-eI
-OL
+Wu
+vt
 vt
 vt
 vt
@@ -1182,22 +1190,22 @@ yc
 ja
 yZ
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (28,1,1) = {"
-BC
+aa
 QX
-BC
+aa
 yZ
 yZ
 yZ
 yZ
 no
 no
-Lg
-nt
+ZO
+ZO
 vt
 DQ
 nt
@@ -1208,14 +1216,14 @@ yZ
 yZ
 yZ
 yZ
-BC
-BC
+aa
+aa
 QX
 "}
 (29,1,1) = {"
-BC
-BC
-BC
+aa
+aa
+aa
 BC
 BC
 yZ
@@ -1234,14 +1242,14 @@ yZ
 yZ
 BC
 yZ
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (30,1,1) = {"
 QX
 QX
-BC
+aa
 BC
 BC
 yZ
@@ -1260,14 +1268,14 @@ yZ
 yZ
 yZ
 BC
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (31,1,1) = {"
 QX
-BC
-BC
+aa
+aa
 BC
 BC
 yZ
@@ -1286,12 +1294,12 @@ BC
 BC
 yZ
 BC
-BC
+aa
 QX
-BC
+aa
 "}
 (32,1,1) = {"
-BC
+aa
 QX
 QX
 BC
@@ -1312,13 +1320,13 @@ yZ
 BC
 BC
 QX
-BC
-BC
+aa
+aa
 QX
 "}
 (33,1,1) = {"
 QX
-BC
+aa
 BC
 BC
 BC
@@ -1338,9 +1346,9 @@ BC
 BC
 BC
 BC
-BC
-BC
-BC
+aa
+aa
+aa
 "}
 (34,1,1) = {"
 QX

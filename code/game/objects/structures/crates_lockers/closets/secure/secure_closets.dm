@@ -3,9 +3,9 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	open_door_sprite = "secure_door"
 	opened = FALSE
 	locked = TRUE
+	secure = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -17,14 +17,6 @@
 	if(locked)
 		return FALSE
 	return ..()
-
-/obj/structure/closet/secure_closet/close()
-	if(..())
-		if(broken)
-			update_icon()
-		return TRUE
-	else
-		return FALSE
 
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/O in src)
@@ -71,9 +63,9 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		add_overlay("sparking")
+		flick_overlay_view(image(icon, src, "sparking"), src, 1 SECONDS)
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS) // Update the icon so the lock actually appears broken
 		return TRUE
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
@@ -83,22 +75,8 @@
 	else
 		toggle(user)
 
-/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	cut_overlays()
-	if(opened)
-		add_overlay(open_door_sprite)
-		return
-	if(welded)
-		add_overlay("welded")
-	if(broken)
-		return
-	if(locked)
-		add_overlay("locked")
-	else
-		add_overlay("unlocked")
-
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
-	var/breakout_time = 2 //2 minutes by default
+	var/breakout_time = 2 MINUTES
 	if(opened)
 		if(L.loc == src)
 			L.forceMove(get_turf(src)) // Let's just be safe here
@@ -107,13 +85,13 @@
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)</span>")
 	for(var/mob/O in viewers(src))
 		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
 
 
 	spawn(0)
-		if(do_after(usr,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+		if(do_after(usr, breakout_time, target = src, allow_moving = TRUE, allow_moving_target = TRUE))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
@@ -130,7 +108,7 @@
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
-			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-				var/obj/structure/bigDelivery/BD = loc
+			if(istype(loc, /obj/structure/big_delivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)
 			open()

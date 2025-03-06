@@ -18,9 +18,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 /datum/controller/subsystem/processing/station/proc/SetupTraits()
 
 	if(fexists("data/next_traits.txt"))
-		var/forced_traits_contents = file2list("data/next_traits.txt")
+		var/forced_traits_contents = file2text("data/next_traits.txt")
 		fdel("data/next_traits.txt")
-		var/list/temp_list = splittext(forced_traits_contents[1], ",")
+		var/list/temp_list = json_decode(forced_traits_contents)
 
 		for(var/trait_text_path in temp_list)
 			var/station_trait_path = text2path(trait_text_path)
@@ -68,6 +68,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 ///Creates a given trait of a specific type, while also removing any blacklisted ones from the future pool.
 /datum/controller/subsystem/processing/station/proc/setup_trait(datum/station_trait/trait_type)
 	var/datum/station_trait/trait_instance = new trait_type()
+	SSblackbox.record_feedback("text", "station_traits", 1, "[trait_type]")
 	station_traits += trait_instance
 	log_game("Station Trait: [trait_instance.name] chosen for this round.")
 	trait_instance.blacklist += trait_instance.type

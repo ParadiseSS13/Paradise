@@ -55,10 +55,6 @@
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
-	get_icon()
-	. = ..()
-
 /obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
 	if(force_icon)
@@ -112,7 +108,7 @@
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
+		if(head_marking_style && head_marking_style.species_allowed && (dna.species.sprite_sheet_name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
@@ -121,7 +117,7 @@
 	if(!((owner.head && (owner.head.flags & BLOCKHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHAIR)))) //Common restriction for all the below features.
 		if(ha_style)
 			var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
-			if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
+			if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.sprite_sheet_name in head_accessory_style.species_allowed))
 				var/icon/head_accessory_s = new /icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(headacc_colour, ICON_ADD)
@@ -129,7 +125,7 @@
 
 		if(f_style)
 			var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-			if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
+			if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.sprite_sheet_name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
 				var/icon/facial_s = new /icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(istype(dna.species, /datum/species/slime)) // I am el worstos
 					facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
@@ -140,7 +136,7 @@
 		if(h_style)
 			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHEADHAIR)))))
 				var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
-				if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
+				if(hair_style && ((dna.species.sprite_sheet_name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/hair_s = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 					if(istype(dna.species, /datum/species/slime)) // I am el worstos
 						hair_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.

@@ -13,13 +13,13 @@ Thus, the two variables affect pump operation are set in New():
 */
 
 /obj/machinery/atmospherics/binary/pump
+	name = "gas pump"
+	desc = "A pump."
 	icon = 'icons/atmos/pump.dmi'
 	icon_state = "map_off"
 
-	name = "gas pump"
-	desc = "A pump"
-
 	can_unwrench = TRUE
+	can_unwrench_while_on = FALSE
 
 	target_pressure = ONE_ATMOSPHERE
 
@@ -157,13 +157,9 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else if(!istype(W, /obj/item/wrench))
-		return ..()
-	if(!(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-		return 1
+/obj/machinery/atmospherics/binary/bump/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()

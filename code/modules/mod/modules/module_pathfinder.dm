@@ -31,7 +31,7 @@
 	else
 		. += "<span class='warning'>The implant is missing.</span>"
 
-/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, params)
+/obj/item/mod/module/pathfinder/attack__legacy__attackchain(mob/living/target, mob/living/user, params)
 	if(!ishuman(target) || !implant)
 		return
 	if(!do_after(user, 1.5 SECONDS, target = target))
@@ -51,9 +51,9 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	if(human_user.get_item_by_slot(SLOT_HUD_BACK) && !human_user.unEquip(human_user.get_item_by_slot(SLOT_HUD_BACK)))
+	if(human_user.get_item_by_slot(ITEM_SLOT_BACK) && !human_user.drop_item_to_ground(human_user.get_item_by_slot(ITEM_SLOT_BACK)))
 		return
-	if(!human_user.equip_to_slot_if_possible(mod, SLOT_HUD_BACK, disable_warning = TRUE))
+	if(!human_user.equip_to_slot_if_possible(mod, ITEM_SLOT_BACK, disable_warning = TRUE))
 		return
 	mod.quick_deploy(user)
 	human_user.update_action_buttons(TRUE)
@@ -115,7 +115,7 @@
 		to_chat(imp_in, "<span class='warning'>The implant does not recognize you as a known species!</span>")
 		return FALSE
 	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, id = H.wear_id, simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	set_path(get_path_to(module.mod, target, 150, access = H?.wear_id.GetAccess(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		to_chat(H, "<span class='warning'>No viable path found!</span>")
 		return FALSE
@@ -179,7 +179,7 @@
 		set_path(null)
 	var/target = get_turf(imp_in)
 	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, id = H.wear_id, simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	set_path(get_path_to(module.mod, target, 150, access = H?.wear_id.GetAccess(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	addtimer(CALLBACK(src, PROC_REF(mod_move), target), 6) //I'll value this properly soon
 
 	return TRUE
@@ -213,10 +213,10 @@
 	desc = "Recall a MODsuit anyplace, anytime."
 	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "recall"
-	background_icon_state = "bg_mod"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_overlay_icon_state = "recall"
+	button_background_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_background_icon_state = "bg_mod"
 	/// The cooldown for the recall.
 	COOLDOWN_DECLARE(recall_cooldown)
 

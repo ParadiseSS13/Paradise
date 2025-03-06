@@ -23,9 +23,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 /datum/dna
 	// READ-ONLY, GETS OVERWRITTEN
 	// DO NOT FUCK WITH THESE OR BYOND WILL EAT YOUR FACE
-	var/uni_identity = "" // Encoded UI
-	var/struc_enzymes = "" // Encoded SE
-	var/unique_enzymes = "" // MD5 of player name
+	/// Encoded UI
+	var/uni_identity = ""
+	/// Encoded SE
+	var/struc_enzymes = ""
+	/// MD5 of player name
+	var/unique_enzymes = ""
 
 	// Original Encoded SE, for use with Ryetalin
 	var/struc_enzymes_original = "" // Encoded SE
@@ -41,11 +44,18 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/UI[DNA_UI_LENGTH]
 
 	// From old dna.
-	var/blood_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
-	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
-
-	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// The blood type of the mob.
+	var/blood_type = "A+"
+	/// Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
+	var/real_name
+	/// The type of mutant race the player is if applicable (i.e. potato-man)
+	var/datum/species/species = new /datum/species/human
+	/// list of all blocks toggled at roundstart
+	var/list/default_blocks = list()
+	/// The flavor text of the person. We store this here for polymorph and changelings.
+	var/flavor_text
+	/// The chat color to load for when a character is cloned, a changeling transforms, or when a character is created
+	var/chat_color
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -57,6 +67,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
+	new_dna.flavor_text = flavor_text
+	new_dna.chat_color = chat_color
 
 	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
@@ -89,7 +101,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/head = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	/*// Body Accessory
@@ -105,7 +117,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	head_traits_to_dna(character, H)
+	head_traits_to_dna(character, head)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
@@ -151,6 +163,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
+	if(head)
+		head.dna.UI = character.dna.UI
+	if(eyes_organ)
+		eyes_organ.dna.UI = character.dna.UI
 
 	UpdateUI()
 
@@ -243,7 +259,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
-	return EncodeDNABlock(GetUIValue(block))
+	return ENCODE_DNA_BLOCK(GetUIValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -340,7 +356,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 // Get hex-encoded SE block.
 /datum/dna/proc/GetSEBlock(block)
-	return EncodeDNABlock(GetSEValue(block))
+	return ENCODE_DNA_BLOCK(GetSEValue(block))
 
 // Do not use this unless you absolutely have to.
 // Set a block from a hex string.  This is inefficient.  If you can, use SetUIValue().
@@ -371,15 +387,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
 
-
-/proc/EncodeDNABlock(value)
-	return num2hex(value, 3)
-
 /datum/dna/proc/UpdateUI()
 	var/list/ui_text_list = list()
 	uni_identity = ""
 	for(var/block in UI)
-		ui_text_list += EncodeDNABlock(block)
+		ui_text_list += ENCODE_DNA_BLOCK(block)
 	uni_identity = ui_text_list.Join("")
 	//testing("New UI: [uni_identity]")
 	dirtyUI = 0
@@ -389,7 +401,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/se_text_list = list()
 	struc_enzymes = ""
 	for(var/block in SE)
-		se_text_list += EncodeDNABlock(block)
+		se_text_list += ENCODE_DNA_BLOCK(block)
 	struc_enzymes = se_text_list.Join("")
 	//testing("Old SE: [oldse]")
 	//testing("New SE: [struc_enzymes]")
@@ -439,6 +451,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	// Because old DNA coders were insane or something
 	data["blood_type"] = blood_type
 	data["real_name"] = real_name
+	data["flavor_text"] = flavor_text
 	return data
 
 /datum/dna/deserialize(data)
@@ -452,6 +465,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	species = new S
 	blood_type = data["blood_type"]
 	real_name = data["real_name"]
+	flavor_text = data["flavor_text"]
 
 /datum/dna/proc/transfer_identity(mob/living/carbon/human/destination)
 	if(!istype(destination))

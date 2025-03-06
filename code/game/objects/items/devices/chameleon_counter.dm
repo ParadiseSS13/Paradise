@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "cham_counter"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=1;magnets=3"
@@ -22,12 +22,12 @@
 	if(dummy_active)
 		. += "<span class='warning'>It doesn't look quite right...</span>"
 
-/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
+/obj/item/chameleon_counterfeiter/afterattack__legacy__attackchain(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
 	if(dummy_active || !isitem(target))
 		return
-	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 	to_chat(user, "<span class='notice'>Scanned [target].</span>")
 	saved_name = target.name
 	saved_desc = target.desc
@@ -43,7 +43,7 @@
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_name)
 		return
-	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 	if(dummy_active)
 		matter_deactivate()
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
@@ -73,5 +73,5 @@
 	can_use = FALSE
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
-/obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
+/obj/item/chameleon_counterfeiter/attack_self__legacy__attackchain(mob/living/user)
 	matter_toggle(user)

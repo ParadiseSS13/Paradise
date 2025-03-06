@@ -12,20 +12,17 @@
 	var/item_action_type
 	/// Time to scope up, if you want the scope to take time to boot up. Used by the LWAP
 	var/time_to_scope
-	/// Do we let the user scope and click on the middle of their screen?
-	var/allow_middle_click = FALSE
-	/// Do we have the scope cancel on move?
-	var/movement_cancels_scope = FALSE
+	/// Flags for scoping. Check `code\__DEFINES\flags.dm`
+	var/flags
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, allow_middle_click = FALSE, movement_cancels_scope = FALSE)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, flags)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
 	src.zoom_method = zoom_method
 	src.item_action_type = item_action_type
 	src.time_to_scope = time_to_scope
-	src.allow_middle_click = allow_middle_click
-	src.movement_cancels_scope = movement_cancels_scope
+	src.flags = flags
 
 
 /datum/component/scope/Destroy(force)
@@ -61,6 +58,9 @@
 	))
 
 /datum/component/scope/process()
+	if(!tracker)
+		STOP_PROCESSING(SSprojectiles, src)
+		return
 	var/mob/user_mob = tracker.owner
 	var/client/user_client = user_mob.client
 	if(!user_client)
@@ -104,7 +104,7 @@
 	SIGNAL_HANDLER // COMSIG_GUN_TRY_FIRE
 	if(!tracker?.given_turf || target == get_target(tracker.given_turf))
 		return NONE
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack), get_target(tracker.given_turf), user)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, afterattack__legacy__attackchain), get_target(tracker.given_turf), user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /datum/component/scope/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -156,15 +156,21 @@
 	if(HAS_TRAIT(user, TRAIT_SCOPED))
 		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
 		return
+	if((flags & SCOPE_TURF_ONLY) && !isturf(user.loc))
+		to_chat(user, "<span class='warning'>There is not enough space to zoom in!</span>")
+		return
+	if((flags & SCOPE_NEED_ACTIVE_HAND) && user.get_active_hand() != parent)
+		to_chat(user, "<span class='warning'>You need to hold [parent] in your active hand to zoom in!</span>")
+		return
 	if(time_to_scope)
 		if(!do_after_once(user, time_to_scope, target = parent))
 			return
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/stretch/cursor_catcher/scope, istype(parent, /obj/item/gun))
 	tracker.assign_to_mob(user, range_modifier)
-	if(movement_cancels_scope)
+	if(flags & SCOPE_MOVEMENT_CANCELS)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	if(allow_middle_click)
+	if(flags & SCOPE_CLICK_MIDDLE)
 		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
 	tracker_owner_ckey = user.ckey
 	if(user.is_holding(parent))
@@ -177,7 +183,7 @@
 		)
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
-	ADD_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
@@ -212,7 +218,7 @@
 		COMSIG_CARBON_SWAP_HANDS,
 		COMSIG_PARENT_QDELETING,
 	))
-	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")
@@ -270,4 +276,4 @@
 /datum/action/zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon_state = "sniper_zoom"

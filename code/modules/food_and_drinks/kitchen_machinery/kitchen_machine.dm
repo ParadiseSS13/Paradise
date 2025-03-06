@@ -65,41 +65,46 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/grown
 
 /*******************
 *   Item Adding
 ********************/
 
-/obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
+/obj/machinery/kitchen_machine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(operating)
-		return
-	if(dirty < MAX_DIRT)
-		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
-			return
-		if(exchange_parts(user, O))
-			return
+		return ITEM_INTERACT_COMPLETE
 
-	default_deconstruction_crowbar(user, O)
+	if(dirty < MAX_DIRT)
+		if(default_deconstruction_screwdriver(user, open_icon, off_icon, used))
+			return ITEM_INTERACT_COMPLETE
+
+		if(istype(used, /obj/item/storage/part_replacer))
+			return ..()
+
+	default_deconstruction_crowbar(user, used)
 
 	if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
-		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag)) // If they're trying to clean it then let them
+		if(istype(used, /obj/item/reagent_containers/spray/cleaner) || istype(used, /obj/item/soap) || istype(used, /obj/item/reagent_containers/glass/rag)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * used.toolspeed, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = NO_DIRT
 				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
+
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
-			return TRUE
-	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
+			return ITEM_INTERACT_COMPLETE
+
+	if(is_type_in_list(used, GLOB.cooking_ingredients[recipe_type]) || istype(used, /obj/item/mixing_bowl))
 		if(length(contents) >= max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
-			return TRUE
-		if(istype(O,/obj/item/stack))
-			var/obj/item/stack/S = O
+			return ITEM_INTERACT_COMPLETE
+
+		if(istype(used,/obj/item/stack))
+			var/obj/item/stack/S = used
 			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
@@ -107,23 +112,51 @@
 			else
 				add_item(S, user)
 		else
-			add_item(O, user)
-	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
-		if(!O.reagents)
-			return TRUE
-		for(var/datum/reagent/R in O.reagents.reagent_list)
+			add_item(used, user)
+
+		return ITEM_INTERACT_COMPLETE
+	else if(is_type_in_list(used, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
+		if(!used.reagents)
+			return ITEM_INTERACT_COMPLETE
+
+		for(var/datum/reagent/R in used.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
-				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
-				return TRUE
-	else if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+				to_chat(user, "<span class='alert'>Your [used.name] contains components unsuitable for cookery.</span>")
+				return ITEM_INTERACT_COMPLETE
+		return ..()
+	else if(istype(used, /obj/item/storage))
+		var/obj/item/storage/S = used
+		if(!S.allow_quick_empty)
+			to_chat(user, "<span class='alert'>[used] is too awkward a shape to dump into [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(length(S.contents) + length(contents) >= max_n_of_items)
+			to_chat(user, "<span class='alert'>You can't fit everything from [used] into [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(length(S.contents) == 0)
+			to_chat(user, "<span class='alert'>[used] is empty!</span>")
+			return ITEM_INTERACT_COMPLETE
+		for(var/obj/item/ingredient in used.contents)
+			if(!is_type_in_list(ingredient, GLOB.cooking_ingredients[recipe_type]) && !istype(ingredient, /obj/item/mixing_bowl))
+				to_chat(user, "<span class='alert'>Your [used.name] contains contents unsuitable for cookery.</span>")
+				return ITEM_INTERACT_COMPLETE
+		S.hide_from(user)
+		user.visible_message("<span class='notice'>[user] dumps [used] into [src].</span>", "<span class='notice'>You dump [used] into [src].</span>")
+		for(var/obj/item/ingredient in used.contents)
+			S.remove_from_storage(ingredient, src)
+			CHECK_TICK
+		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
-			return
-		return special_attack_grab(G, user)
-	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
-		return TRUE
+			return ITEM_INTERACT_COMPLETE
+		special_attack_grab(G, user)
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='alert'>You have no idea what you can cook with [used].</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	if(operating)
@@ -188,6 +221,14 @@
  */
 /obj/machinery/kitchen_machine/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
+
+/**
+ * Check if the machine is running when trying to add reagents to it.
+ */
+/obj/machinery/kitchen_machine/is_refillable()
+	if(operating)
+		return FALSE
+	. = ..()
 
 /********************
 *   Machine Menu	*
@@ -416,7 +457,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/food/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
@@ -557,7 +598,7 @@
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(!check_useable(user))
+	if(!Adjacent(user) || !check_useable(user))
 		return
 
 	cook()

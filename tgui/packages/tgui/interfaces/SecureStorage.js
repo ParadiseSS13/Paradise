@@ -3,15 +3,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Stack, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { TableCell, TableRow } from '../components/Table';
-import {
-  KEY_BACKSPACE,
-  KEY_ENTER,
-  KEY_ESCAPE,
-  KEY_0,
-  KEY_9,
-  KEY_NUMPAD_0,
-  KEY_NUMPAD_9,
-} from 'common/keycodes';
+import { KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE, KEY_0, KEY_9, KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'common/keycodes';
 
 export const SecureStorage = (props, context) => {
   return (
@@ -74,13 +66,7 @@ const MainPage = (props, context) => {
   return (
     <Section fill onKeyDown={(e) => handleKeyCodeEvent(e, context)}>
       <Stack.Item height={7.3}>
-        <Box
-          className={classes([
-            'SecureStorage__displayBox',
-            'SecureStorage__displayBox--' + status,
-          ])}
-          height="100%"
-        >
+        <Box className={classes(['SecureStorage__displayBox', 'SecureStorage__displayBox--' + status])} height="100%">
           {emagged ? 'ERROR' : user_entered_code}
         </Box>
       </Stack.Item>

@@ -37,10 +37,10 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /**
  * A stationary holopad for projecting hologram and making and receiving holocalls.
- * 
+ *
  * Holopads are floor-plane machines similar, in appearance and interactive function, to quantum pads. They can be
  * used by crew members to make and answer holocalls, or by the AI to project holograms autonomously.
- * 
+ *
  * Holopads are machines which can project a hologram up to `holo_range` tiles away. They do this in one of two modes:
  * holocalls, and AI holograms. Holocalls require a user to stand on a holopad, use its menu to select a remote holopad,
  * and make a call. Holocalls must be answered by the receiving holopad, or they will fail. Holopads can be configured
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	/// Holoray-mob link.
 	var/list/holorays = list()
 	/// Last request time, to prevent request spam. ~Carn
-	var/last_request = 0 
+	var/last_request = 0
 	/// The range, in tiles, that a holopad can project a hologram.
 	var/holo_range = 5
 	var/temp = ""
@@ -92,6 +92,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	/// Whether or not the user is currently selecting where to send their call.
 	var/dialling_input = FALSE
+	var/mob/camera/eye/hologram/eye
 
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
@@ -149,11 +150,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 
-/obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/hologram/holopad/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -181,6 +177,9 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(outgoing_call)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return
+
 	user.set_machine(src)
 	interact(user)
 
@@ -192,7 +191,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
 		return
-	if(isAI(user))
+	if(is_ai(user))
 		hangup_all_calls()
 		return
 
@@ -202,7 +201,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		HC.Disconnect(src)
 
-/obj/machinery/hologram/holopad/interact(mob/living/user) 
+/obj/machinery/hologram/holopad/interact(mob/living/user)
 	if(!istype(user))
 		return
 	if(!anchored)
@@ -242,7 +241,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
-	if(..() || isAI(usr))
+	if(..() || is_ai(usr))
 		return
 	add_fingerprint(usr)
 	if(stat & NOPOWER)
@@ -256,7 +255,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='notice'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -317,11 +316,13 @@ GLOBAL_LIST_EMPTY(holopads)
 		return
 	if(istype(robot))
 		interact(robot)
+	if(ismecha(ai.loc)) // AIs must exit mechs before activating holopads.
+		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
 	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
-		ai.eyeobj.setLoc(get_turf(src))
+		ai.eyeobj.set_loc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
 		activate_holo(ai, 1)
 	else//If there is a hologram, remove it.
@@ -360,13 +361,15 @@ GLOBAL_LIST_EMPTY(holopads)
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
-	if(!isAI(holo_owner))
+	if(!is_ai(holo_owner))
 		return
 	for(var/pad in GLOB.holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
 			continue
-		if(another.validate_location(T))
+		if(T.loc != get_area(another))
+			continue
+		if(another.validate_location(T, holo_owner))
 			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 			unset_holo(holo_owner)
 			another.set_holo(holo_owner, h)
@@ -377,16 +380,17 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.current)
 			return FALSE
 	return TRUE
 
 //Can we display holos there
-//Area check instead of line of sight check because this is a called a lot if AI wants to move around.
-/obj/machinery/hologram/holopad/proc/validate_location(turf/T,check_los = FALSE)
-	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
+/obj/machinery/hologram/holopad/proc/validate_location(turf/T, mob/living/user)
+	if(!is_ai(user) && T.loc != get_area(src)) //For AI, the area check is done on trying to find another holopad instead
+		return FALSE
+	if(T.z == z && (get_dist(T, src) <= holo_range))
 		return TRUE
 	return FALSE
 
@@ -395,7 +399,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
-		if(!validate_location(new_turf))
+		if(!validate_location(new_turf, user))
 			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
 				return FALSE
@@ -420,7 +424,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
-		if(isAI(user))
+		if(is_ai(user))
 			hologram.icon = AI.holo_icon
 		else	//make it like real life
 			if(isrobot(user))
@@ -440,6 +444,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()
 
+		eye = new /mob/camera/eye/hologram(src, user.name, src, user)
 		set_holo(user, hologram)
 
 		if(!masters[user])//If there is not already a hologram.
@@ -492,6 +497,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
+	eye = user.remote_control
+	eye.holopad = src
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
@@ -503,10 +510,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram
+	if(!QDELETED(eye))
+		QDEL_NULL(eye)
 	unset_holo(user)
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/unset_holo(mob/living/user)
+	eye = null
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI) && AI.current == src)
 		AI.current = null
@@ -543,6 +553,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
+	flags_2 = HOLOGRAM_2
 
 /obj/effect/overlay/holo_pad_hologram/Destroy()
 	Impersonation = null
@@ -550,7 +561,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
@@ -571,15 +582,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100
-
-/*
- * Other Stuff: Is this even used?
- */
-/obj/machinery/hologram/projector
-	name = "hologram projector"
-	desc = "It makes a hologram appear...with magnets or something..."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "hologram0"
 
 #undef HOLOPAD_PASSIVE_POWER_USAGE
 #undef HOLOGRAM_POWER_USAGE

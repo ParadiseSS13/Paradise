@@ -40,6 +40,10 @@ SUBSYSTEM_DEF(weather)
 		next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
 
 /datum/controller/subsystem/weather/Initialize()
+	if(!GLOB.configuration.general.enable_default_weather_events)
+		log_debug("disabling default weather events due to configuration")
+		return
+
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
 		var/probability = initial(W.probability)

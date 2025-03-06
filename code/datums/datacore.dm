@@ -2,6 +2,7 @@
 	var/list/medical = list()
 	var/list/general = list()
 	var/list/security = list()
+	var/list/ai = list()
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
 
@@ -150,6 +151,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			assignment = H.job
 		else
 			assignment = "Unassigned"
+		GLOB.crew_list[H.real_name] = assignment
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
@@ -166,6 +168,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
+		G.fields["ai_target"]	= "None" // for malf hud
+
 		// Do some ID card checking stuff here to save on resources
 		var/card_photo
 		if(istype(H.wear_id, /obj/item/card/id))
@@ -362,6 +366,28 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
+	//Underwear
+	var/icon/underwear_standing = new /icon('icons/mob/clothing/underwear.dmi', "nude")
+	if(H.underwear && H.dna.species.clothing_flags & HAS_UNDERWEAR)
+		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[H.underwear]
+		if(U)
+			var/u_icon = U.sprite_sheets && (H.dna.species.sprite_sheet_name in U.sprite_sheets) ? U.sprite_sheets[H.dna.species.sprite_sheet_name] : U.icon //Species-fit the undergarment.
+			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+
+	if(H.undershirt && H.dna.species.clothing_flags & HAS_UNDERSHIRT)
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[H.undershirt]
+		if(U2)
+			var/u2_icon = U2.sprite_sheets && (H.dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[H.dna.species.sprite_sheet_name] : U2.icon
+			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
+
+	if(H.socks && H.dna.species.clothing_flags & HAS_SOCKS)
+		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[H.socks]
+		if(U3)
+			var/u3_icon = U3.sprite_sheets && (H.dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[H.dna.species.sprite_sheet_name] : U3.icon
+			underwear_standing.Blend(new /icon(u3_icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+
+	if(underwear_standing)
+		preview_icon.Blend(underwear_standing, ICON_OVERLAY)
 
 	var/icon/hands_icon = icon(preview_icon)
 	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
@@ -379,6 +405,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if("Nanotrasen Representative")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+		if("Nanotrasen Career Trainer")
+			clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "trainer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "trainercoat"), ICON_OVERLAY)
 		if("Blueshield")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
@@ -479,11 +509,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/security.dmi', "security_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if("Chief Engineer")
-			clothes_s = new /icon('icons/mob/clothing/under/engineering.dmi', "chief_s")
+			clothes_s = new /icon('icons/mob/clothing/under/engineering.dmi', "chief_engineer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Station Engineer")
-			clothes_s = new /icon('icons/mob/clothing/under/engineering.dmi', "engine_s")
+			clothes_s = new /icon('icons/mob/clothing/under/engineering.dmi', "engineer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Life Support Specialist")
@@ -536,6 +566,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+		if("Naked")
+			clothes_s = null
 		else
 			if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")

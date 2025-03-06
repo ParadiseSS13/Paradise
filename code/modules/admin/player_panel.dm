@@ -255,7 +255,7 @@
 						M_job = "Carbon-based"
 
 				else if(issilicon(M)) //silicon
-					if(isAI(M))
+					if(is_ai(M))
 						M_job = "AI"
 					else if(ispAI(M))
 						M_job = "pAI"
@@ -298,7 +298,7 @@
 			M_key = replacetext(M_key, "\\", "")
 
 			var/M_eyeUID = ""
-			if(isAI(M))
+			if(is_ai(M))
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
@@ -346,7 +346,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] [ADMIN_OBS(M, "OBS")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -355,6 +355,9 @@
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><meta charset='utf-8'><head><title>Round Status</title></head><body><h1><b>Round Status</b></h1>"
 		dat += "Current Game Mode: <b>[SSticker.mode.name]</b><br>"
+		if(istype(SSticker.mode, /datum/game_mode/dynamic))
+			var/datum/game_mode/dynamic/dynamic = SSticker.mode
+			dat += "Rulesets: <b>[english_list(dynamic.rulesets + dynamic.implied_rulesets)]</b><br>"
 		dat += "Round Duration: <b>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</b><br>"
 		dat += "<b>Emergency shuttle</b><br>"
 		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
@@ -451,6 +454,9 @@
 
 		if(length(SSticker.mode.vampires))
 			dat += check_role_table("Vampires", SSticker.mode.vampires)
+
+		if(length(SSticker.mode.mindflayers))
+			dat += check_role_table("Mindflayers", SSticker.mode.mindflayers)
 
 		if(length(SSticker.mode.vampire_enthralled))
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)

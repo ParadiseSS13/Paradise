@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/required_grind = 5
 	var/cube_production = 1
 	var/cycle_through = 0
-	var/obj/item/food/snacks/monkeycube/cube_type = /obj/item/food/snacks/monkeycube
+	var/obj/item/food/monkeycube/cube_type = /obj/item/food/monkeycube
 	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/Initialize(mapload)
@@ -54,50 +54,52 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = req_grind
 
-/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		return
+/obj/machinery/monkey_recycler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
 		power_change()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, O))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/multitool))
+	if(istype(used, /obj/item/multitool))
 		if(!panel_open)
 			cycle_through++
 			switch(cycle_through)
 				if(1)
-					cube_type = /obj/item/food/snacks/monkeycube/farwacube
+					cube_type = /obj/item/food/monkeycube/nian_wormecube
 				if(2)
-					cube_type = /obj/item/food/snacks/monkeycube/wolpincube
+					cube_type = /obj/item/food/monkeycube/farwacube
 				if(3)
-					cube_type = /obj/item/food/snacks/monkeycube/stokcube
+					cube_type = /obj/item/food/monkeycube/wolpincube
 				if(4)
-					cube_type = /obj/item/food/snacks/monkeycube/neaeracube
+					cube_type = /obj/item/food/monkeycube/stokcube
 				if(5)
-					cube_type = /obj/item/food/snacks/monkeycube
+					cube_type = /obj/item/food/monkeycube/neaeracube
+				if(6)
+					cube_type = /obj/item/food/monkeycube
 					cycle_through = 0
 			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
 		else
-			var/obj/item/multitool/M = O
+			var/obj/item/multitool/M = used
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(stat != 0) //NOPOWER etc
-		return
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		var/grabbed = G.affecting
 		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
-				if(target.stat == 0)
+				if(target.stat == CONSCIOUS)
 					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
 				else
 					user.drop_item()
@@ -109,14 +111,13 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 					use_power(500)
 					grinded++
-					sleep(50)
-					pixel_x = initial(pixel_x)
 					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
+					addtimer(VARSET_CALLBACK(src, pixel_x, initial(pixel_x)), 5 SECONDS)
 			else
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)

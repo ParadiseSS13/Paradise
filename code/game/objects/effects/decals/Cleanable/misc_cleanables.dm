@@ -36,6 +36,9 @@
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
 
+/obj/effect/decal/cleanable/glass/plastitanium
+	icon_state = "plastitaniumtiny"
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
@@ -50,7 +53,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -159,9 +162,8 @@
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	gravity_check = has_gravity(src, T)
-	if(loc != T)
-		forceMove(T)
+	check_gravity(T)
+
 	if(!gravity_check)
 		layer = MOB_LAYER
 		plane = GAME_PLANE
@@ -171,21 +173,34 @@
 			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
-/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
-	. = ..()
-	if(A.density)
-		splat(A)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+/obj/effect/decal/cleanable/vomit/Bump(atom/A)
+	if(gravity_check)
+		return ..()
+
+	if(iswallturf(A) || istype(A, /obj/structure/window))
+		splat(A)
+		return
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	return ..()
+
+/obj/effect/decal/cleanable/vomit/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!gravity_check)
-		splat(AM)
-	..()
+		splat(entered)
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(gravity_check)
 		return
 	var/turf/T = get_turf(A)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T)
@@ -199,22 +214,11 @@
 		plane = initial(plane)
 	animate(src)
 
-/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
-		return 1
+		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return 1
-
-	if(pulledby && !pulledby.pulling)
-		return 1
-
-	if(throwing)
-		return 1
-
-	return 0
+	return ..()
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
@@ -232,7 +236,7 @@
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
-	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
+	if(severity == EXPLODE_DEVASTATE) //so shreds created during an explosion aren't deleted by the explosion.
 		qdel(src)
 
 /obj/effect/decal/cleanable/shreds/Initialize(mapload)

@@ -69,17 +69,17 @@
 
 	if(LAZYIN(trigger_emotes, emote_key) && !on_implant)
 		if(!silent)
-			to_chat(user, "<span class='warning'> You've already registered [emote_key]!")
+			to_chat(user, "<span class='warning'>You've already registered [emote_key]!")
 		return FALSE
 
 	if(emote_key == "me" || emote_key == "custom")
 		if(!silent)
-			to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
+			to_chat(user, "<span class='warning'>You can't trigger [src] with a custom emote.")
 		return FALSE
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)))
 		if(!silent)
-			to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
+			to_chat(user, "<span class='warning'>You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
 		return FALSE
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))

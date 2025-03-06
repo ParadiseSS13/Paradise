@@ -4,7 +4,7 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 /datum/antagonist/mindslave
 	name = "Mindslave"
 	roundend_category = "mindslaves"
-	job_rank = SPECIAL_ROLE_TRAITOR
+	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	antag_hud_name = "mindslave" // This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.
@@ -14,6 +14,8 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	var/datum/mind/master
 	/// Custom greeting text if you don't want to use the basic greeting. Specify this when making a new mindslave datum with `New()`.
 	var/greet_text
+	///The hudicon for the mindslaves master
+	var/master_hud_name = "master"
 
 /datum/antagonist/mindslave/New(datum/mind/_master, _greet_text)
 	if(!_master)
@@ -46,8 +48,8 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(master.current)
-	set_antag_hud(master.current, "hudmaster")
-	slaved.add_serv_hud(master, "master")
+	set_antag_hud(master.current, "hud[master_hud_name]")
+	slaved.add_serv_hud(master, master_hud_name)
 	return ..()
 
 /datum/antagonist/mindslave/add_owner_to_gamemode()

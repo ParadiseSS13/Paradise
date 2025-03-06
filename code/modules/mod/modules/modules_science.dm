@@ -35,21 +35,21 @@
 	. = ..()
 	if(!.)
 		return
-	GLOB.doppler_arrays += src
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	GLOB.doppler_arrays -= src
+	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 
-/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	var/turf/T = get_turf(src)
-	var/dx = abs(x0 - T.x)
-	var/dy = abs(y0 - T.y)
+	var/dx = abs(epicenter.x - T.x)
+	var/dy = abs(epicenter.y - T.y)
 	var/distance
-	if(T.z != z0)
+	if(T.z != epicenter.z)
 		return
 	if(dx > dy)
 		distance = dx
@@ -77,7 +77,7 @@
 	if(!.)
 		return
 	var/turf/target_turf = get_turf(target)
-	if(!istype(target_turf) || target_turf.density || !(target_turf in view(9, mod.wearer))) //No. No camera bug shenanigins.
+	if(!istype(target_turf) || target_turf.density || !((target in view(9, mod.wearer)) || mod.wearer.sight & SEE_TURFS) || (get_dist(target_turf, get_turf(mod.wearer)) > 9)) //No. No camera bug shenanigins.
 		return
 	var/matrix/pre_matrix = matrix()
 	pre_matrix.Scale(4, 0.25)

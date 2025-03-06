@@ -5,6 +5,9 @@
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
+	if(Target)
+		Target = null
+
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/simple_animal/slime/M = new(loc, colour)
@@ -19,7 +22,7 @@
 			E.Grant(src)
 			revive()
 			regenerate_icons()
-			update_name()
+			update_appearance(UPDATE_NAME)
 			return
 
 	set_stat(DEAD) //Temporarily set to dead for icon updates

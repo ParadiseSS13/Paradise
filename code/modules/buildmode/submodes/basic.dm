@@ -7,7 +7,6 @@
 	to_chat(user, "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button + alt  = Airlock</span>")
-	to_chat(user, "")
 	to_chat(user, "<span class='notice'>Use the button in the upper left corner to</span>")
 	to_chat(user, "<span class='notice'>change the direction of built objects.</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")

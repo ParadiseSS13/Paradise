@@ -50,6 +50,7 @@
 // MARK: EQUIPMENT
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
+	name = "first-aid kit"
 	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
@@ -177,8 +178,8 @@
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "\improper Crew Reawakening Report"
 
-/obj/item/paper/fluff/ruins/oldstation/report/Initialize()
-	..()
+/obj/item/paper/fluff/ruins/oldstation/report/Initialize(mapload)
+	. = ..()
 	init_current_date_string()
 	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
 	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure, secondary radiation detectors showed no residual \
@@ -201,6 +202,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/ancient
@@ -211,6 +213,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
@@ -344,9 +347,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='info'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
 	else
-		to_chat(user, "<span class='info'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it
@@ -390,9 +393,10 @@
 
 /obj/structure/closet/crate/secure/oldstation/research/populate_contents()
 	new /obj/item/circuitboard/circuit_imprinter(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/circuitboard/rnd_network_controller(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
 	new /obj/item/reagent_containers/glass/beaker(src)
@@ -420,7 +424,7 @@
 	new /obj/item/hemostat(src)
 	new /obj/item/scalpel(src)
 	new /obj/item/cautery(src)
-	new /obj/item/FixOVein(src)
+	new /obj/item/fix_o_vein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
@@ -434,7 +438,7 @@
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
+	desc = "A very large sublight engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
 	appearance_flags = LONG_GLIDE
@@ -464,11 +468,6 @@
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/ruin/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	has_gravity = FALSE
-
 /area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
@@ -478,10 +477,6 @@
 /area/ruin/ancientstation/betanorth
 	name = "Beta Station North Corridor"
 	icon_state = "purple"
-
-/area/ruin/ancientstation/solar
-	name = "Station Solar Array"
-	icon_state = "panelsAP"
 
 /area/ruin/ancientstation/engi
 	name = "Charlie Station Engineering"
@@ -519,3 +514,4 @@
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
+	requires_power = FALSE

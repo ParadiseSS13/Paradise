@@ -17,11 +17,11 @@
 
 /datum/action/item_action/organ_action/toggle/headpocket
 	use_itemicon = FALSE
-	button_icon_state = "skrell_headpocket_in"
+	button_overlay_icon_state = "skrell_headpocket_in"
 
 /obj/item/organ/internal/headpocket/proc/update_button_state()
 	for(var/datum/action/item_action/T in actions)
-		T.button_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
+		T.button_overlay_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
 		T.UpdateButtons()
 
 /obj/item/organ/internal/headpocket/Destroy()
@@ -52,7 +52,7 @@
 		if(I.w_class > WEIGHT_CLASS_SMALL)
 			to_chat(owner, "<span class='notice'>[I] is too large to fit in your [name].</span>")
 			return
-		if(owner.unEquip(I))
+		if(owner.unequip(I))
 			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
 			I.forceMove(src)
 			held_item = I

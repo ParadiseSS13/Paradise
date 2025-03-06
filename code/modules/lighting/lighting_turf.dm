@@ -84,7 +84,7 @@
 				has_opaque_atom = TRUE
 				break
 
-/turf/Exited(atom/movable/Obj, atom/newloc)
+/turf/Exited(atom/movable/Obj, direction)
 	. = ..()
 
 	if(Obj && Obj.opacity)
@@ -98,6 +98,8 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+	for(var/obj/machinery/machine in contents)
+		machine.reregister_machine()
 
 /turf/proc/generate_missing_corners()
 	if(!IS_DYNAMIC_LIGHTING(src) && !light_sources)

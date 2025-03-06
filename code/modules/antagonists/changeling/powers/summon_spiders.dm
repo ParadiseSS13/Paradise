@@ -7,7 +7,7 @@
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 30 chemicals."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Their orders can be changed via remote hivemind (Alt+Shift click)."
-	button_icon_state = "spread_infestation"
+	button_overlay_icon_state = "spread_infestation"
 	chemical_cost = 30
 	dna_cost = 4
 	/// This var keeps track of the changeling's spider count
@@ -114,7 +114,7 @@
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
 			Find_Enemies(around)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 		if(FOLLOW_AGGRESSIVE)
 			Find_Enemies(around)
 			for(var/mob/living/carbon/C in around)
@@ -131,7 +131,7 @@
 					return TRUE
 				Goto(C, 0.5 SECONDS, 1)
 		if(IDLE_RETALIATE)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
@@ -159,7 +159,7 @@
 		if(!faction_check_mob(M))
 			enemies |= M
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	. = ..()
 	if(W.force == 0)
 		return

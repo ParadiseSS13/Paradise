@@ -12,10 +12,10 @@
 	id = "supply"
 	callTime = 2 MINUTES
 	dir = 8
-	travelDir = 90
 	width = 12
 	dwidth = 5
 	height = 7
+	port_direction = EAST
 
 	// The list of things that can't be sent to CC.
 	var/list/blacklist = list(
@@ -52,7 +52,7 @@
 	// The item preventing this shuttle from going to CC.
 	var/blocking_item = "ERR_UNKNOWN"
 
-/obj/docking_port/mobile/supply/Initialize()
+/obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
 		var/datum/economy/simple_seller/seller = new T
@@ -75,7 +75,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock(port)
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port)
 	. = ..()
 	if(.)
 		return
@@ -84,11 +84,11 @@
 		// Ignore transit ports.
 		return
 
-	if(is_station_level(z))
+	if(is_station_level(port.z))
 		// Buy when arriving at the station.
 		buy()
 
-	if(z == level_name_to_num(CENTCOMM))
+	if(port.z == level_name_to_num(CENTCOMM))
 		// Sell when arriving at CentComm.
 		sell()
 
@@ -219,6 +219,10 @@
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return CARGO_OK
+		return CARGO_SKIP_ATOM
+
+	if(istype(AM, /mob/dead))
+		return CARGO_SKIP_ATOM
 
 	return CARGO_OK
 
@@ -538,16 +542,29 @@
 /datum/economy/simple_seller/tech_levels/begin_sell(obj/docking_port/mobile/supply/S)
 	temp_tech_levels = SSeconomy.tech_levels.Copy()
 
+/datum/economy/simple_seller/tech_levels/proc/get_price(tech_rarity, tech_level, sold_level = null)
+	// Calculates tech disk's supply points sell cost
+	if(!sold_level)
+		sold_level = 1
+
+	if(sold_level >= tech_level)
+		return 0
+
+	var/cost = 0
+	for(var/i in (sold_level + 1) to tech_level)
+		cost += i * 5 * tech_rarity
+
+	return cost
+
 /datum/economy/simple_seller/tech_levels/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = AM
-		if(!disk.stored)
+		if(!disk.tech_id)
 			return COMSIG_CARGO_SELL_WRONG
-		var/datum/tech/tech = disk.stored
 
-		var/cost = tech.getCost(temp_tech_levels[tech.id])
+		var/cost = get_price(disk.tech_rarity, disk.tech_level, temp_tech_levels[disk.tech_id])
 		if(cost)
-			temp_tech_levels[tech.id] = tech.level
+			temp_tech_levels[disk.tech_id] = disk.tech_level
 			return COMSIG_CARGO_SELL_NORMAL
 		return COMSIG_CARGO_SELL_WRONG
 
@@ -556,28 +573,27 @@
 		return
 
 	var/obj/item/disk/tech_disk/disk = AM
-	if(!disk.stored)
+	if(!disk.tech_id)
 		return
-	var/datum/tech/tech = disk.stored
 
-	var/cost = tech.getCost(SSeconomy.tech_levels[tech.id])
+	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
 	if(!cost)
 		return
 
-	SSeconomy.tech_levels[tech.id] = tech.level
+	SSeconomy.tech_levels[disk.tech_id] = disk.tech_level
 	SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "amount")
 	SSblackbox.record_feedback("tally", "cargo tech disks sold", cost, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account
 	cargo_item.credits = cost / 2
-	cargo_item.reason = "[tech.name] - new data."
+	cargo_item.reason = "[disk.tech_name] - new data."
 	manifest.line_items += cargo_item
 
 	var/datum/economy/line_item/science_item = new
 	science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
 	science_item.credits = cost / 2
-	science_item.reason = "[tech.name] - new data."
+	science_item.reason = "[disk.tech_name] - new data."
 	manifest.line_items += science_item
 
 /datum/economy/simple_seller/tech_levels/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
@@ -589,16 +605,15 @@
 	item.credits = 0
 
 	var/obj/item/disk/tech_disk/disk = AM
-	if(!disk.stored)
+	if(!disk.tech_id)
 		item.reason = "Blank tech disk."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "blank")
 		return
 
-	var/datum/tech/tech = disk.stored
-	var/cost = tech.getCost(SSeconomy.tech_levels[tech.id])
+	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
 	if(!cost)
-		item.reason = "[tech.name] - no new data."
+		item.reason = "[disk.tech_name] - no new data."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "repeat")
 

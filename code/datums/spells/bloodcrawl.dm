@@ -8,6 +8,7 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	antimagic_flags = NONE
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -28,6 +29,8 @@
 	if(!.)
 		return
 	if(!isliving(user))
+		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_JAUNT, get_turf(user)) & COMPONENT_BLOCK_JAUNT)
 		return FALSE
 
 /datum/spell/bloodcrawl/cast(list/targets, mob/living/user)
@@ -102,7 +105,10 @@
 
 /datum/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
-	mob_loc.visible_message("<span class='danger'>[L] sinks into [A].</span>")
+	mob_loc.visible_message(
+		"<span class='danger'>[L] sinks into [A].</span>",
+		"<span class='danger'>You hear something sinking into a thick liquid.</span>"
+	)
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
 
@@ -113,16 +119,25 @@
 	if(!istype(victim))
 		return
 	if(victim.stat == CONSCIOUS)
-		A.visible_message("<span class='warning'>[victim] kicks free of [A] just before entering it!</span>")
+		A.visible_message(
+			"<span class='warning'>[victim] kicks free of [A] just before entering it!</span>",
+			"<span class='warning'>You hear something sinking into a thick liquid and someone struggling!</span>"
+		)
 		L.stop_pulling()
 		return
 
 	victim.forceMove(holder)
 	victim.emote("scream")
-	A.visible_message("<span class='warning'><b>[L] drags [victim] into [A]!</b></span>")
+	A.visible_message(
+		"<span class='danger'>[L] drags [victim] into [A]!</span>",
+		"<span class='danger'>You hear something being dragged into a thick liquid!</span>"
+	)
 	L.stop_pulling()
-	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
-	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</b></span>")
+	to_chat(L, "<b>You begin to feast on [victim]. You cannot move while you are doing this.</b>")
+	A.visible_message(
+		"<span class='danger'>Loud eating sounds come from the blood...</span>",
+		"<span class='danger'>The sound of torn flesh and snapping bones fills the air...</span>"
+	)
 	var/sound
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/SD = L
@@ -200,7 +215,10 @@
 	if(prob(25) && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, TRUE, -1)
-	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b></span>")
+	A.visible_message(
+		"<span class='danger'>[L] rises out of [A]!</span>",
+		"<span class='danger'>You hear something rising out of a thick liquid!</span>"
+	)
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 /datum/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
@@ -210,7 +228,10 @@
 		qdel(BC)
 
 /datum/spell/bloodcrawl/proc/rise_message(atom/A)
-	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
+	A.visible_message(
+		"<span class='danger'>[A] starts to bubble...</span>",
+		"<span class='danger'>You can hear bubbling...</span>"
+	)
 
 /datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
@@ -251,6 +272,17 @@
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
+
+/datum/spell/bloodcrawl/shadow_crawl/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/simple_animal/demon/shadow/current_demon = user
+	if(!istype(current_demon))
+		return ..()
+
+	if(current_demon.block_shadow_crawl)
+		to_chat(user, "<span class='warning'>You are too concentrated to activate [name].</span>")
+		return FALSE
+
+	return ..()
 
 /datum/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
 	return target.get_lumcount() < 0.2

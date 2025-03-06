@@ -44,7 +44,7 @@
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
+/obj/item/kitchen/utensil/attack__legacy__attackchain(mob/living/carbon/C, mob/living/carbon/user)
 	if(!istype(C))
 		return ..()
 
@@ -57,7 +57,7 @@
 			return ..()
 
 	if(length(contents))
-		var/obj/item/food/snacks/toEat = contents[1]
+		var/obj/item/food/toEat = contents[1]
 		if(istype(toEat))
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
@@ -218,6 +218,18 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
+
+/obj/item/kitchen/knife/cheese
+	name = "cheese knife"
+	desc = "A blunt knife used to slice cheese."
+	icon_state = "knife-cheese"
+	force = 3
+
+/obj/item/kitchen/knife/pizza_cutter
+	name = "pizza cutter"
+	desc = "A simple circular blade on a handle, used to cut pizza."
+	icon_state = "pizza_cutter"
+	force = 8
 
 /*
  * Rolling Pins

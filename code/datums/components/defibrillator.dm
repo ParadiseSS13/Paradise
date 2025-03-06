@@ -1,6 +1,9 @@
 /**
  * A component for an item that attempts to defibrillate a mob when activated.
  */
+
+#define DEFIB_TIME 5 SECONDS
+
 /datum/component/defib
 	/// If this is being used by a borg or not, with necessary safeties applied if so.
 	var/robotic
@@ -24,6 +27,18 @@
 	var/emag_proof
 	/// uid to an item that should be making noise and handling things that our direct parent shouldn't be concerned with.
 	var/actual_unit_uid
+	/// Sound for defib windup.
+	var/charge_sound = 'sound/machines/defib_charge.ogg'
+	/// Sound when the defib is successful.
+	var/success_sound = 'sound/machines/defib_success.ogg'
+	/// Sound when the defib fails.
+	var/fail_sound = 'sound/machines/defib_failed.ogg'
+	/// Sound when the defib shocks the patient.
+	var/zap_sound = 'sound/machines/defib_zap.ogg'
+	/// Sound when the defib's safety is enabled.
+	var/safety_on_sound = 'sound/machines/defib_saftyon.ogg'
+	/// Sound when the defib's safety is disabled.
+	var/safety_off_sound = 'sound/machines/defib_saftyoff.ogg'
 
 /**
  * Create a new defibrillation component.
@@ -57,7 +72,7 @@
 
 	var/effect_target = isnull(actual_unit) ? parent : actual_unit
 
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(trigger_defib))
+	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(trigger_defib))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
@@ -78,11 +93,11 @@
 	if(safety)
 		safety = FALSE
 		unit.visible_message("<span class='notice'>[unit] beeps: Safety protocols disabled!</span>")
-		playsound(get_turf(unit), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+		playsound(get_turf(unit), safety_off_sound, 50, FALSE)
 	else
 		safety = TRUE
 		unit.visible_message("<span class='notice'>[unit] beeps: Safety protocols enabled!</span>")
-		playsound(get_turf(unit), 'sound/machines/defib_saftyon.ogg', 50, 0)
+		playsound(get_turf(unit), safety_on_sound, 50, FALSE)
 
 /datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
@@ -104,7 +119,7 @@
  * Start the defibrillation process when triggered by a signal.
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
+	SIGNAL_HANDLER  // COMSIG_ATTACK
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return TRUE
@@ -134,7 +149,7 @@
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
 		user.visible_message("<span class='notice'>[defib_ref] beeps: Unit is unpowered.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		return
 
 	if(on_cooldown)
@@ -168,8 +183,8 @@
 	)
 
 	busy = TRUE
-	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
-	if(ghost?.can_reenter_corpse)
+	var/mob/dead/observer/ghost = target.get_ghost()
+	if(ghost)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
@@ -179,12 +194,8 @@
 		SEND_SOUND(target, sound('sound/effects/genetics.ogg'))
 		target.throw_alert("cling_defib", /atom/movable/screen/alert/changeling_defib_revive, alert_args = list(parent, target))
 
-	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
-		busy = FALSE
-		return
-
 	user.visible_message("<span class='notice'>[user] places [parent] on [target]'s chest.</span>", "<span class='warning'>You place [parent] on [target]'s chest.</span>")
-	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, 0)
+	playsound(get_turf(defib_ref), charge_sound, 50, FALSE)
 
 	if(ghost && !ghost.client && !QDELETED(ghost))
 		log_debug("Ghost of name [ghost.name] is bound to [target.real_name], but lacks a client. Deleting ghost.")
@@ -192,13 +203,13 @@
 
 	var/signal_result = SEND_SIGNAL(target, COMSIG_LIVING_PRE_DEFIB, user, parent, ghost)
 
-	if(!do_after(user, 2 SECONDS * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+	if(!do_after(user, DEFIB_TIME * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
 		return
 
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !combat)
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		busy = FALSE
 		return
 
@@ -209,14 +220,14 @@
 		busy = FALSE
 		return
 
-	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
+	if(target.undergoing_cardiac_arrest() && target.stat != DEAD) // Can have a heart attack and heart is either missing, necrotic, or not beating
 		var/datum/organ/heart/heart = target.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(!heart)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 		else if(heart.linked_organ.status & ORGAN_DEAD)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 		if(!heart || (heart.linked_organ.status & ORGAN_DEAD))
-			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+			playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 			busy = FALSE
 			return
 
@@ -226,21 +237,21 @@
 		set_cooldown(cooldown)
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Cardiac arrhythmia corrected.</span>")
 		target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>", "<span class='userdanger'>You feel a jolt, and your heartbeat seems to steady.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-		playsound(get_turf(defib_ref), "bodyfall", 50, 1)
-		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
+		playsound(get_turf(defib_ref), zap_sound, 50, TRUE, -1)
+		playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
+		playsound(get_turf(defib_ref), success_sound, 50, FALSE)
 		busy = FALSE
 		return
 
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient is not in a valid state. Operation aborted.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		busy = FALSE
 		return
 
 	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
-	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
-	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
+	playsound(get_turf(defib_ref), zap_sound, 50, TRUE, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
 	// Run through some quick failure states after shocking.
@@ -276,7 +287,7 @@
 
 	if(failure_message)
 		user.visible_message(failure_message)
-		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 	else
 		// Heal each basic damage type by as much as we're under -100 health
 		var/damage_above_threshold = -(min(target.health, HEALTH_THRESHOLD_DEAD) - HEALTH_THRESHOLD_DEAD)
@@ -287,21 +298,24 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
+		var/obj/item/organ/internal/brain/sponge = target.get_int_organ(/obj/item/organ/internal/brain)
 		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
-		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
+		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > sponge.damage)
 			target.setBrainLoss(defib_time_brain_damage)
 
+		target.set_heartattack(FALSE)
 		target.update_revive()
 		target.KnockOut()
 		target.Paralyse(10 SECONDS)
 		target.emote("gasp")
 
-		if(target.getBrainLoss() >= 100)
+		// Check if the brain has more than a critical amount of brain damage
+		if(target.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL))
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
-			playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+			playsound(get_turf(defib_ref), safety_off_sound, 50, FALSE)
 			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
 		else
-			playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
+			playsound(get_turf(defib_ref), success_sound, 50, FALSE)
 
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Resuscitation successful.</span>")
 
@@ -339,7 +353,7 @@
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 	target.apply_damage(60, STAMINA)
 	target.KnockDown(10 SECONDS)
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(parent), zap_sound, 50, TRUE, -1)
 	target.emote("gasp")
 	if(combat && prob(heart_attack_chance))
 		target.set_heartattack(TRUE)
@@ -361,7 +375,7 @@
 		target.set_heartattack(TRUE)
 		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
-		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+		playsound(get_turf(parent), zap_sound, 50, TRUE, -1)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		set_cooldown(cooldown)
 		return
@@ -397,5 +411,4 @@
 							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
 			affecting.set_heartattack(TRUE)
 
-
-
+#undef DEFIB_TIME

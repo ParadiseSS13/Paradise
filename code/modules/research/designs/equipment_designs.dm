@@ -92,14 +92,14 @@
 	build_path = /obj/item/clothing/glasses/meson/engine
 	category = list("Equipment")
 
-/datum/design/tray_goggles
-	name = "Optical T-Ray Scanners"
-	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
-	id = "tray_goggles"
+/datum/design/atmos_goggles
+	name = "Atmospherics Scanner Goggles"
+	desc = "Used by atmospherics techs to see pressure and underfloor objects such as cables and pipes."
+	id = "atmos_goggles"
 	req_tech = list("materials" = 3, "magnets" = 2, "engineering" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/clothing/glasses/meson/engine/tray
+	build_path = /obj/item/clothing/glasses/meson/engine/atmos
 	category = list("Equipment")
 
 /datum/design/nvgmesons
@@ -184,7 +184,7 @@
 
 /datum/design/handdrill
 	name = "Hand Drill"
-	desc = "A small electric hand drill with an interchangable screwdriver and bolt bit"
+	desc = "A small electric hand drill with an interchangable screwdriver and bolt bit."
 	id = "handdrill"
 	req_tech = list("materials" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
@@ -194,7 +194,7 @@
 
 /datum/design/jawsoflife
 	name = "Jaws of Life"
-	desc = "A small, compact Jaws of Life with an interchangable pry jaws and cutting jaws"
+	desc = "A small, compact Jaws of Life with an interchangable pry jaws and cutting jaws."
 	id = "jawsoflife"
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
 	build_path = /obj/item/crowbar/power
@@ -283,7 +283,7 @@
 
 /datum/design/gravboots
 	name = "Gravitational Boots"
-	desc = "Expermimental magboots that use miniture gravity generators instead"
+	desc = "Experimental magboots that use miniture gravity generators instead."
 	id = "gravboots"
 	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
 	build_type = PROTOLATHE

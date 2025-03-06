@@ -1,6 +1,6 @@
 /datum/action/innate/cult
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
-	background_icon_state = "bg_cult"
+	button_overlay_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
 
@@ -14,7 +14,7 @@
 /datum/action/innate/cult/comm
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
-	button_icon_state = "cult_comms"
+	button_overlay_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
@@ -87,12 +87,12 @@
 //Objectives
 /datum/action/innate/cult/check_progress
 	name = "Study the Veil"
-	button_icon_state = "tome"
+	button_overlay_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/check_progress/New()
-	button_icon_state = GET_CULT_DATA(tome_icon, "tome")
+	button_overlay_icon_state = GET_CULT_DATA(tome_icon, "tome")
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
@@ -110,19 +110,19 @@
 //Draw rune
 /datum/action/innate/cult/use_dagger
 	name = "Draw Blood Rune"
-	desc = "Use the ritual dagger to create a powerful blood rune"
-	button_icon_state = "blood_dagger"
-	default_button_position = "6:157,4:-2"
+	desc = "Use the ritual dagger to create a powerful blood rune."
+	button_overlay_icon_state = "blood_dagger"
+	default_button_position = "10:29,4:-2"
 
 /datum/action/innate/cult/use_dagger/Grant()
-	button_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
+	button_overlay_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 	..()
 
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)
 	if(D)
-		owner.remove_from_mob(D)
+		owner.unequip(D)
 		owner.put_in_hands(D)
-		D.attack_self(owner)
+		D.activate_self(owner)
 	else
 		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")

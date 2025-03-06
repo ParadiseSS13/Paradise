@@ -10,9 +10,6 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	dyeable = TRUE
 
-/obj/item/clothing/shoes/black/redcoat
-	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
-
 /obj/item/clothing/shoes/black/greytide
 	flags = NODROP
 
@@ -21,24 +18,6 @@
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
 	item_color = "brown"
-
-/obj/item/clothing/shoes/brown/captain
-	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/hop
-	item_color = "hop"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/rd
-	item_color = "director"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/cmo
-	item_color = "medical"	//Exists for washing machines. Is not different from brown shoes in any way.
-
-/obj/item/clothing/shoes/brown/qm
-	item_color = "cargo"		//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/blue
 	name = "blue shoes"
@@ -94,14 +73,14 @@
 	QDEL_NULL(shackles)
 	return ..()
 
-/obj/item/clothing/shoes/orange/attack_self(mob/user)
+/obj/item/clothing/shoes/orange/attack_self__legacy__attackchain(mob/user)
 	if(shackles)
 		user.put_in_hands(shackles)
 		shackles = null
 		slowdown = SHOES_SLOWDOWN
 		icon_state = "orange"
 
-/obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/orange/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/restraints/handcuffs) && !shackles)
 		if(user.drop_item())
 			I.forceMove(src)

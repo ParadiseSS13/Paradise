@@ -11,7 +11,7 @@ $background-color: #000000 !default;
 $border-radius: base.$border-radius !default;
 
 .Tooltip {
-  z-index: 2;
+  z-index: 999; /* Should be above everything */
   padding: 0.5em 0.75em;
   pointer-events: none;
   text-align: left;

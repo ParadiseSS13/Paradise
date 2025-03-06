@@ -18,10 +18,13 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb1"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
+	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2 | RAD_NO_CONTAMINATE_2 | RAD_PROTECT_CONTENTS_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
 	interact_offline = TRUE
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
@@ -38,9 +41,12 @@ GLOBAL_VAR(bomb_set)
 	/// Is the most recently inputted code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
+	/// The Nuclear Authentication Disk.
 	var/obj/item/disk/nuclear/auth = null
+	/// The plutonium core.
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
+	/// Is this a nuke-ops bomb?
 	var/is_syndicate = FALSE
 	/// If this is true you cannot unbolt the NAD with tools, only the NAD
 	var/requires_NAD_to_unbolt = FALSE
@@ -68,7 +74,7 @@ GLOBAL_VAR(bomb_set)
 	extended = FALSE
 	anchored = FALSE
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
@@ -76,15 +82,16 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nuke_list |= src
-	core = new /obj/item/nuke_core/plutonium(src)
-	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+		core = new /obj/item/nuke_core/plutonium(src)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		STOP_PROCESSING(SSradiation, radioactivity)//Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Special Ops" = 0))
 
-/obj/machinery/nuclearbomb/syndicate/Initialize()
+/obj/machinery/nuclearbomb/syndicate/Initialize(mapload)
 	. = ..()
 	wires.labelled = FALSE
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
@@ -165,69 +172,79 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += core ? "nukecore3" : "nukecore4"
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/disk/nuclear))
+/obj/machinery/nuclearbomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/nuclear))
 		if(extended)
 			if(auth)
 				to_chat(user,  "<span class='warning'>There's already a disk in the slot!</span>")
-				return
-			if((istype(O, /obj/item/disk/nuclear/training) && !training) || (training && !istype(O, /obj/item/disk/nuclear/training)))
-				to_chat(user,  "<span class='warning'>[O] doesn't fit into [src]!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
+			if((istype(used, /obj/item/disk/nuclear/training) && !training) || (training && !istype(used, /obj/item/disk/nuclear/training)))
+				to_chat(user,  "<span class='warning'>[used] doesn't fit into [src]!</span>")
+				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
-				return
-			O.forceMove(src)
-			auth = O
+				to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
+				return ITEM_INTERACT_COMPLETE
+			used.forceMove(src)
+			auth = used
 			add_fingerprint(user)
-			return attack_hand(user)
+			attack_hand(user)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
-		return
-	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		var/obj/item/stack/S = O
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		var/obj/item/stack/S = used
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(do_after(user, 2 SECONDS, target = src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
+				return ITEM_INTERACT_COMPLETE
 			S.use(sheets_to_fix)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
 								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
-				STOP_PROCESSING(SSobj, core)
+				var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+				STOP_PROCESSING(SSradiation, radioactivity)
 			update_icon(UPDATE_OVERLAYS)
-			return
-	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
-		var/obj/item/stack/S = O
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
+		var/obj/item/stack/S = used
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
-			return
-		if(do_after(user, 2 SECONDS, target = src))
+		else if(do_after(user, 2 SECONDS, target = src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
+				return ITEM_INTERACT_COMPLETE
 			S.use(sheets_to_fix)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
 								"<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			update_icon(UPDATE_OVERLAYS)
-			return
-	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!user.unEquip(O))
-				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
+			if(!user.transfer_item_to(used, src))
+				to_chat(user, "<span class='notice'>The [used] is stuck to your hand!</span>")
 				return
-			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
-			O.forceMove(src)
-			core = O
+			user.visible_message("<span class='notice'>[user] puts [used] back in [src].</span>", "<span class='notice'>You put [used] back in [src].</span>")
+			core = used
 			update_icon(UPDATE_OVERLAYS)
-			return
 
-	else if(istype(O, /obj/item/disk/plantgene))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/disk))
+		if(used.icon_state == "datadisk4") //A similar green disk icon
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit! This isn't the NAD! If only you'd read the label...</span>")
+			return ITEM_INTERACT_COMPLETE
+		else
+			to_chat(user, "<span class='warning'>You try to slot in the disk, but it won't fit. This isn't the NAD! It's not even the right colour...</span>")
+			return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
@@ -259,7 +276,8 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
-			START_PROCESSING(SSobj, core)
+			var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+			START_PROCESSING(SSradiation, radioactivity)
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("<span class='notice'>[user] begins lifting [src] off of the anchors.</span>", "<span class='notice'>You begin lifting the device off the anchors...</span>")
 		if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
@@ -362,7 +380,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
-		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		"<span class='notice'>You cut apart the anchoring system's sealant.</span>")
 		removal_stage = NUKE_SEALANT_OPEN
 	update_icon(UPDATE_OVERLAYS)
 
@@ -374,20 +392,24 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
-		return ui_interact(user)
+		ui_interact(user)
+		return FINISH_ATTACK
 	if(!Adjacent(user))
 		return
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
-		return wires.Interact(user)
+		wires.Interact(user)
+		return FINISH_ATTACK
 	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
 		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
-		return
+		return FINISH_ATTACK
 	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
+
 	update_icon(UPDATE_OVERLAYS)
+	return FINISH_ATTACK
 
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.physical_state
@@ -629,7 +651,7 @@ GLOBAL_VAR(bomb_set)
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
-		SSticker.event_blackbox(outcome = ROUND_END_NUCLEAR)
+		SSticker.record_biohazard_results()
 	sleep(100)
 
 	GLOB.enter_allowed = 0
@@ -668,10 +690,11 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
-//==========DAT FUKKEN DISK===============
+// MARK: Nuclear Disk
+
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"
-	desc = "Better keep this safe."
+	desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 	icon_state = "nucleardisk"
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
@@ -681,10 +704,25 @@ GLOBAL_VAR(bomb_set)
 	/// Is this a training disk?
 	var/training = FALSE
 
+/obj/item/disk/nuclear/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>You should keep this safe...</span>"
+
+/obj/item/disk/nuclear/examine_more(mob/user)
+	. = ..()
+	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed, should the need arise."
+	. += ""
+	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or malicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."
+
 /obj/item/disk/nuclear/unrestricted
 	name = "unrestricted nuclear authentication disk"
-	desc = "Seems to have been stripped of its safeties, you better not lose it."
 	restricted_to_station = FALSE
+
+/obj/item/disk/nuclear/unrestricted/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>This disk has had its safeties removed. It will not teleport back to the station if taken too far away.</span>"
 
 /obj/item/disk/nuclear/New()
 	..()
@@ -693,6 +731,7 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nad_list |= src
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!restricted_to_station)
@@ -763,7 +802,7 @@ GLOBAL_VAR(bomb_set)
 		if(length(open_turfs))
 			return pick(open_turfs)
 
-/// MARK: TRAINING NUKE
+// MARK: Training Nuke
 
 /obj/machinery/nuclearbomb/training
 	name = "training nuclear bomb"
@@ -774,10 +813,9 @@ GLOBAL_VAR(bomb_set)
 	training = TRUE
 	sprite_prefix = "t_"
 
-/obj/machinery/nuclearbomb/training/Initialize()
+/obj/machinery/nuclearbomb/training/Initialize(mapload)
 	. = ..()
 	r_code = 11111 //Uuh.. one!
-	qdel(core)
 
 /obj/machinery/nuclearbomb/training/process()
 	if(timing)
@@ -804,12 +842,17 @@ GLOBAL_VAR(bomb_set)
 	qdel(src)
 
 /obj/item/disk/nuclear/training
-	name = "training authentication disk"
+	name = "training nuclear authentication disk"
 	desc = "The code is 11111."
 	icon_state = "trainingdisk"
 	resistance_flags = null
 	restricted_to_station = FALSE
 	training = TRUE
+
+
+/obj/item/disk/nuclear/training/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>For training purposes, of course.</span>"
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF

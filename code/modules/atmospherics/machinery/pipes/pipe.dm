@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
+	var/datum/gas_mixture/ghost_pipeline // used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
@@ -23,7 +23,10 @@
 
 /obj/machinery/atmospherics/pipe/Destroy()
 	var/turf/T = get_turf(src)
-	T.blind_release_air(air_temporary)
+	if(ghost_pipeline)
+		var/datum/gas_mixture/ghost_copy = new()
+		ghost_copy.copy_from(ghost_pipeline)
+		T.blind_release_air(ghost_copy.remove(volume / ghost_pipeline.volume))
 
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
@@ -41,6 +44,10 @@
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
+/obj/machinery/atmospherics/pipe/wrench_floor_check()
+	var/turf/T = get_turf(src)
+	return level == 1 && T.transparent_floor
+
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
@@ -57,7 +64,7 @@
 /obj/machinery/atmospherics/pipe/return_analyzable_air()
 	if(!parent)
 		return null
-	return parent.air
+	return list(parent.air) + parent.other_airs
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)

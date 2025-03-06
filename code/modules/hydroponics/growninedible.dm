@@ -26,9 +26,7 @@
 	else if(seed)
 		seed = new seed
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
+	scatter_atom()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_new(src)
@@ -42,7 +40,7 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	..()
 	if(istype(O, /obj/item/plant_analyzer))
 		send_plant_details(user)
@@ -72,7 +70,7 @@
 	set_light(0)
 
 /obj/item/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a </span><span class='name'>[src]</span>\n"
+	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src]</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	msg += "</span>"

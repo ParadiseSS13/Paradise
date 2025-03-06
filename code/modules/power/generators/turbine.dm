@@ -113,12 +113,6 @@
 #define COMPFRICTION 5e5
 #define COMPSTARTERLOAD 2800
 
-
-// Crucial to make things work!!!!
-// OLD FIX - explanation given down below.
-// /obj/machinery/power/compressor/CanPass(atom/movable/mover, turf/target, height=0)
-// 		return !density
-
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
 		return
@@ -132,8 +126,8 @@
 		E += M.rating
 	efficiency = E / 6
 
-/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
-	if(default_change_direction_wrench(user, I))
+/obj/machinery/power/compressor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_change_direction_wrench(user, used))
 		turbine = null
 		inturf = get_step(src, dir)
 		locate_machinery()
@@ -143,10 +137,9 @@
 		else
 			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
 			stat |= BROKEN
-		return
 
-	if(exchange_parts(user, I))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
@@ -336,11 +329,11 @@
 		return
 	. += image(icon, "turb-o", FLY_LAYER)
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
-		return
+/obj/machinery/power/turbine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_change_direction_wrench(user, I))
+	if(default_change_direction_wrench(user, used))
 		compressor = null
 		outturf = get_step(src, dir)
 		locate_machinery()
@@ -350,13 +343,11 @@
 		else
 			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
 			stat |= BROKEN
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(exchange_parts(user, I))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, I))
-		return
 	return ..()
 
 /obj/machinery/power/turbine/attack_hand(mob/user)
@@ -410,7 +401,7 @@
 /////COMPUTER/////
 /////////////////
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 

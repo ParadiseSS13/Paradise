@@ -1,6 +1,7 @@
 //temporary visual effects(/obj/effect/temp_visual) used by cult stuff
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = null
 	randomdir = FALSE
 	duration = 10
 

@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	MA.plane = GAME_PLANE
 	. = MA
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/dead/CanPass(atom/movable/mover, border_dir)
 	return 1
 
 
@@ -241,14 +241,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 		ghostize(TRUE)
 		return
-	if(isbrain(M) && isturf(M.loc))
+	if(isbrain(M))
 		// let a brain ghost out if they want to, but also let them freely re-enter their brain.
-		var/mob/dead/observer/ghost = ghostize(TRUE)
-		ghost.can_reenter_corpse = FALSE
-		if(tgui_alert(src, "Ghosting from this brain means you'll be respawnable but will be kicked out of your brain, which someone else could take over. Is this what you want?", "Ghost", list("Stay in Brain", "Ghost") != "Ghost"))
-			return
-
-		log_admin("[key_name(M)] has ghosted as a brain-mob, but is keeping respawnability.")
+		var/response = tgui_alert(src, "Ghosting from this brain means you'll be respawnable but will be kicked out of your brain, which someone else could take over. Is this what you want?", "Ghost", list("Stay in Brain", "Ghost"))
+		if(response == "Ghost")
+			ghostize(TRUE)
+			log_admin("[key_name(M)] has ghosted as a brain-mob, but is keeping respawnability.")
 		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -257,7 +255,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "You have committed suicide too early in the round"
 	else if(stat != DEAD)
 		warningmsg = "You are alive"
-		if(isAI(src))
+		if(is_ai(src))
 			warningmsg = "You are a living AI! You should probably use OOC -> Wipe Core instead."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "You have lost your right to respawn"
@@ -292,7 +290,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
+/mob/dead/observer/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
@@ -391,6 +389,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	show_me_the_hud(DATA_HUD_MALF_AI)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
@@ -405,6 +404,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	remove_the_hud(DATA_HUD_MALF_AI)
 	antagHUD = FALSE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.remove_hud_from(src)
@@ -485,6 +485,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(istype(landmark))
 		forceMove(get_turf(landmark))
 		update_parallax_contents()
+
+		var/list/messages = list(
+			"<span class='notice'>Jumped to <b>[landmark.ruin_template.name]</b>:</span>",
+			"<span class='notice'>[landmark.ruin_template.description]</span>"
+		)
+		to_chat(usr, chat_box_examine(messages.Join("<br />")))
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
@@ -652,7 +658,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /proc/ghost_follow_link(atom/target, atom/ghost)
 	if((!target) || (!ghost)) return
-	if(isAI(target)) // AI core/eye follow links
+	if(is_ai(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[A.UID()]'>core</a>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes

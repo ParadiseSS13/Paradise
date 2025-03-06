@@ -10,17 +10,19 @@
 	anchored = TRUE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return FALSE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return TRUE
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+	return TRUE
+
+/obj/structure/kitchenspike_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/wrench))
-		if(!I.tool_use_check(user, 0))
-			return
-		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-			return
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
-	else if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
@@ -67,7 +69,7 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
+/obj/structure/kitchenspike/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
@@ -79,13 +81,13 @@
 	if(has_buckled_mobs())
 		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
-	if(!I.use_tool(src, user, 2 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))
+	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
@@ -101,7 +103,7 @@
 		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
 		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
 	)
-	if(do_mob(user, src, 6 SECONDS))
+	if(do_mob(user, victim, 6 SECONDS))
 		end_spike(victim, user)
 
 /obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
@@ -169,7 +171,6 @@
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
 	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()

@@ -59,10 +59,13 @@
 		hair_gradient_colour,
 		hair_gradient_alpha,
 		custom_emotes,
+		runechat_color,
 		physique,
 		height,
 		cyborg_brain_type,
-		body_type
+		body_type,
+		pda_ringtone,
+		species_subtype
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

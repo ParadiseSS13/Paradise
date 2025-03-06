@@ -361,7 +361,7 @@
 /mob/camera/blob/proc/rally_spores(turf/T)
 	to_chat(src, "You rally your spores.")
 
-	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
+	var/list/surrounding_turfs = block(T.x - 1, T.y - 1, T.z, T.x + 1, T.y + 1, T.z)
 	if(!length(surrounding_turfs))
 		return
 

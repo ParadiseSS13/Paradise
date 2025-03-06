@@ -22,7 +22,7 @@
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		return TRUE
 
-/obj/item/lance_docking_generator/attack_self(mob/living/user)
+/obj/item/lance_docking_generator/attack_self__legacy__attackchain(mob/living/user)
 	if(!is_station_level(user.z))
 		to_chat(user, "<span class='warning'>You'll want this to dock on the station.</span>")
 		return
@@ -64,13 +64,13 @@
 	var/list/L2 = list()
 	switch(dest_dir)
 		if(NORTH)
-			L2 = block(locate(port.x - 9, port.y + 36, port.z), locate(port.x + 9, 255, port.z))
+			L2 = block(port.x - 9, port.y + 36, port.z, port.x + 9, 255, port.z)
 		if(SOUTH)
-			L2 = block(locate(port.x - 9, 1, port.z), locate(port.x + 9, port.y - 36, port.z))
+			L2 = block(port.x - 9, 1, port.z, port.x + 9, port.y - 36, port.z)
 		if(EAST)
-			L2 = block(locate(port.x + 36, port.y - 9, port.z), locate(255, port.y + 9, port.z))
+			L2 = block(port.x + 36, port.y - 9, port.z, 255, port.y + 9, port.z)
 		if(WEST)
-			L2 = block(locate(1, port.y - 9, port.z), locate(port.x - 36, port.y + 9, port.z))
+			L2 = block(1, port.y - 9, port.z, port.x - 36, port.y + 9, port.z)
 	for(var/turf/BT in L2)
 		for(var/obj/Ohno in BT.contents)
 			if((istype(Ohno, /obj/machinery/atmospherics/supermatter_crystal) || istype(Ohno, /obj/singularity)) && !emagged)

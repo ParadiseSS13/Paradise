@@ -59,7 +59,7 @@
 
 	dust_if_respawnable(C)
 
-/obj/item/contract/attack_self(mob/user as mob)
+/obj/item/contract/attack_self__legacy__attackchain(mob/user as mob)
 	if(..())
 		return
 
@@ -88,7 +88,7 @@
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."
 
-/obj/item/veilrender/attack_self(mob/user as mob)
+/obj/item/veilrender/attack_self__legacy__attackchain(mob/user as mob)
 	if(charged)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
 		charged = 0
@@ -128,15 +128,11 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+/obj/effect/rend/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/nullrod))
+		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [used].</span>")
 		qdel(src)
-		return
-	return ..()
-
-/obj/effect/rend/singularity_pull()
-	return
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -171,12 +167,12 @@
 
 /obj/item/scrying
 	name = "scrying orb"
-	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
+	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means. Also works well as a throwing weapon."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
-	throwforce = 15
+	throwforce = 25
 	damtype = BURN
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
@@ -186,6 +182,7 @@
 /obj/item/scrying/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)
 
 /obj/item/scrying/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -215,13 +212,13 @@
 		current_owner.update_sight()
 		current_owner.update_icons()
 
-/obj/item/scrying/attack_self(mob/user as mob)
+/obj/item/scrying/attack_self__legacy__attackchain(mob/user as mob)
 	if(in_use)
 		return
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
+					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
 	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
@@ -240,6 +237,17 @@
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
 	REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
 
+/obj/item/scrying/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!ishuman(hit_atom) || !throwingdatum || iswizard(hit_atom))
+		return
+	var/mob/living/carbon/human/crushee = hit_atom
+	var/zone = ran_zone(throwingdatum.target_zone) // Base 80% to hit the zone you're aiming for
+	var/obj/item/organ/external/hit_limb = crushee.get_organ(zone)
+	if(hit_limb)
+		hit_limb.fracture()
+
+
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
 
@@ -253,7 +261,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	item_state = "energy_katana"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 20
 	throwforce = 10
 	sharp = TRUE
@@ -277,13 +285,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 	GLOB.multiverse.Remove(src)
 	return ..()
 
-/obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
+/obj/item/multisword/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
 		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
 		return
 	..()
 
-/obj/item/multisword/attack_self(mob/user)
+/obj/item/multisword/attack_self__legacy__attackchain(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
 		return
@@ -402,199 +410,199 @@ GLOBAL_LIST_EMPTY(multiverse)
 		//Duplicates the user's current equipent
 		var/mob/living/carbon/human/H = usr
 
-		var/obj/head = H.get_item_by_slot(SLOT_HUD_HEAD)
+		var/obj/head = H.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(head)
-			M.equip_to_slot_or_del(new head.type(M), SLOT_HUD_HEAD)
+			M.equip_to_slot_or_del(new head.type(M), ITEM_SLOT_HEAD)
 
-		var/obj/mask = H.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+		var/obj/mask = H.get_item_by_slot(ITEM_SLOT_MASK)
 		if(mask)
-			M.equip_to_slot_or_del(new mask.type(M), SLOT_HUD_WEAR_MASK)
+			M.equip_to_slot_or_del(new mask.type(M), ITEM_SLOT_MASK)
 
-		var/obj/glasses = H.get_item_by_slot(SLOT_HUD_GLASSES)
+		var/obj/glasses = H.get_item_by_slot(ITEM_SLOT_EYES)
 		if(glasses)
-			M.equip_to_slot_or_del(new glasses.type(M), SLOT_HUD_GLASSES)
+			M.equip_to_slot_or_del(new glasses.type(M), ITEM_SLOT_EYES)
 
-		var/obj/left_ear = H.get_item_by_slot(SLOT_HUD_LEFT_EAR)
+		var/obj/left_ear = H.get_item_by_slot(ITEM_SLOT_LEFT_EAR)
 		if(left_ear)
-			M.equip_to_slot_or_del(new left_ear.type(M), SLOT_HUD_LEFT_EAR)
+			M.equip_to_slot_or_del(new left_ear.type(M), ITEM_SLOT_LEFT_EAR)
 
-		var/obj/right_ear = H.get_item_by_slot(SLOT_HUD_RIGHT_EAR)
+		var/obj/right_ear = H.get_item_by_slot(ITEM_SLOT_RIGHT_EAR)
 		if(right_ear)
-			M.equip_to_slot_or_del(new right_ear.type(M), SLOT_HUD_RIGHT_EAR)
+			M.equip_to_slot_or_del(new right_ear.type(M), ITEM_SLOT_RIGHT_EAR)
 
-		var/obj/uniform = H.get_item_by_slot(SLOT_HUD_JUMPSUIT)
+		var/obj/uniform = H.get_item_by_slot(ITEM_SLOT_JUMPSUIT)
 		if(uniform)
-			M.equip_to_slot_or_del(new uniform.type(M), SLOT_HUD_JUMPSUIT)
+			M.equip_to_slot_or_del(new uniform.type(M), ITEM_SLOT_JUMPSUIT)
 
-		var/obj/suit = H.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+		var/obj/suit = H.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)
 		if(suit)
-			M.equip_to_slot_or_del(new suit.type(M), SLOT_HUD_OUTER_SUIT)
+			M.equip_to_slot_or_del(new suit.type(M), ITEM_SLOT_OUTER_SUIT)
 
-		var/obj/gloves = H.get_item_by_slot(SLOT_HUD_GLOVES)
+		var/obj/gloves = H.get_item_by_slot(ITEM_SLOT_GLOVES)
 		if(gloves)
-			M.equip_to_slot_or_del(new gloves.type(M), SLOT_HUD_GLOVES)
+			M.equip_to_slot_or_del(new gloves.type(M), ITEM_SLOT_GLOVES)
 
-		var/obj/shoes = H.get_item_by_slot(SLOT_HUD_SHOES)
+		var/obj/shoes = H.get_item_by_slot(ITEM_SLOT_SHOES)
 		if(shoes)
-			M.equip_to_slot_or_del(new shoes.type(M), SLOT_HUD_SHOES)
+			M.equip_to_slot_or_del(new shoes.type(M), ITEM_SLOT_SHOES)
 
-		var/obj/belt = H.get_item_by_slot(SLOT_HUD_BELT)
+		var/obj/belt = H.get_item_by_slot(ITEM_SLOT_BELT)
 		if(belt)
-			M.equip_to_slot_or_del(new belt.type(M), SLOT_HUD_BELT)
+			M.equip_to_slot_or_del(new belt.type(M), ITEM_SLOT_BELT)
 
-		var/obj/pda = H.get_item_by_slot(SLOT_HUD_WEAR_PDA)
+		var/obj/pda = H.get_item_by_slot(ITEM_SLOT_PDA)
 		if(pda)
-			M.equip_to_slot_or_del(new pda.type(M), SLOT_HUD_WEAR_PDA)
+			M.equip_to_slot_or_del(new pda.type(M), ITEM_SLOT_PDA)
 
-		var/obj/back = H.get_item_by_slot(SLOT_HUD_BACK)
+		var/obj/back = H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(back)
-			M.equip_to_slot_or_del(new back.type(M), SLOT_HUD_BACK)
+			M.equip_to_slot_or_del(new back.type(M), ITEM_SLOT_BACK)
 
-		var/obj/suit_storage = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+		var/obj/suit_storage = H.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 		if(suit_storage)
-			M.equip_to_slot_or_del(new suit_storage.type(M), SLOT_HUD_SUIT_STORE)
+			M.equip_to_slot_or_del(new suit_storage.type(M), ITEM_SLOT_SUIT_STORE)
 
-		var/obj/left_pocket = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		var/obj/left_pocket = H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET)
 		if(left_pocket)
-			M.equip_to_slot_or_del(new left_pocket.type(M), SLOT_HUD_LEFT_STORE)
+			M.equip_to_slot_or_del(new left_pocket.type(M), ITEM_SLOT_LEFT_POCKET)
 
-		var/obj/right_pocket = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		var/obj/right_pocket = H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET)
 		if(right_pocket)
-			M.equip_to_slot_or_del(new right_pocket.type(M), SLOT_HUD_RIGHT_STORE)
+			M.equip_to_slot_or_del(new right_pocket.type(M), ITEM_SLOT_RIGHT_POCKET)
 
-		M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
+		M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
 	else
 		if(istajaran(M) || isunathi(M))
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)	//If they can't wear shoes, give them a pair of sandals.
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), ITEM_SLOT_SHOES)	//If they can't wear shoes, give them a pair of sandals.
 
 		var/randomize = pick("mobster","roman","wizard","cyborg","syndicate","assistant", "animu", "cultist", "highlander", "clown", "killer", "pirate", "soviet", "officer", "gladiator")
 
 		switch(randomize)
 			if("mobster")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/fedora(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), SLOT_HUD_GLOVES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), SLOT_HUD_GLASSES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit/really_black(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/fedora(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), ITEM_SLOT_GLOVES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), ITEM_SLOT_EYES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit/really_black(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("roman")
 				var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
-				M.equip_to_slot_or_del(new hat(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/shield/riot/roman(M), SLOT_HUD_LEFT_HAND)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new hat(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/shield/riot/roman(M), ITEM_SLOT_LEFT_HAND)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("wizard")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("cyborg")
 				if(!ismachineperson(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
-				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), SLOT_HUD_GLASSES)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), ITEM_SLOT_EYES)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("syndicate")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), SLOT_HUD_GLOVES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/swat(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M),SLOT_HUD_WEAR_MASK)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), ITEM_SLOT_GLOVES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/swat(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M),ITEM_SLOT_MASK)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("assistant")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("animu")
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("cultist")
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("highlander")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("clown")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), SLOT_HUD_WEAR_MASK)
-				M.equip_to_slot_or_del(new /obj/item/bikehorn(M), SLOT_HUD_LEFT_STORE)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), ITEM_SLOT_MASK)
+				M.equip_to_slot_or_del(new /obj/item/bikehorn(M), ITEM_SLOT_LEFT_POCKET)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("killer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/misc/overalls(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), SLOT_HUD_GLOVES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), SLOT_HUD_WEAR_MASK)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/apron(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/kitchen/knife(M), SLOT_HUD_LEFT_STORE)
-				M.equip_to_slot_or_del(new /obj/item/scalpel(M), SLOT_HUD_RIGHT_STORE)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/misc/overalls(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), ITEM_SLOT_GLOVES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), ITEM_SLOT_MASK)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/apron(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/kitchen/knife(M), ITEM_SLOT_LEFT_POCKET)
+				M.equip_to_slot_or_del(new /obj/item/scalpel(M), ITEM_SLOT_RIGHT_POCKET)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 				for(var/obj/item/carried_item in M.contents)
 					if(!istype(carried_item, /obj/item/bio_chip))
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), SLOT_HUD_GLASSES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), ITEM_SLOT_EYES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("soviet")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), SLOT_HUD_GLOVES)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), ITEM_SLOT_GLOVES)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("officer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), SLOT_HUD_GLOVES)
-				M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/havana(M), SLOT_HUD_WEAR_MASK)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/jacket/miljacket(M), SLOT_HUD_OUTER_SUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), SLOT_HUD_GLASSES)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), ITEM_SLOT_GLOVES)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/havana(M), ITEM_SLOT_MASK)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/jacket/miljacket(M), ITEM_SLOT_OUTER_SUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), ITEM_SLOT_EYES)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 			if("gladiator")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/gladiator(M), SLOT_HUD_HEAD)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/gladiator(M), SLOT_HUD_JUMPSUIT)
-				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), SLOT_HUD_LEFT_EAR)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), SLOT_HUD_SHOES)
-				M.equip_to_slot_or_del(sword, SLOT_HUD_RIGHT_HAND)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/gladiator(M), ITEM_SLOT_HEAD)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/gladiator(M), ITEM_SLOT_JUMPSUIT)
+				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_LEFT_EAR)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), ITEM_SLOT_SHOES)
+				M.equip_to_slot_or_del(sword, ITEM_SLOT_RIGHT_HAND)
 
 
 			else
@@ -602,7 +610,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/obj/item/card/id/W = new /obj/item/card/id
 	if(duplicate_self)
-		var/duplicated_access = usr.get_item_by_slot(SLOT_HUD_WEAR_ID)
+		var/duplicated_access = usr.get_item_by_slot(ITEM_SLOT_ID)
 		if(duplicated_access && istype(duplicated_access, /obj/item/card/id))
 			var/obj/item/card/id/duplicated_id = duplicated_access
 			W.access = duplicated_id.access
@@ -617,7 +625,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	W.registered_name = M.real_name
 	W.update_label(M.real_name)
 	W.SetOwnerInfo(M)
-	M.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	M.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 	if(isvox(M))
 		M.dna.species.after_equip_job(null, M) //Nitrogen tanks
@@ -652,142 +660,177 @@ GLOBAL_LIST_EMPTY(multiverse)
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
-	var/list/spooky_scaries = list()
-	var/unlimited = 0
-	var/heresy = 0
+	///List of mobs transformed into skeletons by the stone
+	var/list/active_skeletons = list()
+	///How many skeletons can be converted by the stone at a time
+	var/max_skeletons = 3
+	///If the stone can convert infinite skeletons, bypassing max_skeletons
+	var/unlimited = FALSE
+	///If the stone converts into anime instead of skeletons
+	var/heresy = FALSE
+	///how long the additional_thralls_cooldown is
+	var/above_cap_cooldown = 1 MINUTES
+	///Cooldown between uses when living skeletons above max skeletons
+	COOLDOWN_DECLARE(additional_thralls_cooldown)
 
-/obj/item/necromantic_stone/unlimited
-	unlimited = 1
+/obj/item/necromantic_stone/Destroy()
+	. = ..()
+	active_skeletons = null
 
-/obj/item/necromantic_stone/attack(mob/living/carbon/human/M as mob, mob/living/carbon/human/user as mob)
+/obj/item/necromantic_stone/examine(mob/user)
+	. = ..()
+	var/skele_count = length(active_skeletons)
+	if(skele_count)
+		. += "[skele_count] skeleton thrall[skele_count > 1 ? "s have" : " has"] been risen by [src]."
+	if(unlimited || skele_count < max_skeletons)
+		return
+	var/cooldown_time_left = COOLDOWN_TIMELEFT(src, additional_thralls_cooldown)
+	if(cooldown_time_left)
+		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[cooldown_time_left / 10] seconds</b>."
 
-	if(!istype(M))
+/obj/item/necromantic_stone/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
-	if(!istype(user))
+
+	if(victim.stat != DEAD)
+		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
 
-	if(M.stat != DEAD)
-		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
+	if((!victim.mind || !victim.client) && !victim.grab_ghost())
+		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
-	if((!M.mind || !M.client) && !M.grab_ghost())
-		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
-		return
+	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
+		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.</span>")
+		if(!COOLDOWN_FINISHED(src, additional_thralls_cooldown))
+			to_chat(necromancer, "<span class='warning'>[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))].</span>")
+			return
+		COOLDOWN_START(src, additional_thralls_cooldown, above_cap_cooldown)
 
-	check_spooky()//clean out/refresh the list
+	convert_victim(victim, necromancer)
 
-	if(length(spooky_scaries) >= 3 && !unlimited)
-		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
-		return
+///Mindslave and equip the victim
+/obj/item/necromantic_stone/proc/convert_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	active_skeletons |= victim
+	var/greet_text = "<span class='userdanger'>You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
+	if(!victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
+
 	if(heresy)
-		spawnheresy(M)//oh god why
-	else
-		M.set_species(/datum/species/skeleton) // OP skellybones
-		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
-		M.grab_ghost() // yoinks the ghost if its not in the body
-		M.revive()
-		equip_skeleton(M)
-	spooky_scaries |= M
-	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
-
-/obj/item/necromantic_stone/proc/check_spooky()
-	if(unlimited) //no point, the list isn't used.
+		equip_heresy(victim)//oh god why
 		return
-	for(var/X in spooky_scaries)
-		if(!ishuman(X))
-			spooky_scaries.Remove(X)
+
+	victim.visible_message("<span class='warning'>A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
+	equip_skeleton(victim)
+
+///Clean the list of active skeletons and check if more can be summoned easily
+/obj/item/necromantic_stone/proc/check_skeletons()
+	. = FALSE
+	if(unlimited)
+		return TRUE
+
+	listclearnulls(active_skeletons)
+	var/living_skeletons = 0
+	for(var/mob/living/carbon/human/skeleton as anything in active_skeletons)
+		if(!ishuman(skeleton))
+			active_skeletons.Remove(skeleton)
 			continue
-		var/mob/living/carbon/human/H = X
-		if(H.stat == DEAD)
-			spooky_scaries.Remove(X)
-			continue
-	listclearnulls(spooky_scaries)
+		if(skeleton.stat != DEAD)
+			living_skeletons++
+
+	if(living_skeletons < max_skeletons)
+		return TRUE
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise
-/obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
-	for(var/obj/item/I in H)
-		H.unEquip(I)
-	var/randomSpooky = "roman"//defualt
-	randomSpooky = pick("roman","pirate","yand","clown")
+///Udate the mobs species and gear
+/obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/victim)
+	victim.set_species(/datum/species/skeleton) // OP skellybones
+	victim.grab_ghost() // yoinks the ghost if its not in the body
+	victim.revive()
 
-	switch(randomSpooky)
+	for(var/obj/item/item in victim)
+		victim.drop_item_to_ground(item)
+
+	var/skeleton_type = pick("roman", "pirate", "yand", "clown")
+
+	switch(skeleton_type)
 		if("roman")
 			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
-			H.equip_to_slot_or_del(new hat(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new hat(victim), ITEM_SLOT_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(victim), ITEM_SLOT_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(victim), ITEM_SLOT_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), ITEM_SLOT_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 		if("pirate")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  SLOT_HUD_OUTER_SUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), SLOT_HUD_GLASSES)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(victim), ITEM_SLOT_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(victim),  ITEM_SLOT_OUTER_SUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(victim), ITEM_SLOT_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), ITEM_SLOT_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(victim), ITEM_SLOT_EYES)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), ITEM_SLOT_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
 		if("yand")//mine is an evil laugh
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  SLOT_HUD_OUTER_SUIT)
-			H.equip_to_slot_or_del(new /obj/item/katana(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), ITEM_SLOT_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(victim), ITEM_SLOT_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(victim), ITEM_SLOT_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(victim),  ITEM_SLOT_OUTER_SUIT)
+			victim.equip_to_slot_or_del(new /obj/item/katana(victim), ITEM_SLOT_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 		if("clown")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), SLOT_HUD_WEAR_MASK)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(victim), ITEM_SLOT_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(victim), ITEM_SLOT_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(victim), ITEM_SLOT_MASK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(victim), ITEM_SLOT_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/bikehorn(victim), ITEM_SLOT_LEFT_POCKET)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), ITEM_SLOT_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 
-/obj/item/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
-	H.set_species(/datum/species/human)
-	if(H.gender == MALE)
-		H.change_gender(FEMALE)
+///Updates the mobs species and gear to anime
+/obj/item/necromantic_stone/proc/equip_heresy(mob/living/carbon/human/victim)
+	victim.set_species(/datum/species/human)
+	if(victim.gender == MALE)
+		victim.change_gender(FEMALE)
 
 	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
-	H.change_hair(pick(anime_hair))
+	victim.change_hair(pick(anime_hair))
 
 	var/list/anime_hair_colours = list(list(216, 192, 120),
 	list(140,170,74),list(0,0,0))
 
 	var/list/chosen_colour = pick(anime_hair_colours)
-	H.change_hair_color(chosen_colour[1], chosen_colour[2], chosen_colour[3])
+	victim.change_hair_color(chosen_colour[1], chosen_colour[2], chosen_colour[3])
 
-	H.update_dna()
-	H.update_body()
-	H.grab_ghost()
-	H.revive()
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/katana(H), SLOT_HUD_RIGHT_HAND)
-	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
-	if(!H.real_name || H.real_name == "unknown")
-		H.real_name = "Neko-chan"
+	victim.update_dna()
+	victim.update_body()
+	victim.grab_ghost()
+	victim.revive()
+
+	victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), ITEM_SLOT_SHOES)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(victim), ITEM_SLOT_HEAD)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(victim), ITEM_SLOT_JUMPSUIT)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(victim),  ITEM_SLOT_OUTER_SUIT)
+	victim.equip_to_slot_or_del(new /obj/item/katana(victim), ITEM_SLOT_RIGHT_HAND)
+	victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
+	victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
+
+	if(!victim.real_name || victim.real_name == "unknown")
+		victim.real_name = "Neko-chan"
 	else
-		H.real_name = "[H.name]-chan"
+		victim.real_name = "[victim.name]-chan"
 
-	H.mind.assigned_role = SPECIAL_ROLE_WIZARD
-	H.mind.special_role = SPECIAL_ROLE_WIZARD
+	victim.mind.assigned_role = SPECIAL_ROLE_WIZARD
+	victim.mind.special_role = SPECIAL_ROLE_WIZARD
 
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.join_hud(H)
-	set_antag_hud(H, "apprentice")
+	victim.say("NYA!~")
 
-	H.say("NYA!~")
+/obj/item/necromantic_stone/unlimited
+	unlimited = TRUE
 
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
@@ -796,9 +839,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon_state = "nyacrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = WEIGHT_CLASS_TINY
-	heresy = 1
-	unlimited = 1
+	heresy = TRUE
+	unlimited = TRUE
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
@@ -812,7 +854,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/attack_self__legacy__attackchain(mob/user)
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -852,6 +894,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -876,6 +919,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
 	flags = THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	magical = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',

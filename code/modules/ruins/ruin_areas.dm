@@ -1,3 +1,11 @@
+GLOBAL_LIST_INIT(ruin_prototypes, list(/area/ruin,
+										/area/ruin/unpowered,
+										/area/ruin/powered,
+										/area/ruin/space,
+										/area/ruin/space/powered,
+										/area/ruin/space/unpowered,
+										/area/ruin/space/unpowered/no_grav))
+
 //Parent types
 
 /area/ruin
@@ -11,9 +19,6 @@
 
 /area/ruin/unpowered
 	always_unpowered = FALSE
-
-/area/ruin/unpowered/no_grav
-	has_gravity = FALSE
 
 /area/ruin/powered
 	requires_power = FALSE

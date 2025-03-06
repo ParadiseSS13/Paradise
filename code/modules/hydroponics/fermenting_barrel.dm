@@ -11,7 +11,7 @@
 	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
-/obj/structure/fermenting_barrel/Initialize()
+/obj/structure/fermenting_barrel/Initialize(mapload)
 	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 	. = ..()
@@ -20,7 +20,7 @@
 	. = ..()
 	. += "<span class='notice'>It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]</span>"
 
-/obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/snacks/grown/G)
+/obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/grown/G)
 	if(G.reagents)
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	var/amount = G.seed.potency / 4
@@ -39,8 +39,8 @@
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
-/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
-	var/obj/item/food/snacks/grown/G = I
+/obj/structure/fermenting_barrel/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	var/obj/item/food/grown/G = I
 	if(istype(G))
 		if(!G.can_distill)
 			to_chat(user, "<span class='warning'>You can't distill this into anything...</span>")

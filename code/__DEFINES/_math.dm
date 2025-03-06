@@ -63,9 +63,9 @@
 
 #define ISABOUTEQUAL(a, b, deviation) (deviation ? abs((a) - (b)) <= deviation : abs((a) - (b)) <= 0.1)
 
-#define ISEVEN(x) (x % 2 == 0)
+#define ISEVEN(x) (!((x) & 1))
 
-#define ISODD(x) (x % 2 != 0)
+#define ISODD(x) ((x) & 1)
 
 // Returns true if val is from min to max, inclusive.
 #define ISINRANGE(val, min, max) (min <= val && val <= max)
@@ -245,4 +245,8 @@
 // Gives you the percent of two inputs
 #define PERCENT_OF(val1, val2) (val1 * (val2 / 100))
 
+///Returns an integer given a hex input, supports negative values "-ff". Skips preceding invalid characters.
+#define hex2num(X) text2num(X, 16)
+
+/// Returns the hex value of a decimal number. len == length of returned string.
 #define num2hex(X, len) uppertext(num2text(X, len, 16))

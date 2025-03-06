@@ -5,7 +5,7 @@
 /obj/item/clothing/glasses/hud/tajblind
 	name = "\improper Tajaran veil"
 	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality.<br>\
-			<span class='info'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
+			<span class='notice'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
 	icon_state = "tajblind"
 	item_state = "tajblind"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/attack_self__legacy__attackchain(mob/user)
 	toggle_veil(user, TRUE)
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)
@@ -60,13 +60,13 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 
-/obj/item/clothing/glasses/hud/tajblind/meson/Initialize()
-	..()
-	desc += "<br><span class='info'>It has an optical meson scanner integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
@@ -86,12 +86,12 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/sci/Initialize()
-	..()
-	desc += "<br><span class='info'>It has science goggles integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/sci/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/med
@@ -99,44 +99,42 @@
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/med/Initialize()
-	..()
-	desc += "<br><span class='info'>It has a health HUD integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/med/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "\improper Tajaran security veil"
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/sec/Initialize()
-	..()
-	desc += "<br><span class='info'>It has a security HUD integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded
 	name = "shaded Tajaran veil"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
-	..()
-	desc += "<br><span class='info'>It has an in-built flash protection.</span>"
+/obj/item/clothing/glasses/hud/tajblind/shaded/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has an in-built flash protection.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize()
-	..()
-	desc += "<br><span class='info'>It has an optical meson scanner integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/dropped(mob/user)
@@ -157,12 +155,12 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize()
-	..()
-	desc += "<br><span class='info'>It has science goggles integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med
@@ -170,11 +168,10 @@
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize()
-	..()
-	desc += "<br><span class='info'>It has a health HUD integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
@@ -182,11 +179,10 @@
 	item_state = "tajblind_sec"
 	see_in_dark = 1
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize()
-	..()
-	desc += "<br><span class='info'>It has a security HUD integrated into it.</span>"
+/obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
+	. = ..()
+	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
 #undef MODE_OFF
 #undef MODE_NATURAL

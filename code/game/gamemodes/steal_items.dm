@@ -2,9 +2,6 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 2
-
 /datum/theft_objective
 	var/name = "this objective is impossible, yell at a coder"
 	var/typepath=/obj/effect/debugging
@@ -16,6 +13,8 @@
 	var/special_equipment = null
 	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
+	/// Any extra information about the objective
+	var/extra_information = ""
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -48,9 +47,9 @@
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
-/datum/theft_objective/captains_rapier
-	name = "the captain's rapier"
-	typepath = /obj/item/melee/rapier
+/datum/theft_objective/captains_saber
+	name = "the captain's saber"
+	typepath = /obj/item/melee/saber
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
@@ -84,6 +83,7 @@
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
+	extra_information = "Obtaining a photograph of the blueprints is also an option."
 
 /datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
@@ -117,7 +117,7 @@
 	protected_jobs = list("Research Director", "Scientist", "Roboticist") //no one with protolathe access, who will often be handed a core
 	location_override = "the Research Director's Office"
 
-/datum/theft_objective/steal/documents
+/datum/theft_objective/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	location_override = "the Vault"
@@ -126,7 +126,7 @@
 
 /datum/theft_objective/hypospray
 	name = "the chief medical officer's advanced hypospray"
-	typepath = /obj/item/reagent_containers/hypospray/CMO
+	typepath = /obj/item/reagent_containers/hypospray/cmo
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 

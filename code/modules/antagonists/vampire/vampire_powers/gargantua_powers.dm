@@ -92,18 +92,33 @@
 
 /datum/spell/vampire/self/blood_rush
 	name = "Blood Rush (30)"
-	desc = "Infuse yourself with blood magic to boost your movement speed."
+	desc = "Infuse yourself with blood magic to boost your movement speed and break out of leg restraints."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_rush"
 
+/datum/spell/vampire/self/blood_rush/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	// they're not getting anything out of this spell if they're stunned or buckled anyways, so we might as well stop them from wasting the blood
+	if(L.IsWeakened() || L.buckled)
+		to_chat(L, "<span class='warning'>You can't cast this spell while incapacitated!</span>")
+		return FALSE
+	return ..()
+
 /datum/spell/vampire/self/blood_rush/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
-		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+	to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+
+	H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
+	H.clear_legcuffs(TRUE)
+	// note that this doesn't cancel the baton knockdown timer
+	H.SetKnockDown(0)
+	H.stand_up(TRUE)
 
 /datum/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
@@ -117,7 +132,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
@@ -143,6 +157,8 @@
 
 /obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
+	if(!.)
+		return
 	if(!isliving(target))
 		return
 	var/mob/living/L = target

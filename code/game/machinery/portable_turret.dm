@@ -13,6 +13,8 @@
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
+	///this will be visible when above doors/firelocks/blastdoors to prevent cheese
+	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -187,7 +189,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(HasController())
 		return TRUE
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) || is_ai(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -331,54 +333,71 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/I)
+	if(enabled || raised)
+		to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
+		return
+	if(wrenching)
+		to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
+		return
+	if(!anchored && isinspace())
+		to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
+		return
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
+	user.visible_message( \
+			"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
+			"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
+		)
+
+	wrenching = TRUE
+	if(I.use_tool(src, user, 2 SECONDS, volume = 50))
+		//This code handles moving the turret around. After all, it's a portable turret!
+		playsound(loc, I.usesound, 100, 1)
+		anchored = !anchored
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
+	wrenching = FALSE
+
+	return TRUE
+
+/obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+	if(syndicate)
+		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
+		return TRUE
+
+	if(!(stat & BROKEN))
+		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
+		return TRUE
+	return ..()
+
+/obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!(stat & BROKEN) || syndicate) // No disasembling active turrets or syndicate ones
+		return
+	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
+	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
+		return FALSE
+	if(prob(70))
+		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
+		if(installation)
+			var/obj/item/gun/energy/Gun = new installation(loc)
+			Gun.cell.charge = gun_charge
+			Gun.update_icon()
+		if(prob(50))
+			new /obj/item/stack/sheet/metal(loc, rand(1,4))
+		if(prob(50))
+			new /obj/item/assembly/prox_sensor(loc)
+	else
+		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
+	qdel(src) // qdel
+
+/obj/machinery/porta_turret/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if((stat & BROKEN) && !syndicate)
-		if(I.tool_behaviour == TOOL_CROWBAR)
-			//If the turret is destroyed, you can remove it with a crowbar to
-			//try and salvage its components
-			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				if(prob(70))
-					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
-					if(installation)
-						var/obj/item/gun/energy/Gun = new installation(loc)
-						Gun.cell.charge = gun_charge
-						Gun.update_icon()
-					if(prob(50))
-						new /obj/item/stack/sheet/metal(loc, rand(1,4))
-					if(prob(50))
-						new /obj/item/assembly/prox_sensor(loc)
-				else
-					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
-				qdel(src) // qdel
+		return ITEM_INTERACT_COMPLETE
 
-	else if((istype(I, /obj/item/wrench)))
-		if(enabled || raised)
-			to_chat(user, "<span class='warning'>You cannot unsecure an active turret!</span>")
-			return
-		if(wrenching)
-			to_chat(user, "<span class='warning'>Someone is already [anchored ? "un" : ""]securing the turret!</span>")
-			return
-		if(!anchored && isinspace())
-			to_chat(user, "<span class='warning'>Cannot secure turrets in space!</span>")
-			return
-
-		user.visible_message( \
-				"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
-				"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
-			)
-
-		wrenching = TRUE
-		if(do_after(user, 50 * I.toolspeed, target = src))
-			//This code handles moving the turret around. After all, it's a portable turret!
-			playsound(loc, I.usesound, 100, 1)
-			anchored = !anchored
-			update_icon(UPDATE_ICON_STATE)
-			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
-		wrenching = FALSE
-
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(HasController())
 			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
 		else if(allowed(user))
@@ -388,17 +407,23 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
-	else
-		//if the turret was attacked with the intention of harming it:
-		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
-		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
-			if(!attacked && !emagged)
-				attacked = TRUE
-				spawn(60)
-					attacked = FALSE
+		return ITEM_INTERACT_COMPLETE
 
-		..()
+	if(user.a_intent == INTENT_HELP)
+		return ..()
+
+	// otherwise, if the turret was attacked with the intention of harming it:
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_item_attack_animation()
+	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
+
+	//if the force of impact dealt at least 1 damage, the turret gets pissed off
+	if(used.force * 0.5 > 1)
+		if(!attacked && !emagged)
+			attacked = TRUE
+			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
+
+	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -416,7 +441,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(!(stat & BROKEN))
-		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
 		take_damage(15)
 	else
@@ -849,66 +874,63 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
 
-
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret_construct/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step
-			if(istype(I, /obj/item/wrench) && !anchored)
-				playsound(loc, I.usesound, 100, 1)
+			if(iswrench(used) && !anchored)
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
 				anchored = TRUE
 				build_step = 1
-				return
+				return ITEM_INTERACT_COMPLETE
 
-			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
-				playsound(loc, I.usesound, 75, 1)
+			else if(used.tool_behaviour == TOOL_CROWBAR && !anchored)
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
 				qdel(src) // qdel
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(1)
-			if(istype(I, /obj/item/stack/sheet/metal))
-				var/obj/item/stack/sheet/metal/M = I
+			if(istype(used, /obj/item/stack/sheet/metal))
+				var/obj/item/stack/sheet/metal/M = used
 				if(M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the interior frame.</span>")
 					build_step = 2
 					icon_state = "turret_frame2"
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
-			else if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 75, 1)
+			else if(iswrench(used))
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
 				anchored = FALSE
 				build_step = 0
-				return
-
+				return ITEM_INTERACT_COMPLETE
 
 		if(2)
-			if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 100, 1)
+			if(iswrench(used))
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
 				build_step = 3
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(3)
-			if(istype(I, /obj/item/gun/energy)) //the gun installation part
-
+			if(istype(used, /obj/item/gun/energy)) //the gun installation part
 				if(isrobot(user))
-					return
-				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
-				if(!user.unEquip(I))
-					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
+				var/obj/item/gun/energy/E = used //typecasts the item to an energy gun
+				if(!user.unequip(used))
+					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return ITEM_INTERACT_COMPLETE
 				if(!E.can_fit_in_turrets)
-					to_chat(user, "<span class='notice'>[I] will not operate correctly in [src].</span>")
-					return
-				installation = I.type //installation becomes I.type
+					to_chat(user, "<span class='notice'>[used] will not operate correctly in [src].</span>")
+					return ITEM_INTERACT_COMPLETE
+				installation = used.type //installation becomes used.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
-				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
+				to_chat(user, "<span class='notice'>You add [used] to the turret.</span>")
 
 				if(istype(E, /obj/item/gun/energy/laser/tag/blue))
 					target_type = /obj/machinery/porta_turret/tag/blue
@@ -918,61 +940,51 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					target_type = /obj/machinery/porta_turret
 
 				build_step = 4
-				qdel(I) //delete the gun :( qdel
-				return
+				qdel(used) //delete the gun :(
+				return ITEM_INTERACT_COMPLETE
 
-			else if(istype(I, /obj/item/wrench))
-				playsound(loc, I.usesound, 100, 1)
+			else if(iswrench(used))
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
 				build_step = 2
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(4)
-			if(isprox(I))
-				if(!user.unEquip(I))
-					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return
+			if(isprox(used))
+				if(!user.unequip(used, src))
+					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return ITEM_INTERACT_COMPLETE
 				build_step = 5
-				qdel(I) // qdel
+				qdel(used)
 				to_chat(user, "<span class='notice'>You add the prox sensor to the turret.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			//attack_hand() removes the gun
 
 		if(5)
-			return
+			return ITEM_INTERACT_COMPLETE
 			//screwdriver_act() handles screwing the panel closed
 			//attack_hand() removes the prox sensor
 
 		if(6)
-			if(istype(I, /obj/item/stack/sheet/metal))
-				var/obj/item/stack/sheet/metal/M = I
+			if(istype(used, /obj/item/stack/sheet/metal))
+				var/obj/item/stack/sheet/metal/M = used
 				if(M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the exterior frame.</span>")
 					build_step = 7
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(7)
-			if(I.tool_behaviour == TOOL_CROWBAR)
-				playsound(loc, I.usesound, 75, 1)
+			if(used.tool_behaviour == TOOL_CROWBAR)
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
 				build_step = 6
-				return
+				return ITEM_INTERACT_COMPLETE
 
-	if(is_pen(I))	//you can rename turrets like bots!
-		var/t = input(user, "Enter new turret name", name, finish_name) as text
-		t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-
-		finish_name = t
-		return
-	..()
+	return ..()
 
 /obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 6 && build_step != 5)
@@ -1064,7 +1076,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	has_cover = FALSE
-	raised = TRUE
 	scan_range = 9
 
 	faction = "syndicate"
@@ -1085,8 +1096,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/CanPass(atom/A)
 	return ((stat & BROKEN) || !isliving(A))
 
-/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return ((stat & BROKEN) || !pass_info.is_living)
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
@@ -1105,6 +1116,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
+	set_raised_raising(TRUE, FALSE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)
@@ -1208,5 +1221,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/inflatable_turret/CanPass(atom/A)
 	return ((stat & BROKEN) || !isliving(A))
 
-/obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
+/obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return ((stat & BROKEN) || !pass_info.is_living)
+
+// Meatpackers' ruin turret
+/obj/machinery/porta_turret/meatpacker_ship
+	name = "ship defense turret"
+	lethal = TRUE
+	check_synth = TRUE

@@ -32,12 +32,7 @@ export const RobotSelfDiagnosis = (props, context) => {
                 }}
               >
                 <Flex height="100%">
-                  <Flex.Item
-                    grow={1}
-                    textAlign="center"
-                    align="center"
-                    color="#e8e8e8"
-                  >
+                  <Flex.Item grow={1} textAlign="center" align="center" color="#e8e8e8">
                     {entry.installed === -1 ? 'Destroyed' : 'Missing'}
                   </Flex.Item>
                 </Flex>
@@ -46,21 +41,12 @@ export const RobotSelfDiagnosis = (props, context) => {
               <Flex>
                 <Flex.Item width="72%">
                   <LabeledList>
-                    <LabeledList.Item
-                      label="Brute Damage"
-                      color={getDamageColor(
-                        entry.brute_damage,
-                        entry.max_damage
-                      )}
-                    >
+                    <LabeledList.Item label="Brute Damage" color={getDamageColor(entry.brute_damage, entry.max_damage)}>
                       {entry.brute_damage}
                     </LabeledList.Item>
                     <LabeledList.Item
                       label="Burn Damage"
-                      color={getDamageColor(
-                        entry.electronic_damage,
-                        entry.max_damage
-                      )}
+                      color={getDamageColor(entry.electronic_damage, entry.max_damage)}
                     >
                       {entry.electronic_damage}
                     </LabeledList.Item>
@@ -68,16 +54,10 @@ export const RobotSelfDiagnosis = (props, context) => {
                 </Flex.Item>
                 <Flex.Item width="50%">
                   <LabeledList>
-                    <LabeledList.Item
-                      label="Powered"
-                      color={entry.powered ? 'good' : 'bad'}
-                    >
+                    <LabeledList.Item label="Powered" color={entry.powered ? 'good' : 'bad'}>
                       {entry.powered ? 'Yes' : 'No'}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Enabled"
-                      color={entry.status ? 'good' : 'bad'}
-                    >
+                    <LabeledList.Item label="Enabled" color={entry.status ? 'good' : 'bad'}>
                       {entry.status ? 'Yes' : 'No'}
                     </LabeledList.Item>
                   </LabeledList>

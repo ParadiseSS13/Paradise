@@ -12,15 +12,15 @@
 	var/next_use_time
 	var/spamcheck = FALSE
 
-/obj/item/hailer/attack_self(mob/living/carbon/user as mob)
+/obj/item/hailer/attack_self__legacy__attackchain(mob/living/carbon/user as mob)
 	if(world.time < next_use_time)
 		return
 
 	if(emagged)
-		playsound(get_turf(src), 'sound/voice/binsult.ogg', 100, 1, vary = 0)//hueheuheuheuheuheuhe
+		playsound(get_turf(src), 'sound/voice/binsult.ogg', 100, TRUE, vary = 0)//hueheuheuheuheuheuhe
 		user.visible_message("<span class='warning'>[user]'s [name] gurgles, \"FUCK YOUR CUNT YOU SHIT EATING CUNT TILL YOU ARE A MASS EATING SHIT CUNT. EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS TO FUCK UP SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FROM THE DEPTHS OF SHIT\"</span>")
 	else
-		playsound(get_turf(src), 'sound/voice/halt.ogg', 100, 1, vary = 0)
+		playsound(get_turf(src), 'sound/voice/halt.ogg', 100, TRUE, vary = 0)
 		user.visible_message("<span class='warning'>[user]'s [name] rasps, \"Halt! Security!\"</span>")
 
 	next_use_time = world.time + USE_COOLDOWN
@@ -51,7 +51,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/whistle/attack_self(mob/user)
+/obj/item/clothing/mask/whistle/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
 		return
 

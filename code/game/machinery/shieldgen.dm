@@ -27,11 +27,6 @@
 	..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
-
 /obj/machinery/shield/CanAtmosPass(direction)
 	return !density
 
@@ -84,7 +79,7 @@
 	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
 	var/obj/effect/rune/parent_rune
 
-/obj/machinery/shield/cult/barrier/Initialize()
+/obj/machinery/shield/cult/barrier/Initialize(mapload)
 	. = ..()
 	invisibility = INVISIBILITY_MAXIMUM
 
@@ -237,17 +232,18 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/card/emag))
+/obj/machinery/shieldgen/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/emag))
 		malfunction = TRUE
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
-		var/obj/item/stack/cable_coil/coil = I
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/stack/cable_coil) && malfunction && is_open)
+		var/obj/item/stack/cable_coil/coil = used
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil)
-				return
+				return ITEM_INTERACT_COMPLETE
 			coil.use(1)
 			health = max_health
 			malfunction = FALSE
@@ -255,15 +251,17 @@
 			to_chat(user, "<span class='notice'>You repair [src]!</span>")
 			update_icon(UPDATE_ICON_STATE)
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -392,6 +390,7 @@
 /obj/machinery/shieldwallgen/proc/activate()
 	activated = TRUE
 	START_PROCESSING(SSmachines, src)
+	update_icon(UPDATE_ICON_STATE)
 	for(var/direction in GLOB.cardinal)
 		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
 
@@ -431,17 +430,18 @@
 	var/list/L = active_shields["[direction]"]
 	L -= SW
 
-/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+/obj/machinery/shieldwallgen/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id)||istype(used, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-	else
-		add_fingerprint(user)
-		..()
+		return ITEM_INTERACT_COMPLETE
+
+	add_fingerprint(user)
+	return ..()
 
 /obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -546,10 +546,7 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
-
+/obj/machinery/shieldwall/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
@@ -564,21 +561,19 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return TRUE
 	if(isprojectile(mover))
 		return FALSE
-	return ..(mover, target, height)
+	return ..()
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living && ("syndicate" in pass_info.factions))
+		return TRUE
+	return ..(to_dir, pass_info)
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
@@ -592,7 +587,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldwall/syndicate/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	phaseout()
 	return ..()
 

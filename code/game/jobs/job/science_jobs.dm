@@ -21,7 +21,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINISAT,
 		ACCESS_MORGUE,
-		ACCESS_NETWORK,
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_RD,
 		ACCESS_RESEARCH,
@@ -32,7 +31,6 @@
 		ACCESS_TELEPORTER,
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
-		ACCESS_XENOARCH,
 		ACCESS_XENOBIOLOGY,
 		ACCESS_WEAPONS
 	)
@@ -66,7 +64,6 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
-
 /datum/job/scientist
 	title = "Scientist"
 	flag = JOB_SCIENTIST
@@ -83,7 +80,6 @@
 		ACCESS_RESEARCH,
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
-		ACCESS_XENOARCH,
 		ACCESS_XENOBIOLOGY
 	)
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
@@ -110,7 +106,6 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
-
 
 /datum/job/roboticist
 	title = "Roboticist"

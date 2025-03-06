@@ -1,6 +1,8 @@
 // Datums
 #define isdatum(thing) (istype(thing, /datum))
 
+#define isspell(A) (istype(A, /datum/spell))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -43,12 +45,16 @@
 
 #define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
 
+#define isshadowdemon(A) (istype(A, /mob/living/simple_animal/demon/shadow))
+
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
+
+#define isairlock(A) (istype(A, /obj/machinery/door))
 
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
@@ -57,6 +63,8 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define ismask(A) (istype(A, /obj/item/clothing/mask))
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
@@ -71,6 +79,8 @@
 #define isstorage(A) (istype(A, /obj/item/storage))
 
 #define isstack(I) (istype(I, /obj/item/stack))
+
+#define istable(S) (istype(S, /obj/structure/table))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -124,6 +134,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Vehicles
 #define isvehicle(A) istype(A, /obj/vehicle)
+#define istgvehicle(A) istype(A, /obj/tgvehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)
@@ -131,6 +142,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) istype(A, /obj/item/reagent_containers/pill)
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
+#define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
@@ -144,3 +156,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
 
 #define is_screen_atom(A) istype(A, /atom/movable/screen)
+
+#define is_multi_tile_object(atom) (atom?.bound_width > world.icon_size || atom?.bound_height > world.icon_size)

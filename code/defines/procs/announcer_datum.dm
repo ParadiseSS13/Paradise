@@ -83,6 +83,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
+			if(!M.say_understands(null, message_language))
+				receivers -= M
+				garbled_receivers |= M
 	else
 		for(var/obj/item/radio/R in GLOB.global_radios)
 			receivers |= R.send_announcement()
@@ -134,10 +137,6 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	log_game("[key_name(usr)] has made \a [config.log_name]: [message_title] - [message] - [author]")
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].", 1)
 
-/proc/GetNameAndAssignmentFromId(obj/item/card/id/I)
-	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
-	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name
-
 /datum/announcement_configuration/event
 	default_title = ANNOUNCE_KIND_EVENT
 	sound = sound('sound/misc/notice2.ogg')
@@ -175,3 +174,10 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	log_name = ANNOUNCE_KIND_AI
 	sound = sound('sound/misc/notice2.ogg')
 	style = "major"
+
+/datum/announcement_configuration/ptl
+	default_title = ANNOUNCE_KIND_PTL
+	add_log = FALSE
+	sound = sound('sound/misc/notice2.ogg')
+	style = "major"
+

@@ -11,43 +11,42 @@
 	if(.)
 		handle_robot_hud_updates()
 		handle_robot_cell()
-		update_items()
 
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
-	if(stat != DEAD)
-		if(!is_component_functioning("power cell"))
-			uneq_all()
-			low_power_mode = TRUE
-			update_headlamp()
-			diag_hud_set_borgcell()
-			return
-		if(low_power_mode)
-			if(is_component_functioning("power cell") && cell.charge)
-				low_power_mode = FALSE
-				update_headlamp()
-		else if(stat == CONSCIOUS)
-			use_power()
+	if(stat == DEAD)
+		return
+	if(externally_powered)
+		return
+	if(low_power_mode)
+		handle_no_power()
+	else if(!is_component_functioning("power cell")) //This makes it so you'll only get the warnings once per running out of charge
+		enter_low_power_mode()
+	else if(stat == CONSCIOUS)
+		use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	// this check is safe because `cell` is guaranteed to be set when the power cell is functioning
-	if(is_component_functioning("power cell") && cell.charge)
-		if(cell.charge <= 100)
-			uneq_all()
-		var/amt = clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
-		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
-	else
-		uneq_all()
-		low_power_mode = TRUE
-		update_headlamp()
+	var/amt = clamp((lamp_intensity - 2) * 2, 1, cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+	cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	diag_hud_set_borgcell()
 
+/mob/living/silicon/robot/proc/handle_no_power()
+	diag_hud_set_borgcell()
+	if(is_component_functioning("power cell"))
+		low_power_mode = FALSE
+		return
+	adjustStaminaLoss(3)
+
+/mob/living/silicon/robot/proc/enter_low_power_mode()
+	low_power_mode = TRUE
+	playsound(src, "sound/mecha/lowpower.ogg", 50, FALSE, SOUND_RANGE_SET(10))
+	to_chat(src, "<span class='warning'>Alert: Power cell requires immediate charging.</span>")
+	handle_no_power()
+
 /mob/living/silicon/robot/proc/handle_equipment()
-	if(camera && !scrambledcodes)
+	if(camera && camera.status && !scrambledcodes) //Don't turn off cameras already off
 		if(stat == DEAD || wires.is_cut(WIRE_BORG_CAMERA))
-			camera.status = FALSE
-		else
-			camera.status = TRUE
+			camera.turn_off(src, FALSE)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -108,17 +107,6 @@
 		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 
-
-/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
-	if(client)
-		for(var/obj/I in get_all_slots())
-			client.screen |= I
-	if(module_state_1)
-		module_state_1:screen_loc = ui_inv1
-	if(module_state_2)
-		module_state_2:screen_loc = ui_inv2
-	if(module_state_3)
-		module_state_3:screen_loc = ui_inv3
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

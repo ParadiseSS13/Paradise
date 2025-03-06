@@ -30,18 +30,14 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	GLOB.ts_spiderling_list -= src
+	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
+		S.immediate_ventcrawl = TRUE
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
 	. = ..()
-
-
-/obj/structure/spider/spiderling/terror_spiderling/Destroy()
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
-		S.immediate_ventcrawl = TRUE
-	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
@@ -154,7 +150,7 @@
 							new_area.Entered(src)
 		else
 			frustration++
-			walk_to(src, entry_vent, 1)
+			GLOB.move_manager.move_to(src, entry_vent, 1)
 			if(frustration > 2)
 				entry_vent = null
 	else if(prob(33))
@@ -169,7 +165,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				GLOB.move_manager.move_to(src, entry_vent, 1)
 				break
 
 

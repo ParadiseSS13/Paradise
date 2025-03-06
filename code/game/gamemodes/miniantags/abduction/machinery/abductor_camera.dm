@@ -23,7 +23,8 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
-	..()
+	eyeobj = new /mob/camera/eye/abductor(loc, name, src, current_user)
+	give_eye_control(current_user)
 	eyeobj.visible_icon = 1
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
@@ -68,21 +69,21 @@
 
 /datum/action/innate/teleport_in
 	name = "Send To"
-	button_icon_state = "beam_down"
+	button_overlay_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
-	button_icon_state = "beam_up"
+	button_overlay_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/Activate()
 	if(!target || !iscarbon(owner))
@@ -95,21 +96,21 @@
 
 /datum/action/innate/teleport_self
 	name = "Send Self"
-	button_icon_state = "beam_down"
+	button_overlay_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.check_turf_vis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
-	button_icon_state = "vest_mode"
+	button_overlay_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/Activate()
 	if(!target || !iscarbon(owner))
@@ -120,7 +121,7 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
-	button_icon_state = "vest_disguise"
+	button_overlay_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/Activate()
 	if(!target || !iscarbon(owner))
@@ -130,14 +131,14 @@
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
-	button_icon_state = "set_drop"
+	button_overlay_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/Activate()
 	if(!target || !iscarbon(owner))
 		return
 
 	var/mob/living/carbon/human/C = owner
-	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
+	var/mob/camera/eye/abductor/remote_eye = C.remote_control
 
 	var/obj/machinery/abductor/console/console = target
 	console.SetDroppoint(remote_eye.loc,owner)

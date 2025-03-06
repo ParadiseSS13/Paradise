@@ -29,6 +29,7 @@
 /datum/surgery_step/extract_bio_chip
 	name = "extract bio-chip"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 6.4 SECONDS
 	repeatable = TRUE
 	var/obj/item/bio_chip/I = null
@@ -81,10 +82,10 @@
 
 		var/obj/item/bio_chip_case/case
 
-		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/bio_chip_case))
-			case = user.get_item_by_slot(SLOT_HUD_LEFT_HAND)
-		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/bio_chip_case))
-			case = user.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
+		if(istype(user.get_item_by_slot(ITEM_SLOT_LEFT_HAND), /obj/item/bio_chip_case))
+			case = user.get_item_by_slot(ITEM_SLOT_LEFT_HAND)
+		else if(istype(user.get_item_by_slot(ITEM_SLOT_RIGHT_HAND), /obj/item/bio_chip_case))
+			case = user.get_item_by_slot(ITEM_SLOT_RIGHT_HAND)
 		else
 			case = locate(/obj/item/bio_chip_case) in get_turf(target)
 
@@ -97,7 +98,7 @@
 			qdel(I)
 	else
 		user.visible_message(
-			"<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
+			"<span class='notice'>[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>",
 			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)

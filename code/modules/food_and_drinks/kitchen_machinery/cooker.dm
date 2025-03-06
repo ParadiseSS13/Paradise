@@ -34,13 +34,13 @@
 	return ..()
 
 // checks if the snack has been cooked in a certain way
-/obj/machinery/cooker/proc/checkCooked(obj/item/food/snacks/D)
+/obj/machinery/cooker/proc/checkCooked(obj/item/food/D)
 	if(D.cooktype[thiscooktype])
 		return 1
 	return 0
 
 // Sets the new snack's cooktype list to the same as the old one - no more cooking something in the same machine more than once!
-/obj/machinery/cooker/proc/setCooked(obj/item/food/snacks/oldtypes, obj/item/food/snacks/newtypes)
+/obj/machinery/cooker/proc/setCooked(obj/item/food/oldtypes, obj/item/food/newtypes)
 	var/ct
 	for(ct in oldtypes.cooktype)
 		newtypes.cooktype[ct] = oldtypes.cooktype[ct]
@@ -115,7 +115,7 @@
 		return FALSE
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	if(istype(check, /obj/item/food/snacks) || emagged)
+	if(istype(check, /obj/item/food) || emagged)
 		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
 			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
 			return FALSE
@@ -147,7 +147,7 @@
 // if burns = FALSE then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
-	var/obj/item/food/snacks/badrecipe/burnt = new(get_turf(src))
+	var/obj/item/food/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
@@ -160,8 +160,7 @@
 		oil.name = "fat"
 		oil.desc = "Uh oh, looks like some fat from [src]!"
 		oil.loc = location
-		location.hotspot_expose(700, 50, 1)
-		//TODO have a chance of setting the tile on fire
+		location.hotspot_expose(700, 1)
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
@@ -177,32 +176,33 @@
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
-	var/obj/item/food/snacks/type = new(get_turf(src))
+	var/obj/item/food/type = new(get_turf(src))
 	return type
 
-/obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cooker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(upgradeable)
 	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
 	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
-		if(istype(I, /obj/item/storage/part_replacer))
-			exchange_parts(user, I)
-			return
+		if(istype(used, /obj/item/storage/part_replacer))
+			exchange_parts(user, used)
+			return ITEM_INTERACT_COMPLETE
 	if(stat & (NOPOWER|BROKEN))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
-		return
-	if(istype(I, /obj/item/grab))
-		return special_attack_grab(I, user)
-	if(!checkValid(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/grab))
+		if(special_attack_grab(used, user))
+			return ITEM_INTERACT_COMPLETE
+	if(!checkValid(used, user))
+		return ITEM_INTERACT_COMPLETE
 	if(!burns)
-		if(istype(I, /obj/item/food/snacks))
-			if(checkCooked(I))
+		if(istype(used, /obj/item/food))
+			if(checkCooked(used))
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
-				return
-	putIn(I, user)
-	for(var/mob/living/L in I.contents) //Emagged cookers - Any mob put in will not survive the trip
+				return ITEM_INTERACT_COMPLETE
+	putIn(used, user)
+	for(var/mob/living/L in used.contents) //Emagged cookers - Any mob put in will not survive the trip
 		if(L.stat != DEAD)
 			if(ispAI(L)) //Snowflake check because pAIs are weird
 				var/mob/living/silicon/pai/P = L
@@ -211,7 +211,8 @@
 				L.death()
 		break
 
-	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), used, user), cooktime)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
 	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)
@@ -226,17 +227,18 @@
 				cookSpecial(special)			//Handle cooking the item as appropriate
 				turnoff(I)						//Shut off the machine and qdel the original item
 				return
-		if(istype(I, /obj/item/food/snacks))
+		if(istype(I, /obj/item/food))
 			if(checkCooked(I))
 				burn_food(user, I)
 				turnoff(I)
 				return
-		var/obj/item/food/snacks/newfood = gettype()
+		var/obj/item/food/newfood = gettype()
 		setIcon(I, newfood)
 		changename(I, newfood)
 		if(istype(I, /obj/item/reagent_containers))
 			setRegents(I, newfood)
-		if(istype(I, /obj/item/food/snacks))
+		if(istype(I, /obj/item/food))
+			setRegents(I, newfood)
 			setCooked(I, newfood)
 		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)

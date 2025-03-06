@@ -61,12 +61,11 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 /obj/item/stack/sheet/glass/cyborg/drone
 	energy_type = /datum/robot_storage/energy/glass
 
-/obj/item/stack/sheet/glass/New(loc, amount)
+/obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.glass_recipes
-	..()
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
-	..()
+/obj/item/stack/sheet/glass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.get_amount() < 5)
@@ -76,7 +75,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
-	else if(istype(W, /obj/item/stack/rods))
+		return
+
+	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
@@ -87,8 +88,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		G.use(1)
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
-	else
-		return ..()
+		return
+
+	return ..()
 
 //////////////////////////////
 // MARK: REINFORCED GLASS
@@ -126,9 +128,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 /obj/item/stack/sheet/rglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/rglass/New(loc, amount)
+/obj/item/stack/sheet/rglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.reinforced_glass_recipes
-	..()
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
@@ -155,7 +157,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 //////////////////////////////
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
-	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
+	desc = "A very strong and very resistant sheet of a plasma-glass mixture."
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	item_state = "sheet-plasmaglass"
@@ -181,11 +183,11 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasmaglass/New(loc, amount)
+/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.pglass_recipes
-	..()
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/plasmaglass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W
@@ -239,9 +241,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 /obj/item/stack/sheet/plasmarglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasmarglass/New(loc, amount)
+/obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.prglass_recipes
-	..()
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
@@ -252,7 +254,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 //////////////////////////////
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
-	desc = "A glass sheet made out of a titanium-silicate mixture."
+	desc = "A glass sheet made out of titanium silicate."
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-titaniumglass"
@@ -265,19 +267,21 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 /obj/item/stack/sheet/titaniumglass/examine_more(mob/user)
 	. = ..()
-	. += "Titanium-silicate mixes are an old but highly effective technology that produce a relatively lightweight, very strong glass that can withstand a good amount of punishment."
+	. += "Titanium-silica mixes are an old but highly effective technology that produce a relatively lightweight, very strong glass that can withstand a good amount of punishment."
 	. += ""
 	. += "It is extensively used in the production of starship viewports and transparent armour, and is notably used extensively in space station construction by the USSP."
 
 /obj/item/stack/sheet/titaniumglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/titaniumglass/New(loc, amount)
+/obj/item/stack/sheet/titaniumglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.titaniumglass_recipes
-	..()
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new /datum/stack_recipe/window("plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe("plastitanium shard", /obj/item/shard/plastitanium, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	))
 
 //////////////////////////////
@@ -293,10 +297,11 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
+	created_window = /obj/structure/window/plastitanium
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
 
-/obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
+/obj/item/stack/sheet/plastitaniumglass/examine_more(mob/user)
 	. = ..()
 	. += "A mixture of silica glass, and plastitanium. It boasts similar material properties to plastitanium whilst also being optically transparent."
 	. += ""
@@ -306,7 +311,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 /obj/item/stack/sheet/plastitaniumglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plastitaniumglass/New(loc, amount)
+/obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
-	..()
 

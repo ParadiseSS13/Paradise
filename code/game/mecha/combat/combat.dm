@@ -5,7 +5,6 @@
 	maint_access = 0
 	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, rad = 0, fire = 100)
 	destruction_sleep_duration = 4 SECONDS
-	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
 
 /obj/mecha/combat/moved_inside(mob/living/carbon/human/H as mob)
 	if(..())
@@ -28,10 +27,3 @@
 	if(occupant && occupant.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	..()
-
-/obj/mecha/combat/Topic(href,href_list)
-	..()
-	var/datum/topic_input/afilter = new(href, href_list)
-	if(afilter.get("close"))
-		am = null
-		return

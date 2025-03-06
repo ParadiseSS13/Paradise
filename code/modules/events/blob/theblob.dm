@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
-	desc = "Some blob creature thingy"
+	desc = "Some blob creature thingy."
 	density = FALSE
 	opacity = FALSE
 	anchored = TRUE
@@ -49,19 +49,16 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return FALSE
 	return ..()
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/blob/CanPass(atom/movable/mover, border_dir)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
-/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = 0
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSBLOB)
+/obj/structure/blob/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	. = FALSE
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSBLOB
 
 /obj/structure/blob/process()
 	Life()
@@ -204,9 +201,15 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			color = incoming_overmind.blob_reagent_datum.color
 			return
 
-/obj/structure/blob/Crossed(mob/living/L, oldloc)
-	..()
-	L.blob_act(src)
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/blob/proc/on_atom_entered(datum/source, atom/movable/entered)
+	entered.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
 	take_damage(power * 0.0025, BURN, ENERGY)

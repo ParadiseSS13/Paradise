@@ -12,6 +12,7 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_limb_damage
 
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 
@@ -25,8 +26,8 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount *= dna.species.brain_mod
-			sponge.damage = clamp(sponge.damage + amount, 0, 120)
-			if(sponge.damage >= 120)
+			sponge.damage = clamp(sponge.damage + amount, 0, sponge.max_damage)
+			if(sponge.damage >= sponge.max_damage)
 				death()
 	if(updating)
 		update_stat("adjustBrainLoss")
@@ -43,7 +44,7 @@
 				if(use_brain_mod)
 					amount *= dna.species.brain_mod
 			sponge.damage = clamp(amount, 0, 120)
-			if(sponge.damage >= 120)
+			if(sponge.damage >= sponge.max_damage)
 				death()
 	if(updating)
 		update_stat("setBrainLoss")

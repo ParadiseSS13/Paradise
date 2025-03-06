@@ -61,25 +61,32 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
 
-	var/list/listeners = GLOB.player_list
-	if(!ignore_walls) //these sounds don't carry through walls
-		listeners = listeners & hearers(maxdistance, turf_source)
-
-	for(var/P in listeners)
-		var/mob/M = P
-		if(!M || !M.client)
+	var/list/possible_listeners = list()
+	var/list/desired_turfs = list()
+	for(var/mob/P as anything in GLOB.player_list)
+		if(isnull(P) || !P.client)
+			continue
+		var/turf/T = get_turf(P)
+		if(!T || T.z != turf_source.z || get_dist(T, turf_source) > maxdistance)
 			continue
 
-		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
-		if(!T)
-			continue
-		if(T.z != turf_source.z)
-			continue
+		possible_listeners += P
+		desired_turfs |= T
 
-		var/distance = get_dist(M, turf_source)
+	var/list/listeners = list()
+	if(ignore_walls)
+		listeners = possible_listeners
+	else if(length(possible_listeners))
+		var/list/turf_vis = list()
+		for(var/turf/T as anything in desired_turfs)
+			turf_vis[T] = inLineOfSight(T.x, T.y, turf_source.x, turf_source.y, T.z)
 
-		if(distance <= maxdistance)
-			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+		for(var/mob/P in possible_listeners)
+			if(turf_vis[get_turf(P)])
+				listeners += P
+
+	for(var/mob/M as anything in listeners)
+		M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
 	if(!client || !can_hear())
@@ -187,7 +194,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
+	if(SSticker.current_state < GAME_STATE_STARTUP || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
@@ -241,6 +248,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 			if("bonebreak")
 				soundin = pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg', 'sound/effects/bone_break_3.ogg', 'sound/effects/bone_break_4.ogg', 'sound/effects/bone_break_5.ogg', 'sound/effects/bone_break_6.ogg')
+			if("boxing")
+				soundin = pick('sound/weapons/boxing1.ogg', 'sound/weapons/boxing2.ogg', 'sound/weapons/boxing3.ogg', 'sound/weapons/boxing4.ogg', 'sound/weapons/boxing5.ogg', 'sound/weapons/boxing6.ogg')
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 			if("smcalm")

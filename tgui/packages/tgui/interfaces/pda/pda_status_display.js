@@ -12,24 +12,9 @@ export const pda_status_display = (props, context) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Code">
-          <Button
-            color="transparent"
-            icon="trash"
-            content="Clear"
-            onClick={() => act('Status', { statdisp: 0 })}
-          />
-          <Button
-            color="transparent"
-            icon="clock"
-            content="Evac ETA"
-            onClick={() => act('Status', { statdisp: 1 })}
-          />
-          <Button
-            color="transparent"
-            icon="edit"
-            content="Message"
-            onClick={() => act('Status', { statdisp: 2 })}
-          />
+          <Button color="transparent" icon="trash" content="Clear" onClick={() => act('Status', { statdisp: 0 })} />
+          <Button color="transparent" icon="clock" content="Evac ETA" onClick={() => act('Status', { statdisp: 1 })} />
+          <Button color="transparent" icon="edit" content="Message" onClick={() => act('Status', { statdisp: 2 })} />
           <Button
             color="transparent"
             icon="exclamation-triangle"
@@ -76,18 +61,10 @@ export const pda_status_display = (props, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Message line 1">
-          <Button
-            content={records.message1 + ' (set)'}
-            icon="pen"
-            onClick={() => act('SetMessage', { msgnum: 1 })}
-          />
+          <Button content={records.message1 + ' (set)'} icon="pen" onClick={() => act('SetMessage', { msgnum: 1 })} />
         </LabeledList.Item>
         <LabeledList.Item label="Message line 2">
-          <Button
-            content={records.message2 + ' (set)'}
-            icon="pen"
-            onClick={() => act('SetMessage', { msgnum: 2 })}
-          />
+          <Button content={records.message2 + ' (set)'} icon="pen" onClick={() => act('SetMessage', { msgnum: 2 })} />
         </LabeledList.Item>
       </LabeledList>
     </Box>

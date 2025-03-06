@@ -11,6 +11,9 @@ import {
   ProgressBar,
   Section,
   Stack,
+  Table,
+  Modal,
+  LabeledList,
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
@@ -25,10 +28,16 @@ const iconNameOverrides = {
 
 export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { building } = data;
+  const { building, linked } = data;
+
+  if (!linked) {
+    return <LinkMenu />;
+  }
+
   return (
     <Window width={950} height={625}>
       <Window.Content className="Exofab">
+        <LevelsModal />
         <Stack fill>
           <Stack.Item grow>
             <Stack fill vertical>
@@ -112,6 +121,7 @@ const Designs = (properties, context) => {
     return design.name;
   });
   const filteredDesigns = designs.filter(searcher);
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
   return (
     <Section
       fill
@@ -119,6 +129,7 @@ const Designs = (properties, context) => {
       className="Exofab__designs"
       title={
         <Dropdown
+          width="19rem"
           className="Exofab__dropdown"
           selected={curCategory}
           options={categories}
@@ -131,35 +142,17 @@ const Designs = (properties, context) => {
       }
       buttons={
         <Box mt="2px">
-          <Button
-            icon="plus"
-            content="Queue all"
-            onClick={() => act('queueall')}
-          />
-          <Button
-            disabled={syncing}
-            iconSpin={syncing}
-            icon="sync-alt"
-            content={
-              syncing ? 'Synchronizing...' : 'Synchronize with R&D servers'
-            }
-            onClick={() => act('sync')}
-          />
+          <Button icon="plus" content="Queue all" onClick={() => act('queueall')} />
+          <Button icon="info" content="Show current tech levels" onClick={() => setShowLevelsModal(true)} />
+          <Button icon="unlink" color="red" tooltip="Disconnect from R&D network" onClick={() => act('unlink')} />
         </Box>
       }
     >
-      <Input
-        placeholder="Search by name..."
-        mb="0.5rem"
-        width="100%"
-        onInput={(_e, value) => setSearchText(value)}
-      />
+      <Input placeholder="Search by name..." mb="0.5rem" width="100%" onInput={(_e, value) => setSearchText(value)} />
       {filteredDesigns.map((design) => (
         <Design key={design.id} design={design} />
       ))}
-      {filteredDesigns.length === 0 && (
-        <Box color="label">No designs found.</Box>
-      )}
+      {filteredDesigns.length === 0 && <Box color="label">No designs found.</Box>}
     </Section>
   );
 };
@@ -169,11 +162,7 @@ const Building = (properties, context) => {
   const { building, buildStart, buildEnd, worldTime } = data;
   return (
     <Section className="Exofab__building" stretchContents>
-      <ProgressBar.Countdown
-        start={buildStart}
-        current={worldTime}
-        end={buildEnd}
-      >
+      <ProgressBar.Countdown start={buildStart} current={worldTime} end={buildEnd}>
         <Stack>
           <Stack.Item>
             <Icon name="cog" spin />
@@ -181,12 +170,7 @@ const Building = (properties, context) => {
           <Stack.Item>
             Building {building}
             &nbsp;(
-            <Countdown
-              current={worldTime}
-              timeLeft={buildEnd - worldTime}
-              format={(v, f) => f.substr(3)}
-            />
-            )
+            <Countdown current={worldTime} timeLeft={buildEnd - worldTime} format={(v, f) => f.substr(3)} />)
           </Stack.Item>
         </Stack>
       </ProgressBar.Countdown>
@@ -197,9 +181,7 @@ const Building = (properties, context) => {
 const Queue = (properties, context) => {
   const { act, data } = useBackend(context);
   const { queue, processingQueue } = data;
-  const queueDeficit = Object.entries(data.queueDeficit).filter(
-    (a) => a[1] < 0
-  );
+  const queueDeficit = Object.entries(data.queueDeficit).filter((a) => a[1] < 0);
   const queueTime = queue.reduce((a, b) => a + b.time, 0);
   return (
     <Section
@@ -215,12 +197,7 @@ const Queue = (properties, context) => {
             content="Process"
             onClick={() => act('process')}
           />
-          <Button
-            disabled={queue.length === 0}
-            icon="eraser"
-            content="Clear"
-            onClick={() => act('unqueueall')}
-          />
+          <Button disabled={queue.length === 0} icon="eraser" content="Clear" onClick={() => act('unqueueall')} />
         </Box>
       }
     >
@@ -273,9 +250,7 @@ const Queue = (properties, context) => {
                 Processing time:
                 <Icon name="clock" mx="0.5rem" />
                 <Box inline bold>
-                  {new Date((queueTime / 10) * 1000)
-                    .toISOString()
-                    .substr(14, 5)}
+                  {new Date((queueTime / 10) * 1000).toISOString().substr(14, 5)}
                 </Box>
               </Stack.Item>
             )}
@@ -307,14 +282,7 @@ const MaterialCount = (properties, context) => {
   }
   const insufficient = amount && amount > storedAmount;
   return (
-    <Stack
-      align="center"
-      className={classes([
-        'Exofab__material',
-        lineDisplay && 'Exofab__material--line',
-      ])}
-      {...rest}
-    >
+    <Stack align="center" className={classes(['Exofab__material', lineDisplay && 'Exofab__material--line'])} {...rest}>
       {!lineDisplay ? (
         <>
           <Stack.Item basis="content">
@@ -325,8 +293,7 @@ const MaterialCount = (properties, context) => {
           <Stack.Item grow="1">
             <Box className="Exofab__material--name">{id}</Box>
             <Box className="Exofab__material--amount">
-              {curAmount.toLocaleString('en-US')} cm³ (
-              {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
+              {curAmount.toLocaleString('en-US')} cm³ ({Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
               sheets)
             </Box>
           </Stack.Item>
@@ -334,12 +301,7 @@ const MaterialCount = (properties, context) => {
       ) : (
         <>
           <Stack.Item className={classes(['materials32x32', id])} />
-          <Stack.Item
-            className="Exofab__material--amount"
-            color={insufficient && 'bad'}
-            ml={0}
-            mr={1}
-          >
+          <Stack.Item className="Exofab__material--amount" color={insufficient && 'bad'} ml={0} mr={1}>
             {curAmount.toLocaleString('en-US')}
           </Stack.Item>
         </>
@@ -386,4 +348,78 @@ const Design = (properties, context) => {
       </Stack>
     </Box>
   );
+};
+
+const LinkMenu = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const { controllers } = data;
+
+  return (
+    <Window>
+      <Window.Content>
+        <Section title="Setup Linkage">
+          <Table m="0.5rem">
+            <Table.Row header>
+              <Table.Cell>Network Address</Table.Cell>
+              <Table.Cell>Network ID</Table.Cell>
+              <Table.Cell>Link</Table.Cell>
+            </Table.Row>
+            {controllers.map((c) => (
+              <Table.Row key={c.addr}>
+                <Table.Cell>{c.addr}</Table.Cell>
+                <Table.Cell>{c.net_id}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    content="Link"
+                    icon="link"
+                    onClick={() =>
+                      act('linktonetworkcontroller', {
+                        target_controller: c.addr,
+                      })
+                    }
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
+      </Window.Content>
+    </Window>
+  );
+};
+
+const LevelsModal = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { tech_levels } = data;
+
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
+
+  if (showLevelsModal) {
+    return (
+      <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
+        <Section
+          title="Current tech levels"
+          buttons={
+            <Button
+              content="Close"
+              onClick={() => {
+                setShowLevelsModal(false);
+              }}
+            />
+          }
+        >
+          <LabeledList>
+            {tech_levels.map(({ name, level }) => (
+              <LabeledList.Item label={name} key={name}>
+                {level}
+              </LabeledList.Item>
+            ))}
+          </LabeledList>
+        </Section>
+      </Modal>
+    );
+  } else {
+    return null;
+  }
 };

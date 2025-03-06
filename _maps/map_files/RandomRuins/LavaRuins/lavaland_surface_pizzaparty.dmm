@@ -2,85 +2,82 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "c" = (
 /obj/structure/lattice,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
 /turf/simulated/wall,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/cups,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "g" = (
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "h" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "j" = (
-/obj/item/food/snacks/mushroompizzaslice,
+/obj/item/food/sliced/mushroom_pizza,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "k" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "l" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "m" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "n" = (
 /obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "o" = (
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "p" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "q" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "r" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
@@ -89,19 +86,19 @@
 	name = "party hat"
 	},
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "s" = (
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "t" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "u" = (
 /obj/structure/glowshroom,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "v" = (
 /obj/structure/lattice,
 /obj/item/chair/wood/wings,
@@ -111,74 +108,74 @@
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "x" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/effect/spawner/random/pizzaparty,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "y" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "z" = (
 /obj/structure/table/wood,
 /obj/structure/glowshroom,
 /obj/item/a_gift,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "A" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "B" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "C" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/margheritapizzaslice,
+/obj/item/food/sliced/margherita_pizza,
 /obj/item/trash/plate,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/meatpizzaslice,
+/obj/item/food/sliced/meat_pizza,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "F" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/sliceable/birthdaycake,
+/obj/item/food/sliceable/birthdaycake,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "G" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "H" = (
 /obj/item/chair/wood/wings,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "I" = (
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "J" = (
 /obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "K" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
@@ -186,17 +183,17 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "L" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/a_gift,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "N" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
@@ -206,85 +203,88 @@
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "P" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "Q" = (
 /turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
+"Y" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
 a
-b
-b
+Y
+Y
 a
 a
-b
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 a
 a
 a
 "}
 (2,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 c
 c
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 a
 a
 "}
 (3,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 c
 c
 e
 e
 c
 c
-b
-b
-b
+Y
+Y
+Y
 a
 "}
 (4,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
-b
+Y
 c
 c
 e
@@ -294,17 +294,17 @@ e
 Q
 e
 d
-b
-b
+Y
+Y
 a
 "}
 (5,1,1) = {"
 a
-b
-b
-b
+Y
+Y
+Y
 d
-b
+Y
 m
 e
 w
@@ -314,15 +314,15 @@ h
 h
 e
 d
-b
-b
-b
+Y
+Y
+Y
 "}
 (6,1,1) = {"
 a
-b
-b
-b
+Y
+Y
+Y
 d
 f
 n
@@ -333,16 +333,16 @@ e
 M
 e
 c
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 "}
 (7,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
 g
 o
@@ -352,17 +352,17 @@ C
 J
 h
 d
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (8,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 e
 h
 p
@@ -372,16 +372,16 @@ D
 K
 M
 d
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (9,1,1) = {"
-b
-b
-b
+Y
+Y
+Y
 c
 e
 i
@@ -392,16 +392,16 @@ E
 h
 h
 c
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (10,1,1) = {"
-b
-b
-b
+Y
+Y
+Y
 c
 e
 j
@@ -412,17 +412,17 @@ F
 q
 N
 c
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (11,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 e
 e
 h
@@ -432,17 +432,17 @@ G
 q
 h
 c
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (12,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
 k
 h
@@ -452,17 +452,17 @@ H
 h
 O
 d
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 "}
 (13,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
 k
 h
@@ -472,17 +472,17 @@ s
 o
 n
 d
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 a
 "}
 (14,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
 l
 i
@@ -492,17 +492,17 @@ I
 L
 P
 d
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 a
 "}
 (15,1,1) = {"
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 d
 d
 e
@@ -512,48 +512,48 @@ e
 e
 d
 d
-b
-b
-b
-b
+Y
+Y
+Y
+Y
 a
 "}
 (16,1,1) = {"
 a
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
 c
 v
-b
+Y
 c
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 "}
 (17,1,1) = {"
 a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 a
 a
@@ -563,14 +563,14 @@ a
 a
 a
 a
-b
-b
-b
-b
-b
-b
-b
-b
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
 a
 a
 a

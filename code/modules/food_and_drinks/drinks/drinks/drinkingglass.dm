@@ -15,9 +15,9 @@
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
-/obj/item/reagent_containers/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/snacks/egg)) //breaking eggs
-		var/obj/item/food/snacks/egg/E = I
+/obj/item/reagent_containers/drinks/drinkingglass/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/food/egg)) //breaking eggs
+		var/obj/item/food/egg/E = I
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
@@ -52,8 +52,8 @@
 			overlays += I
 	else
 		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+		name = initial(name)
+		desc = initial(desc)
 
 // for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/drinks/drinkingglass/soda
@@ -68,3 +68,6 @@
 
 /obj/item/reagent_containers/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+
+/obj/item/reagent_containers/drinks/drinkingglass/jungle_vox
+	list_reagents = list("junglevox" = 50)

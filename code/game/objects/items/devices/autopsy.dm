@@ -4,7 +4,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "autopsy_scanner"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
@@ -72,7 +72,7 @@
 	if(Adjacent(user))
 		. += "<span class='notice'>You can use a pen on it to quickly write a coroner's report.</span>"
 
-/obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
+/obj/item/autopsy_scanner/attackby__legacy__attackchain(obj/item/P, mob/user)
 	if(!is_pen(P))
 		return ..()
 
@@ -86,10 +86,9 @@
 	R.name = "Official Coroner's Report - [dead_name]"
 	R.info = "<b><center>[station_name()] - Coroner's Report</b></center><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [rank]<br><br><b>Time of Death:</b> [tod]<br><br><b>Cause of Death:</b> [cause]<br><br><b>Trace Chemicals:</b> [chems]<br><br><b>Additional Coroner's Notes:</b> [notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	sleep(1 SECONDS)
 	user.put_in_hands(R)
 
-/obj/item/autopsy_scanner/attack_self(mob/user)
+/obj/item/autopsy_scanner/attack_self__legacy__attackchain(mob/user)
 	var/scan_data = ""
 
 	if(timeofdeath)
@@ -157,7 +156,7 @@
 
 	user.put_in_hands(P)
 
-/obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
+/obj/item/autopsy_scanner/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/carbon/user)
 	if(!istype(M))
 		return
 

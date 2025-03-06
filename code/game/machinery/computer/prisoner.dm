@@ -21,16 +21,17 @@
 	GLOB.prisoncomputer_list -= src
 	return ..()
 
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/prisoner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)
-		var/obj/item/card/id/prisoner/I = O
+		var/obj/item/card/id/prisoner/I = used
 		if(istype(I) && user.drop_item())
 			I.forceMove(src)
 			inserted_id_uid = I.UID()
-			return
-	if(ui_login_attackby(O, user))
-		return
+			return ITEM_INTERACT_COMPLETE
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/prisoner/attack_ai(mob/user)
@@ -41,11 +42,6 @@
 		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
-
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
-	if(ui_login_attackby(O, user))
-		return
-	return ..()
 
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/bio_chip/I)
 	var/turf/implant_location = get_turf(I)

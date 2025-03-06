@@ -15,6 +15,7 @@
 	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
+	var/antimagic_flags = MAGIC_RESISTANCE
 	origin_tech = null
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
@@ -23,7 +24,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag)
+/obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
@@ -31,6 +32,9 @@
 			return
 		else
 			no_den_usage = 0
+	if(!user.can_cast_magic(antimagic_flags))
+		to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
+		return FALSE
 	..()
 
 /obj/item/gun/magic/can_shoot()
@@ -87,5 +91,5 @@
 
 /obj/item/gun/magic/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, fire_sound, 50, 1, -1)
+	playsound(loc, fire_sound, 50, TRUE, -1)
 	return FIRELOSS

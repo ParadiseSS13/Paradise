@@ -12,7 +12,7 @@
 /// Causes the detach proc to be called when the host object is being deleted
 #define ELEMENT_DETACH_ON_HOST_DESTROY		(1 << 0)
 /**
-  * Only elements created with the same arguments given after `id_arg_index` share an element instance
+  * Only elements created with the same arguments given after `argument_hash_start_idx` share an element instance
   * The arguments are the same when the text and number values are the same and all other values have the same ref
   */
 #define ELEMENT_BESPOKE		(1 << 1)
@@ -28,13 +28,6 @@
 #define COMPONENT_DUPE_UNIQUE_PASSARGS	4
 /// each component of the same type is consulted as to whether the duplicate should be allowed
 #define COMPONENT_DUPE_SELECTIVE		5
-
-//Redirection component init flags
-#define REDIRECT_TRANSFER_WITH_TURF 1
-
-//Arch
-#define ARCH_PROB "probability"					//Probability for each item
-#define ARCH_MAXDROP "max_drop_amount"				//each item's max drop amount
 
 //Ouch my toes!
 #define CALTROP_BYPASS_SHOES 1

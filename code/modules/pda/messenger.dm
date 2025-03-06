@@ -59,7 +59,7 @@
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
 	data["ringtone"] = pda.ttone
-	data["ringtone_list"] = pda.ttone_sound
+	data["ringtone_list"] = GLOB.pda_ringtone_choices
 
 /datum/data/pda/app/messenger/ui_act(action, list/params)
 	if(..())

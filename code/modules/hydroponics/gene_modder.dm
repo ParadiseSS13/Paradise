@@ -6,22 +6,36 @@
 	icon_state = "dnamod"
 	density = TRUE
 	anchored = TRUE
-
+	/// the seed stored in the machine
 	var/obj/item/seeds/seed
+	/// the disk in use
 	var/obj/item/disk/plantgene/disk
-
+	/// list of the seed's trait genes
 	var/list/core_genes = list()
+	/// list of the seed's trait genes
 	var/list/reagent_genes = list()
+	/// list of the seed's trait genes
 	var/list/trait_genes = list()
-
+	/// disk capacity
+	var/disk_capacity = 100
+	/// gene targeted for operation
 	var/datum/plant_gene/target
+	/// maximum potency that can be put on a disk
 	var/max_potency = 50 // See RefreshParts() for how these work
+	/// maximum yield that can be put on a disk
 	var/max_yield = 2
+	/// minimum production that can be put on a disk
 	var/min_production = 12
+	/// maximum endurance that can be put on a disk
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
+	/// minimum weed growth chance that can be put on a disk
 	var/min_weed_chance = 67
+	/// minimum weed growth rate that can be put on a disk
 	var/min_weed_rate = 10
+	/// amount of seeds needed to make a core stat disk
 	var/seeds_for_bulk_core = 5
+	/// index of disk in use in the content list
+	var/disk_index = 0
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -44,12 +58,14 @@
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+	seed = null
+	disk = null
 	core_genes.Cut()
 	reagent_genes.Cut()
 	trait_genes.Cut()
 	target = null
-	QDEL_NULL(seed)
-	QDEL_NULL(disk)
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
@@ -114,26 +130,27 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
+/obj/machinery/plantgenes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", used))
 		update_icon(UPDATE_OVERLAYS)
-		return
-	if(exchange_parts(user, I))
-		return
-	if(default_deconstruction_crowbar(user, I))
-		return
-	if(isrobot(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/seeds))
-		add_seed(I, user)
-	else if(istype(I, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
-		return ..()
-	else if(istype(I, /obj/item/disk/plantgene))
-		add_disk(I, user)
-	else
-		return ..()
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [used] first!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/seeds))
+		add_seed(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/disk/plantgene) || istype(used, /obj/item/storage/box))
+		add_disk(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
 	if(seed)
@@ -146,13 +163,31 @@
 	ui_interact(user)
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
-	if(disk)
-		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
+	if(length(contents) - (seed ? 1 : 0) >= disk_capacity)
+		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
+		return
+	if(istype(new_disk, /obj/item/storage/box))
+		var/has_disks = FALSE
+		for(var/obj/item/disk/plantgene/D in new_disk.contents)
+			if(length(contents)- (seed ? 1 : 0) >= disk_capacity)
+				to_chat(user, "<span class='notice'>You fill [src] with disks.</span>")
+				break
+			has_disks = TRUE
+			D.forceMove(src)
+			if(!disk)
+				disk = D
+		if(has_disks)
+			playsound(loc, 'sound/items/handling/cardboardbox_drop.ogg', 50)
+			to_chat(user, "<span class='notice'>You load [src] from [new_disk].</span>")
+		else
+			to_chat(user, "<span class='notice'>[new_disk] contains no disks.</span>")
+		SStgui.update_uis(src)
 		return
 	if(!user.drop_item())
 		return
-	disk = new_disk
-	disk.forceMove(src)
+	if(!disk)
+		disk = new_disk
+	new_disk.forceMove(src)
 	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
 	ui_interact(user)
 
@@ -244,6 +279,40 @@
 
 	data["modal"] = ui_modal_data(src)
 
+	var/list/stats = list()
+	var/list/traits = list()
+	var/list/reagents = list()
+	var/empty_disks = 0
+
+	data["stat_disks"] = list()
+	data["trait_disks"] = list()
+	data["reagent_disks"] = list()
+
+	for(var/i in 1 to length(contents))
+		if(istype(contents[i], /obj/item/disk/plantgene))
+			var/obj/item/disk/plantgene/D = contents[i]
+			if(!D.gene && !D.is_bulk_core)
+				empty_disks++
+			else if(D.is_bulk_core)
+				stats.Add(list(list("display_name" = D.ui_name, "index" = i, "stat" = "All", "ready" = D.seeds_needed <= D.seeds_scanned, "read_only" = D.read_only)))
+			else if(istype(D.gene, /datum/plant_gene/core))
+				var/datum/plant_gene/core/C = D.gene
+				stats.Add(list(list("display_name" = C.name +" "+ num2text(C.value), "index" = i, "stat" = C.name, "read_only" = D.read_only)))
+			else if(istype(D.gene, /datum/plant_gene/trait))
+				var/insertable = D.gene?.can_add(seed)
+				traits.Add(list(list("display_name" = D.gene.name, "index" = i, "can_insert" = insertable, "read_only" = D.read_only)))
+			else if(istype(D.gene, /datum/plant_gene/reagent))
+				var/datum/plant_gene/reagent/R = D.gene
+				var/insertable = R?.can_add(seed)
+				reagents.Add(list(list("display_name" = "[R.name] [num2text(R.rate*200)]%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
+	if(length(stats))
+		data["stat_disks"] = stats
+	if(length(traits))
+		data["trait_disks"] = traits
+	if(length(reagents))
+		data["reagent_disks"] = reagents
+	data["empty_disks"] = empty_disks
+
 	return data
 
 /obj/machinery/plantgenes/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -258,13 +327,19 @@
 
 	var/mob/user = ui.user
 
-	target = seed?.get_gene(params["id"])
+	if(params["id"])
+		target = seed?.get_gene(params["id"])
+	else if(params["stat"] && params["stat"] != "All")
+		for(var/datum/plant_gene/core/c_gene in core_genes)
+			if(c_gene.name == params["stat"])
+				target = c_gene
 
 	switch(action)
 		if("eject_seed")
 			if(seed)
 				seed.forceMove(loc)
-				user.put_in_hands(seed)
+				if(Adjacent(user) && !issilicon(user))
+					user.put_in_hands(seed)
 				seed = null
 				update_genes()
 				update_icon(UPDATE_OVERLAYS)
@@ -274,9 +349,11 @@
 					add_seed(I, user)
 
 		if("eject_disk")
-			if(disk)
-				disk.forceMove(loc)
-				user.put_in_hands(disk)
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			if(D)
+				D.forceMove(loc)
+				if(Adjacent(user) && !issilicon(user))
+					user.put_in_hands(D)
 				disk = null
 				update_genes()
 			else
@@ -312,23 +389,47 @@
 			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate = PROC_REF(gene_extract))
 
 		if("bulk_replace_core")
+			disk_index = text2num(params["index"])
 			ui_modal_boolean(src, action, "Are you sure you want to replace ALL core genes of the [seed]?" , yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(bulk_replace_core))
 
 		if("replace")
-			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(gene_replace))
+			disk_index = text2num(params["index"])
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [D.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(gene_replace))
 
 		if("remove")
 			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate = PROC_REF(gene_remove))
 
 		if("insert")
-			if(!istype(disk.gene, /datum/plant_gene/core) && !disk.is_bulk_core && disk.gene.can_add(seed))
-				seed.genes += disk.gene.Copy()
-				if(istype(disk.gene, /datum/plant_gene/reagent))
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			if(D.gene && (istype(D.gene, /datum/plant_gene/trait) || istype(D.gene, /datum/plant_gene/reagent)) && D.gene.can_add(seed))
+				seed.genes += D.gene.Copy()
+				if(istype(D.gene, /datum/plant_gene/reagent))
 					seed.reagents_from_genes()
 				update_genes()
 				repaint_seed()
-				// this doesnt need a modal, its easy enough to just remove the inserted gene
 
+		if("select")
+			disk = contents[text2num(params["index"])]
+
+		if("select_empty_disk")
+			for(var/obj/item/disk/plantgene/D in contents)
+				if(!D.gene && !D.is_bulk_core)
+					disk =	D
+					return
+
+		if("eject_empty_disk")
+			for(var/obj/item/disk/plantgene/D in contents)
+				if(!D.gene && !D.is_bulk_core)
+					D.forceMove(loc)
+					if(Adjacent(user) && !issilicon(user))
+						user.put_in_hands(D)
+					update_genes()
+					return
+			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
+		if("set_read_only")
+			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
+			D.read_only = !D.read_only
 
 /obj/machinery/plantgenes/proc/gene_remove()
 	if(istype(target, /datum/plant_gene/core))
@@ -353,21 +454,27 @@
 		else
 			core_gene.value = min(core_gene.value, genemod_var)
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
+	//replace with empty disk if possible
+	for(var/obj/item/disk/plantgene/D in contents)
+		if(!D.gene && !D.is_bulk_core)
+			disk = D
+			return
 
 /obj/machinery/plantgenes/proc/gene_replace()
-	if(!disk?.gene || disk.is_bulk_core)
+	var/obj/item/disk/plantgene/D = contents[disk_index]
+	if(!D?.gene || D.is_bulk_core)
 		return
 	if(!istype(target, /datum/plant_gene/core))
 		return
-	if(!istype(disk.gene, target.type))
+	if(!istype(D.gene, target.type))
 		return // you can't replace a endurance gene with a weed chance gene, etc
 	seed.genes -= target
-	var/datum/plant_gene/core/C = disk.gene.Copy()
+	var/datum/plant_gene/core/C = D.gene.Copy()
 	seed.genes += C
 	C.apply_stat(seed)
 	repaint_seed()
@@ -389,21 +496,28 @@
 			var/datum/plant_gene/core/C = gene.Copy()
 			disk.core_genes += C
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()
 	target = null
 
+	if(disk.seeds_scanned >= disk.seeds_needed)
+		for(var/obj/item/disk/plantgene/D in contents)
+			if(!D.gene && (!D.is_bulk_core))
+				disk = D
+				return
+
 /obj/machinery/plantgenes/proc/bulk_replace_core()
-	if(!disk?.is_bulk_core)
+	var/obj/item/disk/plantgene/D = contents[disk_index]
+	if(!D?.is_bulk_core)
 		return
-	if(disk.seeds_scanned < disk.seeds_needed)
+	if(D.seeds_scanned < D.seeds_needed)
 		return
 	for(var/datum/plant_gene/gene in seed.genes)
 		if(istype(gene, /datum/plant_gene/core))
 			seed.genes -= gene
-	for(var/datum/plant_gene/core/gene in disk.core_genes)
+	for(var/datum/plant_gene/core/gene in D.core_genes)
 		var/datum/plant_gene/core/C = gene.Copy()
 		seed.genes += C
 		C.apply_stat(seed)
@@ -450,9 +564,8 @@
 	seed.name = "experimental " + seed.name
 	seed.icon_state = "seed-x"
 
-/*
- *  Plant DNA disk
- */
+// MARK: Plant Disk
+
 
 /obj/item/disk/plantgene
 	name = "plant data disk"
@@ -473,13 +586,13 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/disk/plantgene/Destroy()
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/plantgene/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(is_pen(W))
 		rename_interactive(user, W)
@@ -527,7 +640,7 @@
 /obj/item/disk/plantgene/update_desc()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		desc = "Better keep this safe."
+		desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 		return
 
 	desc = "A disk for storing plant genetic data."
@@ -540,14 +653,7 @@
 
 	icon_state = "datadisk_hydro"
 
-/obj/item/disk/plantgene/update_overlays()
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
-
-	. += "datadisk_gene"
-
-/obj/item/disk/plantgene/attack_self(mob/user)
+/obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	read_only = !read_only
@@ -559,6 +665,8 @@
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		return TRUE
+	return FALSE
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
@@ -570,3 +678,21 @@
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
 		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+	else
+		. += "<span class='warning'>You should keep this safe...</span>"
+
+/obj/item/disk/plantgene/examine_more(mob/user)
+	. = ..()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+
+	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
+		. += "<span class='danger'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
+		. += "<span class='userdanger'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
+		return
+
+	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."
+	. += ""
+	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or mallicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."

@@ -95,7 +95,7 @@
 	if(queen_bee)
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST && length(honeycombs) < get_max_honeycomb())
 			bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-			var/obj/item/food/snacks/honeycomb/HC = new(src)
+			var/obj/item/food/honeycomb/HC = new(src)
 			if(queen_bee.beegent)
 				HC.set_reagent(queen_bee.beegent.id)
 			honeycombs += HC
@@ -146,11 +146,11 @@
 		. += "<span class='warning'>there's no room for more honeycomb!</span>"
 
 
-/obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+/obj/structure/beebox/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(length(honey_frames) < BEEBOX_MAX_FRAMES)
-			if(!user.unEquip(HF))
+			if(!user.unequip(HF))
 				return
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			HF.forceMove(src)
@@ -165,9 +165,8 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!user.unEquip(qb))
+		if(!user.transfer_item_to(qb, src))
 			return
-		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
 		qb.queen = null
@@ -240,7 +239,7 @@
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
 						while(length(honeycombs) && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-							var/obj/item/food/snacks/honeycomb/HC = pick_n_take(honeycombs)
+							var/obj/item/food/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.forceMove(get_turf(src))
 								amtH--

@@ -10,7 +10,7 @@
 
 	var/turf/T = get_turf(src)
 	if(stat != CONSCIOUS) //ai's fucked
-		cameraFollow = null
+		camera_follow = null
 		reset_perspective(null)
 		unset_machine()
 
@@ -22,8 +22,9 @@
 	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()
 
-	if(machine)
-		machine.check_eye(src)
+	// Do holopad AI checks
+	if(istype(machine, /obj/machinery/hologram))
+		check_holopad_eye()
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")

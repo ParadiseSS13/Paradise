@@ -29,17 +29,16 @@
 	. = ..()
 	. += "<span class='warning'>You can <b>Alt-Click</b> [src] to activate it.</span>"
 
-/obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		var/obj/structure/chair/C = new /obj/structure/chair(loc)
-		playsound(loc, W.usesound, 50, 1)
-		C.dir = dir
-		part.loc = loc
-		part.master = null
-		part = null
-		qdel(src)
-		return
-	return ..()
+/obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	var/obj/structure/chair/C = new /obj/structure/chair(loc)
+	I.play_tool_sound(src, 50)
+	C.dir = dir
+	part.loc = loc
+	part.master = null
+	part = null
+	visible_message("<span class='warning'>[user] deconstructs [src].</span>")
+	qdel(src)
 
 /obj/structure/chair/e_chair/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

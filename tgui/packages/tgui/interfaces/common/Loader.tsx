@@ -7,10 +7,7 @@ export const Loader = (props) => {
 
   return (
     <div className="AlertModal__Loader">
-      <Box
-        className="AlertModal__LoaderProgress"
-        style={{ width: clamp01(value) * 100 + '%' }}
-      />
+      <Box className="AlertModal__LoaderProgress" style={{ width: clamp01(value) * 100 + '%' }} />
     </div>
   );
 };

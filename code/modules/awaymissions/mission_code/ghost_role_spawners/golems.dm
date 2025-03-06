@@ -13,7 +13,7 @@
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/alive/golem/servant
 
-/obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/golem_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/metal						= /datum/species/golem,
@@ -166,41 +166,44 @@
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 
-/obj/effect/mob_spawn/human/alive/golem/attackby(obj/item/I, mob/living/carbon/user, params)
-	if(!istype(I, /obj/item/slimepotion/transference))
-		return ..()
-	if(iscarbon(user) && can_transfer)
+/obj/effect/mob_spawn/human/alive/golem/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/slimepotion/transference) && iscarbon(user) && can_transfer)
 		var/human_transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes", "No"))
-		if(human_transfer_choice != "Yes")
-			return
-		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
-			return
-		if(istype(src, /obj/effect/mob_spawn/human/alive/golem/servant) && !isgolem(user))
+		if(human_transfer_choice != "Yes" || QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(used))
+			return ITEM_INTERACT_COMPLETE
+		handle_becoming_golem(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/effect/mob_spawn/human/alive/golem/proc/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
+	if(isgolem(user) && can_transfer)
+		var/datum/species/golem/g = user.dna.species
+		if(g.owner)
+			has_owner = TRUE
+			owner = g.owner
+		else
 			has_owner = FALSE
-		if(isgolem(user) && can_transfer)
-			var/datum/species/golem/g = user.dna.species
-			if(g.owner)
-				has_owner = TRUE
-				owner = g.owner
-			else
-				has_owner = FALSE
-				owner = null
-		flavour_text = null
-		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
-		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
-		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
-		var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
-		user.mind.transfer_to(g)
-		g.real_name = user.real_name
-		g.faction = user.faction
-		user.death()  //Keeps brain intact to prevent forcing redtext
-		to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
-		qdel(I)
+			owner = null
+	flavour_text = null
+	user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
+	"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+	message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
+	var/mob/living/carbon/human/g = create() //Create the golem and prep mind transfer stuff
+	user.mind.transfer_to(g)
+	g.real_name = user.real_name
+	g.faction = user.faction
+	user.death()  //Keeps brain intact to prevent forcing redtext
+	to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
+	qdel(I)
 
 /obj/effect/mob_spawn/human/alive/golem/servant
 	has_owner = TRUE
 	name = "inert servant golem shell"
 	mob_name = "a servant golem"
+
+/obj/effect/mob_spawn/human/alive/golem/servant/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
+	if(!isgolem(user))
+		has_owner = FALSE
+	return ..()
 
 /obj/effect/mob_spawn/human/alive/golem/adamantine
 	name = "dust-caked free golem shell"
@@ -208,3 +211,4 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
+	assignedrole = "Free Golem"

@@ -2,9 +2,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 /datum/antagonist/vampire
 	name = "Vampire"
+	job_rank = ROLE_VAMPIRE
+	special_role = SPECIAL_ROLE_VAMPIRE
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
-	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
 	var/bloodtotal = 0
 	var/bloodusable = 0
@@ -36,9 +37,15 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	blurb_a = 1
 
 /datum/antagonist/vampire/Destroy(force, ...)
-	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
+	return ..()
+
+/datum/antagonist/vampire/detach_from_owner()
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
+	if(ishuman(owner.current))
+		var/mob/living/carbon/human/human_owner = owner.current
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
@@ -87,6 +94,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	mob_override.dna?.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
+	UnregisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK)
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -114,7 +122,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
+		if((H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)) && !HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -130,7 +138,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		else
 			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
 			break
-		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
 			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
@@ -226,14 +234,14 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
 		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100)
+		if(owner.current.getCloneLoss() >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/handle_vampire()
@@ -258,24 +266,25 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	if(!ishuman(owner.current))
 		owner.current.alpha = 255
 		return
-	var/turf/simulated/T = get_turf(owner.current)
+	var/mob/living/carbon/human/human_owner = owner.current
+	var/turf/simulated/T = get_turf(human_owner)
 	var/light_available = T.get_lumcount() * 10
 
 	if(!istype(T))
 		return
 
-	if(!iscloaking || owner.current.on_fire)
-		owner.current.alpha = 255
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	if(!iscloaking || human_owner.on_fire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
+		REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	if(light_available <= 2)
-		owner.current.alpha = 38 // round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.15, src)
+		ADD_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	owner.current.alpha = 204 // 255 * 0.80
+	REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.80, src)
 
 /**
  * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
@@ -355,8 +364,21 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
+	RegisterSignal(mob_override, COMSIG_ATOM_HOLY_ATTACK, PROC_REF(holy_attack_reaction))
 
-
+/datum/antagonist/vampire/proc/holy_attack_reaction(mob/target, obj/item/source, mob/user, antimagic_flags)
+	SIGNAL_HANDLER // COMSIG_ATOM_HOLY_ATTACK
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY)) // Sec officer with a nullrod, or miner with a talisman, does not get to do this
+		return
+	if(!source.force) // Needs force to work.
+		return
+	var/bonus_force = 0
+	if(istype(source, /obj/item/nullrod))
+		var/obj/item/nullrod/N = source
+		bonus_force = N.sanctify_force
+	if(!get_ability(/datum/vampire_passive/full))
+		to_chat(owner.current, "<span class='warning'>[source]'s power interferes with your own!</span>")
+		adjust_nullification(30 + bonus_force, 15 + bonus_force)
 
 /datum/antagonist/vampire/custom_blurb()
 	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."

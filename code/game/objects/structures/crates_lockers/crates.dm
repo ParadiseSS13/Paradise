@@ -37,7 +37,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
 				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
@@ -77,10 +77,8 @@
 			continue
 		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
+		if(O.has_buckled_mobs()) // You can't put mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+			continue
 		O.forceMove(src)
 		itemcount++
 
@@ -88,7 +86,7 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
@@ -162,7 +160,7 @@
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in announce_beacons[destination])
-				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
+				D.createMessage(name, "Your Crate has Arrived!", msg, RQ_NORMALPRIORITY)
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
@@ -308,7 +306,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 
@@ -385,6 +383,13 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
+/obj/structure/closet/crate/freezer/deluxe
+	name = "Deluxe Freezer"
+	desc = "A fancy looking freezer emblazoned with the Nanotrasen logo."
+	icon_state = "freezerdeluxe"
+	icon_opened = "freezerdeluxe_open"
+	icon_closed = "freezerdeluxe"
+
 /obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = ..()
@@ -411,12 +416,12 @@
 	desc = "A freezer used to store IV bags containing various blood types."
 
 /obj/structure/closet/crate/freezer/iv_storage/populate_contents()
-	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_plus(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
@@ -599,9 +604,9 @@
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -680,3 +685,24 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin
+	name = "locked crate"
+	desc = "The side of the crate has a slot for a keycard to be swiped."
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
+	if(!user)
+		return
+
+	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
+	if(!istype(keycard))
+		return
+
+	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	return TRUE
+
+/obj/item/card/sec_shuttle_ruin
+	name = "warden's card"
+	desc = "A card used by the warden to unlock their crate."
+	icon_state = "data"

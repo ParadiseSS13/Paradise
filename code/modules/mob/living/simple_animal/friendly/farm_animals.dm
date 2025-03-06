@@ -12,7 +12,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat = 4)
+	butcher_results = list(/obj/item/food/meat = 4)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -53,7 +53,7 @@
 
 	eat_plants()
 	if(!pulledby)
-		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+		for(var/direction in shuffle(GLOB.alldirs))
 			var/step = get_step(src, direction)
 			if(step)
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
@@ -70,10 +70,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	. = ..()
-	if(!stat)
+	if(stat == CONSCIOUS)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/retaliate/goat/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 	else
@@ -122,7 +122,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat/slab = 6)
+	butcher_results = list(/obj/item/food/meat/slab = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -138,7 +138,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -146,7 +146,7 @@
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/cow/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return TRUE
@@ -159,17 +159,19 @@
 		udder.generateMilk()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
-	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
+	if(stat == CONSCIOUS && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
-			if(!stat && M)
+			if(stat == CONSCIOUS && M)
 				icon_state = icon_living
-				var/list/responses = list(	"[src] looks at you imploringly.",
-											"[src] looks at you pleadingly",
-											"[src] looks at you with a resigned expression.",
-											"[src] seems resigned to its fate.")
+				var/list/responses = list(
+					"[src] looks at you imploringly.",
+					"[src] looks at you pleadingly",
+					"[src] looks at you with a resigned expression.",
+					"[src] seems resigned to its fate."
+				)
 				to_chat(M, pick(responses))
 	else
 		..()
@@ -202,7 +204,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/food/snacks/meat/chicken = 1)
+	butcher_results = list(/obj/item/food/meat/chicken = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -219,10 +221,13 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chick/New()
-	..()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+/mob/living/simple_animal/chick/Initialize(mapload)
+	. = ..()
+	scatter_atom()
+
+/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-6, 6) + x_offset
+	pixel_y = rand(0, 10) + y_offset
 
 /mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
@@ -236,7 +241,7 @@
 				mind.transfer_to(C)
 			if(pcollar)
 				var/the_collar = pcollar
-				unEquip(pcollar)
+				drop_item_to_ground(pcollar)
 				C.add_collar(the_collar)
 			qdel(src)
 
@@ -267,9 +272,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/food/snacks/meat/chicken = 2)
-	var/egg_type = /obj/item/food/snacks/egg
-	var/food_type = /obj/item/food/snacks/grown/wheat
+	butcher_results = list(/obj/item/food/meat/chicken = 2)
+	var/egg_type = /obj/item/food/egg
+	var/food_type = /obj/item/food/grown/wheat
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -292,16 +297,20 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chicken/New()
-	..()
+/mob/living/simple_animal/chicken/Initialize(mapload)
+	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
 	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+	scatter_atom()
+	update_appearance(UPDATE_ICON_STATE)
 	GLOB.chicken_count += 1
+
+/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-6, 6) + x_offset
+	pixel_y = rand(0, 10) + y_offset
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
@@ -310,9 +319,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/chicken/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
-		if(!stat && eggsleft < 8)
+		if(stat == CONSCIOUS && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
 			user.visible_message(feedmsg)
 			user.drop_item()
@@ -335,13 +344,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
-		E.pixel_x = rand(-6,6)
-		E.pixel_y = rand(-6,6)
+		E.scatter_atom()
 		if(eggsFertile)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/food/snacks/egg/process()
+/obj/item/food/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
@@ -392,7 +400,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat/ham = 6)
+	butcher_results = list(/obj/item/food/meat/ham = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -418,7 +426,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat = 4)
+	butcher_results = list(/obj/item/food/meat = 4)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -443,7 +451,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/food/meat = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -468,7 +476,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/food/meat = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -493,7 +501,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/food/meat = 6)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"

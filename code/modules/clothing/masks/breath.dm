@@ -21,7 +21,7 @@
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi'
 		)
 
-/obj/item/clothing/mask/breath/attack_self(mob/user)
+/obj/item/clothing/mask/breath/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
@@ -53,7 +53,7 @@
 	icon_state = "voxmask2"
 	item_state = "voxmask2"
 
-/obj/item/clothing/mask/breath/vox/attack_self(mob/user)
+/obj/item/clothing/mask/breath/vox/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)

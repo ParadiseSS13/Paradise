@@ -8,6 +8,7 @@
 	/// Jobs that cannot be the kidnapping target.
 	var/static/list/forbidden_jobs = list(
 		"Captain",
+		"Nanotrasen Career Trainer"
 	)
 	/// Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
@@ -157,7 +158,7 @@
 	var/list/datum/mind/target_blacklist = null
 	/// Static list that is basically [/datum/objective/contract/var/possible_zone_names] but with area names replaced by /area objects if available.
 	var/static/list/possible_zones = null
-	/// The owning [/datum/syndicatce_contract].
+	/// The owning [/datum/syndicate_contract].
 	var/datum/syndicate_contract/owning_contract = null
 	/// Name fixer regex because area names have rogue characters sometimes.
 	var/static/regex/name_fixer = regex("(\[a-z0-9 \\'\]+)$", "ig")

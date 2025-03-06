@@ -6,7 +6,7 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	target.visible_message("<span class='warning'>[user] pounds [target] on the chest!</span>", \
 					"<span class='userdanger'>[user] slams your chest! You can't breathe!</span>")
-	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.AdjustLoseBreath(10 SECONDS)
 	target.apply_damage(30, STAMINA)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)

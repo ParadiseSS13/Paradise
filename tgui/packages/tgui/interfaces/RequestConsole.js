@@ -2,6 +2,11 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Stack, Blink } from '../components';
 import { Window } from '../layouts';
 
+const RQ_NONEW_MESSAGES = 0;
+const RQ_LOWPRIORITY = 1;
+const RQ_NORMALPRIORITY = 2;
+const RQ_HIGHPRIORITY = 3;
+
 export const RequestConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { screen, announcementConsole } = data;
@@ -52,19 +57,19 @@ const MainMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { newmessagepriority, announcementConsole, silent } = data;
   let messageInfo;
-  if (newmessagepriority === 1) {
-    messageInfo = (
-      <Box color="red" bold mb={1}>
-        There are new messages
-      </Box>
-    );
-  } else if (newmessagepriority === 2) {
+  if (newmessagepriority === RQ_HIGHPRIORITY) {
     messageInfo = (
       <Blink>
         <Box color="red" bold mb={1}>
           NEW PRIORITY MESSAGES
         </Box>
       </Blink>
+    );
+  } else if (newmessagepriority > RQ_NONEW_MESSAGES) {
+    messageInfo = (
+      <Box color="red" bold mb={1}>
+        There are new messages
+      </Box>
     );
   } else {
     messageInfo = (
@@ -93,18 +98,18 @@ const MainMenu = (props, context) => {
         <Stack.Item>
           <Button
             fluid
+            translucent
             lineHeight={3}
-            color="translucent"
             content="View Messages"
-            icon={newmessagepriority > 0 ? 'envelope-open-text' : 'envelope'}
+            icon={newmessagepriority > RQ_NONEW_MESSAGES ? 'envelope-open-text' : 'envelope'}
             onClick={() => act('setScreen', { setScreen: 6 })}
           />
         </Stack.Item>
         <Stack.Item mt={1}>
           <Button
             fluid
+            translucent
             lineHeight={3}
-            color="translucent"
             content="Request Assistance"
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
@@ -112,24 +117,24 @@ const MainMenu = (props, context) => {
           <Stack.Item>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Request Supplies"
               icon="box"
               onClick={() => act('setScreen', { setScreen: 2 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Request Secondary Goal"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 11 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Relay Anonymous Information"
               icon="comment"
               onClick={() => act('setScreen', { setScreen: 3 })}
@@ -140,16 +145,16 @@ const MainMenu = (props, context) => {
           <Stack.Item>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Print Shipping Label"
               icon="tag"
               onClick={() => act('setScreen', { setScreen: 9 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="View Shipping Logs"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 10 })}
@@ -160,8 +165,8 @@ const MainMenu = (props, context) => {
           <Stack.Item mt={1}>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Send Station-Wide Announcement"
               icon="bullhorn"
               onClick={() => act('setScreen', { setScreen: 8 })}
@@ -199,33 +204,22 @@ const DepartmentList = (props, context) => {
         fill
         scrollable
         title={sectionTitle}
-        buttons={
-          <Button
-            content="Back"
-            icon="arrow-left"
-            onClick={() => act('setScreen', { setScreen: 0 })}
-          />
-        }
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
       >
         <LabeledList>
           {list2iterate
             .filter((d) => d !== department)
             .map((d) => (
-              <LabeledList.Item
-                key={d}
-                label={d}
-                textAlign="right"
-                className="candystripe"
-              >
+              <LabeledList.Item key={d} label={d} textAlign="right" className="candystripe">
                 <Button
                   content="Message"
                   icon="envelope"
-                  onClick={() => act('writeInput', { write: d, priority: '1' })}
+                  onClick={() => act('writeInput', { write: d, priority: RQ_NORMALPRIORITY })}
                 />
                 <Button
                   content="High Priority"
                   icon="exclamation-circle"
-                  onClick={() => act('writeInput', { write: d, priority: '2' })}
+                  onClick={() => act('writeInput', { write: d, priority: RQ_HIGHPRIORITY })}
                 />
               </LabeledList.Item>
             ))}
@@ -252,13 +246,7 @@ const MessageResponse = (props, context) => {
     <Section
       fill
       title={sectionTitle}
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
+      buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
     />
   );
 };
@@ -286,13 +274,7 @@ const MessageLog = (props, context) => {
         fill
         scrollable
         title={sectionTitle}
-        buttons={
-          <Button
-            content="Back"
-            icon="arrow-left"
-            onClick={() => act('setScreen', { setScreen: 0 })}
-          />
-        }
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
       >
         {list2iterate.map((m) => (
           <Box key={m} textAlign="left">
@@ -318,13 +300,7 @@ const MessageAuth = (props, context) => {
           fill
           scrollable
           title="Message Authentication"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         >
           <LabeledList>
             <LabeledList.Item label="Recipient">{recipient}</LabeledList.Item>
@@ -366,16 +342,8 @@ const StationAnnouncement = (props, context) => {
           title="Station-Wide Announcement"
           buttons={
             <>
-              <Button
-                content="Back"
-                icon="arrow-left"
-                onClick={() => act('setScreen', { setScreen: 0 })}
-              />
-              <Button
-                content="Edit Message"
-                icon="edit"
-                onClick={() => act('writeAnnouncement')}
-              />
+              <Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />
+              <Button content="Edit Message" icon="edit" onClick={() => act('writeAnnouncement')} />
             </>
           }
         >
@@ -417,19 +385,11 @@ const PrintShippingLabel = (props, context) => {
       <Stack.Item textAlign="center">
         <Section
           title="Print Shipping Label"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         >
           <LabeledList>
             <LabeledList.Item label="Destination">{shipDest}</LabeledList.Item>
-            <LabeledList.Item label="Validated by">
-              {msgVerified}
-            </LabeledList.Item>
+            <LabeledList.Item label="Validated by">{msgVerified}</LabeledList.Item>
           </LabeledList>
           <Button
             fluid
@@ -446,12 +406,7 @@ const PrintShippingLabel = (props, context) => {
         <Section fill scrollable title="Destinations">
           <LabeledList>
             {ship_dept.map((d) => (
-              <LabeledList.Item
-                label={d}
-                key={d}
-                textAlign="right"
-                className="candystripe"
-              >
+              <LabeledList.Item label={d} key={d} textAlign="right" className="candystripe">
                 <Button
                   content={shipDest === d ? 'Selected' : 'Select'}
                   selected={shipDest === d}
@@ -477,13 +432,7 @@ const SecondaryGoal = (props, context) => {
           fill
           scrollable
           title="Request Secondary Goal"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         />
       </Stack.Item>
       <Stack.Item>

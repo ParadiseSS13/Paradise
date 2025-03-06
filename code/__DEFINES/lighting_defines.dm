@@ -27,6 +27,11 @@
 		0, 0, 0, 1           \
 	)                        \
 
+// Defines that handle the current status of a light
+#define LIGHT_OK 0
+#define LIGHT_EMPTY 1
+#define LIGHT_BROKEN 2
+#define LIGHT_BURNED 3
 
 //Some defines to generalise colours used in lighting.
 //Important note on colors. Colors can end up significantly different from the basic html picture, especially when saturated

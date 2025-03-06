@@ -17,6 +17,16 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(dir)
 
+/obj/structure/chair/wheelchair/post_buckle_mob(mob/living/M)
+	. = ..()
+	handle_layer()
+	density = TRUE
+
+/obj/structure/chair/wheelchair/post_unbuckle_mob()
+	. = ..()
+	handle_layer()
+	density = FALSE
+
 /obj/structure/chair/wheelchair/relaymove(mob/user, direction)
 	if(propelled)
 		return 0
@@ -63,8 +73,6 @@
 		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
 			loc = buckled_mob.loc //we gotta go back
 			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
 			. = 0
 
 		else
@@ -76,7 +84,7 @@
 	if(!has_buckled_mobs())
 		return
 	var/mob/living/buckled_mob = buckled_mobs[1]
-	if(istype(A, /obj/machinery/door))
+	if(isairlock(A))
 		A.Bumped(buckled_mob)
 
 	if(propelled)
@@ -87,7 +95,7 @@
 
 		occupant.Weaken(12 SECONDS)
 		occupant.Stuttering(12 SECONDS)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		if(isliving(A))
 			var/mob/living/victim = A
 			victim.Weaken(12 SECONDS)

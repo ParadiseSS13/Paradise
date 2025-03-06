@@ -13,7 +13,7 @@
 	var/plural = count > 1
 	. += "There [plural ? "are" : "is"] [count] use[plural ? "s" : ""] left."
 
-/obj/item/whiteship_port_generator/attack_self(mob/living/user)
+/obj/item/whiteship_port_generator/attack_self__legacy__attackchain(mob/living/user)
 	if(is_station_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock in the station's sector at [COORD(user)].")
 		to_chat(user, "<span class='notice'>New docking areas cannot be designated within the station's sector!</span>")
@@ -103,7 +103,7 @@
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 
 	if(dock_count < max_docks)
-		to_chat(user, "<span class='info'>Landing zone set.</span>")
+		to_chat(user, "<span class='notice'>Landing zone set.</span>")
 	else
-		to_chat(user, "<span class='info'>Landing zone set. The signaller vanishes!</span>")
+		to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
 		qdel(src)
