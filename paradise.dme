@@ -1751,6 +1751,7 @@
 #include "code\modules\buildmode\submodes\link.dm"
 #include "code\modules\buildmode\submodes\mapgen.dm"
 #include "code\modules\buildmode\submodes\offer.dm"
+#include "code\modules\buildmode\submodes\portal.dm"
 #include "code\modules\buildmode\submodes\save.dm"
 #include "code\modules\buildmode\submodes\say.dm"
 #include "code\modules\buildmode\submodes\throwing.dm"

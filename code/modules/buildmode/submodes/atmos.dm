@@ -10,6 +10,8 @@
 	var/cdiox = 0
 	var/nitrox = 0
 	var/agentbx = 0
+	var/hydrogen = 0
+	var/water_vapor = 0
 
 
 /datum/buildmode_mode/atmos/show_help(mob/user)
@@ -31,6 +33,8 @@
 	cdiox = tgui_input_number(user, "CO2 ratio", "Input", 0)
 	nitrox = tgui_input_number(user, "N2O ratio", "Input", 0)
 	agentbx = tgui_input_number(user, "Agent B ratio", "Input", 0)
+	hydrogen = tgui_input_number(user, "Hydrogen ratio", "Input", 0)
+	water_vapor = tgui_input_number(user, "Water vapor ratio", "Input", 0)
 
 /datum/buildmode_mode/atmos/proc/ppratio_to_moles(ppratio)
 	// ideal gas equation: Pressure * Volume = Moles * r * Temperature
@@ -51,6 +55,8 @@
 		air.set_carbon_dioxide(ppratio_to_moles(cdiox))
 		air.set_sleeping_agent(ppratio_to_moles(nitrox))
 		air.set_agent_b(ppratio_to_moles(agentbx))
+		air.set_hydrogen(ppratio_to_moles(hydrogen))
+		air.set_water_vapor(ppratio_to_moles(water_vapor))
 
 		for(var/turf/T in block(cornerA,cornerB))
 			if(issimulatedturf(T))
@@ -66,6 +72,8 @@
 				T.carbon_dioxide = air.carbon_dioxide()
 				T.sleeping_agent = air.sleeping_agent()
 				T.agent_b = air.agent_b()
+				T.hydrogen = air.hydrogen()
+				T.water_vapor = air.water_vapor()
 
 		// admin log
 		log_admin("Build Mode: [key_name(user)] changed the atmos of region [COORD(cornerA)] to [COORD(cornerB)]. T: [temperature], P: [pressure], Ox: [oxygen]%, N2: [nitrogen]%, Plsma: [plasma]%, CO2: [cdiox]%, N2O: [nitrox]%. [ctrl_click ? "Overwrote base space turf gases." : ""]")
