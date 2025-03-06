@@ -11,27 +11,16 @@
 	density = FALSE
 	var/image/overlay = null
 	new_attack_chain = TRUE
-	var/assembled = FALSE
+	var/assembled = TRUE
 	var/overlay_color = "#ffffff"
 	var/overlay_alpha = 255
 
 
 /obj/structure/curtain/Initialize(mapload)
 	. = ..()
-	if(opacity)
-		icon_state = "closed"
-		overlay = image("closed_overlay")
-		overlay.color = overlay_color
-		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
-		layer = SHOWER_CLOSED_LAYER
-	else
-		icon_state = "open"
-		overlay = image("open_overlay")
-		overlay.color = overlay_color
-		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
-		layer = SHOWER_OPEN_LAYER
+	if(!assembled)
+		return
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/curtain/open
 	icon_state = "open"
@@ -41,12 +30,11 @@
 /obj/item/mounted/curtain/curtain_fixture
 	icon_state = "handheld"
 	icon = 'icons/obj/curtain.dmi'
-	name = "\improper curtain rod assembly"
-	new_attack_chain = TRUE
+	name = "curtain rod assembly"
 
 /obj/item/mounted/curtain/curtain_fixture/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!istype(target ,/obj/structure/window) && !istype(target, /turf/simulated/wall/))
+	if(!istype(target, /obj/structure/window) && !istype(target, /turf/simulated/wall))
 		return
 	var/on_wall = get_turf(target)
 	to_chat(user, "<span class='notice'>You begin attaching [src] to [on_wall].</span>")
@@ -77,14 +65,12 @@
 		"<span class='notice'>You attach the [src] to the ceiling.</span>")
 	qdel(src)
 
-
-
 /obj/structure/curtain/assembly
 	icon_state = "assembly0"
 	name = "Curtain Rod"
 	opacity = FALSE
-	density = FALSE
-	desc = "A curtain assembly! It needs a <b>material</b>."
+	assembled = FALSE
+	desc = "A curtain assembly! It still lacks drapes however, some cloth would serve nicely."
 
 /obj/structure/curtain/assembly/examine(mob/user)
 	. = ..()
@@ -96,9 +82,9 @@
 		return
 	if(!Adjacent(user))
 		return
-	// TODO: turn back into assembly item
-	new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
-	playsound(loc, 'sound/effects/salute.ogg' , 75, TRUE)
+	var/obj/item/mounted/curtain/curtain_fixture/fixture = new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
+	user.put_in_active_hand(fixture)
+	playsound(loc, 'sound/effects/salute.ogg', 75, TRUE)
 	qdel(src)
 
 /obj/structure/curtain/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -108,7 +94,7 @@
 			to_chat(user, "<span class='warning'> You need two sheets of cloth to hang the curtains.</span>")
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/structure/curtain/new_curtain = new /obj/structure/curtain/(loc, 1)
+		var/obj/structure/curtain/new_curtain = new /obj/structure/curtain(loc, 1)
 		new_curtain.assembled = TRUE
 		playsound(loc, used.drop_sound, 75, TRUE) // Play a generic cloth sound.
 		qdel(src)
@@ -116,10 +102,14 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/curtain/attack_hand(mob/user)
+	if(!assembled)
+		return
 	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
 	update_icon(UPDATE_OVERLAYS)
 	..()
 /obj/structure/curtain/attack_robot(mob/living/user)
+	if(!assembled)
+		return
 	. = ..()
 	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
 	update_icon(UPDATE_OVERLAYS)
@@ -165,20 +155,19 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message("<span class='notice'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
 			anchored = FALSE
 			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
-		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message("<span class='notice'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
 			anchored = TRUE
 			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
-
-
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
+		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> [src] before removing the drapes.</span>")
 		return
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -188,20 +177,16 @@
 		if(I.use_tool(src,user, 5 SECONDS, volume = I.tool_volume))
 			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
 			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc, 1)
-			new_assembly.assembled = TRUE
+			new_assembly.assembled = FALSE
 			new /obj/item/stack/sheet/cloth(loc, 2)
 			qdel(src)
 			return
 		return
 
-	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
-		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct()
-
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/cloth(loc, 2)
-	new /obj/item/stack/rods(loc, 1)
+	if(assembled)
+		new /obj/item/stack/sheet/cloth(loc, 2)
+	new /obj/item/stack/rods(loc, 2)
 	qdel(src)
 
 /obj/structure/curtain/black
