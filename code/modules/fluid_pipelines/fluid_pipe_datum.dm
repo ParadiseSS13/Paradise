@@ -9,7 +9,7 @@
 	var/total_capacity = 0
 	/// List with all fluids currently in the pipe
 	var/list/fluids = list()
-	// DGTODO MAKE INTERT DATUMS MEANT FOR STORING FLUIDS
+	// DGTODO MAKE INTERT DATUMS MEANT FOR STORING FLUIDS // Bro we had this before and it sucked
 
 /*
  * pipe: a pipe that has this fluid_pipe datum attached to it
@@ -48,7 +48,6 @@
 		machinery |= pipe
 
 	pipe.fluid_datum = src
-
 	total_capacity += pipe.capacity
 
 /// Removes a pipe from the datum

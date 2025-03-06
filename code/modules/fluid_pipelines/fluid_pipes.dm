@@ -20,14 +20,14 @@
 	var/capacity = 50
 	/// What directions do we look for connecting? Cardinals by default
 	var/list/connect_dirs = list(NORTH, SOUTH, EAST, WEST)
+	/// Do we only connect to one thing?
+	var/only_one_connect = FALSE
+	/// Are we connected to something?
+	var/is_connected = FALSE
 
 /obj/machinery/fluid_pipe/Initialize(mapload)
 	. = ..()
-	if(just_a_pipe)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		blind_connect()
-		START_PROCESSING(SSfluid, src)
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/fluid_pipe/LateInitialize()
 	. = ..()
@@ -54,7 +54,13 @@
 	if(QDELETED(pipe_to_connect_to))
 		return
 
-	if(isnull(fluid_datum) && pipe_to_connect_to.fluid_datum)
+	if(special_connect_check(pipe_to_connect_to))
+		return
+
+	else if((only_one_connect && is_connected) || (pipe_to_connect_to.only_one_connect && pipe_to_connect_to.is_connected))
+		return
+
+	else if(isnull(fluid_datum) && pipe_to_connect_to.fluid_datum)
 		pipe_to_connect_to.fluid_datum.add_pipe(src)
 
 	else if(fluid_datum && pipe_to_connect_to.fluid_datum)
@@ -65,6 +71,9 @@
 		if(!fluid_datum)
 			fluid_datum = new(src)
 		fluid_datum.add_pipe(pipe_to_connect_to)
+
+	is_connected = TRUE
+	pipe_to_connect_to.is_connected = TRUE
 
 	update_neighbours()
 	pipe_to_connect_to.update_neighbours()
@@ -81,6 +90,8 @@
 	for(var/obj/machinery/fluid_pipe/pipe as anything in nearby_pipes)
 		if(!(get_dir(src, pipe) in connect_dirs) || !(REVERSE_DIR(get_dir(src, pipe)) in pipe.connect_dirs))
 			continue
+		if((only_one_connect && is_connected) || (pipe.only_one_connect && pipe.is_connected))
+			continue
 		if(pipe.fluid_datum) // Already connected, don't connect again
 			if(fluid_datum != pipe.fluid_datum)
 				fluid_datum.merge(pipe.fluid_datum)
@@ -92,16 +103,18 @@
 			continue
 
 		if(QDELETED(fluid_datum)) // Should theoretically only be called on the first pipe this proc is called on
-			fluid_datum = new()
+			fluid_datum = new(src)
 
 		fluid_datum.add_pipe(pipe)
 		update_neighbours()
 		pipe.update_neighbours()
-
+		pipe.is_connected = TRUE
+		is_connected = TRUE
 		// Normally you'd update icons here, however we do that at the end otherwise lag may happen
 		pipe.connect_chain(all_pipes)
 
 /obj/machinery/fluid_pipe/proc/disconnect_pipe()
+	is_connected = FALSE
 	if(neighbours <= 1) // Sad and alone
 		fluid_datum = null
 		return
@@ -157,6 +170,10 @@
 			if(pipe.anchored && (get_dir(pipe, src) in pipe.connect_dirs))
 				. += pipe
 
+/// Proc to check special conditions. Return `TRUE` if you don't want to connect with this pipe
+/obj/machinery/fluid_pipe/proc/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return FALSE
+
 /obj/item/pipe_creator
 	name = "pipe creator"
 	desc = "Makes pipes. Debug item."
@@ -195,7 +212,7 @@
 	just_a_pipe = FALSE
 	connect_dirs = list()
 	/// Ref to our parent
-	var/obj/machinery/fluid_pipe/plasma_refinery/parent
+	var/obj/machinery/fluid_pipe/parent
 
 /obj/machinery/fluid_pipe/abstract/Initialize(mapload, _parent)
 	. = ..()

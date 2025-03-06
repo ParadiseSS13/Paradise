@@ -53,6 +53,7 @@
 	icon_state = "filler"
 	capacity = 0
 	connect_dirs = list(NORTH, EAST, WEST) // south looks ugly
+	only_one_connect = TRUE
 	/// The connected barrel
 	var/obj/structure/barrel/barrel
 	/// Selected fluid. Is a typepath

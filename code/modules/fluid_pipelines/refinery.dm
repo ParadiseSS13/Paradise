@@ -19,8 +19,15 @@
 
 /obj/machinery/fluid_pipe/abstract/refinery_intake/Initialize(mapload, _parent, direction)
 	connect_dirs = GLOB.cardinal.Copy()
-	connect_dirs -= dir
+	connect_dirs -= direction
 	return ..()
+
+/obj/machinery/fluid_pipe/abstract/refinery_intake/Destroy()
+	. = ..()
+	parent = null
+
+/obj/machinery/fluid_pipe/abstract/refinery_intake/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe == parent)
 
 /obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
 	if(direction)
@@ -107,6 +114,9 @@
 	// 516 TODO
 	for(var/id in selected_recipe.output)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
+
+/obj/machinery/fluid_pipe/plasma_refinery/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe == intake)
 
 /obj/machinery/fluid_pipe/plasma_refinery/east
 	icon_state = "refinery_4"
