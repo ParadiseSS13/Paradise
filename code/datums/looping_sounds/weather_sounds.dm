@@ -55,11 +55,9 @@
 	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/active_outside_acid
-	mid_sounds = list(
-		'sound/weather/acid/outside/active_mid1.ogg' = 1
-		)
-	mid_length = 130
-	start_sound = 'sound/weather/acid/outside/active_start.ogg'
+	mid_sounds = 'sound/weather/acid/outside/active_mid1.ogg'
+	mid_length = 125
+	start_sound = list('sound/weather/acid/outside/active_start.ogg' = 1)
 	start_length = 130
 	end_sound = 'sound/weather/acid/outside/active_end.ogg'
 	volume = 80
@@ -67,23 +65,19 @@
 	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/weak_outside_acid
-	mid_sounds = list(
-		'sound/weather/acid/outside/weak_mid1.ogg' = 1
-		)
-	mid_length = 80
-	start_sound = 'sound/weather/acid/outside/weak_start.ogg'
+	mid_sounds ='sound/weather/acid/outside/weak_mid1.ogg'
+	mid_length = 125
+	start_sound = list('sound/weather/acid/outside/weak_start.ogg' = 1)
 	start_length = 130
 	end_sound = 'sound/weather/acid/outside/weak_end.ogg'
-	volume = 50
+	volume = 60
 	area_sound = TRUE
 	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/active_inside_acid
-	mid_sounds = list(
-		'sound/weather/acid/inside/active_mid1.ogg' = 1
-		)
-	mid_length = 80
-	start_sound = 'sound/weather/acid/inside/active_start.ogg'
+	mid_sounds = 'sound/weather/acid/inside/active_mid1.ogg'
+	mid_length = 125
+	start_sound = list('sound/weather/acid/inside/active_start.ogg' = 1)
 	start_length = 130
 	end_sound = 'sound/weather/acid/inside/active_end.ogg'
 	volume = 60
@@ -91,14 +85,12 @@
 	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/weak_inside_acid
-	mid_sounds = list(
-		'sound/weather/acid/inside/weak_mid1.ogg' = 1
-		)
-	mid_length = 80
-	start_sound = 'sound/weather/acid/inside/weak_start.ogg'
+	mid_sounds = 'sound/weather/acid/inside/weak_mid1.ogg'
+	mid_length = 125
+	start_sound = list('sound/weather/acid/inside/weak_start.ogg' = 1)
 	start_length = 130
 	end_sound = 'sound/weather/acid/inside/weak_end.ogg'
-	volume = 30
+	volume = 60
 	area_sound = TRUE
 	channel = CHANNEL_ASH_STORM
 

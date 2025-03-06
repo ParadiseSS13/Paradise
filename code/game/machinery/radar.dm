@@ -40,9 +40,8 @@
 	set_light(3, 1, "#e2db98") // so the machine isnt pitch black
 
 	AddComponent(/datum/component/multitile, list(
-	list(1,		1,		1),
-	list(1, 	1,		1),
-	list(1, MACH_CENTER,1),
+	list(1, 	1),
+	list(MACH_CENTER, 1),
 	))
 
 	radio = new(src)

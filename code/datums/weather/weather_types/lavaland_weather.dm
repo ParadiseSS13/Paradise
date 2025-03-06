@@ -133,7 +133,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 100
+	probability = 0
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// The time until the next rock falls from the sky
@@ -155,47 +155,28 @@
 	if(world.time >= next_rubble)
 		next_rubble = world.time + rand(5 DECISECONDS, 3 SECONDS)
 		var/hits = 0
+		var/target
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
 			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
 				valid_targets += T
 		while(hits <= 25) //sling a bunch of rocks around the map
 			if(!valid_targets) // god forbid we run out of spots to sling rocks
 				break
-			var/target = pick(valid_targets)
+			target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
 			hits++
 			valid_targets -= target
-/*
-// shamelessly stolen and modified from explosion.dm, but makes sure we dont play 30 explosions constantly
-/datum/weather/volcano/proc/generate_boom(targets)
+		//just play the play from the last hit in the bundle, it reaches across the map anyways
+		INVOKE_ASYNC(src, PROC_REF(generate_boom), target)
+
+//lets just fake some booms
+/datum/weather/volcano/proc/generate_boom(turf/target)
 	sleep(rockfall_delay)
-	for(var/MN in GLOB.player_list)
-		var/mob/M = MN
+	for(var/mob/M in GLOB.player_list)
 		var/turf/M_turf = get_turf(M)
-		var/turf/epicenter // impossibly high to start
-		var/current_dist = 99999
-		var/working_dist
-		for(var/turf/T in targets)
-			working_dist = get_dist(T, M_turf)
-			if(working_dist < current_dist && M_turf.z == T.z)
-				epicenter = T
-				current_dist = working_dist
-				to_chat(world, "got distance: ")
-			var/baseshakeamount
-			var/frequency = get_rand_frequency()
-			var/dist = get_dist(M_turf, epicenter)
-			var/far_volume = clamp(dist / 2, 40, 60)
-			if(dist < 10)
-				playsound(epicenter, "explosion", 80, TRUE)
-				playsound(epicenter, 'sound/effects/break_stone.ogg', 50, TRUE)
-				shake_camera(M, 4, 3)
-			else if(dist >= 10 && dist <= 40)
-				M.playsound_local(epicenter, 'sound/effects/explosionfar.ogg', far_volume, 1, frequency, distance_multiplier = 0)
-				baseshakeamount = sqrt((dist - 10) * 0.1)
-				shake_camera(M, 2, clamp(baseshakeamount * 0.25, 0, 2.5))
-			else if(dist > 40)
-				M.playsound_local(epicenter, 'sound/effects/explosion_distant.ogg', far_volume, 1, frequency, distance_multiplier = 0)
-*/
+		if(M_turf.z == target.z)
+			M.playsound_local(target, 'sound/effects/explosionfar.ogg', 50, 1, get_rand_frequency(), distance_multiplier = 0)
+			shake_camera(M, 2, 4)
 
 /obj/effect/temp_visual/rockfall
 	icon = 'icons/obj/meteor.dmi'
@@ -230,20 +211,27 @@
 
 /obj/effect/temp_visual/rock_target/proc/fall()
 	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	playsound(T,'sound/magic/fleshtostone.ogg', 100, TRUE)
 	new /obj/effect/temp_visual/rockfall(T)
 	sleep(duration)
-	playsound(T, 'sound/effects/break_stone.ogg', 50, TRUE)
-	for(var/mob/living/L in T.contents)
-		if(istype(T, /mob/living/simple_animal/hostile/megafauna))
+	playsound(T, 'sound/effects/break_stone.ogg', 80, TRUE)
+	playsound(T, get_sfx("explosion"), 80, TRUE)
+	for(var/mob/living/carbon/human/H in range(10, T))
+		shake_camera(H, 3, 8)
+	for(var/mob/living/L in T.contents) // dont want to be crushing the hazards
+		if(ismegafauna(L))
 			L.visible_message("[L.name] easily withstands the hit of the massive rock!")
 			return
 		else
 			L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
 			L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
-		explosion(T, -1, 0, 0, 2, FALSE, flame_range = 2)
+		for(var/obj/structure/thing in T.contents) // dont cover the tendrils
+			if(thing.name == "necropolis tendril")
+				return
 		T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
+
+
 
 
 /// MARK: Acid Rain
@@ -266,7 +254,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 0
+	probability = 100
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -277,7 +265,15 @@
 	var/datum/looping_sound/weak_outside_acid/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_acid/sound_wi = new(list(), FALSE, TRUE)
 
+/datum/weather/acid/update_eligible_areas()
+	. = ..()
+	sound_ao.output_atoms = outside_areas
+	sound_ai.output_atoms = inside_areas
+	sound_wo.output_atoms = outside_areas
+	sound_wi.output_atoms = inside_areas
+
 /datum/weather/acid/update_audio()
+
 	switch(stage)
 		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
@@ -303,10 +299,12 @@
 
 /datum/weather/acid/area_act()
 	if(prob(1))
-		var/pod_check = get_area_turfs(/area/survivalpod)
-		if(!pod_check) // dont continue if we havnt made pods yet or we'll runtime
+		var/list/turf_list
+		for(var/turf in get_area_turfs(/area/survivalpod))
+			turf_list += turf
+		if(!turf_list) // dont continue if we havnt made pods yet or we'll runtime
 			return
-		var/turf/melt_this = pick(get_area_turfs(/area/survivalpod))
+		var/turf/melt_this = pick(turf_list)
 		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
 		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
 

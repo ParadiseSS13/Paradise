@@ -8909,14 +8909,6 @@
 /obj/structure/firelock_frame,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
-"RW" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/stack/cable_coil,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "RZ" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -22808,7 +22800,7 @@ iF
 iF
 iF
 iF
-jZ
+nu
 nu
 nu
 nu
@@ -23321,8 +23313,8 @@ VU
 VU
 iF
 iF
+jZ
 ye
-RW
 gl
 Lv
 vZ
@@ -23578,10 +23570,10 @@ VU
 VU
 iF
 jZ
+jZ
 VA
 vZ
-vZ
-vZ
+JB
 vZ
 cx
 nu
@@ -23835,10 +23827,10 @@ VU
 VU
 jZ
 jZ
+jZ
 VA
 vZ
 vZ
-JB
 rg
 bH
 iF
@@ -24092,12 +24084,12 @@ VU
 VU
 iF
 iF
-VA
-vZ
-vZ
-vZ
-vZ
-bH
+jZ
+qL
+DH
+YF
+DH
+dx
 iF
 iF
 jZ
@@ -24349,11 +24341,11 @@ VU
 VU
 VU
 VU
-qL
-DH
-DH
-YF
-DH
+iF
+iF
+jZ
+jZ
+iF
 Ay
 iF
 iF
