@@ -38400,22 +38400,6 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/disposal/northeast)
-"hoy" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/station/hallway/primary/central/west)
 "hoB" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -48303,18 +48287,8 @@
 /obj/effect/turf_decal/caution/red{
 	dir = 4
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "jAw" = (
@@ -56637,18 +56611,8 @@
 	name = "Engineering Lockdown"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/spacebridge/serveng)
 "luX" = (
@@ -58673,18 +58637,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/transparent/glass/reinforced{
 	slowdown = -0.3
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/spacebridge/engmed)
 "lSZ" = (
@@ -67089,19 +67043,9 @@
 /obj/structure/sign/engineering{
 	pixel_y = -32
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "obN" = (
@@ -72077,22 +72021,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
-"pny" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/station/hallway/primary/central/west)
 "pnO" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -77039,19 +76967,10 @@
 /area/station/maintenance/port2)
 "qyJ" = (
 /obj/machinery/hologram/holopad,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /area/station/hallway/primary/central/west)
 "qyK" = (
 /obj/structure/table/wood/fancy/black,
@@ -78525,17 +78444,7 @@
 /area/station/supply/expedition)
 "qQh" = (
 /obj/machinery/hologram/holopad,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /area/station/hallway/spacebridge/engmed)
 "qQl" = (
 /obj/structure/table,
@@ -85049,18 +84958,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/transparent/glass/reinforced{
 	slowdown = -0.3
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/spacebridge/engmed)
 "suS" = (
@@ -85708,19 +85607,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/spacebridge/serveng)
 "sCi" = (
@@ -88393,19 +88282,9 @@
 	pixel_y = -24;
 	dir = 8
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "tia" = (
@@ -95800,19 +95679,9 @@
 	dir = 4;
 	pixel_y = 24
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "uWl" = (
@@ -100059,18 +99928,8 @@
 	location = "EngineeringWest2";
 	name = "navigation beacon (Engineering-West 2)"
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "vXF" = (
@@ -100343,19 +100202,9 @@
 	name = "Engineering Lockdown"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/spacebridge/serveng)
 "wcj" = (
@@ -101463,19 +101312,9 @@
 /obj/structure/sign/engineering{
 	pixel_y = 32
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/engine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/hallway/primary/central/west)
 "woP" = (
@@ -137736,9 +137575,9 @@ lYS
 lYS
 anO
 anO
-hoy
+anO
 vXD
-pny
+inn
 hro
 baN
 baN
