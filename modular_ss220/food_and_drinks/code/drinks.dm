@@ -828,3 +828,94 @@
 	icon_state = "tea_bottle_pink"
 	item_state = "beer"
 	list_reagents = list("icetea" = 30)
+
+/datum/reagent/consumable/ethanol/communism_beach
+	name = "Communism On The Beach"
+	id = "communism_beach"
+	description = "Этот пляж принадлежит всем в равной степени."
+	color = "#bb2020"
+	alcohol_perc = 0.4
+	dizzy_adj = 4 SECONDS
+	taste_description = "равенство"
+	drink_icon = "communism_beach"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_desc = "Коктейль, придуманный СССП, который убедит вас в том, что скандировать лозунги коммунизма - это правильно!"
+	drink_name = "Communism On The Beach"
+	var/say_probability = 10
+	var/phrases_to_shout = list("За СССП!", "Равенство для всех!", "Революция вперед!", "К черту власть капитализма!")
+
+/datum/chemical_reaction/communism_beach
+	name = "Communism On The Beach"
+	id = "communism_beach"
+	result = "communism_beach"
+	result_amount = 5
+	required_reagents = list("vodka" = 2, "silicon" = 1, "berryjuice" = 2)
+	mix_message = "Красный свет из сосуда заполняет всё вокруг."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/communism_beach/on_mob_life(mob/living/M)
+	. = ..()
+	if(prob(say_probability))
+		M.say(pick(phrases_to_shout))
+
+/datum/reagent/consumable/ethanol/red_january
+	name = "Red January"
+	id = "red_january"
+	description = "От этого напитка так и пахнет Революцией."
+	color = "#bb2020"
+	alcohol_perc = 0.3
+	dizzy_adj = 4 SECONDS
+	taste_description = "кровь капитализма"
+	drink_icon = "red_january"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_desc = "От этого напитка так и пахнет Революцией. Скоро она охватит всю Галактику!"
+	drink_name = "Red January"
+
+/datum/chemical_reaction/red_january
+	name = "Red January"
+	id = "red_january"
+	result = "red_january"
+	result_amount = 5
+	required_reagents = list("absinthe" = 2, "rum" = 1, "ice" = 1,"orangejuice" = 1)
+	mix_message = "Звучат призывы к кровавой революции."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/five_year_plan
+	name = "Five Year Plan"
+	id = "five_year_plan"
+	description = "Высокая в небе звезда зовет меня в путь."
+	color = "#1e1009"
+	taste_description = "переработки во имя светлого будущего"
+	drink_icon = "five_year_plan"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_desc = "Ударная доза кофеина и чего-то горючего для повышения Нашей эффективности!"
+	drink_name = "Five Year Plan"
+
+/datum/chemical_reaction/five_year_plan
+	name = "Five Year Plan"
+	id = "five_year_plan"
+	result = "five_year_plan"
+	result_amount = 5
+	required_reagents = list("coffee" = 2, "fuel" = 3)
+	mix_message = "Из сосуда начинает валить дым."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/galactional
+	name = "Galactional"
+	id = "galactional"
+	description = "Пролетарии Галактики - объединяйтесь!"
+	color = "#53133e"
+	taste_description = "галактическое единство близко"
+	drink_icon = "galactional"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_desc = "Этот напиток дает веру в светлое будущее под знаменами коммунизма"
+	drink_name = "Galactional"
+
+/datum/chemical_reaction/galactional
+	name = "Galactional"
+	id = "galactional"
+	result = "galactional"
+	result_amount = 5
+	required_reagents = list("vodka" = 1, "bitter" = 1, "wine" = 1, "lager" = 1, "cola" = 1)
+	mix_message = "Красный свет из сосуда заполняет всё вокруг."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
