@@ -1338,11 +1338,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/medbay3)
-"ajo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "ajq" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4116,7 +4111,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/engineering/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -5796,6 +5790,9 @@
 	},
 /turf/space,
 /area/station/hallway/spacebridge/comeng)
+"aYy" = (
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/east)
 "aYD" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
@@ -8794,38 +8791,10 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "bve" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
 /area/space)
-"bvi" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
-"bvl" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "bvm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -9025,17 +8994,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "bwu" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "engineeringlockdown";
-	layer = 2.6;
-	name = "Emergency Lockdown Blastdoor"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
+/turf/space,
 /area/station/engineering/break_room/secondary)
 "bwv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -11120,6 +11079,15 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
+"bIV" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/space)
 "bIX" = (
 /turf/simulated/wall,
 /area/station/medical/virology)
@@ -18339,15 +18307,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
-"cJd" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "engineeringlockdown";
-	layer = 2.6;
-	name = "Emergency Lockdown Blastdoor"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/break_room/secondary)
 "cJf" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -22999,13 +22958,11 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "dsq" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -25154,13 +25111,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/hop)
-"dQC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "dQE" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/cable/orange{
@@ -26615,6 +26565,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"eiH" = (
+/obj/machinery/door/airlock/engineering/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/east)
 "eiP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -27626,16 +27582,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
-"ewh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/newscaster/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/east)
 "ewp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -28320,14 +28266,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/service)
-"eEf" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/east)
 "eEj" = (
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -29596,11 +29534,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "engineeringlockdown";
-	layer = 2.6;
-	name = "Emergency Lockdown Blastdoor"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -39390,6 +39323,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
+"hzK" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "hzP" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -43238,6 +43178,18 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 32;
+	dir = 4
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 24
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 8;
+	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -47537,7 +47489,22 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/firealarm/directional/south,
+/obj/structure/sign/directions/science{
+	pixel_y = -40;
+	dir = 8
+	},
+/obj/structure/sign/directions/service{
+	pixel_y = -32;
+	dir = 8
+	},
+/obj/structure/sign/directions/security{
+	pixel_y = -24;
+	dir = 8
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -48;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -47699,6 +47666,11 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/west)
@@ -48116,14 +48088,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/starboard)
-"jyK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/east)
 "jyL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -54461,6 +54425,10 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
+"kVp" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/east)
 "kVq" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -54768,6 +54736,7 @@
 	},
 /area/station/maintenance/port2)
 "kZj" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "engineeringlockdown";
 	layer = 2.6;
@@ -59087,6 +59056,18 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
+"lXc" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "lXd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -64516,6 +64497,7 @@
 	},
 /area/station/maintenance/fore2)
 "nup" = (
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "nuy" = (
@@ -74364,12 +74346,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
-"pQY" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "pRa" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/item/assembly/mousetrap/armed,
@@ -75798,6 +75774,12 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -77853,6 +77835,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -82168,7 +82153,6 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
 "rOc" = (
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -88274,13 +88258,17 @@
 	pixel_y = -40;
 	dir = 8
 	},
-/obj/structure/sign/directions/security{
+/obj/structure/sign/directions/service{
 	pixel_y = -32;
 	dir = 8
 	},
-/obj/structure/sign/directions/service{
+/obj/structure/sign/directions/security{
 	pixel_y = -24;
 	dir = 8
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -48;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88616,6 +88604,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/sercom)
+"tlS" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "tmf" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
@@ -88875,6 +88870,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
+"tpI" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "tpK" = (
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating,
@@ -90210,9 +90211,6 @@
 /area/station/maintenance/port2)
 "tHV" = (
 /obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
@@ -90872,6 +90870,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
+"tQV" = (
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/east)
 "tQX" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -92877,6 +92881,10 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
+"unw" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "unz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/storage/secure/safe{
@@ -95093,21 +95101,6 @@
 	},
 /obj/structure/sign/engineering{
 	pixel_y = 32
-	},
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	pixel_x = 32;
-	pixel_y = 24
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_x = 32;
-	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -103675,6 +103668,20 @@
 	icon_state = "purplefull"
 	},
 /area/station/science/robotics)
+"wOL" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/east)
 "wOP" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/sop_legal{
@@ -107278,13 +107285,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
 "xJf" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
 	},
+/turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "xJg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -108390,11 +108400,7 @@
 	},
 /area/station/hallway/primary/port/south)
 "xXu" = (
-/obj/structure/disposalpipe/segment/corner,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -137315,8 +137321,8 @@ lYS
 lYS
 lYS
 lYS
-lYS
-anO
+tpI
+tlS
 dWD
 woO
 qyJ
@@ -137834,7 +137840,7 @@ lYS
 lYS
 lYS
 lYS
-inn
+hzK
 biL
 biL
 biL
@@ -146315,8 +146321,8 @@ qdQ
 qdQ
 hjR
 beU
-beU
-beU
+bIV
+lXc
 bve
 bwu
 bxG
@@ -146828,11 +146834,11 @@ qdQ
 qdQ
 nTa
 oPa
-jyK
+muS
 mKK
 xJf
 sBU
-cJd
+bwu
 bxI
 byJ
 bDb
@@ -147085,10 +147091,10 @@ qdQ
 nTa
 nTa
 jwI
-muS
-ewh
-dwz
-dwz
+eiH
+bfy
+wOL
+aYy
 uNG
 cJf
 cJg
@@ -147344,8 +147350,8 @@ sBU
 jwI
 muS
 bfy
-dwz
-pQY
+xJf
+mkk
 sXj
 neI
 neI
@@ -147603,7 +147609,7 @@ muS
 bfy
 mJM
 mkk
-ajo
+fLT
 nVW
 neI
 neI
@@ -148115,9 +148121,9 @@ nOJ
 adD
 tPs
 xXu
-eEf
-bvi
-mkk
+dwz
+mJM
+mJM
 jEB
 fLT
 neI
@@ -148372,9 +148378,9 @@ qIW
 siz
 muS
 rOc
-dwz
-bvl
-dQC
+kVp
+mkk
+mkk
 tHV
 nVW
 neI
@@ -148623,7 +148629,7 @@ rrd
 jLX
 xLz
 nup
-nTa
+tQV
 nTa
 nTa
 uOL
@@ -148634,8 +148640,8 @@ mkk
 aEs
 mkk
 mkk
-neI
-neI
+mkk
+mkk
 neI
 neI
 neI
@@ -148891,8 +148897,8 @@ mJM
 mJM
 mJM
 jtF
-neI
-neI
+mkk
+mkk
 neI
 neI
 neI
@@ -149663,9 +149669,9 @@ xbO
 aXR
 aXR
 mJM
-eot
+unw
 mJM
-wJC
+gWd
 tJt
 wJC
 wJC
