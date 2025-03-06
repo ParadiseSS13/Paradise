@@ -54,7 +54,6 @@
 	impacted_z_levels = z_levels
 
 /datum/weather/proc/generate_area_list()
-	to_chat(world, "DEBUG: Running generate_area_list")
 	var/list/affectareas = list()
 	for(var/V in get_areas(area_type))
 		affectareas += V
@@ -66,7 +65,6 @@
 			impacted_areas |= A
 
 /datum/weather/proc/telegraph()
-	to_chat(world, "DEBUG: Running telegraph")
 	if(stage == WEATHER_STARTUP_STAGE)
 		return
 	stage = WEATHER_STARTUP_STAGE
@@ -85,7 +83,6 @@
 
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
 	update_audio()
-
 
 /datum/weather/proc/start()
 	if(stage >= WEATHER_MAIN_STAGE)
@@ -141,13 +138,10 @@
 	return
 
 /datum/weather/proc/update_areas()
-	to_chat(world, "DEBUG: running update_areas")
-
 	for(var/V in impacted_areas)
 		var/area/N = V
 		N.layer = overlay_layer
 		N.plane = overlay_plane
-		to_chat(world, "DEBUG: updated_areas found: [custom_overlay]")
 		if(!custom_overlay)
 			N.icon = 'icons/effects/weather_effects.dmi'
 		else

@@ -66,7 +66,9 @@
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
-			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+			if(src.name == "heavy ash storm" && thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+				return TRUE
+			else if(src.name != "heavy ash storm" && thermal_protection >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15)) // the -15 only really matters for smith. otherwise normal hehavior
 				return TRUE
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you
@@ -75,6 +77,24 @@
 	if(is_ash_immune(L))
 		return
 	L.adjustFireLoss(4)
+
+
+/// MARK: Heavy Ash Storm
+// Radar needed to detect the difference, but shouldnt matter much
+/datum/weather/ash_storm/heavy
+	name = "heavy ash storm"
+	desc = "An even more intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
+
+	//lasts longer
+	weather_duration_lower = 800
+	weather_duration_upper = 1600
+
+	probability = 100
+
+/datum/weather/ash_storm/weather_act(mob/living/L)
+	if(is_ash_immune(L))
+		return
+	L.adjustFireLoss(6)
 
 /// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
@@ -149,7 +169,7 @@
 	desc = "Get out of the way!"
 	layer = FLY_LAYER
 	randomdir = FALSE
-	duration = 10
+	duration = 0
 	pixel_z = 270
 
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
@@ -224,11 +244,11 @@
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_sound = null //place me!
-	weather_overlay = "ash_storm" // replace this
+	weather_overlay = "acid_rain"
 
 	end_message = "<span class='boldannounceic'>The pitter of acidic dropples slows to silence. It should be safe to go outside now.</span>"
 	end_duration = 300
-	end_overlay = null // Place me!
+	end_overlay = "light_ash"
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
@@ -237,6 +257,35 @@
 	area_act = TRUE
 	// how long do you get before it melts a hole?
 	var/melt_delay = 5 SECONDS
+
+	var/datum/looping_sound/active_outside_acid/sound_ao = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/active_inside_acid/sound_ai = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/weak_outside_acid/sound_wo = new(list(), FALSE, TRUE)
+	var/datum/looping_sound/weak_inside_acid/sound_wi = new(list(), FALSE, TRUE)
+
+/datum/weather/acid/update_audio()
+	switch(stage)
+		if(WEATHER_STARTUP_STAGE)
+			sound_wo.start()
+			sound_wi.start()
+
+		if(WEATHER_MAIN_STAGE)
+			sound_wo.stop()
+			sound_wi.stop()
+
+			sound_ao.start()
+			sound_ai.start()
+
+		if(WEATHER_WIND_DOWN_STAGE)
+			sound_ao.stop()
+			sound_ai.stop()
+
+			sound_wo.start()
+			sound_wi.start()
+
+		if(WEATHER_END_STAGE)
+			sound_wo.stop()
+			sound_wi.stop()
 
 /datum/weather/acid/area_act()
 	if(prob(1))
@@ -293,7 +342,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 100
+	probability = 0
 	barometer_predictable = TRUE
 	var/wind_dir
 	var/next_dir_change
@@ -303,9 +352,6 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
-/datum/weather/wind/New()
-	wind_dir = pick(GLOB.alldirs)
-
 /datum/weather/wind/update_eligible_areas()
 	. = ..()
 	sound_ao.output_atoms = outside_areas
@@ -314,7 +360,6 @@
 	sound_wi.output_atoms = inside_areas
 
 /datum/weather/wind/update_audio()
-	to_chat(world, "DEBUG: running update_audio")
 	switch(stage)
 		if(WEATHER_STARTUP_STAGE)
 			sound_wo.start()
@@ -340,9 +385,9 @@
 
 /datum/weather/wind/start() //give it our custom overlay
 	custom_overlay = 'icons/effects/tile_effects.dmi'
+	wind_dir = pick(GLOB.alldirs)
 	overlay_dir = wind_dir
-	next_dir_change = world.time + rand(30 SECONDS, 3 MINUTES)
-	to_chat(world, "DEBUG: running start()")
+	next_dir_change = world.time + rand(10 SECONDS, 30 SECONDS)
 	. = ..()
 
 /datum/weather/wind/wind_down() // back to normal overlay
@@ -351,15 +396,17 @@
 	. = ..()
 
 /datum/weather/wind/weather_act(mob/living/L)
-	to_chat(world, "DEBUG: Running weather_act")
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
-			return TRUE
-		if(ishuman(L)) // lets not push around lavaland mobs
-			L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
 	if(next_dir_change <= world.time)
+		next_dir_change = world.time + rand(10 SECONDS, 30 SECONDS)
 		wind_dir = pick(GLOB.alldirs)
+		overlay_dir = wind_dir
 		update_areas()
+	if(ismecha(L)) //Mechs are immune
+		return
+	if(ishuman(L)) // lets not push around lavaland mobs
+		L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
+
+
 
 
 
