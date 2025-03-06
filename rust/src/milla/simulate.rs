@@ -658,7 +658,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .min(1.0);
 
         // How much hydrogen is available to burn?
-        let burnable_hydrogen = fraction * my_next_tile.gases.hydrogen();
+        let burnable_hydrogen = my_next_tile.gases.hydrogen();
 
         // Actual burn amount.
         let mut hydrogen_burnt = efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
@@ -673,7 +673,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
         my_next_tile
             .gases
-            .set_toxins(my_next_tile.gases.hydrogen() - hydrogen_burnt);
+            .set_hydrogen(my_next_tile.gases.hydrogen() - hydrogen_burnt);
         my_next_tile
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() * 0.5 - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN);
@@ -691,7 +691,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
 	// What the electrolyzer uses, splits water vapor into hydrogen and water
     if my_next_tile.electrolyzer_active && my_next_tile.gases.water_vapor() > 0.0 {
-        let water_vapor_consumed = 1.0; // 1 mol of water vapor
+        let water_vapor_consumed = 1.0;
         let hydrogen_produced = 2.0 * water_vapor_consumed;
         let oxygen_produced = water_vapor_consumed;
 

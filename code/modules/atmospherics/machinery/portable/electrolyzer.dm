@@ -43,4 +43,3 @@
 		active = TRUE
 		to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
 		icon_state = "electrolyzer_on"
-
