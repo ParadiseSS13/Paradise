@@ -54,7 +54,7 @@
 		return
 
 	// We're officially behind them, apply effects
-	target.Weaken(1.5 SECONDS)
+	target.Weaken(2 SECONDS)
 	target.apply_damage(10, BRUTE)
 	playsound(target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 

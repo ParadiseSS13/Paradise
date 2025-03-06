@@ -273,7 +273,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH) && !has_status_effect(/datum/status_effect/ghoul))
 		return FALSE
 	return ..()
 

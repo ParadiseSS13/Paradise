@@ -504,7 +504,6 @@
 		/obj/item/paper,
 		/obj/item/toy/crayon,
 		/obj/item/flashlight,
-		/obj/item/clipboard,
 	)
 
 	var/static/list/potential_uncommoner_items = list(
@@ -515,6 +514,7 @@
 		/obj/item/clothing/gloves/color/yellow,
 		/obj/item/melee/baton,
 		/obj/item/clothing/glasses/sunglasses,
+		/obj/item/clipboard,
 	)
 
 	required_atoms = list()
