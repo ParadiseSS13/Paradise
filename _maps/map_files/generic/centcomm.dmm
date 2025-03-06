@@ -13399,9 +13399,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Vw" = (
-/obj/machinery/fluid_pipe/pump{
-	dir = 4
-	},
+/obj/machinery/fluid_pipe/pump/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61461,7 +61459,7 @@ CX
 De
 De
 De
-De
+CX
 De
 De
 De

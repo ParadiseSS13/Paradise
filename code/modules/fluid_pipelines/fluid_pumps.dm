@@ -20,13 +20,20 @@
 
 /obj/machinery/fluid_pipe/abstract/pump
 
-/obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, direction)
-	connect_dirs = list(direction)
+/obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, _parent, direction)
+	message_admins(direction)
+	connect_dirs = list(REVERSE_DIR(direction))
 	return ..()
+
+/obj/machinery/fluid_pipe/abstract/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe == parent) // DGTODO Move this to abstract pipes?
+
+/obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe == incoming)
 
 /obj/machinery/fluid_pipe/pump/Initialize(mapload)
 	connect_dirs = list(dir)
-	incoming = new(get_turf(src), src, REVERSE_DIR(dir))
+	incoming = new(get_turf(src), src, dir)
 	update_icon()
 	return ..()
 
@@ -75,3 +82,15 @@
 	. = ..()
 	incoming.fluid_datum = null
 	fluid_datum = null
+
+/obj/machinery/fluid_pipe/pump/north
+	dir = NORTH
+
+/obj/machinery/fluid_pipe/pump/south
+	dir = SOUTH
+
+/obj/machinery/fluid_pipe/pump/east
+	dir = EAST
+
+/obj/machinery/fluid_pipe/pump/west
+	dir = WEST

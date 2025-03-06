@@ -156,7 +156,7 @@
 
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
-	. += fluid_datum.return_percentile_full()
+	. += fluid_datum?.return_percentile_full()
 
 /// Clears out the pipenet datum references. Override if your machinery holds more references
 /obj/machinery/fluid_pipe/proc/clear_pipenet_refs()

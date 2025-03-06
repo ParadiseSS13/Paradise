@@ -29,6 +29,9 @@
 /obj/machinery/fluid_pipe/abstract/refinery_intake/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return (pipe == parent)
 
+/obj/machinery/fluid_pipe/plasma_refinery/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe == intake)
+
 /obj/machinery/fluid_pipe/plasma_refinery/Initialize(mapload, direction)
 	if(direction)
 		dir = direction
