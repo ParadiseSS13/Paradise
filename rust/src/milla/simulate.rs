@@ -654,14 +654,14 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
         let efficiency = ((cached_temperature - HYDROGEN_MIN_IGNITE_TEMP)
             / (HYDROGEN_OPTIMAL_BURN_TEMP - HYDROGEN_MIN_IGNITE_TEMP))
-            .max(0.0)
+            .max(0.5)
             .min(1.0);
 
         // How much hydrogen is available to burn?
         let burnable_hydrogen = my_next_tile.gases.hydrogen();
 
         // Actual burn amount.
-        let mut hydrogen_burnt = efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
+        let mut hydrogen_burnt = efficiency * 2.0 * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
         if hydrogen_burnt < PLASMA_BURN_MIN_MOLES {
             // Boost up to the minimum.
             hydrogen_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_hydrogen);
