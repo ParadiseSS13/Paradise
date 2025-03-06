@@ -1,7 +1,7 @@
 
 /// Nothing will be filtered.
 #define FILTER_NOTHING -1
-/// Plasma, and Oxygen Agent B.
+/// Plasma only.
 #define FILTER_TOXINS 0
 /// Oxygen only.
 #define FILTER_OXYGEN 1
@@ -11,6 +11,12 @@
 #define FILTER_CO2 3
 /// Nitrous oxide only.
 #define FILTER_N2O 4
+/// Agent B only.
+#define FILTER_OTHER 5
+/// Hydrogen only.
+#define FILTER_HYDROGEN 6
+/// Water vapor only.
+#define FILTER_WATER_VAPOR 7
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -28,7 +34,10 @@
 		"O2" = FILTER_OXYGEN,
 		"N2" = FILTER_NITROGEN,
 		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"N2O" = FILTER_N2O,
+		"H2" = FILTER_HYDROGEN,
+		"H2O" = FILTER_WATER_VAPOR,
+		"Other" = FILTER_OTHER,
 	)
 
 // So we can CtrlClick without triggering the anchored message.
@@ -126,9 +135,6 @@
 				filtered_out.set_toxins(removed.toxins())
 				removed.set_toxins(0)
 
-				filtered_out.set_agent_b(removed.agent_b())
-				removed.set_agent_b(0)
-
 			if(FILTER_OXYGEN)
 				filtered_out.set_oxygen(removed.oxygen())
 				removed.set_oxygen(0)
@@ -144,6 +150,18 @@
 			if(FILTER_N2O)
 				filtered_out.set_sleeping_agent(removed.sleeping_agent())
 				removed.set_sleeping_agent(0)
+
+			if(FILTER_HYDROGEN)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
+
+			if(FILTER_WATER_VAPOR)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
+
+			if(FILTER_OTHER)
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 			else
 				filtered_out = null
 
@@ -240,3 +258,6 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+#undef FILTER_OTHER
+#undef FILTER_HYDROGEN
+#undef FILTER_WATER_VAPOR
