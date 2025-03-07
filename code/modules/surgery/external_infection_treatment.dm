@@ -26,11 +26,11 @@
 	time = 2.4 SECONDS
 	repeatable = TRUE
 
-var/shown_starting_message_already = FALSE
+	var/shown_starting_message_already = FALSE
 
-COOLDOWN_DECLARE(success_message_spam_cooldown)
+	COOLDOWN_DECLARE(success_message_spam_cooldown)
 
-var/germ_amount_healed = 50
+	var/germ_amount_healed = 50
 
 /// Get a message indicating how the surgery is going.
 /datum/surgery_step/heal_infection/proc/get_progress(mob/user, mob/living/carbon/target, germ_healed)
