@@ -3,6 +3,10 @@
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/generic/cauterize)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
+/datum/surgery/infection/New(atom/surgery_target, surgery_location, surgery_bodypart)
+	name = "External Infection Treatment"
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/generic/cauterize)
+
 /datum/surgery_step/heal_infection
 	name = "tend infection"
 
@@ -120,3 +124,24 @@ var/germ_amount_healed = 50
 			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] septic limb"
 
 	return progress_text
+
+/* /datum/surgery/intermediate/heal_infection
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
+
+/datum/surgery/intermediate/heal_infection
+	name = "Tend Infection (abstract)"
+	desc = "An intermediate surgery to tend to a patient's infection while they're undergoing another procedure."
+	steps = list(
+		/datum/surgery_step/heal_infection
+	)
+
+/datum/surgery/intermediate/heal_infection/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return
+	if(target.getBruteLoss() == 0)
+		to_chat(user, "<span class='warning'>[target] doesn't even have a trace of infection on that limb, there's nothing to treat.</span>")
+		return FALSE
+	return TRUE
+	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
+	// It's alright for intermediate surgeries, though, since they never get listed out */
