@@ -94,3 +94,29 @@ var/germ_amount_healed = 50
 	)
 	target.apply_damage(3, BURN, affected)
 	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/heal_infection/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
+	if(!brute_healed)
+		return
+
+	var/progress_text
+
+	switch(target.germ_level)
+		if(1 to INFECTION_LEVEL_ONE - 1)
+			progress_text = ", removing the last traces of the infection"
+		if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
+			progress_text = ", counting down the small bits of infection"
+		if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+			progress_text = ", continuing to eliminate the spots of infection"
+		if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+			progress_text = ", still counting some moderate spots of"
+		if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
+			progress_text = ", steadying yourself for the long surgery ahead"
+		if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+			progress_text = ", burning through some of the severe spots of infection"
+		if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+			progress_text = ", though [target.p_their()] limb still look[target.p_s()] more like infection than limb"
+		if(INFECTION_LEVEL_THREE to INFINITY)
+			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] septic limb"
+
+	return progress_text
