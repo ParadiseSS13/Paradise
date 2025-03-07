@@ -52,16 +52,16 @@
 /datum/milla_safe/electrolyzer_process
 
 /obj/machinery/atmospherics/portable/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
-    var/datum/gas_mixture/removed = new()
-    if(env.water_vapor() > 3)
-        removed.set_water_vapor(env.water_vapor())
-        env.set_water_vapor(0)
-    return removed
+	var/datum/gas_mixture/removed = new()
+	if(env.water_vapor() > 3)
+		removed.set_water_vapor(env.water_vapor())
+		env.set_water_vapor(0)
+	return removed
 
 /obj/machinery/atmospherics/portable/electrolyzer/proc/has_water_vapor(datum/gas_mixture/gas)
-    if(!gas)
-        return FALSE
-    return gas.water_vapor() > 3
+	if(!gas)
+		return FALSE
+	return gas.water_vapor() > 3
 
 /datum/milla_safe/electrolyzer_process/on_run(obj/machinery/atmospherics/portable/electrolyzer/electrolyzer, datum/gas_mixture)
 	var/turf/T = get_turf(electrolyzer)
