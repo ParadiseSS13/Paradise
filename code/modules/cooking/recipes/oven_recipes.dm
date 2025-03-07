@@ -20,7 +20,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/applepie
@@ -69,7 +69,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/bananacake
@@ -83,7 +83,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/banarnarbread
@@ -98,7 +98,7 @@
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_ADD_REAGENT("blood", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/beary_pie
@@ -148,7 +148,7 @@
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
 		PCWJ_ADD_REAGENT("vanilla", 10),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/blumpkin_pie
@@ -186,7 +186,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/organ/internal/brain),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/bread
@@ -232,7 +232,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/cheesecake
@@ -247,7 +247,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/cheesepizza
@@ -261,7 +261,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/cherry_cupcake
@@ -324,7 +324,7 @@
 		PCWJ_ADD_ITEM(/obj/item/slime_extract),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/chocolatecake
@@ -338,7 +338,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/clowncake
@@ -389,7 +389,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/croissant
@@ -417,7 +417,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cannabis),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cannabis),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cannabis),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/donkpocketpizza
@@ -430,7 +430,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/donkpocket),
 		PCWJ_ADD_ITEM(/obj/item/food/donkpocket),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/firecrackerpizza
@@ -443,7 +443,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
 		PCWJ_ADD_REAGENT("capsaicin", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/flatbread
@@ -498,7 +498,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
 		PCWJ_ADD_REAGENT("garlic", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/grape_tart
@@ -512,7 +512,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/grapes),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/hardware_cake
@@ -528,7 +528,7 @@
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
 		PCWJ_ADD_REAGENT("sacid", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/hawaiianpizza
@@ -542,7 +542,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/pineapple),
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/holy_cake
@@ -584,7 +584,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/lemoncake
@@ -598,7 +598,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/liars_cake
@@ -632,7 +632,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lime),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lime),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/loadedbakedpotato
@@ -654,7 +654,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/macncheese),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/meatbread
@@ -671,7 +671,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/meatpie
@@ -695,7 +695,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/mime_tart
@@ -758,7 +758,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/oatmeal_cookie
@@ -784,7 +784,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
 		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/peanut_butter_cookie
@@ -808,7 +808,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sausage),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/pestopizza
@@ -821,7 +821,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_REAGENT("wasabi", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/pie
@@ -845,7 +845,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/plaincake
@@ -873,7 +873,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/plum),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/plump_pie
@@ -908,7 +908,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/plaincake),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/pumpkin_spice_cake
@@ -923,7 +923,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/pumpkin),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/pumpkinpie
@@ -961,7 +961,7 @@
 		PCWJ_ADD_ITEM(/obj/item/slime_extract),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/spaceman_cake
@@ -978,7 +978,7 @@
 		PCWJ_ADD_REAGENT("sugar", 15),
 		PCWJ_ADD_REAGENT("cream", 5),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/sugarcookies
@@ -1004,7 +1004,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/toastedsandwich
@@ -1030,7 +1030,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/tofupie
@@ -1065,7 +1065,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/meat),
 		PCWJ_ADD_ITEM(/obj/item/food/stuffing),
 		PCWJ_ADD_ITEM(/obj/item/food/stuffing),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/vanilla_berry_cake
@@ -1083,7 +1083,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/vanilla_cake
@@ -1098,7 +1098,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/vanillapod),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/vegetablepizza
@@ -1112,7 +1112,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/corn),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
-		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
 
 /datum/cooking/recipe/xemeatpie
@@ -1139,7 +1139,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_USE_OVEN(J_MED, 40 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/yakiimo
@@ -1158,7 +1158,7 @@
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/seeds/poppy),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/dionaroast
@@ -1169,7 +1169,7 @@
 		PCWJ_ADD_ITEM(/obj/item/holder/diona),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
 		PCWJ_ADD_REAGENT("facid", 5),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
 /datum/cooking/recipe/donkpocket
@@ -1179,5 +1179,5 @@
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/meatball),
-		PCWJ_USE_OVEN(J_MED, 20 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
