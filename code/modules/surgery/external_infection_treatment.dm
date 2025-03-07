@@ -78,7 +78,7 @@
 	germ_healed += germ_amount_healed
 	affected.germ_level = max(affected.germ_level - germ_amount_healed, 0)
 
-	self_msg += get_progress(user, target, germ_healed)
+	self_msg += get_progress(user, target, target_zone, germ_healed)
 
 	if(COOLDOWN_FINISHED(src, success_message_spam_cooldown))
 		user.visible_message(
@@ -87,7 +87,7 @@
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
-		COOLDOWN_START(src, success_message_spam_cooldown, 10 SECONDS)
+		COOLDOWN_START(src, success_message_spam_cooldown, 7 SECONDS)
 
 	// retry ad nauseum; can_repeat should handle anything else.
 	if(affected.germ_level > 0)
@@ -105,7 +105,7 @@
 	target.apply_damage(3, BURN, affected)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery_step/heal_infection/brute/get_progress(mob/user, mob/living/carbon/target, target_zone, germ_healed)
+/datum/surgery_step/heal_infection/get_progress(mob/user, mob/living/carbon/target, target_zone, germ_healed)
 	if(!germ_healed)
 		return
 
@@ -120,7 +120,7 @@
 		if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
 			progress_text = ", continuing to eliminate the spots of infection"
 		if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-			progress_text = ", still counting some moderate spots of"
+			progress_text = ", still counting some moderate spots of infection"
 		if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
 			progress_text = ", steadying yourself for the long surgery ahead"
 		if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
