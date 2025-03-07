@@ -47,9 +47,7 @@
 
 /obj/machinery/cooking/oven/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Shift-Click</b> on the oven to set its temperature.</span>"
-	. += "<span class='notice'><b>Ctrl-Click</b> on the oven to set its timer.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> on the oven to toggle it on or off.</span>"
+	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer, temperature, and toggle it on or off.</span>"
 
 /obj/machinery/cooking/oven/RefreshParts()
 	..()

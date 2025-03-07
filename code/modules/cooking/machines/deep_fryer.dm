@@ -35,8 +35,7 @@
 
 /obj/machinery/cooking/deepfryer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> on a basket to set its timer.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> on a basket to toggle it on or off.</span>"
+	. += "<span class='notice'><b>Ctrl-Click</b> on a basin to set its timer and toggle it on or off.</span>"
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 16
