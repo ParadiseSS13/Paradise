@@ -689,8 +689,6 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile.fuel_burnt += hydrogen_burnt;
     }
 
-
-
 	// Hydrogen and oxygen making water vapor
 	if cached_temperature > WATER_VAPOR_FORMATION_TEMP
 		&& my_next_tile.gases.hydrogen() > 0.0

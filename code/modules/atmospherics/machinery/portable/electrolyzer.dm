@@ -4,9 +4,9 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
-
+	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
-	var/active = FALSE
+	on = FALSE
 
 
 /obj/machinery/atmospherics/portable/electrolyzer/examine(mob/user)
@@ -35,11 +35,43 @@
 		return
 
 	. = ..()
-	if(active)
-		active = FALSE
+	if(on)
+		on = FALSE
 		to_chat(user, "<span class='notice'>The electrolyzer switches off.</span>")
 		icon_state = "electrolyzer_off"
 	else
-		active = TRUE
+		on = TRUE
 		to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
 		icon_state = "electrolyzer_on"
+	add_fingerprint(usr)
+
+/obj/machinery/atmospherics/portable/electrolyzer/process()
+	var/datum/milla_safe/electrolyzer_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/electrolyzer_process
+
+/obj/machinery/atmospherics/portable/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
+    var/datum/gas_mixture/removed = new()
+    if(env.water_vapor() > 3)
+        removed.set_water_vapor(env.water_vapor())
+        env.set_water_vapor(0)
+    return removed
+
+/obj/machinery/atmospherics/portable/electrolyzer/proc/has_water_vapor(datum/gas_mixture/gas)
+    if(!gas)
+        return FALSE
+    return gas.water_vapor() > 3
+
+/datum/milla_safe/electrolyzer_process/on_run(obj/machinery/atmospherics/portable/electrolyzer/electrolyzer, datum/gas_mixture)
+	var/turf/T = get_turf(electrolyzer)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
+	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
+		var/water_vapor_to_remove = removed.water_vapor()
+		var/hydrogen_produced = (water_vapor_to_remove / 3) * 2
+		var/oxygen_produced = water_vapor_to_remove / 2
+		removed.set_water_vapor(0)
+		env.set_hydrogen(hydrogen_produced)
+		env.set_oxygen(oxygen_produced)
+

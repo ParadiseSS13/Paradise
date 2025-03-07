@@ -88,10 +88,7 @@
 	if(air.sleeping_agent() > 1)
 		return "sleeping_agent"
 
-	if(air.hydrogen() > 1)
-		return "hydrogen"
-
-	if(air.water_vapor() > 1)
+	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
 		return "water_vapor"
 	return null
 
