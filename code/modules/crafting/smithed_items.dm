@@ -19,6 +19,7 @@
 
 /obj/item/smithing_cast/examine(mob/user)
 	. = ..()
+	. += "It is currently configured to make [amount_to_make == 1 ? "a" : "[amount_to_make]"] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
 	. += "<span class='notice'>You can select the desired product by using [src] in your hand.</span>"
 
 /obj/item/smithing_cast/activate_self(mob/user)
@@ -35,7 +36,6 @@
 		selected_product = possible_products[1]
 	else
 		selected_product = product_names[new_product]
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/update_desc()
 	return ..()
@@ -47,10 +47,6 @@
 	name = "sheet cast"
 	icon_state = "sheet_cast"
 	desc = "A cast for forging molten minerals into workable sheets."
-
-/obj/item/smithing_cast/sheet/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [amount_to_make] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
-	return ..()
 
 /obj/item/smithing_cast/sheet/examine(mob/user)
 	. = ..()
@@ -79,14 +75,12 @@
 							)
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
 	if(!Adjacent(user))
 		return
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component
 	name = "component cast"
@@ -98,6 +92,7 @@
 
 /obj/item/smithing_cast/component/examine(mob/user)
 	. = ..()
+	. += "The current selected quality is [quality.name]."
 	. += "<span class='notice'>You can change the quality of the product by alt-clicking [src].</span>"
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
@@ -115,17 +110,11 @@
 		quality = quality_type_list[1]
 	else
 		quality = quality_name_list[selected_quality]
-	update_appearance(UPDATE_DESC)
-
-/obj/item/smithing_cast/component/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [selected_product.name] at [quality.name] quality."
-	return ..()
 
 /obj/item/smithing_cast/component/populate_products()
 	possible_products = (typesof(product_type) - list(product_type))
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component/insert_frame
 	name = "insert frame cast"
@@ -730,10 +719,6 @@
 	/// How many times the component needs to be shaped to be considered ready
 	var/hammer_time = 3
 
-/obj/item/smithed_item/component/Initialize(mapload)
-	. = ..()
-	update_appearance(UPDATE_DESC)
-
 /obj/item/smithed_item/component/update_icon_state()
 	. = ..()
 	if(hot)
@@ -746,23 +731,19 @@
 	if(prob(50) || hammer_time <= 0)
 		hot = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
-	update_appearance(UPDATE_DESC)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/smithed_item/component/update_desc()
+/obj/item/smithed_item/component/examine(mob/user)
 	. = ..()
-	desc = initial(desc)
-	desc += "\n"
 	if(hammer_time)
-		desc += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
+		. += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
 	else
-		desc += "It is complete."
+		. += "It is complete."
 	if(hot)
-		desc +="\n<span class='warning'>It is glowing hot!</span>"
+		. +="<span class='warning'>It is glowing hot!</span>"
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
 	if(!hot)

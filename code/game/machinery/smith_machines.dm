@@ -651,7 +651,6 @@
 		produced_item.quality = quality
 		produced_item.set_worktime()
 		produced_item.update_appearance(UPDATE_NAME)
-		produced_item.update_appearance(UPDATE_DESC)
 		produced_item.update_icon(UPDATE_ICON_STATE)
 		update_icon(UPDATE_OVERLAYS)
 		// Clean up temps
@@ -960,6 +959,10 @@
 
 	if(!istype(used, /obj/item/smithed_item/component))
 		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(finished_product)
+		to_chat(user, "<span class='warning'>There is an almost finished [finished_product] in [src]!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/smithed_item/component/comp = used
