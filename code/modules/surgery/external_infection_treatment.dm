@@ -14,3 +14,8 @@
 		TOOL_WELDER = 30,
 		/obj/item/flamethrower = 1
 	)
+
+	preop_sound = 'sound/surgery/cautery1.ogg'
+	success_sound = 'sound/surgery/cautery2.ogg'
+	failure_sound = 'sound/items/welder.ogg'
+	time = 2.4 SECONDS
