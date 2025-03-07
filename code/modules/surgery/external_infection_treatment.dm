@@ -41,7 +41,8 @@
 		stack_trace("A healing surgery was given no healing values.")
 		return FALSE
 
-	return (germ_amount_healed && target.germ_level)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	return (germ_amount_healed && affected.germ_level)
 
 /datum/surgery_step/heal_infection/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!can_be_healed(user, target, target_zone))
@@ -109,8 +110,9 @@
 		return
 
 	var/progress_text
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	switch(target.germ_level)
+	switch(affected.germ_level)
 		if(1 to INFECTION_LEVEL_ONE - 1)
 			progress_text = ", removing the last traces of the infection"
 		if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
