@@ -20,8 +20,8 @@
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/grenade/gas/oxygen,
-					/obj/item/grenade/gas/oxygen)
+					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/oxygen_grenades)
 	cost = 400
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
