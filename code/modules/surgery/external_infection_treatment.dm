@@ -25,6 +25,8 @@ var/shown_starting_message_already = FALSE
 
 COOLDOWN_DECLARE(success_message_spam_cooldown)
 
+var/germ_amount_healed = 50
+
 /// Get a message indicating how the surgery is going.
 /datum/surgery_step/heal_infection/proc/get_progress(mob/user, mob/living/carbon/target, germ_healed)
 	return
@@ -51,7 +53,7 @@ COOLDOWN_DECLARE(success_message_spam_cooldown)
 			"You start to remove some of the infection on [target]'s [affected.name] with [tool].",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
-	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	affected.custom_pain("Your [affected.name] is being burned!")
 
 	return ..()
 
@@ -66,8 +68,22 @@ COOLDOWN_DECLARE(success_message_spam_cooldown)
 
 	var/germ_healed = germ_amount_healed
 
-	germ_healed += 50
-	affected.germ_level = max(affected.germ_level - 50, 0)
+	germ_healed += germ_amount_healed
+	affected.germ_level = max(affected.germ_level - germ_amount_healed, 0)
+
+	self_msg += get_progress(user, target, germ_healed)
+
+	if(COOLDOWN_FINISHED(src, success_message_spam_cooldown))
+		user.visible_message(
+			"<span class='notice'>[outer_msg].</span>",
+			"<span class='notice'>[self_msg].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+
+		COOLDOWN_START(src, success_message_spam_cooldown, 10 SECONDS)
+
+	// retry ad nauseum; can_repeat should handle anything else.
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/heal_infection/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
