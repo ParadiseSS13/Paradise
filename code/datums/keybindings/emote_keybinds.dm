@@ -509,6 +509,10 @@
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
 
+/datum/keybinding/emote/carbon/human/diona_chirp
+	linked_emote = /datum/emote/living/carbon/human/diona_chirp
+	name = "Chirp (Diona)"
+
 /datum/keybinding/emote/carbon/human/squish
 	linked_emote = /datum/emote/living/carbon/human/slime/squish
 	name = "Squish"

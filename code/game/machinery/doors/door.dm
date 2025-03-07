@@ -213,6 +213,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door/attack_hand(mob/user)
+	. = ..()
 	return try_to_activate_door(user)
 
 /obj/machinery/door/attack_tk(mob/user)

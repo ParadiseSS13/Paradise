@@ -83,7 +83,7 @@
 	tap.radio.autosay("Bluespace harvester has released a spike of radiation!", tap, "Engineering")
 
 /datum/engi_event/bluespace_tap_event/radiation/on_start()
-	radiation_pulse(tap, 3000, 7)
+	radiation_pulse(tap, 12000, BETA_RAD)
 
 // electrical arc
 /datum/engi_event/bluespace_tap_event/electric_arc

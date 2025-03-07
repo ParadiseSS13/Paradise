@@ -6,7 +6,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	explosion_block = 50
-	rad_insulation = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE

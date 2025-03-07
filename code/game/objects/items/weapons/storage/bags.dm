@@ -236,9 +236,13 @@
 	origin_tech = "bluespace=4;materials=3;engineering=3"
 	icon_state = "satchel_bspace"
 
-/obj/item/storage/bag/ore/holding/cyborg
+/obj/item/storage/bag/ore/cyborg/holding
 	name = "cyborg mining satchel of holding"
-	flags = NODROP
+	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	icon_state = "satchel_bspace"
+	storage_slots = INFINITY
+	max_combined_w_class = INFINITY
+
 
 ////////////////////////////////////////
 // MARK:	Plant bag

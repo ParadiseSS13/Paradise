@@ -112,7 +112,7 @@
 		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
 		return
 
-	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
 		return
 

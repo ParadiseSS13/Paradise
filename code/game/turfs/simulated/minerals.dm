@@ -14,7 +14,7 @@
 	density = TRUE
 	blocks_air = TRUE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	color = COLOR_ROCK

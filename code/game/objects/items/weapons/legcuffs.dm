@@ -224,7 +224,7 @@
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L)), hidden = TRUE))
 			reset_values(L)
 			break
 		throw_range += range_increment

@@ -189,19 +189,23 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
+	new /obj/effect/spawner/detgun(src)
+	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
+	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
+	new /obj/item/clipboard(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/detective_scanner(src)
+	new /obj/item/flash(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/holosign_creator/detective(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/reagent_containers/drinks/flask/detflask(src)
+	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/storage/bag/garment/detective(src)
 	new /obj/item/storage/belt/security(src)
 	new /obj/item/storage/box/evidence(src)
-	new /obj/item/clipboard(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
-	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
-	new /obj/effect/spawner/detgun(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/detective(src)
-	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/taperecorder(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

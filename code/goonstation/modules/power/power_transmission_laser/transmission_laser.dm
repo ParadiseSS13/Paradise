@@ -430,7 +430,7 @@
 				var/flashmod = max(cos(look_angle - angle_to_bore), 0)
 				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
 		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
-			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 50, RAD_DISTANCE_COEFFICIENT)
+			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 200, GAMMA_RAD)
 
 
 	charge -= output_level

@@ -110,6 +110,8 @@
 					/obj/item/whetstone = 2,
 					/obj/item/storage/box/papersack = 20,
 					/obj/item/mixing_bowl = 10,
+					/obj/item/kitchen/knife/cheese = 2,
+					/obj/item/kitchen/knife/pizza_cutter = 2,
 					/obj/item/kitchen/mould/bear = 1,
 					/obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1,

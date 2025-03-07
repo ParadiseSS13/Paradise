@@ -225,6 +225,12 @@
 	icon_state = "knife-cheese"
 	force = 3
 
+/obj/item/kitchen/knife/pizza_cutter
+	name = "pizza cutter"
+	desc = "A simple circular blade on a handle, used to cut pizza."
+	icon_state = "pizza_cutter"
+	force = 8
+
 /*
  * Rolling Pins
  */

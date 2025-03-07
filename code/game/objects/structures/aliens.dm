@@ -116,7 +116,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE

@@ -8,7 +8,7 @@
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 

@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /// Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 /datum/cameranet/proc/update_visibility(atom/A, opacity_check = 1)
-	if(!SSticker || (opacity_check && !A.opacity))
+	if(SSticker.current_state < GAME_STATE_PREGAME || (opacity_check && !A.opacity))
 		return
 	major_chunk_change(update = A)
 
@@ -110,7 +110,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		return
 	if(add && remove)
 		CRASH("Adding and removing a camera to the cameranet simultaneously is not implemented")
-	
+
 	var/atom/c = remove
 	if(!c)
 		c = add

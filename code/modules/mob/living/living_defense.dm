@@ -320,7 +320,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 

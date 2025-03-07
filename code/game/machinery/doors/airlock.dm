@@ -61,7 +61,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 	cares_about_temperature = TRUE
 	var/security_level = 0 //How much are wires secured
@@ -1016,7 +1017,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/assembly/signaler))
-		interact_with_panel(used)
+		interact_with_panel(user)
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = used

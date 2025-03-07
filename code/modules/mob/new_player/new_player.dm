@@ -53,7 +53,7 @@
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
-	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
 			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else
@@ -70,7 +70,7 @@
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"

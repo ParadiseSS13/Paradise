@@ -10,7 +10,8 @@
 	max_integrity = 200
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
@@ -144,13 +145,12 @@
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	max_integrity = 300
-	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/gold
 	name = "gold door"
 	icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
@@ -167,7 +167,7 @@
 
 /obj/structure/mineral_door/transparent
 	opacity = FALSE
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
@@ -205,7 +205,6 @@
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
-	rad_insulation = RAD_EXTREME_INSULATION
 
 /obj/structure/mineral_door/wood
 	name = "wood door"
@@ -216,7 +215,7 @@
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/Initialize(mapload)
 	. = ..()
