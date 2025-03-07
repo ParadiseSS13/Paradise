@@ -52,7 +52,7 @@
 	AddComponent(/datum/component/largetransparency)
 
 /obj/machinery/radar/process()
-	if((check_time > world.time))
+	if(check_time > world.time)
 		return
 	for(var/datum/weather/W in SSweather.processing)
 		if(!W)
