@@ -52,3 +52,5 @@ COOLDOWN_DECLARE(success_message_spam_cooldown)
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+
+	return ..()
