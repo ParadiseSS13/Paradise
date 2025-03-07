@@ -72,6 +72,7 @@ var/germ_amount_healed = 50
 	var/self_msg = "You successfully manage to remove some of [target]'s infection"
 
 	var/germ_healed = germ_amount_healed
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	germ_healed += germ_amount_healed
 	affected.germ_level = max(affected.germ_level - germ_amount_healed, 0)
