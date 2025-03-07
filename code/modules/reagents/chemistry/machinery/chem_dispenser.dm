@@ -346,7 +346,7 @@
 	ui_title = "Soda Dispens-o-matic"
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "pineapplejuice", "cream", "berryjuice")
+	"watermelonjuice", "pineapplejuice", "cream", "berryjuice", "carrotjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."

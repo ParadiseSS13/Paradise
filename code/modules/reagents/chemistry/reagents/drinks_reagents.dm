@@ -66,14 +66,6 @@
 	drink_desc = "Just like a carrot, but without the crunching."
 	taste_description = "carrot juice"
 
-/datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustEyeBlurry(-2 SECONDS)
-	M.AdjustEyeBlind(-2 SECONDS)
-	if(current_cycle > 20 && prob(current_cycle - 10))
-		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/consumable/drink/doctor_delight
 	name = "The Doctor's Delight"
 	id = "doctorsdelight"
