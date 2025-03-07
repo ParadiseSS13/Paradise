@@ -1,12 +1,8 @@
 /datum/surgery/infection
 	name = "External Infection Treatment"
 	desc = "Gradually remove infected from an affected limb"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/pull_skin, /datum/surgery_step/generic/cauterize)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
-
-/* /datum/surgery/infection/New(atom/surgery_target, surgery_location, surgery_bodypart)
-	name = "External Infection Treatment"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/generic/cauterize) */
 
 /datum/surgery_step/heal_infection
 	name = "tend infection"
@@ -131,3 +127,45 @@
 			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] septic limb"
 
 	return progress_text
+
+/datum/surgery_step/pull_skin
+	name = "pull skin"
+
+	allowed_tools = list(
+		TOOL_RETRACTOR = 100,
+		/obj/item/scalpel/laser/manager = 100,
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 90,
+		/obj/item/kitchen/utensil/fork = 60
+	)
+
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
+	time = 2.4 SECONDS
+
+/datum/surgery_step/pull_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg = "[user] starts to pull closed the incision on [target]'s [affected.name] with \the [tool]."
+	var/self_msg = "You start to pull closed the incision on [target]'s [affected.name] with \the [tool]."
+
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	affected.custom_pain("It feels like the skin on your [affected.name] is on fire!")
+	return ..()
+
+/datum/surgery_step/pull_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg = "<span class='notice'>[user] pulls the incision closed on [target]'s [affected.name] with \the [tool].</span>"
+	var/self_msg = "<span class='notice'>You pull the incision closed on [target]'s [affected.name] with \the [tool].</span>"
+
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/pull_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg = "<span class='warning'>[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
+	var/self_msg = "<span class='warning'>Your hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
+	return SURGERY_STEP_RETRY
