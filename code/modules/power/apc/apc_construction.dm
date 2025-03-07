@@ -89,9 +89,8 @@
 		return
 
 	if(opened)
-		if(cell && !(stat & MAINT))
-			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
-			return
+		to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
+		return
 
 	if(emagged)
 		to_chat(user, "<span class='warning'>The interface is broken!</span>")
