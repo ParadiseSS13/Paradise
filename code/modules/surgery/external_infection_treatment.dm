@@ -89,7 +89,10 @@
 		COOLDOWN_START(src, success_message_spam_cooldown, 10 SECONDS)
 
 	// retry ad nauseum; can_repeat should handle anything else.
-	return SURGERY_STEP_RETRY
+	if(affected.germ_level > 0)
+		return SURGERY_STEP_RETRY
+	else
+		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/heal_infection/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -101,8 +104,8 @@
 	target.apply_damage(3, BURN, affected)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery_step/heal_infection/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
-	if(!brute_healed)
+/datum/surgery_step/heal_infection/brute/get_progress(mob/user, mob/living/carbon/target, target_zone, germ_healed)
+	if(!germ_healed)
 		return
 
 	var/progress_text
@@ -126,24 +129,3 @@
 			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] septic limb"
 
 	return progress_text
-
-/* /datum/surgery/intermediate/heal_infection
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
-
-/datum/surgery/intermediate/heal_infection
-	name = "Tend Infection (abstract)"
-	desc = "An intermediate surgery to tend to a patient's infection while they're undergoing another procedure."
-	steps = list(
-		/datum/surgery_step/heal_infection
-	)
-
-/datum/surgery/intermediate/heal_infection/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	if(!.)
-		return
-	if(target.getBruteLoss() == 0)
-		to_chat(user, "<span class='warning'>[target] doesn't even have a trace of infection on that limb, there's nothing to treat.</span>")
-		return FALSE
-	return TRUE
-	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
-	// It's alright for intermediate surgeries, though, since they never get listed out */
