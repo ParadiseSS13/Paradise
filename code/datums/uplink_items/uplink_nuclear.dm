@@ -294,10 +294,10 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/machinegun
-	name = "L6 SAW - 5.56x45mm Box Magazine"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "L6 SAW - 7.62x51mm Box Magazine"
+	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/mm762x51
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0

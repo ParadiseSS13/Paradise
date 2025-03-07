@@ -1403,6 +1403,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			var/obj/structure/window/W = O
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
 				return FALSE
+		if(istype(O, /obj/machinery/power/rad_collector))
+			return FALSE
 	return TRUE
 
 //datum may be null, but it does need to be a typed var

@@ -563,7 +563,7 @@
 /obj/structure/computerframe
 	name = "computer frame"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer_frame"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
