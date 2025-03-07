@@ -759,6 +759,8 @@
 	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 
 /obj/item/smithed_item/component/proc/burn_check(mob/user)
+	if(!hot)
+		return FALSE
 	var/burn_me = TRUE
 	var/mob/living/carbon/human/H = user
 	if(!istype(H))

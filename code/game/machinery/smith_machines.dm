@@ -443,6 +443,11 @@
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return
+	if(working_component.burn_check(user))
+		working_component.burn_user(user)
+		working_component.forceMove(user.loc)
+		working_component = null
+		return
 	user.put_in_hands(working_component)
 	working_component = null
 
@@ -601,7 +606,7 @@
 	if(produced_item)
 		if(produced_item.burn_check(user))
 			produced_item.burn_user(user)
-			produced_item.forceMove(src.loc)
+			produced_item.forceMove(user.loc)
 			produced_item = null
 			return FINISH_ATTACK
 		user.put_in_hands(produced_item)
@@ -684,6 +689,7 @@
 		operate(operation_time, user)
 		var/obj/item/stack/new_stack = new cast.selected_product(src.loc)
 		new_stack.amount = amount
+		new_stack.update_icon(UPDATE_ICON_STATE)
 
 		// Clean up temps
 		qdel(temp_product)
@@ -935,16 +941,31 @@
 	switch(removed)
 		if("Primary")
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
+			if(primary.burn_check(user))
+				primary.burn_user(user)
+				primary.forceMove(user.loc)
+				primary = null
+				return
 			user.put_in_hands(primary)
 			primary = null
 			return
 		if("Secondary")
 			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
+			if(secondary.burn_check(user))
+				secondary.burn_user(user)
+				secondary.forceMove(user.loc)
+				secondary = null
+				return
 			user.put_in_hands(secondary)
 			secondary = null
 			return
 		if("Trim")
 			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
+			if(trim.burn_check(user))
+				trim.burn_user(user)
+				trim.forceMove(user.loc)
+				trim = null
+				return
 			user.put_in_hands(trim)
 			trim = null
 			return
