@@ -1,4 +1,4 @@
-#define rockfall_delay 10 // For how long until the boulders hit the ground
+#define ROCKFALL_DELAY 10 // For how long until the boulders hit the ground
 
 /// MARK: Ash Storm
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
@@ -171,7 +171,7 @@
 
 //lets just fake some booms
 /datum/weather/volcano/proc/generate_boom(turf/target)
-	sleep(rockfall_delay)
+	sleep(ROCKFALL_DELAY)
 	for(var/mob/M in GLOB.player_list)
 		var/turf/M_turf = get_turf(M)
 		if(M_turf.z == target.z)
@@ -185,7 +185,7 @@
 	desc = "Get out of the way!"
 	layer = FLY_LAYER
 	randomdir = FALSE
-	duration = rockfall_delay
+	duration = ROCKFALL_DELAY
 	pixel_z = 270
 
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
@@ -199,7 +199,7 @@
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = 2
-	duration = rockfall_delay
+	duration = ROCKFALL_DELAY
 
 /obj/effect/temp_visual/rock_target/ex_act()
 	return
@@ -418,7 +418,7 @@
 	if(ishuman(L)) // lets not push around lavaland mobs
 		L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
 
-
+#undef ROCKFALL_DELAY
 
 
 

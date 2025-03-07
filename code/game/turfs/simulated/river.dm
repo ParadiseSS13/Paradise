@@ -185,6 +185,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	pixel_y = -32
 
 #undef WARNING_DELAY
+#undef BRIDGE_PROB
 
 #undef RIVER_MAX_X
 #undef RIVER_MAX_Y
