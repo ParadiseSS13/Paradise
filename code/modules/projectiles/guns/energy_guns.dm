@@ -83,6 +83,8 @@
 
 /obj/item/gun/energy/proc/attach_lens(atom/source, obj/item/smithed_item/lens/new_lens, mob/user)
 	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
+	if(!Adjacent(user))
+		return
 	if(!can_be_lensed)
 		return
 	if(!istype(new_lens))
@@ -98,7 +100,8 @@
 
 /obj/item/gun/energy/proc/detach_lens(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
-
+	if(!Adjacent(user))
+		return
 	if(!current_lens)
 		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
 		return

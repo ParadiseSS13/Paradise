@@ -19,6 +19,7 @@
 
 /obj/item/smithing_cast/examine(mob/user)
 	. = ..()
+	. += "It is currently configured to make [amount_to_make == 1 ? "a" : "[amount_to_make]"] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
 	. += "<span class='notice'>You can select the desired product by using [src] in your hand.</span>"
 
 /obj/item/smithing_cast/activate_self(mob/user)
@@ -35,7 +36,6 @@
 		selected_product = possible_products[1]
 	else
 		selected_product = product_names[new_product]
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/update_desc()
 	return ..()
@@ -47,10 +47,6 @@
 	name = "sheet cast"
 	icon_state = "sheet_cast"
 	desc = "A cast for forging molten minerals into workable sheets."
-
-/obj/item/smithing_cast/sheet/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [amount_to_make] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
-	return ..()
 
 /obj/item/smithing_cast/sheet/examine(mob/user)
 	. = ..()
@@ -79,12 +75,12 @@
 							)
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/sheet/AltClick(mob/user)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component
 	name = "component cast"
@@ -96,10 +92,13 @@
 
 /obj/item/smithing_cast/component/examine(mob/user)
 	. = ..()
+	. += "The current selected quality is [quality.name]."
 	. += "<span class='notice'>You can change the quality of the product by alt-clicking [src].</span>"
 
 /obj/item/smithing_cast/component/AltClick(mob/user)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	var/list/quality_name_list = list()
 	var/list/quality_type_list = typesof(/datum/smith_quality)
 	var/quality_type
@@ -111,17 +110,11 @@
 		quality = quality_type_list[1]
 	else
 		quality = quality_name_list[selected_quality]
-	update_appearance(UPDATE_DESC)
-
-/obj/item/smithing_cast/component/update_desc()
-	desc = "[initial(desc)] It is currently configured to make [selected_product.name] at [quality.name] quality."
-	return ..()
 
 /obj/item/smithing_cast/component/populate_products()
 	possible_products = (typesof(product_type) - list(product_type))
 	if(length(possible_products))
 		selected_product = possible_products[1]
-		update_appearance(UPDATE_DESC)
 
 /obj/item/smithing_cast/component/insert_frame
 	name = "insert frame cast"
@@ -377,9 +370,9 @@
 	/// Size modifier
 	var/size_mod = 0
 	/// Durability
-	var/durability = 30
+	var/durability = 90
 	/// Max durability
-	var/max_durability = 30
+	var/max_durability = 90
 	/// The tool the bit is attached to
 	var/obj/item/attached_tool
 
@@ -431,6 +424,8 @@
 
 /obj/item/smithed_item/tool_bit/proc/damage_bit()
 	durability--
+	if(istype(attached_tool, /obj/item/rcd))
+		durability--
 	if(durability == 0)
 		break_bit()
 
@@ -465,14 +460,14 @@
 	failure_rate = 10
 	base_efficiency_mod = 0.25
 	size_mod = 1
-	durability = 40
+	durability = 120
 
 /obj/item/smithed_item/tool_bit/economical
 	name = "economical bit"
 	desc = "An advanced tool bit that maximises efficiency."
 	base_speed_mod = 0.4
 	base_efficiency_mod = -0.45
-	durability = 15
+	durability = 60
 
 /obj/item/smithed_item/tool_bit/advanced
 	name = "advanced bit"
@@ -486,7 +481,7 @@
 	desc = "A hyper-advanced bit restricted to central command officials."
 	speed_mod = -1
 	efficiency_mod = 1
-	durability = 100
+	durability = 300
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
@@ -586,7 +581,7 @@
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
-	base_power_mult = 0.1
+	base_power_mult = 0.2
 	base_damage_mult = 0.1
 
 /obj/item/smithed_item/lens/efficiency
@@ -607,8 +602,8 @@
 /obj/item/smithed_item/lens/densifier
 	name = "densifier lens"
 	desc = "An advanced lens that keeps energy emissions in the barrel as long as possible, maximising impact at the cost of everything else."
-	base_fire_rate_mult = -0.3
-	base_laser_speed_mult = -0.3
+	base_fire_rate_mult = -0.4
+	base_laser_speed_mult = -0.4
 	base_damage_mult = 0.4
 	durability = 30
 
@@ -630,6 +625,80 @@
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
+// Random Spawners
+/obj/item/smithed_item/random
+	name = "random smithed item"
+	desc = "If you see me please contact development because I should not exist."
+	/// Weighted list of possible item qualities
+	var/list/smithed_item_qualities = list(
+		/datum/smith_quality = 9,
+		/datum/smith_quality/improved = 1
+	)
+	/// Weighted list of possible item materials
+	var/list/smithed_item_materials = list(
+		/datum/smith_material/metal = 40,
+		/datum/smith_material/silver = 10,
+		/datum/smith_material/gold = 5,
+		/datum/smith_material/plasma = 10,
+		/datum/smith_material/titanium = 5,
+		/datum/smith_material/uranium = 3,
+		/datum/smith_material/brass = 15
+	)
+	/// List of possible item types
+	var/list/smithed_type_list = list(
+		/obj/item/smithed_item/insert/ballistic,
+		/obj/item/smithed_item/insert/thermal,
+		/obj/item/smithed_item/insert/fireproofing,
+		/obj/item/smithed_item/insert/reflective,
+		/obj/item/smithed_item/insert/rad_hazard,
+		/obj/item/smithed_item/insert/rubberized,
+		/obj/item/smithed_item/tool_bit/speed,
+		/obj/item/smithed_item/tool_bit/balanced,
+		/obj/item/smithed_item/tool_bit/efficiency,
+		/obj/item/smithed_item/lens/accelerator,
+		/obj/item/smithed_item/lens/speed,
+		/obj/item/smithed_item/lens/amplifier,
+		/obj/item/smithed_item/lens/efficiency
+	)
+
+/obj/item/smithed_item/random/Initialize(mapload)
+	. = ..()
+	var/picked_type =  pick(smithed_type_list)
+	var/obj/item/smithed_item/new_item = new picked_type(src.loc)
+	new_item.quality = pickweight(smithed_item_qualities)
+	new_item.material = pickweight(smithed_item_materials)
+	new_item.set_stats()
+	new_item.update_appearance(UPDATE_NAME)
+	qdel(src)
+
+/obj/item/smithed_item/random/insert
+	name = "random smithed insert"
+	smithed_type_list = list(
+		/obj/item/smithed_item/insert/ballistic,
+		/obj/item/smithed_item/insert/thermal,
+		/obj/item/smithed_item/insert/fireproofing,
+		/obj/item/smithed_item/insert/reflective,
+		/obj/item/smithed_item/insert/rad_hazard,
+		/obj/item/smithed_item/insert/rubberized
+	)
+
+/obj/item/smithed_item/random/bit
+	name = "random smithed tool bit"
+	smithed_type_list = list(
+		/obj/item/smithed_item/tool_bit/speed,
+		/obj/item/smithed_item/tool_bit/balanced,
+		/obj/item/smithed_item/tool_bit/efficiency
+	)
+
+/obj/item/smithed_item/random/lens
+	name = "random smithed lens"
+	smithed_type_list = list(
+		/obj/item/smithed_item/lens/accelerator,
+		/obj/item/smithed_item/lens/speed,
+		/obj/item/smithed_item/lens/amplifier,
+		/obj/item/smithed_item/lens/efficiency
+	)
+
 // Components
 
 #define PART_PRIMARY 1
@@ -650,10 +719,6 @@
 	/// How many times the component needs to be shaped to be considered ready
 	var/hammer_time = 3
 
-/obj/item/smithed_item/component/Initialize(mapload)
-	. = ..()
-	update_appearance(UPDATE_DESC)
-
 /obj/item/smithed_item/component/update_icon_state()
 	. = ..()
 	if(hot)
@@ -666,23 +731,19 @@
 	if(prob(50) || hammer_time <= 0)
 		hot = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	update_appearance(UPDATE_DESC)
 
 /obj/item/smithed_item/component/proc/heat_up()
 	hot = TRUE
-	update_appearance(UPDATE_DESC)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/smithed_item/component/update_desc()
+/obj/item/smithed_item/component/examine(mob/user)
 	. = ..()
-	desc = initial(desc)
-	desc += "\n"
 	if(hammer_time)
-		desc += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
+		. += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
 	else
-		desc += "It is complete."
+		. += "It is complete."
 	if(hot)
-		desc +="\n<span class='warning'>It is glowing hot!</span>"
+		. +="<span class='warning'>It is glowing hot!</span>"
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
 	if(!hot)

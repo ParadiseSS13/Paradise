@@ -888,7 +888,8 @@
 
 /obj/item/clothing/suit/proc/detach_insert(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
-
+	if(!Adjacent(user))
+		return
 	if(!length(inserts))
 		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
 		return
@@ -907,7 +908,8 @@
 
 /obj/item/clothing/suit/proc/attach_insert(obj/source_item, obj/item/smithed_item/insert/new_insert, mob/user)
 	SIGNAL_HANDLER // COMSIG_INSERT_ATTACH
-
+	if(!Adjacent(user))
+		return
 	if(!istype(new_insert))
 		return
 	if(length(inserts) == insert_max)
