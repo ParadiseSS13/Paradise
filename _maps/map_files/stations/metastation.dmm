@@ -161,9 +161,7 @@
 /area/station/maintenance/fore)
 "acR" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security/wooden_tv,
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "Detective";
@@ -14129,9 +14127,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -24480,8 +24476,7 @@
 /obj/item/folder,
 /obj/machinery/camera{
 	c_tag = "Telecoms - Control Room";
-	dir = 1;
-	network = list("SS13","tcomm")
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/item/pen/multi,
@@ -28073,9 +28068,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "cfh" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -49752,8 +49745,7 @@
 "hxv" = (
 /obj/machinery/camera{
 	c_tag = "Telecoms - Server Room - Aft";
-	dir = 1;
-	network = list("SS13","tcomm")
+	dir = 1
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
@@ -54461,8 +54453,7 @@
 /area/station/security/detective)
 "jIs" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -71852,8 +71843,7 @@
 /area/station/security/main)
 "rsR" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
