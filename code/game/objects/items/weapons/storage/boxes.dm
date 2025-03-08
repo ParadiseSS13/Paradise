@@ -1308,6 +1308,7 @@
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/autochef_remote(src)
 	new /obj/item/screwdriver(src)
+	new /obj/item/paper/autochef_quickstart(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

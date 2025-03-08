@@ -143,25 +143,25 @@
 				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
 
 		user.put_in_hands(surface.container)
+		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
 		surface.container = null
 		update_appearance(UPDATE_ICON)
 
 /obj/machinery/cooking/grill/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
-	if(!(surface.container))
+	if(!surface.container)
 		return
 
-	var/obj/item/our_item = surface.container
 	switch(surface_idx)
 		if(1)
-			our_item.pixel_x = -7
-			our_item.pixel_y = 3
+			surface.container.pixel_x = -7
+			surface.container.pixel_y = 3
 		if(2)
-			our_item.pixel_x = 7
-			our_item.pixel_y = 3
+			surface.container.pixel_x = 7
+			surface.container.pixel_y = 3
 
-	add_to_visible(our_item, surface_idx)
+	add_to_visible(surface.container, surface_idx)
 
 /obj/machinery/cooking/grill/update_overlays()
 	. = ..()
