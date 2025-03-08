@@ -141,8 +141,8 @@ checksum = "79296716171880943b8470b5f8d03aa55eb2e645a4874bdbb28adb49162e012c"
 
 [[package]]
 name = "byondapi"
-version = "0.5.13"
-source = "git+https://github.com/AffectedArc07/byondapi-rs.git?branch=20250305-config-stuff#a18e550c5df65b50c04e8934e20f67dfa7f46e33"
+version = "0.5.14"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
 dependencies = [
  "byondapi-macros",
  "byondapi-sys",
@@ -154,7 +154,7 @@ dependencies = [
 [[package]]
 name = "byondapi-macros"
 version = "0.2.3"
-source = "git+https://github.com/AffectedArc07/byondapi-rs.git?branch=20250305-config-stuff#a18e550c5df65b50c04e8934e20f67dfa7f46e33"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -164,7 +164,7 @@ dependencies = [
 [[package]]
 name = "byondapi-sys"
 version = "0.12.3"
-source = "git+https://github.com/AffectedArc07/byondapi-rs.git?branch=20250305-config-stuff#a18e550c5df65b50c04e8934e20f67dfa7f46e33"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
 dependencies = [
  "bindgen",
  "doxygen-rs",
