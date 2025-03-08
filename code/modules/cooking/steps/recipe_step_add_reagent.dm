@@ -17,6 +17,21 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	..(options)
 
 /datum/cooking/recipe_step/add_reagent/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
+	// Autochefs may do this up front before a tracker exists if nothing
+	// has been added to the container yet. In this case, we just check
+	// to see if the container has what we need.
+	if(!tracker)
+		if(!(used_item.container_type & OPENCONTAINER))
+			return PCWJ_CHECK_INVALID
+
+		var/obj/item/reagent_containers/reagent_container = used_item
+		if(istype(reagent_container))
+			if(reagent_container.reagents.has_reagent(reagent_id, amount))
+				return PCWJ_CHECK_VALID
+
+		return PCWJ_CHECK_INVALID
+
+
 	var/obj/item/container = locateUID(tracker.container_uid)
 
 	// Potentially might break shit, but we'll see; if we're currently being
