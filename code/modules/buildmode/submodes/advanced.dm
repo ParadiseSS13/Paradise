@@ -1,6 +1,6 @@
 /datum/buildmode_mode/advanced
 	key = "advanced"
-	var/objholder = null
+	var/obj_holder = null
 
 // FIXME: add logic which adds a button displaying the icon
 // of the currently selected path
@@ -16,16 +16,16 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/advanced/change_settings(mob/user)
-	var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
-	objholder = text2path(target_path)
-	if(!ispath(objholder))
-		objholder = pick_closest_path(target_path)
-		if(!objholder)
-			alert("No path was selected")
+	var/target_path = tgui_input_text(user, "Enter typepath:" , "Typepath", "/obj/structure/closet")
+	obj_holder = text2path(target_path)
+	if(!ispath(obj_holder))
+		obj_holder = pick_closest_path(target_path)
+		if(!obj_holder)
+			tgui_alert(user, "No path was selected")
 			return
-		else if(ispath(objholder, /area))
-			objholder = null
-			alert("That path is not allowed.")
+		else if(ispath(obj_holder, /area))
+			obj_holder = null
+			tgui_alert(user,"That path is not allowed")
 			return
 
 /datum/buildmode_mode/advanced/handle_click(user, params, obj/object)
@@ -36,18 +36,18 @@
 
 	if(left_click && alt_click)
 		if(isturf(object) || isobj(object) || ismob(object))
-			objholder = object.type
+			obj_holder = object.type
 			to_chat(user, "<span class='notice'>[initial(object.name)] ([object.type]) selected.</span>")
 		else
 			to_chat(user, "<span class='notice'>[initial(object.name)] is not a turf, object, or mob! Please select again.</span>")
 	else if(left_click)
-		if(ispath(objholder,/turf))
+		if(ispath(obj_holder,/turf))
 			var/turf/T = get_turf(object)
-			log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [objholder]")
-			T.ChangeTurf(objholder)
-		else if(!isnull(objholder))
+			log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [obj_holder]")
+			T.ChangeTurf(obj_holder)
+		else if(!isnull(obj_holder))
 			//we only want to set the direction of mobs or objects, not turfs or areas.
-			var/atom/movable/A = new objholder(get_turf(object))
+			var/atom/movable/A = new obj_holder(get_turf(object))
 			if(istype(A))
 				A.setDir(BM.build_dir)
 				log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")

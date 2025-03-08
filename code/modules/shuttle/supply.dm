@@ -12,10 +12,10 @@
 	id = "supply"
 	callTime = 2 MINUTES
 	dir = 8
-	travelDir = 90
 	width = 12
 	dwidth = 5
 	height = 7
+	port_direction = EAST
 
 	// The list of things that can't be sent to CC.
 	var/list/blacklist = list(

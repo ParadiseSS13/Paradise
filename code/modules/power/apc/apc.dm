@@ -477,18 +477,20 @@
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > APC_CHANNEL_SETTING_AUTO_OFF))
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
 		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, (environment_channel > APC_CHANNEL_SETTING_AUTO_OFF))
-		if(lighting_channel)
+		if(lighting_channel > APC_CHANNEL_SETTING_AUTO_OFF)
 			emergency_power = TRUE
 			if(emergency_power_timer)
 				deltimer(emergency_power_timer)
 				emergency_power_timer = null
 		else
-			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+			if(!emergency_power_timer)
+				emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	else
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
 		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, FALSE)
-		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+		if(!emergency_power_timer)
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	machine_powernet.power_change()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
