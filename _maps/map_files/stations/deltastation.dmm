@@ -18002,11 +18002,6 @@
 "blB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	dir = 10;
