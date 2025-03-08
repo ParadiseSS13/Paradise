@@ -472,15 +472,6 @@
 /obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
-"xd" = (
-/obj/structure/sign/engineering{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/ruin/space/sieged_lab)
 "xn" = (
 /obj/structure/sign/directions/bridge{
 	dir = 1
@@ -569,6 +560,16 @@
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
+	},
+/area/ruin/space/sieged_lab)
+"AC" = (
+/obj/structure/sign/directions/engineering{
+	pixel_x = 32;
+	pixel_y = 24;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
 /area/ruin/space/sieged_lab)
 "AI" = (
@@ -911,16 +912,26 @@
 	icon_state = "neutral"
 	},
 /area/ruin/space/sieged_lab)
-"TI" = (
-/obj/effect/spawner/random/blood/often,
+"Tt" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 5;
 	icon_state = "yellow"
 	},
 /area/ruin/space/sieged_lab)
 "TU" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
+"TW" = (
+/obj/structure/sign/directions/engineering{
+	pixel_x = 32;
+	pixel_y = 24;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "neutral"
+	},
 /area/ruin/space/sieged_lab)
 "Uq" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -2486,7 +2497,7 @@ DW
 eA
 xr
 rV
-tZ
+AC
 DW
 xr
 xr
@@ -2496,7 +2507,7 @@ xr
 NN
 DW
 xr
-NN
+TW
 Yk
 ZK
 Gh
@@ -2674,8 +2685,8 @@ Gh
 Gh
 ZK
 kb
-tZ
-xd
+xr
+xr
 xr
 NN
 VM
@@ -2733,7 +2744,7 @@ Gh
 Gh
 ZK
 ZK
-sj
+ZK
 ZK
 ZK
 lx
@@ -2850,7 +2861,7 @@ ZK
 ZK
 ZK
 ZK
-ve
+zz
 gz
 Pm
 ZK
@@ -2909,7 +2920,7 @@ Gh
 Gh
 KG
 ZK
-TI
+uu
 Zd
 Pm
 ZK
@@ -3027,7 +3038,7 @@ Gh
 Gh
 Gh
 ZK
-mU
+ve
 Gh
 ua
 ZK
@@ -3086,7 +3097,7 @@ Gh
 Gh
 Gh
 ZK
-zz
+mU
 Gh
 fl
 ZK
@@ -3144,8 +3155,8 @@ xr
 Gh
 Gh
 Gh
-ZK
-uu
+sj
+Tt
 KZ
 jC
 ZK

@@ -922,6 +922,7 @@
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -1110,6 +1111,7 @@
 /area/template_noop)
 "xV" = (
 /obj/structure/machine_frame,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1922,6 +1924,13 @@
 /obj/effect/decal/cleanable/blood/gibs/robot/up,
 /turf/simulated/floor/plating/asteroid,
 /area/template_noop)
+"OA" = (
+/obj/machinery/suit_storage_unit,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/template_noop)
 "OG" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
 /turf/simulated/floor/plating,
@@ -1992,6 +2001,7 @@
 /area/template_noop)
 "QC" = (
 /obj/machinery/economy/vending/boozeomat,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "QG" = (
@@ -4859,7 +4869,7 @@ nK
 nK
 Fw
 nB
-nB
+OA
 nK
 nK
 nK
