@@ -33,7 +33,8 @@
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+					/obj/item/pizzabox/hawaiian,
+					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
 	containername = "Pizza crate"
 
