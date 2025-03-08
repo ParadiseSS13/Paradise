@@ -12,7 +12,7 @@
 			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
 		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
 
-	if(!do_after(user, effective_breakout_time, FALSE, user))
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
 		return
