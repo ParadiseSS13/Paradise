@@ -24247,15 +24247,17 @@
 /area/station/medical/morgue)
 "bEM" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 6
+	pixel_x = -3;
+	pixel_y = 11
 	},
-/obj/item/mmi/robotic_brain,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/mmi/robotic_brain{
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -24704,7 +24706,6 @@
 /area/station/science/lobby)
 "bGE" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil,
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
@@ -24713,6 +24714,7 @@
 	pixel_x = -24;
 	dir = 4
 	},
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -25831,6 +25833,7 @@
 	pixel_x = -3
 	},
 /obj/item/clothing/glasses/welding,
+/obj/item/mecha_parts/core,
 /obj/structure/shelf/science,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68260,9 +68263,7 @@
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/crowbar,
 /obj/machinery/alarm/directional/north,
-/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

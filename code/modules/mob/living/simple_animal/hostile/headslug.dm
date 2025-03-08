@@ -48,7 +48,7 @@
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
 	if(egg_layed || !istype(carbon_target) || !Adjacent(carbon_target) || ismachineperson(carbon_target))
 		return ..()
-	if(carbon_target.stat != DEAD && !do_mob(src, carbon_target, 5 SECONDS))
+	if(carbon_target.stat != DEAD && !do_mob(src, carbon_target, 5 SECONDS, hidden = TRUE))
 		return
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
 		to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
