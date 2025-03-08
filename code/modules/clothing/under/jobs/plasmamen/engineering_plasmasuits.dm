@@ -45,5 +45,5 @@
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing [user.get_item_by_slot(slot_id)].</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
