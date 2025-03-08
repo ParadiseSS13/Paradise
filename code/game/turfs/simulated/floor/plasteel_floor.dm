@@ -1,6 +1,7 @@
 /turf/simulated/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)

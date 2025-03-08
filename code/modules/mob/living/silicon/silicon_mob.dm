@@ -445,7 +445,7 @@
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(amount)
+/mob/living/silicon/adjustToxLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
@@ -602,3 +602,6 @@
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
 	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(500)

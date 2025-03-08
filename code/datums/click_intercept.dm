@@ -44,10 +44,11 @@
  *
  * If the mob's `client.click_intercept` variable is set to something other than null, calls the `InterceptClickOn` proc for that click intercept datum. Aka, this proc.
  *
+ * If you return TRUE, click on ends the click. Otherwise, normal clicking happens
  * Arguments:
  * * user - the mob which just clicked on something.
  * * params - the `params` arguemnt passed from the `ClickOn` proc.
  * * object - the atom that was just clicked.
  */
 /datum/click_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
-	return
+	return TRUE

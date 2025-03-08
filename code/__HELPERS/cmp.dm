@@ -57,3 +57,7 @@
 
 /proc/cmp_changeling_power_category_asc(datum/changeling_power_category/a, datum/changeling_power_category/b)
 	return initial(a.priority) - initial(b.priority)
+
+/// Orders heretic knowledge by priority
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

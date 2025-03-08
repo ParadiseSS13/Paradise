@@ -23,6 +23,8 @@
 
 /// The name of the strings file containing data to use for contract fluff texts.
 #define CONTRACT_STRINGS_WANTED "syndicate_wanted_messages.json"
+/// JSON string file for all of our heretic influence flavors
+#define HERETIC_INFLUENCE_FILE "heretic_influences.json"
 
 // UI page numbers.
 #define HUB_PAGE_CONTRACTS 1
@@ -76,6 +78,55 @@ GLOBAL_LIST(contractors)
 #define IS_MINDFLAYER(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindflayer))
 
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
+
+/**
+ * Heretic checks
+ */
+
+/// Checks if the given mob is a heretic.
+#define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
+
+/// Check if the given mob is a heretic monster.
+#define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/mindslave/heretic_monster))
+/// Checks if the given mob is either a heretic, heretic monster.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
+/// CHecks if the given mob is in the mansus realm
+#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
+
+
+// Heretic path defines.
+#define PATH_START "Start Path"
+#define PATH_SIDE "Side Path"
+#define PATH_ASH "Ash Path"
+#define PATH_RUST "Rust Path"
+#define PATH_FLESH "Flesh Path"
+#define PATH_VOID "Void Path"
+#define PATH_BLADE "Blade Path"
+#define PATH_COSMIC "Cosmic Path"
+#define PATH_LOCK "Lock Path"
+#define PATH_MOON "Moon Path"
+
+//Heretic knowledge tree defines
+#define HKT_NEXT "next"
+#define HKT_BAN "ban"
+#define HKT_DEPTH "depth"
+#define HKT_ROUTE "route"
+#define HKT_UI_BGR "ui_bgr"
+
+
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN (-1)
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
+
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
+/// Checks if the passed mob can become a heretic ghoul.
+/// - Must be a human (type, not species)
+/// - Skeletons cannot be husked (they are snowflaked instead of having a trait)
+/// - Monkeys are monkeys, not quite human (balance reasons)
+#define IS_VALID_GHOUL_MOB(mob) (ishuman(mob) && !isskeleton(mob) && !ismonkeybasic(mob))
 
 /**
  * Objective targeting flags

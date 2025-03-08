@@ -56,7 +56,6 @@
 	return
 
 /datum/spell/charge_up/bounce/proc/bounce(mob/origin, mob/target, energy, bounces, mob/user)
-	SHOULD_CALL_PARENT(TRUE)
 	create_beam(origin, target)
 	apply_bounce_effect(origin, target, energy, user)
 	add_attack_logs(user, target, "Bounce spell '[src]' bounced on")
@@ -67,6 +66,7 @@
 			addtimer(CALLBACK(src, PROC_REF(continue_bounce), target, get_target(target, user), energy, bounces - 1, user), bounce_time, TIMER_DELETE_ME)
 		else
 			bounce(target, get_target(target, user), energy, bounces - 1, user)
+
 
 /datum/spell/charge_up/bounce/proc/continue_bounce(mob/origin, mob/target, energy, bounces, mob/user)
 	// We will only continue the chain if we exist
