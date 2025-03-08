@@ -124,8 +124,8 @@ and in-game systems, there are several guidelines that must be followed.
    needs to confirm the `width`, `height`, and `dwidth` variables between the
    two permanent ports and mobile port are compatible.
 
-2. All shuttles that have a brig area, should using the flooring type:
-   /turf/simulated/floor/mineral/plastitanium/red/brig
+2. All shuttles that have a brig area, should using the flooring type
+   `/turf/simulated/floor/mineral/plastitanium/red/brig`.
    This is required to count antagonists as captured on the escape shuttle.
 
 ### Other
