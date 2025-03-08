@@ -84,7 +84,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
-			if(!force_translation && !M.say_understands(null, message_language))
+			if(!M.say_understands(null, message_language))
+				if(force_translation && HAS_TRAIT(M, TRAIT_FOREIGNER))
+					continue
 				receivers -= M
 				garbled_receivers |= M
 	else
@@ -94,7 +96,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
-			if(!force_translation && !M.say_understands(null, message_language))
+			if(!M.say_understands(null, message_language))
+				if(force_translation && HAS_TRAIT(M, TRAIT_FOREIGNER))
+					continue
 				receivers -= M
 				garbled_receivers |= M
 		for(var/mob/M in GLOB.dead_mob_list)
