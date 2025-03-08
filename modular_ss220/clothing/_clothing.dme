@@ -12,3 +12,4 @@
 #include "code/suits.dm"
 #include "code/under.dm"
 #include "code/neck.dm"
+#include "code/glasses.dm"

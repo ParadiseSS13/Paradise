@@ -195,6 +195,13 @@
 	donator_tier = 2
 	cost = 2
 
+/datum/gear/donor/seceyepatch
+	display_name = "Повязка secHUD на глаз"
+	path = /obj/item/clothing/glasses/hud/security/eyepatch
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Adjutant")
+	donator_tier = 3
+	cost = 2
+
 // ID Skins
 /datum/gear/donor/id_decal_colored
 	display_name = "Наклейка на карту (Голографическая)"
