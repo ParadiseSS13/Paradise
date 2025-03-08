@@ -97,7 +97,7 @@
 /obj/effect/spawner/random/stock_parts
 	name = "stock parts spawner"
 	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "stock parts"
+	icon_state = "stock_parts"
 	loot_subtype_path = /obj/item/stock_parts
 
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
