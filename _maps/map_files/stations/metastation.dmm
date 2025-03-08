@@ -546,10 +546,7 @@
 /area/station/engineering/solar/fore_port)
 "agY" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/alarm/directional/south,
-/obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "ahd" = (
@@ -580,17 +577,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/south)
-"ahv" = (
-/obj/structure/lattice,
-/obj/machinery/access_button{
-	autolink_id = "aisat_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = 7;
-	req_access = list(75,13)
-	},
-/turf/space,
-/area/space/nearstation)
 "ahF" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -834,11 +820,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
-"ajD" = (
-/mob/living/simple_animal/mouse,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fore)
 "ajE" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -12476,7 +12457,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -15610,10 +15590,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"bmA" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "bmE" = (
 /obj/machinery/newscaster/directional/east,
 /obj/structure/disposalpipe/segment/corner{
@@ -15948,7 +15924,6 @@
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -27082,16 +27057,6 @@
 	icon_state = "C11"
 	},
 /area/station/hallway/primary/central/south)
-"cbb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "cbc" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall/r_wall,
@@ -29744,11 +29709,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"clJ" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "clK" = (
 /obj/structure/closet,
 /obj/item/extinguisher,
@@ -32738,7 +32698,7 @@
 	},
 /area/station/service/chapel)
 "cyP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "cyR" = (
@@ -32978,9 +32938,6 @@
 	},
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "aisat_vent"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -36644,10 +36601,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
-"cOU" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "cOV" = (
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -36991,7 +36944,6 @@
 "cQt" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light/small,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cQu" = (
@@ -39190,6 +39142,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -39260,10 +39213,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"dbH" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft)
 "dbI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -40279,19 +40228,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = 9;
-	pixel_y = -25;
-	vent_link_id = "aisat_vent";
-	ext_door_link_id = "aisat_door_ext";
-	int_door_link_id = "aisat_door_int";
-	ext_button_link_id = "aisat_btn_ext";
-	int_button_link_id = "aisat_btn_int"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "aisat_vent"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -42218,13 +42156,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
 "efR" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_ext";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -47169,10 +47100,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"gof" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "goq" = (
 /obj/structure/closet/secure_closet/hos,
 /obj/item/cartridge/detective,
@@ -47934,7 +47861,6 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "gHh" = (
@@ -48677,11 +48603,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
-"gWz" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "gWE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -48738,21 +48659,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
-"gXJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_int";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/aisat)
 "gXN" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -51910,10 +51816,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"isf" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "isB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
@@ -56108,6 +56010,10 @@
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"koo" = (
+/obj/effect/spawner/airlock/e_to_w/long/square,
+/turf/simulated/wall/r_wall,
+/area/station/aisat)
 "kpl" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -57262,10 +57168,6 @@
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
-"kQF" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/wood,
-/area/station/maintenance/starboard)
 "kRc" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -60327,12 +60229,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "aisat_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66844,11 +66740,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"peg" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard2)
 "pej" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69577,10 +69468,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
-"qoK" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard2)
 "qoQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70757,7 +70644,6 @@
 	},
 /area/station/security/interrogation)
 "qRm" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
@@ -71523,7 +71409,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "riX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "rja" = (
@@ -71943,18 +71829,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/controlroom)
-"rsv" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "aisat_door_int";
-	locked = 1;
-	name = "MiniSat External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/aisat)
 "rsI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -76381,10 +76255,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
-"tnW" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "toc" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
@@ -79948,7 +79818,6 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -80308,7 +80177,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -83377,10 +83245,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
 /area/station/science/research)
-"wLB" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "wMb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -86561,7 +86425,7 @@
 	},
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -86663,7 +86527,6 @@
 /area/station/engineering/atmos/distribution)
 "yih" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -86672,10 +86535,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"yiP" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fore)
 "yiU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -99426,7 +99285,7 @@ qCK
 aOB
 aOB
 adY
-bmA
+adY
 aOB
 aLF
 aML
@@ -103089,7 +102948,7 @@ cpD
 crG
 bZP
 clK
-gof
+crG
 crG
 bZP
 aaa
@@ -104864,7 +104723,7 @@ cdT
 cdT
 cdT
 cdT
-cOU
+bTY
 xOy
 aSM
 aSM
@@ -105587,7 +105446,7 @@ awh
 hka
 imw
 adY
-bmA
+adY
 aOB
 bmK
 bgA
@@ -106196,7 +106055,7 @@ chy
 tPO
 eJG
 czw
-dbH
+chy
 bZU
 abq
 aaa
@@ -111784,7 +111643,7 @@ bje
 dKK
 bje
 bje
-bht
+bje
 lJg
 bje
 byv
@@ -118673,7 +118532,7 @@ nEV
 nEV
 awp
 aDY
-wLB
+alW
 cnV
 nVQ
 whf
@@ -119978,7 +119837,7 @@ nSs
 acL
 aWv
 aFj
-yiP
+fpy
 bne
 ajg
 iGR
@@ -121842,7 +121701,7 @@ dtC
 cte
 gnS
 cFB
-peg
+gSO
 ipj
 cmB
 qub
@@ -124109,7 +123968,7 @@ aLl
 ayv
 aLl
 apL
-isf
+avA
 eiI
 aLl
 bdt
@@ -124844,7 +124703,7 @@ aaa
 aaa
 aaa
 ahH
-ajD
+oTt
 azu
 awp
 air
@@ -124869,7 +124728,7 @@ gip
 nET
 blB
 wYm
-cbb
+blB
 beF
 juq
 apV
@@ -124925,7 +124784,7 @@ bPj
 wdY
 cte
 cqE
-qoK
+cwG
 dhw
 dhw
 bUz
@@ -125374,7 +125233,7 @@ air
 aBZ
 iAS
 oyN
-gWz
+cxr
 hgU
 aLl
 fpk
@@ -125410,7 +125269,7 @@ aoG
 aoG
 aoG
 dSv
-tnW
+asJ
 nWJ
 oXK
 aoG
@@ -126462,7 +126321,7 @@ cfL
 ciu
 ciH
 aRQ
-clJ
+aRQ
 biB
 bul
 clB
@@ -126707,7 +126566,7 @@ kbr
 vud
 axh
 cyv
-kQF
+ovR
 bZH
 fTV
 nXk
@@ -137739,7 +137598,7 @@ abq
 abq
 aef
 aef
-ahv
+abq
 jbB
 abq
 aef
@@ -137996,7 +137855,7 @@ abq
 aUU
 efR
 efR
-aXL
+koo
 woN
 aXH
 bDg
@@ -138765,8 +138624,8 @@ aaa
 aaa
 pln
 gGS
-rsv
-gXJ
+efR
+efR
 aXL
 aXN
 bwW

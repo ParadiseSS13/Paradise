@@ -376,7 +376,7 @@
 				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))) SECONDS
 				H.AdjustHallucinate(hallucination_amount)
 			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
-			L.rad_act(rads)
+			L.base_rad_act(src, rads, GAMMA_RAD)
 
 	var/turf/T = get_turf(src)
 	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
@@ -559,8 +559,8 @@
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
 		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
-		if(prob(50))
-			radiation_pulse(src, power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))))
+
+		radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -588,7 +588,7 @@
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
-		l.rad_act(rads)
+		l.base_rad_act(src, rads, GAMMA_RAD)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -823,7 +823,7 @@
 		Consume(used)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		radiation_pulse(src, 150, 4)
+		radiation_pulse(src, 600, GAMMA_RAD)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
 
@@ -878,7 +878,7 @@
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	radiation_pulse(src, 3000, 2, TRUE)
+	radiation_pulse(src, 12000, GAMMA_RAD, TRUE)
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
 		if(L in view())
