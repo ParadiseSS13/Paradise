@@ -1406,3 +1406,6 @@ so that different stomachs can handle things in different ways VB*/
 	M.update_revive()
 	add_attack_logs(M, M, "Revived with Lazarus Reagent")
 	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
+
+/mob/living/carbon/proc/get_thermal_protection() // Xenos got nothin
+	return 0
