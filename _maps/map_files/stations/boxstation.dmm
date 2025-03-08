@@ -11840,8 +11840,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/economy/atm/directional/north,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
@@ -22634,7 +22635,6 @@
 /area/station/service/chapel)
 "bxE" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bxF" = (
@@ -24237,15 +24237,17 @@
 /area/station/medical/morgue)
 "bEM" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 6
+	pixel_x = -3;
+	pixel_y = 11
 	},
-/obj/item/mmi/robotic_brain,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/mmi/robotic_brain{
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -24694,7 +24696,6 @@
 /area/station/science/lobby)
 "bGE" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil,
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
@@ -24703,6 +24704,7 @@
 	pixel_x = -24;
 	dir = 4
 	},
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -25825,6 +25827,7 @@
 	pixel_x = -3
 	},
 /obj/item/clothing/glasses/welding,
+/obj/item/mecha_parts/core,
 /obj/structure/shelf/science,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42553,6 +42556,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -60084,6 +60088,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
+"jPg" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/security/lobby)
 "jPk" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -60330,7 +60342,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -61474,6 +61485,13 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
+"kyJ" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/aft/south)
 "kzB" = (
 /obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/structure/closet/crate/freezer,
@@ -68349,9 +68367,7 @@
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/crowbar,
 /obj/machinery/alarm/directional/north,
-/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -73533,6 +73549,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"qEe" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "qEt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
@@ -73754,8 +73776,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
@@ -75059,6 +75081,10 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/chamber)
+"rsw" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "rsz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82946,6 +82972,15 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
+"vKU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "vLb" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -85782,6 +85817,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
+"xnt" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/maintenance/apmaint2)
 "xnF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -97828,7 +97868,7 @@ aJP
 aRm
 aOR
 aQa
-keI
+qEe
 aMD
 fay
 fay
@@ -98856,7 +98896,7 @@ aJR
 aRV
 aOR
 aQa
-aPQ
+vKU
 aRd
 nff
 aUm
@@ -110224,7 +110264,7 @@ gwb
 uWp
 tGO
 cgQ
-jQI
+xnt
 xRm
 lnh
 kym
@@ -116135,7 +116175,7 @@ cBp
 cAL
 cDY
 cvx
-dpR
+kyJ
 mqV
 ePP
 ePP
@@ -116574,7 +116614,7 @@ avd
 axD
 axA
 ayj
-ayj
+jPg
 azP
 aBY
 aCv
@@ -124320,7 +124360,7 @@ bqk
 bqk
 bqk
 bAV
-bmq
+rsw
 aUS
 bAo
 bHy
