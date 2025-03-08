@@ -59533,7 +59533,7 @@
 	},
 /area/station/science/genetics)
 "fLR" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "1-2"

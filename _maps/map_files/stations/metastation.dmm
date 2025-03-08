@@ -39182,7 +39182,7 @@
 /area/station/maintenance/apmaint)
 "dbC" = (
 /obj/effect/spawner/random/cobweb/left/rare,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/item/circuitboard/biogenerator,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
