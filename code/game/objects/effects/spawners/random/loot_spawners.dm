@@ -98,6 +98,7 @@
 		/obj/effect/spawner/random/loot/outfit/ian_fan = 2,
 		/obj/effect/spawner/random/loot/pet_uhhh_supplies = 2,
 		/obj/effect/spawner/random/loot/space_kit = 2,
+		/obj/effect/spawner/random/stock_parts = 2,
 		/obj/effect/spawner/random/toy/mech_figure = 2,
 		/obj/item/defibrillator/compact = 2,
 		/obj/item/gun/energy/plasmacutter = 2,
