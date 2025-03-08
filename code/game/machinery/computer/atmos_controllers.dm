@@ -7,6 +7,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_N2			(1<<4)
 #define SENSOR_CO2			(1<<5)
 #define SENSOR_N2O			(1<<6)
+#define SENSOR_H2O			(1<<7)
+#define SENSOR_H2			(1<<8)
 
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
@@ -67,6 +69,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
 			"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
 			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
+			"Water Vapor: [ONOFF_TOGGLE(SENSOR_H2O)]" = SENSOR_H2O,
+			"Hydrogen: [ONOFF_TOGGLE(SENSOR_H2)]" = SENSOR_H2,
 			"-SAVE TO BUFFER-" = "multitool"
 		)
 
@@ -91,6 +95,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					output ^= SENSOR_CO2
 				if(SENSOR_N2O)
 					output ^= SENSOR_N2O
+				if(SENSOR_H2O)
+					output ^= SENSOR_H2O
+				if(SENSOR_H2)
+					output ^= SENSOR_H2
 				if("multitool")
 					if(!ismultitool(I)) // Should never happen
 						return
@@ -265,6 +273,14 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent() / total_moles, 0.1)
 				else
 					sensor_data -= "n2o"
+				if(AS.output & SENSOR_H2O)
+					sensor_data["h2o"] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
+				else
+					sensor_data -= "h2o"
+				if(AS.output & SENSOR_H2)
+					sensor_data["h2"] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
+				else
+					sensor_data -= "h2"
 
 		else if(istype(AM, /obj/machinery/atmospherics/meter))
 			var/list/meter_data = sensor_name_data_map[sensor_name]
@@ -542,3 +558,5 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #undef SENSOR_N2
 #undef SENSOR_CO2
 #undef SENSOR_N2O
+#undef SENSOR_H2O
+#undef SENSOR_H2

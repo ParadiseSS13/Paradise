@@ -815,6 +815,11 @@ SUBSYSTEM_DEF(air)
 	for(var/turf/simulated/S in SSair.hotspots)
 		QDEL_NULL(S.active_hotspot)
 
+/// condenses water on a tile at the specified coordinates
+/proc/condense_water(water_phase, x, y, z)
+	var/turf/simulated/floor/tile =  locate(x, y, z)
+	tile.MakeSlippery(water_phase)
+
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
 	var/run_args = list()

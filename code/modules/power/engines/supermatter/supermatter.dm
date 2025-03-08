@@ -15,9 +15,12 @@
 #define OXYGEN_HEAT_PENALTY 1
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
+#define H2O_HEAT_PENALTY 10
+#define HYDROGEN_HEAT_PENALTY 10
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
+#define H2O_TRANSMIT_MODIFIER 0.75
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
@@ -29,6 +32,8 @@
 #define CO2_CRUNCH 1
 #define N2_CRUNCH 0.55
 #define N2O_CRUNCH 0.55
+#define H2O_CRUNCH 1.25
+#define HYDROGEN_CRUNCH 2.0
 #define PLASMA_CRUNCH 4
 
 #define MOLE_CRUNCH_THRESHOLD 1700           //Above this value we can get lord singulo and
@@ -1321,3 +1326,8 @@
 #undef N2_CRUNCH
 #undef N2O_CRUNCH
 #undef PLASMA_CRUNCH
+#undef H2O_HEAT_PENALTY
+#undef HYDROGEN_HEAT_PENALTY
+#undef H2O_TRANSMIT_MODIFIER
+#undef H2O_CRUNCH
+#undef HYDROGEN_CRUNCH

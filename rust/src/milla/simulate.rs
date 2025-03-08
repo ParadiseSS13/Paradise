@@ -1,9 +1,13 @@
 use crate::milla::constants::*;
 use crate::milla::model::*;
+use byondapi::global_call::call_global;
 use byondapi::map::ByondXYZ;
+use byondapi::prelude::ByondValue;
+use core::f32;
 use eyre::eyre;
 use scc::Bag;
 use std::collections::HashSet;
+use std::f32::consts::E;
 
 pub(crate) fn find_walls(next: &mut ZLevel) {
     for my_index in 0..MAP_SIZE * MAP_SIZE {
@@ -373,6 +377,8 @@ pub(crate) fn post_process(
                 react(my_next_tile, true);
             }
 
+            do_turf_effects(my_next_tile, x, y, z);
+
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
         }
@@ -661,14 +667,17 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         let burnable_hydrogen = my_next_tile.gases.hydrogen();
 
         // Actual burn amount.
-        let mut hydrogen_burnt = efficiency * 2.0 * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
+        let mut hydrogen_burnt =
+			efficiency * 2.0 * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
         if hydrogen_burnt < PLASMA_BURN_MIN_MOLES {
             // Boost up to the minimum.
             hydrogen_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_hydrogen);
         }
-        if hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN > fraction * my_next_tile.gases.oxygen() {
+        if hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN
+			> fraction * my_next_tile.gases.oxygen() {
             // Restrict based on available oxygen.
-            hydrogen_burnt = fraction * my_next_tile.gases.oxygen() / HYDROGEN_BURN_OXYGEN_PER_HYDROGEN;
+            hydrogen_burnt =
+				fraction * my_next_tile.gases.oxygen() / HYDROGEN_BURN_OXYGEN_PER_HYDROGEN;
         }
 
         my_next_tile
@@ -726,6 +735,54 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 }
 
+/// Apply the effects of the gas onto the turf itself
+pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
+    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
+    // Calculate the water saturation pressure using the Arden Buck equation
+    let saturation_pressure: f32;
+    if (cached_temperature > T0C) {
+        saturation_pressure = 0.61121
+            * E.powf(
+                (18.678 - ((cached_temperature - T0C) / 234.5))
+                    * ((cached_temperature - T0C) / (cached_temperature + 257.14 - T0C)),
+            );
+    } else {
+        saturation_pressure = 0.61121
+            * E.powf(
+                (23.036 - ((cached_temperature - T0C) / 333.7))
+                    * ((cached_temperature - T0C) / (cached_temperature + 279.82 - T0C)),
+            );
+    }
+    let relative_humidity: f32 =
+        (my_next_tile.gases.water_vapor() * R_IDEAL_GAS_EQUATION * cached_temperature
+            / TILE_VOLUME)
+            / saturation_pressure;
+    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 0.0 {
+        // Condense all the water we cannot hold
+        let condensed_water: f32 =
+            my_next_tile.gases.water_vapor() - my_next_tile.gases.water_vapor() / relative_humidity;
+        my_next_tile
+            .gases
+            .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
+        //We lose gas, so we lose the thermal energy it had
+        my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
+        // Make the floor wet
+        call_global(
+            "condense_water",
+            &[
+                if cached_temperature > T0C {
+                    ByondValue::from(1.0)
+                } else {
+                    ByondValue::from(3.0)
+                },
+                ByondValue::from((x + 1) as f32),
+                ByondValue::from((y + 1) as f32),
+                ByondValue::from((z + 1) as f32),
+            ],
+        );
+    }
+}
+
 /// Apply effects caused by the tile's atmos mode.
 pub(crate) fn apply_tile_mode(
     my_next_tile: &mut Tile,
@@ -754,7 +811,8 @@ pub(crate) fn apply_tile_mode(
             if my_next_tile.temperature() > SPACE_COOLING_THRESHOLD {
                 let excess_thermal_energy = my_next_tile.thermal_energy
                     - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
-                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_TEMPERATURE_RATIO * my_next_tile.temperature())
+                let cooling = (SPACE_COOLING_FLAT
+						+ SPACE_COOLING_TEMPERATURE_RATIO * my_next_tile.temperature())
                     .min(excess_thermal_energy);
                 my_next_tile.thermal_energy -= cooling;
             }

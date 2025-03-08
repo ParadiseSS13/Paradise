@@ -697,7 +697,6 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 
-
 	set_dirty()
 	return reacting
 
