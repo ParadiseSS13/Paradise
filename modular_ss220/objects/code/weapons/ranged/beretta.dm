@@ -7,6 +7,7 @@
 	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
 	icon_state = "beretta_modified"
 	item_state = "beretta_modified"
+	origin_tech = "combat=3;materials=2"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_suppress = FALSE
 	can_flashlight = TRUE
