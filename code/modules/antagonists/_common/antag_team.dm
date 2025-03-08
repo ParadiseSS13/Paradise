@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Opens a window which lists the teams for the round.
  */
 /datum/admins/proc/check_teams()
-	if(!SSticker.HasRoundStarted())
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 

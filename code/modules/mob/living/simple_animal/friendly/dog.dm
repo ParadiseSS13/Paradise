@@ -22,6 +22,7 @@
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
+	var/razor_shave_delay = 5 SECONDS
 
 /mob/living/simple_animal/pet/dog/npc_safe(mob/user)
 	return TRUE
@@ -193,7 +194,7 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, razor_shave_delay, target = src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
 			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE

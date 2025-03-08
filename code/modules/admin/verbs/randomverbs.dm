@@ -901,7 +901,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		alert("The game hasn't started yet!")
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -1137,7 +1138,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 
 	SSticker.selected_tip = input
@@ -1162,7 +1163,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 

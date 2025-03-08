@@ -751,6 +751,8 @@ regional_servers = [
 ]
 # Send a toast on server init completion. You probably dont need this on in production
 toast_on_init_complete = true
+# The URL for a ss13-yt-wrap server (https://github.com/Absolucy/ss13-yt-wrap) to use.
+#ytdlp_url = "http://ytdlpserverurlhere"
 
 ################################################################
 

@@ -21,6 +21,7 @@
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
+	stat_attack = UNCONSCIOUS
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
@@ -103,7 +104,6 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = UNCONSCIOUS
 	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
