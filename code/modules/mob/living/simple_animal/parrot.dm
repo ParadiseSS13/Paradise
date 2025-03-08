@@ -713,11 +713,11 @@
 		"WHO TOOK THE DAMN MODSUITS?",
 		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
 		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
-		"It's an excellent idea to aim the BSA at the shuttle",
+		"It's an excellent idea to aim the BSA at the shuttle.",
 		"Nitrogen is an awful gas if you need to power a BSH!",
 		"There's a hole in the shield coverage!",
 		"The shields aren't up and meteors are inbound!",
-		"The leading cause of death among engineering is due to deactivated magboots, whether that's due to unwrenching a pressurised pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
+		"The leading cause of death among engineers is due to deactivated magboots, whether that's due to unwrenching a pressurised pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
