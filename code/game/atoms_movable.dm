@@ -141,6 +141,9 @@
 /atom/movable/proc/get_cell()
 	return
 
+/atom/movable/proc/compressor_grind()
+	ex_act(EXPLODE_DEVASTATE)
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
