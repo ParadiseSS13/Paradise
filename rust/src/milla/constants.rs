@@ -51,7 +51,7 @@ pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
 
 pub(crate) const WATER_VAPOR_REACTION_ENERGY: f32 = 1000.0;
 
-pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 0.25;
+pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 4.0;
 
 
 
