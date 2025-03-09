@@ -669,7 +669,7 @@
 			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 			return
-		if(M.lit && !M.burnt)
+		if(M.lit && !M.burnt && M.w_class <= WEIGHT_CLASS_SMALL)
 			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
