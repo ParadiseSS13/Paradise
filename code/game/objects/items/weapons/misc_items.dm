@@ -262,7 +262,7 @@
 
 			//Bald heads slap the hardest
 			if(head_organ.h_style in list("Bald", "Balding_Fade", "Skinhead"))
-				playsound(target.loc, pick('sound/slap/slap.ogg', 'sound/slap/slap_oh.ogg', 'sound/slap/i_like_ya_cut_g_slap.ogg'), 30, FALSE)
+				playsound(target.loc, pick('sound/slap/slap.ogg', 'sound/slap/slap_oh.ogg', 'sound/slap/i_like_ya_cut_g_slap.ogg'), 10, FALSE)
 				H.KnockDown(2 SECONDS)
 				H.Jitter(1.5 SECONDS)
 				H.visible_message("<span class='danger'>[H], [firer] likes ya cut G  </span>")
