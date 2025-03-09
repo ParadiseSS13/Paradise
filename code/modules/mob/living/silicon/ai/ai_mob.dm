@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
 	add_language("Canilunzt", 1)
-	add_language("Skrellian", 1)
+	add_language("Qurvolious", 1)
 	add_language("Vox-pidgin", 1)
 	add_language("Orluum", 1)
 	add_language("Rootspeak", 1)
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-	
+
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
@@ -1455,7 +1455,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
-	
+
 	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms
