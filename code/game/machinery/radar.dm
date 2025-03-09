@@ -141,10 +141,3 @@
 	new /obj/item/circuitboard/machine/radar/broken(src)
 	. = ..()
 
-
-
-
-
-
-
-
