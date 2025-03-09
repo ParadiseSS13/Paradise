@@ -100,16 +100,18 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stock_parts/cell/C = I
 		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -117,11 +119,10 @@
 									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
 		else
 			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
-			..()
-	else
-		..()
-	update_icon()
-	return
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	if(!open || !cell)

@@ -275,28 +275,31 @@
 			reagent_glass.forceMove(get_turf(src))
 			reagent_glass = null
 
-/mob/living/simple_animal/bot/medbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/medbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/reagent_containers/glass))
-		. = TRUE //no afterattack
 		if(locked)
 			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!isnull(reagent_glass))
 			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		W.forceMove(src)
 		reagent_glass = W
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
 		ui_interact(user)
 
-	else
-		var/current_health = health
-		..()
-		if(health < current_health) //if medbot took some damage
-			step_to(src, (get_step_away(src,user)))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/mob/living/simple_animal/bot/medbot/attacked_by(obj/item/attacker, mob/living/user)
+	var/current_health = health
+	. = ..()
+	if(health < current_health) //if medbot took some damage
+		step_to(src, (get_step_away(src,user)))
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)
 	..()

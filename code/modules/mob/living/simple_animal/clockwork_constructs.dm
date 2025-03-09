@@ -51,17 +51,15 @@
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(istype(I, /obj/item/nullrod))
 		adjustFireLoss(15)
 		if(shield_health > 0)
 			damage_shield()
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg', 40, 1)
-
-	if((I.tool_behaviour == TOOL_WELDER) && (user.a_intent == INTENT_HELP))
-		welder_act(user, I)
-		return
-	. = ..()
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
 	if(shield_health > 0)

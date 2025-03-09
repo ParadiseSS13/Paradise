@@ -221,14 +221,15 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby__legacy__attackchain(obj/item/W, mob/user, params) //cant touch or attack him while spinning
+// cant touch or attack him while spinning
+/mob/living/simple_animal/bot/secbot/griefsky/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(src.icon_state == spin_icon)
 		if(prob(block_chance_melee))
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			visible_message("[src] deflects [user]'s move with his energy swords!")
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
-		else
-			return ..()
-	else
-		return ..()
+			return FINISH_ATTACK

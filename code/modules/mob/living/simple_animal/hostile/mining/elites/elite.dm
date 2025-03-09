@@ -425,14 +425,17 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	new_attack_chain = TRUE
 
-/obj/item/tumor_shard/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
-	. = ..()
-	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
+/obj/item/tumor_shard/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(target)
+
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite))
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message("It appears [E] is unable to be revived right now. Perhaps try again later.")
-			return
+			return ITEM_INTERACT_COMPLETE
 		E.faction = list("\ref[user]")
 		E.friends += user
 		E.revive()
@@ -452,6 +455,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[src] only works on the corpse of a sentient lavaland elite.</span>")
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
