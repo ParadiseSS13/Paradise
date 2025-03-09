@@ -229,7 +229,7 @@
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/powered)
 "zb" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8

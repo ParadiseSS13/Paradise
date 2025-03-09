@@ -1,0 +1,133 @@
+RESTRICT_TYPE(/datum/cooking_surface)
+
+/**
+ * Cooking surfaces are representations of the available "slots" on a cooking machine
+ * that can hold a cooking container.
+ */
+/datum/cooking_surface
+	var/surface_name = "surface"
+	var/cooker_id
+	var/obj/machinery/cooking/parent
+	var/temperature = J_LO
+	var/timer = 0
+	var/cooktime
+	var/obj/item/reagent_containers/cooking/container
+	var/on = FALSE
+	var/prob_quality_decrease = 0
+	var/allow_temp_change = TRUE
+	VAR_PRIVATE/burn_callback
+	VAR_PRIVATE/fire_callback
+
+/datum/cooking_surface/New(obj/machinery/cooking/parent_)
+	. = ..()
+	parent = parent_
+
+/datum/cooking_surface/proc/container_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+	examine_list += "<span class='notice'>[examine_text()]</span>"
+
+/datum/cooking_surface/proc/examine_text()
+	var/timer_text = timer ? "is set to [timer / (1 SECONDS)] seconds" : "will cook"
+	return "This [surface_name] [timer_text] at [temperature] temperature."
+
+/datum/cooking_surface/proc/handle_cooking(mob/user)
+	if(container)
+		if(isnull(container.get_cooker_time(cooker_id, temperature)))
+			reset_cooktime()
+
+		#ifdef PCWJ_DEBUG
+		log_debug("timer=[timer] cooktime=[cooktime] stopwatch=[stop_watch(cooktime)]")
+		#endif
+
+		container.set_cooker_data(src, stop_watch(cooktime) SECONDS)
+		container.process_item(user, parent)
+
+	if(timer && (stop_watch(cooktime) SECONDS) >= timer)
+		turn_off(user)
+		return
+
+/datum/cooking_surface/proc/handle_switch(mob/user)
+	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
+	if(on)
+		turn_off()
+	else
+		turn_on()
+
+	parent.update_appearance(UPDATE_ICON)
+	return on
+
+/datum/cooking_surface/proc/set_burn_ignite_callbacks()
+	if(container)
+		var/burn_time = PCWJ_BURN_TIME_LOW
+		var/fire_time = PCWJ_IGNITE_TIME_LOW
+		switch(temperature)
+			if(J_MED)
+				burn_time = PCWJ_BURN_TIME_MEDIUM
+				fire_time = PCWJ_IGNITE_TIME_MEDIUM
+			if(J_HI)
+				burn_time = PCWJ_BURN_TIME_HIGH
+				fire_time = PCWJ_IGNITE_TIME_HIGH
+
+		burn_callback = addtimer(CALLBACK(src, PROC_REF(handle_burn)), burn_time, TIMER_STOPPABLE)
+		fire_callback = addtimer(CALLBACK(src, PROC_REF(handle_fire)), fire_time, TIMER_STOPPABLE)
+
+/datum/cooking_surface/proc/timer_act(mob/user)
+	#ifdef PCWJ_DEBUG
+	log_debug("timer act timer=[timer] world.time=[world.time]")
+	#endif
+
+/datum/cooking_surface/proc/turn_on(mob/user)
+	on = TRUE
+	set_burn_ignite_callbacks()
+	reset_cooktime()
+	if(timer)
+		timer_act(user)
+
+/datum/cooking_surface/proc/turn_off(mob/user)
+	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
+	on = FALSE
+	unset_callbacks()
+	cooktime = -1
+	parent.update_appearance(UPDATE_ICON)
+
+/datum/cooking_surface/proc/handle_burn()
+	if(istype(container))
+		container.handle_burning()
+
+/datum/cooking_surface/proc/handle_fire()
+	if(istype(container) && container.handle_ignition())
+		parent.ignite()
+
+/datum/cooking_surface/proc/unset_callbacks()
+	deltimer(burn_callback)
+	deltimer(fire_callback)
+
+/datum/cooking_surface/proc/handle_timer(mob/user)
+	var/old_time = timer ? timer / (1 SECONDS) : 1
+	var/timer_input = tgui_input_number(
+		user,
+		message = "Enter a timer for the burner in seconds. To keep on, set to zero.",
+		title = "Set Timer",
+		default = old_time,
+		max_value = 60)
+	if(!isnull(timer_input))
+		timer = timer_input SECONDS
+	if(timer != 0 && on)
+		timer_act(user)
+
+	parent.update_appearance(UPDATE_ICON)
+
+/datum/cooking_surface/proc/handle_temperature(mob/user)
+	var/old_temp = temperature
+	var/choice = input(user, "Select a heat setting for the burner.\nCurrent temp :[old_temp]","Select Temperature",old_temp) in list("High","Medium","Low","Cancel")
+	if(choice && choice != "Cancel" && choice != old_temp)
+		temperature = choice
+		if(on)
+			reset_cooktime()
+			handle_cooking(user)
+
+/datum/cooking_surface/proc/reset_cooktime()
+	cooktime = start_watch()
+	#ifdef PCWJ_DEBUG
+	log_debug("reset_cooktime")
+	#endif

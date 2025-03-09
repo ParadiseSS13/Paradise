@@ -203,7 +203,7 @@
 	},
 /area/ruin/space/powered)
 "sB" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light{
 	dir = 1
