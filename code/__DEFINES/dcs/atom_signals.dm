@@ -142,3 +142,10 @@
 /// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
 #define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"
 
+// Smithing signals
+/// When using a bit on an item that can accept a bit
+#define COMSIG_BIT_ATTACH "bit_attach"
+/// When using a lens on an item that can accept a lens
+#define COMSIG_LENS_ATTACH "lens_attach"
+/// When using an insert on an item that can accept an insert
+#define COMSIG_INSERT_ATTACH "insert_attach"

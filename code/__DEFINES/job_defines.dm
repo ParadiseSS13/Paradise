@@ -56,3 +56,4 @@
 #define JOB_MIME				(1<<12)
 #define JOB_ASSISTANT			(1<<13)
 #define JOB_EXPLORER			(1<<14)
+#define JOB_SMITH				(1<<15)

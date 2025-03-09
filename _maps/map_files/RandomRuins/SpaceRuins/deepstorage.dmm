@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/chair{
@@ -1660,7 +1660,7 @@
 	},
 /area/ruin/space/deepstorage)
 "iZ" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "ja" = (
 /obj/machinery/light/small,

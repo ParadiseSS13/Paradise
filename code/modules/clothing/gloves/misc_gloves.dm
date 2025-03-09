@@ -98,6 +98,22 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
 
+/obj/item/clothing/gloves/smithing
+	name = "smithing gloves"
+	desc = "Heatproof gloves designed for safely handling hot tools and even hotter metal."
+	icon_state = "smithing"
+	item_state = "smithing"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/hands.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
+	)
 
 /obj/item/clothing/gloves/handwraps
 	name = "cloth handwraps"

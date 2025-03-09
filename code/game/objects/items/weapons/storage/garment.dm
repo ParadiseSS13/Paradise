@@ -342,3 +342,20 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
+
+/obj/item/storage/bag/garment/smith
+	name = "smith's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the smith."
+
+/obj/item/storage/bag/garment/smith/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/smith(src)
+	new /obj/item/clothing/under/rank/cargo/smith/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/smith/overalls(src)
+	new /obj/item/clothing/suit/apron/smith(src)
+	new /obj/item/clothing/suit/jacket/bomber/smith(src)
+	new /obj/item/clothing/head/soft/smith(src)
+	new /obj/item/clothing/head/beret/smith(src)
+	new /obj/item/clothing/gloves/smithing(src)
+	new /obj/item/clothing/shoes/workboots/smithing(src)
+	new /obj/item/clothing/under/plasmaman/smith(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)

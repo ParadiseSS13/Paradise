@@ -38,6 +38,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	permeability_coefficient = 0.01
+	insert_max = 0
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',

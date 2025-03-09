@@ -512,6 +512,66 @@
 	build_path = /obj/item/circuitboard/ore_redemption
 	category = list ("Misc. Machinery")
 
+/datum/design/smart_hopper
+	name = "Machine Design (Smart Hopper)"
+	desc = "The circuit board for a Smart Hopper."
+	id = "smart_hopper"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/smart_hopper
+	category = list ("Misc. Machinery")
+
+/datum/design/magma_crucible
+	name = "Machine Design (Magma Crucible)"
+	desc = "The circuit board for a Magma Crucible."
+	id = "magma_crucible"
+	req_tech = list("programming" = 2, "engineering" = 5, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/magma_crucible
+	category = list ("Misc. Machinery")
+
+/datum/design/casting_basin
+	name = "Machine Design (Casting Bench)"
+	desc = "The circuit board for a Casting Bench."
+	id = "casting_bench"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/casting_basin
+	category = list ("Misc. Machinery")
+
+/datum/design/power_hammer
+	name = "Machine Design (Power Hammer)"
+	desc = "The circuit board for a Power Hammer."
+	id = "power_hammer"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/power_hammer
+	category = list ("Misc. Machinery")
+
+/datum/design/lava_furnace
+	name = "Machine Design (Lava Furnace)"
+	desc = "The circuit board for a Lava Furnace."
+	id = "lava_furnace"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/lava_furnace
+	category = list ("Misc. Machinery")
+
+/datum/design/kinetic_assembler
+	name = "Machine Design (Kinetic Assembler)"
+	desc = "The circuit board for a Kinetic Assembler."
+	id = "kinetic_assembler"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/kinetic_assembler
+	category = list ("Misc. Machinery")
+
 /datum/design/mining_equipment_vendor
 	name = "Machine Design (Mining Rewards Vendor Board)"
 	desc = "The circuit board for a Mining Rewards Vendor."
