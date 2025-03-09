@@ -305,3 +305,18 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	var/bonus_burn = 5
+
+//Ratvarian spear
+/obj/item/spear/ratvarian_spear_new
+	name = "ratvarian spear"
+	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
+	icon = 'icons/obj/clockwork_objects.dmi'
+	base_icon_state = "ratvarian_spear" //wielded or not wielded?
+	icon_state = "ratvarian_spear"
+	item_state = "ratvarian_spear"
+	force = 11
+	force_unwielded = 11
+	force_wielded = 20					//I have no idea how to balance
+	throwforce = 22
+	armour_penetration_percentage = 15
+	var/bonus_burn = 5
