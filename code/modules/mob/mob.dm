@@ -672,8 +672,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	// Only ones who can see both examining mob and examined item
 	var/list/can_see_examine = viewers(examined) & viewers(2, src)
-	if(length(can_see_examine) <= 1)
-		return
 
 	// If TRUE, the usr's view() for the examined object too
 	var/examining_worn_item = FALSE
