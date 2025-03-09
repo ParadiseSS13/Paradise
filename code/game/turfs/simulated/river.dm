@@ -4,9 +4,9 @@
 #define RIVER_MIN_X 50
 #define RIVER_MIN_Y 50
 
-#define WARNING_DELAY (4 SECONDS)
+#define WARNING_DELAY (4 SECONDS) // the warning time that a warning will be deisplayed before the lava conversion occurs
 
-#define BRIDGE_PROB 2
+#define BRIDGE_PROB 2 // the percent probability of a bridge to spawn for every tile forward the river travels
 
 GLOBAL_LIST_EMPTY(river_waypoint_presets)
 

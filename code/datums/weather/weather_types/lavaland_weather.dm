@@ -159,7 +159,7 @@
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
 			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
 				valid_targets += T
-		while(hits <= 25) //sling a bunch of rocks around the map
+		while(hits <= 60) //sling a bunch of rocks around the map
 			if(!valid_targets) // god forbid we run out of spots to sling rocks
 				break
 			target = pick(valid_targets)
@@ -328,6 +328,8 @@
 			return
 		var/mob/living/carbon/human/H = L
 		if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
+			H.adjustFireLoss(2)
+			H.adjustBruteLoss(2)
 			return
 		if(!(H.head.resistance_flags & ACID_PROOF) && !(H.wear_suit.resistance_flags & ACID_PROOF))
 			H.adjustFireLoss(2)
