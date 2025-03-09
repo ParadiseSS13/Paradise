@@ -47,6 +47,8 @@ fn milla_create_environment(
     toxins: ByondValue,
     sleeping_agent: ByondValue,
     agent_b: ByondValue,
+	hydrogen: ByondValue,
+	water_vapor: ByondValue,
     temperature: ByondValue,
 ) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
@@ -57,6 +59,8 @@ fn milla_create_environment(
         conversion::byond_to_option_f32(toxins)?,
         conversion::byond_to_option_f32(sleeping_agent)?,
         conversion::byond_to_option_f32(agent_b)?,
+		conversion::byond_to_option_f32(hydrogen)?,
+		conversion::byond_to_option_f32(water_vapor)?,
         conversion::byond_to_option_f32(temperature)?,
     ) as f32))
 }
@@ -69,6 +73,8 @@ pub(crate) fn internal_create_environment(
     toxins: Option<f32>,
     sleeping_agent: Option<f32>,
     agent_b: Option<f32>,
+	hydrogen: Option<f32>,
+	water_vapor: Option<f32>,
     temperature: Option<f32>,
 ) -> u8 {
     let mut tile = Tile::new();
@@ -90,6 +96,12 @@ pub(crate) fn internal_create_environment(
     if let Some(value) = agent_b {
         tile.gases.set_agent_b(value);
     }
+	if let Some(value) = hydrogen {
+        tile.gases.set_hydrogen(value);
+    }
+	if let Some(value) = water_vapor {
+		tile.gases.set_water_vapor(value);
+	}
     if let Some(value) = temperature {
         tile.thermal_energy = value * tile.heat_capacity();
     }
@@ -107,8 +119,8 @@ fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corn
         let mut property = turf.read_var_id(property_ref)?;
         let data = property.get_list_values()?;
         property.decrement_ref();
-        if data.len() != 17 {
-            return Err(eyre!("data property has the wrong length: {} vs {}", data.len(), 17));
+        if data.len() != 19 {
+            return Err(eyre!("data property has the wrong length: {} vs {}", data.len(), 19));
         }
 
         internal_set_tile(
@@ -128,6 +140,8 @@ fn milla_load_turfs(data_property: ByondValue, low_corner: ByondValue, high_corn
             conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?,
             conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?,
             conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?,
+			conversion::bounded_byond_to_option_f32(data[13], 0.0, f32::INFINITY)?,
+			conversion::bounded_byond_to_option_f32(data[14], 0.0, f32::INFINITY)?,
             None,
             Some(0.0),
             Some(0.0),
@@ -164,6 +178,8 @@ fn milla_set_tile(
     toxins: ByondValue,
     sleeping_agent: ByondValue,
     agent_b: ByondValue,
+	hydrogen: ByondValue,
+	water_vapor: ByondValue,
     temperature: ByondValue,
     _innate_heat_capacity: ByondValue,
     hotspot_temperature: ByondValue,
@@ -187,6 +203,8 @@ fn milla_set_tile(
         conversion::bounded_byond_to_option_f32(toxins, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(sleeping_agent, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(agent_b, 0.0, f32::INFINITY)?,
+		conversion::bounded_byond_to_option_f32(hydrogen, 0.0, f32::INFINITY)?,
+		conversion::bounded_byond_to_option_f32(water_vapor, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?,
         None,
         // Temporarily disabled to better match the existing system.
@@ -231,6 +249,8 @@ fn milla_set_tile_airtight(
         None,
         None,
         None,
+		None,
+		None,
     )?;
     Ok(ByondValue::null())
 }
@@ -253,6 +273,8 @@ pub(crate) fn internal_set_tile(
     toxins: Option<f32>,
     sleeping_agent: Option<f32>,
     agent_b: Option<f32>,
+	hydrogen: Option<f32>,
+	water_vapor: Option<f32>,
     temperature: Option<f32>,
     thermal_energy: Option<f32>,
     innate_heat_capacity: Option<f32>,
@@ -323,6 +345,12 @@ pub(crate) fn internal_set_tile(
     if let Some(value) = agent_b {
         tile.gases.set_agent_b(value);
     }
+	if let Some(value) = hydrogen {
+		tile.gases.set_hydrogen(value);
+	}
+	if let Some(value) = water_vapor {
+		tile.gases.set_water_vapor(value);
+	}
     // Done sooner because we need innate heat capacity to calculate thermal energy from
     // temperature.
     if let Some(value) = innate_heat_capacity {

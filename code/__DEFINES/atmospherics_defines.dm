@@ -4,6 +4,8 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 #define GAS_A_B	(1 << 5)
+#define GAS_H	(1 << 6)
+#define GAS_H2O	(1 << 7)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -74,6 +76,7 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
+#define MOLES_WATER_VAPOR_VISIBLE			0.5		//Moles in a standard cell after which water vapor is visible
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -157,6 +160,7 @@
 /// The coefficient c for a function of the form: 1 - (a / (x + c)^2) which gives a decomposition rate of 0.5 at 50000 Kelvin
 /// And a decomposition rate close to 0 at 1400 Kelvin
 #define N2O_DECOMPOSITION_COEFFICIENT_C 115930.77913
+
 // From milla/src/model.rs, line 126
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second
 #define ATMOS_MODE_SEALED 1						//! Tile has no special behaviour
