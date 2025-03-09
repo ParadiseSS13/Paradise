@@ -122,7 +122,7 @@
 	telegraph_duration = 600
 	telegraph_sound = 'sound/weather/volcano/lavaland_volcano_warning.ogg'
 
-	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelder now!.</i></span>"
+	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelter now!.</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_sound = 'sound/weather/volcano/lavaland_volcano_eruption.ogg'
