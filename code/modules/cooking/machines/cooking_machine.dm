@@ -39,6 +39,14 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		if(surface.on)
 			return TRUE
 
+// No AI or robot interactions with these, as that has all sorts of awful
+// implications for how the containers and machines are interacted with.
+/obj/machinery/cooking/attack_ai()
+	return
+
+/obj/machinery/cooking/attack_robot(mob/living/user)
+	return
+
 /obj/machinery/cooking/ShiftClick(mob/user, modifiers)
 	var/surface_idx = clickpos_to_surface(modifiers)
 	if(!surface_idx)
