@@ -299,10 +299,10 @@
 
 /datum/weather/acid/area_act()
 	if(prob(1))
-		var/list/turf_list
+		var/list/turf_list = list()
 		for(var/turf in get_area_turfs(/area/survivalpod))
 			turf_list += turf
-		if(!turf_list) // dont continue if we havnt made pods yet or we'll runtime
+		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
 			return
 		var/turf/melt_this = pick(turf_list)
 		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
