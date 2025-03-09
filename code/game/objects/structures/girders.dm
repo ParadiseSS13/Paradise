@@ -6,7 +6,7 @@
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_HEAVY_INSULATION
 	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
