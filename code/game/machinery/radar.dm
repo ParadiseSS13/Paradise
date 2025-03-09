@@ -125,9 +125,10 @@
 	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
-							/obj/item/stock_parts/scanning_module = 4,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 10)
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 10,
+		/obj/item/stock_parts/scanning_module = 4,
+	)
 
 /obj/item/circuitboard/machine/radar/broken
 	board_name = "Doppler Radar"
