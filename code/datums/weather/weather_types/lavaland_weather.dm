@@ -93,7 +93,7 @@
 
 	probability = 30
 
-/datum/weather/ash_storm/weather_act(mob/living/L)
+/datum/weather/ash_storm/heavy/weather_act(mob/living/L)
 	if(is_ash_immune(L))
 		return
 	L.adjustFireLoss(6) // does more damage
