@@ -201,6 +201,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COLORBLIND		"colorblind"
 #define TRAIT_WINGDINGS			"wingdings"
 #define TRAIT_WATERBREATH		"waterbreathing"
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_NOFAT				"no_fatness"
 #define TRAIT_NOGERMS			"no_germs"
 #define TRAIT_NODECAY			"no_decay"
@@ -386,8 +387,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
 
-//quirk traits
-#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
@@ -433,6 +432,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
 #define STATION_TRAIT_MESSY "station_trait_messy"
 #define STATION_TRAIT_TRIAI "station_trait_triai"
+
+/*********************
+*    QUIRK TRAITS    *
+**********************/
+#define TRAIT_FRAIL "frail"
+#define TRAIT_ASTHMATIC "asthma"
+#define TRAIT_SKITTISH "skittish"
+#define TRAIT_FREERUNNER "freerunner"
+#define TRAIT_CRAFTY "crafty"
+#define TRAIT_GLUTTON "glutton"
+#define TRAIT_NO_APC_CHARGING "no_apc_charging"
+#define TRAIT_FOREIGNER "foreigner"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
