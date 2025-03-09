@@ -160,16 +160,14 @@
 	paintable = FALSE
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
-	if(world.time > last_event + 20)
-		if(prob(50))
-			radiate()
-		last_event = world.time
-	..()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
-/obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
 
+/obj/machinery/door/airlock/uranium/attack_hand(mob/user)
+	. = ..()
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
@@ -182,7 +180,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 	paintable = FALSE
 
-/obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)

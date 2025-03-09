@@ -124,7 +124,20 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & BROKEN || !user || used.flags & ABSTRACT)
+	if(stat & BROKEN || !user)
+		return ITEM_INTERACT_COMPLETE
+
+	// Borg gripper check here because it is an `ABSTRACT` item.
+	if(istype(used, /obj/item/gripper))
+		var/obj/item/gripper/gripper = used
+		if(!gripper.gripped_item)
+			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		// Gripper will cancel the attack and call `item_interaction()` with the held item.
+		return ..()
+
+	if(used.flags & ABSTRACT)
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent != INTENT_HELP)
@@ -153,22 +166,6 @@
 			S.update_icon() // For content-sensitive icons
 			update()
 			return ITEM_INTERACT_COMPLETE
-
-	// Borg using their gripper to throw stuff away.
-	if(istype(used, /obj/item/gripper))
-		var/obj/item/gripper/gripper = used
-		// Gripper is empty.
-		if(!gripper.gripped_item)
-			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		gripper.gripped_item.forceMove(src)
-		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
-		)
-		return ITEM_INTERACT_COMPLETE
 
 	// Someone has a mob in a grab.
 	var/obj/item/grab/G = used

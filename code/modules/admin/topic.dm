@@ -1056,7 +1056,7 @@
 		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
 			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
 		var/dat = {"<!DOCTYPE html><b>Possible Rulesets:</b><hr>"}
-		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied)
+		var/list/rulesets = subtypesof(/datum/ruleset) - typesof(/datum/ruleset/implied) - /datum/ruleset/team
 		dat += {"Budget: <a href='byond://?src=[UID()];f_dynamic2=budget'>[isnull(GLOB.dynamic_forced_rulesets["budget"]) ? "Random" : GLOB.dynamic_forced_rulesets["budget"]]</a><hr>"}
 		for(var/datum/ruleset/ruleset as anything in rulesets)
 			dat += {"[ruleset.name]: <a href='byond://?src=[UID()];f_dynamic2=[ruleset.type]'>[GLOB.dynamic_forced_rulesets[ruleset] || DYNAMIC_RULESET_NORMAL]</a><br>"}
@@ -2722,7 +2722,7 @@
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
-		if(!SSticker || !SSticker.mode)
+		if(SSticker.current_state < GAME_STATE_PLAYING)
 			alert("The game hasn't started yet!")
 			return
 
@@ -2845,7 +2845,7 @@
 										R.module.modules += I
 										I.loc = R.module
 										R.module.rebuild_modules()
-										R.activate_module(I)
+										R.activate_item(I)
 										R.module.fix_modules()
 
 		if(number == 1)
@@ -2998,7 +2998,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
@@ -3039,7 +3039,7 @@
 						H.loc = pick(GLOB.prisonsecuritywarp)
 					GLOB.prisonwarped += H
 			if("traitor_all")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
@@ -3303,7 +3303,7 @@
 			if("showailaws")
 				output_ai_laws()
 			if("showgm")
-				if(!SSticker)
+				if(SSticker.current_state < GAME_STATE_PLAYING)
 					alert("The game hasn't started yet!")
 				else if(SSticker.mode)
 					alert("The game mode is [SSticker.mode.name]")

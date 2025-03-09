@@ -71,30 +71,16 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	radiate()
-	return ..()
-
-/obj/structure/statue/uranium/Bumped(atom/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/attack_hand(mob/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 1.5 SECONDS)
-			active = TRUE
-			radiation_pulse(src, 30)
-			last_event = world.time
-			active = FALSE
+/obj/statue/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
+	cares_about_temperature = TRUE
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
@@ -104,7 +90,7 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)

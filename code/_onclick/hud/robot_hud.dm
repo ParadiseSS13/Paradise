@@ -22,39 +22,42 @@
 	return TRUE
 
 
-/atom/movable/screen/robot/module1
-	name = "module1"
-	icon_state = "inv1"
+/atom/movable/screen/robot/active_module
+	name = "module"
+	icon_state = "inv"
+	/// If it's slot 1, 2, or 3
+	var/module_number = CYBORG_MODULE_ONE
+	/// Where the string for the deactivated icon state is stored
+	var/deactivated_icon_string
+	/// Where the string for the activated icon state is stored
+	var/activated_icon_string
+	/// If it should have a green background
+	var/active = FALSE
 
-/atom/movable/screen/robot/module1/Click()
-	if(..())
+/atom/movable/screen/robot/active_module/Initialize(mapload, slot_number)
+	. = ..()
+	module_number = slot_number
+	name = name + "[module_number]"
+	icon_state = icon_state + "[module_number]"
+	deactivated_icon_string = icon_state
+	activated_icon_string = icon_state + " +a"
+
+/// Updates the background of the module to be active
+/atom/movable/screen/robot/active_module/proc/activate()
+	icon_state = activated_icon_string
+	active = TRUE
+	
+/// Updates the background of the module to be inactive
+/atom/movable/screen/robot/active_module/proc/deactivate()
+	icon_state = deactivated_icon_string
+	active = FALSE
+
+/atom/movable/screen/robot/active_module/Click()
+	if(..() || !module_number)
 		return
 	if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(1)
-
-/atom/movable/screen/robot/module2
-	name = "module2"
-	icon_state = "inv2"
-
-/atom/movable/screen/robot/module2/Click()
-	if(..())
-		return
-	if(isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(2)
-
-/atom/movable/screen/robot/module3
-	name = "module3"
-	icon_state = "inv3"
-
-/atom/movable/screen/robot/module3/Click()
-	if(..())
-		return
-	if(isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.toggle_module(3)
-
+		R.toggle_module(module_number)
 
 /atom/movable/screen/robot/radio
 	name = "radio"
@@ -114,6 +117,7 @@
 	var/shown_robot_modules = FALSE	// Used to determine whether they have the module menu shown or not
 	var/atom/movable/screen/robot_modules_background
 
+
 /datum/hud/robot/New(mob/user)
 	..()
 
@@ -137,22 +141,11 @@
 	static_inventory += using
 
 //Module select
-	using = new /atom/movable/screen/robot/module1()
-	using.screen_loc = ui_inv1
-	static_inventory += using
-	mymobR.inv1 = using
-
-	using = new /atom/movable/screen/robot/module2()
-	using.screen_loc = ui_inv2
-	static_inventory += using
-	mymobR.inv2 = using
-
-	using = new /atom/movable/screen/robot/module3()
-	using.screen_loc = ui_inv3
-	static_inventory += using
-	mymobR.inv3 = using
-
-//End of module select
+	for(var/i in 1 to CYBORG_MAX_MODULES)
+		using = new /atom/movable/screen/robot/active_module(src, i)
+		using.screen_loc = CYBORG_HUD_LOCATIONS[i]
+		static_inventory += using
+		mymobR.inventory_screens += using
 
 //Sec/Med HUDs
 	using = new /atom/movable/screen/ai/sensors()
@@ -212,10 +205,8 @@
 
 /datum/hud/robot/Destroy()
 	var/mob/living/silicon/robot/myrob = mymob
-	myrob.inv1 = null
 	myrob.hands = null
-	myrob.inv2 = null
-	myrob.inv3 = null
+	QDEL_LAZYLIST(myrob.inventory_screens)
 	myrob.lamp_button = null
 	myrob.thruster_button = null
 
@@ -271,29 +262,29 @@
 		var/y = 1
 
 		for(var/atom/movable/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
-				//Module is not currently active
-				screenmob.client.screen += A
-				if(x < 0)
-					A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
-				else
-					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
-				A.layer = ABOVE_HUD_LAYER
-				A.plane = ABOVE_HUD_PLANE
+			if(A in R.all_active_items) // Don't need to display it if it's already active
+				continue
+			screenmob.client.screen += A
+			if(x < 0)
+				A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
+			else
+				A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
+			A.layer = ABOVE_HUD_LAYER
+			A.plane = ABOVE_HUD_PLANE
 
-				x++
-				if(x == 4)
-					x = -4
-					y++
+			x++
+			if(x == 4)
+				x = -4
+				y++
 
 	else
 		//Modules display is hidden
 		screenmob.client.screen -= module_store_icon
 
 		for(var/atom/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
-				//Module is not currently active
-				screenmob.client.screen -= A
+			if(A in R.all_active_items) // Don't need to display it if it's already active
+				continue
+			screenmob.client.screen -= A
 		shown_robot_modules = FALSE
 		screenmob.client.screen -= robot_modules_background
 
@@ -304,23 +295,14 @@
 
 	var/mob/screenmob = viewer || R
 
-	var/held_items = list(R.module_state_1, R.module_state_2, R.module_state_3)
 	if(!screenmob.hud_used)
 		return
 	if(screenmob.hud_used.hud_shown)
-		for(var/i in 1 to length(held_items))
-			var/obj/item/I = held_items[i]
-			if(I)
-				switch(i)
-					if(1)
-						I.screen_loc = ui_inv1
-					if(2)
-						I.screen_loc = ui_inv2
-					if(3)
-						I.screen_loc = ui_inv3
-					else
-						return
-				screenmob.client.screen += I
+		for(var/i in 1 to length(R.all_active_items))
+			var/obj/item/active_item = R.all_active_items[i]
+			if(active_item)
+				active_item.screen_loc = CYBORG_HUD_LOCATIONS[i]
+				screenmob.client.screen |= active_item
 	else
-		for(var/obj/item/I in held_items)
+		for(var/obj/item/I in R.all_active_items)
 			screenmob.client.screen -= I
