@@ -29,8 +29,8 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
-		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/heal,
 		/datum/surgery_step/generic/cauterize
 	)
@@ -40,8 +40,8 @@
 	if(ispath(healing_step_type))
 		steps = list(
 			/datum/surgery_step/generic/cut_open,
-			/datum/surgery_step/generic/clamp_bleeders,
 			/datum/surgery_step/generic/retract_skin,
+			/datum/surgery_step/generic/clamp_bleeders,
 			healing_step_type,
 			/datum/surgery_step/generic/cauterize
 		)
@@ -58,7 +58,7 @@
 	time = 2.5 SECONDS
 	repeatable = TRUE
 
-	// no sounds, since it would quickly get annoying
+	preop_sound = 'sound/surgery/retractor2.ogg'
 
 	var/shown_starting_message_already = FALSE
 
