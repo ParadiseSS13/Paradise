@@ -7229,10 +7229,18 @@
 /area/ruin/ancientstation/powered)
 "UW" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/fluff/ruins/oldstation/protosuit,
+/obj/item/paper/fluff/ruins/oldstation/protosuit{
+	pixel_x = -12
+	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "prototype display case";
 	req_access = list(301)
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = -1
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = 12
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)

@@ -438,8 +438,19 @@ const displayText = (param) => {
 
 const ParametersSection = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, malfunctioning, locked, open, selected_module, complexity, complexity_max, wearer_name, wearer_job } =
-    data;
+  const {
+    active,
+    malfunctioning,
+    locked,
+    open,
+    selected_module,
+    complexity,
+    complexity_max,
+    wearer_name,
+    wearer_job,
+    link_call,
+    link_id,
+  } = data;
   const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
   return (
     <Section title="Parameters">
@@ -463,6 +474,20 @@ const ParametersSection = (props, context) => {
           }
         >
           {locked ? 'Locked' : 'Unlocked'}
+        </LabeledList.Item>
+        <LabeledList.Item
+          label="MODLink"
+          buttons={
+            <Button
+              icon={'wifi'}
+              color={link_call ? 'good' : 'default'}
+              disabled={!link_id}
+              content={link_call ? 'Calling (' + link_call + ')' : 'Call (' + link_id + ')'}
+              onClick={() => act('call')}
+            />
+          }
+        >
+          {link_call ? 'Call Active' : 'No Active Call'}
         </LabeledList.Item>
         <LabeledList.Item label="Cover">{open ? 'Open' : 'Closed'}</LabeledList.Item>
         <LabeledList.Item label="Selected Module">{selected_module || 'None'}</LabeledList.Item>
