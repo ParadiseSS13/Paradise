@@ -189,7 +189,7 @@
 			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
 			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc, 1)
 			new_assembly.assembled = TRUE
-			var/obj/item/stack/sheet/cloth/dropped_cloth = new /obj/item/stack/sheet/cloth(loc, 2)
+			new /obj/item/stack/sheet/cloth(loc, 2)
 			qdel(src)
 			return
 		return
