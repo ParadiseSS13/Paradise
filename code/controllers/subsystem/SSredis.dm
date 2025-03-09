@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(redis)
 	try // Did you know byond had try catch?
 		usable_data = json_decode(raw_data)
 	catch
-		message_admins("Failed to deserialise a redis message | Please inform the server host IMMEDIATELY BECAUSE IT MEANS THAT I BROKE A LIBRARY UPDATE.")
+		message_admins("Failed to deserialise a redis message | Please inform the server host.")
 		log_debug("Redis raw data: [raw_data]")
 		return
 
@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(redis)
 			else
 				error_str = redis_error_data
 
-			message_admins("Redis error: [error_str] | Please inform the server host IMMEDIATELY BECAUSE IT MEANS THAT I BROKE A LIBRARY UPDATE.") // uh oh
+			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
 			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
