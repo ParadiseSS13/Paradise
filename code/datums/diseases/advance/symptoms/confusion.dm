@@ -24,6 +24,7 @@ Bonus
 	transmittable = 0
 	level = 4
 	severity = 2
+	treatments = list("synaptazine", "ephedrine",  "coffee" , "tea")
 
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)

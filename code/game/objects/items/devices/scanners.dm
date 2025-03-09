@@ -283,6 +283,11 @@ SLIME SCANNER
 		if(istype(D, /datum/disease/critical))
 			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 			continue
+		if(istype(D, /datum/disease/advance))
+			var/datum/disease/advance/A = D
+			if(!(A.id in GLOB.known_advanced_diseases[num2text(user.z)]))
+				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStage: [D.stage]</span>"
+				continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
 	if(H.undergoing_cardiac_arrest())

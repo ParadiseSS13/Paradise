@@ -24,6 +24,7 @@ Bonus
 	transmittable = -1
 	level = 6
 	severity = 2
+	treatments = list("honey", "lemonjuice" , "orangejuice")
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
 	..()
