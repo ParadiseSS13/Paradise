@@ -118,7 +118,7 @@
 /obj/item/mod/module/monitor
 	name = "MOD crew monitor module"
 	desc = "A module installed into the wrist of the suit, this presents a display of crew sensor data."
-	icon_state = "scanner"
+	icon_state = "monitor"
 	module_type = MODULE_USABLE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
