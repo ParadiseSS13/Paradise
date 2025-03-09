@@ -33,7 +33,7 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
 /// How many moles of water vapor are need for it to be visible.
-pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = .3;
+pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 0.3;
 
 /// How much stuff needs to react before we think hotspots and BYOND care.
 pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;
@@ -49,11 +49,9 @@ pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 // How hot does it need to be for water vapor to form from hydrogen and oxygen?
 pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
 
-pub(crate) const WATER_VAPOR_BREAKDOWN_TEMP: f32 = 2000.0;
-
-pub(crate) const WATER_VAPOR_REACTION_TEMPERATURE: f32 = 400.0;
-
 pub(crate) const WATER_VAPOR_REACTION_ENERGY: f32 = 1000.0;
+
+pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 0.25;
 
 
 

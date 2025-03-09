@@ -639,6 +639,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA);
+		my_next_tile
+			.gases
+			.set_water_vapor(my_next_tile.gases.water_vapor() + plasma_burnt * WATER_VAPOR_PER_PLASMA_BURNT);
 
         // Recalculate existing thermal energy to account for the change in heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
