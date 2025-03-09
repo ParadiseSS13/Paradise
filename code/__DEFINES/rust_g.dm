@@ -19,21 +19,25 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
+	var/arch_suffix = null
+	#ifdef OPENDREAM
+	arch_suffix = "64"
+	#endif
 	if(world.system_type == UNIX)
-		if(fexists("./librust_g.so"))
+		if(fexists("./librust_g[arch_suffix].so"))
 			// No need for LD_LIBRARY_PATH badness.
-			return __rust_g = "./librust_g.so"
-		else if(fexists("./rust_g"))
+			return __rust_g = "./librust_g[arch_suffix].so"
+		else if(fexists("./rust_g[arch_suffix]"))
 			// Old dumb filename.
-			return __rust_g = "./rust_g"
-		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+			return __rust_g = "./rust_g[arch_suffix]"
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g[arch_suffix]"))
 			// Old dumb filename in `~/.byond/bin`.
-			return __rust_g = "rust_g"
+			return __rust_g = "rust_g[arch_suffix]"
 		else
 			// It's not in the current directory, so try others
-			return __rust_g = "librust_g.so"
+			return __rust_g = "librust_g[arch_suffix].so"
 	else
-		return __rust_g = "rust_g.dll"
+		return __rust_g = "rust_g[arch_suffix].dll"
 
 #define RUST_G (__rust_g || __detect_rust_g())
 #endif
@@ -268,6 +272,20 @@
 #define rustg_iconforge_cache_valid(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid")(input_hash, dmi_hashes, sprites)
 /// Returns a job_id for use with rustg_iconforge_check()
 #define rustg_iconforge_cache_valid_async(input_hash, dmi_hashes, sprites) RUSTG_CALL(RUST_G, "iconforge_cache_valid_async")(input_hash, dmi_hashes, sprites)
+/// Provided a /datum/greyscale_config typepath, JSON string containing the greyscale config, and path to a DMI file containing the base icons,
+/// Loads that config into memory for later use by rustg_iconforge_gags(). The config_path is the unique identifier used later.
+/// JSON Config schema: https://hackmd.io/@tgstation/GAGS-Layer-Types
+/// Unsupported features: color_matrix layer type, 'or' blend_mode. May not have BYOND parity with animated icons or varying dirs between layers.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_load_gags_config(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config")("[config_path]", config_json, config_icon_path)
+/// Given a config_path (previously loaded by rustg_iconforge_load_gags_config), and a string of hex colors formatted as "#ff00ff#ffaa00"
+/// Outputs a DMI containing all of the states within the config JSON to output_dmi_path, creating any directories leading up to it if necessary.
+/// Returns "OK" if successful, otherwise, returns a string containing the error.
+#define rustg_iconforge_gags(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags")("[config_path]", colors, output_dmi_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_load_gags_config_async(config_path, config_json, config_icon_path) RUSTG_CALL(RUST_G, "iconforge_load_gags_config_async")("[config_path]", config_json, config_icon_path)
+/// Returns a job_id for use with rustg_iconforge_check()
+#define rustg_iconforge_gags_async(config_path, colors, output_dmi_path) RUSTG_CALL(RUST_G, "iconforge_gags_async")("[config_path]", colors, output_dmi_path)
 
 #define RUSTG_ICONFORGE_BLEND_COLOR "BlendColor"
 #define RUSTG_ICONFORGE_BLEND_ICON "BlendIcon"
@@ -404,6 +422,49 @@
  * * tag_whitelist_json: a json_encode()'d list of HTML tags to allow in the final string.
  */
 #define rustg_sanitize_html(text, attribute_whitelist_json, tag_whitelist_json) RUSTG_CALL(RUST_G, "sanitize_html")(text, attribute_whitelist_json, tag_whitelist_json)
+
+/// Provided a static RSC file path or a raw text file path, returns the duration of the file in deciseconds as a float.
+/proc/rustg_sound_length(file_path)
+	var/static/list/sound_cache
+	if(isnull(sound_cache))
+		sound_cache = list()
+
+	. = 0
+
+	if(!istext(file_path))
+		if(!isfile(file_path))
+			CRASH("rustg_sound_length error: Passed non-text object")
+
+		if(length("[file_path]")) // Runtime generated RSC references stringify into 0-length strings.
+			file_path = "[file_path]"
+		else
+			CRASH("rustg_sound_length does not support non-static file refs.")
+
+	var/cached_length = sound_cache[file_path]
+	if(!isnull(cached_length))
+		return cached_length
+
+	var/ret = RUSTG_CALL(RUST_G, "sound_len")(file_path)
+	var/as_num = text2num(ret)
+	if(isnull(ret))
+		. = 0
+		CRASH("rustg_sound_length error: [ret]")
+
+	sound_cache[file_path] = as_num
+	return as_num
+
+
+#define RUSTG_SOUNDLEN_SUCCESSES "successes"
+#define RUSTG_SOUNDLEN_ERRORS "errors"
+/**
+ * Returns a nested key-value list containing "successes" and "errors"
+ * The format is as follows:
+ * list(
+ *  RUSTG_SOUNDLEN_SUCCESES = list("sounds/test.ogg" = 25.34),
+ *  RUSTG_SOUNDLEN_ERRORS = list("sound/bad.png" = "SoundLen: Unable to decode file."),
+ *)
+*/
+#define rustg_sound_length_list(file_paths) json_decode(RUSTG_CALL(RUST_G, "sound_len_list")(json_encode(file_paths)))
 
 // SQL Operations //
 
