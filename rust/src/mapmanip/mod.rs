@@ -1,9 +1,15 @@
 use core::map_to_string;
 use core::to_grid_map;
 use core::GridMap;
+use std::collections::HashMap;
 
 use byondapi::byond_string;
 use byondapi::value::ByondValue;
+use dmmtools::dmm::Coord3;
+use dmmtools::dmm::Prefab;
+
+use dreammaker::constants::Constant;
+use eyre::eyre;
 use eyre::Context;
 use eyre::ContextCompat;
 use itertools::Itertools;
@@ -61,6 +67,7 @@ pub fn mapmanip(
 ) -> eyre::Result<dmmtools::dmm::Map> {
     // convert to gridmap
     let mut map = to_grid_map(&map);
+    let mut singleton_tags: Vec<Constant> = vec![];
 
     // go through all the manipulations in `.jsonc` config for this `.dmm`
     for (n, manipulation) in config.iter().enumerate() {
@@ -87,6 +94,7 @@ pub fn mapmanip(
                 marker_extract,
                 marker_insert,
                 *submaps_can_repeat,
+                &mut singleton_tags,
             )
             .wrap_err(format!(
                 "submap extract insert fail;
@@ -110,6 +118,7 @@ fn mapmanip_submap_extract_insert(
     marker_extract: &String,
     marker_insert: &String,
     submaps_can_repeat: bool,
+    singleton_tags: &mut Vec<Constant>,
 ) -> eyre::Result<()> {
     let submap_size = dmmtools::dmm::Coord3::new(
         submap_size_x.try_into().wrap_err("invalid submap_size_x")?,
@@ -123,12 +132,17 @@ fn mapmanip_submap_extract_insert(
     let submaps_map = GridMap::from_file(&submaps_dmm)
         .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
 
+    let mut marker_lookup: HashMap<Coord3, &Prefab> = Default::default();
     // find all the submap extract markers
-    let mut marker_extract_coords = vec![];
     for (coord, tile) in submaps_map.grid.iter() {
-        if tile.prefabs.iter().any(|p| p.path == *marker_extract) {
-            marker_extract_coords.push(coord);
-        }
+        tile.prefabs.iter().for_each(|p| {
+            if p.path == *marker_extract {
+                marker_lookup.insert(coord, p);
+            }
+        });
+    }
+    if marker_lookup.is_empty() {
+        return Err(eyre!("marker lookup empty for submap {submaps_dmm:?}"));
     }
 
     // find all the insert markers
@@ -142,18 +156,24 @@ fn mapmanip_submap_extract_insert(
     // do all the extracts-inserts
     for insert_coord in marker_insert_coords {
         // pick a submap
-        let (extract_coord_index, extract_coord) = marker_extract_coords
+        let (&extract_coord, &extract_prefab) = marker_lookup
             .iter()
-            .cloned()
-            .enumerate()
+            .filter(|(_, &prefab)| {
+                !singleton_tags.contains(
+                    prefab
+                        .vars
+                        .get("singleton_id")
+                        .unwrap_or(Constant::null())
+                )
+            })
             .choose(&mut rand::thread_rng())
             .wrap_err(format!(
-                "can't pick a submap to extract; no more extract markers in the submaps dmm; marker type: {marker_extract}"
+                "no extractions found for marker {marker_extract}, singletons={singleton_tags:?}"
             ))?;
 
-        // if submaps should not be repeating, remove this one from the list
+        // if submaps should not be repeating, remove this one
         if !submaps_can_repeat {
-            marker_extract_coords.remove(extract_coord_index);
+            marker_lookup.remove(&extract_coord);
         }
 
         // extract that submap from the submap dmm
@@ -163,6 +183,14 @@ fn mapmanip_submap_extract_insert(
         // and insert the submap into the manipulated map
         insert_submap(&extracted, insert_coord, map)
             .wrap_err(format!("submap insertion failed; at {insert_coord}"))?;
+
+        let singleton_id = extract_prefab
+            .vars
+            .get("singleton_id")
+            .unwrap_or(Constant::null());
+        if !singleton_id.is_null() {
+            singleton_tags.push(singleton_id.clone());
+        }
     }
 
     Ok(())
