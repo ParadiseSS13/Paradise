@@ -183,7 +183,7 @@
 	},
 /area/ruin/space/powered)
 "rV" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)

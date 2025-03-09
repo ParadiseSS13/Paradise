@@ -1090,6 +1090,7 @@
 #include "code\game\objects\effects\spawners\random\loot_spawners.dm"
 #include "code\game\objects\effects\spawners\random\maint_loot_spawners.dm"
 #include "code\game\objects\effects\spawners\random\misc_spawners.dm"
+#include "code\game\objects\effects\spawners\random\outfit_spawners.dm"
 #include "code\game\objects\effects\spawners\random\plushie_spawners.dm"
 #include "code\game\objects\effects\spawners\random\random_spawner.dm"
 #include "code\game\objects\effects\spawners\random\toy_spawners.dm"
