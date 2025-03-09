@@ -42,9 +42,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "an" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/light/spot{
 	dir = 1
 	},
