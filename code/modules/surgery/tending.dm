@@ -29,8 +29,8 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
-		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/heal,
 		/datum/surgery_step/generic/cauterize
 	)
@@ -40,8 +40,8 @@
 	if(ispath(healing_step_type))
 		steps = list(
 			/datum/surgery_step/generic/cut_open,
-			/datum/surgery_step/generic/retract_skin,
 			/datum/surgery_step/generic/clamp_bleeders,
+			/datum/surgery_step/generic/retract_skin,
 			healing_step_type,
 			/datum/surgery_step/generic/cauterize
 		)
