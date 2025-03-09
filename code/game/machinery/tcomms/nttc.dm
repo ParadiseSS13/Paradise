@@ -109,6 +109,7 @@
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
+		"Bitrunner" = "supradio",
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		"Explorer" = "supradio",

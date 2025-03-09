@@ -136,6 +136,9 @@
 /obj/item/pda/explorer
 	icon_state = "pda-exp"
 
+/obj/item/pda/bitrunner
+	icon_state = "pda-cargo"
+
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate/nuclear
 	icon_state = "pda-syndi"
