@@ -682,6 +682,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
+		"WHO TOOK THE DAMN MODSUITS?",
 		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
@@ -699,6 +700,23 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
+		"BORGS BAD",
+		"You're telling me a Kentucky fried this vox?",
+		"AI OPEN",
+		"BLUESHIELD TO ME!",
+		"ITS LOOSE",
+		"TESLA IN THE HALLS",
+		"I deep fried the nuke disc",
+		"SQUAWK!",
+		"Honk.",
+		"Bridge gone",
+		"Someone set up telecomms",
+		"TOXINS!",
+		"ONI SOMA!",
+		"GOLDEN BLAST",
+		"Is there supposed to be this much plasma in the chamber??",,
+		"Why are there so many borgs?",
+		"Why're your eyes glowing red?"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
