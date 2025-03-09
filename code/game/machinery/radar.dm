@@ -82,7 +82,7 @@
 				if(WEATHER_WIND_DOWN_STAGE)
 					if(last_stage == WEATHER_WIND_DOWN_STAGE)
 						return
-					radio.autosay("<b>Incliment weather has dispersed. It is now safe to resume surface excavations.</b>", name, "Supply")
+					radio.autosay("<b>Inclement weather has dispersed. It is now safe to resume surface excavations.</b>", name, "Supply")
 					last_stage = WEATHER_WIND_DOWN_STAGE
 					dont_announce = FALSE
 					return
