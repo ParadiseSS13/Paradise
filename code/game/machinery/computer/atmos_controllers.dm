@@ -274,13 +274,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				else
 					sensor_data -= "n2o"
 				if(AS.output & SENSOR_H2O)
-					sensor_data["h2o"] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
+					sensor_data["water_vapor"] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
 				else
-					sensor_data -= "h2o"
+					sensor_data -= "water_vapor"
 				if(AS.output & SENSOR_H2)
-					sensor_data["h2"] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
+					sensor_data["hydrogen"] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
 				else
-					sensor_data -= "h2"
+					sensor_data -= "hydrogen"
 
 		else if(istype(AM, /obj/machinery/atmospherics/meter))
 			var/list/meter_data = sensor_name_data_map[sensor_name]
