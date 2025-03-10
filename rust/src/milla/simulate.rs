@@ -706,7 +706,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 		my_next_tile.fuel_burnt += hydrogen_burnt;
 	}
 
-    if hotspot_step {
+	if hotspot_step {
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
