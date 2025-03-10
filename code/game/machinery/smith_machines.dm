@@ -115,16 +115,18 @@
 	return ..()
 
 /obj/machinery/mineral/smart_hopper/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
 		return
 	if(panel_open)
-		var/obj/item/multitool/M = I
-		if(!istype(M.buffer, /obj/machinery/magma_crucible))
-			to_chat(user, "<span class='warning'>You cannot link [src] to [M.buffer]!</span>")
+		var/obj/item/multitool/multi = I
+		if(!istype(multi.buffer, /obj/machinery/magma_crucible))
+			to_chat(user, "<span class='warning'>You cannot link [src] to [multi.buffer]!</span>")
 			return
-		linked_crucible = M.buffer
+		linked_crucible = multi.buffer
+		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -311,12 +313,15 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
-	. = ..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 	if(panel_open)
 		if(!I.multitool_check_buffer(user))
 			return
 		var/obj/item/multitool/multi = I
 		multi.set_multitool_buffer(user, src)
+		to_chat(user, "<span class='notice'>You save [src]'s linking data to the buffer.</span>")
 		return
 
 	var/list/msgs = list()
@@ -356,6 +361,8 @@
 	var/obj/item/smithed_item/component/working_component
 	/// The noise the machine makes when operating
 	var/operation_sound
+	/// Will the machine auto-repeat?
+	var/repeating = FALSE
 
 /obj/machinery/smithing/examine(mob/user)
 	. = ..()
@@ -368,7 +375,6 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	. = ..()
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -381,19 +387,18 @@
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return FINISH_ATTACK
 
-	if(!istype(used, /obj/item/smithed_item/component))
-		to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
-		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/smithed_item/component))
+		if(working_component)
+			to_chat(user, "<span class='warning'>There is already a component in the machine!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-	if(working_component)
-		to_chat(user, "<span class='warning'>There is already a component in the machine!</span>")
-		return ITEM_INTERACT_COMPLETE
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		working_component = used
 		return ITEM_INTERACT_COMPLETE
-
-	working_component = used
+	return ..()
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
@@ -566,11 +571,12 @@
 	if(!I.multitool_check_buffer(user))
 		return
 	if(panel_open)
-		var/obj/item/multitool/M = I
-		if(!istype(M.buffer, /obj/machinery/magma_crucible))
-			to_chat(user, "<span class='notice'>You cannot link [src] to [M.buffer]!</span>")
+		var/obj/item/multitool/multi = I
+		if(!istype(multi.buffer, /obj/machinery/magma_crucible))
+			to_chat(user, "<span class='notice'>You cannot link [src] to [multi.buffer]!</span>")
 			return
-		linked_crucible = M.buffer
+		linked_crucible = multi.buffer
+		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/smithing_cast))
@@ -747,8 +753,23 @@
 	..()
 	working_component.powerhammer()
 	do_sparks(5, TRUE, src)
+	// If the hammer is set to repeat mode, let it repeat operations automatically.
+	if(repeating && working_component.hot && working_component.hammer_time)
+		operate(loops, user)
+	// When an item is done, beep.
 	if(!working_component.hammer_time)
 		playsound(src, 'sound/machines/boop.ogg', 50, TRUE)
+
+/obj/machinery/smithing/power_hammer/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!repeating)
+		repeating = TRUE
+		to_chat(user, "<span class='notice'>You set [src] to auto-repeat.</span>")
+	else
+		repeating = FALSE
+		to_chat(user, "<span class='notice'>You set [src] to not auto-repeat.</span>")
 
 /obj/machinery/smithing/power_hammer/attack_hand(mob/user)
 	. = ..()
