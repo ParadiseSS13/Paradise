@@ -4,13 +4,13 @@
 /area/template_noop)
 "ab" = (
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "ac" = (
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "ad" = (
 /turf/simulated/wall/r_wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "ae" = (
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
@@ -18,7 +18,7 @@
 "ah" = (
 /obj/structure/girder,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "aj" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
@@ -26,13 +26,13 @@
 "al" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "ao" = (
 /obj/machinery/door/airlock/command{
 	max_integrity = 40
 	},
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "ap" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
@@ -40,7 +40,7 @@
 "ar" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "as" = (
 /obj/item/stack/rods,
 /turf/template_noop,
@@ -48,7 +48,7 @@
 "at" = (
 /obj/structure/door_assembly/door_assembly_com,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "au" = (
 /obj/item/clothing/head/bio_hood/virology,
 /turf/template_noop,
@@ -59,12 +59,12 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aA" = (
 /obj/structure/closet/crate,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aC" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -75,7 +75,7 @@
 /area/template_noop)
 "aF" = (
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aG" = (
 /obj/structure/safe,
 /obj/item/stack/sheet/mineral/bananium{
@@ -86,12 +86,12 @@
 	},
 /obj/item/dnainjector/comic,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aH" = (
 /obj/structure/table,
 /obj/item/salvage/ruin/brick,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aL" = (
 /obj/item/shard,
 /turf/template_noop,
@@ -99,7 +99,7 @@
 "aM" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aN" = (
 /obj/item/clothing/suit/bio_suit/virology,
 /turf/template_noop,
@@ -116,7 +116,7 @@
 /area/template_noop)
 "aT" = (
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "aV" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -124,16 +124,24 @@
 "aY" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/damaged/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "aZ" = (
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
+"wx" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/unpowered)
 "Di" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
+"Oz" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -210,13 +218,13 @@ ac
 aM
 ad
 aa
-aV
+wx
 ab
 ac
 aM
 ab
 aT
-aV
+Oz
 aa
 aa
 aa
@@ -254,11 +262,11 @@ ad
 ad
 aY
 aa
-aV
+Oz
 aa
 ae
 aa
-aV
+Oz
 aT
 aa
 aa
@@ -284,7 +292,7 @@ aa
 aT
 aa
 aa
-aV
+Oz
 aa
 aa
 aa
@@ -300,7 +308,7 @@ aa
 aa
 aC
 aa
-aV
+Oz
 aa
 ab
 aa
@@ -317,13 +325,13 @@ ap
 as
 aT
 aj
-aV
+Oz
 aT
 aC
 aa
 aO
 aa
-aV
+Oz
 aa
 aa
 as
@@ -389,8 +397,8 @@ as
 aa
 aa
 aL
-aV
-aV
+Oz
+Oz
 ab
 aT
 aa
@@ -445,11 +453,11 @@ aa
 "}
 (15,1,1) = {"
 aa
-aV
+Oz
 aa
 aa
 as
-aV
+Oz
 aC
 aa
 aa
@@ -472,11 +480,11 @@ aa
 aE
 aa
 aa
-aV
+Oz
 aa
 aO
 aa
-aV
+Oz
 aa
 aa
 aa
@@ -501,7 +509,7 @@ aa
 aa
 ae
 aa
-aV
+Oz
 aa
 aa
 aa
