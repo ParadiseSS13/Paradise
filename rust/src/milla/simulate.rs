@@ -693,7 +693,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 			.gases
 			.set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
 
-    }
+
 		// Recalculate existing thermal energy to account for the change in heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
         thermal_energy = cached_temperature * cached_heat_capacity;
@@ -705,12 +705,12 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
 		my_next_tile.fuel_burnt += hydrogen_burnt;
 	}
-
 	if hotspot_step {
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
+}
 
 
 /// Apply the effects of the gas onto the turf itself
