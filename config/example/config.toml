@@ -606,10 +606,14 @@ redis_connstring = "redis://127.0.0.1/"
 enable_lavaland = true
 # Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
 enable_space_ruins = false
-# Minimum number of extra zlevels to generate and fill with ruins
-minimum_zlevels = 2
-# Maximum number of extra zlevels to generate and fill with ruins
-maximum_zlevels = 4
+# Minimum number of extra space zlevels to generate
+minimum_space_zlevels = 2
+# Maximum number of extra space zlevels to generate
+maximum_space_zlevels = 4
+# Minimum number of extra lavaland zlevels to generate
+minimum_lavaland_zlevels = 2
+# Maximum number of extra lavaland zlevels to generate
+maximum_lavaland_zlevels = 2
 # Minimum space ruin budget.
 space_ruin_budget_min = 750
 # Maximum space ruin budget.
@@ -676,6 +680,11 @@ active_space_ruins = [
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
+  ## Core Gameplay Ruins
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_miningbase.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gulag.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm",
+
   ##BIODOMES
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN

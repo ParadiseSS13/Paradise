@@ -33,6 +33,7 @@
 	return
 
 /turf/simulated/floor/lava/Entered(atom/movable/AM)
+	..()
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 

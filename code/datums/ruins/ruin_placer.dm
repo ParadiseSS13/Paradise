@@ -16,6 +16,7 @@
 
 /datum/ruin_placement/proc/try_to_place(zlist_or_zlevel, area_whitelist)
 	var/list/z_levels = islist(zlist_or_zlevel) ? zlist_or_zlevel : list(zlist_or_zlevel)
+	shuffle_inplace(z_levels)
 
 	// Our goal is to maximize padding, so we'll perform some number of attempts
 	// on one z-level, then the next, until we reach some limit, then reduce the
@@ -131,7 +132,7 @@
 			continue
 		ruins_availible[R] = R.placement_weight
 
-	while(ruin_budget > 0 && (length(ruins_availible) || length(forced_ruins)))
+	while((ruin_budget > 0 && length(ruins_availible)) || length(forced_ruins))
 		var/datum/map_template/ruin/current_pick
 		var/forced = FALSE
 		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
