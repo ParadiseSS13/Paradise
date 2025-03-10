@@ -22,7 +22,7 @@
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
-	probability = 90
+	probability = 150
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -190,7 +190,7 @@
 
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
 	. = ..()
-	icon_state = pick("small,","large", "sharp", "dust", "small1", "large1")
+	icon_state = pick("small","large", "sharp", "dust", "small1", "large1")
 	animate(src, pixel_z = 0, time = duration)
 	SpinAnimation()
 
@@ -300,8 +300,9 @@
 /datum/weather/acid/area_act()
 	if(prob(1))
 		var/list/turf_list = list()
-		for(var/turf in get_area_turfs(/area/survivalpod))
-			turf_list += turf
+		for(var/turf/turf in get_area_turfs(/area/survivalpod))
+			if(is_mining_level(turf.z)) //dont want to melt pods on other Z levels
+				turf_list += turf
 		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
 			return
 		var/turf/melt_this = pick(turf_list)
@@ -311,9 +312,15 @@
 // lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
 	var/area/new_area = new /area/lavaland/surface/outdoors
-	for(var/turf/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
-		if(prob(50))
+	for(var/turf/simulated/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
+		var/area/turf_area = get_area(nearby_turf)
+		if(prob(50) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
+			to_chat(world, "DEBUG: nearby_turf type is: [nearby_turf.type]")
+			if(isfloorturf(nearby_turf))
+				nearby_turf.break_tile()
+			if(iswallturf(nearby_turf))
+				nearby_turf.dismantle_wall()
 
 	impacted_areas.Cut()
 	generate_area_list()

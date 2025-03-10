@@ -83,6 +83,7 @@
 
 // for things that shouldnt affect specifically the luxury pods
 /area/survivalpod/luxurypod
+	name = "\improper Luxury Shelter"
 
 //Pod turfs and objects
 

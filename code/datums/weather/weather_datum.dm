@@ -73,6 +73,7 @@
 	START_PROCESSING(SSweather, src)
 	update_areas()
 	update_eligible_areas()
+	update_audio()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
@@ -82,13 +83,13 @@
 				SEND_SOUND(M, sound(telegraph_sound))
 
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
-	update_audio()
 
 /datum/weather/proc/start()
 	if(stage >= WEATHER_MAIN_STAGE)
 		return
 	stage = WEATHER_MAIN_STAGE
 	update_areas()
+	update_audio()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
@@ -97,13 +98,13 @@
 			if(weather_sound)
 				SEND_SOUND(M, sound(weather_sound))
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
-	update_audio()
 
 /datum/weather/proc/wind_down()
 	if(stage >= WEATHER_WIND_DOWN_STAGE)
 		return
 	stage = WEATHER_WIND_DOWN_STAGE
 	update_areas()
+	update_audio()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
@@ -112,7 +113,6 @@
 			if(end_sound)
 				SEND_SOUND(M, sound(end_sound))
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
-	update_audio()
 
 /datum/weather/proc/end()
 	if(stage == WEATHER_END_STAGE)
