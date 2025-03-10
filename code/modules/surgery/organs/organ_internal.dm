@@ -10,10 +10,18 @@
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
 
+	/// Organs can only be repaired by operation once.
+	var/repaired_by_operation = FALSE
+
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
+
+/obj/item/organ/internal/examine(mob/user)
+	. = ..()
+	if(repaired_by_operation)
+		. += "<span class='warning'>Some of it appears to have been surgically removed.</span>"
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
