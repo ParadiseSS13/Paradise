@@ -1,6 +1,5 @@
 GLOBAL_DATUM(plmaster, /obj/effect/overlay)
 GLOBAL_DATUM(slmaster, /obj/effect/overlay)
-GLOBAL_DATUM(hymaster, /obj/effect/overlay)
 GLOBAL_DATUM(wvmaster, /obj/effect/overlay)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule

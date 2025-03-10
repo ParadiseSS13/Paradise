@@ -71,8 +71,6 @@
 			return GLOB.plmaster
 		if("sleeping_agent")
 			return GLOB.slmaster
-		if("hydrogen")
-			return GLOB.hymaster
 		if("water_vapor")
 			return GLOB.wvmaster
 	return null

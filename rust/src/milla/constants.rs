@@ -44,13 +44,7 @@ pub(crate) const AGENT_B_CONVERSION_TEMP: f32 = 900.0;
 /// How hot does it need to be for sleeping gas to break down?
 pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 
-// How hot does it need to be for water vapor to break down?
-
-// How hot does it need to be for water vapor to form from hydrogen and oxygen?
-pub(crate) const WATER_VAPOR_FORMATION_TEMP: f32 = 2000.0;
-
-pub(crate) const WATER_VAPOR_REACTION_ENERGY: f32 = 1000.0;
-
+//How much water vapor is produced per plasma burnt.
 pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 4.0;
 
 
@@ -166,7 +160,7 @@ pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 pub(crate) const PLASMA_BURN_OXYGEN_PER_PLASMA: f32 = 0.4;
 
 /// How much oxygen do we consume for every hydrogen?
-pub(crate) const HYDROGEN_BURN_OXYGEN_PER_HYDROGEN: f32 = 1.0;
+pub(crate) const HYDROGEN_BURN_OXYGEN_PER_HYDROGEN: f32 = 0.5;
 
 /// How much thermal energy is produced, in joules per mole of agent b.
 pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
@@ -181,7 +175,7 @@ pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 
 /// How much thermal energy is produced, in joules per mole of hydrogen
-pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 243_000_000.0;
+pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 286_000.0;
 
 /// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]

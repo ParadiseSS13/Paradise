@@ -716,7 +716,6 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_overlays()
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
-	GLOB.hymaster = new /obj/effect/overlay/turf/hydrogen
 	GLOB.wvmaster = new /obj/effect/overlay/turf/water_vapor
 
 /datum/controller/subsystem/air/proc/bind_turf(turf/T, list/milla_tile = null)
