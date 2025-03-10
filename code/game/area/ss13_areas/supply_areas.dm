@@ -36,7 +36,7 @@
 	request_console_flags = RC_SUPPLY
 
 /area/station/supply/smith_office
-	name = "\improper Smith's Office"
+	name = "Smith's Office"
 	icon_state = "smith"
 
 /area/station/supply/qm
