@@ -20558,6 +20558,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 8
@@ -51353,6 +51356,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -63882,6 +63886,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -68661,6 +68666,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -83657,6 +83665,9 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 4
@@ -89851,6 +89862,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -90878,6 +90892,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
