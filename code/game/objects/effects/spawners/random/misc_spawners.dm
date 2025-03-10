@@ -48,7 +48,6 @@
 		/obj/item/book/manual/ripley_build_and_repair,
 		/obj/item/book/manual/supermatter_engine,
 		/obj/item/book/manual/wiki/botanist,
-		/obj/item/book/manual/wiki/chef_recipes,
 		/obj/item/book/manual/wiki/engineering_construction,
 		/obj/item/book/manual/wiki/engineering_guide,
 		/obj/item/book/manual/wiki/faxes,

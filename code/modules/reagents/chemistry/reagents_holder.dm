@@ -675,6 +675,9 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
+/datum/reagents/proc/get_free_space()
+	return maximum_volume - total_volume
+
 /**
  * Attempts to add X of the matching reagent to the holder.
  *
@@ -782,6 +785,9 @@
 				else
 					return FALSE
 	return FALSE
+
+/datum/reagents/proc/is_empty()
+	return length(reagent_list) == 0
 
 /**
  * Returns the amount of the matching reagent inside the holder.

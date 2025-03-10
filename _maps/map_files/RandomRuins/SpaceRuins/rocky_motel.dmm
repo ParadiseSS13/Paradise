@@ -377,7 +377,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Qv" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
