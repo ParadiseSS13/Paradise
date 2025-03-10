@@ -5639,7 +5639,7 @@
 	},
 /area/ruin/space/moonbase19)
 "tE" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -8314,7 +8314,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "Ge" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Gg" = (
@@ -11727,7 +11727,7 @@
 /area/ruin/space/moonbase19)
 "VT" = (
 /obj/structure/bed,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "VU" = (

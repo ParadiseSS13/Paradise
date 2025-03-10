@@ -590,7 +590,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "uV" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -666,7 +666,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/wreck_cargoship)
@@ -1086,7 +1086,7 @@
 /obj/machinery/button/windowtint{
 	pixel_y = -32
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;

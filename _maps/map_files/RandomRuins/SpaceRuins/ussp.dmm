@@ -6418,7 +6418,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rm" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"

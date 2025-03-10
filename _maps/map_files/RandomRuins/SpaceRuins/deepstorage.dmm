@@ -4002,7 +4002,7 @@
 /area/ruin/space/deepstorage)
 "yB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -6833,7 +6833,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
