@@ -15,7 +15,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	var/list/surfaces = list()
 
 /obj/machinery/cooking/Destroy()
-	QDEL_LIST_CONTENTS(allowed_containers)
 	QDEL_LIST_CONTENTS(surfaces)
 
 	return ..()
@@ -61,9 +60,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/proc/clickpos_to_surface(modifiers)
 	return
 
-/obj/machinery/cooking/wrench_act(mob/living/user, obj/item/I)
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
-		return TRUE
+/obj/machinery/cooking/wrench_act(mob/living/user, obj/item/used)
+	return default_unfasten_wrench(user, used, time = 4 SECONDS)
+
+/obj/machinery/cooking/crowbar_act(mob/living/user, obj/item/used)
+	return default_deconstruction_crowbar(user, used)
 
 /obj/machinery/cooking/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

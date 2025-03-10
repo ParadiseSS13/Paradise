@@ -26,11 +26,11 @@
 
 /obj/machinery/cooking/deepfryer/proc/InitializeParts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/circuitboard/cooking/deep_fryer(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
 /obj/machinery/cooking/deepfryer/examine(mob/user)
@@ -113,9 +113,20 @@
 
 /obj/machinery/cooking/deepfryer/upgraded/InitializeParts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/circuitboard/cooking/deep_fryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
+
+/obj/item/circuitboard/cooking/deep_fryer
+	board_name = "Deep Fryer"
+	build_path = /obj/machinery/cooking/deepfryer
+	board_type = "machine"
+	origin_tech = list(TECH_BIO = 1)
+	req_components = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/capacitor = 1,
+	)

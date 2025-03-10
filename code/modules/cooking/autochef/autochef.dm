@@ -166,6 +166,12 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return
 	default_unfasten_wrench(user, I)
 
+/obj/machinery/autochef/wrench_act(mob/living/user, obj/item/used)
+	return default_unfasten_wrench(user, used, time = 4 SECONDS)
+
+/obj/machinery/autochef/crowbar_act(mob/living/user, obj/item/used)
+	return default_deconstruction_crowbar(user, used)
+
 /obj/machinery/autochef/update_overlays()
 	. = ..()
 	if(panel_open)

@@ -36,7 +36,7 @@
 
 /obj/machinery/cooking/oven/proc/InitializeParts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/circuitboard/cooking/oven(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -140,7 +140,7 @@
 
 /obj/machinery/cooking/oven/upgraded/InitializeParts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/circuitboard/cooking/oven(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
@@ -149,7 +149,7 @@
 
 	RefreshParts()
 
-/obj/item/circuitboard/oven
+/obj/item/circuitboard/cooking/oven
 	board_name = "Convection Oven"
 	build_path = /obj/machinery/cooking/oven
 	board_type = "machine"

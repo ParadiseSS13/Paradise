@@ -86,7 +86,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 				switch(result)
 					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
 						return AUTOCHEF_ACT_FAILED
-					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
+					if(PCWJ_COMPLETE, PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
 						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 						// Boy howdy I sure do love having to manually update
 						// the recorded quantities of items in smartfridges

@@ -64,14 +64,21 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 	return "Add \a [produce_type::name]."
 
 /datum/cooking/recipe_step/add_produce/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
-	for(var/storage in task.autochef.linked_storages)
+	for(var/obj/machinery/smartfridge/storage in task.autochef.linked_storages)
 		for(var/obj/possible_item in storage)
 			if(check_conditions_met(possible_item, task.container.tracker))
-				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-				task.container.item_interaction(null, possible_item)
-				return AUTOCHEF_ACT_STEP_COMPLETE
+				var/result = task.container.process_item(null, possible_item)
+				switch(result)
+					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
+						return AUTOCHEF_ACT_FAILED
+					if(PCWJ_COMPLETE, PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
+						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+						// Boy howdy I sure do love having to manually update
+						// the recorded quantities of items in smartfridges
+						storage.item_quants[possible_item.name]--
+						return AUTOCHEF_ACT_STEP_COMPLETE
 
-	return AUTOCHEF_ACT_FAILED
+	return AUTOCHEF_ACT_MISSING_INGREDIENT
 
 /datum/cooking/recipe_step/add_produce/attempt_autochef_prepare(obj/machinery/autochef/autochef)
 	for(var/storage in autochef.linked_storages)

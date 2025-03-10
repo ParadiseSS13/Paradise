@@ -58,11 +58,13 @@
 					autochef.set_display("screen-fire")
 					current_state = AUTOCHEF_ACT_WAIT_FOR_RESULT
 				if(AUTOCHEF_ACT_FAILED)
-					autochef.atom_say("Recipe failed!")
+					autochef.atom_say("Recipe failed.")
 					autochef.set_display("screen-error")
 					current_state = AUTOCHEF_ACT_FAILED
-				else
-					autochef.atom_say("GOT CODE [result]")
+				if(AUTOCHEF_ACT_MISSING_INGREDIENT)
+					autochef.atom_say("Missing ingredient.")
+					autochef.set_display("screen-error")
+					current_state = AUTOCHEF_ACT_INTERRUPTED
 		if(AUTOCHEF_ACT_INTERRUPTED)
 			autochef.atom_say("Attempting to resume...")
 			current_state = AUTOCHEF_ACT_FOLLOW_STEPS

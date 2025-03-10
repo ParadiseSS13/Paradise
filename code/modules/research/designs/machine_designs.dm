@@ -449,7 +449,7 @@
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/oven
+	build_path = /obj/item/circuitboard/cooking/oven
 	category = list("Misc. Machinery")
 
 /datum/design/grill

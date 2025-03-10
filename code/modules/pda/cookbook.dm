@@ -8,8 +8,8 @@
 	update = PDA_APP_NOUPDATE
 
 	var/current_category
-	var/recipe_list
-	var/search_text
+	var/list/recipe_list = list()
+	var/search_text = ""
 
 /datum/data/pda/app/cookbook/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
