@@ -280,7 +280,7 @@
 	if(!istype(autochef))
 		return
 	claimed = autochef
-	autochef.RegisterSignal(src, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/obj/machinery/autochef, on_claimed_container_equip))
+	autochef.RegisterSignal(src, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/obj/machinery/autochef, on_claimed_container_equip), override = TRUE)
 
 /obj/item/reagent_containers/cooking/proc/unclaim()
 	if(claimed)
