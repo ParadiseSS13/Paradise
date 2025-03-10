@@ -399,7 +399,7 @@
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
 	update_icon(ALL)
-	for(var/i=1 to loops)
+	for(var/i in 1 to loops)
 		if(stat & (NOPOWER|BROKEN))
 			return FALSE
 		use_power(500)
