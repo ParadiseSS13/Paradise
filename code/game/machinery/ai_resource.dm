@@ -1,6 +1,9 @@
 /// Stores a list of all AI resource nodes
 GLOBAL_LIST_EMPTY(ai_nodes)
 
+#define ALLOCATED_RESOURCES 0
+#define ONLINE_NODES 		1
+
 /obj/machinery/ai_node
 	name = "AI Node"
 	desc = "If you see me, make an issue report!"
@@ -30,6 +33,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/efficiency = 1
 	/// Milla controller
 	var/datum/milla_safe/ai_node_process/milla = new()
+
 
 /obj/machinery/ai_node/Initialize(mapload)
 	..()
@@ -205,7 +209,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	RefreshParts()
 
 /obj/machinery/computer/ai_resource
-	name = "AI resource control console"
+	name = "AI Resource Control Console"
 	desc = "Used to reassign memory and bandwidth between multiple AI units."
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
@@ -213,6 +217,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/ai_resource_console
 	light_color = LIGHT_COLOR_PURPLE
+	/// UI Screen Index
+	var/screen = ALLOCATED_RESOURCES
 
 /obj/machinery/computer/ai_resource/attack_ai(mob/user) // Bad AI, no access to stealing resources
 	return
@@ -245,6 +251,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/computer/ai_resource/ui_data(mob/user)
 	var/list/data = list()
 	data["auth"] = is_authenticated(user)
+	data["screen"] = screen
 	data["ai_list"] = list()
 	data["nodes_list"] = list()
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
@@ -278,3 +285,22 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	if(SSticker.current_state == GAME_STATE_FINISHED)
 		to_chat(ui.user, "<span class='warning'>Access denied, AIs are no longer your station's property.</span>")
 		return
+
+	switch(action)
+		if("menu")
+			switch(text2num(params["screen"]))
+				if(ALLOCATED_RESOURCES)
+					screen = ALLOCATED_RESOURCES
+					return TRUE
+				if(ONLINE_NODES)
+					screen = ONLINE_NODES
+					return TRUE
+		// if("reassign")
+		// 	if(!length(GLOB.ai_list))
+		// 		return FALSE
+		// 	var/new_ai = tgui_input_list(usr, "Pick a new AI", "AI Selector", GLOB.ai_list)
+		// 	selected_node.change_ai(new_ai)
+		// 	return TRUE
+
+#undef ALLOCATED_RESOURCES
+#undef ONLINE_NODES

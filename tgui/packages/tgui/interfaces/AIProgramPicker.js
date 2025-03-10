@@ -7,9 +7,7 @@ export const AIProgramPicker = (props, context) => {
   const { program_list } = data;
   return (
     <Window width={500} height={460}>
-      <Window.Content scrollable>
-
-      </Window.Content>
+      <Window.Content scrollable />
     </Window>
   );
 };
