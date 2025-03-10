@@ -81,6 +81,10 @@
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
 
+// for things that shouldnt affect specifically the luxury pods
+/area/survivalpod/luxurypod
+	name = "\improper Luxury Shelter"
+
 //Pod turfs and objects
 
 //Window
