@@ -73,6 +73,7 @@
 				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
 
 		user.put_in_hands(surface.container)
+		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
 		surface.container = null
 		update_appearance(UPDATE_ICON)
 

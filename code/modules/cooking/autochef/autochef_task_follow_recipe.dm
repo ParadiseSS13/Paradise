@@ -65,6 +65,10 @@
 					autochef.atom_say("Missing ingredient.")
 					autochef.set_display("screen-error")
 					current_state = AUTOCHEF_ACT_INTERRUPTED
+				if(AUTOCHEF_ACT_NO_AVAILABLE_MACHINES)
+					autochef.atom_say("No available machines.")
+					autochef.set_display("screen-error")
+					current_state = AUTOCHEF_ACT_INTERRUPTED
 		if(AUTOCHEF_ACT_INTERRUPTED)
 			autochef.atom_say("Attempting to resume...")
 			current_state = AUTOCHEF_ACT_FOLLOW_STEPS

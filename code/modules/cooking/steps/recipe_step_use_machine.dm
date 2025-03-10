@@ -43,7 +43,7 @@
 		if(!istype(machine, machine_type))
 			continue
 
-		if(!can_use_machine(machine))
+		if(!can_use_machine(task.autochef, machine))
 			continue
 
 		matching_machines++
@@ -78,7 +78,7 @@
 	task.autochef.atom_say("Preparing on [surface.parent.name].")
 	surface.timer = time
 	surface.temperature = temperature
-	extra_machine_step(surface.parent.name)
+	extra_machine_step(surface.parent)
 	if(surface.on)
 		surface.handle_cooking(null)
 	else
@@ -88,12 +88,12 @@
 
 /datum/cooking/recipe_step/use_machine/attempt_autochef_prepare(obj/machinery/autochef/autochef)
 	for(var/obj/machinery/cooking/machine in autochef.linked_machines)
-		if(can_use_machine(machine))
+		if(can_use_machine(autochef, machine))
 			return AUTOCHEF_ACT_VALID
 
 	return AUTOCHEF_ACT_NO_AVAILABLE_MACHINES
 
-/datum/cooking/recipe_step/use_machine/proc/can_use_machine(obj/machinery/cooking/machine)
+/datum/cooking/recipe_step/use_machine/proc/can_use_machine(obj/machinery/autochef, obj/machinery/cooking/machine)
 	if(machine.stat & (NOPOWER|BROKEN))
 		return FALSE
 
@@ -101,6 +101,8 @@
 		if(!surface.container)
 			return TRUE
 		if(surface.container && !surface.container.claimed)
+			return TRUE
+		if(surface.container && surface.container.claimed == autochef)
 			return TRUE
 
 	return FALSE
@@ -140,7 +142,7 @@
 /datum/cooking/recipe_step/use_machine/grill/get_pda_formatted_desc()
 	return "Cook on a grill for [DisplayTimeText(time)] at [lowertext(temperature)] temperature."
 
-/datum/cooking/recipe_step/use_machine/grill/can_use_machine(obj/machinery/cooking/machine)
+/datum/cooking/recipe_step/use_machine/grill/can_use_machine(obj/machinery/autochef, obj/machinery/cooking/machine)
 	. = ..()
 	var/obj/machinery/cooking/grill/grill = machine
 	return . && istype(grill) && grill.stored_wood > 0

@@ -75,8 +75,9 @@
 	var/datum/cooking_surface/surface = surfaces[input]
 	if(surface && surface.container && opened)
 		user.put_in_hands(surface.container)
+		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
 		surface.container = null
-		update_appearance()
+		update_appearance(UPDATE_ICON)
 	else
 		handle_open(user)
 
