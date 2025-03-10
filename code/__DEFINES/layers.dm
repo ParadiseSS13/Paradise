@@ -112,49 +112,49 @@
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
 #define POINT_PLANE 14
-#define COGBAR_PLANE 14
+#define COGBAR_PLANE 15
 
-#define LIGHTING_PLANE 15
-#define LIGHTING_LAYER 15
+#define LIGHTING_PLANE 16
+#define LIGHTING_LAYER 16
 
-#define LIGHTING_LAMPS_GLARE 16 // Light glare (optional setting)
-#define LIGHTING_EXPOSURE_PLANE 17 // Light sources "cones"
-#define LIGHTING_LAMPS_SELFGLOW 18 // Light sources glow (lamps, doors overlay, etc.)
-#define LIGHTING_LAMPS_PLANE 19 // Light sources themselves (lamps, screens, etc.)
+#define LIGHTING_LAMPS_GLARE 17 // Light glare (optional setting)
+#define LIGHTING_EXPOSURE_PLANE 18 // Light sources "cones"
+#define LIGHTING_LAMPS_SELFGLOW 19 // Light sources glow (lamps, doors overlay, etc.)
+#define LIGHTING_LAMPS_PLANE 20 // Light sources themselves (lamps, screens, etc.)
 
 #define LIGHTING_LAMPS_RENDER_TARGET "*LIGHTING_LAMPS_RENDER_TARGET"
 
-#define RAD_TEXT_LAYER 19.1
+#define RAD_TEXT_LAYER 20.1
 
-#define ABOVE_LIGHTING_PLANE 20
-#define ABOVE_LIGHTING_LAYER 20
+#define ABOVE_LIGHTING_PLANE 21
+#define ABOVE_LIGHTING_LAYER 21
 
-#define FLOOR_OPENSPACE_PLANE 21
-#define OPENSPACE_LAYER 21
+#define FLOOR_OPENSPACE_PLANE 22
+#define OPENSPACE_LAYER 22
 
-#define BYOND_LIGHTING_PLANE 22
-#define BYOND_LIGHTING_LAYER 22
+#define BYOND_LIGHTING_PLANE 24
+#define BYOND_LIGHTING_LAYER 24
 
-#define CAMERA_STATIC_PLANE 23
-#define CAMERA_STATIC_LAYER 23
+#define CAMERA_STATIC_PLANE 24
+#define CAMERA_STATIC_LAYER 24
 
 //HUD layer defines
 
-#define FULLSCREEN_PLANE 24
-#define FLASH_LAYER 24
-#define FULLSCREEN_LAYER 24.1
-#define UI_DAMAGE_LAYER 24.2
-#define BLIND_LAYER 24.3
-#define CRIT_LAYER 24.4
-#define CURSE_LAYER 24.5
+#define FULLSCREEN_PLANE 25
+#define FLASH_LAYER 25
+#define FULLSCREEN_LAYER 25.1
+#define UI_DAMAGE_LAYER 25.2
+#define BLIND_LAYER 25.3
+#define CRIT_LAYER 25.4
+#define CURSE_LAYER 25.5
 
-#define HUD_PLANE 25
-#define HUD_LAYER 25
-#define ABOVE_HUD_PLANE 26
-#define ABOVE_HUD_LAYER 26
+#define HUD_PLANE 26
+#define HUD_LAYER 26
+#define ABOVE_HUD_PLANE 27
+#define ABOVE_HUD_LAYER 27
 
-#define SPLASHSCREEN_LAYER 27
-#define SPLASHSCREEN_PLANE 27
+#define SPLASHSCREEN_LAYER 28
+#define SPLASHSCREEN_PLANE 28
 
 #define HUD_PLANE_BUILDMODE 30
 
