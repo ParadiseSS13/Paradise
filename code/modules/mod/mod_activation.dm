@@ -154,6 +154,7 @@
 		if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
 			continue
 		module.on_deactivation(display_message = FALSE)
+	mod_link.end_call()
 	activating = TRUE
 	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
 	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
@@ -210,17 +211,15 @@
 		var/mob/living/carbon/human/H = wearer
 		H.regenerate_icons()
 
-/// Finishes the suit's activation, starts processing
+/// Finishes the suit's activation
 /obj/item/mod/control/proc/finish_activation(on)
 	active = on
 	if(active)
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_activation()
-		START_PROCESSING(SSobj, src)
 	else
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_deactivation()
-		STOP_PROCESSING(SSobj, src)
 	update_speed()
 	update_icon(UPDATE_ICON_STATE)
 	wearer.regenerate_icons()
