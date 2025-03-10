@@ -23,6 +23,7 @@ Bonus
 	transmittable = -3
 	level = 4
 	severity = 3
+	treatments = list("occuline")
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
 	..()
