@@ -27,7 +27,7 @@
 
 /obj/item/holder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
-		M.attackby__legacy__attackchain(W,user, params)
+		M.attack_by(W, user, params)
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)

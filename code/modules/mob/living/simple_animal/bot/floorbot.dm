@@ -133,11 +133,11 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/floorbot/attackby__legacy__attackchain(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= MAX_AMOUNT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/loaded = min(MAX_AMOUNT - amount, T.amount)
 		T.use(loaded)
 		amount += loaded
@@ -147,8 +147,10 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
-	else
-		..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
