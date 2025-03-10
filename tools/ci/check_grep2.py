@@ -181,6 +181,11 @@ def check_istype_src(idx, line):
     if CONDITIONAL_ISTYPE_SRC.search(line):
         return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
 
+ATOM_OVERRIDING_NEW = re.compile(r"^(/obj|/atom|/turf|/mob)/(.*)/New\(")
+def check_atom_overriding_new(idx, line):
+    if match := ATOM_OVERRIDING_NEW.search(line):
+        return [(idx + 1, f"Type {match.group(1)}/{match.group(2)} overrides /New. Use /Initialize instead.")]
+
 CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
 def check_camel_case_type_names(idx, line):
     if result := CAMEL_CASE_TYPE_NAMES.search(line):
@@ -208,6 +213,7 @@ CODE_CHECKS = [
     check_initialize_missing_mapload,
     check_empty_list_whitespace,
     check_istype_src,
+    check_atom_overriding_new,
     check_camel_case_type_names,
     check_uid_parameters,
 ]
