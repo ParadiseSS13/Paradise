@@ -228,6 +228,15 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"be" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "bf" = (
 /obj/machinery/suit_storage_unit/lavaland,
 /obj/machinery/light{
@@ -3146,6 +3155,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"iM" = (
+/obj/effect/baseturf_helper/lava_land,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "iN" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Main Airlock";
@@ -4738,11 +4751,10 @@
 	},
 /area/mine/outpost/cafeteria)
 "qL" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 5
 	},
-/turf/simulated/floor/lava/mapping_lava,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "qR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4805,9 +4817,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "rg" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ri" = (
 /obj/structure/chair/office/dark{
@@ -5866,11 +5877,10 @@
 	},
 /area/mine/laborcamp)
 "ye" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "yg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6851,11 +6861,10 @@
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
 "DH" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "DO" = (
 /obj/machinery/door/airlock/glass{
@@ -7090,6 +7099,9 @@
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"Fc" = (
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Fd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -7742,9 +7754,8 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "JB" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/machinery/radar,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "JD" = (
 /obj/structure/grille/broken,
@@ -8041,11 +8052,11 @@
 	},
 /area/mine/outpost/lockers)
 "Lv" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing/corner{
-	dir = 1
+/obj/structure/railing{
+	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Lw" = (
 /obj/structure/lattice/catwalk/mining,
@@ -8873,6 +8884,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Rw" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Ry" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner{
@@ -8999,6 +9016,12 @@
 	icon_state = "darkredfull"
 	},
 /area/mine/outpost/hallway/west)
+"Sr" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "SD" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -10079,12 +10102,11 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "YF" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/item/screwdriver,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "YH" = (
 /obj/machinery/door/airlock/external{
@@ -20511,7 +20533,7 @@ um
 vM
 tX
 Qp
-CZ
+iM
 CZ
 nu
 iF
@@ -23315,9 +23337,9 @@ iF
 iF
 jZ
 ye
-gl
 Lv
-vZ
+Rw
+be
 Fg
 nu
 nu
@@ -23571,10 +23593,10 @@ VU
 iF
 jZ
 jZ
-VA
-vZ
-JB
-vZ
+Sr
+Fc
+Fc
+Fc
 cx
 nu
 iF
@@ -23828,9 +23850,9 @@ VU
 jZ
 jZ
 jZ
-VA
-vZ
-vZ
+Sr
+Fc
+JB
 rg
 bH
 iF
@@ -24089,7 +24111,7 @@ qL
 DH
 YF
 DH
-dx
+Ay
 iF
 iF
 jZ
@@ -24346,7 +24368,7 @@ iF
 jZ
 jZ
 iF
-Ay
+FA
 iF
 iF
 iF
