@@ -31,9 +31,8 @@
 		/obj/item/stack/ore/palladium
 	)
 
-	for(var/res in exquisite_ore)
-		var/obj/item/stack/R = new res(src)
-		R.amount = rand(5, 10) // Don't want mining to step too much on explorer's toes.
+	for(var/ore in exquisite_ore)
+		new ore(src, rand(5, 10) // Don't want mining to step too much on explorer's toes.
 
 /obj/structure/closet/crate/necropolis/ancient/ex_act(severity)
 	return
