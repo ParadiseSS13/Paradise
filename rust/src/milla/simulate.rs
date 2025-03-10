@@ -711,7 +711,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
-}
+
 
 /// Apply the effects of the gas onto the turf itself
 pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
