@@ -191,8 +191,7 @@
 		return
 
 	// Notify
-	for(var/c in GLOB.allRequestConsoles)
-		var/obj/machinery/requests_console/C = c
+	for(var/obj/machinery/requests_console/C as anything in GLOB.allRequestConsoles)
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
