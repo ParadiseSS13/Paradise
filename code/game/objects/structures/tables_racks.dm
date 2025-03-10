@@ -909,6 +909,8 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
+	var/deconstruction_item = /obj/item/rack_parts
+	var/deconstruction_quantity = 1
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -1001,8 +1003,11 @@
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		density = FALSE
-		var/obj/item/rack_parts/newparts = new(loc)
-		transfer_fingerprints_to(newparts)
+		if(deconstruction_quantity)
+			new deconstruction_item(loc, deconstruction_quantity)
+		else
+			var/decon_parts = new deconstruction_item(get_turf(src))
+			transfer_fingerprints_to(decon_parts)
 	qdel(src)
 
 /*
