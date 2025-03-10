@@ -75,12 +75,10 @@
 	return "It contains [english_list(contents)]."
 
 /obj/item/reagent_containers/cooking/proc/get_usable_status()
-	if(tracker)
-		return PCWJ_CONTAINER_BUSY
-	if(length(contents) || reagents.total_volume > 0)
-		return PCWJ_CONTAINER_BUSY
+	if(length(contents) == 0 && reagents.total_volume == 0)
+		return PCWJ_CONTAINER_AVAILABLE
 
-	return PCWJ_CONTAINER_AVAILABLE
+	return PCWJ_CONTAINER_BUSY
 
 /obj/item/reagent_containers/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/autochef_remote))
