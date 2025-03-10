@@ -32,11 +32,6 @@
 	/// Cooldown for detecting APCs
 	COOLDOWN_DECLARE(cd_apc_scan)
 
-/obj/item/multitool/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
-	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
-
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
 
