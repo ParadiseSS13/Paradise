@@ -1,6 +1,6 @@
 //base type for controllers of two-door systems
 /obj/machinery/airlock_controller
-	layer = ABOVE_WINDOW_LAYER
+	layer = ON_EDGED_TURF_LAYER
 	name = "airlock controller"
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
