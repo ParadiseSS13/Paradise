@@ -944,6 +944,7 @@ dependencies = [
  "chrono",
  "diff",
  "dmm-tools",
+ "dreammaker",
  "eyre",
  "fxhash",
  "itertools",
