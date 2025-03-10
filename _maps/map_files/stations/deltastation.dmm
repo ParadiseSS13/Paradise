@@ -77220,6 +77220,13 @@
 	icon_state = "brown"
 	},
 /area/station/hallway/secondary/entry/east)
+"pMu" = (
+/mob/living/simple_animal/tegu/wags{
+	name = "Wags-His-Tail";
+	real_name = "Wags-His-Tail"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/janitor)
 "pMx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -129157,7 +129164,7 @@ att
 aAF
 aES
 azp
-aAw
+pMu
 azk
 aBu
 aBy
