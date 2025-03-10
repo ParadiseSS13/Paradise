@@ -51306,6 +51306,12 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Upload Chamber";
+	name = "AI Upload Turret Control";
+	pixel_x = -28;
+	req_access = list(75)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
