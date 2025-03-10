@@ -842,6 +842,96 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heresy = TRUE
 	unlimited = TRUE
 
+//////////////////////// plague Talisman //////////////////////////////
+
+/obj/item/plague_talisman
+	name = "plague Talisman"
+	desc = "A vile rune, capable of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "plague_talisman"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
+	var/chosen_plague
+
+	new_attack_chain = TRUE
+
+//checks if they're a valid target before trying to raise
+/obj/item/plague_talisman/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	if(!istype(victim) || !istype(necromancer))
+		return ..()
+
+	if(victim.stat != DEAD)
+		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
+		return
+
+	if((!victim.mind || !victim.client) && !victim.grab_ghost())
+		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
+		return
+
+	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		to_chat(necromancer, "<span class='warning'>This one has already been risen! Give it time.</span>")
+		return
+
+	raise_victim(victim, necromancer)
+
+//raises the victim into a special zombies and binds them to wiz
+/obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+
+	var/datum/disease/chosen_plague = pick_disease() //what disease to give them
+
+	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
+
+	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
+	for(var/trait in plague_traits)
+		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
+
+	var/datum/disease/zombie/wizard/plague_virus = new /datum/disease/zombie/wizard(chosen_plague, TRUE)
+	victim.ForceContractDisease(plague_virus)
+	for(var/datum/disease/zombie/wizard/zomb in victim.viruses)
+		zomb.stage = 8 // immediate zombie!
+
+	// Wiz and minions should contract their own diseases
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+
+	qdel(src) // talismans are single use
+
+	sleep(50) // so that mindslave comes after the zombie antag
+
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
+		You have been bestowed the following plague: <br> \
+		[chosen_plague.name]!</span>"
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
+
+	// Cant very well have your new minions dead for so long
+	victim.heal_overall_damage(1000, 1000)
+	victim.med_hud_set_health()
+	victim.med_hud_set_status()
+	victim.update_hands_hud()
+	victim.update_body()
+
+
+//choose what disease this zombie will get
+/obj/item/plague_talisman/proc/pick_disease()
+	var/picked_disease
+	var/list/possible_diseases = list(
+		/datum/disease/beesease/wizard_variant,
+		/datum/disease/berserker/wizard_variant,
+		/datum/disease/cold9/wizard_variant,
+		/datum/disease/fluspanish/wizard_variant,
+		/datum/disease/kingstons_advanced/wizard_variant,
+		/datum/disease/dna_retrovirus/wizard_variant,
+		/datum/disease/tuberculosis/wizard_variant,
+		/datum/disease/anxiety/wizard_variant,
+		/datum/disease/wizarditis/wizard_variant,
+		/datum/disease/appendicitis,
+		/datum/disease/grut_gut,
+		/datum/disease/wand_rot,
+		/datum/disease/mystic_malaise
+		)
+	picked_disease = pick(possible_diseases)
+	return picked_disease
+
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
 	pump_delay = 60
