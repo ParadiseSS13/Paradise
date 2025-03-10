@@ -74,11 +74,7 @@
 
 	return AUTOCHEF_ACT_FAILED
 
-// Hate how many arguments are passed here but trying to avoid duplicated code above
-/datum/cooking/recipe_step/use_machine/proc/start_cooking(
-		datum/autochef_task/follow_recipe/task,
-		datum/cooking_surface/surface
-	)
+/datum/cooking/recipe_step/use_machine/proc/start_cooking(datum/autochef_task/follow_recipe/task, datum/cooking_surface/surface)
 	task.autochef.atom_say("Preparing on [surface.parent.name].")
 	surface.timer = time
 	surface.temperature = temperature
