@@ -27,10 +27,10 @@ rustlibs.dll @AffectedArc07
 rustlibs_prod.dll @AffectedArc07
 rust_g.dll @AffectedArc07
 
-### S34NW
+### Burzah
 
 # TGUI stuff
-/tgui/bin @S34NW
+/tgui/bin @Burzah
 
 
 ### Overrides for the above
