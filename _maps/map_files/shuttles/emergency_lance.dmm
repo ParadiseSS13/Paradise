@@ -862,8 +862,7 @@
 /area/shuttle/escape)
 "Ko" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
