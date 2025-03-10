@@ -19,11 +19,6 @@
 	/// A list of recipe types to list of step indices we know we've performed.
 	/// Ensures we don't perform e.g. optional steps we skipped on completion.
 	var/list/recipes_all_applied_steps = list()
-	/// A list of recipe types to metadata returned from completing its steps.
-	/// This may include things like a custom message shown to the player, or
-	/// the UID of relevant items used for determining quality at recipe
-	/// completion.
-	var/list/recipes_applied_step_data = list()
 	var/step_reaction_message
 
 /datum/cooking/recipe_tracker/New(obj/item/reagent_containers/cooking/container)
@@ -34,7 +29,6 @@
 	// singletons.
 	recipes_last_completed_step.Cut()
 	recipes_all_applied_steps.Cut()
-	recipes_applied_step_data.Cut()
 
 	return ..()
 
@@ -61,7 +55,7 @@
 	var/list/completed_recipes = list()
 	var/list/silent_recipes = list()
 	var/list/attempted_step_per_recipe = list()
-	var/use_step
+	var/datum/cooking/recipe_step/use_step_type
 
 
 	for(var/datum/cooking/recipe/recipe in recipes_last_completed_step)
@@ -73,11 +67,11 @@
 			next_step = recipe.steps[++current_idx]
 			var/conditions = next_step.check_conditions_met(used, src)
 			if(conditions == PCWJ_CHECK_VALID)
-				LAZYADD(valid_steps[next_step.type], next_step)
+				LAZYADD(valid_steps[next_step], next_step)
 				LAZYADD(valid_recipes[next_step.type], recipe)
 				attempted_step_per_recipe[recipe] = current_idx
-				if(!use_step)
-					use_step = next_step.type
+				if(!use_step_type)
+					use_step_type = next_step.type
 				match = TRUE
 				break
 			else if(conditions == PCWJ_CHECK_SILENT)
@@ -94,21 +88,19 @@
 			return PCWJ_PARTIAL_SUCCESS
 		return PCWJ_NO_STEPS
 
-	if(length(valid_steps) > 1)
-		log_debug("multiple valid steps found for [used.type]")
-		return PCWJ_NO_STEPS
-
-	valid_steps = valid_steps[use_step]
 	var/datum/cooking/recipe_step/sample_step = valid_steps[1]
 	var/step_data = sample_step.follow_step(used, src)
-	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
-
 	step_reaction_message = step_data["message"]
-	if(sample_step.is_complete(used, src))
-		recipes_applied_step_data += list(step_data)
-		for(var/datum/cooking/recipe/recipe in valid_recipes[sample_step.type])
+	var/complete_steps = 0
+	for(var/i in 1 to length(valid_recipes[use_step_type]))
+		var/datum/cooking/recipe/recipe = valid_recipes[use_step_type][i]
+		var/datum/cooking/recipe_step/recipe_step = valid_steps[i]
+		if(recipe_step.is_complete(used, src))
 			recipes_last_completed_step[recipe] = attempted_step_per_recipe[recipe]
+			complete_steps++
 
+	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
+	if(complete_steps)
 		// Empty out the stove data here so that it can be reused from zero for
 		// other cooking steps, as well as to prevent cheatiness where a recipe
 		// gets all of its cooking time done before it was supposed to in the

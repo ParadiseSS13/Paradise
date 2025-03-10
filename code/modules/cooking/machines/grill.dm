@@ -38,6 +38,7 @@
 
 	var/stored_wood = 0
 	var/wood_maximum = 30
+	var/wood_consumption_rate = 0.025
 	var/obj/effect/grill_hopper/hopper_overlay
 
 /obj/machinery/cooking/grill/Initialize(mapload)
@@ -71,9 +72,10 @@
 	for(var/datum/cooking_surface/surface in surfaces)
 		if(surface.on)
 			if(!stored_wood)
+				SEND_SIGNAL(surface.container, COMSIG_COOK_GRILL_NO_FUEL)
 				surface.turn_off()
 			else
-				stored_wood = max(0, stored_wood - 0.025)
+				stored_wood = max(0, stored_wood - wood_consumption_rate)
 
 /obj/machinery/cooking/grill/RefreshParts()
 	. = ..()
@@ -81,7 +83,7 @@
 	var/las_rating = 0
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		las_rating += M.rating
-	quality_mod = round(las_rating/2)
+	wood_consumption_rate = initial(wood_consumption_rate) / max(1, las_rating / 2)
 
 	var/bin_rating = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)

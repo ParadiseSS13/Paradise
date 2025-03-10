@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	for(var/i in 1 to length(applied_steps))
 		var/current_index = applied_steps[i]
 		var/datum/cooking/recipe_step/recipe_step = steps[current_index]
-		var/list/applied_step_data = tracker.recipes_applied_step_data[i]
 
 		// Filter out reagents based on settings
 		var/datum/cooking/recipe_step/add_reagent/add_reagent_step = recipe_step
@@ -86,9 +85,6 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 			if(!amount_to_remove)
 				continue
 			container.reagents.remove_reagent(add_reagent_step.reagent_id, amount_to_remove, safety = TRUE)
-
-		if("rating" in applied_step_data)
-			product_count = max(product_count, min(3, applied_step_data["rating"]))
 
 	if(product_type) // Make a regular item
 		. = make_product_item(container, slurry, applied_steps)

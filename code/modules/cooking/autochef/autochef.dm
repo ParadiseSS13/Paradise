@@ -15,9 +15,10 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	var/list/task_queue = list()
 
 	var/screen_icon_state
-	var/current_state = AUTOCHEF_TASK_QUEUE_IDLE
-	var/next_step_cooldown_delay = 1 SECONDS
+	var/current_state = AUTOCHEF_IDLE
+	var/next_step_cooldown_delay = 2 SECONDS
 	var/upgrade_level = 0
+	var/impatience_meter = 0
 
 	COOLDOWN_DECLARE(ingredient_search_giveup_cd)
 	COOLDOWN_DECLARE(next_step_cd)
@@ -47,7 +48,8 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	var/new_level = 0
 	for(var/obj/item/stock_parts/part in component_parts)
 		new_level += part.rating
-	upgrade_level = floor(new_level / 4)
+	upgrade_level = max(1, floor(new_level / 4))
+	next_step_cooldown_delay = initial(next_step_cooldown_delay) / (upgrade_level < 2 ? 1 : 2)
 
 /obj/machinery/autochef/Destroy()
 	QDEL_LIST_CONTENTS(task_queue)
@@ -58,15 +60,14 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return
 
 	switch(current_state)
-		if(AUTOCHEF_TASK_QUEUE_IDLE, AUTOCHEF_TASK_QUEUE_INTERRUPTED)
+		if(AUTOCHEF_IDLE, AUTOCHEF_INTERRUPTED)
 			if(length(task_queue))
-				current_state = AUTOCHEF_TASK_QUEUE_RUNNING
-				set_display("screen-gear")
+				current_state = AUTOCHEF_RUNNING
 			else
 				atom_say("Please provide a food item to create.")
-		if(AUTOCHEF_TASK_QUEUE_RUNNING)
+		if(AUTOCHEF_RUNNING)
 			set_display(null)
-			current_state = AUTOCHEF_TASK_QUEUE_IDLE
+			current_state = AUTOCHEF_IDLE
 
 /obj/machinery/autochef/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer))
@@ -74,6 +75,16 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 	var/obj/item/autochef_remote/remote = used
 	if(istype(remote))
+		for(var/container in linked_cooking_containers)
+			UnregisterSignal(container, COMSIG_PARENT_QDELETING)
+		for(var/machine in linked_machines)
+			UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+		for(var/storage in linked_storages)
+			UnregisterSignal(storage, COMSIG_PARENT_QDELETING)
+
+		if(!length(remote.linkable_machine_uids))
+			to_chat(user, "<span class='notice'>You unlink all items from [src].</span>")
+
 		for(var/uid in remote.linkable_machine_uids)
 			var/obj = locateUID(uid)
 			var/success = FALSE
@@ -97,8 +108,9 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/food/food_item = used
-	if(istype(food_item))
-		if(current_state == AUTOCHEF_TASK_QUEUE_RUNNING)
+	var/list/available_recipes = find_recipes(food_item.type)
+	if(istype(food_item) && length(available_recipes))
+		if(current_state == AUTOCHEF_RUNNING)
 			atom_say("Autochef running. Please wait.")
 			return ITEM_INTERACT_COMPLETE
 
@@ -115,6 +127,13 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 	return ITEM_INTERACT_COMPLETE
 
+/obj/machinery/autochef/proc/find_recipes(target_type)
+	. = list()
+	for(var/container_type in GLOB.pcwj_recipe_dictionary)
+		for(var/datum/cooking/recipe/recipe in GLOB.pcwj_recipe_dictionary[container_type])
+			if(target_type == recipe.product_type)
+				. |= recipe
+
 /obj/machinery/autochef/update_overlays()
 	. = ..()
 	if(stat & (BROKEN|NOPOWER))
@@ -126,8 +145,8 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 /obj/machinery/autochef/AltClick(mob/user, modifiers)
 	. = ..()
-	if(current_state == AUTOCHEF_TASK_QUEUE_RUNNING)
-		current_state = AUTOCHEF_TASK_QUEUE_IDLE
+	if(current_state == AUTOCHEF_RUNNING)
+		current_state = AUTOCHEF_IDLE
 
 	set_display(null)
 	task_queue.Cut()
@@ -170,6 +189,8 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 			continue
 		if(container.claimed && container.claimed != src)
 			continue
+		if(isliving(container.loc))
+			continue
 
 		return container
 
@@ -184,48 +205,40 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	update_appearance(UPDATE_OVERLAYS)
 
 	if(!length(task_queue))
-		current_state = AUTOCHEF_TASK_QUEUE_IDLE
+		current_state = AUTOCHEF_IDLE
 		return
 
-	if(current_state == AUTOCHEF_TASK_QUEUE_RUNNING)
-		var/datum/autochef_task/current_task = task_queue[1]
-		current_task.resume()
+	switch(current_state)
+		if(AUTOCHEF_RUNNING)
+			set_display("screen-gear")
+			var/datum/autochef_task/current_task = task_queue[1]
+			current_task.resume()
 
-		switch(current_task.current_state)
-			if(AUTOCHEF_TASK_COMPLETE)
-				current_task.finalize()
-				if(!current_task.repeating)
-					task_queue.Remove(current_task)
-			if(AUTOCHEF_TASK_INTERRUPTED)
-				current_state = AUTOCHEF_TASK_QUEUE_INTERRUPTED
-				current_task.reset()
-			if(AUTOCHEF_TASK_FAILED)
-				current_state = AUTOCHEF_TASK_QUEUE_IDLE
-				current_task.reset()
-				set_display("screen-error")
+			switch(current_task.current_state)
+				if(AUTOCHEF_ACT_COMPLETE)
+					current_task.finalize()
+					if(!current_task.repeating)
+						task_queue.Remove(current_task)
+				if(AUTOCHEF_ACT_INTERRUPTED)
+					current_state = AUTOCHEF_IDLE
+					atom_say("Recipe interrupted!")
+					set_display("screen-error")
+				if(AUTOCHEF_ACT_FAILED)
+					current_state = AUTOCHEF_IDLE
+					current_task.reset()
+					set_display("screen-error")
 
-/obj/item/paper/autochef_quickstart
-	name = "Quickstart Guide: Autochef"
-	icon_state = "paper"
-	info = {"<b>You and Your Autochef: Quickstart</b><br />
-<br />
-To use your autochef, it must be linked to all the tools and items you want it to use.
-<br />
-This includes machines such as grills and ovens, containers such as grill grates and pans, and containers like smartfridges and food-and-drink carts.<br />
-<br />
-To link items to your autochef, use the autochef remote on them, and then on the autochef.<br />
-<br />
-To choose a recipe to make, use the food item on the autochef to scan it.<br />
-<br />
-To start, stop, or pause the autochef, interact with it. It will continue making the selected recipe until it runs out of ingredients or cannot use the tools it needs to make it. Once a recipe is complete, the end result will be stored in any available food-and-drink carts.<br />
-<br />
-Stock autochefs require all ingredients to be prepared in advance. Once upgraded, the autochef may create items it needs to finish the selected recipe. For example, a stock autochef requires burgers and cooked patties to make burgers. An upgraded autochef can bake dough to make buns, grill patties, and then resume making the burger.<br />
-<br />
-Autochefs may be tempermental and act in unexpected ways. If it is not working as expected:<br />
-<ul>
-<li>Ensure that all items it needs are linked.</li>
-<li>Ensure that it has all the ingredients it needs.</li>
-<li>Ensure that all machines are functional, powered, and, in the case of the grill, have enough charcoal to operate.</li>
-</ul>
-If all else fails, reset the autochef, scan your food item again, and restart it.
-"}
+/obj/machinery/autochef/proc/on_claimed_container_equip(obj/item/reagent_containers/cooking/container)
+	if(current_state == AUTOCHEF_INTERRUPTED || current_state == AUTOCHEF_IDLE)
+		return
+
+	impatience_meter++
+	if(impatience_meter >= 3)
+		impatience_meter = 0
+		atom_say("Knock it the fuck off!")
+	else
+		atom_say("[capitalize(container.name)] tampered with! Cancelling task.")
+	current_state = AUTOCHEF_INTERRUPTED
+	var/datum/autochef_task/current_task = task_queue[1]
+	current_task.current_state = AUTOCHEF_ACT_INTERRUPTED
+	set_display("screen-error")

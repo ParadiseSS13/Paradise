@@ -7,6 +7,7 @@
 #define PCWJ_LOCKOUT 6 //! Someone tried starting the function while a prompt was running. Jerk.
 #define PCWJ_BURNT 7 //! The meal was ruined by burning the food somehow.
 #define PCWJ_NO_RECIPES 8 //! There are no recipes that match this object and container combination.
+#define PCWJ_CONTAINER_FULL 9
 
 #define PCWJ_CHECK_INVALID 0
 #define PCWJ_CHECK_VALID 1
@@ -30,26 +31,15 @@
 
 // Burn times for cooking things on a stove.
 // Anything put on a stove for this long becomes a burned mess.
-#define PCWJ_BURN_TIME_LOW 3 MINUTES
-#define PCWJ_BURN_TIME_MEDIUM 2 MINUTES
-#define PCWJ_BURN_TIME_HIGH 1 MINUTES
+#define PCWJ_BURN_TIME_LOW 60 SECONDS
+#define PCWJ_BURN_TIME_MEDIUM 45 SECONDS
+#define PCWJ_BURN_TIME_HIGH 30 SECONDS
 
 // Ignite times for reagents interacting with a stove.
 // The stove will catch fire if left on too long with flammable reagents in any of its holders.
-#define PCWJ_IGNITE_TIME_LOW 6 MINUTES
-#define PCWJ_IGNITE_TIME_MEDIUM 4 MINUTES
-#define PCWJ_IGNITE_TIME_HIGH 2 MINUTES
-
-//Food Quality Tiers
-#define PCWJ_QUALITY_GARBAGE -2
-#define PCWJ_QUALITY_GROSS -1.5
-#define PCWJ_QUALITY_MEH 0.5
-#define PCWJ_QUALITY_NORMAL 1
-#define PCWJ_QUALITY_GOOD 1.2
-#define PCWJ_QUALITY_VERY_GOOD 1.4
-#define PCWJ_QUALITY_CUISINE 1.6
-#define PCWJ_QUALITY_LEGENDARY 1.8
-#define PCWJ_QUALITY_ELDRITCH 2.0
+#define PCWJ_IGNITE_TIME_LOW 120 SECONDS
+#define PCWJ_IGNITE_TIME_MEDIUM 90 SECONDS
+#define PCWJ_IGNITE_TIME_HIGH 60 SECONDS
 
 #define PCWJ_ADD_ITEM(item_type, options...) new/datum/cooking/recipe_step/add_item(item_type, list(##options))
 #define PCWJ_ADD_PRODUCE(item_type, options...) new/datum/cooking/recipe_step/add_produce(item_type, list(##options))
@@ -89,27 +79,29 @@
 #define RADIAL_ACTION_SET_TEMPERATURE "Set temperature"
 #define RADIAL_ACTION_ON_OFF "Turn on/off"
 
-#define AUTOCHEF_TASK_QUEUE_IDLE 0
-#define AUTOCHEF_TASK_QUEUE_RUNNING 1
-#define AUTOCHEF_TASK_QUEUE_INTERRUPTED 2
+// These defines are used for the state of the autochef itself.
+#define AUTOCHEF_IDLE 0
+#define AUTOCHEF_RUNNING 1
+#define AUTOCHEF_INTERRUPTED 2
 
-#define AUTOCHEF_TASK_START 0
-#define AUTOCHEF_TASK_COMPLETE 1
-#define AUTOCHEF_TASK_FOLLOW_STEPS 2
-#define AUTOCHEF_TASK_WAIT_FOR_RESULT 3
-#define AUTOCHEF_TASK_INTERRUPTED 4
-#define AUTOCHEF_TASK_FAILED 5
-
-#define AUTOCHEF_STEP_FAILURE 0
-#define AUTOCHEF_STEP_COMPLETE 1
-#define AUTOCHEF_STEP_ADDED_TASK 2
-#define AUTOCHEF_STEP_STARTED 3
-
-#define AUTOCHEF_PREP_INVALID 0
-#define AUTOCHEF_PREP_VALID 1
-#define AUTOCHEF_PREP_MISSING_INGREDIENT 2
-#define AUTOCHEF_PREP_MISSING_REAGENT 3
-#define AUTOCHEF_PREP_NO_AVAILABLE_MACHINES 4
+// These defines are used for the state of a task OR recipe step being run on
+// the autochef. That's why it's called "act" (action) and not "task" or "step".
+// It may seem counterintuitive to have the same set of constants for both but
+// the alternative is two sets of constants that are basically the same.
+#define AUTOCHEF_ACT_STARTED 0
+#define AUTOCHEF_ACT_COMPLETE 1
+#define AUTOCHEF_ACT_FOLLOW_STEPS 2
+#define AUTOCHEF_ACT_WAIT_FOR_RESULT 3
+#define AUTOCHEF_ACT_INTERRUPTED 4
+#define AUTOCHEF_ACT_FAILED 5
+#define AUTOCHEF_ACT_STEP_COMPLETE 6
+#define AUTOCHEF_ACT_MISSING_INGREDIENT 7
+#define AUTOCHEF_ACT_MISSING_REAGENT 8
+#define AUTOCHEF_ACT_MISSING_MACHINE 9
+#define AUTOCHEF_ACT_NO_AVAILABLE_MACHINES 10
+#define AUTOCHEF_ACT_NO_AVAILABLE_STORAGE 11
+#define AUTOCHEF_ACT_ADDED_TASK 12
+#define AUTOCHEF_ACT_VALID 13
 
 #define COMSIG_COOK_GRILL_NO_FUEL "cook_grill_no_fuel"
 #define COMSIG_COOK_MACHINE_STEP_COMPLETE "cook_machine_step_complete"

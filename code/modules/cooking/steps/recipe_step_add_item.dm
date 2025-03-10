@@ -8,7 +8,9 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	var/obj/item_type
 	var/exact_path
 	var/skip_reagents = FALSE
-	var/list/exclude_reagents
+	// The original cooking system removed nutriment from
+	// the ingredients put into a recipe
+	var/list/exclude_reagents = list("nutriment")
 
 /datum/cooking/recipe_step/add_item/New(item_type_, options)
 	item_type = item_type_
@@ -18,7 +20,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	if("skip_reagents" in options)
 		skip_reagents = options["skip_reagents"]
 	if("exclude_reagents" in options)
-		exclude_reagents = options["exclude_reagents"]
+		exclude_reagents |= options["exclude_reagents"]
 
 	..(options)
 
@@ -52,6 +54,15 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 		user = used_item.loc
 	if(container)
 		if(istype(user) && user.Adjacent(container))
+			var/obj/item/stack/stack = used_item
+			if(istype(stack))
+				if(stack.use(1))
+					var/stack_type = stack.type
+					new stack_type(container, 1)
+					return list(message = "You add one of \the [stack.name] to \the [container].")
+				else
+					to_chat(user, "<span class='notice'>You can't remove one of \the [stack.name] from the stack!</span>")
+					return list()
 			if(user.unequip(used_item))
 				used_item.forceMove(container)
 			else
@@ -71,17 +82,28 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	for(var/obj/machinery/smartfridge/storage in task.autochef.linked_storages)
 		for(var/obj/possible_item in storage)
 			if(check_conditions_met(possible_item, task.container.tracker))
-				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-				task.container.item_interaction(null, possible_item)
-				storage.item_quants[possible_item.name]--
-				return AUTOCHEF_STEP_COMPLETE
+				var/result = task.container.process_item(null, possible_item)
+				switch(result)
+					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
+						return AUTOCHEF_ACT_FAILED
+					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
+						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+						// Boy howdy I sure do love having to manually update
+						// the recorded quantities of items in smartfridges
+						storage.item_quants[possible_item.name]--
+						return AUTOCHEF_ACT_STEP_COMPLETE
 
-	return AUTOCHEF_STEP_FAILURE
+	return AUTOCHEF_ACT_MISSING_INGREDIENT
 
 /datum/cooking/recipe_step/add_item/attempt_autochef_prepare(obj/machinery/autochef/autochef)
-	for(var/storage in autochef.linked_storages)
+	var/storage_count = 0
+	for(var/obj/machinery/smartfridge/storage in autochef.linked_storages)
+		storage_count++
 		for(var/obj/possible_item in storage)
 			if(check_conditions_met(possible_item, null))
-				return AUTOCHEF_PREP_VALID
+				return AUTOCHEF_ACT_VALID
 
-	return AUTOCHEF_PREP_MISSING_INGREDIENT
+	if(!storage_count)
+		return AUTOCHEF_ACT_NO_AVAILABLE_STORAGE
+
+	return AUTOCHEF_ACT_MISSING_INGREDIENT

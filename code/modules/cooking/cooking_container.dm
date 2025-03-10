@@ -32,8 +32,8 @@
 	var/list/cooker_data = list()
 	/// Preposition for human-readable recipe e.g. "in a pain", "on a grill".
 	var/preposition = "In"
-	/// Whether an autochef has claimed this cooking container.
-	var/claimed
+	/// The autochef which has claimed this container.
+	var/obj/machinery/autochef/claimed
 	/// Whether the container is in "mini" mode, that is, placed on a cooking machine and rendered
 	/// with its smaller icons
 	var/mini = FALSE
@@ -86,10 +86,6 @@
 	if(istype(used, /obj/item/autochef_remote))
 		return
 
-	if(!tracker && (length(contents) || reagents.total_volume != 0))
-		to_chat(user, "\The [src] is full. Empty its contents first.")
-		return ITEM_INTERACT_COMPLETE
-
 	process_item(user, used)
 
 	return ITEM_INTERACT_COMPLETE
@@ -117,7 +113,13 @@
 		for(var/datum/cooking/recipe/recipe in container_recipes)
 			tracker.recipes_last_completed_step[recipe] = 0
 
-	react_to_process(tracker.process_item_wrap(user, used), user, used)
+	if(!tracker && (length(contents) || reagents.total_volume != 0))
+		to_chat(user, "\The [src] is full. Empty its contents first.")
+		return PCWJ_CONTAINER_FULL
+
+	var/process_reaction = tracker.process_item_wrap(user, used)
+	react_to_process(process_reaction, user, used)
+	return process_reaction
 
 /obj/item/reagent_containers/cooking/proc/react_to_process(reaction_status, mob/user, obj/used)
 	if(istype(used, /obj/machinery/cooking) && reaction_status == PCWJ_NO_STEPS)
@@ -191,8 +193,12 @@
 	update_icon()
 	QDEL_NULL(tracker)
 	clear_cooking_data()
+	if(claimed)
+		SEND_SIGNAL(src, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, null)
 
 /obj/item/reagent_containers/cooking/AltClick(mob/user)
+	if(!is_valid_interaction(user))
+		return
 	do_empty(user)
 
 /// Deletes contents and reagents of container.
@@ -271,6 +277,17 @@
 	icon_state = initial(icon_state)
 	update_lip_effect()
 	update_icon()
+
+/obj/item/reagent_containers/cooking/proc/claim(obj/machinery/autochef/autochef)
+	if(!istype(autochef))
+		return
+	claimed = autochef
+	autochef.RegisterSignal(src, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/obj/machinery/autochef, on_claimed_container_equip))
+
+/obj/item/reagent_containers/cooking/proc/unclaim()
+	if(claimed)
+		claimed.UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
+	claimed = null
 
 /obj/item/reagent_containers/cooking/board
 	name = "cutting board"
@@ -403,4 +420,3 @@
 
 /obj/item/reagent_containers/cooking/icecream_bowl/unmake_mini()
 	transform = null
-

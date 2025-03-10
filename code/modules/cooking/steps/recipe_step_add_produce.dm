@@ -2,7 +2,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 
 /// A cooking step that involves using grown foods.
 /datum/cooking/recipe_step/add_produce
-	max_quality_award = 20
 	var/obj/produce_type
 	var/base_potency
 	var/exact_path
@@ -70,14 +69,14 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 			if(check_conditions_met(possible_item, task.container.tracker))
 				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 				task.container.item_interaction(null, possible_item)
-				return AUTOCHEF_STEP_COMPLETE
+				return AUTOCHEF_ACT_STEP_COMPLETE
 
-	return AUTOCHEF_STEP_FAILURE
+	return AUTOCHEF_ACT_FAILED
 
 /datum/cooking/recipe_step/add_produce/attempt_autochef_prepare(obj/machinery/autochef/autochef)
 	for(var/storage in autochef.linked_storages)
 		for(var/obj/possible_item in storage)
 			if(check_conditions_met(possible_item, null))
-				return AUTOCHEF_PREP_VALID
+				return AUTOCHEF_ACT_VALID
 
-	return AUTOCHEF_PREP_MISSING_INGREDIENT
+	return AUTOCHEF_ACT_MISSING_INGREDIENT

@@ -17,8 +17,8 @@
 	product_type = /obj/item/food/meat/patty
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat/patty_raw, qmod = 0.5),
-		PCWJ_ADD_REAGENT("sodiumchloride", 1, optional = TRUE, base = 1),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/patty_raw),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1, optional = TRUE),
 		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
 	)
 
@@ -27,8 +27,8 @@
 	product_type = /obj/item/food/meatball
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_meatball, qmod = 0.5),
-		PCWJ_ADD_REAGENT("sodiumchloride", 1, optional = TRUE, base = 1),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_meatball),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1, optional = TRUE),
 		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
 	)
 

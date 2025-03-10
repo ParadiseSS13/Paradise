@@ -55,7 +55,6 @@
 	var/las_rating = 0
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		las_rating += M.rating
-	quality_mod = round(las_rating/2)
 
 /obj/machinery/cooking/oven/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!opened)

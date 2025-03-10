@@ -342,7 +342,7 @@
 	product_type = /obj/item/food/donut/pink
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
@@ -352,7 +352,7 @@
 	product_type = /obj/item/food/donut/pink/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
@@ -363,7 +363,7 @@
 	product_type = /obj/item/food/donut/pink/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
@@ -374,7 +374,7 @@
 	product_type = /obj/item/food/donut/pink/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
@@ -385,7 +385,7 @@
 	product_type = /obj/item/food/donut/spaceman
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)
@@ -395,7 +395,7 @@
 	product_type = /obj/item/food/donut/spaceman/jelly
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
 		PCWJ_ADD_REAGENT("berryjuice", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
@@ -406,7 +406,7 @@
 	product_type = /obj/item/food/donut/spaceman/jelly/cherry
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
@@ -417,7 +417,7 @@
 	product_type = /obj/item/food/donut/spaceman/jelly/slime
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/donut),
+		PCWJ_ADD_ITEM(/obj/item/food/donut, exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/trumpet),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),

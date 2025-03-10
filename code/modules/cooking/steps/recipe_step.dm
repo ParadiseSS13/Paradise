@@ -1,18 +1,9 @@
 RESTRICT_TYPE(/datum/cooking/recipe_step)
 
 /datum/cooking/recipe_step
-	var/max_quality_award
-	var/base_quality_award
-	var/inherited_quality_modifier = 1
 	var/optional = FALSE
 
 /datum/cooking/recipe_step/New(options)
-	if("qmod" in options)
-		inherited_quality_modifier = options["qmod"]
-	if("base" in options)
-		base_quality_award = options["base"]
-	if("max" in options)
-		max_quality_award = options["max"]
 	if("optional" in options)
 		optional = options["optional"]
 
@@ -32,7 +23,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 	return ""
 
 /datum/cooking/recipe_step/proc/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
-	return AUTOCHEF_STEP_FAILURE
+	return AUTOCHEF_ACT_FAILED
 
 /datum/cooking/recipe_step/proc/attempt_autochef_prepare(obj/machinery/autochef/autochef)
-	return AUTOCHEF_STEP_FAILURE
+	return AUTOCHEF_ACT_FAILED

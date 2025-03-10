@@ -1887,6 +1887,7 @@
 #include "code\modules\cooking\cooking_recipe.dm"
 #include "code\modules\cooking\recipe_tracker.dm"
 #include "code\modules\cooking\autochef\autochef.dm"
+#include "code\modules\cooking\autochef\autochef_guide.dm"
 #include "code\modules\cooking\autochef\autochef_task.dm"
 #include "code\modules\cooking\autochef\autochef_task_follow_recipe.dm"
 #include "code\modules\cooking\autochef\autochef_task_make_item.dm"

@@ -19,6 +19,9 @@
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
 		return FALSE
+	return TRUE
+
+/obj/item/reagent_containers/proc/is_valid_interaction(mob/user)
 	if(isrobot(user) && src.loc == user)
 		// Borgs can configure their modules.
 		return TRUE
@@ -34,6 +37,7 @@
 		// I guess there's, like, a switch or a dial or something?
 		// Whatever, you need to use your hands for this.
 		return FALSE
+
 	return TRUE
 
 /obj/item/reagent_containers/AltClick(mob/user)

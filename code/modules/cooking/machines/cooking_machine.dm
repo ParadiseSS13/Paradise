@@ -11,7 +11,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	active_power_consumption = 100
 
 	var/cooking = FALSE
-	var/quality_mod = 1
 	var/list/allowed_containers
 	var/list/surfaces = list()
 
@@ -57,13 +56,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return surface.container.ShiftClick(user, modifiers)
 
 	return ..()
-
-/obj/machinery/cooking/RefreshParts()
-	..()
-	var/man_rating = 0
-	for(var/obj/item/stock_parts/stock_part in component_parts)
-		man_rating += stock_part.rating
-	quality_mod = round(man_rating / 2)
 
 /// Retrieve which burning surface on the machine is being accessed.
 /obj/machinery/cooking/proc/clickpos_to_surface(modifiers)
@@ -150,22 +142,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	update_icon()
 	return ITEM_INTERACT_COMPLETE
 
-/// Ask the user to set the a cooking surfaces's temperature.
-/obj/machinery/cooking/AltShiftClick(mob/user, modifiers)
-	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!anchored)
-		to_chat(user, "<span class='notice'>\The [src] must be secured before using it.</span>")
-		return
-
-	var/surface_idx = clickpos_to_surface(modifiers)
-	if(!surface_idx)
-		return
-
-	var/datum/cooking_surface/burner = surfaces[surface_idx]
-	burner.handle_temperature(user)
-
 /// Empty the container on the surface if it exists.
 /obj/machinery/cooking/AltClick(mob/user, modifiers)
 	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -246,5 +222,5 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 				surface.turn_off()
 				var/obj/item/reagent_containers/cooking/container = surface.container
 				if(istype(container) && container.tracker)
-					SEND_SIGNAL(container.tracker, COMSIG_COOK_MACHINE_STEP_INTERRUPTED)
+					SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
 

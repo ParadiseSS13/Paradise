@@ -1,6 +1,6 @@
 /datum/autochef_task
 	var/obj/machinery/autochef/autochef
-	var/current_state = AUTOCHEF_TASK_START
+	var/current_state = AUTOCHEF_ACT_STARTED
 	var/repeating = FALSE
 
 /datum/autochef_task/New(autochef_)

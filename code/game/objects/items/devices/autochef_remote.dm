@@ -25,7 +25,7 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 		return FINISH_ATTACK
 
 	linkable_machine_uids.Cut()
-	to_chat(user, "<span class='notice'>You clear the autochef remote of all the items in its link buffer.</span>")
+	to_chat(user, "<span class='notice'>You clear all items stored in [src]'s buffer.</span>")
 
 /obj/item/autochef_remote/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	var/target_uid = interacting_with.UID()
@@ -37,6 +37,12 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 		linkable_machine_uids |= target_uid
 	else
 		return
+
+	var/obj/machinery/cooking/cooking_machine = interacting_with
+	if(istype(cooking_machine))
+		for(var/datum/cooking_surface/surface in cooking_machine.surfaces)
+			if(surface.container)
+				interact_with_atom(surface.container, user)
 
 	to_chat(user, "<span class='notice'>You add [interacting_with] to [src]'s buffer.</span>")
 

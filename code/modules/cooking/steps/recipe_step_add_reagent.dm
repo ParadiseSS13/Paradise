@@ -5,7 +5,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	var/reagent_id
 	var/amount
 	/// What percentage of the reagent ends up in the product, as a value from 0.0 to 1.0
-	var/remain_percent = 1.0
+	var/remain_percent = 0.0
 
 /datum/cooking/recipe_step/add_reagent/New(reagent_id_,  amount_, options)
 	reagent_id = reagent_id_
@@ -97,22 +97,27 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	return "Add [amount] unit[amount > 1 ? "s" : ""] of [reagent.name]."
 
 /datum/cooking/recipe_step/add_reagent/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
-	for(var/atom/storage in task.autochef.linked_storages)
+	for(var/obj/machinery/smartfridge/storage in task.autochef.linked_storages)
 		for(var/obj/item/reagent_containers/container in storage)
 			if(check_conditions_met(container, task.container.tracker))
 				var/old_amount_per_transfer = container.amount_per_transfer_from_this
 				container.amount_per_transfer_from_this = amount
-				task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-				task.container.item_interaction(null, container)
+				var/result = task.container.process_item(null, container)
 				container.amount_per_transfer_from_this = old_amount_per_transfer
-				return AUTOCHEF_STEP_COMPLETE
 
-	return AUTOCHEF_STEP_FAILURE
+				switch(result)
+					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
+						return AUTOCHEF_ACT_FAILED
+					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
+						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+						return AUTOCHEF_ACT_STEP_COMPLETE
+
+	return AUTOCHEF_ACT_MISSING_REAGENT
 
 /datum/cooking/recipe_step/add_reagent/attempt_autochef_prepare(obj/machinery/autochef/autochef)
 	for(var/storage in autochef.linked_storages)
 		for(var/obj/item/reagent_containers/container in storage)
 			if(container.reagents.has_reagent(reagent_id, amount))
-				return AUTOCHEF_PREP_VALID
+				return AUTOCHEF_ACT_VALID
 
-	return AUTOCHEF_PREP_MISSING_REAGENT
+	return AUTOCHEF_ACT_MISSING_REAGENT

@@ -23,24 +23,26 @@
 /datum/autochef_task/follow_recipe/proc/on_machine_step_complete(obj/item/reagent_containers/cooking/container)
 	SIGNAL_HANDLER // COMSIG_COOK_MACHINE_STEP_COMPLETE
 	unregister_for_completion()
-	current_state = AUTOCHEF_TASK_COMPLETE
+	current_state = AUTOCHEF_ACT_COMPLETE
 
-/datum/autochef_task/follow_recipe/proc/on_machine_step_interrupted(datum/cooking/recipe_tracker)
+/datum/autochef_task/follow_recipe/proc/on_machine_step_interrupted(datum/cooking/recipe_tracker, datum/cooking_surface/surface)
 	SIGNAL_HANDLER // COMSIG_COOK_MACHINE_STEP_INTERRUPTED
+	if(istype(surface))
+		surface.turn_off()
 	unregister_for_completion()
-	current_state = AUTOCHEF_TASK_INTERRUPTED
+	current_state = AUTOCHEF_ACT_INTERRUPTED
 
 /datum/autochef_task/follow_recipe/resume()
 	switch(current_state)
-		if(AUTOCHEF_TASK_START)
+		if(AUTOCHEF_ACT_STARTED)
 			var/obj/item/reagent_containers/cooking/target = autochef.find_free_container(recipe.container_type)
 			if(target)
-				target.claimed = autochef
+				target.claim(autochef)
 				autochef.atom_say("[target] located.")
-				current_state = AUTOCHEF_TASK_FOLLOW_STEPS
+				current_state = AUTOCHEF_ACT_FOLLOW_STEPS
 				container = target
 				return
-		if(AUTOCHEF_TASK_FOLLOW_STEPS)
+		if(AUTOCHEF_ACT_FOLLOW_STEPS)
 			var/datum/cooking/recipe_step/step = recipe.steps[current_step]
 			if(step.optional)
 				current_step++
@@ -48,25 +50,31 @@
 
 			var/result = step.attempt_autochef_perform(src)
 			switch(result)
-				if(AUTOCHEF_STEP_COMPLETE)
+				if(AUTOCHEF_ACT_STEP_COMPLETE)
 					current_step++
 					if(current_step > length(recipe.steps))
-						current_state = AUTOCHEF_TASK_COMPLETE
-				if(AUTOCHEF_STEP_STARTED)
+						current_state = AUTOCHEF_ACT_COMPLETE
+				if(AUTOCHEF_ACT_WAIT_FOR_RESULT)
 					autochef.set_display("screen-fire")
-					current_state = AUTOCHEF_TASK_WAIT_FOR_RESULT
-				if(AUTOCHEF_STEP_FAILURE)
+					current_state = AUTOCHEF_ACT_WAIT_FOR_RESULT
+				if(AUTOCHEF_ACT_FAILED)
 					autochef.atom_say("Recipe failed!")
 					autochef.set_display("screen-error")
-					current_state = AUTOCHEF_TASK_FAILED
-		if(AUTOCHEF_TASK_INTERRUPTED)
-			autochef.atom_say("Recipe interrupted!")
-			autochef.set_display("screen-error")
+					current_state = AUTOCHEF_ACT_FAILED
+				else
+					autochef.atom_say("GOT CODE [result]")
+		if(AUTOCHEF_ACT_INTERRUPTED)
+			autochef.atom_say("Attempting to resume...")
+			current_state = AUTOCHEF_ACT_FOLLOW_STEPS
 
 /datum/autochef_task/follow_recipe/finalize()
 	autochef.atom_say("Recipe complete.")
+	autochef.set_display("screen-complete")
 	var/moved = FALSE
-	for(var/obj/machinery/smartfridge/storage in autochef.linked_storages)
+	for(var/i = length(autochef.linked_storages); i >= 1; i--)
+		var/obj/machinery/smartfridge/storage = autochef.linked_storages[i]
+		if(!istype(storage))
+			continue
 		for(var/atom/movable/result in container.contents)
 			if(storage.load(result))
 				storage.Beam(get_turf(container), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
@@ -81,14 +89,16 @@
 		for(var/turf/T in RANGE_EDGE_TURFS(1, center))
 			if(locate(/obj/structure/table) in T)
 				for(var/atom/movable/content in container.contents)
-					content.forceMove(T)
-					content.pixel_x = rand(-8, 8)
-					content.pixel_y = rand(-8, 8)
+					if(content.forceMove(T))
+						content.pixel_x = rand(-8, 8)
+						content.pixel_y = rand(-8, 8)
+					else
+						content.forceMove(content.loc)
 
+	container.unclaim()
 	container.do_empty()
-	container.claimed = null
 
 /datum/autochef_task/follow_recipe/reset()
 	container = null
 	current_step = 1
-	current_state = AUTOCHEF_TASK_START
+	current_state = AUTOCHEF_ACT_STARTED
