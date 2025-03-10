@@ -57,6 +57,9 @@
 		las_rating += M.rating
 
 /obj/machinery/cooking/oven/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
+		return ..()
+
 	if(!opened)
 		handle_open(user)
 		update_icon()

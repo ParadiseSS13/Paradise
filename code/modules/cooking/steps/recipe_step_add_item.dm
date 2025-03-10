@@ -93,6 +93,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 						storage.item_quants[possible_item.name]--
 						return AUTOCHEF_ACT_STEP_COMPLETE
 
+	task.autochef.atom_say("Missing [item_type::name].")
 	return AUTOCHEF_ACT_MISSING_INGREDIENT
 
 /datum/cooking/recipe_step/add_item/attempt_autochef_prepare(obj/machinery/autochef/autochef)
@@ -106,4 +107,5 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	if(!storage_count)
 		return AUTOCHEF_ACT_NO_AVAILABLE_STORAGE
 
+	autochef.atom_say("Missing [item_type::name].")
 	return AUTOCHEF_ACT_MISSING_INGREDIENT

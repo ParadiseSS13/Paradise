@@ -72,12 +72,11 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
 		update_appearance()
+		if(panel_open)
+			machine_state_change()
 		return
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
-
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-	deconstruct()
 
 /obj/machinery/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
@@ -218,10 +217,12 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/power_change()
 	. = ..()
 	if(stat & NOPOWER)
-		for(var/datum/cooking_surface/surface in surfaces)
-			if(surface.on)
-				surface.turn_off()
-				var/obj/item/reagent_containers/cooking/container = surface.container
-				if(istype(container) && container.tracker)
-					SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
+		machine_state_change()
 
+/obj/machinery/cooking/proc/machine_state_change()
+	for(var/datum/cooking_surface/surface in surfaces)
+		if(surface.on)
+			surface.turn_off()
+			var/obj/item/reagent_containers/cooking/container = surface.container
+			if(istype(container) && container.tracker)
+				SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)

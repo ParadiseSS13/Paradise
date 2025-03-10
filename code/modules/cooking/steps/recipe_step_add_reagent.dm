@@ -108,7 +108,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 				switch(result)
 					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
 						return AUTOCHEF_ACT_FAILED
-					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
+					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS, PCWJ_COMPLETE)
 						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 						return AUTOCHEF_ACT_STEP_COMPLETE
 

@@ -54,7 +54,6 @@
 			if(autochef.upgrade_level > 2)
 				handle_missing_item(step)
 			else
-				autochef.atom_say("Missing required ingredients.")
 				return FALSE
 		if(AUTOCHEF_ACT_MISSING_REAGENT)
 			autochef.atom_say("Missing required reagents.")
@@ -82,11 +81,11 @@
 					autochef.atom_say("Making [add_item_step.item_type::name] first.")
 					return AUTOCHEF_ACT_ADDED_TASK
 		autochef.atom_say("Cannot find [add_item_step.item_type::name].")
-		return AUTOCHEF_ACT_FAILED
+		return AUTOCHEF_ACT_MISSING_INGREDIENT
 	var/datum/cooking/recipe_step/add_produce/add_produce_step = step
 	if(istype(add_produce_step))
 		autochef.atom_say("Cannot find [add_produce_step.produce_type::name].")
-		return AUTOCHEF_ACT_FAILED
+		return AUTOCHEF_ACT_MISSING_INGREDIENT
 
 	autochef.atom_say("Unknown failure. Please contact customer support.")
 	return AUTOCHEF_ACT_FAILED

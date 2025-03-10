@@ -62,11 +62,9 @@
 					autochef.set_display("screen-error")
 					current_state = AUTOCHEF_ACT_FAILED
 				if(AUTOCHEF_ACT_MISSING_INGREDIENT)
-					autochef.atom_say("Missing ingredient.")
 					autochef.set_display("screen-error")
 					current_state = AUTOCHEF_ACT_INTERRUPTED
 				if(AUTOCHEF_ACT_NO_AVAILABLE_MACHINES)
-					autochef.atom_say("No available machines.")
 					autochef.set_display("screen-error")
 					current_state = AUTOCHEF_ACT_INTERRUPTED
 		if(AUTOCHEF_ACT_INTERRUPTED)
@@ -84,6 +82,7 @@
 		for(var/atom/movable/result in container.contents)
 			if(storage.load(result))
 				storage.Beam(get_turf(container), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+				SStgui.update_uis(storage)
 				moved = TRUE
 		if(moved)
 			break

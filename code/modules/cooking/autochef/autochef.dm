@@ -61,6 +61,9 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 	switch(current_state)
 		if(AUTOCHEF_IDLE, AUTOCHEF_INTERRUPTED)
+			if(panel_open)
+				atom_say("Please close panel before continuing.")
+				return
 			if(length(task_queue))
 				current_state = AUTOCHEF_RUNNING
 			else
@@ -140,8 +143,11 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return
 
 	. += image(icon, icon_state = "light-on")
+
 	if(screen_icon_state)
 		. += image(icon, icon_state = screen_icon_state)
+	if(panel_open)
+		. += image(icon = icon, icon_state = "panel-open")
 
 /obj/machinery/autochef/AltClick(mob/user, modifiers)
 	. = ..()
@@ -166,20 +172,13 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/autochef/wrench_act(mob/living/user, obj/item/used)
-	return default_unfasten_wrench(user, used, time = 4 SECONDS)
-
 /obj/machinery/autochef/crowbar_act(mob/living/user, obj/item/used)
 	return default_deconstruction_crowbar(user, used)
 
-/obj/machinery/autochef/update_overlays()
-	. = ..()
-	if(panel_open)
-		. += image(icon = icon, icon_state = "panel-open")
-
 /obj/machinery/autochef/proc/set_display(name)
-	screen_icon_state = name
-	update_appearance()
+	if(screen_icon_state != name)
+		screen_icon_state = name
+		update_appearance()
 
 /obj/machinery/autochef/proc/unlink(datum/source)
 	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
@@ -216,7 +215,6 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 	switch(current_state)
 		if(AUTOCHEF_RUNNING)
-			set_display("screen-gear")
 			var/datum/autochef_task/current_task = task_queue[1]
 			current_task.resume()
 
@@ -233,6 +231,8 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 					current_state = AUTOCHEF_IDLE
 					current_task.reset()
 					set_display("screen-error")
+				if(AUTOCHEF_ACT_WAIT_FOR_RESULT)
+					set_display("screen-fire")
 
 /obj/machinery/autochef/proc/on_claimed_container_equip(obj/item/reagent_containers/cooking/container)
 	if(current_state == AUTOCHEF_INTERRUPTED || current_state == AUTOCHEF_IDLE)
