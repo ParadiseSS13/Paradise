@@ -7,8 +7,12 @@
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	forceMove(T1)
+	abstract_move(T1)
 	return 1
+
+/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	// lighting objects should not be moved from their parent turfs
+	return 0
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
 	// Used for marking where to preview/load shuttles

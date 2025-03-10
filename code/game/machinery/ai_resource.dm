@@ -192,9 +192,9 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/network_node/examine_more(mob/user)
 	. = ..()
-	. += "I don't know but I've been told \
-	Captain's got a network node! \
-	Likes to press the on/off switch! \
+	. += "I don't know but I've been told, \
+	Captain's got a network node, \
+	Likes to press the on/off switch, \
 	Dig that crazy corporate snitch!"
 
 /obj/machinery/ai_node/network_node/Initialize(mapload)

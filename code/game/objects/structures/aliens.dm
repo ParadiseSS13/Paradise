@@ -14,6 +14,7 @@
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
@@ -115,7 +116,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
@@ -355,7 +357,7 @@
 		new /obj/structure/alien/weeds(T, linked_node)
 		check_surroundings()
 
-/obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/weeds/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
@@ -545,7 +547,7 @@
 		if(status != BURST)
 			burst(kill = TRUE)
 
-/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)

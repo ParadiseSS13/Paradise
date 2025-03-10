@@ -228,6 +228,12 @@
 /mob/living/silicon/drop_item()
 	return
 
+/mob/living/silicon/put_in_l_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
+/mob/living/silicon/put_in_r_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
 /mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //So borgs they don't die trying to fix wiring
 

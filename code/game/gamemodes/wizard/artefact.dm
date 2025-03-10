@@ -128,12 +128,11 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob)
-	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+/obj/effect/rend/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/nullrod))
+		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [used].</span>")
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/rend/singularity_pull()
 	return
