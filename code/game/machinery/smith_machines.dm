@@ -60,11 +60,11 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/mineral/smart_hopper/RefreshParts()
-	var/P = BASE_POINT_MULT
-	for(var/obj/item/stock_parts/M in component_parts)
-		P += POINT_MULT_ADD_PER_RATING * M.rating
+	var/point_mult = BASE_POINT_MULT
+	for(var/obj/item/stock_parts/component in component_parts)
+		point_mult += POINT_MULT_ADD_PER_RATING * component.rating
 	// Update our values
-	point_upgrade = P
+	point_upgrade = point_mult
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/smart_hopper/process()
@@ -76,11 +76,11 @@
 	if(OB)
 		input = OB
 	// Suck the ore in
-	for(var/obj/item/stack/ore/O in input)
-		if(QDELETED(O))
+	for(var/obj/item/stack/ore/ore in input)
+		if(QDELETED(ore))
 			continue
-		ore_buffer |= O
-		O.forceMove(src)
+		ore_buffer |= ore
+		ore.forceMove(src)
 		CHECK_TICK
 	// Process it
 	if(length(ore_buffer))
@@ -147,10 +147,10 @@
 	input_dir = turn(input_dir, -90)
 	to_chat(user, "<span class='notice'>You change [src]'s input, moving the input to [dir2text(input_dir)].</span>")
 
-/obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/L)
+/obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/ore_list)
 	if(!linked_crucible)
 		return
-	for(var/ore in L)
+	for(var/ore in ore_list)
 		transfer_ore(ore)
 
 /obj/machinery/mineral/smart_hopper/proc/transfer_ore(obj/item/stack/ore/O)
@@ -191,11 +191,11 @@
 		return
 
 	// Notify
-	for(var/obj/machinery/requests_console/C as anything in GLOB.allRequestConsoles)
-		if(!(C.department in supply_consoles))
+	for(var/obj/machinery/requests_console/console as anything in GLOB.allRequestConsoles)
+		if(!(console.department in supply_consoles))
 			continue
-		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Smart Hopper", "New Minerals Available!", msg, RQ_LOWPRIORITY)
+		if(!supply_consoles[console.department] || length(supply_consoles[console.department] - mats_in_stock))
+			console.createMessage("Smart Hopper", "New Minerals Available!", msg, RQ_LOWPRIORITY)
 
 /obj/machinery/mineral/smart_hopper/proc/give_points(obj/item/stack/ore/ore_path, ore_amount)
 	if(initial(ore_path.refined_type))
@@ -254,11 +254,11 @@
 		return TRUE
 
 /obj/machinery/magma_crucible/RefreshParts()
-	var/S = BASE_SHEET_MULT
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		S += SHEET_MULT_ADD_PER_RATING * M.rating
+	var/sheet_mult = BASE_SHEET_MULT
+	for(var/obj/item/stock_parts/micro_laser/component in component_parts)
+		sheet_mult += SHEET_MULT_ADD_PER_RATING * component.rating
 	// Update our values
-	sheet_per_ore = S
+	sheet_per_ore = sheet_mult
 
 /obj/machinery/magma_crucible/update_overlays()
 	. = ..()
@@ -519,14 +519,14 @@
 		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
 
 /obj/machinery/smithing/casting_basin/RefreshParts()
-	var/O = 0
-	var/E = 0
-	for(var/obj/item/stock_parts/M in component_parts)
-		O += 2 * OPERATION_SPEED_MULT_PER_RATING * M.rating
-		E += EFFICIENCY_MULT_ADD_PER_RATING * M.rating
+	var/operation_mult = 0
+	var/efficiency_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += 2 * OPERATION_SPEED_MULT_PER_RATING * component.rating
+		efficiency_mult += EFFICIENCY_MULT_ADD_PER_RATING * component.rating
 	// Update our values
-	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - O)), 2)
-	efficiency = initial(efficiency) * (1.1 - E)
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
+	efficiency = initial(efficiency) * (1.1 - efficiency_mult)
 
 /obj/machinery/smithing/casting_basin/update_overlays()
 	. = ..()
@@ -731,11 +731,11 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/power_hammer/RefreshParts()
-	var/S = 0
-	for(var/obj/item/stock_parts/M in component_parts)
-		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	var/operation_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
 	// Update our values
-	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
 	if(!working_component.hot)
@@ -794,11 +794,11 @@
 	RefreshParts()
 
 /obj/machinery/smithing/lava_furnace/RefreshParts()
-	var/S = 0
-	for(var/obj/item/stock_parts/M in component_parts)
-		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	var/operation_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
 	// Update our values
-	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
+	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
 
 /obj/machinery/smithing/lava_furnace/update_overlays()
 	. = ..()
@@ -906,11 +906,11 @@
 		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
 /obj/machinery/smithing/kinetic_assembler/RefreshParts()
-	var/S = 0
-	for(var/obj/item/stock_parts/M in component_parts)
-		S += OPERATION_SPEED_MULT_PER_RATING * M.rating
+	var/operation_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
 	// Update our values
-	operation_time = operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - S)), 2)
+	operation_time = operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
 
 /obj/machinery/smithing/kinetic_assembler/update_icon_state()
 	. = ..()
