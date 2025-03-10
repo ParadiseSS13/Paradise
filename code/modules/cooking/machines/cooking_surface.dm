@@ -71,17 +71,10 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		burn_callback = addtimer(CALLBACK(src, PROC_REF(handle_burn)), burn_time, TIMER_STOPPABLE)
 		fire_callback = addtimer(CALLBACK(src, PROC_REF(handle_fire)), fire_time, TIMER_STOPPABLE)
 
-/datum/cooking_surface/proc/timer_act(mob/user)
-	#ifdef PCWJ_DEBUG
-	log_debug("timer act timer=[timer] world.time=[world.time]")
-	#endif
-
 /datum/cooking_surface/proc/turn_on(mob/user)
 	on = TRUE
 	set_burn_ignite_callbacks()
 	reset_cooktime()
-	if(timer)
-		timer_act(user)
 
 /datum/cooking_surface/proc/turn_off(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
@@ -112,8 +105,6 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		max_value = 60)
 	if(!isnull(timer_input))
 		timer = timer_input SECONDS
-	if(timer != 0 && on)
-		timer_act(user)
 
 	parent.update_appearance(UPDATE_ICON)
 

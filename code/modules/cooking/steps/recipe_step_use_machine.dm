@@ -81,7 +81,6 @@
 	extra_machine_step(surface.parent.name)
 	if(surface.on)
 		surface.handle_cooking(null)
-		surface.timer_act(null)
 	else
 		surface.handle_switch(null)
 
