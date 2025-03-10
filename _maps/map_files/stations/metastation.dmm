@@ -63024,7 +63024,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "nAM" = (
-/obj/machinery/space_heater,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -79287,12 +79286,10 @@
 	},
 /area/station/science/research)
 "uTp" = (
-/obj/structure/rack,
-/obj/item/flashlight,
-/obj/item/painter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/atmospherics/portable/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "uUq" = (
