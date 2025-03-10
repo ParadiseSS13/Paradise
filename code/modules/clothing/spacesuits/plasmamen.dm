@@ -199,6 +199,12 @@
 	item_state = "expedition_envirohelm"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
 
+/obj/item/clothing/head/helmet/space/plasmaman/smith
+	name = "smithing plasma envirosuit helmet"
+	desc = "A plasmaman helmet design for smiths."
+	icon_state = "smith_envirohelm"
+	item_state = "smith_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen."

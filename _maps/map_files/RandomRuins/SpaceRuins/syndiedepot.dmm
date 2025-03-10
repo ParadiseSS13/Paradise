@@ -1142,7 +1142,7 @@
 	},
 /area/syndicate_depot/core)
 "Te" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/syndicate_depot/outer)
 
 (1,1,1) = {"

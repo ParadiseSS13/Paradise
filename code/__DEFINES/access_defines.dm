@@ -44,6 +44,7 @@
 #define ACCESS_THEATRE					46
 #define ACCESS_RESEARCH					47
 #define ACCESS_MINING					48
+#define ACCESS_SMITH					49
 #define ACCESS_MAILSORTING				50
 #define ACCESS_HEADS_VAULT				53
 #define ACCESS_MINING_STATION			54

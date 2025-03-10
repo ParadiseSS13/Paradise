@@ -143,6 +143,7 @@
 	department_roles = list(
 		"Quartermaster",
 		"Cargo Technician",
+		"Smith",
 		"Shaft Miner",
 		"Spelunker"
 	)

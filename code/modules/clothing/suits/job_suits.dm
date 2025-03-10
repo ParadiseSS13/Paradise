@@ -29,6 +29,24 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+// Smith
+/obj/item/clothing/suit/apron/smith
+	name = "smith's apron"
+	desc = "A black, heat-treated apron for use while smelting."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_state = "smith_apron"
+	item_state = "smith_apron"
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	allowed = list(/obj/item/hammer, /obj/item/smithing_cast, /obj/item/smithed_item, /obj/item/stack/sheet, /obj/item/stack/tile/brass)
+	resistance_flags = FIRE_PROOF
+	insert_max = 3
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi'
+	)
+
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
 	name = "chaplain hoodie"
@@ -164,6 +182,7 @@
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -252,6 +271,7 @@
 	item_state = "hopcoat"
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -267,6 +287,7 @@
 	item_state = "qmcoat"
 	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -285,6 +306,7 @@
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -301,6 +323,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes, /obj/item/stack/spacecash, /obj/item/flash, /obj/item/gavelhammer)
 	flags_inv = HIDEJUMPSUIT
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
