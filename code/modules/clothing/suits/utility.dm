@@ -140,6 +140,9 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head/utility.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
 	)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
 
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"
@@ -170,3 +173,6 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
 	)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION

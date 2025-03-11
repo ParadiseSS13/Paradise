@@ -234,6 +234,7 @@
 	cost = 50
 	job = list("Scientist")
 	hijack_only = TRUE
+	surplus = 0
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi

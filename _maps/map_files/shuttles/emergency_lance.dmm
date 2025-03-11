@@ -604,7 +604,8 @@
 	timid = 1;
 	dir = 2;
 	lance_docking = 1;
-	shuttle_speed_factor = 1.5
+	shuttle_speed_factor = 1.5;
+	port_direction = 1
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock"
