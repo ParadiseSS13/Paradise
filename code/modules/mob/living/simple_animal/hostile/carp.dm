@@ -124,13 +124,13 @@
 
 // We do not want mobs moving through space carp, we as such we block it if the mob is not dense
 /mob/living/simple_animal/hostile/carp/CanPass(atom/movable/mover, border_dir)
-	if(isliving(mover) && !istype(mover, /mob/living/simple_animal/hostile/carp) && mover.density == TRUE)
+	if(isliving(mover) && !istype(mover, /mob/living/simple_animal/hostile/carp) && mover.density == TRUE && stat != DEAD)
 		return FALSE
 	return ..()
 
 // Since it's not dense we let it always hit
 /mob/living/simple_animal/hostile/carp/projectile_hit_check(obj/item/projectile/P)
-	return FALSE
+	return stat == DEAD
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
