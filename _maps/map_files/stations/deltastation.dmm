@@ -17419,10 +17419,6 @@
 	icon_state = "neutral"
 	},
 /area/station/command/office/ce)
-"bjR" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "bjT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -139678,7 +139674,7 @@ bih
 bfA
 iWM
 rJT
-bjR
+eNt
 bwA
 bwA
 eJM
