@@ -175,11 +175,14 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/processing_node(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null, 2)
-	component_parts += new /obj/item/stack/sheet/mineral/gold(null, 10)
-	component_parts += new /obj/item/stack/sheet/mineral/silver(null, 10)
-	component_parts += new /obj/item/stack/sheet/mineral/diamond(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	for(var/i in 1 to 10)
+		component_parts += new /obj/item/stack/sheet/mineral/gold(null)
+		component_parts += new /obj/item/stack/sheet/mineral/silver(null)
+	for(var/i in 1 to 5)
+		component_parts += new /obj/item/stack/cable_coil(null)
+	component_parts += new /obj/item/stack/sheet/mineral/diamond(null)
 	RefreshParts()
 
 /obj/machinery/ai_node/network_node
@@ -201,11 +204,14 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/network_node(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null, 2)
-	component_parts += new /obj/item/stack/sheet/mineral/gold(null, 10)
-	component_parts += new /obj/item/stack/sheet/mineral/silver(null, 10)
-	component_parts += new /obj/item/stack/sheet/mineral/diamond(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	for(var/i in 1 to 10)
+		component_parts += new /obj/item/stack/sheet/mineral/gold(null)
+		component_parts += new /obj/item/stack/sheet/mineral/silver(null)
+	for(var/i in 1 to 5)
+		component_parts += new /obj/item/stack/cable_coil(null)
+	component_parts += new /obj/item/stack/sheet/mineral/diamond(null)
 	RefreshParts()
 
 /obj/machinery/computer/ai_resource
@@ -295,12 +301,17 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 				if(ONLINE_NODES)
 					screen = ONLINE_NODES
 					return TRUE
-		// if("reassign")
-		// 	if(!length(GLOB.ai_list))
-		// 		return FALSE
-		// 	var/new_ai = tgui_input_list(usr, "Pick a new AI", "AI Selector", GLOB.ai_list)
-		// 	selected_node.change_ai(new_ai)
-		// 	return TRUE
+		if("reassign")
+			if(!length(GLOB.ai_list))
+				return FALSE
+			var/new_ai = tgui_input_list(usr, "Pick a new AI", "AI Selector", GLOB.ai_list)
+			if(!new_ai)
+				return FALSE
+			var/obj/machinery/ai_node/selected_node = locateUID(params["uid"])
+			if(!selected_node)
+				return FALSE
+			selected_node.change_ai(new_ai)
+			return TRUE
 
 #undef ALLOCATED_RESOURCES
 #undef ONLINE_NODES
