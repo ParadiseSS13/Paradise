@@ -90,7 +90,7 @@
 		/obj/item/melee/skateboard/pro = 5,
 		/obj/item/reagent_containers/glass/beaker/bluespace = 5,
 		/obj/item/seeds/firelemon = 5,
-		/obj/item/stack/ore/diamond{amount=10} = 5,
+		/obj/item/stack/ore/diamond{amount = 10} = 5,
 
 		/obj/effect/spawner/random/loot/coins = 2,
 		/obj/effect/spawner/random/loot/outfit/clown = 2,
