@@ -64651,10 +64651,6 @@
 /obj/item/seeds/eggplant,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"ooo" = (
-/obj/structure/sign/custodian,
-/turf/simulated/wall,
-/area/station/maintenance/fsmaint)
 "ooD" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -121301,7 +121297,7 @@ avA
 avA
 avA
 bmQ
-ooo
+aLl
 bnr
 oGK
 bqA
