@@ -82,7 +82,7 @@ const SupermatterMonitorDataView = (props, context) => {
   );
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.portion));
   return (
-    <Window width={550} height={250}>
+    <Window width={550} height={270}>
       <Window.Content>
         <Stack fill>
           <Stack.Item width="270px">
