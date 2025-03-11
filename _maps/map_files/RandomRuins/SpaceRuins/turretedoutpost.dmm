@@ -272,7 +272,7 @@
 /area/ruin/space/turreted_outpost/vault)
 "wR" = (
 /obj/machinery/door/airlock/hatch{
-	name = "Syndicate Interdiction Platform Bathroom"
+	name = "Bathroom"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
