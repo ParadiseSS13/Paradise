@@ -8,7 +8,7 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
-	Current a minor player within the Orion Sector, Adhomai is only loosely united by an alliance of Tajaran clans following their rebellion against the tyrannical Overseers.<br/><br/> \
+	Currently a minor player within the Orion Sector, Adhomai is only loosely united by an alliance of Tajaran clans following their rebellion against the tyrannical Overseers.<br/><br/> \
 	The teachings of S'randarr and solar iconography dominate their religious practices, \
 	and Tajaran often speak in the third person due to the lack of first-person references in their native tongue."
 
