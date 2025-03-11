@@ -5,3 +5,4 @@
 /obj/machinery/kitchen_machine/grill/@SUBTYPES : /obj/structure/table, /obj/machinery/cooking/grill/@SUBTYPES
 /obj/machinery/kitchen_machine/oven/@SUBTYPES : /obj/machinery/cooking/oven/@SUBTYPES
 /obj/item/book/manual/wiki/chef_recipes : @DELETE
+/obj/item/circuitboard/oven : /obj/item/circuitboard/cooking/oven

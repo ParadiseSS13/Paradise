@@ -398,7 +398,7 @@
 	pixel_y = 8
 	},
 /obj/structure/machine_frame,
-/obj/item/circuitboard/oven,
+/obj/item/circuitboard/cooking/oven,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
