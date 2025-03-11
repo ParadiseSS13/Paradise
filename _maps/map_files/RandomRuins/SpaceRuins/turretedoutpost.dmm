@@ -10,13 +10,9 @@
 "ch" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -28,8 +24,6 @@
 /area/ruin/space/turreted_outpost/vault)
 "cI" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -53,8 +47,6 @@
 /area/ruin/space/turreted_outpost)
 "eh" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -63,7 +55,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/tracker,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/template_noop,
@@ -78,7 +69,6 @@
 "gA" = (
 /obj/machinery/power/solar,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -93,8 +83,6 @@
 "ia" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -112,7 +100,6 @@
 "kK" = (
 /obj/machinery/power/solar_control/autostart,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -127,8 +114,6 @@
 /area/ruin/space/turreted_outpost/vault)
 "ml" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -144,8 +129,6 @@
 	pixel_y = 32
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -181,8 +164,6 @@
 /area/ruin/space/turreted_outpost)
 "qy" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -194,8 +175,6 @@
 "rL" = (
 /obj/structure/rack,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -209,8 +188,6 @@
 /area/ruin/space/turreted_outpost)
 "so" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -244,12 +221,9 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -261,8 +235,6 @@
 /area/ruin/space/turreted_outpost)
 "va" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -283,26 +255,18 @@
 /area/ruin/space/turreted_outpost)
 "xd" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost)
 "xB" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -310,8 +274,6 @@
 "zR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -339,8 +301,6 @@
 /area/ruin/space/turreted_outpost)
 "Bc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
@@ -354,8 +314,6 @@
 /area/ruin/space/turreted_outpost)
 "BH" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -366,8 +324,6 @@
 	},
 /mob/living/simple_animal/hostile/syndicate/melee/autogib,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -400,8 +356,6 @@
 /area/ruin/space/turreted_outpost/vault)
 "Ez" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -415,8 +369,6 @@
 /area/ruin/space/turreted_outpost)
 "EV" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -431,8 +383,6 @@
 /area/ruin/space/turreted_outpost/vault)
 "Hb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -467,8 +417,6 @@
 /area/ruin/space/turreted_outpost)
 "Jd" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -493,8 +441,6 @@
 /area/ruin/space/turreted_outpost)
 "Kk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -518,18 +464,12 @@
 "Np" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -543,7 +483,6 @@
 /area/ruin/space/turreted_outpost)
 "Oc" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering,
@@ -559,8 +498,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -577,8 +514,6 @@
 "Pg" = (
 /obj/structure/rack,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -615,8 +550,6 @@
 /area/ruin/space/turreted_outpost)
 "SF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -628,7 +561,6 @@
 "SV" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -640,8 +572,6 @@
 "TD" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -649,13 +579,9 @@
 /area/ruin/space/turreted_outpost)
 "TV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -709,12 +635,9 @@
 "Yi" = (
 /obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -722,15 +645,12 @@
 "Yr" = (
 /obj/machinery/power/apc/off_station/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
 "YB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
