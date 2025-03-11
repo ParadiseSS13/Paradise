@@ -856,6 +856,11 @@
 	trainee = I.registered_name
 	icon_state = "nct_chip_active"
 
+/obj/item/card/id/no_scan_syndicate // Syndicate ID drip with none of the access theft or anti-tracking.
+	name = "\improper Syndicate ID card"
+	desc = "An evil-looking ID issued to members of the Syndicate."
+	icon_state = "syndie"
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
