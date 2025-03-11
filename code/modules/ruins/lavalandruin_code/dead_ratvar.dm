@@ -316,7 +316,20 @@
 	item_state = "ratvarian_spear"
 	force = 11
 	force_unwielded = 11
-	force_wielded = 20					//I have no idea how to balance
-	throwforce = 22
+	force_wielded = 22
+	throwforce = 30
 	armour_penetration_percentage = 15
+	embed_chance = 0 //would suck to lose this after one throw
 	var/bonus_burn = 5
+
+/obj/item/spear/ratvarian_spear_new/attack__legacy__attackchain(mob/living/target, mob/living/user)
+	. = ..()
+	target.adjustFireLoss(bonus_burn) //change to only when thrown and make worse
+	/*var/obj/effect/timestop/T = new /obj/effect/timestop
+	T.freezerange = 1
+	T.duration = 20
+	T.forceMove(get_turf(target))
+	T.immune += user
+	T.timestop()*/
+
+	//ADD_TRAIT(user, TRAIT_GOTTAGOFAST, id)
