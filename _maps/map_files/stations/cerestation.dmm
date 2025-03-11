@@ -18111,12 +18111,9 @@
 	dir = 1
 	},
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/orange{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating{
@@ -26268,23 +26265,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/gravitygenerator)
-"dJu" = (
-/obj/structure/fence{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/asmaint)
 "dJA" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
@@ -31841,12 +31821,9 @@
 	dir = 1
 	},
 /obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/orange{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating{
@@ -44597,21 +44574,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"inl" = (
-/obj/structure/fence,
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/asmaint)
 "inn" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48568,7 +48530,6 @@
 "jik" = (
 /obj/structure/fence/corner,
 /obj/structure/cable/orange{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating{
@@ -65628,8 +65589,6 @@
 	dir = 4
 	},
 /obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating{
@@ -102081,12 +102040,9 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/fence,
 /obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/orange{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating{
@@ -102718,8 +102674,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating{
@@ -152051,9 +152005,9 @@ mHF
 vRX
 cxh
 niM
-dJu
-dJu
-dJu
+qkF
+qkF
+qkF
 fcY
 imG
 fdD
@@ -152306,7 +152260,7 @@ aXn
 tSz
 kzO
 fLk
-inl
+ncF
 gMv
 uCy
 tbN
@@ -152563,7 +152517,7 @@ aXn
 imG
 imG
 aus
-inl
+ncF
 sif
 xrN
 vCG
@@ -152820,7 +152774,7 @@ aXn
 aXn
 wNT
 kzq
-inl
+ncF
 qqd
 lkA
 neh
@@ -153077,7 +153031,7 @@ aXn
 mic
 ebJ
 kzq
-inl
+ncF
 fuH
 mGK
 mGK
