@@ -13255,8 +13255,8 @@
 /obj/item/shovel,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/shelf/supply,
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aWg" = (
@@ -17894,6 +17894,9 @@
 "blD" = (
 /obj/machinery/computer/shuttle/mining{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
@@ -61090,6 +61093,12 @@
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
+"gNd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/miningdock)
 "gNm" = (
 /obj/structure/chair/sofa/corner{
 	color = "#A30FAF";
@@ -139922,7 +139931,7 @@ aYj
 aZD
 aSb
 aWf
-bfA
+gNd
 blD
 tvu
 bim
