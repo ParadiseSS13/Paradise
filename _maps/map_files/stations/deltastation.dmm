@@ -13492,7 +13492,7 @@
 /obj/item/clipboard,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
