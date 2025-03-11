@@ -751,51 +751,93 @@
 
 /obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "tranqbox"
 	shell_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/storage/fancy/shell/slug
 	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "slugbox"
 	shell_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/storage/fancy/shell/buck
 	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "buckbox"
 	shell_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/storage/fancy/shell/dragonsbreath
 	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "dragonsbox"
 	shell_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/storage/fancy/shell/stun
 	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "stunbox"
 	shell_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/storage/fancy/shell/beanbag
 	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "beanbox"
 	shell_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/storage/fancy/shell/rubbershot
 	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "rubberbox"
 	shell_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "holybox"
 	shell_type = /obj/item/ammo_casing/shotgun/holy
+
+/obj/item/storage/fancy/shell/confetti
+	name = "ammunition box (Confettishot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "partybox"
+	shell_type = /obj/item/ammo_casing/shotgun/confetti
+
+/obj/item/storage/fancy/shell/meteor
+	name = "ammunition box (Meteorslug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "meteorbox"
+	shell_type = /obj/item/ammo_casing/shotgun/meteorslug
+
+/obj/item/storage/fancy/shell/ion
+	name = "ammunition box (Ionshot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "ionbox"
+	shell_type = /obj/item/ammo_casing/shotgun/ion
+
+/obj/item/storage/fancy/shell/pulse
+	name = "ammunition box (Proto Pulse Slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "pulsebox"
+	shell_type = /obj/item/ammo_casing/shotgun/pulseslug
+
+/obj/item/storage/fancy/shell/incindiary
+	name = "ammunition box (Incendiary slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "incendiarybox"
+	shell_type = /obj/item/ammo_casing/shotgun/incendiary
+
+/obj/item/storage/fancy/shell/lasershot
+	name = "ammunition box (Lasershot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "lasershotbox"
+	shell_type = /obj/item/ammo_casing/shotgun/lasershot
+
+/obj/item/storage/fancy/shell/frag12
+	name = "ammunition box (FRAG-12 slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "frag12box"
+	shell_type = /obj/item/ammo_casing/shotgun/frag12
 
 ////////////////
 /* Donk Boxes */
