@@ -72,11 +72,13 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	slurry.my_atom = container
 
 	var/list/applied_steps = tracker.recipes_all_applied_steps[src]
+	var/output_count = 1
 	// Remember this is not necessarily a consecutive list of step indexes
 	// Optional steps may have been skipped
 	for(var/i in 1 to length(applied_steps))
 		var/current_index = applied_steps[i]
 		var/datum/cooking/recipe_step/recipe_step = steps[current_index]
+		var/list/applied_step_data = tracker.recipes_applied_step_data[i]
 
 		// Filter out reagents based on settings
 		var/datum/cooking/recipe_step/add_reagent/add_reagent_step = recipe_step
@@ -86,8 +88,11 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 				continue
 			container.reagents.remove_reagent(add_reagent_step.reagent_id, amount_to_remove, safety = TRUE)
 
+		if("rating" in applied_step_data)
+			output_count = max(output_count, min(3, applied_step_data["rating"]))
+
 	if(product_type) // Make a regular item
-		. = make_product_item(container, slurry, applied_steps)
+		. = make_product_item(container, slurry, applied_steps, output_count)
 	else
 		QDEL_LIST_CONTENTS(container.contents)
 		container.contents = list()
@@ -99,7 +104,10 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 
 	qdel(slurry)
 
-/datum/cooking/recipe/proc/make_product_item(obj/item/reagent_containers/cooking/container, datum/reagents/slurry, list/applied_steps)
+/datum/cooking/recipe/proc/make_product_item(obj/item/reagent_containers/cooking/container, datum/reagents/slurry, list/applied_steps, output_count = null)
+	if(isnull(output_count))
+		output_count = 1
+
 	if(container.reagents.total_volume)
 		#ifdef PCWJ_DEBUG
 		log_debug("/recipe/proc/create_product: Transferring container reagents of [container.reagents.total_volume] to slurry of current volume [slurry.total_volume] max volume [slurry.maximum_volume]")
@@ -150,8 +158,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 	// Purge the contents of the container we no longer need it
 	QDEL_LIST_CONTENTS(container.contents)
 
-
-	for(var/i in 1 to product_count)
+	for(var/i in 1 to (product_count * output_count))
 		var/obj/item/new_item = new product_type(container)
 		. = new_item
 		#ifdef PCWJ_DEBUG

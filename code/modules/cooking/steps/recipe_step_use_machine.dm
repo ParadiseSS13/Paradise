@@ -30,6 +30,10 @@
 	if(istype(container))
 		step_data["cooker_data"] = container.cooker_data.Copy()
 
+	if(istype(used_item, machine_type))
+		var/obj/machinery/cooking/machine = used_item
+		step_data["rating"] = machine.quality_mod
+
 	step_data["signal"] = COMSIG_COOK_MACHINE_STEP_COMPLETE
 
 	return step_data

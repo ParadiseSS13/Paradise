@@ -11,6 +11,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	active_power_consumption = 100
 
 	var/cooking = FALSE
+	var/quality_mod = 1
 	var/list/allowed_containers
 	var/list/surfaces = list()
 
@@ -55,6 +56,13 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return surface.container.ShiftClick(user, modifiers)
 
 	return ..()
+
+/obj/machinery/cooking/RefreshParts()
+	. = ..()
+	var/man_rating = 0
+	for(var/obj/item/stock_parts/stock_part in component_parts)
+		man_rating += stock_part.rating
+	quality_mod = round(man_rating / 2)
 
 /// Retrieve which burning surface on the machine is being accessed.
 /obj/machinery/cooking/proc/clickpos_to_surface(modifiers)

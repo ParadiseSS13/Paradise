@@ -19,6 +19,11 @@
 	/// A list of recipe types to list of step indices we know we've performed.
 	/// Ensures we don't perform e.g. optional steps we skipped on completion.
 	var/list/recipes_all_applied_steps = list()
+	/// A list of recipe types to metadata returned from completing its steps.
+	/// This may include things like a custom message shown to the player, or
+	/// the UID of relevant items used for determining quality at recipe
+	/// completion.
+	var/list/recipes_applied_step_data = list()
 	var/step_reaction_message
 
 /datum/cooking/recipe_tracker/New(obj/item/reagent_containers/cooking/container)
@@ -29,6 +34,7 @@
 	// singletons.
 	recipes_last_completed_step.Cut()
 	recipes_all_applied_steps.Cut()
+	recipes_applied_step_data.Cut()
 
 	return ..()
 
@@ -101,6 +107,8 @@
 
 	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
 	if(complete_steps)
+		recipes_applied_step_data += list(step_data)
+
 		// Empty out the stove data here so that it can be reused from zero for
 		// other cooking steps, as well as to prevent cheatiness where a recipe
 		// gets all of its cooking time done before it was supposed to in the
