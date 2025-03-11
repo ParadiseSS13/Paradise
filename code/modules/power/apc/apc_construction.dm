@@ -54,7 +54,7 @@
 
 					if(malfhack) // AI hacks board, not APC's frame
 						user.visible_message(\
-							"[user.name] has discarded the strangely programmed APC electronics from [name]!",
+							"<span class='notice'>[user.name] has discarded the strangely programmed APC electronics from [name]!</span>",
 							"<span class='notice'>You discarded the strangely programmed board.</span>",
 							"<span class='warning'>You hear metallic levering.</span>"
 							)
@@ -65,7 +65,7 @@
 						return
 
 					user.visible_message(\
-						"[user.name] has removed the APC electronics from [name]!",
+						"<span class='notice'>[user.name] has removed the APC electronics from [name]!</span>",
 						"<span class='notice'>You remove the APC electronics.</span>",
 						"<span class='warning'>You hear metallic levering.</span>"
 						)
