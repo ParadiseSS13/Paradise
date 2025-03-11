@@ -4,10 +4,21 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
+	var/open = FALSE
 	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
 	on = FALSE
 
+/obj/machinery/atmospherics/portable/electrolyzer/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/electrolyzer(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()
 
 /obj/machinery/atmospherics/portable/electrolyzer/examine(mob/user)
 	. = ..()
@@ -16,8 +27,31 @@
 			from sudden hydogen combustion or explosions. </span>"
 
 /obj/machinery/atmospherics/portable/electrolyzer/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	default_unfasten_wrench(user, I, 4 SECONDS)
+	if(!on)
+		. = TRUE
+		default_unfasten_wrench(user, I, 4 SECONDS)
+	if(on)
+		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
+		return
+
+/obj/machinery/atmospherics/portable/electrolyzer/screwdriver_act(mob/user, obj/item/I)
+	if(on)
+		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!open && !on)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+		open = TRUE
+		icon_state = "electrolyzer_open"
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		icon_state = "electrolyzer_off"
+		open = FALSE
+
+/obj/machinery/atmospherics/portable/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
+	if(!open)
+		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/atmospherics/portable/electrolyzer/AltClick(mob/user)
 	if(anchored)
@@ -69,7 +103,7 @@
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
 		var/water_vapor_to_remove = removed.water_vapor()
-		var/hydrogen_produced = (water_vapor_to_remove / 3) * 2
+		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(0)
 		env.set_hydrogen(hydrogen_produced)
