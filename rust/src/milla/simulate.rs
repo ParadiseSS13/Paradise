@@ -560,10 +560,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile
             .gases
             .set_agent_b(my_next_tile.gases.agent_b() - co2_converted * 0.05);
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
-        // THEN we can add in the new thermal energy.
+        // Add in the new thermal energy.
         thermal_energy += AGENT_B_CONVERSION_ENERGY * co2_converted;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
@@ -588,10 +587,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() + nitrous_decomposed / 2.0);
 
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
-        // THEN we can add in the new thermal energy.
+        // Add in the new thermal energy.
         thermal_energy += NITROUS_BREAKDOWN_ENERGY * nitrous_decomposed;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
@@ -634,9 +632,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA);
 
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
         // THEN we can add in the new thermal energy.
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
         // Recalculate temperature for any subsequent reactions.
@@ -681,8 +678,9 @@ pub(crate) fn apply_tile_mode(
             if my_next_tile.temperature() > SPACE_COOLING_THRESHOLD {
                 let excess_thermal_energy = my_next_tile.thermal_energy
                     - SPACE_COOLING_THRESHOLD * my_next_tile.heat_capacity();
-                let cooling = (SPACE_COOLING_FLAT + SPACE_COOLING_TEMPERATURE_RATIO * my_next_tile.temperature())
-                    .min(excess_thermal_energy);
+                let cooling = (SPACE_COOLING_FLAT
+                    + SPACE_COOLING_TEMPERATURE_RATIO * my_next_tile.temperature())
+                .min(excess_thermal_energy);
                 my_next_tile.thermal_energy -= cooling;
             }
         }
