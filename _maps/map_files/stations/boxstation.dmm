@@ -814,6 +814,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -51848,9 +51849,8 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "fvC" = (
@@ -60159,15 +60159,6 @@
 /obj/effect/spawner/airlock/s_to_n/long/square,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
-"jRt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "jRx" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
@@ -64081,9 +64072,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -64647,17 +64635,6 @@
 	icon_state = "blue"
 	},
 /area/station/maintenance/aft)
-"mcI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "mcM" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68017,12 +67994,6 @@
 /obj/item/phone,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
-"nUU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "nVf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 10
@@ -70644,6 +70615,12 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"pgY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "phh" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -71640,6 +71617,9 @@
 /area/station/turret_protected/ai_upload)
 "pHQ" = (
 /obj/structure/closet/secure_closet/brig/gulag,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -73281,6 +73261,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -76188,6 +76171,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
+"rVs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "rVK" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -80857,6 +80849,21 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"uAh" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "uAo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -84533,6 +84540,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"wDO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "wDS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109419,7 +109432,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+wDO
 aaa
 abN
 lfn
@@ -110190,7 +110203,7 @@ aaa
 aaa
 rcT
 aeH
-fvy
+uAh
 pHQ
 abN
 pgW
@@ -111218,7 +111231,7 @@ aaa
 hoB
 qhg
 aBA
-jRt
+rVs
 auC
 jeQ
 awB
@@ -111476,8 +111489,8 @@ aaa
 rcT
 jmO
 okY
-mcI
-nUU
+fvy
+pgY
 wsT
 ank
 ygh
@@ -111992,7 +112005,7 @@ fCv
 auy
 azV
 afa
-jRt
+rVs
 mnj
 aoh
 tXE
