@@ -63,6 +63,7 @@
 							/obj/item/stack/ore/bluespace_crystal/refined,
 							/obj/item/stack/sheet/mineral/titanium,
 							/obj/item/stack/sheet/plasmaglass,
+							/obj/item/stack/sheet/titaniumglass,
 							/obj/item/stack/sheet/plasteel,
 							/obj/item/stack/sheet/mineral/plastitanium,
 							/obj/item/stack/sheet/plastitaniumglass,
@@ -953,8 +954,8 @@
 	finished_product = /obj/item/smithed_item/tool_bit/economical
 
 /obj/item/smithed_item/component/bit_mount/advanced
-	name = "advanced bit head"
-	desc = "This is the secondary component of an advanced bit."
+	name = "advanced bit mount"
+	desc = "This is the primary component of an advanced bit."
 	materials = list(MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/advanced
 
