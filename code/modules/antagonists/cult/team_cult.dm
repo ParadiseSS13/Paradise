@@ -259,7 +259,7 @@ RESTRICT_TYPE(/datum/team/cult)
 			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
-	if(isanimal(mind.current))
+	if(isanimal_or_basicmob(mind.current))
 		return FALSE
 	return TRUE
 

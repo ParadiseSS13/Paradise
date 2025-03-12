@@ -210,6 +210,12 @@
 				occupantData["temperatureSuitability"] = -3
 			else if(silly.bodytemperature > silly.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
+		else if(isbasicmob(occupant))
+			var/mob/living/basic/basicmob = occupant
+			if(basicmob.bodytemperature < basicmob.minimum_survivable_temperature)
+				occupantData["temperatureSuitability"] = -3
+			else if(basicmob.bodytemperature > basicmob.maximum_survivable_temperature)
+				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
@@ -515,7 +521,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(isanimal(O) || issilicon(O)) //animals and robots dont fit
+	if(isanimal_or_basicmob(O) || issilicon(O)) //animals and robots dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return

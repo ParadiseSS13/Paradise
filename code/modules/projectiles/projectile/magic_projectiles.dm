@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"cat" = /mob/living/simple_animal/pet/cat,
 	"mouse" = /mob/living/simple_animal/mouse,
 	"chicken" = /mob/living/simple_animal/chicken,
-	"cow" = /mob/living/simple_animal/cow,
+	"cow" = /mob/living/basic/cow,
 	"lizard" = /mob/living/simple_animal/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
 	"chick" = /mob/living/simple_animal/chick,

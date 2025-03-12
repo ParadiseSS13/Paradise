@@ -18201,7 +18201,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjx" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "bjy" = (

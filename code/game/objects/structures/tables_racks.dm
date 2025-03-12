@@ -360,7 +360,7 @@
 /obj/structure/table/proc/get_flip_speed(mob/living/flipper)
 	if(!istype(flipper))
 		return 0 SECONDS // sure
-	if(!issimple_animal(flipper))
+	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
 	if(istype(flipper, /mob/living/simple_animal/revenant))
 		return 0 SECONDS  // funny ghost table

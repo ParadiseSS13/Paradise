@@ -39,14 +39,14 @@ SUBSYSTEM_DEF(ai_controllers)
 
 	timer = TICK_USAGE_REAL
 	for(var/datum/ai_controller/ai_controller as anything in ai_controllers_by_status[AI_STATUS_ON])
-		if(!COOLDOWN_FINISHED(ai_controller, failed_planning_cooldown))
-			continue
-
 		if(!ai_controller.able_to_plan())
 			continue
 		ai_controller.select_behaviors(wait / (1 SECONDS))
 		if(!LAZYLEN(ai_controller.current_behaviors)) //Still no plan
-			COOLDOWN_START(ai_controller, failed_planning_cooldown, AI_FAILED_PLANNING_COOLDOWN)
+			ai_controller.planning_failed()
+
+		if(MC_TICK_CHECK)
+			break
 
 	cost_on = MC_AVERAGE(cost_on, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 

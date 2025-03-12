@@ -163,7 +163,7 @@
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
-	else if(isanimal(victim))
+	else if(isanimal_or_basicmob(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
 		if(!isslaughterdemon(L))
