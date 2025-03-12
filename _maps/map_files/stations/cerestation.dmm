@@ -14656,11 +14656,6 @@
 	},
 /area/station/engineering/atmos)
 "bVY" = (
-/obj/machinery/camera{
-	c_tag = "Atmospheric Tanks 1";
-	dir = 1;
-	network = list("SS13","CE")
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -19440,6 +19435,22 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"cHK" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "cHL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -26876,13 +26887,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "dQT" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber North";
-	network = list("Toxins","Research","SS13")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera/toxins,
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "dQV" = (
@@ -27856,6 +27864,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Docking Asteroid Hall 1";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -28468,6 +28480,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"emh" = (
+/obj/structure/chair/sofa/corp{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Escape Wing South East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "emn" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -35312,6 +35334,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
+"fXv" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "fXz" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/extinguisher_cabinet{
@@ -41215,6 +41242,14 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"hAz" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine{
+	slowdown = -0.3
+	},
+/area/station/hallway/spacebridge/dockmed)
 "hAA" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -43951,6 +43986,25 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft/west)
+"ifI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera/autoname,
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/scidock)
 "ifJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -48165,6 +48219,24 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/starboard/south)
+"jer" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "jeu" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable/orange{
@@ -49578,22 +49650,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
-"juZ" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "jvd" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
@@ -51136,11 +51192,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
-"jKO" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "jKQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -51205,10 +51256,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/camera{
-	c_tag = "Docking Asteroid Hall 16";
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -53881,12 +53928,10 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/westalt)
 "kth" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber South";
-	dir = 1;
-	network = list("Toxins","Research","SS13")
-	},
 /obj/machinery/light,
+/obj/machinery/camera/toxins{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "ktk" = (
@@ -61836,10 +61881,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber West";
-	dir = 4;
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
@@ -71215,6 +71258,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"oDg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/camera{
+	c_tag = "Docking Asteroid Hall 16";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "oDx" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool{
@@ -76712,6 +76766,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/west)
+"pSZ" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/obj/machinery/camera/motion{
+	c_tag = "AI Core Middle";
+	dir = 1;
+	start_active = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "pTh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -76850,6 +76917,19 @@
 	icon_state = "dark"
 	},
 /area/station/medical/medbay3)
+"pUR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Atmospheric Tanks 1";
+	dir = 1;
+	network = list("SS13","CE")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "pUV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81181,6 +81261,21 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/robotics)
+"qWT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "qWZ" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -81777,14 +81872,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
-"rez" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
-/area/station/hallway/spacebridge/dockmed)
 "reB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
@@ -91868,6 +91955,27 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
+"tBs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Research Asteroid Hallway 6"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/aft/east)
 "tBx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -97288,21 +97396,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
-"uPR" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "uPU" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -108430,24 +108523,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/public/pet_store)
-"xAk" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/scidock)
 "xAr" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel,
@@ -109714,10 +109789,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Docking Asteroid Hall 1";
-	dir = 6
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28;
 	name = "custom placement"
@@ -110271,24 +110342,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"xUV" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "xUW" = (
 /obj/machinery/computer/shuttle/labor{
 	dir = 4
@@ -140251,7 +140304,7 @@ ccW
 ccW
 ccW
 vep
-sej
+tBs
 ciG
 uJF
 vep
@@ -140729,7 +140782,7 @@ bQs
 bUZ
 bUV
 bVw
-bVW
+pUR
 bDR
 bDR
 bDR
@@ -146419,7 +146472,7 @@ cYB
 cYB
 cYB
 cYB
-olT
+ePh
 qyP
 hKz
 cYB
@@ -146933,7 +146986,7 @@ hBQ
 hBQ
 hBQ
 uVb
-xAk
+ifI
 yjI
 dVe
 uVb
@@ -156404,7 +156457,7 @@ ooM
 bmR
 wDU
 oXl
-xUV
+jer
 lVF
 nos
 ksp
@@ -156422,7 +156475,7 @@ qnI
 wkP
 aXr
 mBh
-mBh
+oDg
 hJd
 xMv
 jLv
@@ -156557,7 +156610,7 @@ kDE
 agQ
 vTo
 aii
-afU
+pSZ
 vTo
 akt
 akZ
@@ -156661,11 +156714,11 @@ bvt
 bvt
 bvt
 qkV
-uPR
+qWT
 oEj
 bio
 bio
-rez
+hAz
 bio
 oiB
 bio
@@ -156918,7 +156971,7 @@ fXz
 hCz
 npl
 jLn
-juZ
+cHK
 lAC
 xwI
 xwI
@@ -163899,7 +163952,7 @@ ceQ
 cfO
 cpF
 hcB
-hiI
+emh
 iTR
 aXn
 aXn
@@ -171025,7 +171078,7 @@ lCC
 hnV
 tqi
 tqi
-jKO
+fXv
 eKJ
 wyL
 iJv

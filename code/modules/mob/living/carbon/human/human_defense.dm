@@ -461,10 +461,9 @@ emp_act
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
-		return FALSE
+		return
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
@@ -479,7 +478,7 @@ emp_act
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
-			return FALSE
+			return
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 
@@ -492,16 +491,16 @@ emp_act
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
-			return FALSE
+			return
 
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return FALSE //item force is zero
+		return //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
-		return FALSE
+		return
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
@@ -809,10 +808,10 @@ emp_act
 		O.water_act(volume, temperature, source, method)
 
 
-
-/mob/living/carbon/human/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/carbon/human/attack_by(obj/item/I, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+		return FINISH_ATTACK
+
 	return ..()
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
