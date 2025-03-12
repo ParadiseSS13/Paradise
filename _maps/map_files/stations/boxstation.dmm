@@ -990,10 +990,10 @@
 /area/station/security/warden)
 "afo" = (
 /obj/structure/table,
-/obj/item/storage/box/prisoner,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/storage/box/prisoner,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
