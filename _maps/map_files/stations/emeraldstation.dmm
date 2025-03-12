@@ -2055,6 +2055,14 @@
 "avB" = (
 /turf/simulated/wall/r_wall,
 /area/station/supply/miningdock)
+"avC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/camera{
+	c_tag = "Atmospherics East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "avK" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -20072,6 +20080,16 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/west)
+"eaG" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Port Space Bridge";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/west)
 "eaM" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -34392,15 +34410,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/science/break_room)
-"gQp" = (
-/obj/effect/turf_decal/siding{
-	dir = 6
-	},
-/obj/structure/sign/security{
-	pixel_y = 32
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "gQR" = (
 /obj/structure/closet/secure_closet/iaa,
 /obj/item/storage/briefcase,
@@ -34725,12 +34734,6 @@
 "gUo" = (
 /turf/space,
 /area/station/maintenance/security/fore)
-"gUv" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/west)
 "gUA" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in"
@@ -48620,10 +48623,6 @@
 /area/station/hallway/secondary/entry/east)
 "jFq" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -65540,10 +65539,6 @@
 /area/station/hallway/primary/aft)
 "ndZ" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -69033,6 +69028,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
+"nMi" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Aft Space Bridge";
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "nMj" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -70059,9 +70064,6 @@
 /area/station/public/sleep)
 "nWl" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Port Space Bridge"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -74779,12 +74781,8 @@
 "oQC" = (
 /obj/effect/turf_decal/stripes,
 /obj/item/beacon,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber Center";
-	dir = 8;
-	invuln = 1;
-	name = "Hardened Bomb-Test Security Camera";
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
@@ -96848,12 +96846,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"tiu" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "tiw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
@@ -120482,6 +120474,19 @@
 	icon_state = "black"
 	},
 /area/station/engineering/transmission_laser)
+"xUT" = (
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
+/obj/structure/sign/security{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Security Offices North";
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "xUW" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -143298,7 +143303,7 @@ tFw
 iHy
 mbm
 mBF
-mBF
+avC
 pPc
 vSM
 mBF
@@ -143555,7 +143560,7 @@ tFw
 gDT
 mel
 kvh
-hlq
+nJb
 jRZ
 fan
 hlq
@@ -160998,7 +161003,7 @@ aZS
 aZS
 ebB
 nWl
-gUv
+eaG
 rkB
 iNH
 ciw
@@ -168995,7 +169000,7 @@ dem
 ejl
 hWb
 vmL
-tiu
+nMi
 qrU
 kue
 kue
@@ -170034,7 +170039,7 @@ osi
 kue
 kue
 osi
-gQp
+xUT
 fax
 vQC
 osi

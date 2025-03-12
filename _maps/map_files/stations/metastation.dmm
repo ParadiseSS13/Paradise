@@ -21840,6 +21840,9 @@
 /area/station/service/kitchen)
 "bHS" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/camera{
+	c_tag = "Kitchen - Aft"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -38218,16 +38221,11 @@
 	},
 /area/station/medical/surgery/observation)
 "cZa" = (
-/obj/machinery/camera{
-	c_tag = "Bomb Test Site";
-	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top.";
-	dir = 10;
-	invuln = 1;
-	name = "Hardened Bomb-Test Camera";
-	network = list("Toxins","Research","SS13")
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/target/alien,
+/obj/machinery/camera/toxins{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
 "cZc" = (
@@ -53949,8 +53947,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/camera{
+	c_tag = "Xenobiology Lab - Space Bridge";
+	dir = 8;
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54477,7 +54477,7 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/camera{
-	c_tag = "Kitchen";
+	c_tag = "Kitchen - Fore";
 	dir = 4
 	},
 /obj/machinery/light{
@@ -66205,6 +66205,10 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Bar - Aft";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -70500,11 +70504,6 @@
 	},
 /area/station/aisat)
 "qSr" = (
-/obj/machinery/camera{
-	c_tag = "Prisoner Execution Chamber";
-	dir = 4;
-	network = list("Prison","SS13")
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
