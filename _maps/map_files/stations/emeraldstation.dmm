@@ -39016,10 +39016,6 @@
 /mob/living/simple_animal/pet/dog/fox/renault,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"hJv" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/security/prisonershuttle)
 "hJB" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -175387,7 +175383,7 @@ fxz
 pud
 wiL
 wiL
-hJv
+wiL
 jnP
 fiv
 gZs
