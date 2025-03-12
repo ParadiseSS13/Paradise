@@ -17,6 +17,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
@@ -50,8 +51,12 @@
 		open = FALSE
 
 /obj/machinery/atmospherics/portable/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
-	if(!open)
-		default_deconstruction_crowbar(user, I)
+	if(open)
+		deconstruct(TRUE)
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		I.play_tool_sound(user, I.tool_volume)
+		return TRUE
+	return FALSE
 
 /obj/machinery/atmospherics/portable/electrolyzer/AltClick(mob/user)
 	if(anchored)
