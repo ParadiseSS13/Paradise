@@ -56588,7 +56588,6 @@
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/machinery/computer/area_atmos,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -65817,23 +65816,10 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "joZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/critical/directional/north,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -66496,30 +66482,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"jMY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Portable Scrubber Connector"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/thermomachine/heater,
-/obj/machinery/camera{
-	c_tag = "Research Toxin Mixing";
-	network = list("Research","SS13")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "jNg" = (
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/economy/vending/cargodrobe,
@@ -90150,6 +90112,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/computer/area_atmos{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -125155,7 +125123,7 @@ lSu
 aYf
 rOe
 dkI
-jMY
+aYb
 plr
 kbA
 uUX
