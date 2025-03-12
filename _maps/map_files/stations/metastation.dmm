@@ -38262,16 +38262,11 @@
 	},
 /area/station/medical/surgery/observation)
 "cZa" = (
-/obj/machinery/camera{
-	c_tag = "Bomb Test Site";
-	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top.";
-	dir = 10;
-	invuln = 1;
-	name = "Hardened Bomb-Test Camera";
-	network = list("Toxins","Research","SS13")
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/target/alien,
+/obj/machinery/camera/toxins{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
 "cZc" = (

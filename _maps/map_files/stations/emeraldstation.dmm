@@ -74676,12 +74676,8 @@
 "oQC" = (
 /obj/effect/turf_decal/stripes,
 /obj/item/beacon,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber Center";
-	dir = 8;
-	invuln = 1;
-	name = "Hardened Bomb-Test Security Camera";
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)

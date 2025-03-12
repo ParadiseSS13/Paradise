@@ -52032,10 +52032,8 @@
 /area/station/science/toxins/test)
 "dCz" = (
 /obj/item/target,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber East";
-	dir = 4;
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/station/science/toxins/test)
