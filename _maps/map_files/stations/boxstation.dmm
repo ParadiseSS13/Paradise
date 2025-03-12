@@ -55643,10 +55643,10 @@
 /obj/structure/table,
 /obj/item/clothing/shoes/orange,
 /obj/item/restraints/handcuffs,
-/obj/item/clothing/under/color/orange/prison,
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North"
 	},
+/obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
