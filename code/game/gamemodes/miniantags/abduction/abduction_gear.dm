@@ -708,10 +708,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /////////////////////////////////////////
 /////////// MEDICAL TOOLS ///////////////
 /////////////////////////////////////////
-/obj/item/scalpel/alien
+/obj/item/scalpel/laser/alien
 	name = "alien scalpel"
-	desc = "It's a gleaming sharp knife made out of silvery-green metal."
+	desc = "A translucent blade attached to a handle of strange silvery metal. When held still against broken flesh, the blade becomes extremely hot."
 	icon = 'icons/obj/abductor.dmi'
+	icon_state = "scalpel"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
@@ -739,13 +740,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
-	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
-
-/obj/item/cautery/alien
-	name = "alien cautery"
-	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
