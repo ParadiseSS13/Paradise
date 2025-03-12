@@ -142,7 +142,7 @@
 	var/lastwarning = 0
 	/// Refered to as eer on the moniter. This value effects gas output, heat, and damage.
 	var/power = 0
-	/// This is the power between getting increased and reduced. It affects radiation.______qdel_list_wrapper(list/L)
+	/// This is the power between getting increased and reduced. It affects radiation.
 	var/pre_reduction_power = 0
 	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
 	var/gas_coefficient = 0
