@@ -101,7 +101,7 @@
 	for(var/i in 1 to length(valid_recipes[use_step_type]))
 		var/datum/cooking/recipe/recipe = valid_recipes[use_step_type][i]
 		var/datum/cooking/recipe_step/recipe_step = valid_steps[i]
-		if(recipe_step.is_complete(used, src))
+		if(recipe_step.is_complete(used, src, step_data))
 			recipes_last_completed_step[recipe] = attempted_step_per_recipe[recipe]
 			complete_steps++
 

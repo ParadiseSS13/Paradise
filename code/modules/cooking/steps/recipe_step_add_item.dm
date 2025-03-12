@@ -38,10 +38,13 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 			return PCWJ_CHECK_VALID
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/add_item/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker)
+/datum/cooking/recipe_step/add_item/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
 	var/obj/item/container = locateUID(tracker.container_uid)
 	if(!istype(container))
 		return FALSE
+
+	if("stack_added" in step_data && step_data["stack_added"] == item_type)
+		return TRUE
 
 	return (added_item in container.contents)
 
@@ -59,7 +62,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 				if(stack.use(1))
 					var/stack_type = stack.type
 					new stack_type(container, 1)
-					return list(message = "You add one of \the [stack.name] to \the [container].")
+					return list(message = "You add one of \the [stack.name] to \the [container].", stack_added = stack_type)
 				else
 					to_chat(user, "<span class='notice'>You can't remove one of \the [stack.name] from the stack!</span>")
 					return list()
@@ -107,5 +110,5 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	if(!storage_count)
 		return AUTOCHEF_ACT_NO_AVAILABLE_STORAGE
 
-	autochef.atom_say("Missing [item_type::name].")
+	autochef.atom_say("Cannot find [item_type::name].")
 	return AUTOCHEF_ACT_MISSING_INGREDIENT

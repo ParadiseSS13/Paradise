@@ -32,7 +32,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 
 	return PCWJ_CHECK_INVALID
 
-/datum/cooking/recipe_step/add_produce/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker)
+/datum/cooking/recipe_step/add_produce/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
 	var/obj/item/container = locateUID(tracker.container_uid)
 	if(!istype(container))
 		return FALSE

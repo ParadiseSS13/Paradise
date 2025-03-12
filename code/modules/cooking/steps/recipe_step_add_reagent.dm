@@ -86,7 +86,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 
 	return list(message = "You transfer [trans] units to \the [container].")
 
-/datum/cooking/recipe_step/add_reagent/is_complete(obj/used_item, datum/cooking/recipe_tracker/tracker)
+/datum/cooking/recipe_step/add_reagent/is_complete(obj/used_item, datum/cooking/recipe_tracker/tracker, list/step_data)
 	var/obj/item/container = locateUID(tracker.container_uid)
 	if(!istype(container))
 		return FALSE
@@ -112,6 +112,8 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 						return AUTOCHEF_ACT_STEP_COMPLETE
 
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
+	task.autochef.atom_say("Missing [reagent.name].")
 	return AUTOCHEF_ACT_MISSING_REAGENT
 
 /datum/cooking/recipe_step/add_reagent/attempt_autochef_prepare(obj/machinery/autochef/autochef)
@@ -120,4 +122,6 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 			if(container.reagents.has_reagent(reagent_id, amount))
 				return AUTOCHEF_ACT_VALID
 
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
+	autochef.atom_say("Cannot find [reagent.name].")
 	return AUTOCHEF_ACT_MISSING_REAGENT

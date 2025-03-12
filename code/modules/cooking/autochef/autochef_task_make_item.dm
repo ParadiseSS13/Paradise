@@ -56,7 +56,6 @@
 			else
 				return FALSE
 		if(AUTOCHEF_ACT_MISSING_REAGENT)
-			autochef.atom_say("Missing required reagents.")
 			return FALSE
 		if(AUTOCHEF_ACT_FAILED)
 			autochef.atom_say("Unknown error.")
