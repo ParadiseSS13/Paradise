@@ -12,7 +12,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list("SS13","Mining Outpost","Labor Camp")
+	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")
 	var/obj/machinery/camera/active_camera
 	/// The list of total watchers, living and dead, of this console.
 	var/list/watchers = list()
@@ -355,7 +355,7 @@
 /obj/machinery/computer/security/telescreen/rd
 	name = "research director monitor"
 	desc = "Used for watching the RD's goons from the safety of his office."
-	network = list("Research","RD","MiniSat")
+	network = list("Research", "RD", "MiniSat")
 	circuit = /obj/item/circuitboard/camera/rd
 
 /obj/machinery/computer/security/telescreen/prison
