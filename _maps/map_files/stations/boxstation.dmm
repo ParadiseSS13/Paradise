@@ -59705,8 +59705,8 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "jDf" = (
-/obj/structure/table,
 /obj/item/hand_labeler,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
