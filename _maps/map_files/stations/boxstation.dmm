@@ -1013,9 +1013,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "afq" = (
@@ -1114,7 +1111,6 @@
 	},
 /area/station/security/prisonershuttle)
 "afV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2580,7 +2576,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -10339,9 +10334,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "aKS" = (
@@ -82487,6 +82479,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"vwu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/station/security/brig)
 "vwz" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
@@ -84540,6 +84545,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"wDO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "wDS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -111999,7 +112010,7 @@ fCv
 auy
 azV
 afa
-rVs
+wDO
 mnj
 aoh
 tXE
@@ -112518,7 +112529,7 @@ afV
 agp
 akU
 akY
-xvg
+vwu
 anT
 thV
 ars
