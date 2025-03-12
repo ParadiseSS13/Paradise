@@ -1046,19 +1046,16 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
 "aip" = (
-/obj/machinery/ai_status_display{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/emcloset,
 /obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -2079,6 +2076,13 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore2)
+"aoz" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/port/north)
 "aoA" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -62793,9 +62797,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/status_display{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -63903,6 +63904,13 @@
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
+"ims" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/lobby)
 "imG" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop{
@@ -64637,6 +64645,10 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/paramedic,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -65642,13 +65654,22 @@
 /area/station/supply/warehouse)
 "jkN" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28
 	},
 /obj/machinery/newscaster/security_unit/directional/south,
+/obj/machinery/recharger{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/paper_bin{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/pen/multi{
+	pixel_x = -7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67031,6 +67052,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/south)
+"kdT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central)
 "kej" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -67204,6 +67235,13 @@
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"khT" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/starboard/east)
 "khY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -72901,6 +72939,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"nrA" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedbar)
 "nsl" = (
 /obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
@@ -75493,6 +75535,10 @@
 /obj/structure/table/wood,
 /obj/machinery/light,
 /obj/machinery/keycard_auth,
+/obj/item/stamp/hos{
+	pixel_x = 12;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82663,6 +82709,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
+"sDM" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/reception)
 "sDN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -117367,7 +117420,7 @@ sEA
 cXS
 drn
 irt
-yeh
+nrA
 dfU
 dcT
 deD
@@ -122722,7 +122775,7 @@ bGR
 brV
 brV
 brV
-brV
+aoz
 bQw
 brV
 bUC
@@ -129181,7 +129234,7 @@ cIW
 cKw
 cMd
 msD
-mxh
+ims
 tQM
 cSm
 cZt
@@ -132501,7 +132554,7 @@ drp
 bYv
 mTf
 bYv
-clS
+kdT
 tmq
 tmq
 cqo
@@ -136889,7 +136942,7 @@ ckv
 cHN
 ppu
 cKX
-nCu
+sDM
 cNW
 vXU
 qqT
@@ -144055,7 +144108,7 @@ vOc
 hhU
 vOc
 vOc
-bAN
+khT
 bVq
 sUE
 pYm

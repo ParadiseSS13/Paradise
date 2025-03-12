@@ -5711,10 +5711,10 @@
 /area/shuttle/syndicate)
 "ug" = (
 /obj/structure/rack,
-/obj/item/ammo_box/magazine/mm556x45,
-/obj/item/ammo_box/magazine/mm556x45,
-/obj/item/ammo_box/magazine/mm556x45,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/mm762x51,
+/obj/item/ammo_box/magazine/mm762x51,
+/obj/item/ammo_box/magazine/mm762x51,
+/obj/item/ammo_box/magazine/mm762x51,
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw{
 	pixel_x = 3;
