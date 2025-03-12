@@ -344,9 +344,12 @@ Difficulty: Hard
 	if(P.damage)
 		disable_shield()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!body_shield_enabled)
-		return ..()
+		return
 	do_sparks(2, 1, src)
 	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
 	if(I.force)

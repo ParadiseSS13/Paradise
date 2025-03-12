@@ -525,6 +525,9 @@
 	target.Weaken(power)
 	COOLDOWN_START(src, enchant_cooldown, cooldown)
 
+/datum/enchantment/bluespace/on_apply_to_blade(obj/item/melee/spellblade/S)
+	cooldown /= S.power
+
 /datum/enchantment/time_slash
 	name = "temporal"
 	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"

@@ -31686,6 +31686,10 @@
 	pixel_x = 7;
 	pixel_y = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Medbay Cryogenics";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -32430,13 +32434,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "clH" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber North";
-	network = list("Toxins","Research","SS13")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera/toxins,
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "clL" = (
@@ -33281,10 +33282,6 @@
 "cpn" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/obj/machinery/camera{
-	c_tag = "Medbay Cryogenics";
-	dir = 1
-	},
 /obj/structure/table/glass,
 /obj/item/roller{
 	pixel_x = -2;
@@ -34890,10 +34887,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cvv" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber East";
-	dir = 8;
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
@@ -37226,12 +37221,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
 "cDN" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber South";
-	dir = 1;
-	network = list("Toxins","Research","SS13")
-	},
 /obj/machinery/light,
+/obj/machinery/camera/toxins{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "cDO" = (
@@ -48997,10 +48990,6 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Engineering SMES";
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -56189,6 +56178,10 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering SMES";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -68174,6 +68167,20 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
+"ock" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Dormitories East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/public/dorms)
 "ocw" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -78283,7 +78290,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tks" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "tky" = (
@@ -82997,11 +83004,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera{
-	c_tag = "Prison General North";
-	dir = 5;
-	network = list("Prison","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -86467,6 +86469,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Prison General North";
+	dir = 5;
+	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -125206,7 +125213,7 @@ aSR
 aVu
 cLP
 bbw
-bbw
+ock
 bdm
 bfz
 aOI
