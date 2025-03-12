@@ -26025,12 +26025,12 @@
 	},
 /area/station/engineering/break_room)
 "bKo" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -51352,7 +51352,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -63885,7 +63884,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -72628,8 +72626,8 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "nlB" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -89953,9 +89951,9 @@
 	},
 /area/station/maintenance/port)
 "wsZ" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -90762,11 +90760,11 @@
 	},
 /area/station/hallway/primary/central/north)
 "wQi" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -90839,7 +90837,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

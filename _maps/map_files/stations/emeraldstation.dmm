@@ -6809,18 +6809,13 @@
 /turf/space,
 /area/station/engineering/solar/fore_port)
 "bsT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/machinery/alarm/directional/south,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkred"
 	},
-/area/station/security/brig)
+/area/station/security/prisonershuttle)
 "btg" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -18415,9 +18410,6 @@
 "dHi" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -35382,8 +35374,10 @@
 /area/station/engineering/break_room)
 "haY" = (
 /obj/structure/table,
+/obj/machinery/firealarm/directional/south,
 /obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
+	dir = 10;
 	icon_state = "darkred"
 	},
 /area/station/security/prisonershuttle)
@@ -37115,7 +37109,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39024,19 +39017,9 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "hJv" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Secure Gate";
-	name = "Security Blast Door"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/security/brig)
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/station/security/prisonershuttle)
 "hJB" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -44756,6 +44739,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57609,6 +57595,9 @@
 /obj/structure/chair/sofa/bench{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -61858,10 +61847,12 @@
 	},
 /area/station/hallway/spacebridge/security/west)
 "mqW" = (
-/obj/structure/table,
-/obj/machinery/firealarm/directional/south,
+/obj/structure/rack,
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/station/security/prisonershuttle)
 "mrc" = (
@@ -77143,6 +77134,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89275,11 +89269,9 @@
 	},
 /area/station/security/evidence)
 "rKK" = (
-/obj/structure/rack,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/light,
 /obj/machinery/newscaster/security_unit/directional/south,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -92917,7 +92909,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -103309,10 +103301,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "uxl" = (
-/obj/structure/closet/emcloset,
-/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 4;
 	icon_state = "darkred"
 	},
 /area/station/security/prisonershuttle)
@@ -116515,7 +116505,9 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
 "xgu" = (
@@ -173082,7 +173074,7 @@ iFe
 bkp
 iFe
 tGJ
-bsT
+iFe
 iRT
 qJh
 iFe
@@ -173339,7 +173331,7 @@ tZY
 dGn
 lvl
 lvl
-kSp
+lvl
 pnq
 lvl
 bcW
@@ -173853,7 +173845,7 @@ unO
 ucC
 sFh
 tsa
-hJv
+tsa
 xgp
 fiv
 fiv
@@ -174109,8 +174101,8 @@ sup
 hsc
 rLP
 mqW
+haY
 tsa
-jnP
 jnP
 fiv
 wwv
@@ -174365,9 +174357,9 @@ uab
 wqy
 wQa
 dGH
-haY
+dGH
+tiW
 tsa
-jnP
 jnP
 fiv
 aqN
@@ -174622,9 +174614,9 @@ joA
 jcZ
 lVb
 dGH
+dGH
 rKK
 tsa
-jnP
 jnP
 fiv
 gNo
@@ -174879,9 +174871,9 @@ qym
 uoe
 pgY
 dGH
+dGH
 tiW
 tsa
-jnP
 jnP
 fiv
 hAf
@@ -175137,8 +175129,8 @@ oAw
 ofZ
 dGH
 uxl
+bsT
 tsa
-uSX
 jnP
 fiv
 fiv
@@ -175395,7 +175387,7 @@ fxz
 pud
 wiL
 wiL
-aZS
+hJv
 jnP
 fiv
 gZs
