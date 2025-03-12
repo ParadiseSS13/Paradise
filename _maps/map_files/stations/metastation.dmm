@@ -66250,6 +66250,10 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Bar - Aft";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -71338,20 +71342,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
 "rmt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/camera{
-	c_tag = "Bar - Aft";
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/economy/atm/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "rmz" = (
