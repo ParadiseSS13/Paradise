@@ -78264,7 +78264,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tks" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "tky" = (
