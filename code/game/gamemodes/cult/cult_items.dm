@@ -811,13 +811,12 @@
 	if(target)
 		exit = new /obj/effect/cult_portal_exit(target)
 
-/obj/effect/portal/cult/attackby__legacy__attackchain(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
-		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+/obj/effect/portal/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) || (istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY)))
+		to_chat(user, "<span class='notice'>You close the portal with your [used].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/portal/cult/Destroy()
 	QDEL_NULL(exit)

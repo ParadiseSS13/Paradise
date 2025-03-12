@@ -22,6 +22,7 @@
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
+	stat_attack = UNCONSCIOUS
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
@@ -61,12 +62,30 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	if(prob(melee_block_chance))
-		visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
-		user.do_attack_animation(src)
-		return
-	return ..()
+/mob/living/simple_animal/hostile/syndicate/melee/attack_by(obj/item/O, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
+	if(O.force)
+		if(prob(melee_block_chance))
+			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
+		else
+			var/damage = O.force
+			if(O.damtype == STAMINA)
+				damage = 0
+			if(force_threshold && damage < force_threshold)
+				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
+				return
+			adjustHealth(damage)
+			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
+		playsound(loc, O.hitsound, 25, TRUE, -1)
+	else
+		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
+
+	return FINISH_ATTACK
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
@@ -88,7 +107,6 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = UNCONSCIOUS
 	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
