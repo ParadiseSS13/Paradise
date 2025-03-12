@@ -75,7 +75,7 @@
 #define COOKBOOK_CATEGORY_VEGE "Vegetarian Dishes"
 #define COOKBOOK_CATEGORY_DONUTS "Donuts"
 
-#define RADIAL_ACTION_SET_TIMER "Set timer"
+#define RADIAL_ACTION_SET_ALARM "Set alarm"
 #define RADIAL_ACTION_SET_TEMPERATURE "Set temperature"
 #define RADIAL_ACTION_ON_OFF "Turn on/off"
 

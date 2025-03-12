@@ -17,6 +17,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/allow_temp_change = TRUE
 	VAR_PRIVATE/burn_callback
 	VAR_PRIVATE/fire_callback
+	VAR_PRIVATE/alarm_callback
 
 /datum/cooking_surface/New(obj/machinery/cooking/parent_)
 	. = ..()
@@ -25,10 +26,11 @@ RESTRICT_TYPE(/datum/cooking_surface)
 /datum/cooking_surface/proc/container_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 	examine_list += "<span class='notice'>[examine_text()]</span>"
+	if(timer)
+		examine_list += "<span class='notice'>Its alarm is configured for [timer / (1 SECONDS)] seconds.</span>"
 
 /datum/cooking_surface/proc/examine_text()
-	var/timer_text = timer ? "is set to [timer / (1 SECONDS)] seconds" : "will cook"
-	return "This [surface_name] [timer_text] at [temperature] temperature."
+	return "This [surface_name] will cook at [temperature] temperature."
 
 /datum/cooking_surface/proc/handle_cooking(mob/user)
 	if(container)
@@ -41,10 +43,6 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 		container.set_cooker_data(src, stop_watch(cooktime) SECONDS)
 		container.process_item(user, parent)
-
-	if(timer && (stop_watch(cooktime) SECONDS) >= timer)
-		turn_off(user)
-		return
 
 /datum/cooking_surface/proc/handle_switch(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
@@ -74,12 +72,20 @@ RESTRICT_TYPE(/datum/cooking_surface)
 /datum/cooking_surface/proc/turn_on(mob/user)
 	on = TRUE
 	set_burn_ignite_callbacks()
+	restart_timer()
 	reset_cooktime()
+
+/datum/cooking_surface/proc/restart_timer()
+	if(alarm_callback)
+		deltimer(alarm_callback)
+	if(timer)
+		alarm_callback = addtimer(CALLBACK(src, PROC_REF(handle_alarm)), timer, TIMER_STOPPABLE)
 
 /datum/cooking_surface/proc/turn_off(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
 	on = FALSE
 	unset_callbacks()
+	deltimer(alarm_callback)
 	cooktime = -1
 	parent.update_appearance(UPDATE_ICON)
 
@@ -91,6 +97,10 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	if(istype(container) && container.handle_ignition())
 		parent.ignite()
 
+/datum/cooking_surface/proc/handle_alarm()
+	parent.atom_emote("dings.")
+	playsound(parent.loc, 'sound/machines/bell.ogg', 50, FALSE)
+
 /datum/cooking_surface/proc/unset_callbacks()
 	deltimer(burn_callback)
 	deltimer(fire_callback)
@@ -99,12 +109,14 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/old_time = timer ? timer / (1 SECONDS) : 1
 	var/timer_input = tgui_input_number(
 		user,
-		message = "Enter a timer for the burner in seconds. To keep on, set to zero.",
-		title = "Set Timer",
+		message = "Enter an alarm for the burner in seconds. Enter zero to disable alarm.",
+		title = "Set Alarm",
 		default = old_time,
 		max_value = 60)
 	if(!isnull(timer_input))
 		timer = timer_input SECONDS
+		if(on)
+			restart_timer()
 
 	parent.update_appearance(UPDATE_ICON)
 

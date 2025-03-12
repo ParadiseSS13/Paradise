@@ -110,7 +110,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
 	var/list/surface_options = list(
-		RADIAL_ACTION_SET_TIMER = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_settime"),
+		RADIAL_ACTION_SET_ALARM = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_setalarm"),
 		RADIAL_ACTION_ON_OFF = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff"),
 	)
 	if(surface.allow_temp_change)
@@ -118,7 +118,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	var/option_choice = show_radial_menu(user, src, surface_options, require_near = TRUE)
 
 	switch(option_choice)
-		if(RADIAL_ACTION_SET_TIMER)
+		if(RADIAL_ACTION_SET_ALARM)
 			surface.handle_timer(user)
 		if(RADIAL_ACTION_SET_TEMPERATURE)
 			surface.handle_temperature(user)
