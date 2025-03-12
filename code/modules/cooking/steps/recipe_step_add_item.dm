@@ -43,8 +43,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	if(!istype(container))
 		return FALSE
 
-	if("stack_added" in step_data && step_data["stack_added"] == item_type)
-		return TRUE
+	if(exact_path)
+		if(step_data["stack_added"] == item_type)
+			return TRUE
+	else
+		if(ispath(step_data["stack_added"], item_type))
+			return TRUE
 
 	return (added_item in container.contents)
 

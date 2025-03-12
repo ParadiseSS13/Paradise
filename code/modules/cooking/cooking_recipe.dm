@@ -147,13 +147,11 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
 					exclude_list |= recipe_step
 					break
 
-		if(can_add)
+		if(can_add && added_item.reagents)
 			if(length(exclude_specific_reagents))
 				for(var/id in exclude_specific_reagents)
 					added_item.reagents.remove_reagent(id, added_item.reagents.get_reagent_amount(id), safety = TRUE)
-
-			if(added_item.reagents)
-				added_item.reagents.trans_to(slurry, amount = added_item.reagents.total_volume)
+			added_item.reagents.trans_to(slurry, amount = added_item.reagents.total_volume)
 
 	// Purge the contents of the container we no longer need it
 	QDEL_LIST_CONTENTS(container.contents)

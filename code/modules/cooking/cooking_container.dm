@@ -3,6 +3,12 @@
 	icon_state = "blank"
 	vis_flags = VIS_INHERIT_ID
 
+/// Abstract reagent container used for transferring from non-containers e.g. sinks
+/obj/item/reagent_containers/temp
+	container_type = OPENCONTAINER
+	amount_per_transfer_from_this = 5
+	list_reagents = list("water" = 5)
+
 /**
  * Cooking containers are used in ovens, fryers and so on, to hold multiple
  * ingredients for a recipe. They interact with the cooking process, and link
@@ -173,7 +179,7 @@
 	log_debug("cooking_container/do_empty() called!")
 	#endif
 
-	if(length(contents))
+	if(length(contents) || (reagent_clear && reagents.total_volume > 0))
 		for(var/contained in contents)
 			var/atom/movable/AM = contained
 			remove_from_visible(AM)
@@ -193,6 +199,14 @@
 	clear_cooking_data()
 	if(claimed)
 		SEND_SIGNAL(src, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, null)
+
+/obj/item/reagent_containers/cooking/wash(mob/user, atom/source)
+	if(reagents.total_volume >= volume)
+		to_chat(user, "<span class='warning'>[src] is full.</span>")
+	else
+		var/obj/item/reagent_containers/temp/temp_container = new()
+		process_item(user, temp_container)
+		qdel(temp_container)
 
 /obj/item/reagent_containers/cooking/AltClick(mob/user)
 	if(!is_valid_interaction(user))
