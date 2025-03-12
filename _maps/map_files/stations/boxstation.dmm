@@ -84540,12 +84540,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"wDO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "wDS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109432,7 +109426,7 @@ aaa
 aaa
 aaa
 aaa
-wDO
+aaa
 aaa
 abN
 lfn
