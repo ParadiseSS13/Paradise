@@ -38,9 +38,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)

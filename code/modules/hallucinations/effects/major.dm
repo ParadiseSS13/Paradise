@@ -68,15 +68,15 @@
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
 						"<span class='userdanger'>You get stuck in [src]!</span>")
 
-/obj/effect/hallucination/tripper/spider_web/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/effect/hallucination/tripper/spider_web/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user != target)
-		return
-
+		return ITEM_INTERACT_COMPLETE
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
-	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
-						"<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [used.name] as if striking something, only to trip!</span>",
+						"<span class='userdanger'>[src] vanishes as you strike it with [used], causing you to stumble forward!</span>")
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * # Hallucination - Abduction

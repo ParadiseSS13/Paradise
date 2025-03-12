@@ -117,8 +117,10 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby__legacy__attackchain()
-	for(var/mob/M in src)
+/obj/effect/dummy/chameleon/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	for(var/mob/M in src)	
 		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
@@ -186,8 +188,8 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	var/active = FALSE
-	var/activationCost = 300
-	var/activationUpkeep = 50
+	var/activation_cost = 300
+	var/activation_upkeep = 50
 	var/image/disguise
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 
@@ -205,13 +207,13 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self__legacy__attackchain(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge > activationCost)
+	if(user && user.cell && user.cell.charge > activation_cost)
 		if(isturf(user.loc))
 			toggle(user)
 		else
 			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
 	else
-		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+		to_chat(user, "<span class='warning'>You need at least [activation_cost] charge in your cell to use [src]!</span>")
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
@@ -220,7 +222,7 @@
 		return
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	apply_wibbly_filters(user)
-	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activationCost))
+	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activation_cost))
 		activate(user)
 	else
 		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
@@ -229,7 +231,7 @@
 
 /obj/item/borg_chameleon/process()
 	if(S)
-		if(!S.cell || !S.cell.use(activationUpkeep))
+		if(!S.cell || !S.cell.use(activation_upkeep))
 			disrupt(S)
 		return
 	return PROCESS_KILL

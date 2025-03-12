@@ -184,8 +184,10 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
+/mob/living/simple_animal/bot/ed209/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
 		if(lasercolor)//To make up for the fact that lasertag bots don't hunt
@@ -560,7 +562,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = INTENT_HELP
-	baton.attack__legacy__attackchain(C, src)
+	baton.pre_attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)

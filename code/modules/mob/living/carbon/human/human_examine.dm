@@ -268,6 +268,20 @@
 
 				msg += "<span class='deptradio'><b>Due to [p_their(FALSE)] Demote status, [p_they(FALSE)] will be automatically set to Arrest in [time_string].</b>\n"
 
+	if(hasHUD(user, EXAMINE_HUD_MALF_READ))
+		var/perpname = get_visible_name(TRUE)
+		var/malf = "None"
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					for(var/datum/data/record/R in GLOB.data_core.security)
+						if(R.fields["id"] == E.fields["id"])
+							malf = E.fields["ai_target"]
+
+			var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=`'>\[[malf]\]</a>" : "\[[malf]\]"
+			msg += "<span class='deptradio'>Target Status:</span> [malf_status]\n"
+
 	return msg
 
 /mob/living/carbon/human/examine_get_brute_message()
