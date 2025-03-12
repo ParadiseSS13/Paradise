@@ -1131,9 +1131,9 @@
 	var/roll = rand(0, top_range)
 
 	// Do the rad stuff
-	if(prob(roll / 2))
-		adjustHealth(-roll / 50)
-	if(prob(roll / 10))
+	if(prob(roll / 20))
+		adjustHealth(-roll / 20)
+	if(prob(roll / 7))
 		myseed.mutate(roll / 2, get_mutation_focus())
 	if(top_range > 30 && prob(roll / 10))
 		mut_beamed = TRUE
