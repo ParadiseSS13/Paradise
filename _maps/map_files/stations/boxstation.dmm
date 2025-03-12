@@ -10334,16 +10334,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"aKR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "aKS" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -112269,8 +112259,8 @@ qDq
 afa
 afa
 aeG
-afa
-aKR
+aBA
+rVs
 afT
 wyJ
 axw
