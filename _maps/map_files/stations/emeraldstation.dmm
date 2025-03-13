@@ -2061,6 +2061,14 @@
 "avB" = (
 /turf/simulated/wall/r_wall,
 /area/station/supply/miningdock)
+"avC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/camera{
+	c_tag = "Atmospherics East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "avK" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -13002,13 +13010,6 @@
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
-"cCX" = (
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purplecorner"
-	},
-/area/station/hallway/primary/starboard/south)
 "cDa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -20016,6 +20017,16 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/west)
+"eaG" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Port Space Bridge";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/west)
 "eaM" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -20845,6 +20856,12 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
+"ejN" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/ne)
 "ejP" = (
 /obj/machinery/camera{
 	c_tag = "Starboard Primary Hall East";
@@ -27301,6 +27318,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
+"fuX" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "fve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34335,15 +34356,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/science/break_room)
-"gQp" = (
-/obj/effect/turf_decal/siding{
-	dir = 6
-	},
-/obj/structure/sign/security{
-	pixel_y = 32
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "gQR" = (
 /obj/structure/closet/secure_closet/iaa,
 /obj/item/storage/briefcase,
@@ -34668,12 +34680,6 @@
 "gUo" = (
 /turf/space,
 /area/station/maintenance/security/fore)
-"gUv" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/west)
 "gUA" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in"
@@ -48553,10 +48559,6 @@
 /area/station/hallway/secondary/entry/east)
 "jFq" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -58233,12 +58235,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
-"lCc" = (
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/ne)
 "lCl" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -60646,6 +60642,10 @@
 "meA" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
+"meR" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "meX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -61800,6 +61800,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"mqU" = (
+/obj/effect/turf_decal/siding{
+	dir = 5
+	},
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/west)
 "mqW" = (
 /obj/structure/table,
 /obj/machinery/firealarm/directional/south,
@@ -65456,10 +65463,6 @@
 /area/station/hallway/primary/aft)
 "ndZ" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -68111,13 +68114,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
-"nEV" = (
-/obj/effect/turf_decal/siding{
-	dir = 5
-	},
-/obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/west)
 "nFi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -68918,6 +68914,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
+"nMi" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Aft Space Bridge";
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "nMj" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -69944,9 +69950,6 @@
 /area/station/public/sleep)
 "nWl" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Port Space Bridge"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -70130,6 +70133,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"nXR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore)
 "nXS" = (
 /obj/structure/chair{
 	dir = 1
@@ -74661,12 +74673,8 @@
 "oQC" = (
 /obj/effect/turf_decal/stripes,
 /obj/item/beacon,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber Center";
-	dir = 8;
-	invuln = 1;
-	name = "Hardened Bomb-Test Security Camera";
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
@@ -82547,10 +82555,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"qvu" = (
-/obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "qvB" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -89496,6 +89500,13 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
+"rME" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "rMG" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -93437,15 +93448,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos/asteroid_filtering)
-"szY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/fore)
 "szZ" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
@@ -96786,12 +96788,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"tiu" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "tiw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
@@ -104048,10 +104044,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"uFt" = (
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "uFx" = (
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
@@ -120413,6 +120405,19 @@
 	icon_state = "black"
 	},
 /area/station/engineering/transmission_laser)
+"xUT" = (
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
+/obj/structure/sign/security{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Security Offices North";
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "xUW" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -143228,7 +143233,7 @@ tFw
 iHy
 mbm
 mBF
-mBF
+avC
 pPc
 vSM
 mBF
@@ -143485,7 +143490,7 @@ tFw
 gDT
 mel
 kvh
-hlq
+nJb
 jRZ
 fan
 hlq
@@ -154259,7 +154264,7 @@ mJS
 rpF
 jPn
 tap
-szY
+nXR
 rmE
 oQM
 qxy
@@ -156908,7 +156913,7 @@ iTl
 uqq
 aFa
 vKF
-uFt
+meR
 gBS
 gBS
 wEZ
@@ -160223,7 +160228,7 @@ twu
 jOu
 icb
 dbu
-qvu
+fuX
 adx
 dZF
 xfI
@@ -160697,7 +160702,7 @@ kAe
 mZE
 nXu
 brq
-lCc
+ejN
 bwi
 uBv
 nOk
@@ -160928,7 +160933,7 @@ aZS
 aZS
 ebB
 nWl
-gUv
+eaG
 rkB
 iNH
 ciw
@@ -163498,7 +163503,7 @@ pvz
 pGB
 ebB
 jwm
-nEV
+mqU
 ouc
 iNH
 ouc
@@ -164095,7 +164100,7 @@ xyC
 eDy
 iWE
 muy
-cCX
+rME
 pJV
 giM
 pcZ
@@ -168925,7 +168930,7 @@ dem
 ejl
 hWb
 vmL
-tiu
+nMi
 qrU
 kue
 kue
@@ -169964,7 +169969,7 @@ osi
 kue
 kue
 osi
-gQp
+xUT
 fax
 vQC
 osi
