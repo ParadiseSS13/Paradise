@@ -941,10 +941,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
-"vU" = (
-/obj/structure/disposalpipe/broken,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
 "wu" = (
 /obj/structure/railing{
 	dir = 8
@@ -993,10 +989,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box/white,
-/obj/structure/largecrate,
 /obj/item/clothing/suit/bomb_suit,
 /obj/item/clothing/head/bomb_hood,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "xq" = (
@@ -1661,12 +1657,12 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/box/white,
-/obj/structure/largecrate,
 /obj/item/bombcore/training{
 	name = "degraded payload";
 	desc = "A weathered payload core, its once vital center now shattered, rendering it indistinguishable from a mere stone."
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1694,7 +1690,6 @@
 /area/ruin/unpowered/althland_factory)
 "Pz" = (
 /obj/machinery/mineral/unloading_machine,
-/obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/west{
 	layer = 1.9;
@@ -2121,8 +2116,8 @@
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/broken,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "YS" = (
@@ -3164,7 +3159,7 @@ IF
 GN
 IF
 Wk
-vU
+IF
 Pz
 YO
 mj
