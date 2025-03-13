@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /**
  * Proc called when the datum is given to a mind.
  */
-/datum/antagonist/proc/on_gain()
+/datum/antagonist/proc/on_gain(silent = FALSE)
 	owner.special_role = special_role
 	add_owner_to_gamemode()
 	select_organization()
@@ -313,9 +313,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	messages.Add(finalize_antag())
 	if(wiki_page_name)
 		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
-
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
-
+	if(!silent)
+		to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	else
+		messages.cut()
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")

@@ -1567,7 +1567,7 @@
  * * antag_datum - an antag datum typepath or instance. If it's a typepath, it will create a new antag datum
  * * datum/team/team - the antag team that the src mind should join, if any
  */
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team)
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team, silent)
 	var/datum/antagonist/antag_datum
 	if(!ispath(datum_type_or_instance))
 		antag_datum = datum_type_or_instance
@@ -1586,7 +1586,7 @@
 	if(antag_team)
 		antag_team.add_member(src)
 	ASSERT(antag_datum.owner && antag_datum.owner.current)
-	antag_datum.on_gain()
+	antag_datum.on_gain(silent)
 	return antag_datum
 
 /**
