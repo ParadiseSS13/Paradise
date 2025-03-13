@@ -147,8 +147,8 @@
 
 /datum/surgery_step/pull_skin/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "[user] starts to pull closed the incision on [target]'s [affected.name] with \the [tool]."
-	var/self_msg = "You start to pull closed the incision on [target]'s [affected.name] with \the [tool]."
+	var/msg = "[user] starts to pull closed the incision on [target]'s [affected.name] with [tool]."
+	var/self_msg = "You start to pull closed the incision on [target]'s [affected.name] with [tool]."
 
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	affected.custom_pain("It feels like the skin on your [affected.name] is on fire!")
@@ -156,8 +156,8 @@
 
 /datum/surgery_step/pull_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='notice'>[user] pulls the incision closed on [target]'s [affected.name] with \the [tool].</span>"
-	var/self_msg = "<span class='notice'>You pull the incision closed on [target]'s [affected.name] with \the [tool].</span>"
+	var/msg = "<span class='notice'>[user] pulls the incision closed on [target]'s [affected.name] with [tool].</span>"
+	var/self_msg = "<span class='notice'>You pull the incision closed on [target]'s [affected.name] with [tool].</span>"
 
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -165,8 +165,8 @@
 
 /datum/surgery_step/pull_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='warning'>[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
-	var/self_msg = "<span class='warning'>Your hand slips, tearing the edges of incision on [target]'s [affected.name] with \the [tool]!</span>"
+	var/msg = "<span class='warning'>[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!</span>"
+	var/self_msg = "<span class='warning'>Your hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!</span>"
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
 	return SURGERY_STEP_RETRY
