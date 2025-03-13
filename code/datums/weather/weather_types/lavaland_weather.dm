@@ -119,7 +119,7 @@
 	end_sound = null
 
 	aesthetic = TRUE
-	probability = 10
+	probability = 20
 
 /// MARK: Volcano
 /datum/weather/volcano
@@ -381,7 +381,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 20
+	probability = 15
 	barometer_predictable = TRUE
 	var/wind_dir
 	var/next_dir_change
