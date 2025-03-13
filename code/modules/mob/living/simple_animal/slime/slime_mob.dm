@@ -356,35 +356,39 @@
 		discipline_slime(M)
 
 
-
-/mob/living/simple_animal/slime/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/slime/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(stat == DEAD && length(surgeries))
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
+					return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
 		discipline_slime(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(I.force > 0)
 		attacked += 10
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
+			return ITEM_INTERACT_COMPLETE
+
+/mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(I.force >= 3)
 		var/force_effect = 2 * I.force
 		if(is_adult)
 			force_effect = round(I.force / 2)
 		if(prob(10 + force_effect))
 			discipline_slime(user)
-	..()
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
