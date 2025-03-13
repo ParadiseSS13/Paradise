@@ -78,7 +78,7 @@
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
-	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace. It is made of durable materials more capable of withstanding harsh weather over standard capsules."
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
 

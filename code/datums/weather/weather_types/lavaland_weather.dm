@@ -61,6 +61,14 @@
 			sound_wo.stop()
 			sound_wi.stop()
 
+/datum/weather/ash_storm/on_shelter_placed(datum/source, turf/center)
+	. = ..()
+	if(center.z in impacted_z_levels)
+		var/area/A = get_area(center)
+		inside_areas |= A
+		sound_ai.output_atoms |= A
+		sound_wi.output_atoms |= A
+
 /datum/weather/ash_storm/proc/is_ash_immune(atom/L)
 	while(L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
@@ -413,6 +421,14 @@
 		if(WEATHER_END_STAGE)
 			sound_wo.stop()
 			sound_wi.stop()
+
+/datum/weather/wind/on_shelter_placed(datum/source, turf/center)
+	. = ..()
+	if(center.z in impacted_z_levels)
+		var/area/A = get_area(center)
+		inside_areas |= A
+		sound_ai.output_atoms |= A
+		sound_wi.output_atoms |= A
 
 /datum/weather/wind/start() //give it our custom overlay
 	custom_overlay = 'icons/effects/tile_effects.dmi'

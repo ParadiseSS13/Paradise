@@ -10,6 +10,7 @@
 	icon_state = "base"
 	density = TRUE
 	anchored = TRUE
+	layer = ABOVE_ALL_MOB_LAYER
 	power_state = NO_POWER_USE // going to be used outside
 	interact_offline = TRUE
 	idle_power_consumption = 0
@@ -58,7 +59,7 @@
 	radio.follow_target = src
 	radio.config(list("Supply" = 0))
 
-	AddComponent(/datum/component/largetransparency)
+	AddComponent(/datum/component/largetransparency, -1, 2, 0, 1)
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/radar/update_overlays()
