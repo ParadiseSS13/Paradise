@@ -416,8 +416,20 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/electrolyzer
+	board_name = "Electrolyzer"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/portable/electrolyzer
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stack/cable_coil = 5)
 
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
