@@ -50,8 +50,10 @@
 	return initial(product_path.name)
 
 /datum/data/vending_product/from_path/vend(turf/where)
-	amount--
-	return new product_path(where)
+	if(amount > 0)
+		amount--
+		return new product_path(where)
+	return null
 
 /datum/data/vending_product/physical
 	name = "a physical vending product"
@@ -136,8 +138,6 @@
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 10
-	/// Item currently being bought
-	var/datum/data/vending_product/currently_vending
 
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
@@ -689,8 +689,8 @@
 /obj/machinery/economy/vending/ui_data(mob/user)
 	var/list/data = list()
 
-	data["locked"] = locked()
-	data["chargesMoney"] = locked()
+	data["locked"] = locked(user) != VENDOR_UNLOCKED
+	data["bypass_lock"] = locked(user) == VENDOR_LOCKED_FOR_OTHERS
 	data["usermoney"] = 0
 	data["inserted_cash"] = cash_transaction
 	data["user"] = null
@@ -777,12 +777,12 @@
 			var/key = text2num(params["inum"])
 			try_vend(key, user)
 		if("rename")
-			if(!locked())
+			if(locked(user) != VENDOR_LOCKED)
 				var/new_name = tgui_input_text(user, "Rename the vendor to what?", name)
 				if(!isnull(new_name))
 					name = new_name
 		if("change_appearance")
-			if(locked())
+			if(locked(user) == VENDOR_LOCKED)
 				return
 			var/possible_icons = list()
 			var/icon_lookup = list()
@@ -814,34 +814,31 @@
 	if(key < 1 || key > length(display_records))
 		log_debug("invalid inum passed to a [name] vendor.</span>")
 		return
-	var/datum/data/vending_product/R = display_records[key]
-	if(!istype(R))
+	var/datum/data/vending_product/currently_vending = display_records[key]
+	if(!istype(currently_vending))
 		log_debug("player attempted to access an unknown vending_product at a [name] vendor.</span>")
 		return
 	var/list/record_to_check = product_records + physical_product_records
 	if(extended_inventory)
 		record_to_check = product_records + physical_product_records + hidden_records + physical_hidden_records
-	if(!extended_inventory && ((R in hidden_records) || (R in physical_hidden_records)))
+	if(!extended_inventory && ((currently_vending in hidden_records) || (currently_vending in physical_hidden_records)))
 		// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 		log_debug("player attempted to access a [name] vendor extended inventory when it was not allowed.</span>")
 		return
-	else if(!(R in record_to_check))
+	else if(!(currently_vending in record_to_check))
 		// Exploit prevention, stop the user
 		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
 		return
-	if(R.get_amount_left() <= 0)
-		to_chat(user, "Sold out of [R.get_name()].")
+	if(currently_vending.get_amount_left() <= 0)
+		to_chat(user, "Sold out of [currently_vending.get_name()].")
 		flick(icon_deny, src)
 		return
 
-	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
-
-	if(!ishuman(user) || R.price <= 0 || !locked())
+	if(!ishuman(user) || currently_vending.price <= 0 || locked(user) != VENDOR_LOCKED)
 		// Either the purchaser is not human, or the item is free.
-		// Skip all payment logic.
-		vend(R, user)
+		// Skip all payment logic, and vend without a delay.
+		vend(currently_vending, user, FALSE)
 		add_fingerprint(user)
-		vend_ready = TRUE
 		. = TRUE
 		return
 
@@ -850,14 +847,12 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-	currently_vending = R
 	var/paid = FALSE
 
 	var/datum/money_account/vendor_account = get_vendor_account()
 	if(cash_transaction < currently_vending.price && (isnull(vendor_account) || vendor_account.suspended))
 		to_chat(user, "<span class='warning'>Vendor account offline. Unable to process transaction.</span>")
 		flick(icon_deny, src)
-		vend_ready = TRUE
 		return
 
 	if(cash_transaction >= currently_vending.price)
@@ -872,7 +867,6 @@
 		paid = TRUE
 	else
 		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
-		vend_ready = TRUE
 		flick(icon_deny, src)
 		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 		return
@@ -882,21 +876,12 @@
 		. = TRUE
 	else
 		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
-		vend_ready = TRUE
 
-/obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user, has_delay = TRUE)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
 		flick(icon_deny, src)
-		vend_ready = TRUE
 		return
-
-	if(R.get_amount_left() <= 0)
-		to_chat(user, "<span class='warning'>The vending machine has ran out of that product.</span>")
-		vend_ready = TRUE
-		return
-
-	vend_ready = FALSE //One thing at a time!!
 
 	if(last_reply + vend_delay + 200 <= world.time && vend_reply)
 		speak(vend_reply)
@@ -906,18 +891,22 @@
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+	if(has_delay)
+		vend_ready = FALSE
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user, has_delay), vend_delay)
 
-/obj/machinery/economy/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/economy/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user, has_delay)
 	do_vend(R, user)
-	vend_ready = TRUE
-	currently_vending = null
+	if(has_delay)
+		vend_ready = TRUE
 
 //override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
 /obj/machinery/economy/vending/proc/do_vend(datum/data/vending_product/R, mob/user, put_in_hands = TRUE)
 	var/vended = R.vend(loc)
 	if(put_in_hands && isliving(user) && istype(vended, /obj/item) && Adjacent(user))
-		user.put_in_hands(vended)
+		// Try the active hand first, then the inactive hand, and leave it here if both fail
+		if(!user.put_in_active_hand(vended))
+			user.put_in_inactive_hand(vended)
 	return vended
 
 /* Example override for do_vend proc:
@@ -1090,8 +1079,8 @@
 	mob_hurt = TRUE
 	return ..()
 
-/obj/machinery/economy/vending/proc/locked()
-	return TRUE
+/obj/machinery/economy/vending/proc/locked(mob/user)
+	return VENDOR_LOCKED
 
 /obj/machinery/economy/vending/proc/get_vendor_account()
 	return GLOB.station_money_database.vendor_account

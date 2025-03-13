@@ -533,6 +533,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	CureParaplegia()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -613,30 +614,12 @@
 	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
 		stop_pulling()
 
-	var/turf/old_loc = loc
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pullee, glide_size_override)
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, glide_size_override)
-	if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
-		if(pulling.anchored)
-			stop_pulling()
-			return
-
-		var/pull_dir = get_dir(src, pulling)
-		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
-			if(isliving(pulling))
-				var/mob/living/M = pulling
-				if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth))) // So once you reach 50 brute damage you hit 100% chance to leave a blood trail for every tile you're pulled
-					M.makeTrail(dest)
-			pulling.Move(dest, get_dir(pulling, dest), glide_size_override) // the pullee tries to reach our previous position
-			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-				stop_pulling()
 
 /mob/living/proc/makeTrail(turf/turf_to_trail_on)
 	if(!has_gravity(src))
@@ -796,7 +779,7 @@
 	return FALSE
 
 /mob/living/update_gravity(has_gravity)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -1057,9 +1040,13 @@
 	..()
 	update_z(new_turf?.z)
 
-/mob/living/rad_act(amount)
-	. = ..()
-
+/mob/living/rad_act(atom/source, amount, emission_type)
+	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
+	if(emission_type > ALPHA_RAD)
+		amount /=  (1 - RAD_MOB_INSULATION)
+	// Alpha sources outside the body don't do much
+	else if(!is_inside_mob(source))
+		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
@@ -1071,8 +1058,21 @@
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-
 	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
+
+/mob/living/proc/is_inside_mob(atom/thing)
+	if(!(thing in contents))
+		return FALSE
+	if(l_hand && l_hand.UID() == thing.UID())
+		return FALSE
+	if(r_hand && r_hand.UID() == thing.UID())
+		return FALSE
+	if(back && back.UID() == thing.UID())
+		return FALSE
+	if(wear_mask && wear_mask.UID() == thing.UID())
+		return FALSE
+
+	return TRUE
 
 /mob/living/proc/fakefireextinguish()
 	return

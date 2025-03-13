@@ -14,7 +14,7 @@
 	density = TRUE
 	blocks_air = TRUE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	color = COLOR_ROCK
@@ -143,8 +143,8 @@
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
-		if(istype(R.module_active, /obj/item/pickaxe))
-			attack_by(R.module_active, R)
+		if(istype(R.selected_item, /obj/item/pickaxe))
+			attack_by(R.selected_item, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM

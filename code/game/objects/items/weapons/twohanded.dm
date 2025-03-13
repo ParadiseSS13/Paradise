@@ -471,9 +471,7 @@
 	if(src == user.get_active_hand()) //update inhands
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()
@@ -954,7 +952,7 @@
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(garbage.anchored)
 			continue
-		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
+		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.my_bag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
 			bag.handle_item_insertion(garbage, user, TRUE)

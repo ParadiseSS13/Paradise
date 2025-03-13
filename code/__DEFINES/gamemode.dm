@@ -80,5 +80,7 @@
 #define DYNAMIC_RULESET_BANNED "<b>Banned</b>"
 
 #define RULESET_FAILURE_BUDGET "Not enough budget"
+#define RULESET_FAILURE_ANTAG_BUDGET "Not enough antag budget"
 #define RULESET_FAILURE_NO_PLAYERS "No drafted players"
+#define RULESET_FAILURE_MUTUAL_RULESET "No banned mutual rulesets"
 #define RULESET_FAILURE_CHANGELING_SECONDARY_RULESET "Needs a secondary ruleset in rotation"

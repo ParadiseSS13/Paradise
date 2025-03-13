@@ -907,7 +907,7 @@
 	},
 /area/ruin/space/djstation)
 "yr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30

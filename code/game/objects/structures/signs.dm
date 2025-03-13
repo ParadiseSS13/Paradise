@@ -201,7 +201,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	desc = "The universal symbol of medical institutions across the Sector. You'll probably find help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque

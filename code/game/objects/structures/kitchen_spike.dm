@@ -154,7 +154,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 2 MINUTES, target = src))
+			if(!do_after(M, 2 MINUTES, target = src, hidden = TRUE))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return
@@ -171,7 +171,6 @@
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
 	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()

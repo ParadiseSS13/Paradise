@@ -63,26 +63,8 @@
 	return is_equipped()
 
 /obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if(!is_screen_atom(over_object))
-		return ..()
+	..()
 	playsound(loc, "rustle", 50, TRUE, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				if(M.unequip(src))
-					if(M.r_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_r_hand(src)
-			if("l_hand")
-				if(M.unequip(src))
-					if(M.l_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_l_hand(src)
-		add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -304,6 +286,16 @@
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
+/obj/item/storage/belt/botany/full/populate_contents()
+	new /obj/item/plant_analyzer(src)
+	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/hatchet(src)
+	new /obj/item/reagent_containers/spray/pestspray(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	update_icon()
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
@@ -314,6 +306,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/radio,
+		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -332,7 +325,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner)
+		/obj/item/detective_scanner,
+	)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -367,6 +361,30 @@
 	max_combined_w_class = 15
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
+
+/obj/item/storage/belt/federation_webbing
+	name = "\improper Federation combat webbing"
+	desc = "A tactical chest rig used by soldiers and marines of the Trans-Solar Federation. It's covered in pouches and attachment points."
+	icon_state = "federationwebbing"
+	item_state = "federationwebbing"
+	storage_slots = 15
+	max_combined_w_class = 25
+	use_item_overlays = FALSE
+	layer_over_suit = TRUE
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rcd_ammo,
+		/obj/item/ammo_box,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/kitchen/knife
+	)
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"

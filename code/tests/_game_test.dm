@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(game_test_chats)
+GLOBAL_LIST_EMPTY(game_test_tguis)
 
 /// For advanced cases, fail unconditionally but don't return (so a test can return multiple results)
 #define TEST_FAIL(reason) (Fail(reason || "No reason", __FILE__, __LINE__))
@@ -16,6 +17,12 @@ GLOBAL_LIST_EMPTY(game_test_chats)
 #define TEST_ASSERT_NULL(a, reason) if(!isnull(a)) { return Fail("Expected null value but received [a]: [reason || "No reason"]", __FILE__, __LINE__) }
 
 #define TEST_ASSERT_LAST_CHATLOG(puppet, text) if(!puppet.last_chatlog_has_text(text)) { return Fail("Expected `[text]` in last chatlog but got `[puppet.get_last_chatlog()]`", __FILE__, __LINE__) }
+
+#define TEST_ASSERT_ANY_CHATLOG(puppet, text) if(!puppet.any_chatlog_has_text(text))  { return Fail("Expected `[text]` in any chatlog but got [jointext(puppet.get_chatlogs(), "\n")]", __FILE__, __LINE__) }
+
+#define TEST_ASSERT_NOT_CHATLOG(puppet, text) if(puppet.any_chatlog_has_text(text))  { return Fail("Didn't expect `[text]` in any chatlog but got [jointext(puppet.get_chatlogs(), "\n")]", __FILE__, __LINE__) }
+
+#define TEST_ASSERT_SUBSTRING(haystack, needle) if(!findtextEx(haystack, needle))  { return Fail("`[needle]` not found in string `[haystack]`", __FILE__, __LINE__) }
 
 /// Asserts that the two parameters passed are equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure

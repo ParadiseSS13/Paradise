@@ -750,7 +750,6 @@ SLIME SCANNER
 			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
 			heat_capacity = air.heat_capacity()
 			thermal_energy = air.thermal_energy()
-
 			if(total_moles)
 				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
@@ -776,8 +775,9 @@ SLIME SCANNER
 
 	else// Sum mixtures then present
 		for(var/datum/gas_mixture/air as anything in airs)
+			if(isnull(air))
+				continue
 			total_moles += air.total_moles()
-			pressure += air.return_pressure()
 			volume += air.return_volume()
 			heat_capacity += air.heat_capacity()
 			thermal_energy += air.thermal_energy()
@@ -789,6 +789,7 @@ SLIME SCANNER
 			agent_b += air.agent_b()
 
 		var/temperature = heat_capacity ? thermal_energy / heat_capacity : 0
+		pressure = volume ? total_moles * R_IDEAL_GAS_EQUATION * temperature / volume : 0
 
 		if(total_moles)
 			message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
@@ -1254,5 +1255,7 @@ SLIME SCANNER
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHT))
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+	if(HAS_TRAIT(target, TRAIT_PARAPLEGIC))
+		dat += "<font color='red'>Lumbar nerves damaged.</font><BR>"
 
 	return dat

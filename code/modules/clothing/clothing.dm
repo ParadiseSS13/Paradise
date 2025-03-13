@@ -62,9 +62,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -106,10 +104,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.name in species_restricted))
+				if(!(H.dna.species.sprite_sheet_name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.name in species_restricted)
+				if(H.dna.species.sprite_sheet_name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
@@ -210,6 +208,9 @@
 	/// Overrides colorblindness when interacting with wires
 	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
+	/// If TRUE, will hide the wearer's examines from other players.
+	var/hide_examine = FALSE
+
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	resistance_flags = NONE
@@ -609,13 +610,7 @@
 	H.wear_mask_update(src, toggle_off = up)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
-
-// Changes the speech verb when wearing a mask if a value is returned
-/obj/item/clothing/mask/proc/change_speech_verb()
-	return
+	update_action_buttons()
 
 //////////////////////////////
 // MARK: SHOES
@@ -839,9 +834,7 @@
 		if(adjust_flavour)
 			flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 		to_chat(user, "You [flavour] \the [src].")
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 	else
 		var/flavour = "open"
 		icon_state += "_open"
@@ -849,9 +842,7 @@
 		if(adjust_flavour)
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] \the [src].")
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 
 	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
@@ -891,7 +882,7 @@
 	user.visible_message("<span class='warning'>[user] attempts to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_restraints ? "break" : "remove"] [src]...</span>")
 	to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
 
-	if(!do_after(user, effective_breakout_time, FALSE, user))
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		to_chat(user, "<span class='warning'>You fail to [break_restraints ? "break" : "remove"] [src]!</span>")
 		return
