@@ -73,6 +73,7 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury

@@ -52,6 +52,11 @@
 /datum/weather/New(z_levels)
 	..()
 	impacted_z_levels = z_levels
+	RegisterSignal(SSdcs, COMSIG_GLOB_SHELTER_PLACED, PROC_REF(on_shelter_placed))
+
+/datum/weather/proc/on_shelter_placed(turf/center)
+	SIGNAL_HANDLER // COMSIG_GLOB_SHELTER_PLACED
+	return
 
 /datum/weather/proc/generate_area_list()
 	var/list/affectareas = list()

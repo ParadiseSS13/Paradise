@@ -301,6 +301,8 @@
 	if(prob(1))
 		var/list/turf_list = list()
 		for(var/turf/turf in get_area_turfs(/area/survivalpod))
+			if(istype(get_area(turf), /area/survivalpod/luxurypod))
+				continue
 			if(is_mining_level(turf.z)) //dont want to melt pods on other Z levels
 				turf_list += turf
 		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
@@ -309,9 +311,17 @@
 		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
 		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
 
+/datum/weather/acid/on_shelter_placed(datum/source, turf/center)
+	. = ..()
+	if(center.z in impacted_z_levels)
+		var/area/A = get_area(center)
+		inside_areas |= A
+		sound_ai.output_atoms |= A
+		sound_wi.output_atoms |= A
+
 // lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
-	var/area/new_area = new /area/lavaland/surface/outdoors
+	var/area/new_area = GLOB.all_unique_areas[/area/lavaland/surface/outdoors] || new /area/lavaland/surface/outdoors
 	for(var/turf/simulated/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
 		var/area/turf_area = get_area(nearby_turf)
 		if(prob(50) && turf_area.type == /area/survivalpod)
