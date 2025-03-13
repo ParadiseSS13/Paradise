@@ -1,7 +1,12 @@
 /datum/surgery/infection
 	name = "External Infection Treatment"
 	desc = "Gradually remove infected from an affected limb"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/heal_infection, /datum/surgery_step/pull_skin, /datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open, 
+		/datum/surgery_step/heal_infection, 
+		/datum/surgery_step/pull_skin, 
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/surgery_step/heal_infection
@@ -122,9 +127,9 @@
 		if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
 			progress_text = ", burning through some of the severe spots of infection"
 		if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
-			progress_text = ", though [target.p_their()] limb still look[target.p_s()] more like infection than limb"
+			progress_text = ", though [target.p_their()] [parse_zone(target_zone)] still feels like more bacteria than flesh"
 		if(INFECTION_LEVEL_THREE to INFINITY)
-			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] septic limb"
+			progress_text = ", though you feel like you're barely making a dent in [target.p_their()] near-septic [parse_zone(target_zone)]"
 
 	return progress_text
 
