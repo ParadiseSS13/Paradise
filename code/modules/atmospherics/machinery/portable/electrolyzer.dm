@@ -4,10 +4,11 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
+	on = FALSE
 	var/open = FALSE
 	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
-	on = FALSE
+	var/power_needed_per_mole = 286000 // found in rust/src/milla/constants.rs
 
 /obj/machinery/atmospherics/portable/electrolyzer/Initialize(mapload)
 	. = ..()
@@ -84,10 +85,6 @@
 		icon_state = "electrolyzer_on"
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/portable/electrolyzer/process()
-	var/datum/milla_safe/electrolyzer_process/milla = new()
-	milla.invoke_async(src)
-
 /datum/milla_safe/electrolyzer_process
 
 /obj/machinery/atmospherics/portable/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
@@ -102,15 +99,30 @@
 		return FALSE
 	return gas.water_vapor() > 3
 
+/obj/machinery/atmospherics/portable/electrolyzer/process()
+	var/datum/milla_safe/electrolyzer_process/milla = new()
+	milla.invoke_async(src)
+
 /datum/milla_safe/electrolyzer_process/on_run(obj/machinery/atmospherics/portable/electrolyzer/electrolyzer, datum/gas_mixture)
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
+
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
 		var/water_vapor_to_remove = removed.water_vapor()
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
-		removed.set_water_vapor(0)
-		env.set_hydrogen(hydrogen_produced)
-		env.set_oxygen(oxygen_produced)
+
+		var/required_power = water_vapor_to_remove * electrolyzer.power_needed_per_mole
+
+		if(electrolyzer.machine_powernet && electrolyzer.machine_powernet.available_power >= required_power)
+			electrolyzer.machine_powernet.available_power -= required_power
+			removed.set_water_vapor(0)
+			env.set_hydrogen(hydrogen_produced)
+			env.set_oxygen(oxygen_produced)
+		else
+			to_chat(electrolyzer, "<span class='warning'>The [src] buzzes rudely due to the lack of power!</span>")
+			electrolyzer.on = FALSE
+			electrolyzer.icon_state = "electrolyzer_off"
+
 
