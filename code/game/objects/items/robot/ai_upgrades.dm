@@ -19,9 +19,6 @@
 /obj/item/ai_upgrade/malf_upgrade
 	name = "combat software upgrade"
 	desc = "A highly illegal, highly dangerous upgrade for artificial intelligence units, granting them a variety of powers as well as the ability to hack APCs."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "datadisk3"
-
 
 /obj/item/ai_upgrade/malf_upgrade/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
@@ -40,8 +37,6 @@
 /obj/item/ai_upgrade/surveillance_upgrade
 	name = "surveillance software upgrade"
 	desc = "A software package that will allow an artificial intelligence to 'hear' from its cameras via lip reading."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "datadisk3"
 
 /obj/item/ai_upgrade/surveillance_upgrade/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
