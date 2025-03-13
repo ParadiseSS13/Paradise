@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
+import { Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs } from '../components';
 import { capitalize } from 'common/string';
 import { Window } from '../layouts';
 
@@ -21,19 +21,25 @@ export const AIResourceManagementConsole = (props, context) => {
   const { auth, ai_list, nodes_list, screen } = data;
 
   return (
-    <Window width={400} height={460}>
+    <Window width={350} height={425}>
       <Window.Content scrollable>
-        <Tabs>
-          <Tabs.Tab selected={screen === 0} icon="list" onClick={() => act('menu', { screen: 0 })}>
-            Allocated Resources
-          </Tabs.Tab>
-          <Tabs.Tab selected={screen === 1} icon="circle-nodes" onClick={() => act('menu', { screen: 1 })}>
-            Online Nodes
-          </Tabs.Tab>
-        </Tabs>
-        <Section fluid>
-          <AIResourceManagementConsoleBody />
-        </Section>
+        <Stack fill vertical>
+          <Stack.Item>
+            <Tabs>
+              <Tabs.Tab selected={screen === 0} icon="list" onClick={() => act('menu', { screen: 0 })}>
+                Allocated Resources
+              </Tabs.Tab>
+              <Tabs.Tab selected={screen === 1} icon="circle-nodes" onClick={() => act('menu', { screen: 1 })}>
+                Online Nodes
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item grow mt={0}>
+            <Section fill scrollable>
+              <AIResourceManagementConsoleBody />
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -44,7 +50,7 @@ const AllocatedResources = (props, context) => {
   const { screen, ai_list, nodes_list } = data;
   return (
     <Box>
-      {!ai_list && <NoticeBox>No AI Detected</NoticeBox>}
+      {(!ai_list || ai_list.length === 0) && <NoticeBox>No AI detected.</NoticeBox>}
       {!!ai_list &&
         ai_list.map((ai, i) => (
           <Section key={ai} title={ai.name}>
@@ -65,7 +71,7 @@ const OnlineNodes = (props, context) => {
   const { screen, ai_list, nodes_list } = data;
   return (
     <Box>
-      {!nodes_list && <NoticeBox>No Nodes Detected</NoticeBox>}
+      {(!nodes_list || nodes_list.length === 0) && <NoticeBox>No nodes detected.</NoticeBox>}
       {!!nodes_list &&
         nodes_list.map((node, i) => (
           <Section
@@ -73,7 +79,7 @@ const OnlineNodes = (props, context) => {
             title={capitalize(node.name)}
             buttons={
               <Box>
-                <Button icon="circle-nodes" onClick={() => act('reassign')}>
+                <Button icon="circle-nodes" onClick={() => act('reassign', { uid: node.uid })}>
                   Reassign
                 </Button>
               </Box>
