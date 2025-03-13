@@ -15,9 +15,9 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
-	if(control_disabled || stat) 
+	if(control_disabled || stat)
 		return
-	if(ismecha(loc)) 
+	if(ismecha(loc))
 		return
 
 	if(ismob(A))
@@ -227,7 +227,7 @@
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-	if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
+	if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt", hidden = TRUE))
 		toggle_bolt(user)
 
 
@@ -239,7 +239,7 @@
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
-		if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock"))
+		if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock", hidden = TRUE))
 			electrify(-1, user, TRUE) // permanent shock + audio cue
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

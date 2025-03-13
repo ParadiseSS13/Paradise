@@ -449,9 +449,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EFFECT_CAN_TELEPORT, ROUNDSTART_TRAIT)
 
-/obj/effect/immortality_talisman/attackby__legacy__attackchain()
-	return
-
 /obj/effect/immortality_talisman/ex_act()
 	return
 

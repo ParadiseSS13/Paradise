@@ -6,8 +6,10 @@
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
 	var/hud_types = null
-	/// List of things added to examine text, like security or medical records.
-	var/list/examine_extensions = null
+	/// Whether we want this hud be able to override id card access requirement to alter security records
+	var/hud_access_override = FALSE
+	/// Used for debug huds at examine.dm, gives us all rights for records
+	var/hud_debug = FALSE
 
 /obj/item/clothing/glasses/hud/Initialize(mapload)
 	. = ..()
@@ -41,7 +43,6 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -106,7 +107,6 @@
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -181,7 +181,6 @@
 	icon_state = "skill"
 	item_state = "glasses"
 	hud_types = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
