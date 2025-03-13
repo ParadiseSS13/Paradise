@@ -19,6 +19,7 @@
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
 	var/max_water = 50
+	var/max_firefighting_foam = 0
 	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
 	var/has_safety = TRUE
 	/// If `TRUE`, the extinguisher will not fire.
@@ -28,6 +29,17 @@
 	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
 	COOLDOWN_DECLARE(last_use)
+
+/obj/item/extinguisher/atmospherics
+	name = "atmospheric fire extinguisher"
+	desc = "An extinguisher coated in yellow paint that utilizes firefighting foam to put out fires."
+	icon_state = "atmoFE0"
+	item_state = "atmoFE"
+	base_icon_state = "atmoFE"
+	materials = list(MAT_TITANIUM = 200)
+	dog_fashion = null
+	max_water = 0
+	max_firefighting_foam = 40
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
@@ -51,9 +63,12 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
-	if(!reagents)
+	if(!reagents && max_water)
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
+	if(!reagents && max_firefighting_foam)
+		create_reagents(max_firefighting_foam)
+		reagents.add_reagent("firefighting_foam", max_firefighting_foam)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/extinguisher/activate_self(mob/user)
@@ -77,7 +92,7 @@
 	if(extinguisher_spray(target, user))
 		return ITEM_INTERACT_COMPLETE
 
-/obj/item/extinguisher/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+/obj/item/extinguisher/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(extinguisher_spray(target, user))
 		return ITEM_INTERACT_COMPLETE
 
@@ -85,12 +100,20 @@
 	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
 		return FALSE
 
+	if(!istype(target, /obj/structure/reagent_dispensers/watertank/firetank) && !max_water)
+		to_chat(user, "<span class='notice'>[src] does not take water!</span>")
+		return TRUE
+
+	if(istype(target, /obj/structure/reagent_dispensers/watertank/firetank) && !max_firefighting_foam)
+		to_chat(user, "<span class='notice'>[src] does not take firefighter foam!</span>")
+		return TRUE
+
 	if(reagents.total_volume == reagents.maximum_volume)
 		to_chat(user, "<span class='notice'>[src] is already full.</span>")
 		return TRUE
 
 	var/obj/structure/reagent_dispensers/watertank/W = target
-	var/transferred = W.reagents.trans_to(src, max_water)
+	var/transferred = W.reagents.trans_to(src, max_water + max_firefighting_foam)
 	if(!transferred)
 		to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
 		return TRUE

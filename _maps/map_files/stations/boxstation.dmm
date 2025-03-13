@@ -43309,8 +43309,8 @@
 	c_tag = "Atmospherics West";
 	dir = 4
 	},
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery/partial,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "dbL" = (
@@ -63910,6 +63910,7 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lLM" = (

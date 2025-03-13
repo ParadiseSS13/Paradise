@@ -17834,6 +17834,7 @@
 /area/station/engineering/atmos)
 "bkM" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bkN" = (
