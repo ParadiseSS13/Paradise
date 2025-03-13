@@ -330,7 +330,7 @@
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE, requires_upright = TRUE)
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE, requires_upright = TRUE, hidden = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -343,8 +343,12 @@
 
 	var/holding = user.get_active_hand()
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
 	if(progress)
 		progbar = new(user, time, target)
+
+		if(!hidden && time >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
@@ -376,6 +380,7 @@
 			break
 	if(progress)
 		qdel(progbar)
+		cog?.remove()
 
 /*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
  *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
@@ -387,8 +392,9 @@
  *
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
+ *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -408,8 +414,12 @@
 		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
 
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
 	if(progress)
 		progbar = new(user, delay, target)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -457,6 +467,7 @@
 				break
 	if(progress)
 		qdel(progbar)
+		cog?.remove()
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
@@ -467,7 +478,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier)
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE)
 	if(!user || !target)
 		return
 
@@ -477,7 +488,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
