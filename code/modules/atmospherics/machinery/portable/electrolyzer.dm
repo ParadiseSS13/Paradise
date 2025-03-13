@@ -107,22 +107,12 @@
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
-
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
 		var/water_vapor_to_remove = removed.water_vapor()
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
-
-		var/required_power = water_vapor_to_remove * electrolyzer.power_needed_per_mole
-
-		if(electrolyzer.machine_powernet && electrolyzer.machine_powernet.available_power >= required_power)
-			electrolyzer.machine_powernet.available_power -= required_power
-			removed.set_water_vapor(0)
-			env.set_hydrogen(hydrogen_produced)
-			env.set_oxygen(oxygen_produced)
-		else
-			to_chat(electrolyzer, "<span class='warning'>The [src] buzzes rudely due to the lack of power!</span>")
-			electrolyzer.on = FALSE
-			electrolyzer.icon_state = "electrolyzer_off"
+		removed.set_water_vapor(0)
+		env.set_hydrogen(hydrogen_produced)
+		env.set_oxygen(oxygen_produced)
 
 
