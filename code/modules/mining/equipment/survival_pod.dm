@@ -73,6 +73,11 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury
