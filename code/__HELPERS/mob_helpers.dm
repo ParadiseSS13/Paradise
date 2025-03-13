@@ -239,7 +239,7 @@
 	var/timer = target_records.fields["timer"]
 
 	// safely remove the demotion timer if it's not going to be needed.
-	if(criminal_status != "demote" && timer != null)
+	if(criminal_status != "demote" && timer)
 		deltimer(timer)
 		target_records.fields["timer"] = null
 
