@@ -2,9 +2,9 @@
 	name = "External Infection Treatment"
 	desc = "Gradually remove infected from an affected limb"
 	steps = list(
-		/datum/surgery_step/generic/cut_open, 
-		/datum/surgery_step/heal_infection, 
-		/datum/surgery_step/pull_skin, 
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/heal_infection,
+		/datum/surgery_step/pull_skin,
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
@@ -32,10 +32,6 @@
 	COOLDOWN_DECLARE(success_message_spam_cooldown)
 
 	var/germ_amount_healed = 50
-
-/// Get a message indicating how the surgery is going.
-/datum/surgery_step/heal_infection/proc/get_progress(mob/user, mob/living/carbon/target, germ_healed)
-	return
 
 /datum/surgery_step/heal_infection/proc/can_be_healed(mob/living/user, mob/living/carbon/target, target_zone)
 	if(germ_amount_healed == 0)
@@ -106,7 +102,7 @@
 	target.apply_damage(3, BURN, affected)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery_step/heal_infection/get_progress(mob/user, mob/living/carbon/target, target_zone, germ_healed)
+/datum/surgery_step/heal_infection/proc/get_progress(mob/user, mob/living/carbon/target, target_zone, germ_healed)
 	if(!germ_healed)
 		return
 
