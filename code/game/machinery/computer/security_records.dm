@@ -203,6 +203,7 @@
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = "Human"
 			G.fields["notes"] = "No notes."
+			G.fields["nt_relation"] = "Unknown relation."
 			GLOB.data_core.general += G
 			record_general = G
 			record_security = null
