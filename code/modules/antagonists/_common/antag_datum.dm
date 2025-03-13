@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /**
  * Proc called when the datum is given to a mind.
  */
-/datum/antagonist/proc/on_gain(silent = FALSE)
+/datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
 	select_organization()
