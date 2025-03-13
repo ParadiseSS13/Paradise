@@ -242,7 +242,7 @@
 			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
-			var/timer = security_record.fields["timer"]
+			var/timer = security_record?.fields["timer"]
 
 			if(timer != null)
 				var/demote_remaining_time = checktimerend(timer) - world.time
