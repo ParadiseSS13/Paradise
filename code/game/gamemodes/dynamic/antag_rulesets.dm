@@ -195,6 +195,7 @@
 /datum/ruleset/traitor/autotraitor
 	name = "Autotraitor"
 	ruleset_weight = 2
+	antag_cost = 10
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
 		/datum/ruleset/vampire,
