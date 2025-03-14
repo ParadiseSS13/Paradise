@@ -19,7 +19,10 @@
 	/// Handles extra information displayed
 	var/temp
 
-/datum/program_picker/New()
+/datum/program_picker/New(var/mob/living/silicon/ai/A)
+	if(!istype(A))
+		return
+	assigned_ai = A
 	possible_programs = list()
 	for(var/type in subtypesof(/datum/ai_program))
 		var/datum/ai_program/program = new type
@@ -139,13 +142,8 @@
 // 				temp = program.description
 // 	use(usr)
 
-/datum/ui_module/program_picker/ui_state(mob/user)
-	if(check_rights(R_ADMIN, FALSE))
-		return GLOB.admin_state
-	if(issilicon(user))
-		return GLOB.conscious_state
-	return GLOB.default_state
-
+/datum/program_picker/ui_host()
+	return assigned_ai ? assigned_ai : src
 
 /datum/program_picker/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -263,7 +261,7 @@
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
 	// user.program_picker.use(user) // WebUI call. Replace with TGUI call below.
-	user.program_picker.ui_interact()
+	user.program_picker.ui_interact(user)
 
 // RGB Lighting - Recolors Lights
 /datum/ai_program/rgb_lighting

@@ -1395,7 +1395,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/add_program_picker()
 	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
-	program_picker = new /datum/program_picker()
+	program_picker = new /datum/program_picker(src)
 	program_action = new(program_picker)
 	AddSpell(program_action)
 
