@@ -10,6 +10,7 @@
 	var/board_path = /obj/item/circuitboard/electrolyzer
 	var/power_needed_per_mole = 286000 // found in rust/src/milla/constants.rs
 
+
 /obj/machinery/atmospherics/portable/electrolyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -107,6 +108,7 @@
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
+
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
 		var/water_vapor_to_remove = removed.water_vapor()
 		var/hydrogen_produced = water_vapor_to_remove
@@ -114,5 +116,4 @@
 		removed.set_water_vapor(0)
 		env.set_hydrogen(hydrogen_produced)
 		env.set_oxygen(oxygen_produced)
-
 
