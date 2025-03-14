@@ -20,8 +20,10 @@
 /datum/autochef_task/follow_recipe/proc/unregister_for_completion()
 	UnregisterSignal(src, list(COMSIG_COOK_MACHINE_STEP_COMPLETE, COMSIG_COOK_MACHINE_STEP_INTERRUPTED))
 
-/datum/autochef_task/follow_recipe/proc/on_machine_step_complete(obj/item/reagent_containers/cooking/container)
+/datum/autochef_task/follow_recipe/proc/on_machine_step_complete(obj/item/reagent_containers/cooking/container, datum/cooking_surface/surface)
 	SIGNAL_HANDLER // COMSIG_COOK_MACHINE_STEP_COMPLETE
+	if(istype(surface))
+		surface.turn_off()
 	unregister_for_completion()
 	current_state = AUTOCHEF_ACT_COMPLETE
 
@@ -80,7 +82,7 @@
 		if(!istype(storage))
 			continue
 		for(var/atom/movable/result in container.contents)
-			if(storage.load(result))
+			if(isInSight(autochef, storage) && storage.load(result))
 				storage.Beam(get_turf(container), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 				SStgui.update_uis(storage)
 				moved = TRUE

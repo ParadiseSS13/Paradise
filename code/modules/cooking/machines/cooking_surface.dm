@@ -42,7 +42,9 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		#endif
 
 		container.set_cooker_data(src, stop_watch(cooktime) SECONDS)
-		container.process_item(user, parent)
+		var/process_result = container.process_item(user, parent)
+		if(process_result == PCWJ_COMPLETE)
+			SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_COMPLETE, src)
 
 /datum/cooking_surface/proc/handle_switch(mob/user)
 	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
