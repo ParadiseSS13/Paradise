@@ -2061,6 +2061,14 @@
 "avB" = (
 /turf/simulated/wall/r_wall,
 /area/station/supply/miningdock)
+"avC" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/camera{
+	c_tag = "Atmospherics East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "avK" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -6675,7 +6683,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -8715,12 +8722,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/surgery/observation)
-"bKv" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/lobby)
 "bKz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -11352,7 +11353,6 @@
 /obj/structure/chair/sofa/right{
 	dir = 4
 	},
-/obj/machinery/economy/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -18132,11 +18132,7 @@
 	},
 /area/station/medical/morgue)
 "dEs" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -20021,6 +20017,16 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/west)
+"eaG" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Port Space Bridge";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/west)
 "eaM" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -20843,6 +20849,12 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
+"ejN" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/ne)
 "ejP" = (
 /obj/machinery/camera{
 	c_tag = "Starboard Primary Hall East";
@@ -27299,6 +27311,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
+"fuX" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "fve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34333,15 +34349,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/science/break_room)
-"gQp" = (
-/obj/effect/turf_decal/siding{
-	dir = 6
-	},
-/obj/structure/sign/security{
-	pixel_y = 32
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "gQR" = (
 /obj/structure/closet/secure_closet/iaa,
 /obj/item/storage/briefcase,
@@ -34665,12 +34672,6 @@
 "gUo" = (
 /turf/space,
 /area/station/maintenance/security/fore)
-"gUv" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/west)
 "gUA" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in"
@@ -46878,13 +46879,6 @@
 "jnP" = (
 /turf/space,
 /area/space)
-"jnV" = (
-/obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "purplecorner"
-	},
-/area/station/hallway/primary/starboard/south)
 "jnX" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -48558,10 +48552,6 @@
 /area/station/hallway/secondary/entry/east)
 "jFq" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -49844,7 +49834,10 @@
 /obj/machinery/computer/supplycomp/public{
 	dir = 4
 	},
-/obj/machinery/economy/atm/directional/west,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -51577,6 +51570,9 @@
 /area/station/hallway/primary/central/sw)
 "kjM" = (
 /obj/structure/table,
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -60642,6 +60638,10 @@
 "meA" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
+"meR" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "meX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -61800,6 +61800,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 5
 	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/security/west)
 "mqW" = (
@@ -63884,9 +63885,7 @@
 	},
 /area/station/engineering/atmos/transit)
 "mOO" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -65460,10 +65459,6 @@
 /area/station/hallway/primary/aft)
 "ndZ" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Aft Space Bridge";
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -68915,6 +68910,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
+"nMi" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/camera{
+	c_tag = "Security Aft Space Bridge";
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "nMj" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -69941,9 +69946,6 @@
 /area/station/public/sleep)
 "nWl" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/camera{
-	c_tag = "Security Port Space Bridge"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -70127,6 +70129,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"nXR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/fore)
 "nXS" = (
 /obj/structure/chair{
 	dir = 1
@@ -74658,12 +74669,8 @@
 "oQC" = (
 /obj/effect/turf_decal/stripes,
 /obj/item/beacon,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber Center";
-	dir = 8;
-	invuln = 1;
-	name = "Hardened Bomb-Test Security Camera";
-	network = list("Toxins","Research","SS13")
+/obj/machinery/camera/toxins{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
@@ -89457,7 +89464,7 @@
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
 "rMy" = (
 /obj/machinery/door/airlock/maintenance,
@@ -89483,6 +89490,13 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
+"rME" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "rMG" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -96764,12 +96778,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"tiu" = (
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
-/area/station/hallway/spacebridge/security/south)
 "tiw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
@@ -98265,7 +98273,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "twC" = (
@@ -119960,14 +119967,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "xQw" = (
-/obj/structure/sign/securearea{
-	pixel_x = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Research Lobby";
-	network = list("Research","SS13");
-	dir = 9
+	network = list("Research","SS13")
 	},
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -120391,6 +120395,19 @@
 	icon_state = "black"
 	},
 /area/station/engineering/transmission_laser)
+"xUT" = (
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
+/obj/structure/sign/security{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Security Offices North";
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/station/hallway/spacebridge/security/south)
 "xUW" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -143206,7 +143223,7 @@ tFw
 iHy
 mbm
 mBF
-mBF
+avC
 pPc
 vSM
 mBF
@@ -143463,7 +143480,7 @@ tFw
 gDT
 mel
 kvh
-hlq
+nJb
 jRZ
 fan
 hlq
@@ -144035,7 +144052,7 @@ lNK
 gWF
 qMn
 vdk
-rGN
+qTV
 nTr
 ipp
 ipp
@@ -144292,7 +144309,7 @@ vTd
 bCW
 nua
 iqc
-rGN
+qTV
 mMw
 xVa
 afT
@@ -144549,7 +144566,7 @@ hTl
 hTl
 hTl
 dEs
-bKv
+qTV
 rGN
 atV
 jwC
@@ -154237,7 +154254,7 @@ mJS
 rpF
 jPn
 tap
-rmE
+nXR
 rmE
 oQM
 qxy
@@ -155057,7 +155074,7 @@ iuw
 iUr
 ijH
 icD
-nXh
+tjs
 gcl
 iUr
 nXh
@@ -155068,7 +155085,7 @@ nXh
 nXh
 iUr
 gYS
-tjs
+nXh
 nXh
 gch
 rxd
@@ -156886,7 +156903,7 @@ iTl
 uqq
 aFa
 vKF
-gBS
+meR
 gBS
 gBS
 wEZ
@@ -160201,8 +160218,8 @@ twu
 jOu
 icb
 dbu
+fuX
 adx
-jOu
 dZF
 xfI
 jOu
@@ -160675,7 +160692,7 @@ kAe
 mZE
 nXu
 brq
-uBv
+ejN
 bwi
 uBv
 nOk
@@ -160906,7 +160923,7 @@ aZS
 aZS
 ebB
 nWl
-gUv
+eaG
 rkB
 iNH
 ciw
@@ -163570,7 +163587,7 @@ eJB
 iWE
 wWr
 lAs
-jnV
+lAs
 ern
 aqy
 hiT
@@ -164073,7 +164090,7 @@ xyC
 eDy
 iWE
 muy
-muy
+rME
 pJV
 giM
 pcZ
@@ -168903,7 +168920,7 @@ dem
 ejl
 hWb
 vmL
-tiu
+nMi
 qrU
 kue
 kue
@@ -169942,7 +169959,7 @@ osi
 kue
 kue
 osi
-gQp
+xUT
 fax
 vQC
 osi
