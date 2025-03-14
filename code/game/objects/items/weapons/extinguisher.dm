@@ -19,6 +19,7 @@
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
 	var/max_water = 50
+	/// We use max_water and max_firefighting_foam to disinguish which extinguishers get Water and which get Firefighting Foam
 	var/max_firefighting_foam = 0
 	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
 	var/has_safety = TRUE
@@ -32,14 +33,14 @@
 
 /obj/item/extinguisher/atmospherics
 	name = "atmospheric fire extinguisher"
-	desc = "An extinguisher coated in yellow paint that utilizes firefighting foam to put out fires."
+	desc = "An extinguisher coated in yellow paint that is pre-filled with firefighting foam."
 	icon_state = "atmoFE0"
 	item_state = "atmoFE"
 	base_icon_state = "atmoFE"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
 	max_water = 0
-	max_firefighting_foam = 40
+	max_firefighting_foam = 65
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
@@ -99,14 +100,6 @@
 /obj/item/extinguisher/proc/attempt_refill(atom/target, mob/user)
 	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
 		return FALSE
-
-	if(!istype(target, /obj/structure/reagent_dispensers/watertank/firetank) && !max_water)
-		to_chat(user, "<span class='notice'>[src] does not take water!</span>")
-		return TRUE
-
-	if(istype(target, /obj/structure/reagent_dispensers/watertank/firetank) && !max_firefighting_foam)
-		to_chat(user, "<span class='notice'>[src] does not take firefighter foam!</span>")
-		return TRUE
 
 	if(reagents.total_volume == reagents.maximum_volume)
 		to_chat(user, "<span class='notice'>[src] is already full.</span>")
