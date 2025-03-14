@@ -622,7 +622,8 @@
 		text += ")"
 		var/datum/antagonist/heretic/our_heretic = heretic.has_antag_datum(/datum/antagonist/heretic)
 		text += "<br><b>Sacrifices Made:</b> [our_heretic.total_sacrifices]"
-		text += "<br>The heretic's sacrifice targets were: [english_list(our_heretic.all_sac_targets, nothing_text = "No one")]."
+		if(our_heretic.all_sac_targets)
+			text += "<br>The heretic's sacrifice targets were: [english_list(our_heretic.all_sac_targets, nothing_text = "No one")]."
 		var/traitorwin = TRUE
 		var/list/all_objectives = heretic.get_all_objectives()
 
