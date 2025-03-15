@@ -282,7 +282,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	..()
 	explosion(loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	radiation_pulse(src, 5000, 7)
+	radiation_pulse(src, 20000, 7, ALPHA_RAD)
+	for(var/turf/target_turf in range(loc, 3))
+		contaminate_target(target_turf, src, 2000, ALPHA_RAD)
 	//Hot take on this one. This often hits walls. It really has to breach into somewhere important to matter. This at leats makes the area slightly dangerous for a bit
 
 /obj/effect/meteor/bananium
