@@ -1,26 +1,41 @@
 import { BooleanLike } from '../../common/react';
 import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
+import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
+import { Operating } from '../interfaces/common/Operating';
 
+interface BaseStats {
+  stealth: number;
+  resistance: number;
+  stageSpeed: number;
+  transmissibility: number;
+  severity: number;
+}
 interface PathogenSymptom {
   name: string;
   stealth: number;
   resistance: number;
   stageSpeed: number;
   transmissibility: number;
+  guess: string;
 }
 
 interface PathogenStrain {
   commonName?: string;
   description?: string;
+  strainID?: string;
+  strainFullID?: string;
+  diseaseID?: string;
+  sample_stage?: number;
+  known?: BooleanLike;
   bloodDNA?: string;
   bloodType?: string;
   diseaseAgent: string;
   possibleTreatments?: string;
   transmissionRoute?: string;
   symptoms?: PathogenSymptom[];
+  baseStats?: BaseStats;
   isAdvanced: BooleanLike;
 }
 
@@ -29,14 +44,20 @@ interface PanDEMICData {
   beakerLoaded: BooleanLike;
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
+  calibrating: BooleanLike;
+  canCalibrate: BooleanLike;
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
+  analysisTimeDelta: number;
+  analysisTime: number;
+  analyzing: BooleanLike;
+  sympton_names: string[];
 }
 
 export const PanDEMIC = (props, context) => {
   const { data } = useBackend<PanDEMICData>(context);
-  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
+  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, calibrating, resistances = [] } = data;
 
   let emptyPlaceholder;
   if (!beakerLoaded) {
@@ -51,6 +72,7 @@ export const PanDEMIC = (props, context) => {
     <Window width={575} height={510}>
       <Window.Content>
         <Stack fill vertical>
+          <Operating operating={calibrating} name="PanD.E.M.I.C" />
           {emptyPlaceholder && !beakerContainsVirus ? (
             <Section title="Container Information" buttons={<CommonCultureActions fill vertical />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
@@ -67,9 +89,10 @@ export const PanDEMIC = (props, context) => {
 
 const CommonCultureActions = (props, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerLoaded } = data;
+  const { beakerLoaded, canCalibrate } = data;
   return (
     <>
+      <Button icon="disk" content="Calibrate" disabled={!canCalibrate} onClick={() => act('calibrate')} />
       <Button icon="eject" content="Eject" disabled={!beakerLoaded} onClick={() => act('eject_beaker')} />
       <Button.Confirm
         icon="trash-alt"
@@ -85,10 +108,13 @@ const CommonCultureActions = (props, context) => {
 
 const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerContainsVirus } = data;
+  const { beakerContainsVirus, analysisTime, analysisTimeDelta, analyzing } = data;
   const {
     commonName,
     description,
+    strainID,
+    sample_stage,
+    known,
     diseaseAgent,
     bloodDNA,
     bloodType,
@@ -125,6 +151,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           icon="print"
           content="Print Release Forms"
+          disabled={!known}
           onClick={() =>
             act('print_release_forms', {
               strain_index: props.strainIndex,
@@ -138,11 +165,33 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           icon="pen"
           content="Name Disease"
+          disabled={!known}
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
           style={{ 'margin-left': 'auto' }}
         />
       );
     }
+  }
+  let analyzeButton;
+  let removeDataButton;
+  if (isAdvanced) {
+    analyzeButton = (
+      <Button
+        content="Analyze"
+        disabled={analysisTimeDelta < 0 || analyzing}
+        onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
+      />
+    );
+    removeDataButton = (
+      <Button.Confirm
+        icon={'trash-alt'}
+        confirmIcon="eraser"
+        content="Delete Data"
+        confirmContent="Delete Data"
+        disabled={!props.strain.known}
+        onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
+      />
+    );
   }
 
   return (
@@ -151,9 +200,32 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Stack horizontal align="center">
           {commonName ?? 'Unknown'}
           {nameButtons}
+          {analyzeButton}
+          {removeDataButton}
         </Stack>
       </LabeledList.Item>
+      {
+        <LabeledList.Item label="Analysis Time">
+          {analyzing
+            ? (analysisTime < 6000 ? '0' : '') +
+              Math.floor(analysisTime / 600) +
+              ':' +
+              (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
+              Math.floor((analysisTime / 10) % 60)
+            : analysisTimeDelta >= 0
+              ? (analysisTimeDelta < 6000 ? '0' : '') +
+                Math.floor(analysisTimeDelta / 600) +
+                ':' +
+                (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
+                Math.floor((analysisTimeDelta / 10) % 60)
+              : analysisTimeDelta === -1
+                ? 'Strain Data Is Present In Database'
+                : 'Multiple Strains Detected. Analysis Impossible'}
+        </LabeledList.Item>
+      }
       {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
+      <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
+      <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
       <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
       {bloodInformation}
       <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
@@ -251,35 +323,59 @@ const sum = (values: number[]) => {
   return values.reduce((r, value) => r + value, 0);
 };
 
-const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }) => {
-  const { symptoms } = props.strain;
+const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
+  const { act, data } = useBackend<PanDEMICData>(context);
+  const { sympton_names, analyzing, analysisTimeDelta } = data;
+  const { baseStats, symptoms, known } = props.strain;
+
   return (
     <Flex.Item grow>
       <Section title="Infection Symptoms" fill className={props.className}>
         <Table className="symptoms-table">
           <Table.Row>
             <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Stealth</Table.Cell>
+            <Table.Cell>{known ? 'Stealth' : 'Predicted Symptoms'}</Table.Cell>
             <Table.Cell>Resistance</Table.Cell>
             <Table.Cell>Stage Speed</Table.Cell>
             <Table.Cell>Transmissibility</Table.Cell>
           </Table.Row>
           {symptoms.map((symptom, index) => (
             <Table.Row key={index}>
-              <Table.Cell>{symptom.name}</Table.Cell>
-              <Table.Cell>{symptom.stealth}</Table.Cell>
+              <Table.Cell>{known ? symptom.name : 'UNKNOWN'}</Table.Cell>
+              {known ? (
+                <Table.Cell>{symptom.stealth}</Table.Cell>
+              ) : (
+                <Dropdown
+                  options={sympton_names}
+                  width="180px"
+                  selected={'No Prediction'}
+                  disabled={analyzing || analysisTimeDelta === -2}
+                  onSelected={(val) => (symptom.guess = val)}
+                />
+              )}
               <Table.Cell>{symptom.resistance}</Table.Cell>
               <Table.Cell>{symptom.stageSpeed}</Table.Cell>
               <Table.Cell>{symptom.transmissibility}</Table.Cell>
             </Table.Row>
           ))}
+
           <Table.Row className="table-spacer" />
           <Table.Row>
+            <Table.Cell>{'Base Stats'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.stealth : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.resistance : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.stageSpeed : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? baseStats.transmissibility : 'UNKNOWN'}</Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
             <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.stealth))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.resistance))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.stageSpeed))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.transmissibility))}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stealth)) + baseStats.stealth : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.resistance)) + baseStats.resistance : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stageSpeed)) + baseStats.stageSpeed : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>
+              {known ? sum(symptoms.map((s) => s.transmissibility)) + baseStats.transmissibility : 'UNKNOWN'}
+            </Table.Cell>
           </Table.Row>
         </Table>
       </Section>

@@ -33,8 +33,9 @@
 	return TRUE
 
 
-/mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
+/mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE, start_stage = 1)
 	var/datum/disease/DD = new D.type(1, D, 0)
+	DD.stage = start_stage
 	viruses += DD
 	DD.affected_mob = src
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
