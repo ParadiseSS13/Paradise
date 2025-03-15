@@ -57156,16 +57156,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"iku" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "secmaint_door_int";
-	locked = 1;
-	name = "External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "ikv" = (
 /turf/simulated/wall,
 /area/station/science/lobby)
@@ -57575,13 +57565,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/maintenance/asmaint2)
-"iwn" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "secmaint_vent"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "iwC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -57779,19 +57762,7 @@
 	},
 /area/station/maintenance/asmaint)
 "iDk" = (
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	vent_link_id = "secmaint_vent";
-	ext_door_link_id = "secmaint_door_ext";
-	int_door_link_id = "secmaint_door_int";
-	ext_button_link_id = "secmaint_btn_ext";
-	int_button_link_id = "secmaint_btn_int";
-	req_access = list(13)
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "secmaint_vent"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "iDL" = (
@@ -61295,15 +61266,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/command/office/rd)
-"ksS" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "secmaint_door_ext";
-	locked = 1;
-	name = "External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "ktQ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -67233,18 +67195,6 @@
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
-"nBC" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "secmaint_door_int";
-	locked = 1;
-	name = "External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "nBI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor{
@@ -68635,16 +68585,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"okf" = (
-/obj/machinery/access_button{
-	autolink_id = "secmaint_btn_ext";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access = list(13)
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "okj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -73094,13 +73034,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "qtm" = (
-/obj/machinery/access_button{
-	autolink_id = "secmaint_btn_int";
-	name = "interior access button";
-	pixel_x = 9;
-	pixel_y = -25;
-	req_access = list(13)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
@@ -80286,6 +80219,10 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/station/command/bridge)
+"ukk" = (
+/obj/effect/spawner/airlock/w_to_e/long/square,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fore)
 "ukt" = (
 /obj/machinery/light{
 	dir = 8
@@ -127175,9 +127112,9 @@ aqq
 awl
 atu
 atG
-nBC
-iku
-xGy
+avq
+avq
+ukk
 lQS
 avt
 lQS
@@ -127432,7 +127369,7 @@ aqr
 awl
 awl
 atG
-iwn
+avq
 iDk
 xGy
 auq
@@ -127689,8 +127626,8 @@ awl
 awl
 aaa
 awl
-ksS
-ksS
+avq
+avq
 xGy
 auq
 avu
@@ -127946,9 +127883,9 @@ aaa
 aaa
 aaa
 awl
-doE
-okf
-doE
+avq
+avq
+awl
 auq
 avw
 auq
@@ -128203,8 +128140,8 @@ aaa
 aab
 aaa
 aaa
-aaa
-aaa
+doE
+doE
 aaa
 aaa
 aaa
