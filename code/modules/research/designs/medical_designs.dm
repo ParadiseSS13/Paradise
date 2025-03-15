@@ -220,7 +220,7 @@
 	desc = "An advanced scalpel obtained through Abductor technology."
 	id = "alien_scalpel"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/scalpel/alien
+	build_path = /obj/item/scalpel/laser/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -263,16 +263,6 @@
 	build_path = /obj/item/surgicaldrill/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
-	category = list("Medical")
-
-/datum/design/aliencautery
-	name = "Alien Cautery"
-	desc = "An advanced cautery obtained through Abductor technology."
-	id = "alien_cautery"
-	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/cautery/alien
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
 /datum/design/alienbonegel
