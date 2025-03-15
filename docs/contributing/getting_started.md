@@ -286,11 +286,12 @@ map altogether and save yourself some time starting the server by setting
 If you do not need to load Lavaland, any of its ruins, or any space ruins, you
 can change these settings under `ruin_configuration`:
 
-- `enable_lavaland`: whether to load the Lavaland z-level.
+- `enable_lavaland`: whether to load Lavaland.
+- `enable_space`: Whether to load space sectors.
 - `enable_space_ruins`: despite its name, this controls whether ruins are
   spawned for both space _and_ Lavaland.
-- `minimum_zlevels` and `maximum_zlevels` control the number of space z-levels
-  generated. If you don't need any, set both to `0`.
+- `minimum_space_zlevels` and `minimum_space_zlevels` control the number of
+  space z-levels generated. If you don't need any, set both to `0`.
 
 ### Enabling or disabling station traits
 
