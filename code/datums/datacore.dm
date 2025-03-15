@@ -185,6 +185,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			G.fields["notes"] = H.gen_record
 		else
 			G.fields["notes"] = "No notes found."
+		G.fields["nt_relation"] = H?.client?.prefs?.active_character?.nanotrasen_relation || "Unknown relation."
 		general += G
 
 		//Medical Record
