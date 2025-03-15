@@ -829,6 +829,12 @@
 	icon_state = "neutral"
 	},
 /area/ruin/space/sieged_lab)
+"Of" = (
+/obj/structure/sign/directions/engineering{
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/sieged_lab)
 "OI" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1626,9 +1632,9 @@ Fc
 Fc
 Fc
 Fc
-Fc
-Fc
-Fc
+KP
+KP
+KP
 Fc
 Fc
 Fc
@@ -1683,18 +1689,18 @@ Fc
 Fc
 Fc
 Fc
+KP
+KP
+KP
+KP
+KP
+KP
 Fc
 Fc
-Fc
-Fc
-Fc
-Fc
-Fc
-Fc
-Fc
-Fc
-Fc
-Fc
+KP
+KP
+KP
+KP
 Fc
 Fc
 Fc
@@ -1904,7 +1910,7 @@ GU
 GU
 Fc
 Fc
-Fc
+KP
 KP
 ZK
 lx
@@ -1962,7 +1968,7 @@ GU
 GU
 Fc
 Fc
-Fc
+KP
 Fc
 KP
 ZK
@@ -2022,7 +2028,7 @@ GU
 Fc
 Fc
 Fc
-Fc
+KP
 KP
 ZK
 lx
@@ -2081,7 +2087,7 @@ Fc
 Fc
 Fc
 Fc
-Fc
+KP
 KP
 ZK
 lx
@@ -2139,8 +2145,8 @@ GU
 Fc
 Fc
 Fc
-Fc
-Fc
+KP
+KP
 KP
 ZK
 lx
@@ -2196,10 +2202,10 @@ GU
 GU
 Fc
 Fc
+KP
 Fc
-Fc
-Fc
-Fc
+KP
+KP
 KP
 ZK
 lx
@@ -2254,11 +2260,11 @@ GU
 GU
 GU
 Fc
+KP
 Fc
-Fc
-Fc
-Fc
-Fc
+KP
+KP
+KP
 KP
 ZK
 lx
@@ -3209,7 +3215,7 @@ Gh
 Gh
 Gh
 fV
-Gh
+Of
 ZK
 Gh
 Gh
@@ -3580,11 +3586,11 @@ Fc
 Fc
 Fc
 Fc
+KP
+KP
+KP
 Fc
-Fc
-Fc
-Fc
-Fc
+KP
 Fc
 Fc
 Fc
@@ -3731,6 +3737,7 @@ GU
 Fc
 Fc
 Fc
+KP
 Fc
 Fc
 Fc
@@ -3741,8 +3748,7 @@ Fc
 Fc
 Fc
 Fc
-Fc
-Fc
+KP
 Fc
 Fc
 Fc
