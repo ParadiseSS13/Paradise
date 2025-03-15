@@ -396,6 +396,14 @@
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
 
+/obj/item/storage/pill_bottle/try_opening(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		to_chat(user, "<span class='warning'>Try as much as you want, the child-proof lid twarts your attempts to open [src]!</span>")
+		return FALSE
+
+	to_chat(user, "<span class='notice'>You start fiddling with the child-proof lid on [src]...</span>")
+	return do_after(user, rand(2 SECONDS, 5 SECONDS), target = src, allow_moving = TRUE)
+
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."
