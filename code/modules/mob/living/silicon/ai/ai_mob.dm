@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
+	alarms_listened_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = FALSE
 	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -66,6 +66,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/custom_hologram = FALSE //For our custom holograms
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
+
+	// AI Powers
+	var/datum/program_picker/program_picker
+	var/datum/spell/ai_spell/choose_program/program_action
+	/// Whether or not the AI has unlocked universal adapter
+	var/universal_adapter = FALSE
+	/// How effective is the adapter?
+	var/adapter_efficiency = 0.5
+	/// Has the AI unlocked a bluespace miner?
+	var/bluespace_miner = FALSE
+	/// Credit payout rate
+	var/bluespace_miner_rate = 100
+	/// Time until next payout
+	var/next_payout = 10 MINUTES
+	/// Do we have the enhanced tracker?
+	var/enhanced_tracking = FALSE
+	/// Who are we tracking with the enhanced tracker?
+	var/mob/tracked_mob
+	/// The current delay on enhanced tracking
+	var/enhanced_tracking_delay = 10 SECONDS
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -226,7 +246,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-	
+
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
@@ -235,6 +255,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
+
+	add_program_picker()
 
 	for(var/I in 1 to 4)
 		stored_locations += "unset" //This is checked in ai_keybinds.dm.
@@ -298,7 +320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</a><br><br>"
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
-		if(!(cat in alarms_listend_for))
+		if(!(cat in alarms_listened_for))
 			continue
 		dat += "<b>[cat]</b><br>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
@@ -375,6 +397,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	power_state = ACTIVE_POWER_USE
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
+	/// Power draw for the bluespace miner module
+	var/bluespace_miner_power = 0
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
@@ -391,11 +415,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!powered_ai || powered_ai.stat & DEAD)
 		qdel(src)
 		return
+	// Regenerate nanites for abilities only when powered.
+	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5 * powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+	if(powered_ai.bluespace_miner)
+		// Money money money
+		if(powered_ai.next_payout <= world.time)
+			powered_ai.next_payout = 10 MINUTES + world.time
+			var/account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
+			var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
+			station_db.credit_account(account, powered_ai.bluespace_miner_rate, "Bluespace Miner Production", "AI Bluespace Miner Subsystem", FALSE)
+
+		// Update power consumption if powering a bluespace miner
+		if(bluespace_miner_power == powered_ai.bluespace_miner_rate * 2.5)
+			return
+		bluespace_miner_power = powered_ai.bluespace_miner_rate * 2.5
+		update_active_power_consumption(power_channel, active_power_consumption + bluespace_miner_power)
 
 /mob/living/silicon/ai/update_icons()
 	. = ..()
@@ -841,7 +880,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	Bot.call_bot(src, waypoint)
 
 /mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
-	if(!(class in alarms_listend_for))
+	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
 		return
@@ -869,7 +908,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
-		if(!(class in alarms_listend_for))
+		if(!(class in alarms_listened_for))
 			return
 		if(origin.z != z)
 			return
@@ -1354,6 +1393,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
 
+/mob/living/silicon/ai/proc/add_program_picker()
+	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
+	program_picker = new /datum/program_picker(src)
+	program_action = new(program_picker)
+	AddSpell(program_action)
+
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
 	malfhacking = null
@@ -1455,7 +1500,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
-	
+
 	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms
@@ -1470,6 +1515,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(is_ai_eye(eyeobj))
 		eyeobj.acceleration = !eyeobj.acceleration
 		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
+
+/mob/living/silicon/ai/proc/play_sound_remote(target, sound, volume)
+	playsound_local(src, sound, volume, FALSE, use_reverb = FALSE)
+	playsound(target, sound, volume, FALSE, use_reverb = FALSE)
 
 /mob/living/silicon/ai/handle_fire()
 	return
