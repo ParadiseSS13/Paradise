@@ -181,15 +181,15 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	// Perform procedural generation for lavaland rivers and caves
-	procgen_lavaland()
-
 	// Seed space ruins
 	if(GLOB.configuration.ruins.enable_space_ruins)
 		place_lavaland_ruins()
 		place_space_ruins()
 	else
 		log_startup_progress("Skipping space ruins...")
+
+	// Perform procedural generation for lavaland rivers and caves
+	procgen_lavaland()
 
 /datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
 	log_startup_progress("Seeding space salvage...")
