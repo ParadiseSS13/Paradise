@@ -332,7 +332,7 @@
 		var/datum/material/M = materials.materials[MAT]
 		if(!M)
 			continue
-		msgs += "[M.name]: [floor(M.amount / MINERAL_MATERIAL_AMOUNT)] sheets.</font>"
+		msgs += "[M.name]: [floor(M.amount / MINERAL_MATERIAL_AMOUNT)] sheets."
 	to_chat(user, chat_box_regular(msgs.Join("<br>")))
 
 /obj/machinery/smithing
