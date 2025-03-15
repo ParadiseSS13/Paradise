@@ -347,12 +347,22 @@
 		new /obj/item/reagent_containers/pill/lazarus_reagent(src)
 		new /obj/item/reagent_containers/pill/rezadone(src)
 
+/obj/item/storage/pill_bottle/try_opening(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		to_chat(user, "<span class='warning'>Try as much as you want, the child-proof cap twarts your attempts to open [src]!</span>")
+		return FALSE
+
+	to_chat(user, "<span class='notice'>You start fiddling with the child-proof cap on [src]...</span>")
+	return do_after(user, rand(2 SECONDS, 5 SECONDS), target = src, allow_moving = TRUE)
+	
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
 			if(!length(contents))
 				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				return
+			if(!try_opening(C))
 				return
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds
