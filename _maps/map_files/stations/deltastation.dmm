@@ -15519,10 +15519,12 @@
 /obj/machinery/alarm/directional/west,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
 /obj/structure/shelf/service,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -15915,13 +15917,13 @@
 	},
 /area/station/service/kitchen)
 "bfk" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/station/service/kitchen)
 "bfm" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -16282,7 +16284,7 @@
 "bgB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -16598,6 +16600,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -17749,11 +17752,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bll" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blm" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bln" = (
@@ -21311,6 +21314,7 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -27730,8 +27734,8 @@
 /area/station/hallway/primary/port/north)
 "bQy" = (
 /obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bQz" = (
@@ -48647,7 +48651,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dlP" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -69438,10 +69443,6 @@
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/book/manual/wiki/chef_recipes{
-	pixel_x = 4;
-	pixel_y = 2
-	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
@@ -74394,6 +74395,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/paramedic)
+"ong" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/cooking/grill,
+/turf/simulated/floor/plasteel,
+/area/station/service/kitchen)
 "ont" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -88521,7 +88528,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "vCA" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -132539,7 +132547,7 @@ bdS
 bdQ
 bdP
 bdQ
-bQy
+ong
 aYZ
 fJp
 npJ

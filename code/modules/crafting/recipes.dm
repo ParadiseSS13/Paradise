@@ -549,7 +549,7 @@
 
 /datum/crafting_recipe/sushimat
 	name = "Sushi Mat"
-	result = list(/obj/item/kitchen/sushimat)
+	result = list(/obj/item/reagent_containers/cooking/sushimat)
 	time = 10
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 2)
