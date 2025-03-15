@@ -77496,6 +77496,16 @@
 /obj/structure/sign/fire{
 	pixel_x = 32
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	layer = 3.1;
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "sKD" = (
@@ -85745,18 +85755,14 @@
 /area/station/hallway/primary/port/west)
 "xlV" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/obj/machinery/access_button{
-	layer = 3.1;
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = -23
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/sign/fire{
 	pixel_x = -32
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
