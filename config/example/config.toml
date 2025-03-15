@@ -248,7 +248,7 @@ gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
 	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 0 },
-	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
+	{ gamemode = "extend-a-traitormongous", probability = 0 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
 	{ gamemode = "raginmages", probability = 0 },
@@ -260,7 +260,7 @@ gamemode_probabilities = [
 	{ gamemode = "vampire", probability = 0 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 0 },
-	{ gamemode = "dynamic", probability = 20 },
+	{ gamemode = "dynamic", probability = 22 },
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
