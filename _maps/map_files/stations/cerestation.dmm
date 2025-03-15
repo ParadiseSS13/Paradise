@@ -105,11 +105,11 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/northwest)
 "aaI" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/north)
@@ -327,10 +327,10 @@
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/command)
 "abY" = (
-/obj/structure/disposaloutlet,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/structure/disposaloutlet/cere,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/northwest)
 "abZ" = (
@@ -1994,15 +1994,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
-"apW" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/maintenance/disposal/northeast)
 "apY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -17648,13 +17639,13 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "ctz" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /obj/structure/railing,
+/obj/structure/disposaloutlet/cere{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/station/turret_protected/aisat/interior/secondary)
 "ctC" = (
@@ -23472,11 +23463,11 @@
 /turf/space,
 /area/station/engineering/solar/aft)
 "dhy" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/northeast)
@@ -28200,11 +28191,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
 "eil" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/westalt)
@@ -37302,11 +37293,11 @@
 	},
 /area/station/maintenance/apmaint)
 "gAG" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/external/southwest)
@@ -63722,10 +63713,10 @@
 /turf/simulated/mineral/ancient,
 /area/station/hallway/primary/port/north)
 "mJo" = (
-/obj/structure/disposaloutlet,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/structure/disposaloutlet/cere,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "mJt" = (
@@ -76609,11 +76600,11 @@
 	},
 /area/station/hallway/primary/aft/east)
 "pRl" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
@@ -78872,7 +78863,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/structure/disposaloutlet,
+/obj/structure/disposaloutlet/cere,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/southwest)
 "qtV" = (
@@ -79560,10 +79551,10 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "qBS" = (
-/obj/structure/disposaloutlet{
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet/cere{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/external/southeast)
 "qBU" = (
@@ -94035,10 +94026,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "ubl" = (
-/obj/structure/disposaloutlet{
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet/cere{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/fsmaint)
 "ubn" = (
@@ -103131,11 +103122,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "wlt" = (
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/structure/disposaloutlet/cere{
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/south)
@@ -106130,10 +106121,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/structure/disposaloutlet{
+/obj/structure/lattice/catwalk,
+/obj/structure/disposaloutlet/cere{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "wUw" = (
@@ -110824,10 +110815,10 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "ycO" = (
-/obj/structure/disposaloutlet{
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet/cere{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/east)
 "ydd" = (
@@ -147844,7 +147835,7 @@ rNK
 abL
 rNK
 aoR
-apW
+dhy
 aoR
 cRv
 cRv
