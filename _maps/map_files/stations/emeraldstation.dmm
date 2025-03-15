@@ -32535,9 +32535,8 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "gxa" = (
-/mob/living/simple_animal/lizard/tegu/wags
-{
-	},
+/mob/living/simple_animal/lizard/tegu/wags{
+},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "gxk" = (
