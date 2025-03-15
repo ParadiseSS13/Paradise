@@ -29,26 +29,6 @@
 		if(program.power_type || program.upgrade)
 			possible_programs += program
 
-// /datum/program_picker/proc/use(mob/user)
-// 	var/mob/living/silicon/ai/A = user
-// 	if(!istype(A))
-// 		return
-// 	assigned_ai = A
-// 	var/dat
-// 	dat += {"<B>Select program to install: (currently [memory] TB of memory and [bandwidth] TBPS of bandwidth left.)</B><BR>
-// 			<HR>
-// 			<B>Install Program:</B><BR>
-// 			<I>The number afterwards is the amount of a given resource it consumes.</I><BR>"}
-// 	for(var/datum/ai_program/program in possible_programs)
-// 		dat += "<A href='byond://?src=[UID()];[program.program_id]=1'>[program.program_name]</A><A href='byond://?src=[UID()];showdesc=[program.program_id]'>\[?\]</A> ([program.installed ? "1 TBPS": "[program.cost] TB"])<BR>"
-// 	dat += "<HR>"
-// 	if(temp)
-// 		dat += "[temp]"
-// 	var/datum/browser/popup = new(A, "modpicker", "AI Program Menu", 400, 500)
-// 	popup.set_content(dat)
-// 	popup.open()
-// 	return
-
 /datum/program_picker/proc/modify_resource(key, amount)
 	if(key == "memory")
 		memory += amount
@@ -82,73 +62,13 @@
 		while(program.upgrade_level > 0 && bandwidth < 0)
 			program.downgrade(assigned_ai)
 
-// /datum/program_picker/Topic(href, href_list) // All the program purchasing logic is here. Need to translate to TGUI.
-// 	..()
-
-// 	if(!is_ai(usr))
-// 		return
-// 	var/mob/living/silicon/ai/A = usr
-
-// 	if(A.stat == DEAD)
-// 		to_chat(A, "<span class='warning'>You are dead!</span>")
-// 		return
-
-// 	for(var/datum/ai_program/program in possible_programs)
-// 		if(href_list[program.program_id])
-
-// 			if(!program.upgrade)
-// 				var/datum/spell/ai_spell/new_spell = new program.power_type
-
-// 				for(var/datum/spell/ai_spell/aspell in A.mob_spell_list)
-// 					if(new_spell.type == aspell.type)
-// 						if(aspell.spell_level >= aspell.level_max)
-// 							to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
-// 							return FALSE
-// 						else
-// 							if(bandwidth < 1)
-// 								temp = "You cannot afford this upgrade!"
-// 								return FALSE
-// 							aspell.name = initial(aspell.name)
-// 							aspell.spell_level++
-// 							if(aspell.spell_level >= aspell.level_max)
-// 								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-// 							aspell.on_purchase_upgrade()
-// 							program.upgrade(A)
-// 							return TRUE
-// 				// No same program found, install
-// 				if(program.cost > memory)
-// 					to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
-// 					return FALSE
-// 				memory -= program.cost
-// 				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-// 				program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
-// 				A.AddSpell(new_spell)
-// 				to_chat(A, program.unlock_text)
-// 				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
-// 				program.installed = TRUE
-// 				return TRUE
-
-// 			// Upgrades below
-// 			if(program.upgrade_level > program.max_level)
-// 				to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-// 				return FALSE
-// 			program.upgrade(A)
-// 			to_chat(A, program.unlock_text)
-// 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
-// 			return TRUE
-
-// 		if(href_list["showdesc"])
-// 			if(program.program_id == href_list["showdesc"])
-// 				temp = program.description
-// 	use(usr)
-
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
 /datum/program_picker/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AIProgramPicker", "Program Picker")
+		ui = new(user, src, "AIProgramPicker", "AI Program Menu")
 		ui.open()
 
 /datum/program_picker/ui_data(mob/user)
@@ -165,22 +85,69 @@
 			"is_passive" = program.upgrade
 		)
 		data["program_list"] += list(program_data)
+	var/mob/living/silicon/ai/AI = user
+	data["ai_info"] = list(
+  		"memory" = AI.program_picker.memory,
+  		"bandwidth" = AI.program_picker.bandwidth
+	)
 	return data
 
-// /datum/program_picker/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-// 	if(..())
-// 		return
-// 	. = FALSE
+/datum/program_picker/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+	. = FALSE
 
-// 	if(!is_ai(ui.user))
-// 		return
-// 	var/mob/living/silicon/ai/A = usr
-// 	if(A.stat == DEAD)
-// 		to_chat(A, "<span class='warning'>You are dead!</span>")
-// 		return
+	if(!is_ai(ui.user))
+		return
+	var/mob/living/silicon/ai/A = usr
+	if(A.stat == DEAD)
+		to_chat(A, "<span class='warning'>You are dead!</span>")
+		return
 
-// 	switch(action)
-// 		if()
+	switch(action)
+		if("select")
+			if(!length(GLOB.ai_list))
+				return FALSE
+			var/datum/spell/ai_spell/selected_program = locateUID(params["uid"])
+
+			for(var/datum/spell/ai_spell/selected_program in A.mob_spell_list)
+				if(new_spell.type == aspell.type)
+					if(aspell.spell_level >= aspell.level_max)
+						to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
+						return FALSE
+					else
+						if(bandwidth < 1)
+							temp = "You cannot afford this upgrade!"
+							return FALSE
+						selected_program.name = initial(selected_program.name)
+						selected_program.spell_level++
+						if(selected_program.spell_level >= selected_program.level_max)
+							to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+						selected_program.on_purchase_upgrade()
+						program.upgrade(A)
+						return TRUE
+
+			// No same program found, install
+			if(program.cost > memory)
+				to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
+				return FALSE
+			memory -= program.cost
+			SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
+			program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
+			A.AddSpell(new_spell)
+				to_chat(A, program.unlock_text)
+				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
+				program.installed = TRUE
+				return TRUE
+
+		// Upgrades below
+		if(program.upgrade_level > program.max_level)
+			to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+			return FALSE
+		program.upgrade(A)
+		to_chat(A, program.unlock_text)
+		A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
+		return TRUE
 
 // The base program type, which holds info about each ability.
 /datum/ai_program
