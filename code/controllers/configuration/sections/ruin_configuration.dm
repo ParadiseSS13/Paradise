@@ -33,6 +33,3 @@
 	CONFIG_LOAD_NUM(space_ruin_budget_max, data["space_ruin_budget_max"])
 	CONFIG_LOAD_NUM(lavaland_ruin_budget_min, data["lavaland_ruin_budget_min"])
 	CONFIG_LOAD_NUM(lavaland_ruin_budget_max, data["lavaland_ruin_budget_max"])
-	active_space_ruins += "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm"
-	active_space_ruins += "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm"
-	active_space_ruins += "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm"

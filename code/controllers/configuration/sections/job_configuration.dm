@@ -50,5 +50,3 @@
 					lowpop_job_map[kvp["name"]] = kvp["lowpop"]
 				if(!isnull(kvp["highpop"]))
 					highpop_job_map[kvp["name"]] = kvp["highpop"]
-		lowpop_job_map["Smith"] = 1
-		highpop_job_map["Smith"] = 1
