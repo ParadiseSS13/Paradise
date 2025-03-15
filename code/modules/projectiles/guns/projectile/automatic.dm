@@ -350,6 +350,10 @@
 	..()
 	empty_alarm()
 
+// Standard traitor uplink variant
+/obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
+	mag_type = /obj/item/ammo_box/magazine/m12g/rubbershot
+
 //////////////////////////////
 // MARK: IK-M2 LASER CARBINE
 //////////////////////////////
