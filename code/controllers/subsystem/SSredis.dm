@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(redis)
 			if(RCB.channel in subbed_channels)
 				stack_trace("Attempted to subscribe to the channel '[RCB.channel]' from [RCB.type] twice!")
 
-			rustg_redis_subscribe(RCB.channel)
+			rustlibs_redis_subscribe(RCB.channel)
 			subbed_channels[RCB.channel] = RCB
 
 		// Send our presence to required channels
@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(redis)
 			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif
 
-		var/conn_failed = rustg_redis_connect(GLOB.configuration.redis.connstring)
+		var/conn_failed = rustlibs_redis_connect(GLOB.configuration.redis.connstring)
 		if(conn_failed)
 			log_startup_progress("Failed to connect to redis. Please inform the server host.")
 			SEND_TEXT(world.log, "Redis connection failure: [conn_failed]")
@@ -81,11 +81,11 @@ SUBSYSTEM_DEF(redis)
 		connected = TRUE
 
 /datum/controller/subsystem/redis/proc/disconnect()
-	rustg_redis_disconnect()
+	rustlibs_redis_disconnect()
 	connected = FALSE
 
 /datum/controller/subsystem/redis/proc/check_messages()
-	var/raw_data = rustg_redis_get_messages()
+	var/raw_data = rustlibs_redis_get_messages()
 	var/list/usable_data
 
 	try // Did you know byond had try catch?
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(redis)
 		return
 
 	for(var/channel in usable_data)
-		if(channel == RUSTG_REDIS_ERROR_CHANNEL)
+		if(channel == RUSTLIBS_REDIS_ERROR_CHANNEL)
 			var/redis_error_data = usable_data[channel]
 			var/error_str
 			if(islist(redis_error_data))
@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(redis)
 		return
 
 	// If we are alive, publish straight away
-	rustg_redis_publish(channel, message)
+	rustlibs_redis_publish(channel, message)
 
 
 // Misc protection stuff
