@@ -67,13 +67,22 @@ const SupermatterMonitorListView = (props, context) => {
 
 const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, SM_integrity, SM_power, SM_ambienttemp, SM_ambientpressure, SM_moles, SM_gas_coefficient } = data;
+  const {
+    active,
+    SM_integrity,
+    SM_power,
+    SM_pre_reduction_power,
+    SM_ambienttemp,
+    SM_ambientpressure,
+    SM_moles,
+    SM_gas_coefficient,
+  } = data;
   const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(
     data.gases || []
   );
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.portion));
   return (
-    <Window width={550} height={250}>
+    <Window width={550} height={270}>
       <Window.Content>
         <Stack fill>
           <Stack.Item width="270px">
@@ -89,7 +98,21 @@ const SupermatterMonitorDataView = (props, context) => {
                     }}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Relative EER">
+                <LabeledList.Item label="Peak EER">
+                  <ProgressBar
+                    value={SM_pre_reduction_power}
+                    minValue={0}
+                    maxValue={5000}
+                    ranges={{
+                      good: [-Infinity, 5000],
+                      average: [5000, 7000],
+                      bad: [7000, Infinity],
+                    }}
+                  >
+                    {toFixed(SM_pre_reduction_power) + ' MeV/cm3'}
+                  </ProgressBar>
+                </LabeledList.Item>
+                <LabeledList.Item label="Nominal EER">
                   <ProgressBar
                     value={SM_power}
                     minValue={0}
