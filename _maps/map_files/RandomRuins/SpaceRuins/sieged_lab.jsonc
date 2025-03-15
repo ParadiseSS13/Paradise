@@ -1,5 +1,6 @@
 [
 	{
+		// Sieged Lab: Vertical Hallways
 		"type": "SubmapExtractInsert",
 		"submap_size_x": 2,
 		"submap_size_y": 8,
@@ -10,7 +11,7 @@
 		"submaps_can_repeat": false
 	},
 	{
-		// Dvorak turret room, but randomized contents
+		// Sieged Lab: Horizontal Hallways
 		"type": "SubmapExtractInsert",
 		"submap_size_x": 8,
 		"submap_size_y": 2,
@@ -21,7 +22,7 @@
 		"submaps_can_repeat": false
 	},
 	{
-		// Dvorak turret room, but randomized contents
+		// Sieged Lab: Medium-sized Rooms
 		"type": "SubmapExtractInsert",
 		"submap_size_x": 5,
 		"submap_size_y": 6,
@@ -32,7 +33,7 @@
 		"submaps_can_repeat": false
 	},
 	{
-		// Dvorak turret room, but randomized contents
+		// Sieged Lab: Wide Rooms
 		"type": "SubmapExtractInsert",
 		"submap_size_x": 9,
 		"submap_size_y": 4,

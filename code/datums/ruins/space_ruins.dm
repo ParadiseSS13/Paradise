@@ -364,7 +364,6 @@
 	name = "Sieged Lab"
 	description = "A destroyed laboratory, under siege from forces unknown."
 	allow_duplicates = FALSE
-	always_place = TRUE // REMOVE AFTER TESTMERGE
 
 /datum/map_template/ruin/space/clockwork_monastery
 	id = "clockwork_monastery"
