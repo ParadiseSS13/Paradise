@@ -24,3 +24,6 @@
 
 /// Used by admin-tooling to remove radiation
 #define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Used when a shelter capsule deploys
+#define COMSIG_GLOB_SHELTER_PLACED "!shelter_placed"

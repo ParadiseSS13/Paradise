@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(weather)
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
+	var/list/next_weather_by_zlevel = list() // For the weather radar detection
 	cpu_display = SS_CPUDISPLAY_LOW
 
 /datum/controller/subsystem/weather/get_metrics()
@@ -28,6 +29,8 @@ SUBSYSTEM_DEF(weather)
 			var/mob/living/L = i
 			if(W.can_weather_act(L))
 				W.weather_act(L)
+		if(W.area_act == TRUE)
+			W.area_act()
 
 	// start random weather on relevant levels
 	for(var/z in eligible_zlevels)
@@ -38,6 +41,7 @@ SUBSYSTEM_DEF(weather)
 		var/randTime = rand(3000, 6000)
 		addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
 		next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
+		next_weather_by_zlevel["[z]"] = W
 
 /datum/controller/subsystem/weather/Initialize()
 	if(!GLOB.configuration.general.enable_default_weather_events)
@@ -78,6 +82,7 @@ SUBSYSTEM_DEF(weather)
 /datum/controller/subsystem/weather/proc/make_eligible(z, possible_weather)
 	eligible_zlevels[z] = possible_weather
 	next_hit_by_zlevel["[z]"] = null
+	next_weather_by_zlevel["[z]"] = null
 
 /datum/controller/subsystem/weather/proc/get_weather(z, area/active_area)
 	var/datum/weather/A
