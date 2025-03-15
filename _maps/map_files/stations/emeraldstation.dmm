@@ -116562,7 +116562,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "xho" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
 "xhr" = (
