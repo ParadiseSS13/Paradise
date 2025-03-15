@@ -49363,9 +49363,8 @@
 /turf/simulated/floor/grass,
 /area/station/medical/medbay3)
 "jsi" = (
-/mob/living/simple_animal/tegu/wags{
-	name = "Wags-His-Tail";
-	real_name = "Wags-His-Tail"
+/mob/living/simple_animal/lizard/tegu/wags
+
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
