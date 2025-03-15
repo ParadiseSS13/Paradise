@@ -20558,6 +20558,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 8
@@ -26030,12 +26033,12 @@
 	},
 /area/station/engineering/break_room)
 "bKo" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -68828,6 +68831,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -72852,8 +72858,8 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "nlB" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -83921,6 +83927,9 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 4
@@ -90150,6 +90159,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -90291,9 +90303,9 @@
 	},
 /area/station/maintenance/port)
 "wsZ" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -91105,11 +91117,11 @@
 	},
 /area/station/hallway/primary/central/north)
 "wQi" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
