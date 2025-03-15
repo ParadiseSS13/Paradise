@@ -95,7 +95,7 @@
 		/obj/item/slimepotion/transference = 50,
 
 		// Might as well let AI be interested
-		/obj/item/surveillance_upgrade = 25,
+		/obj/item/ai_upgrade/surveillance_upgrade = 25,
 	)
 
 /obj/effect/spawner/random/traders/medical
