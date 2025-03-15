@@ -58,6 +58,11 @@
 	if(istype(used, /obj/item/reagent_containers))
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
+	if(my_bag)
+		if(my_bag.can_be_inserted(used))
+			my_bag.handle_item_insertion(used, user)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/janitorialcart/proc/handle_janitorial_equipment(mob/living/user, obj/item/used)
