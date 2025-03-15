@@ -866,6 +866,10 @@
 		var/note_id = href_list["editnote"]
 		edit_note(note_id)
 
+	else if(href_list["toggle_note_publicity"])
+		var/note_id = href_list["toggle_note_publicity"]
+		toggle_note_publicity(note_id)
+
 	else if(href_list["shownote"])
 		var/target = href_list["shownote"]
 		show_note(index = target)

@@ -283,4 +283,52 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	init_verbs()
 
+/client/verb/show_own_notes()
+	set name = "Show My Notes"
+	set desc = "View your public notes."
+	set category = "OOC"
+
+	if(!key)
+		return
+	if(!SSdbcore.IsConnected())
+		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		return
+	var/list/output = list("<!DOCTYPE html>")
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
+		SELECT timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id
+		FROM notes WHERE ckey=:targetkey AND deleted=0 AND public=1 ORDER BY timestamp"}, list(
+			"targetkey" = ckey
+		))
+	if(!query_get_notes.warn_execute())
+		to_chat(src, "<span class='danger'>Unfortunately, we were not able to retrieve your notes.</span>")
+		qdel(query_get_notes)
+		return
+	output += "<h2><center>Notes of [ckey]</center></h2><br><center><font size='1'>Don't discuss warnings or other punishments from the admins in Paradise Discord.</font></center>"
+	output += "<hr style='background:#000000; border:0; height:3px'>"
+	var/found_notes = FALSE
+	while(query_get_notes.NextRow())
+		found_notes = TRUE
+		var/timestamp = query_get_notes.item[1]
+		var/notetext = query_get_notes.item[2]
+		var/adminckey = query_get_notes.item[3]
+		var/last_editor = query_get_notes.item[4]
+		var/server = query_get_notes.item[5]
+		var/mins = text2num(query_get_notes.item[6])
+		var/round_id = text2num(query_get_notes.item[7])
+		output += "<b>[timestamp][round_id ? " (Round [round_id])" : ""] | [server] | [adminckey]"
+		if(mins)
+			var/playstring = get_exp_format(mins)
+			output += " | [playstring] as Crew"
+		output += "</b>"
+
+		if(last_editor)
+			output += " <font size='1'>Last edit by [last_editor].</font>"
+		output += "<br>[replacetext(notetext, "\n", "<br>")]<hr style='background:#000000; border:0; height:1px'>"
+	if(!found_notes)
+		output += "<b>You have no public notes.</b>"
+	qdel(query_get_notes)
+	var/datum/browser/popup = new(mob, "show_public_notes", "Public Notes", 900, 500)
+	popup.set_content(output.Join(""))
+	popup.open()
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
