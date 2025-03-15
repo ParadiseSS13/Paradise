@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 
 	if(SSredis.connected)
-		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+		rustlibs_redis_disconnect() // Disconnects the redis connection. See above.
 
 	#ifdef ENABLE_BYOND_TRACY
 	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration
