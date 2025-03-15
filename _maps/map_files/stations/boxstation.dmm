@@ -48819,6 +48819,7 @@
 	dir = 4
 	},
 /mob/living/simple_animal/lizard/tegu/wags{
+	
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)

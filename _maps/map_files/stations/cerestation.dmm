@@ -49351,6 +49351,7 @@
 /area/station/medical/medbay3)
 "jsi" = (
 /mob/living/simple_animal/lizard/tegu/wags{
+
 },
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
