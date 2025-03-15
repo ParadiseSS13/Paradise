@@ -88,3 +88,35 @@
 		qdel(src)
 		return TRUE
 	return ..()
+/mob/living/simple_animal/lizard/tegu
+	name = "tegu"
+	desc = "A rather large lizard."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "tegu"
+	icon_living = "tegu"
+	icon_dead = "tegu_dead"
+	speak_emote = list("hisses")
+	health = 10
+	maxHealth = 10
+	attacktext = "bites"
+	obj_damage = 0
+	melee_damage_lower = 1
+	melee_damage_upper = 2
+	response_help  = "pets"
+	response_disarm = "shoos"
+	response_harm   = "stomps on"
+	faction = list("neutral", "jungle")
+	ventcrawler = VENTCRAWLER_ALWAYS
+	density = FALSE
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	can_hide = FALSE
+	pass_door_while_hidden = TRUE
+	butcher_results = list(/obj/item/food/meat = 1)
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
+	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/lizard/tegu/wags
+	name = "Wags-His-Tail"
+	desc = "The janitor's trusty lizard."

@@ -58295,9 +58295,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "lxV" = (
-/mob/living/simple_animal/lizard{
-	name = "Wags-His-Tail";
-	real_name = "Wags-His-Tail"
+/mob/living/simple_animal/lizard/tegu/wags{
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
