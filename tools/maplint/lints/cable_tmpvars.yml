@@ -1,0 +1,5 @@
+help: 'Cables now set their d1 and d2 vars on initialization from the icon state.'
+/obj/structure/cable:
+  banned_variables:
+    - d1
+    - d2
