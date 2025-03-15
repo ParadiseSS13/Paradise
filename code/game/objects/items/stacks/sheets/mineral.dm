@@ -440,6 +440,42 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.tranquillite_recipes
 
+/obj/item/stack/sheet/mineral/platinum
+	name = "platinum"
+	desc = "Shiny and valuable."
+	icon_state = "sheet-platinum"
+	item_state = "sheet-platinum"
+	singular_name = "platinum"
+	origin_tech = "materials=5"
+	sheettype = "platinum"
+	merge_type = /obj/item/stack/sheet/mineral/platinum
+	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/palladium
+	name = "palladium"
+	desc = "A valuable space mineral."
+	icon_state = "sheet-palladium"
+	item_state = "sheet-palladium"
+	singular_name = "palladium"
+	origin_tech = "materials=5"
+	sheettype = "palladium"
+	merge_type = /obj/item/stack/sheet/mineral/palladium
+	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/iridium
+	name = "iridium"
+	desc = "A dense mineral found in abundance in space and extremely rare on planets."
+	icon_state = "sheet-iridium"
+	item_state = "sheet-iridium"
+	singular_name = "iridium"
+	origin_tech = "materials=5"
+	sheettype = "iridium"
+	merge_type = /obj/item/stack/sheet/mineral/iridium
+	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
 /*
  * Titanium
  */
