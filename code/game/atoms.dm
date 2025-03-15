@@ -62,6 +62,9 @@
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+	// currently used Color filter, cached because we apply it to all of our overlays. According to the original PR author, "Byond is Horrific."
+	var/cached_color_filter
+
 
 	/// Radiation insulation for alpha emissions
 	var/rad_insulation_alpha = RAD_ALPHA_BLOCKER
@@ -1287,7 +1290,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	if(colour_priority > length(atom_colours))
 		return
-	atom_colours[colour_priority] = coloration
+	var/color_type = ATOM_COLOR_TYPE_NORMAL
+	if(islist(coloration))
+		var/list/color_matrix = coloration
+		if(color_matrix["type"]=="color")
+			color_type = ATOM_COLOR_TYPE_FILTER
+	atom_colours[colour_priority] = list(coloration, color_type)
 	update_atom_colour()
 
 /*
@@ -1299,8 +1307,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	if(colour_priority > length(atom_colours))
 		return
-	if(coloration && atom_colours[colour_priority] != coloration)
-		return //if we don't have the expected color (for a specific priority) to remove, do nothing
+	if(coloration && atom_colours[colour_priority])
+		if(atom_colours[colour_priority][ATOM_COLOR_INDEX_TYPE] == ATOM_COLOR_TYPE_NORMAL)
+			if(atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE] != coloration)
+				return // if we don't have the expected color to remove, don't do anything.
+		else
+			if(!islist(coloration) || !compare_list(coloration, atom_colours[colour_priority][ATOM_COLOR_INDEX_VALUE]["color"]))
+				return
 	atom_colours[colour_priority] = null
 	update_atom_colour()
 
@@ -1309,19 +1322,35 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	colour available
 */
 /atom/proc/update_atom_colour()
+	var/old_filter = cached_color_filter
+	cached_color_filter = null
+	remove_filter(ATOM_PRIORITY_COLOR_FILTER)
+	REMOVE_KEEP_TOGETHER(src, ATOM_COLOR_TRAIT)
+
 	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	color = null
-	for(var/C in atom_colours)
-		if(islist(C))
-			var/list/L = C
-			if(length(L))
-				color = L
-				return
-		else if(C)
-			color = C
-			return
+		if(old_filter)
+			update_appearance()
+		return
+	for(var/list/checked_color in atom_colours)
+		if(checked_color[ATOM_COLOR_INDEX_TYPE] == ATOM_COLOR_TYPE_FILTER)
+			add_filter(ATOM_PRIORITY_COLOR_FILTER, ATOM_PRIORITY_COLOR_FILTER_PRIORITY, checked_color[ATOM_COLOR_INDEX_VALUE])
+			cached_color_filter = checked_color[ATOM_COLOR_INDEX_VALUE]
+			break
+		if(length(checked_color[ATOM_COLOR_INDEX_VALUE]))
+			color = checked_color[ATOM_COLOR_INDEX_VALUE]
+			break
+
+	ADD_KEEP_TOGETHER(src, ATOM_COLOR_TRAIT)
+	if(cached_color_filter != old_filter)
+		update_appearance()
+
+/// Same as update_atom_color, but simplifies overlay coloring
+/atom/proc/color_atom_overlay(mutable_appearance/overlay)
+	overlay.color = color
+	if(!cached_color_filter)
+		return overlay
+	return filter_appearance_recursive(overlay, cached_color_filter)
+
 
 /** Call this when you want to present a renaming prompt to the user.
 
