@@ -26,6 +26,7 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	var/afd_baton = FALSE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -261,22 +262,23 @@
 		return FALSE
 
 	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(!ignore_shield_check && H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return FALSE
+	if(!afd_baton)	// We do not want the AFD toy baton to do any of this, no thank you!
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			if(!ignore_shield_check && H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+				playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
+				return FALSE
 
-		H.Confused(10 SECONDS)
-		H.Jitter(10 SECONDS)
-		H.apply_damage(stam_damage, STAMINA)
-		H.SetStuttering(10 SECONDS)
+			H.Confused(10 SECONDS)
+			H.Jitter(10 SECONDS)
+			H.apply_damage(stam_damage, STAMINA)
+			H.SetStuttering(10 SECONDS)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
-	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
+		ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
+		L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
+		addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
 
-	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
+		SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	if(user)
 		L.lastattacker = user.real_name
@@ -285,7 +287,8 @@
 			"<span class='danger'>[user] has stunned [L] with [src]!</span>",
 			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>"
 			)
-		add_attack_logs(user, L, "stunned")
+		if(!afd_baton)	// No fake attack logs.
+			add_attack_logs(user, L, "stunned")
 	play_hit_sound()
 	deductcharge(hitcost)
 	return TRUE
@@ -449,3 +452,9 @@
 /obj/item/melee/baton/flayerprod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This one seems to be able to interfere with radio headsets.</span>"
+
+/obj/item/melee/baton/loaded/afd_edition	// It's a toy!
+	hitcost = 0 // It does nothing, don't drain their cell.
+	stam_damage = 0
+	knockdown_duration = 0 SECONDS	// Just in case...
+	afd_baton = TRUE

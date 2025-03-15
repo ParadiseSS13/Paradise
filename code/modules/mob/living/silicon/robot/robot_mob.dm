@@ -406,7 +406,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
-		"Service" = image('icons/mob/robots.dmi', "serv-radial"))
+		"Service" = image('icons/mob/robots.dmi', "serv-radial"),
+		"Sec" = image('icons/mob/robots.dmi', "security-radial")) // It's a subtle difference that players may not notice at first...
 	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
 		"Security" = image('icons/mob/robots.dmi', "security-radial"),
@@ -496,6 +497,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Combat" = image('icons/mob/robots.dmi', "ertgamma")
 			)
 		if("Security")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "secborg"),
+				"Red Knight" = image('icons/mob/robots.dmi', "Security"),
+				"Black Knight" = image('icons/mob/robots.dmi', "securityrobot"),
+				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
+				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
+			)
+		if("Sec")
 			module_sprites = list(
 				"Basic" = image('icons/mob/robots.dmi', "secborg"),
 				"Red Knight" = image('icons/mob/robots.dmi', "Security"),
@@ -661,6 +673,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Security")
 			module = new /obj/item/robot_module/security(src)
 			status_flags &= ~CANPUSH
+		if("Sec")
+			module = new /obj/item/robot_module/security_afd_edition(src)
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
 

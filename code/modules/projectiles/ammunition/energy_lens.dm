@@ -189,6 +189,10 @@
 /obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 250
 
+/obj/item/ammo_casing/energy/disabler/cyborg/afd_edition
+	e_cost = 50 // Small mercy, you get crew disabler energy drain.
+	projectile_type = /obj/item/projectile/beam/disabler/afd_edition
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 60
 
