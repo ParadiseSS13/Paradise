@@ -172,6 +172,22 @@
 		return TRUE
 	return (!density)
 
+/obj/structure/closet/Bumped(atom/movable/AM)
+	..()
+	if(!iscarbon(AM))
+		return
+	var/mob/living/carbon/human/user = AM
+	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
+		return
+	if(user.m_intent != MOVE_INTENT_RUN)
+		return
+	if(locked && !allowed(user))
+		return
+	locked = FALSE
+	if(opened || open())
+		user.forceMove(src)
+		close()
+
 /obj/structure/closet/proc/can_open()
 	if(welded)
 		return FALSE
