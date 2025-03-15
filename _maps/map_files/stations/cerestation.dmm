@@ -13264,7 +13264,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "bPY" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /turf/simulated/floor/engine,
 /area/station/service/library)
 "bQc" = (
@@ -35390,11 +35390,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"fXv" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "fXz" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/extinguisher_cabinet{
@@ -36404,7 +36399,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
 "gmR" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/structure/stone_tile/surrounding/burnt,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fore2)
@@ -51216,6 +51211,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"jKO" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "jKQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -171237,7 +171237,7 @@ lCC
 hnV
 tqi
 tqi
-fXv
+jKO
 eKJ
 wyL
 iJv
