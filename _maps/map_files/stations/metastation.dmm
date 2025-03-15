@@ -20248,6 +20248,8 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/mut,
+/obj/item/seeds/poppy,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "bBN" = (
@@ -56401,6 +56403,15 @@
 	name = "Prison Intercom (General)";
 	pixel_x = 25
 	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 9;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -63193,8 +63204,6 @@
 /area/station/security/brig)
 "nCR" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "nDb" = (
@@ -75955,6 +75964,15 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 9;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"

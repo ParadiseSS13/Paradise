@@ -5679,6 +5679,7 @@
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/glass/bottle/nutrient/mut,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "aYc" = (
@@ -8503,6 +8504,12 @@
 /obj/structure/chair/comfy/green{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen"
+	},
+/area/station/medical/virology)
+"bpS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -35281,11 +35288,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"fXv" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "fXz" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/extinguisher_cabinet{
@@ -37632,13 +37634,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"gFd" = (
-/obj/machinery/shower{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/noslip,
-/area/station/medical/virology)
 "gFg" = (
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -41669,8 +41664,6 @@
 /area/station/maintenance/port2)
 "hGA" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hGE" = (
@@ -51127,6 +51120,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"jKO" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "jKQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -84690,6 +84688,13 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
+"rRd" = (
+/obj/machinery/shower{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/noslip,
+/area/station/medical/virology)
 "rRe" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Access"
@@ -94845,12 +94850,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"ulc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
-	},
-/area/station/medical/virology)
 "uld" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -165105,7 +165104,7 @@ fqw
 nTw
 lRL
 bni
-gFd
+rRd
 siv
 bJe
 uCk
@@ -168707,7 +168706,7 @@ bni
 dzF
 dzP
 boq
-ulc
+bpS
 aGe
 dgD
 iQz
@@ -171020,7 +171019,7 @@ lCC
 hnV
 tqi
 tqi
-fXv
+jKO
 eKJ
 wyL
 iJv

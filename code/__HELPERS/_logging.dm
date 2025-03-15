@@ -236,6 +236,9 @@ GLOBAL_PROTECT(log_end)
 /proc/start_log(log)
 	rustg_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
 
+/proc/log_heretic_knowledge(log)
+	rustg_log_write(GLOB.world_game_log, "Heretic knowledge log: [log]")
+
 // Helper procs for building detailed log lines
 
 /proc/datum_info_line(datum/d)

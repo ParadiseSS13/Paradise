@@ -86,6 +86,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			S.message = cultslur(S.message)
 			verb = "slurs"
 
+		if(AmountHereticSlurring())
+			S.message = hereticslur(S.message)
+			verb = "slurs"
+
 		if(!IsVocal() || HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 	return list("verb" = verb)

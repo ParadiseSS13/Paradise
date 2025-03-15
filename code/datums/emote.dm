@@ -530,8 +530,13 @@
 				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
 			return FALSE
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-			// Don't let people blow their cover by mistake
-			return FALSE
+			if(isliving(user))
+				var/mob/living/living_user = user
+				if(!living_user.has_status_effect(/datum/status_effect/ghoul))
+					// Don't let people blow their cover by mistake
+					return FALSE
+			else
+				return FALSE
 		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
 			if(!intentional)
 				return FALSE

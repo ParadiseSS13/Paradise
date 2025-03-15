@@ -195,6 +195,15 @@
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
 
+/datum/ruleset/heretic
+	name = "Heretic"
+	ruleset_weight = 10
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/heretic
+
+	banned_jobs = list("Cyborg", "AI")
+
+
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
@@ -286,7 +295,7 @@
 /datum/ruleset/team/cult
 	name = "Cultist"
 	ruleset_cost = 1
-	ruleset_weight = 3
+	ruleset_weight = 4
 	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
 	antag_cost = 30
 	antagonist_type = /datum/antagonist/cultist

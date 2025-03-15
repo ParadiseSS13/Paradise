@@ -70,4 +70,10 @@
 #define DNA_GENDER_MALE		1
 #define DNA_GENDER_PLURAL	2
 
+
+#define ORGAN_SLOT_BRAIN "brain"
+#define ORGAN_SLOT_LIVER "liver"
+#define ORGAN_SLOT_LUNGS "lungs"
+
 #define ENCODE_DNA_BLOCK(value) num2hex(value, 3)
+

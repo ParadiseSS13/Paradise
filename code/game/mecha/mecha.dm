@@ -1648,4 +1648,7 @@
 		return FALSE
 	return TRUE
 
+/obj/mecha/rust_heretic_act()
+	take_damage(500, BRUTE)
+
 #undef OCCUPANT_LOGGING
