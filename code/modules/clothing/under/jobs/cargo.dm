@@ -109,3 +109,10 @@
 	icon_state = "expedition_overalls"
 	item_state = "expedition_overalls"
 	item_color = "expedition_overalls"
+
+/obj/item/clothing/under/rank/cargo/bitrunner
+	name = "bitrunner's jumpsuit"
+	desc = "A leathery jumpsuit worn by a bitrunner. Tacky, but comfortable to wear if sitting for prolonged periods of time."
+	icon_state = "bitrunner"
+	item_state = "bitrunner"
+	item_color = "bitrunner"

@@ -35,6 +35,10 @@
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	request_console_flags = RC_SUPPLY
 
+/area/station/supply/bitrunner
+	name = "\improper Bitrunning Den"
+	icon_state = "bitrunner"
+
 /area/station/supply/qm
 	name = "\improper Quartermaster's Office"
 	icon_state = "qm"
