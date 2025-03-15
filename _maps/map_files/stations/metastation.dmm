@@ -14387,7 +14387,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkb" = (
@@ -14433,7 +14433,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkk" = (

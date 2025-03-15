@@ -50575,7 +50575,7 @@
 	},
 /area/station/maintenance/aft)
 "dtS" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -62895,7 +62895,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "hEk" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -85355,7 +85355,7 @@
 	dir = 1;
 	network = list("Medical","SS13")
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -88497,9 +88497,7 @@
 /turf/simulated/wall,
 /area/station/engineering/gravitygenerator)
 "vzU" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vAF" = (
@@ -89550,7 +89548,7 @@
 /area/station/supply/expedition)
 "vZx" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "vZK" = (
@@ -92785,7 +92783,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "xIm" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
