@@ -116,17 +116,23 @@ and in-game systems, there are several guidelines that must be followed.
     Old doors that use var edited access should be updated to use the correct
     access helper, and the var edit on the door should be cleaned.
 
+### Shuttles
+
+1. When adding new shuttles, or remapping departures areas, contributors must
+   ensure that all existing and new shuttles continue to fit and dock to the
+   correct airlocks as expected. Any time docking ports are edited, the author
+   needs to confirm the `width`, `height`, and `dwidth` variables between the
+   two permanent ports and mobile port are compatible.
+
+2. All shuttles that have a brig area, should using the flooring type
+   `/turf/simulated/floor/mineral/plastitanium/red/brig`.
+   This is required to count antagonists as captured on the escape shuttle.
+
 ### Other
 
 1. Edits in mapping tools should almost always be possible to replicate
    in-game. For this reason, avoid stacking multiple structures on the same
    tile (e.g. placing a light and an APC on the same wall).
-
-2. When adding new shuttles, or remapping departures areas, contributors must
-   ensure that all existing and new shuttles continue to fit and dock to the
-   correct airlocks as expected. Any time docking ports are edited, the author
-   needs to confirm the `width`, `height`, and `dwidth` variables between the
-   two permanent ports and mobile port are compatible.
 
 [helpers]: https://github.com/ParadiseSS13/Paradise/blob/master/code/modules/mapping/access_helpers.dm
 
