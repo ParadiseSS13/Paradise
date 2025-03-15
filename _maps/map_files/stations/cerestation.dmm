@@ -17674,7 +17674,7 @@
 /obj/machinery/computer/message_monitor{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "ctF" = (
 /obj/structure/chair/office/light{
@@ -17684,7 +17684,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "ctQ" = (
 /obj/structure/table,
@@ -22587,7 +22587,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "dct" = (
 /obj/machinery/door/airlock{
@@ -25704,7 +25704,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "dCf" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
@@ -30988,8 +30988,7 @@
 "eQA" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
-/obj/machinery/alarm/directional/north,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "eQC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -32537,7 +32536,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "fmI" = (
 /turf/simulated/floor/plasteel{
@@ -45237,7 +45236,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "iuV" = (
 /obj/structure/chair/sofa/corp{
@@ -49719,7 +49718,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "jvM" = (
 /obj/structure/cable/orange{
@@ -50046,7 +50045,7 @@
 	dir = 9
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "jyM" = (
 /obj/structure/cable/orange{
@@ -55901,7 +55900,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "kPP" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -81632,7 +81631,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/portable/canister/nitrogen,
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "rbm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -83897,7 +83896,7 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "rIh" = (
 /turf/simulated/floor/plasteel{
@@ -85381,7 +85380,7 @@
 /obj/machinery/computer/rnd_network_controller/station{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "rYX" = (
 /obj/item/storage/bag/money,
@@ -92241,7 +92240,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark/telecomms,
+/turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "tFm" = (
 /obj/structure/disposalpipe/segment{
