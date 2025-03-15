@@ -210,7 +210,7 @@
 		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod)
 			Feedstop(0, 0)
 			return
-			
+
 	add_nutrition(rand(7, 15))
 	//Heal yourself.
 	adjustBruteLoss(-3)

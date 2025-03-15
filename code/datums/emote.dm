@@ -413,7 +413,7 @@
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey
-	else if(isanimal(user) && message_simple)
+	else if(isanimal_or_basicmob(user) && message_simple)
 		. = message_simple
 	else if(isobserver(user) && message_observer)
 		. = message_observer

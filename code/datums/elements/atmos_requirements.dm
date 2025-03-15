@@ -12,7 +12,7 @@
 /datum/element/atmos_requirements/Attach(datum/target, list/atmos_requirements_, unsuitable_atmos_damage_ = 5)
 	. = ..()
 
-	if(!issimple_animal(target))
+	if(!isanimal_or_basicmob(target))
 		return ELEMENT_INCOMPATIBLE
 
 	if(!atmos_requirements_)

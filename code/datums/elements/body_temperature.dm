@@ -23,7 +23,7 @@
 /datum/element/body_temperature/Attach(datum/target, min_body_temp_, max_body_temp_, cold_damage_per_tick_, heat_damage_per_tick_)
 	. = ..()
 
-	if(!issimple_animal(target))
+	if(!isanimal_or_basicmob(target))
 		return ELEMENT_INCOMPATIBLE
 
 	if(isnum(min_body_temp))

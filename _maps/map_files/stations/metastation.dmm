@@ -82022,7 +82022,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "wgT" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
