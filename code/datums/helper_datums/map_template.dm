@@ -133,6 +133,7 @@
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
+	preloadBridgeTemplates()
 	preloadEventTemplates()
 
 /proc/preloadRuinTemplates()
@@ -179,6 +180,23 @@
 
 		GLOB.shuttle_templates[S.shuttle_id] = S
 		GLOB.map_templates[S.shuttle_id] = S
+
+/proc/preloadBridgeTemplates()
+	for(var/item in subtypesof(/datum/map_template/ruin/lavaland/zlvl_bridge/vertical))
+		var/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/vertical_type = item
+		if(!(initial(vertical_type.suffix)))
+			continue
+		var/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/V = new vertical_type()
+		GLOB.lavaland_zlvl_bridge_templates[V.suffix] = V
+		GLOB.map_templates[V.suffix] = V
+	for(var/item in subtypesof(/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal))
+		var/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/horizontal_type = item
+		if(!(initial(horizontal_type.suffix)))
+			continue
+		var/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/V = new horizontal_type()
+		GLOB.lavaland_zlvl_bridge_templates[V.suffix] = V
+		GLOB.map_templates[V.suffix] = V
+
 
 /proc/preloadEventTemplates()
 	for(var/item in subtypesof(/datum/map_template/event))
