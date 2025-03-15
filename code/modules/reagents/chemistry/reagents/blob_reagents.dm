@@ -138,6 +138,7 @@
 			var/distance = get_dist(X, pull)
 			var/moving_power = max(range_power - distance, 1)
 			spawn(0)
+			if(!HAS_TRAIT(X, TRAIT_MAGPULSE))
 				if(moving_power > 2) //if the vortex is powerful and we're close, we get thrown
 					if(setting_type)
 						var/atom/throw_target = get_edge_target_turf(X, get_dir(X, get_step_away(X, pull)))
