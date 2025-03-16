@@ -23,18 +23,18 @@
 	for(var/obj/machinery/camera/C in L)
 		var/list/tempnetwork = C.network & src.network
 		if(length(tempnetwork))
-			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
+			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Деактивирована)"))] = C
 
 	track.cameras = T
 	return T
 
 
 /mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
-	set category = "AI Commands"
-	set name = "Show Camera List"
+	set category = "Команды ИИ"
+	set name = "Показать список камер"
 
 	if(stat == DEAD)
-		to_chat(src, "You can't list the cameras because you are dead!")
+		to_chat(src, "Вы не можете посмотреть список камер, поскольку мертвы!")
 		return
 
 	if(!camera || camera == "Cancel")
@@ -89,12 +89,12 @@
 	return targets
 
 /mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
-	set category = "AI Commands"
-	set name = "Track With Camera"
-	set desc = "Select who you would like to track."
+	set category = "Команды ИИ"
+	set name = "Отслеживать"
+	set desc = "Выберите, за кем вы хотите следить."
 
 	if(src.stat == DEAD)
-		to_chat(src, "You can't track with camera because you are dead!")
+		to_chat(src, "Вы не можете отслеживать по причине своей смерти!")
 		return
 	if(!target_name)
 		return
@@ -107,7 +107,7 @@
 	if(!camera_follow)
 		return
 
-	to_chat(src, "Follow camera mode [forced ? "terminated" : "ended"].")
+	to_chat(src, "Режим слежения [forced ? "прерван" : "завершен"].")
 	camera_follow = null
 
 /mob/living/silicon/ai/proc/ai_actual_track(mob/living/target, doubleclick = FALSE)
@@ -118,23 +118,23 @@
 	U.camera_follow = target
 	U.tracking = TRUE
 
-	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
+	to_chat(U, "<span class='notice'>Пытаемся отследить [target.get_visible_name()]...</span>")
 	if(!doubleclick)
 		sleep(1.5 SECONDS) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
 	if(target.is_jammed())
-		to_chat(U, "<span class='warning'>Unable to track [target.get_visible_name()]...</span>")
+		to_chat(U, "<span class='warning'>Невозможно отследить [target.get_visible_name()]...</span>")
 		U.camera_follow = null
 		return
 
 	if(!target || !target.can_track(usr))
-		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
+		to_chat(U, "<span class='warning'>Цель находится вне зоны покрытия камер.</span>")
 		U.camera_follow = null
 		return
 
-	to_chat(U, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
+	to_chat(U, "<span class='notice'>Следим за [target.get_visible_name()] на камерах.</span>")
 
 	var/cameraticks = 0
 	spawn(0)
@@ -145,11 +145,11 @@
 			if(!target.can_track(usr))
 				U.tracking = TRUE
 				if(!cameraticks)
-					to_chat(U, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
+					to_chat(U, "<span class='warning'>Цель находится вне активных камер. Попытка обнаружения...</span>")
 				cameraticks++
 				if(cameraticks > 9)
 					U.camera_follow = null
-					to_chat(U, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
+					to_chat(U, "<span class='warning'>Наблюдение невозможно, прерываем слежение...</span>")
 					U.tracking = FALSE
 					return
 				else

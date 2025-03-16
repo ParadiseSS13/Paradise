@@ -9,10 +9,10 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
-	blurb = "Humanity, originating from the Sol system, has expanded over five centuries, branching out to forge a variety of governments and powerful corporations. \
-	These range from the militaristic Trans-Solar Federation, the Union of Soviet Socialist Planets, and mega corporations like Nanotrasen.<br/><br/> \
-	With a constant desire to colonize and spread their influence onto other species, they have begun to develop alliances and enemies, \
-	making humans one of the most recognizable and socially diverse species in the sector."
+	blurb = "Человек - вид, возникший в Солнечной системе, разросшись за пять столетий, создал множество правительств и могущественных корпораций. \
+	Они включают в себя милитаристскую Транс-Cолнечную Федерацию, Союз Советских Социалистических Планет и такие мегакорпорации, как Нанотрейзен.<br/><br/> \
+	Постоянно стремясь к колонизации и распространению своего влияния на другие виды, они начали заключать союзы и заводить врагов. \
+	Являются одними из самых узнаваемых и распространенных видов во всей галактике."
 
 	/// Organized to be from Light to Dark.
 	icon_skin_tones = list(

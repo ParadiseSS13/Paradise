@@ -1,17 +1,17 @@
 // Atmos
 /area/station/engineering/atmos
-	name = "Atmospherics"
+	name = "Атмосферный Отдел"
 	icon_state = "atmos"
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 
 /area/station/engineering/atmos/control
-	name = "Atmospherics Control Room"
+	name = "Комната Контроля Атмосферы"
 	icon_state = "atmosctrl"
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Atmospherics"
 
 /area/station/engineering/atmos/distribution
-	name = "Atmospherics Distribution Loop"
+	name = "Атмосферный Распределительный Контур"
 	icon_state = "atmos"
 
 /area/station/engineering/atmos/storage
@@ -45,44 +45,44 @@
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/engineering/smes
-	name = "\improper Engineering SMES"
+	name = "Инженерные СМЕСы"
 	icon_state = "engine_smes"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/station/engineering/control
-	name = "Engineering"
+	name = "Инженерный Отдел"
 	icon_state = "engine_control"
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 
 /area/station/engineering/break_room
-	name = "\improper Engineering Foyer"
+	name = "Фойе Инженерного Отдела"
 	icon_state = "engibreak"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Engineering"
 
 /area/station/engineering/break_room/secondary
-	name = "\improper Secondary Engineering Foyer"
+	name = "Дополнительное Фойе Инженерного Отдела"
 
 /area/station/engineering/equipmentstorage
-	name = "Engineering Equipment Storage"
+	name = "Инженерный Склад Снаряжения"
 	icon_state = "engilocker"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Engineering"
 
 /area/station/engineering/hardsuitstorage
-	name = "\improper Engineering Hardsuit Storage"
+	name = "Инженерный Склад ВКД"
 	icon_state = "engi"
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Engineering"
 
 /area/station/engineering/controlroom
-	name = "\improper Engineering Control Room"
+	name = "Инженерная Комната Управления"
 	icon_state = "engine_monitoring"
 
 /area/station/engineering/gravitygenerator
-	name = "\improper Gravity Generator"
+	name = "Генератор Гравитации"
 	icon_state = "gravgen"
 
 /area/station/engineering/transmission_laser
@@ -90,7 +90,7 @@
 	icon_state = "engi"
 
 /area/station/engineering/ai_transit_tube
-	name = "\improper AI Minisat Tranit Tube"
+	name = "Транзитная Труба Спутника ИИ"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -101,11 +101,11 @@
 // engine areas
 
 /area/station/engineering/engine
-	name = "\improper Engine"
+	name = "Двигатель"
 	icon_state = "engine"
 
 /area/station/engineering/engine/supermatter
-	name = "\improper Supermatter Engine"
+	name = "Двигатель Суперматерии"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 //Solars
@@ -154,10 +154,10 @@
 // Other
 
 /area/station/engineering/secure_storage
-	name = "Engineering Secure Storage"
+	name = "Инженерное Защищенное Хранилище"
 	icon_state = "engine_storage"
 
 /area/station/engineering/tech_storage
-	name = "Technical Storage"
+	name = "Техническое Хранилище"
 	icon_state = "techstorage"
 	request_console_name = "Tech Storage"

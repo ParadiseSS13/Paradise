@@ -351,7 +351,7 @@
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 			visible_message("<b>[src]</b> points at [C.name]!")
 		else
-			speak("Honk!")
+			speak("Хонк!")
 			visible_message("<b>[src]</b> starts chasing [C.name]!")
 		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -394,5 +394,5 @@
 			C.KnockDown(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 			if(!client)
-				speak("Honk!")
+				speak("Хонк!")
 			sensor_blink()
