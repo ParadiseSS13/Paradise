@@ -52375,7 +52375,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "ksj" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/item/food/fish_skewer{
 	pixel_y = 9;
 	pixel_x = 14
@@ -79593,7 +79593,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "pLi" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/structure/stone_tile/slab/burnt,
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)

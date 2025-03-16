@@ -842,7 +842,7 @@
 	name = "Bonfire"
 	time = 60
 	reqs = list(/obj/item/grown/log = 5)
-	result = list(/obj/structure/bonfire)
+	result = list(/obj/structure/lightable/bonfire)
 	category = CAT_PRIMAL
 	alert_admins_on_craft = TRUE
 
