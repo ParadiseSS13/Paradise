@@ -661,8 +661,7 @@
 /area/ruin/space/telecomms/foyer)
 "nI" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 4
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";

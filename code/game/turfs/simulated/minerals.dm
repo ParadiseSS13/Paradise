@@ -14,7 +14,7 @@
 	density = TRUE
 	blocks_air = TRUE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	color = COLOR_ROCK
@@ -190,6 +190,22 @@
 		var/new_ore_type = pickweight(mineralSpawnChanceList)
 		set_ore(new_ore_type)
 
+/turf/simulated/mineral/random/space
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 20,
+		/datum/ore/silver = 12,
+		/datum/ore/titanium = 11,
+		/datum/ore/gold = 10,
+		/datum/ore/uranium = 5,
+		/datum/ore/gibtonite = 4,
+		/datum/ore/bluespace = 1,
+		/datum/ore/diamond = 1,
+		/datum/ore/platinum = 3,
+		/datum/ore/palladium = 3,
+		/datum/ore/iridium = 3
+	)
+
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
@@ -286,6 +302,22 @@
 		/datum/ore/bluespace = 20,
 	)
 
+/turf/simulated/mineral/random/high_chance/space
+	color = COLOR_YELLOW
+	mineralChance = 25
+	mineralSpawnChanceList = list(
+		/datum/ore/silver = 50,
+		/datum/ore/plasma = 50,
+		/datum/ore/gold = 45,
+		/datum/ore/titanium = 45,
+		/datum/ore/uranium = 35,
+		/datum/ore/diamond = 30,
+		/datum/ore/bluespace = 20,
+		/datum/ore/platinum = 25,
+		/datum/ore/palladium = 25,
+		/datum/ore/iridium = 25
+	)
+
 /turf/simulated/mineral/random/high_chance/clown
 	mineralChance = 40
 	mineralSpawnChanceList = list(
@@ -332,6 +364,24 @@
 		/datum/ore/uranium = 2,
 		/datum/ore/diamond = 1,
 		/datum/ore/bluespace = 1,
+	)
+
+/turf/simulated/mineral/random/low_chance/space
+	color = COLOR_VIOLET
+	mineralChance = 6
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 15,
+		/datum/ore/silver = 6,
+		/datum/ore/gold = 4,
+		/datum/ore/titanium = 4,
+		/datum/ore/gibtonite = 2,
+		/datum/ore/uranium = 2,
+		/datum/ore/diamond = 1,
+		/datum/ore/bluespace = 1,
+		/datum/ore/platinum = 1,
+		/datum/ore/palladium = 1,
+		/datum/ore/iridium = 1
 	)
 
 /turf/simulated/mineral/random/volcanic
