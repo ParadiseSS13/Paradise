@@ -269,6 +269,7 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 		/obj/item/clothing/under/pants/shorts/red = 1,
 		/obj/item/clothing/head/ushanka = 1,
+		/obj/item/stamp/ussp = 1,
 	)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield,
