@@ -69,5 +69,8 @@
 /obj/item/reagent_containers/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
 
+/obj/item/reagent_containers/drinks/drinkingglass/syndicate_bomb
+	list_reagents = list("syndicatebomb" = 50)
+
 /obj/item/reagent_containers/drinks/drinkingglass/jungle_vox
 	list_reagents = list("junglevox" = 50)

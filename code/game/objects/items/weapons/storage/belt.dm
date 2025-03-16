@@ -96,7 +96,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/hammer
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()

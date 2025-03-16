@@ -40,6 +40,7 @@
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 	var/auto_wrench_toggle = TRUE
+	var/pipe_label = null
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -115,6 +116,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	P.label = pipe_label
 	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
@@ -266,6 +268,8 @@
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("auto_wrench_toggle")
 			auto_wrench_toggle = !auto_wrench_toggle
+		if("set_label")
+			pipe_label = params[action]
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
