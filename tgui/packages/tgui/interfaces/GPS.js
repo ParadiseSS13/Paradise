@@ -169,7 +169,7 @@ const Signals = (properties, context) => {
                 )}
                 {signal.due !== undefined && (
                   <Box>
-                    <Icon name={'arrow-right'} rotation={-signal.due} />
+                    <Icon name={'arrow-up'} rotation={signal.due} />
                     &nbsp;--
                   </Box>
                 )}

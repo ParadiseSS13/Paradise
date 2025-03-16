@@ -121,9 +121,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			signal["position"] = ATOM_COORDS(GT)
 
 			if(both_lavaland && T.z != GT.z)
-				var/bridge_direction = SSmapping.lavaland_theme.get_bridge_direction(T.z, GT.z)
+				var/bridge_direction = SSmapping.lavaland_theme.get_bridge_direction(GT.z, T.z)
 				if(bridge_direction)
-					signal["due"] = dir2angle(dir2text(text2num(bridge_direction)))
+					signal["due"] = dir2angle(text2num(bridge_direction))
 
 		signals += list(signal)
 	data["signals"] = signals
