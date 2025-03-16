@@ -138,7 +138,7 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"
 	},
@@ -344,7 +344,7 @@
 "Fi" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"
 	},
@@ -452,7 +452,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},

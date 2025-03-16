@@ -503,7 +503,7 @@
 /area/ghost_bar/indoor)
 "bV" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/mineral/plastitanium{
@@ -4777,7 +4777,7 @@
 /area/vox_base)
 "qL" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
 	nitrogen = 103.984;
@@ -11420,7 +11420,7 @@
 /area/space/nearstation/centcom)
 "Nr" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -13391,7 +13391,7 @@
 /area/shuttle/trade/sol)
 "TU" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";

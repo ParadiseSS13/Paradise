@@ -10854,7 +10854,7 @@
 /area/awaymission/space_battle/syndicate)
 "Jw" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
@@ -12522,7 +12522,7 @@
 	},
 /area/awaymission/space_battle/medbay)
 "OS" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "OT" = (
@@ -14633,7 +14633,7 @@
 	},
 /area/awaymission/space_battle/kitchen)
 "VP" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "VQ" = (
@@ -14662,7 +14662,7 @@
 /area/awaymission/space_battle/hallway2)
 "VV" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "VW" = (

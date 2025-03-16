@@ -8903,7 +8903,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "lwg" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -16364,7 +16364,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "uQQ" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)

@@ -723,7 +723,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "bQ" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/railing{
 	dir = 4

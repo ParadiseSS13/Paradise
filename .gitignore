@@ -82,6 +82,9 @@ site
 # mapmanip-generated DMM files
 _maps/map_files/**/*.mapmanipout.dmm
 
+# byond version manager tracking file
+.byondversion
+
 # SS220 EDIT
 sound/tts_cache/*
 config/lobby_music/sounds/*

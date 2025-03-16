@@ -20,7 +20,7 @@
 "aH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/directional/north,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "aK" = (
@@ -331,7 +331,7 @@
 /area/ruin/space/powered)
 "ir" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "iG" = (
@@ -532,7 +532,7 @@
 "mF" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -554,7 +554,7 @@
 "nc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ng" = (
@@ -671,7 +671,7 @@
 /area/template_noop)
 "pC" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "pQ" = (
@@ -820,7 +820,7 @@
 /area/ruin/space/powered)
 "sU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "tf" = (
@@ -1315,7 +1315,7 @@
 "CX" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "CZ" = (
@@ -1789,7 +1789,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "KY" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "La" = (
