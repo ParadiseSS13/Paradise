@@ -166,9 +166,11 @@
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
-	name = "Unnamed Turreted Outpost"
-	description = "We'd ask them to stop blaring that ruskiepop music, but \
-		none of us are brave enough to go near those death turrets they have."
+	name = "Syndicate Interdiction Platform"
+	description = "Taking a departure from their usual MO of hiding their installations away from prying eyes, \
+	the Syndicate deployed this asset right in the open and bolted enough guns onto the hull to keep all but the most determined attackers at bay. \
+	The jolly crew perform raiding operations against poorly protected NT assets."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/way_home
 	id = "way-home"
