@@ -1,6 +1,6 @@
 /obj/machinery/cooker/deepfryer
-	name = "deep fryer"
-	desc = "Deep fried <i>everything</i>."
+	name = "фритюрница"
+	desc = "Обжарить во фритюре <i>всё</i>."
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "deep fried"

@@ -277,7 +277,7 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "[base_icon][on]"), 2)
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("Внимание, проводится [no_handcuffs ? "задержание" : "арест"] преступного отродья <b>[C]</b> с уровнем угрозы [threat] в [location]!", radio_channel)
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
@@ -428,7 +428,7 @@
 
 		target = C
 		oldtarget_name = C.name
-		speak("Level [threatlevel] infraction alert!")
+		speak("Внимание, обнаружена угроза уровня [threatlevel]!")
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
 		set_mode(BOT_HUNT)

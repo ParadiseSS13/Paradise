@@ -7,10 +7,10 @@
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
-	Currently a minor player within the Orion Sector, Adhomai is only loosely united by an alliance of Tajaran clans following their rebellion against the tyrannical Overseers.<br/><br/> \
-	The teachings of S'randarr and solar iconography dominate their religious practices, \
-	and Tajaran often speak in the third person due to the lack of first-person references in their native tongue."
+	blurb = "Таяран - вид всеядных млекопитающих, имеющих внешнее сходство с земными кошачьими, родом происходящие с богатой минералами планеты Адомай. \
+	Они появились на галактической арене в результате обнаружения экспедиционным флотом проекта \"Новые Горизонты\", после освобождения из рабства были приняты частичные условия интеграции в Человеко-Скреллианский Альянс.<br/><br/> \
+	В их религиозной практике преобладают учения С'рандарра и солнечная иконография, \
+	сами Таяры часто говорят о себе в третьем лице из-за отсутствия обращений от первого лица в их родном языке."
 
 	cold_level_1 = 240
 	cold_level_2 = 180

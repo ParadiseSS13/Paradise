@@ -345,12 +345,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	polarized_image.dir = dir
 
 	if(!polarized_on)
-		polarized_image.color = "#222222"
+		polarized_image.color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 		animate_color = "#FFFFFF"
 		set_opacity(FALSE)
 	else
 		polarized_image.color = "#FFFFFF"
-		animate_color = "#222222"
+		animate_color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 		set_opacity(TRUE)
 
 	overlays -= polarized_image
@@ -446,6 +446,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				else if(emergency)
 					lights_overlay = get_airlock_overlay("lights_emergency", overlays_file)
 					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file)
+				// SS220 ADDITION - START
+				else
+					lights_overlay = get_airlock_overlay("lights_poweron", overlays_file)
+					lights_underlay = get_airlock_emissive_underlay("lights_poweron_lightmask", overlays_file)
+				// SS220 ADDITION - END
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 				note_overlay.layer = layer + 0.1
@@ -524,6 +529,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 		if(AIRLOCK_OPEN)
 			frame_overlay = get_airlock_overlay("open", icon)
+			// SS220 ADDITION - START
+			if(lights && arePowerSystemsOn())
+				lights_overlay = get_airlock_overlay("lights_poweron_open", overlays_file)
+				lights_underlay = get_airlock_emissive_underlay("lights_poweron_open_lightmask", overlays_file)
+			// SS220 ADDITION - END
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_open", overlays_file)
 			else
@@ -559,7 +569,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
 
 	if(polarized_on)
-		filling_overlay.color = "#222222"
+		filling_overlay.color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 	else
 		filling_overlay.color = "#FFFFFF"
 

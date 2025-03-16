@@ -2,7 +2,7 @@
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
-	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"))
+	announce_beacons = list("Медицинский Отдел" = list("Медицинский Отдел", "Chief Medical Officer's Desk"))
 	department_restrictions = list(DEPARTMENT_MEDICAL)
 
 
@@ -108,7 +108,7 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "virus crate"
 	access = ACCESS_CMO
-	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
+	announce_beacons = list("Медицинский Отдел" = list("Virology", "Chief Medical Officer's Desk"))
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
