@@ -6,6 +6,8 @@
 	/// Icon state of planet present on background of station Z-level
 	var/planet_icon_state
 	var/list/built_bridges
+	/// Icon for glass floors
+	var/primary_turf_type_icon
 
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
@@ -87,6 +89,7 @@
 	name = "lava"
 	primary_turf_type = /turf/simulated/floor/lava/lava_land_surface
 	planet_icon_state = "planet_lava"
+	primary_turf_type_icon = 'icons/turf/floors/lava.dmi'
 
 /datum/lavaland_theme/lava/setup()
 	. = ..()
@@ -98,6 +101,7 @@
 	name = "plasma"
 	primary_turf_type = /turf/simulated/floor/lava/lava_land_surface/plasma
 	planet_icon_state = "planet_plasma"
+	primary_turf_type_icon = 'icons/turf/floors/liquidplasma.dmi'
 
 /datum/lavaland_theme/plasma/setup()
 	. = ..()
@@ -110,6 +114,7 @@
 	name = "chasm"
 	primary_turf_type = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	planet_icon_state = "planet_chasm"
+	primary_turf_type_icon = 'icons/turf/floors/Chasms.dmi'
 
 /datum/lavaland_theme/chasm/setup()
 	. = ..()

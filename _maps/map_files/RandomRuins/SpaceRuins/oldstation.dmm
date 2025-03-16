@@ -3648,7 +3648,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "kH" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/unpowered)
 "kI" = (
 /obj/effect/decal/cleanable/dirt,
