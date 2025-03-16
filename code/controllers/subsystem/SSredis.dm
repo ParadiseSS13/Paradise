@@ -85,19 +85,11 @@ SUBSYSTEM_DEF(redis)
 	connected = FALSE
 
 /datum/controller/subsystem/redis/proc/check_messages()
-	var/raw_data = rustlibs_redis_get_messages()
-	var/list/usable_data
+	var/list/data = rustlibs_redis_get_messages()
 
-	try // Did you know byond had try catch?
-		usable_data = json_decode(raw_data)
-	catch
-		message_admins("Failed to deserialise a redis message | Please inform the server host.")
-		log_debug("Redis raw data: [raw_data]")
-		return
-
-	for(var/channel in usable_data)
+	for(var/channel in data)
 		if(channel == RUSTLIBS_REDIS_ERROR_CHANNEL)
-			var/redis_error_data = usable_data[channel]
+			var/redis_error_data = data[channel]
 			var/error_str
 			if(islist(redis_error_data))
 				error_str = json_encode(redis_error_data)
@@ -113,7 +105,7 @@ SUBSYSTEM_DEF(redis)
 			continue
 
 		var/datum/redis_callback/RCB = subbed_channels[channel]
-		for(var/message in usable_data[channel])
+		for(var/message in data[channel])
 			RCB.on_message(message)
 
 /datum/controller/subsystem/redis/proc/publish(channel, message)

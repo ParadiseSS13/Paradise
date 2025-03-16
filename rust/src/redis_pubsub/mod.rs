@@ -129,7 +129,7 @@ fn publish(channel: &str, msg: &str) -> Option<String> {
     })
 }
 
-fn get_messages() -> String {
+fn get_messages() -> HashMap<String, Vec<String>> {
     let mut result: HashMap<String, Vec<String>> = HashMap::new();
 
     RESPONSE_RECEIVER.with(|cell| {
@@ -152,7 +152,7 @@ fn get_messages() -> String {
         }
     });
 
-    serde_json::to_string(&result).unwrap_or_else(|_| "{}".to_owned())
+    result
 }
 
 #[byondapi::bind]
@@ -180,7 +180,36 @@ fn redis_subscribe(raw_channel: ByondValue) -> eyre::Result<ByondValue> {
 
 #[byondapi::bind]
 fn redis_get_messages() -> eyre::Result<ByondValue> {
-    Ok(ByondValue::new_str(get_messages()).unwrap())
+    // Create a byondAPI list to send our data back
+    let mut byond_list = ByondValue::new_list().unwrap();
+
+    // Get the raw message hashmap
+    let messages = get_messages();
+
+    // Iterate the channels we have messages on
+    for k in messages.keys() {
+        // Create sublist to actually send back to DM
+        let sublist = ByondValue::new_list().unwrap();
+        // And a temporary vector of BVs
+        let mut rust_vec: Vec<ByondValue> = Vec::new();
+
+        // Iterate each message on the channel
+        for m in messages.get(k).unwrap() {
+            rust_vec.push(ByondValue::new_str(m.to_owned()).unwrap());
+        }
+
+        // Write the rust list to a BYOND list
+        sublist.write_list(rust_vec.as_slice()).unwrap();
+
+        // Get our list key as a BYOND string
+        let bk = ByondValue::new_str(k.to_owned()).unwrap();
+
+        // Add it to our output list
+        byond_list.write_list_index(bk, sublist).unwrap();
+    }
+
+    // And send it back
+    Ok(byond_list)
 }
 
 #[byondapi::bind]
