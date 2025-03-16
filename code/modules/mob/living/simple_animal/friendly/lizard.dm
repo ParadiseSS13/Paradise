@@ -88,6 +88,7 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
 /mob/living/simple_animal/lizard/tegu
 	name = "tegu"
 	desc = "A rather large lizard."

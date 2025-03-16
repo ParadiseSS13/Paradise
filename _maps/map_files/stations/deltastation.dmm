@@ -77431,8 +77431,7 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "pMu" = (
-/mob/living/simple_animal/lizard/tegu/wags{
-	},
+/mob/living/simple_animal/lizard/tegu/wags,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "pMx" = (
