@@ -109,32 +109,35 @@
 /**
  * HUMAN PART
  */
-/mob/living/carbon/human/attackby__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
-	if(!istype(I, /obj/item/radio/spy_spider))
-		return ..()
+/mob/living/carbon/human/attack_by(obj/item/attacking, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(!istype(attacking, /obj/item/radio/spy_spider))
+		return
 
 	if(!(w_uniform || wear_suit))
 		to_chat(user, span_warning("У тебя нет желания лезть к [src.declent_ru(GENITIVE)] в трусы. Жучок надо крепить на одежду!"))
-		return TRUE
+		return FINISH_ATTACK
 
-	var/obj/item/radio/spy_spider/spy_spider = I
+	var/obj/item/radio/spy_spider/spy_spider = attacking
 	var/obj/item/clothing/clothing_for_attach = wear_suit || w_uniform
 	if(clothing_for_attach.spy_spider_attached)
 		to_chat(user, span_warning("Ты не находишь места для жучка!"))
-		return TRUE
+		return FINISH_ATTACK
 
 	if(!spy_spider.broadcasting)
 		to_chat(user, span_warning("Жучок выключен!"))
-		return TRUE
+		return FINISH_ATTACK
 
 	var/attempt_cancel_message = span_warning("Ты не успеваешь установить жучок.")
 	if(!do_after_once(user, 3 SECONDS, TRUE, src, TRUE, attempt_cancel_message))
-		return TRUE
+		return FINISH_ATTACK
 
 	user.unequip_to(spy_spider, clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к одежде [src.declent_ru(ACCUSATIVE)]."))
-	return TRUE
+	return FINISH_ATTACK
 
 /obj/item/clothing/suit/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/radio/spy_spider))

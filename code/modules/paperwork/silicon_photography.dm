@@ -116,9 +116,9 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/change_lens()
-	set category = "AI Commands"
-	set name = "Set Photo Focus"
-	set desc = "Changes the lens size of your photo camera"
+	set category = "Команды ИИ"
+	set name = "Установить фокус камеры"
+	set desc = "Изменяет размер линзы камеры"
 
 	change_size()
 

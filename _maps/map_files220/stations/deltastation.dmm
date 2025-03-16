@@ -90130,11 +90130,8 @@
 "rfI" = (
 /obj/item/beacon,
 /obj/effect/turf_decal/stripes,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber East";
-	dir = 4;
-	network = list("Toxins","Research","SS13");
-	invuln = 1
+/obj/machinery/camera/toxins{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/station/science/toxins/test)

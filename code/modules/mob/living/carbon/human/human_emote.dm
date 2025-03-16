@@ -743,6 +743,16 @@
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
 
+/datum/emote/living/carbon/human/diona_chirp
+	key = "chirp"
+	key_third_person = "chirps"
+	message = "chirps!"
+	message_param = "chirps at %t."
+	emote_type = EMOTE_AUDIBLE
+	age_based = TRUE
+	species_type_whitelist_typecache = list(/datum/species/diona)
+	sound = "sound/creatures/nymphchirp.ogg"
+
 /datum/emote/living/carbon/human/slime
 
 

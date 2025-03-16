@@ -57,13 +57,14 @@
 	icon = null // workaround to hide cringy holder lying on the floor for 1 sec
 	user.drop_item()
 
-/mob/living/simple_animal/attackby__legacy__attackchain(obj/item/O, mob/living/user)
+/mob/living/simple_animal/attack_by(obj/item/attacking, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
-		if(istype(O, /obj/item/pet_carrier))
-			var/obj/item/pet_carrier/C = O
+		if(istype(attacking, /obj/item/pet_carrier))
+			var/obj/item/pet_carrier/C = attacking
 			if(C.put_in_carrier(src, user))
-				return
-	return ..()
+				return FINISH_ATTACK
 
 
 

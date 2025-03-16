@@ -88,16 +88,16 @@
 	regenerate_icons()
 
 
-/mob/living/simple_animal/pet/slugcat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/simple_animal/pet/slugcat/attack_by(obj/item/attacking, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 	if(stat != DEAD)
-		if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+		if(istype(attacking, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 			place_on_head(user.get_active_hand(), user)
-			return
-		if(istype(W, /obj/item/spear) && user.a_intent != INTENT_HARM)
+			return FINISH_ATTACK
+		if(istype(attacking, /obj/item/spear) && user.a_intent != INTENT_HARM)
 			place_to_hand(user.get_active_hand(), user)
-			return
-
-	. = ..()
+			return FINISH_ATTACK
 
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
