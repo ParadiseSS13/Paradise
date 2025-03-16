@@ -9,6 +9,7 @@
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
+	can_be_lensed = FALSE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16

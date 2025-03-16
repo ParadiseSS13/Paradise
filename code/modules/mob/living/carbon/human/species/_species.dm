@@ -349,7 +349,7 @@
 	leftover -= .
 
 	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
-	health_deficiency -= H.shock_reduction()
+	health_deficiency -= H.shock_reduction(FALSE)
 
 	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 		return
