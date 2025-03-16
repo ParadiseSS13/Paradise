@@ -109,3 +109,24 @@
 	icon_state = "expedition_overalls"
 	item_state = "expedition_overalls"
 	item_color = "expedition_overalls"
+
+/obj/item/clothing/under/rank/cargo/smith
+	name = "smith's jumpsuit"
+	desc = "A brown jumpsuit with some extra metal pieces strapped to it. You're not sure why, but the added armor doesn't make you feel any safer..."
+	icon_state = "smith"
+	item_state = "smith"
+	item_color = "smith"
+
+/obj/item/clothing/under/rank/cargo/smith/skirt
+	name = "smith's jumpskirt"
+	desc = "A brown jumpskirt with some extra metal pieces strapped to it. You're not sure why, but the added armor doesn't make you feel any safer..."
+	icon_state = "smith_skirt"
+	item_state = "smith_skirt"
+	item_color = "smith_skirt"
+
+/obj/item/clothing/under/rank/cargo/smith/overalls
+	name = "smith's overalls"
+	desc = "A brown set of overalls over a black turtleneck, designed with thinner materials to keep the wearer cool in the heat of the forge."
+	icon_state = "smith_overalls"
+	item_state = "smith_overalls"
+	item_color = "smith_overalls"
