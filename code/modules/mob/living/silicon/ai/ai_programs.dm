@@ -99,55 +99,54 @@
 
 	if(!is_ai(ui.user))
 		return
-	var/mob/living/silicon/ai/A = usr
+	var/mob/living/silicon/ai/A = ui.user
 	if(A.stat == DEAD)
 		to_chat(A, "<span class='warning'>You are dead!</span>")
 		return
 
 	switch(action)
 		if("select")
-			if(!length(GLOB.ai_list))
-				return FALSE
-			var/datum/spell/ai_spell/selected_program = locateUID(params["uid"])
-
-			for(var/datum/spell/ai_spell/selected_program in A.mob_spell_list)
-				if(new_spell.type == aspell.type)
-					if(aspell.spell_level >= aspell.level_max)
-						to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
-						return FALSE
-					else
-						if(bandwidth < 1)
-							temp = "You cannot afford this upgrade!"
-							return FALSE
-						selected_program.name = initial(selected_program.name)
-						selected_program.spell_level++
+			var/datum/ai_program/program = locateUID(params["uid"])
+			if(!program.upgrade)
+				var/datum/spell/ai_spell/new_spell = new program.power_type
+				// Upgrading an existing active program
+				for(var/datum/spell/ai_spell/selected_program in A.mob_spell_list)
+					if(new_spell.type == selected_program.type)
 						if(selected_program.spell_level >= selected_program.level_max)
-							to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-						selected_program.on_purchase_upgrade()
-						program.upgrade(A)
-						return TRUE
+							to_chat(A, "<span class='warning'>This program cannot be upgraded further.</span>")
+							return FALSE
+						else
+							if(bandwidth < 1)
+								temp = "You cannot afford this upgrade!"
+								return FALSE
+							selected_program.name = initial(selected_program.name)
+							selected_program.spell_level++
+							if(selected_program.spell_level >= selected_program.level_max)
+								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+							selected_program.on_purchase_upgrade()
+							program.upgrade(A)
+							return TRUE
 
-			// No same program found, install
-			if(program.cost > memory)
-				to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
-				return FALSE
-			memory -= program.cost
-			SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-			program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
-			A.AddSpell(new_spell)
+				// No same active program found, install
+				if(program.cost > memory)
+					to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
+					return FALSE
+				memory -= program.cost
+				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
+				program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
+				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
 				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 				program.installed = TRUE
 				return TRUE
-
-		// Upgrades below
-		if(program.upgrade_level > program.max_level)
-			to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
-			return FALSE
-		program.upgrade(A)
-		to_chat(A, program.unlock_text)
-		A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
-		return TRUE
+			// Passive programs
+			if(program.upgrade_level > program.max_level)
+				to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
+				return FALSE
+			program.upgrade(A)
+			to_chat(A, program.unlock_text)
+			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
+			return TRUE
 
 // The base program type, which holds info about each ability.
 /datum/ai_program
