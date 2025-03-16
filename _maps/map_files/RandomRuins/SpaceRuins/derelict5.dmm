@@ -218,7 +218,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Dt" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
