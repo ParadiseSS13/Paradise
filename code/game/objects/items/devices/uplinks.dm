@@ -29,6 +29,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether or not the uplink has generated its stock and discounts
 	var/items_generated = FALSE
 
+	var/datum/data/record/selected_record
+
 /obj/item/uplink/ui_host()
 	return loc
 
@@ -225,6 +227,18 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart"] = generate_tgui_cart()
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
+	if(selected_record && GLOB.data_core.general.Find(selected_record))
+		data["selected_record"] = list(
+				"name" = html_encode(selected_record.fields["name"]),
+				"sex" = html_encode(selected_record.fields["sex"]),
+				"age" = html_encode(selected_record.fields["age"]),
+				"species" = html_encode(selected_record.fields["species"]),
+				"rank" = html_encode(selected_record.fields["rank"]),
+				"nt_relation" = html_encode(selected_record.fields["nt_relation"]),
+				"fingerprint" = html_encode(selected_record.fields["fingerprint"]),
+				"has_photos" = (selected_record.fields["photo-south"] || selected_record.fields["photo-west"]) ? TRUE : FALSE,
+				"photos" = list(selected_record.fields["photo-south"], selected_record.fields["photo-west"])
+			)
 
 	return data
 
@@ -241,13 +255,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	// Exploitable info
 	var/list/exploitable = list()
 	for(var/datum/data/record/L in GLOB.data_core.general)
+		if(isnull(selected_record))
+			selected_record = L
 		exploitable += list(list(
 			"name" = html_encode(L.fields["name"]),
-			"sex" = html_encode(L.fields["sex"]),
-			"age" = html_encode(L.fields["age"]),
-			"species" = html_encode(L.fields["species"]),
-			"rank" = html_encode(L.fields["rank"]),
-			"fingerprint" = html_encode(L.fields["fingerprint"])
+			"uid_gen" = L.UID(),
 		))
 
 	data["exploitable"] = exploitable
@@ -379,6 +391,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("shuffle_lucky_numbers")
 			// lets see paul allen's random uplink item
 			shuffle_lucky_numbers()
+
+		if("view_record") // View Record
+			var/datum/data/record/G = locateUID(params["uid_gen"])
+			if(!istype(G))
+				return
+			selected_record = G
 
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()
