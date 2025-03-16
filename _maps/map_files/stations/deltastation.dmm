@@ -11687,7 +11687,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/portable/electrolyzer,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"

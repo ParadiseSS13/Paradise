@@ -87903,7 +87903,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/portable/electrolyzer,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

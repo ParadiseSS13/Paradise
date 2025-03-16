@@ -423,7 +423,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/electrolyzer
 	board_name = "Electrolyzer"
 	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/portable/electrolyzer
+	build_path = /obj/machinery/power/electrolyzer
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	req_components = list(

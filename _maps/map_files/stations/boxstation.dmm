@@ -71192,7 +71192,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "pzF" = (
-/obj/machinery/atmospherics/portable/electrolyzer,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "pzU" = (

@@ -1,17 +1,16 @@
-/obj/machinery/atmospherics/portable/electrolyzer
+/obj/machinery/power/electrolyzer
 	name = "gas electrolyzer"
 	anchored = FALSE
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
-	on = FALSE
+	var/on = FALSE
 	var/open = FALSE
 	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
 	var/power_needed_per_mole = 286000 // found in rust/src/milla/constants.rs
 
-
-/obj/machinery/atmospherics/portable/electrolyzer/Initialize(mapload)
+/obj/machinery/power/electrolyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/electrolyzer(null)
@@ -21,15 +20,17 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	if(!powernet)
+		connect_to_network()
 	RefreshParts()
 
-/obj/machinery/atmospherics/portable/electrolyzer/examine(mob/user)
+/obj/machinery/power/electrolyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A nifty little machine that is able to produce hydrogen when supplied with water vapor, \
-			allowing for on the go hydorgen production! Nanotrasen is not responsbile for any accidents that may occur \
-			from sudden hydogen combustion or explosions. </span>"
+	. += "<span class='notice'>A nifty little machine that is able to produce hydrogen when supplied with water vapor and \
+			enough power, allowing for on the go hydrogen production! Nanotrasen is not responsbile for any accidents that \
+			may occur from sudden hydogen combustion or explosions. </span>"
 
-/obj/machinery/atmospherics/portable/electrolyzer/wrench_act(mob/user, obj/item/I)
+/obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
 	if(!on)
 		. = TRUE
 		default_unfasten_wrench(user, I, 4 SECONDS)
@@ -37,7 +38,7 @@
 		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
 		return
 
-/obj/machinery/atmospherics/portable/electrolyzer/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
 	if(on)
 		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
 		return
@@ -52,7 +53,7 @@
 		icon_state = "electrolyzer_off"
 		open = FALSE
 
-/obj/machinery/atmospherics/portable/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/power/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
 	if(open)
 		deconstruct(TRUE)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
@@ -60,15 +61,22 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/portable/electrolyzer/AltClick(mob/user)
+/obj/machinery/power/electrolyzer/AltClick(mob/user)
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
 		return
 	pixel_x = 0
 	pixel_y = 0
 
+/obj/machinery/power/electrolyzer/process()
+	if(on)
+		if(consume_direct_power(power_needed_per_mole))
+			var/datum/milla_safe/electrolyzer_process/milla = new()
+			milla.invoke_async(src)
+
+
 // Turns the electrolyzer on and off
-/obj/machinery/atmospherics/portable/electrolyzer/attack_hand(mob/user as mob)
+/obj/machinery/power/electrolyzer/attack_hand(mob/user as mob)
 	if(stat & BROKEN)
 		return
 	if(!anchored)
@@ -88,23 +96,23 @@
 
 /datum/milla_safe/electrolyzer_process
 
-/obj/machinery/atmospherics/portable/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
+/obj/machinery/power/electrolyzer/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
 	var/datum/gas_mixture/removed = new()
 	if(env.water_vapor() > 3)
 		removed.set_water_vapor(env.water_vapor())
 		env.set_water_vapor(0)
 	return removed
 
-/obj/machinery/atmospherics/portable/electrolyzer/proc/has_water_vapor(datum/gas_mixture/gas)
+/obj/machinery/power/electrolyzer/proc/has_water_vapor(datum/gas_mixture/gas)
 	if(!gas)
 		return FALSE
 	return gas.water_vapor() > 3
 
-/obj/machinery/atmospherics/portable/electrolyzer/process()
+/obj/machinery/power/electrolyzer/process()
 	var/datum/milla_safe/electrolyzer_process/milla = new()
 	milla.invoke_async(src)
 
-/datum/milla_safe/electrolyzer_process/on_run(obj/machinery/atmospherics/portable/electrolyzer/electrolyzer, datum/gas_mixture)
+/datum/milla_safe/electrolyzer_process/on_run(obj/machinery/power/electrolyzer/electrolyzer, datum/gas_mixture)
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
