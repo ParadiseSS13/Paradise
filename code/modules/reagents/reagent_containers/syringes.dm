@@ -15,6 +15,7 @@
 	container_type = TRANSPARENT
 	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
 	var/penetrates_thick = FALSE
+	var/syringe_draw_time = 3 SECONDS
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
@@ -38,7 +39,10 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/syringe/activate_self(mob/user)
+	if(..())
+		return
+
 	mode = !mode
 	update_icon()
 
@@ -46,16 +50,8 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	return
-
-/obj/item/reagent_containers/syringe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag))
-		..()
-
-/obj/item/reagent_containers/syringe/afterattack__legacy__attackchain(atom/target, mob/user , proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/syringe/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!target.reagents)
 		return
 
@@ -78,7 +74,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
 					busy = TRUE
-					if(!do_mob(user, target))
+					if(!do_mob(user, target, syringe_draw_time))
 						busy = FALSE
 						return
 					if(reagents.holder_full())

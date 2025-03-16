@@ -176,8 +176,10 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
 	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
+#ifndef GAME_TESTS
 		if(!M.client)
 			continue
+#endif
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 // Show a message to all mobs in earshot of this one

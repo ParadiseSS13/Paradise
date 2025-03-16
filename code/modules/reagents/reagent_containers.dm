@@ -17,8 +17,7 @@
 	new_attack_chain = TRUE
 
 /obj/item/reagent_containers/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isliving(target))
-		mob_act(target, user)
+	if(isliving(target) && mob_act(target, user))
 		return ITEM_INTERACT_COMPLETE
 	if(normal_act(target, user))
 		return ITEM_INTERACT_COMPLETE
@@ -26,10 +25,10 @@
 
 // Overriden inside its subtypes. Might add the basic container shit here (eg, beaker/bucket behaviour)
 /obj/item/reagent_containers/proc/mob_act(mob/target, mob/living/user)
-	return
+	return FALSE
 
-/obj/item/reagent_containers/proc/normal_act(atom/traget, mob/living/user)
-	return
+/obj/item/reagent_containers/proc/normal_act(atom/target, mob/living/user)
+	return FALSE
 
 /obj/item/reagent_containers/proc/can_set_transfer_amount(mob/user)
 	if(!length(possible_transfer_amounts))
@@ -114,11 +113,7 @@
 	else
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		remove_lid()
-/* Potentially redundant
-/obj/item/reagent_containers/attack__legacy__attackchain(mob/M, mob/user, def_zone)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-*/
+
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)

@@ -47,14 +47,13 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/reagent_containers/pill/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	return apply(C, user)
+/obj/item/reagent_containers/pill/mob_act(mob/target, mob/living/user)
+	apply(target, user)
+	return TRUE
 
-/obj/item/reagent_containers/pill/attack_self__legacy__attackchain(mob/user)
-	return apply(user, user)
-
-/obj/item/reagent_containers/pill/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	if(!proximity || !target.is_refillable())
+/obj/item/reagent_containers/pill/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.is_refillable())
 		return
 	if(target.reagents.holder_full())
 		to_chat(user, "<span class='warning'>[target] is full.</span>")

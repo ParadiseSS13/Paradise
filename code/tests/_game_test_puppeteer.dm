@@ -166,3 +166,8 @@
 
 	backpack.remove_item_from_storage(object)
 	puppet.put_in_active_hand(object)
+
+/datum/test_puppeteer/proc/click_on_self()
+	puppet.ClickOn(puppet)
+	puppet.next_click = world.time
+	puppet.next_move = world.time

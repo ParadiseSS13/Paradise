@@ -15,6 +15,7 @@
 	var/chugging = FALSE
 
 /obj/item/reagent_containers/drinks/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return
