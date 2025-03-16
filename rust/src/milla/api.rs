@@ -129,11 +129,11 @@ fn milla_load_turfs(
         #[cfg(feature = "byond-515")]
         property.decrement_ref();
 
-        if data.len() != 17 {
+        if data.len() != 19 {
             return Err(eyre!(
                 "data property has the wrong length: {} vs {}",
                 data.len(),
-                17
+                19
             ));
         }
 
