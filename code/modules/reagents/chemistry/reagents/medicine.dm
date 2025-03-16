@@ -248,12 +248,12 @@
 
 	for(var/X in organs_list)
 		var/obj/item/organ/O = X
-		if(O.germ_level < INFECTION_LEVEL_ONE)
+		if(O.germ_level < INFECTION_LEVEL_ONE - 50)
 			O.germ_level = 0	//cure instantly
 		else if(O.germ_level < INFECTION_LEVEL_TWO)
-			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+			O.germ_level = max(M.germ_level - 15, 0)	//at germ_level == 500, this should cure the infection in 60 seconds
 		else
-			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+			O.germ_level = max(M.germ_level - 5, 0)	// at germ_level == 1000, this will cure the infection in 4 minutes 20 seconds
 
 	organs_list.Cut()
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
