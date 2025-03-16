@@ -9,7 +9,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "d" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "e" = (
 /turf/simulated/wall/mineral/titanium,
