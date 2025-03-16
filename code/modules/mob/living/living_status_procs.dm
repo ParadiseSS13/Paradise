@@ -124,6 +124,9 @@ STATUS EFFECTS
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
 
+	if(job == "Clown")
+		AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
+
 /mob/living/proc/on_standing_up()
 	if(layer == LYING_MOB_LAYER || HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
 		layer = initial(layer)
@@ -132,6 +135,9 @@ STATUS EFFECTS
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	set_lying_angle(0)
 	pixel_y = 0
+
+	if(job == "Clown")
+		DeleteComponent(/datum/component/slippery)
 
 /* makes sure the crawlers head is pointing in the direction they crawl
  * effectively splits dirs down the middle.
