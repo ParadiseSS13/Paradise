@@ -125,7 +125,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "K" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"

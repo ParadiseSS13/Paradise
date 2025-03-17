@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	hat_offset_y = 3
 	is_centered = TRUE
 	can_be_hatted = TRUE
-	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
-	
+
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
@@ -1455,7 +1455,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_fast_holograms()
 	set category = "AI Commands"
 	set name = "Toggle Fast Holograms"
-	
+
 	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
 		return
 	fast_holograms = !fast_holograms
