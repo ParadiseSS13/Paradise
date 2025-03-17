@@ -32,7 +32,7 @@
 #define CO2_CRUNCH 1
 #define N2_CRUNCH 0.55
 #define N2O_CRUNCH 0.55
-#define H2O_CRUNCH 0.75
+#define H2O_CRUNCH (-10)
 #define H2_CRUNCH 2.0
 #define PLASMA_CRUNCH 4
 
