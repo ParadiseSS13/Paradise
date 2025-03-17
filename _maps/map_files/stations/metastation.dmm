@@ -58268,7 +58268,7 @@
 "lwx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/structure/lattice/catwalk,
-/mob/living/simple_animal/lizard/tegu/wags,
+/mob/living/simple_animal/lizard/tegu/wags,)
 "lwN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
