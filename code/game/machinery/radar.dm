@@ -208,7 +208,7 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
-	set_fix()
+	set_fixed()
 
 /obj/machinery/radar/RefreshParts()
 	accuracy_coeff = 0
