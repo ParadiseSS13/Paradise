@@ -19,6 +19,12 @@
 	item_state = "explorer_envirosuit"
 	item_color = "explorer_envirosuit"
 
+/obj/item/clothing/under/plasmaman/smith
+	name = "smith envirosuit"
+	desc = "An airtight brown and black suit designed for safety around hot metal for plasmamen."
+	icon_state = "smith_envirosuit"
+	item_state = "smith_envirosuit"
+	item_color = "smith_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
