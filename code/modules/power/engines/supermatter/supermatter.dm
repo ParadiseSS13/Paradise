@@ -32,7 +32,7 @@
 #define CO2_CRUNCH 1
 #define N2_CRUNCH 0.55
 #define N2O_CRUNCH 0.55
-#define H2O_CRUNCH 0.75
+#define H2O_CRUNCH (-10)
 #define H2_CRUNCH 2.0
 #define PLASMA_CRUNCH 4
 
@@ -533,12 +533,12 @@
 		h2ocomp = max(removed.water_vapor() / combined_gas, 0)
 		h2comp = max(removed.hydrogen() / combined_gas, 0)
 
-		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp - n2comp - h2ocomp, 0), 1)
+		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp + h2ocomp - n2comp , 0), 1)
 
 		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
 
-		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER) - (h2ocomp * H2O_TRANSMIT_MODIFIER), 0)
+		power_transmission_bonus =(plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER) - (h2ocomp * H2O_TRANSMIT_MODIFIER)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
