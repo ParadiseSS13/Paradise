@@ -455,5 +455,3 @@
 
 #undef ROCKFALL_DELAY
 
-
-
