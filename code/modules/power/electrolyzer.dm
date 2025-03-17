@@ -8,7 +8,6 @@
 	var/open = FALSE
 	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
-	var/power_needed_per_mole = 286000 // found in rust/src/milla/constants.rs
 
 /obj/machinery/power/electrolyzer/Initialize(mapload)
 	. = ..()
@@ -70,10 +69,8 @@
 
 /obj/machinery/power/electrolyzer/process()
 	if(on)
-		if(consume_direct_power(power_needed_per_mole))
-			var/datum/milla_safe/electrolyzer_process/milla = new()
-			milla.invoke_async(src)
-
+		var/datum/milla_safe/electrolyzer_process/milla = new()
+		milla.invoke_async(src)
 
 // Turns the electrolyzer on and off
 /obj/machinery/power/electrolyzer/attack_hand(mob/user as mob)
@@ -119,11 +116,12 @@
 
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
 	        // Convert as much water vapor as we can into hydrogen, depending on how much power we have available
-		var/water_vapor_to_remove = min(removed.water_vapor(), get_surplus() / power_needed_per_mole)
+		var/power_needed_per_mole = HYDROGEN_BURN_ENERGY / WATT_TICK_TO_JOULE
+		var/water_vapor_to_remove = min(removed.water_vapor(), electrolyzer.get_surplus() / power_needed_per_mole)
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(0)
 		env.set_hydrogen(hydrogen_produced)
 		env.set_oxygen(oxygen_produced)
-		consume_direct_power(power_needed_per_mole)
+		electrolyzer.consume_direct_power(power_needed_per_mole)
 
