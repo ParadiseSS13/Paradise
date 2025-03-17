@@ -533,7 +533,7 @@
 		h2ocomp = max(removed.water_vapor() / combined_gas, 0)
 		h2comp = max(removed.hydrogen() / combined_gas, 0)
 
-		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp - n2comp - h2ocomp, 0), 1)
+		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + h2comp + h2ocomp - n2comp , 0), 1)
 
 		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
