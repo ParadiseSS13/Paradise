@@ -232,7 +232,7 @@
 	investigate_log("has broken down.", "radar")
 	update_icon()
 
-/obj/machinery/radar/proc/set_fix()
+/obj/machinery/radar/proc/set_fixed()
 	stat &= ~BROKEN
 	construction_state = initial(construction_state)
 	update_icon()
