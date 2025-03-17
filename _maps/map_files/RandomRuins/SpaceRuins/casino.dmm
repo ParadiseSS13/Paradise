@@ -59,7 +59,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/ruin/space/powered/casino/engine)
 "bq" = (
 /obj/structure/rack,
 /obj/item/radio{
@@ -184,7 +184,7 @@
 	icon_state = "1-2"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ft" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -736,7 +736,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/ruin/space/powered/casino/engine)
 "vb" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
@@ -798,7 +798,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "wn" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -816,7 +816,7 @@
 	icon_state = "1-2"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "wq" = (
 /obj/structure/mineral_door/silver,
 /turf/simulated/floor/mineral/silver/fancy,
@@ -993,7 +993,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space/nearstation)
+/area/ruin/space/powered/casino/engine)
 "BC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1040,7 +1040,7 @@
 "CP" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Do" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1135,7 +1135,7 @@
 	icon_state = "4-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Fm" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -1481,7 +1481,7 @@
 	icon_state = "2-8"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Sk" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards/black,
@@ -1584,7 +1584,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Ud" = (
 /obj/machinery/light{
 	dir = 4
@@ -1606,7 +1606,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Uf" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty{
@@ -1745,7 +1745,7 @@
 	icon_state = "1-4"
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "Xm" = (
 /obj/effect/mob_spawn/human/corpse/bartender,
 /turf/simulated/floor/carpet/black,

@@ -18,7 +18,7 @@
 "ah" = (
 /obj/structure/girder,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aj" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
@@ -48,7 +48,7 @@
 "at" = (
 /obj/structure/door_assembly/door_assembly_com,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "au" = (
 /obj/item/clothing/head/bio_hood/virology,
 /turf/template_noop,
@@ -129,19 +129,11 @@
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
-"wx" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/unpowered)
 "Di" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
-"Oz" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -218,13 +210,13 @@ ac
 aM
 ad
 aa
-wx
+aV
 ab
 ac
 aM
 ab
 aT
-Oz
+aV
 aa
 aa
 aa
@@ -262,11 +254,11 @@ ad
 ad
 aY
 aa
-Oz
+aV
 aa
 ae
 aa
-Oz
+aV
 aT
 aa
 aa
@@ -292,7 +284,7 @@ aa
 aT
 aa
 aa
-Oz
+aV
 aa
 aa
 aa
@@ -308,7 +300,7 @@ aa
 aa
 aC
 aa
-Oz
+aV
 aa
 ab
 aa
@@ -325,13 +317,13 @@ ap
 as
 aT
 aj
-Oz
+aV
 aT
 aC
 aa
 aO
 aa
-Oz
+aV
 aa
 aa
 as
@@ -397,8 +389,8 @@ as
 aa
 aa
 aL
-Oz
-Oz
+aV
+aV
 ab
 aT
 aa
@@ -453,11 +445,11 @@ aa
 "}
 (15,1,1) = {"
 aa
-Oz
+aV
 aa
 aa
 as
-Oz
+aV
 aC
 aa
 aa
@@ -480,11 +472,11 @@ aa
 aE
 aa
 aa
-Oz
+aV
 aa
 aO
 aa
-Oz
+aV
 aa
 aa
 aa
@@ -509,7 +501,7 @@ aa
 aa
 ae
 aa
-Oz
+aV
 aa
 aa
 aa

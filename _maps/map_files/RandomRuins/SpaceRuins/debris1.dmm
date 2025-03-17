@@ -5,22 +5,22 @@
 "ab" = (
 /obj/structure/disposalpipe/segment,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ac" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ad" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ae" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "af" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
 /turf/template_noop,
@@ -30,14 +30,14 @@
 	dir = 4
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ah" = (
 /obj/structure/disposalpipe/broken{
 	dir = 8
 	},
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "al" = (
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
@@ -49,54 +49,54 @@
 "ap" = (
 /obj/structure/girder/displaced,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "au" = (
 /obj/structure/door_assembly/door_assembly_sec,
 /obj/item/airlock_electronics,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ax" = (
 /obj/structure/disposalpipe/junction,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "ay" = (
 /turf/simulated/floor/plating/burnt/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "az" = (
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aB" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aC" = (
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aE" = (
 /obj/item/stack/rods,
 /turf/template_noop,
 /area/template_noop)
 "aF" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aG" = (
 /obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/burnt/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aI" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aJ" = (
 /obj/structure/disposalpipe/broken,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aK" = (
 /obj/item/shard,
 /turf/template_noop,
@@ -105,34 +105,34 @@
 /obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aQ" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aT" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/burnt/airless,
-/area/ruin/unpowered)
+/area/template_noop)
 "aU" = (
 /obj/effect/spawner/random/barrier/wall_probably,
 /turf/template_noop,
-/area/ruin/unpowered)
+/area/ruin)
 "aV" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin)
 "aW" = (
 /obj/structure/lattice,
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "aY" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin)
 "aZ" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -148,18 +148,11 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/burnt/airless,
-/area/ruin/unpowered)
-"oY" = (
-/turf/simulated/floor/plating/burnt/airless,
-/area/space/nearstation)
-"Pl" = (
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/space/nearstation)
+/area/ruin)
 "QL" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/burnt/airless,
-/area/ruin/unpowered)
+/area/ruin)
 
 (1,1,1) = {"
 aa
@@ -254,7 +247,7 @@ aa
 aa
 aa
 ag
-oY
+ay
 aa
 aE
 aI
@@ -298,8 +291,8 @@ aa
 aa
 aa
 aa
-oY
-Pl
+ay
+aE
 af
 aE
 aY

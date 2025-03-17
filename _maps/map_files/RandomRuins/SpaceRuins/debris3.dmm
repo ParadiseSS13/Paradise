@@ -9,7 +9,7 @@
 "c" = (
 /obj/structure/girder/displaced,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "d" = (
 /obj/structure/lattice,
 /obj/structure/girder,
@@ -70,7 +70,7 @@
 "v" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "w" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -78,7 +78,7 @@
 "x" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plating/damaged/airless,
-/area/space/nearstation)
+/area/ruin/unpowered)
 "z" = (
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
@@ -106,7 +106,7 @@
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "J" = (
 /obj/item/stack/cable_coil{
 	amount = 10
@@ -123,9 +123,6 @@
 /obj/item/stack/tickets,
 /turf/template_noop,
 /area/template_noop)
-"N" = (
-/turf/simulated/floor/plating/damaged/airless,
-/area/space/nearstation)
 "O" = (
 /obj/item/stack/rods,
 /obj/item/stack/sheet/metal,
@@ -138,7 +135,7 @@
 "Q" = (
 /obj/structure/girder,
 /turf/template_noop,
-/area/space/nearstation)
+/area/template_noop)
 "S" = (
 /obj/item/trash/can,
 /turf/template_noop,
@@ -509,7 +506,7 @@ a
 H
 i
 a
-N
+z
 i
 a
 m
