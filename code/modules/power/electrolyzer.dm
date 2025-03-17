@@ -118,10 +118,12 @@
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
 
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
-		var/water_vapor_to_remove = removed.water_vapor()
+	        // Convert as much water vapor as we can into hydrogen, depending on how much power we have available
+		var/water_vapor_to_remove = min(removed.water_vapor(), get_surplus() / power_needed_per_mole)
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(0)
 		env.set_hydrogen(hydrogen_produced)
 		env.set_oxygen(oxygen_produced)
+		consume_direct_power(power_needed_per_mole)
 
