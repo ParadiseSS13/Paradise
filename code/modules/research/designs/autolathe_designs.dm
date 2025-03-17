@@ -82,6 +82,14 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools")
 
+/datum/design/hammer
+	name = "Hammer"
+	id = "hammer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/hammer
+	category = list("initial","Tools")
+
 /datum/design/wirecutters
 	name = "Wirecutters"
 	id = "wirecutters"
