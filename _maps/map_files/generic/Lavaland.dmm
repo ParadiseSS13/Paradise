@@ -267,6 +267,16 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/smith_workshop)
+"be" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/baseturf_helper/lava_land,
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "bf" = (
 /obj/machinery/suit_storage_unit/lavaland,
 /obj/machinery/light{
@@ -5034,10 +5044,26 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"re" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/smith_workshop)
 "rf" = (
-/obj/structure/flora/ash/stem_shroom,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
+"rg" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "ri" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -5999,10 +6025,7 @@
 	},
 /area/mine/laborcamp)
 "wM" = (
-/obj/machinery/smithing/lava_furnace{
-	pixel_y = -32;
-	pixel_x = 0
-	},
+/obj/machinery/smithing/lava_furnace,
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
@@ -7336,6 +7359,30 @@
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
+"DF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
+"DH" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -8367,15 +8414,9 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "JB" = (
-/obj/structure/closet/crate/secure/loot,
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
+/obj/machinery/radar,
+/turf/simulated/floor/engine/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "JD" = (
 /obj/structure/grille/broken,
 /obj/structure/grille/broken,
@@ -8658,21 +8699,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Lr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/lockers)
-"Lw" = (
+/obj/machinery/magma_crucible,
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/mine/outpost/smith_workshop)
+"Ly" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 10
@@ -8974,10 +9004,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "NE" = (
-/obj/machinery/smithing/power_hammer{
-	pixel_x = 0;
-	pixel_y = -32
-	},
+/obj/machinery/smithing/power_hammer,
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
@@ -9731,6 +9758,26 @@
 	icon_state = "darkredfull"
 	},
 /area/mine/outpost/hallway/west)
+"Sr" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/smith_workshop)
+"Sv" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/mine/outpost/smith_workshop)
+"SB" = (
+/obj/effect/turf_decal/stripes/red/line,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/smith_workshop)
 "SD" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -20339,7 +20386,7 @@ iF
 iF
 iF
 jZ
-vZ
+VA
 vZ
 vZ
 IX
@@ -24181,7 +24228,7 @@ iF
 iF
 jZ
 ye
-Lv
+Rw
 Rw
 be
 Fg
@@ -24437,7 +24484,7 @@ VU
 iF
 jZ
 jZ
-Sr
+rf
 Fc
 Fc
 Fc
@@ -24694,7 +24741,7 @@ VU
 jZ
 jZ
 jZ
-Sr
+rf
 Fc
 JB
 rg
