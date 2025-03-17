@@ -221,7 +221,7 @@
 
 /obj/item/gun/magic/hook/slime_hand
 	name = "slime hand"
-	desc = "Eh, they can just grow a new one"
+	desc = "Aim at bald people for peak comedy"
 	ammo_type = /obj/item/ammo_casing/magic/hook/slime_hand
 	icon_state = "slime_hand_tp"
 	item_state = "slime_hand_tp"
@@ -265,7 +265,8 @@
 				playsound(target.loc, pick('sound/slap/slap.ogg', 'sound/slap/slap_oh.ogg', 'sound/slap/i_like_ya_cut_g_slap.ogg'), 10, FALSE)
 				H.KnockDown(2 SECONDS)
 				H.Jitter(1.5 SECONDS)
-				H.visible_message("<span class='danger'>[H], [firer] likes ya cut G  </span>")
+				to_chat(H, "<span class='danger'>[firer] likes ya cut G</span>")
+				//H.visible_message("<span class='danger'>[firer] likes ya cut G</span>")
 				return 1
 
 		playsound(target.loc, 'sound/weapons/slap.ogg', 40, FALSE)
