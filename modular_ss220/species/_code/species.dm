@@ -12,3 +12,7 @@
 
 /datum/species/nucleation
 	required_playtimes_minutes = 12000 // 200 часов
+
+/datum/species/human_doll/is_available(mob/M)
+	return FALSE
+
