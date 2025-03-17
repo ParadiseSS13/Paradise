@@ -116,7 +116,7 @@
 "aT" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 "aU" = (
 /obj/effect/spawner/random/barrier/wall_probably,
 /turf/template_noop,
