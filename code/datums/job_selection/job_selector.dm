@@ -37,11 +37,13 @@ RESTRICT_TYPE(/datum/job_selector)
 	return FALSE
 
 /// Convenience proc for handling a single latejoin player
-/datum/job_selector/proc/latejoin_assign(mob/new_player/player, rank)
+/datum/job_selector/proc/latejoin_assign(mob/new_player/player, datum/job/job)
 	var/datum/job_candidate/candidate = new()
 	candidate.load_from_player(player)
-	assign_role(candidate, rank, latejoin = TRUE)
-	candidate.apply_to_player(player)
+	if(assign_role(candidate, job, latejoin = TRUE))
+		candidate.apply_to_player(player)
+	else
+		to_chat(player, "<span class='warning'>You are unable to join the round as [job.title]. Please try another job.</span>")
 
 /datum/job_selector/proc/apply_roles_to_players()
 	for(var/datum/job_candidate/candidate in assigned_candidates)
