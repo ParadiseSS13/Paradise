@@ -183,6 +183,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
+	insert_max = 0
 
 /obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
 	. = ..()

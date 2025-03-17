@@ -84,6 +84,8 @@
 			act_result = wirecutter_act(user, tool)
 		if(TOOL_WELDER)
 			act_result = welder_act(user, tool)
+		if(TOOL_HAMMER)
+			act_result = hammer_act(user, tool)
 
 	if(!act_result)
 		return NONE
