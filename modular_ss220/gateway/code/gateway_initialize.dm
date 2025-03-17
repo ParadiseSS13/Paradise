@@ -29,3 +29,4 @@
 	log_world("Away mission loaded: [map]")
 
 	log_startup_progress("Away mission loaded in [stop_watch(watch)]s.")
+	seed_space_salvage(levels_by_trait(AWAY_LEVEL), FALSE)

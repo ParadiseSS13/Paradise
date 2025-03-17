@@ -7,3 +7,8 @@
 
 /obj/machinery/suit_storage_unit/lavaland/ruin
 	storage_type = /obj/item/gps/mining/ruin
+
+/obj/machinery/suit_storage_unit/syndicate/empty
+	mask_type = null
+	suit_type = null
+	state_open = TRUE

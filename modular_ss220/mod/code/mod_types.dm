@@ -88,3 +88,8 @@
 
 /obj/item/mod/control/pre_equipped/responsory/red/inquisitory
 	applied_skin = "inquisitory"
+
+// MARK: Misc modsuits
+/obj/item/mod/control/pre_equipped/prototype/spacebattle
+	theme = /datum/mod_theme/prototype/spacebattle
+	default_pins = list(/obj/item/mod/module/tether)

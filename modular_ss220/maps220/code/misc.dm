@@ -72,7 +72,12 @@
 				mutation.activate(human)
 
 		if("Богатство")
-			new /obj/structure/closet/syndicate/resources/everything(loc)
+			var/obj/structure/closet/syndicate/resources/everything/C = new /obj/structure/closet/syndicate/resources/everything(loc)
+			var/dice = pickweight(list(
+				/obj/item/dice/d20/fate,
+				/obj/item/dice/d20/fate/one_use = 9,
+			))
+			new dice(C)
 
 		if("Бессмертие")
 			user.verbs |= /mob/living/carbon/human/proc/immortality

@@ -108,6 +108,18 @@
 /obj/mecha/combat/durand/old/mechtransport_new
 	obj_integrity = 120
 
+// spacebattle mauler
+/obj/mecha/combat/marauder/mauler/spacebattle
+	max_integrity = 250
+
+// combat indeed
+/obj/mecha/working/ripley/emagged
+	emagged = TRUE
+
+/obj/mecha/working/ripley/emagged/Initialize(mapload)
+	. = ..()
+	desc += "</br>[span_danger("Оборудование меха опасно искрится!")]"
+
 #undef ERT_TYPE_AMBER
 #undef ERT_TYPE_RED
 #undef ERT_TYPE_GAMMA

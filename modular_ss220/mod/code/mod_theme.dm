@@ -226,3 +226,6 @@
 /obj/item/mod/armor/mod_theme_responsory/red
 	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, RAD = 25, FIRE = INFINITY, ACID = 150)
 
+// MARK: Misc modsuits
+/datum/mod_theme/prototype/spacebattle
+	inbuilt_modules = list()

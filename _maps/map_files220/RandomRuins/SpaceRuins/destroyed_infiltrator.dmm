@@ -448,7 +448,7 @@
 /turf/template_noop,
 /area/template_noop)
 "IA" = (
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/nuclear,
+/obj/effect/spawner/random/pool/spaceloot/mod/syndie,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Jr" = (
