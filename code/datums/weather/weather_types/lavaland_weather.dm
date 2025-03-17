@@ -74,14 +74,15 @@
 		if(ismecha(L)) //Mechs are immune
 			return TRUE
 		if(ishuman(L)) //Are you immune?
-			var/mob/living/carbon/human/H = L
-			var/thermal_protection = H.get_thermal_protection()
-			if(src.name == "heavy ash storm" && thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
-			else if(src.name != "heavy ash storm" && thermal_protection >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15)) // the -15 only really matters for smith. otherwise normal hehavior
+			if(is_human_ash_immune(L))
 				return TRUE
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you
+
+/datum/weather/ash_storm/proc/is_human_ash_immune(mob/living/carbon/human/H)
+	var/thermal_protection = H.get_thermal_protection()
+	if(thermal_protection >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15))
+		return TRUE
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
 	if(is_ash_immune(L))
@@ -100,6 +101,11 @@
 	weather_duration_upper = 1600
 
 	probability = 30
+
+/datum/weather/ash_storm/heavy/is_human_ash_immune(mob/living/carbon/human/H)
+	var/thermal_protection = H.get_thermal_protection()
+	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		return TRUE
 
 /datum/weather/ash_storm/heavy/weather_act(mob/living/L)
 	if(is_ash_immune(L))
