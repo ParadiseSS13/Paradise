@@ -1,7 +1,7 @@
 /obj/machinery/economy/vending/nta
 	name = "NT Ammunition"
 	desc = "A special equipment vendor."
-	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, удержать, сохранить!","Стоять, снарядись на задание!")
 	icon = 'modular_ss220/vending/icons/vending.dmi'
 	icon_state = "nta"
 	icon_deny = "nta_deny"
@@ -10,20 +10,24 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 	products = list(
-		/obj/item/storage/fancy/shell/slug = 4,
-		/obj/item/grenade/flashbang = 4,
-		/obj/item/flash = 5,
-		/obj/item/storage/fancy/shell/buck = 4,
-		/obj/item/ammo_box/magazine/enforcer = 8,
-		/obj/item/flashlight/seclite = 4,
-		/obj/item/restraints/legcuffs/bola/energy = 8,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 8,
-		/obj/item/ammo_box/magazine/laser = 12,
-		/obj/item/ammo_box/magazine/wt550m9 = 8,
-		/obj/item/storage/fancy/shell/rubbershot = 4,
-		/obj/item/ammo_box/magazine/m556/arg = 12,
-		/obj/item/ammo_box/a40mm = 4,
-		/obj/item/ammo_box/magazine/smgm9mm = 12)
+		/obj/item/grenade/barrier/dropwall = 10,
+		/obj/item/flashlight/seclite = 10,
+		/obj/item/restraints/legcuffs/bola/energy = 10,
+		/obj/item/ammo_box/magazine/laser = 10,
+		/obj/item/ammo_box/magazine/beretta/mm919 = 10,
+		/obj/item/ammo_box/magazine/beretta/mmap919 = 10,
+		/obj/item/ammo_box/magazine/beretta/mmbsp919 = 10,
+		/obj/item/ammo_box/magazine/wt550m9/wtap = 10,
+		/obj/item/ammo_box/magazine/wt550m9/wtic = 10,
+		/obj/item/ammo_box/magazine/wt550m9/wttx = 10,
+		/obj/item/ammo_box/magazine/enforcer = 10,
+		/obj/item/ammo_box/magazine/smgm9mm/ap = 10,
+		/obj/item/ammo_box/magazine/smgm9mm/fire = 10,
+		/obj/item/ammo_box/magazine/smgm9mm/toxin = 10,
+		/obj/item/ammo_box/magazine/m556/arg = 10,
+		/obj/item/ammo_box/magazine/m556 = 10,
+		/obj/item/ammo_box/a40mm = 5,
+	)
 
 /obj/machinery/economy/vending/nta/admin/Initialize(mapload)
 	products = list()
@@ -38,132 +42,151 @@
 /obj/machinery/economy/vending/nta/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "A ERT Medium equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, удержать, сохранить!","Стоять, снарядись на задание!")
 	products = list(
-		/obj/item/gun/energy/gun = 3,
-		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/gun/projectile/automatic/lasercarbine = 3,
-		/obj/item/ammo_box/magazine/laser = 6,
-		/obj/item/suppressor = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
-		/obj/item/ammo_box/magazine/wt550m9 = 6,
-		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/storage/fancy/shell/rubbershot = 6,
-		/obj/item/storage/fancy/shell/beanbag = 4,
-		/obj/item/storage/fancy/shell/tranquilizer = 4)
+		/obj/item/gun/energy/gun/blueshield/pdw9 = 5,
+		/obj/item/gun/energy/arc_revolver = 5,
+		/obj/item/gun/energy/plasma_pistol = 5,
+		/obj/item/gun/energy/sparker = 5,
+		/obj/item/gun/projectile/automatic/pistol/beretta = 5,
+		/obj/item/ammo_box/magazine/beretta = 10,
+		/obj/item/gun/energy/temperature = 5,
+		/obj/item/gun/energy/ionrifle/carbine = 5,
+		/obj/item/gun/energy/immolator = 5,
+		/obj/item/gun/projectile/automatic/lasercarbine = 5,
+		/obj/item/ammo_box/magazine/laser/ert = 10,
+		/obj/item/gun/projectile/automatic/wt550 = 5,
+		/obj/item/ammo_box/magazine/wt550m9 = 10,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 5,
+		/obj/item/storage/fancy/shell/holy = 5,
+		/obj/item/storage/fancy/shell/dragonsbreath = 5,
+		/obj/item/grenade/plastic/c4/x4 = 5,
+	)
 
 /obj/machinery/economy/vending/nta/red
 	name = "NT ERT Heavy Gear & Ammunition"
 	desc = "A ERT Heavy equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, удержать, сохранить!","Стоять, снарядись на задание!")
 	products = list(
-		/obj/item/gun/projectile/automatic/proto = 3,
-		/obj/item/ammo_box/magazine/smgm9mm/ap = 6,
-		/obj/item/gun/energy/lasercannon = 3,
-		/obj/item/gun/energy/immolator = 3,
-		/obj/item/gun/energy/gun/nuclear = 3,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/storage/fancy/shell/slug = 4,
-		/obj/item/storage/fancy/shell/buck = 4,
-		/obj/item/storage/fancy/shell/dragonsbreath = 2,
-		/obj/item/storage/lockbox/t4 = 3,
-		/obj/item/grenade/smokebomb = 3,
-		/obj/item/grenade/frag = 4)
+		/obj/item/gun/energy/disabler/silencer = 5,
+		/obj/item/gun/projectile/automatic/pistol/enforcer = 5,
+		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
+		/obj/item/gun/energy/gun/nuclear = 5,
+		/obj/item/gun/energy/xray = 5,
+		/obj/item/gun/energy/lwap = 5,
+		/obj/item/gun/energy/lasercannon = 5,
+		/obj/item/gun/energy/immolator/multi = 5,
+		/obj/item/gun/projectile/automatic/proto = 5,
+		/obj/item/ammo_box/magazine/smgm9mm = 10,
+		/obj/item/gun/projectile/automatic/shotgun/bulldog = 5,
+		/obj/item/ammo_box/magazine/m12g = 5,
+		/obj/item/storage/firstaid/tactical = 5,
+		/obj/item/storage/lockbox/t4 = 5,
+		/obj/item/grenade/frag = 5,
+		/obj/item/suppressor = 5,
+	)
 
 /obj/machinery/economy/vending/nta/green
 	name = "NT ERT Light Gear & Ammunition"
 	desc = "A ERT Light equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, удержать, сохранить!","Стоять, снарядись на задание!")
 	products = list(
-		/obj/item/restraints/handcuffs = 5,
-		/obj/item/restraints/handcuffs/cable/zipties = 5,
-		/obj/item/grenade/flashbang = 3,
-		/obj/item/flash = 2,
-		/obj/item/gun/energy/disabler = 4,
-		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
-		/obj/item/ammo_box/magazine/enforcer = 12,
-		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/storage/fancy/shell/rubbershot = 3)
+		/obj/item/gun/energy/disabler/smg = 5,
+		/obj/item/gun/energy/disabler = 5,
+		/obj/item/gun/energy/gun/mini = 5,
+		/obj/item/gun/energy/gun = 5,
+		/obj/item/gun/energy/laser = 5,
+		/obj/item/gun/projectile/shotgun/riot = 5,
+		/obj/item/storage/fancy/shell/rubbershot = 5,
+		/obj/item/storage/fancy/shell/beanbag = 5,
+		/obj/item/storage/fancy/shell/tranquilizer = 5,
+		/obj/item/ammo_box/magazine/sslr = 10,
+	)
 
 /obj/machinery/economy/vending/nta/yellow
 	name = "NT ERT Death Wish Gear & Ammunition"
 	desc = "A ERT Death Wish equipment vendor."
-	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, Удержать, УБИВАТЬ!","Стоять, снярядись на УБИВАТЬ!")
+	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, удержать, УБИВАТЬ!","Стоять, снарядись на УБИВАТЬ!")
 	products = list(
-		/obj/item/gun/projectile/automatic/gyropistol = 8,
-		/obj/item/ammo_box/magazine/m75 = 12,
-		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/mm762x51/ap = 12,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
-		/obj/item/gun/energy/xray = 8,
-		/obj/item/gun/energy/pulse/destroyer/annihilator = 8,
-		/obj/item/gun/energy/immolator/multi = 8,
-		/obj/item/gun/energy/bsg/prebuilt/admin = 4,
-		/obj/item/grenade/clusterbuster/inferno = 3,
-		/obj/item/grenade/clusterbuster/emp = 3)
+		/obj/item/gun/projectile/automatic/gyropistol = 10,
+		/obj/item/ammo_box/magazine/m75 = 20,
+		/obj/item/gun/projectile/automatic/l6_saw = 10,
+		/obj/item/ammo_box/magazine/mm762x51 = 20,
+		/obj/item/ammo_box/magazine/mm762x51/incen = 20,
+		/obj/item/ammo_box/magazine/mm762x51/ap = 20,
+		/obj/item/ammo_box/magazine/mm762x51/hollow = 20,
+		/obj/item/ammo_box/magazine/mm762x51/bleeding = 20,
+		/obj/item/gun/projectile/automatic/sniper_rifle = 10,
+		/obj/item/ammo_box/magazine/sniper_rounds = 20,
+		/obj/item/ammo_box/magazine/sniper_rounds/antimatter = 20,
+		/obj/item/ammo_box/magazine/sniper_rounds/soporific = 20,
+		/obj/item/ammo_box/magazine/sniper_rounds/haemorrhage = 20,
+		/obj/item/ammo_box/magazine/sniper_rounds/penetrator = 20,
+		/obj/item/gun/energy/pulse/destroyer/annihilator = 10,
+		/obj/item/gun/energy/bsg/prebuilt/admin = 10,
+		/obj/item/grenade/clusterbuster/inferno = 10,
+		/obj/item/grenade/clusterbuster/emp = 10,
+	)
 
 /obj/machinery/economy/vending/nta/medical
 	name = "NT ERT Medical Gear"
 	desc = "A ERT medical equipment vendor."
-	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись медикаментами на задание!")
+	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, оперировать, выписать!","Стоять, снарядись медикаментами на задание!")
 	products = list(
-		/obj/item/storage/firstaid/tactical = 2,
-		/obj/item/reagent_containers/applicator/dual = 2,
+		/obj/item/storage/firstaid/regular/doctor = 5,
+		/obj/item/storage/firstaid/adv = 5,
+		/obj/item/healthanalyzer/advanced = 5,
+		/obj/item/storage/pill_bottle/patch_pack = 5,
+		/obj/item/reagent_containers/patch/silver_sulf = 10,
+		/obj/item/reagent_containers/patch/styptic = 10,
+		/obj/item/reagent_containers/iv_bag/salglu = 5,
+		/obj/item/storage/pill_bottle = 5,
+		/obj/item/reagent_containers/pill/mannitol = 10,
+		/obj/item/reagent_containers/pill/salbutamol = 10,
+		/obj/item/reagent_containers/pill/charcoal = 10,
+		/obj/item/reagent_containers/pill/mutadone = 10,
+		/obj/item/reagent_containers/pill/hydrocodone = 10,
+		/obj/item/storage/firstaid/surgery = 5,
+		/obj/item/scalpel/laser = 5,
+		/obj/item/roller/holo = 5,
 		/obj/item/reagent_containers/iv_bag/blood/o_minus = 10,
 		/obj/item/reagent_containers/iv_bag/blood/vox = 3,
 		/obj/item/reagent_containers/iv_bag/slime = 3,
-		/obj/item/reagent_containers/iv_bag/salglu = 3,
-		/obj/item/storage/belt/medical/surgery/loaded = 2,
-		/obj/item/storage/belt/medical/response_team = 3,
-		/obj/item/storage/pill_bottle = 4,
-		/obj/item/reagent_containers/pill/mannitol = 10,
-		/obj/item/reagent_containers/pill/salbutamol = 10,
-		/obj/item/reagent_containers/pill/morphine = 8,
-		/obj/item/reagent_containers/pill/charcoal = 10,
-		/obj/item/reagent_containers/pill/mutadone = 8,
-		/obj/item/storage/pill_bottle/patch_pack = 4,
-		/obj/item/reagent_containers/patch/silver_sulf = 10,
-		/obj/item/reagent_containers/patch/styptic = 10,
-		/obj/item/storage/firstaid/surgery = 2,
-		/obj/item/scalpel/laser = 2,
-		/obj/item/reagent_containers/applicator/brute = 10,
-		/obj/item/reagent_containers/applicator/burn = 10,
-		/obj/item/healthanalyzer/advanced = 5,
-		/obj/item/roller/holo = 3)
+	)
 
 /obj/machinery/economy/vending/nta/engineer
 	name = "NT ERT Engineer Gear"
 	desc = "A ERT engineering equipment vendor."
-	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, Заварить, Трубить!","Стоять, снярядись на починку труб!")
+	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, заварить, трубить!","Стоять, снарядись на починку труб!")
 	products = list(
 		/obj/item/storage/belt/utility/chief/full = 2,
-		/obj/item/clothing/mask/gas/welding = 4,
+		/obj/item/clothing/mask/gas/welding = 3,
 		/obj/item/weldingtool/experimental = 3,
 		/obj/item/crowbar/power = 3,
 		/obj/item/screwdriver/power  = 3,
 		/obj/item/extinguisher/mini = 3,
 		/obj/item/multitool = 3,
 		/obj/item/rcd/preloaded = 2,
-		/obj/item/rcd_ammo = 8,
-		/obj/item/stack/cable_coil = 4)
+		/obj/item/rcd_ammo/large = 6,
+		/obj/item/stack/cable_coil = 5,
+	)
 
 /obj/machinery/economy/vending/nta/janitor
 	name = "NT ERT Janitor Gear"
-	desc = "A ERT ccleaning equipment vendor."
-	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, Постирать, Оттереть!","Стоять, снярядись клинерами!")
+	desc = "A ERT cleaning equipment vendor."
+	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, постирать, оттереть!","Стоять, снарядись клинерами!")
 	products = list(
-		/obj/item/storage/belt/janitor/full = 2,
-		/obj/item/clothing/shoes/galoshes = 2,
-		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner = 1,
-		/obj/item/storage/bag/trash = 2,
-		/obj/item/storage/box/lights/mixed = 4,
-		/obj/item/melee/flyswatter= 1,
-		/obj/item/soap = 2,
-		/obj/item/grenade/chem_grenade/cleaner = 4,
-		/obj/item/clothing/mask/gas = 3,
-		/obj/item/watertank/janitor  = 4,
-		/obj/item/lightreplacer = 2,)
+		/obj/item/storage/belt/janitor/full = 5,
+		/obj/item/mop/advanced = 5,
+		/obj/item/clothing/shoes/galoshes = 5,
+		/obj/item/grenade/chem_grenade/antiweed = 5,
+		/obj/item/reagent_containers/spray/cleaner/advanced = 5,
+		/obj/item/melee/flyswatter = 5,
+		/obj/item/clothing/mask/gas = 5,
+		/obj/item/watertank/janitor  = 5,
+		/obj/item/lightreplacer/bluespace = 5,
+		/obj/item/storage/box/lights/mixed = 5,
+	)
 
 /obj/machinery/economy/vending/cola/red
 	name = "\improper Автомат с космической колой"

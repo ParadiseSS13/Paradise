@@ -22,8 +22,7 @@
 	desc = "A tactical shortwave radio that used by some special forces. That can communicate with local telecommunication networks on allocated frequencies. This model is painted in gray camouflage."
 	icon = 'modular_ss220/devices/icons/radio.dmi'
 	icon_state = "walkietalkie_special"
-	frequency = DTH_FREQ
-	freqlock = TRUE
+	frequency = ERT_FREQ
 
 // DO NOT PLACE IT IN MAINT SPAWNERS, PLEASE
 /obj/item/radio/syndicate

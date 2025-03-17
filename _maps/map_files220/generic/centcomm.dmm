@@ -395,16 +395,37 @@
 /area/centcom/ss220/admin2)
 "apF" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/structure/reagent_dispensers/spacecleanertank/south,
+/obj/item/shield/riot/tele{
+	pixel_x = 7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = 7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = 7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = -7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = -7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = -7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = -7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = -7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = 7
+	},
+/obj/item/shield/riot/tele{
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkpurplefull"
 	},
@@ -611,14 +632,12 @@
 /area/centcom/ss220/admin1)
 "avX" = (
 /obj/structure/gunrack,
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 6
-	},
-/obj/item/gun/energy/gun/advtaser,
 /obj/effect/turf_decal/delivery/red,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "awj" = (
@@ -6285,15 +6304,12 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/syndicate_mothership/outside)
 "dNn" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/obj/item/storage/box/flashbangs{
-	pixel_x = -9;
-	pixel_y = 6
-	},
+/obj/structure/gunrack,
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkgreen"
 	},
@@ -6335,28 +6351,13 @@
 /area/centcom/ss220/park)
 "dOS" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/tactical{
-	pixel_y = 5;
-	pixel_x = 5
+/obj/item/storage/lockbox/mindshield{
+	pixel_y = 10
 	},
-/obj/item/radio/tactical{
-	pixel_y = 5;
-	pixel_x = 5
-	},
-/obj/item/radio/tactical{
-	pixel_y = 5;
-	pixel_x = -5
-	},
-/obj/item/radio/tactical{
-	pixel_y = 5;
-	pixel_x = -5
-	},
-/obj/item/radio/tactical{
+/obj/item/storage/lockbox/mindshield{
 	pixel_y = 5
 	},
-/obj/item/radio/tactical{
-	pixel_y = 5
-	},
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -6827,29 +6828,18 @@
 /area/syndicate_mothership)
 "eit" = (
 /obj/structure/table/reinforced,
-/obj/item/shield/riot{
-	pixel_x = -6;
-	pixel_y = 3
+/obj/item/melee/baton/loaded{
+	pixel_x = 6
 	},
-/obj/item/shield/riot{
-	pixel_x = 6;
-	pixel_y = 3
+/obj/item/melee/baton/loaded{
+	pixel_x = 3
 	},
-/obj/item/shield/riot{
-	pixel_x = -6;
-	pixel_y = 3
+/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/loaded{
+	pixel_x = -3
 	},
-/obj/item/shield/riot{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/obj/item/shield/riot{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/shield/riot{
-	pixel_x = 6;
-	pixel_y = 3
+/obj/item/melee/baton/loaded{
+	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 6;
@@ -8529,14 +8519,12 @@
 /area/centcom/ss220/admin2)
 "fcF" = (
 /obj/structure/gunrack,
-/obj/item/gun/projectile/automatic/ar{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ar{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/ar,
 /obj/effect/turf_decal/delivery/red,
+/obj/item/gun/energy/mindflayer,
+/obj/item/gun/energy/mindflayer,
+/obj/item/gun/energy/mindflayer,
+/obj/item/gun/energy/mindflayer,
+/obj/item/gun/energy/mindflayer,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "fcL" = (
@@ -8911,28 +8899,25 @@
 /area/syndicate_mothership)
 "fog" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/holster{
-	pixel_y = 10
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_y = 8
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_y = 4
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_y = 2
-	},
-/obj/item/clothing/accessory/holster,
 /obj/machinery/door_control/no_emag/north{
 	color = "#80ff80";
 	id = "CC_Armory_Green";
 	name = "Оружейная - Уровень 1";
 	req_access = list(110)
 	},
+/obj/item/clothing/glasses/hud/security/night{
+	pixel_y = 8
+	},
+/obj/item/clothing/glasses/hud/security/night{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/hud/security/night{
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/hud/security/night{
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/security/night,
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
 	icon_state = "navyblue"
@@ -9489,29 +9474,45 @@
 /area/syndicate_mothership/jail)
 "fCA" = (
 /obj/structure/rack,
-/obj/item/grenade/smokebomb{
-	pixel_x = -6;
-	pixel_y = 12
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = 5
 	},
-/obj/item/grenade/smokebomb{
-	pixel_x = -6;
-	pixel_y = 8
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = 5
 	},
-/obj/item/grenade/smokebomb{
-	pixel_x = -6;
-	pixel_y = 4
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = 5
 	},
-/obj/item/grenade/smokebomb{
-	pixel_x = 7;
-	pixel_y = 12
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = 5
 	},
-/obj/item/grenade/smokebomb{
-	pixel_x = 7;
-	pixel_y = 8
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = 5
 	},
-/obj/item/grenade/smokebomb{
-	pixel_x = 7;
-	pixel_y = 4
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/item/radio/tactical{
+	pixel_y = 5;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
@@ -13437,15 +13438,22 @@
 /area/syndicate_mothership)
 "hSO" = (
 /obj/structure/rack,
-/obj/item/grenade/clusterbuster/emp{
-	pixel_y = 12
+/obj/item/clothing/accessory/holster{
+	pixel_y = 10
 	},
-/obj/item/grenade/clusterbuster/emp{
+/obj/item/clothing/accessory/holster{
 	pixel_y = 8
 	},
-/obj/item/grenade/clusterbuster/emp{
+/obj/item/clothing/accessory/holster{
+	pixel_y = 6
+	},
+/obj/item/clothing/accessory/holster{
 	pixel_y = 4
 	},
+/obj/item/clothing/accessory/holster{
+	pixel_y = 2
+	},
+/obj/item/clothing/accessory/holster,
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
 	icon_state = "navyblue"
@@ -14252,14 +14260,12 @@
 /area/centcom/ss220/admin2)
 "isq" = (
 /obj/structure/gunrack,
-/obj/item/gun/projectile/automatic/m90{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/m90{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/m90,
 /obj/effect/turf_decal/delivery/red,
+/obj/item/gun/projectile/automatic/ar,
+/obj/item/gun/projectile/automatic/ar,
+/obj/item/gun/projectile/automatic/ar,
+/obj/item/gun/projectile/automatic/ar,
+/obj/item/gun/projectile/automatic/ar,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "isB" = (
@@ -14402,38 +14408,24 @@
 	},
 /area/centcom/ss220/admin1)
 "ivB" = (
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag/east{
 	id = "CC_Armory_Advanced_3";
 	name = "Энергетическое";
 	req_access = list(114)
 	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt{
+	pixel_y = 4
 	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt{
+	pixel_y = 2
 	},
-/obj/item/ammo_box/magazine/m556{
-	pixel_y = 5
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt,
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt{
+	pixel_y = -2
+	},
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt{
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
@@ -16460,37 +16452,23 @@
 /area/centcom/ss220/jail)
 "jMh" = (
 /obj/structure/table/reinforced,
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
-	},
 /obj/machinery/door_control/no_emag/west{
 	req_access = list(114);
 	name = "Огнестрел";
 	id = "CC_Armory_Advanced_2"
 	},
-/obj/item/ammo_box/magazine/m556/arg{
+/obj/item/mod/module/energy_shield/gamma{
 	pixel_y = 4
 	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
+/obj/item/mod/module/energy_shield/gamma{
+	pixel_y = 2
 	},
-/obj/item/ammo_box/magazine/m556/arg{
-	pixel_y = 4
+/obj/item/mod/module/energy_shield/gamma,
+/obj/item/mod/module/energy_shield/gamma{
+	pixel_y = -2
+	},
+/obj/item/mod/module/energy_shield/gamma{
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
@@ -16682,26 +16660,32 @@
 /area/syndicate_mothership)
 "jVM" = (
 /obj/structure/table/reinforced,
-/obj/item/shield/riot/tele{
-	pixel_x = -7
-	},
-/obj/item/shield/riot/tele{
-	pixel_x = -7
-	},
-/obj/item/shield/riot/tele{
-	pixel_x = -7
-	},
-/obj/item/shield/riot/tele{
-	pixel_x = 7
-	},
-/obj/item/shield/riot/tele{
-	pixel_x = 7
-	},
-/obj/item/shield/riot/tele{
-	pixel_x = 7
-	},
 /obj/structure/light_fake/spot{
 	dir = 4
+	},
+/obj/item/storage/box/exileimp{
+	pixel_y = 15;
+	pixel_x = 8
+	},
+/obj/item/storage/box/exileimp{
+	pixel_y = 15;
+	pixel_x = -7
+	},
+/obj/item/storage/box/trackimp{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/storage/box/trackimp{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/storage/box/chemimp{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/item/storage/box/chemimp{
+	pixel_x = -7;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
@@ -17782,17 +17766,15 @@
 /area/centcom/ss220/admin3)
 "kED" = (
 /obj/structure/gunrack,
-/obj/item/gun/energy/gun/blueshield/pdw9{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/gun/blueshield/pdw9{
-	pixel_x = 6
-	},
-/obj/item/gun/energy/gun/blueshield/pdw9,
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "kEE" = (
@@ -18964,19 +18946,11 @@
 /area/centcom/ss220/court)
 "ljX" = (
 /obj/structure/gunrack,
-/obj/item/gun/energy/disabler{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = -3
-	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
-	pixel_x = 3
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 6
-	},
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkgreen"
 	},
@@ -22048,19 +22022,12 @@
 /area/syndicate_mothership/outside)
 "ndz" = (
 /obj/structure/gunrack,
-/obj/item/gun/energy/gun/nuclear{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/gun/nuclear{
-	pixel_x = 6
-	},
-/obj/item/gun/energy/gun/nuclear,
-/obj/item/gun/energy/gun/nuclear,
-/obj/item/gun/energy/gun/nuclear{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/gun/nuclear,
 /obj/effect/turf_decal/delivery/red,
+/obj/item/gun/energy/decloner,
+/obj/item/gun/energy/decloner,
+/obj/item/gun/energy/decloner,
+/obj/item/gun/energy/decloner,
+/obj/item/gun/energy/decloner,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "neF" = (
@@ -22491,17 +22458,15 @@
 /area/syndicate_mothership)
 "npI" = (
 /obj/structure/gunrack,
-/obj/item/gun/energy/lwap{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/lwap{
-	pixel_x = 6
-	},
-/obj/item/gun/energy/lwap,
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/gun/energy/bsg/prebuilt,
+/obj/item/gun/energy/bsg/prebuilt,
+/obj/item/gun/energy/bsg/prebuilt,
+/obj/item/gun/energy/bsg/prebuilt,
+/obj/item/gun/energy/bsg/prebuilt,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "npT" = (
@@ -25890,14 +25855,7 @@
 /area/syndicate_mothership/control)
 "pwe" = (
 /obj/structure/closet/l3closet/security,
-/obj/item/watertank/janitor,
-/obj/item/watertank/janitor,
-/obj/item/watertank/janitor,
-/obj/item/watertank/janitor,
-/obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
@@ -28804,6 +28762,25 @@
 	pixel_y = 2
 	},
 /obj/item/melee/classic_baton,
+/obj/item/melee/classic_baton/telescopic{
+	pixel_x = 18
+	},
+/obj/item/melee/classic_baton/telescopic{
+	pixel_x = 18;
+	pixel_y = 2
+	},
+/obj/item/melee/classic_baton/telescopic{
+	pixel_x = 18;
+	pixel_y = 4
+	},
+/obj/item/melee/classic_baton/telescopic{
+	pixel_x = 18;
+	pixel_y = 6
+	},
+/obj/item/melee/classic_baton/telescopic{
+	pixel_x = 18;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkgreen"
 	},
