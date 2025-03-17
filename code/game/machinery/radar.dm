@@ -1,7 +1,7 @@
-#define RADAR_NEEDS_WELDING "welding"
-#define RADAR_NEEDS_PLASTEEL "plasteel"
-#define RADAR_NEEDS_WRENCH "wrench"
-#define RADAR_NEEDS_SCREWDRIVER "screwdriver"
+#define RADAR_NEEDS_WELDING 0
+#define RADAR_NEEDS_PLASTEEL 1
+#define RADAR_NEEDS_WRENCH 2
+#define RADAR_NEEDS_SCREWDRIVER 3
 
 /obj/machinery/radar
 	name = "Doppler Radar"
