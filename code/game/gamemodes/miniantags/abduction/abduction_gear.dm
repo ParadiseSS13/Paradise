@@ -591,16 +591,16 @@ CONTENTS:
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
- 3.Apply scalpel to the chest, preparing for experimental dissection.<br>
- 4.Apply scalpel to specimen's torso.<br>
+ 3.Apply a scalpel to the chest, preparing for experimental dissection.<br>
+ 4.Make incision on specimen's torso with a scalpel.<br>
  5.Clamp bleeders on specimen's torso with a hemostat.<br>
  6.Retract skin of specimen's torso with a retractor.<br>
  7.Saw through the specimen's torso with a saw.<br>
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
+ 11.Cauterize the patient's torso. Your scalpel also functions as a cautery for this purpose.<br>
+ 12.Consider dressing the specimen back to not disturb the habitat.<br>
  13.Put the specimen in the experiment machinery.<br>
  14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
  15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
