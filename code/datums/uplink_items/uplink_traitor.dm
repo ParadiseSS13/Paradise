@@ -276,6 +276,15 @@
 	cost = 30
 	job = list("Life Support Specialist")
 
+/datum/uplink_item/jobspecific/contortionist_plasmaman
+	name = "Contortionist's Plasma Envirosuit"
+	desc = "A highly flexible envirosuit that will help you navigate the ventilation loops of the station internally, specialized for Plasmamen. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJP"
+	item = /obj/item/clothing/under/plasmaman/atmospherics/contortionist
+	cost = 30
+	job = list("Life Support Specialist")
+	species = list("Plasmaman")
+
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
