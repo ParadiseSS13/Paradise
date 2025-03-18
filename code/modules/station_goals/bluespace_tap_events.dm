@@ -30,7 +30,7 @@
 
 /datum/engi_event/bluespace_tap_event/gas/on_start()
 	var/datum/gas_mixture/air = new()
-	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown")
+	var/picked_gas = pick("N2O", "N2", "O2", "CO2", "Plasma", "Unknown", "H2O", "H2")
 	switch(picked_gas)
 		if("N2")
 			name = "G-1"
@@ -50,6 +50,12 @@
 		if("Unknown")
 			name = "G-6"
 			air.set_agent_b(250)
+		if("H2O")
+			name = "G-7"
+			air.set_water_vapor(250)
+		if("H2")
+			name = "G-8"
+			air.set_hydrogen(250)
 
 	air.set_temperature(T20C)
 	var/turf/tap_turf = get_turf(tap)
