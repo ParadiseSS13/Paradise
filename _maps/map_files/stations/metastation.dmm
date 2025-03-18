@@ -69890,12 +69890,11 @@
 	},
 /area/station/hallway/primary/aft/south)
 "qBf" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
 "qBO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -113170,7 +113169,7 @@ cGR
 jYM
 sNH
 sNH
-sNH
+jYM
 aaa
 aaa
 aaa
@@ -114198,7 +114197,7 @@ cGR
 jYM
 sNH
 sNH
-sNH
+jYM
 aaa
 aaa
 aaa
