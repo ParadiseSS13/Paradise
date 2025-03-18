@@ -12,7 +12,7 @@
 		Ensure you have emptied your BYOND screenshots folder.",
 		"Mass Screenshot",
 		list("Yes", "No")
-		)
+	)
 	if(confirmation != "Yes")
 		return
 	
@@ -20,8 +20,8 @@
 		usr,
 		"Enter a delay in deciseconds between screenshots to allow the client to render changes.",
 		"Screenshot delay",
-		default=2, max_value=10, min_value=1, round_value=TRUE
-		)
+		default = 2, max_value = 10, min_value = 1, round_value = TRUE
+	)
 	if(!sleep_duration)
 		return
 
