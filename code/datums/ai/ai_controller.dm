@@ -189,7 +189,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!(pawn_turf.z in SSmobs.clients_by_zlevel) || !length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout)
+	if(!SSmobs.clients_by_zlevel || !length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout)
 		. = AI_STATUS_OFF
 
 /// Called when the AI controller pawn changes z levels.
