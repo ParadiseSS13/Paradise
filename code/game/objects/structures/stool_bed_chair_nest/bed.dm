@@ -128,6 +128,13 @@
 
 	return TRUE
 
+/obj/structure/bed/wood
+	name = "wooden slab"
+	desc = "It looks even less comfortable than the floor it's built on..."
+	icon_state = "bed_wood"
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
 /*
  * Roller beds
  */
