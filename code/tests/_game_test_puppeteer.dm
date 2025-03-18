@@ -53,7 +53,11 @@
 	if(!item)
 		return
 
-	item.activate_self(puppet)
+	if(item.new_attack_chain)
+		item.activate_self(puppet)
+	else
+		item.attack_self__legacy__attackchain(puppet)
+
 	puppet.next_click = world.time
 	puppet.next_move = world.time
 	return TRUE
@@ -128,6 +132,14 @@
 		for(var/atom/A in T.contents)
 			if(istype(A, atom_type))
 				return A
+
+/datum/test_puppeteer/proc/get_last_tgui()
+	if(!(puppet.mind.key in GLOB.game_test_tguis))
+		return null
+	var/list/tgui_list = GLOB.game_test_tguis[puppet.mind.key]
+	if(!length(tgui_list))
+		return null
+	return tgui_list[length(tgui_list)]
 
 // No we don't technically need to put these things into an actual backpack and
 // so forth, we could just leave them lying around and teleport them to the

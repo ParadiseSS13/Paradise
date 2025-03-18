@@ -9,7 +9,7 @@
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
 "d" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "t" = (
 /obj/structure/spawner/mining/basilisk,

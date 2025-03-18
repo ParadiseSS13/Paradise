@@ -111,6 +111,7 @@
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
 	icon_state = "shuttle"
+	parallax_move_direction = WEST
 
 /area/shuttle/syndicate
 	name = "Syndicate Nuclear Team Shuttle"
@@ -129,3 +130,11 @@
 	name = "Free Golem Ship"
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
+	parallax_move_direction = WEST
+
+/// Currently disabled as our shuttle system does not support TG-shuttle areas yet
+// /area/shuttle/transit
+// 	name = "Hyperspace"
+// 	desc = "Weeeeee"
+// 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+// 	there_can_be_many = TRUE
