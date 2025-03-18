@@ -6,7 +6,6 @@
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
-#define SLIMEPERSON_MORPH_FORM	10 SECONDS
 
 /datum/species/slime
 	name = "Slime People"
