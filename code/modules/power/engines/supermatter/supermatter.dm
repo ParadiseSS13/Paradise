@@ -1244,11 +1244,11 @@
 		return
 	if(event_active)
 		return
-	var/static/list/events = list(/datum/engi_event/supermatter_event/delta_tier = 1,
-								/datum/engi_event/supermatter_event/charlie_tier = 48,
-								/datum/engi_event/supermatter_event/bravo_tier = 1,
-								/datum/engi_event/supermatter_event/alpha_tier = 2,
-								/datum/engi_event/supermatter_event/sierra_tier = 48)
+	var/static/list/events = list(/datum/engi_event/supermatter_event/delta_tier = 40,
+								/datum/engi_event/supermatter_event/charlie_tier = 40,
+								/datum/engi_event/supermatter_event/bravo_tier = 15,
+								/datum/engi_event/supermatter_event/alpha_tier = 5,
+								/datum/engi_event/supermatter_event/sierra_tier = 1)
 
 	var/datum/engi_event/supermatter_event/event = pick(subtypesof(pickweight(events)))
 	if(ispath(event, /datum/engi_event/supermatter_event/sierra_tier) && has_run_sclass)
