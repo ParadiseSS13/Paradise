@@ -20,7 +20,7 @@
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
-#define H2O_TRANSMIT_MODIFIER 0.75
+#define H2O_TRANSMIT_MODIFIER -10
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
@@ -32,7 +32,7 @@
 #define CO2_CRUNCH 1
 #define N2_CRUNCH 0.55
 #define N2O_CRUNCH 0.55
-#define H2O_CRUNCH (-10)
+#define H2O_CRUNCH 0.75
 #define H2_CRUNCH 2.0
 #define PLASMA_CRUNCH 4
 
