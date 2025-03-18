@@ -42,6 +42,9 @@
 	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
+
 	// Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 	/// List of fibers that this atom has
@@ -593,6 +596,9 @@
 	return
 
 /atom/proc/welder_act(mob/living/user, obj/item/I)
+	return
+
+/atom/proc/hammer_act(mob/living/user, obj/item/I)
 	return
 
 /// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.

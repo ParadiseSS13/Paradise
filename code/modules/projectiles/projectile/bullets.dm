@@ -147,6 +147,9 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
+/obj/item/projectile/bullet/heavybullet2
+	damage = 40
+
 /// taser slugs for shotguns, nothing special
 /obj/item/projectile/bullet/stunshot
 	name = "stunshot"
