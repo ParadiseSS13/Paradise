@@ -58103,6 +58103,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"lyc" = (
+/turf/simulated/floor/plating/airless,
+/area/station/hallway/secondary/exit)
 "lyn" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Xenobiology Maintenance"
@@ -81183,6 +81186,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"vBl" = (
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/aft2)
 "vBv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -111619,7 +111625,7 @@ cJj
 rDA
 rDA
 vyc
-rDA
+lyc
 aef
 abq
 abq
@@ -118295,7 +118301,7 @@ tNn
 vZo
 vZo
 uGl
-vZo
+vBl
 arA
 arA
 bcb
