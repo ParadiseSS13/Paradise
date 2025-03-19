@@ -19,7 +19,7 @@
 	/// Handles extra information displayed
 	var/temp
 
-/datum/program_picker/New(var/mob/living/silicon/ai/A)
+/datum/program_picker/New(mob/living/silicon/ai/A)
 	if(!istype(A))
 		return
 	assigned_ai = A
@@ -87,8 +87,8 @@
 		data["program_list"] += list(program_data)
 	var/mob/living/silicon/ai/AI = user
 	data["ai_info"] = list(
-  		"memory" = AI.program_picker.memory,
-  		"bandwidth" = AI.program_picker.bandwidth
+		"memory" = AI.program_picker.memory,
+		"bandwidth" = AI.program_picker.bandwidth
 	)
 	return data
 
