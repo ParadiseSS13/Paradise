@@ -449,3 +449,13 @@
 	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
 	GLOB.cameranet.update_portable_camera(src, prev_turf)
 	prev_turf = get_turf(src)
+
+
+/obj/machinery/camera/toxins // cameras to be used in toxins
+	c_tag = "Research Toxins Test Chamber East";
+	c_tag = "Bomb Test Site";
+	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top.";
+	invuln = 1;
+	name = "Hardened Bomb-Test Camera";
+	network = list("Toxins","Research","SS13")
+

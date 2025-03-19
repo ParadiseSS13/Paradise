@@ -1,7 +1,7 @@
-#define BASE_POINT_MULT 0.65
-#define BASE_SHEET_MULT 0.65
-#define POINT_MULT_ADD_PER_RATING 0.35
-#define SHEET_MULT_ADD_PER_RATING 0.35
+#define BASE_POINT_MULT 0.90
+#define BASE_SHEET_MULT 0.90
+#define POINT_MULT_ADD_PER_RATING 0.10
+#define SHEET_MULT_ADD_PER_RATING 0.10
 
 /**
   * # Ore Redemption Machine
@@ -56,7 +56,7 @@
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLATINUM, MAT_IRIDIUM, MAT_PALLADIUM), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
