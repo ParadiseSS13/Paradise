@@ -48,6 +48,12 @@
 		return
 	toggle_light(!on)
 
+/turf/simulated/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/simulated/floor/light/attack_robot(mob/user)
+	return attack_hand(user)
+
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!can_modify_colour)
