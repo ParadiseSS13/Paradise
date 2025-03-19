@@ -270,7 +270,7 @@
 	volume = 40
 	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
 
@@ -283,7 +283,7 @@
 	container_type = null //No sucking out the reagent
 	list_reagents = list("zombiecure1" = 15)
 
-/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/apply(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 
