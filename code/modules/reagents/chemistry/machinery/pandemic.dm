@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list())
 	var/analyzing = FALSE
 	/// ID of the disease being analyzed
 	var/analyzed_ID = ""
-	/// list of all symptoms. Gets filled in Initialize().
+	/// List of all symptoms. Gets filled in Initialize().
 	var/symptomlist = list()
 	var/temp_html = ""
 	var/printing = null
