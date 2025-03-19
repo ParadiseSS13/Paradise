@@ -11,16 +11,19 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
+	flags_2 = RAD_NO_CONTAMINATE_2 //This is made from radioactive material so cannot really be contaminated
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
+	// Is this made from radioactive material or not.
+	var/radioactive_material = TRUE
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSobj, src)
+	if(radioactive_material)
+		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 0, 400, 0, 1.5)
+		START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/nuke_core/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nuke_core/attackby__legacy__attackchain(obj/item/nuke_core_container/container, mob/user)
@@ -28,12 +31,6 @@
 		container.load(src, user)
 	else
 		return ..()
-
-/obj/item/nuke_core/process()
-	if(cooldown < world.time - 6 SECONDS)
-		cooldown = world.time
-		flick(pulseicon, src)
-		radiation_pulse(src, 400, 2)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -104,7 +101,11 @@
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
-		STOP_PROCESSING(SSobj, core)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		var/datum/component/radioactive/box_contamination = GetComponent(/datum/component/radioactive)
+		STOP_PROCESSING(SSradiation, radioactivity)
+		if(box_contamination)
+			box_contamination.RemoveComponent()
 		icon_state = "core_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
@@ -123,7 +124,8 @@
 /obj/item/nuke_core_container/proc/crack_open()
 	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
 	if(core)
-		START_PROCESSING(SSobj, core)
+		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
+		START_PROCESSING(SSradiation, radioactivity)
 		icon_state = "core_container_cracked_loaded"
 	else
 		icon_state = "core_container_cracked_empty"
@@ -164,6 +166,7 @@
 	pulseicon = "supermatter_sliver_pulse"
 	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
 	layer = ABOVE_MOB_LAYER + 0.02
+	radioactive_material = FALSE
 
 /obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
@@ -201,16 +204,17 @@
 	else
 		if(issilicon(user))
 			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
-			radiation_pulse(user, 500, 2)
+			radiation_pulse(user, 2000, GAMMA_RAD)
 			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 			user.dust()
 			qdel(src)
 			return
 		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
-		radiation_pulse(user, 100)
+		radiation_pulse(user, 400, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		qdel(I)
 		qdel(src)
+		return ..()
 
 /obj/item/nuke_core/supermatter_sliver/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -230,7 +234,7 @@
 		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
 		"<span class='hear'>Everything suddenly goes silent.</span>")
 	victim.dust()
-	radiation_pulse(src, 500, 2)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
@@ -243,7 +247,7 @@
 	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
-	radiation_pulse(user, 500, 2)
+	radiation_pulse(user, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.dust()
 
@@ -268,9 +272,13 @@
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
+
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
+		var/datum/component/radioactive/contamination = GetComponent(/datum/component/radioactive)
+		if(contamination)
+			contamination.RemoveComponent()
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
@@ -305,7 +313,7 @@
 		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
 				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
 				"<span class='italics'>Everything suddenly goes silent.</span>")
-		radiation_pulse(user, 500, 2)
+		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
@@ -400,6 +408,6 @@
 		user.dust()
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"
-	radiation_pulse(src, 500, 2)
+	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)

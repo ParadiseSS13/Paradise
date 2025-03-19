@@ -118,10 +118,10 @@
 			return
 	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby__legacy__attackchain()
+/mob/living/silicon/robot/syndicate/saboteur/attack_by(obj/item/attacking, mob/living/user, params)
+	. = ..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)

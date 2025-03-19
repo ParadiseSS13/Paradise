@@ -142,6 +142,13 @@
 	mouse_color = "white"
 	icon_state = "mouse_white"
 
+/mob/living/simple_animal/mouse/white/linter
+	name = "Linter"
+
+/mob/living/simple_animal/mouse/white/linter/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, ROUNDSTART_TRAIT)
+
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"
 
