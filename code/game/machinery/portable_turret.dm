@@ -1150,6 +1150,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 
+/obj/machinery/porta_turret/syndicate/turret_outpost
+	name = "machine gun turret (5.56x45mm)"
+	desc = "Syndicate exterior defense turret chambered for 5.56x45mm rounds. Designed to down intruders with rifle caliber bullets."
+	projectile = /obj/item/projectile/bullet/heavybullet2
+	eprojectile = /obj/item/projectile/bullet/heavybullet2
+
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
 	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
