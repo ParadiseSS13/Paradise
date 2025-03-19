@@ -8,7 +8,7 @@
 	mod_link.visual_overlays = user.overlays
 	link_visual.add_overlay(mod_link.visual_overlays)
 	mod_link.visual = link_visual
-	//mod_link.holder.become_hearing_sensitive(REF(mod_link))
+	// mod_link.holder.become_hearing_sensitive(REF(mod_link))
 	mod_link.holder.RegisterSignals(user, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY), proc_path)
 	return link_visual
 
@@ -34,7 +34,7 @@
 	add_filter("HOLO: Scanline", 2, alpha_mask_filter(render_source = scanline.render_target))
 	add_overlay(scanline)
 	qdel(scanline)
-	// Annd let's make the sucker emissive, so it glows in the dark
+	// And let's make the sucker emissive, so it glows in the dark
 	if(!render_target)
 		var/static/uid = 0
 		render_target = "HOLOGRAM [uid]"
@@ -72,7 +72,7 @@
 
 /proc/on_user_set_dir_generic(datum/mod_link/mod_link, newdir)
 	var/atom/other_visual = mod_link.get_other().visual
-	if(!newdir) //can sometimes be null or 0
+	if(!newdir) // can sometimes be null or 0
 		return
 	other_visual.setDir(SOUTH)
 	other_visual.pixel_x = 0
@@ -125,7 +125,7 @@
 	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
 
 /obj/item/mod/control/proc/on_overlay_change(atom/source, cache_index, overlay)
-	SIGNAL_HANDLER //COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
+	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
 	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 0.2 SECONDS, TIMER_UNIQUE)
 
 /obj/item/mod/control/proc/update_link_visual()
@@ -136,7 +136,7 @@
 	mod_link.visual.add_overlay(mod_link.visual_overlays)
 
 /obj/item/mod/control/proc/on_wearer_set_dir(atom/source, dir, newdir)
-	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
+	SIGNAL_HANDLER // COMSIG_ATOM_DIR_CHANGE
 	on_user_set_dir_generic(mod_link, newdir || SOUTH)
 
 /obj/item/clothing/neck/link_scryer
@@ -321,7 +321,7 @@
 	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
 
 /obj/item/clothing/neck/link_scryer/proc/on_overlay_change(atom/source, cache_index, overlay)
-	SIGNAL_HANDLER //COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
+	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY
 	addtimer(CALLBACK(src, PROC_REF(update_link_visual)), 0.2 SECONDS, TIMER_UNIQUE)
 
 /obj/item/clothing/neck/link_scryer/proc/update_link_visual()
@@ -333,7 +333,7 @@
 	mod_link.visual.add_overlay(mod_link.visual_overlays)
 
 /obj/item/clothing/neck/link_scryer/proc/on_user_set_dir(atom/source, dir, newdir)
-	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
+	SIGNAL_HANDLER // COMSIG_ATOM_DIR_CHANGE
 	on_user_set_dir_generic(mod_link, newdir || SOUTH)
 
 /obj/item/clothing/neck/link_scryer/loaded

@@ -158,9 +158,9 @@
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 
 // /mob/living/carbon
-///Called from apply_overlay(cache_index, overlay)
+/// Called from apply_overlay(cache_index, overlay)
 #define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
-///Called from remove_overlay(cache_index, overlay)
+/// Called from remove_overlay(cache_index, overlay)
 #define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
 

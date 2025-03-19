@@ -113,7 +113,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/scryers/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
-	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
+	SIGNAL_HANDLER // COMSIG_GLOB_JOB_AFTER_SPAWN
 	if(!ishuman(spawned))
 		return
 	var/mob/living/carbon/human/humanspawned = spawned
