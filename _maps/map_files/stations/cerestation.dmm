@@ -34773,6 +34773,9 @@
 	pixel_x = 1;
 	pixel_y = 9
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "fMK" = (
