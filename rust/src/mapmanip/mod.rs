@@ -323,13 +323,12 @@ fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
                     .vars
                     .get("icon_state")
                     .unwrap_or(&Constant::String("0-1".into()))
-                    .to_string()
-                    .replace('"', "")
+                    .as_str()
+                    .unwrap()
                     .split('-')
                     .map(|f| {
-                        f.to_string()
-                            .parse::<i32>()
-                            .unwrap_or_else(|_| panic!("Ugh: {}", f))
+                        f.parse::<i32>()
+                            .unwrap_or_else(|_| panic!("Bad cable icon: {}", f))
                     })
                     .map(|f| rotate_cable(f, rotation))
                     .sorted()
