@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(redis)
 			else
 				error_str = redis_error_data
 
-			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
+			message_admins("Redis error: [error_str] | Please inform the server host | like genuinely please ping AA immediately because this means the entire PR idea is fucked.") // uh oh
 			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
