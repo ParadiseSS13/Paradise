@@ -24,7 +24,7 @@
 		spawn(5)
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.remove_any(5)
-			return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
