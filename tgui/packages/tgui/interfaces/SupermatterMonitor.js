@@ -22,7 +22,7 @@ const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   const { supermatters = [] } = data;
   return (
-    <Window width={450} height={250}>
+    <Window width={450} height={265}>
       <Window.Content scrollable>
         <Section
           fill
@@ -67,13 +67,22 @@ const SupermatterMonitorListView = (props, context) => {
 
 const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { active, SM_integrity, SM_power, SM_ambienttemp, SM_ambientpressure, SM_moles, SM_gas_coefficient } = data;
+  const {
+    active,
+    SM_integrity,
+    SM_power,
+    SM_ambienttemp,
+    SM_ambientpressure,
+    SM_moles,
+    SM_gas_coefficient,
+    SM_temperature,
+  } = data;
   const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(
     data.gases || []
   );
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.portion));
   return (
-    <Window width={550} height={250}>
+    <Window width={550} height={265}>
       <Window.Content>
         <Stack fill>
           <Stack.Item width="270px">
@@ -118,6 +127,21 @@ const SupermatterMonitorDataView = (props, context) => {
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Temperature">
+                  <ProgressBar
+                    value={logScale(SM_temperature)}
+                    minValue={0}
+                    maxValue={logScale(10000)}
+                    ranges={{
+                      teal: [-Infinity, logScale(80)],
+                      good: [logScale(80), logScale(373)],
+                      average: [logScale(373), logScale(1000)],
+                      bad: [logScale(1000), Infinity],
+                    }}
+                  >
+                    {toFixed(SM_temperature) + ' K'}
+                  </ProgressBar>
+                </LabeledList.Item>
+                <LabeledList.Item label="Gas Temp">
                   <ProgressBar
                     value={logScale(SM_ambienttemp)}
                     minValue={0}

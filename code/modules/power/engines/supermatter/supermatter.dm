@@ -11,8 +11,8 @@
 #define OBJECT (LOWEST + 1)
 #define LOWEST (1)
 
-#define PLASMA_HEAT_PENALTY 15     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
-#define OXYGEN_HEAT_PENALTY 1
+#define PLASMA_HEAT_PENALTY 30     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
+#define OXYGEN_HEAT_PENALTY 20
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
 
@@ -44,13 +44,16 @@
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
 
-#define THERMAL_RELEASE_MODIFIER 1         //Higher == less heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 750        //Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 325        //Higher == less oxygen released at high temperature/power
+#define THERMAL_RELEASE_MODIFIER 10        //Higher == more heat released during reaction, not to be confused with the above values
+#define PLASMA_RELEASE_MODIFIER 600       //Higher == less plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 300       //Higher == less oxygen released at high temperature/power
 
-#define REACTION_POWER_MODIFIER 0.55       //Higher == more overall power
+#define REACTION_POWER_MODIFIER 1       //Higher == more overall power
 
 #define MATTER_POWER_CONVERSION 10         //Crystal converts 1/this value of stored matter into energy.
+
+/// Heat capacity of the SM. equivalent to 100 moles of CO2
+#define SUPERMATTER_HEAT_CAPACITY 4000
 
 //These would be what you would get at point blank, decreases with distance
 #define DETONATION_RADS 200
@@ -234,6 +237,11 @@
 	var/ticks_per_run = 5
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
+	/// Temperature in kelvin
+	var/temperature = T20C
+	/// Heat capacity in J/K
+	var/heat_capacity = SUPERMATTER_HEAT_CAPACITY
+
 
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
@@ -482,7 +490,7 @@
 			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature() - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Molar count only starts affecting damage when it is above 1800
@@ -492,7 +500,7 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
+				damage = max(damage + (min(temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber
 			var/turf/here = get_turf(src)
@@ -563,7 +571,7 @@
 
 
 		if(power_changes)
-			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+			power = max((temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
@@ -574,17 +582,31 @@
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
-		//Calculate how much gas to release
-		//Varies based on power and gas content
-		removed.set_toxins(removed.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
-		//Varies based on power, gas content, and heat
-		removed.set_oxygen(removed.oxygen() + max((((device_energy + removed.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
+		if(has_been_powered)
+			//Calculate how much gas to release
+			//Varies based on power and gas content
+			removed.set_toxins(removed.toxins() + max((device_energy + temperature * dynamic_heat_modifier - T0C) / PLASMA_RELEASE_MODIFIER) * gas_multiplier + 5, 0)
+			//Varies based on power, gas content, and heat
+			removed.set_oxygen(removed.oxygen() + max(((device_energy + temperature * dynamic_heat_modifier - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier + 10, 0))
 
-		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-		if(removed.total_moles() >= 1)
-			var/produced_joules = max(0, ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
-			produced_joules *= (removed.heat_capacity() / removed.total_moles())
-			removed.set_temperature((removed.thermal_energy() + produced_joules) / removed.heat_capacity())
+			// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
+			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.3) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
+
+			// Exchange heat with the air, combust once if possible then exchange heat again.
+			if(removed.total_moles() >= 1)
+				var/total_energy = temperature * heat_capacity + removed.thermal_energy()
+				// Heat up the air. Also heating up the SM at this point would do nothing
+				removed.set_temperature(total_energy / (heat_capacity + removed.heat_capacity()))
+				// Combustion
+				removed.react()
+				removed.react()
+				removed.react()
+				// Recalculate energy and gas heat capacity after combustion
+				total_energy = temperature * heat_capacity + removed.thermal_energy()
+				// Exchange heat
+				temperature = total_energy / (heat_capacity + removed.heat_capacity())
+				removed.set_temperature(temperature)
 
 		if(produces_gas)
 			env.merge(removed)
