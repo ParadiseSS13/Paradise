@@ -248,7 +248,7 @@
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 	radiation_pulse(user, 2000, GAMMA_RAD)
-	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	playsound(src, 'sound/spookoween/scary_horn2.ogg', 50, TRUE)
 	user.dust()
 
 /obj/item/nuke_core_container/supermatter
