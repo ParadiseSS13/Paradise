@@ -138,7 +138,8 @@
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
 				ui_users[user] = AC
-			AC.ui_interact(user)
+			if(user.Adjacent(src))
+				AC.ui_interact(user)
 
 		if("Voice")
 			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute"))
