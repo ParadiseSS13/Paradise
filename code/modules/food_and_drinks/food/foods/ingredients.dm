@@ -338,4 +338,4 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
 	list_reagents = list("ectoplasm" = 10)
-	tastes = list("spookiness" = 1)
+	tastes = list("spookiness" = 2, "salt" = 2) // Ghosts are in fact salty.
