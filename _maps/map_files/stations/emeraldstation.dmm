@@ -23582,8 +23582,7 @@
 /area/station/hallway/secondary/exit)
 "eKW" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /obj/item/toy/figure/crew/warden{
 	pixel_y = 17;
@@ -38836,9 +38835,7 @@
 	},
 /area/station/security/storage)
 "hHh" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -47712,8 +47709,7 @@
 /area/station/command/bridge)
 "jwH" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
@@ -52375,7 +52371,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "ksj" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/item/food/fish_skewer{
 	pixel_y = 9;
 	pixel_x = 14
@@ -70448,9 +70444,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "nZG" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security/wooden_tv,
 /obj/item/toy/figure/crew/detective{
 	pixel_y = 16;
 	pixel_x = -6
@@ -79593,7 +79587,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "pLi" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/structure/stone_tile/slab/burnt,
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
@@ -109175,8 +109169,7 @@
 /area/station/aisat/hall)
 "vFX" = (
 /obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 1
 	},
 /obj/machinery/alarm/directional/south,
 /obj/machinery/light,
@@ -116005,8 +115998,7 @@
 /area/station/service/chapel)
 "xbb" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"

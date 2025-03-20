@@ -14,9 +14,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ai" = (

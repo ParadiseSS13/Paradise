@@ -16896,8 +16896,7 @@
 /area/station/security/prisonershuttle)
 "biH" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Brig HOS Office"
@@ -20623,8 +20622,7 @@
 /area/station/aisat)
 "bvx" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
@@ -31339,9 +31337,7 @@
 	},
 /area/station/security/prisonlockers)
 "ccF" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security/wooden_tv,
 /obj/machinery/light{
 	dir = 8
 	},

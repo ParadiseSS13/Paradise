@@ -3141,8 +3141,7 @@
 /area/station/command/office/hos)
 "aAe" = (
 /obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Head of Security's Office";
@@ -9086,9 +9085,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "bsV" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -13264,7 +13261,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "bPY" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /turf/simulated/floor/engine,
 /area/station/service/library)
 "bQc" = (
@@ -16339,7 +16336,6 @@
 /area/station/service/chapel)
 "ciN" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -16775,8 +16771,7 @@
 /area/station/command/bridge)
 "clW" = (
 /obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -19467,22 +19462,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"cHK" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "cHL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -25047,8 +25026,7 @@
 /area/station/maintenance/fore2)
 "dxq" = (
 /obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Prison Control";
@@ -25232,9 +25210,7 @@
 	},
 /area/station/supply/office)
 "dyJ" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "dyK" = (
@@ -27296,8 +27272,7 @@
 /area/station/hallway/primary/port/south)
 "dUw" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("Research","Research Outpost","RD","MiniSat")
+	dir = 4
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -33513,8 +33488,7 @@
 	dir = 6
 	},
 /obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -35390,11 +35364,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"fXv" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "fXz" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/extinguisher_cabinet{
@@ -36404,7 +36373,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
 "gmR" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/structure/stone_tile/surrounding/burnt,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fore2)
@@ -41289,14 +41258,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"hAz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/engine{
-	slowdown = -0.3
-	},
-/area/station/hallway/spacebridge/dockmed)
 "hAA" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -45997,9 +45958,6 @@
 /area/station/hallway/primary/fore/west)
 "iEl" = (
 /obj/machinery/light,
-/obj/machinery/computer/robotics{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -48231,24 +48189,6 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/starboard/south)
-"jer" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "jeu" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable/orange{
@@ -49664,6 +49604,22 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"juZ" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "jvd" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
@@ -51216,6 +51172,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"jKO" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "jKQ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -57331,7 +57292,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "lil" = (
-/obj/machinery/computer/card/minor/rd{
+/obj/machinery/requests_console/directional/west,
+/obj/machinery/computer/mecha{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -81355,21 +81317,6 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/robotics)
-"qWT" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Walkway"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "medlockdown";
-	layer = 2.6;
-	name = "Medical Lockdown"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/spacebridge/dockmed)
 "qWZ" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -81970,6 +81917,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"rez" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine{
+	slowdown = -0.3
+	},
+/area/station/hallway/spacebridge/dockmed)
 "reB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
@@ -96221,10 +96176,11 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/west)
 "uzI" = (
-/obj/machinery/requests_console/directional/west,
-/obj/machinery/computer/security{
-	dir = 4;
-	network = list("Research","Research Outpost","RD","MiniSat")
+/obj/machinery/computer/aifixer{
+	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/rd{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -97532,6 +97488,21 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"uPR" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "uPU" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -97824,7 +97795,7 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/port/north)
 "uSz" = (
-/obj/machinery/computer/aifixer{
+/obj/machinery/computer/robotics{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -105462,7 +105433,7 @@
 	dir = 1;
 	network = list("SS13","RD")
 	},
-/obj/machinery/computer/mecha{
+/obj/machinery/computer/card/minor/rd{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -110510,6 +110481,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"xUV" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Walkway"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "medlockdown";
+	layer = 2.6;
+	name = "Medical Lockdown"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/spacebridge/dockmed)
 "xUW" = (
 /obj/machinery/computer/shuttle/labor{
 	dir = 4
@@ -156616,7 +156605,7 @@ ooM
 bmR
 wDU
 oXl
-jer
+xUV
 lVF
 nos
 ksp
@@ -156873,11 +156862,11 @@ bvt
 bvt
 bvt
 qkV
-qWT
+uPR
 oEj
 bio
 bio
-hAz
+rez
 bio
 oiB
 bio
@@ -157130,7 +157119,7 @@ fXz
 hCz
 npl
 jLn
-cHK
+juZ
 lAC
 xwI
 xwI
@@ -171237,7 +171226,7 @@ lCC
 hnV
 tqi
 tqi
-fXv
+jKO
 eKJ
 wyL
 iJv
