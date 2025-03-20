@@ -13,7 +13,7 @@
 
 #define PLASMA_HEAT_PENALTY 30     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 20
-#define CO2_HEAT_PENALTY 0.1
+#define CO2_HEAT_PENALTY 1.5
 #define NITROGEN_HEAT_PENALTY -1.5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.

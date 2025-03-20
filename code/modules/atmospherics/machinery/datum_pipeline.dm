@@ -148,6 +148,7 @@
 	if(issimulatedturf(target))
 		var/turf/simulated/modeled_location = target
 
+		// Exchange heat with wall
 		if(modeled_location.blocks_air)
 
 			if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
@@ -159,22 +160,26 @@
 				pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
+		// Exchange heat with atmosphere
 		else
-			var/delta_temperature = 0
-			var/sharer_heat_capacity = 0
-
-			delta_temperature = (pipeline.air.temperature() - environment.temperature())
-			sharer_heat_capacity = environment.heat_capacity()
+			var/sharer_heat_capacity = environment.heat_capacity()
 
 			var/self_temperature_delta = 0
 			var/sharer_temperature_delta = 0
 
 			if((sharer_heat_capacity>0) && (partial_heat_capacity>0))
-				var/heat = thermal_conductivity*delta_temperature* \
-					(partial_heat_capacity*sharer_heat_capacity/(partial_heat_capacity+sharer_heat_capacity))
+				// Total energy in both systems
+				var/total_energy = sharer_heat_capacity * environment.temperature() + partial_heat_capacity * pipeline.air.temperature()
+				// The temperature we would reach if we transfered enough heat to equalize the systems
+				var/equilibrium_temperature = total_energy / (sharer_heat_capacity + partial_heat_capacity)
+				// The differrence between the pipeline temperature and the equilibrium temperature
+				self_temperature_delta = equilibrium_temperature - pipeline.air.temperature()
+				// The amount of heat we transfer
+				// This is as much as is required for the pipeline to reach thermal_conductivity of the distance to the equilibrium temperature
+				var/transfer_heat = self_temperature_delta * thermal_conductivity * partial_heat_capacity
 
-				self_temperature_delta = -heat/total_heat_capacity
-				sharer_temperature_delta = heat/sharer_heat_capacity
+				self_temperature_delta = transfer_heat / total_heat_capacity
+				sharer_temperature_delta = -transfer_heat / sharer_heat_capacity
 			else
 				return 1
 
@@ -182,7 +187,11 @@
 
 			environment.set_temperature(environment.temperature() + sharer_temperature_delta)
 
-
+	// Radiate heat to space
+	else if(isspaceturf(target))
+		// Just radiate a portion of stored energy
+		var/radiated_heat = max((pipeline.air.temperature() - TCMB) * partial_heat_capacity * thermal_conductivity * 5, 0)
+		pipeline.air.set_temperature(pipeline.air.temperature() - radiated_heat / pipeline.air.heat_capacity())
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
 			var/delta_temperature = pipeline.air.temperature() - target.temperature
