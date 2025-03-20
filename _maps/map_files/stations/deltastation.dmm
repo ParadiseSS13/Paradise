@@ -9323,6 +9323,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aJK" = (
+/obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
@@ -20928,9 +20929,10 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/light{
-	on = 1
+/obj/machinery/light{
+	dir = 4
 	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bwN" = (
 /turf/simulated/wall/r_wall,
@@ -21313,9 +21315,10 @@
 	network = list("Minisat","SS13");
 	pixel_y = -22
 	},
-/turf/simulated/floor/light{
-	on = 1
+/obj/machinery/light{
+	dir = 8
 	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bxP" = (
 /obj/machinery/light/small{
@@ -21623,6 +21626,10 @@
 "byQ" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -25420,9 +25427,10 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/light{
-	on = 1
+/obj/machinery/light{
+	dir = 4
 	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJR" = (
 /obj/structure/table/reinforced,
@@ -25509,9 +25517,10 @@
 	network = list("SS13","Minisat")
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/light{
-	on = 1
+/obj/machinery/light{
+	dir = 8
 	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -29431,6 +29440,7 @@
 "bWw" = (
 /obj/machinery/light,
 /obj/structure/table/wood,
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -49234,15 +49244,16 @@
 /area/station/science/xenobiology)
 "dpQ" = (
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom{
+	name = "custom placement";
+	pixel_x = -28;
+	pixel_y = -28
+	},
 /obj/machinery/photocopier/faxmachine{
 	department = "Research Director's Office"
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/newscaster/directional/west,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -88610,9 +88621,10 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/light{
-	on = 1
+/obj/machinery/light{
+	dir = 4
 	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "vvQ" = (
 /obj/structure/closet/secure_closet/brig,
@@ -90446,12 +90458,10 @@
 "wpU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/light{
-	on = 1
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "wqd" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -92722,15 +92732,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
-"xAE" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/delivery,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/nw)
 "xAK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -129567,7 +129568,7 @@ fwU
 kgl
 juK
 bxi
-xAE
+bxi
 bwf
 dFs
 tBi
