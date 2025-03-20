@@ -399,7 +399,6 @@
 		if(src)
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
-			fit_viewport()
 
 	// Try doing this before mob login
 	generate_clickcatcher()
