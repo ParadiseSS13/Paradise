@@ -454,14 +454,14 @@
 	return realdelta
 
 // linear scale for glow strength, see table:
-	// 1.5 <= 300000 ()
-	// 2   at 400000
-	// 2.5 at 500000
-	// 3   at 600000 etc
+	// 1.5 <= 150000 ()
+	// 2   at 200000
+	// 2.5 at 250000
+	// 3   at 300000 etc
 
 /mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
-	var/range = charge / 200000
-	range = max(range, 1.5)
+	var/range = charge / 100000
+	range = clamp(range, 1.5, 5)
 	set_light(range, 2, glow_color)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
@@ -703,7 +703,7 @@
 		if(charge >= 50 KJ)
 			charge -= 50 KJ
 			do_sparks(rand(2, 4), FALSE, src)
-			dealt = L.electrocute_act(30, src, siemens_coeff = 1) //bypass that nasty shock resistance
+			dealt = L.electrocute_act(30, src, siemens_coeff = 1, flags = SHOCK_NOGLOVES) //bypass that nasty shock resistance
 		else
 			to_chat(src, "<span class = 'danger'>You dont have enough charge to bypass their insulation! You need at least 50KJ of energy!")
 
