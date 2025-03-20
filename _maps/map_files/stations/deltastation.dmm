@@ -20045,14 +20045,8 @@
 	},
 /area/station/engineering/atmos/distribution)
 "btm" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/suit_storage_unit/atmos/secure,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
