@@ -10938,9 +10938,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
