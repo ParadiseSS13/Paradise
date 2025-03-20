@@ -40,6 +40,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/tmp/d2 = 1
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
+	var/strengthened = FALSE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -134,6 +135,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(shock(user, 50))
+		return
+	if(strengthened)
+		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")

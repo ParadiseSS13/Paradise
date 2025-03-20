@@ -1,5 +1,7 @@
 // original implementation: https://ss13.moe/wiki/index.php/Pulse_Demon
 
+
+
 #define PULSEDEMON_PLATING_SPARK_CHANCE 20
 #define PULSEDEMON_APC_CHARGE_MULTIPLIER 2
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
@@ -14,7 +16,7 @@
 	gender = NEUTER
 	speak_chance = 20
 
-	damage_coeff = list(BRUTE = 0, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing except some from lasers
+	damage_coeff = list(BRUTE = 0.25, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take reduced damage from most sources. Use ions
 
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
@@ -58,20 +60,20 @@
 	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
 
 	/// Current quantity of energy the demon currently holds (Joules), spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
-	var/charge = 1000
+	var/charge = 100 KJ
 	/// Maximum quantity of energy the demon can hold at once (Joules).
-	var/maxcharge = 1000
+	var/maxcharge = 100 KJ
 	/// Book keeping for objective win conditions (Joules).
 	var/charge_drained = 0
 	/// Controls whether the demon will drain power from sources. Toggled by a spell.
 	var/do_drain = TRUE
 	/// Amount of power (Watts) to drain from power sources every Life tick.
-	var/power_drain_rate = 1000
+	var/power_drain_rate = 20 KJ
 	/// Maximum value for power_drain_rate based on upgrades. (Watts)
-	var/max_drain_rate = 1000
+	var/max_drain_rate = 100 KJ
 
 	/// Amount of power (Watts) required to regenerate health.
-	var/power_per_regen = 1000
+	var/power_per_regen = 100 KJ
 	/// Amount of health lost per Life tick when the power requirement was not met.
 	var/health_loss_rate = 5
 	/// Amount of health regenerated per Life tick when the power requirement was met.
@@ -89,7 +91,7 @@
 	var/outside_cable_speed = 5
 
 	/// The time it takes to hijack APCs and cyborgs.
-	var/hijack_time = 30 SECONDS
+	var/hijack_time = 20 SECONDS
 
 	/// The color of light the demon emits. The range of the light is proportional to energy stored.
 	var/glow_color = "#bbbb00"
@@ -118,6 +120,8 @@
 	var/list/apc_images = list()
 	/// List of all previously hijacked APCs.
 	var/list/hijacked_apcs = list()
+	/// Current APC amount for use as upgrade currency
+	var/list/apcs_remaining = 0
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
 
@@ -249,8 +253,9 @@
 	var/list/greeting = list()
 	greeting.Add("<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
 	greeting.Add("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
-	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
-	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
+	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from to power your abilities.</b>")
+	greeting.Add("<b>Hijack APCs by entering them to unlock more powerful abilities, gain more maximum charge, and gain access to connected machines.</b>")
+	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise resistant to damage.</b>")
 	greeting.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
 	for(var/datum/objective/new_obj in list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper))
 		mind.add_mind_objective(new_obj)
@@ -259,6 +264,7 @@
 	SSticker.mode.traitors |= mind
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
+	AddSpell(new /datum/spell/pulse_demon/open_upgrades)
 	AddSpell(new /datum/spell/pulse_demon/cycle_camera)
 	AddSpell(new /datum/spell/pulse_demon/toggle/do_drain(do_drain))
 	AddSpell(new /datum/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
@@ -268,7 +274,6 @@
 	AddSpell(new /datum/spell/pulse_demon/overload)
 	AddSpell(new /datum/spell/pulse_demon/remotehijack)
 	AddSpell(new /datum/spell/pulse_demon/remotedrain)
-	AddSpell(new /datum/spell/pulse_demon/open_upgrades)
 
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -277,6 +282,7 @@
 	status_tab_data[++status_tab_data.len] = list("Maximum Energy:", "[format_si_suffix(maxcharge)]J")
 	status_tab_data[++status_tab_data.len] = list("Drained Energy:", "[format_si_suffix(charge_drained)]J")
 	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Unused APCs:", "[apcs_remaining]")
 	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
 	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
@@ -443,14 +449,14 @@
 			S.action.UpdateButtons()
 	return realdelta
 
-// logarithmic scale for glow strength, see table:
-	// 1.5 <= 25k
-	// 2   at 50k
-	// 2.5 at 100k
-	// 3   at 200k
-	// 3.5 at 400k, etc
+// linear scale for glow strength, see table:
+	// 1.5 <= 300000 ()
+	// 2   at 400000
+	// 2.5 at 500000
+	// 3   at 600000 etc
+
 /mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
-	var/range = 2 + (log(2, charge + 1) - log(2, 50000)) / 2
+	var/range = charge / 200000
 	range = max(range, 1.5)
 	set_light(range, 2, glow_color)
 
@@ -627,8 +633,8 @@
 // Looks weird but it gets the job done
 /mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(hijacked_apcs)
 	if(!hijacked_apcs) // No APCs hijacked? No extra charge
-		return 1000
-	return 20000 * clamp(hijacked_apcs, 0, 20) + 500000 * clamp(hijacked_apcs - 20, 0, 30) + 1000000 * clamp(hijacked_apcs - 50, 0, 50) + 500000000 * max(0, hijacked_apcs - 100)
+		return 100000
+	return 100000 + (hijacked_apcs * 25000)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
@@ -636,12 +642,29 @@
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
 
+	apcs_remaining = apcs_remaining + 1
 	hijacked_apcs += A
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(apc_deleted_handler))
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
-	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
+	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs and have [apcs_remaining] left to spend.</span>")
+	var/obj/structure/cable/C = A.get_cable_node()
+	var/distance = 0
+	strengthen_cables(C, distance)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(var/obj/structure/cable/C, distance)
+	if(!C)
+		return
+	distance += 1
+	var/turf/T = get_turf(C)
+	for(var/obj/structure/cable/cable in T.contents)
+		cable.strengthened = TRUE
+	for(var/obj/structure/cable/cable in range(1, T))
+		if(get_turf(cable) == T)
+			continue
+		strengthen_cables(cable, distance)
+
 
 /mob/living/simple_animal/demon/pulse_demon/proc/on_atom_entered(datum/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
