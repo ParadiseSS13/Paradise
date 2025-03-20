@@ -119,7 +119,7 @@
 	vis_contents += container
 	if(surface_idx == 2 || surface_idx == 4)
 		var/matrix/M = matrix()
-		M.Scale(-1,1)
+		M.Scale(-1, 1)
 		container.transform = M
 
 /obj/item/circuitboard/cooking/stove

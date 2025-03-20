@@ -297,12 +297,12 @@
 		"<span class='notice'>[user] shapes [src] into a ball.</span>",
 		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
 	)
-	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)
-	return 1
+	return TRUE
 
 /obj/item/food/meat/raw_meatball
 	name = "raw meatball"
@@ -318,12 +318,12 @@
 		"<span class='notice'>[user] flattens [src] into a patty.</span>",
 		"<span class='notice'>You flatten [src] into a raw patty.</span>"
 	)
-	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/patty_raw/M = new(get_turf(user))
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)
-	return 1
+	return TRUE
 
 /obj/item/food/meatball
 	name = "meatball"
