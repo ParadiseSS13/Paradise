@@ -22,8 +22,8 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "ai" = (
 /obj/machinery/light/spot{
 	dir = 4
@@ -202,26 +202,15 @@
 	},
 /area/shuttle/escape)
 "aO" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/o2{
-	layer = 2.8;
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/bodybag{
-	pixel_x = 5
-	},
 /obj/machinery/light/spot{
 	dir = 8
 	},
 /obj/structure/table/reinforced,
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/storage/firstaid/o2,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aP" = (
@@ -267,6 +256,10 @@
 /obj/structure/table,
 /obj/machinery/chem_dispenser/beer{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -516,6 +509,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"gH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "li" = (
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 32
@@ -556,6 +559,11 @@
 /area/shuttle/escape)
 "ol" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 7;
+	pixel_y = 9
+	},
+/obj/item/storage/firstaid/adv,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "pl" = (
@@ -604,6 +612,16 @@
 /area/shuttle/escape)
 "qr" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"qJ" = (
+/obj/item/kirbyplants/large,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/shuttle/escape)
 "rh" = (
 /obj/effect/turf_decal/woodsiding,
@@ -772,6 +790,7 @@
 /obj/machinery/light/spot,
 /obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "FK" = (
@@ -785,6 +804,15 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"HV" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/chair/comfy/shuttle,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Jz" = (
 /obj/structure/chair/stool/bar{
@@ -871,14 +899,14 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NH" = (
-/obj/machinery/shower{
-	dir = 8
-	},
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 1
 	},
 /obj/item/soap/deluxe,
+/obj/machinery/shower{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -982,10 +1010,10 @@
 /area/shuttle/escape)
 "SW" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 8
-	},
 /obj/item/bikehorn/rubberducky,
+/obj/machinery/shower{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1042,8 +1070,8 @@ ah
 ab
 bC
 bC
-bC
-bC
+ac
+ac
 bC
 bC
 bC
@@ -1080,7 +1108,7 @@ bp
 wC
 wC
 wC
-wC
+gH
 wC
 JD
 aF
@@ -1361,7 +1389,7 @@ AQ
 AQ
 bC
 bC
-az
+qJ
 aA
 Jz
 Jz
@@ -1426,7 +1454,7 @@ Tb
 cE
 pC
 bC
-aC
+HV
 nk
 nk
 ff
