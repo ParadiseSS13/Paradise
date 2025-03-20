@@ -52,15 +52,9 @@ jobs:
           python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
-          python -m tools.ci.check_icon_conflicts
-          python -m tools.ci.check_icon_dupenames
+          python tools/ci/check_icons.py
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
-        with:
-          dotnet-version: 9.x
 
       - name: Run DreamChecker
         shell: bash
@@ -75,7 +69,7 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
+        uses: actions/setup-dotnet@v4.3.1
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -105,8 +99,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station:
-          ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
@@ -136,14 +129,6 @@ jobs:
       fail-fast: false
       matrix:
         byondtype: ['STABLE', 'BETA']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache

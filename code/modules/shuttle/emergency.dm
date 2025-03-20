@@ -277,7 +277,7 @@
 	width = 22
 	height = 11
 	dir = 4
-	travelDir = 0
+	port_direction = WEST
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 
@@ -478,6 +478,15 @@
 				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
+				return
+
+			if(time_left <= 10 SECONDS)
+				var/failure = !check_transit_zone()
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
+					if(is_station_level(M.z)) //Will not launch from the mine/planet
+						failure |= !M.check_transit_zone()
+				if(failure)
+					setTimer(10 SECONDS)
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
@@ -487,7 +496,7 @@
 
 			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
 				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
@@ -505,7 +514,7 @@
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
@@ -576,6 +585,18 @@
 	for(var/turf/T in L2)
 		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
 
+/obj/docking_port/mobile/emergency/transit_failure()
+	..()
+	message_admins("Moving emergency shuttle directly to centcom dock to prevent deadlock.")
+
+	mode = SHUTTLE_ESCAPE
+	// launch_status = ENDGAME_LAUNCHED
+	setTimer(60 SECONDS)
+	GLOB.major_announcement.Announce(
+		"The emergency shuttle is preparing for direct jump. Estimate [timeLeft(1 MINUTES)] minutes until the shuttle docks at Central Command.",
+		"Emergency Shuttle Transit Failure",
+	)
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
@@ -584,11 +605,13 @@
 	dwidth = 1
 	width = 3
 	height = 4
+	port_direction = SOUTH
 
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
+	preferred_direction = dir
 
 /obj/docking_port/mobile/pod/cancel()
 	return

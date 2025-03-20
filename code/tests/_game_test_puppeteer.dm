@@ -53,7 +53,11 @@
 	if(!item)
 		return
 
-	item.activate_self(puppet)
+	if(item.new_attack_chain)
+		item.activate_self(puppet)
+	else
+		item.attack_self__legacy__attackchain(puppet)
+
 	puppet.next_click = world.time
 	puppet.next_move = world.time
 	return TRUE

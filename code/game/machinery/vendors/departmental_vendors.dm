@@ -110,6 +110,8 @@
 					/obj/item/whetstone = 2,
 					/obj/item/storage/box/papersack = 20,
 					/obj/item/mixing_bowl = 10,
+					/obj/item/kitchen/knife/cheese = 2,
+					/obj/item/kitchen/knife/pizza_cutter = 2,
 					/obj/item/kitchen/mould/bear = 1,
 					/obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1,
@@ -352,3 +354,26 @@
 	refill_canister = /obj/item/vending_refill/security
 	prices = list(/obj/item/food/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount
+
+
+/obj/machinery/economy/vending/smith
+	name = "\improper Castivend"
+	desc = "Everything you need to start your own smithing workshop."
+	icon_state = "castivend"
+	category = VENDOR_TYPE_DEPARTMENTAL
+	req_access = list(ACCESS_SMITH)
+	products = list(/obj/item/smithing_cast/sheet = 6,
+					/obj/item/smithing_cast/component/insert_frame = 3,
+					/obj/item/smithing_cast/component/insert_lining = 3,
+					/obj/item/smithing_cast/component/bit_mount = 3,
+					/obj/item/smithing_cast/component/bit_head = 3,
+					/obj/item/smithing_cast/component/lens_focus = 3,
+					/obj/item/smithing_cast/component/lens_frame = 3,
+					/obj/item/smithing_cast/component/trim = 3,
+					/obj/item/storage/box/crewvend = 1)
+
+	refill_canister = /obj/item/vending_refill/smith
+
+	prices = list(
+		/obj/item/storage/box/crewvend = 100
+	)

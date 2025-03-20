@@ -159,9 +159,9 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
 	if(prob(50))
 		if(prob(80))
-			new /obj/item/surveillance_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/surveillance_upgrade(get_turf(src))
 		else // 10% chance
-			new /obj/item/malf_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/malf_upgrade(get_turf(src))
 	return ..()
 
 /obj/structure/telecomms_trap_tank
@@ -169,6 +169,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "That plasma tank seems rigged to explode!"
 	icon = 'icons/atmos/tank.dmi'
 	icon_state = "toxins_map"
+	proj_ignores_layer = TRUE
 	anchored = TRUE
 	layer = DISPOSAL_PIPE_LAYER
 	plane = FLOOR_PLANE
