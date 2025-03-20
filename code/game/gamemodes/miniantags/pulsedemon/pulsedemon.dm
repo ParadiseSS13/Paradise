@@ -660,6 +660,8 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(var/turf/turf, distance)
 	distance += 1
 	for(var/obj/structure/cable/cable in turf.contents)
+		if(cable.strengthened == TRUE)
+			continue
 		cable.strengthened = TRUE
 		cable.RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/structure/cable, unstrengthen_cables))
 	if(distance >= 15)
@@ -694,9 +696,8 @@
 	if(current_cable && current_cable.powernet && current_cable.powernet.available_power)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
-	else if(charge >= 10 KJ)
+	else
 		dealt = L.electrocute_act(30, src, siemens_coeff)
-		adjust_charge(-10 KJ)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
 	if(dealt == 0 && strong_shocks)

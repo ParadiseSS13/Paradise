@@ -419,7 +419,7 @@
 	var/cost
 	switch(upgrade)
 		if(PD_UPGRADE_HIJACK_SPEED)
-			if(user.hijack_time <= 5 SECONDS)
+			if(user.hijack_time <= 6 SECONDS)
 				return -1
 			if(user.hijack_time > 10 SECONDS)
 				cost = 1
@@ -496,7 +496,7 @@
 	user.apcs_remaining -= cost
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
-			user.hijack_time = max(round(user.hijack_time / 1.5), 5 SECONDS)
+			user.hijack_time = max(round(user.hijack_time / 1.5), 6 SECONDS)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs.</span>")
 		if(PD_UPGRADE_DRAIN_SPEED)
 			var/old = user.max_drain_rate
@@ -508,7 +508,7 @@
 			user.maxHealth = min(round(user.maxHealth * 1.5), 300)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
 		if(PD_UPGRADE_HEALTH_REGEN)
-			user.health_regen_rate = min(round(user.health_regen_rate * 1.5), 100)
+			user.health_regen_rate = min(round(user.health_regen_rate * 2), 100)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
 		if(PD_UPGRADE_HEALTH_LOSS)
 			user.health_loss_rate = max(round(user.health_loss_rate - 1), 0)
