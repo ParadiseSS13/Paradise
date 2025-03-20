@@ -8325,9 +8325,6 @@
 /area/station/service/bar)
 "aGw" = (
 /obj/machinery/power/apc/directional/north,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/closet/secure_closet/bar,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -8344,9 +8341,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGy" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -8386,9 +8380,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGD" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/table/wood,
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/drinks/shaker,
@@ -8400,8 +8391,8 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/bartender,
-/obj/machinery/status_display{
-	pixel_y = 32
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
@@ -9125,6 +9116,9 @@
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
@@ -10469,10 +10463,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -11123,9 +11113,6 @@
 	},
 /area/station/maintenance/incinerator)
 "aPC" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -12146,6 +12133,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10;
 	initialize_directions = 10
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
@@ -14141,9 +14131,6 @@
 	},
 /area/station/engineering/atmos)
 "aYN" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics East";
 	dir = 8;
@@ -14243,22 +14230,19 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "aZb" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/camera{
-	c_tag = "Bar South";
-	dir = 4
+	c_tag = "Atmospherics Front Desk";
+	dir = 4;
+	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/service/bar)
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "aZc" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/firealarm/directional/east,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -14692,7 +14676,10 @@
 /area/station/service/kitchen)
 "baR" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/newscaster/directional/west,
+/obj/machinery/camera{
+	c_tag = "Bar South";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -14708,6 +14695,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -17609,6 +17597,7 @@
 /area/station/engineering/atmos)
 "bkM" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bkN" = (
@@ -18188,7 +18177,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light_switch{
 	dir = 1;
@@ -18493,29 +18481,12 @@
 	},
 /area/station/engineering/atmos)
 "boc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/machinery/atmospherics/binary/pump{
 	name = "Air to External Air Ports";
 	on = 1;
 	target_pressure = 101
 	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -19121,6 +19092,9 @@
 	},
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -20332,13 +20306,10 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -20346,14 +20317,16 @@
 /area/station/engineering/atmos/distribution)
 "buu" = (
 /obj/machinery/economy/vending/atmosdrobe,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
-"buv" = (
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Storage";
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
+"buv" = (
 /obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -20663,7 +20636,6 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bvG" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Distribution";
 	dir = 1;
@@ -20706,9 +20678,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bvN" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -21554,11 +21523,11 @@
 	},
 /area/station/engineering/break_room)
 "byz" = (
-/obj/machinery/status_display{
-	pixel_x = -32
-	},
 /obj/machinery/computer/security/engineering{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21719,10 +21688,6 @@
 "byR" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -21779,10 +21744,6 @@
 /area/station/command/bridge)
 "byY" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -22050,6 +22011,9 @@
 "bzX" = (
 /obj/machinery/computer/atmoscontrol{
 	dir = 4
+	},
+/obj/machinery/status_display{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22577,7 +22541,6 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
-/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -24789,6 +24752,10 @@
 "bHn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -26670,9 +26637,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bNh" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
@@ -27256,9 +27220,8 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bPb" = (
-/obj/machinery/camera{
-	c_tag = "Captain's Room";
-	dir = 8
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -27318,6 +27281,10 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/alarm/directional/south,
+/obj/machinery/camera{
+	c_tag = "Auxiliary Tool Storage";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -27888,6 +27855,10 @@
 "bQU" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
+/obj/machinery/camera{
+	c_tag = "Captain's Room";
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bQV" = (
@@ -28447,10 +28418,6 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
-	},
-/obj/machinery/camera{
-	c_tag = "Auxiliary Tool Storage";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
@@ -29091,6 +29058,10 @@
 /obj/machinery/computer/communications{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Captain's Desk";
+	dir = 1
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "bUW" = (
@@ -29098,10 +29069,6 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
-	},
-/obj/machinery/camera{
-	c_tag = "Captain's Desk";
-	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -30015,6 +29982,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bYz" = (
@@ -31685,7 +31653,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "cdX" = (
-/obj/machinery/firealarm/directional/south,
 /obj/item/kirbyplants/large,
 /obj/machinery/camera{
 	c_tag = "Captain's Quarters";
@@ -32396,6 +32363,10 @@
 /obj/item/reagent_containers/drinks/bottle/whiskey,
 /obj/item/reagent_containers/drinks/drinkingglass,
 /obj/item/reagent_containers/drinks/drinkingglass,
+/obj/machinery/camera{
+	c_tag = "Blueshield's Office";
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "cht" = (
@@ -32827,10 +32798,6 @@
 /area/station/command/office/blueshield)
 "ciP" = (
 /obj/machinery/alarm/directional/south,
-/obj/machinery/camera{
-	c_tag = "Blueshield's Office";
-	dir = 1
-	},
 /obj/machinery/disposal,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -40768,6 +40735,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /obj/item/megaphone,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -70158,9 +70129,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "lSa" = (
-/obj/machinery/newscaster/directional/south,
 /obj/machinery/dye_generator,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/camera{
+	c_tag = "Barber Shop";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -72345,6 +72319,10 @@
 /area/station/hallway/secondary/entry/lounge)
 "nem" = (
 /obj/machinery/economy/vending/cigarette,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "ney" = (
@@ -121912,7 +121890,7 @@ bja
 bkP
 bmM
 rvv
-btv
+aZb
 btv
 btv
 rke
@@ -131153,7 +131131,7 @@ aRe
 aOG
 aOG
 aOG
-aZb
+aNh
 baR
 aZa
 bdN
