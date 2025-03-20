@@ -39,7 +39,7 @@
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
 /datum/weather/solar_flare/can_weather_act(mob/living/L)
-	if(isanimal(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+	if(isanimal_or_basicmob(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
 	if(isdrone(L)) //same with poor maint drones who just wanna have fun
 		return FALSE

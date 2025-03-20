@@ -59,8 +59,14 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/A)
-	A.attack_animal(src)
+/mob/living/UnarmedAttack(atom/target, proximity_flag, modifiers)
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target, proximity_flag, modifiers)
+	if(sigreturn & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(sigreturn & COMPONENT_SKIP_ATTACK)
+		return FALSE
+
+	target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
 	target = A

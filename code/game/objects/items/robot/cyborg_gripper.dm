@@ -74,8 +74,8 @@
 // This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 /obj/item/gripper/forceMove(atom/destination)
 	return
-	
-/obj/item/gripper/interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+
+/obj/item/gripper/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!target)
 		return ITEM_INTERACT_COMPLETE
 
@@ -170,7 +170,7 @@
 	if(gripped_item)
 		gripped_item.attack(A, user)
 		return TRUE
-	
+
 	if(!ismob(A))
 		return ..()
 
@@ -208,7 +208,7 @@
 			return
 
 		// Checks if holder_type exists to prevent picking up animals like mice, because we're about to use the hands that borgs secretly have.
-		if(isanimal(target) && !target.holder_type)
+		if(isanimal_or_basicmob(target) && !target.holder_type)
 			var/list/modifiers = params2list(params)
 			// This enables borgs to get the floating heart icon and mob emote from simple_animals that have petbonus == TRUE.
 			target.attack_hand(user, modifiers)

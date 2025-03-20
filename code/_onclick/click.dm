@@ -140,7 +140,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, modifiers)
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
@@ -152,7 +152,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, modifiers)
 	else
 		if(W)
 			if(W.new_attack_chain)
