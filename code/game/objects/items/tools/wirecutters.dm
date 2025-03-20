@@ -25,6 +25,11 @@
 
 	new_attack_chain = TRUE
 
+/obj/item/wirecutters/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
 	if(random_color)
@@ -154,5 +159,10 @@
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(pryjaws)
+		pryjaws.attached_bits += bit
+		bit.on_attached(pryjaws)
 	qdel(src)
 	user.put_in_active_hand(pryjaws)
