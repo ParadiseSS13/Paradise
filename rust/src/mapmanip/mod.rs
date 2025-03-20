@@ -1,19 +1,21 @@
+use std::collections::HashMap;
+
 use core::map_to_string;
 use core::to_grid_map;
 use core::GridMap;
-use std::collections::HashMap;
+use core::TileGrid;
 
-use byondapi::byond_string;
 use byondapi::value::ByondValue;
+use dmmtools::dmi::Dir;
 use dmmtools::dmm::Coord3;
 use dmmtools::dmm::Prefab;
-
 use dreammaker::constants::Constant;
 use eyre::eyre;
 use eyre::Context;
 use eyre::ContextCompat;
 use itertools::Itertools;
 use rand::prelude::IteratorRandom;
+use rand::seq::SliceRandom;
 use serde::{Deserialize, Serialize};
 use tools::extract_submap;
 use tools::insert_submap;
@@ -40,6 +42,15 @@ pub enum MapManipulation {
         marker_insert: String,
         submaps_can_repeat: bool,
     },
+    RandomOrientation,
+}
+
+#[derive(Debug)]
+enum MapRotation {
+    None,
+    Clockwise90,
+    Clockwise180,
+    Clockwise270,
 }
 
 pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<MapManipulation>> {
@@ -101,6 +112,8 @@ pub fn mapmanip(
 					submaps path: {submaps_dmm:?};
 					markers: {marker_extract}, {marker_insert};"
             )),
+            MapManipulation::RandomOrientation => mapmanip_orientation_randomize(&mut map)
+                .wrap_err(format!("randomize orientation fail")),
         }
         .wrap_err(format!("mapmanip fail; manip n is: {n}/{config_len}"))?;
     }
@@ -159,12 +172,8 @@ fn mapmanip_submap_extract_insert(
         let (&extract_coord, &extract_prefab) = marker_lookup
             .iter()
             .filter(|(_, &prefab)| {
-                !singleton_tags.contains(
-                    prefab
-                        .vars
-                        .get("singleton_id")
-                        .unwrap_or(Constant::null())
-                )
+                !singleton_tags
+                    .contains(prefab.vars.get("singleton_id").unwrap_or(Constant::null()))
             })
             .choose(&mut rand::thread_rng())
             .wrap_err(format!(
@@ -193,6 +202,212 @@ fn mapmanip_submap_extract_insert(
         }
     }
 
+    Ok(())
+}
+
+fn rotate_direction(dir_i: i32, rotation: &MapRotation) -> i32 {
+    let dir = Dir::from_int(dir_i).unwrap_or(Dir::South);
+    match rotation {
+        MapRotation::None => dir_i,
+        MapRotation::Clockwise90 => dir.clockwise_90().to_int(),
+        MapRotation::Clockwise180 => dir.flip().to_int(),
+        MapRotation::Clockwise270 => dir.counterclockwise_90().to_int(),
+    }
+}
+
+fn rotate_cable(dir_i: i32, rotation: &MapRotation) -> i32 {
+    if dir_i == 0 {
+        return 0;
+    }
+    let dir = Dir::from_int(dir_i).unwrap_or(Dir::South);
+    match rotation {
+        MapRotation::None => dir_i,
+        MapRotation::Clockwise90 => dir.clockwise_90().to_int(),
+        MapRotation::Clockwise180 => dir.flip().to_int(),
+        MapRotation::Clockwise270 => dir.counterclockwise_90().to_int(),
+    }
+}
+
+fn directional_mapper_rotate(path: String, rotation: &MapRotation) -> String {
+    match rotation {
+        MapRotation::None => path,
+        MapRotation::Clockwise90 => {
+            if path.ends_with("/directional/north") {
+                path.replace("/directional/north", "/directional/east")
+            } else if path.ends_with("/directional/south") {
+                path.replace("/directional/south", "/directional/west")
+            } else if path.ends_with("/directional/east") {
+                path.replace("/directional/east", "/directional/south")
+            } else {
+                path.replace("/directional/west", "/directional/north")
+            }
+        }
+        MapRotation::Clockwise180 => {
+            if path.ends_with("/directional/north") {
+                path.replace("/directional/north", "/directional/south")
+            } else if path.ends_with("/directional/south") {
+                path.replace("/directional/south", "/directional/north")
+            } else if path.ends_with("/directional/east") {
+                path.replace("/directional/east", "/directional/west")
+            } else {
+                path.replace("/directional/west", "/directional/east")
+            }
+        }
+        MapRotation::Clockwise270 => {
+            if path.ends_with("/directional/north") {
+                path.replace("/directional/north", "/directional/west")
+            } else if path.ends_with("/directional/south") {
+                path.replace("/directional/south", "/directional/east")
+            } else if path.ends_with("/directional/east") {
+                path.replace("/directional/east", "/directional/north")
+            } else {
+                path.replace("/directional/west", "/directional/south")
+            }
+        }
+    }
+}
+
+fn rotation_radians(rotation: &MapRotation) -> f32 {
+    match rotation {
+        MapRotation::None => 0f32.to_radians(),
+        MapRotation::Clockwise90 => 90f32.to_radians(),
+        MapRotation::Clockwise180 => 180f32.to_radians(),
+        MapRotation::Clockwise270 => 270f32.to_radians(),
+    }
+}
+
+fn rotation_coords(coord: Coord3, map_size: &Coord3, rotation: &MapRotation) -> Coord3 {
+    match rotation {
+        MapRotation::None => coord,
+        MapRotation::Clockwise90 => Coord3 {
+            x: coord.y,
+            y: map_size.x - coord.x + 1,
+            z: coord.z,
+        },
+        MapRotation::Clockwise180 => Coord3 {
+            x: map_size.x - coord.x + 1,
+            y: map_size.y - coord.y + 1,
+            z: coord.z,
+        },
+        MapRotation::Clockwise270 => Coord3 {
+            x: map_size.y - coord.y + 1,
+            y: coord.x,
+            z: coord.z,
+        },
+    }
+}
+
+fn rotation_size(size: Coord3, rotation: &MapRotation) -> Coord3 {
+    match rotation {
+        MapRotation::None => size,
+        MapRotation::Clockwise90 => Coord3 {
+            x: size.y,
+            y: size.x,
+            z: size.z,
+        },
+        MapRotation::Clockwise180 => size,
+        MapRotation::Clockwise270 => Coord3 {
+            x: size.y,
+            y: size.x,
+            z: size.z,
+        },
+    }
+}
+
+fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
+    let rotation = [
+        MapRotation::None,
+        MapRotation::Clockwise90,
+        MapRotation::Clockwise180,
+        MapRotation::Clockwise270,
+    ]
+    .choose(&mut rand::thread_rng())
+    .unwrap();
+
+    if let MapRotation::None = rotation {
+        return Ok(());
+    }
+
+    let new_coord = rotation_size(map.size, rotation);
+    let mut new_map: GridMap = GridMap {
+        size: new_coord,
+        grid: TileGrid::new(new_coord.x, new_coord.y, new_coord.z),
+    };
+
+    for t in map.grid.values_mut() {
+        t.prefabs.iter_mut().for_each(|f| {
+            if f.path.contains("/directional/") {
+                f.path = directional_mapper_rotate(f.path.to_string(), rotation);
+            } else if f.path.starts_with("/obj/structure/cable") {
+                let cable_dirs = f
+                    .vars
+                    .get("icon_state")
+                    .unwrap_or(&Constant::String("0-1".into()))
+                    .as_str()
+                    .unwrap()
+                    .split('-')
+                    .map(|f| {
+                        f.parse::<i32>()
+                            .unwrap_or_else(|_| panic!("Bad cable icon: {}", f))
+                    })
+                    .map(|f| rotate_cable(f, rotation))
+                    .sorted()
+                    .join("-");
+                f.vars.insert(
+                    "icon_state".to_string(),
+                    Constant::String(cable_dirs.into()),
+                );
+            } else {
+                let dir = f
+                    .vars
+                    .get("dir")
+                    .unwrap_or(&Constant::Float(2.0f32))
+                    .to_int()
+                    .unwrap();
+                f.vars.insert(
+                    "dir".to_string(),
+                    Constant::Float(rotate_direction(dir, rotation) as f32),
+                );
+
+                let pixel_x = f
+                    .vars
+                    .get("pixel_x")
+                    .unwrap_or(&Constant::Float(0f32))
+                    .to_int()
+                    .unwrap();
+                let pixel_y = f
+                    .vars
+                    .get("pixel_y")
+                    .unwrap_or(&Constant::Float(0f32))
+                    .to_int()
+                    .unwrap();
+                if pixel_x != 0 || pixel_y != 0 {
+                    let rads = rotation_radians(rotation);
+                    f.vars.insert(
+                        "pixel_x".to_string(),
+                        Constant::Float(
+                            ((pixel_x as f32) * rads.cos() + (pixel_y as f32) * rads.sin()).round(),
+                        ),
+                    );
+                    f.vars.insert(
+                        "pixel_y".to_string(),
+                        Constant::Float(
+                            ((-pixel_x as f32) * rads.sin() + (pixel_y as f32) * rads.cos())
+                                .round(),
+                        ),
+                    );
+                }
+            }
+        });
+    }
+
+    for (coord, tile) in map.grid.iter() {
+        new_map
+            .grid
+            .insert(&rotation_coords(coord, &map.size, rotation), tile.clone());
+    }
+
+    *map = new_map;
     Ok(())
 }
 
