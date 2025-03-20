@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/table/reinforced,
 /obj/item/storage/firstaid/o2{
 	pixel_y = 3
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "ab" = (
@@ -134,10 +134,10 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box{
 	pixel_y = 5
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aF" = (
@@ -351,7 +351,6 @@
 	},
 /area/shuttle/escape)
 "bp" = (
-/obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = -4;
 	pixel_y = 3
@@ -364,6 +363,7 @@
 	pixel_x = 11;
 	pixel_y = 7
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bq" = (
@@ -492,6 +492,9 @@
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
+"dQ" = (
+/turf/simulated/wall/mineral/titanium/interior,
+/area/shuttle/escape)
 "ec" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -558,12 +561,12 @@
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ol" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
 	pixel_x = 7;
 	pixel_y = 9
 	},
 /obj/item/storage/firstaid/adv,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "pl" = (
@@ -605,13 +608,13 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
-/obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "qr" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "qJ" = (
 /obj/item/kirbyplants/large,
@@ -771,7 +774,7 @@
 	aiControlDisabled = 1;
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/mineral/plastitanium/red/brig,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Dy" = (
 /obj/structure/chair/wood/wings{
@@ -789,8 +792,8 @@
 "Ej" = (
 /obj/machinery/light/spot,
 /obj/machinery/economy/vending/wallmed/directional/east,
-/obj/structure/table/reinforced,
 /obj/item/storage/box/bodybags,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "FK" = (
@@ -892,10 +895,10 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "NC" = (
-/obj/structure/table/reinforced,
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NH" = (
@@ -1052,10 +1055,10 @@
 /area/shuttle/escape)
 "ZH" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
 	pixel_y = 3
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 
@@ -1068,29 +1071,29 @@ ah
 ah
 ah
 ab
-bC
-bC
+ab
+ab
 ac
 ac
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
 CF
-bC
+ab
 pl
-bC
+ab
 ac
 ac
 ac
-bC
+ab
 Rv
-bC
+ab
 aI
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
 ab
 ah
 "}
@@ -1102,8 +1105,8 @@ ah
 ah
 ab
 ac
-bC
-bC
+ab
+ab
 bp
 wC
 wC
@@ -1120,12 +1123,12 @@ aB
 aX
 aT
 aA
-bC
+ab
 bo
 bo
 bt
 ao
-bC
+ab
 qr
 qr
 "}
@@ -1138,7 +1141,7 @@ ac
 bC
 bD
 zM
-bC
+ab
 pT
 aF
 aF
@@ -1155,12 +1158,12 @@ bb
 aY
 Dy
 aA
-bC
+ab
 bo
 bo
-bC
-bC
-bC
+dQ
+dQ
+ab
 bJ
 bL
 "}
@@ -1168,12 +1171,12 @@ bL
 ah
 ah
 ab
-bC
+ab
 JE
 ec
 xd
 Ul
-bC
+ab
 NC
 aF
 aF
@@ -1195,20 +1198,20 @@ bo
 bo
 bv
 ao
-bC
+ab
 bJ
 bL
 "}
 (5,1,1) = {"
 ah
 ab
-bC
+ab
 LD
 Pf
 nM
 an
 ak
-bC
+ab
 aE
 aF
 aF
@@ -1225,30 +1228,30 @@ aH
 aH
 LV
 aA
-bC
+ab
 bo
 bA
+dQ
 bC
-bC
-bC
+ab
 bJ
 bL
 "}
 (6,1,1) = {"
 ab
-bC
+ab
 aq
 an
 an
 an
 an
 an
-bC
+ab
 ac
 aG
 aG
 ac
-bC
+ab
 ac
 ac
 ac
@@ -1260,12 +1263,12 @@ aA
 aA
 aA
 ss
-bC
+ab
 bo
 bo
 bw
 wk
-bC
+ab
 qr
 qr
 "}
@@ -1295,12 +1298,12 @@ aA
 aA
 aA
 aA
-bC
+ab
 SW
 NH
-bC
+ab
 bB
-bC
+ab
 bJ
 bL
 "}
@@ -1330,12 +1333,12 @@ aA
 aA
 aA
 dn
-bC
-bC
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
+ab
+ab
 bJ
 bL
 "}
@@ -1365,30 +1368,30 @@ aA
 aA
 aA
 aA
-bC
+ab
 bx
 RQ
 aO
 bx
-bC
+ab
 bJ
 bL
 "}
 (10,1,1) = {"
 ab
-bC
+ab
 aq
 an
 an
 an
 an
 an
-bC
-bC
+ab
+ab
 AQ
 AQ
-bC
-bC
+ab
+ab
 qJ
 aA
 Jz
@@ -1400,30 +1403,30 @@ Jz
 Jz
 aA
 ss
-bC
+ab
 MZ
 bn
 bn
 bn
-bC
+ab
 qr
 qr
 "}
 (11,1,1) = {"
 ah
 ab
-bC
+ab
 Rh
 bd
 Uv
 an
 ak
-bC
+ab
 aa
 nk
 nk
 ZH
-bC
+ab
 Bf
 aA
 aN
@@ -1440,7 +1443,7 @@ bn
 bn
 bn
 by
-bC
+ab
 bJ
 bL
 "}
@@ -1448,17 +1451,17 @@ bL
 ah
 ah
 ab
-bC
+ab
 rr
 Tb
 cE
 pC
-bC
+ab
 HV
 nk
 nk
 ff
-bC
+ab
 vF
 DY
 bq
@@ -1475,7 +1478,7 @@ bn
 bn
 bn
 by
-bC
+ab
 bJ
 bL
 "}
@@ -1485,15 +1488,15 @@ ah
 ah
 ab
 ac
-bC
+ab
 aw
 MX
-bC
+ab
 aC
 nk
 nk
 ff
-bC
+ab
 lG
 rh
 aP
@@ -1510,7 +1513,7 @@ wF
 bn
 bn
 ol
-bC
+ab
 bJ
 bL
 "}
@@ -1522,13 +1525,13 @@ ah
 ah
 ab
 ac
-bC
-bC
+ab
+ab
 aK
 bz
 bz
 aK
-bC
+ab
 Na
 rh
 aA
@@ -1540,12 +1543,12 @@ cF
 Qp
 bf
 az
-bC
+ab
 uO
 YQ
 af
 Ej
-bC
+ab
 qr
 qr
 "}
@@ -1558,29 +1561,29 @@ ah
 ah
 ah
 ab
-bC
-bC
+ab
+ab
 ax
 ax
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
 ac
-bC
+ab
 ac
-bC
+ab
 ac
 ac
 ac
-bC
+ab
 ac
-bC
+ab
 ac
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
 ab
 ah
 "}
