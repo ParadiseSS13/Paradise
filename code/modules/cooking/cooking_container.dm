@@ -118,7 +118,7 @@
 			tracker.recipes_last_completed_step[recipe] = 0
 
 	if(!tracker && (length(contents) || reagents.total_volume != 0))
-		to_chat(user, "\The [src] is full. Empty its contents first.")
+		to_chat(user, "<span class='notice'>\The [src] is full. Empty its contents first.</span>")
 		return PCWJ_CONTAINER_FULL
 
 	var/process_reaction = tracker.process_item_wrap(user, used)
