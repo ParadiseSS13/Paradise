@@ -55,7 +55,7 @@ def main():
         print(red(FIX_MESSAGE))
 
     end = time.time()
-    print(f"check_map_sizes.py completed in {(end - start):.2f}s")
+    print(f"check_map_sizes.py checked {map_count} maps in {(end - start):.2f}s")
 
     sys.exit(exit_code)
 
