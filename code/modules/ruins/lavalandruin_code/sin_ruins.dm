@@ -166,7 +166,7 @@
 
 	var/turf/T = get_turf(user)
 	if(!user.Adjacent(src)) // Trying to escape?
-		var/turf/return_turf = locate(src.x, src.y-1, src.z) // You will never
+		var/turf/return_turf = locate(x, y - 1, z) // To the south one to account for the fact the mirror is on a wall
 		var/mob/living/carbon/human/fool = user
 		if(return_turf && fool)
 			to_chat(fool, "<span class='colossus'><b>You dare try to play me for a fool?</b></span>")
