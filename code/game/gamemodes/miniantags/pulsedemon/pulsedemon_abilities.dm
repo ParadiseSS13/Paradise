@@ -371,7 +371,7 @@
 
 /datum/spell/pulse_demon/toggle/penetrating_shock
 	name = "Toggle Intense Shocks"
-	desc = "Toggle whether to use 50 KJ of energyto bypass electric-resistant victims immunity when attacking."
+	desc = "Toggle whether to use 50 KJ of energy to bypass electric-resistant victims immunity when attacking."
 	base_message = "use strong shocks when attacking."
 	action_icon_state = "pd_strong_shocks"
 	locked = FALSE
