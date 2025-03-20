@@ -47,7 +47,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 			SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_COMPLETE, src)
 
 /datum/cooking_surface/proc/handle_switch(mob/user)
-	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
+	playsound(parent, 'sound/items/lighter.ogg', 100, TRUE, 0)
 	if(on)
 		turn_off()
 	else
@@ -84,7 +84,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		alarm_callback = addtimer(CALLBACK(src, PROC_REF(handle_alarm)), timer, TIMER_STOPPABLE)
 
 /datum/cooking_surface/proc/turn_off(mob/user)
-	playsound(parent, 'sound/items/lighter.ogg', 100, 1, 0)
+	playsound(parent, 'sound/items/lighter.ogg', 100, TRUE, 0)
 	on = FALSE
 	unset_callbacks()
 	deltimer(alarm_callback)
