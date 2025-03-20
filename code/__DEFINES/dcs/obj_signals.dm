@@ -41,6 +41,3 @@
 /// from /datum/component/shelver/shelf_items()
 #define COMSIG_SHELF_ATTEMPT_PICKUP "shelf_attempt_pickup"
 	#define SHELF_PICKUP_FAILURE (1 << 0)
-
-
-#define COMSIG_COOKING_CONTAINER_MODIFIED "cooking_container_modified"

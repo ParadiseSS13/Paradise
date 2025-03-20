@@ -124,7 +124,13 @@ RESTRICT_TYPE(/datum/cooking_surface)
 
 /datum/cooking_surface/proc/handle_temperature(mob/user)
 	var/old_temp = temperature
-	var/choice = input(user, "Select a heat setting for the burner.\nCurrent temp :[old_temp]","Select Temperature",old_temp) in list("High","Medium","Low","Cancel")
+	var/choice = tgui_input_list(
+		user,
+		"Select a heat setting for the burner.\nCurrent temp: [old_temp]",
+		"Select Temperature",
+		items = list(J_HI, J_MED, J_LO, "Cancel"),
+		default = old_temp
+	)
 	if(choice && choice != "Cancel" && choice != old_temp)
 		temperature = choice
 		if(on)
