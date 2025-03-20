@@ -122,6 +122,8 @@
 	var/list/hijacked_apcs = list()
 	/// Current APC amount for use as upgrade currency
 	var/list/apcs_remaining = 0
+	/// Does the pulse demon attempt to use internal power to bypass shock immunity
+	var/strong_shocks = FALSE
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
 
@@ -266,6 +268,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /datum/spell/pulse_demon/open_upgrades)
 	AddSpell(new /datum/spell/pulse_demon/cycle_camera)
+	AddSpell(new /datum/spell/pulse_demon/toggle/penetrating_shock(strong_shocks))
 	AddSpell(new /datum/spell/pulse_demon/toggle/do_drain(do_drain))
 	AddSpell(new /datum/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
 	AddSpell(new /datum/spell/pulse_demon/cablehop)
@@ -301,6 +304,7 @@
 	var/light_radius = min(charge / 25000, 25)
 	empulse(T, heavy_radius, light_radius)
 	playsound(T, pick(hurt_sounds), 30, TRUE)
+	SEND_SIGNAL(src, COMSIG_MOB_DEATH)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/exit_to_turf()
 	var/turf/T = get_turf(src)
@@ -649,22 +653,24 @@
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs and have [apcs_remaining] left to spend.</span>")
-	var/obj/structure/cable/C = A.get_cable_node()
+	var/turf/T = get_turf(A)
 	var/distance = 0
-	strengthen_cables(C, distance)
+	strengthen_cables(T, distance)
 
-/mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(var/obj/structure/cable/C, distance)
-	if(!C)
-		return
+/mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(var/turf/turf, distance)
 	distance += 1
-	var/turf/T = get_turf(C)
-	for(var/obj/structure/cable/cable in T.contents)
+	for(var/obj/structure/cable/cable in turf.contents)
 		cable.strengthened = TRUE
-	for(var/obj/structure/cable/cable in range(1, T))
-		if(get_turf(cable) == T)
+		cable.RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/structure/cable, unstrengthen_cables))
+	if(distance >= 15)
+		return
+	for(var/obj/structure/cable/cable in range(1, turf))
+		if(get_turf(cable) == turf)
 			continue
-		strengthen_cables(cable, distance)
-
+		if(cable.strengthened == TRUE)
+			continue
+		var/turf/next_turf = get_turf(cable)
+		strengthen_cables(next_turf, distance)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/on_atom_entered(datum/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
@@ -688,11 +694,19 @@
 	if(current_cable && current_cable.powernet && current_cable.powernet.available_power)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
-	else if(charge >= 1000)
+	else if(charge >= 10 KJ)
 		dealt = L.electrocute_act(30, src, siemens_coeff)
-		adjust_charge(-1000)
+		adjust_charge(-10 KJ)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
+	if(dealt == 0 && strong_shocks)
+		if(charge >= 50 KJ)
+			charge -= 50 KJ
+			do_sparks(rand(2, 4), FALSE, src)
+			dealt = L.electrocute_act(30, src, siemens_coeff = 1) //bypass that nasty shock resistance
+		else
+			to_chat(src, "<span class = 'danger'>You dont have enough charge to bypass their insulation! You need at least 50KJ of energy!")
+
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()

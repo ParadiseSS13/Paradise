@@ -369,6 +369,21 @@
 	user.forceMove(locateUID(user.controlling_area.cameras[current_camera + 1]))
 	return TRUE
 
+/datum/spell/pulse_demon/toggle/penetrating_shock
+	name = "Toggle Intense Shocks"
+	desc = "Toggle whether to use 50 KJ of energyto bypass electric-resistant victims immunity when attacking."
+	base_message = "use strong shocks when attacking."
+	action_icon_state = "pd_strong_shocks"
+	locked = FALSE
+	cast_cost = 0
+	level_max = 0
+
+/datum/spell/pulse_demon/toggle/penetrating_shock/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/pulse_demon/toggle/penetrating_shock/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+	user.strong_shocks = do_toggle(!user.strong_shocks, user)
+
 /datum/spell/pulse_demon/open_upgrades
 	name = "Open Upgrade Menu"
 	desc = "Open the upgrades menu. Alt-click for descriptions and costs."

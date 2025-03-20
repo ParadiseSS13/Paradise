@@ -426,6 +426,11 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/white
 	color = COLOR_WHITE
 
+/obj/structure/cable/proc/unstrengthen_cables(mob/demon)
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
+	src.strengthened = FALSE
+	UnregisterSignal(demon, COMSIG_MOB_DEATH)
+
 //
 //	This ASCII art represents my brain after looking at cable
 //  code for too long, half of this was written before I was even
