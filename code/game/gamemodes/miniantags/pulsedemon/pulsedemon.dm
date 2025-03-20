@@ -657,17 +657,17 @@
 	var/distance = 0
 	strengthen_cables(T, distance)
 
-/mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(var/turf/turf, distance)
+/mob/living/simple_animal/demon/pulse_demon/proc/strengthen_cables(turf/T, distance)
 	distance += 1
-	for(var/obj/structure/cable/cable in turf.contents)
+	for(var/obj/structure/cable/cable in T.contents)
 		if(cable.strengthened == TRUE)
 			continue
 		cable.strengthened = TRUE
 		cable.RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/structure/cable, unstrengthen_cables))
 	if(distance >= 15)
 		return
-	for(var/obj/structure/cable/cable in range(1, turf))
-		if(get_turf(cable) == turf)
+	for(var/obj/structure/cable/cable in range(1, T))
+		if(get_turf(cable) == T)
 			continue
 		if(cable.strengthened == TRUE)
 			continue
