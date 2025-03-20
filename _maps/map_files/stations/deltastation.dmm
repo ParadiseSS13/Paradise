@@ -9323,9 +9323,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aJK" = (
-/obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/alarm/directional/south,
+/obj/machinery/camera{
+	c_tag = "Departure Lounge North";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "aJM" = (
@@ -12852,9 +12854,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aUN" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/stack/sheet/metal{
@@ -13320,6 +13319,9 @@
 /area/station/hallway/primary/fore/east)
 "aWn" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -21627,10 +21629,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -29440,7 +29438,6 @@
 "bWw" = (
 /obj/machinery/light,
 /obj/structure/table/wood,
-/obj/machinery/newscaster/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -49244,16 +49241,15 @@
 /area/station/science/xenobiology)
 "dpQ" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = -28;
-	pixel_y = -28
-	},
 /obj/machinery/photocopier/faxmachine{
 	department = "Research Director's Office"
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/newscaster/directional/west,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -82805,11 +82801,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "suy" = (
-/obj/machinery/camera{
-	c_tag = "Departure Lounge North";
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "suH" = (
@@ -88816,6 +88809,15 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
+"vBW" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/delivery,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "vBX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -129568,7 +129570,7 @@ fwU
 kgl
 juK
 bxi
-bxi
+vBW
 bwf
 dFs
 tBi
@@ -134176,7 +134178,7 @@ ayA
 ayA
 ayA
 aGK
-aJd
+aGK
 fRb
 aJd
 aGK
