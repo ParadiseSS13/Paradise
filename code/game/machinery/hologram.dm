@@ -514,7 +514,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
-		holorays[user].icon = getHologramIcon(icon('icons/effects/96x96.dmi', "holoray"), FALSE, AI.hologram_color, 1)
+		var/obj/effect/overlay/holoray = holorays[user]
+		holoray.icon = getHologramIcon(icon('icons/effects/96x96.dmi', "holoray"), FALSE, AI.hologram_color, 1)
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
