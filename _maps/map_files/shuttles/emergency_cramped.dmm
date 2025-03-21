@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/simulated/wall/mineral/titanium,
-/area/space)
 "b" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -15,6 +12,16 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"g" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -41,14 +48,35 @@
 	dir = 8;
 	name = "Brig"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "l" = (
-/obj/structure/table,
-/obj/item/gps,
-/obj/machinery/light/spot{
-	dir = 4
+/obj/item/book/manual/wiki/security_space_law/black{
+	pixel_x = 7;
+	pixel_y = 4
 	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 19
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 37
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 28
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/flash,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "m" = (
@@ -57,16 +85,11 @@
 "n" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/escape)
 "o" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"p" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "q" = (
@@ -100,6 +123,10 @@
 "w" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_x = 28
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "x" = (
@@ -110,10 +137,14 @@
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle,
+/obj/structure/sign/poster/official/obey{
+	pixel_x = 32
+	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "y" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/firecloset/full,
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "z" = (
@@ -150,45 +181,79 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"I" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law/black,
-/obj/item/storage/firstaid/regular,
-/obj/machinery/light/spot{
-	dir = 8
+"F" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"V" = (
-/obj/effect/spawner/window/shuttle,
+"G" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"I" = (
+/obj/item/storage/firstaid/regular{
+	pixel_x = -5
+	},
+/obj/item/gps{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_y = 28
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/escape)
+"M" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/economy/vending/wallmed/directional/west,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"P" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"U" = (
+/obj/structure/closet/firecloset/full,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 h
-a
-a
 b
+G
+G
 i
-b
+G
 D
-b
+G
 c
 c
 c
-b
+G
 i
-b
+G
 i
-b
-b
-b
+G
+G
+h
 "}
 (2,1,1) = {"
-a
-a
+b
+G
 I
-m
+P
 m
 c
 m
@@ -196,16 +261,16 @@ f
 s
 s
 s
-s
+F
 m
 f
 m
-s
+M
 z
 B
 "}
 (3,1,1) = {"
-V
+c
 n
 j
 m
@@ -225,20 +290,20 @@ z
 C
 "}
 (4,1,1) = {"
-a
-a
+b
+G
 l
 x
 k
 c
-y
+U
 r
 u
 u
-p
+o
 w
 u
-u
+g
 o
 y
 z
@@ -246,21 +311,21 @@ C
 "}
 (5,1,1) = {"
 h
-a
-a
 b
+G
+G
 c
-b
+G
 c
-b
+G
 c
 c
 c
-b
+G
 c
-b
+G
 c
-b
-b
-b
+G
+G
+h
 "}
