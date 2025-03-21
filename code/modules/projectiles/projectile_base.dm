@@ -383,7 +383,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (ismob(original) || original.proj_ignores_layer || original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original, TRUE)
 	if(QDELETED(src)) //deleted on last move
