@@ -1,6 +1,6 @@
 /obj/machinery/space_heater
 	name = "space heater"
-	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
+	desc = "A free-standing mobile space heater for heating rooms, with adjustable temprature and easy-swap power cell holder."
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "sheater0"
 	anchored = FALSE
