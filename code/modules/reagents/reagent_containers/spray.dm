@@ -23,7 +23,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack__legacy__attackchain(atom/A, mob/user)
+/obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
+	. = TRUE
 	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
@@ -86,7 +87,9 @@
 	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
 	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
-/obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -126,7 +129,9 @@
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
 
-/obj/item/reagent_containers/spray/cleaner/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/cleaner/activate_self(mob/user)
+	if(..())
+		return
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -206,8 +211,10 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self__legacy__attackchain(mob/user) //Don't allow changing how much the flower sprays
-	return
+/obj/item/reagent_containers/spray/waterflower/Initialize(mapload)
+	. = ..()
+	// Don't allow changing how much the flower sprays
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 //chemsprayer
 /obj/item/reagent_containers/spray/chemsprayer
@@ -262,7 +269,9 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/activate_self(mob/user)
+	if(..())
+		return
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

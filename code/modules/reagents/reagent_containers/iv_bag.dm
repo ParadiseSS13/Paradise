@@ -16,6 +16,7 @@
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
+	var/injection_action_delay = 3 SECONDS
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
@@ -32,8 +33,10 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/reagent_containers/iv_bag/activate_self(mob/user)
+	if(..())
+		return
+
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
 
@@ -87,12 +90,7 @@
 				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	return
-
-/obj/item/reagent_containers/iv_bag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/iv_bag/mob_act(mob/target, mob/living/user)
 	if(!target.reagents)
 		return
 
@@ -105,7 +103,7 @@
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -119,7 +117,7 @@
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
@@ -157,9 +155,10 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		rename_interactive(user, I)
+/obj/item/reagent_containers/iv_bag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 // PRE-FILLED IV BAGS BELOW
 
