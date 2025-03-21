@@ -33,8 +33,8 @@
 	player.click_on(watertank)
 	TEST_ASSERT_LAST_CHATLOG(player, "[saltshaker] is full!")
 
-	var/obj/machinery/kitchen_machine/grill = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/grill)
-	player.click_on(grill)
+	var/obj/machinery/kitchen_machine/microwave = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/microwave)
+	player.click_on(microwave)
 	TEST_ASSERT_ANY_CHATLOG(player, "You transfer")
 	TEST_ASSERT_NOT_CHATLOG(player, "You hit")
 
