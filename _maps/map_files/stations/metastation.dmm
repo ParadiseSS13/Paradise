@@ -5791,7 +5791,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/curtain/open/shower/security,
 /obj/machinery/shower{
 	dir = 4
 	},

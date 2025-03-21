@@ -100251,7 +100251,6 @@
 	},
 /area/station/hallway/primary/aft/east)
 "vnj" = (
-/obj/structure/curtain/open/shower/security,
 /obj/machinery/shower,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/noslip,

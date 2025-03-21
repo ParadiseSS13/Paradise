@@ -82694,7 +82694,6 @@
 "vDY" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/shower,
-/obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "vEm" = (

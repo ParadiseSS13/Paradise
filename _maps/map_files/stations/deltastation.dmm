@@ -13623,7 +13623,6 @@
 "aWW" = (
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/curtain/open/shower/security,
 /obj/machinery/shower{
 	dir = 4
 	},
