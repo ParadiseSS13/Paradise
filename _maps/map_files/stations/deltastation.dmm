@@ -35707,6 +35707,10 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cst" = (
@@ -36092,11 +36096,18 @@
 	},
 /area/station/engineering/control)
 "ctG" = (
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Engine Room South";
+	dir = 8;
+	network = list("Engineering","SS13")
+	},
+/obj/machinery/camera{
+	c_tag = "Engine Room South";
+	dir = 8;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -41698,9 +41709,6 @@
 /obj/structure/sign/science,
 /turf/simulated/wall,
 /area/station/science/research)
-"cKK" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "cKM" = (
 /obj/machinery/light{
 	dir = 8
@@ -72918,6 +72926,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Engine Room South";
+	dir = 8;
+	network = list("Engineering","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -85397,6 +85410,17 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fsmaint)
+"tLE" = (
+/obj/machinery/camera{
+	c_tag = "Engine Room South";
+	network = list("Engineering","SS13");
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/storage)
 "tLO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86262,6 +86286,10 @@
 /area/station/service/janitor)
 "ueP" = (
 /obj/structure/table/glass,
+/obj/machinery/camera{
+	c_tag = "Engine Room South";
+	network = list("Engineering","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -90459,6 +90487,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "AI Minisatellite South";
+	network = list("SS13","Minisat");
+	dir = 4
 	},
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
@@ -132483,7 +132516,7 @@ dKo
 hVf
 dKo
 dNc
-cKK
+dIH
 dXF
 dKo
 dKo
@@ -142977,7 +143010,7 @@ cMz
 hiZ
 hvf
 hvf
-fCT
+tLE
 cMz
 mzW
 mVE
