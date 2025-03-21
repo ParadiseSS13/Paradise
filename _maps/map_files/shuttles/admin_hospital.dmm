@@ -39,13 +39,10 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile/admin{
-	dir = 2;
 	dwidth = 9;
 	height = 18;
-	id = "admin";
 	name = "hospital";
 	roundstart_move = "cc_bay_1";
-	timid = 1;
 	width = 19
 	},
 /obj/machinery/door/poddoor{
@@ -275,7 +272,8 @@
 	pixel_y = 25
 	},
 /obj/machinery/recharger/wallcharger{
-	pixel_y = 35
+	pixel_x = 32;
+	pixel_y = -3
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -290,9 +288,6 @@
 "bu" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -721,6 +716,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"Vk" = (
+/obj/structure/bed{
+	name = "Triage: High Priority"
+	},
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 
 (1,1,1) = {"
 ab
@@ -934,7 +936,7 @@ aP
 bv
 bE
 aw
-bQ
+Vk
 cb
 ci
 bQ

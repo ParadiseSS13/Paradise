@@ -1376,6 +1376,10 @@
 /area/wizard_station)
 "fy" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -1923,15 +1927,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile/admin{
-	dir = 2;
-	dwidth = 8;
-	height = 15;
-	id = "admin";
-	name = "administration shuttle";
-	timid = 1;
-	width = 18
-	},
+/obj/docking_port/mobile/admin,
 /obj/docking_port/stationary{
 	dir = 2;
 	dwidth = 9;
@@ -11388,6 +11384,9 @@
 /area/shuttle/escape)
 "OO" = (
 /obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11454,9 +11453,6 @@
 /obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -12866,10 +12862,6 @@
 "Ur" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
