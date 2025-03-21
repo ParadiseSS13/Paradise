@@ -194,9 +194,24 @@
 
 	// Syringes
 	var/obj/item/reagent_containers/syringe/syringe = player.spawn_obj_in_hand(/obj/item/reagent_containers/syringe)
-	syringe.syringe_draw_time = 0
+	var/obj/beaker = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/beaker)
+	beaker.reagents.add_reagent("plasma_dust", 10)
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill the syringe with 5 units of the solution.")
+	qdel(syringe)
+
+	syringe = player.spawn_obj_in_hand(/obj/item/reagent_containers/syringe)
 	player.click_on(target)
-	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] takes a blood sample")
+	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] takes a blood sample from [target.puppet]")
+	qdel(syringe)
+
+	syringe = player.spawn_obj_in_hand(/obj/item/reagent_containers/syringe)
+	syringe.syringe_draw_time = 0
+	player.click_on_self()
+	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] takes a blood sample from [player.puppet]")
+	var/obj/slime_extract = player.spawn_obj_nearby(/obj/item/slime_extract/grey)
+	player.click_on(slime_extract)
+	TEST_ASSERT_ANY_CHATLOG(player, "the used slime extract's power is consumed in the reaction")
 	player.put_away(syringe)
 
 	// IV Bags
@@ -204,7 +219,7 @@
 	var/obj/blood_bag = player.spawn_obj_in_hand(/obj/item/reagent_containers/iv_bag)
 	player.click_on(iv_drip)
 	TEST_ASSERT_LAST_CHATLOG(player, "You attach [blood_bag] to [iv_drip].")
-	var/obj/beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker/cryoxadone)
+	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker/cryoxadone)
 	player.click_on(iv_drip)
 	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [blood_bag].")
 	player.put_away(beaker)
@@ -230,6 +245,12 @@
 	patch.instant_application = TRUE
 	player.click_on(target)
 	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] forces [target.puppet] to apply [patch].")
+
+	// Beakers
+	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
+	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
+	player.click_on(table)
+	TEST_ASSERT(beaker in get_turf(table), "beaker not placed on table")
 
 /datum/game_test/attack_chain_rags/Run()
 	var/datum/test_puppeteer/player = new(src)
