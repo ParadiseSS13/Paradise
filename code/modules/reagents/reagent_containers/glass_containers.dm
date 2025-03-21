@@ -97,13 +97,16 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
-
+		return
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
+			return
+
+	return FALSE
 
 /obj/item/reagent_containers/glass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(is_pen(used))
