@@ -3503,7 +3503,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ke" = (
@@ -3553,7 +3553,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ko" = (
