@@ -88,3 +88,13 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/lizard/wags_his_tail
+	name = "Wags-His-Tail"
+	real_name = "Wags-His-Tail"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/lizard/wags_his_tail/update_desc()
+	. = ..()
+	desc = "The official mascot of Janitalia."
