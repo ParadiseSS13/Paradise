@@ -33,6 +33,10 @@
 
 #undef USE_COOLDOWN
 
+/obj/item/hailer/afd_edition
+	name = "cyborg hailer"
+	desc = "Used by obese cyborgs to save their breath for running."
+
 /obj/item/clothing/mask/whistle
 	name = "whistle"
 	desc = "A metal pea-whistle. Can be blown while held, or worn in the mouth."

@@ -50,6 +50,9 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	origin_tech = null
 
+/obj/item/gun/energy/laser/cyborg/afd_edition
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
+
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
 	robocharge()
