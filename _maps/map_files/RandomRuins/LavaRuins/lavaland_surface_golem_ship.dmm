@@ -79,6 +79,9 @@
 /area/shuttle/freegolem)
 "u" = (
 /obj/machinery/mineral/ore_redemption/golem,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "v" = (
@@ -159,7 +162,6 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "F" = (
@@ -173,6 +175,9 @@
 /area/shuttle/freegolem)
 "H" = (
 /obj/machinery/autolathe,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "I" = (

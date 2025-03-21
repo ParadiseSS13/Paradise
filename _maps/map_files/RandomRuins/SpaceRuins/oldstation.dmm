@@ -3024,9 +3024,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/powered)
 "iD" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -3163,6 +3160,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "jc" = (
@@ -3171,9 +3169,6 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
