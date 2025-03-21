@@ -141,7 +141,7 @@
 /obj/item/reagent_containers/syringe/normal_act(atom/target, mob/living/user)
 	. = TRUE
 	if(!target.reagents)
-		return
+		return FALSE
 
 	switch(mode)
 		if(SYRINGE_DRAW)
