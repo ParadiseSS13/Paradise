@@ -272,7 +272,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure
 	name = "\improper Anti-Plague Sequence Alpha autoinjector"

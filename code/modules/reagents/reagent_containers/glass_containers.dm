@@ -67,7 +67,7 @@
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(target, REAGENT_INGEST, fraction)
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
-			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), 1)
+			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
 /obj/item/reagent_containers/glass/normal_act(atom/target, mob/living/user)
 	if(!check_allowed_items(target, target_self = TRUE) || !is_open_container() || !reagents)
@@ -333,7 +333,7 @@
 		mop.wet_mop(src, user)
 		return ITEM_INTERACT_COMPLETE
 	if(isprox(used))
-		to_chat(user, "You add [used] to [src].")
+		to_chat(user, "<span class='notice'>You add [used] to [src].</span>")
 		qdel(used)
 		user.put_in_hands(new /obj/item/bucket_sensor)
 		user.unequip(src)

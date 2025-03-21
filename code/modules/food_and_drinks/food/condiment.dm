@@ -60,7 +60,7 @@
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(target, REAGENT_INGEST, fraction)
 	reagents.trans_to(target, 10)
-	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
 /obj/item/reagent_containers/condiment/normal_act(atom/target, mob/living/user) // Proc is true if any of the if checks go through. Preserves tapping behaviour on certain machinery.
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
