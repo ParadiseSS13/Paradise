@@ -254,7 +254,7 @@
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				if(!get_ghost())
+				if(!check_ghost_client())
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
