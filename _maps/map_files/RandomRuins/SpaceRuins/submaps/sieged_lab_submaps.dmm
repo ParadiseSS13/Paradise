@@ -276,7 +276,9 @@
 /turf/template_noop,
 /area/template_noop)
 "hG" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room{
+	singleton_id = "sci"
+	},
 /obj/machinery/door/airlock/research,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
@@ -1045,7 +1047,9 @@
 /turf/template_noop,
 /area/template_noop)
 "wD" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room{
+	singleton_id = "med"
+	},
 /obj/machinery/door/airlock/medical,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
