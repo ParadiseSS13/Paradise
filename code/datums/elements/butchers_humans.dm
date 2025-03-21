@@ -38,20 +38,17 @@
 
 		if(human.meatleft)
 			to_chat(user, "<span class='warning'>You hack off a chunk of meat from [human]!</span>")
-		else
-			human.send_item_attack_message(item, user)
+			// fallthrough so we get side-effects like blood splatter and limb
+			// flyoff from human attacked_by while we still have a corpse around
+			return
+		human.send_item_attack_message(item, user)
 
-			// Handle a few tiny things normally done in attack chain
-			user.do_attack_animation(human)
-			item.add_fingerprint(user)
-			if(item.hitsound)
-				playsound(get_turf(item), item.hitsound, item.get_clamped_volume(), TRUE, extrarange = item.stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
-
-			add_attack_logs(user, human, "Chopped up into meat with [item.name] ([uppertext(user.a_intent)])", human.ckey ? null : ATKLOG_ALMOSTALL)
-			to_chat(user, "<span class='warning'>You reduce [human] to a pile of meat!</span>")
-			qdel(human)
-
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-
-		// fallthrough so we get side-effects like blood splatter and limb
-		// flyoff from human attacked_by while we still have a corpse around
+		// Handle a few tiny things normally done in attack chain
+		user.do_attack_animation(human)
+		item.add_fingerprint(user)
+		if(item.hitsound)
+			playsound(get_turf(item), item.hitsound, item.get_clamped_volume(), TRUE, extrarange = item.stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
+		add_attack_logs(user, human, "Chopped up into meat with [item.name] ([uppertext(user.a_intent)])", human.ckey ? null : ATKLOG_ALMOSTALL)
+		to_chat(user, "<span class='warning'>You reduce [human] to a pile of meat!</span>")
+		qdel(human)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
