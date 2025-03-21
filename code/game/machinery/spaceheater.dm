@@ -1,6 +1,6 @@
 /obj/machinery/space_heater
 	name = "space heater"
-	desc = "A free-standing mobile space heater for heating rooms, featuring a temperature adjustment dial and an easy-swap power cell holder (both hidden behind a screwed-on panel)."
+	desc = "A free-standing mobile space heater for heating rooms, featuring a temperature adjustment dial and an easy-swap power cell holder which are hidden behind a screwed-on panel."
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "sheater0"
 	anchored = FALSE
