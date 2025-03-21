@@ -268,7 +268,7 @@
 
 /datum/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in lit areas."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
