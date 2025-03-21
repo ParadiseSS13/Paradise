@@ -100251,8 +100251,10 @@
 	},
 /area/station/hallway/primary/aft/east)
 "vnj" = (
-/obj/machinery/shower,
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/shower{
+	pixel_y = 8
+	},
 /turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "vno" = (
