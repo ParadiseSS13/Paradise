@@ -42,7 +42,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You swallow some")
 
 	saltshaker.reagents.total_volume = 0
-	player.click_on(grill)
+	player.click_on(microwave)
 	TEST_ASSERT_LAST_CHATLOG(player, "is empty!")
 	player.click_on(player)
 	TEST_ASSERT_LAST_CHATLOG(player, "None of [saltshaker] left, oh no!")
