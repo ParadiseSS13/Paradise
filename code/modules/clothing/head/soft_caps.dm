@@ -111,6 +111,13 @@
 	item_color = "expedition"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 
+/obj/item/clothing/head/soft/smith
+	name = "smith's cap"
+	desc = "It's a brown baseball hat with a black smithing shield."
+	icon_state = "smithsoft"
+	item_color = "smith"
+	dog_fashion = /datum/dog_fashion/head/smith
+
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
 	desc = "It's a grey baseball hat with a purple custodial shield."

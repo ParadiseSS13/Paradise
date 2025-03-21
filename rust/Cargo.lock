@@ -1226,6 +1226,7 @@ dependencies = [
  "chrono",
  "diff",
  "dmm-tools",
+ "dreammaker",
  "eyre",
  "flume",
  "fxhash",
