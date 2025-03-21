@@ -34319,6 +34319,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/detective)
+"iSS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/power/transmission_laser,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "iSV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -43877,7 +43884,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/power/transmission_laser,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
@@ -131001,7 +131007,7 @@ wEA
 ogC
 btg
 cNZ
-mlN
+iSS
 eoS
 sjb
 onl
