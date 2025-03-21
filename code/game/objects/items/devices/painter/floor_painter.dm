@@ -38,10 +38,6 @@
 
 	if(wide_mode)
 		var/turf/simulated/floor/plasteel/tileList = F.AdjacentTurfs(TRUE, FALSE, FALSE)
-
-		if(length(tileList) == 0)
-			return
-
 		for(var/turf/simulated/floor/plasteel/T in tileList)
 			T.icon_state = floor_state
 			T.icon_regular_floor = floor_state
