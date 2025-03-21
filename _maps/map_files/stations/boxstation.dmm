@@ -2616,10 +2616,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/economy/vending/security,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/economy/vending/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55030,10 +55030,10 @@
 	},
 /area/station/maintenance/aft)
 "gZy" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -59699,6 +59699,7 @@
 /area/station/command/office/cmo)
 "jDf" = (
 /obj/structure/table,
+/obj/item/storage/box/prisoner,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -78909,7 +78910,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/main)
 "tCY" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -82692,11 +82692,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "vDY" = (
-/obj/structure/closet/secure_closet/brig,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/shower,
+/obj/structure/curtain/open/shower/security,
+/turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "vEm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -84149,12 +84148,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "wsY" = (
-/obj/structure/table,
-/obj/item/storage/box/prisoner,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
