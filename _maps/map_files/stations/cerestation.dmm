@@ -7675,6 +7675,17 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore)
+"bkg" = (
+/obj/structure/disposalpipe/segment,
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	name = "custom placement"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "bkh" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -19993,10 +20004,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "cJW" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	name = "custom placement"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -29776,6 +29783,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28;
+	name = "custom placement"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -36933,6 +36944,15 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/aft/west)
+"grT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/east)
 "gsi" = (
 /obj/machinery/light/small,
 /obj/machinery/icemachine{
@@ -39290,9 +39310,6 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/fore/north)
 "gYN" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light_switch{
 	pixel_y = 24;
@@ -39599,9 +39616,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "hbZ" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -51090,8 +51104,9 @@
 /obj/structure/closet/secure_closet/blueshield,
 /obj/machinery/camera{
 	c_tag = "Trainer's Office";
-	dir = 1
+	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jFT" = (
@@ -51218,6 +51233,7 @@
 "jHz" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/suit_storage_unit/blueshield/secure,
+/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jHB" = (
@@ -61736,7 +61752,6 @@
 /obj/item/reagent_containers/drinks/drinkingglass,
 /obj/item/reagent_containers/drinks/drinkingglass,
 /obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "maa" = (
@@ -82600,6 +82615,15 @@
 	color = "#62416F"
 	},
 /area/station/public/quantum/science)
+"rcH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/service/bar)
 "rcK" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -83257,16 +83281,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/secondary/entry/north)
-"roj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/alarm/directional/south,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/east)
 "ron" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 1
@@ -109168,10 +109182,6 @@
 	pixel_y = 7;
 	anchored = 1
 	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
 "xus" = (
@@ -110918,10 +110928,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28;
-	name = "custom placement"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -132164,7 +132170,7 @@ aZZ
 hOM
 eIf
 jJf
-dte
+rcH
 dte
 dte
 qXA
@@ -158172,7 +158178,7 @@ fIL
 khH
 khH
 cvq
-kMa
+bkg
 cJW
 kMa
 vgU
@@ -162040,8 +162046,8 @@ gES
 dss
 lzP
 uDz
-jUc
-evU
+grT
+xMQ
 bhO
 rNK
 rNK
@@ -162297,7 +162303,7 @@ oyW
 chI
 mtv
 djw
-roj
+sla
 xMQ
 bhO
 bhO
