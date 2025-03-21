@@ -25,7 +25,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -1378,7 +1378,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -2174,7 +2174,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -13187,7 +13187,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "chapel"
+	icon_state = "chapel";
+	dir = 8
 	},
 /area/station/service/chapel)
 "dLL" = (
@@ -24030,15 +24031,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
-"glS" = (
-/obj/structure/chair/sofa/pew/right{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "glV" = (
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
@@ -30357,6 +30349,14 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/procedure/trainer_office)
+"hQS" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "hRd" = (
 /obj/effect/spawner/random/barrier/grille_often,
 /obj/structure/cable{
@@ -30636,17 +30636,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
-"hUb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/armory/secure)
 "hUg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -31004,7 +30993,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -34849,7 +34838,7 @@
 "iYk" = (
 /obj/machinery/conveyor/west{
 	id = "QMLoad2";
-	dir = 10
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -35966,6 +35955,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
+"jnR" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel";
+	dir = 8
+	},
+/area/station/service/chapel)
 "jog" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -37798,7 +37793,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -42146,6 +42141,18 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
+"kWv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "kWy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
@@ -42939,7 +42946,8 @@
 "lfy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "chapel"
+	icon_state = "chapel";
+	dir = 8
 	},
 /area/station/service/chapel)
 "lfD" = (
@@ -44328,6 +44336,8 @@
 /area/station/security/permabrig)
 "lAp" = (
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "lAq" = (
@@ -63127,7 +63137,7 @@
 /area/station/hallway/secondary/garden)
 "qWD" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 10
 	},
 /obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/wood,
@@ -66847,12 +66857,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/maintenance/aft)
-"sdw" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "sdH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -67134,7 +67138,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
@@ -70962,8 +70965,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "tpt" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -72288,18 +72289,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"tLt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "tLJ" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "CMO"
@@ -80365,7 +80354,7 @@
 /area/station/security/prisonlockers)
 "weL" = (
 /obj/machinery/conveyor/west/ccw{
-	dir = 5;
+	dir = 10;
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
@@ -105248,12 +105237,12 @@ emb
 dGj
 imi
 dGj
-deh
+kWv
+xYs
 hEG
-ciF
+hQS
 ekD
-glS
-ekD
+hQS
 cIO
 cIO
 cIO
@@ -106276,9 +106265,9 @@ cLM
 lXv
 ePG
 dGj
-tLt
-xYs
-sdw
+deh
+jnR
+ciF
 dLE
 bmg
 dLE
@@ -106536,9 +106525,9 @@ dGj
 bai
 shj
 btw
+hQS
 ekD
-glS
-ekD
+hQS
 cIO
 cIO
 nnA
@@ -124471,7 +124460,7 @@ bbr
 aaa
 bUk
 xRq
-hUb
+dly
 bSq
 mBw
 czC
