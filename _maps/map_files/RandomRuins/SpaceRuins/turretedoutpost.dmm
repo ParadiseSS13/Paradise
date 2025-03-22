@@ -322,7 +322,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
+/mob/living/simple_animal/hostile/syndicate,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -375,7 +375,7 @@
 /area/ruin/space/turreted_outpost)
 "Fz" = (
 /obj/structure/chair/comfy/red,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Gd" = (

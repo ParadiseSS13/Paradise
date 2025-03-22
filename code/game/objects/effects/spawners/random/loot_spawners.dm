@@ -129,3 +129,13 @@
 /obj/effect/spawner/random/loot_crate/rarely
 	name = "lootcrate spawner, 20% chance"
 	spawn_loot_chance = 20
+
+/obj/effect/spawner/random/syndie_mob_loot
+	spawn_loot_chance = 25
+	loot = list(
+		/obj/item/reagent_containers/patch/styptic,
+		/obj/item/reagent_containers/patch/silver_sulf,
+		/obj/item/food/syndicake,
+		/obj/item/food/donkpocket,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+	)
