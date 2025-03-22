@@ -219,6 +219,10 @@
 
 	// Beakers
 	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
+	var/obj/machinery/clonepod/clonepod = player.spawn_obj_nearby(/obj/machinery/clonepod)
+	beaker.reagents.add_reagent("sanguine_reagent", 10)
+	player.click_on(clonepod)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [clonepod].")
 	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
 	player.click_on(table)
 	TEST_ASSERT(beaker in get_turf(table), "beaker not placed on table")
