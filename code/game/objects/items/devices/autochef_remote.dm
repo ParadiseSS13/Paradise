@@ -19,6 +19,7 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 	. += "<span class='notice'>Use [src] on cooking utensils and machines to store them in the buffer.</span>"
 	. += "<span class='notice'>Use [src] on an autochef to register all the stored utensils and machines to the autochef.</span>"
 	. += "<span class='notice'>Register food and drink carts and smart fridges to give the autochef access to ingredients.</span>"
+	. += "<span class='notice'>Use [src] in-hand to clear its buffer, which can then be used to unlink everything from autochefs.</span>"
 
 /obj/item/autochef_remote/activate_self(mob/user)
 	if(..())
