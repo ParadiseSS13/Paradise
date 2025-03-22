@@ -25,6 +25,13 @@
 
 	// ToasTODO: Add an AltClick test
 
+// Test recipe for testing reagent containers in old kitchen machinery
+/datum/recipe/microwave/test_recipe
+	duplicate = FALSE
+	reagents = list("sodiumchloride" = 50)
+	items = list(/obj/item/food/grown/apple)
+	result = /obj/item/food/badrecipe
+
 /datum/game_test/attack_chain_condiment/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/saltshaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/condiment/saltshaker)
