@@ -449,6 +449,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
 
 	return TRUE
 
+/obj/machinery/requests_console/spawn_milla_tick_thread()
+	. = ..()
+	department = "Smith"
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/smith, 30, 30)
+
 #undef RCS_MAINMENU
 #undef RCS_RQSUPPLY
 #undef RCS_RQASSIST
