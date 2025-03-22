@@ -10676,6 +10676,12 @@
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/control)
+"aZf" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP2"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel)
 "aZi" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Loop Observation"
@@ -85717,6 +85723,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
+"xKK" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel)
 "xKQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -107631,7 +107643,7 @@ cVj
 cWN
 cUX
 cHX
-xdC
+aZf
 aaa
 aaa
 aaa
@@ -107888,7 +107900,7 @@ cVj
 cWN
 cUX
 cHX
-xdC
+aZf
 aaa
 aaa
 aaa
@@ -108145,7 +108157,7 @@ cow
 bXR
 cUX
 cqj
-xdC
+aZf
 aaa
 aaa
 aaa
@@ -109944,7 +109956,7 @@ gDK
 cFD
 bdq
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110201,7 +110213,7 @@ cDc
 cFD
 cUX
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110458,7 +110470,7 @@ cJM
 cyN
 cUK
 cqj
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110715,7 +110727,7 @@ csw
 cFD
 cUX
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110972,7 +110984,7 @@ xJB
 cFD
 bdq
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
