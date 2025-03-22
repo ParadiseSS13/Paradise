@@ -36,6 +36,9 @@ walkdir = "2.5.0"
 regex = "1.10.5"
 png = "0.17.16"
 chrono = "0.4.39"
+# redis - DO NOT CHANGE FROM 0.21.4 - also dont touch flume either please k thx. if you mess with these you make redis unstable
+redis = { version = "0.21.4" }
+flume = { version = "0.10" }
 
 [features]
 default = ["byond-515"]
