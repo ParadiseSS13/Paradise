@@ -449,8 +449,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
 
 	return TRUE
 
-/obj/machinery/requests_console/spawn_milla_tick_thread()
-	. = ..()
+/obj/machinery/requests_console/smith
 	department = "Smith"
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/smith, 30, 30)
 
