@@ -23,6 +23,7 @@ Bonus
 	stage_speed = -3
 	transmittable = -4
 	level = 6
+	treatments = list("cyanide")
 
 /datum/symptom/oxygen/Activate(datum/disease/advance/A)
 	..()

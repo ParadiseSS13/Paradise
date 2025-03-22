@@ -186,3 +186,13 @@
 	name = "Weakened virus plasma"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
+
+/datum/reagent/consumable/virus_food/mutadonevirusfood
+	name = "Stable agar"
+	id = "mutadonevirusfood"
+	color = "#50BDB0" // rgb: 80,206,192
+
+/datum/reagent/consumable/virus_food/trackervirusfood
+	name = "Tracking agar"
+	id = "trackervirusfood"
+	color = "#2c8852" // rgb: 45,136,82
