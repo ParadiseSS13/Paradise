@@ -1,0 +1,46 @@
+[
+	{
+		// Sieged Lab: Vertical Hallways
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 2,
+		"submap_size_y": 8,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/sieged_lab_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/vert_hallway",
+		"submaps_can_repeat": false
+	},
+	{
+		// Sieged Lab: Horizontal Hallways
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 8,
+		"submap_size_y": 2,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/sieged_lab_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/horiz_hallway",
+		"submaps_can_repeat": false
+	},
+	{
+		// Sieged Lab: Medium-sized Rooms
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 5,
+		"submap_size_y": 6,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/sieged_lab_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/medium_room",
+		"submaps_can_repeat": false
+	},
+	{
+		// Sieged Lab: Wide Rooms
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 9,
+		"submap_size_y": 4,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/sieged_lab_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/sieged_lab/wide_room",
+		"submaps_can_repeat": false
+	}
+]
