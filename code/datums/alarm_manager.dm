@@ -29,7 +29,14 @@ GLOBAL_DATUM_INIT(alarm_manager, /datum/alarm_manager, new())
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			srcs -= origin.UID()
+			// Air alarm calls fire alarm ans set itself as origin
+			// If player manually reset fire alarm, it won't be deleted
+			if(class == "Fire" && !srcs.Find(origin.UID()))
+				for(var/obj/air_alarm in A.air_alarms)
+					if (srcs.Find(air_alarm.UID()))
+						srcs -= air_alarm.UID()
+			else
+				srcs -= origin.UID()
 			if(!length(srcs))
 				cleared = TRUE
 				L -= I
