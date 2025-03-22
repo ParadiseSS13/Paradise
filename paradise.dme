@@ -2676,6 +2676,7 @@
 #include "code\modules\persistence\persistence.dm"
 #include "code\modules\point\point.dm"
 #include "code\modules\power\cell.dm"
+#include "code\modules\power\electrolyzer.dm"
 #include "code\modules\power\gravitygenerator.dm"
 #include "code\modules\power\lights.dm"
 #include "code\modules\power\power_machine.dm"
