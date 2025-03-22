@@ -722,6 +722,26 @@ GLOBAL_LIST_EMPTY(timers_by_proc)
 		return TRUE
 	return FALSE
 
+/**
+ * Get the timeToRun of a timer
+ * This is the time that it will call a proc, its "end".
+ *
+ * Arguments:
+ * * id or a /datum/timedevent
+ */
+/proc/checktimerend(id)
+	if(!id)
+		return FALSE
+	if(id == TIMER_ID_NULL)
+		CRASH("Tried to check the timeToRun of a null timerid")
+	if(istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		return timer.timeToRun
+	// id is a string
+	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
+	if(timer)
+		return timer.timeToRun
+	return FALSE
 
 #undef BUCKET_LEN
 #undef BUCKET_POS
