@@ -268,7 +268,7 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob
 	icon = 'icons/effects/spawner_icons.dmi'
-	icon_state = "syndie_depot"
+	icon_state = "syndicate_random"
 	point_value = 3
 	loot = list(
 		/mob/living/simple_animal/hostile/syndicate = 40,
@@ -283,6 +283,7 @@
 
 // Used when we want our mob to be protected from environment pressure
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit
+	icon_state = "syndicate_random_mod"
 	loot = list(
 		/mob/living/simple_animal/hostile/syndicate/modsuit,
 		/mob/living/simple_animal/hostile/syndicate/modsuit/ranged,
