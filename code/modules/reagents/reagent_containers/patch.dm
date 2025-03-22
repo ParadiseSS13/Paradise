@@ -13,16 +13,16 @@
 	var/needs_to_apply_reagents = TRUE
 
 /obj/item/reagent_containers/patch/mob_act(mob/target, mob/living/user)
-	if(!apply(target, user))
-		return ITEM_INTERACT_COMPLETE
+	apply(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/C, mob/user)
 	if(!istype(C))
-		return FALSE
+		return
 
 	if(ismachineperson(C))
 		to_chat(user, "<span class='warning'>[user == C ? "You" : C] can't use [src]!</span>")
-		return FALSE
+		return
 
 	if(user == C)
 		to_chat(user, "<span class='notice'>You apply [src].</span>")
@@ -30,7 +30,7 @@
 		if(!instant_application)
 			C.visible_message("<span class='warning'>[user] attempts to force [C] to apply [src].</span>")
 			if(!do_after(user, 3 SECONDS, TRUE, C, TRUE))
-				return FALSE
+				return
 
 		C.forceFedAttackLog(src, user)
 		C.visible_message("<span class='warning'>[user] forces [C] to apply [src].</span>")
@@ -39,7 +39,7 @@
 		user.drop_item() // Only drop if they're holding the patch directly
 	forceMove(C)
 	LAZYADD(C.processing_patches, src)
-	return TRUE
+	return
 
 /obj/item/reagent_containers/patch/styptic
 	name = "brute patch"
