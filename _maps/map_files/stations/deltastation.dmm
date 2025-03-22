@@ -61179,7 +61179,6 @@
 "gLD" = (
 /obj/structure/table/glass,
 /obj/machinery/recharger,
-/obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -70631,7 +70630,10 @@
 "mja" = (
 /obj/structure/table/glass,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -80825,6 +80827,18 @@
 "rGF" = (
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
+"rGM" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/storage)
 "rGZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -142647,7 +142661,7 @@ cMz
 hiZ
 hvf
 hvf
-fCT
+rGM
 cMz
 mzW
 mVE

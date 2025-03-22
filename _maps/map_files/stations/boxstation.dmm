@@ -27200,7 +27200,10 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -28130,7 +28133,6 @@
 "bTU" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/screwdriver,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -49604,6 +49606,9 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "epu" = (
