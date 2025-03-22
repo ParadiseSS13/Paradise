@@ -462,23 +462,8 @@ emp_act
 	return ..()
 
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
-	if(!I || !user)
+	if(!I || !user || QDELETED(src))
 		return
-
-	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
-		newmeat.name = real_name + newmeat.name
-		newmeat.subjectname = real_name
-		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
-		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
-		add_mob_blood(src)
-		--meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
-		if(!meatleft)
-			add_attack_logs(user, src, "Chopped up into meat")
-			qdel(src)
-			return
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 

@@ -183,7 +183,7 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+	AddElement(/datum/element/butchers_humans)
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"

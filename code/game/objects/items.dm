@@ -299,9 +299,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		. += "<span class='notice'>Has [length(attached_bits)] bits attached.</span>"
 		. += "<span class='notice'>Bits can be removed with Alt-Click.</span>"
 
-	if(HAS_TRAIT(src, TRAIT_BUTCHERS_HUMANS))
-		. += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
-
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
