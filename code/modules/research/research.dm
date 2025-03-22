@@ -392,6 +392,13 @@ datum/tech/robotics
 	req_tech = list("materials" = 3, "programming" = 3)
 */
 
+/obj/item/disk/melee_attack_chain(mob/user, atom/target, params, proximity_flag)
+	var/list/modifiers = params2list(params)
+
+	target.base_item_interaction(user, src, modifiers)
+
+	return
+
 /obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
