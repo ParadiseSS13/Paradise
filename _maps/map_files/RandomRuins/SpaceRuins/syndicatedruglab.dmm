@@ -142,7 +142,7 @@
 /turf/template_noop,
 /area/ruin/space/syndicate_druglab/asteroid)
 "st" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "sD" = (

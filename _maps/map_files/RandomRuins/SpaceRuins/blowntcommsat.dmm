@@ -214,7 +214,7 @@
 	},
 /area/ruin/space/tcommsat)
 "lq" = (
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "my" = (

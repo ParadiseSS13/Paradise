@@ -207,6 +207,8 @@
 	var/suit_store = -1
 	var/hair_style
 	var/facial_hair_style
+	var/hair_colour
+	var/facial_hair_colour
 	var/skin_tone
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
@@ -247,13 +249,19 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(gender, D.dna.species.sprite_sheet_name)
-		D.hair_colour = rand_hex_color()
+			D.h_style = random_hair_style(H.gender, D.dna.species.sprite_sheet_name)
+		if(hair_colour)
+			D.hair_colour = hair_colour
+		else
+			D.hair_colour = rand_hex_color()
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
-			D.f_style = random_facial_hair_style(gender, D.dna.species.sprite_sheet_name)
-		D.facial_colour = rand_hex_color()
+			D.f_style = random_facial_hair_style(H.gender, D.dna.species.sprite_sheet_name)
+		if(facial_hair_colour)
+			D.facial_colour = hair_colour
+		else
+			D.facial_colour = rand_hex_color()
 	if(skin_tone)
 		H.s_tone = skin_tone
 	else

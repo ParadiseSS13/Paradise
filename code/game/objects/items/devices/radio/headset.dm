@@ -110,6 +110,12 @@
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
+/obj/item/radio/headset/syndicate_fake
+	name = "syndicate headset"
+	desc = "A syndicate headset to set on your head."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
 /obj/item/radio/headset/syndicate/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
