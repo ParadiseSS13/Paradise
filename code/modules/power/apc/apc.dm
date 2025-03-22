@@ -181,7 +181,7 @@
 		GLOB.apcs = sortAtom(GLOB.apcs)
 		return
 
-	electronics_state = APC_ELECTRONICS_SECURED
+	electronics_state = APC_ELECTRONICS_INSTALLED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new /obj/item/stock_parts/cell/upgraded(src)
@@ -328,6 +328,8 @@
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place [used] inside the frame.</span>")
+				stat &= ~MAINT
+				update_icon()
 				qdel(used)
 
 		return ITEM_INTERACT_COMPLETE

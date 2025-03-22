@@ -16,7 +16,6 @@
 //electronics_state
 #define APC_ELECTRONICS_NONE 0
 #define APC_ELECTRONICS_INSTALLED 1
-#define APC_ELECTRONICS_SECURED 2
 
 /// Power channel is off, anything connected to it is not powered, cannot be set manually by players
 #define APC_CHANNEL_SETTING_OFF 0
