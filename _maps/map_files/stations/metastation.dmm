@@ -16651,9 +16651,7 @@
 	pixel_y = 3
 	},
 /obj/item/pen/multi,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23908,9 +23906,7 @@
 "bQC" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -25482,11 +25478,9 @@
 "bWC" = (
 /obj/structure/table/wood,
 /obj/item/paper/blueshield,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
 /obj/item/paper_bin,
 /obj/item/pen/blue,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "bWD" = (
@@ -25737,9 +25731,7 @@
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
 /obj/item/stamp/rep,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bXy" = (
@@ -27134,14 +27126,12 @@
 	},
 /area/station/hallway/primary/central/north)
 "ccZ" = (
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -41919,9 +41909,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -54488,9 +54476,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
@@ -54503,6 +54488,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "jLt" = (
@@ -56262,9 +56248,7 @@
 /obj/machinery/computer/card/minor/cmo{
 	dir = 4
 	},
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -57633,14 +57617,12 @@
 /area/station/science/toxins/mixing)
 "lfd" = (
 /obj/structure/table/glass,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
 /obj/machinery/reagentgrinder,
 /obj/machinery/camera{
 	c_tag = "Chemistry";
 	dir = 5
 	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -57999,9 +57981,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "llW" = (
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -68697,10 +68677,8 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/gloves/color/latex,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
 /obj/machinery/light/small,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69241,9 +69219,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -86460,9 +86436,7 @@
 "yah" = (
 /obj/item/kirbyplants/small/small3,
 /obj/machinery/alarm/directional/south,
-/obj/machinery/requests_console/directional/west{
-	department = "Smith"
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "yaj" = (
