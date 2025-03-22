@@ -48,13 +48,11 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/template_noop,
 /area/template_noop)
 "hf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "ia" = (
@@ -69,7 +67,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -122,6 +119,12 @@
 /obj/structure/bed/nest,
 /turf/template_noop,
 /area/template_noop)
+"nC" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/template_noop,
+/area/template_noop)
 "ok" = (
 /obj/machinery/light{
 	dir = 1
@@ -130,7 +133,6 @@
 /area/template_noop)
 "oT" = (
 /obj/item/cigbutt,
-/obj/machinery/light,
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
@@ -138,7 +140,6 @@
 /area/template_noop)
 "oU" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
@@ -249,7 +250,6 @@
 /area/template_noop)
 "Dm" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/telecomms_doomba_one_in_twenty,
@@ -280,9 +280,7 @@
 "FD" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -317,12 +315,11 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"Jo" = (
-/obj/machinery/light/small,
+"Lx" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/turf/template_noop,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "LC" = (
 /obj/machinery/light{
@@ -333,6 +330,12 @@
 "LV" = (
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/template_noop,
+/area/template_noop)
+"NS" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "NZ" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -389,9 +392,7 @@
 "Vd" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -437,9 +438,6 @@
 /area/template_noop)
 "Zf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /obj/item/grenade/frag,
 /obj/structure/table/glass/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -670,7 +668,7 @@ qr
 qr
 yI
 qr
-qr
+nC
 qr
 qr
 qr
@@ -712,7 +710,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1040,7 +1038,7 @@ fm
 SX
 SX
 SX
-SX
+NS
 yC
 qr
 qr
@@ -1090,7 +1088,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1132,7 +1130,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1552,7 +1550,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1594,7 +1592,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1796,7 +1794,7 @@ ok
 nb
 mE
 qV
-qV
+Lx
 qr
 qr
 qr
@@ -1972,7 +1970,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2014,7 +2012,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -2392,7 +2390,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2434,7 +2432,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
