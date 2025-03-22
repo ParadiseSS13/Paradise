@@ -109,9 +109,11 @@
 			final_y += Pixel_y > 0 ? round(Pixel_y / 32) : CEILING(Pixel_y / 32, 1)
 			Pixel_y %= 32
 
-		X.forceMove(locate(final_x, final_y, X.z))
-		X.pixel_x = origin.pixel_x + Pixel_x
-		X.pixel_y = origin.pixel_y + Pixel_y
+		var/turf/T = locate(final_x, final_y, X.z)
+		if(T)
+			X.forceMove(locate(final_x, final_y, X.z))
+			X.pixel_x = origin.pixel_x + Pixel_x
+			X.pixel_y = origin.pixel_y + Pixel_y
 
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

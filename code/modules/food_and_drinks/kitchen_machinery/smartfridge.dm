@@ -183,6 +183,9 @@
 		SStgui.update_uis(src)
 		return
 
+	if(istype(used, /obj/item/autochef_remote))
+		return
+
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
 		return ITEM_INTERACT_COMPLETE

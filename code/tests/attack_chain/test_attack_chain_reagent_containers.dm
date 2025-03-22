@@ -25,6 +25,13 @@
 
 	// ToasTODO: Add an AltClick test
 
+// Test recipe for testing reagent containers in old kitchen machinery
+/datum/recipe/microwave/test_recipe
+	duplicate = FALSE
+	reagents = list("sodiumchloride" = 50)
+	items = list(/obj/item/food/grown/apple)
+	result = /obj/item/food/badrecipe
+
 /datum/game_test/attack_chain_condiment/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/saltshaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/condiment/saltshaker)
@@ -33,8 +40,8 @@
 	player.click_on(watertank)
 	TEST_ASSERT_LAST_CHATLOG(player, "[saltshaker] is full!")
 
-	var/obj/machinery/kitchen_machine/grill = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/grill)
-	player.click_on(grill)
+	var/obj/machinery/kitchen_machine/microwave = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/microwave)
+	player.click_on(microwave)
 	TEST_ASSERT_ANY_CHATLOG(player, "You transfer")
 	TEST_ASSERT_NOT_CHATLOG(player, "You hit")
 
@@ -42,7 +49,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You swallow some")
 
 	saltshaker.reagents.total_volume = 0
-	player.click_on(grill)
+	player.click_on(microwave)
 	TEST_ASSERT_LAST_CHATLOG(player, "is empty!")
 	player.click_on(player)
 	TEST_ASSERT_LAST_CHATLOG(player, "None of [saltshaker] left, oh no!")

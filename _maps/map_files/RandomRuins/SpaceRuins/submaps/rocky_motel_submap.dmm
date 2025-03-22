@@ -229,7 +229,7 @@
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/powered)
 "zb" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -398,7 +398,7 @@
 	pixel_y = 8
 	},
 /obj/structure/machine_frame,
-/obj/item/circuitboard/oven,
+/obj/item/circuitboard/cooking/oven,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

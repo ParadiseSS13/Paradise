@@ -3,6 +3,16 @@
 //		Mexican		//
 //////////////////////
 
+/obj/item/food/tortilla
+	name = "tortilla"
+	desc = "A baked flatbread, perfect for tacos."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "tortilla"
+	bitesize = 3
+	list_reagents = list("nutriment" = 7, "vitamin" = 1)
+	tastes = list("wheat")
+	goal_difficulty = FOOD_GOAL_EASY
+
 /obj/item/food/taco
 	name = "taco"
 	desc = "Take a bite!"

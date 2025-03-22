@@ -695,6 +695,7 @@
 					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
+					/obj/item/storage/belt/chef = 2,
 					/obj/item/clothing/head/chefhat = 2,
 					/obj/item/clothing/head/soft/white = 2,
 					/obj/item/clothing/head/beret/white = 2,
@@ -706,8 +707,10 @@
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1,
 					/obj/item/storage/box/crewvend = 1,
+					/obj/item/storage/box/autochef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/chef = 2,
-					/obj/item/clothing/under/plasmaman/chef = 2)
+					/obj/item/clothing/under/plasmaman/chef = 2,
+					/obj/item/cartridge/chef = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
 
@@ -715,6 +718,7 @@
 				/obj/item/clothing/under/misc/waiter = 50,
 				/obj/item/clothing/suit/chef = 50,
 				/obj/item/clothing/suit/chef/classic = 50,
+				/obj/item/storage/belt/chef = 50,
 				/obj/item/clothing/head/chefhat = 50,
 				/obj/item/clothing/head/soft/white = 30,
 				/obj/item/clothing/head/beret/white = 20,
@@ -726,8 +730,10 @@
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100,
 				/obj/item/storage/box/crewvend = 100,
+				/obj/item/storage/box/autochef = 100,
 				/obj/item/clothing/head/helmet/space/plasmaman/chef = 60,
-				/obj/item/clothing/under/plasmaman/chef = 60)
+				/obj/item/clothing/under/plasmaman/chef = 60,
+				/obj/item/cartridge/chef = 50)
 
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
