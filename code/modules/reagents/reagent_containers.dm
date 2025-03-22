@@ -18,6 +18,7 @@
 
 /obj/item/reagent_containers/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(isliving(target) && mob_act(target, user))
+		user.changeNext_move(CLICK_CD_MELEE)
 		return ITEM_INTERACT_COMPLETE
 	if(normal_act(target, user))
 		return ITEM_INTERACT_COMPLETE

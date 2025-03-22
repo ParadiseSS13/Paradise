@@ -11,6 +11,8 @@
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
+	/// How long it takes to drip the contents into someone's eyes.
+	var/mob_drip_delay = 3 SECONDS
 
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	if(!reagents.total_volume)
@@ -19,6 +21,7 @@
 		icon_state = "[initial(icon_state)]1"
 
 /obj/item/reagent_containers/dropper/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	var/to_transfer = 0
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -26,7 +29,7 @@
 			return
 		if(user != C)
 			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
-			if(!do_mob(user, C, 30))
+			if(!do_mob(user, C, mob_drip_delay))
 				return
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -63,7 +66,6 @@
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 
 /obj/item/reagent_containers/dropper/normal_act(atom/target, mob/living/user)
-	. = FALSE
 	var/to_transfer = 0
 	if(!target.reagents)
 		return
