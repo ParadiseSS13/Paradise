@@ -80,9 +80,6 @@
 			offset += 2 * (steps - 1)
 
 	weights = new_weights
-	// With the spread each step being linear waves can spread very far. This limits the distance for performace reasons
-	if(steps > RAD_DECAY_POINT)
-		intensity *= RAD_DECAY_RATE
 
 /// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
 /datum/radiation_wave/proc/radiate(atom/source, turf/current_turf, weight, emission_type)
