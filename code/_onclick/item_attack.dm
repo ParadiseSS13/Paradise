@@ -94,6 +94,9 @@
 		return FINISH_ATTACK
 
 /obj/attack_by(obj/item/attacking, mob/user, params)
+	if(!attacking.new_attack_chain)
+		return attackby__legacy__attackchain(attacking, user, params)
+
 	. = ..()
 
 	if(.)
