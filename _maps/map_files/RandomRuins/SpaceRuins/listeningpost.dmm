@@ -442,9 +442,7 @@
 /area/ruin/space/syndicate_listening_station)
 "Go" = (
 /obj/structure/chair/office/dark,
-/mob/living/simple_animal/hostile/syndicate{
-	name = "Syndicate Communications Officer"
-	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Gy" = (
