@@ -2,10 +2,11 @@
 	return TASTE_SENSITIVITY_NORMAL
 
 /mob/living/carbon/human/get_taste_sensitivity()
-	if(dna.species)
-		return dna.species.taste_sensitivity
-	else
+	if(HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
 		return TASTE_SENSITIVITY_NORMAL
+	else if(dna.species)
+		return dna.species.taste_sensitivity
+	return TASTE_SENSITIVITY_NORMAL
 
 // non destructively tastes a reagent container
 /mob/living/proc/taste(datum/reagents/from)
