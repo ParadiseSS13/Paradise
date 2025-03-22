@@ -12,14 +12,14 @@ echo "Should launch the actual server to get stacktraces and the like."
 echo "*****"
 
 # find path to rustlibs.dll
-if (Test-Path "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll") {
-	$BapiPath = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
+if (Test-Path "./rust/target/i686-pc-windows-msvc/release/rustlibs_515.dll") {
+	$BapiPath = "./rust/target/i686-pc-windows-msvc/release/rustlibs_515.dll"
 }
-elseif (Test-Path "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll") {
-	$BapiPath = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
+elseif (Test-Path "./rust/target/i686-pc-windows-msvc/debug/rustlibs_515.dll") {
+	$BapiPath = "./rust/target/i686-pc-windows-msvc/debug/rustlibs_515.dll"
 }
-elseif (Test-Path "./rustlibs.dll") {
-	$BapiPath = "./rustlibs.dll"
+elseif (Test-Path "./rustlibs_515.dll") {
+	$BapiPath = "./rustlibs_515.dll"
 }
 else {
 	echo "Cannot find rustlibs."

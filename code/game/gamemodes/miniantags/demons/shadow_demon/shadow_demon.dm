@@ -221,6 +221,12 @@
 	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
+/obj/item/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
+	. = ..()
+	var/obj/machinery/light/floor/floor_light = locate(/obj/machinery/light/floor) in get_turf(src)
+	if(floor_light)
+		Bump(floor_light)
+
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
 		var/mob/living/simple_animal/demon/shadow/current_demon = firer

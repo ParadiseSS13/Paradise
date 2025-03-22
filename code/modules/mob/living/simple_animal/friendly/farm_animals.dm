@@ -361,9 +361,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	return TRUE
 
 /mob/living/simple_animal/chicken/clucky
-	name = "Commander Clucky"
-	real_name = "Commander Clucky"
+	name = "Max Verclucken"
+	real_name = "Max Verclucken"
 	unique_pet = TRUE
+	desc = "DU DU DU DU MAX VERCLUCKEN!"
+	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.", "Uh yeah, they're slippery when they're wet.", "So you have to take that into consideration.")
+	gender = MALE
 
 /mob/living/simple_animal/chicken/clucky/npc_safe(mob/user) // depriving the chef of his animals is not cool
 	return FALSE

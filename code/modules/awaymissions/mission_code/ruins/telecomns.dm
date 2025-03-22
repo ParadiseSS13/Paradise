@@ -169,6 +169,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "That plasma tank seems rigged to explode!"
 	icon = 'icons/atmos/tank.dmi'
 	icon_state = "toxins_map"
+	proj_ignores_layer = TRUE
 	anchored = TRUE
 	layer = DISPOSAL_PIPE_LAYER
 	plane = FLOOR_PLANE

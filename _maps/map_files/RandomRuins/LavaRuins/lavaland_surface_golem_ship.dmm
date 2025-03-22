@@ -111,6 +111,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "A" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/golem_ship)
 "B" = (
@@ -214,9 +215,9 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "P" = (
-/obj/machinery/computer/shuttle/golem_ship/recall,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
+/obj/effect/mapping_helpers/no_lava,
+/turf/template_noop,
+/area/template_noop)
 "Q" = (
 /obj/structure/table/wood,
 /obj/item/disk/design_disk/golem_shell,
@@ -246,26 +247,40 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
+"V" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/template_noop,
+/area/template_noop)
 "W" = (
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
+"X" = (
+/obj/machinery/computer/shuttle/golem_ship/recall,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
 
 (1,1,1) = {"
 a
 a
 a
-a
-a
-a
+P
+V
+P
+P
+P
 b
 v
 v
 b
-a
-a
-a
+P
+P
+P
+V
+P
 a
 a
 a
@@ -274,16 +289,20 @@ a
 a
 a
 a
-a
-a
-a
+P
+V
+P
+P
+P
 b
 w
 C
 b
-a
-a
-a
+P
+P
+P
+V
+P
 a
 a
 a
@@ -292,6 +311,8 @@ a
 a
 a
 a
+P
+P
 b
 b
 W
@@ -302,14 +323,18 @@ b
 W
 b
 b
+P
+P
 a
 a
 a
 "}
 (4,1,1) = {"
-a
-a
-a
+P
+P
+P
+P
+P
 b
 m
 p
@@ -320,14 +345,18 @@ s
 p
 J
 b
-a
-a
-a
+P
+P
+P
+P
+P
 "}
 (5,1,1) = {"
-a
-a
-a
+P
+P
+P
+P
+P
 b
 n
 p
@@ -338,11 +367,15 @@ p
 p
 K
 b
-a
-a
-a
+P
+P
+P
+P
+P
 "}
 (6,1,1) = {"
+P
+P
 b
 b
 b
@@ -359,8 +392,12 @@ b
 b
 b
 b
+P
+P
 "}
 (7,1,1) = {"
+P
+P
 b
 d
 f
@@ -377,8 +414,12 @@ l
 f
 T
 b
+P
+P
 "}
 (8,1,1) = {"
+P
+P
 b
 d
 f
@@ -395,8 +436,12 @@ l
 f
 T
 b
+P
+P
 "}
 (9,1,1) = {"
+P
+P
 b
 d
 j
@@ -413,8 +458,12 @@ b
 R
 T
 b
+P
+P
 "}
 (10,1,1) = {"
+P
+P
 b
 d
 f
@@ -431,8 +480,12 @@ b
 f
 T
 b
+P
+P
 "}
 (11,1,1) = {"
+P
+P
 b
 d
 f
@@ -449,8 +502,12 @@ b
 f
 T
 b
+P
+P
 "}
 (12,1,1) = {"
+P
+P
 b
 d
 j
@@ -467,8 +524,12 @@ b
 R
 T
 b
+P
+P
 "}
 (13,1,1) = {"
+P
+P
 b
 d
 f
@@ -485,8 +546,12 @@ l
 f
 T
 b
+P
+P
 "}
 (14,1,1) = {"
+P
+P
 b
 d
 f
@@ -503,8 +568,12 @@ l
 f
 T
 b
+P
+P
 "}
 (15,1,1) = {"
+P
+P
 b
 e
 f
@@ -521,8 +590,12 @@ b
 f
 e
 b
+V
+V
 "}
 (16,1,1) = {"
+P
+P
 c
 f
 j
@@ -539,8 +612,12 @@ b
 R
 f
 c
+V
+V
 "}
 (17,1,1) = {"
+P
+P
 c
 f
 f
@@ -557,8 +634,12 @@ b
 f
 f
 c
+V
+V
 "}
 (18,1,1) = {"
+P
+P
 b
 g
 k
@@ -575,8 +656,12 @@ b
 S
 S
 b
+V
+V
 "}
 (19,1,1) = {"
+P
+P
 b
 U
 U
@@ -593,8 +678,12 @@ b
 U
 U
 b
+P
+P
 "}
 (20,1,1) = {"
+P
+P
 b
 i
 i
@@ -611,22 +700,50 @@ b
 i
 i
 b
+P
+P
 "}
 (21,1,1) = {"
-a
-a
-a
-a
-a
-a
-A
-A
-A
 P
-a
-a
-a
-a
-a
-a
+P
+P
+P
+P
+P
+P
+P
+A
+A
+A
+X
+P
+P
+P
+P
+P
+P
+P
+P
+"}
+(22,1,1) = {"
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
 "}

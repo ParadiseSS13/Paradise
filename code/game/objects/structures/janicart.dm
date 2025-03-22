@@ -26,6 +26,22 @@
 	create_reagents(150)
 	GLOB.janitorial_equipment += src
 
+/obj/structure/janitorialcart/full
+
+/obj/structure/janitorialcart/full/Initialize(mapload)
+	. = ..()
+	my_bag = new /obj/item/storage/bag/trash(src)
+	my_mop = new /obj/item/mop(src)
+	my_broom = new /obj/item/push_broom(src)
+	my_spray = new /obj/item/reagent_containers/spray/cleaner(src)
+	my_replacer = new /obj/item/lightreplacer(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	signs = 4
+	reagents.add_reagent("water", 150)
+
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(my_bag)
